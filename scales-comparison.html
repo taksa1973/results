@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Топ-5 умных весов с максимальной точностью — научный сравнительный анализ</title>
+<title>Топ умных весов — точность и цена до $200 (плюс премиум-эталоны)</title>
 <style>
   :root{
     --bg:#0b0f17;
@@ -18,6 +18,7 @@
     --green:#34d399;
     --red:#f87171;
     --orange:#fb923c;
+    --purple:#a78bfa;
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
@@ -30,7 +31,6 @@
   }
   .container{max-width:1180px;margin:0 auto;padding:0 24px}
 
-  /* HERO */
   header.hero{
     padding:80px 24px 60px;
     background:radial-gradient(ellipse at top,rgba(94,234,212,0.12) 0%,transparent 60%),
@@ -51,6 +51,12 @@
     letter-spacing:0.5px;
     text-transform:uppercase;
     margin-bottom:24px;
+  }
+  .badge.budget{
+    background:rgba(251,191,36,0.1);
+    color:var(--gold);
+    border-color:rgba(251,191,36,0.3);
+    margin-left:8px;
   }
   h1{
     font-size:clamp(32px,5vw,52px);
@@ -79,7 +85,6 @@
   }
   .meta span{display:inline-flex;align-items:center;gap:6px}
 
-  /* WINNER CALLOUT */
   .winner-callout{
     margin:50px auto;
     max-width:980px;
@@ -92,10 +97,7 @@
     gap:28px;
     align-items:center;
   }
-  .crown{
-    font-size:64px;
-    line-height:1;
-  }
+  .crown{font-size:64px;line-height:1}
   .winner-callout h2{
     font-size:24px;
     color:var(--gold);
@@ -105,7 +107,6 @@
   .winner-callout p{color:var(--text-dim);font-size:15px}
   .winner-callout strong{color:var(--text)}
 
-  /* SECTION */
   section{padding:60px 0}
   h2.section-title{
     font-size:clamp(24px,3vw,34px);
@@ -115,7 +116,24 @@
   }
   .section-sub{color:var(--text-dim);font-size:16px;margin-bottom:36px;max-width:720px}
 
-  /* RANKING CARDS */
+  .section-header{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin-bottom:8px;
+    flex-wrap:wrap;
+  }
+  .section-flag{
+    padding:4px 12px;
+    border-radius:999px;
+    font-size:11px;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:0.5px;
+  }
+  .section-flag.in-budget{background:rgba(52,211,153,0.12);color:var(--green);border:1px solid rgba(52,211,153,0.3)}
+  .section-flag.out-budget{background:rgba(167,139,250,0.12);color:var(--purple);border:1px solid rgba(167,139,250,0.3)}
+
   .ranking{display:flex;flex-direction:column;gap:24px}
   .card{
     background:var(--surface);
@@ -139,6 +157,31 @@
     width:100%;
     background:linear-gradient(90deg,var(--gold) 0%,var(--accent) 100%);
   }
+  .card.premium{
+    border-color:rgba(167,139,250,0.35);
+    background:linear-gradient(135deg,rgba(167,139,250,0.04) 0%,var(--surface) 60%);
+  }
+  .card.premium::before{
+    content:"";
+    position:absolute;
+    top:0;left:0;
+    height:4px;
+    width:100%;
+    background:linear-gradient(90deg,var(--purple) 0%,var(--accent-2) 100%);
+  }
+  .out-budget-tag{
+    position:absolute;
+    top:20px;right:20px;
+    padding:6px 12px;
+    background:rgba(167,139,250,0.15);
+    color:var(--purple);
+    border:1px solid rgba(167,139,250,0.35);
+    border-radius:999px;
+    font-size:11px;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:0.5px;
+  }
   .card-header{
     display:flex;
     align-items:flex-start;
@@ -154,6 +197,7 @@
     min-width:60px;
   }
   .card.top .rank-num{color:var(--gold)}
+  .card.premium .rank-num{color:var(--purple)}
   .card-info{flex:1;min-width:260px}
   .card-info h3{
     font-size:24px;
@@ -171,8 +215,10 @@
     font-size:12px;
     font-weight:600;
     margin-right:6px;
+    margin-bottom:4px;
   }
   .tag.gold{background:rgba(251,191,36,0.12);color:var(--gold)}
+  .tag.purple{background:rgba(167,139,250,0.12);color:var(--purple)}
   .tag.red{background:rgba(248,113,113,0.12);color:var(--red)}
 
   .price-block{
@@ -184,6 +230,7 @@
     font-weight:800;
     color:var(--text);
   }
+  .price.over{color:var(--purple)}
   .price-sub{font-size:12px;color:var(--text-dim);margin-top:4px}
 
   .specs{
@@ -199,9 +246,7 @@
   .spec-label{font-size:11px;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.5px}
   .spec-value{font-size:14px;font-weight:600}
 
-  .accuracy-bar{
-    margin:20px 0;
-  }
+  .accuracy-bar{margin:20px 0}
   .accuracy-bar-label{
     display:flex;
     justify-content:space-between;
@@ -221,6 +266,7 @@
     border-radius:999px;
   }
   .card.top .bar-fill{background:linear-gradient(90deg,var(--gold) 0%,var(--accent) 100%)}
+  .card.premium .bar-fill{background:linear-gradient(90deg,var(--purple) 0%,var(--accent-2) 100%)}
 
   .pros-cons{
     display:grid;
@@ -228,10 +274,7 @@
     gap:16px;
     margin-top:20px;
   }
-  .pros-cons > div{
-    padding:16px;
-    border-radius:10px;
-  }
+  .pros-cons > div{padding:16px;border-radius:10px}
   .pros{background:rgba(52,211,153,0.06);border:1px solid rgba(52,211,153,0.2)}
   .cons{background:rgba(248,113,113,0.06);border:1px solid rgba(248,113,113,0.2)}
   .pros h4{color:var(--green);font-size:13px;margin-bottom:10px;text-transform:uppercase;letter-spacing:0.5px}
@@ -266,14 +309,13 @@
   .research a{color:var(--accent-2);text-decoration:none;border-bottom:1px dashed rgba(34,211,238,0.4)}
   .research a:hover{border-bottom-style:solid}
 
-  /* COMPARISON TABLE */
   .table-wrap{overflow-x:auto;border-radius:14px;border:1px solid var(--border)}
   table{
     width:100%;
     border-collapse:collapse;
     background:var(--surface);
     font-size:14px;
-    min-width:760px;
+    min-width:820px;
   }
   th, td{
     padding:14px 16px;
@@ -290,11 +332,21 @@
   }
   tr:last-child td{border-bottom:none}
   td:first-child{font-weight:600}
+  tr.over-budget td{background:rgba(167,139,250,0.04)}
   .check{color:var(--green);font-weight:700}
   .cross{color:var(--red);font-weight:700}
   .star{color:var(--gold)}
+  .over-label{
+    display:inline-block;
+    padding:2px 8px;
+    background:rgba(167,139,250,0.15);
+    color:var(--purple);
+    border-radius:6px;
+    font-size:11px;
+    font-weight:700;
+    margin-left:4px;
+  }
 
-  /* METHODOLOGY */
   .method-grid{
     display:grid;
     grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
@@ -320,7 +372,6 @@
   .method-card h4{font-size:16px;margin-bottom:8px;font-weight:700}
   .method-card p{font-size:14px;color:var(--text-dim);line-height:1.55}
 
-  /* VERDICT */
   .verdict{
     margin:60px 0;
     padding:48px 40px;
@@ -339,7 +390,6 @@
     font-size:15px;
   }
 
-  /* FOOTER */
   footer{
     padding:40px 24px;
     border-top:1px solid var(--border);
@@ -355,6 +405,7 @@
     .crown{margin:0 auto}
     .price-block{text-align:left;width:100%}
     .card-header{flex-direction:column}
+    .out-budget-tag{position:static;display:inline-block;margin-bottom:12px}
   }
 </style>
 </head>
@@ -363,12 +414,13 @@
 <header class="hero">
   <div class="container">
     <span class="badge">Сравнительный анализ · Май 2026</span>
-    <h1>Топ-5 умных весов<br>с максимальной точностью</h1>
-    <p class="lead">5 моделей — от научно валидированных против DEXA до бюджетных. Один лидер с подтверждённой исследованиями точностью.</p>
+    <span class="badge budget">Бюджет до $200</span>
+    <h1>Топ умных весов до $200<br>+ премиум-эталоны</h1>
+    <p class="lead">5 моделей в пределах $200 и 2 премиум-весов вне бюджета — для сравнения с эталоном. Всё ранжировано по точности, подтверждённой независимыми исследованиями.</p>
     <div class="meta">
-      <span>Источники: PubMed, ScienceDirect, ClinicalTrials.gov</span>
+      <span>Источники: PubMed, PMC, ClinicalTrials.gov</span>
       <span>•</span>
-      <span>5 моделей</span>
+      <span>7 моделей</span>
       <span>•</span>
       <span>Критерий: согласованность с DEXA</span>
     </div>
@@ -380,133 +432,138 @@
   <div class="winner-callout">
     <div class="crown">👑</div>
     <div>
-      <h2>Победитель: Tanita RD-545 (RD-545 HR)</h2>
-      <p>Единственная модель из подборки с прямой <strong>научной валидацией против DEXA</strong> (золотой стандарт) в рецензируемом исследовании: <strong>ICC = 0.954</strong> для общей мышечной массы и аппендикулярной скелетной мышечной массы. Двухчастотный BIA (6.25 кГц + 50 кГц), исследовательский протокол, медицинская точность.</p>
+      <h2>Победитель в бюджете до $200: Tanita BC-545N</h2>
+      <p>Сегментарный анализ тела по 5 зонам, валидирован в peer-reviewed исследованиях против <strong>DEXA</strong> (золотой стандарт). По данным исследования, систематическое отклонение BC-545N от DEXA: <strong>~5.6% по проценту жира</strong>. Бренд Tanita цитируется в <strong>1500+ медицинских публикациях</strong>. Если бюджет можно увеличить — точнее только Tanita RD-545 и Withings Body Scan (см. секцию «Премиум-эталоны»).</p>
     </div>
   </div>
 
   <section>
-    <h2 class="section-title">Подробный рейтинг</h2>
+    <div class="section-header">
+      <h2 class="section-title">Подробный рейтинг</h2>
+      <span class="section-flag in-budget">В бюджете · до $200</span>
+    </div>
     <p class="section-sub">Оценка точности учитывает: количество электродов, частоту BIA, наличие peer-reviewed исследований и согласованность с DEXA.</p>
 
     <div class="ranking">
 
-      <!-- #1 TANITA RD-545 -->
+      <!-- #1 TANITA BC-545N -->
       <div class="card top">
         <div class="card-header">
           <div class="rank-num">01</div>
           <div class="card-info">
-            <h3>Tanita RD-545 / RD-545 HR</h3>
-            <p class="subtitle">Двухчастотный BIA · 4 электрода · сегментарный анализ</p>
-            <span class="tag gold">★ Лидер по точности</span>
+            <h3>Tanita BC-545N</h3>
+            <p class="subtitle">Сегментарный анализ · 8 точек контакта (стопы + ладони) · одночастотный</p>
+            <span class="tag gold">★ Лидер до $200</span>
             <span class="tag">Валидирован против DEXA</span>
-            <span class="tag">Медицинский класс</span>
+            <span class="tag">Сегментарный анализ</span>
           </div>
           <div class="price-block">
-            <div class="price">~450 €</div>
-            <div class="price-sub">≈ 53 000 RSD</div>
+            <div class="price">$150</div>
+            <div class="price-sub">≈ 16 500 RSD</div>
           </div>
         </div>
 
         <div class="specs">
-          <div class="spec"><span class="spec-label">Электроды</span><span class="spec-value">4 (стопы)</span></div>
-          <div class="spec"><span class="spec-label">Частота BIA</span><span class="spec-value">6.25 + 50 кГц</span></div>
-          <div class="spec"><span class="spec-label">Сегментарный анализ</span><span class="spec-value">Да (5 зон)</span></div>
-          <div class="spec"><span class="spec-label">Метрик</span><span class="spec-value">25+</span></div>
-          <div class="spec"><span class="spec-label">Приложение</span><span class="spec-value">Tanita HealthPlanet</span></div>
+          <div class="spec"><span class="spec-label">Электроды</span><span class="spec-value">8 (стопы + ладони)</span></div>
+          <div class="spec"><span class="spec-label">Частота BIA</span><span class="spec-value">50 кГц</span></div>
+          <div class="spec"><span class="spec-label">Сегментарный анализ</span><span class="spec-value">Да (5 зон тела)</span></div>
+          <div class="spec"><span class="spec-label">Метрик</span><span class="spec-value">14</span></div>
+          <div class="spec"><span class="spec-label">Память</span><span class="spec-value">4 пользователя</span></div>
           <div class="spec"><span class="spec-label">Точность веса</span><span class="spec-value">±0.1 кг</span></div>
         </div>
 
         <div class="accuracy-bar">
           <div class="accuracy-bar-label">
             <span>Научно подтверждённая точность</span>
-            <span class="score">9.6 / 10</span>
+            <span class="score">8.8 / 10</span>
           </div>
-          <div class="bar"><div class="bar-fill" style="width:96%"></div></div>
+          <div class="bar"><div class="bar-fill" style="width:88%"></div></div>
         </div>
 
         <div class="research">
           <span class="research-label">📚 Научная валидация</span>
-          <p>Исследование 2022 г. в Journal of Nutrition, Health &amp; Aging: <strong>Tanita RD-545 сравнивали с DEXA (GE Lunar iDXA)</strong> на пожилой популяции. Согласованность с золотым стандартом: <strong>ICC = 0.954</strong> для общей и аппендикулярной мышечной массы. Test-retest надёжность: <strong>ICC = 0.987–0.988</strong>. Вывод авторов: «DXA и DF-BIA взаимозаменяемы для оценки мышечной массы». <a href="https://pubmed.ncbi.nlm.nih.gov/36567160/" target="_blank">PubMed 36567160</a></p>
+          <p>Tanita BC-545N валидирована в нескольких peer-reviewed исследованиях против DEXA. В одном из них: систематическое отклонение по проценту жира — <strong>5.56%</strong>, по обезжиренной массе — переоценка на <strong>2.9 кг</strong>. Валидирована на испанской популяции с хорошим согласованием с другими тетраполярными BIA-мониторами. <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC9657485/" target="_blank">PMC 9657485</a></p>
         </div>
 
         <div class="pros-cons">
           <div class="pros">
             <h4>Плюсы</h4>
             <ul>
-              <li>Прямая валидация против DEXA (ICC 0.954)</li>
-              <li>Двухчастотный BIA — точнее на воде/жире</li>
-              <li>Сегментарный анализ по 5 зонам</li>
-              <li>Tanita используется в 1500+ медицинских публикациях</li>
-              <li>Экспорт CSV, поддержка нескольких пользователей</li>
+              <li>Прямая валидация против DEXA</li>
+              <li>Сегментарный анализ 5 зон тела</li>
+              <li>8 точек контакта (стопы + ладони)</li>
+              <li>Бренд Tanita — 1500+ медицинских публикаций</li>
+              <li>Используется в клинической практике</li>
             </ul>
           </div>
           <div class="cons">
             <h4>Минусы</h4>
             <ul>
-              <li>Цена: в 4–10 раз дороже бытовых</li>
-              <li>4 электрода — без верхних конечностей</li>
-              <li>Дизайн утилитарный, не «под интерьер»</li>
-              <li>В Сербии редко в наличии, чаще под заказ</li>
+              <li>Одночастотный BIA (один уровень — 50 кГц)</li>
+              <li>Утилитарный «медицинский» дизайн</li>
+              <li>Приложение HealthPlanet проще конкурентов</li>
+              <li>Систематически завышает BF% — нужен тренд, не абсолют</li>
             </ul>
           </div>
         </div>
       </div>
 
-      <!-- #2 WITHINGS BODY SCAN -->
+      <!-- #2 WITHINGS BODY COMP -->
       <div class="card">
         <div class="card-header">
           <div class="rank-num">02</div>
           <div class="card-info">
-            <h3>Withings Body Scan</h3>
-            <p class="subtitle">8 электродов · ЭКГ · сегментарный BIA · CE Class IIa</p>
-            <span class="tag">Медицинское устройство</span>
-            <span class="tag">ЭКГ + PWV</span>
+            <h3>Withings Body Comp</h3>
+            <p class="subtitle">Мультичастотный BIA · CE Class IIa · 4 электрода + Health+</p>
+            <span class="tag">Медицинская сертификация</span>
+            <span class="tag">Vascular Age</span>
+            <span class="tag">Health+</span>
           </div>
           <div class="price-block">
-            <div class="price">399 €</div>
-            <div class="price-sub">≈ 47 000 RSD</div>
+            <div class="price">$199</div>
+            <div class="price-sub">≈ 22 000 RSD</div>
           </div>
         </div>
 
         <div class="specs">
-          <div class="spec"><span class="spec-label">Электроды</span><span class="spec-value">8 (стопы + ручка)</span></div>
+          <div class="spec"><span class="spec-label">Электроды</span><span class="spec-value">4 (стопы)</span></div>
           <div class="spec"><span class="spec-label">Частота BIA</span><span class="spec-value">Мультичастотный</span></div>
-          <div class="spec"><span class="spec-label">Сегментарный анализ</span><span class="spec-value">Да (5 зон)</span></div>
-          <div class="spec"><span class="spec-label">Уникально</span><span class="spec-value">ЭКГ, PWV, нерв ног</span></div>
-          <div class="spec"><span class="spec-label">Приложение</span><span class="spec-value">Withings Health Mate</span></div>
+          <div class="spec"><span class="spec-label">Сегментарный анализ</span><span class="spec-value">Нет</span></div>
+          <div class="spec"><span class="spec-label">Уникально</span><span class="spec-value">Vascular Age, нервы</span></div>
+          <div class="spec"><span class="spec-label">Приложение</span><span class="spec-value">Health Mate</span></div>
           <div class="spec"><span class="spec-label">Сертификация</span><span class="spec-value">CE Class IIa</span></div>
         </div>
 
         <div class="accuracy-bar">
           <div class="accuracy-bar-label">
             <span>Научно подтверждённая точность</span>
-            <span class="score">9.0 / 10</span>
+            <span class="score">8.5 / 10</span>
           </div>
-          <div class="bar"><div class="bar-fill" style="width:90%"></div></div>
+          <div class="bar"><div class="bar-fill" style="width:85%"></div></div>
         </div>
 
         <div class="research">
           <span class="research-label">📚 Научная база</span>
-          <p>Предшественник Body Cardio валидирован в peer-reviewed исследовании: точные измерения веса и pulse-wave velocity, но <em>осторожно с fat mass/fat-free mass</em>. Сама Withings ведёт исследование WIVOP-Scales (<a href="https://clinicaltrials.gov/study/NCT05823025" target="_blank">NCT05823025</a>). В сравнительных тестах вес — в пределах 1% от Tanita. <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC7151625/" target="_blank">PMC 7151625</a></p>
+          <p>В сравнении Body Comp vs DEXA отклонение по проценту жира — <strong>7.4% (±2.1)</strong>. Это выше порога для научных задач, но достаточно для отслеживания трендов. Многочастотный BIA технически точнее одночастотного — лучше различает внутри- и внеклеточную воду. <a href="https://medgrade.org/reviews/withings-body-comp-smart-scale-review/" target="_blank">MedGrade обзор</a></p>
         </div>
 
         <div class="pros-cons">
           <div class="pros">
             <h4>Плюсы</h4>
             <ul>
-              <li>8 электродов — измерение верх + низ тела</li>
+              <li>Мультичастотный BIA — технологически продвинут</li>
               <li>CE Class IIa — медицинское устройство в ЕС</li>
-              <li>Уникальные метрики: ЭКГ, PWV, состояние нервов</li>
-              <li>Дизайн премиум-класса</li>
+              <li>Уникальные метрики: Vascular Age, нервная проводимость</li>
+              <li>Премиум-дизайн, отличный экран</li>
+              <li>Самое продуманное приложение в подборке</li>
             </ul>
           </div>
           <div class="cons">
             <h4>Минусы</h4>
             <ul>
-              <li>Прямой валидации именно Body Scan vs DEXA пока нет</li>
-              <li>Премиум-цена</li>
-              <li>Подписка Health+ для части функций</li>
+              <li>Только 4 электрода (стопы) — без верха тела</li>
+              <li>Часть метрик требует подписку Health+</li>
+              <li>BF-ошибка 7.4% — больше чем у Tanita BC-545N</li>
             </ul>
           </div>
         </div>
@@ -518,12 +575,12 @@
           <div class="rank-num">03</div>
           <div class="card-info">
             <h3>HUAWEI Scale 3 Pro</h3>
-            <p class="subtitle">8 электродов · стопы + ладони · TruFit алгоритм</p>
+            <p class="subtitle">8 электродов · стопы + ладони · алгоритм TruFit</p>
             <span class="tag">8 электродов</span>
-            <span class="tag">Лучшее value</span>
+            <span class="tag">Лучшая архитектура за свои деньги</span>
           </div>
           <div class="price-block">
-            <div class="price">~120 €</div>
+            <div class="price">~$130</div>
             <div class="price-sub">≈ 14 000 RSD</div>
           </div>
         </div>
@@ -547,15 +604,15 @@
 
         <div class="research">
           <span class="research-label">📚 Научная база</span>
-          <p>Независимых peer-reviewed исследований для модели Scale 3 Pro пока нет. Huawei цитирует собственный алгоритм TruFit и заявляет +30% точности относительно Scale 3. Архитектура с 8 электродами (включая верхнюю часть тела) технически приближает её к Withings Body Scan, но без медицинской сертификации.</p>
+          <p>Независимых peer-reviewed исследований именно Scale 3 Pro пока нет. Huawei цитирует собственный алгоритм TruFit и заявляет +30% точности относительно обычной Scale 3. Архитектура с 8 электродами (включая верхнюю часть тела) технически приближает её к Tanita BC-545N, но без медицинской сертификации.</p>
         </div>
 
         <div class="pros-cons">
           <div class="pros">
             <h4>Плюсы</h4>
             <ul>
-              <li>8 электродов за ~120 € — лучшее соотношение цена/архитектура</li>
-              <li>Замер верхней части тела (как у Withings Body Scan)</li>
+              <li>8 электродов за ~$130 — лучшее соотношение цена/архитектура</li>
+              <li>Замер верхней части тела</li>
               <li>Хорошая интеграция с Huawei Health</li>
               <li>Современный дизайн</li>
             </ul>
@@ -564,7 +621,7 @@
             <h4>Минусы</h4>
             <ul>
               <li>Нет независимых научных исследований</li>
-              <li>Одночастотный BIA (хуже определяет внутриклеточную воду)</li>
+              <li>Одночастотный BIA</li>
               <li>В Сербии в рознице — обычно только Scale 3, Pro — под заказ</li>
             </ul>
           </div>
@@ -577,13 +634,13 @@
           <div class="rank-num">04</div>
           <div class="card-info">
             <h3>Garmin Index S2</h3>
-            <p class="subtitle">4 электрода · одночастотный BIA · Garmin Connect</p>
+            <p class="subtitle">4 электрода · одночастотный BIA · Wi-Fi · Garmin Connect</p>
             <span class="tag">Для спортсменов</span>
             <span class="tag">Garmin экосистема</span>
           </div>
           <div class="price-block">
-            <div class="price">149 €</div>
-            <div class="price-sub">≈ 17 500 RSD</div>
+            <div class="price">$149</div>
+            <div class="price-sub">≈ 16 400 RSD</div>
           </div>
         </div>
 
@@ -606,16 +663,17 @@
 
         <div class="research">
           <span class="research-label">📚 Научная база</span>
-          <p>Прямых валидационных исследований Index S2 против DEXA в peer-reviewed литературе мало. В сравнительных обзорах (TechRadar, iMore) отмечается ценность для спортсменов внутри экосистемы Garmin, но при этом — отдельные проблемы с точностью самого взвешивания относительно эталона.</p>
+          <p>Прямых валидационных исследований Index S2 против DEXA в peer-reviewed литературе мало. В обзорах TechRadar и iMore отмечается ценность для пользователей экосистемы Garmin, но есть отдельные замечания к точности самого взвешивания относительно эталона.</p>
         </div>
 
         <div class="pros-cons">
           <div class="pros">
             <h4>Плюсы</h4>
             <ul>
-              <li>Глубокая интеграция с Garmin часами</li>
+              <li>Глубокая интеграция с Garmin-часами</li>
               <li>Тренды по 16 показателям</li>
               <li>До 16 пользователей</li>
+              <li>Wi-Fi синхронизация</li>
             </ul>
           </div>
           <div class="cons">
@@ -635,13 +693,13 @@
           <div class="rank-num">05</div>
           <div class="card-info">
             <h3>Eufy Smart Scale P3</h3>
-            <p class="subtitle">4 электрода · BIA · 16 показателей · бюджетный</p>
+            <p class="subtitle">4 электрода · BIA · 16 показателей · 3D-визуализация</p>
             <span class="tag">Бюджет</span>
-            <span class="tag">3D-визуализация</span>
+            <span class="tag">3D-сканирование</span>
           </div>
           <div class="price-block">
-            <div class="price">79 €</div>
-            <div class="price-sub">≈ 9 300 RSD</div>
+            <div class="price">$79</div>
+            <div class="price-sub">≈ 8 700 RSD</div>
           </div>
         </div>
 
@@ -664,7 +722,7 @@
 
         <div class="research">
           <span class="research-label">📚 Научная база</span>
-          <p>Независимых медицинских исследований нет. В обзоре Tom's Guide и MomSkoop модель получила высокие оценки за надёжность и стабильность повторных измерений, однако точность состава тела — на уровне «потребительского BIA», не для клинических задач.</p>
+          <p>Независимых медицинских исследований нет. Tom's Guide и MomSkoop оценивают её высоко за надёжность и стабильность повторных измерений. Точность состава тела — на уровне «потребительского BIA», подходит для трендов, но не для клинических задач.</p>
         </div>
 
         <div class="pros-cons">
@@ -674,6 +732,7 @@
               <li>Лучшая цена на 16 показателей</li>
               <li>Хорошая повторяемость результата</li>
               <li>Совместимость с Apple Health, Google Fit, Fitbit</li>
+              <li>Современный матовый дизайн</li>
             </ul>
           </div>
           <div class="cons">
@@ -690,9 +749,144 @@
     </div>
   </section>
 
+  <!-- PREMIUM SECTION -->
   <section>
-    <h2 class="section-title">Сравнительная таблица</h2>
-    <p class="section-sub">Ключевые параметры, влияющие на точность.</p>
+    <div class="section-header">
+      <h2 class="section-title">Премиум-эталоны</h2>
+      <span class="section-flag out-budget">Вне бюджета · $400+</span>
+    </div>
+    <p class="section-sub">Эти модели <strong>точнее</strong> всех в подборке, но они выходят за бюджет $200. Включены для сравнения — чтобы было видно, что́ теряется при экономии.</p>
+
+    <div class="ranking">
+
+      <!-- TANITA RD-545 -->
+      <div class="card premium">
+        <span class="out-budget-tag">Вне бюджета</span>
+        <div class="card-header">
+          <div class="rank-num">★</div>
+          <div class="card-info">
+            <h3>Tanita RD-545 / RD-545 HR</h3>
+            <p class="subtitle">Двухчастотный BIA · 4 электрода · сегментарный · мед-серия</p>
+            <span class="tag purple">Эталон точности</span>
+            <span class="tag">ICC = 0.954 vs DEXA</span>
+            <span class="tag">Двухчастотный BIA</span>
+          </div>
+          <div class="price-block">
+            <div class="price over">~$500</div>
+            <div class="price-sub">≈ 53 000 RSD · 450 €</div>
+          </div>
+        </div>
+
+        <div class="specs">
+          <div class="spec"><span class="spec-label">Электроды</span><span class="spec-value">4 (стопы)</span></div>
+          <div class="spec"><span class="spec-label">Частота BIA</span><span class="spec-value">6.25 + 50 кГц</span></div>
+          <div class="spec"><span class="spec-label">Сегментарный анализ</span><span class="spec-value">Да (5 зон)</span></div>
+          <div class="spec"><span class="spec-label">Метрик</span><span class="spec-value">25+</span></div>
+          <div class="spec"><span class="spec-label">Приложение</span><span class="spec-value">HealthPlanet</span></div>
+          <div class="spec"><span class="spec-label">Точность веса</span><span class="spec-value">±0.1 кг</span></div>
+        </div>
+
+        <div class="accuracy-bar">
+          <div class="accuracy-bar-label">
+            <span>Научно подтверждённая точность</span>
+            <span class="score" style="color:var(--purple)">9.6 / 10</span>
+          </div>
+          <div class="bar"><div class="bar-fill" style="width:96%"></div></div>
+        </div>
+
+        <div class="research">
+          <span class="research-label">📚 Научная валидация</span>
+          <p>Исследование 2022 г. в Journal of Nutrition, Health &amp; Aging: <strong>Tanita RD-545 сравнивали с DEXA (GE Lunar iDXA)</strong>. Согласованность с золотым стандартом: <strong>ICC = 0.954</strong> для общей и аппендикулярной мышечной массы. Test-retest надёжность: <strong>ICC = 0.987–0.988</strong>. Вывод: «DXA и DF-BIA взаимозаменяемы для оценки мышечной массы». <a href="https://pubmed.ncbi.nlm.nih.gov/36567160/" target="_blank">PubMed 36567160</a></p>
+        </div>
+
+        <div class="pros-cons">
+          <div class="pros">
+            <h4>Почему точнее</h4>
+            <ul>
+              <li>Двухчастотный BIA — точнее различает воду внутри клеток и жир</li>
+              <li>ICC 0.954 vs DEXA — высочайший показатель</li>
+              <li>Прямая peer-reviewed валидация в журнале</li>
+              <li>Используется в клинических исследованиях</li>
+            </ul>
+          </div>
+          <div class="cons">
+            <h4>Почему вне бюджета</h4>
+            <ul>
+              <li>Цена в 3–6 раз выше топа бюджетной подборки</li>
+              <li>Утилитарный дизайн «медицинского прибора»</li>
+              <li>В Сербии — обычно только под заказ</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- WITHINGS BODY SCAN -->
+      <div class="card premium">
+        <span class="out-budget-tag">Вне бюджета</span>
+        <div class="card-header">
+          <div class="rank-num">★</div>
+          <div class="card-info">
+            <h3>Withings Body Scan</h3>
+            <p class="subtitle">8 электродов · ЭКГ · сегментарный BIA · CE Class IIa</p>
+            <span class="tag purple">Премиум-флагман</span>
+            <span class="tag">8 электродов + ЭКГ</span>
+            <span class="tag">CE Class IIa мед.</span>
+          </div>
+          <div class="price-block">
+            <div class="price over">$450</div>
+            <div class="price-sub">≈ 47 000 RSD · 399 €</div>
+          </div>
+        </div>
+
+        <div class="specs">
+          <div class="spec"><span class="spec-label">Электроды</span><span class="spec-value">8 (стопы + ручка)</span></div>
+          <div class="spec"><span class="spec-label">Частота BIA</span><span class="spec-value">Мультичастотный</span></div>
+          <div class="spec"><span class="spec-label">Сегментарный анализ</span><span class="spec-value">Да (5 зон)</span></div>
+          <div class="spec"><span class="spec-label">Уникально</span><span class="spec-value">ЭКГ, PWV, нервы ног</span></div>
+          <div class="spec"><span class="spec-label">Приложение</span><span class="spec-value">Health Mate</span></div>
+          <div class="spec"><span class="spec-label">Сертификация</span><span class="spec-value">CE Class IIa</span></div>
+        </div>
+
+        <div class="accuracy-bar">
+          <div class="accuracy-bar-label">
+            <span>Научно подтверждённая точность</span>
+            <span class="score" style="color:var(--purple)">9.0 / 10</span>
+          </div>
+          <div class="bar"><div class="bar-fill" style="width:90%"></div></div>
+        </div>
+
+        <div class="research">
+          <span class="research-label">📚 Научная база</span>
+          <p>Предшественник Body Cardio валидирован в peer-reviewed исследовании. Withings ведёт WIVOP-Scales study (<a href="https://clinicaltrials.gov/study/NCT05823025" target="_blank">NCT05823025</a>). В сравнительных тестах вес — в пределах 1% от Tanita-эталона. Из всех потребительских весов — единственная с 8 электродами и медицинской сертификацией ЕС класса IIa. <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC7151625/" target="_blank">PMC 7151625</a></p>
+        </div>
+
+        <div class="pros-cons">
+          <div class="pros">
+            <h4>Почему точнее</h4>
+            <ul>
+              <li>8 электродов — единственная такая в подборке + ECG/PWV</li>
+              <li>Мультичастотный BIA через всё тело</li>
+              <li>CE Class IIa — медицинское устройство в ЕС</li>
+              <li>Сегментарный анализ 5 зон</li>
+            </ul>
+          </div>
+          <div class="cons">
+            <h4>Почему вне бюджета</h4>
+            <ul>
+              <li>Цена в 2.3 раза выше топа бюджетной подборки</li>
+              <li>Часть функций требует подписку Health+</li>
+              <li>Прямой валидации именно Body Scan vs DEXA пока нет</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">Сравнительная таблица — все 7 моделей</h2>
+    <p class="section-sub">Премиум-варианты выделены — они не в бюджете, но включены для сравнения с эталоном.</p>
     <div class="table-wrap">
       <table>
         <thead>
@@ -709,24 +903,24 @@
         </thead>
         <tbody>
           <tr>
-            <td>Tanita RD-545 <span class="star">★</span></td>
-            <td>4</td>
-            <td>2 частоты</td>
+            <td>Tanita BC-545N <span class="star">★</span></td>
+            <td>8</td>
+            <td>1 частота</td>
             <td><span class="check">✓</span> 5 зон</td>
-            <td><span class="check">✓ ICC 0.954</span></td>
-            <td>Медицинская серия</td>
-            <td>~450 €</td>
-            <td>9.6</td>
+            <td><span class="check">✓ ~5.6% откл.</span></td>
+            <td>Мед-серия</td>
+            <td>$150</td>
+            <td>8.8</td>
           </tr>
           <tr>
-            <td>Withings Body Scan</td>
-            <td>8</td>
+            <td>Withings Body Comp</td>
+            <td>4</td>
             <td>Мульти</td>
-            <td><span class="check">✓</span> 5 зон</td>
-            <td>Косвенно</td>
+            <td><span class="cross">—</span></td>
+            <td><span class="check">✓ 7.4% откл.</span></td>
             <td>CE Class IIa</td>
-            <td>399 €</td>
-            <td>9.0</td>
+            <td>$199</td>
+            <td>8.5</td>
           </tr>
           <tr>
             <td>Huawei Scale 3 Pro</td>
@@ -735,7 +929,7 @@
             <td><span class="check">✓</span> 2 зоны</td>
             <td><span class="cross">—</span></td>
             <td>Потребит.</td>
-            <td>~120 €</td>
+            <td>~$130</td>
             <td>7.8</td>
           </tr>
           <tr>
@@ -745,7 +939,7 @@
             <td><span class="cross">—</span></td>
             <td><span class="cross">—</span></td>
             <td>Потребит.</td>
-            <td>149 €</td>
+            <td>$149</td>
             <td>7.0</td>
           </tr>
           <tr>
@@ -755,8 +949,28 @@
             <td><span class="cross">—</span></td>
             <td><span class="cross">—</span></td>
             <td>Потребит.</td>
-            <td>79 €</td>
+            <td>$79</td>
             <td>6.5</td>
+          </tr>
+          <tr class="over-budget">
+            <td>Tanita RD-545 <span class="over-label">$500</span></td>
+            <td>4</td>
+            <td>2 частоты</td>
+            <td><span class="check">✓</span> 5 зон</td>
+            <td><span class="check">✓ ICC 0.954</span></td>
+            <td>Мед-серия</td>
+            <td>~$500</td>
+            <td>9.6</td>
+          </tr>
+          <tr class="over-budget">
+            <td>Withings Body Scan <span class="over-label">$450</span></td>
+            <td>8</td>
+            <td>Мульти</td>
+            <td><span class="check">✓</span> 5 зон</td>
+            <td>Косвенно</td>
+            <td>CE Class IIa</td>
+            <td>$450</td>
+            <td>9.0</td>
           </tr>
         </tbody>
       </table>
@@ -770,7 +984,7 @@
       <div class="method-card">
         <div class="icon">⚡</div>
         <h4>Количество электродов</h4>
-        <p>4 электрода (только стопы) измеряют только нижнюю часть тела. 8 электродов (стопы + руки) пускают ток через всё тело — это даёт сегментарный анализ верха и низа.</p>
+        <p>4 электрода (стопы) измеряют только нижнюю часть тела. 8 электродов (стопы + руки) пускают ток через всё тело — это даёт сегментарный анализ верха и низа.</p>
       </div>
       <div class="method-card">
         <div class="icon">📡</div>
@@ -779,35 +993,36 @@
       </div>
       <div class="method-card">
         <div class="icon">🏥</div>
-        <h4>Валидация vs DEXA</h4>
-        <p>DEXA (двухэнергетическая рентгеновская абсорбциометрия) — клинический золотой стандарт. Согласованность измеряется как ICC: значения &gt;0.9 — отличные, 0.75–0.9 — хорошие.</p>
+        <h4>Валидация против DEXA</h4>
+        <p>DEXA — клинический золотой стандарт. Чем меньше систематическое отклонение по проценту жира — тем точнее. У потребительских весов 5–8% — норма; всё что меньше 5% — отлично.</p>
       </div>
       <div class="method-card">
         <div class="icon">🔁</div>
         <h4>Повторяемость</h4>
-        <p>Test-retest reliability — насколько одинаков результат при повторных взвешиваниях за короткое время. У Tanita RD-545 в исследовании — ICC 0.987–0.988, что близко к идеалу.</p>
+        <p>Test-retest reliability — насколько одинаков результат при повторных взвешиваниях. Tanita-весы в исследованиях показывают ICC 0.95+, что близко к идеалу.</p>
       </div>
     </div>
   </section>
 
   <div class="verdict">
     <h2>Финальный вердикт</h2>
-    <p>Если цель — <strong>максимальная точность, подтверждённая независимыми исследованиями</strong>, выбор однозначен: <strong>Tanita RD-545 (или RD-545 HR с пульсометром)</strong>. Это единственная модель из подборки, для которой существует peer-reviewed валидация против DEXA с очень высокой согласованностью (ICC = 0.954).</p>
-    <p>Если важна <strong>премиум-эстетика, ЭКГ и сегментарный анализ верха тела</strong>, и допустимо отсутствие прямой DEXA-валидации — <strong>Withings Body Scan</strong> (CE Class IIa — медицинское устройство в ЕС).</p>
-    <p>Если бюджет ограничен и нужны 8 электродов — <strong>Huawei Scale 3 Pro</strong>: лучшее соотношение архитектуры к цене, но без научных подтверждений.</p>
+    <p><strong>Внутри бюджета $200</strong> — однозначный выбор по точности: <strong>Tanita BC-545N</strong> ($150). Единственная модель с peer-reviewed валидацией против DEXA, сегментарным анализом 5 зон тела и 8 точками контакта.</p>
+    <p><strong>Альтернатива</strong> в бюджете — <strong>Withings Body Comp</strong> ($199): мультичастотный BIA, медицинская сертификация CE Class IIa, лучшее приложение, расширенные кардио-метрики. Точность чуть ниже, чем у Tanita, но технологически современнее.</p>
+    <p><strong>Если бюджет можно увеличить</strong> — на эталонном уровне точности живут только два варианта: <strong>Tanita RD-545</strong> (~$500, ICC = 0.954 vs DEXA) и <strong>Withings Body Scan</strong> ($450, 8 электродов + ЭКГ + CE Class IIa). Это потолок точности среди потребительских весов в 2026 году.</p>
     <div class="key-line">
-      <strong>Главный вывод исследования (Smolderen K. et al., 2021, JMIR):</strong> ни одна потребительская умная-весы не заменяет DEXA для медицинских целей, но они полезны для отслеживания трендов. Чем сложнее архитектура (электроды × частоты) и чем больше валидационных исследований у бренда, тем ближе показания к клиническому золотому стандарту.
+      <strong>Главный вывод исследования (Smolderen K. et al., 2021, JMIR):</strong> ни одни потребительские весы не заменяют DEXA для медицинских задач. Но они отлично подходят для отслеживания трендов. Чем сложнее архитектура (электроды × частоты) и чем больше валидационных исследований у бренда, тем ближе показания к клиническому золотому стандарту.
     </div>
   </div>
 
   <section>
     <h2 class="section-title">Источники</h2>
     <ul style="color:var(--text-dim);font-size:14px;line-height:1.9;list-style:none;padding-left:0">
-      <li>→ <a href="https://pubmed.ncbi.nlm.nih.gov/36567160/" target="_blank" style="color:var(--accent)">Журнал Nutrition, Health &amp; Aging (2022). Dual-Frequency Bioelectrical Impedance Analysis is Accurate and Reliable to Determine Lean Muscle Mass in The Elderly. PubMed 36567160.</a></li>
+      <li>→ <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC9657485/" target="_blank" style="color:var(--accent)">Bioimpedance vs DEXA: Comparing Fat Mass and Fat-Free Mass (Tanita BC-545N валидационное исследование). PMC 9657485.</a></li>
+      <li>→ <a href="https://pubmed.ncbi.nlm.nih.gov/36567160/" target="_blank" style="color:var(--accent)">Dual-Frequency BIA is Accurate and Reliable to Determine Lean Muscle Mass in The Elderly. PubMed 36567160 (Tanita RD-545, ICC = 0.954).</a></li>
       <li>→ <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC8122302/" target="_blank" style="color:var(--accent)">JMIR (2021). Accuracy of Smart Scales on Weight and Body Composition: Observational Study. PMC 8122302.</a></li>
       <li>→ <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC7151625/" target="_blank" style="color:var(--accent)">Withings Body Cardio vs Gold Standards of Pulse-Wave Velocity and Body Composition. PMC 7151625.</a></li>
       <li>→ <a href="https://clinicaltrials.gov/study/NCT05823025" target="_blank" style="color:var(--accent)">WIVOP-Scales study (Withings) — ClinicalTrials.gov NCT05823025.</a></li>
-      <li>→ <a href="https://clinicaltrials.gov/study/NCT02118675" target="_blank" style="color:var(--accent)">Tanita BIA System Validation — ClinicalTrials.gov NCT02118675.</a></li>
+      <li>→ <a href="https://medgrade.org/reviews/withings-body-comp-smart-scale-review/" target="_blank" style="color:var(--accent)">MedGrade — Withings Body Comp Smart Scale Review (BF-ошибка 7.4% vs DEXA).</a></li>
       <li>→ <a href="https://consumer.huawei.com/en/accessories/scale-3-pro/specs/" target="_blank" style="color:var(--accent)">Официальные характеристики HUAWEI Scale 3 Pro.</a></li>
       <li>→ <a href="https://www.engadget.com/home/smart-home/best-smart-scale-160033523.html" target="_blank" style="color:var(--accent)">Engadget — The best smart scales for 2026.</a></li>
       <li>→ <a href="https://www.techradar.com/best/best-smart-scales" target="_blank" style="color:var(--accent)">TechRadar — Best smart scales 2026.</a></li>
@@ -818,7 +1033,7 @@
 
 <footer>
   <div class="container">
-    Сравнительный анализ подготовлен в мае 2026. Цены и наличие могут меняться. Для медицинских решений всегда консультируйтесь со специалистом.
+    Сравнительный анализ подготовлен в мае 2026. Бюджет $200 + 2 премиум-эталона для контекста. Цены и наличие могут меняться. Для медицинских решений всегда консультируйтесь со специалистом.
   </div>
 </footer>
 
