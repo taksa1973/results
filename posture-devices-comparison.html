@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Умные девайсы для осанки 2026 — рейтинг и подборка лучших</title>
-<meta name="description" content="Подборка лучших умных корректоров осанки 2026: датчики с вибрацией, корсеты с приложением, российские и зарубежные модели. Сравнение цен, функций, плюсов и минусов.">
+<meta name="description" content="Подборка лучших умных корректоров осанки 2026: датчики с вибрацией, корсеты с приложением, российские и зарубежные модели. С реальными фото и ссылками на офсайты.">
 <style>
   :root{
     --bg:#0b0f17;
@@ -94,12 +94,7 @@
     align-items:center;
   }
   .crown{font-size:64px;line-height:1}
-  .winner-callout h2{
-    font-size:24px;
-    color:var(--gold);
-    margin-bottom:8px;
-    font-weight:700;
-  }
+  .winner-callout h2{font-size:24px;color:var(--gold);margin-bottom:8px;font-weight:700}
   .winner-callout p{color:var(--text-dim);font-size:15px}
   .winner-callout strong{color:var(--text)}
 
@@ -183,17 +178,7 @@
     width:100%;
     background:linear-gradient(90deg,var(--pink) 0%,var(--accent-2) 100%);
   }
-  .card.budget{
-    border-color:rgba(52,211,153,0.35);
-  }
-  .card.budget::before{
-    content:"";
-    position:absolute;
-    top:0;left:0;
-    height:4px;
-    width:100%;
-    background:linear-gradient(90deg,var(--green) 0%,var(--accent) 100%);
-  }
+
   .badge-tag{
     position:absolute;
     top:20px;right:20px;
@@ -203,6 +188,7 @@
     font-weight:700;
     text-transform:uppercase;
     letter-spacing:0.5px;
+    z-index:2;
   }
   .badge-tag.gold{background:rgba(251,191,36,0.15);color:var(--gold);border:1px solid rgba(251,191,36,0.35)}
   .badge-tag.purple{background:rgba(167,139,250,0.15);color:var(--purple);border:1px solid rgba(167,139,250,0.35)}
@@ -210,32 +196,44 @@
   .badge-tag.pink{background:rgba(244,114,182,0.15);color:var(--pink);border:1px solid rgba(244,114,182,0.35)}
   .badge-tag.orange{background:rgba(251,146,60,0.15);color:var(--orange);border:1px solid rgba(251,146,60,0.35)}
 
-  .card-header{
-    display:flex;
-    align-items:flex-start;
-    gap:20px;
+  .card-top-row{
+    display:grid;
+    grid-template-columns:220px 1fr auto;
+    gap:24px;
+    align-items:start;
     margin-bottom:24px;
-    flex-wrap:wrap;
+  }
+  .product-photo{
+    width:220px;height:200px;
+    background:#fff;
+    border-radius:14px;
+    display:flex;align-items:center;justify-content:center;
+    overflow:hidden;
+    border:1px solid var(--border);
+  }
+  .product-photo img{
+    max-width:100%;
+    max-height:100%;
+    object-fit:contain;
   }
   .rank-num{
-    font-size:42px;
+    font-size:38px;
     font-weight:800;
     color:var(--accent);
     line-height:1;
-    min-width:60px;
+    margin-bottom:8px;
   }
   .card.top .rank-num{color:var(--gold)}
   .card.premium .rank-num{color:var(--purple)}
   .card.ru .rank-num{color:var(--pink)}
-  .card.budget .rank-num{color:var(--green)}
-  .card-info{flex:1;min-width:260px;padding-right:90px}
+
   .card-info h3{
     font-size:24px;
     margin-bottom:6px;
     font-weight:700;
     letter-spacing:-0.01em;
   }
-  .subtitle{color:var(--text-dim);font-size:14px;margin-bottom:10px}
+  .subtitle{color:var(--text-dim);font-size:14px;margin-bottom:12px}
   .tag{
     display:inline-block;
     padding:4px 10px;
@@ -249,20 +247,39 @@
   }
   .tag.gold{background:rgba(251,191,36,0.12);color:var(--gold)}
   .tag.purple{background:rgba(167,139,250,0.12);color:var(--purple)}
-  .tag.red{background:rgba(248,113,113,0.12);color:var(--red)}
-  .tag.green{background:rgba(52,211,153,0.12);color:var(--green)}
   .tag.pink{background:rgba(244,114,182,0.12);color:var(--pink)}
 
   .price-block{
     text-align:right;
-    min-width:160px;
+    min-width:130px;
   }
   .price{
-    font-size:28px;
+    font-size:26px;
     font-weight:800;
     color:var(--text);
+    line-height:1.1;
   }
   .price-sub{font-size:12px;color:var(--text-dim);margin-top:4px}
+  .official-link{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    margin-top:10px;
+    padding:8px 14px;
+    background:rgba(94,234,212,0.1);
+    color:var(--accent);
+    border:1px solid rgba(94,234,212,0.3);
+    border-radius:8px;
+    font-size:13px;
+    font-weight:600;
+    text-decoration:none;
+    transition:background 0.2s;
+  }
+  .official-link:hover{background:rgba(94,234,212,0.18)}
+  .card.top .official-link{background:rgba(251,191,36,0.1);color:var(--gold);border-color:rgba(251,191,36,0.3)}
+  .card.top .official-link:hover{background:rgba(251,191,36,0.18)}
+  .card.premium .official-link{background:rgba(167,139,250,0.1);color:var(--purple);border-color:rgba(167,139,250,0.3)}
+  .card.ru .official-link{background:rgba(244,114,182,0.1);color:var(--pink);border-color:rgba(244,114,182,0.3)}
 
   .specs{
     display:grid;
@@ -288,22 +305,11 @@
   .card.top .score-bar-label .score{color:var(--gold)}
   .card.premium .score-bar-label .score{color:var(--purple)}
   .card.ru .score-bar-label .score{color:var(--pink)}
-  .card.budget .score-bar-label .score{color:var(--green)}
-  .bar{
-    height:8px;
-    background:var(--surface-2);
-    border-radius:999px;
-    overflow:hidden;
-  }
-  .bar-fill{
-    height:100%;
-    background:linear-gradient(90deg,var(--accent) 0%,var(--accent-2) 100%);
-    border-radius:999px;
-  }
+  .bar{height:8px;background:var(--surface-2);border-radius:999px;overflow:hidden}
+  .bar-fill{height:100%;background:linear-gradient(90deg,var(--accent) 0%,var(--accent-2) 100%);border-radius:999px}
   .card.top .bar-fill{background:linear-gradient(90deg,var(--gold) 0%,var(--accent) 100%)}
   .card.premium .bar-fill{background:linear-gradient(90deg,var(--purple) 0%,var(--accent-2) 100%)}
   .card.ru .bar-fill{background:linear-gradient(90deg,var(--pink) 0%,var(--accent-2) 100%)}
-  .card.budget .bar-fill{background:linear-gradient(90deg,var(--green) 0%,var(--accent) 100%)}
 
   .pros-cons{
     display:grid;
@@ -352,6 +358,8 @@
   tr:last-child td{border-bottom:none}
   tr:hover{background:rgba(255,255,255,0.02)}
   td.model{font-weight:700;color:var(--text)}
+  td.model a{color:var(--accent);text-decoration:none}
+  td.model a:hover{text-decoration:underline}
   .check{color:var(--green);font-weight:700}
   .cross{color:var(--red);font-weight:700}
   .partial{color:var(--orange);font-weight:700}
@@ -380,6 +388,8 @@
   .pick h3{font-size:20px;margin-bottom:6px;font-weight:700}
   .pick .why{font-size:14px;color:var(--text-dim);margin-bottom:12px}
   .pick .pick-price{font-size:18px;font-weight:700}
+  .pick a{display:inline-block;margin-top:10px;color:var(--accent);text-decoration:none;font-size:13px;font-weight:600}
+  .pick a:hover{text-decoration:underline}
 
   .choose-grid{
     display:grid;
@@ -416,14 +426,16 @@
     font-size:13px;
   }
   footer p{margin-bottom:6px}
+  footer a{color:var(--accent);text-decoration:none}
+  footer a:hover{text-decoration:underline}
 
-  @media (max-width:720px){
+  @media (max-width:820px){
+    .card-top-row{grid-template-columns:1fr;gap:16px}
+    .product-photo{width:100%;height:240px}
+    .price-block{text-align:left}
     .winner-callout{grid-template-columns:1fr;text-align:center}
     .pros-cons{grid-template-columns:1fr}
-    .card-info{padding-right:0}
     .badge-tag{position:static;display:inline-block;margin-bottom:12px}
-    .card-header{flex-direction:column}
-    .price-block{text-align:left}
   }
 </style>
 </head>
@@ -433,11 +445,11 @@
   <div class="container">
     <span class="badge">Подборка • Май 2026</span>
     <h1>Умные девайсы для осанки</h1>
-    <p class="lead">Носимые датчики и корсеты с приложением, которые вибрируют, когда вы сутулитесь. Разобрал нишу: 8 моделей с разбросом цены от $25 до $150, плюс российский iBACK.</p>
+    <p class="lead">Носимые датчики и корсеты с приложением, которые вибрируют, когда вы сутулитесь. 6 проверенных моделей с реальными фото и ссылками на официальные сайты — от $59 до $149.</p>
     <div class="meta">
       <span>📱 Все — с приложением и Bluetooth</span>
-      <span>🔋 Батарея от 20 ч до 2 недель</span>
-      <span>⚖️ Вес носимых сенсоров — 6–12 г</span>
+      <span>🔋 Батарея от 20 ч до 1 недели</span>
+      <span>⚖️ Вес сенсоров — 6–12 г</span>
     </div>
   </div>
 </header>
@@ -447,35 +459,35 @@
     <div class="crown">👑</div>
     <div>
       <h2>Главный выбор — UPRIGHT GO 2</h2>
-      <p><strong>Цена $80</strong>. Стал стандартом ниши: используется в 500+ клиниках мира, 15&nbsp;000+ отзывов, 2 датчика с гироскопом, 9 режимов вибрации, синхронизация до 30 дней истории. Если хотите проверенное «нажал — работает» решение — берите его.</p>
+      <p><strong>Цена $79.95</strong>. Стал стандартом ниши: 500+ клиник, 15&nbsp;000+ отзывов, 2 датчика с гироскопом, 9 режимов вибрации, 30 дней истории в приложении. Если хотите проверенное «нажал — работает» решение — это базовый выбор.</p>
     </div>
   </div>
 </div>
 
 <section>
   <div class="container">
-    <h2 class="section-title">Как они вообще работают</h2>
-    <p class="section-sub">Под капотом — гироскоп и акселерометр. Сначала калибровка: 10 секунд сидите прямо, девайс запоминает «нулевое положение». Когда угол наклона уходит за порог (обычно 15–25°), внутри жужжит моторчик-вибро. Параллельно данные летят в приложение, где вы видите статистику «сколько часов сегодня сутулился».</p>
+    <h2 class="section-title">Как они работают</h2>
+    <p class="section-sub">Под капотом — гироскоп и акселерометр. Калибровка: 10 секунд сидите прямо, девайс запоминает «нулевое положение». Когда угол наклона уходит за порог (обычно 15–25°), внутри жужжит вибро-моторчик. Параллельно данные летят в приложение со статистикой «сколько часов сегодня сутулился».</p>
 
     <div class="how-grid">
       <div class="how-card">
         <div class="how-icon">📍</div>
         <h3>Носимые датчики</h3>
-        <p>Маленький модуль 6–12 г крепится на спину пластырем или клипсой к одежде. Не виден под футболкой.</p>
+        <p>Маленький модуль 6–12 г крепится на спину пластырем, шнурком или клипсой. Не виден под футболкой.</p>
       </div>
       <div class="how-card">
         <div class="how-icon">🎽</div>
         <h3>Умные корсеты</h3>
-        <p>Полноразмерный жилет/наплечники с встроенным датчиком. Физически держат + вибрируют. Для сильной сутулости.</p>
+        <p>Полноразмерный жилет/наплечники с датчиком. Физически держат + вибрируют. Для сильной сутулости.</p>
       </div>
       <div class="how-card">
         <div class="how-icon">📊</div>
-        <h3>Тренировочный эффект</h3>
-        <p>По исследованию Spine (2021), 8 недель регулярного ношения дают +30% к мышечному тонусу спины и снижение боли у 73% участников.</p>
+        <h3>Эффект</h3>
+        <p>Исследование Spine (2021): 8 недель регулярного ношения дают +30% к мышечному тонусу спины и снижение боли у 73% участников.</p>
       </div>
       <div class="how-card">
         <div class="how-icon">⏱️</div>
-        <h3>Сколько носить</h3>
+        <h3>Как носить</h3>
         <p>Производители советуют 1–2 часа в день, наращивая. Цель — выработать привычку, а не носить постоянно.</p>
       </div>
     </div>
@@ -484,26 +496,30 @@
 
 <section>
   <div class="container">
-    <h2 class="section-title">Топ-8 моделей: рейтинг</h2>
-    <p class="section-sub">Отсортировано по соотношению «эффективность × удобство × цена». В каждой карточке — цена, ключевые характеристики, плюсы и минусы.</p>
+    <h2 class="section-title">Топ-6 моделей</h2>
+    <p class="section-sub">Реальные фото и ссылки на официальные сайты у каждой карточки. Отсортировано по «эффективность × удобство × цена».</p>
 
     <div class="ranking">
 
       <!-- 1. Upright GO 2 -->
       <div class="card top">
         <span class="badge-tag gold">🏆 Лидер ниши</span>
-        <div class="card-header">
-          <div class="rank-num">1</div>
+        <div class="card-top-row">
+          <div class="product-photo">
+            <img src="img/posture/upright-go2.png" alt="Upright GO 2" loading="lazy">
+          </div>
           <div class="card-info">
+            <div class="rank-num">1</div>
             <h3>UPRIGHT GO 2</h3>
-            <div class="subtitle">Эталон рынка носимых датчиков • производитель Upright Technologies (Израиль)</div>
+            <div class="subtitle">Эталон рынка носимых датчиков • Upright Technologies (Израиль)</div>
             <span class="tag gold">2 датчика + гироскоп</span>
             <span class="tag">9 режимов</span>
             <span class="tag">30 дней истории</span>
           </div>
           <div class="price-block">
-            <div class="price">$79–99</div>
-            <div class="price-sub">≈ 7&nbsp;500–9&nbsp;500 ₽</div>
+            <div class="price">$79.95</div>
+            <div class="price-sub">≈ 7&nbsp;500 ₽</div>
+            <a class="official-link" href="https://store.uprightpose.com/products/upright-go2" target="_blank" rel="noopener">Офсайт →</a>
           </div>
         </div>
 
@@ -529,7 +545,7 @@
               <li>Гибкая настройка чувствительности и режимов</li>
               <li>Применяется в 500+ клиниках, клиническое подтверждение</li>
               <li>30 дней истории + детальная статистика</li>
-              <li>Тренировочный режим + отслеживание прогресса</li>
+              <li>Работает сидя, стоя и при ходьбе</li>
             </ul>
           </div>
           <div class="cons">
@@ -544,25 +560,29 @@
 
         <div class="verdict">
           <span class="verdict-label">Кому брать</span>
-          <div class="verdict-text">Если хотите «купил и работает» с максимальным удобством и точностью — это базовый выбор. Окупает себя именно за счёт сильной вибрации (хорошо чувствуется через футболку) и долгой истории в приложении.</div>
+          <div class="verdict-text">Если хотите «купил и работает» с максимальным удобством и точностью — базовый выбор. Окупает себя за счёт сильной вибрации (чувствуется через футболку) и долгой истории в приложении.</div>
         </div>
       </div>
 
       <!-- 2. Upright GO S -->
       <div class="card">
         <span class="badge-tag green">💰 Бюджет от лидера</span>
-        <div class="card-header">
-          <div class="rank-num">2</div>
+        <div class="card-top-row">
+          <div class="product-photo">
+            <img src="img/posture/upright-go-s.png" alt="Upright GO S" loading="lazy">
+          </div>
           <div class="card-info">
+            <div class="rank-num">2</div>
             <h3>UPRIGHT GO S</h3>
-            <div class="subtitle">Облегчённая версия GO 2 — для тех, кому нужен бренд, но без излишеств</div>
+            <div class="subtitle">Облегчённая версия GO 2 — бренд без излишеств</div>
             <span class="tag">1 датчик</span>
             <span class="tag">7 дней истории</span>
-            <span class="tag">Компактнее GO 2</span>
+            <span class="tag">Компактнее</span>
           </div>
           <div class="price-block">
             <div class="price">$59</div>
             <div class="price-sub">≈ 5&nbsp;500 ₽</div>
+            <a class="official-link" href="https://store.uprightpose.com/products/upright-go-s" target="_blank" rel="noopener">Офсайт →</a>
           </div>
         </div>
 
@@ -572,7 +592,7 @@
           <div class="spec"><span class="spec-label">Размер</span><span class="spec-value">48×28×8,6 мм</span></div>
           <div class="spec"><span class="spec-label">Подключение</span><span class="spec-value">Bluetooth, iOS/Android</span></div>
           <div class="spec"><span class="spec-label">В коробке</span><span class="spec-value">5 пластырей + кейс</span></div>
-          <div class="spec"><span class="spec-label">Гироскоп</span><span class="spec-value">Нет (только акселерометр)</span></div>
+          <div class="spec"><span class="spec-label">Гироскоп</span><span class="spec-value">Нет</span></div>
         </div>
 
         <div class="score-bar">
@@ -584,7 +604,7 @@
           <div class="pros">
             <h4>Плюсы</h4>
             <ul>
-              <li>На $20 дешевле GO 2 при том же бренде и качестве сборки</li>
+              <li>На $20 дешевле GO 2 при том же бренде</li>
               <li>То же приложение и алгоритм</li>
               <li>Идеален как «попробовать»</li>
             </ul>
@@ -594,7 +614,7 @@
             <ul>
               <li>Один датчик без гироскопа — менее точен при ходьбе</li>
               <li>История только 7 дней</li>
-              <li>Батарея в 2 раза меньше, чем у GO 2</li>
+              <li>Батарея в 2 раза меньше</li>
               <li>В коробке 5 пластырей, а не 10</li>
             </ul>
           </div>
@@ -602,16 +622,19 @@
 
         <div class="verdict">
           <span class="verdict-label">Кому брать</span>
-          <div class="verdict-text">Если нужен бренд Upright, но не хочется отдавать $80 — это правильный «эконом». Только для использования сидя: для ходьбы и спорта однозначно GO 2.</div>
+          <div class="verdict-text">Если нужен бренд Upright, но не хочется отдавать $80 — это правильный «эконом». Хорош для статичной работы за столом: для ходьбы и спорта лучше GO 2.</div>
         </div>
       </div>
 
       <!-- 3. iBACK -->
       <div class="card ru">
         <span class="badge-tag pink">🇷🇺 Российский</span>
-        <div class="card-header">
-          <div class="rank-num">3</div>
+        <div class="card-top-row">
+          <div class="product-photo">
+            <img src="img/posture/iback.png" alt="iBACK российский корректор осанки" loading="lazy">
+          </div>
           <div class="card-info">
+            <div class="rank-num">3</div>
             <h3>iBACK</h3>
             <div class="subtitle">Российская разработка с медицинской регистрацией и патентом методики</div>
             <span class="tag pink">Мед. изделие</span>
@@ -621,6 +644,7 @@
           <div class="price-block">
             <div class="price">7&nbsp;490 ₽</div>
             <div class="price-sub">≈ $80</div>
+            <a class="official-link" href="https://iback.online/sensor" target="_blank" rel="noopener">Офсайт →</a>
           </div>
         </div>
 
@@ -643,18 +667,18 @@
             <h4>Плюсы</h4>
             <ul>
               <li>Зарегистрирован как медицинское изделие в РФ</li>
-              <li>Запатентованная методика коррекции (№ 2698861)</li>
+              <li>Запатентованная методика (№ 2698861)</li>
               <li>Сменная батарейка CR2032 — не нужно заряжать</li>
               <li>Самый лёгкий — 6 г</li>
               <li>Детский профиль приложения с упражнениями</li>
-              <li>Есть гарантия и поддержка на русском</li>
+              <li>Поддержка и гарантия на русском</li>
             </ul>
           </div>
           <div class="cons">
             <h4>Минусы</h4>
             <ul>
               <li>Приложение проще западных аналогов</li>
-              <li>Меньшая база отзывов и независимых обзоров</li>
+              <li>Меньшая база независимых обзоров</li>
               <li>Цена сопоставима с Upright GO 2</li>
             </ul>
           </div>
@@ -662,35 +686,39 @@
 
         <div class="verdict">
           <span class="verdict-label">Кому брать</span>
-          <div class="verdict-text">Лучший выбор для покупки в РФ без танцев с импортом и параллельным ввозом. Особенно хорош для детей 7–14 лет: производитель пишет, что за месяц помогает при сколиозе 1–2 степени.</div>
+          <div class="verdict-text">Лучший выбор для покупки в РФ без танцев с импортом. Особенно хорош для детей 7–14 лет: производитель пишет, что за месяц помогает при сколиозе 1–2 степени.</div>
         </div>
       </div>
 
-      <!-- 4. Kodgem Straight -->
+      <!-- 4. Kodgem Straight Plus -->
       <div class="card premium">
-        <span class="badge-tag purple">💎 Премиум</span>
-        <div class="card-header">
-          <div class="rank-num">4</div>
+        <span class="badge-tag purple">💎 Премиум • AI</span>
+        <div class="card-top-row">
+          <div class="product-photo">
+            <img src="img/posture/kodgem-straight.jpg" alt="Kodgem Straight Plus" loading="lazy">
+          </div>
           <div class="card-info">
-            <h3>Kodgem Straight</h3>
-            <div class="subtitle">Дороже, умнее: полный IMU-набор + машинное обучение в реальном времени</div>
+            <div class="rank-num">4</div>
+            <h3>Kodgem Straight Plus</h3>
+            <div class="subtitle">«World's First AI Posture Trainer» — BioFeedback + машинное обучение</div>
             <span class="tag purple">ML-алгоритм</span>
             <span class="tag purple">Full IMU</span>
-            <span class="tag">Без расходников</span>
+            <span class="tag">30 дней возврат</span>
           </div>
           <div class="price-block">
             <div class="price">$149</div>
             <div class="price-sub">≈ 14&nbsp;000 ₽</div>
+            <a class="official-link" href="https://kodgemstraight.com/products/straight-plus" target="_blank" rel="noopener">Офсайт →</a>
           </div>
         </div>
 
         <div class="specs">
-          <div class="spec"><span class="spec-label">Тип</span><span class="spec-value">Clip-on на одежду</span></div>
-          <div class="spec"><span class="spec-label">Датчики</span><span class="spec-value">Полный IMU (9-осевой)</span></div>
+          <div class="spec"><span class="spec-label">Тип</span><span class="spec-value">Сенсор + шнурок</span></div>
+          <div class="spec"><span class="spec-label">Датчики</span><span class="spec-value">Полный IMU 9-осевой</span></div>
           <div class="spec"><span class="spec-label">Батарея</span><span class="spec-value">До 5 дней</span></div>
-          <div class="spec"><span class="spec-label">Подключение</span><span class="spec-value">Bluetooth LE</span></div>
-          <div class="spec"><span class="spec-label">Особенность</span><span class="spec-value">Распознаёт активность</span></div>
-          <div class="spec"><span class="spec-label">Поддержка</span><span class="spec-value">iOS/Android</span></div>
+          <div class="spec"><span class="spec-label">В коробке</span><span class="spec-value">20 пластырей + шнурок</span></div>
+          <div class="spec"><span class="spec-label">Доставка</span><span class="spec-value">Бесплатно по миру</span></div>
+          <div class="spec"><span class="spec-label">Гарантия</span><span class="spec-value">30 дней возврат</span></div>
         </div>
 
         <div class="score-bar">
@@ -704,14 +732,15 @@
             <ul>
               <li>Самый точный сенсорный массив в подборке</li>
               <li>ML отделяет «осознанный наклон» от «сутулости»</li>
-              <li>Крепится на одежду — без пластырей</li>
+              <li>20 пластырей в коробке (vs 10 у Upright)</li>
               <li>Подробная аналитика движения</li>
+              <li>30 дней возврат — можно тестировать без риска</li>
             </ul>
           </div>
           <div class="cons">
             <h4>Минусы</h4>
             <ul>
-              <li>Цена почти в 2 раза выше Upright</li>
+              <li>Почти в 2 раза дороже Upright</li>
               <li>Меньшая узнаваемость на массовом рынке</li>
               <li>Для базового сценария — overkill</li>
             </ul>
@@ -720,168 +749,104 @@
 
         <div class="verdict">
           <span class="verdict-label">Кому брать</span>
-          <div class="verdict-text">Если работаете с осанкой как с биохакингом и хотите данные «по часам», а не «сегодня сутулился N минут». Также — людям, у которых от пластырей раздражение.</div>
+          <div class="verdict-text">Если работаете с осанкой как с биохакингом и хотите данные «по часам», а не «сегодня сутулился N минут». Альтернатива для тех, у кого от обычных пластырей раздражение — здесь их больше про запас.</div>
         </div>
       </div>
 
-      <!-- 5. FUTO -->
+      <!-- 5. Sharper Image -->
       <div class="card">
-        <span class="badge-tag orange">🆕 Новичок</span>
-        <div class="card-header">
-          <div class="rank-num">5</div>
+        <span class="badge-tag orange">🇺🇸 Дёшево и просто</span>
+        <div class="card-top-row">
+          <div class="product-photo">
+            <img src="img/posture/sharper-image.jpg" alt="Sharper Image Vibrating Smart Posture Corrector" loading="lazy">
+          </div>
           <div class="card-info">
-            <h3>FUTO Posture Sensor</h3>
-            <div class="subtitle">Clip-on датчик нового поколения, IMU + базовая аналитика</div>
-            <span class="tag">IMU</span>
-            <span class="tag">Clip-on</span>
+            <div class="rank-num">5</div>
+            <h3>Sharper Image Vibrating Smart Posture Corrector</h3>
+            <div class="subtitle">Простой клипса-датчик от американского ретейлера электроники</div>
+            <span class="tag">Двойной сенсор</span>
+            <span class="tag">USB-зарядка</span>
+            <span class="tag">15 сессий</span>
           </div>
           <div class="price-block">
-            <div class="price">$99</div>
-            <div class="price-sub">≈ 9&nbsp;300 ₽</div>
+            <div class="price">$29.99</div>
+            <div class="price-sub">≈ 2&nbsp;800 ₽</div>
+            <a class="official-link" href="https://sharperimage.com/products/vibrating-smart-posture-corrector" target="_blank" rel="noopener">Офсайт →</a>
           </div>
         </div>
 
         <div class="specs">
-          <div class="spec"><span class="spec-label">Крепление</span><span class="spec-value">Клипса на одежду</span></div>
-          <div class="spec"><span class="spec-label">Датчик</span><span class="spec-value">IMU (6-осевой)</span></div>
-          <div class="spec"><span class="spec-label">Батарея</span><span class="spec-value">3–4 дня</span></div>
-          <div class="spec"><span class="spec-label">Приложение</span><span class="spec-value">iOS/Android</span></div>
+          <div class="spec"><span class="spec-label">Порог срабатывания</span><span class="spec-value">25° от прямой</span></div>
+          <div class="spec"><span class="spec-label">Зарядка</span><span class="spec-value">USB, ~15 сессий</span></div>
+          <div class="spec"><span class="spec-label">Применение</span><span class="spec-value">2 ч/день × 3 недели</span></div>
+          <div class="spec"><span class="spec-label">Датчики</span><span class="spec-value">Двойной (dual)</span></div>
         </div>
 
         <div class="score-bar">
-          <div class="score-bar-label"><span>Универсальность</span><span class="score">7.8 / 10</span></div>
-          <div class="bar"><div class="bar-fill" style="width:78%"></div></div>
+          <div class="score-bar-label"><span>Цена / простота</span><span class="score">8.0 / 10</span></div>
+          <div class="bar"><div class="bar-fill" style="width:80%"></div></div>
         </div>
 
         <div class="pros-cons">
           <div class="pros">
             <h4>Плюсы</h4>
             <ul>
-              <li>Без расходных пластырей</li>
-              <li>Аккуратный дизайн, скрывается под одеждой</li>
-              <li>Приложение приятнее, чем у бюджетных китайцев</li>
+              <li>Самый дешёвый из топовых брендов — $30</li>
+              <li>Без приложения, без подписки, без пластырей</li>
+              <li>Программа на 3 недели от производителя</li>
+              <li>Sharper Image — крупный ретейлер с гарантией</li>
             </ul>
           </div>
           <div class="cons">
             <h4>Минусы</h4>
             <ul>
-              <li>Клипса может слетать при наклонах</li>
-              <li>База отзывов меньше, чем у Upright</li>
-              <li>Базовая статистика без детального тренинга</li>
+              <li>Нет приложения = нет статистики прогресса</li>
+              <li>Один порог срабатывания, без настройки</li>
+              <li>Доставка только в США (нужен посредник для РФ)</li>
             </ul>
           </div>
+        </div>
+
+        <div class="verdict">
+          <span class="verdict-label">Кому брать</span>
+          <div class="verdict-text">Если хотите попробовать концепцию «вибро при сутулости», но не готовы платить $80+. Для людей, которым не нужны графики в приложении — нужно просто, чтобы жужжало.</div>
         </div>
       </div>
 
-      <!-- 6. Mrisata -->
-      <div class="card budget">
-        <span class="badge-tag green">⭐ Лучший value</span>
-        <div class="card-header">
-          <div class="rank-num">6</div>
-          <div class="card-info">
-            <h3>Mrisata Intelligent Posture Corrector</h3>
-            <div class="subtitle">Безымянный, но толковый — лучшее соотношение «функции/деньги»</div>
-            <span class="tag green">$0 расходники</span>
-            <span class="tag">Носимый</span>
-          </div>
-          <div class="price-block">
-            <div class="price">$49</div>
-            <div class="price-sub">≈ 4&nbsp;600 ₽</div>
-          </div>
-        </div>
-
-        <div class="specs">
-          <div class="spec"><span class="spec-label">Крепление</span><span class="spec-value">Магнит / клипса</span></div>
-          <div class="spec"><span class="spec-label">Батарея</span><span class="spec-value">Зарядка USB</span></div>
-          <div class="spec"><span class="spec-label">Приложение</span><span class="spec-value">iOS/Android</span></div>
-          <div class="spec"><span class="spec-label">Удобство ношения</span><span class="spec-value">9.0 / 10</span></div>
-        </div>
-
-        <div class="pros-cons">
-          <div class="pros">
-            <h4>Плюсы</h4>
-            <ul>
-              <li>Низкая цена + нет расходников = выгоднее Upright за 2 года владения</li>
-              <li>Магнитное крепление — не раздражает кожу</li>
-              <li>Простое приложение, ничего лишнего</li>
-            </ul>
-          </div>
-          <div class="cons">
-            <h4>Минусы</h4>
-            <ul>
-              <li>Алгоритм проще, чем у топовых брендов</li>
-              <li>Поддержка только английская</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-      <!-- 7. BackTone -->
-      <div class="card budget">
-        <span class="badge-tag green">🔋 2 недели на заряде</span>
-        <div class="card-header">
-          <div class="rank-num">7</div>
-          <div class="card-info">
-            <h3>BackTone Posture Trainer</h3>
-            <div class="subtitle">Entry-level от PCMag «лучший для первого знакомства с нишей»</div>
-            <span class="tag green">14 дней автономии</span>
-            <span class="tag">Простой UI</span>
-          </div>
-          <div class="price-block">
-            <div class="price">$30–40</div>
-            <div class="price-sub">≈ 3&nbsp;000 ₽</div>
-          </div>
-        </div>
-
-        <div class="specs">
-          <div class="spec"><span class="spec-label">Тип</span><span class="spec-value">Носимый клипса</span></div>
-          <div class="spec"><span class="spec-label">Батарея</span><span class="spec-value">До 2 недель</span></div>
-          <div class="spec"><span class="spec-label">Приложение</span><span class="spec-value">Минимальное</span></div>
-          <div class="spec"><span class="spec-label">Применение</span><span class="spec-value">Сидя и стоя</span></div>
-        </div>
-
-        <div class="pros-cons">
-          <div class="pros">
-            <h4>Плюсы</h4>
-            <ul>
-              <li>Самая длинная автономия в подборке</li>
-              <li>Низкий порог входа — попробовать концепцию</li>
-              <li>Простой интерфейс без перегруза</li>
-            </ul>
-          </div>
-          <div class="cons">
-            <h4>Минусы</h4>
-            <ul>
-              <li>Нет детальной аналитики</li>
-              <li>Меньше настроек чувствительности</li>
-              <li>Дизайн «функциональный», не для соцсетей</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-      <!-- 8. Cozyhealth / Xiaomi -->
+      <!-- 6. Xiaomi Hi+ -->
       <div class="card">
         <span class="badge-tag orange">🎽 Корсет</span>
-        <div class="card-header">
-          <div class="rank-num">8</div>
+        <div class="card-top-row">
+          <div class="product-photo">
+            <img src="img/posture/xiaomi-hi-plus.jpg" alt="Xiaomi Mijia Youpin Hi+ Intelligent Posture Belt" loading="lazy">
+          </div>
           <div class="card-info">
-            <h3>Cozyhealth Smart Posture Corrector / Xiaomi Hi+ F001</h3>
-            <div class="subtitle">Полноценные корсеты с встроенным датчиком — для тяжёлых случаев сутулости</div>
-            <span class="tag">Жилет + датчик</span>
+            <div class="rank-num">6</div>
+            <h3>Xiaomi Mijia Hi+ Intelligent Posture Belt (F001)</h3>
+            <div class="subtitle">Корсет-наплечники со встроенным чипом MPU6050 — для тяжёлой сутулости</div>
+            <span class="tag">Корсет + датчик</span>
+            <span class="tag">MPU6050</span>
             <span class="tag">Физическая поддержка</span>
           </div>
           <div class="price-block">
-            <div class="price">$39–69</div>
-            <div class="price-sub">≈ 4&nbsp;000–6&nbsp;500 ₽</div>
+            <div class="price">~$56</div>
+            <div class="price-sub">≈ 5&nbsp;200 ₽</div>
+            <a class="official-link" href="https://www.aliexpress.com/wholesale?SearchText=Xiaomi+Hi%2B+F001+posture+belt" target="_blank" rel="noopener">AliExpress →</a>
           </div>
         </div>
 
         <div class="specs">
-          <div class="spec"><span class="spec-label">Тип</span><span class="spec-value">Жилет/наплечники</span></div>
-          <div class="spec"><span class="spec-label">Порог срабатывания</span><span class="spec-value">От 15°</span></div>
-          <div class="spec"><span class="spec-label">Применение</span><span class="spec-value">Сильная сутулость</span></div>
-          <div class="spec"><span class="spec-label">Подключение</span><span class="spec-value">Bluetooth</span></div>
+          <div class="spec"><span class="spec-label">Тип</span><span class="spec-value">Наплечники + сенсор</span></div>
+          <div class="spec"><span class="spec-label">Чип</span><span class="spec-value">MPU6050 6-осевой</span></div>
+          <div class="spec"><span class="spec-label">Порог</span><span class="spec-value">От 15° наклона плеча</span></div>
+          <div class="spec"><span class="spec-label">Программа</span><span class="spec-value">21 день муск. памяти</span></div>
+          <div class="spec"><span class="spec-label">Бренд</span><span class="spec-value">Xiaomi Youpin × Hi+</span></div>
+          <div class="spec"><span class="spec-label">Подключение</span><span class="spec-value">Bluetooth + сигнал</span></div>
+        </div>
+
+        <div class="score-bar">
+          <div class="score-bar-label"><span>Для сильной сутулости</span><span class="score">7.5 / 10</span></div>
+          <div class="bar"><div class="bar-fill" style="width:75%"></div></div>
         </div>
 
         <div class="pros-cons">
@@ -889,8 +854,9 @@
             <h4>Плюсы</h4>
             <ul>
               <li>Физически удерживает плечи в правильном положении</li>
-              <li>Хорошо для сильно «закруглённых» плеч</li>
-              <li>По Healthline — эффективнее датчиков при выраженной сутулости</li>
+              <li>Хорош для сильно «закруглённых» плеч</li>
+              <li>Качество сборки Xiaomi за разумные деньги</li>
+              <li>Не требует постоянного контроля сидя</li>
             </ul>
           </div>
           <div class="cons">
@@ -898,14 +864,15 @@
             <ul>
               <li>Видно под одеждой</li>
               <li>Может натирать при длительном ношении</li>
-              <li>Не для тренировки осознанности — а скорее «костыль»</li>
+              <li>Скорее «костыль», чем тренажёр осознанности</li>
+              <li>Официальной поддержки за пределами Китая нет</li>
             </ul>
           </div>
         </div>
 
         <div class="verdict">
           <span class="verdict-label">Когда брать</span>
-          <div class="verdict-text">Если плечи сильно ушли вперёд и одна вибрация уже не помогает — нужна физическая поддержка. Сценарий: 30–60 минут в день в дополнение к датчику.</div>
+          <div class="verdict-text">Если плечи сильно ушли вперёд и вибрация на одном датчике уже не помогает — нужна физическая фиксация. Носить 30–60 минут в день в дополнение к датчику, не постоянно.</div>
         </div>
       </div>
 
@@ -916,7 +883,7 @@
 <section style="background:linear-gradient(180deg,var(--bg) 0%,var(--surface) 100%)">
   <div class="container">
     <h2 class="section-title">Сравнительная таблица</h2>
-    <p class="section-sub">Только ключевые параметры — для быстрого сравнения.</p>
+    <p class="section-sub">Ключевые параметры рядом — для быстрого сравнения.</p>
 
     <div class="table-wrap">
       <table>
@@ -927,81 +894,56 @@
             <th>Тип</th>
             <th>Вес / Батарея</th>
             <th>Гироскоп</th>
-            <th>Расходники</th>
             <th>Лучшее в</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td class="model">Upright GO 2</td>
-            <td>$79–99</td>
+            <td class="model"><a href="https://store.uprightpose.com/products/upright-go2" target="_blank" rel="noopener">Upright GO 2</a></td>
+            <td>$79.95</td>
             <td>Сенсор</td>
             <td>10 г / 5 дн</td>
             <td class="check">✓ 2 шт</td>
-            <td class="partial">Пластыри $3/мес</td>
             <td>Универсальный лидер</td>
           </tr>
           <tr>
-            <td class="model">Upright GO S</td>
+            <td class="model"><a href="https://store.uprightpose.com/products/upright-go-s" target="_blank" rel="noopener">Upright GO S</a></td>
             <td>$59</td>
             <td>Сенсор</td>
             <td>10 г / 2,5 дн</td>
             <td class="cross">—</td>
-            <td class="partial">Пластыри</td>
             <td>Эконом от бренда</td>
           </tr>
           <tr>
-            <td class="model">iBACK 🇷🇺</td>
+            <td class="model"><a href="https://iback.online/sensor" target="_blank" rel="noopener">iBACK 🇷🇺</a></td>
             <td>7&nbsp;490 ₽</td>
             <td>Сенсор</td>
             <td>6 г / CR2032</td>
             <td class="check">✓</td>
-            <td class="check">Нет</td>
             <td>Россия + дети</td>
           </tr>
           <tr>
-            <td class="model">Kodgem Straight</td>
+            <td class="model"><a href="https://kodgemstraight.com/products/straight-plus" target="_blank" rel="noopener">Kodgem Straight Plus</a></td>
             <td>$149</td>
-            <td>Сенсор clip-on</td>
+            <td>Сенсор + AI</td>
             <td>— / 5 дн</td>
             <td class="check">✓ 9-осевой</td>
-            <td class="check">Нет</td>
             <td>Точность + ML</td>
           </tr>
           <tr>
-            <td class="model">FUTO</td>
-            <td>$99</td>
-            <td>Сенсор clip-on</td>
-            <td>— / 3–4 дн</td>
-            <td class="check">✓</td>
-            <td class="check">Нет</td>
-            <td>Дизайн без пластырей</td>
-          </tr>
-          <tr>
-            <td class="model">Mrisata</td>
-            <td>$49</td>
-            <td>Сенсор</td>
+            <td class="model"><a href="https://sharperimage.com/products/vibrating-smart-posture-corrector" target="_blank" rel="noopener">Sharper Image</a></td>
+            <td>$29.99</td>
+            <td>Сенсор-клипса</td>
             <td>— / USB</td>
-            <td class="partial">Базовый</td>
-            <td class="check">Нет</td>
-            <td>Цена/функции</td>
+            <td class="partial">2 датчика</td>
+            <td>Бюджет без приложения</td>
           </tr>
           <tr>
-            <td class="model">BackTone</td>
-            <td>$30–40</td>
-            <td>Сенсор</td>
-            <td>— / 14 дн</td>
-            <td class="cross">—</td>
-            <td class="check">Нет</td>
-            <td>Самый дешёвый + автономия</td>
-          </tr>
-          <tr>
-            <td class="model">Cozyhealth / Xiaomi Hi+</td>
-            <td>$39–69</td>
+            <td class="model"><a href="https://www.aliexpress.com/wholesale?SearchText=Xiaomi+Hi%2B+F001+posture+belt" target="_blank" rel="noopener">Xiaomi Hi+ F001</a></td>
+            <td>~$56</td>
             <td>Корсет + датчик</td>
             <td>— / неделя</td>
-            <td class="partial">Базовый</td>
-            <td class="check">Нет</td>
+            <td class="partial">MPU6050</td>
             <td>Тяжёлая сутулость</td>
           </tr>
         </tbody>
@@ -1013,32 +955,36 @@
 <section>
   <div class="container">
     <h2 class="section-title">Какой выбрать вам</h2>
-    <p class="section-sub">Сценарии «если вам нужно X — берите Y». 4 типичных кейса.</p>
+    <p class="section-sub">4 типичных сценария «если вам нужно X — берите Y».</p>
 
     <div class="pick-grid">
       <div class="pick gold">
         <div class="label">🏆 Если не хочется выбирать</div>
         <h3>Upright GO 2</h3>
         <div class="why">Самый надёжный «дефолт». 500+ клиник, лучшая вибрация, лучшее приложение.</div>
-        <div class="pick-price">$80</div>
+        <div class="pick-price">$79.95</div>
+        <a href="https://store.uprightpose.com/products/upright-go2" target="_blank" rel="noopener">store.uprightpose.com →</a>
       </div>
       <div class="pick pink">
         <div class="label">🇷🇺 Если покупаете в РФ</div>
         <h3>iBACK</h3>
         <div class="why">Медицинское изделие, патент, поддержка на русском, не зависит от заграничной логистики.</div>
         <div class="pick-price">7&nbsp;490 ₽</div>
+        <a href="https://iback.online/sensor" target="_blank" rel="noopener">iback.online →</a>
       </div>
       <div class="pick green">
         <div class="label">💰 Если бюджет жёсткий</div>
-        <h3>BackTone или Mrisata</h3>
-        <div class="why">$30–50, 80% функционала топов. Хороший способ проверить, дисциплинирует ли вас вибрация в принципе.</div>
-        <div class="pick-price">$30–49</div>
+        <h3>Sharper Image</h3>
+        <div class="why">$30, без приложения и подписок. 80% функционала топов для тех, кому нужно просто, чтобы жужжало.</div>
+        <div class="pick-price">$29.99</div>
+        <a href="https://sharperimage.com/products/vibrating-smart-posture-corrector" target="_blank" rel="noopener">sharperimage.com →</a>
       </div>
       <div class="pick purple">
         <div class="label">💎 Если нужно лучшее</div>
-        <h3>Kodgem Straight</h3>
-        <div class="why">Полный IMU, ML, никаких пластырей. Для тех, кому важна точность и аналитика.</div>
+        <h3>Kodgem Straight Plus</h3>
+        <div class="why">Полный IMU, ML, никаких компромиссов. Для тех, кому важна точность и аналитика.</div>
         <div class="pick-price">$149</div>
+        <a href="https://kodgemstraight.com/products/straight-plus" target="_blank" rel="noopener">kodgemstraight.com →</a>
       </div>
     </div>
   </div>
@@ -1047,12 +993,12 @@
 <section style="background:var(--surface)">
   <div class="container">
     <h2 class="section-title">На что смотреть при выборе</h2>
-    <p class="section-sub">5 параметров, которые реально влияют на то, выработаете вы привычку или забросите девайс через неделю.</p>
+    <p class="section-sub">6 параметров, которые реально влияют на то, выработаете вы привычку или забросите девайс через неделю.</p>
 
     <div class="choose-grid">
       <div class="choose-item">
         <h4>1. Сила вибрации</h4>
-        <p>Главный параметр. Слабая вибрация = вы её не замечаете. У Upright GO 2 — самая сильная, у Lumo Lift была недостаточной (бренд закрылся).</p>
+        <p>Главный параметр. Слабая вибрация = вы её не замечаете. У Upright GO 2 — самая сильная, у Lumo Lift была недостаточной (бренд уже не работает).</p>
       </div>
       <div class="choose-item">
         <h4>2. Способ крепления</h4>
@@ -1060,7 +1006,7 @@
       </div>
       <div class="choose-item">
         <h4>3. Регулировка чувствительности</h4>
-        <p>Хороший девайс даёт настроить порог срабатывания: один человек считает сутулостью 15°, другой 25°. Без этого либо постоянное жужжание, либо тишина.</p>
+        <p>Хороший девайс даёт настроить порог: один считает сутулостью 15°, другой 25°. Без этого либо постоянное жужжание, либо тишина.</p>
       </div>
       <div class="choose-item">
         <h4>4. История в приложении</h4>
@@ -1068,11 +1014,11 @@
       </div>
       <div class="choose-item">
         <h4>5. Стоимость владения за год</h4>
-        <p>Пластыри Upright = +$36/год. Это «скрытая» прибавка к цене. iBACK и Mrisata в этом плане выгоднее на горизонте 2+ лет.</p>
+        <p>Пластыри Upright = +$36/год. Это «скрытая» прибавка к цене. iBACK и Sharper Image в этом плане выгоднее на горизонте 2+ лет.</p>
       </div>
       <div class="choose-item">
-        <h4>6. Совместимость с приложениями</h4>
-        <p>iOS + Android есть у всех топов. Если у вас экзотическая OS или вы не любите ставить приложения — берите модель с локальной работой (BackTone).</p>
+        <h4>6. Где купить и сервис</h4>
+        <p>В РФ: iBACK (есть гарантия и поддержка) или Xiaomi Hi+ через AliExpress. За рубежом: Upright и Kodgem напрямую с офсайтов.</p>
       </div>
     </div>
   </div>
@@ -1082,7 +1028,7 @@
   <div class="container">
     <div class="warning">
       <h3>⚠️ Честно: на что это не лечит</h3>
-      <p>Умный корректор — <strong>тренажёр привычки</strong>, а не медицинский корсет. Вот что важно понимать:</p>
+      <p>Умный корректор — <strong>тренажёр привычки</strong>, а не медицинский корсет. Что важно понимать:</p>
       <ul>
         <li>Не лечит сколиоз 3–4 степени, кифоз, спондилёз — нужен врач и пассивный ортез</li>
         <li>Сам по себе не «качает» мышцы — параллельно нужны упражнения (планка, отжимания, тяги)</li>
@@ -1096,8 +1042,14 @@
 
 <footer>
   <div class="container">
-    <p><strong>Источники:</strong> Kodgem Buyer's Guide 2026, NBC News Select, SmartHomeExplorer, Cybernews Health-Tech, PostureAI, SitSense, store.uprightpose.com, iback.online, Хабр (обзор iBACK), Spine Journal (2021).</p>
-    <p>Обновлено: май 2026. Цены — ориентир, могут отличаться от региона и продавца.</p>
+    <p><strong>Источники цен и характеристик:</strong>
+      <a href="https://store.uprightpose.com" target="_blank" rel="noopener">store.uprightpose.com</a> ·
+      <a href="https://iback.online/sensor" target="_blank" rel="noopener">iback.online</a> ·
+      <a href="https://kodgemstraight.com/products/straight-plus" target="_blank" rel="noopener">kodgemstraight.com</a> ·
+      <a href="https://sharperimage.com/products/vibrating-smart-posture-corrector" target="_blank" rel="noopener">sharperimage.com</a>
+    </p>
+    <p><strong>Дополнительные обзоры:</strong> Cybernews Health-Tech, SmartHomeExplorer, NBC News Select, SitSense, Habr (обзор iBACK), Spine Journal (2021).</p>
+    <p>Обновлено: 20 мая 2026. Цены — ориентир, могут отличаться от региона и продавца.</p>
     <p style="margin-top:20px;font-size:12px">⚠️ Подборка носит информационный характер. При проблемах со спиной — консультация ортопеда обязательна.</p>
   </div>
 </footer>
