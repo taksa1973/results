@@ -1,8 +1,10 @@
 {
-  "ts": "2026-05-22T09:31:00.213250+00:00",
+  "ts": "2026-05-23T08:24:46.391983+00:00",
   "findings": {},
   "errors": {
+    "Charterworld Turkey": "request_error: ConnectTimeout: HTTPSConnectionPool(host='www.charterworld.com', port=443): Max retries exceeded with url: /index.html?sub=turkey-yacht-charter (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.charterworld.com', port=443) at 0x7fe7e9c73350>, 'Connection to www.charterworld.com timed out. (connect timeout=30)'))",
     "Yacht-Rent Turkey": "http_403",
+    "Gulet Bookers (home, Bodrum-based)": "request_error: ConnectTimeout: HTTPSConnectionPool(host='www.guletbookers.com', port=443): Max retries exceeded with url: / (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.guletbookers.com', port=443) at 0x7fe7e9c89090>, 'Connection to www.guletbookers.com timed out. (connect timeout=30)'))",
     "GuletYacht.net": "http_403"
   }
 }
