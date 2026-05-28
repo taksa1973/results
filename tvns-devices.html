@@ -1,0 +1,1472 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Транскутанная стимуляция блуждающего нерва (tVNS / nVNS) — medical-grade устройства, доказательная база и сравнение, 2026</title>
+  <meta name="description" content="Аналитический обзор non-invasive VNS-устройств: клинически валидированные медицинские приборы (gammaCore, Nemos/tVNS-E, Nurosym/Parasym) против wellness-гаджетов (Pulsetto, Truvaga, Apollo, Sensate). RCT, FDA/CE, цены, доказательства." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --primary: #3B82F6;
+      --secondary: #8B5CF6;
+      --success: #16A34A;
+      --warning: #D97706;
+      --danger: #DC2626;
+      --tier-a: #16A34A;
+      --tier-b: #D97706;
+      --tier-x: #DC2626;
+      --surface: #FFFFFF;
+      --text: #111827;
+      --text-secondary: #6B7280;
+      --text-tertiary: #9CA3AF;
+      --border: #E5E7EB;
+      --border-light: #F3F4F6;
+      --bg: #F9FAFB;
+      --bg-dark: #111827;
+      --radius-sm: 8px;
+      --radius: 12px;
+      --radius-lg: 16px;
+      --radius-xl: 24px;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      font-size: 14px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* HERO */
+    .hero {
+      background: var(--bg-dark);
+      padding: 80px 24px 64px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 900px 500px at 50% -100px,
+        rgba(59,130,246,.35) 0%, rgba(139,92,246,.18) 45%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(59,130,246,.15);
+      border: 1px solid rgba(59,130,246,.3);
+      border-radius: 100px;
+      padding: 4px 14px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: #93C5FD;
+      margin-bottom: 24px;
+      position: relative;
+    }
+    .hero h1 {
+      font-size: clamp(30px, 4.4vw, 50px);
+      font-weight: 800;
+      color: #fff;
+      line-height: 1.1;
+      letter-spacing: -.02em;
+      margin-bottom: 18px;
+      position: relative;
+    }
+    .hero h1 span {
+      background: linear-gradient(135deg, #60A5FA, #A78BFA);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero p {
+      color: #9CA3AF;
+      font-size: 16px;
+      font-weight: 400;
+      max-width: 680px;
+      margin: 0 auto 28px;
+      line-height: 1.7;
+      position: relative;
+    }
+    .hero-badges {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      position: relative;
+    }
+    .hero-badge {
+      background: rgba(255,255,255,.07);
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 100px;
+      padding: 6px 16px;
+      font-size: 12px;
+      color: #D1D5DB;
+      font-weight: 500;
+    }
+
+    /* LAYOUT */
+    .container { max-width: 1180px; margin: 0 auto; padding: 0 24px; }
+
+    /* TL;DR / verdict box */
+    .intro {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: 32px;
+      margin-top: 48px;
+    }
+    .intro h3 {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -.01em;
+      margin-bottom: 12px;
+    }
+    .intro p {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.75;
+      margin-bottom: 10px;
+    }
+    .intro p strong { color: var(--text); }
+    .intro ul { padding-left: 18px; color: var(--text-secondary); line-height: 1.8; }
+    .intro ul li { margin-bottom: 6px; }
+    .intro ul li strong { color: var(--text); }
+
+    /* SECTION */
+    .section { padding: 56px 0; }
+    .section-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: 8px;
+    }
+    .section-title {
+      font-size: clamp(22px, 3vw, 32px);
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -.02em;
+      line-height: 1.2;
+      margin-bottom: 8px;
+    }
+    .section-sub {
+      font-size: 15px;
+      color: var(--text-secondary);
+      margin-bottom: 36px;
+      max-width: 720px;
+    }
+
+    /* TIER HEADERS */
+    .tier-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+    .tier-pill {
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border-radius: 100px;
+      color: #fff;
+    }
+    .tier-pill.a { background: var(--tier-a); }
+    .tier-pill.b { background: var(--tier-b); }
+    .tier-pill.x { background: var(--tier-x); }
+    .tier-title {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .tier-sub {
+      font-size: 14px;
+      color: var(--text-secondary);
+      margin-top: -16px;
+      margin-bottom: 26px;
+    }
+
+    /* DEVICE CARDS */
+    .device-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 20px;
+    }
+    .device-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: 0;
+      position: relative;
+      transition: box-shadow .2s ease, transform .2s ease;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .device-card:hover {
+      box-shadow: 0 8px 32px rgba(0,0,0,.08);
+      transform: translateY(-2px);
+    }
+    .device-card.medical {
+      border-color: var(--tier-a);
+      box-shadow: 0 0 0 1px var(--tier-a), 0 4px 24px rgba(22,163,74,.08);
+    }
+    .device-card.wellness {
+      border-color: var(--tier-b);
+    }
+    .device-card.notvns {
+      border-color: var(--tier-x);
+      opacity: 0.95;
+    }
+    .ribbon {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: var(--tier-a);
+      color: #fff;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 100px;
+      z-index: 2;
+    }
+    .ribbon.b { background: var(--tier-b); }
+    .ribbon.x { background: var(--tier-x); }
+
+    .device-header-img {
+      width: 100%;
+      height: 150px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 56px;
+      font-weight: 800;
+      letter-spacing: -.04em;
+      color: rgba(255,255,255,.92);
+      position: relative;
+    }
+    .header-gammacore { background: linear-gradient(135deg, #1E40AF, #2563EB); }
+    .header-nemos     { background: linear-gradient(135deg, #065F46, #10B981); }
+    .header-parasym   { background: linear-gradient(135deg, #6D28D9, #A78BFA); }
+    .header-truvaga   { background: linear-gradient(135deg, #92400E, #F59E0B); }
+    .header-pulsetto  { background: linear-gradient(135deg, #B45309, #FBBF24); }
+    .header-xen       { background: linear-gradient(135deg, #92400E, #D97706); }
+    .header-vagustim  { background: linear-gradient(135deg, #9A3412, #FB923C); }
+    .header-hoolest   { background: linear-gradient(135deg, #854D0E, #EAB308); }
+    .header-apollo    { background: linear-gradient(135deg, #7F1D1D, #DC2626); }
+    .header-sensate   { background: linear-gradient(135deg, #7F1D1D, #EF4444); }
+    .device-header-img::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.22), transparent 60%);
+      pointer-events: none;
+    }
+
+    .device-body { padding: 22px 22px 24px; flex: 1; display: flex; flex-direction: column; }
+    .card-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 4px;
+    }
+    .device-name {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: -.01em;
+      line-height: 1.3;
+    }
+    .device-maker {
+      font-size: 12px;
+      color: var(--text-tertiary);
+      font-weight: 400;
+      margin-top: 2px;
+    }
+    .device-price {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -.02em;
+      white-space: nowrap;
+    }
+    .device-price-note {
+      font-size: 10px;
+      color: var(--text-tertiary);
+      text-align: right;
+      margin-top: 2px;
+    }
+
+    .type-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin: 14px 0 14px;
+    }
+    .type-badge {
+      font-size: 10px;
+      font-weight: 600;
+      padding: 3px 9px;
+      border-radius: 100px;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+    .b-cervical { background: #DBEAFE; color: #1E40AF; }
+    .b-auricular { background: #EDE9FE; color: #5B21B6; }
+    .b-fda { background: #DCFCE7; color: #166534; }
+    .b-ce { background: #E0F2FE; color: #075985; }
+    .b-rx { background: #FEF3C7; color: #92400E; }
+    .b-otc { background: #F3F4F6; color: #374151; }
+    .b-novns { background: #FEE2E2; color: #991B1B; }
+    .b-novns-strong { background: #DC2626; color: #fff; }
+
+    .device-desc {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.65;
+      margin-bottom: 16px;
+    }
+
+    .spec-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      margin-bottom: 18px;
+      padding: 12px 14px;
+      background: var(--bg);
+      border-radius: var(--radius);
+    }
+    .spec-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 12.5px;
+    }
+    .spec-key {
+      color: var(--text-tertiary);
+      font-weight: 500;
+      min-width: 110px;
+      flex-shrink: 0;
+    }
+    .spec-val { color: var(--text); font-weight: 500; }
+
+    .evidence-block {
+      background: linear-gradient(180deg, #F0FDF4, #ECFDF5);
+      border-left: 3px solid var(--tier-a);
+      padding: 12px 14px;
+      border-radius: var(--radius-sm);
+      margin-bottom: 16px;
+    }
+    .evidence-block.weak {
+      background: linear-gradient(180deg, #FEF3C7, #FEF9E7);
+      border-left-color: var(--tier-b);
+    }
+    .evidence-block.none {
+      background: linear-gradient(180deg, #FEE2E2, #FEF2F2);
+      border-left-color: var(--tier-x);
+    }
+    .evidence-title {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--tier-a);
+      margin-bottom: 6px;
+    }
+    .evidence-block.weak .evidence-title { color: var(--tier-b); }
+    .evidence-block.none .evidence-title { color: var(--tier-x); }
+    .evidence-text {
+      font-size: 12.5px;
+      color: var(--text-secondary);
+      line-height: 1.55;
+    }
+    .evidence-text strong { color: var(--text); }
+
+    .pros-cons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+    .pro-con-box {
+      background: var(--bg);
+      border-radius: var(--radius);
+      padding: 12px;
+    }
+    .pro-con-title {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .pros .pro-con-title { color: var(--success); }
+    .cons .pro-con-title { color: var(--danger); }
+    .pro-con-list { list-style: none; display: flex; flex-direction: column; gap: 5px; }
+    .pro-con-list li {
+      font-size: 12px;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+      line-height: 1.5;
+    }
+    .pros .pro-con-list li::before { content: '\2713'; color: var(--success); font-weight: 700; flex-shrink: 0; }
+    .cons .pro-con-list li::before { content: '\00D7'; color: var(--danger); font-weight: 700; flex-shrink: 0; }
+
+    .buy-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 11px 14px;
+      background: var(--bg-dark);
+      color: #fff;
+      border-radius: var(--radius);
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background .2s ease;
+      margin-top: auto;
+    }
+    .buy-btn:hover { background: #1F2937; }
+    .buy-btn.primary { background: var(--primary); }
+    .buy-btn.primary:hover { background: #2563EB; }
+    .buy-btn.danger { background: #6B7280; }
+
+    /* COMPARISON TABLE */
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      background: var(--surface);
+    }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    thead tr { background: var(--bg-dark); }
+    thead th {
+      padding: 14px 16px;
+      text-align: left;
+      font-weight: 600;
+      color: #9CA3AF;
+      font-size: 11px;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    thead th:first-child { color: #fff; }
+    tbody tr {
+      border-top: 1px solid var(--border-light);
+      transition: background .15s;
+    }
+    tbody tr:hover { background: #F9FAFB; }
+    tbody td {
+      padding: 12px 16px;
+      color: var(--text);
+      vertical-align: middle;
+    }
+    tbody td:first-child { font-weight: 600; }
+    .tag-strong { color: var(--success); font-weight: 700; }
+    .tag-moderate { color: var(--warning); font-weight: 600; }
+    .tag-weak { color: #EF4444; font-weight: 600; }
+    .tag-none { color: var(--text-tertiary); font-weight: 500; }
+
+    /* EVIDENCE TABLE — indications */
+    .ind-table td:first-child { white-space: normal; }
+    .ind-table .verdict-pill {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: .08em;
+      padding: 3px 9px;
+      border-radius: 100px;
+      text-transform: uppercase;
+    }
+    .vp-strong { background: #DCFCE7; color: #14532D; }
+    .vp-moderate { background: #FEF3C7; color: #78350F; }
+    .vp-weak { background: #FEE2E2; color: #7F1D1D; }
+    .vp-none { background: #F3F4F6; color: #4B5563; }
+
+    /* CRITICAL CALLOUT */
+    .callout {
+      background: var(--bg-dark);
+      color: #E5E7EB;
+      border-radius: var(--radius-xl);
+      padding: 32px;
+      position: relative;
+      overflow: hidden;
+      margin-top: 24px;
+    }
+    .callout::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 600px 350px at 100% 0%,
+        rgba(220,38,38,.18) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .callout h3 {
+      font-size: 20px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 14px;
+      position: relative;
+    }
+    .callout p {
+      color: #D1D5DB;
+      line-height: 1.75;
+      font-size: 14px;
+      margin-bottom: 12px;
+      position: relative;
+    }
+    .callout p strong { color: #fff; }
+    .callout ul {
+      padding-left: 18px;
+      color: #D1D5DB;
+      line-height: 1.8;
+      position: relative;
+    }
+    .callout ul li { margin-bottom: 6px; }
+    .callout ul li strong { color: #fff; }
+
+    /* HOW IT WORKS */
+    .how-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    .how-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: 28px;
+    }
+    .how-card h4 {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      letter-spacing: -.01em;
+    }
+    .how-card .where {
+      font-size: 12px;
+      color: var(--primary);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      margin-bottom: 14px;
+    }
+    .how-card p {
+      font-size: 13.5px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      margin-bottom: 8px;
+    }
+
+    /* BUYING GUIDE */
+    .buy-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 18px;
+    }
+    .buy-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: 22px;
+    }
+    .buy-card h4 {
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+    .buy-card .scenario {
+      font-size: 12px;
+      color: var(--primary);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      margin-bottom: 8px;
+    }
+    .buy-card p {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin-bottom: 8px;
+    }
+    .buy-card .pick {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    /* FOOTER */
+    footer {
+      background: var(--bg-dark);
+      color: #9CA3AF;
+      padding: 56px 24px 40px;
+      margin-top: 64px;
+    }
+    footer .container { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+    footer h5 {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: #93C5FD;
+      margin-bottom: 14px;
+    }
+    footer ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    footer ul li a {
+      color: #D1D5DB;
+      text-decoration: none;
+      font-size: 12.5px;
+      line-height: 1.4;
+    }
+    footer ul li a:hover { color: #fff; text-decoration: underline; }
+    footer .disclaimer {
+      font-size: 11.5px;
+      color: #6B7280;
+      line-height: 1.7;
+      margin-top: 32px;
+      padding-top: 24px;
+      border-top: 1px solid rgba(255,255,255,.06);
+      grid-column: 1 / -1;
+    }
+
+    @media (max-width: 720px) {
+      .how-grid { grid-template-columns: 1fr; }
+      footer .container { grid-template-columns: 1fr; }
+      .pros-cons { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-eyebrow">Май 2026 · Глубокий медицинский обзор</div>
+  <h1>Транскутанная стимуляция <span>блуждающего нерва</span><br>
+    Medical-grade устройства против wellness-хайпа</h1>
+  <p>Что на самом деле работает: gammaCore, Nemos, Nurosym/Parasym — клинически валидированные приборы с FDA/CE-одобрениями и RCT.
+     Pulsetto, Truvaga, Vagustim, Hoolest — wellness-гаджеты без доказательной базы. Apollo Neuro и Sensate вообще не VNS.</p>
+  <div class="hero-badges">
+    <span class="hero-badge">10 устройств в обзоре</span>
+    <span class="hero-badge">Только реальные RCT и FDA-данные</span>
+    <span class="hero-badge">Цены и каналы покупки на май 2026</span>
+    <span class="hero-badge">Доказательства по 16 показаниям</span>
+  </div>
+</header>
+
+<div class="container">
+
+  <!-- INTRO / TL;DR -->
+  <div class="intro">
+    <h3>Краткие выводы для нетерпеливых</h3>
+    <p><strong>Существуют только три устройства с реальной медицинской валидацией:</strong></p>
+    <ul>
+      <li><strong>gammaCore Sapphire</strong> (electroCore, шейная стимуляция, FDA + CE) — единственное устройство со STRONG-доказательствами при эпизодической кластерной головной боли. Несколько FDA-одобренных показаний, рецептурное.</li>
+      <li><strong>Nemos / tVNS-E</strong> (tVNS Technologies, Германия, ушная стимуляция cymba conchae, CE) — одобрено в ЕС для эпилепсии, депрессии, мигрени. Только Европа, через врача.</li>
+      <li><strong>Nurosym / Parasym</strong> (UK, ушная стимуляция трагуса, CE класс IIa) — несколько RCT хорошего качества (AFib, POTS, long COVID), но эффект-сайз умеренный и в основном из одного центра.</li>
+    </ul>
+    <p><strong>Wellness-уровень без FDA-clearance под медицинские показания:</strong> Truvaga (тот же hardware как gammaCore, но переупакованный в «общее благополучие»), Pulsetto, Xen by Neuvana, Vagustim, Hoolest VeRelief. Эти устройства могут давать реальные ANS-эффекты, но **под индикации не одобрены и собственных RCT почти не имеют**.</p>
+    <p><strong>Это вообще не VNS:</strong> Apollo Neuro (вибротактильный браслет, не электрическая стимуляция) и Sensate (инфразвуковая вибрация на грудину). Часто ошибочно лежат в одной категории с tVNS — игнорируйте такое позиционирование.</p>
+    <p><strong>Главное «отрезвляющее» исследование 2021 года</strong> — байесовский мета-анализ Wolf et al. показал <strong>отсутствие острого эффекта taVNS на вагально-опосредованную ВСР (HRV)</strong> у здоровых людей. Это противоречит ключевой маркетинговой претензии большинства потребительских устройств.</p>
+  </div>
+
+  <!-- HOW IT WORKS -->
+  <section class="section">
+    <div class="section-label">Анатомия и механизм</div>
+    <h2 class="section-title">Два подхода к non-invasive VNS</h2>
+    <p class="section-sub">Есть всего два анатомически обоснованных способа стимулировать n. vagus снаружи: через шею или через ушную раковину. Хайповые «вагусные» обручи, накладки и вибрирующие подушки в эту таксономию не попадают.</p>
+
+    <div class="how-grid">
+      <div class="how-card">
+        <div class="where">Шейная (cervical) nVNS</div>
+        <h4>gammaCore-стиль: над сонной артерией</h4>
+        <p>Двухэлектродный портативный прибор прикладывается к боковой поверхности шеи в проекции каротидного синуса. Подаётся проприетарный сигнал: 5 kHz синусоидальные пакеты, модулированные 25 Hz, длительность сессии 2 минуты.</p>
+        <p>Активируются миелинизированные Aβ и Aδ-афференты шейного отдела блуждающего нерва. Доказан системный антиноцицептивный и противовоспалительный эффект.</p>
+        <p><strong>Доказательная база — самая сильная из всего tVNS-направления.</strong> Это единственный путь стимуляции с FDA De Novo на конкретные диагнозы.</p>
+      </div>
+      <div class="how-card">
+        <div class="where">Ушная (auricular) taVNS</div>
+        <h4>Cymba conchae &gt; tragus &gt; мочка</h4>
+        <p>В ушной раковине вагус иннервирует <strong>cymba conchae</strong> (углубление под завитком) — это анатомически самая «вагусная» зона. Трагус — спорный (часть авторов считает, что там сильнее работает auriculotemporal-ветвь тройничного нерва). Мочка — почти не иннервирована вагусом, потому её используют как sham-контроль.</p>
+        <p>fMRI (Frangos 2015, Yakunina 2017) подтверждает: cymba conchae стимуляция активирует NTS, locus coeruleus и raphe. Параметры со средней поддержкой: 25 Hz, 250–500 мкс, ток ниже порога дискомфорта (1–4 мА), 30–60 мин/день.</p>
+        <p><strong>Главная проблема:</strong> около половины испытуемых в RCT не отличают активную стимуляцию от sham — это серьёзно подрывает блайндинг.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TIER A: MEDICAL-GRADE -->
+  <section class="section">
+    <div class="section-label">Тиер A — клинически валидированные</div>
+    <h2 class="section-title">Medical-grade устройства с регуляторным одобрением</h2>
+    <p class="section-sub">Имеют FDA clearance или CE класс IIa+ на конкретные нозологические показания, опубликованные sham-контролируемые RCT, продаются по рецепту или через врача. То, что реально можно рекомендовать как медицинский прибор.</p>
+
+    <div class="device-grid">
+
+      <!-- gammaCore -->
+      <article class="device-card medical">
+        <div class="ribbon">Лидер evidence</div>
+        <div class="device-header-img header-gammacore">gC</div>
+        <div class="device-body">
+          <div class="card-head">
+            <div>
+              <div class="device-name">gammaCore Sapphire / Sapphire CV</div>
+              <div class="device-maker">electroCore Inc. (США/UK)</div>
+            </div>
+            <div>
+              <div class="device-price">$598/мес</div>
+              <div class="device-price-note">refill card, рецепт</div>
+            </div>
+          </div>
+          <div class="type-badges">
+            <span class="type-badge b-cervical">Cervical nVNS</span>
+            <span class="type-badge b-fda">FDA cleared</span>
+            <span class="type-badge b-ce">CE</span>
+            <span class="type-badge b-rx">Rx only</span>
+          </div>
+          <p class="device-desc">Ручной прибор, прикладывается к шее. <strong>Шесть FDA De Novo одобрений</strong>: эпизодическая cluster headache (2017), острая мигрень (2018), профилактика cluster (2018), профилактика мигрени (2020), подростки 12+ (2021), hemicrania continua / paroxysmal hemicrania (2021). EUA для COVID-19 (свёрнут).</p>
+          <ul class="spec-list">
+            <li><span class="spec-key">Сигнал</span><span class="spec-val">5 kHz, мод. 25 Hz, 2-мин циклы</span></li>
+            <li><span class="spec-key">Зона</span><span class="spec-val">шея, проекция каротидной артерии</span></li>
+            <li><span class="spec-key">Расходники</span><span class="spec-val">встроенные гель-площадки</span></li>
+            <li><span class="spec-key">Доступ РФ</span><span class="spec-val">только параллельный импорт</span></li>
+          </ul>
+          <div class="evidence-block">
+            <div class="evidence-title">Доказательная база — STRONG</div>
+            <div class="evidence-text">ACT-1 (n=150), <strong>ACT-2</strong> (n=102, eCH: 47,5% vs 6,2% pain-free, p=0,003), PREVA (n=97, профилактика), <strong>PRESTO</strong> (мигрень, NCT02686034), PREMIUM/PREMIUM II (профилактика мигрени — первичные не достигнуты, есть сигнал в подгруппах). Включён в NICE MTG46 (UK).</div>
+          </div>
+          <div class="pros-cons">
+            <div class="pro-con-box pros">
+              <div class="pro-con-title">Плюсы</div>
+              <ul class="pro-con-list">
+                <li>Реальные FDA-одобрения под конкретные диагнозы</li>
+                <li>Лучшая доказательная база среди всех tVNS</li>
+                <li>Подростки 12+ одобрены</li>
+              </ul>
+            </div>
+            <div class="pro-con-box cons">
+              <div class="pro-con-title">Минусы</div>
+              <ul class="pro-con-list">
+                <li>Только по рецепту через specialty pharmacy</li>
+                <li>Подписочная модель refill-карт</li>
+                <li>Высокая месячная стоимость</li>
+              </ul>
+            </div>
+          </div>
+          <a href="https://www.gammacore.com" target="_blank" rel="noopener" class="buy-btn primary">gammacore.com →</a>
+        </div>
+      </article>
+
+      <!-- Nemos / tVNS-E -->
+      <article class="device-card medical">
+        <div class="device-header-img header-nemos">tV</div>
+        <div class="device-body">
+          <div class="card-head">
+            <div>
+              <div class="device-name">Nemos / tVNS E / tVNS R</div>
+              <div class="device-maker">tVNS Technologies GmbH (Эрланген, Германия)</div>
+            </div>
+            <div>
+              <div class="device-price">€3 500</div>
+              <div class="device-price-note">или 180 дн «Try It» €1 500</div>
+            </div>
+          </div>
+          <div class="type-badges">
+            <span class="type-badge b-auricular">Auricular (cymba conchae)</span>
+            <span class="type-badge b-ce">CE класс IIa</span>
+            <span class="type-badge b-rx">Через врача</span>
+          </div>
+          <p class="device-desc">Стимулирует <strong>cymba conchae</strong> — анатомически самую «вагусную» точку уха. Преемник оригинального Cerbomed NEMOS. CE-одобрение под депрессию, эпилепсию, хроническую мигрень, синдром Прадера-Вилли. Поставляется в ЕС только через врачебный канал.</p>
+          <ul class="spec-list">
+            <li><span class="spec-key">Сигнал</span><span class="spec-val">25 Hz, 250 мкс, ~0,1–10 мА</span></li>
+            <li><span class="spec-key">Зона</span><span class="spec-val">cymba conchae, левое ухо</span></li>
+            <li><span class="spec-key">Режим</span><span class="spec-val">~4 ч/день</span></li>
+            <li><span class="spec-key">Доступ</span><span class="spec-val">ЕС (DE/AT/CH/NL/IT/ES)</span></li>
+          </ul>
+          <div class="evidence-block">
+            <div class="evidence-title">Доказательная база — MODERATE</div>
+            <div class="evidence-text">cMPsE02 (Bauer 2016, n=76, фармакорезистентная эпилепсия — 34,2% снижение приступов); Hein 2013 — пилот по депрессии; Straube 2015 — мигрень. Метa-анализы 2025 (Epilepsy &amp; Behavior, Epilepsy Research) подтверждают умеренный эффект при эпилепсии.</div>
+          </div>
+          <div class="pros-cons">
+            <div class="pro-con-box pros">
+              <div class="pro-con-title">Плюсы</div>
+              <ul class="pro-con-list">
+                <li>Полноценный медицинский прибор класса IIa</li>
+                <li>Под четыре диагноза в ЕС</li>
+                <li>Cymba conchae — правильная анатомическая точка</li>
+              </ul>
+            </div>
+            <div class="pro-con-box cons">
+              <div class="pro-con-title">Минусы</div>
+              <ul class="pro-con-list">
+                <li>Только Европа, не продаётся в США/UK</li>
+                <li>Высокая цена</li>
+                <li>Расходные электроды + крем</li>
+              </ul>
+            </div>
+          </div>
+          <a href="https://t-vns.com" target="_blank" rel="noopener" class="buy-btn primary">t-vns.com →</a>
+        </div>
+      </article>
+
+      <!-- Parasym / Nurosym -->
+      <article class="device-card medical">
+        <div class="device-header-img header-parasym">Nu</div>
+        <div class="device-body">
+          <div class="card-head">
+            <div>
+              <div class="device-name">Nurosym / Parasym / Nuropod</div>
+              <div class="device-maker">Parasym Ltd. (Лондон, UK)</div>
+            </div>
+            <div>
+              <div class="device-price">€630</div>
+              <div class="device-price-note">UK / EU; Nuropod (US) $810</div>
+            </div>
+          </div>
+          <div class="type-badges">
+            <span class="type-badge b-auricular">Auricular (трагус)</span>
+            <span class="type-badge b-ce">CE класс IIa</span>
+            <span class="type-badge b-otc">OTC</span>
+          </div>
+          <p class="device-desc">Зажим-«клипса» на трагус левого уха. <strong>Сухой электрод без геля</strong> — практическое преимущество. CE-одобрено для симптомов депрессии, тревоги, бессонницы, боли. В США продаётся как Nuropod после FDA Non-Significant Risk determination.</p>
+          <ul class="spec-list">
+            <li><span class="spec-key">Сигнал</span><span class="spec-val">~20 Hz, 200 мкс, 1–4 мА</span></li>
+            <li><span class="spec-key">Зона</span><span class="spec-val">трагус, левое ухо</span></li>
+            <li><span class="spec-key">Режим</span><span class="spec-val">1 ч/день</span></li>
+            <li><span class="spec-key">Доступ РФ</span><span class="spec-val">через ЕС-форвардер</span></li>
+          </ul>
+          <div class="evidence-block">
+            <div class="evidence-title">Доказательная база — MODERATE</div>
+            <div class="evidence-text"><strong>TREAT-AF</strong> (Stavrakis 2020, n=53, пароксизмальная AF: −85% AF burden vs sham, p=0,011); <strong>POTS RCT</strong> (Stavrakis 2024, n=26, JACC ClinElectrophys); long COVID пилот (Badran 2024); пилоты по тревоге и депрессии. Большинство RCT — один центр в Оклахоме, требуют независимой репликации.</div>
+          </div>
+          <div class="pros-cons">
+            <div class="pro-con-box pros">
+              <div class="pro-con-title">Плюсы</div>
+              <ul class="pro-con-list">
+                <li>CE-одобрение, можно покупать без рецепта</li>
+                <li>Сухой электрод — без расходников</li>
+                <li>Реальные RCT при AFib и POTS</li>
+                <li>30-day money-back</li>
+              </ul>
+            </div>
+            <div class="pro-con-box cons">
+              <div class="pro-con-title">Минусы</div>
+              <ul class="pro-con-list">
+                <li>Не FDA cleared</li>
+                <li>Трагус — спорная зона (vs cymba conchae)</li>
+                <li>Маркетинг идёт впереди доказательств</li>
+              </ul>
+            </div>
+          </div>
+          <a href="https://nurosym.com" target="_blank" rel="noopener" class="buy-btn primary">nurosym.com →</a>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- TIER B: WELLNESS -->
+  <section class="section">
+    <div class="section-label">Тиер B — wellness без медицинского статуса</div>
+    <h2 class="section-title">Устройства «общего благополучия»</h2>
+    <p class="section-sub">Используют схожую физику стимуляции, но <strong>не имеют FDA clearance под диагнозы</strong>, маркетинг ограничен заявлениями «стресс / сон / релакс / wellness». Собственных RCT почти не публикуют — опираются на исследования по чужим устройствам.</p>
+
+    <div class="device-grid">
+
+      <!-- Truvaga -->
+      <article class="device-card wellness">
+        <div class="ribbon b">Wellness</div>
+        <div class="device-header-img header-truvaga">Tr</div>
+        <div class="device-body">
+          <div class="card-head">
+            <div>
+              <div class="device-name">Truvaga 350 / Truvaga Plus</div>
+              <div class="device-maker">electroCore (consumer-бренд)</div>
+            </div>
+            <div>
+              <div class="device-price">$299–$499</div>
+              <div class="device-price-note">+ $45/год гель</div>
+            </div>
+          </div>
+          <div class="type-badges">
+            <span class="type-badge b-cervical">Cervical nVNS</span>
+            <span class="type-badge b-otc">OTC wellness</span>
+          </div>
+          <p class="device-desc">Тот же hardware, что gammaCore, но <strong>переупакован как «общее благополучие»</strong> — НЕ медицинский прибор, не FDA cleared под индикации. Truvaga 350 — 350 фиксированных 2-минутных сессий и устройство «истекает». Plus — рекреативный, ≥30 000 сессий или 3 года, app-connected.</p>
+          <div class="evidence-block weak">
+            <div class="evidence-title">Доказательная база — заимствованная</div>
+            <div class="evidence-text">Собственных RCT именно на Truvaga <strong>нет</strong>. Маркетинг опирается на gammaCore-исследования, но регуляторно это разные продукты.</div>
+          </div>
+          <a href="https://www.truvaga.com" target="_blank" rel="noopener" class="buy-btn">truvaga.com →</a>
+        </div>
+      </article>
+
+      <!-- Pulsetto -->
+      <article class="device-card wellness">
+        <div class="ribbon b">Wellness</div>
+        <div class="device-header-img header-pulsetto">Pl</div>
+        <div class="device-body">
+          <div class="card-head">
+            <div>
+              <div class="device-name">Pulsetto FIT / Lite</div>
+              <div class="device-maker">Pulsetto (Вильнюс, Литва)</div>
+            </div>
+            <div>
+              <div class="device-price">$224–$242</div>
+              <div class="device-price-note">+ $139/год app sub</div>
+            </div>
+          </div>
+          <div class="type-badges">
+            <span class="type-badge b-cervical">Cervical-style</span>
+            <span class="type-badge b-otc">OTC wellness</span>
+          </div>
+          <p class="device-desc">Шейная «полоса» с электродами. <strong>CE/FCC — только базовая безопасность электроники</strong>, не медицинский класс IIa. Заявлений много — клинических нет. Аналитика отзывов: Trustpilot нейтрально, PissedConsumer 1,3/5 (49 отзывов, 93% негатив) — претензии к рекуррентному списанию подписки.</p>
+          <div class="evidence-block none">
+            <div class="evidence-title">Доказательная база — отсутствует</div>
+            <div class="evidence-text"><strong>Ноль peer-reviewed RCT</strong> на устройство. Компания ссылается на внутренние опросы (n≈75) без блайндинга.</div>
+          </div>
+          <a href="https://pulsetto.tech" target="_blank" rel="noopener" class="buy-btn">pulsetto.tech →</a>
+        </div>
+      </article>
+
+      <!-- Xen by Neuvana -->
+      <article class="device-card wellness">
+        <div class="ribbon b">Wellness</div>
+        <div class="device-header-img header-xen">Xe</div>
+        <div class="device-body">
+          <div class="card-head">
+            <div>
+              <div class="device-name">Xen by Neuvana</div>
+              <div class="device-maker">Neuvana (США)</div>
+            </div>
+            <div>
+              <div class="device-price">$449</div>
+              <div class="device-price-note">HSA/FSA-eligible</div>
+            </div>
+          </div>
+          <div class="type-badges">
+            <span class="type-badge b-auricular">Auricular (наушники)</span>
+            <span class="type-badge b-otc">OTC wellness</span>
+          </div>
+          <p class="device-desc">Аурикулярная стимуляция через <strong>наушники</strong> — комбинация музыкального сигнала и электростимуляции. Не FDA cleared. Одно малое открытое pilot-исследование (ASU, U. Maryland). Активный сайт neuvanalife.com на 2026 — рабочий.</p>
+          <div class="evidence-block none">
+            <div class="evidence-title">Доказательная база — open-label pilots</div>
+            <div class="evidence-text">Sham-контролируемых эффективностных RCT нет ни по одному показанию.</div>
+          </div>
+          <a href="https://neuvanalife.com" target="_blank" rel="noopener" class="buy-btn">neuvanalife.com →</a>
+        </div>
+      </article>
+
+      <!-- Vagustim -->
+      <article class="device-card wellness">
+        <div class="ribbon b">Wellness</div>
+        <div class="device-header-img header-vagustim">Vg</div>
+        <div class="device-body">
+          <div class="card-head">
+            <div>
+              <div class="device-name">Vagustim V2 / V2 Plus</div>
+              <div class="device-maker">Vagustim Health (Стамбул, Турция)</div>
+            </div>
+            <div>
+              <div class="device-price">$369–$969</div>
+              <div class="device-price-note">free worldwide</div>
+            </div>
+          </div>
+          <div class="type-badges">
+            <span class="type-badge b-auricular">Auricular (билатеральная)</span>
+            <span class="type-badge b-otc">OTC wellness</span>
+          </div>
+          <p class="device-desc">Двусторонние клипсы на уши. <strong>Базовый CE (электроника, не медицинский)</strong>. Используется в академических исследованиях как research-tool — публикаций &gt;20, в основном маленькие single-center работы по реабилитации после инсульта.</p>
+          <div class="evidence-block weak">
+            <div class="evidence-title">Доказательная база — pilot-кластер</div>
+            <div class="evidence-text">Десятки малых исследований, в основном открытые, под разные показания. Полноценных Phase III RCT нет. Доставка в РФ через Турцию работает.</div>
+          </div>
+          <a href="https://vagustim.io" target="_blank" rel="noopener" class="buy-btn">vagustim.io →</a>
+        </div>
+      </article>
+
+      <!-- Hoolest -->
+      <article class="device-card wellness">
+        <div class="ribbon b">Wellness</div>
+        <div class="device-header-img header-hoolest">Hl</div>
+        <div class="device-body">
+          <div class="card-head">
+            <div>
+              <div class="device-name">Hoolest VeRelief Prime</div>
+              <div class="device-maker">Hoolest (США)</div>
+            </div>
+            <div>
+              <div class="device-price">$159–$179</div>
+              <div class="device-price-note">+ Hoolest Pro premium</div>
+            </div>
+          </div>
+          <div class="type-badges">
+            <span class="type-badge b-cervical">Cervical/auricular</span>
+            <span class="type-badge b-otc">OTC wellness</span>
+          </div>
+          <p class="device-desc">Ручной портативный стимулятор шеи/уха. <strong>Не FDA-approved</strong>, классификация «low-risk general wellness». Сессии 30 секунд. 60-day money-back. Дешевле большинства аналогов.</p>
+          <div class="evidence-block none">
+            <div class="evidence-title">Доказательная база — отсутствует</div>
+            <div class="evidence-text">Peer-reviewed sham-RCT по конкретному устройству не публиковались.</div>
+          </div>
+          <a href="https://hoolest.com" target="_blank" rel="noopener" class="buy-btn">hoolest.com →</a>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- NOT VNS AT ALL -->
+  <section class="section">
+    <div class="section-label">Внимание</div>
+    <h2 class="section-title">Это не VNS, как бы их ни маркетировали</h2>
+    <p class="section-sub">Эти устройства <strong>не подают электрических импульсов на блуждающий нерв</strong>. Маркетологи их регулярно включают в «вагусную» категорию — это введение в заблуждение.</p>
+
+    <div class="device-grid">
+
+      <!-- Apollo Neuro -->
+      <article class="device-card notvns">
+        <div class="ribbon x">Не VNS</div>
+        <div class="device-header-img header-apollo">Ap</div>
+        <div class="device-body">
+          <div class="card-head">
+            <div>
+              <div class="device-name">Apollo Neuro</div>
+              <div class="device-maker">Apollo Neuroscience (США)</div>
+            </div>
+            <div>
+              <div class="device-price">$448</div>
+              <div class="device-price-note">+ AI sub после 1 года</div>
+            </div>
+          </div>
+          <div class="type-badges">
+            <span class="type-badge b-novns-strong">Не электрическая стимуляция</span>
+            <span class="type-badge b-otc">Vibrotactile</span>
+          </div>
+          <p class="device-desc">Браслет на запястье/щиколотку. <strong>Подаёт паттерны вибрации</strong> («SmartVibes»), а не электрические импульсы. Действует через механорецепторы кожи, к n. vagus прямого отношения не имеет. Не FDA cleared. Все цифры эффекта (40% ↓ стресс, +60 мин сон, +11% HRV) — данные производителя.</p>
+          <a href="https://apolloneuro.com" target="_blank" rel="noopener" class="buy-btn danger">apolloneuro.com →</a>
+        </div>
+      </article>
+
+      <!-- Sensate -->
+      <article class="device-card notvns">
+        <div class="ribbon x">Не VNS</div>
+        <div class="device-header-img header-sensate">Sn</div>
+        <div class="device-body">
+          <div class="card-head">
+            <div>
+              <div class="device-name">Sensate 2</div>
+              <div class="device-maker">BioSelf Technology (UK)</div>
+            </div>
+            <div>
+              <div class="device-price">£299</div>
+              <div class="device-price-note">~$380</div>
+            </div>
+          </div>
+          <div class="type-badges">
+            <span class="type-badge b-novns-strong">Инфразвуковая вибрация</span>
+            <span class="type-badge b-otc">Acoustic device</span>
+          </div>
+          <p class="device-desc">Кладётся на грудину, генерирует <strong>инфразвуковые вибрации</strong> + аудио-soundscapes («Somacoustics»). Компания позиционирует это как «vagus nerve toning», но физиологически это акустико-тактильное, а не электрическое воздействие на вагус. Одно company-funded n=25 self-report исследование.</p>
+          <a href="https://www.getsensate.com" target="_blank" rel="noopener" class="buy-btn danger">getsensate.com →</a>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- COMPARISON TABLE -->
+  <section class="section">
+    <div class="section-label">Сравнение</div>
+    <h2 class="section-title">Все устройства одной таблицей</h2>
+    <p class="section-sub">Регуляторный статус, тип стимуляции, цены, доказательства и реальная медицинская применимость.</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Устройство</th>
+            <th>Тип</th>
+            <th>Регулятор</th>
+            <th>Доказательства</th>
+            <th>Цена (USD)</th>
+            <th>Канал</th>
+            <th>В РФ</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>gammaCore Sapphire</td>
+            <td>Cervical nVNS</td>
+            <td>FDA De Novo + CE</td>
+            <td class="tag-strong">STRONG</td>
+            <td>~$598/мес</td>
+            <td>Rx, specialty pharmacy</td>
+            <td>параллельный импорт</td>
+          </tr>
+          <tr>
+            <td>Nemos / tVNS E</td>
+            <td>Auricular (cymba)</td>
+            <td>CE класс IIa</td>
+            <td class="tag-moderate">MODERATE</td>
+            <td>~$3 800</td>
+            <td>через врача в ЕС</td>
+            <td>только из ЕС</td>
+          </tr>
+          <tr>
+            <td>Nurosym / Parasym</td>
+            <td>Auricular (трагус)</td>
+            <td>CE класс IIa</td>
+            <td class="tag-moderate">MODERATE</td>
+            <td>$680 / $810 US</td>
+            <td>OTC, online</td>
+            <td>через ЕС-форвардер</td>
+          </tr>
+          <tr>
+            <td>Truvaga 350/Plus</td>
+            <td>Cervical</td>
+            <td class="tag-none">Только wellness</td>
+            <td class="tag-weak">Borrowed only</td>
+            <td>$299 / $499</td>
+            <td>OTC</td>
+            <td>через США</td>
+          </tr>
+          <tr>
+            <td>Pulsetto</td>
+            <td>Cervical-style</td>
+            <td class="tag-none">FCC/CE (электр.)</td>
+            <td class="tag-weak">Нет RCT</td>
+            <td>$224–$242</td>
+            <td>OTC online</td>
+            <td>EU-курьер работает</td>
+          </tr>
+          <tr>
+            <td>Xen by Neuvana</td>
+            <td>Auricular (наушники)</td>
+            <td class="tag-none">Только wellness</td>
+            <td class="tag-weak">Open-label pilots</td>
+            <td>$449</td>
+            <td>OTC online</td>
+            <td>через США</td>
+          </tr>
+          <tr>
+            <td>Vagustim V2</td>
+            <td>Auricular билатеральная</td>
+            <td class="tag-none">CE базовый</td>
+            <td class="tag-weak">Pilot-кластер</td>
+            <td>$369–$969</td>
+            <td>OTC online</td>
+            <td>напрямую из Турции</td>
+          </tr>
+          <tr>
+            <td>Hoolest VeRelief</td>
+            <td>Cervical/auricular</td>
+            <td class="tag-none">Только wellness</td>
+            <td class="tag-weak">Нет RCT</td>
+            <td>$159–$179</td>
+            <td>OTC online</td>
+            <td>через США</td>
+          </tr>
+          <tr>
+            <td>Apollo Neuro</td>
+            <td class="tag-weak">Vibrotactile (не VNS)</td>
+            <td class="tag-none">Wellness</td>
+            <td class="tag-none">Не VNS</td>
+            <td>$448</td>
+            <td>OTC online</td>
+            <td>через США</td>
+          </tr>
+          <tr>
+            <td>Sensate 2</td>
+            <td class="tag-weak">Acoustic (не VNS)</td>
+            <td class="tag-none">Wellness</td>
+            <td class="tag-none">Не VNS</td>
+            <td>~$380</td>
+            <td>OTC online</td>
+            <td>через UK</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- EVIDENCE BY INDICATION -->
+  <section class="section">
+    <div class="section-label">Доказательства по показаниям</div>
+    <h2 class="section-title">Что реально работает, а что — гипотеза</h2>
+    <p class="section-sub">Сводка по 16 направлениям применения tVNS / nVNS. Источник вердиктов — peer-reviewed RCT и мета-анализы 2015–2026. <strong>STRONG только эпизодическая кластерная головная боль</strong> через gammaCore.</p>
+
+    <div class="table-wrap">
+      <table class="ind-table">
+        <thead>
+          <tr>
+            <th>Показание</th>
+            <th>Устройство / путь</th>
+            <th>Вердикт</th>
+            <th>Лучшее доказательство</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Кластерная головная боль (эпизодическая, острая)</td>
+            <td>gammaCore (nVNS)</td>
+            <td><span class="verdict-pill vp-strong">STRONG</span></td>
+            <td>ACT-2 (PMID 29231763), мета-анализ De Coo 2019</td>
+          </tr>
+          <tr>
+            <td>Кластерная головная боль (хроническая)</td>
+            <td>gammaCore</td>
+            <td><span class="verdict-pill vp-weak">WEAK</span></td>
+            <td>PREVA open-label; ACT-2 — нет эффекта</td>
+          </tr>
+          <tr>
+            <td>Мигрень (острая)</td>
+            <td>gammaCore</td>
+            <td><span class="verdict-pill vp-moderate">MODERATE</span></td>
+            <td>PRESTO (PMID 29907608, вторичные точки)</td>
+          </tr>
+          <tr>
+            <td>Мигрень (профилактика)</td>
+            <td>gammaCore</td>
+            <td><span class="verdict-pill vp-weak">WEAK</span></td>
+            <td>PREMIUM / PREMIUM II — первичные не достигнуты</td>
+          </tr>
+          <tr>
+            <td>Эпилепсия (фармакорезистентная)</td>
+            <td>taVNS Nemos / cymba</td>
+            <td><span class="verdict-pill vp-weak">WEAK-MODERATE</span></td>
+            <td>Bauer 2016 cMPsE02; мета-анализы 2025</td>
+          </tr>
+          <tr>
+            <td>Резистентная депрессия</td>
+            <td>taVNS</td>
+            <td><span class="verdict-pill vp-weak">WEAK</span></td>
+            <td>Rong 2016 JAD (PMID 26896810); качество low</td>
+          </tr>
+          <tr>
+            <td>Фибрилляция предсердий (пароксизмальная)</td>
+            <td>LLTS трагус / Nurosym</td>
+            <td><span class="verdict-pill vp-moderate">MODERATE</span></td>
+            <td>TREAT-AF (Stavrakis 2020 PMID 32192678)</td>
+          </tr>
+          <tr>
+            <td>POTS / дизавтономии</td>
+            <td>LLTS трагус / Nurosym</td>
+            <td><span class="verdict-pill vp-moderate">MODERATE</span></td>
+            <td>Stavrakis 2024 JACC ClinElectrophys (PMID 37999672)</td>
+          </tr>
+          <tr>
+            <td>Long COVID / пост-вирусная утомляемость</td>
+            <td>taVNS Parasym</td>
+            <td><span class="verdict-pill vp-weak">WEAK</span></td>
+            <td>Badran 2024 пилот; нет multicenter RCT</td>
+          </tr>
+          <tr>
+            <td>Тревога / общая</td>
+            <td>taVNS</td>
+            <td><span class="verdict-pill vp-weak">WEAK</span></td>
+            <td>Гетерогенные малые RCT</td>
+          </tr>
+          <tr>
+            <td>ПТСР</td>
+            <td>tcVNS / taVNS</td>
+            <td><span class="verdict-pill vp-weak">WEAK</span></td>
+            <td>gammaCore FDA Breakthrough (не одобрение); Wittbrodt 2020</td>
+          </tr>
+          <tr>
+            <td>Воспаление / RA</td>
+            <td><strong>Имплантат</strong> SetPoint</td>
+            <td><span class="verdict-pill vp-strong">STRONG</span></td>
+            <td>RESET-RA RCT, FDA approval 2025 — НЕ tVNS</td>
+          </tr>
+          <tr>
+            <td>IBD (педиатрический)</td>
+            <td>taVNS</td>
+            <td><span class="verdict-pill vp-weak">WEAK</span></td>
+            <td>Sahn 2023 proof-of-concept</td>
+          </tr>
+          <tr>
+            <td>Тиннитус</td>
+            <td>VNS-paired tones</td>
+            <td><span class="verdict-pill vp-weak">WEAK</span></td>
+            <td>Lenire (одобрен) — это <strong>не VNS</strong>, а tongue+sound</td>
+          </tr>
+          <tr>
+            <td>Реабилитация после инсульта</td>
+            <td>Vivistim <strong>имплантат</strong></td>
+            <td><span class="verdict-pill vp-strong">STRONG</span></td>
+            <td>Dawson Lancet 2021 (PMID 33894832) — НЕ tVNS</td>
+          </tr>
+          <tr>
+            <td>Сон / инсомния</td>
+            <td>taVNS</td>
+            <td><span class="verdict-pill vp-moderate">MODERATE</span></td>
+            <td>He 2024 JAMA Network Open (PMID 39680406)</td>
+          </tr>
+          <tr>
+            <td>Wellness HRV / стресс у здоровых</td>
+            <td>любые consumer-устройства</td>
+            <td><span class="verdict-pill vp-none">NO EVIDENCE</span></td>
+            <td>Wolf 2021 Psychophysiology — мета-анализ: нет эффекта</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- CRITICAL CALLOUT -->
+  <section class="section">
+    <div class="section-label">Критический взгляд</div>
+    <h2 class="section-title">Почему «вагусная революция» оказалась тише, чем обещали</h2>
+
+    <div class="callout">
+      <h3>Пять причин относиться к taVNS скептически</h3>
+      <p><strong>1. Проблема блайндинга.</strong> В replication-исследовании ~48% участников отличают активную ушную стимуляцию от sham по тактильным ощущениям. Это разрушает основу double-blind дизайна. Многие positive RCT по taVNS — single-blind или с откровенно слабым контролем.</p>
+      <p><strong>2. Гетерогенность протоколов.</strong> Частоты 1–30 Hz, длительность импульса 100–500 мкс, ток 0,1–10 мА, локация (трагус / cymba conchae / earlobe / cavum), длительность сессии и duty cycle — всё разное. Cross-trial сравнение почти невозможно. Консенсусные стандарты Farmer 2020 применяются непоследовательно.</p>
+      <p><strong>3. Малые выборки и single-center.</strong> Большинство positive RCT — n&lt;60 из одного центра. POTS RCT Stavrakis 2024 — 26 человек, AFib TREAT-AF — 53. Без независимой репликации эти данные шаткие.</p>
+      <p><strong>4. Wolf 2021: главное reality-check.</strong> Байесовский мета-анализ в <em>Psychophysiology</em> показал <strong>сильное доказательство ОТСУТСТВИЯ острого эффекта taVNS на вагально-опосредованную ВСР</strong> (RMSSD, HF-HRV) у здоровых. Это противоречит маркетинговому ядру практически всех потребительских устройств («поднимает HRV / балансирует вегетатику»).</p>
+      <p><strong>5. Хайп опережает доказательства.</strong> Только эпизодическая кластерная головная боль через nVNS получила STRONG-уровень доказательств. Всё остальное — от MODERATE до WEAK / NO EVIDENCE. При этом маркетинг wellness-устройств часто заимствует STRONG-данные имплантируемой VNS (Vivistim, SetPoint, LivaNova), которая хирургически совершенно другая категория.</p>
+    </div>
+  </section>
+
+  <!-- BUYING GUIDE -->
+  <section class="section">
+    <div class="section-label">Практический выбор</div>
+    <h2 class="section-title">Что покупать, исходя из задачи</h2>
+    <p class="section-sub">Решения зависят от того, что человеку нужно: реальный медицинский прибор под диагноз или wellness-эксперимент с понятным ограничением доказательств.</p>
+
+    <div class="buy-grid">
+      <div class="buy-card">
+        <div class="scenario">Кластерная боль / мигрень</div>
+        <h4>Только gammaCore Sapphire</h4>
+        <p>FDA одобрен под несколько форм головной боли, лучшая доказательная база. Через рецепт, US/UK/EU. Альтернатив с такой же силой evidence просто нет.</p>
+        <p class="pick">Выбор: gammaCore</p>
+      </div>
+      <div class="buy-card">
+        <div class="scenario">AFib / POTS / long COVID</div>
+        <h4>Nurosym (Parasym)</h4>
+        <p>CE класс IIa, продаётся без рецепта. Опубликованы прямые RCT по AFib и POTS. Сухой электрод — без расходников. 30-day money-back.</p>
+        <p class="pick">Выбор: Nurosym €630 / Nuropod $810</p>
+      </div>
+      <div class="buy-card">
+        <div class="scenario">Эпилепсия / депрессия (ЕС)</div>
+        <h4>Nemos (tVNS-E)</h4>
+        <p>CE-одобрен в ЕС под эти диагнозы. Стимулирует cymba conchae — анатомически правильная точка. Покупка через врача в Германии/Австрии/Швейцарии.</p>
+        <p class="pick">Выбор: tVNS-E €3 500</p>
+      </div>
+      <div class="buy-card">
+        <div class="scenario">Бюджетный wellness-эксперимент</div>
+        <h4>Hoolest VeRelief Prime</h4>
+        <p>Самый дешёвый адекватный кандидат среди wellness-tVNS. 60-day money-back. Не ждите медицинского эффекта — это инструмент для самонаблюдения.</p>
+        <p class="pick">Выбор: Hoolest $159</p>
+      </div>
+      <div class="buy-card">
+        <div class="scenario">Доставка в РФ работает</div>
+        <h4>Vagustim из Турции</h4>
+        <p>Free worldwide shipping из Стамбула, исторически проходит через российскую таможню как электронное wellness-устройство. Не медицинский, но «hardware-уровень» нормальный.</p>
+        <p class="pick">Выбор: Vagustim V2 $369</p>
+      </div>
+      <div class="buy-card">
+        <div class="scenario">Что НЕ покупать как «вагус»</div>
+        <h4>Apollo Neuro, Sensate</h4>
+        <p>Это не электрическая стимуляция блуждающего нерва. Если хочется именно tVNS-механизма — ищите устройства с электродами на ухе или шее, а не вибро-браслет или акустический «камень».</p>
+        <p class="pick">Не покупать как VNS</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- KEY OPINION LEADERS -->
+  <section class="section">
+    <div class="section-label">Кого читать в теме</div>
+    <h2 class="section-title">Лаборатории и исследователи, которые задают повестку</h2>
+
+    <div class="how-grid">
+      <div class="how-card">
+        <h4>Клинические испытания tVNS</h4>
+        <p><strong>Stavros Stavrakis</strong> (OU Health, Oklahoma) — AFib, POTS RCT; основной источник «moderate»-доказательств для Nurosym-класса устройств.</p>
+        <p><strong>Bashar Badran</strong> (MUSC, Charleston) — оптимизация параметров, fMRI, long COVID, неонатология.</p>
+        <p><strong>Peijing Rong</strong> (Китайская академия медицинских наук) — масштабные RCT по депрессии и эпилепсии.</p>
+        <p><strong>Peter Goadsby / Stephen Silberstein</strong> — ACT-1/ACT-2/PRESTO для gammaCore.</p>
+        <p><strong>Bruno Bonaz</strong> (CHU Grenoble) — Crohn’s disease через имплантируемую VNS.</p>
+      </div>
+      <div class="how-card">
+        <h4>Фундаментальная нейронаука</h4>
+        <p><strong>Kevin Tracey</strong> (Feinstein Institutes) — открыл cholinergic anti-inflammatory pathway. Соучредитель SetPoint Medical.</p>
+        <p><strong>Hugo Critchley &amp; Sarah Garfinkel</strong> (Sussex/UCL) — интероцепция и кардио-вагальные механизмы.</p>
+        <p><strong>Vitaly Napadow</strong> (Harvard / Martinos Center) — нейровизуализация taVNS, гут-мозг.</p>
+        <p><strong>Eugenijus Kaniusas</strong> (TU Wien) — биоинженерия аурикулярной VNS.</p>
+        <p><strong>Douglas Bremner / Omer Inan</strong> (Emory + Georgia Tech) — tcVNS для PTSD и воспаления.</p>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <div class="container">
+    <div>
+      <h5>Ключевые источники — устройства</h5>
+      <ul>
+        <li><a href="https://www.gammacore.com" target="_blank">gammacore.com — официальный сайт</a></li>
+        <li><a href="https://t-vns.com" target="_blank">tVNS Technologies (Nemos / tVNS-E)</a></li>
+        <li><a href="https://nurosym.com" target="_blank">Nurosym (Parasym, EU/UK)</a></li>
+        <li><a href="https://www.truvaga.com" target="_blank">Truvaga (electroCore wellness)</a></li>
+        <li><a href="https://pulsetto.tech" target="_blank">Pulsetto</a></li>
+        <li><a href="https://vagustim.io" target="_blank">Vagustim Health</a></li>
+        <li><a href="https://hoolest.com" target="_blank">Hoolest VeRelief</a></li>
+        <li><a href="https://neuvanalife.com" target="_blank">Neuvana / Xen</a></li>
+        <li><a href="https://www.nice.org.uk/guidance/mtg46" target="_blank">NICE MTG46 — gammaCore guidance UK</a></li>
+        <li><a href="https://www.accessdata.fda.gov/cdrh_docs/reviews/DEN150048.pdf" target="_blank">FDA De Novo DEN150048 — gammaCore</a></li>
+      </ul>
+    </div>
+    <div>
+      <h5>Ключевые публикации (PubMed / DOI)</h5>
+      <ul>
+        <li><a href="https://pubmed.ncbi.nlm.nih.gov/29231763/" target="_blank">ACT-2, кластерная боль (Goadsby 2018)</a></li>
+        <li><a href="https://www.neurology.org/doi/10.1212/WNL.0000000000005857" target="_blank">PRESTO, острая мигрень</a></li>
+        <li><a href="https://pubmed.ncbi.nlm.nih.gov/32192678/" target="_blank">TREAT-AF, фибрилляция предсердий (Stavrakis 2020)</a></li>
+        <li><a href="https://pubmed.ncbi.nlm.nih.gov/37999672/" target="_blank">POTS RCT (Stavrakis 2024)</a></li>
+        <li><a href="https://pubmed.ncbi.nlm.nih.gov/25240121/" target="_blank">Эпилепсия cMPsE02 (Bauer 2016)</a></li>
+        <li><a href="https://pubmed.ncbi.nlm.nih.gov/26896810/" target="_blank">Депрессия taVNS (Rong 2016)</a></li>
+        <li><a href="https://pubmed.ncbi.nlm.nih.gov/34473846/" target="_blank">Wolf 2021 — нет эффекта на HRV у здоровых</a></li>
+        <li><a href="https://pubmed.ncbi.nlm.nih.gov/39680406/" target="_blank">He 2024 — taVNS при инсомнии</a></li>
+        <li><a href="https://pubmed.ncbi.nlm.nih.gov/33894832/" target="_blank">Vivistim, инсульт (Dawson Lancet 2021)</a></li>
+        <li><a href="https://www.frontiersin.org/journals/physiology/articles/10.3389/fphys.2025.1693907/full" target="_blank">Критический обзор taVNS (Frontiers 2025)</a></li>
+      </ul>
+    </div>
+    <p class="disclaimer">
+      Дисклеймер: материал не является медицинской рекомендацией и не заменяет консультацию специалиста.
+      VNS-устройства, включая non-invasive формы, могут иметь противопоказания (имплантируемые электронные приборы, нарушения ритма, беременность и др.).
+      Перед использованием medical-grade приборов обязательна консультация невролога / кардиолога.
+      Цены приведены ориентировочно на май 2026, могут отличаться от актуальных.
+      Регуляторный статус и индикации могут меняться — проверяйте на сайтах производителей и в базе FDA / EU MDR.
+    </p>
+  </div>
+</footer>
+
+</body>
+</html>
