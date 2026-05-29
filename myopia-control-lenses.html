@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Линзы для контроля миопии — что реально замедляет прогрессирование</title>
+<meta name="description" content="Полная подборка линз для контроля миопии у детей: очковые (Stellest, MiYOSMART, MyoCare, DOT), мягкие контактные (MiSight 1 day, NaturalVue) и ортокератология (Paragon CRT, Menicon Z Night). С % замедления по клиническим РКИ, ценами 2026 и источниками.">
+<style>
+:root{
+  --bg:#f7f7f4;
+  --ink:#0d1b2a;
+  --ink-soft:#3b4a5c;
+  --muted:#6b7785;
+  --line:#e3e3dd;
+  --accent:#2b5dd1;
+  --accent-soft:#e6efff;
+  --gold:#b8860b;
+  --green:#1e7f55;
+  --green-soft:#e3f5ec;
+  --orange:#cf6d2f;
+  --orange-soft:#fdeedf;
+  --red:#b62a2a;
+  --card:#ffffff;
+  --radius:14px;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Inter,system-ui,sans-serif;
+  background:var(--bg);
+  color:var(--ink);
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1100px;margin:0 auto;padding:32px 20px 80px}
+header.hero{
+  padding:48px 0 28px;
+  border-bottom:1px solid var(--line);
+  margin-bottom:40px;
+}
+.kicker{
+  display:inline-block;
+  font-size:12px;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--accent);
+  background:var(--accent-soft);
+  padding:6px 12px;
+  border-radius:999px;
+  font-weight:600;
+  margin-bottom:18px;
+}
+h1{
+  font-size:clamp(28px,4.4vw,46px);
+  line-height:1.12;
+  letter-spacing:-0.02em;
+  margin:0 0 16px;
+  font-weight:800;
+}
+h1 em{font-style:normal;color:var(--accent)}
+.lede{
+  font-size:clamp(16px,2vw,19px);
+  color:var(--ink-soft);
+  max-width:780px;
+  margin:0 0 22px;
+}
+.meta{
+  display:flex;flex-wrap:wrap;gap:14px;
+  font-size:13px;color:var(--muted);
+}
+.meta span{display:flex;align-items:center;gap:6px}
+.meta b{color:var(--ink);font-weight:600}
+section{margin:48px 0}
+h2{
+  font-size:clamp(22px,3vw,30px);
+  letter-spacing:-0.01em;
+  margin:0 0 8px;
+  font-weight:700;
+}
+h2 .num{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:32px;height:32px;border-radius:10px;
+  background:var(--ink);color:#fff;
+  font-size:14px;font-weight:700;
+  margin-right:12px;vertical-align:1px;
+}
+.section-sub{color:var(--muted);font-size:15px;margin:0 0 24px;max-width:760px}
+
+/* Главная таблица рейтинга */
+.rank-table{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  overflow:hidden;
+  margin:24px 0;
+}
+.rank-table table{width:100%;border-collapse:collapse;font-size:14px}
+.rank-table th{
+  background:#0d1b2a;color:#fff;
+  text-align:left;padding:14px 16px;font-weight:600;
+  font-size:12px;letter-spacing:.04em;text-transform:uppercase;
+}
+.rank-table td{padding:13px 16px;border-top:1px solid var(--line);vertical-align:middle}
+.rank-table tr:hover td{background:#fafaf6}
+.rank-table .rank{font-weight:700;color:var(--accent);width:50px}
+.rank-table .name{font-weight:600}
+.rank-table .bar{position:relative;height:18px;background:#eef0f3;border-radius:5px;overflow:hidden;min-width:80px}
+.rank-table .bar i{position:absolute;left:0;top:0;bottom:0;background:linear-gradient(90deg,#2b5dd1,#4b85ff);border-radius:5px}
+.rank-table .value{font-variant-numeric:tabular-nums;font-weight:600;text-align:right;width:90px}
+.rank-table .cat{font-size:12px;color:var(--muted)}
+.rank-table tr.headline td{background:var(--accent-soft)}
+
+/* Карточки продуктов */
+.product-grid{display:grid;grid-template-columns:1fr;gap:24px;margin-top:8px}
+@media(min-width:760px){.product-grid{grid-template-columns:1fr 1fr}}
+.product{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  overflow:hidden;
+  display:flex;flex-direction:column;
+  transition:transform .15s ease,box-shadow .15s ease;
+}
+.product:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(13,27,42,.08)}
+.product .photo{
+  position:relative;
+  height:240px;
+  background:#eef0f3 url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><rect width="100" height="100" fill="%23eef0f3"/></svg>') center/cover;
+  overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
+}
+.product .photo img{
+  width:100%;height:100%;object-fit:cover;display:block;
+}
+.product .photo.contain img{object-fit:contain;padding:20px;background:#fff}
+.product .badge{
+  position:absolute;top:14px;left:14px;
+  background:rgba(13,27,42,.85);color:#fff;
+  font-size:11px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;
+  padding:5px 10px;border-radius:6px;
+}
+.product .badge.fda{background:var(--green)}
+.product .badge.note{background:var(--orange)}
+.product .body{padding:22px 24px 24px;display:flex;flex-direction:column;flex:1}
+.product h3{
+  font-size:22px;font-weight:700;margin:0 0 2px;letter-spacing:-0.01em;
+}
+.product .brand{color:var(--muted);font-size:13px;margin:0 0 12px}
+.product .tech{
+  background:#fafaf6;border:1px solid var(--line);
+  padding:10px 14px;border-radius:8px;
+  font-size:13px;color:var(--ink-soft);
+  margin:0 0 14px;
+}
+.product .tech b{color:var(--ink)}
+.product .stats{
+  display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:6px 0 14px;
+}
+.product .stat{
+  background:var(--accent-soft);border-radius:8px;padding:10px 12px;
+}
+.product .stat .label{font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--accent);font-weight:600;margin-bottom:4px}
+.product .stat .val{font-size:18px;font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums}
+.product .stat.green{background:var(--green-soft)}
+.product .stat.green .label{color:var(--green)}
+.product .stat.orange{background:var(--orange-soft)}
+.product .stat.orange .label{color:var(--orange)}
+.product .pricerow{
+  display:flex;justify-content:space-between;gap:10px;
+  font-size:14px;padding:10px 0;border-top:1px solid var(--line);margin-top:6px;
+}
+.product .pricerow b{color:var(--ink);font-weight:600}
+.product .price-amount{font-weight:700;color:var(--ink)}
+.product .pros-cons{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0 4px;font-size:13px}
+.product .pros-cons div{padding:10px 12px;border-radius:8px}
+.product .pros{background:var(--green-soft);color:#0e4a31}
+.product .cons{background:#fdecec;color:#7a1e1e}
+.product .pros b,.product .cons b{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px;opacity:.7}
+.product .pros ul,.product .cons ul{margin:0;padding-left:16px}
+.product .pros li,.product .cons li{margin-bottom:3px}
+.product .footer-links{
+  margin-top:auto;padding-top:14px;border-top:1px solid var(--line);
+  font-size:12px;color:var(--muted);
+}
+.product .footer-links a{color:var(--accent);text-decoration:none;margin-right:12px}
+.product .footer-links a:hover{text-decoration:underline}
+
+/* Подсказка под заголовком секции */
+.callout{
+  background:var(--accent-soft);
+  border-left:4px solid var(--accent);
+  padding:16px 20px;border-radius:8px;
+  font-size:15px;color:var(--ink-soft);
+  margin:16px 0 28px;
+}
+.callout b{color:var(--ink)}
+.callout.warn{background:var(--orange-soft);border-color:var(--orange)}
+.callout.danger{background:#fdecec;border-color:var(--red);color:#5a1818}
+
+/* «Что выбрать» — карточки */
+.choose-grid{display:grid;grid-template-columns:1fr;gap:14px;margin-top:18px}
+@media(min-width:760px){.choose-grid{grid-template-columns:1fr 1fr}}
+.choose{
+  background:var(--card);border:1px solid var(--line);
+  border-radius:var(--radius);padding:20px 22px;
+}
+.choose h4{margin:0 0 6px;font-size:17px;font-weight:700}
+.choose .who{font-size:12px;color:var(--accent);text-transform:uppercase;letter-spacing:.05em;font-weight:600;margin-bottom:8px}
+.choose p{margin:0;font-size:14px;color:var(--ink-soft)}
+.choose .pick{margin-top:10px;font-weight:600;font-size:14px}
+.choose .pick em{font-style:normal;color:var(--green);background:var(--green-soft);padding:2px 8px;border-radius:5px}
+
+/* Сравнительная таблица */
+.compare{
+  background:var(--card);border:1px solid var(--line);
+  border-radius:var(--radius);overflow:auto;
+}
+.compare table{width:100%;border-collapse:collapse;font-size:13px;min-width:760px}
+.compare th{background:#0d1b2a;color:#fff;text-align:left;padding:12px 14px;font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:.04em}
+.compare td{padding:12px 14px;border-top:1px solid var(--line);vertical-align:top}
+.compare tr:hover td{background:#fafaf6}
+.compare .name{font-weight:700;min-width:140px}
+.compare .cat{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-top:2px}
+
+/* FAQ */
+.faq{margin-top:24px}
+details{
+  background:var(--card);border:1px solid var(--line);
+  border-radius:10px;padding:14px 18px;margin-bottom:10px;
+}
+details[open]{box-shadow:0 4px 14px rgba(13,27,42,.05)}
+details summary{
+  cursor:pointer;font-weight:600;font-size:15px;list-style:none;
+  display:flex;align-items:center;justify-content:space-between;
+}
+details summary::after{content:'+';font-size:22px;color:var(--accent);margin-left:12px;font-weight:300}
+details[open] summary::after{content:'–'}
+details p{margin:12px 0 4px;color:var(--ink-soft);font-size:14px}
+details p:last-child{margin-bottom:0}
+
+footer{
+  margin-top:70px;padding-top:30px;border-top:1px solid var(--line);
+  font-size:13px;color:var(--muted);
+}
+footer h4{color:var(--ink);font-size:14px;margin:0 0 10px}
+footer ol{margin:0;padding-left:18px}
+footer li{margin-bottom:5px}
+footer a{color:var(--accent);text-decoration:none}
+footer a:hover{text-decoration:underline}
+.disclaimer{
+  margin-top:24px;background:#fdecec;border:1px solid #f5c5c5;
+  border-radius:10px;padding:14px 18px;font-size:13px;color:#5a1818;
+}
+.disclaimer b{color:#7a1e1e}
+.no-photo{
+  position:absolute;inset:0;
+  display:flex;align-items:center;justify-content:center;flex-direction:column;
+  color:var(--muted);font-size:13px;text-align:center;padding:30px;
+}
+.no-photo b{color:var(--ink);display:block;margin-bottom:6px;font-size:14px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <span class="kicker">Контроль миопии · разбор по доказательствам</span>
+  <h1>Линзы, которые <em>замедляют</em> прогрессирование близорукости — а не просто корректируют зрение</h1>
+  <p class="lede">Обычные очки и линзы дают только чёткое зрение «сейчас», но не останавливают рост глазного яблока. Есть отдельный класс оптики — <b>myopia control</b> — с клинически доказанным замедлением прогрессии у детей и подростков. Разобрали 8 ключевых решений: очковые линзы, мягкие однодневки и ортокератологию. С % замедления по РКИ, ценами в РФ и фото с офсайтов.</p>
+  <div class="meta">
+    <span>📅 <b>Обновлено:</b> 29 мая 2026</span>
+    <span>🔬 <b>База:</b> NMA Schmidt 2025 (74 РКИ, 12 154 детей)</span>
+    <span>📊 <b>Продуктов:</b> 8</span>
+    <span>🏥 <b>Для:</b> детей 6–18 лет</span>
+  </div>
+</header>
+
+<section>
+  <h2><span class="num">1</span>Сначала — рейтинг по силе замедления</h2>
+  <p class="section-sub">Это сводка из самого крупного на сегодня сетевого мета-анализа (Schmidt et al., 2025, Acta Ophthalmologica) — 74 РКИ, 12 154 ребёнка 6–18 лет, 45 интервенций. Цифра показывает <b>насколько меньше глазное яблоко растёт за 1 год</b> по сравнению с обычными очками (чем больше отрицательное число — тем сильнее эффект).</p>
+  <div class="rank-table">
+    <table>
+      <thead>
+        <tr><th>#</th><th>Метод</th><th>Категория</th><th>Замедление осевого роста</th><th></th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="rank">1</td><td class="name">Red light therapy (LLRL)</td><td class="cat">Световая терапия</td><td class="value">−0,33 мм/год</td><td><div class="bar"><i style="width:100%"></i></div></td></tr>
+        <tr><td class="rank">2</td><td class="name">Орто-К (5 мм зона)</td><td class="cat">Ночные жёсткие линзы</td><td class="value">−0,32 мм/год</td><td><div class="bar"><i style="width:97%"></i></div></td></tr>
+        <tr><td class="rank">3</td><td class="name">Орто-К (асферический дизайн)</td><td class="cat">Ночные жёсткие линзы</td><td class="value">−0,29 мм/год</td><td><div class="bar"><i style="width:88%"></i></div></td></tr>
+        <tr><td class="rank">4</td><td class="name">Атропин 1%</td><td class="cat">Капли (off-label)</td><td class="value">−0,28 мм/год</td><td><div class="bar"><i style="width:85%"></i></div></td></tr>
+        <tr><td class="rank">5</td><td class="name">Атропин 0,01% + Орто-К</td><td class="cat">Комбо</td><td class="value">−0,24 мм/год</td><td><div class="bar"><i style="width:73%"></i></div></td></tr>
+        <tr class="headline"><td class="rank">6</td><td class="name">Essilor Stellest (HAL)</td><td class="cat">Очковые линзы</td><td class="value">−0,23 мм/год</td><td><div class="bar"><i style="width:70%"></i></div></td></tr>
+        <tr class="headline"><td class="rank">7</td><td class="name">Hoya MiYOSMART (D.I.M.S.)</td><td class="cat">Очковые линзы</td><td class="value">−0,21 мм/год</td><td><div class="bar"><i style="width:64%"></i></div></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="callout">
+    <b>Что важно понять.</b> Ортокератология и атропин — самые сильные, но требуют ночных линз или капель. <b>Очковые линзы Stellest и MiYOSMART</b> — на 70% от максимума по эффективности, но при этом просто очки. Это и есть «золотая середина» для большинства семей. MiSight (мягкие КЛ) в общем рейтинге ниже из-за меньших выборок, но единственный с FDA-одобрением на контроль миопии.
+  </div>
+</section>
+
+<section>
+  <h2><span class="num">2</span>Очковые линзы — самый простой формат</h2>
+  <p class="section-sub">Выглядят и одеваются как обычные очки, ребёнок ничего не делает дополнительно. Технология «спрятана» в специальных микроструктурах на поверхности линзы, которые создают периферический миопический дефокус — это и тормозит рост глаза.</p>
+
+  <div class="product-grid">
+
+    <article class="product">
+      <div class="photo">
+        <img src="https://images.myopiaprofile.com/tr:w-1200,h-auto,fo-auto/api/Product/0d280ffd-5d0f-411f-2beb-08db7d1d2454/download/Image/abeb34ab-701e-4b2b-7520-08ddd5360944" alt="Essilor Stellest">
+        <span class="badge fda">FDA · 2024</span>
+      </div>
+      <div class="body">
+        <h3>Essilor Stellest</h3>
+        <p class="brand">Essilor (Франция/EssilorLuxottica)</p>
+        <div class="tech">
+          <b>H.A.L.T. — Highly Aspherical Lenslets.</b> 11 концентрических колец из 1021 асферического микро-линза диаметром 1,12 мм создают «объём миопического дефокуса» вокруг чёткой центральной зоны.
+        </div>
+        <div class="stats">
+          <div class="stat"><div class="label">Замедление прогрессии</div><div class="val">−0,23 мм/год</div></div>
+          <div class="stat green"><div class="label">Возраст</div><div class="val">8–13 лет</div></div>
+        </div>
+        <div class="pricerow"><span>💰 Цена в РФ (пара)</span><span class="price-amount">17 500 – 35 800 ₽</span></div>
+        <div class="pros-cons">
+          <div class="pros"><b>Плюсы</b><ul><li>FDA-одобрены в США</li><li>Эффект 71% за 2 года (РКИ Hong Kong)</li><li>Любая оправа</li></ul></div>
+          <div class="cons"><b>Минусы</b><ul><li>Дороже обычных линз</li><li>В РФ — серые поставки</li><li>Эффект уходит при снятии очков</li></ul></div>
+        </div>
+        <div class="footer-links">
+          <a href="https://www.essilor.com/us-en/products/stellest/" target="_blank" rel="noopener">essilor.com</a>
+          <a href="https://superochki.com/catalog/linzy_dlya_ochkov/lechebnye_linzy/" target="_blank" rel="noopener">superochki.com</a>
+          <a href="https://moscow.linza.ru/linses-stellest" target="_blank" rel="noopener">linza.ru</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="product">
+      <div class="photo">
+        <img src="https://images.myopiaprofile.com/tr:w-1200,h-auto,fo-auto/api/Product/617c73c7-07cb-4ba5-2bec-08db7d1d2454/download/Image/5201ecb1-808e-4cb7-eaf3-08db7decf36c" alt="Hoya MiYOSMART">
+        <span class="badge">с 2018</span>
+      </div>
+      <div class="body">
+        <h3>Hoya MiYOSMART</h3>
+        <p class="brand">Hoya (Япония) + Hong Kong PolyU</p>
+        <div class="tech">
+          <b>D.I.M.S. — Defocus Incorporated Multiple Segments.</b> Центральная зона 9,4 мм для чёткой коррекции + 396 сегментов дефокуса в honeycomb-структуре на площади 33 мм вокруг неё.
+        </div>
+        <div class="stats">
+          <div class="stat"><div class="label">Замедление прогрессии</div><div class="val">−0,21 мм/год</div></div>
+          <div class="stat green"><div class="label">Возраст</div><div class="val">8–13 лет</div></div>
+        </div>
+        <div class="pricerow"><span>💰 Цена в РФ (пара)</span><span class="price-amount">25 000 – 35 000 ₽</span></div>
+        <div class="pros-cons">
+          <div class="pros"><b>Плюсы</b><ul><li>60% замедления (РКИ 2 года)</li><li>6-летние данные эффективности</li><li>Gold Prize Geneva 2018</li></ul></div>
+          <div class="cons"><b>Минусы</b><ul><li>Honeycomb видна под определённым углом</li><li>Меньше fitting-зон, чем Stellest</li></ul></div>
+        </div>
+        <div class="footer-links">
+          <a href="https://www.hoyavision.com/vision-products/miyosmartVr25/" target="_blank" rel="noopener">hoyavision.com</a>
+          <a href="https://happylook.ru/brendy/miyosmart/" target="_blank" rel="noopener">happylook.ru</a>
+          <a href="https://mioptica.ru/children/miyosmart-hoya/" target="_blank" rel="noopener">mioptica.ru</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="product">
+      <div class="photo">
+        <img src="https://www.mykidsvision.org/api/KnowledgeArticle/3afdc48a-3323-4b72-cc70-08de9078de8c/download/HeroImage/f28f2ef7-8af0-4a48-ea1e-08de90784877" alt="ZEISS MyoCare">
+        <span class="badge">1 млн пар продано</span>
+      </div>
+      <div class="body">
+        <h3>ZEISS MyoCare</h3>
+        <p class="brand">Carl Zeiss Vision (Германия)</p>
+        <div class="tech">
+          <b>C.A.R.E. — Cylindrical Annular Refractive Elements.</b> Концентрические кольца цилиндрических микро-элементов вокруг центральной зоны, чередуют дефокус и коррекцию. Две версии: MyoCare (до 10 лет) и MyoCare S (10+).
+        </div>
+        <div class="stats">
+          <div class="stat"><div class="label">Замедление прогрессии</div><div class="val">41–77%</div></div>
+          <div class="stat orange"><div class="label">Возраст</div><div class="val">от 6 лет</div></div>
+        </div>
+        <div class="pricerow"><span>💰 Цена в РФ (пара)</span><span class="price-amount">от 25 000 ₽ <small style="color:var(--muted);font-weight:400">(ограниченно)</small></span></div>
+        <div class="pros-cons">
+          <div class="pros"><b>Плюсы</b><ul><li>Хорошие результаты у европейских детей (77% по осевой длине)</li><li>Две возрастные версии</li></ul></div>
+          <div class="cons"><b>Минусы</b><ul><li>Нет peer-reviewed 36-мес публикации</li><li>В РФ — точечная доступность</li></ul></div>
+        </div>
+        <div class="footer-links">
+          <a href="https://www.zeiss.com/vision-care/en/eye-care-professionals/lenses/lenses-for-every-need/lenses-to-manage-myopia-progression-in-children.html" target="_blank" rel="noopener">zeiss.com</a>
+          <a href="https://reviewofmm.com/zeiss-shares-data-on-myocare-efficacy-at-arvo-2024/" target="_blank" rel="noopener">arvo 2024</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="product">
+      <div class="photo">
+        <img src="https://www.sightglassvision.com/wp-content/uploads/2023/04/11-OPTICIEN-44791.webp" alt="SightGlass Vision DOT">
+        <span class="badge fda">Breakthrough Device</span>
+      </div>
+      <div class="body">
+        <h3>SightGlass Vision DOT</h3>
+        <p class="brand">SightGlass Vision (CooperCompanies)</p>
+        <div class="tech">
+          <b>DOT — Diffusion Optics Technology.</b> Тысячи микро-точек по поверхности линзы рассеивают свет и снижают контраст изображения на сетчатке — это другой механизм, чем дефокус, и тоже тормозит рост глаза.
+        </div>
+        <div class="stats">
+          <div class="stat"><div class="label">Замедление 4 года</div><div class="val">−0,05 мм/год</div></div>
+          <div class="stat orange"><div class="label">Возраст</div><div class="val">6–10 лет</div></div>
+        </div>
+        <div class="pricerow"><span>💰 Цена</span><span class="price-amount">~$400 в США · в РФ нет</span></div>
+        <div class="pros-cons">
+          <div class="pros"><b>Плюсы</b><ul><li>FDA Breakthrough Device</li><li>4-летние данные CYPRESS</li><li>Не требует дефокуса в зрении</li></ul></div>
+          <div class="cons"><b>Минусы</b><ul><li>В РФ официально недоступен</li><li>Только 96 из 256 досидели в CYPRESS extension</li></ul></div>
+        </div>
+        <div class="footer-links">
+          <a href="https://www.sightglassvision.com/diffusion-optics-technology/" target="_blank" rel="noopener">sightglassvision.com</a>
+          <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12018563/" target="_blank" rel="noopener">PMC12018563</a>
+        </div>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<section>
+  <h2><span class="num">3</span>Мягкие контактные линзы</h2>
+  <p class="section-sub">Однодневные мультифокальные линзы создают тот же периферический дефокус, что и очковые, но прямо на роговице. Подходят активным детям, особенно тем, кто стесняется очков или занимается спортом.</p>
+
+  <div class="callout warn">
+    <b>Возрастная граница.</b> Контактные линзы у детей до 8 лет требуют чёткого мониторинга гигиены. Самый ранний возраст в РКИ MiSight — 8 лет. До этого — лучше очки.
+  </div>
+
+  <div class="product-grid">
+
+    <article class="product">
+      <div class="photo contain">
+        <img src="https://coopervision.com/sites/coopervision.com/files/styles/cv_revamp_product_image/public/misight.png?itok=6y0dbKZI" alt="MiSight 1 day">
+        <span class="badge fda">FDA · 2019</span>
+      </div>
+      <div class="body">
+        <h3>CooperVision MiSight 1 day</h3>
+        <p class="brand">CooperVision (США/Великобритания)</p>
+        <div class="tech">
+          <b>ActivControl Technology — Dual Focus.</b> Линза с центральной коррекцией и двумя «кольцами лечения» вокруг — создают одновременно чёткое изображение и миопический дефокус по периферии сетчатки.
+        </div>
+        <div class="stats">
+          <div class="stat"><div class="label">Замедление рефракции (3 года)</div><div class="val">59%</div></div>
+          <div class="stat green"><div class="label">Замедление осевой (3 года)</div><div class="val">52%</div></div>
+        </div>
+        <div class="pricerow"><span>💰 Цена в РФ</span><span class="price-amount">3 000–4 000 ₽ / 30 шт · 8 500–9 200 ₽ / 90 шт</span></div>
+        <div class="pros-cons">
+          <div class="pros"><b>Плюсы</b><ul><li>Единственная мягкая КЛ с FDA-одобрением на контроль миопии</li><li>Daily disposable — без хранения</li><li>РКИ Chamberlain 2019 (3 года, n=144)</li></ul></div>
+          <div class="cons"><b>Минусы</b><ul><li>Только от −0,75 до −4,00 D</li><li>Астигматизм ≤ 0,75 D</li><li>На старте — 8–12 лет</li></ul></div>
+        </div>
+        <div class="footer-links">
+          <a href="https://coopervision.ru/misight" target="_blank" rel="noopener">coopervision.ru</a>
+          <a href="https://viplinza.ru/CooperVision/MiSight-1-day" target="_blank" rel="noopener">viplinza.ru</a>
+          <a href="https://journals.lww.com/optvissci/fulltext/2019/08000/a_3_year_randomized_clinical_trial_of_misight.3.aspx" target="_blank" rel="noopener">РКИ 2019</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="product">
+      <div class="photo" style="background:linear-gradient(135deg,#e6efff,#fff)">
+        <div class="no-photo">
+          <b>NaturalVue Multifocal</b>
+          <span>Прямого фото с официального сайта vtivision.com получить не удалось — компания не публикует product imagery в открытом виде. Внешне — стандартная однодневка в блистере.</span>
+        </div>
+        <span class="badge note">Off-label</span>
+      </div>
+      <div class="body">
+        <h3>NaturalVue Multifocal 1 Day</h3>
+        <p class="brand">Visioneering Technologies (США)</p>
+        <div class="tech">
+          <b>Neurofocus Optics — Extended Depth of Focus.</b> Не классический мультифокал, а «расширенная глубина фокуса» — высокая аддидация около +5,00 D по периферии без потери остроты в центре.
+        </div>
+        <div class="stats">
+          <div class="stat"><div class="label">Осевой рост (47 мес наблюдения)</div><div class="val">~0,10 мм/год</div></div>
+          <div class="stat orange"><div class="label">Статус</div><div class="val">Off-label</div></div>
+        </div>
+        <div class="pricerow"><span>💰 Цена</span><span class="price-amount">в РФ официально нет</span></div>
+        <div class="pros-cons">
+          <div class="pros"><b>Плюсы</b><ul><li>Скорость роста близка к не-миопам</li><li>Любые рефракции, включая высокий астигматизм</li></ul></div>
+          <div class="cons"><b>Минусы</b><ul><li>Off-label — нет FDA на контроль миопии</li><li>Доказательная база — ретроспектива</li><li>Громкие цифры от производителя (95%/78%) не подтвердились в верификации</li></ul></div>
+        </div>
+        <div class="footer-links">
+          <a href="https://vtivision.com/" target="_blank" rel="noopener">vtivision.com</a>
+          <a href="https://pubmed.ncbi.nlm.nih.gov/35814919/" target="_blank" rel="noopener">PMC9270009</a>
+        </div>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<section>
+  <h2><span class="num">4</span>Ортокератология — ночные жёсткие линзы</h2>
+  <p class="section-sub">Самый сильный из «оптических» методов: жёсткая газопроницаемая линза надевается на ночь, временно «формует» роговицу, и днём ребёнок видит без очков. Эффект на рост глаза — кумулятивный, нарастает с годами.</p>
+
+  <div class="callout danger">
+    <b>⚠️ Риск микробного кератита.</b> ОК-линзы — это контактные линзы ночного ношения. При нарушении гигиены или использовании водопроводной воды риск инфекции выше, чем у мягких. Только под контролем офтальмолога, специализирующегося на ОК.
+  </div>
+
+  <div class="product-grid">
+
+    <article class="product">
+      <div class="photo">
+        <img src="https://images.myopiaprofile.com/tr:w-1200,h-auto,fo-auto/api/Product/0f14a360-fdd3-4ed9-2bee-08db7d1d2454/download/Image/3a4358f9-77f1-4076-9479-08db925af659" alt="Menicon Bloom Night / Z Night">
+        <span class="badge">11 лет данных</span>
+      </div>
+      <div class="body">
+        <h3>Menicon Z Night / Bloom Night</h3>
+        <p class="brand">Menicon (Япония)</p>
+        <div class="tech">
+          <b>Tisilfocon A.</b> Высокая Dk = 163 — рекордно высокая газопроницаемость, что критично для ночного ношения. CE-marked для контроля миопии.
+        </div>
+        <div class="stats">
+          <div class="stat"><div class="label">Накопленный эффект 11 лет</div><div class="val">−0,69 мм</div></div>
+          <div class="stat green"><div class="label">Возраст</div><div class="val">от 7 лет</div></div>
+        </div>
+        <div class="pricerow"><span>💰 Цена в РФ (пара + подбор)</span><span class="price-amount">~35 000–50 000 ₽</span></div>
+        <div class="pros-cons">
+          <div class="pros"><b>Плюсы</b><ul><li>Самые длинные опубликованные данные (11 лет, Santodomingo-Rubido 2025)</li><li>Эффект растёт со временем</li><li>Дневная свобода без очков</li></ul></div>
+          <div class="cons"><b>Минусы</b><ul><li>Высокий порог по гигиене</li><li>Нужно ежегодное переоформление</li><li>Эффект коррекции возвращается при отмене</li></ul></div>
+        </div>
+        <div class="footer-links">
+          <a href="https://www.menicon.com/" target="_blank" rel="noopener">menicon.com</a>
+          <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12101883/" target="_blank" rel="noopener">11-летнее иссл.</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="product">
+      <div class="photo">
+        <img src="https://images.myopiaprofile.com/tr:w-1200,h-auto,fo-auto/api/Product/46e14bbb-623e-4034-6562-08dbb3e3ede3/download/Image/c657d258-3ff9-4531-545d-08dbb42865f6" alt="Paragon CRT">
+        <span class="badge">FDA · 2002</span>
+      </div>
+      <div class="body">
+        <h3>Paragon CRT</h3>
+        <p class="brand">Paragon Vision Sciences (CooperVision)</p>
+        <div class="tech">
+          <b>Corneal Refractive Therapy.</b> Гармонический передний/задний дизайн на 30% тоньше других ОК-дизайнов. Самая распространённая ОК-линза в мире.
+        </div>
+        <div class="stats">
+          <div class="stat"><div class="label">Осевой рост vs VST</div><div class="val">0,41 мм/1,5 г</div></div>
+          <div class="stat orange"><div class="label">Возраст</div><div class="val">от 7 лет</div></div>
+        </div>
+        <div class="pricerow"><span>💰 Цена в РФ (пара)</span><span class="price-amount">21 900 – 25 000 ₽ + 8 000 ₽ подбор</span></div>
+        <div class="pros-cons">
+          <div class="pros"><b>Плюсы</b><ul><li>20+ лет на рынке</li><li>Самая низкая частота побочек среди ОК (10,3%)</li><li>FDA с 2002 года</li></ul></div>
+          <div class="cons"><b>Минусы</b><ul><li>Чуть слабее VST-дизайнов по контролю миопии</li><li>Зона лечения 6 мм (vs 5 мм у новых ОК)</li></ul></div>
+        </div>
+        <div class="footer-links">
+          <a href="https://www.paragonvision.com/crt-lenses/" target="_blank" rel="noopener">paragonvision.com</a>
+          <a href="https://optimistoptica.ru/ortokeratologiya/ortokeratologicheskaya_linza_paragon_crt.html" target="_blank" rel="noopener">optimistoptica.ru</a>
+          <a href="https://crt.club/" target="_blank" rel="noopener">crt.club</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="product">
+      <div class="photo" style="background:linear-gradient(135deg,#fdeedf,#fff)">
+        <div class="no-photo">
+          <b>Doctor Lens / Emerald (РФ)</b>
+          <span>Российские ОК-бренды не публикуют независимых клинических РКИ; продаются по общей доказательной базе ортокератологии. Фото — индивидуальные, в зависимости от производителя дизайна.</span>
+        </div>
+        <span class="badge note">РФ-бренды</span>
+      </div>
+      <div class="body">
+        <h3>Doctor Lens · Emerald · ESA Optics</h3>
+        <p class="brand">Российские производители</p>
+        <div class="tech">
+          <b>Индивидуальные ОК-дизайны.</b> Российские бренды часто работают по лицензии или собственным расчётам, на тех же материалах (paflufocon B / tisilfocon A). Доказательная база — общая для ОК, своих РКИ нет.
+        </div>
+        <div class="stats">
+          <div class="stat"><div class="label">Уровень доказательств</div><div class="val">Общая</div></div>
+          <div class="stat green"><div class="label">Возраст</div><div class="val">от 7 лет</div></div>
+        </div>
+        <div class="pricerow"><span>💰 Цена в РФ (пара)</span><span class="price-amount">20 000 – 30 000 ₽</span></div>
+        <div class="pros-cons">
+          <div class="pros"><b>Плюсы</b><ul><li>Сервис и подбор в РФ — лучше</li><li>Меньше проблем с поставками</li><li>Цена сопоставима с Paragon</li></ul></div>
+          <div class="cons"><b>Минусы</b><ul><li>Нет независимых РКИ по этим брендам</li><li>Качество шлифовки и контроль — производитель-зависимо</li></ul></div>
+        </div>
+        <div class="footer-links">
+          <a href="https://doctorlens.ru/" target="_blank" rel="noopener">doctorlens.ru</a>
+          <a href="https://eyesight.ru/orto/" target="_blank" rel="noopener">eyesight.ru</a>
+        </div>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<section>
+  <h2><span class="num">5</span>Сравнительная таблица — на одной странице</h2>
+  <p class="section-sub">Что важно держать в голове, когда выбираете с офтальмологом.</p>
+  <div class="compare">
+    <table>
+      <thead>
+        <tr><th>Решение</th><th>Технология</th><th>Эффект</th><th>Возраст</th><th>Цена в РФ</th><th>Особенности</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="name">Stellest<div class="cat">Очки</div></td>
+          <td>H.A.L.T. (1021 микро-линза)</td>
+          <td>−0,23 мм/год · 71% за 2 года</td>
+          <td>8–13</td>
+          <td>17,5–35,8 тыс ₽</td>
+          <td>FDA 2024, любая оправа</td>
+        </tr>
+        <tr>
+          <td class="name">MiYOSMART<div class="cat">Очки</div></td>
+          <td>D.I.M.S. (396 сегментов)</td>
+          <td>−0,21 мм/год · 60% за 2 года</td>
+          <td>8–13</td>
+          <td>25–35 тыс ₽</td>
+          <td>6-летние данные эффективности</td>
+        </tr>
+        <tr>
+          <td class="name">ZEISS MyoCare<div class="cat">Очки</div></td>
+          <td>C.A.R.E. (концентрические кольца)</td>
+          <td>41–77% (зависит от выборки)</td>
+          <td>6+</td>
+          <td>от 25 тыс ₽</td>
+          <td>2 версии: до 10 / 10+ лет</td>
+        </tr>
+        <tr>
+          <td class="name">SightGlass DOT<div class="cat">Очки</div></td>
+          <td>Diffusion Optics</td>
+          <td>−0,05 мм/год (год 4)</td>
+          <td>6–10</td>
+          <td>в РФ нет</td>
+          <td>FDA Breakthrough Device</td>
+        </tr>
+        <tr>
+          <td class="name">MiSight 1 day<div class="cat">Мягкие КЛ</div></td>
+          <td>Dual Focus</td>
+          <td>59% реф · 52% осев · 3 года</td>
+          <td>8–12 (старт)</td>
+          <td>3–4 тыс ₽ / 30 шт</td>
+          <td>Единственная FDA-одобренная мягкая КЛ</td>
+        </tr>
+        <tr>
+          <td class="name">NaturalVue MF<div class="cat">Мягкие КЛ</div></td>
+          <td>EDOF / Neurofocus</td>
+          <td>~0,10 мм/год</td>
+          <td>от 8</td>
+          <td>в РФ нет</td>
+          <td>Off-label, ретроспективные данные</td>
+        </tr>
+        <tr>
+          <td class="name">Menicon Z Night<div class="cat">Орто-К</div></td>
+          <td>tisilfocon A, Dk=163</td>
+          <td>−0,69 мм за 11 лет</td>
+          <td>от 7</td>
+          <td>~35–50 тыс ₽</td>
+          <td>Самые длинные данные</td>
+        </tr>
+        <tr>
+          <td class="name">Paragon CRT<div class="cat">Орто-К</div></td>
+          <td>Corneal Refractive Therapy</td>
+          <td>~0,41 мм / 1,5 г</td>
+          <td>от 7</td>
+          <td>22–25 тыс ₽ + 8 тыс подбор</td>
+          <td>Самая безопасная ОК (10,3% побочек)</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section>
+  <h2><span class="num">6</span>Что выбрать в типичных ситуациях</h2>
+  <div class="choose-grid">
+
+    <div class="choose">
+      <div class="who">Ребёнок 6–8 лет, миопия −1,0 D, спокойный</div>
+      <h4>Очковые линзы Stellest или MiYOSMART</h4>
+      <p>Контактные линзы в этом возрасте — лишний риск по гигиене. Очки дают 60–71% замедления и реально просто работают. ZEISS MyoCare — хорошая альтернатива, если в вашем городе есть.</p>
+      <div class="pick">Выбор: <em>Stellest / MiYOSMART</em></div>
+    </div>
+
+    <div class="choose">
+      <div class="who">Ребёнок 9–12, активный спорт, очки мешают</div>
+      <h4>MiSight 1 day</h4>
+      <p>Единственная FDA-одобренная мягкая линза для контроля миопии. Однодневки = нет хранения и инфекций. Подходит если рефракция −0,75…−4,00 D, астигматизм ≤ 0,75 D.</p>
+      <div class="pick">Выбор: <em>MiSight 1 day</em></div>
+    </div>
+
+    <div class="choose">
+      <div class="who">Подросток, миопия растёт &gt;1 D/год</div>
+      <h4>Ортокератология (Menicon Z Night / Paragon CRT)</h4>
+      <p>Самый сильный из оптических методов, эффект накапливается. Готовы к ежедневному ритуалу с линзами на ночь + ежегодные приёмы у офтальмолога — лучший выбор. Можно совмещать с атропином 0,01%.</p>
+      <div class="pick">Выбор: <em>ОК-линзы ± атропин</em></div>
+    </div>
+
+    <div class="choose">
+      <div class="who">Высокая миопия −5 D и больше, нужно «всё»</div>
+      <h4>Комбо: ОК + атропин 0,01%</h4>
+      <p>В NMA Schmidt 2025 комбо ОК+атропин даёт −0,24 мм/год — лучше, чем любая отдельная очковая линза. Обсудить с детским офтальмологом или специалистом по миопии.</p>
+      <div class="pick">Выбор: <em>Комбо</em></div>
+    </div>
+
+  </div>
+</section>
+
+<section>
+  <h2><span class="num">7</span>FAQ — частые вопросы</h2>
+  <div class="faq">
+    <details>
+      <summary>Работает ли это для взрослых? Мне 25, миопия растёт.</summary>
+      <p>Все РКИ выполнены на детях 6–18 лет — у них растёт глазное яблоко, поэтому и есть что замедлять. У взрослых рост обычно прекращается к 20–22 годам; если миопия продолжает расти после 25 — это часто связано с другими причинами (ядерная катаракта, диабет, длительная работа вблизи). Нужно идти к офтальмологу за дифдиагнозом, а не подбирать «детские» линзы.</p>
+    </details>
+    <details>
+      <summary>А правда, что 70% замедления у Stellest — рекламная цифра?</summary>
+      <p>Не совсем. 71% — это среднее за 2 года в РКИ Hong Kong (n=170) против обычных очков. В сетевом мета-анализе Schmidt 2025 (74 РКИ) HAL-линзы дают −0,23 мм/год — это соответствует примерно 60–70% замедления у среднестатистического ребёнка с прогрессией 0,3–0,4 мм/год. Цифра реалистичная, но эффект сильно зависит от возраста и исходной скорости прогрессии.</p>
+    </details>
+    <details>
+      <summary>Atropine 0,01% сильнее любых линз — зачем тогда линзы?</summary>
+      <p>В NMA Schmidt 2025 атропин 1% обходит все очковые опции, но 0,01% (популярная «детская» концентрация) — нет. И атропин не корректирует зрение — его всё равно надо комбинировать с очками или линзами. Поэтому реальный выбор обычно: «специальные очки» vs «обычные очки + капли» vs «ОК-линзы». Многие офтальмологи комбинируют: например, MiSight + атропин 0,01%.</p>
+    </details>
+    <details>
+      <summary>В России это всё реально достать?</summary>
+      <p>Stellest и MiYOSMART — да, через большие оптические сети (Линзмастер, Очкарик, Focus, мелкие детские оптики). MiSight 1 day — официальный дистрибьютор CooperVision Россия + интернет-магазины. ОК-линзы — Paragon CRT через клиники типа «Оптимист Оптика», «Эксимер», или российские бренды (Doctor Lens, Emerald) напрямую через клиники-партнёры. ZEISS MyoCare и SightGlass DOT — точечно, лучше уточнять.</p>
+    </details>
+    <details>
+      <summary>Что лучше из очковых: Stellest vs MiYOSMART?</summary>
+      <p>Разница между −0,23 и −0,21 мм/год в NMA — статистически малозаметна. Stellest получил FDA-одобрение в 2024 (это «свежее» подтверждение), у MiYOSMART — более длинные данные (6 лет). Реальный выбор обычно решает не эффективность, а: 1) что лучше подберут в вашей оптике, 2) что есть в нужном индексе/покрытии, 3) косметика — у MiYOSMART honeycomb-структура чуть видна вблизи, у Stellest — реже заметна.</p>
+    </details>
+    <details>
+      <summary>Что важно при выборе ОК-линз?</summary>
+      <p>Три вещи: 1) опыт врача (минимум 3 года практики именно с ОК), 2) топограф роговицы у клиники (без него подбор «вслепую»), 3) ежемесячные контрольные приёмы первые полгода. Сами линзы (Paragon CRT, Menicon Z Night, российские) — менее значимая переменная, чем компетенция офтальмолога-ортокератолога.</p>
+    </details>
+  </div>
+</section>
+
+<footer>
+  <h4>Источники и доказательная база</h4>
+  <ol>
+    <li><a href="https://onlinelibrary.wiley.com/doi/10.1111/aos.17496" target="_blank" rel="noopener">Schmidt DC et al. Network meta-analysis of myopia control interventions. <i>Acta Ophthalmologica</i>, 2025</a> — 74 РКИ, 12 154 детей, основа рейтинга.</li>
+    <li><a href="https://journals.lww.com/optvissci/fulltext/2019/08000/a_3_year_randomized_clinical_trial_of_misight.3.aspx" target="_blank" rel="noopener">Chamberlain P et al. A 3-year randomized clinical trial of MiSight lenses. <i>Optometry and Vision Science</i> 2019; 96(8):556–567</a> — основа FDA-одобрения.</li>
+    <li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12101883/" target="_blank" rel="noopener">Santodomingo-Rubido J et al. 11-year orthokeratology study. <i>Optom Vis Sci</i> 2025</a> — самое длинное наблюдение по ОК.</li>
+    <li><a href="https://onlinelibrary.wiley.com/doi/10.1111/opo.13417?af=R" target="_blank" rel="noopener">Zaabaar et al. Meta-meta-analysis of myopia interventions. <i>OPO</i> 2025</a> — пуловое сравнение.</li>
+    <li><a href="https://www.sightglassvision.com/releases/sightglass-vision-reports-positive-four-year-clinical-trial-outcomes-for-myopia-control-dot-spectacle-lenses/" target="_blank" rel="noopener">SightGlass CYPRESS 4-year results</a></li>
+    <li><a href="https://www.zeiss.com/vision-care/en/newsroom/news/2024/zeiss-myocare-portfolio-efficacy-confirmed.html" target="_blank" rel="noopener">ZEISS MyoCare clinical data ARVO 2024</a></li>
+    <li><a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9010613/" target="_blank" rel="noopener">VST vs CRT comparison, 1001 children. <i>Frontiers in Medicine</i> 2022</a></li>
+    <li><a href="https://www.essilor.com/us-en/products/stellest/" target="_blank" rel="noopener">Essilor Stellest — официальный сайт</a></li>
+    <li><a href="https://www.hoyavision.com/vision-products/miyosmartVr25/" target="_blank" rel="noopener">Hoya MiYOSMART — официальный сайт</a></li>
+    <li><a href="https://coopervision.com/contact-lenses/misight-1-day" target="_blank" rel="noopener">CooperVision MiSight 1 day</a></li>
+    <li><a href="https://www.paragonvision.com/crt-lenses/" target="_blank" rel="noopener">Paragon CRT — официальный сайт</a></li>
+  </ol>
+
+  <div class="disclaimer">
+    <b>⚕️ Дисклеймер.</b> Подборка — для общего понимания темы, не медицинская рекомендация. Выбор линз для контроля миопии должен делать детский офтальмолог или специалист по миопии — на основе осмотра, биометрии (осевой длины), скорости прогрессии и сопутствующих факторов. Цены актуальны на май 2026 и могут меняться. Большинство клинических данных получено на азиатских детях — для славянских/европейских популяций эффект может быть скромнее.
+  </div>
+
+</footer>
+
+</div>
+</body>
+</html>
