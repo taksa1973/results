@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Где купить Somnee 2.0 — гид по покупке (май 2026)</title>
+<style>
+  :root {
+    --bg: #0b0d12;
+    --panel: #141821;
+    --panel-2: #1c2230;
+    --border: #2a3142;
+    --text: #e6e9ef;
+    --muted: #98a0b0;
+    --accent: #7c5cff;
+    --accent-2: #4ecdc4;
+    --green: #4caf50;
+    --yellow: #ffb74d;
+    --red: #ef5350;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, sans-serif;
+    line-height: 1.55;
+  }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 32px 20px 80px; }
+  header { margin-bottom: 32px; }
+  h1 { font-size: clamp(28px, 4vw, 40px); margin: 0 0 10px; line-height: 1.15; }
+  .sub { color: var(--muted); font-size: 15px; max-width: 760px; }
+  .meta { display: inline-flex; gap: 10px; margin-top: 14px; flex-wrap: wrap; font-size: 13px; color: var(--muted); }
+  .meta span { padding: 4px 10px; background: var(--panel); border-radius: 999px; border: 1px solid var(--border); }
+
+  h2 {
+    font-size: 24px;
+    margin: 44px 0 16px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--border);
+    display: flex; align-items: center; gap: 10px;
+  }
+  h2 .tag {
+    font-size: 11px; background: var(--accent); color: #fff;
+    padding: 3px 9px; border-radius: 6px; font-weight: 700;
+    letter-spacing: 0.5px;
+  }
+  h3 { margin: 24px 0 10px; font-size: 17px; }
+
+  .tldr {
+    background: linear-gradient(135deg, rgba(124,92,255,0.10), rgba(78,205,196,0.06));
+    border: 1px solid rgba(124,92,255,0.35);
+    border-radius: 14px;
+    padding: 22px 24px;
+    margin-bottom: 28px;
+  }
+  .tldr h2 { border: 0; margin: 0 0 12px; padding: 0; font-size: 18px; }
+  .tldr ul { margin: 0; padding-left: 20px; }
+  .tldr li { margin: 6px 0; }
+
+  .hero-card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 22px;
+    margin-bottom: 28px;
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    gap: 24px;
+    align-items: start;
+  }
+  @media (max-width: 720px) {
+    .hero-card { grid-template-columns: 1fr; }
+  }
+  .hero-card .img-wrap {
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    aspect-ratio: 1/1;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .hero-card img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .badges { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
+  .badge {
+    font-size: 12px; padding: 4px 10px; border-radius: 999px;
+    background: var(--panel-2); border: 1px solid var(--border);
+    color: var(--muted);
+  }
+  .badge.warn { background: rgba(239,83,80,0.12); border-color: rgba(239,83,80,0.4); color: #ff9c95; }
+  .badge.ok { background: rgba(76,175,80,0.12); border-color: rgba(76,175,80,0.4); color: #a8e0a8; }
+  .badge.info { background: rgba(124,92,255,0.12); border-color: rgba(124,92,255,0.4); color: #c1b3ff; }
+
+  .price-row {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin: 16px 0;
+  }
+  @media (max-width: 540px) { .price-row { grid-template-columns: 1fr; } }
+  .price-box {
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px;
+  }
+  .price-box .label { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+  .price-box .val { font-size: 22px; font-weight: 700; margin-top: 4px; }
+  .price-box .hint { font-size: 12px; color: var(--muted); margin-top: 4px; }
+
+  .btn {
+    display: inline-block;
+    padding: 10px 18px;
+    background: var(--accent);
+    color: #fff;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 14px;
+    margin-right: 8px;
+    margin-top: 8px;
+    transition: transform 0.1s;
+  }
+  .btn:hover { transform: translateY(-1px); }
+  .btn.ghost {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text);
+  }
+
+  .route {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 22px;
+    margin: 16px 0;
+  }
+  .route h3 { margin-top: 0; display: flex; align-items: center; gap: 10px; }
+  .route .num {
+    width: 28px; height: 28px;
+    background: var(--accent);
+    color: #fff;
+    border-radius: 50%;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 700;
+  }
+  .steps { counter-reset: step; padding: 0; list-style: none; margin: 12px 0 0; }
+  .steps li {
+    counter-increment: step;
+    padding: 10px 0 10px 36px;
+    position: relative;
+    border-top: 1px dashed var(--border);
+  }
+  .steps li:first-child { border-top: 0; }
+  .steps li::before {
+    content: counter(step);
+    position: absolute; left: 0; top: 12px;
+    width: 24px; height: 24px;
+    background: var(--panel-2); border: 1px solid var(--border);
+    border-radius: 50%;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 12px; color: var(--muted);
+  }
+  .steps b { color: var(--accent-2); }
+
+  .compare {
+    width: 100%; border-collapse: collapse; margin: 12px 0;
+    font-size: 14px;
+  }
+  .compare th, .compare td {
+    padding: 12px 14px; text-align: left;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  .compare th { background: var(--panel-2); color: var(--muted); font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .compare tr:last-child td { border-bottom: 0; }
+  .compare .yes { color: var(--green); }
+  .compare .no { color: var(--red); }
+
+  .note {
+    padding: 14px 16px;
+    border-radius: 10px;
+    margin: 14px 0;
+    font-size: 14px;
+  }
+  .note.warn {
+    background: rgba(239,83,80,0.08);
+    border-left: 3px solid var(--red);
+    color: #ffb8b3;
+  }
+  .note.info {
+    background: rgba(124,92,255,0.08);
+    border-left: 3px solid var(--accent);
+    color: #c1b3ff;
+  }
+  .note.tip {
+    background: rgba(76,175,80,0.08);
+    border-left: 3px solid var(--green);
+    color: #b6e2b6;
+  }
+
+  .total-card {
+    background: linear-gradient(135deg, var(--panel) 0%, var(--panel-2) 100%);
+    border: 1px solid var(--accent);
+    border-radius: 14px;
+    padding: 22px;
+    margin: 18px 0;
+  }
+  .total-card .row {
+    display: flex; justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px dashed var(--border);
+    font-size: 14px;
+  }
+  .total-card .row:last-child { border-bottom: 0; font-weight: 700; font-size: 16px; color: var(--accent-2); }
+  .total-card .row .muted { color: var(--muted); font-size: 12px; }
+
+  ul.checks { list-style: none; padding: 0; margin: 12px 0; }
+  ul.checks li { padding: 6px 0 6px 28px; position: relative; }
+  ul.checks li::before {
+    content: "✓"; position: absolute; left: 0; top: 6px;
+    color: var(--green); font-weight: 700;
+  }
+  ul.crosses li::before { content: "✕"; color: var(--red); }
+
+  a { color: var(--accent-2); }
+  footer { margin-top: 60px; color: var(--muted); font-size: 12px; text-align: center; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>Где купить Somnee 2.0</h1>
+  <p class="sub">EEG-нейроповязка для сна второго поколения от StimScience. Разбор: где продают, сколько стоит реально (устройство + обязательная подписка), как привезти в Россию или Узбекистан, и стоит ли брать б/у на eBay.</p>
+  <div class="meta">
+    <span>Май 2026</span>
+    <span>Производитель: StimScience (Berkeley, US)</span>
+    <span>Доставка от Somnee: только США</span>
+  </div>
+</header>
+
+<div class="tldr">
+  <h2>TL;DR</h2>
+  <ul>
+    <li><b>Единственный официальный канал</b> — <a href="https://somneesleep.com/products/smart-sleep-headband" target="_blank">somneesleep.com</a>. Ни Amazon, ни Best Buy, ни ретейл — нет.</li>
+    <li><b>Цена устройства</b>: от ~$299 (только повязка) или ~$429–$549 за bundle (повязка + годовая подписка). Цены плавают от акций.</li>
+    <li><b>Подписка обязательна</b> — без неё устройство не работает. ~$18/мес или ~$183/год.</li>
+    <li><b>Шлют только по США.</b> В РФ/Узбекистан/СНГ — через mail-forwarder (Shipito, Stackry, Pochtoy).</li>
+    <li><b>eBay б/у:</b> есть, но подписку всё равно придётся оплачивать отдельно — без неё нет нейростимуляции.</li>
+    <li><b>45-дневный возврат</b> работает только при отправке внутри США.</li>
+  </ul>
+</div>
+
+<h2>Что это вообще <span class="tag">контекст</span></h2>
+
+<div class="hero-card">
+  <div class="img-wrap">
+    <img src="https://somneesleep.com/cdn/shop/files/Somnee_Website_PDP_Images_Slate_Isabelle_a321c156-9c69-491f-9da3-75c0e4e974a7.jpg" alt="Somnee 2.0 Smart Sleep Headband — лента-повязка с EEG-датчиками на лбу" loading="lazy">
+  </div>
+  <div>
+    <div class="badges">
+      <span class="badge info">EEG + tACS-стимуляция</span>
+      <span class="badge info">15 мин перед сном</span>
+      <span class="badge ok">Клинически валидирована UC Berkeley</span>
+      <span class="badge warn">Подписка обязательна</span>
+    </div>
+    <p>Somnee 2.0 — мягкая тканевая повязка со встроенными EEG-электродами на лбу. За 15 минут перед сном устройство считывает индивидуальную картину мозга и подаёт слабый электрический ток (tACS), «подталкивая» мозг к более глубокому сну. Второе поколение (релиз: конец 2025) — мягче, тоньше, оптимизировано для ношения всю ночь, плюс SmartSleep AI.</p>
+    <p>Спин-офф из лаборатории UC Berkeley, советник — <b>Мэтью Уокер</b> (автор «Why We Sleep»).</p>
+    <a class="btn" href="https://somneesleep.com/products/smart-sleep-headband" target="_blank">somneesleep.com</a>
+    <a class="btn ghost" href="https://somneesleep.com/" target="_blank">Главная Somnee</a>
+  </div>
+</div>
+
+<h2>Сколько это реально стоит <span class="tag">деньги</span></h2>
+
+<p>Somnee продаёт устройство и подписку как связку — без активного мембершипа повязка превращается в обычный лоб-датчик без стимуляции. На сайте сейчас два основных пакета:</p>
+
+<div class="price-row">
+  <div class="price-box">
+    <div class="label">Только устройство</div>
+    <div class="val">от $299</div>
+    <div class="hint">+ подписка $18/мес отдельно</div>
+  </div>
+  <div class="price-box">
+    <div class="label">Smart Sleep Bundle</div>
+    <div class="val">$429–$549</div>
+    <div class="hint">устройство + 12 мес подписки</div>
+  </div>
+</div>
+
+<div class="note info">
+  Цены плавают: в США часто прокручивают промо (Labor Day, Black Friday, $30 off за email) — до 30% скидка реальна. Перед заказом проверьте купоны на <a href="https://hellosubscription.com/2026/05/somnee-sleep-coupon/" target="_blank">hellosubscription</a> или <a href="https://www.dontpayfull.com/at/somneesleep.com" target="_blank">dontpayfull</a>.
+</div>
+
+<h3>Что включено в подписку</h3>
+<ul class="checks">
+  <li>Лицензия на SmartSleep AI (без неё стимуляция не работает)</li>
+  <li>Хранение EEG-данных и ежедневные отчёты о сне</li>
+  <li>Регулярная отправка <b>сменных гидрогелевых электродов</b> (расходник, нужны раз в ~2 недели)</li>
+  <li>Дневник Мэтью Уокера, контент по гигиене сна</li>
+  <li>Партнёрские бонусы</li>
+</ul>
+
+<div class="note warn">
+  <b>Подвох с электродами.</b> Это не одноразовый аксессуар — без свежего гидрогеля контакт пропадает и стимуляция работает плохо. Без подписки расходники в РФ/Узбекистан вы не дозакажете. Это главная причина, почему «купить один раз и забыть» не сработает.
+</div>
+
+<h2>Маршруты покупки <span class="tag">варианты</span></h2>
+
+<div class="route">
+  <h3><span class="num">1</span> Прямой заказ через mail-forwarder (рекомендую)</h3>
+  <p>Поскольку Somnee шлёт только по адресам в США, нужен посредник, который даст вам американский адрес, получит посылку и переотправит в Ташкент/Москву/куда нужно.</p>
+  <ol class="steps">
+    <li>Зарегистрируйтесь в форвардере: <a href="https://www.shipito.com/" target="_blank">Shipito</a>, <a href="https://www.stackry.com/" target="_blank">Stackry</a>, <a href="https://pochtoy.com/" target="_blank">Pochtoy</a> или <a href="https://qwintry.com/" target="_blank">Qwintry</a>. <b>Pochtoy и Qwintry</b> дружелюбнее к рублёвой/тенговой оплате и поддержке на русском.</li>
+    <li>Получите US-адрес склада (обычно Делавэр — там нет налога с продаж).</li>
+    <li>На <b>somneesleep.com</b> оформите заказ: оплата картой US-выпуска или Visa/Mastercard с международной транзакцией. Адрес доставки — склад форвардера, billing — ваша карта.</li>
+    <li>Когда посылка приедет на склад, закажите консолидацию + переотправку DHL/UPS до двери. По <b>Узбекистану</b> работают DHL и UPS, по РФ — только обходные маршруты (через Армению, Казахстан или прямой Pochtoy).</li>
+    <li>Подписка <b>billed автоматически</b> с той же карты — это нормально, лишь бы карта не отвалилась через год.</li>
+  </ol>
+  <p style="margin-top:14px"><b>Ориентир по цене:</b> доставка форвардером из США в Ташкент — $35–60 за коробку 0.5–1 кг (повязка лёгкая). В Москву — $40–80, через CIS-маршруты.</p>
+</div>
+
+<div class="route">
+  <h3><span class="num">2</span> eBay (б/у, осторожно)</h3>
+  <p>На eBay периодически появляются Somnee первого поколения и реже — 2.0 от тех, кто отказался от подписки. Текущий листинг: <a href="https://www.ebay.com/itm/127509029255" target="_blank">ebay.com/itm/127509029255</a>.</p>
+  <ul class="checks crosses">
+    <li>Подписку всё равно придётся открывать самому — устройство привязывается к новому аккаунту, но активация платная</li>
+    <li>Нет 45-дневного возврата</li>
+    <li>Гидрогель электродов засохший — заказывать сменные сразу</li>
+    <li>eBay тоже не всегда шлёт в РФ напрямую — снова форвардер</li>
+  </ul>
+  <p><b>Когда оправдано:</b> если b/u 2.0 продают за $150–200 и вам ок терять 45-дневный trial.</p>
+</div>
+
+<div class="route">
+  <h3><span class="num">3</span> Подождать международной продажи</h3>
+  <p>Somnee официально пишут, что «работают над тем, чтобы стать доступнее в других странах». Сроков нет. Если вы не «надо завтра» — стоит подписаться на их рассылку и подождать.</p>
+</div>
+
+<h2>Полная стоимость владения за 1-й год <span class="tag">калькулятор</span></h2>
+
+<div class="total-card">
+  <div class="row">
+    <span>Smart Sleep Bundle (устройство + 12 мес)</span>
+    <span>~$489</span>
+  </div>
+  <div class="row">
+    <span>Доставка форвардером в Ташкент <span class="muted">(средне)</span></span>
+    <span>~$50</span>
+  </div>
+  <div class="row">
+    <span>Комиссия форвардера и страховка</span>
+    <span>~$15</span>
+  </div>
+  <div class="row">
+    <span>Конвертация валюты (~3%)</span>
+    <span>~$17</span>
+  </div>
+  <div class="row">
+    <span>Итого за 1-й год «под ключ»</span>
+    <span>~$570 (≈ 7 200 000 сум / 50 000 ₽)</span>
+  </div>
+</div>
+
+<p class="sub">Во 2-й год — только подписка $183 + редкая досылка электродов через тот же форвардер.</p>
+
+<h2>Сравнение каналов <span class="tag">кратко</span></h2>
+
+<table class="compare">
+  <thead>
+    <tr>
+      <th>Канал</th>
+      <th>Цена</th>
+      <th>В РФ/UZ</th>
+      <th>Гарантия</th>
+      <th>Кому подходит</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><b>somneesleep.com</b> + форвардер</td>
+      <td>~$489 + ~$80 доставка</td>
+      <td class="yes">Через посредника — да</td>
+      <td class="yes">1 год + 45 дней trial<span class="muted"> (внутри США)</span></td>
+      <td>Тем, кто берёт всерьёз и надолго</td>
+    </tr>
+    <tr>
+      <td><b>eBay б/у</b></td>
+      <td>$150–250 за устройство + подписка $18/мес</td>
+      <td>Через форвардер</td>
+      <td class="no">Только защита eBay</td>
+      <td>Попробовать дешевле</td>
+    </tr>
+    <tr>
+      <td><b>Amazon / локальные ретейлеры</b></td>
+      <td>—</td>
+      <td class="no">Не продаётся</td>
+      <td>—</td>
+      <td>Никому пока</td>
+    </tr>
+    <tr>
+      <td><b>Поездка в США / попросить кого-то</b></td>
+      <td>~$489 (если есть US-адрес)</td>
+      <td class="yes">Привезти в чемодане</td>
+      <td class="yes">Полная</td>
+      <td>Если есть знакомые в США</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>Подводные камни <span class="tag">важно</span></h2>
+
+<div class="note warn">
+  <b>1. Подписка прерывается — устройство умирает.</b> Прекратили платить — стимуляция отключается. Это не «купил и пользуйся», это сервисная модель.
+</div>
+
+<div class="note warn">
+  <b>2. Карта должна тянуть recurring USD-платежи.</b> Российская карта МИР не пройдёт. Узбекская UzCard в USD-расчётах с США тоже не работает. Нужна <b>Visa/Mastercard в долларах</b> — Казахстан, Грузия, Армения, Кипр, ОАЭ, Турция.
+</div>
+
+<div class="note warn">
+  <b>3. FDA-статус.</b> Somnee — wellness-устройство, не медицинский прибор по FDA. При прохождении таможни в РФ это плюс (нет ограничений на медтехнику), но и нет регистрации Росздравнадзора.
+</div>
+
+<div class="note tip">
+  <b>Лайфхак.</b> Заказывайте с электродами на 6 месяцев вперёд — Somnee позволяет докупить пачку. Сэкономите на повторных переправках через форвардер.
+</div>
+
+<h2>Что я бы сделал на месте покупателя <span class="tag">рекомендация</span></h2>
+
+<ol>
+  <li>Открыть USD-карту в одной из стран с нормальным банкингом (Грузия / Казахстан / Армения), если ещё нет.</li>
+  <li>Зарегистрироваться в <b>Pochtoy</b> или <b>Qwintry</b> — у них поддержка на русском и понятная логистика в СНГ.</li>
+  <li>Дождаться промо на somneesleep.com (Black Friday в ноябре или Labor Day в сентябре — реальные –20–30%).</li>
+  <li>Брать <b>Bundle с годовой подпиской</b>, не отдельно. Bundle выходит ощутимо дешевле, чем «устройство + 12 × $18».</li>
+  <li>Сразу в первом заказе попросить выслать запас гидрогелевых электродов на 6 месяцев — чтобы реже гонять форвардер.</li>
+</ol>
+
+<footer>
+  Сгенерировано на основе данных somneesleep.com, eBay, обзоров michaelkummer.com и wellworthy.com, актуально на май 2026. Цены могут меняться — перед покупкой сверьтесь с сайтом.
+</footer>
+
+</div>
+</body>
+</html>
