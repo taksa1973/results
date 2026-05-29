@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Складная скамья для домашней качалки — Сербия 2026</title>
+<style>
+  :root {
+    --bg: #0f0f12;
+    --bg2: #16161c;
+    --card: #1c1c24;
+    --border: #2a2a36;
+    --text: #ececf1;
+    --muted: #9aa0b4;
+    --accent: #ff5b3a;
+    --accent2: #ffb547;
+    --ok: #4ade80;
+    --warn: #fbbf24;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.55;
+  }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 40px 20px 80px; }
+  header { border-bottom: 1px solid var(--border); padding-bottom: 30px; margin-bottom: 36px; }
+  h1 {
+    font-size: clamp(28px, 4vw, 42px);
+    margin: 0 0 12px;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+  }
+  .sub { color: var(--muted); font-size: 16px; max-width: 700px; }
+  .intro { background: var(--bg2); border: 1px solid var(--border); border-radius: 14px; padding: 20px 24px; margin: 28px 0 36px; }
+  .intro h2 { margin: 0 0 10px; font-size: 18px; color: var(--accent2); }
+  .intro ul { margin: 8px 0; padding-left: 20px; color: var(--muted); }
+  .intro li { margin: 4px 0; }
+  .intro li b { color: var(--text); }
+
+  .grid { display: grid; gap: 24px; }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 360px 1fr;
+  }
+  @media (max-width: 760px) {
+    .card { grid-template-columns: 1fr; }
+    .imgbox { min-height: 240px; }
+  }
+  .imgbox {
+    background: #fff;
+    display: flex; align-items: center; justify-content: center;
+    padding: 18px;
+    min-height: 280px;
+    position: relative;
+  }
+  .imgbox img { max-width: 100%; max-height: 320px; object-fit: contain; }
+  .rank {
+    position: absolute; top: 12px; left: 12px;
+    background: var(--accent); color: #fff;
+    font-weight: 700; font-size: 13px;
+    padding: 4px 10px; border-radius: 20px;
+    letter-spacing: 0.04em;
+  }
+  .body { padding: 24px 26px; }
+  .brand { color: var(--accent2); font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 4px; }
+  .title { font-size: 22px; font-weight: 700; margin: 0 0 10px; letter-spacing: -0.01em; }
+  .price {
+    display: inline-block;
+    font-size: 20px; font-weight: 700;
+    color: var(--ok);
+    margin-bottom: 14px;
+  }
+  .price small { font-size: 13px; color: var(--muted); font-weight: 500; margin-left: 6px; }
+  .specs { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 16px; margin: 12px 0; font-size: 14px; }
+  .specs div { display: flex; gap: 6px; }
+  .specs .k { color: var(--muted); min-width: 110px; }
+  .specs .v { color: var(--text); }
+  .tag {
+    display: inline-block;
+    background: rgba(74, 222, 128, 0.12);
+    color: var(--ok);
+    border: 1px solid rgba(74, 222, 128, 0.3);
+    font-size: 12px;
+    padding: 3px 9px;
+    border-radius: 12px;
+    margin: 2px 4px 2px 0;
+  }
+  .tag.warn { background: rgba(251, 191, 36, 0.1); color: var(--warn); border-color: rgba(251, 191, 36, 0.3); }
+  .notes { color: var(--muted); font-size: 14px; margin: 10px 0 16px; }
+  .cta {
+    display: inline-block;
+    background: var(--accent);
+    color: #fff;
+    text-decoration: none;
+    padding: 12px 22px;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 15px;
+    margin-top: 4px;
+    transition: transform 0.1s, background 0.15s;
+  }
+  .cta:hover { background: #ff4422; transform: translateY(-1px); }
+
+  .verdict { background: linear-gradient(135deg, #1e1b2c, #2a1f3a); border: 1px solid var(--border); border-radius: 16px; padding: 24px 28px; margin-top: 40px; }
+  .verdict h2 { margin: 0 0 14px; font-size: 22px; color: var(--accent2); }
+  .verdict p { margin: 8px 0; color: var(--text); }
+  .verdict strong { color: var(--accent); }
+  footer { color: var(--muted); font-size: 13px; text-align: center; margin-top: 50px; padding-top: 24px; border-top: 1px solid var(--border); }
+  footer a { color: var(--muted); }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>Складная скамья для домашней качалки — Сербия</h1>
+  <p class="sub">Подборка скамей с регулируемой спинкой (угол наклона/диагональ), которые складываются и хранятся вертикально, занимая минимум места. Цены и фото из сербских магазинов с прямой доставкой по стране, май 2026.</p>
+</header>
+
+<div class="intro">
+  <h2>Что искал</h2>
+  <ul>
+    <li><b>Складная</b> — сложил после тренировки, убрал в угол/под кровать</li>
+    <li><b>Вертикальное хранение</b> — встаёт «на торец», не лежит плашмя</li>
+    <li><b>Регулируемая спинка</b> — есть горизонталь, есть наклон под жим под углом (incline)</li>
+    <li><b>Адекватная нагрузка</b> — минимум 100 кг (пользователь + штанга)</li>
+  </ul>
+</div>
+
+<div class="grid">
+
+  <!-- 1 -->
+  <article class="card">
+    <div class="imgbox">
+      <span class="rank">№1 ВЫБОР</span>
+      <img src="https://contents.mediadecathlon.com/p3164600/1cr1/k$ce1ed40869caf29147c789aa89bbc5e1/sklopiva-nagibna-klupa-za-vezbanje-500.jpg?format=auto&f=1024x0" alt="Domyos 500 Fold sklopiva klupa">
+    </div>
+    <div class="body">
+      <div class="brand">Decathlon · Domyos</div>
+      <h2 class="title">Sklopiva nagibna klupa 500 Fold</h2>
+      <div class="price">11 999 RSD <small>≈ ~102 EUR · с НДС</small></div>
+
+      <div>
+        <span class="tag">Складывается за 30 сек</span>
+        <span class="tag">19 см в сложенном виде</span>
+        <span class="tag">Вертикальное хранение</span>
+        <span class="tag">До 220 кг</span>
+      </div>
+
+      <div class="specs">
+        <div><span class="k">Углы спинки</span><span class="v">0° / 30° / 45° / 80°</span></div>
+        <div><span class="k">Сиденье</span><span class="v">2 положения</span></div>
+        <div><span class="k">Пресс</span><span class="v">отд. позиция</span></div>
+        <div><span class="k">Макс. нагрузка</span><span class="v">220 кг (юзер + вес)</span></div>
+        <div><span class="k">Сборка</span><span class="v">из коробки готова</span></div>
+        <div><span class="k">Гарантия</span><span class="v">2 года</span></div>
+      </div>
+
+      <p class="notes">Флагман подборки. Тонкая в сложенном виде (19 см) — буквально между стеной и шкафом. 4 угла спинки покрывают всё: горизонт для жима, 30°/45° под наклон, 80° под жим сидя. Есть съёмная штанга для фиксации ног и режим для пресса. Цена/возможности — лучший баланс на рынке Сербии.</p>
+
+      <a class="cta" href="https://www.decathlon.rs/p/367264-354060-sklopiva-nagibna-klupa-za-vezbanje-500.html" target="_blank" rel="noopener">Купить на Decathlon.rs →</a>
+    </div>
+  </article>
+
+  <!-- 2 -->
+  <article class="card">
+    <div class="imgbox">
+      <span class="rank">№2 БЮДЖЕТ</span>
+      <img src="https://contents.mediadecathlon.com/p2572954/1cr1/k$5ea77f51259d7f5cc469f7165923f664/sklopiva-klupa-za-dizanje-tegova.jpg" alt="Domyos sklopiva klupa za dizanje tegova na nagib">
+    </div>
+    <div class="body">
+      <div class="brand">Decathlon · Domyos</div>
+      <h2 class="title">Klupa za dizanje tegova na nagib (sklopivi nogari)</h2>
+      <div class="price">11 999 RSD <small>−7% от 12 999 RSD</small></div>
+
+      <div>
+        <span class="tag">Спинка и сиденье складываются вертикально</span>
+        <span class="tag">56×100×115 см сложенная</span>
+        <span class="tag warn">До 100 кг юзер</span>
+      </div>
+
+      <div class="specs">
+        <div><span class="k">Углы спинки</span><span class="v">0° / 30° (2 позиции)</span></div>
+        <div><span class="k">Макс. юзер</span><span class="v">100 кг</span></div>
+        <div><span class="k">Макс. штанга</span><span class="v">100 кг</span></div>
+        <div><span class="k">Складные ножки</span><span class="v">да</span></div>
+        <div><span class="k">Вес</span><span class="v">22 кг</span></div>
+        <div><span class="k">Хранение</span><span class="v">встаёт вертикально</span></div>
+      </div>
+
+      <p class="notes">Самый явный кандидат под запрос «ставится в вертикаль» — производитель прямо пишет, что спинка и сиденье складываются вертикально для экономии места. Спинка только в двух позициях (плоско + 30°), нагрузка до 100 кг — этого хватит для жима гантелями и лёгкой штанги, но не для тяжёлых базовых. Подойдёт, если масса юзера + жим не больше 100 кг.</p>
+
+      <a class="cta" href="https://www.decathlon.rs/p/312284-380392-klupa-za-dizanje-tegova-na-nagib-sa-sklopivim-nogarima.html" target="_blank" rel="noopener">Купить на Decathlon.rs →</a>
+    </div>
+  </article>
+
+  <!-- 3 -->
+  <article class="card">
+    <div class="imgbox">
+      <span class="rank">№3 ПРОФИ</span>
+      <img src="https://www.gorillasports.rs/cdn/shop/files/GN006-00064-0001_P1.jpg" alt="Gyronetics E-Series podesiva klupa">
+    </div>
+    <div class="body">
+      <div class="brand">Gorilla Sports · Gyronetics E-Series</div>
+      <h2 class="title">Podesiva klupa za vežbanje (E-Series)</h2>
+      <div class="price">13 999 RSD <small>бесплатная доставка по Сербии</small></div>
+
+      <div>
+        <span class="tag">8 углов спинки (0°–90°)</span>
+        <span class="tag">3 положения сиденья</span>
+        <span class="tag">До 200 кг</span>
+        <span class="tag warn">Компактная, но без vertical-mode по паспорту</span>
+      </div>
+
+      <div class="specs">
+        <div><span class="k">Углы спинки</span><span class="v">8 положений</span></div>
+        <div><span class="k">Сиденье</span><span class="v">3 положения</span></div>
+        <div><span class="k">Макс. нагрузка</span><span class="v">200 кг</span></div>
+        <div><span class="k">Бренд</span><span class="v">Germany dev.</span></div>
+        <div><span class="k">Каркас</span><span class="v">сталь, FID</span></div>
+        <div><span class="k">Доставка</span><span class="v">бесплатно</span></div>
+      </div>
+
+      <p class="notes">Если нужна именно тонкая регулировка углов спинки под жим под разными наклонами — здесь 8 позиций против 4 у Domyos. Запас по нагрузке — 200 кг. Не позиционируется как «складная вертикально», но при компактных габаритах её реально ставить к стене. Производитель не комментирует прямо vertical-storage — это минус против №1 и №2.</p>
+
+      <a class="cta" href="https://www.gorillasports.rs/products/podesiva-klupa-za-vezbanje" target="_blank" rel="noopener">Купить на GorillaSports.rs →</a>
+    </div>
+  </article>
+
+  <!-- 4 -->
+  <article class="card">
+    <div class="imgbox">
+      <span class="rank">№4 МИНИМУМ</span>
+      <img src="https://contents.mediadecathlon.com/p2523510/1cr1/k$cb55c8f00ce96f8da4cf2cfd17a1ce9c/sklopiva-klupa-za-dizanje-tegova-100.jpg?format=auto&f=1024x0" alt="Domyos 100 sklopiva klupa">
+    </div>
+    <div class="body">
+      <div class="brand">Decathlon · Domyos</div>
+      <h2 class="title">Sklopiva klupa za dizanje tegova 100</h2>
+      <div class="price">9 499 RSD <small>самая дешёвая в подборке</small></div>
+
+      <div>
+        <span class="tag">Складывается за 15 сек</span>
+        <span class="tag">13 см в сложенном виде</span>
+        <span class="tag warn">Без регулировки спинки</span>
+        <span class="tag">До 200 кг</span>
+      </div>
+
+      <div class="specs">
+        <div><span class="k">Угол спинки</span><span class="v">фикс. (без incline)</span></div>
+        <div><span class="k">Складывание</span><span class="v">горизонтальное, 13 см</span></div>
+        <div><span class="k">Макс. нагрузка</span><span class="v">200 кг (юзер + вес)</span></div>
+        <div><span class="k">Сборка</span><span class="v">готовая</span></div>
+        <div><span class="k">Хранение</span><span class="v">плашмя под кровать</span></div>
+        <div><span class="k">Цена</span><span class="v">самый дешёвый вариант</span></div>
+      </div>
+
+      <p class="notes">Важно: эта модель <b>не подходит</b> под твой запрос про спинку в диагональ — спинка не регулируется, только плоская позиция. Включил для контекста: если позже окажется, что incline-режим не критичен, а нужна максимально дешёвая складная скамья — это она. По вертикальному хранению — складывается «в блин» 13 см, обычно прячут плашмя.</p>
+
+      <a class="cta" href="https://www.decathlon.rs/p/344848-137741-sklopiva-klupa-za-dizanje-tegova-100.html" target="_blank" rel="noopener">Купить на Decathlon.rs →</a>
+    </div>
+  </article>
+
+</div>
+
+<div class="verdict">
+  <h2>Что брать</h2>
+  <p>Под твой запрос (вертикальное хранение + спинка в диагональ) близко подходят два варианта Decathlon Domyos:</p>
+  <p>→ <strong>Domyos 500 Fold</strong> — если вес штанги + ты доходит до 150–220 кг и нужны разные углы (включая 80° под жим сидя). Берёшь и не думаешь.</p>
+  <p>→ <strong>Domyos «sklopivi nogari»</strong> — если ты до 100 кг и качаешь в основном гантели/лёгкую штангу. Тут производитель прямо обещает вертикальное складывание спинки и сиденья.</p>
+  <p>Gyronetics — апгрейд по углам спинки, но без чёткой заявки на вертикальное хранение.</p>
+  <p style="margin-top:18px; font-size:14px; color:var(--muted);">Все цены — Decathlon.rs / GorillaSports.rs на 29 мая 2026. Перепроверь стоимость по ссылке перед оформлением — магазины могут менять цены и акции.</p>
+</div>
+
+<footer>
+  Подборка собрана на основе данных с Decathlon.rs и GorillaSports.rs. Фото — с карточек товаров производителей.
+</footer>
+
+</div>
+</body>
+</html>
