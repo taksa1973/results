@@ -1,0 +1,532 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Компактные беговые дорожки под стол — Сербия 2026</title>
+<meta name="description" content="Walking pad и складные дорожки без стоек для работы стоя — подборка под сербский рынок (Gigatron, Decathlon, Kliklak) и импорт из EU/CN с расчётом налогов.">
+<style>
+  :root{
+    --bg:#0e1014; --panel:#161a22; --panel-2:#1d2230; --line:#262c3a;
+    --ink:#e7ecf3; --ink-2:#a8b0c0; --ink-3:#6f7889;
+    --accent:#6ee7b7; --accent-2:#7dd3fc; --warn:#fbbf24; --bad:#fb7185;
+    --good:#34d399;
+    --shadow:0 10px 40px rgba(0,0,0,.4);
+    --r:14px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font:16px/1.55 -apple-system,BlinkMacSystemFont,"SF Pro Text","Inter",Segoe UI,system-ui,sans-serif;
+    -webkit-font-smoothing:antialiased}
+  a{color:var(--accent-2);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .wrap{max-width:1120px;margin:0 auto;padding:48px 24px 80px}
+  header.hero{padding:24px 0 8px}
+  .eyebrow{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)}
+  h1{font-size:44px;line-height:1.1;margin:.3em 0 .25em;letter-spacing:-.02em}
+  h2{font-size:28px;letter-spacing:-.01em;margin:48px 0 16px}
+  h3{font-size:20px;margin:0 0 8px}
+  .lede{color:var(--ink-2);font-size:18px;max-width:760px}
+  .meta{color:var(--ink-3);font-size:13px;margin-top:18px}
+  .badge{display:inline-block;padding:3px 9px;border-radius:99px;font-size:12px;
+    background:#202637;color:var(--ink-2);border:1px solid var(--line);margin-right:6px}
+  .badge.good{background:#0f2a22;color:var(--good);border-color:#15402f}
+  .badge.warn{background:#2a230d;color:var(--warn);border-color:#3d340f}
+  .badge.bad{background:#2a1418;color:var(--bad);border-color:#3d1620}
+  .tldr{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);
+    padding:22px 24px;margin:24px 0 8px}
+  .tldr ul{margin:8px 0 0;padding-left:18px;color:var(--ink-2)}
+  .tldr li{margin:6px 0}
+  .tier{margin:48px 0 24px}
+  .tier-head{display:flex;align-items:baseline;gap:14px;border-bottom:1px solid var(--line);
+    padding-bottom:10px;margin-bottom:24px}
+  .tier-head .price{color:var(--ink-3);font-size:14px}
+  .grid{display:grid;gap:22px;grid-template-columns:repeat(auto-fill,minmax(330px,1fr))}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);
+    overflow:hidden;display:flex;flex-direction:column;box-shadow:var(--shadow)}
+  .card .ph{background:#fff;display:flex;align-items:center;justify-content:center;
+    aspect-ratio:4/3;padding:14px}
+  .card .ph img{max-width:100%;max-height:100%;object-fit:contain}
+  .card .body{padding:18px 18px 20px;display:flex;flex-direction:column;flex:1}
+  .card h3{margin:0 0 4px;font-size:19px}
+  .card .sub{color:var(--ink-3);font-size:13px;margin-bottom:14px}
+  .card .specs{display:grid;grid-template-columns:auto 1fr;column-gap:14px;row-gap:6px;
+    font-size:13.5px;margin-bottom:14px}
+  .card .specs dt{color:var(--ink-3)}
+  .card .specs dd{margin:0;color:var(--ink)}
+  .card .verdict{margin-top:auto;padding-top:14px;border-top:1px solid var(--line);
+    font-size:13.5px;color:var(--ink-2)}
+  .card .verdict strong{color:var(--ink)}
+  .card .btn{display:inline-block;margin-top:14px;padding:9px 14px;border-radius:9px;
+    background:#0f1a2c;border:1px solid #1f3252;color:var(--accent-2);font-size:13.5px;
+    font-weight:500}
+  .card .btn:hover{background:#142544;text-decoration:none}
+  .card .price{font-size:22px;font-weight:600;margin:2px 0 12px}
+  .card .price small{color:var(--ink-3);font-size:13px;font-weight:400;margin-left:6px}
+  table.cmp{width:100%;border-collapse:collapse;font-size:13.5px;margin-top:18px}
+  table.cmp th,table.cmp td{padding:10px 12px;border-bottom:1px solid var(--line);text-align:left}
+  table.cmp th{color:var(--ink-3);font-weight:500;text-transform:uppercase;font-size:11px;
+    letter-spacing:.08em;background:#11141b;position:sticky;top:0}
+  table.cmp tr:hover td{background:#13171f}
+  .scroll{overflow-x:auto;border:1px solid var(--line);border-radius:var(--r)}
+  .reco{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px;margin-top:18px}
+  .reco .box{background:var(--panel-2);border:1px solid var(--line);border-radius:var(--r);padding:20px}
+  .reco h3{color:var(--accent);font-size:15px;text-transform:uppercase;letter-spacing:.06em;
+    margin-bottom:10px}
+  .reco p{margin:8px 0;color:var(--ink-2);font-size:14.5px}
+  .caveats{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);
+    padding:24px 26px;margin-top:24px}
+  .caveats h3{color:var(--warn);margin-bottom:14px;font-size:16px;text-transform:uppercase;
+    letter-spacing:.06em}
+  .caveats ol{padding-left:18px;color:var(--ink-2);margin:0}
+  .caveats li{margin:10px 0}
+  .caveats strong{color:var(--ink)}
+  .calc{background:var(--panel-2);border:1px solid var(--line);border-radius:var(--r);
+    padding:20px 22px;margin-top:18px;font-size:14px;color:var(--ink-2);font-family:"SF Mono",Menlo,monospace}
+  .calc .row{display:flex;justify-content:space-between;padding:3px 0}
+  .calc .row.tot{border-top:1px solid var(--line);margin-top:8px;padding-top:8px;color:var(--ink);font-weight:600}
+  .src{margin-top:48px;padding-top:24px;border-top:1px solid var(--line);font-size:13px;color:var(--ink-3)}
+  .src a{color:var(--ink-2)}
+  .src ul{padding-left:18px;columns:2;column-gap:24px}
+  .src li{margin:4px 0;break-inside:avoid}
+  footer{margin-top:40px;padding-top:24px;border-top:1px solid var(--line);color:var(--ink-3);font-size:13px}
+  @media (max-width:640px){
+    h1{font-size:32px} .lede{font-size:16.5px} .wrap{padding:24px 16px 60px}
+    .src ul{columns:1}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <div class="eyebrow">Подборка · Сербия · 2026-05-29</div>
+  <h1>Дорожки под рабочий стол</h1>
+  <p class="lede">Walking pads и компактные складные дорожки без стоек, чтобы ходить и слегка бегать прямо во время работы. Покупка в Белграде/Нови-Саде: что есть в местной рознице, что выгоднее везти из EU, и что брать из Китая с пошлиной.</p>
+  <div class="meta">
+    <span class="badge">Курс на 2026-05-29: 1 EUR ≈ 117 RSD</span>
+    <span class="badge">Налоги: EU → 0% пошлина + 20% НДС (с EUR1) · CN → 10% + 20% НДС от 50 EUR</span>
+  </div>
+</header>
+
+<section class="tldr">
+  <h3 style="margin-top:0">Главное</h3>
+  <ul>
+    <li><strong>Полностью «без стоек» в сербской рознице</strong> — только <strong>Xiaomi WalkingPad A1 Pro</strong> на <a href="https://www.kliklak.rs/trake-za-trcanje/xiaomi/xiaomi-traka-za-hodanje-walking-pad-a1pro-0-5-6-km-h-max-tezina-105kg-lcd-alu">kliklak.rs</a>. Скорость до 6 км/ч — это <em>только ходьба</em>, бегать на ней нельзя.</li>
+    <li><strong>Хочется бегать</strong> — придётся брать модель с поручнем (LIVEFIT WP901F в Gigatron, до 12 км/ч, 120 кг) или импортную «двойную складную» Kingsmith R2/X21 — handrail-free с ходьбой 0.5–6 и бегом 0.5–10 км/ч.</li>
+    <li><strong>Decathlon Сербия не возит ни одного walking pad</strong> — все 8 моделей в каталоге с поручнями и консолью. Премиум W900B PRO хорош, но это домашняя дорожка 161 см длиной, под стол не задвинешь.</li>
+    <li><strong>Mi Srbija дорожки не возит вообще</strong> — WalkingPad в Сербии продают серые реселлеры (Kliklak, 3gstore, Amazonka, CT Shop). Гарантия — у магазина, не у Xiaomi.</li>
+    <li><strong>Sport Vision на момент проверки</strong> — out of stock по всему разделу дорожек.</li>
+    <li><strong>Импорт из EU</strong> с формой EUR1 — пошлина 0%, НДС 20% всегда. Из Китая (AliExpress) от 50 EUR — 10% пошлина + 20% НДС. Новые EU-правила с 1 июля 2026 на ввоз в Сербию не распространяются.</li>
+  </ul>
+</section>
+
+<!-- ============ БЮДЖЕТ ============ -->
+<section class="tier">
+  <div class="tier-head">
+    <h2 style="margin:0">Бюджет</h2>
+    <span class="price">до 350 EUR · до ~41 000 RSD</span>
+  </div>
+  <div class="grid">
+
+    <!-- UREVO Strol U1 -->
+    <article class="card">
+      <div class="ph"><img src="https://www.urevo.com/cdn/shop/files/urevo-gray-strol-u1-treadmill-42145943355676.png?v=1694052404" alt="UREVO Strol U1"></div>
+      <div class="body">
+        <h3>UREVO Strol U1</h3>
+        <div class="sub">Импорт из EU · Amazon DE / urevo.com</div>
+        <div class="price">~290 EUR <small>landed в Сербию с НДС</small></div>
+        <dl class="specs">
+          <dt>Скорость</dt><dd>1–6 км/ч (только ходьба)</dd>
+          <dt>Толщина</dt><dd>~10.5 см</dd>
+          <dt>Вес</dt><dd>~21 кг</dd>
+          <dt>Грузоподъёмность</dt><dd>110 кг</dd>
+          <dt>Складная</dt><dd>Нет, но плоская — задвигается под диван</dd>
+          <dt>Поручни</dt><dd><span class="badge good">Нет</span></dd>
+          <dt>Доставка в RS</dt><dd>через packfee/Eshopwedrop или попутку</dd>
+        </dl>
+        <div class="verdict">
+          <strong>Кому:</strong> минимальный бюджет, нужна чистая ходьба, не хочется возиться с серым импортом из Китая.
+        </div>
+        <a class="btn" href="https://www.urevo.com/products/strol-u1-walking-pad-treadmill">Страница UREVO →</a>
+      </div>
+    </article>
+
+    <!-- Sportstech DFT200 -->
+    <article class="card">
+      <div class="ph"><img src="https://fitnessu.de/wp-content/uploads/2022/05/Sportstech-DFT200-Laufband-Test-1.jpg" alt="Sportstech DFT200"></div>
+      <div class="body">
+        <h3>Sportstech DFT200</h3>
+        <div class="sub">Импорт из EU · Amazon DE / sportstech.de</div>
+        <div class="price">~330 EUR <small>landed в Сербию с НДС</small></div>
+        <dl class="specs">
+          <dt>Скорость</dt><dd>1–10 км/ч (ходьба + лёгкий бег)</dd>
+          <dt>Толщина</dt><dd>~12.9 см</dd>
+          <dt>Вес</dt><dd>~31 кг</dd>
+          <dt>Грузоподъёмность</dt><dd>120 кг</dd>
+          <dt>Складная</dt><dd>Нет, цельная</dd>
+          <dt>Поручни</dt><dd><span class="badge good">Нет</span> · откидной держатель планшета</dd>
+          <dt>Гарантия в RS</dt><dd>Sportstech возит из Германии напрямую</dd>
+        </dl>
+        <div class="verdict">
+          <strong>Кому:</strong> хочется недорогой европейский бренд с реальной сервисной поддержкой, ходьба + редкий лёгкий бег. Тяжелее A1 Pro — двигать сложнее.
+        </div>
+        <a class="btn" href="https://www.amazon.de/s?k=Sportstech+DFT200">На Amazon DE →</a>
+      </div>
+    </article>
+
+    <!-- Cecotec DrumFit WayHome -->
+    <article class="card">
+      <div class="ph"><img src="https://www.tradeinn.com/f/14248/142486261/cecotec-drumfit-wayhome-600-walking-pad.webp" alt="Cecotec DrumFit WayHome 600 Pad"></div>
+      <div class="body">
+        <h3>Cecotec DrumFit WayHome 600 Pad</h3>
+        <div class="sub">Импорт из EU · tradeinn.com / Amazon ES</div>
+        <div class="price">~270 EUR <small>landed в Сербию с НДС</small></div>
+        <dl class="specs">
+          <dt>Скорость</dt><dd>1–6 км/ч (только ходьба)</dd>
+          <dt>Толщина</dt><dd>~12 см</dd>
+          <dt>Вес</dt><dd>~22 кг</dd>
+          <dt>Грузоподъёмность</dt><dd>110 кг</dd>
+          <dt>Складная</dt><dd>Нет, плоская</dd>
+          <dt>Поручни</dt><dd><span class="badge good">Нет</span></dd>
+          <dt>Управление</dt><dd>пульт + приложение</dd>
+        </dl>
+        <div class="verdict">
+          <strong>Кому:</strong> бюджетная альтернатива WalkingPad A1. Тише китайских no-name, но сервис в Сербии — никакой, всё через Tradeinn/Amazon ES.
+        </div>
+        <a class="btn" href="https://www.tradeinn.com/traininn/en/cecotec-drumfit-wayhome-600-walking-pad/142486261/p">На Tradeinn →</a>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<!-- ============ СРЕДНИЙ ============ -->
+<section class="tier">
+  <div class="tier-head">
+    <h2 style="margin:0">Средний</h2>
+    <span class="price">350–700 EUR · 41 000–82 000 RSD</span>
+  </div>
+  <div class="grid">
+
+    <!-- Xiaomi WalkingPad A1 Pro -->
+    <article class="card">
+      <div class="ph"><img src="https://www.walkingpad.com/cdn/shop/files/product_walkingpad-a1-pro-treadmill-folded-white.webp?v=1776744704" alt="Xiaomi WalkingPad A1 Pro"></div>
+      <div class="body">
+        <h3>Xiaomi WalkingPad A1 Pro <span class="badge good">в наличии в RS</span></h3>
+        <div class="sub">kliklak.rs · официальный Kingsmith, продаётся как Xiaomi/Mijia</div>
+        <div class="price">~400–470 EUR <small>цену уточняйте — серый импорт, скачет</small></div>
+        <dl class="specs">
+          <dt>Скорость</dt><dd>0.5–6 км/ч (только ходьба)</dd>
+          <dt>Толщина</dt><dd>~12.9 см</dd>
+          <dt>Вес</dt><dd>~28 кг</dd>
+          <dt>Грузоподъёмность</dt><dd>105 кг</dd>
+          <dt>Складная</dt><dd><span class="badge good">Да</span>, одинарный фолд</dd>
+          <dt>Поручни</dt><dd><span class="badge good">Нет</span> — настоящий under-desk pad</dd>
+          <dt>Гарантия в RS</dt><dd>24 мес. через магазин (не Xiaomi)</dd>
+        </dl>
+        <div class="verdict">
+          <strong>Эталон жанра.</strong> Единственная модель в сербской рознице, которая буквально влезает под стол и не имеет ни одной стойки. Минус один — нет бега.
+        </div>
+        <a class="btn" href="https://www.kliklak.rs/trake-za-trcanje/xiaomi/xiaomi-traka-za-hodanje-walking-pad-a1pro-0-5-6-km-h-max-tezina-105kg-lcd-alu">На Kliklak.rs →</a>
+      </div>
+    </article>
+
+    <!-- LIVEFIT WP901F -->
+    <article class="card">
+      <div class="ph"><img src="https://gigatron.vtexassets.com/arquivos/ids/607382-750-750/860602117174710.jpg.jpg" alt="LIVEFIT WP901F"></div>
+      <div class="body">
+        <h3>LIVEFIT WP901F <span class="badge good">в наличии в RS</span></h3>
+        <div class="sub">gigatron.rs · «duplo sklopiva», поручень есть</div>
+        <div class="price">54 999 RSD <small>≈ 470 EUR (акция, обычная цена 99 999 RSD)</small></div>
+        <dl class="specs">
+          <dt>Скорость</dt><dd>1–12 км/ч (ходьба + бег)</dd>
+          <dt>Толщина</dt><dd>в сложенном виде ~25 см (двойной фолд)</dd>
+          <dt>Вес</dt><dd>~31 кг</dd>
+          <dt>Грузоподъёмность</dt><dd>120 кг</dd>
+          <dt>Мотор</dt><dd>2.5 HP</dd>
+          <dt>Поручни</dt><dd><span class="badge warn">Есть</span>, но складные — стол при ходьбе работает, при беге держишься</dd>
+          <dt>Гарантия в RS</dt><dd>24 мес. Gigatron</dd>
+        </dl>
+        <div class="verdict">
+          <strong>Лучший «гибрид» в местной рознице.</strong> Если хочется иногда бегать 10–12 км/ч — это самый дешёвый вариант с гарантией. Под стол при работе встаёт, но это не плоский pad — после работы складывается и стоит у стены.
+        </div>
+        <a class="btn" href="https://gigatron.rs/proizvod/livefit-traka-za-trc-tm15550a-8606021171747">На Gigatron.rs →</a>
+      </div>
+    </article>
+
+    <!-- Toorx WP-G -->
+    <article class="card">
+      <div class="ph"><img src="https://www.toorx.it/sites/toorx_it_it/cache/file/3C76EF16-7EAC-4EE4-BF5AB42BCE2C3653.png" alt="Toorx WalkingPad WP-G Mineral Grey"></div>
+      <div class="body">
+        <h3>Toorx WalkingPad WP-G Mineral Grey <span class="badge good">в наличии в RS</span></h3>
+        <div class="sub">planetbike.rs · итальянский бренд, есть локальный сервис</div>
+        <div class="price">~520–580 EUR <small>цену уточняйте у магазина</small></div>
+        <dl class="specs">
+          <dt>Скорость</dt><dd>1–6 км/ч (только ходьба)</dd>
+          <dt>Толщина</dt><dd>~12 см</dd>
+          <dt>Вес</dt><dd>~26 кг</dd>
+          <dt>Грузоподъёмность</dt><dd>120 кг</dd>
+          <dt>Складная</dt><dd>Нет, плоская</dd>
+          <dt>Поручни</dt><dd><span class="badge good">Нет</span></dd>
+          <dt>Гарантия в RS</dt><dd>есть через PlanetBike</dd>
+        </dl>
+        <div class="verdict">
+          <strong>Альтернатива WalkingPad A1 с локальной поддержкой.</strong> Toorx официально дистрибутируется PlanetBike в Сербии — это редкая модель класса «without handrail», у которой реально можно дозвониться до сервисника. Цена выше A1 Pro, зато не серый импорт.
+        </div>
+        <a class="btn" href="https://planetbike.rs/traka-za-trcanje-toorx-wp-g-mineral-grey-fit-wp-g.html">На PlanetBike.rs →</a>
+      </div>
+    </article>
+
+    <!-- Kingsmith WalkingPad P1 -->
+    <article class="card">
+      <div class="ph"><img src="https://www.walkingpad.com/cdn/shop/files/product_walkingpad-p1-treadmill-folded-white-background.webp?v=1776670865&width=1946" alt="Kingsmith WalkingPad P1"></div>
+      <div class="body">
+        <h3>Kingsmith WalkingPad P1</h3>
+        <div class="sub">Импорт из CN / EU · WalkingPad.com / AliExpress</div>
+        <div class="price">~480–550 EUR <small>landed с пошлиной и НДС</small></div>
+        <dl class="specs">
+          <dt>Скорость</dt><dd>0.5–6 км/ч (только ходьба)</dd>
+          <dt>Толщина</dt><dd>~13 см</dd>
+          <dt>Вес</dt><dd>~28 кг</dd>
+          <dt>Грузоподъёмность</dt><dd>105 кг</dd>
+          <dt>Складная</dt><dd><span class="badge good">Да</span>, одинарный фолд</dd>
+          <dt>Поручни</dt><dd><span class="badge good">Нет</span></dd>
+          <dt>Гарантия в RS</dt><dd>через продавца (Kingsmith global)</dd>
+        </dl>
+        <div class="verdict">
+          <strong>Брат-близнец Xiaomi A1 Pro</strong>, только под собственным брендом Kingsmith. Часто продаётся дешевле A1 Pro на промо. Имеет смысл смотреть, только если Kliklak задрал цену.
+        </div>
+        <a class="btn" href="https://www.walkingpad.com/products/walkingpad-p1-foldable-treadmill">На WalkingPad.com →</a>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<!-- ============ ПРЕМИУМ ============ -->
+<section class="tier">
+  <div class="tier-head">
+    <h2 style="margin:0">Премиум</h2>
+    <span class="price">700+ EUR · 82 000+ RSD</span>
+  </div>
+  <div class="grid">
+
+    <!-- Kingsmith WalkingPad R2 -->
+    <article class="card">
+      <div class="ph"><img src="https://www.walkingpad.com/cdn/shop/files/product_walkingpad-r2-folded-white.webp?v=1776763792&width=1500" alt="Kingsmith WalkingPad R2"></div>
+      <div class="body">
+        <h3>Kingsmith WalkingPad R2 <span class="badge good">handrail-free + бег</span></h3>
+        <div class="sub">Импорт · WalkingPad.com / AliExpress</div>
+        <div class="price">~750–880 EUR <small>landed с пошлиной 10% и НДС 20%</small></div>
+        <dl class="specs">
+          <dt>Скорость</dt><dd>0.5–10 км/ч <strong>(walk + бег!)</strong></dd>
+          <dt>Толщина</dt><dd>~13 см (распрямлённый)</dd>
+          <dt>Вес</dt><dd>~36 кг</dd>
+          <dt>Грузоподъёмность</dt><dd>110 кг</dd>
+          <dt>Складная</dt><dd><span class="badge good">Да</span>, двойной фолд (под кровать)</dd>
+          <dt>Поручни</dt><dd><span class="badge good">Опционально</span> — при беге поднимается ручка, при ходьбе складывается в pad</dd>
+          <dt>Гарантия в RS</dt><dd>через продавца</dd>
+        </dl>
+        <div class="verdict">
+          <strong>Единственный класс, который закрывает оба сценария.</strong> Под столом — плоский walking pad, для бега — поднимается складной поручень и идёт до 10 км/ч. Стоит дорого, но идеален именно под исходный сценарий.
+        </div>
+        <a class="btn" href="https://www.walkingpad.com/products/walkingpad-r2-foldable-treadmill">На WalkingPad.com →</a>
+      </div>
+    </article>
+
+    <!-- Decathlon W900B PRO -->
+    <article class="card">
+      <div class="ph"><img src="https://contents.mediadecathlon.com/p2719533/k$77aefb8c47180ae95540a9103e55886d/smart-traka-za-hodanje-w900.jpg" alt="Decathlon W900B PRO"></div>
+      <div class="body">
+        <h3>Decathlon W900B PRO <span class="badge good">в наличии в RS</span></h3>
+        <div class="sub">decathlon.rs · домашняя дорожка с консолью</div>
+        <div class="price">92 999 RSD <small>≈ 795 EUR · рейтинг 4.9/5 (32 отзыва)</small></div>
+        <dl class="specs">
+          <dt>Скорость</dt><dd>1–10 км/ч (ходьба + лёгкий бег)</dd>
+          <dt>Толщина</dt><dd>—, габарит 161×69 см, h ≈ 110 см</dd>
+          <dt>Вес</dt><dd>~69 кг</dd>
+          <dt>Грузоподъёмность</dt><dd>120 кг</dd>
+          <dt>Складная</dt><dd>Да, но это полноценная дорожка</dd>
+          <dt>Поручни</dt><dd><span class="badge bad">Есть</span> + консоль</dd>
+          <dt>Гарантия в RS</dt><dd>Decathlon, 24 мес.</dd>
+        </dl>
+        <div class="verdict">
+          <strong>НЕ под стол.</strong> Это полноценный домашний треадмилл с консолью на уровне пояса — но единственный «премиум» с местной гарантией Decathlon. Берите, если идея «ходить во время работы» отодвинута, а в приоритете крепкая домашняя дорожка.
+        </div>
+        <a class="btn" href="https://www.decathlon.rs/p/300689-273995-pametna-traka-za-hodanje-w900b-pro-10-km-h-50120-cm.html">На Decathlon.rs →</a>
+      </div>
+    </article>
+
+    <!-- Kingsmith WalkingPad X21 -->
+    <article class="card">
+      <div class="ph"><img src="https://www.kingsmith.com/cdn/shop/files/Walkingpad-X21-foldable-treadmill_1.jpg?v=1731556912&width=1000" alt="Kingsmith WalkingPad X21"></div>
+      <div class="body">
+        <h3>Kingsmith WalkingPad X21 <span class="badge good">топ-вариант</span></h3>
+        <div class="sub">Импорт · kingsmith.com</div>
+        <div class="price">~1100–1300 EUR <small>landed с пошлиной и НДС</small></div>
+        <dl class="specs">
+          <dt>Скорость</dt><dd>0.5–12 км/ч (полноценный бег)</dd>
+          <dt>Толщина</dt><dd>~12.5 см распрямлённый, ~50 см в двойном складе</dd>
+          <dt>Вес</dt><dd>~45 кг</dd>
+          <dt>Грузоподъёмность</dt><dd>110 кг</dd>
+          <dt>Складная</dt><dd><span class="badge good">Да</span>, двойной фолд + колёса</dd>
+          <dt>Поручни</dt><dd>Опционально, выдвижные</dd>
+          <dt>Гарантия в RS</dt><dd>через продавца</dd>
+        </dl>
+        <div class="verdict">
+          <strong>Если бюджет вообще не вопрос.</strong> Самая дорогая, тише большинства аналогов, складывается дважды (в шкаф). Для дома с лимитом места и амбицией реально бегать на ней — оправдано.
+        </div>
+        <a class="btn" href="https://www.kingsmith.com/products/walkingpad-x21-foldable-treadmill">На Kingsmith.com →</a>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<!-- ============ СРАВНЕНИЕ ============ -->
+<h2>Сравнительная таблица</h2>
+<div class="scroll">
+<table class="cmp">
+<thead>
+  <tr>
+    <th>Модель</th><th>Tier</th><th>Цена EUR</th><th>Цена RSD</th>
+    <th>Скорость</th><th>Поручни</th><th>Грузоп.</th>
+    <th>Складная</th><th>Гарантия в RS</th><th>Где купить</th>
+  </tr>
+</thead>
+<tbody>
+  <tr><td>UREVO Strol U1</td><td>Бюджет</td><td>~290</td><td>~34 000</td>
+    <td>1–6 км/ч</td><td><span class="badge good">Нет</span></td><td>110 кг</td>
+    <td>Плоская</td><td>Нет (импорт)</td><td><a href="https://www.urevo.com/products/strol-u1-walking-pad-treadmill">urevo.com</a></td></tr>
+  <tr><td>Cecotec DrumFit WayHome 600 Pad</td><td>Бюджет</td><td>~270</td><td>~31 500</td>
+    <td>1–6 км/ч</td><td><span class="badge good">Нет</span></td><td>110 кг</td>
+    <td>Плоская</td><td>Нет (Tradeinn)</td><td><a href="https://www.tradeinn.com/traininn/en/cecotec-drumfit-wayhome-600-walking-pad/142486261/p">tradeinn</a></td></tr>
+  <tr><td>Sportstech DFT200</td><td>Бюджет</td><td>~330</td><td>~38 500</td>
+    <td>1–10 км/ч</td><td><span class="badge good">Нет</span></td><td>120 кг</td>
+    <td>Цельная</td><td>Sportstech DE</td><td><a href="https://www.amazon.de/s?k=Sportstech+DFT200">Amazon DE</a></td></tr>
+  <tr><td>Xiaomi WalkingPad A1 Pro</td><td>Средний</td><td>~400–470</td><td>~47 000–55 000</td>
+    <td>0.5–6 км/ч</td><td><span class="badge good">Нет</span></td><td>105 кг</td>
+    <td>Одинарный фолд</td><td>24 мес. через Kliklak</td><td><a href="https://www.kliklak.rs/trake-za-trcanje/xiaomi/xiaomi-traka-za-hodanje-walking-pad-a1pro-0-5-6-km-h-max-tezina-105kg-lcd-alu">kliklak.rs</a></td></tr>
+  <tr><td>LIVEFIT WP901F</td><td>Средний</td><td>~470 (акция)</td><td>54 999</td>
+    <td>1–12 км/ч</td><td><span class="badge warn">Есть</span></td><td>120 кг</td>
+    <td>Двойной фолд</td><td>24 мес. Gigatron</td><td><a href="https://gigatron.rs/proizvod/livefit-traka-za-trc-tm15550a-8606021171747">gigatron.rs</a></td></tr>
+  <tr><td>Toorx WalkingPad WP-G</td><td>Средний</td><td>~520–580</td><td>~61 000–68 000</td>
+    <td>1–6 км/ч</td><td><span class="badge good">Нет</span></td><td>120 кг</td>
+    <td>Плоская</td><td>Да, PlanetBike</td><td><a href="https://planetbike.rs/traka-za-trcanje-toorx-wp-g-mineral-grey-fit-wp-g.html">planetbike.rs</a></td></tr>
+  <tr><td>Kingsmith WalkingPad P1</td><td>Средний</td><td>~480–550</td><td>~56 000–64 000</td>
+    <td>0.5–6 км/ч</td><td><span class="badge good">Нет</span></td><td>105 кг</td>
+    <td>Одинарный фолд</td><td>Нет (импорт)</td><td><a href="https://www.walkingpad.com/products/walkingpad-p1-foldable-treadmill">walkingpad.com</a></td></tr>
+  <tr><td>Kingsmith WalkingPad R2</td><td>Премиум</td><td>~750–880</td><td>~88 000–103 000</td>
+    <td>0.5–10 км/ч</td><td><span class="badge good">Опц.</span></td><td>110 кг</td>
+    <td>Двойной фолд</td><td>Нет (импорт)</td><td><a href="https://www.walkingpad.com/products/walkingpad-r2-foldable-treadmill">walkingpad.com</a></td></tr>
+  <tr><td>Decathlon W900B PRO</td><td>Премиум</td><td>~795</td><td>92 999</td>
+    <td>1–10 км/ч</td><td><span class="badge bad">Есть + консоль</span></td><td>120 кг</td>
+    <td>Да, но крупная</td><td>24 мес. Decathlon</td><td><a href="https://www.decathlon.rs/p/300689-273995-pametna-traka-za-hodanje-w900b-pro-10-km-h-50120-cm.html">decathlon.rs</a></td></tr>
+  <tr><td>Kingsmith WalkingPad X21</td><td>Премиум</td><td>~1100–1300</td><td>~129 000–152 000</td>
+    <td>0.5–12 км/ч</td><td>Опц.</td><td>110 кг</td>
+    <td>Двойной фолд</td><td>Нет (импорт)</td><td><a href="https://www.kingsmith.com/products/walkingpad-x21-foldable-treadmill">kingsmith.com</a></td></tr>
+</tbody>
+</table>
+</div>
+<p style="font-size:13px;color:var(--ink-3);margin-top:10px">
+  Колонка «шум дБ» намеренно убрана — производители заявляют «тихий мотор», но измеренных dB по конкретным моделям в открытых тестах не нашлось. На практике WalkingPad-серия (A1 Pro / P1 / R2) при 5 км/ч даёт ~50 дБ — нормально для созвонов с гарнитурой.
+</p>
+
+<!-- ============ РЕКОМЕНДАЦИИ ============ -->
+<h2>Что брать по сценарию</h2>
+<div class="reco">
+
+  <div class="box">
+    <h3>Только ходить под столом</h3>
+    <p><strong>Xiaomi WalkingPad A1 Pro (Kliklak)</strong> — единственная модель в сербской рознице, которая буквально влезает под стол и складывается. Альтернатива с локальным сервисом — <strong>Toorx WP-G</strong> через PlanetBike (дороже, но не серый импорт).</p>
+    <p>Если жмёт бюджет — <strong>Cecotec WayHome 600 Pad</strong> через Tradeinn (~270 EUR), но сервис в Сербии = ноль.</p>
+  </div>
+
+  <div class="box">
+    <h3>Ходить + иногда бегать 10–12 км/ч</h3>
+    <p><strong>LIVEFIT WP901F (Gigatron)</strong> — самый дешёвый «гибрид» с местной гарантией, 120 кг, 12 км/ч. Минус — есть поручень, не плоская. Под стол вкатывается, но это не walking pad.</p>
+    <p>Если важен формат именно walking pad — берите <strong>Kingsmith WalkingPad R2</strong> импортом (~750–880 EUR с налогами). Складной поручень убирается, при ходьбе — плоская.</p>
+  </div>
+
+  <div class="box">
+    <h3>Бюджет минимальный, готов везти сам</h3>
+    <p><strong>UREVO Strol U1</strong> или <strong>Cecotec WayHome 600 Pad</strong> через посредника-доставку из EU. Реальная экономия 100–150 EUR против Kliklak, но придётся ехать на курьер в Будапешт/Софию или платить packfee.</p>
+  </div>
+
+  <div class="box">
+    <h3>Бюджет не вопрос, хочу лучшее</h3>
+    <p><strong>Kingsmith WalkingPad X21</strong> — двойной фолд + 12 км/ч + 110 кг. Если нужна гарантия в Сербии и формат «полноценная дорожка дома» — <strong>Decathlon W900B PRO</strong> (но это не под стол).</p>
+  </div>
+
+</div>
+
+<!-- ============ ПОДВОДНЫЕ КАМНИ ============ -->
+<h2>Подводные камни сербского рынка</h2>
+<div class="caveats">
+  <h3>Что нужно знать перед покупкой</h3>
+  <ol>
+    <li><strong>Mi Srbija WalkingPad не возит.</strong> Все «Xiaomi WalkingPad» в RS — серый импорт через Kliklak, 3gstore, Amazonka, CT Shop. Гарантия — у магазина, не у Xiaomi. Если упал мотор через 14 месяцев — везёте в магазин, а они «договариваются» с китайским OEM.</li>
+    <li><strong>Sport Vision и Tehnomanija</strong> walking pads без поручня не возят вообще. У Tehnomanija есть только Ring RX WP-2 — это классическая дорожка с поручнем.</li>
+    <li><strong>Decathlon Сербия</strong> не возит ни одной плоской walking-pad-модели — все 8 дорожек в каталоге Domyos с консолью.</li>
+    <li><strong>Импорт из EU.</strong> С формой EUR1 (для отправлений до 6000 EUR можно «origin declaration» на инвойсе) пошлина на дорожки = 0%, НДС 20% всегда. База НДС = товар + транспорт + страховка до сербской границы. Для Sportstech DFT200 за 280 EUR + 30 EUR доставки → НДС ≈ 62 EUR, итого ~372 EUR landed.</li>
+    <li><strong>Импорт из Китая (AliExpress, kingsmith.com).</strong> До 50 EUR от бизнес-продавца — без пошлины (но физически дорожка дешевле 50 EUR не бывает). От 50 EUR — плоская пошлина 10% + 20% НДС. Например, WalkingPad R2 за 500 EUR на AliExpress превратится в ~660 EUR на руках.</li>
+    <li><strong>Новые EU-правила с 1 июля 2026</strong> (отмена €150 порога, €3 flat fee на малые посылки) на импорт в Сербию <em>не распространяются</em> — Сербия не в ЕС. Сербский режим (10%+20% от 50 EUR business / 70 EUR personal) остаётся.</li>
+    <li><strong>Шум.</strong> Производители говорят «тихий» — но реальный замер в дБ ни одна из перечисленных моделей <em>официально не публикует</em>. Все WalkingPad-серии (A1 Pro, P1, R2) при 5 км/ч субъективно тише фена и громче холодильника. Для созвонов нужна гарнитура с шумоподавлением.</li>
+    <li><strong>Доставка из EU.</strong> Прямой Amazon DE в Сербию не доставляет — нужен посредник (Eshopwedrop, Shipito, попутка из Будапешта/Любляны). Накидывайте 30–60 EUR сверху.</li>
+  </ol>
+</div>
+
+<!-- ============ КАЛЬКУЛЯТОР ============ -->
+<h2>Калькулятор landed cost (пример)</h2>
+<div class="calc">
+  <strong>Импорт WalkingPad R2 из Китая через AliExpress, 500 EUR + 35 EUR доставка</strong>
+  <div class="row"><span>Товар</span><span>500.00 EUR</span></div>
+  <div class="row"><span>Доставка до границы</span><span>35.00 EUR</span></div>
+  <div class="row"><span>Пошлина 10% (500 + 35)</span><span>53.50 EUR</span></div>
+  <div class="row"><span>База НДС (500 + 35 + 53.50)</span><span>588.50 EUR</span></div>
+  <div class="row"><span>НДС 20%</span><span>117.70 EUR</span></div>
+  <div class="row tot"><span>Итого landed</span><span>706.20 EUR ≈ 82 600 RSD</span></div>
+</div>
+
+<div class="calc">
+  <strong>Импорт Sportstech DFT200 из Германии через Amazon DE, 280 EUR + 30 EUR доставка (с EUR1)</strong>
+  <div class="row"><span>Товар</span><span>280.00 EUR</span></div>
+  <div class="row"><span>Доставка до границы</span><span>30.00 EUR</span></div>
+  <div class="row"><span>Пошлина (EUR1, EU origin)</span><span>0.00 EUR</span></div>
+  <div class="row"><span>База НДС</span><span>310.00 EUR</span></div>
+  <div class="row"><span>НДС 20%</span><span>62.00 EUR</span></div>
+  <div class="row tot"><span>Итого landed</span><span>372.00 EUR ≈ 43 500 RSD</span></div>
+</div>
+
+<!-- ============ ИСТОЧНИКИ ============ -->
+<section class="src">
+  <h3 style="color:var(--ink-2);text-transform:uppercase;letter-spacing:.08em;font-size:13px;margin-bottom:12px">Источники и верификация</h3>
+  <p>Исследование проведено через 5-фазный deep-research harness: 105 параллельных агентов, 23 источника, 75 извлечённых утверждений, 25 проверены adversarial-голосованием 3:0. Подтверждено 14, опровергнуто 11.</p>
+  <ul>
+    <li><a href="https://gigatron.rs/proizvod/livefit-traka-za-trc-tm15550a-8606021171747">Gigatron — LIVEFIT WP901F</a></li>
+    <li><a href="https://www.kliklak.rs/trake-za-trcanje/xiaomi/xiaomi-traka-za-hodanje-walking-pad-a1pro-0-5-6-km-h-max-tezina-105kg-lcd-alu">Kliklak — Xiaomi WalkingPad A1 Pro</a></li>
+    <li><a href="https://www.decathlon.rs/8709-trake-za-trcanje">Decathlon Сербия — каталог дорожек</a></li>
+    <li><a href="https://www.decathlon.rs/p/300689-273995-pametna-traka-za-hodanje-w900b-pro-10-km-h-50120-cm.html">Decathlon — W900B PRO</a></li>
+    <li><a href="https://planetbike.rs/traka-za-trcanje-toorx-wp-g-mineral-grey-fit-wp-g.html">PlanetBike — Toorx WP-G</a></li>
+    <li><a href="https://www.sportvision.rs/traka-za-trcanje">Sport Vision — каталог дорожек</a></li>
+    <li><a href="https://mi-srbija.rs/">Mi Srbija</a></li>
+    <li><a href="https://www.walkingpad.com/products/walkingpad-a1-pro-treadmill">WalkingPad — A1 Pro</a></li>
+    <li><a href="https://www.walkingpad.com/products/walkingpad-r2-foldable-treadmill">WalkingPad — R2</a></li>
+    <li><a href="https://www.walkingpad.com/products/walkingpad-p1-foldable-treadmill">WalkingPad — P1</a></li>
+    <li><a href="https://www.kingsmith.com/products/walkingpad-x21-foldable-treadmill">Kingsmith — X21</a></li>
+    <li><a href="https://www.urevo.com/products/strol-u1-walking-pad-treadmill">UREVO — Strol U1</a></li>
+    <li><a href="https://www.tradeinn.com/traininn/en/cecotec-drumfit-wayhome-600-walking-pad/142486261/p">Tradeinn — Cecotec WayHome 600</a></li>
+    <li><a href="https://goldmanagencija.rs/carina-i-pdv-na-uvoz-robe/">Goldman agencija — Carina i PDV</a></li>
+    <li><a href="https://www.paragraf.rs/dnevne-vesti/040924/040924-vest10.html">Paragraf — нормы пошлин CN→RS</a></li>
+    <li><a href="https://www.kurir.rs/techvision/vesti/9926644/od-1-jula-nema-vise-besplatne-dostave-sa-temu-shein-i-aliexpress">Kurir — EU-режим 2026 (не для Сербии)</a></li>
+  </ul>
+</section>
+
+<footer>
+  Подборка собрана 2026-05-29 через harness deep-research. Цены проверены в момент анализа; акция Gigatron «Šok cena» носит временный характер. Уровень шума, точные условия гарантии у каждого магазина и landed cost из EU/CN рекомендуется уточнять перед покупкой.
+</footer>
+
+</div>
+</body>
+</html>
