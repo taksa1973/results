@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>INFERNO — 10 Загадок города</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: #05050d;
+  color: #d0d0e0;
+  font-family: 'Courier New', monospace;
+  padding: 2.5rem 1rem 5rem;
+}
+
+header { text-align: center; margin-bottom: 2.5rem; }
+
+h1 {
+  font-size: 2.8rem;
+  letter-spacing: 0.55em;
+  color: #e03030;
+  text-transform: uppercase;
+  text-shadow: 0 0 50px rgba(224,48,48,.45);
+  margin-bottom: 0.4rem;
+}
+
+.subtitle {
+  color: #383848;
+  font-size: 0.72rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+}
+
+.legend {
+  max-width: 900px;
+  margin: 0 auto 2.5rem;
+  background: #0a0a16;
+  border: 1px solid #1a1a28;
+  border-radius: 4px;
+  padding: 1rem 1.4rem;
+  font-size: 0.7rem;
+  color: #44445a;
+  letter-spacing: 0.08em;
+  line-height: 1.95;
+}
+.legend b { color: #666; }
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(480px, 1fr));
+  gap: 1.5rem;
+  max-width: 1260px;
+  margin: 0 auto;
+}
+
+.card {
+  background: #0b0b16;
+  border: 1px solid #18182a;
+  border-radius: 5px;
+  overflow: hidden;
+  position: relative;
+}
+
+.card-top {
+  padding: 1.4rem 1.5rem 1.1rem;
+  border-bottom: 1px solid #14142200;
+}
+
+.card-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 1rem;
+}
+
+.num {
+  font-size: 0.6rem;
+  color: #2a2a3a;
+  letter-spacing: 0.2em;
+}
+
+.badge {
+  font-size: 0.66rem;
+  padding: 0.18rem 0.6rem;
+  border-radius: 2px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border: 1px solid;
+  margin-left: auto;
+}
+
+.lbl {
+  font-size: 0.58rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  margin-bottom: 0.35rem;
+  color: #2e2e42;
+}
+
+/* Encrypted block */
+.enc-block {
+  background: #030308;
+  border-radius: 3px;
+  padding: 1rem;
+  border-left: 3px solid;
+  margin-bottom: 0.6rem;
+  font-size: 0.92rem;
+  font-weight: bold;
+  letter-spacing: 0.12em;
+  line-height: 1.7;
+  word-break: break-all;
+}
+
+.key-hint {
+  font-size: 0.66rem;
+  color: #383848;
+  letter-spacing: 0.07em;
+  line-height: 1.6;
+}
+.key-hint b { color: #555; }
+
+/* Decoded section */
+.card-bottom {
+  background: #090912;
+  border-top: 1px solid #141422;
+  padding: 1.1rem 1.5rem;
+}
+
+.plain-riddle {
+  font-size: 0.98rem;
+  font-style: italic;
+  color: #8888a8;
+  line-height: 1.75;
+  margin-bottom: 0.9rem;
+  border-left: 2px solid #1e1e30;
+  padding-left: 0.8rem;
+}
+
+.answer-row {
+  display: flex;
+  align-items: baseline;
+  gap: 0.8rem;
+  margin-bottom: 0.8rem;
+}
+
+.answer-word {
+  font-size: 1.1rem;
+  font-weight: bold;
+  letter-spacing: 0.2em;
+  padding: 0.15rem 0.7rem;
+  border-radius: 3px;
+  border: 1px solid;
+}
+
+.explanation {
+  font-size: 0.78rem;
+  color: #555570;
+  line-height: 1.75;
+}
+
+/* Poem styles (riddle 10) */
+.poem { line-height: 0; margin-bottom: 0.5rem; }
+.poem-line { display: block; line-height: 2; }
+.poem-fl { font-weight: bold; font-size: 1.1em; }
+
+/* Emoji cipher */
+.enc-emoji { font-size: 1.3rem; letter-spacing: 0.25em; line-height: 2.2; }
+.emoji-key { font-size: 0.65rem; color: #333344; line-height: 2; margin-top: 0.5rem; }
+
+/* Color themes */
+.c1  { --a:#e84545; } .c1  .badge { color:#e84545; border-color:#3a1010; background:#160404; } .c1  .enc-block { border-color:#e84545; color:#e84545; } .c1  .answer-word { color:#e84545; border-color:#3a1010; background:#110303; }
+.c2  { --a:#45e870; } .c2  .badge { color:#45e870; border-color:#103a18; background:#041604; } .c2  .enc-block { border-color:#45e870; color:#45e870; } .c2  .answer-word { color:#45e870; border-color:#103a18; background:#030f04; }
+.c3  { --a:#4580ff; } .c3  .badge { color:#4580ff; border-color:#10183a; background:#040a16; } .c3  .enc-block { border-color:#4580ff; color:#4580ff; } .c3  .answer-word { color:#4580ff; border-color:#10183a; background:#03060f; }
+.c4  { --a:#e8900a; } .c4  .badge { color:#e8900a; border-color:#3a2004; background:#160c02; } .c4  .enc-block { border-color:#e8900a; color:#e8900a; } .c4  .answer-word { color:#e8900a; border-color:#3a2004; background:#110801; }
+.c5  { --a:#cc44ff; } .c5  .badge { color:#cc44ff; border-color:#2a0a3a; background:#110416; } .c5  .enc-block { border-color:#cc44ff; color:#cc44ff; } .c5  .answer-word { color:#cc44ff; border-color:#2a0a3a; background:#0d0310; }
+.c6  { --a:#00cce0; } .c6  .badge { color:#00cce0; border-color:#083038; background:#031214; } .c6  .enc-block { border-color:#00cce0; color:#00cce0; } .c6  .answer-word { color:#00cce0; border-color:#083038; background:#020c0e; }
+.c7  { --a:#c8e020; } .c7  .badge { color:#c8e020; border-color:#283808; background:#101604; } .c7  .enc-block { border-color:#c8e020; color:#c8e020; } .c7  .answer-word { color:#c8e020; border-color:#283808; background:#0c1002; }
+.c8  { --a:#ff6030; } .c8  .badge { color:#ff6030; border-color:#3a1408; background:#160704; } .c8  .enc-block { border-color:#ff6030; color:#ff6030; } .c8  .answer-word { color:#ff6030; border-color:#3a1408; background:#0f0402; }
+.c9  { --a:#20a8f0; } .c9  .badge { color:#20a8f0; border-color:#082838; background:#031014; } .c9  .enc-block { border-color:#20a8f0; color:#20a8f0; } .c9  .answer-word { color:#20a8f0; border-color:#082838; background:#020c10; }
+.c10 { --a:#80d040; } .c10 .badge { color:#80d040; border-color:#1e3808; background:#0c1604; } .c10 .enc-block { border-color:#80d040; color:#80d040; } .c10 .answer-word { color:#80d040; border-color:#1e3808; background:#060c02; }
+
+.card::before {
+  content: '';
+  display: block;
+  height: 2px;
+  background: var(--a);
+}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>⬡ INFERNO</h1>
+  <div class="subtitle">10 загадок · 10 шифров · городской квест</div>
+</header>
+
+<div class="legend">
+  <b>Как работает:</b> игрок находит QR-код или число в городе → бот отправляет <b>зашифрованный текст загадки</b> → игрок расшифровывает → читает вопрос → думает над ответом → вводит ответ → получает следующую точку.<br>
+  <b>Алфавит (А=1 … Я=33):</b> А Б В Г Д Е Ё Ж З И Й К Л М Н О П Р С Т У Ф Х Ц Ч Ш Щ Ъ Ы Ь Э Ю Я
+</div>
+
+<div class="grid">
+
+  <!-- 01 ТЕНЬ — Цезарь +3 -->
+  <div class="card c1">
+    <div class="card-top">
+      <div class="card-meta">
+        <span class="num">ЗАГАДКА 01 / 10</span>
+        <span class="badge">Шифр Цезаря +3</span>
+      </div>
+      <div class="lbl">Зашифрованная загадка</div>
+      <div class="enc-block">
+        Ц ефзш зфхя, рс рлнхс рз жзуйлх. Фозжцзх кг хсдсм, лфъзкгзх рсъяб.
+      </div>
+      <div class="key-hint">▸ Каждая русская буква сдвинута на <b>3 позиции вперёд</b> по алфавиту (с переносом: Я→В)<br>
+      Для расшифровки — сдвигай каждую букву на 3 назад.</div>
+    </div>
+    <div class="card-bottom">
+      <div class="lbl">После расшифровки</div>
+      <div class="plain-riddle">У всех есть, но никто не держит. Следует за тобой, исчезает ночью.</div>
+      <div class="lbl">Ответ</div>
+      <div class="answer-row"><span class="answer-word">ТЕНЬ</span></div>
+      <div class="lbl">Пояснение</div>
+      <div class="explanation">Тень есть у каждого человека, но её невозможно взять в руки. Она следует за нами при дневном свете — и полностью исчезает в темноте.</div>
+    </div>
+  </div>
+
+  <!-- 02 ЗЕРКАЛО — Морзе -->
+  <div class="card c2">
+    <div class="card-top">
+      <div class="card-meta">
+        <span class="num">ЗАГАДКА 02 / 10</span>
+        <span class="badge">Азбука Морзе</span>
+      </div>
+      <div class="lbl">Зашифрованная загадка</div>
+      <div class="enc-block" style="font-size:0.82rem;letter-spacing:0.06em;">
+        --.. -. .- . - / - .-- --- . / .-.. .. -.-. --- / -. --- / -- --- .-.. ---. .. - / .--. --- -.- .- ...- .. / ... .--. .. -. ..- / .. ... ---. . --.. -. . -
+      </div>
+      <div class="key-hint">▸ Точка = · , тире = — , пробел = граница букв, / = граница слов<br>
+      З=--.. Е=. Р=.-. К=-.- А=.- Л=.-.. О=--- М=-- Ч=---. И=.. Т=-<br>
+      П=.--. Ж=...- С=... Н=-. У=..-</div>
+    </div>
+    <div class="card-bottom">
+      <div class="lbl">После расшифровки</div>
+      <div class="plain-riddle">Знает твоё лицо, но молчит. Покажи спину — исчезнет.</div>
+      <div class="lbl">Ответ</div>
+      <div class="answer-row"><span class="answer-word">ЗЕРКАЛО</span></div>
+      <div class="lbl">Пояснение</div>
+      <div class="explanation">Зеркало «знает» (отражает) твоё лицо, но не говорит вслух. Стоит повернуться спиной — и отражение мгновенно исчезает.</div>
+    </div>
+  </div>
+
+  <!-- 03 ВРЕМЯ — Бинарный -->
+  <div class="card c3">
+    <div class="card-top">
+      <div class="card-meta">
+        <span class="num">ЗАГАДКА 03 / 10</span>
+        <span class="badge">Бинарный код</span>
+      </div>
+      <div class="lbl">Зашифрованная загадка</div>
+      <div class="enc-block" style="font-size:0.78rem;letter-spacing:0.04em;word-break:break-all;">
+        001111 000110 001101 011110 001001 100001 | 001100 010101 010001 001010 010100 011110 | 001010 | 000011 000110 010010 001111 010101 010100 011110 | 010101 010111 010000 000101 001010 010100 | 001100 000001 001000 000101 010101 100000 | 010011 000110 001100 010101 001111 000101 010101
+      </div>
+      <div class="key-hint">▸ Каждые 6 бит — одна буква. Число = позиция в алфавите (А=1). <b>|</b> = граница слов.<br>
+      Перевести двоичное → десятичное → букву по таблице алфавита.</div>
+    </div>
+    <div class="card-bottom">
+      <div class="lbl">После расшифровки</div>
+      <div class="plain-riddle">Нельзя купить и вернуть. Уходит каждую секунду.</div>
+      <div class="lbl">Ответ</div>
+      <div class="answer-row"><span class="answer-word">ВРЕМЯ</span></div>
+      <div class="lbl">Пояснение</div>
+      <div class="explanation">Время нельзя приобрести за деньги и невозможно вернуть назад. Оно течёт непрерывно — секунда за секундой — и ничто не может его остановить.</div>
+    </div>
+  </div>
+
+  <!-- 04 ОГОНЬ — Обратный текст -->
+  <div class="card c4">
+    <div class="card-top">
+      <div class="card-meta">
+        <span class="num">ЗАГАДКА 04 / 10</span>
+        <span class="badge">Обратный текст</span>
+      </div>
+      <div class="lbl">Зашифрованная загадка</div>
+      <div class="enc-block">
+        .ястёьпан илсе тёрмУ .тсе акоп тёвиЖ
+      </div>
+      <div class="key-hint">▸ Весь текст записан <b>справа налево</b> — переверни строку целиком.</div>
+    </div>
+    <div class="card-bottom">
+      <div class="lbl">После расшифровки</div>
+      <div class="plain-riddle">Живёт пока ест. Умрёт если напьётся.</div>
+      <div class="lbl">Ответ</div>
+      <div class="answer-row"><span class="answer-word">ОГОНЬ</span></div>
+      <div class="lbl">Пояснение</div>
+      <div class="explanation">Огонь «ест» дрова и живёт, пока есть топливо. Вода «поит» его — и он гаснет. Согревает и уничтожает одновременно.</div>
+    </div>
+  </div>
+
+  <!-- 05 МОЛЧАНИЕ — Числа -->
+  <div class="card c5">
+    <div class="card-top">
+      <div class="card-meta">
+        <span class="num">ЗАГАДКА 05 / 10</span>
+        <span class="badge">Числовой шифр А=1</span>
+      </div>
+      <div class="lbl">Зашифрованная загадка</div>
+      <div class="enc-block">
+        17-18-16-10-9-15-6-19-10 / 10 / 21-2-30-7-26-30 / 6-4-16
+      </div>
+      <div class="key-hint">▸ Каждое число = позиция буквы в алфавите (А=1, Б=2 … Я=33).<br>
+      <b>/</b> = граница слов, <b>—</b> = граница букв внутри слова.</div>
+    </div>
+    <div class="card-bottom">
+      <div class="lbl">После расшифровки</div>
+      <div class="plain-riddle">Произнеси — и убьёшь его.</div>
+      <div class="lbl">Ответ</div>
+      <div class="answer-row"><span class="answer-word">МОЛЧАНИЕ</span></div>
+      <div class="lbl">Пояснение</div>
+      <div class="explanation">Само слово «молчание» разрушает тишину: стоит его произнести вслух — и молчания больше нет. Оно живёт только пока не названо.</div>
+    </div>
+  </div>
+
+  <!-- 06 КЛЮЧ — Атбаш -->
+  <div class="card c6">
+    <div class="card-top">
+      <div class="card-meta">
+        <span class="num">ЗАГАДКА 06 / 10</span>
+        <span class="badge">Атбаш (русский)</span>
+      </div>
+      <div class="lbl">Зашифрованная загадка</div>
+      <div class="enc-block">
+        Рмфодэяъм юъч олф. Нят энъьыя э пуъсл.
+      </div>
+      <div class="key-hint">▸ Алфавит зеркалится: А↔Я, Б↔Ю, В↔Э … П↔П.<br>
+      Формула: позиция_буквы → 34 − позиция_буквы.</div>
+    </div>
+    <div class="card-bottom">
+      <div class="lbl">После расшифровки</div>
+      <div class="plain-riddle">Открывает без рук. Сам всегда в плену.</div>
+      <div class="lbl">Ответ</div>
+      <div class="answer-row"><span class="answer-word">КЛЮЧ</span></div>
+      <div class="lbl">Пояснение</div>
+      <div class="explanation">Ключ открывает замок механически — «без рук» хозяина. Но сам он никогда не бывает свободен: всегда в замке, в кармане или на крючке.</div>
+    </div>
+  </div>
+
+  <!-- 07 РЕКА — Base64 -->
+  <div class="card c7">
+    <div class="card-top">
+      <div class="card-meta">
+        <span class="num">ЗАГАДКА 07 / 10</span>
+        <span class="badge">Base64 (UTF-8)</span>
+      </div>
+      <div class="lbl">Зашифрованная загадка</div>
+      <div class="enc-block" style="font-size:0.8rem;letter-spacing:0.06em;">
+        0JHQtdC20LjRgiDQsdC10Lcg0L3QvtCzLiDQn9C+0ZHRgiDQsdC10Lcg0YDRgtCwLiDQndC40LrQvtCz0LTQsCDQvdC1INGD0YHRgtCw0ZHRgi4=
+      </div>
+      <div class="key-hint">▸ Текст загадки закодирован в UTF-8, затем переведён в Base64.<br>
+      Декодировать онлайн: <b>base64decode.org</b></div>
+    </div>
+    <div class="card-bottom">
+      <div class="lbl">После расшифровки</div>
+      <div class="plain-riddle">Бежит без ног. Поёт без рта. Никогда не устаёт.</div>
+      <div class="lbl">Ответ</div>
+      <div class="answer-row"><span class="answer-word">РЕКА</span></div>
+      <div class="lbl">Пояснение</div>
+      <div class="explanation">Река течёт («бежит») без конечностей, журчит («поёт») без голоса и движется непрерывно с момента возникновения — никогда не устаёт.</div>
+    </div>
+  </div>
+
+  <!-- 08 ЭХО — Виженер -->
+  <div class="card c8">
+    <div class="card-top">
+      <div class="card-meta">
+        <span class="num">ЗАГАДКА 08 / 10</span>
+        <span class="badge">Шифр Виженера</span>
+      </div>
+      <div class="lbl">Зашифрованная загадка</div>
+      <div class="enc-block">
+        Шсттчупеы хтос фьокг, юо цз аоцлэанх щх.
+      </div>
+      <div class="key-hint">▸ Ключевое слово: <b>ИГРА</b>. Алфавит А=0…Я=32, 33 буквы.<br>
+      Формула: (позиция_буквы + позиция_буквы_ключа) mod 33. Для расшифровки — вычитай.</div>
+    </div>
+    <div class="card-bottom">
+      <div class="lbl">После расшифровки</div>
+      <div class="plain-riddle">Повторяет твои слова, но не понимает их.</div>
+      <div class="lbl">Ответ</div>
+      <div class="answer-row"><span class="answer-word">ЭХО</span></div>
+      <div class="lbl">Пояснение</div>
+      <div class="explanation">Эхо — физическое отражение звука. Оно «повторяет» каждое слово, которое ты говоришь, но это лишь волна — никакого понимания смысла.</div>
+    </div>
+  </div>
+
+  <!-- 09 КАРТА — Эмодзи -->
+  <div class="card c9">
+    <div class="card-top">
+      <div class="card-meta">
+        <span class="num">ЗАГАДКА 09 / 10</span>
+        <span class="badge">Эмодзи-шифр</span>
+      </div>
+      <div class="lbl">Зашифрованная загадка</div>
+      <div class="enc-block enc-emoji">
+        🌊🌙🦔🦊🍎🦔🌟 🌊🦔❄️🎨 🌙🌈🌹, 🔥🌸 🌙🦔🔥🎨🎪🦔 🦁🍎🦌🌸🔥🌈.
+      </div>
+      <div class="key-hint">▸ Каждый эмодзи = одна буква. Таблица замен ↓</div>
+      <div class="emoji-key">
+        А=🍎 Б=🐝 В=🌊 Г=🎸 Д=🦌 Е=🦔 Ё=🌲 Ж=🦋 З=⭐ И=🌈 Й=🎯 К=☕ Л=🦁 М=🌙 Н=🔥 О=🌸<br>
+        П=🦜 Р=🌹 С=❄️ Т=🌟 У=🦄 Ф=🎭 Х=🏠 Ц=🌻 Ч=⏰ Ш=🎪 Щ=🦊 Ъ=🔑 Ы=🌿 Ь=🎨 Э=💫 Ю=🎵 Я=🌺
+      </div>
+    </div>
+    <div class="card-bottom">
+      <div class="lbl">После расшифровки</div>
+      <div class="plain-riddle">Вмещает весь мир, но меньше ладони.</div>
+      <div class="lbl">Ответ</div>
+      <div class="answer-row"><span class="answer-word">КАРТА</span></div>
+      <div class="lbl">Пояснение</div>
+      <div class="explanation">Карта изображает весь мир — горы, океаны, города — но при этом умещается в кармане. Ладонь больше карты, но карта «содержит» больше ладони.</div>
+    </div>
+  </div>
+
+  <!-- 10 ГОРОД — Акростих -->
+  <div class="card c10">
+    <div class="card-top">
+      <div class="card-meta">
+        <span class="num">ЗАГАДКА 10 / 10</span>
+        <span class="badge">Акростих</span>
+      </div>
+      <div class="lbl">Зашифрованная загадка (стихотворение)</div>
+      <div class="enc-block poem" style="font-size:0.93rem;letter-spacing:0.04em;">
+        <span class="poem-line"><span class="poem-fl" style="color:#80d040;">Г</span>орят огни на тысячах окон,</span>
+        <span class="poem-line"><span class="poem-fl" style="color:#80d040;">О</span>дин лишь ты знаешь, где скрыто начало.</span>
+        <span class="poem-line"><span class="poem-fl" style="color:#80d040;">Р</span>ека туманная течёт сквозь камень,</span>
+        <span class="poem-line"><span class="poem-fl" style="color:#80d040;">О</span>ставь всё лишнее — возьми лишь слово.</span>
+        <span class="poem-line"><span class="poem-fl" style="color:#80d040;">Д</span>орога ждёт. Ты знаешь, куда идти.</span>
+      </div>
+      <div class="key-hint">▸ Прочитай <b>первые буквы</b> каждой строки сверху вниз — это и есть ответ.</div>
+    </div>
+    <div class="card-bottom">
+      <div class="lbl">Расшифровка</div>
+      <div class="plain-riddle">Первые буквы каждой строки складываются в слово.</div>
+      <div class="lbl">Ответ</div>
+      <div class="answer-row"><span class="answer-word">ГОРОД</span></div>
+      <div class="lbl">Пояснение</div>
+      <div class="explanation">Акростих — литературный приём: первые буквы строк читаются по вертикали и образуют слово. Это финальная загадка квеста — она возвращает игрока к месту, где всё началось.</div>
+    </div>
+  </div>
+
+</div>
+
+<div style="text-align:center;margin-top:4rem;color:#1e1e28;font-size:0.6rem;letter-spacing:0.35em;">
+  INFERNO · CITY QUEST · 10 CIPHERS · 2026
+</div>
+
+</body>
+</html>
