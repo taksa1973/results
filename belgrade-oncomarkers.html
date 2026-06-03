@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Онкомаркеры в Белграде — Клиники, цены, сроки 2026</title>
+<style>
+  :root {
+    --bg: #0f1117;
+    --card: #1a1d27;
+    --card2: #1e2230;
+    --border: #2a2f42;
+    --accent: #5b8af0;
+    --accent2: #7c6fe0;
+    --green: #3fcb8a;
+    --yellow: #f5c842;
+    --red: #f06e6e;
+    --text: #e4e8f5;
+    --muted: #8892b0;
+    --tag-bg: #232840;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* Hero */
+  .hero {
+    background: linear-gradient(135deg, #0f1117 0%, #141828 40%, #1a1240 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 56px 24px 40px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -80px; left: 50%;
+    transform: translateX(-50%);
+    width: 600px; height: 300px;
+    background: radial-gradient(ellipse, rgba(91,138,240,0.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-badge {
+    display: inline-block;
+    background: rgba(91,138,240,0.15);
+    border: 1px solid rgba(91,138,240,0.4);
+    color: var(--accent);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 4px 14px;
+    border-radius: 20px;
+    margin-bottom: 18px;
+  }
+  .hero h1 {
+    font-size: clamp(24px, 4vw, 42px);
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    margin-bottom: 12px;
+    background: linear-gradient(90deg, #e4e8f5 0%, #a0b4e8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .hero p {
+    color: var(--muted);
+    font-size: 15px;
+    max-width: 560px;
+    margin: 0 auto 24px;
+  }
+  .hero-meta {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    flex-wrap: wrap;
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .hero-meta span { display: flex; align-items: center; gap: 6px; }
+  .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); display: inline-block; }
+
+  /* Layout */
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+  .section { padding: 48px 0 32px; }
+  .section-title {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.8px;
+    color: var(--accent);
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* Summary cards */
+  .summary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin-bottom: 40px;
+  }
+  .summary-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 20px;
+    text-align: center;
+  }
+  .summary-card .num {
+    font-size: 32px;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    line-height: 1.1;
+  }
+  .summary-card .label {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 6px;
+  }
+
+  /* Clinic cards */
+  .clinics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 20px;
+  }
+  .clinic-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .clinic-card:hover {
+    border-color: rgba(91,138,240,0.4);
+    transform: translateY(-2px);
+  }
+  .clinic-header {
+    padding: 18px 20px 14px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+  }
+  .clinic-icon {
+    width: 44px; height: 44px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+  .icon-private { background: rgba(91,138,240,0.15); }
+  .icon-state { background: rgba(63,203,138,0.12); }
+  .clinic-name { font-size: 16px; font-weight: 700; margin-bottom: 3px; }
+  .clinic-type {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    padding: 2px 8px;
+    border-radius: 6px;
+  }
+  .type-private { background: rgba(91,138,240,0.15); color: var(--accent); }
+  .type-state { background: rgba(63,203,138,0.12); color: var(--green); }
+  .clinic-body { padding: 16px 20px 18px; }
+  .info-row {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    margin-bottom: 9px;
+    font-size: 13.5px;
+  }
+  .info-label {
+    color: var(--muted);
+    font-size: 12px;
+    min-width: 72px;
+    flex-shrink: 0;
+  }
+  .info-val { color: var(--text); }
+  .info-val.green { color: var(--green); font-weight: 600; }
+  .info-val.yellow { color: var(--yellow); }
+
+  /* Marker tags */
+  .markers-section { margin-top: 12px; }
+  .markers-label { font-size: 11px; color: var(--muted); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.8px; }
+  .tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .tag {
+    background: var(--tag-bg);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-size: 11.5px;
+    font-weight: 600;
+    padding: 3px 9px;
+    border-radius: 6px;
+  }
+  .tag.highlight { border-color: rgba(91,138,240,0.35); color: var(--accent); background: rgba(91,138,240,0.08); }
+  .clinic-footer {
+    padding: 12px 20px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255,255,255,0.02);
+  }
+  .clinic-phone { font-size: 13px; color: var(--muted); }
+  .clinic-link {
+    font-size: 12px;
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 600;
+    border: 1px solid rgba(91,138,240,0.3);
+    padding: 4px 12px;
+    border-radius: 8px;
+    transition: background 0.15s;
+  }
+  .clinic-link:hover { background: rgba(91,138,240,0.12); }
+
+  /* Price table */
+  .price-table-wrap {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    margin-bottom: 32px;
+  }
+  .price-table-wrap h3 {
+    padding: 16px 20px;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--muted);
+    border-bottom: 1px solid var(--border);
+    letter-spacing: 0.3px;
+  }
+  table { width: 100%; border-collapse: collapse; }
+  thead th {
+    padding: 10px 16px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--muted);
+    border-bottom: 1px solid var(--border);
+    text-align: left;
+  }
+  tbody tr { border-bottom: 1px solid rgba(42,47,66,0.6); }
+  tbody tr:last-child { border-bottom: none; }
+  tbody tr:hover { background: rgba(255,255,255,0.025); }
+  tbody td { padding: 11px 16px; font-size: 13.5px; }
+  .td-marker { font-weight: 600; color: var(--text); }
+  .td-purpose { color: var(--muted); font-size: 12.5px; }
+  .td-price { color: var(--yellow); font-weight: 600; font-size: 13px; white-space: nowrap; }
+  .td-time { color: var(--green); font-size: 13px; font-weight: 500; }
+  .td-clinic { font-size: 12px; color: var(--accent); }
+
+  /* Warning */
+  .warning-box {
+    background: rgba(240,110,110,0.08);
+    border: 1px solid rgba(240,110,110,0.25);
+    border-radius: 12px;
+    padding: 16px 20px;
+    font-size: 13.5px;
+    color: #f8b4b4;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    margin-top: 32px;
+  }
+  .warning-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+
+  /* Tips */
+  .tips-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 14px;
+  }
+  .tip-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px;
+    font-size: 13.5px;
+    display: flex;
+    gap: 10px;
+  }
+  .tip-icon { font-size: 20px; flex-shrink: 0; }
+  .tip-text { color: var(--muted); }
+  .tip-text strong { color: var(--text); display: block; margin-bottom: 4px; }
+
+  /* Footer */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 28px 20px;
+    text-align: center;
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 40px;
+  }
+
+  @media (max-width: 640px) {
+    .clinics-grid { grid-template-columns: 1fr; }
+    .summary-grid { grid-template-columns: repeat(2, 1fr); }
+    table { font-size: 12px; }
+    tbody td { padding: 9px 10px; }
+    thead th { padding: 8px 10px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-badge">Белград · Онкодиагностика · 2026</div>
+  <h1>Анализ на онкомаркеры<br>в Белграде</h1>
+  <p>Где сдать, в какие сроки и сколько это стоит — актуальный обзор клиник и лабораторий</p>
+  <div class="hero-meta">
+    <span><span class="dot"></span>Обновлено: июнь 2026</span>
+    <span>🏥 7 клиник и лабораторий</span>
+    <span>🧪 15+ видов маркеров</span>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- Summary -->
+  <div class="section">
+    <div class="summary-grid">
+      <div class="summary-card">
+        <div class="num">880</div>
+        <div class="label">мин. цена (RSD)<br>за один маркер</div>
+      </div>
+      <div class="summary-card">
+        <div class="num">1 день</div>
+        <div class="label">минимальный срок<br>готовности результата</div>
+      </div>
+      <div class="summary-card">
+        <div class="num">7</div>
+        <div class="label">клиник и лабораторий<br>в обзоре</div>
+      </div>
+      <div class="summary-card">
+        <div class="num">15+</div>
+        <div class="label">видов онкомаркеров<br>доступных в Белграде</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Clinics -->
+  <div class="section">
+    <div class="section-title">Клиники и лаборатории</div>
+    <div class="clinics-grid">
+
+      <!-- LaboMedica -->
+      <div class="clinic-card">
+        <div class="clinic-header">
+          <div class="clinic-icon icon-private">🔬</div>
+          <div>
+            <div class="clinic-name">LaboMedica</div>
+            <span class="clinic-type type-private">Частная лаборатория</span>
+          </div>
+        </div>
+        <div class="clinic-body">
+          <div class="info-row">
+            <span class="info-label">Адрес</span>
+            <span class="info-val">Zvezdara, Beograd</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Сроки</span>
+            <span class="info-val green">Тот же день, после 15:00</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Режим</span>
+            <span class="info-val">Пн–Сб, с утра</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Цены</span>
+            <span class="info-val yellow">Самые низкие в Белграде</span>
+          </div>
+          <div class="markers-section">
+            <div class="markers-label">Доступные маркеры</div>
+            <div class="tags">
+              <span class="tag highlight">CA 125 — 880 RSD</span>
+              <span class="tag">CEA</span>
+              <span class="tag">CA 19-9</span>
+              <span class="tag">PSA</span>
+              <span class="tag">AFP</span>
+            </div>
+          </div>
+        </div>
+        <div class="clinic-footer">
+          <span class="clinic-phone">+381 66 11 12 16</span>
+          <a href="https://www.labomedica.net/tumor-markeri/" class="clinic-link" target="_blank">Сайт →</a>
+        </div>
+      </div>
+
+      <!-- IntroLab -->
+      <div class="clinic-card">
+        <div class="clinic-header">
+          <div class="clinic-icon icon-private">🧫</div>
+          <div>
+            <div class="clinic-name">IntroLab</div>
+            <span class="clinic-type type-private">Частная лаборатория</span>
+          </div>
+        </div>
+        <div class="clinic-body">
+          <div class="info-row">
+            <span class="info-label">Адрес</span>
+            <span class="info-val">Beograd (несколько точек)</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Сроки</span>
+            <span class="info-val green">24–48 часов</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Режим</span>
+            <span class="info-val">Пн–Пт + Сб</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Цены</span>
+            <span class="info-val yellow">1 300 RSD / маркер (CA 125, CA 15-3)</span>
+          </div>
+          <div class="markers-section">
+            <div class="markers-label">Доступные маркеры</div>
+            <div class="tags">
+              <span class="tag highlight">CA 125 — 1 300 RSD</span>
+              <span class="tag highlight">CA 15-3 — 1 300 RSD</span>
+              <span class="tag">HE4</span>
+              <span class="tag">ROMA Index</span>
+              <span class="tag">Protein S-100</span>
+              <span class="tag">CEA</span>
+              <span class="tag">AFP</span>
+            </div>
+          </div>
+        </div>
+        <div class="clinic-footer">
+          <span class="clinic-phone">introlab.net</span>
+          <a href="https://introlab.net/en/tests/" class="clinic-link" target="_blank">Все тесты →</a>
+        </div>
+      </div>
+
+      <!-- Beo-lab -->
+      <div class="clinic-card">
+        <div class="clinic-header">
+          <div class="clinic-icon icon-private">💉</div>
+          <div>
+            <div class="clinic-name">Beo-lab</div>
+            <span class="clinic-type type-private">Частная лаборатория</span>
+          </div>
+        </div>
+        <div class="clinic-body">
+          <div class="info-row">
+            <span class="info-label">Адрес</span>
+            <span class="info-val">Borska 41m / Ratka Mitrovića 148, Rakovica</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Сроки</span>
+            <span class="info-val green">24 часа (онлайн-результаты)</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Режим</span>
+            <span class="info-val">Пн–Пт 07:00–20:00, Сб 08:00–15:00</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Онлайн</span>
+            <span class="info-val green">E-лаборатория (результаты в ЛК)</span>
+          </div>
+          <div class="markers-section">
+            <div class="markers-label">Доступные маркеры</div>
+            <div class="tags">
+              <span class="tag">CA 125</span>
+              <span class="tag">CA 15-3</span>
+              <span class="tag">CA 19-9</span>
+              <span class="tag">CEA</span>
+              <span class="tag">PSA</span>
+              <span class="tag">AFP</span>
+              <span class="tag">NSE</span>
+            </div>
+          </div>
+        </div>
+        <div class="clinic-footer">
+          <span class="clinic-phone">011/060</span>
+          <a href="https://www.beo-lab.rs/analize/tumor-markeri/" class="clinic-link" target="_blank">Сайт →</a>
+        </div>
+      </div>
+
+      <!-- AdeaLab -->
+      <div class="clinic-card">
+        <div class="clinic-header">
+          <div class="clinic-icon icon-private">📊</div>
+          <div>
+            <div class="clinic-name">AdeaLab</div>
+            <span class="clinic-type type-private">Частная лаборатория</span>
+          </div>
+        </div>
+        <div class="clinic-body">
+          <div class="info-row">
+            <span class="info-label">Адрес</span>
+            <span class="info-val">Beograd</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Сроки</span>
+            <span class="info-val green">24 часа (большинство)</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Цены</span>
+            <span class="info-val yellow">Конкурентные, ABC-прайс-лист онлайн</span>
+          </div>
+          <div class="markers-section">
+            <div class="markers-label">Доступные маркеры</div>
+            <div class="tags">
+              <span class="tag">CA 125</span>
+              <span class="tag">CA 15-3</span>
+              <span class="tag">CA 19-9</span>
+              <span class="tag">CEA</span>
+              <span class="tag">PSA</span>
+              <span class="tag">AFP</span>
+              <span class="tag">HCG</span>
+              <span class="tag">NSE</span>
+            </div>
+          </div>
+        </div>
+        <div class="clinic-footer">
+          <span class="clinic-phone">adealab.com</span>
+          <a href="https://adealab.com/eng/pricelist.html" class="clinic-link" target="_blank">Прайс →</a>
+        </div>
+      </div>
+
+      <!-- Acibadem Bel Medic -->
+      <div class="clinic-card">
+        <div class="clinic-header">
+          <div class="clinic-icon icon-private">🏥</div>
+          <div>
+            <div class="clinic-name">Acibadem Bel Medic</div>
+            <span class="clinic-type type-private">Частная клиника (международная)</span>
+          </div>
+        </div>
+        <div class="clinic-body">
+          <div class="info-row">
+            <span class="info-label">Адрес</span>
+            <span class="info-val">Beograd (несколько отделений)</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Сроки</span>
+            <span class="info-val green">1–2 дня</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Цены</span>
+            <span class="info-val yellow">Выше среднего (международный стандарт)</span>
+          </div>
+          <div class="markers-section">
+            <div class="markers-label">Доступные маркеры</div>
+            <div class="tags">
+              <span class="tag highlight">CEA</span>
+              <span class="tag highlight">PSA / fPSA</span>
+              <span class="tag">CA 125</span>
+              <span class="tag">CA 19-9</span>
+              <span class="tag">AFP</span>
+              <span class="tag">HCG</span>
+            </div>
+          </div>
+        </div>
+        <div class="clinic-footer">
+          <span class="clinic-phone">+381 60 309 1000</span>
+          <a href="https://www.acibadembelmedic.rs/cenovnik/laboratorija" class="clinic-link" target="_blank">Прайс →</a>
+        </div>
+      </div>
+
+      <!-- IORS -->
+      <div class="clinic-card">
+        <div class="clinic-header">
+          <div class="clinic-icon icon-state">🏛️</div>
+          <div>
+            <div class="clinic-name">Институт онкологии и радиологии Сербии (IORS)</div>
+            <span class="clinic-type type-state">Государственная клиника</span>
+          </div>
+        </div>
+        <div class="clinic-body">
+          <div class="info-row">
+            <span class="info-label">Адрес</span>
+            <span class="info-val">Pasterova 14, Savski Venac, Beograd</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Сроки</span>
+            <span class="info-val yellow">2–5 рабочих дней</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Стоимость</span>
+            <span class="info-val green">Бесплатно по страховке RFZO</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Запись</span>
+            <span class="info-val">Онлайн через ncrc.ac.rs</span>
+          </div>
+          <div class="markers-section">
+            <div class="markers-label">Специализация</div>
+            <div class="tags">
+              <span class="tag highlight">Полный онко-профиль</span>
+              <span class="tag">Морфология опухолей</span>
+              <span class="tag">Иммуногистохимия</span>
+              <span class="tag">ПЦР-диагностика</span>
+            </div>
+          </div>
+        </div>
+        <div class="clinic-footer">
+          <span class="clinic-phone">ncrc.ac.rs</span>
+          <a href="https://www.ncrc.ac.rs/evidencija-zakazivanja/" class="clinic-link" target="_blank">Запись →</a>
+        </div>
+      </div>
+
+      <!-- KCS -->
+      <div class="clinic-card">
+        <div class="clinic-header">
+          <div class="clinic-icon icon-state">⚕️</div>
+          <div>
+            <div class="clinic-name">Клинический центр Сербии (КЦС)</div>
+            <span class="clinic-type type-state">Государственная клиника</span>
+          </div>
+        </div>
+        <div class="clinic-body">
+          <div class="info-row">
+            <span class="info-label">Адрес</span>
+            <span class="info-val">Pasterova 2, Beograd</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Сроки</span>
+            <span class="info-val yellow">По назначению врача, 3–7 дней</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Стоимость</span>
+            <span class="info-val green">Бесплатно по страховке RFZO</span>
+          </div>
+          <div class="markers-section">
+            <div class="markers-label">Специализация</div>
+            <div class="tags">
+              <span class="tag highlight">Ядерная медицина</span>
+              <span class="tag">Клиника онкологии</span>
+              <span class="tag">Полный скрининг</span>
+            </div>
+          </div>
+        </div>
+        <div class="clinic-footer">
+          <span class="clinic-phone">kcs.ac.rs</span>
+          <a href="http://www.kcs.ac.rs" class="clinic-link" target="_blank">Сайт →</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Price table -->
+  <div class="section">
+    <div class="section-title">Основные онкомаркеры и ориентировочные цены</div>
+    <div class="price-table-wrap">
+      <h3>Часто запрашиваемые маркеры — Белград (частные лаборатории)</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Маркер</th>
+            <th>Для чего</th>
+            <th>Цена (ориентир)</th>
+            <th>Срок</th>
+            <th>Где дешевле</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="td-marker">CA 125</td>
+            <td class="td-purpose">Рак яичников</td>
+            <td class="td-price">880–1 300 RSD</td>
+            <td class="td-time">1 день</td>
+            <td class="td-clinic">LaboMedica</td>
+          </tr>
+          <tr>
+            <td class="td-marker">CA 15-3</td>
+            <td class="td-purpose">Рак молочной железы</td>
+            <td class="td-price">1 100–1 400 RSD</td>
+            <td class="td-time">1–2 дня</td>
+            <td class="td-clinic">Beo-lab / IntroLab</td>
+          </tr>
+          <tr>
+            <td class="td-marker">CA 19-9</td>
+            <td class="td-purpose">Рак поджелудочной железы, кишечника</td>
+            <td class="td-price">1 000–1 400 RSD</td>
+            <td class="td-time">1 день</td>
+            <td class="td-clinic">LaboMedica</td>
+          </tr>
+          <tr>
+            <td class="td-marker">CEA (РЭА)</td>
+            <td class="td-purpose">Колоректальный рак, лёгкие, молочная железа</td>
+            <td class="td-price">900–1 300 RSD</td>
+            <td class="td-time">1 день</td>
+            <td class="td-clinic">LaboMedica / Beo-lab</td>
+          </tr>
+          <tr>
+            <td class="td-marker">PSA (общий)</td>
+            <td class="td-purpose">Рак предстательной железы</td>
+            <td class="td-price">700–1 100 RSD</td>
+            <td class="td-time">1 день</td>
+            <td class="td-clinic">AdeaLab / LaboMedica</td>
+          </tr>
+          <tr>
+            <td class="td-marker">fPSA (свободный)</td>
+            <td class="td-purpose">Уточнение рака простаты</td>
+            <td class="td-price">800–1 200 RSD</td>
+            <td class="td-time">1 день</td>
+            <td class="td-clinic">Beo-lab / Acibadem</td>
+          </tr>
+          <tr>
+            <td class="td-marker">AFP (альфа-фетопротеин)</td>
+            <td class="td-purpose">Рак печени, яичка</td>
+            <td class="td-price">900–1 300 RSD</td>
+            <td class="td-time">1–2 дня</td>
+            <td class="td-clinic">IntroLab / AdeaLab</td>
+          </tr>
+          <tr>
+            <td class="td-marker">HE4</td>
+            <td class="td-purpose">Рак яичников (в дополнение к CA 125)</td>
+            <td class="td-price">1 500–2 000 RSD</td>
+            <td class="td-time">1–2 дня</td>
+            <td class="td-clinic">IntroLab</td>
+          </tr>
+          <tr>
+            <td class="td-marker">ROMA Index</td>
+            <td class="td-purpose">Риск рака яичников (CA 125 + HE4)</td>
+            <td class="td-price">2 500–3 200 RSD</td>
+            <td class="td-time">2–3 дня</td>
+            <td class="td-clinic">IntroLab</td>
+          </tr>
+          <tr>
+            <td class="td-marker">NSE</td>
+            <td class="td-purpose">Мелкоклеточный рак лёгких, нейроэндокринные опухоли</td>
+            <td class="td-price">1 200–1 800 RSD</td>
+            <td class="td-time">1–2 дня</td>
+            <td class="td-clinic">Beo-lab / AdeaLab</td>
+          </tr>
+          <tr>
+            <td class="td-marker">Protein S-100</td>
+            <td class="td-purpose">Меланома</td>
+            <td class="td-price">1 800–2 500 RSD</td>
+            <td class="td-time">2–3 дня</td>
+            <td class="td-clinic">IntroLab</td>
+          </tr>
+          <tr>
+            <td class="td-marker">β-HCG</td>
+            <td class="td-purpose">Рак яичка, трофобластные опухоли</td>
+            <td class="td-price">900–1 300 RSD</td>
+            <td class="td-time">1 день</td>
+            <td class="td-clinic">AdeaLab / LaboMedica</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:12px;color:var(--muted);margin-top:-16px;">* Цены ориентировочные на июнь 2026. Актуальные тарифы уточняйте напрямую в лаборатории. 1 EUR ≈ 118 RSD.</p>
+  </div>
+
+  <!-- Tips -->
+  <div class="section">
+    <div class="section-title">Практические советы</div>
+    <div class="tips-grid">
+      <div class="tip-card">
+        <span class="tip-icon">🕖</span>
+        <div class="tip-text">
+          <strong>Сдавать натощак</strong>
+          Анализ на онкомаркеры сдаётся утром строго натощак (8–12 часов голода). Можно пить воду.
+        </div>
+      </div>
+      <div class="tip-card">
+        <span class="tip-icon">💊</span>
+        <div class="tip-text">
+          <strong>Отмена лекарств</strong>
+          За 3–5 дней исключить биотин (витамин B7) — он искажает иммунохимические тесты.
+        </div>
+      </div>
+      <div class="tip-card">
+        <span class="tip-icon">📋</span>
+        <div class="tip-text">
+          <strong>Нужно направление?</strong>
+          В частных лабораториях — нет, сдаёте без направления. В КЦС и IORS — нужно направление от врача.
+        </div>
+      </div>
+      <div class="tip-card">
+        <span class="tip-icon">🔁</span>
+        <div class="tip-text">
+          <strong>Одна лаборатория</strong>
+          Повторные анализы сдавайте всегда в одной и той же лаборатории: методики различаются, результаты несравнимы.
+        </div>
+      </div>
+      <div class="tip-card">
+        <span class="tip-icon">🌐</span>
+        <div class="tip-text">
+          <strong>Без сербского языка</strong>
+          IntroLab, AdeaLab и Acibadem Bel Medic работают на английском. LaboMedica — в основном по-сербски.
+        </div>
+      </div>
+      <div class="tip-card">
+        <span class="tip-icon">💳</span>
+        <div class="tip-text">
+          <strong>Оплата</strong>
+          Наличные динары и карты принимают все. EUR / RSD в частных клиниках курс приблизительный.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="warning-box">
+    <span class="warning-icon">⚠️</span>
+    <div>
+      <strong>Важно:</strong> Онкомаркеры — вспомогательный инструмент, не самостоятельный диагноз рака. Повышение маркера возможно при воспалениях, доброкачественных образованиях и других состояниях. Интерпретацию результатов должен проводить врач-онколог, а не пациент самостоятельно.
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <div class="container">
+    Данные собраны из открытых источников (сайты лабораторий, июнь 2026) · Не является медицинской рекомендацией<br>
+    <span style="opacity:0.5;">Sources: labomedica.net · introlab.net · beo-lab.rs · adealab.com · acibadembelmedic.rs · ncrc.ac.rs · kcs.ac.rs</span>
+  </div>
+</footer>
+
+</body>
+</html>
