@@ -1,10 +1,7 @@
 {
-  "ts": "2026-06-03T11:07:52.375708+00:00",
+  "ts": "2026-06-04T10:00:20.272192+00:00",
   "findings": {},
   "errors": {
-    "Saysail (catamarans)": "request_error: ConnectionError: HTTPSConnectionPool(host='saysail.com', port=443): Max retries exceeded with url: /en/yacht-rental?country=100181&boat_type=51&regions=559906&marinas=1317289 (Caused by NewConnectionError(\"HTTPSConnection(host='saysail.com', port=443): Failed to establish a new connection: [Errno 101] Network is unreachable\"))",
-    "Saysail (full fleet)": "request_error: ConnectionError: HTTPSConnectionPool(host='saysail.com', port=443): Max retries exceeded with url: /en/yacht-rental (Caused by NewConnectionError(\"HTTPSConnection(host='saysail.com', port=443): Failed to establish a new connection: [Errno 101] Network is unreachable\"))",
-    "Navigare Yachting Turkey": "request_error: ConnectTimeout: HTTPSConnectionPool(host='navigare-yachting.com', port=443): Max retries exceeded with url: /en/yacht-charter/turkey-base-marmaris-joya-del-mar-marina (Caused by ConnectTimeoutError(<HTTPSConnection(host='navigare-yachting.com', port=443) at 0x7f27c562dcd0>, 'Connection to navigare-yachting.com timed out. (connect timeout=30)'))",
     "Yacht-Rent Turkey": "http_403",
     "GuletYacht.net": "http_403"
   }
