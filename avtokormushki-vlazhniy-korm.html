@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Автоматические кормушки для влажного корма кошек 2026</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: #0f1117;
+    color: #e8eaf0;
+    min-height: 100vh;
+  }
+
+  .hero {
+    background: linear-gradient(135deg, #1a1d2e 0%, #12151f 100%);
+    border-bottom: 1px solid #2a2d3e;
+    padding: 60px 20px 48px;
+    text-align: center;
+  }
+
+  .hero-tag {
+    display: inline-block;
+    background: rgba(99, 102, 241, 0.15);
+    border: 1px solid rgba(99, 102, 241, 0.35);
+    color: #818cf8;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 6px 16px;
+    border-radius: 100px;
+    margin-bottom: 20px;
+  }
+
+  .hero h1 {
+    font-size: clamp(26px, 5vw, 44px);
+    font-weight: 800;
+    color: #fff;
+    line-height: 1.2;
+    margin-bottom: 14px;
+  }
+
+  .hero h1 span { color: #818cf8; }
+
+  .hero p {
+    color: #94979f;
+    font-size: 16px;
+    max-width: 560px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  .stats {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-top: 36px;
+    flex-wrap: wrap;
+  }
+
+  .stat { text-align: center; }
+  .stat-num { font-size: 28px; font-weight: 800; color: #818cf8; }
+  .stat-label { font-size: 12px; color: #6b7280; margin-top: 2px; }
+
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 48px 20px 80px;
+  }
+
+  .section-title {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: #6b7280;
+    margin-bottom: 28px;
+  }
+
+  /* WINNER CARD */
+  .winner-card {
+    background: linear-gradient(135deg, #1e2035 0%, #1a1d2e 100%);
+    border: 1px solid rgba(99, 102, 241, 0.4);
+    border-radius: 20px;
+    padding: 32px;
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 32px;
+    margin-bottom: 48px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .winner-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at top right, rgba(99,102,241,0.08) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .winner-badge {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    padding: 5px 14px;
+    border-radius: 100px;
+  }
+
+  .winner-left h2 {
+    font-size: 26px;
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 6px;
+  }
+
+  .winner-left .subtitle {
+    color: #94979f;
+    font-size: 14px;
+    margin-bottom: 20px;
+  }
+
+  .feature-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 24px;
+  }
+
+  .feature-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 14px;
+    color: #c8cad4;
+    line-height: 1.5;
+  }
+
+  .feature-list li::before {
+    content: '✓';
+    color: #6366f1;
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .price-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .price {
+    font-size: 28px;
+    font-weight: 800;
+    color: #fff;
+  }
+
+  .price-sub {
+    font-size: 12px;
+    color: #6b7280;
+    line-height: 1.4;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 12px 24px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .btn-primary {
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    color: white;
+  }
+
+  .btn-primary:hover { opacity: 0.9; transform: translateY(-1px); }
+
+  .btn-outline {
+    border: 1px solid #2a2d3e;
+    color: #94979f;
+    background: transparent;
+  }
+
+  .btn-outline:hover { border-color: #6366f1; color: #818cf8; }
+
+  .winner-right {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .winner-right img {
+    width: 100%;
+    max-width: 300px;
+    border-radius: 12px;
+    object-fit: cover;
+    background: #1a1d2e;
+  }
+
+  /* STATUS BADGES */
+  .status {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 100px;
+    margin-bottom: 12px;
+  }
+
+  .status-available { background: rgba(34,197,94,0.15); color: #4ade80; border: 1px solid rgba(34,197,94,0.3); }
+  .status-preorder { background: rgba(251,191,36,0.15); color: #fbbf24; border: 1px solid rgba(251,191,36,0.3); }
+  .status-concept { background: rgba(239,68,68,0.15); color: #f87171; border: 1px solid rgba(239,68,68,0.3); }
+  .status-announced { background: rgba(99,102,241,0.15); color: #818cf8; border: 1px solid rgba(99,102,241,0.3); }
+
+  /* GRID */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 20px;
+    margin-bottom: 48px;
+  }
+
+  .card {
+    background: #1a1d2e;
+    border: 1px solid #2a2d3e;
+    border-radius: 16px;
+    overflow: hidden;
+    transition: all 0.2s;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .card:hover {
+    border-color: rgba(99,102,241,0.4);
+    transform: translateY(-2px);
+  }
+
+  .card-img {
+    width: 100%;
+    height: 220px;
+    object-fit: contain;
+    background: #12151f;
+    padding: 16px;
+  }
+
+  .card-body {
+    padding: 20px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .card-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 4px;
+  }
+
+  .card-sub {
+    font-size: 12px;
+    color: #6b7280;
+    margin-bottom: 14px;
+  }
+
+  .card-features {
+    list-style: none;
+    flex: 1;
+    margin-bottom: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+  }
+
+  .card-features li {
+    font-size: 13px;
+    color: #94979f;
+    display: flex;
+    align-items: flex-start;
+    gap: 7px;
+    line-height: 1.4;
+  }
+
+  .card-features li span.icon { flex-shrink: 0; font-size: 14px; }
+
+  .card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    border-top: 1px solid #2a2d3e;
+    padding-top: 16px;
+    margin-top: 4px;
+  }
+
+  .card-price {
+    font-size: 20px;
+    font-weight: 800;
+    color: #fff;
+  }
+
+  .card-price-note {
+    font-size: 11px;
+    color: #6b7280;
+    margin-top: 1px;
+  }
+
+  /* COMPARISON TABLE */
+  .compare-wrap {
+    overflow-x: auto;
+    margin-bottom: 48px;
+    border-radius: 16px;
+    border: 1px solid #2a2d3e;
+  }
+
+  .compare-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+
+  .compare-table th {
+    background: #1a1d2e;
+    padding: 14px 16px;
+    text-align: left;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    color: #6b7280;
+    border-bottom: 1px solid #2a2d3e;
+    white-space: nowrap;
+  }
+
+  .compare-table td {
+    padding: 13px 16px;
+    border-bottom: 1px solid #1e2230;
+    color: #c8cad4;
+    vertical-align: middle;
+  }
+
+  .compare-table tr:last-child td { border-bottom: none; }
+  .compare-table tr:hover td { background: rgba(99,102,241,0.04); }
+
+  .compare-table td:first-child { font-weight: 600; color: #e8eaf0; }
+
+  .check { color: #4ade80; }
+  .cross { color: #f87171; }
+  .dash { color: #4b5563; }
+
+  /* FOOTER NOTE */
+  .note-box {
+    background: rgba(99, 102, 241, 0.08);
+    border: 1px solid rgba(99, 102, 241, 0.2);
+    border-radius: 12px;
+    padding: 20px 24px;
+    color: #94979f;
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  .note-box strong { color: #818cf8; }
+
+  @media (max-width: 700px) {
+    .winner-card { grid-template-columns: 1fr; }
+    .winner-right { order: -1; }
+    .winner-right img { max-height: 200px; width: auto; }
+    .stats { gap: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-tag">Подборка 2026</div>
+  <h1>Автоматические кормушки<br>для <span>влажного корма</span> кошек</h1>
+  <p>Устройства, которые сами открывают пакеты, охлаждают корм и самоочищаются — от $130 до предзаказа за 15 000 ₽</p>
+  <div class="stats">
+    <div class="stat"><div class="stat-num">5</div><div class="stat-label">устройств</div></div>
+    <div class="stat"><div class="stat-num">4</div><div class="stat-label">страны</div></div>
+    <div class="stat"><div class="stat-num">$95</div><div class="stat-label">минимальная цена</div></div>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- WINNER -->
+  <div class="section-title">🏆 Выбор редакции — самоочищение + автовскрытие</div>
+
+  <div class="winner-card">
+    <div class="winner-badge">⭐ Лучший выбор</div>
+    <div class="winner-left">
+      <div class="status status-preorder">Предзаказ, поставка 2026</div>
+      <h2>BistroCat Smart Feeder</h2>
+      <p class="subtitle">США · Единственная кормушка, которая открывает порцию, подаёт и моет себя сама после каждого кормления</p>
+      <ul class="feature-list">
+        <li>Открывает фирменные BistroPod-капсулы, подаёт корм и самостоятельно очищает миску</li>
+        <li>Отслеживает пищевые привычки, уведомляет при изменениях в аппетите</li>
+        <li>Подписка на корм адаптируется под вкусовые предпочтения кошки</li>
+        <li>Капсулы BistroPod: 1.4 oz и 2.75 oz, одна упаковка на 21 день</li>
+        <li>Полный автопилот: еда, уборка, контроль — ничего вручную</li>
+      </ul>
+      <div class="price-row">
+        <div>
+          <div class="price">$95</div>
+          <div class="price-sub">с годовой подпиской на корм<br>или $295 без подписки</div>
+        </div>
+        <a href="https://getbistrocat.com/products/bistro-cat-feeder" target="_blank" class="btn btn-primary">Оформить предзаказ →</a>
+      </div>
+    </div>
+    <div class="winner-right">
+      <img
+        src="https://getbistrocat.com/cdn/shop/files/252A0224_3e98f80f-355e-41b1-be6f-2a632a796856_300x300.jpg?v=1752146495"
+        alt="BistroCat Smart Feeder"
+        onerror="this.style.padding='40px';this.style.opacity='0.3'"
+      >
+    </div>
+  </div>
+
+  <!-- GRID -->
+  <div class="section-title">Все устройства в подборке</div>
+
+  <div class="grid">
+
+    <!-- PawBot -->
+    <div class="card">
+      <img class="card-img"
+        src="https://pawbot.com/images/wet-cat-food-dispenser-PawBot-sm.gif"
+        alt="PawBot автоматическая кормушка"
+        onerror="this.src='https://pawbot.com/images/banners/homepage/location_1881.JPG'"
+      >
+      <div class="card-body">
+        <div class="status status-preorder">Краудфандинг</div>
+        <div class="card-title">PawBot</div>
+        <div class="card-sub">США · Робот для консервированного корма (банки)</div>
+        <ul class="card-features">
+          <li><span class="icon">🥫</span> Вмещает 18 банок (5.5oz или 3oz) — работает без дозаправки несколько дней</li>
+          <li><span class="icon">🤖</span> Автоматически открывает банку перед каждым кормлением</li>
+          <li><span class="icon">📷</span> Встроенная камера + звуковой сигнал при подаче</li>
+          <li><span class="icon">⏱️</span> Режим по расписанию или по пустой миске (SmartFeed)</li>
+          <li><span class="icon">⚠️</span> Самоочистки нет, работает только с круглыми банками</li>
+        </ul>
+        <div class="card-footer">
+          <div>
+            <div class="card-price">~$299+</div>
+            <div class="card-price-note">цена уточняется</div>
+          </div>
+          <a href="https://pawbot.com/pawbot-specifications" target="_blank" class="btn btn-outline">Сайт →</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- PETKIT Yumshare Daily Feast -->
+    <div class="card">
+      <img class="card-img"
+        src="https://cdn.shopify.com/s/files/1/0569/0526/9388/files/Auto_AI_Wet_Food_Feeder_Blog_Pic-1.jpg?v=1755585854"
+        alt="PETKIT Yumshare Daily Feast"
+      >
+      <div class="card-body">
+        <div class="status status-announced">Анонс 2025</div>
+        <div class="card-title">PETKIT Yumshare Daily Feast</div>
+        <div class="card-sub">Китай · Первая в мире полностью автоматическая AI-кормушка для влажного корма</div>
+        <ul class="card-features">
+          <li><span class="icon">🧠</span> AI-камера распознаёт каждую кошку и ведёт персональную историю питания</li>
+          <li><span class="icon">📦</span> Система автовскрытия пакетов — подаёт без ручного вмешательства</li>
+          <li><span class="icon">🦠</span> Встроенная стерилизация хранимого корма</li>
+          <li><span class="icon">💊</span> Поддержка лечебных диет (мочевыводящие, почечные)</li>
+          <li><span class="icon">⚠️</span> Цена и дата релиза не объявлены</li>
+        </ul>
+        <div class="card-footer">
+          <div>
+            <div class="card-price">TBD</div>
+            <div class="card-price-note">ожидается в 2026</div>
+          </div>
+          <a href="https://www.petkit.com/blogs/blog/introducing-the-first-fully-automatic-ai-wet-food-feeder-extending-petkit-s-comprehensive-urinary-health-ecosystem" target="_blank" class="btn btn-outline">Подробнее →</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Petlibro Polar -->
+    <div class="card">
+      <img class="card-img"
+        src="https://petlibro.com/cdn/shop/files/AF109-black-Stainless_steel_bowl-02-_Compressify.io_7240ce78-7d02-4c34-9c61-1828b9b9a4ee.png?v=1764034887"
+        alt="Petlibro Polar"
+      >
+      <div class="card-body">
+        <div class="status status-available">В продаже</div>
+        <div class="card-title">Petlibro Polar</div>
+        <div class="card-sub">США · Холодильник-кормушка, уже можно купить</div>
+        <ul class="card-features">
+          <li><span class="icon">❄️</span> Полупроводниковое охлаждение до 12°C — корм остаётся свежим 72 часа</li>
+          <li><span class="icon">⏰</span> До 3 кормлений в день по расписанию через приложение</li>
+          <li><span class="icon">🔄</span> Лоток поворачивается к миске за 30 минут до кормления (корм согревается)</li>
+          <li><span class="icon">🍽️</span> Миска из нержавеющей стали — можно в посудомойку</li>
+          <li><span class="icon">⚠️</span> Пакеты не вскрывает — нужно предварительно наложить корм в лоток</li>
+        </ul>
+        <div class="card-footer">
+          <div>
+            <div class="card-price">$149.99</div>
+            <div class="card-price-note">сталь / $129.99 пластик</div>
+          </div>
+          <a href="https://petlibro.com/products/polar-wet-food-pet-feeder" target="_blank" class="btn btn-outline">Купить →</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- PauchPlus -->
+    <div class="card">
+      <img class="card-img"
+        src="https://pauchplus.ru/img/pauchplus-s-prilozheniem.png"
+        alt="PauchPlus автоматическая кормушка"
+        onerror="this.src='https://pauchplus.ru/img/pauchplus-pro.png'"
+      >
+      <div class="card-body">
+        <div class="status status-preorder">Предзаказ · Q4 2026</div>
+        <div class="card-title">PauchPlus</div>
+        <div class="card-sub">Россия · Первая кормушка с автовскрытием паучей — российская разработка</div>
+        <ul class="card-features">
+          <li><span class="icon">✂️</span> Хирургическое лезвие из стали вскрывает стандартные паучи 85–100 г по перфорации</li>
+          <li><span class="icon">📦</span> Хранит до 30 пакетов — автономность до 7 дней</li>
+          <li><span class="icon">💨</span> Азотная продувка камеры для сохранения свежести корма</li>
+          <li><span class="icon">📱</span> Приложение, Яндекс Алиса, VK Маруся, умный дом</li>
+          <li><span class="icon">🇷🇺</span> Нет аналогов среди отечественных продуктов</li>
+        </ul>
+        <div class="card-footer">
+          <div>
+            <div class="card-price">14 900 ₽</div>
+            <div class="card-price-note">предзаказ / 19 900 ₽ розница</div>
+          </div>
+          <a href="https://pauchplus.ru" target="_blank" class="btn btn-outline">Предзаказ →</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- COMPARISON TABLE -->
+  <div class="section-title">Сравнительная таблица</div>
+
+  <div class="compare-wrap">
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th>Устройство</th>
+          <th>Вскрывает упаковку</th>
+          <th>Самоочистка</th>
+          <th>Охлаждение</th>
+          <th>Запас порций</th>
+          <th>AI-камера</th>
+          <th>Доступность</th>
+          <th>Цена</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>BistroCat</td>
+          <td><span class="check">✓</span> капсулы</td>
+          <td><span class="check">✓ После каждой еды</span></td>
+          <td><span class="dash">—</span></td>
+          <td>21 день</td>
+          <td><span class="dash">—</span></td>
+          <td><span class="status status-preorder" style="font-size:10px">Предзаказ</span></td>
+          <td>$95–$295</td>
+        </tr>
+        <tr>
+          <td>PawBot</td>
+          <td><span class="check">✓</span> банки</td>
+          <td><span class="cross">✗</span></td>
+          <td><span class="dash">—</span></td>
+          <td>18 банок</td>
+          <td><span class="check">✓</span></td>
+          <td><span class="status status-preorder" style="font-size:10px">Краудфандинг</span></td>
+          <td>~$299+</td>
+        </tr>
+        <tr>
+          <td>PETKIT Daily Feast</td>
+          <td><span class="check">✓</span> пакеты</td>
+          <td><span class="dash">?</span></td>
+          <td><span class="dash">—</span></td>
+          <td>н/д</td>
+          <td><span class="check">✓ AI мульти-кошки</span></td>
+          <td><span class="status status-announced" style="font-size:10px">Анонс</span></td>
+          <td>TBD</td>
+        </tr>
+        <tr>
+          <td>Petlibro Polar</td>
+          <td><span class="cross">✗</span></td>
+          <td><span class="cross">✗</span></td>
+          <td><span class="check">✓ до 12°C</span></td>
+          <td>3 порции/день</td>
+          <td><span class="dash">—</span></td>
+          <td><span class="status status-available" style="font-size:10px">В продаже</span></td>
+          <td>$130–$150</td>
+        </tr>
+        <tr>
+          <td>PauchPlus</td>
+          <td><span class="check">✓</span> паучи</td>
+          <td><span class="dash">—</span></td>
+          <td><span class="dash">—</span></td>
+          <td>30 паучей</td>
+          <td><span class="dash">—</span></td>
+          <td><span class="status status-preorder" style="font-size:10px">Предзаказ RU</span></td>
+          <td>14 900 ₽</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- NOTE -->
+  <div class="note-box">
+    <strong>Итог:</strong> Полностью автоматических кормушек для влажного корма с вскрытием упаковки и самоочисткой — пока единицы, и большинство ещё в предзаказе.
+    <strong>BistroCat</strong> ближе всего к идеалу (открывает + самоочищается), но работает только на фирменных капсулах.
+    <strong>PawBot</strong> открывает обычные банки, <strong>PauchPlus</strong> вскрывает стандартные паучи — российская альтернатива.
+    <strong>Petlibro Polar</strong> — единственное, что уже продаётся прямо сейчас, но пакеты сам не вскрывает.
+    Рынок активно развивается: ещё в 2023 году таких устройств не существовало вообще.
+  </div>
+
+  <p style="text-align:center;color:#374151;font-size:12px;margin-top:40px">
+    Обновлено: июнь 2026 · Цены актуальны на дату публикации
+  </p>
+
+</div>
+
+</body>
+</html>
