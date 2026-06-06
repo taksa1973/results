@@ -1,16 +1,10 @@
 {
-  "ts": "2026-06-05T09:56:39.886549+00:00",
+  "ts": "2026-06-06T08:37:28.334210+00:00",
   "findings": {},
   "errors": {
-    "SamBoat Turkey catamarans (bareboat)": "http_403",
-    "SamBoat Turkey luxury yachts": "http_403",
-    "SamBoat Turkey filter=Aquila (catamarans)": "http_403",
-    "SamBoat Turkey filter=Aquila (motor & all)": "http_403",
-    "Saysail (catamarans)": "http_500",
-    "Saysail (full fleet)": "request_error: ChunkedEncodingError: ('Connection broken: IncompleteRead(4042 bytes read, 4142 more expected)', IncompleteRead(4042 bytes read, 4142 more expected))",
+    "Sailo Turkey catamarans": "http_403",
     "Marmaris Sailing Marmaris fleet": "http_409",
     "Marmaris Sailing Gocek fleet": "http_409",
-    "Boataround Turkey": "http_403",
     "Yacht-Rent Turkey": "http_403",
     "GuletYacht.net": "http_403"
   }
