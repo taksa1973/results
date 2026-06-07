@@ -1,10 +1,8 @@
 {
-  "ts": "2026-06-06T08:37:28.334210+00:00",
+  "ts": "2026-06-07T09:00:10.223994+00:00",
   "findings": {},
   "errors": {
     "Sailo Turkey catamarans": "http_403",
-    "Marmaris Sailing Marmaris fleet": "http_409",
-    "Marmaris Sailing Gocek fleet": "http_409",
     "Yacht-Rent Turkey": "http_403",
     "GuletYacht.net": "http_403"
   }
