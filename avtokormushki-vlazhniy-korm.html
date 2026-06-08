@@ -53,6 +53,22 @@
     line-height: 1.6;
   }
 
+  /* ALERT BOX */
+  .alert-box {
+    background: rgba(239, 68, 68, 0.08);
+    border: 1px solid rgba(239, 68, 68, 0.25);
+    border-radius: 12px;
+    padding: 16px 20px;
+    color: #fca5a5;
+    font-size: 14px;
+    line-height: 1.6;
+    max-width: 680px;
+    margin: 24px auto 0;
+    text-align: left;
+  }
+
+  .alert-box strong { color: #f87171; }
+
   .stats {
     display: flex;
     justify-content: center;
@@ -390,11 +406,14 @@
 <div class="hero">
   <div class="hero-tag">Подборка 2026</div>
   <h1>Автоматические кормушки<br>для <span>влажного корма</span> кошек</h1>
-  <p>Устройства, которые сами открывают пакеты, охлаждают корм и самоочищаются — от $130 до предзаказа за 15 000 ₽</p>
+  <p>Устройства, которые сами открывают пакеты, охлаждают корм и самоочищаются — обзор всех доступных вариантов</p>
+  <div class="alert-box">
+    <strong>⚠️ Честный итог на июнь 2026:</strong> Кормушек, которые автоматически вскрывают стандартные паучи и уже продаются в розницу с доставкой в Сербию, <strong>пока не существует</strong>. Все устройства с автовскрытием — либо предзаказы, либо B2B-модель (только через бренды корма), либо работают только с фирменными капсулами. Рынок очень быстро меняется — ближайшие релизы ожидаются в конце 2026.
+  </div>
   <div class="stats">
-    <div class="stat"><div class="stat-num">5</div><div class="stat-label">устройств</div></div>
+    <div class="stat"><div class="stat-num">6</div><div class="stat-label">устройств</div></div>
     <div class="stat"><div class="stat-num">4</div><div class="stat-label">страны</div></div>
-    <div class="stat"><div class="stat-num">$95</div><div class="stat-label">минимальная цена</div></div>
+    <div class="stat"><div class="stat-num">0</div><div class="stat-label">доступно в Сербии прямо сейчас</div></div>
   </div>
 </div>
 
@@ -520,6 +539,34 @@
       </div>
     </div>
 
+    <!-- PawRobo -->
+    <div class="card">
+      <img class="card-img"
+        src="https://pawbot.com/images/banners/homepage/location_1897.JPG"
+        alt="PawRobo автоматическая кормушка для консервов"
+        style="object-fit:cover"
+      >
+      <div class="card-body">
+        <div class="status status-announced">Релиз H2 2026</div>
+        <div class="card-title">PawRobo</div>
+        <div class="card-sub">США · Первый робот для консервированного влажного корма — хранит банки закрытыми</div>
+        <ul class="card-features">
+          <li><span class="icon">🥫</span> Открывает запечатанные банки по расписанию прямо перед подачей</li>
+          <li><span class="icon">♾️</span> Пока банки закрыты — корм хранится бесконечно, не нужно охлаждение</li>
+          <li><span class="icon">🔄</span> Меняет миску, подаёт и убирает — полный цикл без участия хозяина</li>
+          <li><span class="icon">💰</span> Цель — уложиться до $1 000 (финальная цена не объявлена)</li>
+          <li><span class="icon">⚠️</span> Работает с банками, не с паучами. Доставка в Сербию не подтверждена</li>
+        </ul>
+        <div class="card-footer">
+          <div>
+            <div class="card-price">&lt;$1 000</div>
+            <div class="card-price-note">целевая цена</div>
+          </div>
+          <a href="https://pawrobo.com/" target="_blank" class="btn btn-outline">Сайт →</a>
+        </div>
+      </div>
+    </div>
+
     <!-- PauchPlus -->
     <div class="card">
       <img class="card-img"
@@ -609,6 +656,16 @@
           <td>$130–$150</td>
         </tr>
         <tr>
+          <td>PawRobo</td>
+          <td><span class="check">✓</span> банки</td>
+          <td><span class="check">✓</span></td>
+          <td><span class="dash">—</span></td>
+          <td>н/д</td>
+          <td><span class="dash">—</span></td>
+          <td><span class="status status-announced" style="font-size:10px">H2 2026</span></td>
+          <td>&lt;$1 000</td>
+        </tr>
+        <tr>
           <td>PauchPlus</td>
           <td><span class="check">✓</span> паучи</td>
           <td><span class="dash">—</span></td>
@@ -624,11 +681,13 @@
 
   <!-- NOTE -->
   <div class="note-box">
-    <strong>Итог:</strong> Полностью автоматических кормушек для влажного корма с вскрытием упаковки и самоочисткой — пока единицы, и большинство ещё в предзаказе.
-    <strong>BistroCat</strong> ближе всего к идеалу (открывает + самоочищается), но работает только на фирменных капсулах.
-    <strong>PawBot</strong> открывает обычные банки, <strong>PauchPlus</strong> вскрывает стандартные паучи — российская альтернатива.
-    <strong>Petlibro Polar</strong> — единственное, что уже продаётся прямо сейчас, но пакеты сам не вскрывает.
-    Рынок активно развивается: ещё в 2023 году таких устройств не существовало вообще.
+    <strong>Итог для Сербии:</strong> Автоматического вскрытия стандартных паучей с доставкой в Сербию прямо сейчас нет ни у кого.
+    <br><br>
+    <strong>Если ждать — лучший вариант:</strong> <strong>PETKIT Yumshare Daily Feast</strong> — открывает пакеты, AI-камера, 7 дней автономности. Запущен апрель 2026, но продаётся <em>только через партнёрские бренды корма</em> (B2B), не в розницу. Следить за появлением в европейских магазинах на <a href="https://www.petkit-eu.com/" style="color:#818cf8">petkit-eu.com</a>.
+    <br><br>
+    <strong>Доступно прямо сейчас:</strong> <strong>Petlibro Polar</strong> ($130–150) — паучи не вскрывает, но охлаждает корм 72 часа. Продаётся на Amazon, возможна доставка через EU-форвардер (например, myGermany, Eurosender).
+    <br><br>
+    <strong>Когда ждать нормальный продукт:</strong> конец 2026 — начало 2027. Рынок этой категории появился буквально в 2025 году.
   </div>
 
   <p style="text-align:center;color:#374151;font-size:12px;margin-top:40px">
