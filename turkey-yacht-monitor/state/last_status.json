@@ -1,8 +1,7 @@
 {
-  "ts": "2026-06-07T09:00:10.223994+00:00",
+  "ts": "2026-06-08T11:01:41.171085+00:00",
   "findings": {},
   "errors": {
-    "Sailo Turkey catamarans": "http_403",
     "Yacht-Rent Turkey": "http_403",
     "GuletYacht.net": "http_403"
   }
