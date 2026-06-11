@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LeaderTask Box — Self-hosted установка</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #0f1117;
+    color: #e2e8f0;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  .hero {
+    background: linear-gradient(135deg, #1a1f35 0%, #0f1117 100%);
+    border-bottom: 1px solid #2d3748;
+    padding: 48px 24px 40px;
+    text-align: center;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(99, 102, 241, 0.15);
+    border: 1px solid rgba(99, 102, 241, 0.4);
+    color: #a5b4fc;
+    padding: 6px 16px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 20px;
+    letter-spacing: 0.02em;
+  }
+
+  .hero h1 {
+    font-size: clamp(28px, 5vw, 46px);
+    font-weight: 700;
+    color: #f8fafc;
+    margin-bottom: 14px;
+    letter-spacing: -0.02em;
+  }
+
+  .hero h1 span { color: #818cf8; }
+
+  .hero p {
+    font-size: 17px;
+    color: #94a3b8;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 24px 80px;
+  }
+
+  /* Verdict block */
+  .verdict {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin: 40px 0;
+  }
+
+  .verdict-card {
+    background: #1e2535;
+    border: 1px solid #2d3748;
+    border-radius: 14px;
+    padding: 20px;
+    text-align: center;
+  }
+
+  .verdict-card .icon { font-size: 28px; margin-bottom: 10px; }
+  .verdict-card .label { font-size: 12px; color: #64748b; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 4px; }
+  .verdict-card .value { font-size: 18px; font-weight: 600; color: #f1f5f9; }
+  .verdict-card.green { border-color: rgba(34,197,94,0.3); }
+  .verdict-card.green .value { color: #4ade80; }
+  .verdict-card.yellow { border-color: rgba(234,179,8,0.3); }
+  .verdict-card.yellow .value { color: #facc15; }
+  .verdict-card.red { border-color: rgba(239,68,68,0.3); }
+  .verdict-card.red .value { color: #f87171; }
+  .verdict-card.blue { border-color: rgba(99,102,241,0.3); }
+  .verdict-card.blue .value { color: #a5b4fc; }
+
+  /* Alert block */
+  .alert {
+    display: flex;
+    gap: 14px;
+    padding: 16px 20px;
+    border-radius: 12px;
+    margin: 24px 0;
+    font-size: 15px;
+  }
+  .alert-warn { background: rgba(234,179,8,0.08); border: 1px solid rgba(234,179,8,0.3); color: #fde68a; }
+  .alert-info { background: rgba(99,102,241,0.08); border: 1px solid rgba(99,102,241,0.3); color: #c7d2fe; }
+  .alert-tip { background: rgba(34,197,94,0.08); border: 1px solid rgba(34,197,94,0.3); color: #bbf7d0; }
+  .alert-icon { font-size: 20px; flex-shrink: 0; }
+
+  /* Section */
+  .section { margin-top: 48px; }
+  .section-title {
+    font-size: 22px;
+    font-weight: 700;
+    color: #f1f5f9;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #2d3748;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-title .num {
+    background: #6366f1;
+    color: white;
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  /* Requirements grid */
+  .req-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  @media (max-width: 600px) { .req-grid { grid-template-columns: 1fr; } }
+
+  .req-card {
+    background: #1e2535;
+    border: 1px solid #2d3748;
+    border-radius: 12px;
+    padding: 20px;
+  }
+  .req-card h3 {
+    font-size: 14px;
+    font-weight: 600;
+    color: #818cf8;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .req-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid #2d3748;
+    font-size: 14px;
+  }
+  .req-item:last-child { border-bottom: none; }
+  .req-item .key { color: #94a3b8; }
+  .req-item .val { color: #e2e8f0; font-weight: 500; }
+
+  /* Steps */
+  .steps { display: flex; flex-direction: column; gap: 16px; }
+
+  .step {
+    background: #1e2535;
+    border: 1px solid #2d3748;
+    border-radius: 14px;
+    overflow: hidden;
+  }
+
+  .step-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 18px 22px;
+  }
+
+  .step-num {
+    background: linear-gradient(135deg, #6366f1, #818cf8);
+    color: white;
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .step-title { font-size: 16px; font-weight: 600; color: #f1f5f9; }
+  .step-sub { font-size: 13px; color: #64748b; margin-top: 2px; }
+
+  .step-body {
+    padding: 0 22px 20px;
+    border-top: 1px solid #2d3748;
+    padding-top: 16px;
+  }
+
+  .step-body p { font-size: 14px; color: #94a3b8; margin-bottom: 10px; }
+  .step-body ul, .step-body ol { padding-left: 20px; font-size: 14px; color: #94a3b8; }
+  .step-body li { margin-bottom: 6px; }
+
+  code {
+    background: #0d1117;
+    border: 1px solid #374151;
+    color: #7dd3fc;
+    padding: 2px 7px;
+    border-radius: 5px;
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    font-size: 13px;
+  }
+
+  pre {
+    background: #0d1117;
+    border: 1px solid #374151;
+    border-radius: 10px;
+    padding: 16px 18px;
+    overflow-x: auto;
+    margin: 12px 0;
+  }
+  pre code {
+    background: none;
+    border: none;
+    padding: 0;
+    color: #a3e635;
+    font-size: 13px;
+    line-height: 1.7;
+  }
+
+  .tag {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+  .tag-green { background: rgba(34,197,94,0.15); color: #4ade80; }
+  .tag-yellow { background: rgba(234,179,8,0.15); color: #facc15; }
+  .tag-red { background: rgba(239,68,68,0.15); color: #f87171; }
+
+  /* Comparison table */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    margin-top: 8px;
+  }
+  th {
+    background: #1a2030;
+    color: #94a3b8;
+    padding: 12px 16px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    border-bottom: 1px solid #2d3748;
+  }
+  td {
+    padding: 12px 16px;
+    border-bottom: 1px solid #2d3748;
+    color: #e2e8f0;
+  }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: rgba(255,255,255,0.02); }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    padding: 32px 24px;
+    border-top: 1px solid #2d3748;
+    color: #475569;
+    font-size: 13px;
+    margin-top: 60px;
+  }
+  .footer a { color: #6366f1; text-decoration: none; }
+
+  .divider { height: 1px; background: #2d3748; margin: 40px 0; }
+
+  .pill-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 12px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 500;
+    border: 1px solid #2d3748;
+    background: #1e2535;
+    color: #94a3b8;
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-badge">🖥️ Self-Hosted · On-Premise</div>
+  <h1>LeaderTask <span>Box</span></h1>
+  <p>Полная инструкция по установке на собственный сервер — чтобы все данные хранились только у вас</p>
+</div>
+
+<div class="container">
+
+  <!-- Verdict -->
+  <div class="verdict">
+    <div class="verdict-card yellow">
+      <div class="icon">⚙️</div>
+      <div class="label">Сложность</div>
+      <div class="value">Средняя</div>
+    </div>
+    <div class="verdict-card red">
+      <div class="icon">💳</div>
+      <div class="label">Бесплатно?</div>
+      <div class="value">Платно</div>
+    </div>
+    <div class="verdict-card green">
+      <div class="icon">🔒</div>
+      <div class="label">Данные</div>
+      <div class="value">100% у вас</div>
+    </div>
+    <div class="verdict-card blue">
+      <div class="icon">🌐</div>
+      <div class="label">Клиент</div>
+      <div class="value">Web + App</div>
+    </div>
+  </div>
+
+  <div class="alert alert-warn">
+    <span class="alert-icon">⚠️</span>
+    <div><strong>LeaderTask Box — платный продукт.</strong> Минимальная лицензия от 50 пользователей стоит ~500 000 ₽/год. Для личного или малого бизнеса лучше рассмотреть альтернативы — Vikunja, Plane, Nextcloud Tasks (бесплатно, открытый код).</div>
+  </div>
+
+  <!-- About -->
+  <div class="section">
+    <div class="section-title">
+      <span>Что такое LeaderTask Box</span>
+    </div>
+    <p style="color:#94a3b8; font-size:15px; margin-bottom:16px;">
+      <strong style="color:#f1f5f9">LeaderTask Box</strong> — коробочная (on-premise) версия таск-менеджера LeaderTask. В отличие от облачной SaaS-версии, сервер разворачивается в вашей инфраструктуре: задачи, файлы, проекты хранятся на вашем сервере, не уходят в чужое облако.
+    </p>
+
+    <div style="background:#1e2535; border:1px solid #2d3748; border-radius:12px; padding:20px; margin-top:16px;">
+      <div style="font-size:13px; font-weight:700; color:#818cf8; text-transform:uppercase; letter-spacing:0.06em; margin-bottom:14px;">ЧТО ВХОДИТ В КОРОБКУ</div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; font-size:14px; color:#94a3b8;">
+        <div>✓ Задачи и подзадачи</div>
+        <div>✓ Проекты и доски</div>
+        <div>✓ Файловые вложения</div>
+        <div>✓ Роли и права доступа</div>
+        <div>✓ Делегирование задач</div>
+        <div>✓ Работа без интернета (LAN)</div>
+        <div>✓ Web-интерфейс</div>
+        <div>✓ Мобильные приложения</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Requirements -->
+  <div class="section">
+    <div class="section-title">
+      <div class="num">1</div>
+      Системные требования
+    </div>
+
+    <div class="req-grid">
+      <div class="req-card">
+        <h3>🖥️ Сервер</h3>
+        <div class="req-item"><span class="key">ОС</span><span class="val">Windows Server 2016+</span></div>
+        <div class="req-item"><span class="key">CPU</span><span class="val">4 ядра, 64-bit</span></div>
+        <div class="req-item"><span class="key">RAM</span><span class="val">8 GB и более</span></div>
+        <div class="req-item"><span class="key">Диск</span><span class="val">от 100 MB + данные</span></div>
+        <div class="req-item"><span class="key">СУБД</span><span class="val">MS SQL Server 2016+</span></div>
+        <div class="req-item"><span class="key">Runtime</span><span class="val">.NET Framework 4+</span></div>
+        <div class="req-item"><span class="key">Порт</span><span class="val">443 (HTTPS)</span></div>
+      </div>
+      <div class="req-card">
+        <h3>🌐 Клиенты</h3>
+        <div class="req-item"><span class="key">Chrome</span><span class="val">✓ Поддерживается</span></div>
+        <div class="req-item"><span class="key">Firefox</span><span class="val">✓ Поддерживается</span></div>
+        <div class="req-item"><span class="key">Edge</span><span class="val">✓ Поддерживается</span></div>
+        <div class="req-item"><span class="key">Safari</span><span class="val">✓ Поддерживается</span></div>
+        <div class="req-item"><span class="key">Opera</span><span class="val">✓ Поддерживается</span></div>
+        <div class="req-item"><span class="key">Android</span><span class="val">✓ Мобильное приложение</span></div>
+        <div class="req-item"><span class="key">iOS</span><span class="val">Приложение есть</span></div>
+      </div>
+    </div>
+
+    <div class="alert alert-info" style="margin-top:16px;">
+      <span class="alert-icon">ℹ️</span>
+      <div>Сервер работает <strong>только на Windows Server</strong>. Linux/Docker — не поддерживается официально. Если нужен Linux + Docker — смотрите альтернативы в конце страницы.</div>
+    </div>
+  </div>
+
+  <!-- Steps -->
+  <div class="section">
+    <div class="section-title">
+      <div class="num">2</div>
+      Пошаговая установка
+    </div>
+
+    <div class="steps">
+
+      <div class="step">
+        <div class="step-header">
+          <div class="step-num">1</div>
+          <div>
+            <div class="step-title">Получите дистрибутив и лицензию</div>
+            <div class="step-sub">Свяжитесь с LeaderTask для покупки Box-версии</div>
+          </div>
+        </div>
+        <div class="step-body">
+          <p>Box-версия не скачивается публично — нужно оформить договор и получить дистрибутив от вендора:</p>
+          <ul>
+            <li>📧 Email: <code>911@leadertask.com</code></li>
+            <li>📞 Телефон: <code>+7 4852 68-58-20</code></li>
+            <li>🌐 Сайт: <code>leadertask.ru</code> → раздел «LeaderTask Box»</li>
+          </ul>
+          <p style="margin-top:10px;">После оплаты вы получаете: установочный дистрибутив + файл лицензионного ключа <code>*.key</code></p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-header">
+          <div class="step-num">2</div>
+          <div>
+            <div class="step-title">Подготовьте сервер Windows</div>
+            <div class="step-sub">Windows Server 2016/2019/2022</div>
+          </div>
+        </div>
+        <div class="step-body">
+          <p>Установите необходимые зависимости:</p>
+          <pre><code># Откройте PowerShell от имени Администратора
+
+# 1. Установите .NET Framework 4.8
+# Скачайте с сайта Microsoft и запустите установщик
+# или через Windows Features:
+Install-WindowsFeature Net-Framework-45-Features
+
+# 2. Откройте порт 443 в Firewall
+New-NetFirewallRule -DisplayName "LeaderTask HTTPS" `
+  -Direction Inbound -Protocol TCP `
+  -LocalPort 443 -Action Allow</code></pre>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-header">
+          <div class="step-num">3</div>
+          <div>
+            <div class="step-title">Установите MS SQL Server</div>
+            <div class="step-sub">MS SQL 2016 или новее (Express — бесплатный вариант)</div>
+          </div>
+        </div>
+        <div class="step-body">
+          <p>Скачайте и установите <strong>SQL Server Express</strong> (бесплатно) с сайта Microsoft:</p>
+          <ul>
+            <li>При установке выберите режим: <code>Windows Authentication</code></li>
+            <li>Запомните имя экземпляра (по умолчанию: <code>SQLEXPRESS</code>)</li>
+            <li>Включите <code>TCP/IP</code> в SQL Server Configuration Manager</li>
+          </ul>
+          <pre><code># Проверьте что SQL Server запущен
+Get-Service -Name "MSSQL*"
+
+# Должен быть статус: Running</code></pre>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-header">
+          <div class="step-num">4</div>
+          <div>
+            <div class="step-title">Установите LeaderTask Server</div>
+            <div class="step-sub">Запустите инсталлятор с правами администратора</div>
+          </div>
+        </div>
+        <div class="step-body">
+          <p>Запустите полученный установщик (<code>LeaderTaskServer_setup.exe</code>) от имени Администратора:</p>
+          <ul>
+            <li>Укажите папку установки (по умолчанию: <code>C:\LeaderTaskServer\</code>)</li>
+            <li>В поле подключения к БД укажите: <code>localhost\SQLEXPRESS</code></li>
+            <li>Мастер автоматически создаст базу данных</li>
+            <li>После установки — скопируйте файл лицензии <code>*.key</code> в папку установки</li>
+          </ul>
+          <pre><code>C:\LeaderTaskServer\
+├── LeaderTaskServer.exe   ← основной сервис
+├── license.key            ← лицензионный ключ (скопировать сюда)
+├── config.xml             ← конфигурация
+└── data\                  ← данные и файлы</code></pre>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-header">
+          <div class="step-num">5</div>
+          <div>
+            <div class="step-title">Запустите сервис и проверьте</div>
+            <div class="step-sub">Убедитесь, что сервер работает</div>
+          </div>
+        </div>
+        <div class="step-body">
+          <p>LeaderTask Server устанавливается как Windows Service:</p>
+          <pre><code># Проверьте статус сервиса
+Get-Service -Name "LeaderTaskServer"
+
+# Запустите если остановлен
+Start-Service -Name "LeaderTaskServer"
+
+# Настройте автозапуск
+Set-Service -Name "LeaderTaskServer" -StartupType Automatic</code></pre>
+          <p>Откройте браузер и перейдите на:</p>
+          <pre><code>https://localhost        # локально на сервере
+https://ваш-ip-сервера  # из локальной сети</code></pre>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-header">
+          <div class="step-num">6</div>
+          <div>
+            <div class="step-title">Первоначальная настройка</div>
+            <div class="step-sub">Создание администратора и подключение пользователей</div>
+          </div>
+        </div>
+        <div class="step-body">
+          <p>При первом входе в браузере:</p>
+          <ol>
+            <li>Создайте учётную запись администратора</li>
+            <li>Укажите адрес сервера для подключения клиентов</li>
+            <li>Раздайте сотрудникам URL или настройте DNS-имя</li>
+          </ol>
+          <p style="margin-top:12px;"><strong style="color:#f1f5f9">Подключение мобильных приложений:</strong> в настройках приложения указать вместо облака адрес вашего сервера — <code>https://ваш-домен-или-ip</code></p>
+          <div class="alert alert-tip" style="margin-top:12px;">
+            <span class="alert-icon">✅</span>
+            <div>Убедитесь, что <strong>все сотрудники подключены к сети</strong> (локальной или VPN) при первоначальной активации — это требование лицензирования.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-header">
+          <div class="step-num">7</div>
+          <div>
+            <div class="step-title">SSL-сертификат и внешний доступ</div>
+            <div class="step-sub">Опционально — если нужен доступ из интернета</div>
+          </div>
+        </div>
+        <div class="step-body">
+          <p>Для работы через интернет (не только LAN):</p>
+          <ul>
+            <li>Получите SSL-сертификат (Let's Encrypt или купленный)</li>
+            <li>Настройте в config.xml путь к сертификату</li>
+            <li>Откройте порт <code>443</code> на роутере/файерволе</li>
+            <li>Пропишите DNS-запись для вашего домена</li>
+          </ul>
+          <pre><code># Пример: получить Let's Encrypt через win-acme (Windows)
+# 1. Скачать win-acme.exe
+# 2. Запустить и указать домен
+# 3. Путь к сертификату прописать в config.xml LeaderTask</code></pre>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-header">
+          <div class="step-num">8</div>
+          <div>
+            <div class="step-title">Бэкапы базы данных</div>
+            <div class="step-sub">Настройте регулярное резервное копирование</div>
+          </div>
+        </div>
+        <div class="step-body">
+          <p>Все данные в MS SQL — настройте автоматические бэкапы:</p>
+          <pre><code>-- SQL: ежедневный бэкап в папку D:\Backups\
+BACKUP DATABASE [LeaderTask]
+TO DISK = 'D:\Backups\lt_backup_'
+  + CONVERT(VARCHAR, GETDATE(), 112) + '.bak'
+WITH COMPRESSION, STATS = 10;</code></pre>
+          <p>Или через Task Scheduler Windows — запускать SQL-скрипт ежедневно в 3:00.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Pricing -->
+  <div class="section">
+    <div class="section-title">
+      <div class="num">3</div>
+      Цены на LeaderTask Box
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Пакет</th>
+          <th>Пользователи</th>
+          <th>1-й год</th>
+          <th>Продление (−10%)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Старт</strong></td>
+          <td>50 пользователей</td>
+          <td>499 990 ₽</td>
+          <td>~449 991 ₽</td>
+        </tr>
+        <tr>
+          <td><strong>Бизнес</strong></td>
+          <td>100 пользователей</td>
+          <td>949 990 ₽</td>
+          <td>~854 991 ₽</td>
+        </tr>
+        <tr>
+          <td><strong>Корпорация</strong></td>
+          <td>200 пользователей</td>
+          <td>1 799 990 ₽</td>
+          <td>~1 619 991 ₽</td>
+        </tr>
+        <tr>
+          <td><strong>Установка вендором</strong></td>
+          <td>—</td>
+          <td>+10 000 ₽</td>
+          <td>—</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="alert alert-warn" style="margin-top:16px;">
+      <span class="alert-icon">⚠️</span>
+      <div>Минимальный пакет — <strong>50 лицензий (~500к₽/год)</strong>. Для небольшой команды или личного использования это экономически нецелесообразно. Рассмотрите open-source альтернативы ниже.</div>
+    </div>
+  </div>
+
+  <!-- Alternatives -->
+  <div class="section">
+    <div class="section-title">
+      <div class="num">4</div>
+      Open-source альтернативы (бесплатно, Docker)
+    </div>
+
+    <p style="color:#94a3b8; font-size:14px; margin-bottom:16px;">Если вы хотите self-hosted таск-менеджер без лицензионных затрат — эти проекты разворачиваются через Docker Compose за 15 минут:</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Проект</th>
+          <th>Сравним с</th>
+          <th>Docker</th>
+          <th>Цена</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Vikunja</strong></td>
+          <td>Todoist / LeaderTask</td>
+          <td><span class="tag tag-green">✓ Да</span></td>
+          <td><span class="tag tag-green">Бесплатно</span></td>
+        </tr>
+        <tr>
+          <td><strong>Plane</strong></td>
+          <td>Jira / LeaderTask</td>
+          <td><span class="tag tag-green">✓ Да</span></td>
+          <td><span class="tag tag-green">Бесплатно</span></td>
+        </tr>
+        <tr>
+          <td><strong>Nextcloud</strong></td>
+          <td>Полная экосистема</td>
+          <td><span class="tag tag-green">✓ Да</span></td>
+          <td><span class="tag tag-green">Бесплатно</span></td>
+        </tr>
+        <tr>
+          <td><strong>AppFlowy</strong></td>
+          <td>Notion / LeaderTask</td>
+          <td><span class="tag tag-green">✓ Да</span></td>
+          <td><span class="tag tag-green">Бесплатно</span></td>
+        </tr>
+        <tr>
+          <td><strong>Focalboard</strong></td>
+          <td>Trello / Kanban</td>
+          <td><span class="tag tag-green">✓ Да</span></td>
+          <td><span class="tag tag-green">Бесплатно</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div style="background:#1e2535; border:1px solid #2d3748; border-radius:12px; padding:20px; margin-top:20px;">
+      <div style="font-size:13px; font-weight:700; color:#a3e635; text-transform:uppercase; letter-spacing:0.06em; margin-bottom:12px;">⚡ БЫСТРЫЙ СТАРТ — VIKUNJA (15 минут)</div>
+      <pre><code>mkdir vikunja && cd vikunja
+
+cat > docker-compose.yml << 'EOF'
+version: '3'
+services:
+  db:
+    image: mariadb:10
+    environment:
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_DATABASE: vikunja
+      MYSQL_USER: vikunja
+      MYSQL_PASSWORD: secret
+    volumes:
+      - ./db:/var/lib/mysql
+
+  vikunja:
+    image: vikunja/vikunja
+    environment:
+      VIKUNJA_DATABASE_HOST: db
+      VIKUNJA_DATABASE_TYPE: mysql
+      VIKUNJA_DATABASE_USER: vikunja
+      VIKUNJA_DATABASE_PASSWORD: secret
+      VIKUNJA_DATABASE_DATABASE: vikunja
+      VIKUNJA_SERVICE_JWTSECRET: your-random-secret-here
+    ports:
+      - "3456:3456"
+    depends_on:
+      - db
+    volumes:
+      - ./files:/app/vikunja/files
+EOF
+
+docker-compose up -d
+# Открыть: http://localhost:3456</code></pre>
+    </div>
+  </div>
+
+  <!-- Summary -->
+  <div class="section">
+    <div class="section-title">Итог: стоит ли ставить LeaderTask Box?</div>
+
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+      <div style="background: rgba(34,197,94,0.06); border:1px solid rgba(34,197,94,0.3); border-radius:12px; padding:20px;">
+        <div style="font-weight:700; color:#4ade80; margin-bottom:12px;">✓ Подходит если...</div>
+        <ul style="font-size:14px; color:#94a3b8; padding-left:16px; line-height:1.8;">
+          <li>Команда от 50+ человек</li>
+          <li>Уже используете LeaderTask в облаке</li>
+          <li>Нужен именно LeaderTask UX/функционал</li>
+          <li>Требования по безопасности данных (ФЗ-152, гос)</li>
+          <li>Есть Windows Server в инфраструктуре</li>
+        </ul>
+      </div>
+      <div style="background: rgba(239,68,68,0.06); border:1px solid rgba(239,68,68,0.3); border-radius:12px; padding:20px;">
+        <div style="font-weight:700; color:#f87171; margin-bottom:12px;">✗ Не подходит если...</div>
+        <ul style="font-size:14px; color:#94a3b8; padding-left:16px; line-height:1.8;">
+          <li>Команда до 20-30 человек</li>
+          <li>Нужен Linux/Docker</li>
+          <li>Ограниченный бюджет</li>
+          <li>Личное использование</li>
+          <li>Нужна гибкость настройки</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="alert alert-tip" style="margin-top:32px;">
+    <span class="alert-icon">💡</span>
+    <div><strong>Рекомендация:</strong> Для личного use или небольшой команды — поставьте <strong>Vikunja</strong> или <strong>Plane</strong> через Docker. Данные полностью у вас, работает на Linux VPS от 5$/мес, установка 15 минут.</div>
+  </div>
+
+</div>
+
+<div class="footer">
+  Составлено на основе официальной документации LeaderTask · <a href="https://www.leadertask.ru/features/leadertask-box-korobochnaya-versiya" target="_blank">leadertask.ru/box</a>
+  <br><br>
+  <span style="color:#334155;">Дата: июнь 2026</span>
+</div>
+
+</body>
+</html>
