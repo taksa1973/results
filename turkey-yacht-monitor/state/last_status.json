@@ -1,9 +1,10 @@
 {
-  "ts": "2026-06-10T10:06:46.352249+00:00",
+  "ts": "2026-06-11T10:41:24.687897+00:00",
   "findings": {},
   "errors": {
     "Yacht-Rent Turkey": "http_403",
-    "Gulet Bookers (home, Bodrum-based)": "request_error: ConnectTimeout: HTTPSConnectionPool(host='www.guletbookers.com', port=443): Max retries exceeded with url: / (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.guletbookers.com', port=443) at 0x7f096c55a690>, 'Connection to www.guletbookers.com timed out. (connect timeout=30)'))",
-    "GuletYacht.net": "http_403"
+    "GuletYacht.net": "http_403",
+    "Mirya Yachting (own fleet)": "http_522",
+    "Mirya Yachting (home)": "http_522"
   }
 }
