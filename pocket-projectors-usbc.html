@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Мегапортативные проекторы 2025 — рейтинг по ANSI + USB-C</title>
+  <title>Мегапортативные проекторы 2026 — без батареи, питание USB-C</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -36,7 +36,7 @@
     }
 
     h1 {
-      font-size: clamp(28px, 5vw, 52px);
+      font-size: clamp(28px, 5vw, 50px);
       font-weight: 800;
       color: #fff;
       line-height: 1.15;
@@ -49,7 +49,7 @@
       font-size: 16px;
       color: #8890a8;
       max-width: 600px;
-      margin: 0 auto 28px;
+      margin: 0 auto 24px;
     }
 
     .criteria {
@@ -70,11 +70,23 @@
 
     .c-badge strong { color: #dde2f0; }
 
+    .nobat-banner {
+      background: linear-gradient(90deg, #00b89412 0%, #00b89406 100%);
+      border: 1px solid #00b89430;
+      border-radius: 10px;
+      padding: 12px 20px;
+      margin: 28px auto 0;
+      max-width: 700px;
+      font-size: 14px;
+      color: #80e8d0;
+      text-align: center;
+    }
+
+    .nobat-banner strong { color: #00d2a8; }
+
     .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
 
-    /* Section */
     .section { padding: 44px 0 8px; }
-    .section + .section { padding-top: 0; }
 
     .s-title {
       font-size: 20px;
@@ -88,7 +100,7 @@
     /* Table */
     .table-wrap { overflow-x: auto; border-radius: 12px; border: 1px solid #22223a; }
 
-    table { width: 100%; border-collapse: collapse; font-size: 13.5px; min-width: 620px; }
+    table { width: 100%; border-collapse: collapse; font-size: 13.5px; min-width: 680px; }
 
     thead th {
       background: #16162a;
@@ -120,13 +132,13 @@
       border: 1px solid;
     }
 
-    .l100  { color: #ff9f9f; border-color: #ff7675; background: #ff767510; }
-    .l200  { color: #ffd370; border-color: #fdcb6e; background: #fdcb6e10; }
-    .l300  { color: #ffe566; border-color: #f9ca24; background: #f9ca2410; }
-    .l392  { color: #a5d65b; border-color: #6ab04c; background: #6ab04c10; }
-    .l500  { color: #50dac0; border-color: #00b894; background: #00b89410; }
+    .l230  { color: #ff9f9f; border-color: #ff7675; background: #ff767510; }
+    .l500  { color: #ffd370; border-color: #fdcb6e; background: #fdcb6e10; }
+    .l500r { color: #50dac0; border-color: #00b894; background: #00b89410; }
+    .l1200 { color: #a29bfe; border-color: #6c63ff; background: #6c63ff10; }
 
     .yes { color: #00d2a8; font-weight: 700; }
+    .disc { color: #ff7675; font-size: 11px; }
 
     /* Cards */
     .cards {
@@ -153,10 +165,11 @@
     }
 
     .card.top { border-color: #6c63ff40; }
+    .card.discontinued { border-color: #ff767530; }
 
     .card-img-wrap {
       width: 100%;
-      height: 210px;
+      height: 220px;
       background: #18182a;
       display: flex;
       align-items: center;
@@ -168,14 +181,23 @@
       max-width: 100%;
       max-height: 100%;
       object-fit: contain;
-      padding: 12px;
+      padding: 14px;
     }
 
     .card-body { padding: 20px; flex: 1; display: flex; flex-direction: column; }
 
     .card-rank { font-size: 11px; color: #555878; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
 
-    .card-title { font-size: 19px; font-weight: 800; color: #fff; margin-bottom: 6px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .card-title {
+      font-size: 19px;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
 
     .pill {
       display: inline-block;
@@ -183,12 +205,12 @@
       border-radius: 8px;
       font-size: 10px;
       font-weight: 700;
-      letter-spacing: 0.3px;
     }
 
-    .pill-best { background: linear-gradient(135deg, #6c63ff, #a29bfe); color: #fff; }
-    .pill-val  { background: #00b89430; color: #00d2a8; border: 1px solid #00b89440; }
-    .pill-4k   { background: #fdcb6e25; color: #ffd370; border: 1px solid #fdcb6e40; }
+    .pill-best  { background: linear-gradient(135deg, #6c63ff, #a29bfe); color: #fff; }
+    .pill-val   { background: #00b89430; color: #00d2a8; border: 1px solid #00b89440; }
+    .pill-4k    { background: #fdcb6e25; color: #ffd370; border: 1px solid #fdcb6e40; }
+    .pill-disc  { background: #ff767520; color: #ff9f9f; border: 1px solid #ff767530; }
 
     .lumen-row {
       display: inline-flex;
@@ -202,11 +224,10 @@
       border: 1px solid;
     }
 
-    .lr-100 { background: #ff767512; color: #ff9f9f; border-color: #ff767530; }
-    .lr-200 { background: #fdcb6e12; color: #ffd370; border-color: #fdcb6e30; }
-    .lr-300 { background: #f9ca2412; color: #ffe566; border-color: #f9ca2430; }
-    .lr-392 { background: #6ab04c12; color: #a5d65b; border-color: #6ab04c30; }
-    .lr-500 { background: #00b89412; color: #50dac0; border-color: #00b89430; }
+    .lr-230  { background: #ff767512; color: #ff9f9f; border-color: #ff767530; }
+    .lr-500  { background: #fdcb6e12; color: #ffd370; border-color: #fdcb6e30; }
+    .lr-500r { background: #00b89412; color: #50dac0; border-color: #00b89430; }
+    .lr-1200 { background: #6c63ff12; color: #a29bfe; border-color: #6c63ff30; }
 
     .specs-g {
       display: grid;
@@ -215,18 +236,12 @@
       margin-bottom: 14px;
     }
 
-    .sp {
-      background: #18182a;
-      padding: 8px 12px;
-      border-radius: 8px;
-    }
-
+    .sp { background: #18182a; padding: 8px 12px; border-radius: 8px; }
     .sp-l { font-size: 10px; color: #55587a; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 2px; }
     .sp-v { font-size: 13px; color: #dde2f0; font-weight: 600; }
     .sp-v.yes { color: #00d2a8; }
 
     .tags { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 5px; }
-
     .tag { padding: 3px 10px; border-radius: 10px; font-size: 12px; }
     .tag.p { background: #00b89420; color: #50dac0; }
     .tag.c { background: #ff767520; color: #ff9f9f; }
@@ -251,13 +266,56 @@
 
     .buy:hover { opacity: 0.83; }
 
+    .buy.disc-buy {
+      background: linear-gradient(135deg, #4a4060, #3a3050);
+    }
+
+    /* Battery models section */
+    .bat-section {
+      background: #111120;
+      border: 1px solid #1e1e30;
+      border-radius: 14px;
+      padding: 24px;
+      margin-bottom: 40px;
+    }
+
+    .bat-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: #6668a0;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .bat-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 12px;
+    }
+
+    .bat-card {
+      background: #16162a;
+      border: 1px solid #252540;
+      border-radius: 10px;
+      padding: 14px;
+      opacity: 0.7;
+    }
+
+    .bat-card-title { font-size: 14px; font-weight: 700; color: #9097b0; margin-bottom: 6px; }
+    .bat-stat { font-size: 12px; color: #55587a; margin-bottom: 2px; }
+    .bat-stat span { color: #7880a0; }
+
     /* Notes */
     .notes {
       background: #111120;
       border: 1px solid #1e1e30;
       border-radius: 12px;
       padding: 22px 24px;
-      margin: 0 0 44px;
+      margin-bottom: 44px;
       font-size: 13.5px;
       color: #666888;
       line-height: 1.85;
@@ -277,24 +335,29 @@
     @media (max-width: 600px) {
       .cards { grid-template-columns: 1fr; }
       .specs-g { grid-template-columns: 1fr; }
+      .bat-grid { grid-template-columns: 1fr 1fr; }
     }
   </style>
 </head>
 <body>
 
 <div class="hero">
-  <div class="hero-tag">Гид · Июнь 2025</div>
-  <h1>Мегапортативные<br><em>проекторы</em></h1>
-  <p class="hero-sub">Самые компактные проекторы — ранжирование по ANSI люменам. Батарея не нужна. USB-C питание — обязательно.</p>
+  <div class="hero-tag">Гид · Июнь 2026</div>
+  <h1>Карманные проекторы<br><em>без батареи</em></h1>
+  <p class="hero-sub">Только модели без встроенного аккумулятора — компактные, питаются от USB-C, лучшие по ANSI люменам</p>
   <div class="criteria">
-    <div class="c-badge"><strong>✦ Компактность</strong> — карман/сумка</div>
-    <div class="c-badge"><strong>✦ ANSI люмены</strong> — реальная яркость</div>
-    <div class="c-badge"><strong>✦ USB-C</strong> — питание без адаптера</div>
+    <div class="c-badge"><strong>✦ Без батареи</strong> — только внешнее питание</div>
+    <div class="c-badge"><strong>✦ USB-C</strong> — от зарядника или повербанка</div>
+    <div class="c-badge"><strong>✦ Максимум ANSI</strong> — реальная яркость</div>
+  </div>
+  <div class="nobat-banner">
+    <strong>Почему без батареи?</strong> Меньше вес, ниже температура, дольше ресурс. Питание от USB-C 65–100W повербанка или зарядника.
   </div>
 </div>
 
 <div class="container">
 
+  <!-- Comparison table -->
   <div class="section">
     <div class="s-title">Сравнительная таблица</div>
     <div class="table-wrap">
@@ -305,267 +368,264 @@
             <th>ANSI люмен</th>
             <th>Разрешение</th>
             <th>Вес</th>
-            <th>Форм-фактор</th>
-            <th>USB-C питание</th>
+            <th>Размер (ш×г×в)</th>
+            <th>USB-C мощность</th>
             <th>Свет</th>
             <th>Цена</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td>Aurzen ZIP</td>
-            <td><span class="lbadge l100">100</span></td>
-            <td>720p / 1080p*</td>
-            <td>~280 г</td>
-            <td>Кошелёк</td>
-            <td class="yes">✅ PD 18W+</td>
+            <td>Samsung Freestyle 2-й поколения</td>
+            <td><span class="lbadge l230">230</span></td>
+            <td>1080p</td>
+            <td>830 г</td>
+            <td>102×95×173 мм</td>
+            <td class="yes">✅ 50W PD</td>
             <td>DLP LED</td>
-            <td>~$150–200</td>
+            <td>~$799</td>
           </tr>
           <tr>
-            <td>Nebula Capsule 3</td>
-            <td><span class="lbadge l200">200</span></td>
+            <td>Wemax S5</td>
+            <td><span class="lbadge l500">500 ISO</span></td>
             <td>1080p</td>
             <td>~900 г</td>
-            <td>Банка (ø83 мм)</td>
-            <td class="yes">✅ USB-C PD</td>
-            <td>DLP LED</td>
-            <td>~$350–400</td>
+            <td>175×175×48 мм</td>
+            <td class="yes">✅ 65W PD</td>
+            <td>ALPD Laser</td>
+            <td>~$640</td>
           </tr>
           <tr>
-            <td>Nebula Capsule 3 Laser</td>
-            <td><span class="lbadge l300">300</span></td>
-            <td>1080p</td>
-            <td>950 г</td>
-            <td>Банка (ø83 мм)</td>
-            <td class="yes">✅ USB-C PD</td>
-            <td>DLP Laser</td>
-            <td>~$500–600</td>
-          </tr>
-          <tr>
-            <td>XGIMI MoGo 3 Pro</td>
-            <td><span class="lbadge l392">~392 / 450 ISO</span></td>
-            <td>1080p</td>
-            <td>~1.1 кг</td>
-            <td>Цилиндр (205×95 мм)</td>
-            <td class="yes">✅ 65W PD3.0</td>
-            <td>DLP LED</td>
-            <td>~$499</td>
-          </tr>
-          <tr>
-            <td>LG CineBeam Q</td>
-            <td><span class="lbadge l500">500</span></td>
+            <td>LG CineBeam Q <span class="disc">снят с пр-ва</span></td>
+            <td><span class="lbadge l500r">500</span></td>
             <td>4K UHD!</td>
             <td>1.5 кг</td>
-            <td>Куб (135×135×79 мм)</td>
-            <td class="yes">✅ 65W USB-C</td>
+            <td>135×135×79 мм</td>
+            <td class="yes">✅ 65W PD</td>
             <td>RGB Laser</td>
-            <td>~$999</td>
+            <td>~$799–900</td>
+          </tr>
+          <tr>
+            <td>NexiGo Nova Mini</td>
+            <td><span class="lbadge l1200">1200</span></td>
+            <td>1080p</td>
+            <td>1.36 кг</td>
+            <td>197×197×58 мм</td>
+            <td class="yes">✅ 100W PD</td>
+            <td>Laser</td>
+            <td>~$599</td>
           </tr>
         </tbody>
       </table>
     </div>
   </div>
 
+  <!-- Product cards -->
   <div class="section">
     <div class="s-title">Карточки продуктов</div>
     <div class="cards">
 
-      <!-- Aurzen ZIP -->
-      <div class="card top">
+      <!-- Samsung Freestyle 2nd Gen -->
+      <div class="card">
         <div class="card-img-wrap">
-          <img src="https://aurzen.com/cdn/shop/files/Aurzen_ZIP_Tri-Fold_Projector-Portable_Projector.webp?v=1776421892" alt="Aurzen ZIP tri-fold pocket projector">
+          <img src="https://static.bhphotovideo.com/exploded_assets/1679902.jpg" alt="Samsung The Freestyle 2nd Gen — портативный проектор без батареи">
         </div>
         <div class="card-body">
-          <div class="card-rank">#1 · Самый компактный</div>
-          <div class="card-title">Aurzen ZIP <span class="pill pill-best">Наименьший</span></div>
-          <div class="lumen-row lr-100">☀️ 100 ANSI люмен</div>
+          <div class="card-rank">#1 · Самый лёгкий в классе</div>
+          <div class="card-title">Samsung Freestyle 2G <span class="pill pill-val">830 г</span></div>
+          <div class="lumen-row lr-230">☀️ 230 ANSI люмен</div>
           <div class="specs-g">
-            <div class="sp"><div class="sp-l">Разрешение</div><div class="sp-v">720p native</div></div>
-            <div class="sp"><div class="sp-l">Вес</div><div class="sp-v">~280 г</div></div>
-            <div class="sp"><div class="sp-l">USB-C питание</div><div class="sp-v yes">✅ PD</div></div>
-            <div class="sp"><div class="sp-l">Свет</div><div class="sp-v">DLP LED</div></div>
-            <div class="sp"><div class="sp-l">Экран</div><div class="sp-v">25" — 125"</div></div>
-            <div class="sp"><div class="sp-l">Форм-фактор</div><div class="sp-v">Кошелёк (Z-fold)</div></div>
+            <div class="sp"><div class="sp-l">Разрешение</div><div class="sp-v">1080p Full HD</div></div>
+            <div class="sp"><div class="sp-l">Вес</div><div class="sp-v">830 г</div></div>
+            <div class="sp"><div class="sp-l">USB-C питание</div><div class="sp-v yes">✅ 50W PD</div></div>
+            <div class="sp"><div class="sp-l">Батарея</div><div class="sp-v" style="color:#ff9f9f">❌ Нет</div></div>
+            <div class="sp"><div class="sp-l">Размер</div><div class="sp-v">102×95×173 мм</div></div>
+            <div class="sp"><div class="sp-l">ОС</div><div class="sp-v">Samsung Tizen</div></div>
           </div>
           <div class="mini-hed">Плюсы</div>
           <div class="tags">
-            <span class="tag p">Размер кошелька</span>
-            <span class="tag p">Tri-fold дизайн</span>
-            <span class="tag p">USB-C PD</span>
-            <span class="tag p">5000 мАч встроен</span>
-            <span class="tag p">ToF автофокус</span>
+            <span class="tag p">Нет батареи</span>
+            <span class="tag p">USB-C 50W</span>
+            <span class="tag p">830 г</span>
+            <span class="tag p">Поворот 180°</span>
+            <span class="tag p">Gaming Hub</span>
+            <span class="tag p">AirPlay 2</span>
           </div>
           <div class="mini-hed">Минусы</div>
           <div class="tags">
-            <span class="tag c">Лишь 100 ANSI</span>
-            <span class="tag c">720p native</span>
-            <span class="tag c">Только тёмная комната</span>
+            <span class="tag c">230 ANSI — тёмная комната</span>
+            <span class="tag c">Нет Google TV / Netflix</span>
           </div>
           <div class="spacer"></div>
-          <a href="https://aurzen.com/products/aurzen-zip-tri-fold-portable-projector" target="_blank" class="buy">→ Сайт Aurzen (~$150–200)</a>
+          <a href="https://www.bhphotovideo.com/c/product/1679902-REG/" target="_blank" class="buy">→ B&H Photo (~$799)</a>
         </div>
       </div>
 
-      <!-- Nebula Capsule 3 LED -->
-      <div class="card">
+      <!-- Wemax S5 -->
+      <div class="card top">
         <div class="card-img-wrap">
-          <img src="https://static.bhphotovideo.com/exploded_assets/1910715.jpg" alt="Nebula Capsule 3 — портативный проектор в форме банки">
+          <img src="https://www.wemax.com/cdn/shop/files/WemaxS5_2_1600x1600_627fe58e-388d-4cab-a48f-cee49d8906cb.jpg" alt="Wemax S5 — лазерный проектор без батареи, питание USB-C">
         </div>
         <div class="card-body">
-          <div class="card-rank">#2 · 200 ANSI</div>
-          <div class="card-title">Nebula Capsule 3</div>
-          <div class="lumen-row lr-200">☀️ 200 ANSI люмен</div>
+          <div class="card-rank">#2 · Лучший баланс цены и яркости</div>
+          <div class="card-title">Wemax S5 <span class="pill pill-best">Выбор редакции</span></div>
+          <div class="lumen-row lr-500">☀️ 500 ISO люмен · ALPD Laser</div>
           <div class="specs-g">
             <div class="sp"><div class="sp-l">Разрешение</div><div class="sp-v">1080p Full HD</div></div>
             <div class="sp"><div class="sp-l">Вес</div><div class="sp-v">~900 г</div></div>
-            <div class="sp"><div class="sp-l">USB-C питание</div><div class="sp-v yes">✅ PD</div></div>
-            <div class="sp"><div class="sp-l">Свет</div><div class="sp-v">DLP LED</div></div>
-            <div class="sp"><div class="sp-l">Размер</div><div class="sp-v">ø83 × ~150 мм</div></div>
-            <div class="sp"><div class="sp-l">ОС</div><div class="sp-v">Google TV</div></div>
+            <div class="sp"><div class="sp-l">USB-C питание</div><div class="sp-v yes">✅ 65W PD</div></div>
+            <div class="sp"><div class="sp-l">Батарея</div><div class="sp-v" style="color:#ff9f9f">❌ Нет</div></div>
+            <div class="sp"><div class="sp-l">Размер</div><div class="sp-v">175×175×48 мм</div></div>
+            <div class="sp"><div class="sp-l">ОС</div><div class="sp-v">Android TV</div></div>
           </div>
           <div class="mini-hed">Плюсы</div>
           <div class="tags">
-            <span class="tag p">Google TV</span>
+            <span class="tag p">Нет батареи</span>
+            <span class="tag p">ALPD Laser</span>
             <span class="tag p">Netflix официально</span>
-            <span class="tag p">1080p Full HD</span>
-            <span class="tag p">USB-C PD</span>
-            <span class="tag p">Форм-фактор банки</span>
+            <span class="tag p">USB-C 65W</span>
+            <span class="tag p">Плоский форм-фактор</span>
+            <span class="tag p">HDR10</span>
           </div>
           <div class="mini-hed">Минусы</div>
           <div class="tags">
-            <span class="tag c">200 ANSI → нужен полумрак</span>
-            <span class="tag c">~900 г</span>
-          </div>
-          <div class="spacer"></div>
-          <a href="https://www.soundcore.com/products/capsule-3-projectors-d2425" target="_blank" class="buy">→ Soundcore (~$350–400)</a>
-        </div>
-      </div>
-
-      <!-- Nebula Capsule 3 Laser -->
-      <div class="card">
-        <div class="card-img-wrap">
-          <img src="https://cdn.shopify.com/s/files/1/0511/7666/9359/files/D2426-PRC-TD05.jpg?v=1724383191" alt="Nebula Capsule 3 Laser — лазерный карманный проектор">
-        </div>
-        <div class="card-body">
-          <div class="card-rank">#3 · 300 ANSI Laser</div>
-          <div class="card-title">Nebula Capsule 3 Laser</div>
-          <div class="lumen-row lr-300">☀️ 300 ANSI люмен · Laser</div>
-          <div class="specs-g">
-            <div class="sp"><div class="sp-l">Разрешение</div><div class="sp-v">1080p Full HD</div></div>
-            <div class="sp"><div class="sp-l">Вес</div><div class="sp-v">950 г</div></div>
-            <div class="sp"><div class="sp-l">USB-C питание</div><div class="sp-v yes">✅ PD</div></div>
-            <div class="sp"><div class="sp-l">Свет</div><div class="sp-v">DLP Laser</div></div>
-            <div class="sp"><div class="sp-l">Размер</div><div class="sp-v">ø83 × 170 мм</div></div>
-            <div class="sp"><div class="sp-l">ОС</div><div class="sp-v">Google TV</div></div>
-          </div>
-          <div class="mini-hed">Плюсы</div>
-          <div class="tags">
-            <span class="tag p">Laser = лучшие цвета</span>
-            <span class="tag p">Google TV + Netflix</span>
-            <span class="tag p">Долгий срок лазера</span>
-            <span class="tag p">Dolby Digital 8W</span>
-            <span class="tag p">Автофокус</span>
-          </div>
-          <div class="mini-hed">Минусы</div>
-          <div class="tags">
-            <span class="tag c">~1 кг</span>
-            <span class="tag c">Нужен полумрак</span>
-          </div>
-          <div class="spacer"></div>
-          <a href="https://www.amazon.com/Projector-Portable-Autofocus-120-Inch-Playtime/dp/B0BCWNQPQ7" target="_blank" class="buy">→ Amazon (~$500–600)</a>
-        </div>
-      </div>
-
-      <!-- XGIMI MoGo 3 Pro -->
-      <div class="card top">
-        <div class="card-img-wrap">
-          <img src="https://us.xgimi.com/cdn/shop/files/02.2.jpg?v=1724655567" alt="XGIMI MoGo 3 Pro — компактный умный проектор 450 ISO">
-        </div>
-        <div class="card-body">
-          <div class="card-rank">#4 · Лучший баланс</div>
-          <div class="card-title">XGIMI MoGo 3 Pro <span class="pill pill-val">Оптимальный</span></div>
-          <div class="lumen-row lr-392">☀️ ~392 ANSI · 450 ISO люмен</div>
-          <div class="specs-g">
-            <div class="sp"><div class="sp-l">Разрешение</div><div class="sp-v">1080p Full HD</div></div>
-            <div class="sp"><div class="sp-l">Вес</div><div class="sp-v">~1.1 кг</div></div>
-            <div class="sp"><div class="sp-l">USB-C питание</div><div class="sp-v yes">✅ 65W PD3.0</div></div>
-            <div class="sp"><div class="sp-l">Свет</div><div class="sp-v">DLP LED</div></div>
-            <div class="sp"><div class="sp-l">Размер</div><div class="sp-v">205×95×95 мм</div></div>
-            <div class="sp"><div class="sp-l">ОС</div><div class="sp-v">Google TV</div></div>
-          </div>
-          <div class="mini-hed">Плюсы</div>
-          <div class="tags">
-            <span class="tag p">Самые яркие в классе</span>
-            <span class="tag p">USB-C 65W PD3.0</span>
-            <span class="tag p">Harman Kardon 2×5W</span>
-            <span class="tag p">ISA 2.0 автонастройка</span>
-            <span class="tag p">Netflix + Google TV</span>
-            <span class="tag p">90% DCI-P3</span>
-          </div>
-          <div class="mini-hed">Минусы</div>
-          <div class="tags">
+            <span class="tag c">500 ISO (не ANSI)</span>
             <span class="tag c">Нужен 65W зарядник</span>
-            <span class="tag c">205 мм высота</span>
           </div>
           <div class="spacer"></div>
-          <a href="https://www.amazon.com/XGIMI-MoGo-Pro-Projector-Adjustable/dp/B0D8HRH431" target="_blank" class="buy">→ Amazon (~$499)</a>
+          <a href="https://www.wemax.com/products/projector-for-wemax-laser-portable-projector" target="_blank" class="buy">→ Wemax.com (~$640)</a>
         </div>
       </div>
 
       <!-- LG CineBeam Q -->
-      <div class="card top">
+      <div class="card discontinued">
         <div class="card-img-wrap">
-          <img src="https://media.us.lg.com/transform/ecomm-PDPGallery-1100x730/24776949-6749-41d5-ae50-377811d4f0ab/Projector_HU710PB_gallery_01_5000x5000?io=transform:fill,width:800" alt="LG CineBeam Q HU710PB — 4K RGB лазерный проектор">
+          <img src="https://media.us.lg.com/transform/ecomm-PDPGallery-1100x730/24776949-6749-41d5-ae50-377811d4f0ab/Projector_HU710PB_gallery_01_5000x5000?io=transform:fill,width:800" alt="LG CineBeam Q HU710PB — 4K RGB лазерный проектор без батареи">
         </div>
         <div class="card-body">
-          <div class="card-rank">#5 · Лучшее качество</div>
-          <div class="card-title">LG CineBeam Q <span class="pill pill-4k">4K RGB Laser</span></div>
-          <div class="lumen-row lr-500">☀️ 500 ANSI · 4K UHD · RGB Laser</div>
+          <div class="card-rank">#3 · Лучшее качество картинки</div>
+          <div class="card-title">LG CineBeam Q <span class="pill pill-disc">Снят с пр-ва</span> <span class="pill pill-4k">4K</span></div>
+          <div class="lumen-row lr-500r">☀️ 500 ANSI · 4K UHD · RGB Laser</div>
           <div class="specs-g">
             <div class="sp"><div class="sp-l">Разрешение</div><div class="sp-v">4K UHD (XPR)</div></div>
             <div class="sp"><div class="sp-l">Вес</div><div class="sp-v">1.5 кг</div></div>
             <div class="sp"><div class="sp-l">USB-C питание</div><div class="sp-v yes">✅ 65W</div></div>
-            <div class="sp"><div class="sp-l">Свет</div><div class="sp-v">RGB Laser</div></div>
-            <div class="sp"><div class="sp-l">Размер</div><div class="sp-v">79×135×135 мм</div></div>
+            <div class="sp"><div class="sp-l">Батарея</div><div class="sp-v" style="color:#ff9f9f">❌ Нет</div></div>
+            <div class="sp"><div class="sp-l">Размер</div><div class="sp-v">135×135×79 мм</div></div>
             <div class="sp"><div class="sp-l">Контраст</div><div class="sp-v">450 000:1</div></div>
           </div>
           <div class="mini-hed">Плюсы</div>
           <div class="tags">
-            <span class="tag p">4K — уникально в классе!</span>
+            <span class="tag p">Нет батареи</span>
+            <span class="tag p">4K — уникально в классе</span>
             <span class="tag p">RGB Laser 154% DCI-P3</span>
-            <span class="tag p">500 ANSI</span>
             <span class="tag p">USB-C Power + Video</span>
             <span class="tag p">WebOS Smart TV</span>
-            <span class="tag p">450 000:1 контраст</span>
           </div>
           <div class="mini-hed">Минусы</div>
           <div class="tags">
-            <span class="tag c">$999 — дорого</span>
+            <span class="tag c">Снят с продажи (март 2026)</span>
+            <span class="tag c">1.5 кг</span>
             <span class="tag c">Слабый звук 3W</span>
-            <span class="tag c">Нет батареи</span>
           </div>
           <div class="spacer"></div>
-          <a href="https://www.bhphotovideo.com/c/product/1821281-REG/lg_hu710pb_cinebeam_q_4k_uhd.html" target="_blank" class="buy">→ B&H Photo (~$999)</a>
+          <a href="https://www.bhphotovideo.com/c/product/1821281-REG/lg_hu710pb_cinebeam_q_4k_uhd.html" target="_blank" class="buy disc-buy">→ B&H Photo (остатки ~$799–900)</a>
+        </div>
+      </div>
+
+      <!-- NexiGo Nova Mini -->
+      <div class="card top">
+        <div class="card-img-wrap">
+          <img src="https://cdn.shopify.com/s/files/1/0081/8207/1377/files/2-nova-mini-projector-feature-overview-M_500x.jpg?v=1751272181" alt="NexiGo Nova Mini — самый яркий компактный проектор без батареи">
+        </div>
+        <div class="card-body">
+          <div class="card-rank">#4 · Максимальные ANSI в классе</div>
+          <div class="card-title">NexiGo Nova Mini <span class="pill pill-best">1200 ANSI</span></div>
+          <div class="lumen-row lr-1200">☀️ 1200 ANSI люмен · Laser</div>
+          <div class="specs-g">
+            <div class="sp"><div class="sp-l">Разрешение</div><div class="sp-v">1080p Full HD</div></div>
+            <div class="sp"><div class="sp-l">Вес</div><div class="sp-v">1.36 кг</div></div>
+            <div class="sp"><div class="sp-l">USB-C питание</div><div class="sp-v yes">✅ 100W PD</div></div>
+            <div class="sp"><div class="sp-l">Батарея</div><div class="sp-v" style="color:#ff9f9f">❌ Нет</div></div>
+            <div class="sp"><div class="sp-l">Размер</div><div class="sp-v">197×197×58 мм</div></div>
+            <div class="sp"><div class="sp-l">ОС</div><div class="sp-v">Google TV</div></div>
+          </div>
+          <div class="mini-hed">Плюсы</div>
+          <div class="tags">
+            <span class="tag p">Нет батареи</span>
+            <span class="tag p">1200 ANSI — можно при свете</span>
+            <span class="tag p">Google TV + Netflix</span>
+            <span class="tag p">15 000:1 контраст (SAE)</span>
+            <span class="tag p">Dolby Audio 8W</span>
+            <span class="tag p">до 150"</span>
+          </div>
+          <div class="mini-hed">Минусы</div>
+          <div class="tags">
+            <span class="tag c">Нужен 100W зарядник!</span>
+            <span class="tag c">1.36 кг</span>
+          </div>
+          <div class="spacer"></div>
+          <a href="https://www.amazon.com/NexiGo-Portable-Projector-Google-Netflix/dp/B0FMJX1LSQ" target="_blank" class="buy">→ Amazon (~$599)</a>
         </div>
       </div>
 
     </div>
   </div>
 
+  <!-- Battery models reference -->
+  <div class="bat-section">
+    <div class="bat-title">
+      🔋 Популярные модели СО встроенной батареей — для справки
+    </div>
+    <div class="bat-grid">
+      <div class="bat-card">
+        <div class="bat-card-title">Aurzen ZIP</div>
+        <div class="bat-stat">ANSI: <span>100</span></div>
+        <div class="bat-stat">Батарея: <span>5000 мАч</span></div>
+        <div class="bat-stat">USB-C: <span>PD зарядка</span></div>
+        <div class="bat-stat">Вес: <span>~280 г</span></div>
+        <div class="bat-stat">Цена: <span>~$150–200</span></div>
+      </div>
+      <div class="bat-card">
+        <div class="bat-card-title">XGIMI MoGo 3 Pro</div>
+        <div class="bat-stat">ANSI: <span>~392 (450 ISO)</span></div>
+        <div class="bat-stat">Батарея: <span>60 Вт·ч</span></div>
+        <div class="bat-stat">USB-C: <span>65W PD3.0 зарядка</span></div>
+        <div class="bat-stat">Вес: <span>~1.1 кг</span></div>
+        <div class="bat-stat">Цена: <span>~$499</span></div>
+      </div>
+      <div class="bat-card">
+        <div class="bat-card-title">Nebula Capsule 3 Laser</div>
+        <div class="bat-stat">ANSI: <span>300</span></div>
+        <div class="bat-stat">Батарея: <span>2.5 ч</span></div>
+        <div class="bat-stat">USB-C: <span>PD зарядка</span></div>
+        <div class="bat-stat">Вес: <span>950 г</span></div>
+        <div class="bat-stat">Цена: <span>~$500</span></div>
+      </div>
+      <div class="bat-card">
+        <div class="bat-card-title">Nebula Capsule 3</div>
+        <div class="bat-stat">ANSI: <span>200</span></div>
+        <div class="bat-stat">Батарея: <span>~2.5 ч</span></div>
+        <div class="bat-stat">USB-C: <span>PD зарядка</span></div>
+        <div class="bat-stat">Вес: <span>~900 г</span></div>
+        <div class="bat-stat">Цена: <span>~$350</span></div>
+      </div>
+    </div>
+  </div>
+
   <!-- Notes -->
   <div class="notes">
-    <strong>Про ANSI люмены:</strong> стандарт измерения по 9 точкам — честнее, чем «просто люмены» с некоторых AliExpress-ноунеймов. 450 ISO ≈ 390 ANSI по реальным тестам.<br><br>
-    <strong>Про USB-C питание:</strong> Aurzen ZIP и Nebula Capsule работают от стандартного PD-зарядника (18–45W). XGIMI MoGo 3 Pro и LG CineBeam Q требуют 65W PD3.0 — обычный MacBook-адаптер на 65W подойдёт.<br><br>
-    <strong>Про яркость и условия:</strong> 100–200 ANSI — только тёмная комната. 300–400 ANSI — допустим лёгкий полумрак. 500 ANSI — можно при приглушённом освещении.<br><br>
-    <strong>Aurzen ZIP</strong> — пример «ультракомпактного» формата, который упомянул пользователь. Его ниша: всегда с собой, но не замена хорошему изображению.<br><br>
-    Цены ориентировочные · Данные актуальны на июнь 2025
+    <strong>Про выбор мощности USB-C:</strong> Samsung Freestyle 2G работает от 50W зарядника (обычный MacBook 61W подойдёт). Wemax S5 и LG CineBeam Q требуют 65W PD. NexiGo Nova Mini — минимум 100W (20V×5A); стандартный MacBook Pro адаптер 96W / 100W подойдёт.<br><br>
+    <strong>Про Samsung Freestyle 2G и яркость:</strong> официальный spec — 230 ANSI (более честное измерение, чем «LED-люмены» первого поколения). Реальная яркость обоих поколений в помещении примерно одинакова — около 230–250 ANSI.<br><br>
+    <strong>LG CineBeam Q снят с производства</strong> в марте 2026, но остатки ещё есть в B&H Photo и на Amazon. Единственный в этом классе с 4K + RGB Laser + без батареи.<br><br>
+    <strong>NexiGo Nova Mini</strong> — новинка 2025–2026, самый яркий в классе без батареи. 1200 ANSI позволяет смотреть при приглушённом дневном свете. Минус — нужен 100W повербанк.<br><br>
+    Цены ориентировочные · Данные актуальны на июнь 2026
   </div>
 
 </div>
 
 <footer>
-  Подборка основана на независимых обзорах (Tom's Guide, ProjectorCentral, What Hi-Fi?) и официальных спецификациях производителей.
+  Подборка основана на независимых обзорах (TechRadar, ProjectorCentral, ProjectorReviews, AVSForum) и официальных спецификациях. Июнь 2026.
 </footer>
 
 </body>
