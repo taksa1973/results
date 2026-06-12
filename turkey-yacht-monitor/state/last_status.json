@@ -1,10 +1,8 @@
 {
-  "ts": "2026-06-11T10:41:24.687897+00:00",
+  "ts": "2026-06-12T10:18:46.326026+00:00",
   "findings": {},
   "errors": {
     "Yacht-Rent Turkey": "http_403",
-    "GuletYacht.net": "http_403",
-    "Mirya Yachting (own fleet)": "http_522",
-    "Mirya Yachting (home)": "http_522"
+    "GuletYacht.net": "http_403"
   }
 }
