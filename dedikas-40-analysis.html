@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Дедики для команды 40 чел — анализ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #F5F5F7;
+    --card: #FFFFFF;
+    --blue: #0071E3;
+    --blue-light: #E8F2FF;
+    --blue-dark: #0051A3;
+    --green: #34C759;
+    --green-light: #E6F9EC;
+    --orange: #FF9500;
+    --orange-light: #FFF4E5;
+    --red: #FF3B30;
+    --red-light: #FFF0EF;
+    --purple: #AF52DE;
+    --purple-light: #F5EEFB;
+    --text-primary: #1D1D1F;
+    --text-secondary: #6E6E73;
+    --text-tertiary: #AEAEB2;
+    --border: rgba(0,0,0,0.07);
+    --shadow-sm: 0 1px 4px rgba(0,0,0,0.06), 0 2px 12px rgba(0,0,0,0.04);
+    --shadow-md: 0 4px 20px rgba(0,0,0,0.08), 0 1px 6px rgba(0,0,0,0.04);
+    --radius: 20px;
+    --radius-sm: 12px;
+  }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg);
+    color: var(--text-primary);
+    min-height: 100vh;
+    padding: 40px 20px 80px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrapper { max-width: 1100px; margin: 0 auto; }
+
+  /* Header */
+  .header { text-align: center; margin-bottom: 52px; }
+  .header-tag {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--blue-light); color: var(--blue);
+    font-size: 12px; font-weight: 600; letter-spacing: 0.04em;
+    text-transform: uppercase; padding: 6px 14px;
+    border-radius: 100px; margin-bottom: 20px;
+  }
+  .header-tag svg { width: 14px; height: 14px; }
+  .header h1 {
+    font-size: clamp(28px, 5vw, 44px);
+    font-weight: 700; letter-spacing: -0.03em;
+    line-height: 1.15; margin-bottom: 14px;
+  }
+  .header p {
+    font-size: 16px; color: var(--text-secondary);
+    max-width: 540px; margin: 0 auto; line-height: 1.6;
+  }
+
+  /* Section label */
+  .section-label {
+    font-size: 11px; font-weight: 700; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--text-tertiary);
+    margin-bottom: 16px; margin-top: 52px;
+  }
+
+  /* Bento grid */
+  .bento { display: grid; gap: 16px; }
+  .bento-4 { grid-template-columns: repeat(4, 1fr); }
+  .bento-3 { grid-template-columns: repeat(3, 1fr); }
+  .bento-2 { grid-template-columns: repeat(2, 1fr); }
+  .bento-auto { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+
+  .card {
+    background: var(--card);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-sm);
+    padding: 28px;
+    transition: transform 220ms ease, box-shadow 220ms ease;
+  }
+  .card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+
+  .card.span2 { grid-column: span 2; }
+  .card.span3 { grid-column: span 3; }
+  .card.span4 { grid-column: span 4; }
+
+  /* KPI cards */
+  .kpi-icon {
+    width: 44px; height: 44px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 16px;
+  }
+  .kpi-icon svg { width: 22px; height: 22px; }
+  .kpi-icon.blue { background: var(--blue-light); color: var(--blue); }
+  .kpi-icon.green { background: var(--green-light); color: var(--green); }
+  .kpi-icon.orange { background: var(--orange-light); color: var(--orange); }
+  .kpi-icon.purple { background: var(--purple-light); color: var(--purple); }
+
+  .kpi-num { font-size: 36px; font-weight: 700; letter-spacing: -0.02em; line-height: 1; margin-bottom: 4px; }
+  .kpi-label { font-size: 14px; color: var(--text-secondary); }
+  .kpi-note { font-size: 12px; color: var(--text-tertiary); margin-top: 6px; }
+
+  /* Comparison table */
+  .table-wrap { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  thead th {
+    text-align: left; padding: 10px 16px;
+    font-size: 11px; font-weight: 700; letter-spacing: 0.06em;
+    text-transform: uppercase; color: var(--text-tertiary);
+    border-bottom: 1px solid var(--border);
+  }
+  tbody tr { border-bottom: 1px solid var(--border); }
+  tbody tr:last-child { border-bottom: none; }
+  tbody td { padding: 14px 16px; vertical-align: middle; }
+  tbody tr:hover { background: rgba(0,0,0,0.02); }
+
+  .provider-name { font-weight: 600; font-size: 15px; }
+  .provider-tag {
+    display: inline-block; font-size: 10px; font-weight: 700;
+    letter-spacing: 0.05em; text-transform: uppercase;
+    padding: 2px 8px; border-radius: 100px; margin-left: 8px;
+  }
+  .tag-best { background: var(--green-light); color: var(--green); }
+  .tag-dedic { background: var(--blue-light); color: var(--blue); }
+  .tag-budget { background: var(--orange-light); color: var(--orange); }
+
+  .price-big { font-size: 18px; font-weight: 700; color: var(--text-primary); }
+  .price-total { font-size: 13px; color: var(--text-secondary); }
+
+  .spec-row { display: flex; flex-direction: column; gap: 2px; }
+  .spec-main { font-weight: 500; }
+  .spec-sub { font-size: 12px; color: var(--text-secondary); }
+
+  .bar-wrap { position: relative; height: 6px; background: var(--bg); border-radius: 100px; overflow: hidden; width: 80px; }
+  .bar-fill { position: absolute; left: 0; top: 0; height: 100%; border-radius: 100px; }
+
+  /* Tier cards */
+  .tier-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 11px; font-weight: 700; letter-spacing: 0.05em;
+    text-transform: uppercase; padding: 5px 12px; border-radius: 100px;
+    margin-bottom: 14px;
+  }
+  .tier-badge.eco { background: var(--green-light); color: var(--green); }
+  .tier-badge.opt { background: var(--blue-light); color: var(--blue); }
+  .tier-badge.prem { background: var(--purple-light); color: var(--purple); }
+
+  .tier-price { font-size: 32px; font-weight: 700; letter-spacing: -0.02em; line-height: 1; }
+  .tier-period { font-size: 13px; color: var(--text-secondary); font-weight: 400; }
+  .tier-provider { font-size: 14px; color: var(--text-secondary); margin: 6px 0 16px; }
+  .tier-specs { display: flex; flex-direction: column; gap: 8px; }
+  .tier-spec { display: flex; align-items: center; gap: 8px; font-size: 14px; }
+  .tier-spec svg { width: 14px; height: 14px; flex-shrink: 0; }
+  .tier-spec.ok svg { color: var(--green); }
+  .tier-spec.meh svg { color: var(--orange); }
+  .tier-spec.bad svg { color: var(--red); }
+  .tier-divider { border: none; border-top: 1px solid var(--border); margin: 16px 0; }
+
+  /* Sec checklist */
+  .sec-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .sec-item {
+    display: flex; align-items: flex-start; gap: 12px;
+    padding: 16px; border-radius: var(--radius-sm);
+    background: var(--bg); border: 1px solid var(--border);
+    transition: transform 220ms ease;
+  }
+  .sec-item:hover { transform: translateY(-2px); }
+  .sec-icon {
+    width: 36px; height: 36px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .sec-icon svg { width: 16px; height: 16px; }
+  .sec-icon.blue { background: var(--blue-light); color: var(--blue); }
+  .sec-icon.green { background: var(--green-light); color: var(--green); }
+  .sec-icon.orange { background: var(--orange-light); color: var(--orange); }
+  .sec-icon.red { background: var(--red-light); color: var(--red); }
+  .sec-icon.purple { background: var(--purple-light); color: var(--purple); }
+  .sec-text strong { font-size: 14px; font-weight: 600; display: block; margin-bottom: 2px; }
+  .sec-text span { font-size: 12px; color: var(--text-secondary); line-height: 1.5; }
+
+  /* Infra card big */
+  .infra-option { border-left: 4px solid var(--blue); padding-left: 16px; margin-bottom: 20px; }
+  .infra-option:last-child { margin-bottom: 0; }
+  .infra-title { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+  .infra-desc { font-size: 13px; color: var(--text-secondary); line-height: 1.5; }
+  .infra-option.green { border-color: var(--green); }
+  .infra-option.orange { border-color: var(--orange); }
+
+  /* Rec card */
+  .rec-card {
+    background: linear-gradient(135deg, var(--blue) 0%, #0051A3 100%);
+    color: white; border-radius: var(--radius); padding: 36px;
+    position: relative; overflow: hidden;
+  }
+  .rec-card::before {
+    content: ''; position: absolute;
+    width: 300px; height: 300px; border-radius: 50%;
+    background: rgba(255,255,255,0.05);
+    top: -80px; right: -60px;
+  }
+  .rec-card h3 { font-size: 22px; font-weight: 700; margin-bottom: 10px; }
+  .rec-card p { font-size: 15px; opacity: 0.85; margin-bottom: 24px; line-height: 1.6; }
+  .rec-items { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .rec-item {
+    background: rgba(255,255,255,0.12); border-radius: 14px;
+    padding: 16px; backdrop-filter: blur(10px);
+  }
+  .rec-item-label { font-size: 11px; opacity: 0.7; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 4px; }
+  .rec-item-val { font-size: 20px; font-weight: 700; }
+  .rec-item-sub { font-size: 12px; opacity: 0.75; margin-top: 2px; }
+
+  /* Level badge */
+  .level { display: inline-flex; align-items: center; gap: 4px; }
+  .dot { width: 8px; height: 8px; border-radius: 50%; }
+
+  @media (max-width: 900px) {
+    .bento-4 { grid-template-columns: repeat(2, 1fr); }
+    .bento-3 { grid-template-columns: repeat(2, 1fr); }
+    .card.span2, .card.span3, .card.span4 { grid-column: span 1; }
+    .sec-grid { grid-template-columns: 1fr; }
+    .rec-items { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 600px) {
+    .bento-4, .bento-3, .bento-2 { grid-template-columns: 1fr; }
+    .rec-items { grid-template-columns: 1fr; }
+    body { padding: 20px 14px 60px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrapper">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="header-tag">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+      Инфраструктура · Безопасность · 2026
+    </div>
+    <h1>Дедики на 40 человек:<br>цены, конфиги, безопасность</h1>
+    <p>Сравнение провайдеров, модели развёртывания и как iGaming-компании выстраивают безопасность сотрудников</p>
+  </div>
+
+  <!-- KPI -->
+  <div class="section-label">Ключевые цифры</div>
+  <div class="bento bento-4">
+    <div class="card">
+      <div class="kpi-icon green">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+      </div>
+      <div class="kpi-num">$280</div>
+      <div class="kpi-label">/ мес — эконом (Contabo)</div>
+      <div class="kpi-note">40 × VPS S за $6.99/мес</div>
+    </div>
+    <div class="card">
+      <div class="kpi-icon blue">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
+      </div>
+      <div class="kpi-num">€520</div>
+      <div class="kpi-label">/ мес — оптимум (Hetzner)</div>
+      <div class="kpi-note">40 × CX32 за €13/мес каждый</div>
+    </div>
+    <div class="card">
+      <div class="kpi-icon orange">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      </div>
+      <div class="kpi-num">40</div>
+      <div class="kpi-label">изолированных машин</div>
+      <div class="kpi-note">1 сотрудник = 1 VPS = 1 IP</div>
+    </div>
+    <div class="card">
+      <div class="kpi-icon purple">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </div>
+      <div class="kpi-num">10+</div>
+      <div class="kpi-label">уровней безопасности</div>
+      <div class="kpi-note">Как у топовых iGaming-команд</div>
+    </div>
+  </div>
+
+  <!-- Сравнение провайдеров -->
+  <div class="section-label">Сравнение провайдеров — VPS на 1 сотрудника</div>
+  <div class="card" style="padding: 0;">
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Провайдер / тариф</th>
+            <th>CPU / RAM / Диск</th>
+            <th>Цена / мес</th>
+            <th>×40 итого</th>
+            <th>DDoS</th>
+            <th>Датацентр</th>
+            <th>Скорость сети</th>
+            <th>Оценка</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <div class="provider-name">Contabo VPS S <span class="provider-tag tag-budget">Бюджет</span></div>
+              <div style="font-size:12px;color:var(--text-secondary);">Shared vCPU</div>
+            </td>
+            <td>
+              <div class="spec-row">
+                <span class="spec-main">4 vCPU · 8 GB RAM</span>
+                <span class="spec-sub">200 GB NVMe SSD</span>
+              </div>
+            </td>
+            <td><span class="price-big">$6.99</span></td>
+            <td><span class="price-total" style="font-weight:700;color:var(--green);">≈$280/мес</span></td>
+            <td>✓ Есть</td>
+            <td>DE / US / ASIA</td>
+            <td>
+              <div class="bar-wrap"><div class="bar-fill" style="width:55%;background:var(--orange);"></div></div>
+            </td>
+            <td>
+              <div class="level"><div class="dot" style="background:var(--orange);"></div> 3/5</div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="provider-name">OVHcloud VPS Value <span class="provider-tag tag-budget">Бюджет</span></div>
+              <div style="font-size:12px;color:var(--text-secondary);">Shared vCPU</div>
+            </td>
+            <td>
+              <div class="spec-row">
+                <span class="spec-main">2 vCPU · 4 GB RAM</span>
+                <span class="spec-sub">80 GB SSD NVMe</span>
+              </div>
+            </td>
+            <td><span class="price-big">€5.99</span></td>
+            <td><span class="price-total" style="font-weight:700;">≈€240/мес</span></td>
+            <td>✓ Anti-DDoS</td>
+            <td>EU / CA / SG</td>
+            <td>
+              <div class="bar-wrap"><div class="bar-fill" style="width:60%;background:var(--orange);"></div></div>
+            </td>
+            <td>
+              <div class="level"><div class="dot" style="background:var(--orange);"></div> 3/5</div>
+            </td>
+          </tr>
+          <tr style="background:rgba(0,113,227,0.03);">
+            <td>
+              <div class="provider-name">Hetzner CX32 <span class="provider-tag tag-best">Рекоменд.</span></div>
+              <div style="font-size:12px;color:var(--text-secondary);">Shared vCPU, AMD EPYC</div>
+            </td>
+            <td>
+              <div class="spec-row">
+                <span class="spec-main">4 vCPU · 8 GB RAM</span>
+                <span class="spec-sub">80 GB SSD, трафик вкл.</span>
+              </div>
+            </td>
+            <td><span class="price-big" style="color:var(--blue);">€13.09</span></td>
+            <td><span class="price-total" style="font-weight:700;color:var(--blue);">≈€524/мес</span></td>
+            <td>✓ Есть</td>
+            <td>DE / FI / US</td>
+            <td>
+              <div class="bar-wrap"><div class="bar-fill" style="width:85%;background:var(--blue);"></div></div>
+            </td>
+            <td>
+              <div class="level"><div class="dot" style="background:var(--blue);"></div> 5/5</div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="provider-name">Hetzner CCX13 <span class="provider-tag tag-dedic">Dedicated</span></div>
+              <div style="font-size:12px;color:var(--text-secondary);">Dedicated vCPU — гарантированный</div>
+            </td>
+            <td>
+              <div class="spec-row">
+                <span class="spec-main">2 ded.vCPU · 8 GB RAM</span>
+                <span class="spec-sub">80 GB NVMe, нет соседей</span>
+              </div>
+            </td>
+            <td><span class="price-big">€19.50</span></td>
+            <td><span class="price-total" style="font-weight:700;">≈€780/мес</span></td>
+            <td>✓ Есть</td>
+            <td>DE / FI / US</td>
+            <td>
+              <div class="bar-wrap"><div class="bar-fill" style="width:90%;background:var(--green);"></div></div>
+            </td>
+            <td>
+              <div class="level"><div class="dot" style="background:var(--green);"></div> 5/5</div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="provider-name">Scaleway DEV1-S</div>
+              <div style="font-size:12px;color:var(--text-secondary);">Shared</div>
+            </td>
+            <td>
+              <div class="spec-row">
+                <span class="spec-main">2 vCPU · 2 GB RAM</span>
+                <span class="spec-sub">20 GB SSD</span>
+              </div>
+            </td>
+            <td><span class="price-big">€3.99</span></td>
+            <td><span class="price-total">≈€160/мес</span></td>
+            <td>✓ Есть</td>
+            <td>FR / NL / PL</td>
+            <td>
+              <div class="bar-wrap"><div class="bar-fill" style="width:45%;background:var(--text-tertiary);"></div></div>
+            </td>
+            <td>
+              <div class="level"><div class="dot" style="background:var(--text-tertiary);"></div> 2/5</div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Тарифы -->
+  <div class="section-label">3 модели развёртывания на 40 человек</div>
+  <div class="bento bento-3">
+
+    <div class="card">
+      <div class="tier-badge eco">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        Эконом
+      </div>
+      <div class="tier-price">$280<span class="tier-period">/мес</span></div>
+      <div class="tier-provider">Contabo VPS S — 40 машин</div>
+      <hr class="tier-divider">
+      <div class="tier-specs">
+        <div class="tier-spec ok">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          4 vCPU / 8 GB RAM — достаточно для браузера, мессенджеров, офиса
+        </div>
+        <div class="tier-spec ok">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          200 GB NVMe диск — с запасом
+        </div>
+        <div class="tier-spec meh">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/><circle cx="12" cy="12" r="10"/></svg>
+          Shared CPU — могут быть пики от соседей
+        </div>
+        <div class="tier-spec meh">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/><circle cx="12" cy="12" r="10"/></svg>
+          Поддержка — медленная
+        </div>
+      </div>
+      <hr class="tier-divider">
+      <div style="font-size:13px;color:var(--text-secondary);">Подойдёт: старт, тестирование, непродакшн-задачи</div>
+    </div>
+
+    <div class="card" style="border: 2px solid var(--blue); box-shadow: 0 0 0 4px rgba(0,113,227,0.08);">
+      <div class="tier-badge opt">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        Оптимум ★
+      </div>
+      <div class="tier-price" style="color:var(--blue);">€524<span class="tier-period">/мес</span></div>
+      <div class="tier-provider">Hetzner CX32 — 40 машин</div>
+      <hr class="tier-divider">
+      <div class="tier-specs">
+        <div class="tier-spec ok">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          4 vCPU AMD EPYC / 8 GB RAM — стабильный
+        </div>
+        <div class="tier-spec ok">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          Весь трафик включён, DDoS-защита
+        </div>
+        <div class="tier-spec ok">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          Hetzner Robot API — автоматизация
+        </div>
+        <div class="tier-spec ok">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          Firewall, приватные сети — бесплатно
+        </div>
+      </div>
+      <hr class="tier-divider">
+      <div style="font-size:13px;color:var(--text-secondary);">Лучший выбор цена/качество. Изоляция + надёжность</div>
+    </div>
+
+    <div class="card">
+      <div class="tier-badge prem">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Премиум
+      </div>
+      <div class="tier-price">€780<span class="tier-period">/мес</span></div>
+      <div class="tier-provider">Hetzner CCX13 Dedicated — 40 машин</div>
+      <hr class="tier-divider">
+      <div class="tier-specs">
+        <div class="tier-spec ok">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          2 dedicated vCPU — никакого noisy-neighbor
+        </div>
+        <div class="tier-spec ok">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          8 GB RAM, 80 GB NVMe
+        </div>
+        <div class="tier-spec ok">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          Гарантированная производительность
+        </div>
+        <div class="tier-spec meh">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/><circle cx="12" cy="12" r="10"/></svg>
+          Переплата ~50% vs CX32
+        </div>
+      </div>
+      <hr class="tier-divider">
+      <div style="font-size:13px;color:var(--text-secondary);">Для высоконагруженных задач, торговли, стриминга</div>
+    </div>
+  </div>
+
+  <!-- Модели развёртывания -->
+  <div class="section-label">Архитектурные подходы</div>
+  <div class="bento bento-2">
+    <div class="card">
+      <h3 style="font-size:16px;font-weight:700;margin-bottom:16px;">Подход А: 1 VPS на 1 сотрудника</h3>
+      <div class="infra-option">
+        <div class="infra-title">Полная изоляция</div>
+        <div class="infra-desc">Каждый человек работает на своей машине. Если скомпрометирован один — остальные не пострадали. Собственный IP, своя файловая система, независимый контроль.</div>
+      </div>
+      <div class="infra-option green">
+        <div class="infra-title">Плюсы</div>
+        <div class="infra-desc">Изоляция, разные IP, легко выключить при увольнении, автоматизация через API, RBAC по-машинно.</div>
+      </div>
+      <div class="infra-option orange">
+        <div class="infra-title">Минусы</div>
+        <div class="infra-desc">Нужен скрипт провизии (Ansible/Terraform), больше машин для мониторинга, чуть дороже чем терминальный сервер.</div>
+      </div>
+      <div style="margin-top:14px;padding:12px 16px;background:var(--green-light);border-radius:12px;">
+        <span style="font-size:13px;font-weight:600;color:var(--green);">✓ Это то, что вы описали. Рекомендую именно этот подход.</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3 style="font-size:16px;font-weight:700;margin-bottom:16px;">Подход Б: Terminal Server (VDI)</h3>
+      <div class="infra-option">
+        <div class="infra-title">1–2 мощных сервера = рабочие столы для всех</div>
+        <div class="infra-desc">Hetzner AX102 (12 ядер, 128 GB RAM) ~€100/мес. На 2 сервера (~€200/мес) можно посадить всех 40 человек через RDP/NoMachine.</div>
+      </div>
+      <div class="infra-option green">
+        <div class="infra-title">Плюсы</div>
+        <div class="infra-desc">Очень дёшево (~€200/мес на всех), легче обновлять систему, централизованный бэкап.</div>
+      </div>
+      <div class="infra-option" style="border-color:var(--red);">
+        <div class="infra-title">Минусы</div>
+        <div class="infra-desc">Все на одной машине — один взлом = всё сломалось. Нет изоляции, один IP у всех, нагрузка делится.</div>
+      </div>
+      <div style="margin-top:14px;padding:12px 16px;background:var(--orange-light);border-radius:12px;">
+        <span style="font-size:13px;font-weight:600;color:var(--orange);">⚠ Дёшево, но слабо с точки зрения безопасности iGaming-модели.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Минимальные требования -->
+  <div class="section-label">Минимальные характеристики на человека</div>
+  <div class="bento bento-4">
+    <div class="card" style="text-align:center;">
+      <div style="font-size:28px;font-weight:700;color:var(--blue);margin-bottom:6px;">2–4</div>
+      <div style="font-size:13px;font-weight:600;">vCPU</div>
+      <div style="font-size:12px;color:var(--text-secondary);margin-top:4px;">Браузер + мессенджеры + 1–2 задачи параллельно</div>
+    </div>
+    <div class="card" style="text-align:center;">
+      <div style="font-size:28px;font-weight:700;color:var(--blue);margin-bottom:6px;">4–8</div>
+      <div style="font-size:13px;font-weight:600;">GB RAM</div>
+      <div style="font-size:12px;color:var(--text-secondary);margin-top:4px;">4 GB — минимум, 8 GB — комфорт с Chrome + IDE</div>
+    </div>
+    <div class="card" style="text-align:center;">
+      <div style="font-size:28px;font-weight:700;color:var(--blue);margin-bottom:6px;">40+</div>
+      <div style="font-size:13px;font-weight:600;">GB SSD</div>
+      <div style="font-size:12px;color:var(--text-secondary);margin-top:4px;">Система + рабочие файлы. NVMe быстрее HDD в 10×</div>
+    </div>
+    <div class="card" style="text-align:center;">
+      <div style="font-size:28px;font-weight:700;color:var(--blue);margin-bottom:6px;">100+</div>
+      <div style="font-size:13px;font-weight:600;">Мбит/с</div>
+      <div style="font-size:12px;color:var(--text-secondary);margin-top:4px;">Для видео, RDP, передачи файлов без задержек</div>
+    </div>
+  </div>
+
+  <!-- Безопасность -->
+  <div class="section-label">Безопасность как у iGaming / казино компаний</div>
+  <div class="card" style="margin-bottom:16px;">
+    <h3 style="font-size:16px;font-weight:700;margin-bottom:6px;">Почему казики — эталон корпоративной безопасности</h3>
+    <p style="font-size:14px;color:var(--text-secondary);line-height:1.6;">iGaming-компании работают в высококонкурентной среде с большими деньгами, часто в нескольких юрисдикциях. Они становятся мишенью для атак конкурентов, госструктур и хакеров. Поэтому их стандарты безопасности — одни из самых жёстких в корпоративном мире.</p>
+  </div>
+  <div class="card">
+    <div class="sec-grid">
+
+      <div class="sec-item">
+        <div class="sec-icon blue">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        </div>
+        <div class="sec-text">
+          <strong>1 сотрудник = 1 машина</strong>
+          <span>Никакого BYOD. Только корпоративный VPS/ноутбук. При увольнении — немедленный reset. Используют MDM (Intune / Jamf) для контроля политик.</span>
+        </div>
+      </div>
+
+      <div class="sec-item">
+        <div class="sec-icon green">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div class="sec-text">
+          <strong>Zero Trust Network</strong>
+          <span>Ни одному устройству не доверяют по умолчанию. Весь доступ — через Cloudflare Access или Tailscale, с подтверждением личности + устройства.</span>
+        </div>
+      </div>
+
+      <div class="sec-item">
+        <div class="sec-icon blue">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg>
+        </div>
+        <div class="sec-text">
+          <strong>VPN с kill switch на каждой машине</strong>
+          <span>WireGuard / OpenVPN на каждом VPS. Если VPN отвалился — интернет блокируется автоматически (iptables / ufw). Никакого трафика в открытую.</span>
+        </div>
+      </div>
+
+      <div class="sec-item">
+        <div class="sec-icon orange">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+        </div>
+        <div class="sec-text">
+          <strong>MFA на всё без исключений</strong>
+          <span>Google Authenticator / Authy для повседневного доступа. YubiKey (hardware token) для входа в критичные системы: финансы, продакшн, БД.</span>
+        </div>
+      </div>
+
+      <div class="sec-item">
+        <div class="sec-icon purple">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M20.188 10.934c.2.643.312 1.327.312 2.066s-.112 1.423-.312 2.066l2.443 1.8a11.94 11.94 0 0 0 0-7.732l-2.443 1.8z"/><path d="M3.812 13.066C3.612 12.423 3.5 11.739 3.5 11s.112-1.423.312-2.066L1.369 7.134a11.94 11.94 0 0 0 0 7.732l2.443-1.8z"/></svg>
+        </div>
+        <div class="sec-text">
+          <strong>Мониторинг и SIEM</strong>
+          <span>auditd / Wazuh / Graylog собирают логи с каждой машины. Алерты на: root-вход, sudo-команды, нетипичный трафик, новые процессы в автозагрузке.</span>
+        </div>
+      </div>
+
+      <div class="sec-item">
+        <div class="sec-icon red">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>
+        </div>
+        <div class="sec-text">
+          <strong>DLP — запрет утечек данных</strong>
+          <span>Data Loss Prevention: блокировка загрузки файлов на личные облака, запрет подключения USB (если физическое устройство), мониторинг буфера обмена.</span>
+        </div>
+      </div>
+
+      <div class="sec-item">
+        <div class="sec-icon green">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        </div>
+        <div class="sec-text">
+          <strong>Шифрование диска и каналов</strong>
+          <span>LUKS на Linux VPS. TLS 1.3 для всего трафика. Корпоративная почта через PGP или S/MIME. Telegram / Signal — только для разрешённых коммуникаций.</span>
+        </div>
+      </div>
+
+      <div class="sec-item">
+        <div class="sec-icon orange">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <div class="sec-text">
+          <strong>RBAC — принцип минимальных прав</strong>
+          <span>Каждый сотрудник имеет доступ только к своим ресурсам. Никаких shared паролей. Централизованный IAM (HashiCorp Vault / AWS IAM / Keycloak).</span>
+        </div>
+      </div>
+
+      <div class="sec-item">
+        <div class="sec-icon blue">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        </div>
+        <div class="sec-text">
+          <strong>Incident Response Plan</strong>
+          <span>Задокументированный план: что делать при взломе, как изолировать машину, кто оповещается, forensics-процедуры. Playbook для разных сценариев.</span>
+        </div>
+      </div>
+
+      <div class="sec-item">
+        <div class="sec-icon purple">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.64 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l.81-.81a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        </div>
+        <div class="sec-text">
+          <strong>Security Awareness Training</strong>
+          <span>Ежеквартальные учения по социальной инженерии (фишинг-тесты). Новые сотрудники проходят security onboarding до получения доступов.</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Быстрый старт -->
+  <div class="section-label">Как развернуть за 1 день</div>
+  <div class="bento bento-2">
+    <div class="card">
+      <h3 style="font-size:15px;font-weight:700;margin-bottom:14px;">Минимальный стек (ручной)</h3>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <div style="display:flex;align-items:center;gap:10px;font-size:14px;">
+          <span style="width:24px;height:24px;border-radius:50%;background:var(--blue);color:white;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;">1</span>
+          <span>Создать 40 VPS в Hetzner через API / terraform-hcloud</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;font-size:14px;">
+          <span style="width:24px;height:24px;border-radius:50%;background:var(--blue);color:white;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;">2</span>
+          <span>Ansible playbook: Debian + WireGuard VPN + fail2ban + UFW</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;font-size:14px;">
+          <span style="width:24px;height:24px;border-radius:50%;background:var(--blue);color:white;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;">3</span>
+          <span>Tailscale (mesh VPN) — каждый VPS в общей приватной сети</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;font-size:14px;">
+          <span style="width:24px;height:24px;border-radius:50%;background:var(--blue);color:white;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;">4</span>
+          <span>Cloudflare Access — SSO + MFA на все внутренние сервисы</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;font-size:14px;">
+          <span style="width:24px;height:24px;border-radius:50%;background:var(--blue);color:white;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;">5</span>
+          <span>Wazuh — SIEM-агент на каждой машине, алерты в Telegram</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3 style="font-size:15px;font-weight:700;margin-bottom:14px;">Дополнительные расходы (один раз)</h3>
+      <div style="display:flex;flex-direction:column;gap:12px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--border);">
+          <div>
+            <div style="font-size:14px;font-weight:500;">Tailscale Teams (40 пользователей)</div>
+            <div style="font-size:12px;color:var(--text-secondary);">Zero Trust mesh VPN</div>
+          </div>
+          <div style="font-size:15px;font-weight:700;color:var(--text-primary);">$180/мес</div>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--border);">
+          <div>
+            <div style="font-size:14px;font-weight:500;">Cloudflare Access (бесплатно до 50 пользователей)</div>
+            <div style="font-size:12px;color:var(--text-secondary);">Zero Trust SSO</div>
+          </div>
+          <div style="font-size:15px;font-weight:700;color:var(--green);">$0</div>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--border);">
+          <div>
+            <div style="font-size:14px;font-weight:500;">Wazuh (self-hosted)</div>
+            <div style="font-size:12px;color:var(--text-secondary);">SIEM / мониторинг инцидентов</div>
+          </div>
+          <div style="font-size:15px;font-weight:700;color:var(--green);">$0</div>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;">
+          <div>
+            <div style="font-size:14px;font-weight:500;">YubiKey для ключевых сотрудников</div>
+            <div style="font-size:12px;color:var(--text-secondary);">$50/шт × 5–10 человек (разово)</div>
+          </div>
+          <div style="font-size:15px;font-weight:700;color:var(--text-primary);">$500</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Итоговая рекомендация -->
+  <div class="section-label" style="margin-top:52px;">Итог</div>
+  <div class="rec-card">
+    <h3>Рекомендация: Hetzner CX32 × 40</h3>
+    <p>Оптимальный баланс цены, надёжности и изоляции. Hetzner — лидер по соотношению цена/качество в Европе, API для автоматизации, включён трафик и DDoS-защита.</p>
+    <div class="rec-items">
+      <div class="rec-item">
+        <div class="rec-item-label">Стоимость серверов</div>
+        <div class="rec-item-val">€524</div>
+        <div class="rec-item-sub">в месяц за 40 машин</div>
+      </div>
+      <div class="rec-item">
+        <div class="rec-item-label">+ Zero Trust (Tailscale)</div>
+        <div class="rec-item-val">$180</div>
+        <div class="rec-item-sub">в месяц, mesh VPN</div>
+      </div>
+      <div class="rec-item">
+        <div class="rec-item-label">Итого / мес</div>
+        <div class="rec-item-val">~€700</div>
+        <div class="rec-item-sub">≈ €17.5 на человека</div>
+      </div>
+      <div class="rec-item">
+        <div class="rec-item-label">Уровень безопасности</div>
+        <div class="rec-item-val">iGaming</div>
+        <div class="rec-item-sub">Zero Trust + MFA + SIEM</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="text-align:center;margin-top:40px;font-size:12px;color:var(--text-tertiary);">
+    Данные: Hetzner.com, Contabo.com, Cloudflare Access, Tailscale.com — июнь 2026
+  </div>
+
+</div>
+</body>
+</html>
