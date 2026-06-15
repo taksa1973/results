@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Тест non-ICANN доменов в топ браузерах</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #F5F5F7;
+      color: #1D1D1F;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+    .container { max-width: 1100px; margin: 0 auto; padding: 48px 24px; }
+
+    /* HERO */
+    .hero { text-align: center; margin-bottom: 56px; }
+    .hero-badge {
+      display: inline-block; background: #0071E3; color: white;
+      font-size: 12px; font-weight: 600; padding: 4px 14px;
+      border-radius: 100px; margin-bottom: 20px; letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    h1 {
+      font-size: 48px; font-weight: 800; letter-spacing: -0.03em;
+      color: #1D1D1F; margin-bottom: 16px; line-height: 1.1;
+    }
+    .hero-sub { font-size: 18px; color: #6E6E73; max-width: 640px; margin: 0 auto; }
+
+    /* CARDS */
+    .card {
+      background: #fff; border-radius: 18px; padding: 28px;
+      transition: transform 0.2s ease;
+    }
+    .card:hover { transform: translateY(-2px); }
+
+    /* BENTO GRID */
+    .bento { display: grid; gap: 16px; margin-bottom: 16px; }
+    .bento-3 { grid-template-columns: repeat(3, 1fr); }
+    .bento-2 { grid-template-columns: repeat(2, 1fr); }
+
+    /* SECTION HEADER */
+    .section-header { display: flex; align-items: center; gap: 12px; margin: 52px 0 20px; }
+    .section-num {
+      width: 36px; height: 36px; background: #0071E3; color: white;
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      font-size: 16px; font-weight: 700; flex-shrink: 0;
+    }
+    h2 { font-size: 28px; font-weight: 700; letter-spacing: -0.02em; }
+    h3 { font-size: 18px; font-weight: 600; margin-bottom: 12px; color: #1D1D1F; }
+
+    /* STEPS */
+    .steps { list-style: none; counter-reset: step-counter; }
+    .step { counter-increment: step-counter; display: flex; gap: 14px; margin-bottom: 14px; align-items: flex-start; }
+    .step::before {
+      content: counter(step-counter);
+      min-width: 28px; height: 28px; background: #F0F6FF; color: #0071E3;
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      font-size: 13px; font-weight: 700; margin-top: 2px; flex-shrink: 0;
+    }
+    .step p { font-size: 15px; color: #3D3D3F; line-height: 1.6; }
+    .step strong { color: #1D1D1F; }
+
+    /* CODE */
+    code {
+      background: #F0F6FF; color: #0071E3; padding: 2px 8px;
+      border-radius: 6px; font-family: 'SF Mono', 'Fira Code', monospace;
+      font-size: 13px; font-weight: 600;
+    }
+
+    /* BADGES */
+    .badge {
+      display: inline-flex; align-items: center; gap: 4px;
+      padding: 3px 10px; border-radius: 100px; font-size: 12px; font-weight: 600;
+    }
+    .badge-green  { background: #E3F5E9; color: #1A7F3C; }
+    .badge-red    { background: #FFE5E5; color: #C41E1E; }
+    .badge-yellow { background: #FFF5D6; color: #8B6E00; }
+    .badge-blue   { background: #E5F0FF; color: #0052A3; }
+
+    /* SUPPORT MATRIX */
+    .matrix { width: 100%; border-collapse: collapse; font-size: 14px; }
+    .matrix th {
+      background: #F5F5F7; padding: 12px 14px; text-align: left;
+      font-weight: 600; color: #6E6E73; font-size: 11px;
+      text-transform: uppercase; letter-spacing: 0.05em;
+    }
+    .matrix td { padding: 12px 14px; border-top: 1px solid #F0F0F3; vertical-align: middle; }
+    .matrix tr:hover td { background: #FAFAFA; }
+
+    /* DOMAIN PILLS */
+    .domain-pill {
+      display: inline-block; color: #F5F5F7; padding: 2px 10px;
+      border-radius: 6px; font-family: monospace; font-size: 13px; font-weight: 700;
+    }
+    .domain-pill.eth  { background: #627EEA; }
+    .domain-pill.crypto { background: #0D67FE; }
+    .domain-pill.x    { background: #8B5CF6; }
+
+    /* ALERTS */
+    .alert {
+      padding: 14px 18px; border-radius: 12px; font-size: 14px;
+      margin-bottom: 12px; display: flex; gap: 10px; align-items: flex-start;
+    }
+    .alert-info    { background: #E5F0FF; color: #003399; border-left: 3px solid #0071E3; }
+    .alert-success { background: #E3F5E9; color: #0A4F24; border-left: 3px solid #30D158; }
+    .alert-warning { background: #FFF5D6; color: #5C4000; border-left: 3px solid #FF9F0A; }
+    .alert-icon { font-size: 18px; flex-shrink: 0; }
+
+    /* BROWSER CARDS */
+    .browser-card { background: white; border-radius: 18px; overflow: hidden; margin-bottom: 16px; }
+    .browser-header {
+      padding: 20px 28px; display: flex; align-items: center; gap: 16px;
+      border-bottom: 1px solid #F0F0F3;
+    }
+    .browser-icon {
+      width: 52px; height: 52px; border-radius: 14px;
+      display: flex; align-items: center; justify-content: center; font-size: 30px;
+      flex-shrink: 0;
+    }
+    .browser-body { padding: 24px 28px; }
+
+    /* METHODS */
+    .method {
+      background: #FAFAFA; border-radius: 12px; padding: 20px;
+      margin-bottom: 14px; border: 1px solid #F0F0F3;
+    }
+    .method-title {
+      font-size: 14px; font-weight: 700; color: #1D1D1F;
+      margin-bottom: 14px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+    }
+    .method-label {
+      padding: 3px 10px; border-radius: 6px; font-size: 11px;
+      font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em;
+    }
+    .ml-green  { background: #E3F5E9; color: #1A7F3C; }
+    .ml-yellow { background: #FFF5D6; color: #8B6E00; }
+    .ml-blue   { background: #E5F0FF; color: #003399; }
+    .ml-red    { background: #FFE5E5; color: #C41E1E; }
+
+    /* CHECKLIST */
+    .checklist { list-style: none; }
+    .checklist li {
+      display: flex; align-items: flex-start; gap: 12px;
+      padding: 10px 0; border-bottom: 1px solid #F0F0F3; font-size: 14px;
+    }
+    .checklist li:last-child { border-bottom: none; }
+    .check-box {
+      width: 20px; height: 20px; border: 2px solid #D0D0D5;
+      border-radius: 5px; flex-shrink: 0; margin-top: 1px;
+    }
+
+    /* RESULT TABLE */
+    .result-table { width: 100%; border-collapse: collapse; }
+    .result-table th, .result-table td {
+      padding: 12px 14px; text-align: center; font-size: 13px;
+    }
+    .result-table th {
+      background: #F5F5F7; font-weight: 600; color: #6E6E73;
+      font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em;
+    }
+    .result-table td { border-top: 1px solid #F0F0F3; }
+    .result-table td:first-child { text-align: left; font-weight: 600; }
+
+    /* FOOTER */
+    .footer {
+      text-align: center; margin-top: 64px; padding-top: 32px;
+      border-top: 1px solid #E0E0E5; color: #8E8E93; font-size: 13px;
+    }
+
+    @media (max-width: 768px) {
+      .bento-3 { grid-template-columns: 1fr; }
+      .bento-2 { grid-template-columns: 1fr; }
+      h1 { font-size: 32px; }
+      .browser-header { flex-wrap: wrap; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-badge">Тест-руководство · Июнь 2026</div>
+    <h1>Non-ICANN домены<br>в топ-5 браузерах</h1>
+    <p class="hero-sub">
+      Пошаговая инструкция: ENS (.eth), Unstoppable Domains (.crypto, .x, .nft) —
+      как нативно они открываются, что нажимать и как фиксировать результаты.
+    </p>
+  </div>
+
+  <!-- OVERVIEW -->
+  <div class="bento bento-3">
+    <div class="card">
+      <h3>ENS + IPFS + eth.limo</h3>
+      <p style="font-size:14px;color:#6E6E73;margin-bottom:14px">
+        Добавь <code>.limo</code> к любому .eth домену — открывается в любом браузере через HTTPS.
+        Пользователь видит замочек и ничего не подозревает о Web3.
+      </p>
+      <span class="badge badge-green">✓ Работает везде</span>
+    </div>
+    <div class="card">
+      <h3>Unstoppable Domains</h3>
+      <p style="font-size:14px;color:#6E6E73;margin-bottom:14px">
+        Opera поддерживает .crypto нативно через партнёрство.
+        Chrome/Firefox/Edge — только с расширением UD.
+        Safari — почти никак.
+      </p>
+      <span class="badge badge-yellow">⚡ Частично нативно</span>
+    </div>
+    <div class="card">
+      <h3>Brave Browser</h3>
+      <p style="font-size:14px;color:#6E6E73;margin-bottom:14px">
+        Единственный мейнстримный браузер с нативным ENS (.eth),
+        встроенным IPFS-узлом и поддержкой .crypto. Максимальная децентрализация.
+      </p>
+      <span class="badge badge-blue">★ Лучшая нативность</span>
+    </div>
+  </div>
+
+  <!-- SECTION 1: МАТРИЦА -->
+  <div class="section-header">
+    <div class="section-num">1</div>
+    <h2>Матрица поддержки браузеров</h2>
+  </div>
+
+  <div class="card" style="padding:0;overflow:hidden">
+    <table class="matrix">
+      <thead>
+        <tr>
+          <th>Браузер</th>
+          <th>.eth нативно</th>
+          <th>.eth через eth.limo</th>
+          <th>.crypto нативно</th>
+          <th>.crypto через расш.</th>
+          <th>IPFS нативно</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>🔵 Chrome</strong></td>
+          <td><span class="badge badge-red">✗ Нет</span></td>
+          <td><span class="badge badge-green">✓ Да</span></td>
+          <td><span class="badge badge-red">✗ Нет</span></td>
+          <td><span class="badge badge-green">✓ Расш.</span></td>
+          <td><span class="badge badge-red">✗ Нет</span></td>
+        </tr>
+        <tr>
+          <td><strong>🦊 Firefox</strong></td>
+          <td><span class="badge badge-yellow">⚡ Эксп.</span></td>
+          <td><span class="badge badge-green">✓ Да</span></td>
+          <td><span class="badge badge-red">✗ Нет</span></td>
+          <td><span class="badge badge-green">✓ Расш.</span></td>
+          <td><span class="badge badge-red">✗ Нет</span></td>
+        </tr>
+        <tr>
+          <td><strong>🧭 Safari</strong></td>
+          <td><span class="badge badge-red">✗ Нет</span></td>
+          <td><span class="badge badge-green">✓ Да</span></td>
+          <td><span class="badge badge-red">✗ Нет</span></td>
+          <td><span class="badge badge-red">✗ Нет</span></td>
+          <td><span class="badge badge-red">✗ Нет</span></td>
+        </tr>
+        <tr>
+          <td><strong>🔷 Edge</strong></td>
+          <td><span class="badge badge-red">✗ Нет</span></td>
+          <td><span class="badge badge-green">✓ Да</span></td>
+          <td><span class="badge badge-red">✗ Нет</span></td>
+          <td><span class="badge badge-green">✓ Расш.</span></td>
+          <td><span class="badge badge-red">✗ Нет</span></td>
+        </tr>
+        <tr>
+          <td><strong>🔴 Opera</strong></td>
+          <td><span class="badge badge-red">✗ Нет</span></td>
+          <td><span class="badge badge-green">✓ Да</span></td>
+          <td><span class="badge badge-green">✓ Нативно!</span></td>
+          <td><span class="badge badge-green">✓ Да</span></td>
+          <td><span class="badge badge-red">✗ Нет</span></td>
+        </tr>
+        <tr>
+          <td>
+            <strong>🦁 Brave</strong>
+            <span style="font-size:11px;color:#0071E3;font-weight:700;margin-left:6px">БОНУС</span>
+          </td>
+          <td><span class="badge badge-green">✓ Нативно!</span></td>
+          <td><span class="badge badge-green">✓ Да</span></td>
+          <td><span class="badge badge-yellow">⚡ Частично</span></td>
+          <td><span class="badge badge-green">✓ Да</span></td>
+          <td><span class="badge badge-green">✓ Нативно!</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- SECTION 2: ТЕСТОВЫЕ ДОМЕНЫ -->
+  <div class="section-header">
+    <div class="section-num">2</div>
+    <h2>Тестовые домены — что именно открывать</h2>
+  </div>
+
+  <div class="bento bento-2">
+    <div class="card">
+      <h3>ENS (.eth) домены</h3>
+      <div style="display:flex;flex-direction:column;gap:10px;margin-top:12px">
+
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:10px;background:#F5F5F7;border-radius:10px">
+          <div>
+            <div style="font-size:11px;color:#6E6E73;margin-bottom:2px">Сайт Виталика Бутерина (есть контент)</div>
+            <code>vitalik.eth.limo</code>
+          </div>
+          <span class="domain-pill eth">.eth</span>
+        </div>
+
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:10px;background:#F5F5F7;border-radius:10px">
+          <div>
+            <div style="font-size:11px;color:#6E6E73;margin-bottom:2px">Официальный ENS App</div>
+            <code>app.uniswap.eth.limo</code>
+          </div>
+          <span class="domain-pill eth">.eth</span>
+        </div>
+
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:10px;background:#F5F5F7;border-radius:10px">
+          <div>
+            <div style="font-size:11px;color:#6E6E73;margin-bottom:2px">ENS официальный сайт</div>
+            <code>ens.eth.limo</code>
+          </div>
+          <span class="domain-pill eth">.eth</span>
+        </div>
+
+        <div style="background:#E5F0FF;padding:10px;border-radius:10px;font-size:13px;color:#003399">
+          💡 <strong>Формула gateway:</strong> добавь <code>.limo</code> после любого .eth домена → работает в любом браузере без расширений
+        </div>
+
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:10px;background:#F5F5F7;border-radius:10px">
+          <div>
+            <div style="font-size:11px;color:#6E6E73;margin-bottom:2px">Только для Brave — нативный тест</div>
+            <code>vitalik.eth</code>
+          </div>
+          <span class="domain-pill eth">.eth</span>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Unstoppable Domains (.crypto и др.)</h3>
+      <div style="display:flex;flex-direction:column;gap:10px;margin-top:12px">
+
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:10px;background:#F5F5F7;border-radius:10px">
+          <div>
+            <div style="font-size:11px;color:#6E6E73;margin-bottom:2px">Официальный сайт UD (есть IPFS)</div>
+            <code>unstoppable.crypto</code>
+          </div>
+          <span class="domain-pill crypto">.crypto</span>
+        </div>
+
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:10px;background:#F5F5F7;border-radius:10px">
+          <div>
+            <div style="font-size:11px;color:#6E6E73;margin-bottom:2px">Пример персонального домена</div>
+            <code>brad.crypto</code>
+          </div>
+          <span class="domain-pill crypto">.crypto</span>
+        </div>
+
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:10px;background:#F5F5F7;border-radius:10px">
+          <div>
+            <div style="font-size:11px;color:#6E6E73;margin-bottom:2px">Тест нового TLD .x</div>
+            <code>reseller.x</code>
+          </div>
+          <span class="domain-pill x">.x</span>
+        </div>
+
+        <div style="background:#FFF5D6;padding:10px;border-radius:10px;font-size:13px;color:#5C4000">
+          ⚠️ У UD нет единого публичного gateway как eth.limo. Нужно или расширение, или Opera/Brave. Если домен не имеет IPFS контента — откроется только кошелёк, не сайт.
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 3: ЧТО УСТАНОВИТЬ -->
+  <div class="section-header">
+    <div class="section-num">3</div>
+    <h2>Что установить перед тестом</h2>
+  </div>
+
+  <div class="bento bento-3">
+
+    <div class="card">
+      <h3>MetaMask</h3>
+      <p style="font-size:13px;color:#6E6E73;margin-bottom:14px">
+        Кошелёк-расширение. Умеет резолвить ENS (.eth) через встроенный браузер расширения.
+        Для Chrome, Firefox, Edge.
+      </p>
+      <ol class="steps" style="font-size:13px">
+        <li class="step"><p>Перейди на <strong>metamask.io</strong></p></li>
+        <li class="step"><p>Нажми <strong>"Download"</strong> → выбери браузер</p></li>
+        <li class="step"><p>Установи из магазина расширений</p></li>
+        <li class="step"><p>Создай или пропусти создание кошелька — для резолвинга он не нужен</p></li>
+      </ol>
+      <div style="margin-top:12px;display:flex;gap:6px;flex-wrap:wrap">
+        <span class="badge badge-green">Chrome</span>
+        <span class="badge badge-green">Firefox</span>
+        <span class="badge badge-green">Edge</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>UD Browser Extension</h3>
+      <p style="font-size:13px;color:#6E6E73;margin-bottom:14px">
+        Официальное расширение от Unstoppable Domains.
+        Резолвит .crypto, .nft, .x, .wallet, .blockchain, .dao, .888.
+        Не требует настроек.
+      </p>
+      <ol class="steps" style="font-size:13px">
+        <li class="step"><p>Открой Chrome Web Store</p></li>
+        <li class="step"><p>Поиск: <strong>"Unstoppable Domains"</strong></p></li>
+        <li class="step"><p>Нажми <strong>"Add to Chrome"</strong></p></li>
+        <li class="step"><p>Иконка появится в тулбаре — расширение активно</p></li>
+      </ol>
+      <div style="margin-top:12px;display:flex;gap:6px;flex-wrap:wrap">
+        <span class="badge badge-green">Chrome</span>
+        <span class="badge badge-green">Firefox</span>
+        <span class="badge badge-green">Edge</span>
+        <span class="badge badge-green">Opera</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Все браузеры для скачивания</h3>
+      <p style="font-size:13px;color:#6E6E73;margin-bottom:14px">
+        Скачай все перед тестом — и не отвлекайся потом.
+      </p>
+      <div style="display:flex;flex-direction:column;gap:7px;font-size:13px">
+        <div style="padding:8px 12px;background:#F5F5F7;border-radius:9px;display:flex;justify-content:space-between">
+          <span>🔵 Google Chrome</span><code style="font-size:11px">google.com/chrome</code>
+        </div>
+        <div style="padding:8px 12px;background:#F5F5F7;border-radius:9px;display:flex;justify-content:space-between">
+          <span>🦊 Firefox</span><code style="font-size:11px">mozilla.org</code>
+        </div>
+        <div style="padding:8px 12px;background:#F5F5F7;border-radius:9px;display:flex;justify-content:space-between">
+          <span>🔷 Edge</span><code style="font-size:11px">microsoft.com/edge</code>
+        </div>
+        <div style="padding:8px 12px;background:#F5F5F7;border-radius:9px;display:flex;justify-content:space-between">
+          <span>🔴 Opera</span><code style="font-size:11px">opera.com</code>
+        </div>
+        <div style="padding:8px 12px;background:#F5F5F7;border-radius:9px;display:flex;justify-content:space-between">
+          <span>🦁 Brave</span><code style="font-size:11px">brave.com</code>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- SECTION 4: БРАУЗЕРЫ -->
+  <div class="section-header">
+    <div class="section-num">4</div>
+    <h2>Пошаговый тест по каждому браузеру</h2>
+  </div>
+
+  <!-- ===== CHROME ===== -->
+  <div class="browser-card">
+    <div class="browser-header">
+      <div class="browser-icon" style="background:#E8F0FE">🔵</div>
+      <div style="flex:1">
+        <h3 style="margin:0">Google Chrome</h3>
+        <p style="font-size:13px;color:#6E6E73;margin:4px 0 0">Нет нативной поддержки. Работает через gateway и расширения.</p>
+      </div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end">
+        <span class="badge badge-green">eth.limo ✓</span>
+        <span class="badge badge-yellow">MetaMask</span>
+        <span class="badge badge-yellow">UD Ext</span>
+      </div>
+    </div>
+    <div class="browser-body">
+
+      <div class="method">
+        <div class="method-title">
+          <span class="method-label ml-green">Метод 1</span>
+          Gateway — без расширений, рекомендовано для UX-теста
+        </div>
+        <ol class="steps">
+          <li class="step"><p>Открой Chrome → новая вкладка</p></li>
+          <li class="step"><p>В адресную строку введи <code>vitalik.eth.limo</code> → Enter</p></li>
+          <li class="step"><p><strong>Что произойдёт:</strong> Chrome откроет сайт как обычный HTTPS. Технически ты обратился к домену <code>eth.limo</code> с поддоменом — это легальный ICANN домен, контент идёт из IPFS.</p></li>
+          <li class="step"><p>Проверь адресную строку: <strong>замочек HTTPS</strong>, адрес вида <code>https://vitalik.eth.limo</code></p></li>
+          <li class="step"><p>Повтори для <code>ens.eth.limo</code> и <code>app.uniswap.eth.limo</code></p></li>
+          <li class="step"><p>Зафикси: открылось ли с первого раза? Были ли предупреждения? Скорость vs обычный сайт?</p></li>
+        </ol>
+        <div class="alert alert-success" style="margin-top:10px">
+          <span class="alert-icon">✅</span>
+          <span><strong>Это прозрачно для пользователя:</strong> домен выглядит обычно, HTTPS есть, никаких установок. Пользователь не знает, что это Web3.</span>
+        </div>
+      </div>
+
+      <div class="method">
+        <div class="method-title">
+          <span class="method-label ml-yellow">Метод 2</span>
+          MetaMask — попытка открыть .eth напрямую
+        </div>
+        <ol class="steps">
+          <li class="step"><p>Убедись, что MetaMask установлен и активен (иконка в тулбаре)</p></li>
+          <li class="step"><p>Введи в адресную строку <code>vitalik.eth</code> → Enter</p></li>
+          <li class="step"><p><strong>Результат:</strong> Chrome покажет результаты Google — MetaMask <em>не перехватывает</em> адресную строку Chrome. Это ожидаемо.</p></li>
+          <li class="step"><p>Теперь кликни на иконку MetaMask → найди <strong>"Browser"</strong> или открой любой dApp сайт → там можно попробовать ENS-резолвинг</p></li>
+          <li class="step"><p>Зафикси: MetaMask в Chrome работает для подключения к dApps, но не резолвит .eth в адресной строке самостоятельно.</p></li>
+        </ol>
+        <div class="alert alert-warning" style="margin-top:10px">
+          <span class="alert-icon">⚠️</span>
+          <span>MetaMask <strong>не перехватывает URL Chrome.</strong> Ввод <code>vitalik.eth</code> ведёт в поиск Google — для обычного пользователя это барьер.</span>
+        </div>
+      </div>
+
+      <div class="method">
+        <div class="method-title">
+          <span class="method-label ml-yellow">Метод 3</span>
+          UD Extension — резолвинг .crypto
+        </div>
+        <ol class="steps">
+          <li class="step"><p>Убедись, что расширение Unstoppable Domains установлено</p></li>
+          <li class="step"><p>Введи в адресную строку <code>unstoppable.crypto</code> → Enter</p></li>
+          <li class="step"><p>Расширение перехватит запрос и откроет IPFS контент домена</p></li>
+          <li class="step"><p><strong>Что посмотреть:</strong> что показывает адресная строка после резолвинга — оригинальный .crypto адрес или IPFS хэш?</p></li>
+          <li class="step"><p>Повтори для <code>brad.crypto</code></p></li>
+        </ol>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ===== FIREFOX ===== -->
+  <div class="browser-card">
+    <div class="browser-header">
+      <div class="browser-icon" style="background:#FFF0E8">🦊</div>
+      <div style="flex:1">
+        <h3 style="margin:0">Mozilla Firefox</h3>
+        <p style="font-size:13px;color:#6E6E73;margin:4px 0 0">Экспериментальная ENS-поддержка через about:config + gateway + расширения.</p>
+      </div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end">
+        <span class="badge badge-green">eth.limo ✓</span>
+        <span class="badge badge-yellow">ENS (флаг)</span>
+        <span class="badge badge-yellow">UD Ext</span>
+      </div>
+    </div>
+    <div class="browser-body">
+
+      <div class="method">
+        <div class="method-title">
+          <span class="method-label ml-green">Метод 1</span>
+          Gateway — работает без настроек
+        </div>
+        <ol class="steps">
+          <li class="step"><p>Открой Firefox → введи <code>vitalik.eth.limo</code></p></li>
+          <li class="step"><p>Сайт откроется через HTTPS — всё стандартно</p></li>
+          <li class="step"><p>Проверь: HTTPS замочек, нет предупреждений, контент загрузился полностью</p></li>
+          <li class="step"><p>Сравни скорость загрузки с Chrome (IPFS контент может грузиться медленнее)</p></li>
+        </ol>
+      </div>
+
+      <div class="method">
+        <div class="method-title">
+          <span class="method-label ml-blue">Метод 2</span>
+          Экспериментальный ENS через about:config
+        </div>
+        <ol class="steps">
+          <li class="step"><p>Введи в адресную строку <code>about:config</code> → нажми <strong>"Принять риск и продолжить"</strong></p></li>
+          <li class="step"><p>В строку поиска введи <code>network.trr.mode</code> — убедись, что DoH включён (значение 2 или 3)</p></li>
+          <li class="step"><p>Поищи настройку <code>network.ens.enabled</code> — если есть, убедись что значение <strong>true</strong></p></li>
+          <li class="step"><p>Закрой about:config → введи <code>vitalik.eth</code> в адресной строке</p></li>
+          <li class="step"><p><strong>Если настройки нет:</strong> Firefox этой версии не поддерживает ENS напрямую. Результат — поиск Google или ошибка.</p></li>
+          <li class="step"><p>Зафикси: что случилось — открылось, ошибка, или поиск?</p></li>
+        </ol>
+        <div class="alert alert-info" style="margin-top:10px">
+          <span class="alert-icon">ℹ️</span>
+          <span>Mozilla экспериментировала с ENS через Cloudflare DNS-over-HTTPS — это <strong>не децентрализованно</strong>. Firefox просил Cloudflare резолвить ENS, что вызвало споры о приватности. Эксперимент заморожен.</span>
+        </div>
+      </div>
+
+      <div class="method">
+        <div class="method-title">
+          <span class="method-label ml-yellow">Метод 3</span>
+          UD Extension для Firefox
+        </div>
+        <ol class="steps">
+          <li class="step"><p>Открой <code>addons.mozilla.org</code></p></li>
+          <li class="step"><p>Поищи <strong>"Unstoppable Domains"</strong> → установи</p></li>
+          <li class="step"><p>Введи <code>unstoppable.crypto</code> → проверь резолвинг</p></li>
+          <li class="step"><p>Сравни UX с тем же расширением в Chrome</p></li>
+        </ol>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ===== SAFARI ===== -->
+  <div class="browser-card">
+    <div class="browser-header">
+      <div class="browser-icon" style="background:#E8F5FF">🧭</div>
+      <div style="flex:1">
+        <h3 style="margin:0">Apple Safari</h3>
+        <p style="font-size:13px;color:#6E6E73;margin:4px 0 0">Минимальная поддержка. Только gateway. Apple не открывает расширениям доступ к URL.</p>
+      </div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end">
+        <span class="badge badge-green">eth.limo ✓</span>
+        <span class="badge badge-red">ENS ✗</span>
+        <span class="badge badge-red">UD ✗</span>
+      </div>
+    </div>
+    <div class="browser-body">
+
+      <div class="method">
+        <div class="method-title">
+          <span class="method-label ml-green">Метод 1</span>
+          Gateway — единственный рабочий вариант
+        </div>
+        <ol class="steps">
+          <li class="step"><p>Открой Safari → введи <code>vitalik.eth.limo</code></p></li>
+          <li class="step"><p>Сайт откроется нормально — Safari не знает, что это Web3</p></li>
+          <li class="step"><p>Попробуй также <code>uniswap.eth.limo</code> — сравни скорость</p></li>
+          <li class="step"><p>Проверь: нет ли предупреждения "Safari can't open the page" или "This site is not secure"</p></li>
+        </ol>
+      </div>
+
+      <div class="method">
+        <div class="method-title">
+          <span class="method-label ml-red">Ограничение</span>
+          Почему Web3 расширения не работают в Safari
+        </div>
+        <div style="font-size:14px;color:#3D3D3F;line-height:1.75;margin-bottom:10px">
+          <p style="margin-bottom:8px">Apple строго ограничивает расширения Safari через App Store. MetaMask для Safari есть в Mac App Store — но <strong>ENS-резолвинг в адресной строке не работает</strong>: Apple запрещает расширениям перехватывать URL-запросы.</p>
+          <p>На iOS Safari вообще нет поддержки Web3 extension API. Для UD расширений нет ни в Mac App Store, ни в iOS App Store.</p>
+        </div>
+        <div class="alert alert-warning">
+          <span class="alert-icon">⚠️</span>
+          <span>Для пользователей Safari единственный прозрачный путь — <strong>eth.limo gateway</strong>. Нативного Web3 нет и в ближайшее время не появится из-за политики Apple.</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ===== EDGE ===== -->
+  <div class="browser-card">
+    <div class="browser-header">
+      <div class="browser-icon" style="background:#E8EEFF">🔷</div>
+      <div style="flex:1">
+        <h3 style="margin:0">Microsoft Edge</h3>
+        <p style="font-size:13px;color:#6E6E73;margin:4px 0 0">Chromium-based. Поддерживает те же расширения, что Chrome. Встроенный кошелёк — только для транзакций.</p>
+      </div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end">
+        <span class="badge badge-green">eth.limo ✓</span>
+        <span class="badge badge-yellow">MetaMask</span>
+        <span class="badge badge-yellow">UD Ext</span>
+      </div>
+    </div>
+    <div class="browser-body">
+
+      <div class="method">
+        <div class="method-title">
+          <span class="method-label ml-green">Метод 1</span>
+          Gateway
+        </div>
+        <ol class="steps">
+          <li class="step"><p>Открой Edge → введи <code>vitalik.eth.limo</code></p></li>
+          <li class="step"><p>Сайт откроется. Edge может показать SmartScreen предупреждение о "незнакомом сайте" — нажми "Продолжить"</p></li>
+          <li class="step"><p>Зафикси: появилось ли предупреждение SmartScreen? Это важно для UX-сравнения с Chrome.</p></li>
+        </ol>
+      </div>
+
+      <div class="method">
+        <div class="method-title">
+          <span class="method-label ml-blue">Метод 2</span>
+          Встроенный Edge Wallet — проверка Web3 настроек
+        </div>
+        <ol class="steps">
+          <li class="step"><p>Открой <code>edge://settings/privacy</code></p></li>
+          <li class="step"><p>Найди раздел <strong>"Microsoft Edge Wallet"</strong> или <strong>"Web3"</strong></p></li>
+          <li class="step"><p>Проверь, есть ли там что-то про ENS или доменные имена Web3</p></li>
+          <li class="step"><p>Введи <code>vitalik.eth</code> в адресной строке — результат будет поиск Bing или ошибка (ENS не резолвится)</p></li>
+          <li class="step"><p>Зафикси: встроенный кошелёк Edge существует только для транзакций, а не для резолвинга доменов.</p></li>
+        </ol>
+      </div>
+
+      <div class="method">
+        <div class="method-title">
+          <span class="method-label ml-yellow">Метод 3</span>
+          Расширения из Chrome Web Store
+        </div>
+        <ol class="steps">
+          <li class="step"><p>Открой <code>edge://extensions/</code></p></li>
+          <li class="step"><p>Включи переключатель <strong>"Разрешить расширения из других магазинов"</strong></p></li>
+          <li class="step"><p>Открой Chrome Web Store → установи UD Extension</p></li>
+          <li class="step"><p>Тестируй так же, как в Chrome — результаты должны быть идентичными</p></li>
+        </ol>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ===== OPERA ===== -->
+  <div class="browser-card">
+    <div class="browser-header">
+      <div class="browser-icon" style="background:#FFE8E8">🔴</div>
+      <div style="flex:1">
+        <h3 style="margin:0">Opera</h3>
+        <p style="font-size:13px;color:#6E6E73;margin:4px 0 0">Единственный из топ-5 с нативной поддержкой .crypto — партнёрство с Unstoppable Domains.</p>
+      </div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end">
+        <span class="badge badge-green">eth.limo ✓</span>
+        <span class="badge badge-green">.crypto нативно ✓</span>
+      </div>
+    </div>
+    <div class="browser-body">
+
+      <div class="method">
+        <div class="method-title">
+          <span class="method-label ml-green">Метод 1 ★ Главный тест</span>
+          Нативный .crypto без расширений
+        </div>
+        <ol class="steps">
+          <li class="step"><p>Открой Opera → новая вкладка</p></li>
+          <li class="step"><p>Введи в адресную строку: <code>unstoppable.crypto</code> — <strong>никаких расширений, никакого .limo</strong></p></li>
+          <li class="step"><p>Opera должна автоматически распознать Unstoppable Domain и открыть сайт</p></li>
+          <li class="step"><p><strong>Смотри на адресную строку:</strong> что там? Протокол? Замочек? Оригинальный .crypto адрес?</p></li>
+          <li class="step"><p>Повтори: <code>brad.crypto</code>, <code>reseller.x</code></p></li>
+          <li class="step"><p><strong>Если не открылось:</strong> перейди в <code>opera://settings</code> → в поиске введи "Web3" → включи Web3 домены или Crypto Wallets</p></li>
+        </ol>
+        <div class="alert alert-success" style="margin-top:10px">
+          <span class="alert-icon">🎉</span>
+          <span>Opera — официальный партнёр UD. Поддержка встроена в браузер. <strong>Пользователь просто вводит .crypto домен и попадает на сайт</strong> — это настоящий нативный опыт без головной боли.</span>
+        </div>
+      </div>
+
+      <div class="method">
+        <div class="method-title">
+          <span class="method-label ml-blue">Метод 2</span>
+          Настройки Web3 в Opera
+        </div>
+        <ol class="steps">
+          <li class="step"><p>Открой <code>opera://settings</code></p></li>
+          <li class="step"><p>Перейди в <strong>Advanced → Features → Crypto Wallet</strong></p></li>
+          <li class="step"><p>Убедись, что Web3 и поддержка доменов включены</p></li>
+          <li class="step"><p>В левой боковой панели Opera найди значок кошелька — там можно управлять Web3 настройками</p></li>
+        </ol>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ===== BRAVE ===== -->
+  <div class="browser-card" style="border: 2px solid #0071E3">
+    <div class="browser-header" style="background:linear-gradient(135deg,#F0F7FF,#E8F4FF)">
+      <div class="browser-icon" style="background:#FFE8D6">🦁</div>
+      <div style="flex:1">
+        <h3 style="margin:0">Brave — Бонус ★ Лучшая нативная поддержка Web3</h3>
+        <p style="font-size:13px;color:#6E6E73;margin:4px 0 0">Нативный ENS (.eth) + встроенный IPFS-узел. Единственный по-настоящему децентрализованный браузер.</p>
+      </div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end">
+        <span class="badge badge-green">ENS нативно ✓</span>
+        <span class="badge badge-green">IPFS нативно ✓</span>
+      </div>
+    </div>
+    <div class="browser-body">
+
+      <div class="method">
+        <div class="method-title">
+          <span class="method-label ml-blue">Шаг 1</span>
+          Включить ENS и IPFS в настройках
+        </div>
+        <ol class="steps">
+          <li class="step"><p>Открой Brave → введи в адресную строку <code>brave://settings/web3</code></p></li>
+          <li class="step"><p>Раздел <strong>IPFS:</strong> выбери <strong>"Enable IPFS" → "Local node"</strong> — это запустит полноценный IPFS-узел прямо внутри браузера</p></li>
+          <li class="step"><p>Раздел <strong>ENS:</strong> убедись, что включено <strong>"Resolve ENS domain names"</strong></p></li>
+          <li class="step"><p>В выпадающем меню ENS выбери <strong>"Ethereum Mainnet"</strong> через Brave Wallet (встроенный)</p></li>
+          <li class="step"><p>Перезапуск не нужен — настройки применяются сразу</p></li>
+        </ol>
+      </div>
+
+      <div class="method">
+        <div class="method-title">
+          <span class="method-label ml-green">Шаг 2 ★ Главный тест</span>
+          Открыть .eth нативно — без gateway, без расширений
+        </div>
+        <ol class="steps">
+          <li class="step"><p>В адресную строку введи: <code>vitalik.eth</code> — просто так, без <code>.limo</code></p></li>
+          <li class="step"><p>Brave обратится к Ethereum блокчейну, найдёт IPFS-хэш, скачает контент через свой локальный IPFS-узел</p></li>
+          <li class="step"><p>Brave покажет уведомление: <em>"This site uses ENS (Ethereum Name Service)"</em> → нажми <strong>"Proceed"</strong></p></li>
+          <li class="step"><p><strong>Смотри на адресную строку:</strong> скорее всего увидишь <code>ipfs://Qm...</code> или сохранится <code>vitalik.eth</code> — зафикси</p></li>
+          <li class="step"><p>Сайт загрузится. Это настоящий decentralized web — данные из блокчейна и IPFS без централизованного шлюза</p></li>
+          <li class="step"><p>Повтори: <code>uniswap.eth</code>, <code>ens.eth</code></p></li>
+        </ol>
+        <div class="alert alert-success" style="margin-top:10px">
+          <span class="alert-icon">🌐</span>
+          <span>Brave — единственный способ открыть .eth домен <strong>полностью децентрализованно</strong>: без доверия к шлюзу eth.limo, без Cloudflare, прямо из блокчейна.</span>
+        </div>
+      </div>
+
+      <div class="method">
+        <div class="method-title">
+          <span class="method-label ml-blue">Шаг 3</span>
+          Бонус: проверить IPFS напрямую
+        </div>
+        <ol class="steps">
+          <li class="step"><p>Введи: <code>ipfs://bafybeiemxf5abjwjbikoz4mc3a3dla6ual3jsgpdr4cjr3oz3evfyavhwq/wiki/</code></p></li>
+          <li class="step"><p>Brave откроет страницу из IPFS сети через локальный узел — без серверов, P2P</p></li>
+          <li class="step"><p>Зафикси скорость: первая загрузка может быть медленной (поиск пиров), повторная — быстрее</p></li>
+        </ol>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SECTION 5: ЧТО ПРОВЕРЯТЬ -->
+  <div class="section-header">
+    <div class="section-num">5</div>
+    <h2>Чек-лист для каждого теста</h2>
+  </div>
+
+  <div class="bento bento-2">
+    <div class="card">
+      <h3>Что фиксировать в каждом тесте</h3>
+      <ul class="checklist">
+        <li><div class="check-box"></div><div><strong>Открылся ли сайт?</strong> — да / нет / ошибка</div></li>
+        <li><div class="check-box"></div><div><strong>Что в адресной строке?</strong> — .eth.limo / ipfs:// / .eth / ошибка / поиск</div></li>
+        <li><div class="check-box"></div><div><strong>Есть ли HTTPS замочек?</strong> — безопасное соединение</div></li>
+        <li><div class="check-box"></div><div><strong>Были ли предупреждения?</strong> — SmartScreen, "сайт небезопасен" и т.п.</div></li>
+        <li><div class="check-box"></div><div><strong>Скорость загрузки</strong> — быстро / медленно / таймаут</div></li>
+        <li><div class="check-box"></div><div><strong>Нужны ли расширения / настройки?</strong> — сколько шагов до открытия</div></li>
+        <li><div class="check-box"></div><div><strong>Понял бы обычный пользователь, что это Web3?</strong> — да / нет</div></li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Проблемы и решения</h3>
+      <div style="display:flex;flex-direction:column;gap:10px;font-size:13px">
+        <div style="padding:12px;background:#FFF5D6;border-radius:10px">
+          <strong>❌ Opera не открывает .crypto</strong><br>
+          <span style="color:#6E6E73">opera://settings → Advanced → Features → Crypto Wallet → включи. Или установи расширение UD.</span>
+        </div>
+        <div style="padding:12px;background:#FFF5D6;border-radius:10px">
+          <strong>❌ Brave: ошибка ENS резолвинга</strong><br>
+          <span style="color:#6E6E73">brave://settings/web3 → ENS → выбери "Ethereum Mainnet". Подожди 30 сек синхронизации.</span>
+        </div>
+        <div style="padding:12px;background:#FFF5D6;border-radius:10px">
+          <strong>❌ eth.limo не открывается</strong><br>
+          <span style="color:#6E6E73">Домен может не иметь IPFS контента. Попробуй vitalik.eth.limo, ens.eth.limo — они точно рабочие.</span>
+        </div>
+        <div style="padding:12px;background:#FFF5D6;border-radius:10px">
+          <strong>❌ UD Extension не резолвит</strong><br>
+          <span style="color:#6E6E73">Домен может иметь только адрес кошелька, без IPFS контента. Попробуй unstoppable.crypto.</span>
+        </div>
+        <div style="padding:12px;background:#FFF5D6;border-radius:10px">
+          <strong>❌ Safari не открывает .eth или .crypto</strong><br>
+          <span style="color:#6E6E73">Это ожидаемо. Safari не поддерживает Web3 перехват URL. Только eth.limo gateway.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 6: ТАБЛИЦА РЕЗУЛЬТАТОВ -->
+  <div class="section-header">
+    <div class="section-num">6</div>
+    <h2>Таблица для записи результатов</h2>
+  </div>
+
+  <div class="card" style="padding:0;overflow:hidden">
+    <table class="result-table">
+      <thead>
+        <tr>
+          <th style="text-align:left">Браузер + Метод</th>
+          <th>vitalik.eth.limo</th>
+          <th>vitalik.eth</th>
+          <th>unstoppable.crypto</th>
+          <th>Нативность (1–5)</th>
+          <th>UX для юзера</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>🔵 Chrome (gateway)</td><td>___</td><td>___</td><td>___</td><td>___</td><td>___</td></tr>
+        <tr><td>🔵 Chrome + MetaMask</td><td>___</td><td>___</td><td>___</td><td>___</td><td>___</td></tr>
+        <tr><td>🔵 Chrome + UD Ext</td><td>___</td><td>___</td><td>___</td><td>___</td><td>___</td></tr>
+        <tr><td>🦊 Firefox (gateway)</td><td>___</td><td>___</td><td>___</td><td>___</td><td>___</td></tr>
+        <tr><td>🦊 Firefox + UD Ext</td><td>___</td><td>___</td><td>___</td><td>___</td><td>___</td></tr>
+        <tr><td>🧭 Safari (gateway)</td><td>___</td><td>___</td><td>___</td><td>___</td><td>___</td></tr>
+        <tr><td>🔷 Edge (gateway)</td><td>___</td><td>___</td><td>___</td><td>___</td><td>___</td></tr>
+        <tr><td>🔷 Edge + UD Ext</td><td>___</td><td>___</td><td>___</td><td>___</td><td>___</td></tr>
+        <tr><td>🔴 Opera (нативно)</td><td>___</td><td>___</td><td>___</td><td>___</td><td>___</td></tr>
+        <tr><td>🦁 Brave (нативно)</td><td>___</td><td>___</td><td>___</td><td>___</td><td>___</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- SECTION 7: ВЫВОДЫ -->
+  <div class="section-header">
+    <div class="section-num">7</div>
+    <h2>Ожидаемые выводы</h2>
+  </div>
+
+  <div class="bento bento-2">
+    <div class="card" style="border-left: 4px solid #30D158">
+      <h3 style="color:#1A7F3C">✅ Что реально работает для пользователей</h3>
+      <ul style="list-style:none;padding:0;font-size:14px;line-height:2.1">
+        <li>→ <strong>eth.limo gateway</strong> — любой браузер, HTTPS, нулевой порог входа. Пользователь не замечает Web3.</li>
+        <li>→ <strong>Opera + .crypto</strong> — нативно, просто вводишь домен. Расширения не нужны.</li>
+        <li>→ <strong>Brave + .eth</strong> — полный децентрализованный опыт без шлюзов.</li>
+        <li>→ <strong>UD Extension в Chromium-браузерах</strong> — работает, но требует установки.</li>
+      </ul>
+    </div>
+    <div class="card" style="border-left: 4px solid #FF453A">
+      <h3 style="color:#C41E1E">❌ Что не работает для обычного пользователя</h3>
+      <ul style="list-style:none;padding:0;font-size:14px;line-height:2.1">
+        <li>→ <strong>Прямой набор .eth в Chrome/Firefox/Edge/Safari</strong> — ведёт в поиск</li>
+        <li>→ <strong>Safari + Web3 домены</strong> — практически недоступно без gateway</li>
+        <li>→ <strong>MetaMask в адресной строке</strong> — MetaMask не перехватывает URL</li>
+        <li>→ <strong>.crypto/.x/.nft в Chrome без расширений</strong> — не резолвится</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card" style="background:linear-gradient(135deg,#0071E3,#0051CC);color:white;margin-top:16px">
+    <h3 style="color:white;font-size:22px;margin-bottom:14px">💡 Главный вывод</h3>
+    <p style="font-size:15px;line-height:1.8;opacity:0.95">
+      Если хочешь, чтобы сайт открывался у любого пользователя без головной боли —
+      <strong>ENS (.eth) + IPFS + eth.limo gateway</strong>.
+      Пользователь видит обычный HTTPS адрес, замочек есть, расширений устанавливать не нужно.
+      Технически это Web3 поверх блокчейна — но пользователь этого не замечает.
+      <br><br>
+      Для максимальной децентрализации без компромиссов — <strong>Brave</strong>.
+      Для .crypto нативно и красиво — <strong>Opera</strong>.
+      Safari — проблемный браузер для Web3 во всех смыслах, только gateway.
+    </p>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <p>Руководство по тестированию non-ICANN доменов · Июнь 2026</p>
+    <p style="margin-top:6px">ENS: ens.domains · Unstoppable Domains: unstoppabledomains.com · Brave Web3: brave.com/web3</p>
+  </div>
+
+</div>
+</body>
+</html>
