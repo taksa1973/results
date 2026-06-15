@@ -3,529 +3,587 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Проекторы до 300 г — все что в продаже в 2026</title>
+  <title>Карманные проекторы до 300 г — Bento Guide 2026</title>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+    :root {
+      --bg:        #07070f;
+      --surface:   #0f0f1c;
+      --surface2:  #13132080;
+      --border:    #1f1f30;
+      --border2:   #2a2a40;
+      --text:      #e2e4f0;
+      --muted:     #5a5c7a;
+      --muted2:    #3a3a55;
+      --purple:    #7c6dff;
+      --purple2:   #a598ff;
+      --green:     #00c9a7;
+      --green2:    #00ffe0;
+      --amber:     #f5a623;
+      --red:       #ff6b6b;
+      --r:         18px;
+      --r-lg:      24px;
+    }
+
+    html { font-size: 15px; }
+
     body {
-      background: #0d0d12;
-      color: #dde2f0;
-      font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif;
-      line-height: 1.6;
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', -apple-system, sans-serif;
+      min-height: 100vh;
+      padding: 28px 20px 60px;
     }
 
-    .hero {
-      background: linear-gradient(140deg, #0f0f1a 0%, #1a1a2e 55%, #13131f 100%);
-      padding: 52px 20px 40px;
-      text-align: center;
-      border-bottom: 1px solid #22223a;
+    /* ── BENTO GRID ── */
+    .bento {
+      max-width: 1080px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-auto-rows: auto;
+      gap: 14px;
     }
 
-    .hero-tag {
-      display: inline-block;
-      background: #6c63ff15;
-      color: #a29bfe;
-      border: 1px solid #6c63ff30;
-      padding: 4px 14px;
-      border-radius: 20px;
-      font-size: 12px;
+    /* ── TILE BASE ── */
+    .tile {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      overflow: hidden;
+      transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .tile:hover {
+      transform: translateY(-3px);
+      border-color: var(--border2);
+    }
+
+    /* span helpers */
+    .col2 { grid-column: span 2; }
+    .col3 { grid-column: span 3; }
+    .col4 { grid-column: span 4; }
+
+    /* ── HERO TILE ── */
+    .tile-hero {
+      grid-column: span 2;
+      background: linear-gradient(135deg, #0e0e22 0%, #12122e 60%, #0d0d1e 100%);
+      border-color: #25253a;
+      padding: 32px 30px;
+      justify-content: center;
+    }
+
+    .hero-eyebrow {
+      font-size: 11px;
       font-weight: 700;
-      letter-spacing: 0.8px;
+      letter-spacing: 1.2px;
       text-transform: uppercase;
-      margin-bottom: 16px;
-    }
-
-    h1 {
-      font-size: clamp(28px, 5vw, 48px);
-      font-weight: 900;
-      color: #fff;
-      line-height: 1.1;
+      color: var(--purple);
       margin-bottom: 12px;
     }
 
-    h1 em { color: #a29bfe; font-style: normal; }
-
-    .hero-sub { font-size: 15px; color: #8890a8; max-width: 500px; margin: 0 auto 22px; }
-
-    .count-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      background: #1e1e30;
-      border: 1px solid #3a3a5a;
-      border-radius: 10px;
-      padding: 10px 20px;
-      font-size: 14px;
-      color: #9097b0;
+    .hero-title {
+      font-size: 2.4rem;
+      font-weight: 900;
+      line-height: 1.05;
+      color: #fff;
+      margin-bottom: 10px;
     }
 
-    .count-badge .num { color: #a29bfe; font-size: 22px; font-weight: 900; }
-    .count-badge strong { color: #fff; }
+    .hero-title span { color: var(--purple2); }
 
-    .container { max-width: 1060px; margin: 0 auto; padding: 0 20px; }
+    .hero-sub {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 24px;
+      line-height: 1.6;
+    }
 
-    /* Cards grid */
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
+    .hero-stats {
+      display: flex;
       gap: 20px;
-      padding: 40px 0 12px;
+      flex-wrap: wrap;
     }
 
-    .card {
-      background: #121220;
-      border: 1px solid #21213a;
-      border-radius: 16px;
-      overflow: hidden;
+    .hstat {
       display: flex;
       flex-direction: column;
-      transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
     }
 
-    .card:hover { transform: translateY(-4px); }
+    .hstat-n {
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--purple2);
+      line-height: 1;
+    }
 
-    .card.winner { border-color: #a29bfe45; }
-    .card.winner:hover { border-color: #a29bfe70; box-shadow: 0 12px 40px #6c63ff15; }
-    .card.ok:hover { border-color: #44466a; box-shadow: 0 12px 30px #00000030; }
-    .card.weak { opacity: 0.85; }
-    .card.weak:hover { border-color: #33335a; }
-
-    .card-banner {
-      padding: 7px 18px;
+    .hstat-l {
       font-size: 11px;
+      color: var(--muted);
+      margin-top: 3px;
+    }
+
+    /* ── STATS TILE ── */
+    .tile-stats {
+      grid-column: span 2;
+      padding: 22px 24px;
+      justify-content: space-around;
+      gap: 0;
+    }
+
+    .stat-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .stat-row:last-child { border-bottom: none; }
+
+    .stat-label { font-size: 12px; color: var(--muted); }
+    .stat-val   { font-size: 13px; font-weight: 700; color: var(--text); }
+
+    .dot {
+      display: inline-block;
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      margin-right: 7px;
+      flex-shrink: 0;
+    }
+
+    /* ── PROJECTOR CARD TILE ── */
+    .tile-proj {
+      position: relative;
+    }
+
+    .tile-proj.featured { border-color: #3a306080; }
+    .tile-proj.featured:hover { border-color: var(--purple); box-shadow: 0 0 30px #7c6dff18; }
+
+    .tile-proj.bonus { border-color: #4a380080; background: linear-gradient(160deg, #0f0f1c 80%, #1a140500 100%); }
+    .tile-proj.bonus:hover { border-color: var(--amber); box-shadow: 0 0 30px #f5a62318; }
+
+    .proj-badge {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 10px;
       font-weight: 700;
       letter-spacing: 0.3px;
-      border-bottom: 1px solid;
+      z-index: 2;
     }
 
-    .banner-winner {
-      background: linear-gradient(90deg, #6c63ff22, #a29bfe0a);
-      color: #a29bfe;
-      border-color: #6c63ff25;
-    }
+    .badge-win   { background: var(--purple); color: #fff; }
+    .badge-usbc  { background: #00c9a720; color: var(--green); border: 1px solid #00c9a740; }
+    .badge-bonus { background: var(--amber); color: #000; }
 
-    .banner-ok {
-      background: #18182a;
-      color: #55587a;
-      border-color: #22223a;
-    }
-
-    .banner-weak {
-      background: #141420;
-      color: #3a3a5a;
-      border-color: #1e1e2a;
-    }
-
-    .card-img-wrap {
-      width: 100%;
-      height: 200px;
+    .proj-img-wrap {
+      height: 165px;
       display: flex;
       align-items: center;
       justify-content: center;
-      overflow: hidden;
+      background: #0c0c18;
+      flex-shrink: 0;
     }
 
-    .card.winner .card-img-wrap { background: #16162e; }
-    .card.ok .card-img-wrap { background: #161620; }
-    .card.weak .card-img-wrap { background: #141418; }
+    .tile.col2 .proj-img-wrap { height: 200px; }
+    .tile.col3 .proj-img-wrap { height: 200px; }
 
-    .card-img-wrap img {
+    .proj-img-wrap img {
       max-width: 100%;
       max-height: 100%;
       object-fit: contain;
       padding: 14px;
     }
 
-    .card-body { padding: 18px 20px; flex: 1; display: flex; flex-direction: column; }
+    .proj-body { padding: 16px 18px 18px; flex: 1; display: flex; flex-direction: column; }
 
-    .card-title { font-size: 19px; font-weight: 800; color: #fff; margin-bottom: 3px; }
-    .card-sub   { font-size: 12px; color: #44466a; margin-bottom: 14px; }
+    .proj-name  { font-size: 15px; font-weight: 800; color: #fff; margin-bottom: 2px; }
+    .proj-sub   { font-size: 11px; color: var(--muted); margin-bottom: 12px; }
 
-    /* Brightness bar */
-    .brow {
-      margin-bottom: 14px;
-    }
+    /* brightness bar */
+    .bbar-wrap  { margin-bottom: 12px; }
 
-    .brow-top {
+    .bbar-top {
       display: flex;
       justify-content: space-between;
-      align-items: baseline;
+      align-items: center;
       margin-bottom: 5px;
     }
 
-    .brow-label { font-size: 11px; color: #44466a; text-transform: uppercase; letter-spacing: 0.4px; }
-    .brow-val   { font-size: 14px; font-weight: 800; }
+    .bbar-label { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.4px; }
+    .bbar-val   { font-size: 13px; font-weight: 800; }
 
-    .bar { height: 7px; background: #1e1e2e; border-radius: 6px; overflow: hidden; }
-    .bar-fill { height: 100%; border-radius: 6px; }
+    .bbar-track { height: 6px; background: var(--border); border-radius: 6px; overflow: hidden; }
+    .bbar-fill  { height: 100%; border-radius: 6px; }
 
-    .b100 { width: 100%; background: linear-gradient(90deg, #6c63ff, #a29bfe); }
-    .b60  { width: 60%;  background: linear-gradient(90deg, #3a3a6a, #5a5a9a); }
-    .b35  { width: 35%;  background: #2a2a44; }
-    .b30  { width: 30%;  background: #252535; }
+    .br-250  { width: 38.5%; background: linear-gradient(90deg, #00b894, #00ffe0); }
+    .br-650  { width: 100%;  background: linear-gradient(90deg, #f5a623, #ffce7a); }
+    .br-100  { width: 15.4%; background: linear-gradient(90deg, #7c6dff, #a598ff); }
+    .br-60   { width: 9.2%;  background: #3a3a6a; }
+    .br-35   { width: 5.4%;  background: #2a2a44; }
+    .br-30   { width: 4.6%;  background: #252535; }
 
-    .brow-note { font-size: 10px; color: #33335a; margin-top: 4px; }
+    .bbar-note { font-size: 10px; color: var(--muted2); margin-top: 4px; }
 
-    /* Specs table */
-    .specs { width: 100%; border-collapse: collapse; margin-bottom: 14px; font-size: 13px; }
-    .specs tr { border-bottom: 1px solid #1a1a2a; }
-    .specs tr:last-child { border-bottom: none; }
-    .specs td { padding: 6px 0; }
-    .specs td:first-child { color: #44466a; width: 45%; }
-    .specs td:last-child  { color: #c8d0e0; font-weight: 600; text-align: right; }
-
-    .yes  { color: #00d2a8 !important; }
-    .warn { color: #fdcb6e !important; }
-    .bad  { color: #ff9f9f !important; }
-
-    .spacer { flex: 1; }
-
-    /* Verdict */
-    .verdict {
-      font-size: 12.5px;
-      color: #55587a;
-      line-height: 1.65;
-      margin-bottom: 14px;
-      padding: 10px 12px;
-      background: #16162a;
-      border-radius: 8px;
+    /* mini specs */
+    .mini-specs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5px;
+      margin-bottom: 12px;
     }
 
-    .verdict strong { color: #8890a8; }
+    .ms {
+      background: #0c0c18;
+      border-radius: 8px;
+      padding: 6px 10px;
+    }
 
+    .ms-l { font-size: 9px; color: var(--muted2); text-transform: uppercase; letter-spacing: 0.4px; display: block; }
+    .ms-v { font-size: 12px; font-weight: 700; color: var(--text); }
+    .ms-v.ok   { color: var(--green); }
+    .ms-v.warn { color: #fdcb6e; }
+    .ms-v.bad  { color: var(--red); }
+    .ms-v.lo   { color: var(--amber); }
+
+    /* for col3 bonus tile — side by side */
+    .bonus-inner {
+      display: flex;
+      gap: 0;
+      flex: 1;
+    }
+
+    .bonus-img-col {
+      width: 260px;
+      flex-shrink: 0;
+      background: #0a0a14;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .bonus-img-col img {
+      max-width: 100%;
+      max-height: 220px;
+      object-fit: contain;
+      padding: 20px;
+    }
+
+    .bonus-content { padding: 20px 22px; flex: 1; display: flex; flex-direction: column; }
+
+    .bonus-tag {
+      display: inline-block;
+      background: #f5a62322;
+      color: var(--amber);
+      border: 1px solid #f5a62340;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 12px;
+      margin-bottom: 10px;
+      width: fit-content;
+    }
+
+    .bonus-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+      margin: 12px 0;
+    }
+
+    /* spacer */
+    .spacer { flex: 1; }
+
+    /* buy button */
     .buy {
       display: block;
-      padding: 12px;
+      padding: 10px;
       border-radius: 10px;
       text-align: center;
       text-decoration: none;
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 700;
-      transition: opacity 0.2s;
+      transition: opacity .2s;
       color: #fff;
+      margin-top: 12px;
     }
 
-    .buy:hover { opacity: 0.82; }
-    .buy-main { background: linear-gradient(135deg, #6c63ff, #5a52d5); }
-    .buy-ok   { background: #1e1e35; border: 1px solid #33335a; color: #8890a8; }
-    .buy-ok:hover { color: #dde2f0; }
-    .buy-weak { background: #161625; border: 1px solid #22223a; color: #44466a; }
-    .buy-weak:hover { color: #6668a0; }
+    .buy:hover { opacity: .82; }
+    .buy-purple { background: linear-gradient(135deg, var(--purple), #6457d5); }
+    .buy-green  { background: linear-gradient(135deg, #00b894, #009e7f); }
+    .buy-amber  { background: linear-gradient(135deg, var(--amber), #d4880a); color: #000; }
+    .buy-dim    { background: #16162a; border: 1px solid var(--border2); color: var(--muted); }
+    .buy-dim:hover { color: var(--text); }
 
-    /* Compare table */
-    .section { padding: 32px 0 8px; }
-    .s-title { font-size: 14px; font-weight: 700; color: #44466a; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 16px; }
-
-    .table-wrap { overflow-x: auto; border-radius: 12px; border: 1px solid #1e1e2e; margin-bottom: 32px; }
-
-    table.cmp { width: 100%; border-collapse: collapse; font-size: 13px; min-width: 560px; }
-    table.cmp thead th {
-      background: #14141e;
-      color: #44466a;
-      font-weight: 700;
-      text-transform: uppercase;
-      font-size: 10px;
-      letter-spacing: 0.6px;
-      padding: 11px 16px;
-      text-align: left;
-      border-bottom: 1px solid #1e1e2e;
+    /* ── WINNER BADGE STRIP ── */
+    .tile-win-strip {
+      grid-column: span 4;
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      background: linear-gradient(90deg, #1a1530 0%, #0f0f1c 100%);
+      border-color: #2a2050;
     }
 
-    table.cmp tbody tr { border-bottom: 1px solid #18182a; }
-    table.cmp tbody tr:last-child { border-bottom: none; }
-    table.cmp tbody tr:hover { background: #13131e; }
-    table.cmp tbody td { padding: 11px 16px; color: #9097b0; }
-    table.cmp tbody td:first-child { color: #dde2f0; font-weight: 700; }
-    table.cmp .win-row { background: #16162a !important; }
+    .win-strip-icon { font-size: 20px; }
+    .win-strip-text { font-size: 13px; color: var(--muted); line-height: 1.5; }
+    .win-strip-text strong { color: var(--purple2); }
 
-    /* Notes */
-    .notes {
-      background: #111120;
-      border: 1px solid #1e1e2e;
-      border-radius: 12px;
-      padding: 20px 22px;
-      margin-bottom: 40px;
-      font-size: 13px;
-      color: #44466a;
-      line-height: 1.85;
-    }
-    .notes strong { color: #7880a0; }
-
-    footer {
-      background: #0a0a10;
-      border-top: 1px solid #181828;
-      padding: 22px 20px;
-      text-align: center;
-      color: #2a2a45;
-      font-size: 11px;
+    /* ── RESPONSIVE ── */
+    @media (max-width: 760px) {
+      .bento { grid-template-columns: repeat(2, 1fr); }
+      .tile-hero { grid-column: span 2; }
+      .tile-stats { grid-column: span 2; }
+      .col2 { grid-column: span 2; }
+      .col3 { grid-column: span 2; }
+      .col4 { grid-column: span 2; }
+      .bonus-inner { flex-direction: column; }
+      .bonus-img-col { width: 100%; height: 180px; }
+      .bonus-grid { grid-template-columns: repeat(2, 1fr); }
+      .tile-win-strip { grid-column: span 2; }
     }
 
-    @media (max-width: 620px) {
-      .cards { grid-template-columns: 1fr; }
+    @media (max-width: 480px) {
+      .bento { grid-template-columns: 1fr; }
+      .tile-hero, .tile-stats, .col2, .col3, .col4, .tile-win-strip { grid-column: span 1; }
     }
   </style>
 </head>
 <body>
 
-<div class="hero">
-  <div class="hero-tag">Купить сейчас · Июнь 2026</div>
-  <h1>Проекторы<br><em>до 300 граммов</em></h1>
-  <p class="hero-sub">Весь рынок — без discontinued, без ноунеймов с AliExpress</p>
-  <div class="count-badge">
-    Всего в продаже: <span class="num">5</span> моделей &nbsp;·&nbsp; <strong>все реально купить</strong>
-  </div>
-</div>
+<div class="bento">
 
-<div class="container">
-
-  <div class="cards">
-
-    <!-- 0. Pico Genie Impact 2.0 Plus Elite — Brightest under 300g -->
-    <div class="card winner">
-      <div class="card-banner banner-winner">🏆 Самый яркий до 300г · 250 ANSI при 180г</div>
-      <div class="card-img-wrap">
-        <img src="https://www.projectorcentral.com/images/projectors2/img12477.jpg" alt="Pico Genie Impact 2.0 Plus Elite">
-      </div>
-      <div class="card-body">
-        <div class="card-title">Pico Genie Impact 2.0 Plus Elite</div>
-        <div class="card-sub">DLP LED · Куб 55×55×55 мм · 2024 · 180 г</div>
-        <div class="brow">
-          <div class="brow-top">
-            <span class="brow-label">ANSI яркость</span>
-            <span class="brow-val" style="color:#00d2a8">250 ANSI люмен</span>
-          </div>
-          <div class="bar"><div class="bar-fill" style="width:100%;background:linear-gradient(90deg,#00b894,#00d2a8)"></div></div>
-          <div class="brow-note">Подтверждено ProjectorCentral — в 2.5× ярче Aurzen ZIP при меньшем весе</div>
-        </div>
-        <table class="specs">
-          <tr><td>Вес</td><td style="color:#00d2a8;font-weight:900">180 г</td></tr>
-          <tr><td>Разрешение</td><td>854×480 (FWVGA)</td></tr>
-          <tr><td>USB-C</td><td class="warn">⚠️ только данные/зеркал.</td></tr>
-          <tr><td>Батарея</td><td>3400 мАч / ~2 ч</td></tr>
-          <tr><td>LED ресурс</td><td>30 000 ч</td></tr>
-          <tr><td>Размер</td><td>🎲 куб 55×55×55 мм</td></tr>
-          <tr><td>ОС</td><td>Android</td></tr>
-          <tr><td>Цена</td><td>~$354</td></tr>
-        </table>
-        <div class="verdict"><strong>Главный аргумент:</strong> 250 ANSI в 180г — рекорд класса. Полутёмная комната уже достаточно (vs тёмная для остальных). Минус — нет USB-C PD питания, и разрешение 854×480.</div>
-        <div class="spacer"></div>
-        <a href="https://picogenie.com/products/pico-genie-impact-2-0-plus-elite-projector-ultra-portable-smart-projector" target="_blank" class="buy buy-main" style="background:linear-gradient(135deg,#00b894,#00a085)">→ PicoGenie.com (~$354)</a>
-      </div>
-    </div>
-
-    <!-- 1. Aurzen ZIP — Winner -->
-    <div class="card winner">
-      <div class="card-banner banner-winner">⭐ Лучший выбор · максимальная яркость в классе</div>
-      <div class="card-img-wrap">
-        <img src="https://aurzen.com/cdn/shop/files/Aurzen_ZIP_Tri-Fold_Projector-Portable_Projector.webp?v=1776421892" alt="Aurzen ZIP">
-      </div>
-      <div class="card-body">
-        <div class="card-title">Aurzen ZIP</div>
-        <div class="card-sub">DLP LED · Tri-fold · 2025 · 280 г</div>
-        <div class="brow">
-          <div class="brow-top">
-            <span class="brow-label">ANSI яркость</span>
-            <span class="brow-val" style="color:#a29bfe">100 ANSI люмен</span>
-          </div>
-          <div class="bar"><div class="bar-fill b100"></div></div>
-          <div class="brow-note">Честное ISO-измерение — лучший результат в этом весовом классе</div>
-        </div>
-        <table class="specs">
-          <tr><td>Вес</td><td style="color:#a29bfe;font-weight:900">280 г</td></tr>
-          <tr><td>Разрешение</td><td>720p / 1080p поддержка</td></tr>
-          <tr><td>USB-C питание</td><td class="yes">✅ PD — работает без розетки</td></tr>
-          <tr><td>Батарея</td><td>5000 мАч / ~1.5 ч</td></tr>
-          <tr><td>LED ресурс</td><td>20 000 ч</td></tr>
-          <tr><td>Форм-фактор</td><td>💳 кошелёк (tri-fold)</td></tr>
-          <tr><td>Фокус</td><td>ToF — мгновенный</td></tr>
-          <tr><td>Цена</td><td>~$150–200</td></tr>
-        </table>
-        <div class="verdict"><strong>Почему лучший:</strong> единственный с честными 100 ANSI при весе 280г. Tri-fold дизайн, мгновенный автофокус, питание от повербанка через USB-C PD. В кармане брюк.</div>
-        <div class="spacer"></div>
-        <a href="https://aurzen.com/products/aurzen-zip-tri-fold-portable-projector" target="_blank" class="buy buy-main">→ Aurzen.com (~$150–200)</a>
-      </div>
-    </div>
-
-    <!-- 2. Kodak Luma 150 -->
-    <div class="card ok">
-      <div class="card-banner banner-ok">Нормальный вариант · 60 ANSI, 220 г</div>
-      <div class="card-img-wrap">
-        <img src="https://www.projectorcentral.com/images/projectors2/img10888.jpg" alt="Kodak Luma 150">
-      </div>
-      <div class="card-body">
-        <div class="card-title">Kodak Luma 150</div>
-        <div class="card-sub">DLP LED · 2021 · 220 г</div>
-        <div class="brow">
-          <div class="brow-top">
-            <span class="brow-label">ANSI яркость</span>
-            <span class="brow-val" style="color:#7880a0">60 ANSI люмен</span>
-          </div>
-          <div class="bar"><div class="bar-fill b60"></div></div>
-          <div class="brow-note">Измерено по стандарту — в 1.7× темнее Aurzen ZIP</div>
-        </div>
-        <table class="specs">
-          <tr><td>Вес</td><td>220 г</td></tr>
-          <tr><td>Разрешение</td><td>854×480 (WVGA)</td></tr>
-          <tr><td>USB-C питание</td><td class="warn">⚠️ только зарядка</td></tr>
-          <tr><td>Батарея</td><td>~2.5 ч</td></tr>
-          <tr><td>LED ресурс</td><td class="bad">⚠️ 3 000 ч (!)</td></tr>
-          <tr><td>WiFi</td><td>✅ 2.4 ГГц</td></tr>
-          <tr><td>Фокус</td><td>Ручной</td></tr>
-          <tr><td>Цена</td><td>~$240</td></tr>
-        </table>
-        <div class="verdict"><strong>Слабое место:</strong> LED живёт всего 3 000 ч — при 2ч/день это ~4 года, потом тускнеет. Нет нативного HD. Дороже Aurzen ZIP, но работает.</div>
-        <div class="spacer"></div>
-        <a href="https://www.amazon.com/KODAK-Luma-Pocket-Projector-Built/dp/B08DWSFYPS" target="_blank" class="buy buy-ok">→ Amazon (~$240)</a>
-      </div>
-    </div>
-
-    <!-- 3. AAXA LED Pico+ Max -->
-    <div class="card ok">
-      <div class="card-banner banner-ok">1080p native · но реально темнее чем кажется</div>
-      <div class="card-img-wrap">
-        <img src="https://www.projectorcentral.com/images/projectors2/img12434.jpg" alt="AAXA LED Pico+ Max">
-      </div>
-      <div class="card-body">
-        <div class="card-title">AAXA LED Pico+ Max</div>
-        <div class="card-sub">DLP LED · 2024 · 300 г</div>
-        <div class="brow">
-          <div class="brow-top">
-            <span class="brow-label">Реальная яркость</span>
-            <span class="brow-val" style="color:#55587a">~35 ANSI люмен</span>
-          </div>
-          <div class="bar"><div class="bar-fill b35"></div></div>
-          <div class="brow-note">Заявлено «85 LED-люмен» — не ANSI. Реальный ANSI ≈ 30–40</div>
-        </div>
-        <table class="specs">
-          <tr><td>Вес</td><td>300 г (на пределе)</td></tr>
-          <tr><td>Разрешение</td><td class="yes">1080p native ✅</td></tr>
-          <tr><td>USB-C питание</td><td class="warn">⚠️ только зарядка</td></tr>
-          <tr><td>Батарея</td><td>~2.7 ч</td></tr>
-          <tr><td>LED ресурс</td><td>25 000 ч</td></tr>
-          <tr><td>Bluetooth</td><td>✅ есть</td></tr>
-          <tr><td>Фокус</td><td>Ручной</td></tr>
-          <tr><td>Цена</td><td>~$150–190</td></tr>
-        </table>
-        <div class="verdict"><strong>Единственный плюс:</strong> нативный 1080p в этом весовом классе — детализация лучше. Но в 3× темнее Aurzen ZIP при той же цене. Нужна очень тёмная комната.</div>
-        <div class="spacer"></div>
-        <a href="https://www.amazon.com/AAXA-Pico-MAX-Projector-Mirroring/dp/B0D6QGRNP4" target="_blank" class="buy buy-ok">→ Amazon (~$150–190)</a>
-      </div>
-    </div>
-
-    <!-- 4. Kodak Luma 75 -->
-    <div class="card weak">
-      <div class="card-banner banner-weak">Самый лёгкий · но самый тёмный</div>
-      <div class="card-img-wrap">
-        <img src="https://www.projectorcentral.com/images/projectors2/img10702.jpg" alt="Kodak Luma 75">
-      </div>
-      <div class="card-body">
-        <div class="card-title">Kodak Luma 75</div>
-        <div class="card-sub">DLP LED · 2020 · ~150 г</div>
-        <div class="brow">
-          <div class="brow-top">
-            <span class="brow-label">Реальная яркость</span>
-            <span class="brow-val" style="color:#3a3a5a">~30 ANSI люмен</span>
-          </div>
-          <div class="bar"><div class="bar-fill b30"></div></div>
-          <div class="brow-note">Заявлено «75 люмен» — реально 25–30 ANSI по независимым тестам</div>
-        </div>
-        <table class="specs">
-          <tr><td>Вес</td><td style="color:#a29bfe">~150 г (самый лёгкий!)</td></tr>
-          <tr><td>Разрешение</td><td class="bad">640×360</td></tr>
-          <tr><td>USB-C питание</td><td class="bad">❌ micro-USB только</td></tr>
-          <tr><td>Батарея</td><td>~2 ч</td></tr>
-          <tr><td>LED ресурс</td><td>30 000 ч</td></tr>
-          <tr><td>Подключение</td><td>HDMI, USB, microSD</td></tr>
-          <tr><td>Фокус</td><td>Ручной</td></tr>
-          <tr><td>Цена</td><td>~$200</td></tr>
-        </table>
-        <div class="verdict"><strong>Только если</strong> вес важнее всего остального и бюджет ~$200. Картинка при 30 ANSI и 640×360 — совсем базовая. Нет USB-C.</div>
-        <div class="spacer"></div>
-        <a href="https://kodakprojectors.caglobal.com/products/kodak-luma-75-portable-pocket-projector" target="_blank" class="buy buy-weak">→ Kodak (~$200)</a>
-      </div>
-    </div>
-
-  </div>
-
-  <!-- Comparison table -->
-  <div class="section">
-    <div class="s-title">Все 4 рядом</div>
-    <div class="table-wrap">
-      <table class="cmp">
-        <thead>
-          <tr>
-            <th>Модель</th>
-            <th>Вес</th>
-            <th>Реальный ANSI</th>
-            <th>Разрешение</th>
-            <th>USB-C питание</th>
-            <th>LED ресурс</th>
-            <th>Цена</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr class="win-row">
-            <td>🏆 Pico Genie 2.0+ Elite</td>
-            <td style="color:#00d2a8;font-weight:800">180 г</td>
-            <td style="color:#00d2a8;font-weight:800">250</td>
-            <td>854×480</td>
-            <td style="color:#fdcb6e">⚠️ данные/зеркало</td>
-            <td>30 000 ч</td>
-            <td>~$354</td>
-          </tr>
-          <tr class="win-row">
-            <td>⭐ Aurzen ZIP</td>
-            <td>280 г</td>
-            <td style="color:#a29bfe;font-weight:800">100</td>
-            <td>720p / 1080p*</td>
-            <td style="color:#00d2a8;font-weight:700">✅ PD питание</td>
-            <td>20 000 ч</td>
-            <td>$150–200</td>
-          </tr>
-          <tr>
-            <td>Kodak Luma 150</td>
-            <td>220 г</td>
-            <td>60</td>
-            <td>854×480</td>
-            <td style="color:#fdcb6e">⚠️ зарядка</td>
-            <td style="color:#ff9f9f">3 000 ч</td>
-            <td>~$240</td>
-          </tr>
-          <tr>
-            <td>AAXA LED Pico+ Max</td>
-            <td>300 г</td>
-            <td style="color:#44466a">~35</td>
-            <td>1080p native</td>
-            <td style="color:#fdcb6e">⚠️ зарядка</td>
-            <td>25 000 ч</td>
-            <td>$150–190</td>
-          </tr>
-          <tr>
-            <td>Kodak Luma 75</td>
-            <td style="color:#a29bfe">~150 г</td>
-            <td style="color:#33335a">~30</td>
-            <td style="color:#ff9f9f">640×360</td>
-            <td style="color:#ff9f9f">❌ micro-USB</td>
-            <td>30 000 ч</td>
-            <td>~$200</td>
-          </tr>
-        </tbody>
-      </table>
+  <!-- ── HERO ── -->
+  <div class="tile tile-hero">
+    <div class="hero-eyebrow">Карманные проекторы · Июнь 2026</div>
+    <h1 class="hero-title">До <span>300</span> г<br>и что дальше</h1>
+    <p class="hero-sub">Все модели в продаже прямо сейчас —<br>от самого лёгкого до самого яркого</p>
+    <div class="hero-stats">
+      <div class="hstat"><span class="hstat-n">5</span><span class="hstat-l">моделей до 300 г</span></div>
+      <div class="hstat"><span class="hstat-n">+1</span><span class="hstat-l">бонус за рамками</span></div>
+      <div class="hstat"><span class="hstat-n">650</span><span class="hstat-l">max ANSI в классе</span></div>
     </div>
   </div>
 
-  <div class="notes">
-    <strong>Про Aurzen ZIP Cyber Edition:</strong> та же модель в другом цвете (синий/золото). Спецификации идентичны.<br><br>
-    <strong>Почему «LED-люмены» ≠ ANSI:</strong> Kodak и AAXA указывают яркость по собственной методике без стандартизации. Aurzen ZIP измерен по ISO 21118 (9 точек). Сравнивать их напрямую нельзя — реальный ANSI у Kodak Luma 75 примерно в 3× ниже заявленных 75 «люмен».<br><br>
-    <strong>Про 3 000 ч LED у Kodak Luma 150:</strong> при 2 часах в день лампа деградирует примерно через 4 года. У конкурентов ресурс 20 000–30 000 ч.<br><br>
-    <strong>Всё что снято с производства (не купить):</strong> Sony MP-CD1 (280г), ViewSonic M1 Mini Plus (280г), Philips PicoPix Nano (136г).
+  <!-- ── QUICK STATS ── -->
+  <div class="tile tile-stats">
+    <div class="stat-row">
+      <span class="stat-label"><span class="dot" style="background:#00c9a7"></span>Самый яркий до 300 г</span>
+      <span class="stat-val">Pico Genie Elite · 250 ANSI</span>
+    </div>
+    <div class="stat-row">
+      <span class="stat-label"><span class="dot" style="background:#7c6dff"></span>USB-C PD питание</span>
+      <span class="stat-val">Aurzen ZIP</span>
+    </div>
+    <div class="stat-row">
+      <span class="stat-label"><span class="dot" style="background:#f5a623"></span>Самый лёгкий</span>
+      <span class="stat-val">Kodak Luma 75 · 150 г</span>
+    </div>
+    <div class="stat-row">
+      <span class="stat-label"><span class="dot" style="background:#ff6b6b"></span>Нативный 1080p</span>
+      <span class="stat-val">AAXA Pico+ Max</span>
+    </div>
+    <div class="stat-row">
+      <span class="stat-label"><span class="dot" style="background:#f5a623"></span>За рамками · лучший</span>
+      <span class="stat-val">M550 Plus 4.0 · 650 ANSI</span>
+    </div>
+  </div>
+
+  <!-- ── 1. PICO GENIE IMPACT 2.0+ ELITE ── main featured -->
+  <div class="tile tile-proj featured col2">
+    <span class="proj-badge badge-win">🏆 250 ANSI · 180 г</span>
+    <div class="proj-img-wrap">
+      <img src="https://www.projectorcentral.com/images/projectors2/img12477.jpg" alt="Pico Genie Impact 2.0 Plus Elite">
+    </div>
+    <div class="proj-body">
+      <div class="proj-name">Pico Genie Impact 2.0 Plus Elite</div>
+      <div class="proj-sub">DLP LED · куб 55×55×55 мм · 2024</div>
+      <div class="bbar-wrap">
+        <div class="bbar-top">
+          <span class="bbar-label">ANSI яркость</span>
+          <span class="bbar-val" style="color:var(--green)">250 ANSI</span>
+        </div>
+        <div class="bbar-track"><div class="bbar-fill br-250"></div></div>
+        <div class="bbar-note">Рекорд класса · в 2.5× ярче Aurzen ZIP при меньшем весе</div>
+      </div>
+      <div class="mini-specs">
+        <div class="ms"><span class="ms-l">Вес</span><span class="ms-v" style="color:var(--green);font-weight:900">180 г</span></div>
+        <div class="ms"><span class="ms-l">Разрешение</span><span class="ms-v">854×480</span></div>
+        <div class="ms"><span class="ms-l">USB-C</span><span class="ms-v warn">⚠️ зеркало</span></div>
+        <div class="ms"><span class="ms-l">Батарея</span><span class="ms-v">3400 мАч / 2 ч</span></div>
+        <div class="ms"><span class="ms-l">Размер</span><span class="ms-v">55×55×55 мм</span></div>
+        <div class="ms"><span class="ms-l">LED ресурс</span><span class="ms-v">30 000 ч</span></div>
+      </div>
+      <div class="spacer"></div>
+      <a href="https://picogenie.com/products/pico-genie-impact-2-0-plus-elite-projector-ultra-portable-smart-projector" target="_blank" class="buy buy-green">→ PicoGenie.com (~$354)</a>
+    </div>
+  </div>
+
+  <!-- ── 2. AURZEN ZIP ── -->
+  <div class="tile tile-proj featured">
+    <span class="proj-badge badge-usbc">USB-C PD ✅</span>
+    <div class="proj-img-wrap">
+      <img src="https://aurzen.com/cdn/shop/files/Aurzen_ZIP_Tri-Fold_Projector-Portable_Projector.webp?v=1776421892" alt="Aurzen ZIP">
+    </div>
+    <div class="proj-body">
+      <div class="proj-name">Aurzen ZIP</div>
+      <div class="proj-sub">DLP LED · tri-fold · 2025</div>
+      <div class="bbar-wrap">
+        <div class="bbar-top">
+          <span class="bbar-label">ANSI яркость</span>
+          <span class="bbar-val" style="color:var(--purple2)">100 ANSI</span>
+        </div>
+        <div class="bbar-track"><div class="bbar-fill br-100"></div></div>
+      </div>
+      <div class="mini-specs">
+        <div class="ms"><span class="ms-l">Вес</span><span class="ms-v">280 г</span></div>
+        <div class="ms"><span class="ms-l">Разрешение</span><span class="ms-v">720p / 1080p*</span></div>
+        <div class="ms"><span class="ms-l">USB-C</span><span class="ms-v ok">✅ PD питание</span></div>
+        <div class="ms"><span class="ms-l">Батарея</span><span class="ms-v">5000 мАч / 1.5 ч</span></div>
+        <div class="ms"><span class="ms-l">Форм-ф.</span><span class="ms-v">💳 кошелёк</span></div>
+        <div class="ms"><span class="ms-l">Цена</span><span class="ms-v">$150–200</span></div>
+      </div>
+      <div class="spacer"></div>
+      <a href="https://aurzen.com/products/aurzen-zip-tri-fold-portable-projector" target="_blank" class="buy buy-purple">→ Aurzen.com</a>
+    </div>
+  </div>
+
+  <!-- ── 3. KODAK LUMA 150 ── -->
+  <div class="tile tile-proj">
+    <div class="proj-img-wrap">
+      <img src="https://www.projectorcentral.com/images/projectors2/img10888.jpg" alt="Kodak Luma 150">
+    </div>
+    <div class="proj-body">
+      <div class="proj-name">Kodak Luma 150</div>
+      <div class="proj-sub">DLP LED · 2021 · 220 г</div>
+      <div class="bbar-wrap">
+        <div class="bbar-top">
+          <span class="bbar-label">ANSI яркость</span>
+          <span class="bbar-val" style="color:var(--muted)">60 ANSI</span>
+        </div>
+        <div class="bbar-track"><div class="bbar-fill br-60"></div></div>
+        <div class="bbar-note">⚠️ LED ресурс всего 3 000 ч</div>
+      </div>
+      <div class="mini-specs">
+        <div class="ms"><span class="ms-l">Вес</span><span class="ms-v">220 г</span></div>
+        <div class="ms"><span class="ms-l">Разрешение</span><span class="ms-v">854×480</span></div>
+        <div class="ms"><span class="ms-l">USB-C</span><span class="ms-v warn">зарядка</span></div>
+        <div class="ms"><span class="ms-l">Цена</span><span class="ms-v">~$240</span></div>
+      </div>
+      <div class="spacer"></div>
+      <a href="https://www.amazon.com/KODAK-Luma-Pocket-Projector-Built/dp/B08DWSFYPS" target="_blank" class="buy buy-dim">→ Amazon (~$240)</a>
+    </div>
+  </div>
+
+  <!-- ── 4. KODAK LUMA 75 ── -->
+  <div class="tile tile-proj">
+    <div class="proj-img-wrap">
+      <img src="https://www.projectorcentral.com/images/projectors2/img10702.jpg" alt="Kodak Luma 75">
+    </div>
+    <div class="proj-body">
+      <div class="proj-name">Kodak Luma 75</div>
+      <div class="proj-sub">DLP LED · ~150 г · самый лёгкий</div>
+      <div class="bbar-wrap">
+        <div class="bbar-top">
+          <span class="bbar-label">ANSI яркость</span>
+          <span class="bbar-val" style="color:var(--muted2)">~30 ANSI</span>
+        </div>
+        <div class="bbar-track"><div class="bbar-fill br-30"></div></div>
+        <div class="bbar-note">Заявлено 75 лм — реально ~30 ANSI</div>
+      </div>
+      <div class="mini-specs">
+        <div class="ms"><span class="ms-l">Вес</span><span class="ms-v" style="color:var(--purple2)">~150 г 🏅</span></div>
+        <div class="ms"><span class="ms-l">Разрешение</span><span class="ms-v bad">640×360</span></div>
+        <div class="ms"><span class="ms-l">USB-C</span><span class="ms-v bad">❌ нет</span></div>
+        <div class="ms"><span class="ms-l">Цена</span><span class="ms-v">~$200</span></div>
+      </div>
+      <div class="spacer"></div>
+      <a href="https://kodakprojectors.caglobal.com/products/kodak-luma-75-portable-pocket-projector" target="_blank" class="buy buy-dim">→ Kodak (~$200)</a>
+    </div>
+  </div>
+
+  <!-- ── 5. AAXA LED PICO+ MAX ── -->
+  <div class="tile tile-proj">
+    <div class="proj-img-wrap">
+      <img src="https://www.projectorcentral.com/images/projectors2/img12434.jpg" alt="AAXA LED Pico+ Max">
+    </div>
+    <div class="proj-body">
+      <div class="proj-name">AAXA LED Pico+ Max</div>
+      <div class="proj-sub">DLP LED · 2024 · 300 г</div>
+      <div class="bbar-wrap">
+        <div class="bbar-top">
+          <span class="bbar-label">Реальный ANSI</span>
+          <span class="bbar-val" style="color:var(--muted2)">~35 ANSI</span>
+        </div>
+        <div class="bbar-track"><div class="bbar-fill br-35"></div></div>
+        <div class="bbar-note">Заявлено «85 LED-лм» ≠ ANSI</div>
+      </div>
+      <div class="mini-specs">
+        <div class="ms"><span class="ms-l">Вес</span><span class="ms-v warn">300 г</span></div>
+        <div class="ms"><span class="ms-l">Разрешение</span><span class="ms-v ok">1080p ✅</span></div>
+        <div class="ms"><span class="ms-l">USB-C</span><span class="ms-v warn">зарядка</span></div>
+        <div class="ms"><span class="ms-l">Цена</span><span class="ms-v">$150–190</span></div>
+      </div>
+      <div class="spacer"></div>
+      <a href="https://www.amazon.com/AAXA-Pico-MAX-Projector-Mirroring/dp/B0D6QGRNP4" target="_blank" class="buy buy-dim">→ Amazon</a>
+    </div>
+  </div>
+
+  <!-- ── WINNER STRIP ── -->
+  <div class="tile tile-win-strip">
+    <span class="win-strip-icon">💡</span>
+    <span class="win-strip-text">
+      <strong>Лучший баланс:</strong> Pico Genie Impact 2.0+ Elite — 180г и 250 ANSI, рекорд класса.
+      <strong>USB-C PD (повербанк):</strong> только Aurzen ZIP.
+      <strong>Лучший 1080p:</strong> AAXA Pico+ Max, но реально тёмный.
+    </span>
+  </div>
+
+  <!-- ── 6. BONUS: PICO GENIE M550 PLUS 4.0 ── wide tile -->
+  <div class="tile tile-proj bonus col4" style="flex-direction:row;">
+    <div class="bonus-inner">
+      <div class="bonus-img-col">
+        <img src="https://personalprojector.co.uk/cdn/shop/files/Pico_Genie_M550_4_Ports_White_BG_a84543b0-1e81-4eec-9696-edffe980aad2.jpg?v=1765993083" alt="Pico Genie M550 Plus 4.0">
+      </div>
+      <div class="bonus-content">
+        <span class="bonus-tag">⚡ За рамками 300 г · но лучший по всему</span>
+        <div class="proj-name" style="font-size:18px;margin-bottom:2px">Pico Genie M550 Plus 4.0</div>
+        <div class="proj-sub">DLP · 1080p Full HD · 650 г · 2024</div>
+
+        <div class="bbar-wrap" style="margin-bottom:10px">
+          <div class="bbar-top">
+            <span class="bbar-label">ANSI яркость</span>
+            <span class="bbar-val" style="color:var(--amber)">650 ANSI люмен</span>
+          </div>
+          <div class="bbar-track"><div class="bbar-fill br-650"></div></div>
+          <div class="bbar-note">В 6.5× ярче Aurzen ZIP · работает при приглушённом дневном свете</div>
+        </div>
+
+        <div class="bonus-grid">
+          <div class="ms"><span class="ms-l">Вес</span><span class="ms-v lo">650 г</span></div>
+          <div class="ms"><span class="ms-l">Разрешение</span><span class="ms-v ok">1080p Full HD</span></div>
+          <div class="ms"><span class="ms-l">USB-C</span><span class="ms-v ok">✅ PD 15V 3A</span></div>
+          <div class="ms"><span class="ms-l">DisplayPort</span><span class="ms-v ok">✅ видео вход</span></div>
+          <div class="ms"><span class="ms-l">Батарея</span><span class="ms-v">7800 мАч / 3 ч</span></div>
+          <div class="ms"><span class="ms-l">Размер</span><span class="ms-v">198×122×48 мм</span></div>
+        </div>
+
+        <div class="spacer"></div>
+        <a href="https://picogenie.com/products/pico-genie-m550-plus-4-0-full-hd-ultra-portable-smart-projector" target="_blank" class="buy buy-amber" style="max-width:260px">→ PicoGenie.com (~$560)</a>
+      </div>
+    </div>
   </div>
 
 </div>
-
-<footer>
-  Источники: ProjectorCentral · RTINGS · Tom's Guide · Mind the Gadget · официальные страницы производителей. Июнь 2026.
-</footer>
 
 </body>
 </html>
