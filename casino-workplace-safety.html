@@ -1,0 +1,1308 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Безопасная рабочая среда в онлайн-казино</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #F5F5F7;
+    --bg-card: #FFFFFF;
+    --fg: #1D1D1F;
+    --fg-secondary: #6E6E73;
+    --fg-muted: #A1A1A6;
+    --blue: #0071E3;
+    --blue-light: #EBF4FF;
+    --green: #34C759;
+    --green-light: #E8FAF0;
+    --orange: #FF9500;
+    --orange-light: #FFF3E0;
+    --red: #FF3B30;
+    --red-light: #FFF1F0;
+    --purple: #AF52DE;
+    --purple-light: #F3EBFF;
+    --border: rgba(0,0,0,0.08);
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+    --shadow-md: 0 4px 16px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.04);
+    --shadow-lg: 0 12px 40px rgba(0,0,0,0.10), 0 2px 8px rgba(0,0,0,0.04);
+    --radius: 18px;
+    --radius-sm: 12px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg);
+    color: var(--fg);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* NAV */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(245, 245, 247, 0.85);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 32px;
+  }
+  .nav-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 52px;
+  }
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--fg);
+    text-decoration: none;
+  }
+  .nav-logo svg { width: 24px; height: 24px; color: var(--blue); }
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    list-style: none;
+  }
+  .nav-links a {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--fg-secondary);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--fg); }
+
+  /* LAYOUT */
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* HERO */
+  .hero {
+    padding: 80px 24px 60px;
+    text-align: center;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--blue-light);
+    color: var(--blue);
+    font-size: 13px;
+    font-weight: 600;
+    padding: 6px 14px;
+    border-radius: 100px;
+    margin-bottom: 28px;
+    letter-spacing: 0.01em;
+  }
+  .hero-tag svg { width: 14px; height: 14px; }
+  .hero h1 {
+    font-size: clamp(36px, 5vw, 60px);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    color: var(--fg);
+    margin-bottom: 20px;
+  }
+  .hero h1 span { color: var(--blue); }
+  .hero-sub {
+    font-size: 18px;
+    color: var(--fg-secondary);
+    max-width: 620px;
+    margin: 0 auto 48px;
+    line-height: 1.65;
+  }
+
+  /* STATS BAR */
+  .stats-bar {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    max-width: 1200px;
+    margin: 0 auto 60px;
+    padding: 0 24px;
+  }
+  .stat-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 24px 20px;
+    text-align: center;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.25s, box-shadow 0.25s;
+  }
+  .stat-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+  .stat-num {
+    font-size: 36px;
+    font-weight: 800;
+    color: var(--blue);
+    letter-spacing: -0.03em;
+    line-height: 1;
+  }
+  .stat-label {
+    font-size: 13px;
+    color: var(--fg-secondary);
+    margin-top: 6px;
+    font-weight: 500;
+  }
+
+  /* SECTION */
+  section { padding: 0 0 72px; }
+  .section-header {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+  .section-tag {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--blue);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .section-title {
+    font-size: clamp(28px, 3.5vw, 40px);
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    line-height: 1.15;
+    margin-bottom: 14px;
+  }
+  .section-desc {
+    font-size: 16px;
+    color: var(--fg-secondary);
+    max-width: 540px;
+    margin: 0 auto;
+  }
+
+  /* BENTO GRID */
+  .bento {
+    display: grid;
+    gap: 16px;
+  }
+  .bento-3 { grid-template-columns: repeat(3, 1fr); }
+  .bento-4 { grid-template-columns: repeat(4, 1fr); }
+  .bento-2-1 { grid-template-columns: 2fr 1fr; }
+  .bento-1-2 { grid-template-columns: 1fr 2fr; }
+
+  .card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.25s, box-shadow 0.25s;
+    position: relative;
+    overflow: hidden;
+  }
+  .card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+  .card.tall { grid-row: span 2; }
+  .card.wide { grid-column: span 2; }
+
+  .card-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+  }
+  .card-icon svg { width: 22px; height: 22px; }
+  .icon-blue { background: var(--blue-light); color: var(--blue); }
+  .icon-green { background: var(--green-light); color: var(--green); }
+  .icon-orange { background: var(--orange-light); color: var(--orange); }
+  .icon-red { background: var(--red-light); color: var(--red); }
+  .icon-purple { background: var(--purple-light); color: var(--purple); }
+
+  .card h3 {
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+    color: var(--fg);
+  }
+  .card p {
+    font-size: 14px;
+    color: var(--fg-secondary);
+    line-height: 1.65;
+  }
+
+  .card-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 100px;
+    margin-bottom: 12px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .badge-blue { background: var(--blue-light); color: var(--blue); }
+  .badge-green { background: var(--green-light); color: var(--green); }
+  .badge-orange { background: var(--orange-light); color: var(--orange); }
+  .badge-red { background: var(--red-light); color: var(--red); }
+  .badge-purple { background: var(--purple-light); color: var(--purple); }
+
+  /* FEATURE LIST */
+  .feature-list {
+    list-style: none;
+    margin-top: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .feature-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 13px;
+    color: var(--fg-secondary);
+    line-height: 1.5;
+  }
+  .check-icon {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--green-light);
+    color: var(--green);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .check-icon svg { width: 10px; height: 10px; }
+
+  /* HERO CARD */
+  .card-hero {
+    background: linear-gradient(135deg, #0071E3 0%, #0077ED 50%, #34A8FF 100%);
+    color: white;
+    border: none;
+  }
+  .card-hero h3 { color: white; font-size: 22px; }
+  .card-hero p { color: rgba(255,255,255,0.82); }
+  .card-hero .feature-list li { color: rgba(255,255,255,0.82); }
+  .card-hero .check-icon {
+    background: rgba(255,255,255,0.2);
+    color: white;
+  }
+  .card-hero-num {
+    font-size: 56px;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    color: white;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .card-hero-label { font-size: 14px; color: rgba(255,255,255,0.75); }
+
+  /* DARK CARD */
+  .card-dark {
+    background: var(--fg);
+    border-color: rgba(255,255,255,0.08);
+  }
+  .card-dark h3 { color: white; }
+  .card-dark p { color: rgba(255,255,255,0.6); }
+  .card-dark .feature-list li { color: rgba(255,255,255,0.6); }
+  .card-dark .check-icon {
+    background: rgba(52,199,89,0.2);
+    color: #34C759;
+  }
+
+  /* LAYERS */
+  .layers-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 20px;
+  }
+  .layer-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 16px;
+    background: var(--bg);
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .layer-item:hover {
+    background: var(--blue-light);
+    border-color: rgba(0,113,227,0.2);
+  }
+  .layer-num {
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    background: var(--blue);
+    color: white;
+    font-size: 12px;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .layer-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--fg);
+  }
+  .layer-desc {
+    font-size: 12px;
+    color: var(--fg-muted);
+    margin-top: 1px;
+  }
+
+  /* TOOLS GRID */
+  .tools-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-top: 16px;
+  }
+  .tool-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 16px 12px;
+    background: var(--bg);
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    text-align: center;
+    transition: all 0.2s;
+    cursor: pointer;
+  }
+  .tool-item:hover {
+    background: var(--blue-light);
+    border-color: rgba(0,113,227,0.2);
+    transform: translateY(-1px);
+  }
+  .tool-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+  }
+  .tool-name {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--fg);
+  }
+
+  /* PROGRESS BAR */
+  .progress-item { margin-bottom: 16px; }
+  .progress-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+  .progress-label { font-size: 13px; font-weight: 600; color: var(--fg); }
+  .progress-value { font-size: 13px; font-weight: 700; color: var(--blue); }
+  .progress-bar {
+    height: 6px;
+    background: var(--bg);
+    border-radius: 100px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    border-radius: 100px;
+    background: linear-gradient(90deg, #0071E3, #34A8FF);
+    transition: width 1s ease;
+  }
+
+  /* COMPLIANCE GRID */
+  .compliance-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-top: 16px;
+  }
+  .compliance-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 14px;
+    background: var(--bg);
+    border-radius: 10px;
+    border: 1px solid var(--border);
+  }
+  .compliance-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    background: var(--green-light);
+    color: var(--green);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .compliance-icon svg { width: 16px; height: 16px; }
+  .compliance-name {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--fg);
+  }
+  .compliance-desc {
+    font-size: 11px;
+    color: var(--fg-muted);
+    margin-top: 1px;
+  }
+
+  /* DIVIDER */
+  .divider {
+    height: 1px;
+    background: var(--border);
+    margin: 0 24px 72px;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* THREAT METER */
+  .threat-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .threat-row:last-child { border-bottom: none; }
+  .threat-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .dot-red { background: var(--red); box-shadow: 0 0 0 3px var(--red-light); }
+  .dot-orange { background: var(--orange); box-shadow: 0 0 0 3px var(--orange-light); }
+  .dot-green { background: var(--green); box-shadow: 0 0 0 3px var(--green-light); }
+  .threat-name { font-size: 13px; font-weight: 600; color: var(--fg); flex: 1; }
+  .threat-level {
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 100px;
+  }
+  .level-high { background: var(--red-light); color: var(--red); }
+  .level-medium { background: var(--orange-light); color: var(--orange); }
+  .level-low { background: var(--green-light); color: var(--green); }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 40px 24px;
+    text-align: center;
+    color: var(--fg-muted);
+    font-size: 13px;
+  }
+  footer strong { color: var(--fg-secondary); }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    .bento-3 { grid-template-columns: repeat(2, 1fr); }
+    .bento-4 { grid-template-columns: repeat(2, 1fr); }
+    .bento-2-1, .bento-1-2 { grid-template-columns: 1fr; }
+    .card.wide { grid-column: span 1; }
+    .card.tall { grid-row: span 1; }
+    .stats-bar { grid-template-columns: repeat(2, 1fr); }
+    .tools-grid { grid-template-columns: repeat(3, 1fr); }
+    .compliance-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 600px) {
+    .bento-3 { grid-template-columns: 1fr; }
+    .bento-4 { grid-template-columns: 1fr; }
+    .stats-bar { grid-template-columns: repeat(2, 1fr); }
+    nav .nav-links { display: none; }
+    .tools-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { transition: none !important; animation: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a class="nav-logo" href="#">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+      </svg>
+      Casino Security
+    </a>
+    <ul class="nav-links">
+      <li><a href="#network">Сеть</a></li>
+      <li><a href="#access">Доступ</a></li>
+      <li><a href="#compliance">Комплаенс</a></li>
+      <li><a href="#threats">Угрозы</a></li>
+      <li><a href="#people">Сотрудники</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-tag">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+    </svg>
+    Корпоративная безопасность
+  </div>
+  <h1>Как онлайн-казино строит<br><span>безопасную рабочую среду</span></h1>
+  <p class="hero-sub">Защита сотрудников, данных и операций в индустрии онлайн-гемблинга — от сетевой инфраструктуры до психологической безопасности команды.</p>
+</div>
+
+<div class="stats-bar">
+  <div class="stat-card">
+    <div class="stat-num">99.9%</div>
+    <div class="stat-label">Uptime защищённых систем</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-num">7</div>
+    <div class="stat-label">Уровней защиты доступа</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-num">256-bit</div>
+    <div class="stat-label">Шифрование всех данных</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-num">24/7</div>
+    <div class="stat-label">Мониторинг безопасности</div>
+  </div>
+</div>
+
+<!-- NETWORK SECTION -->
+<section id="network">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag">Сетевая безопасность</div>
+      <h2 class="section-title">Защищённая инфраструктура</h2>
+      <p class="section-desc">Корпоративная VPN, изолированные сети и многоуровневая защита периметра</p>
+    </div>
+
+    <div class="bento bento-3">
+      <div class="card wide card-hero">
+        <div class="card-badge" style="background:rgba(255,255,255,0.2);color:white;">Основа безопасности</div>
+        <h3>Корпоративная VPN<br>для всей команды</h3>
+        <p>Все сотрудники работают через зашифрованный туннель. Независимо от местоположения — офис, дом или командировка — трафик маршрутизируется через защищённую корпоративную сеть.</p>
+        <ul class="feature-list" style="margin-top:20px;">
+          <li>
+            <span class="check-icon"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>
+            Split tunneling — корпоративный трафик через VPN, личный — напрямую
+          </li>
+          <li>
+            <span class="check-icon"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>
+            Автоматическое отключение (Kill Switch) при разрыве VPN-соединения
+          </li>
+          <li>
+            <span class="check-icon"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>
+            WireGuard / OpenVPN протоколы с Perfect Forward Secrecy
+          </li>
+        </ul>
+      </div>
+
+      <div class="card tall" id="threats-mini">
+        <div class="card-icon icon-red">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+            <line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+          </svg>
+        </div>
+        <div class="card-badge badge-red">Актуальные угрозы</div>
+        <h3>Ландшафт угроз</h3>
+        <div class="threat-row">
+          <div class="threat-dot dot-red"></div>
+          <div>
+            <div class="threat-name">DDoS-атаки</div>
+            <div style="font-size:11px;color:var(--fg-muted);">Перегрузка серверов</div>
+          </div>
+          <span class="threat-level level-high">Высокий</span>
+        </div>
+        <div class="threat-row">
+          <div class="threat-dot dot-red"></div>
+          <div>
+            <div class="threat-name">Фишинг сотрудников</div>
+            <div style="font-size:11px;color:var(--fg-muted);">Email + соцсети</div>
+          </div>
+          <span class="threat-level level-high">Высокий</span>
+        </div>
+        <div class="threat-row">
+          <div class="threat-dot dot-orange"></div>
+          <div>
+            <div class="threat-name">Инсайдерские угрозы</div>
+            <div style="font-size:11px;color:var(--fg-muted);">Утечки данных</div>
+          </div>
+          <span class="threat-level level-medium">Средний</span>
+        </div>
+        <div class="threat-row">
+          <div class="threat-dot dot-orange"></div>
+          <div>
+            <div class="threat-name">Credential Stuffing</div>
+            <div style="font-size:11px;color:var(--fg-muted);">Перебор паролей</div>
+          </div>
+          <span class="threat-level level-medium">Средний</span>
+        </div>
+        <div class="threat-row">
+          <div class="threat-dot dot-green"></div>
+          <div>
+            <div class="threat-name">Физический взлом</div>
+            <div style="font-size:11px;color:var(--fg-muted);">Доступ к офису</div>
+          </div>
+          <span class="threat-level level-low">Низкий</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-icon icon-blue">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
+          </svg>
+        </div>
+        <div class="card-badge badge-blue">Периметр</div>
+        <h3>Firewall нового поколения</h3>
+        <p>NGFW с DPI — глубокая инспекция пакетов, обнаружение аномалий и блокировка вредоносного трафика в реальном времени.</p>
+        <ul class="feature-list">
+          <li>
+            <span class="check-icon"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>
+            IDS/IPS — обнаружение и блокировка вторжений
+          </li>
+          <li>
+            <span class="check-icon"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>
+            WAF — защита веб-приложений и API
+          </li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="card-icon icon-purple">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/>
+            <line x1="4.93" y1="4.93" x2="9.17" y2="9.17"/><line x1="14.83" y1="14.83" x2="19.07" y2="19.07"/>
+          </svg>
+        </div>
+        <div class="card-badge badge-purple">Мониторинг</div>
+        <h3>SOC 24/7</h3>
+        <p>Security Operations Center отслеживает все события в сети круглосуточно. SIEM агрегирует логи и обнаруживает подозрительные паттерны.</p>
+        <ul class="feature-list">
+          <li>
+            <span class="check-icon"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>
+            SIEM: Splunk / ELK Stack с AI-аномалиями
+          </li>
+          <li>
+            <span class="check-icon"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>
+            Время реакции на инцидент — менее 15 минут
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ACCESS SECTION -->
+<section id="access">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag">Управление доступом</div>
+      <h2 class="section-title">Zero Trust Architecture</h2>
+      <p class="section-desc">Никто не получает доступ по умолчанию — каждый запрос верифицируется независимо от местоположения</p>
+    </div>
+
+    <div class="bento bento-3">
+      <div class="card">
+        <div class="card-icon icon-blue">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+          </svg>
+        </div>
+        <div class="card-badge badge-blue">Аутентификация</div>
+        <h3>Многофакторная аутентификация</h3>
+        <p>MFA обязательна для всех сотрудников без исключений. Физические ключи безопасности (YubiKey) для администраторов и финансового отдела.</p>
+        <ul class="feature-list">
+          <li>
+            <span class="check-icon"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>
+            TOTP-приложения (Google Authenticator, Authy)
+          </li>
+          <li>
+            <span class="check-icon"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>
+            Аппаратные ключи YubiKey / FIDO2
+          </li>
+          <li>
+            <span class="check-icon"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>
+            Биометрия на корпоративных устройствах
+          </li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="card-icon icon-orange">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+          </svg>
+        </div>
+        <div class="card-badge badge-orange">Привилегии</div>
+        <h3>Принцип минимальных привилегий</h3>
+        <p>Каждый сотрудник получает ровно столько доступа, сколько нужно для работы — не больше. Роли пересматриваются ежеквартально.</p>
+        <ul class="feature-list">
+          <li>
+            <span class="check-icon"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>
+            RBAC — ролевая модель доступа
+          </li>
+          <li>
+            <span class="check-icon"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>
+            Привилегированный доступ только через PAM
+          </li>
+          <li>
+            <span class="check-icon"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>
+            Автоматический отзыв при увольнении — 30 мин
+          </li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="card-icon icon-green">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 2H3v16h5v4l4-4h5l4-4V2zM11 11V7m2 4V7"/>
+          </svg>
+        </div>
+        <div class="card-badge badge-green">Устройства</div>
+        <h3>MDM — управление устройствами</h3>
+        <p>Mobile Device Management контролирует все корпоративные устройства: принудительное шифрование, удалённое стирание при утере.</p>
+        <ul class="feature-list">
+          <li>
+            <span class="check-icon"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>
+            Jamf (Mac) / Microsoft Intune (Windows/Android)
+          </li>
+          <li>
+            <span class="check-icon"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>
+            Автопатчинг ОС и ПО без участия пользователя
+          </li>
+          <li>
+            <span class="check-icon"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>
+            BYOD — изолированный рабочий контейнер
+          </li>
+        </ul>
+      </div>
+
+      <!-- Слои защиты -->
+      <div class="card wide card-dark">
+        <div class="card-badge" style="background:rgba(0,113,227,0.3);color:#34A8FF;">Архитектура</div>
+        <h3>7 уровней защиты доступа</h3>
+        <p style="margin-bottom:4px;">Каждый уровень — независимый барьер. Обход одного не открывает следующий.</p>
+        <div class="layers-list" style="margin-top:20px;">
+          <div class="layer-item" style="background:rgba(255,255,255,0.05);border-color:rgba(255,255,255,0.08);">
+            <div class="layer-num">1</div>
+            <div>
+              <div class="layer-name" style="color:white;">DNS-фильтрация</div>
+              <div class="layer-desc">Блокировка вредоносных доменов на уровне разрешения имён</div>
+            </div>
+          </div>
+          <div class="layer-item" style="background:rgba(255,255,255,0.05);border-color:rgba(255,255,255,0.08);">
+            <div class="layer-num">2</div>
+            <div>
+              <div class="layer-name" style="color:white;">Сетевой Firewall + IPS</div>
+              <div class="layer-desc">Фильтрация трафика и блокировка эксплойтов</div>
+            </div>
+          </div>
+          <div class="layer-item" style="background:rgba(255,255,255,0.05);border-color:rgba(255,255,255,0.08);">
+            <div class="layer-num">3</div>
+            <div>
+              <div class="layer-name" style="color:white;">VPN + шифрование</div>
+              <div class="layer-desc">Все коммуникации защищены E2E-шифрованием</div>
+            </div>
+          </div>
+          <div class="layer-item" style="background:rgba(255,255,255,0.05);border-color:rgba(255,255,255,0.08);">
+            <div class="layer-num">4</div>
+            <div>
+              <div class="layer-name" style="color:white;">MFA + SSO</div>
+              <div class="layer-desc">Многофакторная аутентификация для каждого входа</div>
+            </div>
+          </div>
+          <div class="layer-item" style="background:rgba(255,255,255,0.05);border-color:rgba(255,255,255,0.08);">
+            <div class="layer-num">5</div>
+            <div>
+              <div class="layer-name" style="color:white;">RBAC — ролевые права</div>
+              <div class="layer-desc">Доступ только к разрешённым ресурсам</div>
+            </div>
+          </div>
+          <div class="layer-item" style="background:rgba(255,255,255,0.05);border-color:rgba(255,255,255,0.08);">
+            <div class="layer-num">6</div>
+            <div>
+              <div class="layer-name" style="color:white;">EDR на устройствах</div>
+              <div class="layer-desc">Обнаружение угроз на конечных точках</div>
+            </div>
+          </div>
+          <div class="layer-item" style="background:rgba(255,255,255,0.05);border-color:rgba(255,255,255,0.08);">
+            <div class="layer-num">7</div>
+            <div>
+              <div class="layer-name" style="color:white;">DLP — защита от утечек</div>
+              <div class="layer-desc">Контроль передачи конфиденциальных данных</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- TOOLS SECTION -->
+<section>
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag">Инструменты</div>
+      <h2 class="section-title">Корпоративный стек безопасности</h2>
+      <p class="section-desc">Проверенные решения для защиты распределённых команд</p>
+    </div>
+
+    <div class="bento bento-4">
+      <div class="card">
+        <div class="card-badge badge-blue">Коммуникации</div>
+        <h3>Защищённые каналы</h3>
+        <p>Корпоративная связь только через одобренные платформы с E2E-шифрованием и логированием.</p>
+        <div class="tools-grid" style="margin-top:16px;">
+          <div class="tool-item">
+            <div class="tool-icon" style="background:#4A154B;color:white;font-size:16px;">S</div>
+            <div class="tool-name">Slack Enterprise</div>
+          </div>
+          <div class="tool-item">
+            <div class="tool-icon" style="background:#6264A7;color:white;font-size:16px;">T</div>
+            <div class="tool-name">MS Teams</div>
+          </div>
+          <div class="tool-item">
+            <div class="tool-icon" style="background:#24A1DE;color:white;font-size:16px;">G</div>
+            <div class="tool-name">Signal</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-badge badge-green">Пароли</div>
+        <h3>Менеджеры паролей</h3>
+        <p>Единый корпоративный хранитель паролей с аудитом и политиками сложности. Личные пароли в личном хранилище.</p>
+        <div class="tools-grid" style="margin-top:16px;">
+          <div class="tool-item">
+            <div class="tool-icon" style="background:#175DDC;color:white;font-size:16px;">1</div>
+            <div class="tool-name">1Password</div>
+          </div>
+          <div class="tool-item">
+            <div class="tool-icon" style="background:#CC2027;color:white;font-size:16px;">L</div>
+            <div class="tool-name">LastPass</div>
+          </div>
+          <div class="tool-item">
+            <div class="tool-icon" style="background:#1B4DFF;color:white;font-size:16px;">B</div>
+            <div class="tool-name">Bitwarden</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-badge badge-orange">Файлы</div>
+        <h3>Безопасный обмен данными</h3>
+        <p>Только корпоративное облако с аудитом доступа. Публичные ссылки требуют одобрения руководителя.</p>
+        <div class="tools-grid" style="margin-top:16px;">
+          <div class="tool-item">
+            <div class="tool-icon" style="background:#0061FF;color:white;font-size:16px;">D</div>
+            <div class="tool-name">Dropbox Business</div>
+          </div>
+          <div class="tool-item">
+            <div class="tool-icon" style="background:#00AC47;color:white;font-size:16px;">G</div>
+            <div class="tool-name">Google Drive</div>
+          </div>
+          <div class="tool-item">
+            <div class="tool-icon" style="background:#0078D4;color:white;font-size:16px;">O</div>
+            <div class="tool-name">OneDrive</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-badge badge-purple">Мониторинг</div>
+        <h3>Аудит и логирование</h3>
+        <p>Все действия сотрудников в системах логируются. Журналы хранятся минимум 12 месяцев.</p>
+        <ul class="feature-list" style="margin-top:16px;">
+          <li>
+            <span class="check-icon"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>
+            Splunk / ELK — централизованные логи
+          </li>
+          <li>
+            <span class="check-icon"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>
+            Аномалии выявляются ML-моделями
+          </li>
+          <li>
+            <span class="check-icon"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>
+            Tamper-proof хранение логов
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- COMPLIANCE SECTION -->
+<section id="compliance">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag">Регуляторные требования</div>
+      <h2 class="section-title">Комплаенс и сертификация</h2>
+      <p class="section-desc">Онлайн-казино работает в жёстко регулируемой среде — соответствие стандартам обязательно</p>
+    </div>
+
+    <div class="bento bento-2-1">
+      <div class="card">
+        <div class="card-badge badge-green">Стандарты</div>
+        <h3>Ключевые требования безопасности</h3>
+        <p>Каждый стандарт диктует конкретные меры защиты для сотрудников и систем.</p>
+        <div class="compliance-grid">
+          <div class="compliance-item">
+            <div class="compliance-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/>
+              </svg>
+            </div>
+            <div>
+              <div class="compliance-name">PCI DSS</div>
+              <div class="compliance-desc">Защита платёжных данных</div>
+            </div>
+          </div>
+          <div class="compliance-item">
+            <div class="compliance-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              </svg>
+            </div>
+            <div>
+              <div class="compliance-name">GDPR</div>
+              <div class="compliance-desc">Персональные данные ЕС</div>
+            </div>
+          </div>
+          <div class="compliance-item">
+            <div class="compliance-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/>
+              </svg>
+            </div>
+            <div>
+              <div class="compliance-name">ISO 27001</div>
+              <div class="compliance-desc">Управление инфобезопасностью</div>
+            </div>
+          </div>
+          <div class="compliance-item">
+            <div class="compliance-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/>
+              </svg>
+            </div>
+            <div>
+              <div class="compliance-name">AML / KYC</div>
+              <div class="compliance-desc">Противодействие отмыванию</div>
+            </div>
+          </div>
+          <div class="compliance-item">
+            <div class="compliance-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="22,12 18,12 15,21 9,3 6,12 2,12"/>
+              </svg>
+            </div>
+            <div>
+              <div class="compliance-name">SOC 2 Type II</div>
+              <div class="compliance-desc">Аудит операционной безопасности</div>
+            </div>
+          </div>
+          <div class="compliance-item">
+            <div class="compliance-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/>
+                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+              </svg>
+            </div>
+            <div>
+              <div class="compliance-name">Лицензия регулятора</div>
+              <div class="compliance-desc">MGA, UKGC, Curaçao и др.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-icon icon-green">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="22,12 18,12 15,21 9,3 6,12 2,12"/>
+          </svg>
+        </div>
+        <div class="card-badge badge-green">Метрики</div>
+        <h3>Уровень соответствия</h3>
+
+        <div class="progress-item" style="margin-top:20px;">
+          <div class="progress-header">
+            <span class="progress-label">PCI DSS</span>
+            <span class="progress-value">98%</span>
+          </div>
+          <div class="progress-bar"><div class="progress-fill" style="width:98%"></div></div>
+        </div>
+
+        <div class="progress-item">
+          <div class="progress-header">
+            <span class="progress-label">GDPR</span>
+            <span class="progress-value">96%</span>
+          </div>
+          <div class="progress-bar"><div class="progress-fill" style="width:96%"></div></div>
+        </div>
+
+        <div class="progress-item">
+          <div class="progress-header">
+            <span class="progress-label">ISO 27001</span>
+            <span class="progress-value">94%</span>
+          </div>
+          <div class="progress-bar"><div class="progress-fill" style="width:94%"></div></div>
+        </div>
+
+        <div class="progress-item">
+          <div class="progress-header">
+            <span class="progress-label">SOC 2 Type II</span>
+            <span class="progress-value">91%</span>
+          </div>
+          <div class="progress-bar"><div class="progress-fill" style="width:91%"></div></div>
+        </div>
+
+        <div class="progress-item">
+          <div class="progress-header">
+            <span class="progress-label">AML Policy</span>
+            <span class="progress-value">99%</span>
+          </div>
+          <div class="progress-bar"><div class="progress-fill" style="width:99%"></div></div>
+        </div>
+
+        <div style="margin-top:20px;padding:14px;background:var(--green-light);border-radius:12px;border:1px solid rgba(52,199,89,0.2);">
+          <div style="font-size:12px;font-weight:700;color:var(--green);margin-bottom:4px;">Последний аудит</div>
+          <div style="font-size:13px;color:var(--fg);font-weight:600;">Март 2026 — без критических нарушений</div>
+          <div style="font-size:12px;color:var(--fg-secondary);margin-top:2px;">Следующий аудит: сентябрь 2026</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PEOPLE SECTION -->
+<section id="people">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag">Человеческий фактор</div>
+      <h2 class="section-title">Безопасность начинается с людей</h2>
+      <p class="section-desc">85% утечек данных связаны с человеческим фактором — обучение важнее технологий</p>
+    </div>
+
+    <div class="bento bento-3">
+      <div class="card">
+        <div class="card-icon icon-blue">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+          </svg>
+        </div>
+        <div class="card-badge badge-blue">Обучение</div>
+        <h3>Security Awareness Training</h3>
+        <p>Обязательное обучение для каждого сотрудника с тестированием и симуляцией фишинговых атак.</p>
+        <ul class="feature-list">
+          <li>
+            <span class="check-icon"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>
+            Онбординг: 4-часовой курс по безопасности
+          </li>
+          <li>
+            <span class="check-icon"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>
+            Ежеквартальные симуляции фишинга
+          </li>
+          <li>
+            <span class="check-icon"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>
+            Ежегодная сертификация по ИБ
+          </li>
+          <li>
+            <span class="check-icon"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>
+            Bug Bounty программа для сотрудников
+          </li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="card-icon icon-purple">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+          </svg>
+        </div>
+        <div class="card-badge badge-purple">Wellbeing</div>
+        <h3>Психологическая безопасность</h3>
+        <p>Сотрудники онлайн-казино работают с высокорисковой индустрией. Поддержка ментального здоровья — часть корпоративной культуры.</p>
+        <ul class="feature-list">
+          <li>
+            <span class="check-icon"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>
+            EAP — программа помощи сотрудникам
+          </li>
+          <li>
+            <span class="check-icon"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>
+            Анонимная линия для репортинга нарушений
+          </li>
+          <li>
+            <span class="check-icon"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>
+            Политика Right-to-Disconnect
+          </li>
+          <li>
+            <span class="check-icon"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>
+            Ротация сотрудников из отдела контента
+          </li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="card-icon icon-orange">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+          </svg>
+        </div>
+        <div class="card-badge badge-orange">Инциденты</div>
+        <h3>Incident Response Plan</h3>
+        <p>Чёткий план действий при инциденте. Каждый сотрудник знает, что делать — паника исключена.</p>
+        <ul class="feature-list">
+          <li>
+            <span class="check-icon"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>
+            Обнаружение → отчёт за &lt;5 минут
+          </li>
+          <li>
+            <span class="check-icon"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>
+            Изоляция скомпрометированных систем
+          </li>
+          <li>
+            <span class="check-icon"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>
+            Ежеквартальные учения Tabletop Exercise
+          </li>
+          <li>
+            <span class="check-icon"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>
+            Post-mortem и улучшение процессов
+          </li>
+        </ul>
+      </div>
+
+      <!-- Remote Work Card -->
+      <div class="card wide">
+        <div class="card-badge badge-blue">Удалённая работа</div>
+        <h3>Политика безопасной удалёнки</h3>
+        <p style="margin-bottom:20px;">Большинство сотрудников онлайн-казино работают удалённо. Безопасность не зависит от местоположения.</p>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;">
+          <div style="padding:16px;background:var(--bg);border-radius:12px;border:1px solid var(--border);text-align:center;">
+            <div style="font-size:24px;margin-bottom:8px;">🏠</div>
+            <div style="font-size:13px;font-weight:600;color:var(--fg);margin-bottom:4px;">Домашний офис</div>
+            <div style="font-size:12px;color:var(--fg-muted);">VPN обязателен. Изолированная Wi-Fi сеть для работы</div>
+          </div>
+          <div style="padding:16px;background:var(--bg);border-radius:12px;border:1px solid var(--border);text-align:center;">
+            <div style="font-size:24px;margin-bottom:8px;">☕</div>
+            <div style="font-size:13px;font-weight:600;color:var(--fg);margin-bottom:4px;">Кафе / публичный Wi-Fi</div>
+            <div style="font-size:12px;color:var(--fg-muted);">Только через VPN. Корпоративные данные — нет</div>
+          </div>
+          <div style="padding:16px;background:var(--bg);border-radius:12px;border:1px solid var(--border);text-align:center;">
+            <div style="font-size:24px;margin-bottom:8px;">✈️</div>
+            <div style="font-size:13px;font-weight:600;color:var(--fg);margin-bottom:4px;">Командировки</div>
+            <div style="font-size:12px;color:var(--fg-muted);">Travel briefing от ИБ. Loaner device для рисковых стран</div>
+          </div>
+          <div style="padding:16px;background:var(--bg);border-radius:12px;border:1px solid var(--border);text-align:center;">
+            <div style="font-size:24px;margin-bottom:8px;">🔒</div>
+            <div style="font-size:13px;font-weight:600;color:var(--fg);margin-bottom:4px;">Экран блокировки</div>
+            <div style="font-size:12px;color:var(--fg-muted);">Автоблокировка через 5 мин. Privacy screen обязателен</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SUMMARY -->
+<section>
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag">Итог</div>
+      <h2 class="section-title">Безопасность — это культура, не продукт</h2>
+    </div>
+    <div class="bento bento-4">
+      <div class="card" style="text-align:center;padding:32px 20px;">
+        <div style="width:48px;height:48px;border-radius:16px;background:var(--blue-light);color:var(--blue);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div style="font-size:28px;font-weight:800;color:var(--blue);margin-bottom:6px;">Технологии</div>
+        <div style="font-size:13px;color:var(--fg-secondary);">VPN, MFA, EDR, SIEM, WAF, DLP — комплексный технический стек</div>
+      </div>
+      <div class="card" style="text-align:center;padding:32px 20px;">
+        <div style="width:48px;height:48px;border-radius:16px;background:var(--green-light);color:var(--green);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/></svg>
+        </div>
+        <div style="font-size:28px;font-weight:800;color:var(--green);margin-bottom:6px;">Процессы</div>
+        <div style="font-size:13px;color:var(--fg-secondary);">Политики, IRP, аудиты, комплаенс — всё задокументировано и обновляется</div>
+      </div>
+      <div class="card" style="text-align:center;padding:32px 20px;">
+        <div style="width:48px;height:48px;border-radius:16px;background:var(--orange-light);color:var(--orange);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <div style="font-size:28px;font-weight:800;color:var(--orange);margin-bottom:6px;">Люди</div>
+        <div style="font-size:13px;color:var(--fg-secondary);">Обученные сотрудники — первая и главная линия защиты</div>
+      </div>
+      <div class="card" style="text-align:center;padding:32px 20px;">
+        <div style="width:48px;height:48px;border-radius:16px;background:var(--purple-light);color:var(--purple);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22,12 18,12 15,21 9,3 6,12 2,12"/></svg>
+        </div>
+        <div style="font-size:28px;font-weight:800;color:var(--purple);margin-bottom:6px;">Мониторинг</div>
+        <div style="font-size:13px;color:var(--fg-secondary);">Непрерывный SOC, аномалии в реальном времени, быстрое реагирование</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <strong>Casino Workplace Security</strong> · Материал носит образовательный характер · 2026
+</footer>
+
+</body>
+</html>
