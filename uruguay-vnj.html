@@ -13,7 +13,6 @@
     --bg: #0a0a0a;
     --card-1: #111111;
     --card-2: #141414;
-    --card-3: #0d1117;
     --border: rgba(255,255,255,0.07);
     --blue: #3b82f6;
     --cyan: #06b6d4;
@@ -25,6 +24,8 @@
     --red-dim: rgba(239,68,68,0.1);
     --yellow: #f59e0b;
     --yellow-dim: rgba(245,158,11,0.1);
+    --purple: #a855f7;
+    --purple-dim: rgba(168,85,247,0.1);
     --text: #f1f5f9;
     --text-muted: #64748b;
     --text-sub: #94a3b8;
@@ -41,7 +42,6 @@
     line-height: 1.5;
   }
 
-  /* ─── Header ─── */
   .header {
     text-align: center;
     max-width: 700px;
@@ -73,13 +73,29 @@
     background-clip: text;
     margin-bottom: 14px;
   }
-  .header p {
-    color: var(--text-sub);
-    font-size: 16px;
-    font-weight: 400;
+  .header p { color: var(--text-sub); font-size: 16px; }
+
+  /* section divider */
+  .section-title {
+    max-width: 1200px;
+    margin: 40px auto 16px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--text-muted);
+    padding-left: 4px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
   }
 
-  /* ─── Grid ─── */
   .grid {
     display: grid;
     grid-template-columns: repeat(12, 1fr);
@@ -88,7 +104,6 @@
     margin: 0 auto;
   }
 
-  /* ─── Card base ─── */
   .card {
     background: var(--card-1);
     border: 1px solid var(--border);
@@ -115,115 +130,72 @@
   }
   .card:hover::before { opacity: 1; }
 
-  /* column spans */
-  .col-7  { grid-column: span 7; }
-  .col-5  { grid-column: span 5; }
-  .col-6  { grid-column: span 6; }
-  .col-4  { grid-column: span 4; }
-  .col-8  { grid-column: span 8; }
   .col-12 { grid-column: span 12; }
+  .col-8  { grid-column: span 8; }
+  .col-7  { grid-column: span 7; }
+  .col-6  { grid-column: span 6; }
+  .col-5  { grid-column: span 5; }
+  .col-4  { grid-column: span 4; }
   .col-3  { grid-column: span 3; }
 
-  /* ─── Card: Почему Уругвай (hero) ─── */
+  /* hero */
   .card-hero {
     background: linear-gradient(135deg, #0d1b35 0%, #071428 60%, #050e1c 100%);
     border-color: rgba(59,130,246,0.2);
     padding: 36px;
   }
-  .card-hero::before {
-    background: radial-gradient(circle at 80% 20%, rgba(59,130,246,0.08) 0%, transparent 60%);
-  }
-  .flag {
-    font-size: 52px;
-    line-height: 1;
-    margin-bottom: 16px;
-    display: block;
-    filter: drop-shadow(0 4px 12px rgba(0,0,0,0.5));
-  }
-  .card-hero h2 {
-    font-size: 26px;
-    font-weight: 700;
-    letter-spacing: -0.02em;
-    margin-bottom: 12px;
-    color: #e2e8f0;
-  }
-  .card-hero p {
-    color: var(--text-sub);
-    font-size: 14px;
-    line-height: 1.6;
-    max-width: 380px;
-  }
-  .hero-stats {
-    display: flex;
-    gap: 24px;
-    margin-top: 24px;
-    flex-wrap: wrap;
-  }
-  .hero-stat-val {
-    font-size: 22px;
-    font-weight: 700;
-    color: var(--blue);
-    display: block;
-  }
-  .hero-stat-label {
-    font-size: 11px;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-  }
+  .card-hero::before { background: radial-gradient(circle at 80% 20%, rgba(59,130,246,0.08) 0%, transparent 60%); }
+  .flag { font-size: 52px; line-height: 1; margin-bottom: 16px; display: block; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.5)); }
+  .card-hero h2 { font-size: 26px; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 12px; color: #e2e8f0; }
+  .card-hero p { color: var(--text-sub); font-size: 14px; line-height: 1.6; max-width: 380px; }
+  .hero-stats { display: flex; gap: 24px; margin-top: 24px; flex-wrap: wrap; }
+  .hero-stat-val { font-size: 22px; font-weight: 700; color: var(--blue); display: block; }
+  .hero-stat-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; }
 
-  /* ─── 14 дней block ─── */
-  .card-14 {
-    background: linear-gradient(135deg, #1a0505 0%, #120303 100%);
-    border-color: rgba(239,68,68,0.25);
+  /* fast-track */
+  .card-ft {
+    background: linear-gradient(135deg, #0a1a0a 0%, #061206 100%);
+    border-color: rgba(34,197,94,0.25);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
   }
-  .card-14::before {
-    background: radial-gradient(circle at 30% 70%, rgba(239,68,68,0.07) 0%, transparent 60%);
-  }
-  .big-no {
-    font-size: 72px;
+  .card-ft::before { background: radial-gradient(circle at 80% 20%, rgba(34,197,94,0.07) 0%, transparent 60%); }
+  .big-yes {
+    font-size: 60px;
     font-weight: 800;
     letter-spacing: -0.05em;
     line-height: 1;
-    color: var(--red);
-    text-shadow: 0 0 40px rgba(239,68,68,0.3);
+    color: var(--green);
+    text-shadow: 0 0 40px rgba(34,197,94,0.3);
     margin: 8px 0 4px;
   }
-  .card-14 h3 { font-size: 15px; font-weight: 600; color: #e2e8f0; margin-bottom: 16px; }
-  .card-14 p { font-size: 13px; color: var(--text-sub); line-height: 1.6; }
+  .card-ft h3 { font-size: 15px; font-weight: 600; color: #e2e8f0; margin-bottom: 12px; }
+  .card-ft p { font-size: 13px; color: var(--text-sub); line-height: 1.6; }
+
   .tip-box {
-    margin-top: 16px;
-    background: rgba(34,197,94,0.08);
-    border: 1px solid rgba(34,197,94,0.2);
+    margin-top: 14px;
     border-radius: var(--radius-sm);
     padding: 10px 14px;
     font-size: 12px;
-    color: var(--green);
     line-height: 1.5;
   }
+  .tip-green { background: rgba(34,197,94,0.08); border: 1px solid rgba(34,197,94,0.2); color: var(--green); }
+  .tip-yellow { background: rgba(245,158,11,0.08); border: 1px solid rgba(245,158,11,0.2); color: var(--yellow); }
+  .tip-blue { background: rgba(59,130,246,0.08); border: 1px solid rgba(59,130,246,0.2); color: var(--blue); }
+  .tip-red { background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.2); color: var(--red); }
 
-  /* ─── Плюсы ─── */
-  .card-plus {
-    background: linear-gradient(135deg, #061a0e 0%, #040f07 100%);
-    border-color: rgba(34,197,94,0.2);
-  }
-  .card-plus::before {
-    background: radial-gradient(circle at 90% 10%, rgba(34,197,94,0.06) 0%, transparent 60%);
-  }
+  /* plus/minus */
+  .card-plus { background: linear-gradient(135deg, #061a0e 0%, #040f07 100%); border-color: rgba(34,197,94,0.2); }
+  .card-plus::before { background: radial-gradient(circle at 90% 10%, rgba(34,197,94,0.06) 0%, transparent 60%); }
+  .card-minus { background: linear-gradient(135deg, #1a0e03 0%, #0f0801 100%); border-color: rgba(245,158,11,0.2); }
+  .card-minus::before { background: radial-gradient(circle at 10% 90%, rgba(245,158,11,0.06) 0%, transparent 60%); }
+  .card-citizenship { background: linear-gradient(135deg, #030d1a 0%, #040c17 100%); border-color: rgba(6,182,212,0.2); }
+  .card-citizenship::before { background: radial-gradient(circle at 50% 100%, rgba(6,182,212,0.07) 0%, transparent 60%); }
+  .card-docs { background: var(--card-2); }
+  .card-visa { background: linear-gradient(135deg, #0a0a1a 0%, #060610 100%); border-color: rgba(168,85,247,0.2); }
+  .card-visa::before { background: radial-gradient(circle at 90% 10%, rgba(168,85,247,0.06) 0%, transparent 60%); }
 
-  /* ─── Минусы ─── */
-  .card-minus {
-    background: linear-gradient(135deg, #1a0e03 0%, #0f0801 100%);
-    border-color: rgba(245,158,11,0.2);
-  }
-  .card-minus::before {
-    background: radial-gradient(circle at 10% 90%, rgba(245,158,11,0.06) 0%, transparent 60%);
-  }
-
-  /* ─── Card titles ─── */
   .card-label {
     font-size: 10px;
     font-weight: 600;
@@ -231,184 +203,184 @@
     letter-spacing: 0.1em;
     margin-bottom: 6px;
   }
-  .card-label.blue  { color: var(--blue); }
-  .card-label.cyan  { color: var(--cyan); }
-  .card-label.green { color: var(--green); }
-  .card-label.red   { color: var(--red); }
-  .card-label.yellow{ color: var(--yellow); }
+  .card-label.blue   { color: var(--blue); }
+  .card-label.cyan   { color: var(--cyan); }
+  .card-label.green  { color: var(--green); }
+  .card-label.red    { color: var(--red); }
+  .card-label.yellow { color: var(--yellow); }
+  .card-label.purple { color: var(--purple); }
 
-  .card h3 {
-    font-size: 17px;
-    font-weight: 700;
-    letter-spacing: -0.01em;
-    margin-bottom: 18px;
-    color: #e2e8f0;
-  }
+  .card h3 { font-size: 17px; font-weight: 700; letter-spacing: -0.01em; margin-bottom: 18px; color: #e2e8f0; }
 
-  /* ─── List items ─── */
   .list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
-  .list li {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    font-size: 13px;
-    color: var(--text-sub);
-    line-height: 1.45;
-  }
+  .list li { display: flex; align-items: flex-start; gap: 10px; font-size: 13px; color: var(--text-sub); line-height: 1.45; }
   .list li .icon {
-    flex-shrink: 0;
-    width: 22px;
-    height: 22px;
-    border-radius: 6px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 12px;
-    margin-top: 0px;
+    flex-shrink: 0; width: 22px; height: 22px; border-radius: 6px;
+    display: flex; align-items: center; justify-content: center; font-size: 12px;
   }
-  .icon-green { background: var(--green-dim); }
-  .icon-red   { background: var(--red-dim); }
-  .icon-yellow{ background: var(--yellow-dim); }
-  .icon-blue  { background: var(--blue-dim); }
-  .icon-cyan  { background: var(--cyan-dim); }
-
+  .icon-green  { background: var(--green-dim); }
+  .icon-red    { background: var(--red-dim); }
+  .icon-yellow { background: var(--yellow-dim); }
+  .icon-blue   { background: var(--blue-dim); }
+  .icon-cyan   { background: var(--cyan-dim); }
+  .icon-purple { background: var(--purple-dim); }
   .list li strong { color: #cbd5e1; font-weight: 500; }
 
-  /* ─── Steps ─── */
   .steps { display: flex; flex-direction: column; gap: 12px; }
-  .step {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-  }
+  .step { display: flex; align-items: flex-start; gap: 12px; }
   .step-num {
-    width: 26px;
-    height: 26px;
-    border-radius: 8px;
-    background: var(--blue-dim);
-    border: 1px solid rgba(59,130,246,0.2);
-    color: var(--blue);
-    font-size: 12px;
-    font-weight: 700;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
+    width: 26px; height: 26px; border-radius: 8px;
+    background: var(--blue-dim); border: 1px solid rgba(59,130,246,0.2);
+    color: var(--blue); font-size: 12px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
   }
   .step-text { font-size: 13px; color: var(--text-sub); line-height: 1.45; padding-top: 4px; }
   .step-text strong { color: #cbd5e1; font-weight: 500; display: block; margin-bottom: 1px; }
 
-  /* ─── Налоги ─── */
   .tax-rows { display: flex; flex-direction: column; gap: 10px; }
   .tax-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 8px;
-    padding: 10px 14px;
-    border-radius: 10px;
-    background: rgba(255,255,255,0.03);
-    border: 1px solid rgba(255,255,255,0.05);
+    display: flex; align-items: center; justify-content: space-between; gap: 8px;
+    padding: 10px 14px; border-radius: 10px;
+    background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05);
   }
   .tax-name { font-size: 12px; color: var(--text-sub); }
-  .tax-val {
-    font-size: 15px;
-    font-weight: 700;
-    font-variant-numeric: tabular-nums;
-    white-space: nowrap;
-  }
-  .tax-val.green { color: var(--green); }
+  .tax-val { font-size: 15px; font-weight: 700; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .tax-val.green  { color: var(--green); }
   .tax-val.yellow { color: var(--yellow); }
-  .tax-val.red   { color: var(--red); }
+  .tax-val.red    { color: var(--red); }
 
-  /* ─── Стоимость ─── */
   .cost-grid { display: flex; flex-direction: column; gap: 10px; }
-  .cost-item {
-    padding: 12px 14px;
-    border-radius: 10px;
-    background: rgba(255,255,255,0.03);
-    border: 1px solid rgba(255,255,255,0.05);
-  }
+  .cost-item { padding: 12px 14px; border-radius: 10px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); }
   .cost-item-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 4px; }
   .cost-item-val { font-size: 18px; font-weight: 700; color: #e2e8f0; font-variant-numeric: tabular-nums; }
   .cost-item-sub { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
 
-  /* ─── Гражданство ─── */
-  .card-citizenship {
-    background: linear-gradient(135deg, #030d1a 0%, #040c17 100%);
-    border-color: rgba(6,182,212,0.2);
-  }
-  .card-citizenship::before {
-    background: radial-gradient(circle at 50% 100%, rgba(6,182,212,0.07) 0%, transparent 60%);
-  }
   .citizenship-paths { display: flex; gap: 10px; margin-top: 4px; }
-  .cpath {
-    flex: 1;
-    padding: 14px;
-    border-radius: 12px;
-    border: 1px solid rgba(255,255,255,0.07);
-    background: rgba(255,255,255,0.03);
-    text-align: center;
-  }
-  .cpath-years {
-    font-size: 32px;
-    font-weight: 800;
-    letter-spacing: -0.03em;
-    display: block;
-    margin-bottom: 4px;
-  }
+  .cpath { flex: 1; padding: 14px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.07); background: rgba(255,255,255,0.03); text-align: center; }
+  .cpath-years { font-size: 32px; font-weight: 800; letter-spacing: -0.03em; display: block; margin-bottom: 4px; }
   .cpath-years.cyan { color: var(--cyan); }
   .cpath-years.blue { color: var(--blue); }
   .cpath-label { font-size: 11px; color: var(--text-muted); line-height: 1.4; }
 
-  /* ─── Документы ─── */
-  .card-docs {
-    background: var(--card-2);
-  }
   .doc-grid { display: flex; flex-direction: column; gap: 8px; }
   .doc-item {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 13px;
-    color: var(--text-sub);
-    padding: 8px 10px;
-    border-radius: 8px;
-    background: rgba(255,255,255,0.02);
-    border: 1px solid rgba(255,255,255,0.04);
+    display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--text-sub);
+    padding: 8px 10px; border-radius: 8px;
+    background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.04);
   }
   .doc-item .icon { font-size: 14px; }
   .doc-item strong { color: #cbd5e1; font-weight: 500; }
 
-  /* ─── Responsive ─── */
+  /* ── Варианты ВНЖ (big row) ── */
+  .vnj-types { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .vnj-type {
+    padding: 18px;
+    border-radius: 14px;
+    border: 1px solid rgba(255,255,255,0.07);
+    background: rgba(255,255,255,0.02);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transition: border-color 200ms ease, background 200ms ease;
+  }
+  .vnj-type:hover { border-color: rgba(255,255,255,0.14); background: rgba(255,255,255,0.04); }
+  .vnj-type-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 3px 10px;
+    border-radius: 100px;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    width: fit-content;
+  }
+  .badge-blue   { background: var(--blue-dim);   color: var(--blue); }
+  .badge-green  { background: var(--green-dim);  color: var(--green); }
+  .badge-yellow { background: var(--yellow-dim); color: var(--yellow); }
+  .badge-purple { background: var(--purple-dim); color: var(--purple); }
+  .vnj-type h4 { font-size: 14px; font-weight: 700; color: #e2e8f0; }
+  .vnj-type p  { font-size: 12px; color: var(--text-sub); line-height: 1.5; }
+  .vnj-type-meta { font-size: 11px; color: var(--text-muted); border-top: 1px solid rgba(255,255,255,0.06); padding-top: 10px; }
+  .vnj-type-meta span { color: var(--text-sub); font-weight: 500; }
+
+  /* ── Присутствие / сохранение ── */
+  .presence-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .presence-item {
+    padding: 14px;
+    border-radius: 12px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+  .presence-days {
+    font-size: 28px;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    font-variant-numeric: tabular-nums;
+    display: block;
+    margin-bottom: 4px;
+  }
+  .presence-label { font-size: 11px; color: var(--text-sub); line-height: 1.4; }
+  .presence-sub   { font-size: 10px; color: var(--text-muted); margin-top: 4px; }
+
+  /* ── Виза ── */
+  .visa-countries { display: flex; flex-direction: column; gap: 8px; }
+  .visa-row {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 8px 12px; border-radius: 9px;
+    background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05);
+    font-size: 13px;
+  }
+  .visa-country { color: var(--text-sub); }
+  .visa-days { color: var(--green); font-weight: 600; font-size: 12px; }
+
+  /* ── Investor table ── */
+  .invest-rows { display: flex; flex-direction: column; gap: 10px; }
+  .invest-row {
+    display: flex; align-items: center; gap: 14px;
+    padding: 12px 14px; border-radius: 12px;
+    background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05);
+  }
+  .invest-icon {
+    width: 36px; height: 36px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; flex-shrink: 0;
+  }
+  .invest-name  { font-size: 13px; color: #cbd5e1; font-weight: 500; }
+  .invest-amount { font-size: 13px; color: var(--text-muted); margin-top: 2px; }
+  .invest-tag {
+    margin-left: auto; padding: 3px 9px; border-radius: 100px;
+    font-size: 11px; font-weight: 600; white-space: nowrap; flex-shrink: 0;
+  }
+
+  @media (max-width: 1000px) {
+    .vnj-types { grid-template-columns: repeat(2, 1fr); }
+    .presence-grid { grid-template-columns: repeat(2, 1fr); }
+  }
   @media (max-width: 900px) {
-    .col-7, .col-5, .col-6, .col-4, .col-8, .col-3 {
-      grid-column: span 12;
-    }
+    .col-7, .col-5, .col-6, .col-4, .col-8, .col-3 { grid-column: span 12; }
   }
   @media (max-width: 600px) {
     body { padding: 20px 14px 48px; }
     .grid { gap: 10px; }
     .card { padding: 22px 18px; }
-    .big-no { font-size: 56px; }
+    .big-yes { font-size: 46px; }
     .citizenship-paths { flex-direction: column; }
     .hero-stats { gap: 16px; }
+    .vnj-types { grid-template-columns: 1fr; }
+    .presence-grid { grid-template-columns: 1fr; }
   }
-
   @media (prefers-reduced-motion: reduce) {
-    .card { transition: none; }
-    .card::before { transition: none; }
+    .card, .card::before, .vnj-type { transition: none; }
   }
 
-  /* ─── Footer note ─── */
   .footer-note {
     text-align: center;
-    margin-top: 40px;
+    margin: 40px auto 0;
     font-size: 12px;
     color: var(--text-muted);
     max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
     line-height: 1.6;
   }
   .footer-note span { color: var(--text-sub); }
@@ -416,24 +388,26 @@
 </head>
 <body>
 
-<!-- Header -->
 <header class="header">
   <div class="header-badge">
     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
     Актуально на 2026 год
   </div>
   <h1>ВНЖ Уругвай</h1>
-  <p>Полный гайд — плюсы, минусы, документы, сроки и реальность</p>
+  <p>Полный гайд — все варианты, плюсы, минусы, документы, налоги и как сохранить статус</p>
 </header>
 
-<!-- Bento Grid -->
+<!-- ══════════════════════════════════════════
+     БЛОК 1: Обзор
+══════════════════════════════════════════ -->
+<div class="section-title">Обзор</div>
 <main class="grid">
 
-  <!-- 1. Почему Уругвай (hero, 7 cols) -->
+  <!-- Почему Уругвай -->
   <div class="card card-hero col-7">
     <span class="flag">🇺🇾</span>
     <h2>Почему Уругвай?</h2>
-    <p>Самая стабильная демократия Латинской Америки. Развитое верховенство права, низкая коррупция, европейский уклад жизни — и одна из самых лояльных систем налогообложения для иностранцев.</p>
+    <p>Самая стабильная демократия Латинской Америки. Развитое верховенство права, низкая коррупция, европейский уклад жизни — и одна из самых лояльных систем налогообложения для иностранцев в мире.</p>
     <div class="hero-stats">
       <div>
         <span class="hero-stat-val">3–5</span>
@@ -450,59 +424,67 @@
     </div>
   </div>
 
-  <!-- 2. Реально ли за 14 дней? (5 cols) -->
-  <div class="card card-14 col-5">
-    <div>
-      <div class="card-label red">Главный вопрос</div>
-      <h3>Реально ли за 14 дней?</h3>
-      <div class="big-no">Нет.</div>
-      <p>Стандартный процесс занимает <strong style="color:#e2e8f0">3–12 месяцев</strong> с момента подачи заявки. Иногда до 18 месяцев при большой нагрузке на DNM.</p>
+  <!-- Виза -->
+  <div class="card card-visa col-5">
+    <div class="card-label purple">Въезд</div>
+    <h3>Нужна ли виза?</h3>
+    <div class="visa-countries">
+      <div class="visa-row"><span class="visa-country">🇷🇺 Россия</span><span class="visa-days">90 дней без визы</span></div>
+      <div class="visa-row"><span class="visa-country">🇺🇦 Украина</span><span class="visa-days">90 дней без визы</span></div>
+      <div class="visa-row"><span class="visa-country">🇧🇾 Беларусь</span><span class="visa-days">90 дней без визы</span></div>
+      <div class="visa-row"><span class="visa-country">🇰🇿 Казахстан</span><span class="visa-days">90 дней без визы</span></div>
+      <div class="visa-row"><span class="visa-country">🇬🇪 Грузия</span><span class="visa-days">90 дней без визы</span></div>
+      <div class="visa-row"><span class="visa-country">🇦🇿 Азербайджан</span><span class="visa-days">90 дней без визы</span></div>
     </div>
-    <div class="tip-box">
-      ✓ Но: подать заявку можно уже в первый день приезда. Талон (resguardo) вы получите сразу — он подтверждает, что процесс запущен.
+    <div class="tip-box tip-blue" style="margin-top:14px;">
+      Въезд только по загранпаспорту. Никаких форм, приглашений и страховок в посольстве не нужно.
     </div>
   </div>
 
-  <!-- 3. Плюсы (6 cols) -->
+  <!-- Плюсы -->
   <div class="card card-plus col-6">
     <div class="card-label green">Аргументы за</div>
     <h3>Плюсы ВНЖ Уругвая</h3>
     <ul class="list">
       <li>
         <span class="icon icon-green">💰</span>
-        <span><strong>Территориальный налог 11 лет</strong> — доходы из-за рубежа не облагаются налогом первые 11 лет (Ley 18.083)</span>
+        <span><strong>Налоговые каникулы 11 лет</strong> — доходы из-за рубежа не облагаются налогом (Feriado Fiscal 2.0, с 2026)</span>
       </li>
       <li>
         <span class="icon icon-green">🛡️</span>
-        <span><strong>Политическая стабильность</strong> — топ-30 в мировом рейтинге свободы прессы, работающие суды, минимальная бытовая коррупция</span>
+        <span><strong>Политическая стабильность</strong> — топ-30 свободы прессы, работающие суды, минимальная коррупция</span>
       </li>
       <li>
         <span class="icon icon-green">🌍</span>
-        <span><strong>Паспорт: 150+ стран</strong> — безвиз в ЕС, США (ESTA), Великобританию и большинство стран мира</span>
+        <span><strong>Паспорт: 150+ стран</strong> — безвиз в ЕС, США (ESTA), Великобританию, Японию, Ю. Корею</span>
       </li>
       <li>
         <span class="icon icon-green">📈</span>
-        <span><strong>Нет налога на капитал</strong> — прирост стоимости зарубежных активов не облагается налогом</span>
+        <span><strong>Нет налога на капитал</strong> — прирост стоимости зарубежных активов не облагается</span>
       </li>
       <li>
         <span class="icon icon-green">🏥</span>
-        <span><strong>Качество жизни</strong> — развитая медицина, образование, безопасность по меркам региона</span>
+        <span><strong>Качество жизни</strong> — медицина, образование, безопасность на уровне лучших стран региона</span>
+      </li>
+      <li>
+        <span class="icon icon-green">✈️</span>
+        <span><strong>Двойное гражданство</strong> — уругвайский паспорт не требует отказа от российского</span>
       </li>
     </ul>
   </div>
 
-  <!-- 4. Минусы (6 cols) -->
+  <!-- Минусы -->
   <div class="card card-minus col-6">
     <div class="card-label yellow">Аргументы против</div>
     <h3>Минусы</h3>
     <ul class="list">
       <li>
         <span class="icon icon-yellow">💸</span>
-        <span><strong>Дорогая жизнь</strong> — одна из самых дорогих стран Латинской Америки. Аренда в Монтевидео — $700–1500/мес за 1-комнатную</span>
+        <span><strong>Дорогая жизнь</strong> — одна из самых дорогих стран региона. Аренда в Монтевидео: $700–1500/мес за 1-комнатную</span>
       </li>
       <li>
         <span class="icon icon-yellow">🐢</span>
-        <span><strong>Медленная бюрократия</strong> — DNM перегружена, сроки постоянно сдвигаются. Апостиль документов из России — отдельная задача</span>
+        <span><strong>Медленная бюрократия</strong> — DNM перегружена, сроки постоянно сдвигаются. Апостиль из России — отдельная задача</span>
       </li>
       <li>
         <span class="icon icon-yellow">🗣️</span>
@@ -510,7 +492,7 @@
       </li>
       <li>
         <span class="icon icon-yellow">💼</span>
-        <span><strong>Маленький рынок труда</strong> — 3.5 млн человек, немного IT-вакансий и мало стартапов. Реалистично — удалённая работа</span>
+        <span><strong>Маленький рынок труда</strong> — 3.5 млн человек, мало IT-вакансий. Реалистичный вариант — удалёнка</span>
       </li>
       <li>
         <span class="icon icon-yellow">☁️</span>
@@ -518,72 +500,202 @@
       </li>
     </ul>
   </div>
+</main>
 
-  <!-- 5. Документы (4 cols) -->
-  <div class="card card-docs col-4">
-    <div class="card-label blue">Что собрать</div>
-    <h3>Документы</h3>
-    <div class="doc-grid">
-      <div class="doc-item">
-        <span class="icon">📘</span>
-        <span><strong>Загранпаспорт</strong> — оригинал + копии всех страниц</span>
+<!-- ══════════════════════════════════════════
+     БЛОК 2: Все варианты ВНЖ
+══════════════════════════════════════════ -->
+<div class="section-title">Все варианты ВНЖ</div>
+<div class="grid">
+
+  <!-- 4 типа ВНЖ в одной строке -->
+  <div class="card col-12">
+    <div class="card-label blue">Сравнение путей</div>
+    <h3>Какой вариант выбрать?</h3>
+    <div class="vnj-types">
+
+      <div class="vnj-type">
+        <div class="vnj-type-badge badge-blue">Стандартный</div>
+        <h4>Через DNM</h4>
+        <p>Подаёте документы в Dirección Nacional de Migración. Подходит всем без требований к доходу или инвестициям.</p>
+        <div class="vnj-type-meta">
+          Срок: <span>3–12 мес</span><br>
+          Доход: <span>любой (подтвердить)</span><br>
+          В стране: <span>до решения</span>
+        </div>
       </div>
-      <div class="doc-item">
-        <span class="icon">📄</span>
-        <span><strong>Свидетельство о рождении</strong> — с апостилем и переводом</span>
+
+      <div class="vnj-type">
+        <div class="vnj-type-badge badge-green">Fast-track</div>
+        <h4>1–2 недели физически</h4>
+        <p>Прилетаете, gestor (юрист) подаёт всё за 1–2 недели пребывания. Улетаете — ждёте решения дистанционно. Возвращаетесь за Cédula.</p>
+        <div class="vnj-type-meta">
+          Срок одобрения: <span>3–12 мес</span><br>
+          Gestor: <span>$500–1500</span><br>
+          В стране: <span>1–2 нед при подаче + возврат за картой</span>
+        </div>
       </div>
-      <div class="doc-item">
-        <span class="icon">🔍</span>
-        <span><strong>Справка о несудимости</strong> — апостиль + перевод на испанский</span>
+
+      <div class="vnj-type">
+        <div class="vnj-type-badge badge-yellow">Rentista</div>
+        <h4>Пассивный доход</h4>
+        <p>Подтверждаете стабильный пассивный доход извне Уругвая: пенсия, дивиденды, удалённая зарплата, аренда.</p>
+        <div class="vnj-type-meta">
+          Доход: <span>от $1 500/мес</span><br>
+          Срок: <span>1–18 мес</span><br>
+          Тип: <span>временный → постоянный</span>
+        </div>
       </div>
-      <div class="doc-item">
-        <span class="icon">🏥</span>
-        <span><strong>Медсправка</strong> — выдаётся в Уругвае, от местного врача</span>
+
+      <div class="vnj-type">
+        <div class="vnj-type-badge badge-purple">Инвестор</div>
+        <h4>Через инвестиции</h4>
+        <p>Вкладываете в недвижимость или бизнес. Минимальный вариант — недвижимость от $525k. При $2M — льготный налоговый режим и всего 60 дней в году.</p>
+        <div class="vnj-type-meta">
+          От: <span>$525 000</span><br>
+          Срок: <span>1–6 мес</span><br>
+          Бонус: <span>60 дней/год при $2M+</span>
+        </div>
       </div>
-      <div class="doc-item">
-        <span class="icon">📸</span>
-        <span><strong>Фото</strong> — на белом фоне, 3×3 см, 2 штуки</span>
+
+    </div>
+  </div>
+
+  <!-- Fast-track: как работает -->
+  <div class="card card-ft col-5">
+    <div>
+      <div class="card-label green">Fast-track реально?</div>
+      <h3>«ВНЖ за 14 дней» — правда</h3>
+      <div class="big-yes">Да*</div>
+      <p>Именно так работает схема с gestorem. Вы физически тратите <strong style="color:#e2e8f0">1–2 недели</strong> в Уругвае на подачу документов и биометрию — а потом улетаете.</p>
+    </div>
+    <div class="tip-box tip-yellow">
+      * Сам ВНЖ всё равно одобряется через 3–12 месяцев. «14 дней» — это срок вашего физического присутствия, а не выдачи.
+    </div>
+    <div class="tip-box tip-green" style="margin-top:8px;">
+      После подачи вы получаете талон (resguardo) — он легализует ваше нахождение в стране на всё время ожидания.
+    </div>
+  </div>
+
+  <!-- Rentista -->
+  <div class="card col-4">
+    <div class="card-label yellow">Rentista</div>
+    <h3>ВНЖ через пассивный доход</h3>
+    <ul class="list">
+      <li>
+        <span class="icon icon-yellow">💵</span>
+        <span><strong>Минимум $1 500/мес</strong> — подтверждённый регулярный доход из-за пределов Уругвая</span>
+      </li>
+      <li>
+        <span class="icon icon-yellow">📋</span>
+        <span><strong>Источники дохода:</strong> пенсия, дивиденды, удалённая зарплата, доход от аренды, роялти</span>
+      </li>
+      <li>
+        <span class="icon icon-yellow">🏠</span>
+        <span><strong>Опция с недвижимостью:</strong> купить жильё от $100k + доход $1500/мес — упрощённое одобрение</span>
+      </li>
+      <li>
+        <span class="icon icon-yellow">⏱️</span>
+        <span><strong>Срок:</strong> 1–18 месяцев в зависимости от загруженности DNM</span>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Инвесторский -->
+  <div class="card col-3">
+    <div class="card-label purple">Инвестор</div>
+    <h3>Суммы</h3>
+    <div class="invest-rows">
+      <div class="invest-row">
+        <div class="invest-icon icon-blue">🏢</div>
+        <div>
+          <div class="invest-name">Недвижимость</div>
+          <div class="invest-amount">от $525 000</div>
+        </div>
+        <div class="invest-tag badge-blue">Базовый</div>
       </div>
-      <div class="doc-item">
-        <span class="icon">💳</span>
-        <span><strong>Подтверждение дохода</strong> — выписка, договор, справка</span>
+      <div class="invest-row">
+        <div class="invest-icon icon-purple">🏠</div>
+        <div>
+          <div class="invest-name">Недвижка (налог. льгота)</div>
+          <div class="invest-amount">$2 000 000</div>
+        </div>
+        <div class="invest-tag badge-purple" style="background:var(--purple-dim); color:var(--purple);">60 дней/год</div>
+      </div>
+      <div class="invest-row">
+        <div class="invest-icon icon-yellow">🏭</div>
+        <div>
+          <div class="invest-name">Компания (15+ раб. мест)</div>
+          <div class="invest-amount">$2 180 000</div>
+        </div>
+        <div class="invest-tag badge-yellow">Бизнес</div>
+      </div>
+      <div class="invest-row">
+        <div class="invest-icon icon-cyan">📊</div>
+        <div>
+          <div class="invest-name">Венч. фонды</div>
+          <div class="invest-amount">$100 000/год</div>
+        </div>
+        <div class="invest-tag badge-blue">Новое 2026</div>
       </div>
     </div>
   </div>
 
-  <!-- 6. Этапы (8 cols) -->
+</div>
+
+<!-- ══════════════════════════════════════════
+     БЛОК 3: Оформление
+══════════════════════════════════════════ -->
+<div class="section-title">Оформление</div>
+<div class="grid">
+
+  <!-- Документы -->
+  <div class="card card-docs col-4">
+    <div class="card-label blue">Что собрать</div>
+    <h3>Документы</h3>
+    <div class="doc-grid">
+      <div class="doc-item"><span class="icon">📘</span><span><strong>Загранпаспорт</strong> — оригинал + копии всех страниц</span></div>
+      <div class="doc-item"><span class="icon">📄</span><span><strong>Свидетельство о рождении</strong> — с апостилем + перевод</span></div>
+      <div class="doc-item"><span class="icon">🔍</span><span><strong>Справка о несудимости</strong> — апостиль + перевод на испанский</span></div>
+      <div class="doc-item"><span class="icon">🏥</span><span><strong>Медсправка</strong> — выдаётся в Уругвае у местного врача</span></div>
+      <div class="doc-item"><span class="icon">📸</span><span><strong>Фото</strong> — на белом фоне, 3×3 см, 2 штуки</span></div>
+      <div class="doc-item"><span class="icon">💳</span><span><strong>Подтверждение дохода</strong> — выписка, договор, справка</span></div>
+    </div>
+  </div>
+
+  <!-- Этапы -->
   <div class="card col-8">
     <div class="card-label blue">Пошаговый процесс</div>
     <h3>Этапы получения ВНЖ</h3>
     <div class="steps">
       <div class="step">
         <div class="step-num">1</div>
-        <div class="step-text"><strong>Въезд в Уругвай</strong> Без визы до 90 дней для граждан большинства стран. Прилетаете — и сразу начинаете процесс.</div>
+        <div class="step-text"><strong>Въезд в Уругвай</strong> Без визы до 90 дней. Прилетаете — сразу начинаете процесс. При fast-track: нужно 1–2 недели.</div>
       </div>
       <div class="step">
         <div class="step-num">2</div>
-        <div class="step-text"><strong>Запись в DNM (Dirección Nacional de Migración)</strong> Сайт: dnm.minterior.gub.uy. Либо через gestor — посредник, который ускоряет процесс.</div>
+        <div class="step-text"><strong>Запись в DNM (Dirección Nacional de Migración)</strong> Сайт: dnm.minterior.gub.uy. Либо через gestor — существенно ускоряет и упрощает.</div>
       </div>
       <div class="step">
         <div class="step-num">3</div>
-        <div class="step-text"><strong>Подача документов — получение талона (resguardo)</strong> Talón подтверждает, что заявка принята. С ним можно легально находиться в стране.</div>
+        <div class="step-text"><strong>Подача документов — получение талона (resguardo)</strong> Получаете сразу при подаче. С ним легально находитесь в стране весь период ожидания.</div>
       </div>
       <div class="step">
         <div class="step-num">4</div>
-        <div class="step-text"><strong>Ожидание: 3–12 месяцев</strong> DNM проверяет документы. Статус можно отслеживать на сайте DNM по номеру заявки.</div>
+        <div class="step-text"><strong>При fast-track: можно улететь</strong> Gestor ведёт дело дистанционно. Статус отслеживается онлайн на сайте DNM по номеру заявки.</div>
       </div>
       <div class="step">
         <div class="step-num">5</div>
-        <div class="step-text"><strong>Биометрия в DNIC</strong> После одобрения — сдача отпечатков и фото в Dirección Nacional de Identificación Civil.</div>
+        <div class="step-text"><strong>Ожидание одобрения: 3–12 месяцев</strong> DNM проверяет документы. При инвесторском пути — быстрее (1–6 мес).</div>
       </div>
       <div class="step">
         <div class="step-num">6</div>
-        <div class="step-text"><strong>Получение Cédula de Identidad</strong> Уругвайское удостоверение личности. Это и есть ваш ВНЖ в физическом виде.</div>
+        <div class="step-text"><strong>Биометрия в DNIC + получение Cédula de Identidad</strong> Возвращаетесь в Уругвай, сдаёте отпечатки, получаете уругвайское удостоверение — это и есть ваш ВНЖ.</div>
       </div>
     </div>
   </div>
 
-  <!-- 7. Стоимость (3 cols) -->
+  <!-- Стоимость -->
   <div class="card col-3">
     <div class="card-label cyan">Бюджет</div>
     <h3>Стоимость</h3>
@@ -596,22 +708,22 @@
       <div class="cost-item">
         <div class="cost-item-label">Gestor (посредник)</div>
         <div class="cost-item-val">$500–1500</div>
-        <div class="cost-item-sub">Необязательно, но ускоряет и упрощает</div>
+        <div class="cost-item-sub">Необязательно, но ускоряет</div>
       </div>
       <div class="cost-item">
         <div class="cost-item-label">Переводы + апостиль</div>
         <div class="cost-item-val">$200–500</div>
-        <div class="cost-item-sub">Зависит от страны выдачи документов</div>
+        <div class="cost-item-sub">Зависит от страны документов</div>
       </div>
       <div class="cost-item">
         <div class="cost-item-label">Итого</div>
         <div class="cost-item-val" style="color: var(--cyan)">~$1200–2500</div>
-        <div class="cost-item-sub">Без учёта переезда и жилья</div>
+        <div class="cost-item-sub">Без переезда и жилья</div>
       </div>
     </div>
   </div>
 
-  <!-- 8. Налоги (5 cols) -->
+  <!-- Налоги -->
   <div class="card col-5">
     <div class="card-label green">Фискальная система</div>
     <h3>Налоги в Уругвае</h3>
@@ -637,43 +749,91 @@
         <div class="tax-val yellow">22%</div>
       </div>
     </div>
-    <p style="font-size:11px; color: var(--text-muted); margin-top: 14px; line-height:1.5;">После 11 лет иностранный доход облагается по стандартным ставкам IRPF (10–36%). Статус «fiscal resident» необходим для налоговой оптимизации.</p>
+    <p style="font-size:11px; color: var(--text-muted); margin-top: 14px; line-height:1.5;">Feriado Fiscal 2.0 (с 01.01.2026): новые резиденты могут не платить налог с зарубежных доходов 11 фискальных лет.</p>
   </div>
 
-  <!-- 9. Путь к гражданству (7 cols) -->
-  <div class="card card-citizenship col-7">
-    <div class="card-label cyan">Финальная цель</div>
-    <h3>Путь к гражданству Уругвая</h3>
-    <div class="citizenship-paths">
-      <div class="cpath">
-        <span class="cpath-years cyan">3</span>
-        <span class="cpath-label">года с ВНЖ при наличии супруга-уругвайца или ребёнка-гражданина</span>
+  <!-- Как сохранить ВНЖ -->
+  <div class="card col-4">
+    <div class="card-label red">Важно!</div>
+    <h3>Как не потерять ВНЖ</h3>
+    <div class="presence-grid">
+      <div class="presence-item">
+        <span class="presence-days" style="color: var(--green);">0</span>
+        <div class="presence-label">Сам ВНЖ (Cédula)</div>
+        <div class="presence-sub">Не аннулируется за отсутствие</div>
       </div>
-      <div class="cpath">
-        <span class="cpath-years blue">5</span>
-        <span class="cpath-label">лет с ВНЖ для всех остальных без исключений</span>
+      <div class="presence-item">
+        <span class="presence-days" style="color: var(--yellow);">183</span>
+        <div class="presence-label">Налоговый резидент (стандарт)</div>
+        <div class="presence-sub">дней в году для сохранения льгот</div>
+      </div>
+      <div class="presence-item">
+        <span class="presence-days" style="color: var(--blue);">60</span>
+        <div class="presence-label">Налоговый резидент (инвестор $2M+)</div>
+        <div class="presence-sub">дней в году — минимум</div>
+      </div>
+      <div class="presence-item">
+        <span class="presence-days" style="color: var(--cyan);">180</span>
+        <div class="presence-label">Для гражданства</div>
+        <div class="presence-sub">дней в году, 3–5 лет подряд</div>
       </div>
     </div>
-    <ul class="list" style="margin-top: 18px;">
-      <li>
-        <span class="icon icon-cyan">✓</span>
-        <span>Паспорт Уругвая: безвиз в США (ESTA), ЕС, Шенген, Япония, Южная Корея</span>
-      </li>
-      <li>
-        <span class="icon icon-cyan">✓</span>
-        <span>Двойное гражданство разрешено — уругвайский паспорт не требует отказа от российского</span>
-      </li>
-      <li>
-        <span class="icon icon-cyan">✓</span>
-        <span>Граждане Меркосур (Аргентина, Бразилия, Парагвай) — упрощённая процедура</span>
-      </li>
-    </ul>
+    <div class="tip-box tip-red" style="margin-top:14px;">
+      Налоговые льготы (0% на зарубежный доход) теряются, если перестаёте быть налоговым резидентом — следите за днями.
+    </div>
   </div>
 
-</main>
+</div>
+
+<!-- ══════════════════════════════════════════
+     БЛОК 4: Гражданство
+══════════════════════════════════════════ -->
+<div class="section-title">Финальная цель</div>
+<div class="grid">
+
+  <div class="card card-citizenship col-12">
+    <div class="card-label cyan">Путь к паспорту</div>
+    <h3>Гражданство Уругвая</h3>
+    <div style="display:grid; grid-template-columns: auto 1fr; gap: 32px; align-items: start;">
+      <div class="citizenship-paths" style="width: 320px;">
+        <div class="cpath">
+          <span class="cpath-years cyan">3</span>
+          <span class="cpath-label">года с ВНЖ при наличии супруга-уругвайца или ребёнка-гражданина</span>
+        </div>
+        <div class="cpath">
+          <span class="cpath-years blue">5</span>
+          <span class="cpath-label">лет с ВНЖ для всех остальных без исключений</span>
+        </div>
+      </div>
+      <ul class="list">
+        <li>
+          <span class="icon icon-cyan">✓</span>
+          <span>Паспорт Уругвая: безвиз в США (ESTA), ЕС / Шенген, Великобритания, Япония, Ю. Корея — 150+ стран</span>
+        </li>
+        <li>
+          <span class="icon icon-cyan">✓</span>
+          <span><strong>Двойное гражданство разрешено</strong> — уругвайский паспорт не требует отказа от российского (или любого другого)</span>
+        </li>
+        <li>
+          <span class="icon icon-cyan">✓</span>
+          <span>Граждане Меркосур (Аргентина, Бразилия, Парагвай) — упрощённая и ускоренная процедура</span>
+        </li>
+        <li>
+          <span class="icon icon-cyan">✓</span>
+          <span>Требование присутствия для гражданства: <strong>6 месяцев в году</strong> на протяжении 3 или 5 лет ВНЖ</span>
+        </li>
+        <li>
+          <span class="icon icon-cyan">✓</span>
+          <span>После получения гражданства — жить в Уругвае не обязательно, паспорт действует бессрочно</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+</div>
 
 <p class="footer-note">
-  <span>Информация актуальна на середину 2026 года.</span> Законодательство Уругвая и сроки DNM могут меняться. Перед принятием решений консультируйтесь с лицензированным иммиграционным адвокатом в Уругвае (abogado de inmigración).
+  <span>Информация актуальна на июнь 2026 года.</span> Законодательство Уругвая и сроки DNM меняются. Перед принятием решений консультируйтесь с лицензированным иммиграционным адвокатом в Уругвае (abogado de inmigración).
 </p>
 
 </body>
