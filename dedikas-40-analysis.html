@@ -274,7 +274,7 @@
       </div>
       <div class="kpi-num">40</div>
       <div class="kpi-label">изолированных машин</div>
-      <div class="kpi-note">1 сотрудник = 1 VPS = 1 IP</div>
+      <div class="kpi-note">1 чел = 1 VPS = 1 IP (датацентровый)</div>
     </div>
     <div class="card">
       <div class="kpi-icon purple">
@@ -556,6 +556,117 @@
     </div>
   </div>
 
+  <!-- Настоящие дедики vs VPS -->
+  <div class="section-label">Настоящие дедики (bare-metal) vs облачные VPS</div>
+  <div class="card" style="margin-bottom:16px;">
+    <h3 style="font-size:16px;font-weight:700;margin-bottom:6px;">Важно: «Dedicated» в таблице выше — это ещё не «дедик»</h3>
+    <p style="font-size:14px;color:var(--text-secondary);line-height:1.6;">Hetzner CCX13 — это облачный VPS с <b>выделенными vCPU</b>, но не отдельная физическая машина. Настоящий дедик (bare-metal) — это целый сервер только ваш: своё железо, свой гипервизор, никаких соседей вообще. На рынке affiliate/iGaming «дедиком» часто называют ещё и RDP-доступ к Windows-серверу с нужным гео-IP — это отдельная история, см. ниже.</p>
+  </div>
+  <div class="bento bento-2">
+    <div class="card">
+      <h3 style="font-size:16px;font-weight:700;margin-bottom:16px;">Вариант: bare-metal + Proxmox</h3>
+      <div class="infra-option">
+        <div class="infra-title">1 физический сервер = 10–15 изолированных VM</div>
+        <div class="infra-desc">Hetzner AX42 (AMD Ryzen, ~€39/мес) → ставите Proxmox/KVM → нарезаете 10–15 виртуалок, каждая = рабочее место сотрудника. Полный контроль железа, можно крутить и Linux, и Windows-VM под RDP.</div>
+      </div>
+      <div class="infra-option green">
+        <div class="infra-title">Экономика на 40 человек</div>
+        <div class="infra-desc">3–4 дедика AX42 ≈ <b>€120–160/мес</b> на всех — против €524 за 40 отдельных VPS. Дешевле в 3–4 раза при том же числе изолированных машин.</div>
+      </div>
+      <div class="infra-option orange">
+        <div class="infra-title">Минусы</div>
+        <div class="infra-desc">Сами админите гипервизор (Proxmox-скилл), 1 хост = единая точка отказа на 10–15 человек — митигируется распределением людей по 3–4 серверам в разных ДЦ.</div>
+      </div>
+      <div style="margin-top:14px;padding:12px 16px;background:var(--green-light);border-radius:12px;">
+        <span style="font-size:13px;font-weight:600;color:var(--green);">✓ Самый дешёвый способ дать 40 изолированных машин, если есть кому админить.</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3 style="font-size:16px;font-weight:700;margin-bottom:16px;">Вариант: «дедик» = RDP с гео-IP</h3>
+      <div class="infra-option">
+        <div class="infra-title">Готовый Windows-сервер под ключ</div>
+        <div class="infra-desc">То, что обычно покупают в affiliate-среде как «дедик»: RDP-доступ к Windows-машине с резидентным/чистым IP конкретной страны. Не надо ничего настраивать — зашёл и работаешь под нужным гео.</div>
+      </div>
+      <div class="infra-option green">
+        <div class="infra-title">Плюсы</div>
+        <div class="infra-desc">IP уже в нужной локации, привычный Windows-десктоп, быстрый старт, можно подобрать «чистый» IP без истории спама.</div>
+      </div>
+      <div class="infra-option" style="border-color:var(--red);">
+        <div class="infra-title">Минусы и риски</div>
+        <div class="infra-desc">Качество и «чистота» IP зависит от продавца, часто это перепроданный VPS, цена за «резидентность» выше, контроль над машиной ограничен. Проверяйте IP через iphub/ipqualityscore до оплаты.</div>
+      </div>
+      <div style="margin-top:14px;padding:12px 16px;background:var(--orange-light);border-radius:12px;">
+        <span style="font-size:13px;font-weight:600;color:var(--orange);">⚠ Удобно для быстрого старта, но контроль и предсказуемость ниже своего bare-metal.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Почему голого VPS мало -->
+  <div class="section-label">Почему голого VPS/дедика мало — слой IP и отпечатка</div>
+  <div class="card" style="margin-bottom:16px;">
+    <h3 style="font-size:16px;font-weight:700;margin-bottom:6px;">Датацентровый IP палится ещё до запроса</h3>
+    <p style="font-size:14px;color:var(--text-secondary);line-height:1.6;">IP любого Hetzner/Contabo/OVH — это <b>датацентровый ASN</b>. Антифрод (Cloudflare Bot Management, Akamai) классифицирует его в первые миллисекунды соединения. На защищённых сайтах success rate падает до <b>20–40%</b> против 60–90% на незащищённых. Поэтому «1 VPS = 1 IP» из блока выше — это изоляция, но <b>не репутация</b>. Для гео-чувствительных задач поверх инфраструктуры нужны ещё два слоя.</p>
+  </div>
+  <div class="bento bento-3">
+
+    <div class="card">
+      <div class="kpi-icon blue">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+      </div>
+      <h3 style="font-size:15px;font-weight:700;margin-bottom:8px;">Residential / mobile прокси</h3>
+      <p style="font-size:13px;color:var(--text-secondary);line-height:1.6;margin-bottom:12px;">Реальные ISP/мобильные IP вместо датацентровых. Детект ниже на ~99%, но дороже в 5–10× и медленнее на 20–30%.</p>
+      <div class="tier-specs">
+        <div class="tier-spec ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Residential ~$2–8/GB</div>
+        <div class="tier-spec ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Mobile (4G/LTE) — дороже, лучший траст</div>
+        <div class="tier-spec meh"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/><circle cx="12" cy="12" r="10"/></svg>Гибрид: 70–80% через DC, 20–30% критичного — residential</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="kpi-icon purple">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></svg>
+      </div>
+      <h3 style="font-size:15px;font-weight:700;margin-bottom:8px;">Антидетект-браузеры</h3>
+      <p style="font-size:13px;color:var(--text-secondary);line-height:1.6;margin-bottom:12px;">Изоляция fingerprint (canvas, WebGL, шрифты, часовой пояс) на каждый профиль/сотрудника. Цены за 2026:</p>
+      <div class="tier-specs">
+        <div class="tier-spec ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>AdsPower — от $5/10 профилей, есть free</div>
+        <div class="tier-spec ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>GoLogin — от $24/мес, free 3 профиля</div>
+        <div class="tier-spec ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Dolphin Anty — от $71/50, 10 free</div>
+        <div class="tier-spec meh"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/><circle cx="12" cy="12" r="10"/></svg>Multilogin X — от €99/мес, премиум-качество</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="kpi-icon green">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+      </div>
+      <h3 style="font-size:15px;font-weight:700;margin-bottom:8px;">Как это собирается в стек</h3>
+      <p style="font-size:13px;color:var(--text-secondary);line-height:1.6;margin-bottom:12px;">Полный слой для гео-чувствительной работы — снизу вверх:</p>
+      <div class="tier-specs">
+        <div class="tier-spec ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Дедик/VPS — изолированная машина</div>
+        <div class="tier-spec ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Антидетект-профиль на каждого</div>
+        <div class="tier-spec ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Residential-прокси нужного гео</div>
+        <div class="tier-spec ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>MFA + Zero Trust поверх всего</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Когда что нужно -->
+  <div class="section-label">Когда какой стек нужен</div>
+  <div class="bento bento-2">
+    <div class="card">
+      <div class="tier-badge eco">Достаточно VPS / дедика</div>
+      <h3 style="font-size:15px;font-weight:700;margin:8px 0;">Просто изолированные рабочие места</h3>
+      <p style="font-size:13px;color:var(--text-secondary);line-height:1.6;">Офисная работа, разработка, поддержка, мессенджеры, доступ к внутренним системам через VPN. IP-репутация не важна — хватает 1 VPS/VM на человека + Zero Trust + MFA. Это сценарий из блоков выше.</p>
+    </div>
+    <div class="card">
+      <div class="tier-badge prem">Нужен полный стек</div>
+      <h3 style="font-size:15px;font-weight:700;margin:8px 0;">Работа с гео и антифродом</h3>
+      <p style="font-size:13px;color:var(--text-secondary);line-height:1.6;">Доступ к ресурсам, где важны страна и «чистота» IP (ad-verification, market research по регионам, QA по гео, affiliate). Тут голого VPS мало: + residential/mobile прокси + антидетект-браузер на каждый профиль.</p>
+    </div>
+  </div>
+
   <!-- Минимальные требования -->
   <div class="section-label">Минимальные характеристики на человека</div>
   <div class="bento bento-4">
@@ -759,35 +870,67 @@
 
   <!-- Итоговая рекомендация -->
   <div class="section-label" style="margin-top:52px;">Итог</div>
-  <div class="rec-card">
-    <h3>Рекомендация: Hetzner CX32 × 40</h3>
-    <p>Оптимальный баланс цены, надёжности и изоляции. Hetzner — лидер по соотношению цена/качество в Европе, API для автоматизации, включён трафик и DDoS-защита.</p>
-    <div class="rec-items">
-      <div class="rec-item">
-        <div class="rec-item-label">Стоимость серверов</div>
-        <div class="rec-item-val">€524</div>
-        <div class="rec-item-sub">в месяц за 40 машин</div>
+  <div class="bento bento-2" style="margin-bottom:16px;">
+    <div class="rec-card">
+      <h3>Вариант A: Hetzner CX32 × 40</h3>
+      <p>Просто и надёжно: отдельный облачный VPS на каждого. Не нужен Proxmox-скилл, всё через API. Лучший выбор, если IP-репутация не критична.</p>
+      <div class="rec-items">
+        <div class="rec-item">
+          <div class="rec-item-label">40 VPS</div>
+          <div class="rec-item-val">€524</div>
+          <div class="rec-item-sub">в месяц</div>
+        </div>
+        <div class="rec-item">
+          <div class="rec-item-label">+ Tailscale</div>
+          <div class="rec-item-val">$180</div>
+          <div class="rec-item-sub">Zero Trust mesh</div>
+        </div>
+        <div class="rec-item">
+          <div class="rec-item-label">Итого / мес</div>
+          <div class="rec-item-val">~€700</div>
+          <div class="rec-item-sub">≈ €17.5 на чел.</div>
+        </div>
+        <div class="rec-item">
+          <div class="rec-item-label">IP</div>
+          <div class="rec-item-val">DC</div>
+          <div class="rec-item-sub">датацентровый</div>
+        </div>
       </div>
-      <div class="rec-item">
-        <div class="rec-item-label">+ Zero Trust (Tailscale)</div>
-        <div class="rec-item-val">$180</div>
-        <div class="rec-item-sub">в месяц, mesh VPN</div>
-      </div>
-      <div class="rec-item">
-        <div class="rec-item-label">Итого / мес</div>
-        <div class="rec-item-val">~€700</div>
-        <div class="rec-item-sub">≈ €17.5 на человека</div>
-      </div>
-      <div class="rec-item">
-        <div class="rec-item-label">Уровень безопасности</div>
-        <div class="rec-item-val">iGaming</div>
-        <div class="rec-item-sub">Zero Trust + MFA + SIEM</div>
+    </div>
+
+    <div class="rec-card" style="background:linear-gradient(135deg,#34C759 0%,#1F9E45 100%);">
+      <h3>Вариант B: 4× дедик AX42 + Proxmox</h3>
+      <p>Дешевле в 3–4 раза за то же число изолированных машин. Под гео-задачи добавляются прокси и антидетект сверху.</p>
+      <div class="rec-items">
+        <div class="rec-item">
+          <div class="rec-item-label">4 дедика</div>
+          <div class="rec-item-val">~€160</div>
+          <div class="rec-item-sub">в месяц, 40 VM</div>
+        </div>
+        <div class="rec-item">
+          <div class="rec-item-label">+ Residential</div>
+          <div class="rec-item-val">$2–8</div>
+          <div class="rec-item-sub">за GB, по нужде</div>
+        </div>
+        <div class="rec-item">
+          <div class="rec-item-label">+ Антидетект</div>
+          <div class="rec-item-val">$5–99</div>
+          <div class="rec-item-sub">в месяц</div>
+        </div>
+        <div class="rec-item">
+          <div class="rec-item-label">IP</div>
+          <div class="rec-item-val">любой</div>
+          <div class="rec-item-sub">DC + residential</div>
+        </div>
       </div>
     </div>
   </div>
+  <div class="card">
+    <p style="font-size:14px;color:var(--text-secondary);line-height:1.6;"><b style="color:var(--text-primary);">Короткий ответ на «дедики или ещё что-то допом»:</b> да, дедик (bare-metal + Proxmox) — самый дешёвый способ дать 40 изолированных машин. Но если задачи завязаны на гео и антифрод, одной инфраструктуры мало — нужны residential/mobile прокси и антидетект-браузеры поверх. Если это обычные рабочие места — хватает варианта A.</p>
+  </div>
 
   <div style="text-align:center;margin-top:40px;font-size:12px;color:var(--text-tertiary);">
-    Данные: Hetzner.com, Contabo.com, Cloudflare Access, Tailscale.com — июнь 2026
+    Материал носит образовательный характер. Данные: Hetzner.com, Contabo.com, Cloudflare, Tailscale, GoLogin, AdsPower, Dolphin Anty, Multilogin — июнь 2026
   </div>
 
 </div>
