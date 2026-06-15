@@ -1,10 +1,9 @@
 {
-  "ts": "2026-06-14T09:38:51.045046+00:00",
+  "ts": "2026-06-15T12:20:35.925026+00:00",
   "findings": {},
   "errors": {
-    "Marmaris Sailing Marmaris fleet": "http_409",
-    "Marmaris Sailing Gocek fleet": "http_409",
     "Yacht-Rent Turkey": "http_403",
+    "Gulet Bookers (home, Bodrum-based)": "request_error: ConnectTimeout: HTTPSConnectionPool(host='www.guletbookers.com', port=443): Max retries exceeded with url: / (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.guletbookers.com', port=443) at 0x7fabb4cb9690>, 'Connection to www.guletbookers.com timed out. (connect timeout=30)'))",
     "GuletYacht.net": "http_403"
   }
 }
