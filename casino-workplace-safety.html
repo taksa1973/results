@@ -572,9 +572,9 @@
     </a>
     <ul class="nav-links">
       <li><a href="#network">Сеть</a></li>
+      <li><a href="#infra">Инфраструктура</a></li>
       <li><a href="#access">Доступ</a></li>
       <li><a href="#compliance">Комплаенс</a></li>
-      <li><a href="#threats">Угрозы</a></li>
       <li><a href="#people">Сотрудники</a></li>
     </ul>
   </div>
@@ -730,6 +730,204 @@
           <li>
             <span class="check-icon"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>
             Время реакции на инцидент — менее 15 минут
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- INFRASTRUCTURE SECTION -->
+<section id="infra">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag">Инфраструктура рабочих мест</div>
+      <h2 class="section-title">Дедики, VPS и изоляция машин</h2>
+      <p class="section-desc">Каждый сотрудник работает на отдельной защищённой машине — никакого BYOD и общих компьютеров. Разбор на примере команды из 40 человек</p>
+    </div>
+
+    <div class="bento bento-3">
+      <div class="card wide card-hero">
+        <div class="card-badge" style="background:rgba(255,255,255,0.2);color:white;">Принцип изоляции</div>
+        <h3>1 сотрудник =<br>1 изолированная машина</h3>
+        <p>Скомпрометировали одного — остальные не пострадали. Свой IP, своя файловая система, независимый контроль. При увольнении — мгновенный reset машины.</p>
+        <ul class="feature-list" style="margin-top:20px;">
+          <li>
+            <span class="check-icon"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>
+            VPS у провайдера или виртуалка на собственном bare-metal на каждого
+          </li>
+          <li>
+            <span class="check-icon"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>
+            Провижн через Ansible / Terraform — 40 машин разворачиваются за час
+          </li>
+          <li>
+            <span class="check-icon"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>
+            Доступ только через Zero Trust (Tailscale / Cloudflare Access) + MFA
+          </li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="card-icon icon-purple">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
+        </div>
+        <div class="card-badge badge-purple">Вариант 2 · дешевле</div>
+        <h3>Дедик (bare-metal) + Proxmox</h3>
+        <p>Целый физический сервер только ваш. Через Proxmox/KVM нарезается 10–15 изолированных VM — каждая рабочее место.</p>
+        <ul class="feature-list">
+          <li>
+            <span class="check-icon"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>
+            Hetzner AX42 (~€39/мес) → 10–15 VM на сервер
+          </li>
+          <li>
+            <span class="check-icon"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>
+            3–4 дедика на 40 человек ≈ €120–160/мес
+          </li>
+          <li>
+            <span class="check-icon"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>
+            Полный контроль железа, можно крутить Windows-VM под RDP
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="bento bento-3" style="margin-top:16px;">
+      <div class="card">
+        <div class="card-icon icon-blue">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><line x1="6" y1="6" x2="6.01" y2="6"/></svg>
+        </div>
+        <div class="card-badge badge-blue">Вариант 1 · проще</div>
+        <h3>Облачный VPS на человека</h3>
+        <p>Готовая виртуалка у провайдера, не нужен свой гипервизор. Всё через API провайдера.</p>
+        <ul class="feature-list">
+          <li>
+            <span class="check-icon"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>
+            Hetzner CX32 — €13/мес (рекоменд., 4 vCPU / 8 GB)
+          </li>
+          <li>
+            <span class="check-icon"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>
+            Contabo VPS S — $7/мес (бюджет, shared CPU)
+          </li>
+          <li>
+            <span class="check-icon"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>
+            40 машин ≈ €524/мес на Hetzner CX32
+          </li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="card-icon icon-orange">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        </div>
+        <div class="card-badge badge-orange">Готовое решение</div>
+        <h3>«Дедик» = RDP с гео-IP</h3>
+        <p>То, что обычно покупают под ключ: RDP-доступ к Windows-серверу с чистым IP нужной страны. Зашёл и работаешь под нужным гео.</p>
+        <ul class="feature-list">
+          <li>
+            <span class="check-icon"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>
+            IP уже в нужной локации, быстрый старт
+          </li>
+          <li>
+            <span class="check-icon"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>
+            Привычный Windows-десктоп
+          </li>
+          <li>
+            <span class="check-icon" style="background:var(--orange-light);color:var(--orange);"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="2" x2="5" y2="6"/><line x1="5" y1="8" x2="5.01" y2="8"/></svg></span>
+            Чистоту IP проверяйте через iphub/ipqualityscore до оплаты
+          </li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="card-icon icon-green">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        </div>
+        <div class="card-badge badge-green">Смета · 40 человек</div>
+        <h3>Сравнение стоимости</h3>
+        <div class="progress-item" style="margin-top:18px;">
+          <div class="progress-header"><span class="progress-label">Дедики + Proxmox</span><span class="progress-value">~€160</span></div>
+          <div class="progress-bar"><div class="progress-fill" style="width:21%"></div></div>
+        </div>
+        <div class="progress-item">
+          <div class="progress-header"><span class="progress-label">Terminal Server (VDI)</span><span class="progress-value">~€200</span></div>
+          <div class="progress-bar"><div class="progress-fill" style="width:27%"></div></div>
+        </div>
+        <div class="progress-item">
+          <div class="progress-header"><span class="progress-label">VPS на каждого</span><span class="progress-value">~€524</span></div>
+          <div class="progress-bar"><div class="progress-fill" style="width:70%"></div></div>
+        </div>
+        <div style="margin-top:14px;padding:12px;background:var(--bg);border-radius:10px;font-size:12px;color:var(--fg-muted);">в месяц, без учёта прокси и антидетекта</div>
+      </div>
+    </div>
+
+    <!-- IP & fingerprint layer -->
+    <div class="section-header" style="margin-top:64px;">
+      <div class="section-tag">Репутация IP и отпечаток</div>
+      <h2 class="section-title">Почему голого сервера мало</h2>
+      <p class="section-desc">Датацентровый IP палится антифрод-системами по ASN ещё до запроса — на гео-чувствительных задачах нужны ещё два слоя</p>
+    </div>
+
+    <div class="bento bento-3">
+      <div class="card">
+        <div class="card-icon icon-blue">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        </div>
+        <div class="card-badge badge-blue">Слой IP</div>
+        <h3>Residential / mobile прокси</h3>
+        <p>Реальные ISP/мобильные IP вместо датацентровых. Детект ниже на ~99%, но дороже в 5–10× и медленнее на 20–30%.</p>
+        <ul class="feature-list">
+          <li>
+            <span class="check-icon"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>
+            Residential ~$2–8 за GB, mobile дороже
+          </li>
+          <li>
+            <span class="check-icon"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>
+            Гибрид: 70–80% трафика через DC, 20–30% критичного — residential
+          </li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="card-icon icon-purple">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></svg>
+        </div>
+        <div class="card-badge badge-purple">Слой отпечатка</div>
+        <h3>Антидетект-браузеры</h3>
+        <p>Изоляция fingerprint (canvas, WebGL, шрифты, часовой пояс) на каждый профиль/сотрудника. Цены 2026:</p>
+        <ul class="feature-list">
+          <li>
+            <span class="check-icon"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>
+            AdsPower от $5/10 профилей · GoLogin от $24/мес
+          </li>
+          <li>
+            <span class="check-icon"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>
+            Dolphin Anty от $71/50 · Multilogin X от €99/мес
+          </li>
+        </ul>
+      </div>
+
+      <div class="card card-dark">
+        <div class="card-badge" style="background:rgba(0,113,227,0.3);color:#34A8FF;">Полный стек</div>
+        <h3>Как это собирается</h3>
+        <p>Слои снизу вверх для гео-чувствительной работы:</p>
+        <ul class="feature-list" style="margin-top:16px;">
+          <li>
+            <span class="check-icon"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>
+            Дедик / VPS — изолированная машина
+          </li>
+          <li>
+            <span class="check-icon"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>
+            Антидетект-профиль на каждого
+          </li>
+          <li>
+            <span class="check-icon"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>
+            Residential-прокси нужного гео
+          </li>
+          <li>
+            <span class="check-icon"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>
+            MFA + Zero Trust поверх всего
           </li>
         </ul>
       </div>
