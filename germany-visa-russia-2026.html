@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Виза в Германию для россиян — до середины августа 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --primary: #0F172A;
+    --secondary: #334155;
+    --accent: #0369A1;
+    --accent-light: #E0F2FE;
+    --bg: #F8FAFC;
+    --surface: #FFFFFF;
+    --muted: #E8ECF1;
+    --border: #E2E8F0;
+    --text: #020617;
+    --text-muted: #64748B;
+    --green: #15803D;
+    --green-bg: #DCFCE7;
+    --yellow: #B45309;
+    --yellow-bg: #FEF3C7;
+    --red: #DC2626;
+    --red-bg: #FEE2E2;
+    --orange: #C2410C;
+    --orange-bg: #FFEDD5;
+    --purple: #7C3AED;
+    --purple-bg: #EDE9FE;
+  }
+
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 16px;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  .container {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* ─── HERO ─── */
+  .hero {
+    background: var(--primary);
+    color: #fff;
+    padding: 56px 0 48px;
+  }
+  .hero-inner { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+  .hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 20px;
+    padding: 4px 14px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #BAE6FD;
+    letter-spacing: 0.02em;
+    margin-bottom: 20px;
+  }
+  .hero h1 {
+    font-size: clamp(26px, 4vw, 40px);
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 16px;
+  }
+  .hero p {
+    font-size: 17px;
+    color: #CBD5E1;
+    max-width: 640px;
+    margin-bottom: 32px;
+  }
+  .hero-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+  }
+  .hero-stat {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.14);
+    border-radius: 12px;
+    padding: 14px 20px;
+  }
+  .hero-stat-val {
+    font-size: 24px;
+    font-weight: 800;
+    color: #fff;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .hero-stat-label {
+    font-size: 12px;
+    color: #94A3B8;
+    font-weight: 500;
+  }
+
+  /* ─── ALERT ─── */
+  .alert {
+    background: #FFFBEB;
+    border: 1.5px solid #F59E0B;
+    border-radius: 12px;
+    padding: 18px 22px;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    margin: 32px 0;
+  }
+  .alert-icon { font-size: 20px; flex-shrink: 0; margin-top: 1px; }
+  .alert-text { font-size: 14.5px; color: #92400E; line-height: 1.6; }
+  .alert-text strong { color: #78350F; }
+
+  /* ─── SECTION TITLE ─── */
+  .section { padding: 40px 0; }
+  .section-title {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 20px;
+  }
+  .section-heading {
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--primary);
+    margin-bottom: 8px;
+  }
+  .section-sub {
+    font-size: 15px;
+    color: var(--secondary);
+    margin-bottom: 28px;
+    max-width: 600px;
+  }
+
+  /* ─── BADGE ─── */
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 12px;
+    font-weight: 600;
+    border-radius: 20px;
+    padding: 3px 10px;
+    white-space: nowrap;
+  }
+  .badge-green { background: var(--green-bg); color: var(--green); }
+  .badge-yellow { background: var(--yellow-bg); color: var(--yellow); }
+  .badge-red { background: var(--red-bg); color: var(--red); }
+  .badge-orange { background: var(--orange-bg); color: var(--orange); }
+  .badge-blue { background: var(--accent-light); color: var(--accent); }
+  .badge-purple { background: var(--purple-bg); color: var(--purple); }
+
+  /* ─── CARDS GRID ─── */
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 20px;
+  }
+  .cards-grid-3 {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  }
+
+  .card {
+    background: var(--surface);
+    border: 1.5px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+    transition: box-shadow 0.15s;
+  }
+  .card:hover {
+    box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+  }
+  .card.card-highlight {
+    border-color: var(--accent);
+    background: linear-gradient(135deg, #FFFFFF 0%, #F0F9FF 100%);
+  }
+  .card.card-working {
+    border-color: #A78BFA;
+    background: linear-gradient(135deg, #FFFFFF 0%, #F5F3FF 100%);
+  }
+
+  .card-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+  .card-flag { font-size: 30px; line-height: 1; }
+  .card-badges { display: flex; flex-wrap: wrap; gap: 6px; }
+
+  .card-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 6px;
+  }
+  .card-subtitle {
+    font-size: 13px;
+    color: var(--text-muted);
+    font-weight: 500;
+    margin-bottom: 14px;
+  }
+
+  .card-points {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 18px;
+  }
+  .card-points li {
+    font-size: 14px;
+    color: var(--secondary);
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+    line-height: 1.5;
+  }
+  .card-points li::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    flex-shrink: 0;
+    margin-top: 6px;
+  }
+
+  .card-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+  }
+  .card-meta-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 12.5px;
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+  .card-meta-item svg { flex-shrink: 0; }
+
+  .card-warn {
+    background: var(--yellow-bg);
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-size: 13px;
+    color: var(--yellow);
+    margin-bottom: 14px;
+    font-weight: 500;
+  }
+  .card-tip {
+    background: var(--accent-light);
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-size: 13px;
+    color: #0C4A6E;
+    margin-bottom: 14px;
+    font-weight: 500;
+  }
+  .card-star {
+    background: #FEF9C3;
+    border: 1.5px solid #EAB308;
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 12.5px;
+    font-weight: 700;
+    color: #713F12;
+    margin-bottom: 14px;
+    letter-spacing: 0.01em;
+  }
+
+  /* ─── ALREADY IN WORK ─── */
+  .working-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(440px, 1fr));
+    gap: 20px;
+  }
+
+  /* ─── TABLE ─── */
+  .table-wrap {
+    background: var(--surface);
+    border: 1.5px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+  }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  thead {
+    background: var(--primary);
+    color: #fff;
+  }
+  thead th {
+    padding: 14px 16px;
+    text-align: left;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  tbody tr {
+    border-bottom: 1px solid var(--border);
+    transition: background 0.1s;
+  }
+  tbody tr:last-child { border-bottom: none; }
+  tbody tr:hover { background: var(--bg); }
+  tbody td {
+    padding: 14px 16px;
+    color: var(--secondary);
+    vertical-align: middle;
+  }
+  tbody td:first-child { font-weight: 600; color: var(--primary); }
+  .tick { color: var(--green); font-weight: 700; }
+  .cross { color: var(--red); }
+  .maybe { color: var(--yellow); }
+
+  /* ─── TIMELINE ─── */
+  .timeline {
+    background: var(--surface);
+    border: 1.5px solid var(--border);
+    border-radius: 16px;
+    padding: 28px;
+  }
+  .timeline-row {
+    display: flex;
+    gap: 20px;
+    position: relative;
+    padding-bottom: 24px;
+  }
+  .timeline-row:last-child { padding-bottom: 0; }
+  .timeline-row:not(:last-child)::before {
+    content: '';
+    position: absolute;
+    left: 17px;
+    top: 36px;
+    bottom: 0;
+    width: 2px;
+    background: var(--border);
+  }
+  .timeline-dot {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 800;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+  }
+  .dot-blue { background: var(--accent); color: #fff; }
+  .dot-green { background: var(--green); color: #fff; }
+  .dot-yellow { background: #F59E0B; color: #fff; }
+  .dot-red { background: var(--red); color: #fff; }
+  .timeline-content { padding-top: 6px; }
+  .timeline-date { font-size: 12px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px; }
+  .timeline-text { font-size: 14.5px; color: var(--secondary); }
+  .timeline-text strong { color: var(--primary); }
+
+  /* ─── TIPS ─── */
+  .tips-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 16px;
+  }
+  .tip-card {
+    background: var(--surface);
+    border: 1.5px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+  }
+  .tip-num {
+    width: 32px;
+    height: 32px;
+    background: var(--primary);
+    color: #fff;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 800;
+    margin-bottom: 12px;
+  }
+  .tip-title { font-size: 15px; font-weight: 700; color: var(--primary); margin-bottom: 6px; }
+  .tip-text { font-size: 13.5px; color: var(--secondary); line-height: 1.55; }
+
+  /* ─── DIVIDER ─── */
+  hr.divider { border: none; border-top: 1.5px solid var(--border); margin: 8px 0; }
+
+  /* ─── FOOTER ─── */
+  .footer {
+    background: var(--primary);
+    color: #94A3B8;
+    padding: 28px 0;
+    font-size: 13px;
+    text-align: center;
+    margin-top: 40px;
+  }
+  .footer strong { color: #CBD5E1; }
+
+  @media (max-width: 640px) {
+    .hero { padding: 36px 0 32px; }
+    .hero h1 { font-size: 24px; }
+    .hero-stats { gap: 12px; }
+    .working-cards { grid-template-columns: 1fr; }
+    .cards-grid { grid-template-columns: 1fr; }
+    table { font-size: 12.5px; }
+    thead th, tbody td { padding: 10px 12px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ─── HERO ─── -->
+<header class="hero">
+  <div class="hero-inner">
+    <div class="hero-tag">
+      <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      Актуально: июнь 2026 — дедлайн 15 августа
+    </div>
+    <h1>Виза в Германию для россиян<br>до середины августа</h1>
+    <p>Все рабочие варианты — от быстрой подачи через третью страну до национальных виз. Включая то, что уже в проработке.</p>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hero-stat-val">≈8 нед</div>
+        <div class="hero-stat-label">осталось до дедлайна</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-val">2–4 нед</div>
+        <div class="hero-stat-label">рассмотрение заявления</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-val">7+</div>
+        <div class="hero-stat-label">реальных вариантов</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-val">= слот</div>
+        <div class="hero-stat-label">главный дефицит</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+<div class="container">
+
+  <!-- ─── ALERT ─── -->
+  <div class="alert">
+    <div class="alert-icon">⚠️</div>
+    <div class="alert-text">
+      <strong>Ключевое понимание:</strong> Получить запись на подачу — это главная проблема, не сам процесс. Большинство немецких консульств принимают россиян, легально находящихся в третьей стране. Стандартное рассмотрение — 2–4 недели. Если найти слот до конца июня — виза придёт к концу июля / началу августа. Июльский слот — уже риск не успеть.
+    </div>
+  </div>
+
+  <!-- ─── УЖЕ В ПРОРАБОТКЕ ─── -->
+  <section class="section">
+    <div class="section-title">Уже рассматриваете</div>
+    <div class="section-heading">Варианты в проработке</div>
+    <div class="section-sub">Оценка по реалистичности до 15 августа</div>
+
+    <div class="working-cards">
+
+      <!-- Сербия -->
+      <div class="card card-working">
+        <div class="card-top">
+          <div>
+            <div style="font-size:28px;margin-bottom:6px">🇷🇸</div>
+            <div class="card-title">Сербия — ВНЖ через недвижимость</div>
+            <div class="card-subtitle">Купить квартиру → получить ВНЖ → подать на визу из Белграда</div>
+          </div>
+          <div class="card-badges">
+            <span class="badge badge-yellow">⏱ 6–10 нед</span>
+            <span class="badge badge-orange">Дорого</span>
+          </div>
+        </div>
+        <div class="card-warn">⚠️ Главный риск: цепочка длинная — сделка, регистрация, оформление ВНЖ могут занять 4–6 недель ещё до похода в посольство.</div>
+        <ul class="card-points">
+          <li>Россияне въезжают без визы, право на длительное пребывание</li>
+          <li>ВНЖ через покупку недвижимости — оформляется через МВД Сербии</li>
+          <li>Немецкое посольство в Белграде принимает заявления от обладателей ВНЖ</li>
+          <li>Статус резидента даёт более весомый профиль заявителя</li>
+          <li>После ВНЖ — стандартная очередь в посольстве (1–3 недели)</li>
+        </ul>
+        <div class="card-meta">
+          <div class="card-meta-item">
+            <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M12 2v20M2 12h20"/></svg>
+            Затраты: от €50 000 на недвижимость
+          </div>
+          <div class="card-meta-item">
+            <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/></svg>
+            До 15 авг: рискованно, но возможно
+          </div>
+        </div>
+      </div>
+
+      <!-- Армения -->
+      <div class="card card-working">
+        <div class="card-top">
+          <div>
+            <div style="font-size:28px;margin-bottom:6px">🇦🇲</div>
+            <div class="card-title">Армения — второй паспорт</div>
+            <div class="card-subtitle">Поехать в Ереван, подать на визу на старый паспорт, дождаться результата</div>
+          </div>
+          <div class="card-badges">
+            <span class="badge badge-green">✓ Быстро</span>
+            <span class="badge badge-yellow">Нюансы</span>
+          </div>
+        </div>
+        <div class="card-tip">💡 Немецкое посольство в Ереване принимает россиян, легально находящихся в Армении. Въезд без визы — до 180 дней.</div>
+        <ul class="card-points">
+          <li>Поехать в Ереван (прямые рейсы), легально находиться как турист</li>
+          <li>Записаться в немецкое посольство / VFS Армения на прём</li>
+          <li>Подать на загранпаспорт, по которому планируете ехать в Германию</li>
+          <li>Ждать решения (2–4 недели) — можно оставаться в Армении или вернуться</li>
+          <li>Забрать паспорт с визой или получить по почте (если опция есть)</li>
+        </ul>
+        <div class="card-warn">⚠️ Очереди в Ереване выросли — иногда 3–5 недель до слота. Бронировать нужно прямо сейчас.</div>
+        <div class="card-meta">
+          <div class="card-meta-item">💰 Затраты: рейс + отель если ждёте там</div>
+          <div class="card-meta-item">📅 До 15 авг: реально при быстрой записи</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ─── ДРУГИЕ ВАРИАНТЫ ─── -->
+  <section class="section">
+    <div class="section-title">Альтернативные пути</div>
+    <div class="section-heading">Ещё варианты, которые работают</div>
+    <div class="section-sub">Отсортировано по скорости и простоте</div>
+
+    <div class="cards-grid">
+
+      <!-- Грузия -->
+      <div class="card card-highlight">
+        <div class="card-star">★ Топ выбор по соотношению простоты и скорости</div>
+        <div class="card-top">
+          <div style="font-size:28px">🇬🇪</div>
+          <div class="card-badges">
+            <span class="badge badge-green">✓ Быстро</span>
+            <span class="badge badge-blue">Без визы</span>
+          </div>
+        </div>
+        <div class="card-title">Грузия — Тбилиси</div>
+        <div class="card-subtitle">Немецкое посольство в Тбилиси активно принимает россиян</div>
+        <ul class="card-points">
+          <li>Россияне въезжают без визы — до 1 года</li>
+          <li>Немецкое посольство в Тбилиси принимает заявления от россиян-туристов/нерезидентов</li>
+          <li>Очереди исторически меньше, чем в Армении — иногда 1–2 недели до слота</li>
+          <li>Запись через официальный сайт VIDEX или VFS Georgia</li>
+          <li>Прямые рейсы из многих городов</li>
+        </ul>
+        <div class="card-meta">
+          <div class="card-meta-item">💰 Только рейс + жильё на время ожидания</div>
+          <div class="card-meta-item">📅 Реалистично до 15 августа</div>
+          <div class="card-meta-item">⚡ Рекомендую проверить слоты первым</div>
+        </div>
+      </div>
+
+      <!-- Турция -->
+      <div class="card">
+        <div class="card-top">
+          <div style="font-size:28px">🇹🇷</div>
+          <div class="card-badges">
+            <span class="badge badge-green">✓ Быстро</span>
+            <span class="badge badge-blue">3 консульства</span>
+          </div>
+        </div>
+        <div class="card-title">Турция — Стамбул / Анкара / Измир</div>
+        <div class="card-subtitle">Три немецких консульства — больше шансов найти слот</div>
+        <ul class="card-points">
+          <li>Россияне без визы — 60 дней (биометрический паспорт)</li>
+          <li>Три консульства: Стамбул (основное), Анкара, Измир</li>
+          <li>VFS Global принимает заявления от законно находящихся в Турции</li>
+          <li>Больше слотов суммарно — выше шанс записаться быстро</li>
+          <li>Дешёвые рейсы из многих городов СНГ</li>
+        </ul>
+        <div class="card-warn">⚠️ Летом Турция загружена — туристический сезон, очереди могут вырасти. Проверять все три города.</div>
+        <div class="card-meta">
+          <div class="card-meta-item">💰 Бюджетный вариант</div>
+          <div class="card-meta-item">📅 Реалистично при слоте в июне</div>
+        </div>
+      </div>
+
+      <!-- Казахстан -->
+      <div class="card">
+        <div class="card-top">
+          <div style="font-size:28px">🇰🇿</div>
+          <div class="card-badges">
+            <span class="badge badge-green">✓ Без визы</span>
+            <span class="badge badge-blue">Меньше очередь</span>
+          </div>
+        </div>
+        <div class="card-title">Казахстан — Алматы / Астана</div>
+        <div class="card-subtitle">Мало известный, но рабочий маршрут с короткими очередями</div>
+        <ul class="card-points">
+          <li>Россияне без визы — гражданство ЕАЭС, без ограничений по сроку</li>
+          <li>Немецкое посольство в Астане + Генконсульство в Алматы</li>
+          <li>Очереди традиционно короче, чем в Грузии/Армении</li>
+          <li>Прямые рейсы из России и других стран</li>
+          <li>Принимают россиян, легально находящихся в Казахстане</li>
+        </ul>
+        <div class="card-tip">💡 Малоизвестный маршрут — меньше конкуренции за слоты. Стоит проверить параллельно с Грузией.</div>
+        <div class="card-meta">
+          <div class="card-meta-item">💰 Умеренные затраты</div>
+          <div class="card-meta-item">📅 Реалистично до 15 августа</div>
+        </div>
+      </div>
+
+      <!-- ОАЭ -->
+      <div class="card">
+        <div class="card-top">
+          <div style="font-size:28px">🇦🇪</div>
+          <div class="card-badges">
+            <span class="badge badge-yellow">Нужна виза ОАЭ</span>
+            <span class="badge badge-orange">Дороже</span>
+          </div>
+        </div>
+        <div class="card-title">ОАЭ — Дубай</div>
+        <div class="card-subtitle">Немецкое генконсульство принимает при наличии визы ОАЭ</div>
+        <ul class="card-points">
+          <li>Россияне получают визу ОАЭ по прилёту (30 дней) или онлайн (60 дней)</li>
+          <li>Немецкое генконсульство в Дубае принимает заявления</li>
+          <li>Нужна действующая виза ОАЭ + доказательство нахождения (брони отеля)</li>
+          <li>Очереди в Дубае исторически комфортные</li>
+          <li>Хороший вариант, если есть другой повод оказаться в ОАЭ</li>
+        </ul>
+        <div class="card-meta">
+          <div class="card-meta-item">💰 Дороже: рейс + отель + виза ОАЭ</div>
+          <div class="card-meta-item">📅 Реалистично, но дорого</div>
+        </div>
+      </div>
+
+      <!-- Израиль -->
+      <div class="card">
+        <div class="card-top">
+          <div style="font-size:28px">🇮🇱</div>
+          <div class="card-badges">
+            <span class="badge badge-green">✓ Без визы 90 дн</span>
+          </div>
+        </div>
+        <div class="card-title">Израиль — Тель-Авив</div>
+        <div class="card-subtitle">Немецкое посольство в Тель-Авиве принимает от туристов</div>
+        <ul class="card-points">
+          <li>Россияне въезжают без визы — до 90 дней</li>
+          <li>Немецкое посольство в Тель-Авиве принимает заявления</li>
+          <li>Принимают граждан третьих стран, законно находящихся в Израиле</li>
+          <li>Прямые рейсы из России временно ограничены, но есть через Баку / Алматы</li>
+        </ul>
+        <div class="card-warn">⚠️ Логистика сложнее — нет прямых рейсов из России. С пересадками — дольше и дороже.</div>
+        <div class="card-meta">
+          <div class="card-meta-item">💰 Дороже из-за перелёта</div>
+          <div class="card-meta-item">📅 Реалистично при наличии слота</div>
+        </div>
+      </div>
+
+      <!-- Chancenkarte -->
+      <div class="card">
+        <div class="card-top">
+          <div style="font-size:28px">🇩🇪</div>
+          <div class="card-badges">
+            <span class="badge badge-purple">Нац. виза D</span>
+            <span class="badge badge-red">Длинно</span>
+          </div>
+        </div>
+        <div class="card-title">Chancenkarte — Карта возможностей</div>
+        <div class="card-subtitle">Национальная виза для поиска работы в Германии (с 2024)</div>
+        <ul class="card-points">
+          <li>Не нужен оффер работы — только диплом + опыт + деньги</li>
+          <li>Требования: высш. образование + опыт 2+ года + нем. B1 или англ. B2 + €1000–1200/мес на счету</li>
+          <li>Срок действия визы: до 1 года</li>
+          <li>Подавать можно из любого немецкого консульства за рубежом</li>
+          <li>Рассмотрение: 2–4 месяца после подачи документов — скорее всего не успеть до августа</li>
+        </ul>
+        <div class="card-warn">⚠️ Рассмотрение занимает 2–4 месяца — до 15 августа почти нереально, если только уже не в процессе.</div>
+        <div class="card-meta">
+          <div class="card-meta-item">💰 Дешёвая виза</div>
+          <div class="card-meta-item">📅 До 15 авг: маловероятно</div>
+        </div>
+      </div>
+
+      <!-- Студенческая виза -->
+      <div class="card">
+        <div class="card-top">
+          <div style="font-size:28px">🎓</div>
+          <div class="card-badges">
+            <span class="badge badge-purple">Нац. виза D</span>
+            <span class="badge badge-yellow">Нужна запись</span>
+          </div>
+        </div>
+        <div class="card-title">Студенческая / Языковые курсы</div>
+        <div class="card-subtitle">Запись на курсы немецкого в Германии → студенческая виза</div>
+        <ul class="card-points">
+          <li>Записаться на языковые курсы в немецкую школу (Goethe-Institut и другие)</li>
+          <li>Получить подтверждение зачисления → подавать студенческую визу</li>
+          <li>Студенческие визы часто рассматриваются быстрее, чем туристические</li>
+          <li>Подавать из любой страны присутствия при легальном нахождении</li>
+          <li>После курса — можно конвертировать в другой тип разрешения</li>
+        </ul>
+        <div class="card-tip">💡 Языковые курсы — легальный и понятный для консульства повод. Особенно эффективно в связке с подачей из Грузии или Турции.</div>
+        <div class="card-meta">
+          <div class="card-meta-item">💰 Стоимость курса + виза</div>
+          <div class="card-meta-item">📅 Реалистично при быстрой записи в школу</div>
+        </div>
+      </div>
+
+      <!-- Черногория -->
+      <div class="card">
+        <div class="card-top">
+          <div style="font-size:28px">🇲🇪</div>
+          <div class="card-badges">
+            <span class="badge badge-yellow">Среднесрочно</span>
+          </div>
+        </div>
+        <div class="card-title">Черногория — ВНЖ / туризм</div>
+        <div class="card-subtitle">Аналог Сербии, но со своими особенностями</div>
+        <ul class="card-points">
+          <li>Россияне въезжают без визы — до 90 дней</li>
+          <li>Немецкое посольство в Подгорице</li>
+          <li>Принимают заявления от туристов при легальном нахождении</li>
+          <li>ВНЖ через недвижимость — аналогично Сербии, но проще по суммам</li>
+          <li>Без ВНЖ (как турист) — тоже принимают, срок нахождения документален</li>
+        </ul>
+        <div class="card-meta">
+          <div class="card-meta-item">💰 Умеренные затраты</div>
+          <div class="card-meta-item">📅 Реалистично, менее известный маршрут</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ─── СРАВНЕНИЕ ─── -->
+  <section class="section">
+    <div class="section-title">Сравнение</div>
+    <div class="section-heading">Все варианты в одной таблице</div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Страна / вариант</th>
+            <th>Виза нужна?</th>
+            <th>Слот: ждать</th>
+            <th>До 15 авг</th>
+            <th>Затраты</th>
+            <th>Сложность</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>🇬🇪 Грузия</td>
+            <td class="tick">Нет</td>
+            <td>1–3 нед</td>
+            <td class="tick">✓ Реально</td>
+            <td>Низкие</td>
+            <td class="tick">Легко</td>
+          </tr>
+          <tr>
+            <td>🇦🇲 Армения</td>
+            <td class="tick">Нет</td>
+            <td>2–5 нед</td>
+            <td class="maybe">⚡ Реально если быстро</td>
+            <td>Низкие</td>
+            <td class="tick">Легко</td>
+          </tr>
+          <tr>
+            <td>🇹🇷 Турция (3 консульства)</td>
+            <td class="tick">Нет (60 дн)</td>
+            <td>1–4 нед</td>
+            <td class="tick">✓ Реально</td>
+            <td>Низкие</td>
+            <td class="tick">Легко</td>
+          </tr>
+          <tr>
+            <td>🇰🇿 Казахстан</td>
+            <td class="tick">Нет (ЕАЭС)</td>
+            <td>1–2 нед</td>
+            <td class="tick">✓ Реально</td>
+            <td>Низкие</td>
+            <td class="tick">Легко</td>
+          </tr>
+          <tr>
+            <td>🇦🇪 ОАЭ</td>
+            <td class="maybe">Нужна виза ОАЭ</td>
+            <td>1–3 нед</td>
+            <td class="tick">✓ Реально</td>
+            <td>Высокие</td>
+            <td class="maybe">Средне</td>
+          </tr>
+          <tr>
+            <td>🇮🇱 Израиль</td>
+            <td class="tick">Нет (90 дн)</td>
+            <td>2–4 нед</td>
+            <td class="maybe">⚡ Реально, но логистика</td>
+            <td>Высокие</td>
+            <td class="maybe">Средне</td>
+          </tr>
+          <tr>
+            <td>🇲🇪 Черногория</td>
+            <td class="tick">Нет (90 дн)</td>
+            <td>2–4 нед</td>
+            <td class="tick">✓ Реально</td>
+            <td>Низкие</td>
+            <td class="tick">Легко</td>
+          </tr>
+          <tr>
+            <td>🇷🇸 Сербия + ВНЖ</td>
+            <td class="tick">Нет</td>
+            <td>1–2 нед</td>
+            <td class="maybe">⚡ Рискованно (цепочка)</td>
+            <td>Очень высокие</td>
+            <td class="cross">Сложно</td>
+          </tr>
+          <tr>
+            <td>🎓 Языковые курсы + виза D</td>
+            <td class="maybe">Нужна запись в школу</td>
+            <td>2–4 нед</td>
+            <td class="maybe">⚡ Зависит от слота</td>
+            <td>Средние</td>
+            <td class="maybe">Средне</td>
+          </tr>
+          <tr>
+            <td>📋 Chancenkarte</td>
+            <td class="tick">Нет</td>
+            <td>2–4 нед</td>
+            <td class="cross">✗ Нереально (2–4 мес)</td>
+            <td>Низкие</td>
+            <td class="cross">Сложно</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ─── TIMELINE ─── -->
+  <section class="section">
+    <div class="section-title">Дорожная карта</div>
+    <div class="section-heading">Идеальный план действий</div>
+    <div class="section-sub">Оптимальный сценарий, чтобы успеть до 15 августа</div>
+
+    <div class="timeline">
+      <div class="timeline-row">
+        <div class="timeline-dot dot-red">!</div>
+        <div class="timeline-content">
+          <div class="timeline-date">Прямо сейчас — 16–20 июня</div>
+          <div class="timeline-text"><strong>Параллельно проверить слоты</strong> в посольствах Германии в Грузии, Казахстане, Турции (все три города) и Армении. Выбрать то, где слот ближе всего. Это занимает 1–2 часа.</div>
+        </div>
+      </div>
+      <div class="timeline-row">
+        <div class="timeline-dot dot-blue">1</div>
+        <div class="timeline-content">
+          <div class="timeline-date">До 25 июня</div>
+          <div class="timeline-text"><strong>Купить билеты и забронировать жильё</strong> в выбранной стране. Собрать пакет документов для визы (финансовая состоятельность, медстраховка, цель поездки, билеты, бронь отеля в Германии).</div>
+        </div>
+      </div>
+      <div class="timeline-row">
+        <div class="timeline-dot dot-blue">2</div>
+        <div class="timeline-content">
+          <div class="timeline-date">Конец июня — начало июля</div>
+          <div class="timeline-text"><strong>Подача документов</strong> в консульство. Рассмотрение: 2–4 недели. При подаче в конце июня — ответ ожидается в конце июля.</div>
+        </div>
+      </div>
+      <div class="timeline-row">
+        <div class="timeline-dot dot-green">✓</div>
+        <div class="timeline-content">
+          <div class="timeline-date">Конец июля — начало августа</div>
+          <div class="timeline-text"><strong>Получение визы</strong> и поездка в Германию. Запас ~2 недели до дедлайна 15 августа.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ─── СОВЕТЫ ─── -->
+  <section class="section">
+    <div class="section-title">Важные нюансы</div>
+    <div class="section-heading">Что нужно знать</div>
+
+    <div class="tips-grid">
+      <div class="tip-card">
+        <div class="tip-num">1</div>
+        <div class="tip-title">Проверяйте сразу несколько стран</div>
+        <div class="tip-text">Открывайте системы записи Грузии, Казахстана и Турции одновременно. Берёте слот там, где он раньше — потом отменяете остальные.</div>
+      </div>
+      <div class="tip-card">
+        <div class="tip-num">2</div>
+        <div class="tip-title">Легальность нахождения — ключ</div>
+        <div class="tip-text">Консульство интересует, что вы законно находитесь в стране подачи. Ни в одном случае выше вам не нужно быть резидентом — достаточно быть туристом.</div>
+      </div>
+      <div class="tip-card">
+        <div class="tip-num">3</div>
+        <div class="tip-tip">Пакет документов универсален</div>
+        <div class="tip-title">Пакет документов универсален</div>
+        <div class="tip-text">Стандартный набор: загранпаспорт, фото, медстраховка, бронь жилья в Германии, билеты туда-обратно, выписка с банковского счёта, справка с работы / объяснение цели.</div>
+      </div>
+      <div class="tip-card">
+        <div class="tip-num">4</div>
+        <div class="tip-title">Второй паспорт — нюанс</div>
+        <div class="tip-text">Если подаёте на второй (старый) паспорт — убедитесь, что он действует минимум на 3–6 месяцев дольше предполагаемой даты въезда в Германию.</div>
+      </div>
+      <div class="tip-card">
+        <div class="tip-num">5</div>
+        <div class="tip-title">Подача через VFS Global</div>
+        <div class="tip-text">VFS Global — аутсорсинговый центр подачи виз. В Грузии, Казахстане, Турции принимает заявления для Германии. Иногда слоты в VFS появляются раньше, чем в консульстве.</div>
+      </div>
+      <div class="tip-card">
+        <div class="tip-num">6</div>
+        <div class="tip-title">Уведомление о результате</div>
+        <div class="tip-text">Если не хотите ждать в стране подачи — оставьте контакты и заберите паспорт с визой или организуйте доставку курьером (где это возможно).</div>
+      </div>
+    </div>
+  </section>
+
+</div>
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <strong>Виза в Германию для россиян — дедлайн 15 августа 2026</strong><br>
+    Собрано: 15 июня 2026 · Информация актуальна на дату публикации — ситуация с консульствами может меняться
+  </div>
+</footer>
+
+</body>
+</html>
