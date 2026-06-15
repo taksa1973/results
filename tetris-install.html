@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tetris — Установка на iPhone</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #F5F5F7;
+      --surface: #FFFFFF;
+      --surface2: #F0F0F2;
+      --blue: #0071E3;
+      --blue-hover: #0077ED;
+      --text: #1D1D1F;
+      --text2: #6E6E73;
+      --border: rgba(0,0,0,0.08);
+      --radius: 18px;
+      --radius-sm: 12px;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100dvh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(245,245,247,0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 24px;
+      height: 56px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo { font-size: 17px; font-weight: 700; letter-spacing: -0.3px; }
+    .nav-logo span { color: var(--blue); }
+    .nav-badge {
+      font-size: 12px; font-weight: 600;
+      background: var(--blue); color: #fff;
+      padding: 4px 12px; border-radius: 20px;
+    }
+
+    /* ─── HERO ─── */
+    .hero {
+      max-width: 900px; margin: 0 auto;
+      padding: 80px 24px 60px;
+      text-align: center;
+    }
+    .hero-tag {
+      display: inline-block;
+      font-size: 13px; font-weight: 600; letter-spacing: 0.5px;
+      color: var(--blue); text-transform: uppercase;
+      background: rgba(0,113,227,0.1);
+      padding: 6px 14px; border-radius: 20px;
+      margin-bottom: 24px;
+    }
+    h1 {
+      font-size: clamp(44px, 8vw, 80px);
+      font-weight: 900;
+      letter-spacing: -3px;
+      line-height: 1;
+      background: linear-gradient(135deg, #1D1D1F 0%, #434346 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 20px;
+    }
+    .hero-sub {
+      font-size: 19px; font-weight: 400; color: var(--text2);
+      line-height: 1.6; max-width: 520px; margin: 0 auto 40px;
+    }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--blue); color: #fff;
+      font-size: 16px; font-weight: 600;
+      padding: 14px 28px; border-radius: 980px;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .btn-primary:hover { background: var(--blue-hover); transform: scale(1.02); }
+    .btn-primary svg { width: 16px; height: 16px; }
+
+    /* ─── GAME PREVIEW ─── */
+    .game-preview {
+      max-width: 340px; margin: 60px auto;
+      background: #000; border-radius: 28px;
+      padding: 20px;
+      box-shadow: 0 40px 80px rgba(0,0,0,0.25), 0 0 0 1px rgba(255,255,255,0.1);
+    }
+    .game-screen {
+      display: grid;
+      grid-template-columns: repeat(10, 1fr);
+      gap: 2px;
+      background: #0D0D0F;
+      border-radius: 12px;
+      padding: 8px;
+      aspect-ratio: 10/20;
+    }
+    .cell {
+      border-radius: 3px;
+      aspect-ratio: 1;
+      background: rgba(255,255,255,0.04);
+    }
+    .cell.I  { background: #00D4FF; box-shadow: 0 0 8px rgba(0,212,255,0.5); }
+    .cell.O  { background: #FFD60A; box-shadow: 0 0 8px rgba(255,214,10,0.5); }
+    .cell.T  { background: #BF5AF2; box-shadow: 0 0 8px rgba(191,90,242,0.5); }
+    .cell.S  { background: #30D158; box-shadow: 0 0 8px rgba(48,209,88,0.5); }
+    .cell.Z  { background: #FF453A; box-shadow: 0 0 8px rgba(255,69,58,0.5); }
+    .cell.J  { background: #0A84FF; box-shadow: 0 0 8px rgba(10,132,255,0.5); }
+    .cell.L  { background: #FF9F0A; box-shadow: 0 0 8px rgba(255,159,10,0.5); }
+    .game-info {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-top: 12px;
+    }
+    .game-stat { text-align: center; }
+    .game-stat-val { font-size: 22px; font-weight: 800; color: #fff; }
+    .game-stat-label { font-size: 10px; font-weight: 500; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 0.5px; }
+
+    /* ─── SECTION ─── */
+    section { max-width: 900px; margin: 0 auto; padding: 0 24px 80px; }
+    .section-title {
+      font-size: 13px; font-weight: 600; letter-spacing: 0.5px;
+      color: var(--blue); text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    h2 {
+      font-size: clamp(28px, 5vw, 42px);
+      font-weight: 800; letter-spacing: -1.5px;
+      line-height: 1.1; margin-bottom: 40px;
+    }
+
+    /* ─── BENTO GRID ─── */
+    .bento { display: grid; gap: 16px; }
+    .bento-2 { grid-template-columns: repeat(2, 1fr); }
+    .bento-3 { grid-template-columns: repeat(3, 1fr); }
+
+    @media (max-width: 640px) {
+      .bento-2, .bento-3 { grid-template-columns: 1fr; }
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+    .card-icon {
+      width: 44px; height: 44px;
+      background: var(--bg);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 16px;
+    }
+    .card-icon svg { width: 22px; height: 22px; }
+    .card h3 { font-size: 17px; font-weight: 700; margin-bottom: 8px; letter-spacing: -0.3px; }
+    .card p  { font-size: 15px; color: var(--text2); line-height: 1.6; }
+    .card-blue { background: var(--blue); color: #fff; border-color: transparent; }
+    .card-blue .card-icon { background: rgba(255,255,255,0.2); }
+    .card-blue h3, .card-blue p { color: #fff; }
+    .card-blue p { opacity: 0.85; }
+    .card-dark { background: #1D1D1F; color: #fff; border-color: transparent; }
+    .card-dark h3 { color: #fff; }
+    .card-dark p { color: rgba(255,255,255,0.6); }
+
+    /* ─── STEPS ─── */
+    .steps { display: flex; flex-direction: column; gap: 0; }
+    .step {
+      display: flex; gap: 20px;
+      padding: 28px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 0;
+      border-bottom: none;
+      transition: background 0.15s;
+      position: relative;
+    }
+    .step:first-child { border-radius: var(--radius) var(--radius) 0 0; }
+    .step:last-child  { border-radius: 0 0 var(--radius) var(--radius); border-bottom: 1px solid var(--border); }
+    .step:hover { background: #FAFAFA; }
+    .step-num {
+      flex-shrink: 0;
+      width: 36px; height: 36px;
+      background: var(--blue);
+      color: #fff;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 15px; font-weight: 700;
+      margin-top: 2px;
+    }
+    .step-body h3 { font-size: 17px; font-weight: 700; margin-bottom: 6px; letter-spacing: -0.2px; }
+    .step-body p  { font-size: 15px; color: var(--text2); line-height: 1.6; }
+    .step-body code {
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      font-size: 13px;
+      background: var(--bg);
+      padding: 2px 6px; border-radius: 6px;
+      color: var(--blue);
+    }
+    .step-note {
+      margin-top: 10px;
+      padding: 12px 14px;
+      background: rgba(0,113,227,0.08);
+      border-radius: var(--radius-sm);
+      font-size: 13px; color: var(--blue); line-height: 1.5;
+    }
+
+    /* ─── FAQ ─── */
+    .faq-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 20px 24px;
+      margin-bottom: 8px;
+    }
+    .faq-q { font-size: 15px; font-weight: 600; margin-bottom: 8px; }
+    .faq-a { font-size: 14px; color: var(--text2); line-height: 1.6; }
+
+    /* ─── PILL TABLE ─── */
+    .pill-row {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 15px;
+    }
+    .pill-row:last-child { border-bottom: none; }
+    .pill-row span { color: var(--text2); }
+    .pill {
+      font-size: 13px; font-weight: 600;
+      padding: 4px 12px; border-radius: 20px;
+      background: rgba(48,209,88,0.12); color: #1A7F3C;
+    }
+    .pill.warn { background: rgba(255,159,10,0.12); color: #B25000; }
+
+    /* ─── FOOTER ─── */
+    footer {
+      text-align: center;
+      padding: 48px 24px;
+      border-top: 1px solid var(--border);
+      font-size: 13px; color: var(--text2);
+    }
+    footer a { color: var(--blue); text-decoration: none; }
+
+    @media (max-width: 640px) {
+      .hero { padding: 56px 20px 40px; }
+      section { padding: 0 20px 60px; }
+      h1 { letter-spacing: -2px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">TETRIS <span>by Apple</span></div>
+  <div class="nav-badge">iOS 17+</div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-tag">Бесплатно · Без App Store</div>
+  <h1>Тетрис на&nbsp;твой iPhone</h1>
+  <p class="hero-sub">Классическая игра в минималистичном Apple-дизайне. Устанавливается за 5 минут через кабель и Sideloadly.</p>
+  <a class="btn-primary" href="TetrisApple-signed.ipa" download>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+      <polyline points="7 10 12 15 17 10"/>
+      <line x1="12" y1="15" x2="12" y2="3"/>
+    </svg>
+    Скачать IPA
+  </a>
+</div>
+
+<!-- GAME PREVIEW -->
+<div class="game-preview" aria-label="Превью игры">
+  <div class="game-screen" id="board"></div>
+  <div class="game-info">
+    <div class="game-stat">
+      <div class="game-stat-val">1 840</div>
+      <div class="game-stat-label">Очки</div>
+    </div>
+    <div class="game-stat">
+      <div class="game-stat-val">3</div>
+      <div class="game-stat-label">Уровень</div>
+    </div>
+    <div class="game-stat">
+      <div class="game-stat-val">12</div>
+      <div class="game-stat-label">Линий</div>
+    </div>
+  </div>
+</div>
+
+<!-- REQUIREMENTS -->
+<section>
+  <div class="section-title">Требования</div>
+  <h2>Что нужно для установки</h2>
+
+  <div class="bento bento-3">
+    <div class="card card-blue">
+      <div class="card-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12" y2="18.01"/></svg>
+      </div>
+      <h3>iPhone</h3>
+      <p>Любой iPhone с iOS 17 или новее. Модель значения не имеет.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#0071E3" stroke-width="2" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2"/><polyline points="8 21 12 17 16 21"/></svg>
+      </div>
+      <h3>Mac или Windows</h3>
+      <p>Компьютер с Sideloadly для переподписи и установки.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#0071E3" stroke-width="2" stroke-linecap="round"><path d="M12 22V12M12 12L8 16M12 12l4 4M3 8a5 5 0 0 1 9-3 5 5 0 0 1 9 3"/></svg>
+      </div>
+      <h3>Кабель Lightning / USB-C</h3>
+      <p>Для подключения iPhone к компьютеру при установке.</p>
+    </div>
+  </div>
+
+  <div style="margin-top: 16px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px;">
+    <div class="pill-row"><strong>Apple ID</strong><span class="pill">Бесплатный</span></div>
+    <div class="pill-row"><strong>Apple Developer Account</strong><span class="pill warn">Не нужен</span></div>
+    <div class="pill-row"><strong>Джейлбрейк</strong><span class="pill warn">Не нужен</span></div>
+    <div class="pill-row"><strong>Стоимость</strong><span class="pill">0 ₽</span></div>
+    <div class="pill-row"><strong>Срок действия</strong><span style="font-size:15px; color: var(--text)">7 дней (бесплатно переустанавливать)</span></div>
+  </div>
+</section>
+
+<!-- STEPS -->
+<section>
+  <div class="section-title">Инструкция</div>
+  <h2>Установка за 5 шагов</h2>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <h3>Скачай IPA файл</h3>
+        <p>Нажми кнопку «Скачать IPA» вверху страницы. Файл называется <code>TetrisApple-signed.ipa</code> (~192 КБ).</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <h3>Установи Sideloadly</h3>
+        <p>Скачай бесплатную программу Sideloadly с официального сайта <strong>sideloadly.io</strong>. Есть версии для macOS и Windows.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <h3>Подключи iPhone кабелем</h3>
+        <p>Подключи iPhone к компьютеру USB-кабелем. Если iPhone спросит «Доверять этому компьютеру?» — нажми <strong>Доверять</strong>.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-body">
+        <h3>Перетащи IPA и нажми Start</h3>
+        <p>Открой Sideloadly. Перетащи файл <code>TetrisApple-signed.ipa</code> в окно программы. Введи свой <strong>Apple ID</strong> (обычный, бесплатный) и пароль. Нажми <strong>Start</strong> — подождёт ~30 секунд.</p>
+        <div class="step-note">Если Apple ID использует двухфакторную аутентификацию — Sideloadly попросит код из SMS или уведомления.</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">5</div>
+      <div class="step-body">
+        <h3>Разреши запуск на iPhone</h3>
+        <p>На iPhone открой <strong>Настройки → Основные → VPN и управление устройством</strong>. Найди свой Apple ID в разделе «Разработчик» и нажми <strong>Доверять</strong>. Готово — запускай Тетрис!</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTROLS -->
+<section>
+  <div class="section-title">Управление</div>
+  <h2>Как играть</h2>
+  <div class="bento bento-2">
+    <div class="card">
+      <div class="card-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#0071E3" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M5 12l4-4M5 12l4 4"/></svg>
+      </div>
+      <h3>Свайп влево / вправо</h3>
+      <p>Двигай фигуру по горизонтали. Быстрый свайп — быстрое движение.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#0071E3" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M12 19l-4-4M12 19l4-4"/></svg>
+      </div>
+      <h3>Свайп вниз</h3>
+      <p>Ускоренное падение фигуры. Зарабатывай бонусные очки за каждую ускоренную клетку.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#0071E3" stroke-width="2" stroke-linecap="round"><path d="M12 2a10 10 0 1 0 0 20M12 8v4l3 3"/></svg>
+      </div>
+      <h3>Тап один раз</h3>
+      <p>Поворот фигуры по часовой стрелке. Работает везде на игровом поле.</p>
+    </div>
+    <div class="card card-dark">
+      <div class="card-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"><polyline points="7 13 12 18 17 13"/><polyline points="7 6 12 11 17 6"/></svg>
+      </div>
+      <h3>Двойной тап</h3>
+      <p>Мгновенный сброс фигуры вниз — максимум очков за drop!</p>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section>
+  <div class="section-title">Вопросы</div>
+  <h2>Частые вопросы</h2>
+
+  <div class="faq-item">
+    <div class="faq-q">Как долго работает приложение?</div>
+    <div class="faq-a">7 дней с бесплатным Apple ID. После истечения повтори шаги 3–4 (кабель + Sideloadly). Это бесплатно и занимает минуту.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q">Нужно ли оставлять кабель подключённым?</div>
+    <div class="faq-a">Нет. Кабель нужен только в момент установки. После того как нажал «Доверять» на iPhone — отключай и играй.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q">Sideloadly просит пароль от Apple ID. Это безопасно?</div>
+    <div class="faq-a">Sideloadly известный инструмент для sideloading iOS приложений. Для дополнительной безопасности создай отдельный Apple ID специально для этого — это бесплатно.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q">Почему нельзя скачать из App Store?</div>
+    <div class="faq-a">Публикация в App Store стоит $99/год. Это личная игра, и распространяется напрямую как sideload — так же как работают бета-версии приложений у разработчиков.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q">Работает ли на Android?</div>
+    <div class="faq-a">Нет — это нативное SwiftUI приложение только для iPhone с iOS 17 и новее.</div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  Сделано с SwiftUI · Дизайн вдохновлён Apple HIG<br>
+  <a href="TetrisApple-signed.ipa" download>Скачать IPA</a> · 192 КБ · iOS 17+
+</footer>
+
+<script>
+  /* Рисуем статичную «игровую» доску для превью */
+  const board = document.getElementById('board');
+  const cols = 10, rows = 20;
+
+  /* Заготовленная доска — имитация игрового состояния */
+  const layout = [
+    '..........','..........','..........','..........','..........','..........','..........','....I.....','....I.....','....I.....','....I.....','....I.....','..TT......','..T.......','..T.L.....','ZZO.L.....','ZOO.LL....','ZSSO......','ZSSSJ.....','ZZSSJJJ...'
+  ];
+
+  const colorMap = {I:'I',O:'O',T:'T',S:'S',Z:'Z',J:'J',L:'L'};
+
+  for (let r = 0; r < rows; r++) {
+    for (let c = 0; c < cols; c++) {
+      const cell = document.createElement('div');
+      cell.className = 'cell';
+      const ch = layout[r]?.[c];
+      if (ch && ch !== '.') cell.classList.add(colorMap[ch] || '');
+      board.appendChild(cell);
+    }
+  }
+</script>
+</body>
+</html>
