@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WalkingPad G1 vs R3 Hybrid+ — сравнение</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F5F5F7; --card:#FFFFFF; --ink:#1D1D1F; --sub:#6E6E73;
+    --line:#E5E5EA; --blue:#0071E3; --green:#34C759; --orange:#FF9F0A;
+    --r3:#5E5CE6; --g1:#0071E3;
+    --radius:22px; --shadow:0 1px 3px rgba(0,0,0,.06),0 8px 30px rgba(0,0,0,.05);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+    background:var(--bg); color:var(--ink); line-height:1.5;
+    -webkit-font-smoothing:antialiased; padding:0 20px;
+  }
+  .wrap{max-width:1080px; margin:0 auto}
+  /* HERO */
+  header{padding:88px 0 56px; text-align:center}
+  .kicker{display:inline-block; font-size:13px; font-weight:600; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--blue); background:rgba(0,113,227,.1);
+    padding:7px 14px; border-radius:100px; margin-bottom:22px}
+  h1{font-size:clamp(38px,6vw,64px); font-weight:800; letter-spacing:-.03em; line-height:1.05}
+  h1 .vs{color:var(--sub); font-weight:600}
+  .lead{font-size:clamp(17px,2.4vw,21px); color:var(--sub); max-width:620px;
+    margin:22px auto 0; font-weight:400}
+  /* SECTION TITLES */
+  h2{font-size:clamp(26px,4vw,38px); font-weight:700; letter-spacing:-.02em;
+    margin:0 0 8px}
+  .sec-sub{color:var(--sub); font-size:16px; margin-bottom:34px}
+  section{padding:44px 0}
+  /* CARDS GRID */
+  .cards{display:grid; grid-template-columns:1fr 1fr; gap:22px}
+  .card{background:var(--card); border-radius:var(--radius); box-shadow:var(--shadow);
+    padding:30px; transition:transform .35s cubic-bezier(.2,.7,.2,1), box-shadow .35s;
+    border:1px solid rgba(0,0,0,.02); overflow:hidden}
+  .card:hover{transform:translateY(-4px); box-shadow:0 12px 40px rgba(0,0,0,.1)}
+  .card .ph{display:block; width:100%; aspect-ratio:4/3; object-fit:contain;
+    background:#FAFAFC; border-radius:16px; margin-bottom:22px}
+  .badge{display:inline-block; font-size:12px; font-weight:700; letter-spacing:.04em;
+    text-transform:uppercase; padding:5px 11px; border-radius:8px; margin-bottom:12px; color:#fff}
+  .badge.g1{background:var(--g1)} .badge.r3{background:var(--r3)}
+  .card h3{font-size:24px; font-weight:700; letter-spacing:-.02em}
+  .card .tag{color:var(--sub); font-size:15px; margin:6px 0 18px}
+  .price{font-size:30px; font-weight:800; letter-spacing:-.02em}
+  .price small{font-size:15px; font-weight:500; color:var(--sub)}
+  /* SPEC TABLE */
+  .tablecard{background:var(--card); border-radius:var(--radius); box-shadow:var(--shadow);
+    overflow:hidden; border:1px solid rgba(0,0,0,.02)}
+  table{width:100%; border-collapse:collapse}
+  th,td{padding:17px 22px; text-align:left; font-size:15px; border-bottom:1px solid var(--line)}
+  thead th{font-size:13px; text-transform:uppercase; letter-spacing:.05em; color:var(--sub);
+    font-weight:600; background:#FBFBFD}
+  tbody tr:last-child td{border-bottom:none}
+  td:first-child,th:first-child{font-weight:600; color:var(--ink)}
+  .col-g1{color:var(--g1); font-weight:600}
+  .col-r3{color:var(--r3); font-weight:600}
+  .win{position:relative}
+  .win::after{content:'✓'; margin-left:7px; color:var(--green); font-weight:800}
+  tbody tr{transition:background .2s}
+  tbody tr:hover{background:#FBFBFD}
+  /* VERDICT */
+  .verdicts{display:grid; grid-template-columns:1fr 1fr; gap:22px}
+  .verdict{background:var(--card); border-radius:var(--radius); box-shadow:var(--shadow);
+    padding:30px; border-top:4px solid; transition:transform .35s cubic-bezier(.2,.7,.2,1)}
+  .verdict:hover{transform:translateY(-4px)}
+  .verdict.g1{border-color:var(--g1)} .verdict.r3{border-color:var(--r3)}
+  .verdict h3{font-size:20px; font-weight:700; margin-bottom:6px}
+  .verdict .who{font-size:14px; color:var(--sub); margin-bottom:18px}
+  .verdict ul{list-style:none}
+  .verdict li{font-size:15px; padding:9px 0 9px 28px; position:relative; color:#3A3A3C}
+  .verdict li::before{content:''; position:absolute; left:0; top:15px; width:16px; height:16px;
+    background:var(--green); border-radius:50%; opacity:.15}
+  .verdict li::after{content:'✓'; position:absolute; left:3px; top:8px; font-size:11px;
+    font-weight:800; color:var(--green)}
+  /* SERBIA NOTE */
+  .note{background:linear-gradient(135deg,#fff,#FBFBFD); border-radius:var(--radius);
+    box-shadow:var(--shadow); padding:34px; border:1px solid rgba(0,0,0,.03)}
+  .note h2{font-size:24px; margin-bottom:14px}
+  .note p{color:#3A3A3C; font-size:16px; max-width:760px}
+  .note p+p{margin-top:12px}
+  .note b{color:var(--ink)}
+  footer{padding:50px 0 70px; text-align:center; color:var(--sub); font-size:13px}
+  footer a{color:var(--blue); text-decoration:none}
+  .anim{opacity:0}
+  @media(max-width:720px){
+    .cards,.verdicts{grid-template-columns:1fr}
+    header{padding:60px 0 36px}
+    th,td{padding:14px 14px; font-size:14px}
+    body{padding:0 16px}
+  }
+  @media(prefers-reduced-motion:reduce){.anim{opacity:1!important;transform:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <span class="kicker anim">Сравнение беговых дорожек</span>
+    <h1 class="anim">WalkingPad G1 <span class="vs">vs</span> R3 Hybrid+</h1>
+    <p class="lead anim">Две складные дорожки KingSmith с максимумом 12 км/ч. Обе без наклона — но различаются мотором, управлением и ценой. Разбираем, что выбрать.</p>
+  </header>
+
+  <!-- CARDS -->
+  <section>
+    <div class="cards">
+      <div class="card anim">
+        <img class="ph" src="https://ca.walkingpad.com/cdn/shop/files/G1-2.jpg?v=1780026697" alt="WalkingPad G1 — складная беговая дорожка с боковыми поручнями" loading="lazy">
+        <span class="badge g1">G1</span>
+        <h3>WalkingPad G1</h3>
+        <p class="tag">Мощный мотор 3 HP · боковые складные поручни</p>
+        <div class="price">≈ €440 <small>· $649 CAD (со скидки с $999)</small></div>
+      </div>
+      <div class="card anim">
+        <img class="ph" src="https://www.walkingpad.com/cdn/shop/files/product_walkingpad-r3-hybrid-plus-jogging-lifestyle.webp?v=1780370497" alt="WalkingPad R3 Hybrid+ — складная дорожка 3-в-1 с поручнем" loading="lazy">
+        <span class="badge r3">R3 Hybrid+</span>
+        <h3>WalkingPad R3 Hybrid+</h3>
+        <p class="tag">FootSense hands-free · регулируемый складной поручень</p>
+        <div class="price">€849 <small>· $799 US · €1250 в Нови-Саде</small></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SPEC TABLE -->
+  <section>
+    <h2 class="anim">Характеристики</h2>
+    <p class="sec-sub anim">Зелёная галочка — где модель объективно сильнее.</p>
+    <div class="tablecard anim">
+      <table>
+        <thead>
+          <tr><th>Параметр</th><th class="col-g1">G1</th><th class="col-r3">R3 Hybrid+</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Макс. скорость</td><td>до 12 км/ч</td><td>1–12 км/ч</td></tr>
+          <tr><td>Мотор</td><td class="win">3 HP brushless · 918 Вт</td><td>2.5 HP brushless</td></tr>
+          <tr><td>Наклон (incline)</td><td>нет</td><td>нет</td></tr>
+          <tr><td>Макс. вес пользователя</td><td>110 кг (240 lb)</td><td class="win">120 кг (265 lb)</td></tr>
+          <tr><td>Полотно</td><td>440 × 1200 мм</td><td>широкое полотно</td></tr>
+          <tr><td>Поручни</td><td>боковые, складные</td><td class="win">регулируемый по высоте, складной</td></tr>
+          <tr><td>Управление скоростью</td><td>spin-кнопка на поручне</td><td class="win">FootSense (hands-free) + пульт + app</td></tr>
+          <tr><td>Складывание</td><td>180° half-fold</td><td>3-в-1, полное складывание</td></tr>
+          <tr><td>Шум</td><td>—</td><td class="win">&lt; 65 дБ</td></tr>
+          <tr><td>Вес устройства</td><td class="win">37 кг (нетто)</td><td>тяжелее</td></tr>
+          <tr><td>Цена</td><td class="win">≈ €440 (от $649 CAD)</td><td>€849 / $799</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- VERDICT -->
+  <section>
+    <h2 class="anim">Что выбрать</h2>
+    <p class="sec-sub anim">Коротко по сценариям использования.</p>
+    <div class="verdicts">
+      <div class="verdict g1 anim">
+        <h3>Бери G1, если…</h3>
+        <p class="who">Бюджет и мощность важнее «умных» фишек</p>
+        <ul>
+          <li>Хочешь сэкономить — дешевле почти вдвое</li>
+          <li>Нужен более мощный мотор (3 HP) для регулярного бега</li>
+          <li>Устройство легче (37 кг) — проще переставлять</li>
+          <li>Боковые поручни для устойчивости при беге</li>
+        </ul>
+      </div>
+      <div class="verdict r3 anim">
+        <h3>Бери R3 Hybrid+, если…</h3>
+        <p class="who">Нужен комфорт, тишина и hands-free</p>
+        <ul>
+          <li>Ценишь FootSense — управление скоростью шагами, без рук</li>
+          <li>Дома тихо: мотор &lt; 65 дБ</li>
+          <li>Поручень регулируется под рост и полностью складывается</li>
+          <li>Чуть выше лимит по весу (120 кг) и приложение/пульт</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERBIA -->
+  <section>
+    <div class="note anim">
+      <h2>📍 Если покупать в Сербию</h2>
+      <p><b>R3 Hybrid+</b> в местной рознице не продаётся: только реселлер в Нови-Саде (~<b>€1250</b>, новая в упаковке, доставка курьером по Сербии) либо заказ с французского сайта <b>€849</b> + растаможка (пошлина + 20% PDV).</p>
+      <p><b>G1</b> в сербских магазинах тоже не встречается напрямую — её везут с зарубежных сайтов WalkingPad. Зато в Белграде на полке есть близкие аналоги (Xiaomi AI Pro в Gigatron, Maxxus в Shoppster, Toorx в PlanetBike) с самовывозом.</p>
+      <p><b>Вывод:</b> при равных 12 км/ч и отсутствии наклона G1 заметно дешевле и мощнее по мотору, а R3 Hybrid+ выигрывает удобством (hands-free, тише, складной поручень). Если переплата за «умность» не критична — G1 рациональнее; если хочется именно комфортную «умную» дорожку — R3, но в Сербии она дорогая.</p>
+    </div>
+  </section>
+
+  <footer>
+    Данные: офсайты walkingpad.com / ca.walkingpad.com, июнь 2026. Цены и наличие в Сербии могут меняться.<br>
+    Наклон отсутствует у обеих моделей (подтверждено по официальным спецификациям).
+  </footer>
+
+</div>
+
+<script type="module">
+  import { animate, inView, stagger } from "https://cdn.jsdelivr.net/npm/motion@11/+esm";
+
+  // hero — последовательное появление
+  inView("header", () => {
+    animate(".kicker", { opacity:[0,1], y:[16,0] }, { duration:.5 });
+    animate("h1", { opacity:[0,1], y:[24,0] }, { duration:.6, delay:.08 });
+    animate(".lead", { opacity:[0,1], y:[20,0] }, { duration:.6, delay:.18 });
+  }, { amount:.3 });
+
+  // секции и карточки
+  inView(".anim:not(.kicker):not(h1):not(.lead)", (el) => {
+    animate(el, { opacity:[0,1], y:[28,0] }, { duration:.6, easing:[.2,.7,.2,1] });
+  }, { amount:.2 });
+
+  // карточки товаров — со stagger
+  inView(".cards", () => {
+    animate(".card", { opacity:[0,1], y:[30,0], scale:[.97,1] },
+      { duration:.6, delay:stagger(.12), easing:[.2,.7,.2,1] });
+  }, { amount:.3 });
+
+  // строки таблицы
+  inView(".tablecard", () => {
+    animate("tbody tr", { opacity:[0,1], x:[-12,0] },
+      { duration:.4, delay:stagger(.04) });
+  }, { amount:.15 });
+</script>
+</body>
+</html>
