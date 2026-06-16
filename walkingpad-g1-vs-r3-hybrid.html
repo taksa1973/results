@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>WalkingPad G1 vs R3 Hybrid+ — сравнение</title>
+<script>document.documentElement.classList.add('js')</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -90,6 +91,7 @@
   footer{padding:50px 0 70px; text-align:center; color:var(--sub); font-size:13px}
   footer a{color:var(--blue); text-decoration:none}
   .anim{opacity:0}
+  html:not(.js) .anim{opacity:1}
   @media(max-width:720px){
     .cards,.verdicts{grid-template-columns:1fr}
     header{padding:60px 0 36px}
@@ -200,31 +202,35 @@
 </div>
 
 <script type="module">
-  import { animate, inView, stagger } from "https://cdn.jsdelivr.net/npm/motion@11/+esm";
+  // Контент виден всегда; анимация — прогрессивное улучшение.
+  const items = document.querySelectorAll('.anim');
+  const reveal = (el) => { el.style.opacity = 1; el.style.transform = 'none'; };
+  const revealAll = () => items.forEach(reveal);
 
-  // hero — последовательное появление
-  inView("header", () => {
-    animate(".kicker", { opacity:[0,1], y:[16,0] }, { duration:.5 });
-    animate("h1", { opacity:[0,1], y:[24,0] }, { duration:.6, delay:.08 });
-    animate(".lead", { opacity:[0,1], y:[20,0] }, { duration:.6, delay:.18 });
-  }, { amount:.3 });
+  try {
+    const { animate, inView, stagger } =
+      await import("https://cdn.jsdelivr.net/npm/motion@11/+esm");
 
-  // секции и карточки
-  inView(".anim:not(.kicker):not(h1):not(.lead)", (el) => {
-    animate(el, { opacity:[0,1], y:[28,0] }, { duration:.6, easing:[.2,.7,.2,1] });
-  }, { amount:.2 });
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduce) { revealAll(); }
+    else {
+      // hero — сразу
+      animate(".kicker", { opacity:[0,1], y:[16,0] }, { duration:.5 });
+      animate("h1",      { opacity:[0,1], y:[24,0] }, { duration:.6, delay:.08 });
+      animate(".lead",   { opacity:[0,1], y:[20,0] }, { duration:.6, delay:.18 });
 
-  // карточки товаров — со stagger
-  inView(".cards", () => {
-    animate(".card", { opacity:[0,1], y:[30,0], scale:[.97,1] },
-      { duration:.6, delay:stagger(.12), easing:[.2,.7,.2,1] });
-  }, { amount:.3 });
+      // всё остальное — при попадании в зону видимости
+      inView(".anim:not(.kicker):not(h1):not(.lead)", (el) => {
+        animate(el, { opacity:[0,1], y:[28,0] }, { duration:.6, easing:[.2,.7,.2,1] });
+      }, { amount:.15 });
+    }
 
-  // строки таблицы
-  inView(".tablecard", () => {
-    animate("tbody tr", { opacity:[0,1], x:[-12,0] },
-      { duration:.4, delay:stagger(.04) });
-  }, { amount:.15 });
+    // страховка: если какой-то блок не анимировался — показать принудительно
+    setTimeout(revealAll, 2600);
+  } catch (e) {
+    // CDN недоступен — просто показываем контент
+    revealAll();
+  }
 </script>
 </body>
 </html>
