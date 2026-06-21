@@ -1,10 +1,12 @@
 {
-  "ts": "2026-06-20T09:20:27.450992+00:00",
+  "ts": "2026-06-21T09:55:08.472493+00:00",
   "findings": {},
   "errors": {
     "Navigare Yachting Turkey": "http_403",
     "Irmak Yachting (home)": "http_522",
     "Irmak Yachting (fleet)": "http_522",
+    "Marmaris Sailing Marmaris fleet": "http_409",
+    "Marmaris Sailing Gocek fleet": "http_409",
     "Rotaneta Gocek catamaran": "http_503",
     "Rotaneta home": "http_503",
     "Yacht-Rent Turkey": "http_403",
