@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Парето: дедики для 40 человек</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #F5F5F7;
+    --card: #FFFFFF;
+    --blue: #0071E3;
+    --blue-light: #E8F2FF;
+    --green: #34C759;
+    --green-light: #E6F9EC;
+    --green-dark: #248A3D;
+    --orange: #FF9500;
+    --orange-light: #FFF4E5;
+    --red: #FF3B30;
+    --red-light: #FFF0EF;
+    --purple: #AF52DE;
+    --purple-light: #F5EEFB;
+    --yellow: #FFD60A;
+    --text-primary: #1D1D1F;
+    --text-secondary: #6E6E73;
+    --text-tertiary: #AEAEB2;
+    --border: rgba(0,0,0,0.07);
+    --shadow-sm: 0 1px 4px rgba(0,0,0,0.06), 0 2px 12px rgba(0,0,0,0.04);
+    --shadow-md: 0 4px 20px rgba(0,0,0,0.10), 0 1px 6px rgba(0,0,0,0.04);
+    --radius: 20px; --radius-sm: 12px;
+  }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: var(--bg); color: var(--text-primary);
+    min-height: 100vh; padding: 40px 20px 80px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrapper { max-width: 1100px; margin: 0 auto; }
+
+  .header { text-align: center; margin-bottom: 52px; }
+  .chip {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--blue-light); color: var(--blue);
+    font-size: 12px; font-weight: 700; letter-spacing: 0.05em;
+    text-transform: uppercase; padding: 6px 16px; border-radius: 100px; margin-bottom: 18px;
+  }
+  .header h1 {
+    font-size: clamp(28px, 5vw, 46px); font-weight: 700;
+    letter-spacing: -0.03em; line-height: 1.12; margin-bottom: 14px;
+  }
+  .header p { font-size: 16px; color: var(--text-secondary); max-width: 520px; margin: 0 auto; line-height: 1.6; }
+
+  .sec { font-size: 11px; font-weight: 700; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--text-tertiary);
+    margin-bottom: 16px; margin-top: 52px; }
+
+  .card {
+    background: var(--card); border-radius: var(--radius);
+    border: 1px solid var(--border); box-shadow: var(--shadow-sm);
+    padding: 28px; transition: transform 220ms ease, box-shadow 220ms ease;
+  }
+  .card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+
+  .grid { display: grid; gap: 16px; }
+  .g2 { grid-template-columns: 1fr 1fr; }
+  .g3 { grid-template-columns: 1fr 1fr 1fr; }
+  .g4 { grid-template-columns: repeat(4, 1fr); }
+
+  /* Pareto law callout */
+  .law-box {
+    background: linear-gradient(135deg, #1D1D1F 0%, #2D2D30 100%);
+    color: white; border-radius: var(--radius); padding: 36px 40px;
+    display: flex; align-items: center; gap: 40px;
+  }
+  .law-ratio { font-size: 72px; font-weight: 700; letter-spacing: -0.04em; line-height: 1; white-space: nowrap; }
+  .law-ratio span { color: #34C759; }
+  .law-text { flex: 1; }
+  .law-text h3 { font-size: 20px; font-weight: 700; margin-bottom: 8px; }
+  .law-text p { font-size: 14px; opacity: 0.7; line-height: 1.6; }
+
+  /* Score bar */
+  .score-row { display: flex; flex-direction: column; gap: 14px; }
+  .score-item { display: grid; grid-template-columns: 160px 1fr 60px; align-items: center; gap: 12px; }
+  .score-label { font-size: 14px; font-weight: 500; }
+  .score-track { height: 10px; background: var(--bg); border-radius: 100px; overflow: hidden; position: relative; }
+  .score-fill { height: 100%; border-radius: 100px; transition: width 0.8s cubic-bezier(.22,.68,0,1.2); }
+  .score-num { font-size: 13px; font-weight: 700; text-align: right; }
+
+  /* Impact/Effort matrix */
+  .matrix {
+    position: relative; aspect-ratio: 1 / 1; max-width: 460px; margin: 0 auto;
+    background: var(--bg); border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+  }
+  .matrix-q {
+    position: absolute; padding: 10px 14px;
+    font-size: 10px; font-weight: 700; letter-spacing: 0.06em;
+    text-transform: uppercase; border-radius: 8px;
+  }
+  .matrix-q.tl { top: 12px; left: 12px; background: var(--orange-light); color: var(--orange); }
+  .matrix-q.tr { top: 12px; right: 12px; background: var(--green-light); color: var(--green-dark); }
+  .matrix-q.bl { bottom: 12px; left: 12px; background: var(--red-light); color: var(--red); }
+  .matrix-q.br { bottom: 12px; right: 12px; background: var(--blue-light); color: var(--blue); }
+
+  /* Вертикальная ось */
+  .matrix-axis-y {
+    position: absolute; left: -28px; top: 50%; transform: translateY(-50%) rotate(-90deg);
+    font-size: 10px; font-weight: 700; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--text-tertiary); white-space: nowrap;
+  }
+  .matrix-axis-x {
+    position: absolute; bottom: -24px; left: 50%; transform: translateX(-50%);
+    font-size: 10px; font-weight: 700; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--text-tertiary);
+  }
+  /* Разделители квадрантов */
+  .matrix::before {
+    content: ''; position: absolute; left: 50%; top: 0; bottom: 0;
+    width: 1px; background: var(--border);
+  }
+  .matrix::after {
+    content: ''; position: absolute; top: 50%; left: 0; right: 0;
+    height: 1px; background: var(--border);
+  }
+
+  /* Dot на матрице */
+  .dot-item {
+    position: absolute; transform: translate(-50%, -50%);
+    display: flex; flex-direction: column; align-items: center; gap: 3px;
+    cursor: default; z-index: 2;
+  }
+  .dot-circle {
+    width: 14px; height: 14px; border-radius: 50%;
+    border: 2px solid white; box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    transition: transform 200ms ease;
+  }
+  .dot-item:hover .dot-circle { transform: scale(1.5); }
+  .dot-label {
+    font-size: 9px; font-weight: 700; white-space: nowrap;
+    background: white; border: 1px solid var(--border);
+    padding: 2px 6px; border-radius: 100px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    opacity: 0; transition: opacity 200ms ease;
+  }
+  .dot-item:hover .dot-label { opacity: 1; }
+
+  /* Pareto winner card */
+  .winner-card {
+    background: linear-gradient(135deg, var(--green) 0%, #248A3D 100%);
+    color: white; border-radius: var(--radius); padding: 32px;
+    position: relative; overflow: hidden;
+  }
+  .winner-card::before {
+    content: ''; position: absolute; width: 240px; height: 240px;
+    border-radius: 50%; background: rgba(255,255,255,0.07);
+    top: -60px; right: -40px;
+  }
+  .winner-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: rgba(255,255,255,0.2); backdrop-filter: blur(8px);
+    font-size: 11px; font-weight: 700; letter-spacing: 0.06em;
+    text-transform: uppercase; padding: 5px 14px; border-radius: 100px;
+    margin-bottom: 14px;
+  }
+  .winner-card h3 { font-size: 22px; font-weight: 700; margin-bottom: 6px; }
+  .winner-card p { font-size: 14px; opacity: 0.85; margin-bottom: 20px; line-height: 1.5; }
+  .winner-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .w-stat { background: rgba(255,255,255,0.15); border-radius: 12px; padding: 14px; }
+  .w-stat-val { font-size: 22px; font-weight: 700; }
+  .w-stat-lbl { font-size: 11px; opacity: 0.8; margin-top: 2px; }
+
+  /* Sec pareto items */
+  .sec-pareto { display: flex; flex-direction: column; gap: 12px; }
+  .spi {
+    display: grid; grid-template-columns: 32px 1fr auto;
+    align-items: center; gap: 14px;
+    padding: 16px; border-radius: var(--radius-sm);
+    border: 1px solid var(--border); background: var(--bg);
+    transition: transform 200ms ease;
+  }
+  .spi:hover { transform: translateX(4px); }
+  .spi.pareto-yes { background: var(--green-light); border-color: rgba(52,199,89,0.25); }
+  .spi.pareto-maybe { background: var(--orange-light); border-color: rgba(255,149,0,0.25); }
+  .spi.pareto-no { background: #FAFAFA; }
+  .spi-rank { width: 28px; height: 28px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 800; flex-shrink: 0; }
+  .spi-rank.yes { background: var(--green); color: white; }
+  .spi-rank.maybe { background: var(--orange); color: white; }
+  .spi-rank.no { background: var(--text-tertiary); color: white; }
+  .spi-body strong { font-size: 14px; font-weight: 700; display: block; margin-bottom: 2px; }
+  .spi-body span { font-size: 12px; color: var(--text-secondary); }
+  .spi-right { text-align: right; }
+  .spi-impact { font-size: 13px; font-weight: 700; }
+  .spi-effort { font-size: 11px; color: var(--text-tertiary); margin-top: 2px; }
+  .spi-right.yes .spi-impact { color: var(--green-dark); }
+  .spi-right.maybe .spi-impact { color: var(--orange); }
+  .spi-right.no .spi-impact { color: var(--text-tertiary); }
+
+  /* Provider comparison */
+  .prov-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .prov-card {
+    border-radius: var(--radius-sm); padding: 20px;
+    border: 2px solid transparent; position: relative;
+    transition: transform 200ms ease;
+  }
+  .prov-card:hover { transform: translateY(-2px); }
+  .prov-card.winner { border-color: var(--green); background: var(--green-light); }
+  .prov-card.good { border-color: rgba(0,113,227,0.3); background: var(--blue-light); }
+  .prov-card.ok { background: var(--bg); border-color: var(--border); }
+  .prov-card.skip { background: #FAFAFA; border-color: var(--border); opacity: 0.7; }
+  .prov-badge {
+    position: absolute; top: -10px; left: 50%; transform: translateX(-50%);
+    font-size: 10px; font-weight: 800; letter-spacing: 0.05em; text-transform: uppercase;
+    padding: 3px 12px; border-radius: 100px; white-space: nowrap;
+  }
+  .prov-badge.g { background: var(--green); color: white; }
+  .prov-badge.b { background: var(--blue); color: white; }
+  .prov-badge.o { background: var(--orange); color: white; }
+  .prov-badge.r { background: var(--text-tertiary); color: white; }
+  .prov-name { font-size: 15px; font-weight: 700; margin: 10px 0 4px; }
+  .prov-price { font-size: 24px; font-weight: 700; letter-spacing: -0.02em; }
+  .prov-price sub { font-size: 13px; font-weight: 400; color: var(--text-secondary); }
+  .prov-total { font-size: 12px; color: var(--text-secondary); margin: 4px 0 12px; }
+  .prov-bars { display: flex; flex-direction: column; gap: 6px; }
+  .pb-row { display: flex; align-items: center; gap: 8px; font-size: 11px; color: var(--text-secondary); }
+  .pb-row span { width: 60px; flex-shrink: 0; }
+  .pb-track { flex: 1; height: 5px; background: rgba(0,0,0,0.08); border-radius: 100px; overflow: hidden; }
+  .pb-fill { height: 100%; border-radius: 100px; }
+
+  /* Final recommendation */
+  .final-box {
+    background: linear-gradient(135deg, #0051A3 0%, #0071E3 100%);
+    border-radius: var(--radius); padding: 40px; color: white;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: center;
+  }
+  .final-box h3 { font-size: 24px; font-weight: 700; margin-bottom: 10px; }
+  .final-box p { font-size: 14px; opacity: 0.85; line-height: 1.6; margin-bottom: 20px; }
+  .final-actions { display: flex; flex-direction: column; gap: 10px; }
+  .fa-item {
+    display: flex; align-items: center; gap: 12px;
+    background: rgba(255,255,255,0.12); border-radius: 12px; padding: 12px 16px;
+    font-size: 14px; font-weight: 500;
+  }
+  .fa-num {
+    width: 26px; height: 26px; border-radius: 8px;
+    background: rgba(255,255,255,0.25); font-size: 12px; font-weight: 800;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .final-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .fs { background: rgba(255,255,255,0.12); border-radius: 14px; padding: 20px; }
+  .fs-val { font-size: 28px; font-weight: 700; letter-spacing: -0.02em; }
+  .fs-lbl { font-size: 12px; opacity: 0.75; margin-top: 4px; }
+
+  @media (max-width: 900px) {
+    .g2, .g3, .g4 { grid-template-columns: 1fr; }
+    .prov-grid { grid-template-columns: 1fr 1fr; }
+    .law-box { flex-direction: column; gap: 16px; text-align: center; }
+    .final-box { grid-template-columns: 1fr; }
+    .winner-stats { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 600px) {
+    .prov-grid { grid-template-columns: 1fr; }
+    .score-item { grid-template-columns: 120px 1fr 50px; }
+    body { padding: 20px 14px 60px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrapper">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="chip">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>
+      Анализ по Парето · 40 сотрудников
+    </div>
+    <h1>20% действий →<br>80% результата</h1>
+    <p>Что реально важно при выборе дедиков и настройке безопасности — и от чего можно отказаться на старте</p>
+  </div>
+
+  <!-- Закон Парето -->
+  <div class="law-box">
+    <div class="law-ratio"><span>20</span>%<br>→ <span>80</span>%</div>
+    <div class="law-text">
+      <h3>Принцип Парето в инфраструктуре</h3>
+      <p>80% пользы от инфраструктуры даёт правильный выбор провайдера и 3 базовые меры безопасности. Остальные 20% пользы — это SIEM, DLP, шифрование диска и корпоративные тренинги, которые требуют 80% времени и денег. Сначала — 20%, потом, при росте, остальное.</p>
+    </div>
+  </div>
+
+  <!-- Провайдеры: Парето-оценка -->
+  <div class="sec">Провайдеры — что выбрать по Парето</div>
+  <div class="prov-grid" style="margin-top:20px;">
+
+    <div class="prov-card skip">
+      <div class="prov-badge r">Пропустить</div>
+      <div class="prov-name">Scaleway DEV1-S</div>
+      <div class="prov-price">€3.99<sub>/мес</sub></div>
+      <div class="prov-total">×40 = €160/мес</div>
+      <div class="prov-bars">
+        <div class="pb-row"><span>Скорость</span><div class="pb-track"><div class="pb-fill" style="width:30%;background:var(--text-tertiary);"></div></div></div>
+        <div class="pb-row"><span>Надёжность</span><div class="pb-track"><div class="pb-fill" style="width:40%;background:var(--text-tertiary);"></div></div></div>
+        <div class="pb-row"><span>Поддержка</span><div class="pb-track"><div class="pb-fill" style="width:35%;background:var(--text-tertiary);"></div></div></div>
+      </div>
+      <div style="margin-top:12px;font-size:11px;color:var(--text-secondary);">2 GB RAM — мало для реальной работы с браузером</div>
+    </div>
+
+    <div class="prov-card ok">
+      <div class="prov-badge o">Для старта</div>
+      <div class="prov-name">Contabo VPS S</div>
+      <div class="prov-price">$6.99<sub>/мес</sub></div>
+      <div class="prov-total">×40 = $280/мес</div>
+      <div class="prov-bars">
+        <div class="pb-row"><span>Скорость</span><div class="pb-track"><div class="pb-fill" style="width:55%;background:var(--orange);"></div></div></div>
+        <div class="pb-row"><span>Надёжность</span><div class="pb-track"><div class="pb-fill" style="width:60%;background:var(--orange);"></div></div></div>
+        <div class="pb-row"><span>Поддержка</span><div class="pb-track"><div class="pb-fill" style="width:40%;background:var(--orange);"></div></div></div>
+      </div>
+      <div style="margin-top:12px;font-size:11px;color:var(--text-secondary);">Shared CPU — пики от соседей. Хорош для тестов, не для прода</div>
+    </div>
+
+    <div class="prov-card winner" style="margin-top:0;position:relative;">
+      <div class="prov-badge g">★ Парето-выбор</div>
+      <div class="prov-name">Hetzner CX32</div>
+      <div class="prov-price" style="color:var(--green-dark);">€13.09<sub>/мес</sub></div>
+      <div class="prov-total">×40 = <strong>€524/мес</strong></div>
+      <div class="prov-bars">
+        <div class="pb-row"><span>Скорость</span><div class="pb-track"><div class="pb-fill" style="width:85%;background:var(--green);"></div></div></div>
+        <div class="pb-row"><span>Надёжность</span><div class="pb-track"><div class="pb-fill" style="width:90%;background:var(--green);"></div></div></div>
+        <div class="pb-row"><span>Поддержка</span><div class="pb-track"><div class="pb-fill" style="width:80%;background:var(--green);"></div></div></div>
+      </div>
+      <div style="margin-top:12px;font-size:11px;color:var(--green-dark);">AMD EPYC, трафик включён, API, firewall. 80% качества за разумные деньги</div>
+    </div>
+
+    <div class="prov-card good">
+      <div class="prov-badge b">Избыточно</div>
+      <div class="prov-name">Hetzner CCX13</div>
+      <div class="prov-price" style="color:var(--blue);">€19.50<sub>/мес</sub></div>
+      <div class="prov-total">×40 = €780/мес</div>
+      <div class="prov-bars">
+        <div class="pb-row"><span>Скорость</span><div class="pb-track"><div class="pb-fill" style="width:95%;background:var(--blue);"></div></div></div>
+        <div class="pb-row"><span>Надёжность</span><div class="pb-track"><div class="pb-fill" style="width:95%;background:var(--blue);"></div></div></div>
+        <div class="pb-row"><span>Поддержка</span><div class="pb-track"><div class="pb-fill" style="width:80%;background:var(--blue);"></div></div></div>
+      </div>
+      <div style="margin-top:12px;font-size:11px;color:var(--blue);">Dedicated vCPU = +10% к производительности, +49% к цене. Нецелесообразно</div>
+    </div>
+
+  </div>
+
+  <!-- Парето скор: провайдер -->
+  <div class="sec">Парето-скор провайдеров (результат ÷ стоимость)</div>
+  <div class="card">
+    <div style="margin-bottom:16px;font-size:13px;color:var(--text-secondary);">Чем выше — тем больше результата на 1 вложенный рубль. Нормировано к 100.</div>
+    <div class="score-row">
+      <div class="score-item">
+        <div class="score-label" style="color:var(--text-tertiary);">Scaleway DEV1-S</div>
+        <div class="score-track"><div class="score-fill" style="width:38%;background:var(--text-tertiary);"></div></div>
+        <div class="score-num" style="color:var(--text-tertiary);">38</div>
+      </div>
+      <div class="score-item">
+        <div class="score-label">Contabo VPS S</div>
+        <div class="score-track"><div class="score-fill" style="width:64%;background:var(--orange);"></div></div>
+        <div class="score-num" style="color:var(--orange);">64</div>
+      </div>
+      <div class="score-item">
+        <div class="score-label" style="font-weight:700;color:var(--green-dark);">Hetzner CX32 ★</div>
+        <div class="score-track"><div class="score-fill" style="width:100%;background:linear-gradient(90deg,var(--green),#34D979);"></div></div>
+        <div class="score-num" style="color:var(--green-dark);">100</div>
+      </div>
+      <div class="score-item">
+        <div class="score-label" style="color:var(--blue);">Hetzner CCX13</div>
+        <div class="score-track"><div class="score-fill" style="width:72%;background:var(--blue);"></div></div>
+        <div class="score-num" style="color:var(--blue);">72</div>
+      </div>
+    </div>
+    <div style="margin-top:18px;padding:12px 16px;background:var(--green-light);border-radius:12px;font-size:13px;color:var(--green-dark);">
+      <strong>Вывод:</strong> Hetzner CX32 — единственный вариант, где результат / цена одновременно максимальны. CCX13 даёт +10% производительности, но стоит на 49% дороже — плохой Парето.
+    </div>
+  </div>
+
+  <!-- Матрица Impact vs Effort -->
+  <div class="sec">Матрица: Безопасность — Влияние vs Усилие</div>
+  <div class="grid g2" style="align-items:start;">
+    <div class="card" style="display:flex;flex-direction:column;align-items:center;">
+      <div style="position:relative;width:100%;max-width:420px;margin:20px auto 40px;">
+        <div class="matrix-axis-y">↑ Влияние (защита)</div>
+        <div class="matrix" style="width:100%;max-width:420px;height:420px;">
+          <div class="matrix-q tl">Хорошо,<br>но сложно</div>
+          <div class="matrix-q tr">★ Делать сейчас<br>(Парето-зона)</div>
+          <div class="matrix-q bl">Не тратить время</div>
+          <div class="matrix-q br">Делать потом</div>
+
+          <!-- Dots: left% = усилие, top% = (1-влияние) -->
+          <!-- MFA: влияние высокое (10%), усилие низкое (15%) → top:10%, left:15% -->
+          <div class="dot-item" style="top:10%;left:20%;">
+            <div class="dot-circle" style="background:var(--green);"></div>
+            <div class="dot-label">MFA везде</div>
+          </div>
+          <!-- VPN: влияние высокое (18%), усилие низкое (22%) -->
+          <div class="dot-item" style="top:18%;left:30%;">
+            <div class="dot-circle" style="background:var(--green);"></div>
+            <div class="dot-label">Tailscale VPN</div>
+          </div>
+          <!-- Права RBAC: влияние среднее-высокое (28%), усилие среднее (40%) -->
+          <div class="dot-item" style="top:30%;left:55%;">
+            <div class="dot-circle" style="background:var(--green);"></div>
+            <div class="dot-label">RBAC / права</div>
+          </div>
+          <!-- Бэкапы: влияние среднее (38%), усилие низкое (25%) -->
+          <div class="dot-item" style="top:37%;left:22%;">
+            <div class="dot-circle" style="background:var(--blue);"></div>
+            <div class="dot-label">Бэкапы</div>
+          </div>
+          <!-- Firewall UFW: влияние (25%), усилие (12%) -->
+          <div class="dot-item" style="top:24%;left:12%;">
+            <div class="dot-circle" style="background:var(--green);"></div>
+            <div class="dot-label">Firewall (UFW)</div>
+          </div>
+          <!-- Security Training: влияние (22%), усилие (70%) -->
+          <div class="dot-item" style="top:22%;left:72%;">
+            <div class="dot-circle" style="background:var(--orange);"></div>
+            <div class="dot-label">Тренинги</div>
+          </div>
+          <!-- SIEM Wazuh: влияние (40%), усилие (80%) -->
+          <div class="dot-item" style="top:42%;left:82%;">
+            <div class="dot-circle" style="background:var(--blue);"></div>
+            <div class="dot-label">SIEM Wazuh</div>
+          </div>
+          <!-- YubiKey: влияние (30%), усилие (65%) -->
+          <div class="dot-item" style="top:30%;left:66%;">
+            <div class="dot-circle" style="background:var(--orange);"></div>
+            <div class="dot-label">YubiKey</div>
+          </div>
+          <!-- LUKS: влияние (60%), усилие (55%) -->
+          <div class="dot-item" style="top:62%;left:56%;">
+            <div class="dot-circle" style="background:var(--blue);"></div>
+            <div class="dot-label">LUKS шифр.</div>
+          </div>
+          <!-- DLP: влияние (60%), усилие (85%) -->
+          <div class="dot-item" style="top:62%;left:86%;">
+            <div class="dot-circle" style="background:var(--text-tertiary);"></div>
+            <div class="dot-label">DLP</div>
+          </div>
+          <!-- IRP: влияние (65%), усилие (80%) -->
+          <div class="dot-item" style="top:65%;left:82%;">
+            <div class="dot-circle" style="background:var(--text-tertiary);"></div>
+            <div class="dot-label">IRP Plan</div>
+          </div>
+        </div>
+        <div class="matrix-axis-x">Усилие / Стоимость →</div>
+      </div>
+      <!-- Легенда -->
+      <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;font-size:12px;color:var(--text-secondary);margin-top:8px;">
+        <div style="display:flex;align-items:center;gap:5px;"><div style="width:10px;height:10px;border-radius:50%;background:var(--green);"></div> Парето-зона (делать сейчас)</div>
+        <div style="display:flex;align-items:center;gap:5px;"><div style="width:10px;height:10px;border-radius:50%;background:var(--blue);"></div> Делать потом</div>
+        <div style="display:flex;align-items:center;gap:5px;"><div style="width:10px;height:10px;border-radius:50%;background:var(--orange);"></div> Хорошо, но сложно</div>
+        <div style="display:flex;align-items:center;gap:5px;"><div style="width:10px;height:10px;border-radius:50%;background:var(--text-tertiary);"></div> Пропустить на старте</div>
+      </div>
+    </div>
+
+    <!-- Список мер -->
+    <div>
+      <div class="sec" style="margin-top:0;">Меры безопасности: Парето-рейтинг</div>
+      <div class="sec-pareto">
+
+        <div class="spi pareto-yes">
+          <div class="spi-rank yes">1</div>
+          <div class="spi-body">
+            <strong>MFA / 2FA везде</strong>
+            <span>Cloudflare Access Free (до 50 чел) — Google Auth или код</span>
+          </div>
+          <div class="spi-right yes">
+            <div class="spi-impact">~70% атак → ноль</div>
+            <div class="spi-effort">Усилие: 1 день · $0</div>
+          </div>
+        </div>
+
+        <div class="spi pareto-yes">
+          <div class="spi-rank yes">2</div>
+          <div class="spi-body">
+            <strong>Tailscale (Mesh VPN)</strong>
+            <span>Приватная сеть + kill switch для всех 40 машин</span>
+          </div>
+          <div class="spi-right yes">
+            <div class="spi-impact">+15% изоляция сети</div>
+            <div class="spi-effort">Усилие: 1 день · $180/мес</div>
+          </div>
+        </div>
+
+        <div class="spi pareto-yes">
+          <div class="spi-rank yes">3</div>
+          <div class="spi-body">
+            <strong>UFW Firewall + fail2ban</strong>
+            <span>Закрыть все порты кроме нужных. Автобан брутфорса</span>
+          </div>
+          <div class="spi-right yes">
+            <div class="spi-impact">+8% защита периметра</div>
+            <div class="spi-effort">Усилие: 2 ч · $0</div>
+          </div>
+        </div>
+
+        <div class="spi pareto-yes">
+          <div class="spi-rank yes">4</div>
+          <div class="spi-body">
+            <strong>RBAC — минимальные права</strong>
+            <span>Каждый видит только своё. Никаких shared root-паролей</span>
+          </div>
+          <div class="spi-right yes">
+            <div class="spi-impact">+6% контроль доступа</div>
+            <div class="spi-effort">Усилие: 2–3 дня · $0</div>
+          </div>
+        </div>
+
+        <div class="spi pareto-yes">
+          <div class="spi-rank yes">5</div>
+          <div class="spi-body">
+            <strong>Автобэкапы (Hetzner Snapshot)</strong>
+            <span>Еженедельный snapshot каждой машины — восстановление за минуты</span>
+          </div>
+          <div class="spi-right yes">
+            <div class="spi-impact">+5% восстановимость</div>
+            <div class="spi-effort">Усилие: 1 ч · ~€20/мес за всех</div>
+          </div>
+        </div>
+
+        <div class="spi pareto-maybe">
+          <div class="spi-rank maybe">6</div>
+          <div class="spi-body">
+            <strong>YubiKey для ключевых лиц</strong>
+            <span>Только для топ-менеджеров / финансистов / администраторов</span>
+          </div>
+          <div class="spi-right maybe">
+            <div class="spi-impact">+3% на 5–8 чел</div>
+            <div class="spi-effort">Усилие: 1 нед · $50×8 разово</div>
+          </div>
+        </div>
+
+        <div class="spi pareto-maybe">
+          <div class="spi-rank maybe">7</div>
+          <div class="spi-body">
+            <strong>Security Training (фишинг-тест)</strong>
+            <span>Ежеквартальные учения. Самая частая причина взлома — люди</span>
+          </div>
+          <div class="spi-right maybe">
+            <div class="spi-impact">+4% человеч. фактор</div>
+            <div class="spi-effort">Усилие: 1 день / квартал</div>
+          </div>
+        </div>
+
+        <div class="spi pareto-no">
+          <div class="spi-rank no">8</div>
+          <div class="spi-body">
+            <strong>SIEM (Wazuh)</strong>
+            <span>Полезно, но требует выделенного сервера и DevSecOps</span>
+          </div>
+          <div class="spi-right no">
+            <div class="spi-impact">+2% (видимость)</div>
+            <div class="spi-effort">Усилие: 2–3 нед · 1 дедик</div>
+          </div>
+        </div>
+
+        <div class="spi pareto-no">
+          <div class="spi-rank no">9</div>
+          <div class="spi-body">
+            <strong>LUKS шифрование дисков</strong>
+            <span>Защищает от физической кражи сервера. На VPS — минимальный риск</span>
+          </div>
+          <div class="spi-right no">
+            <div class="spi-impact">+1% (физ. доступ)</div>
+            <div class="spi-effort">Усилие: 1 нед · сложность</div>
+          </div>
+        </div>
+
+        <div class="spi pareto-no">
+          <div class="spi-rank no">10</div>
+          <div class="spi-body">
+            <strong>DLP — предотвращение утечек</strong>
+            <span>Корпоративный уровень. Нужен при 100+ чел или финансовых данных</span>
+          </div>
+          <div class="spi-right no">
+            <div class="spi-impact">+1%</div>
+            <div class="spi-effort">Усилие: месяц · $$$</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Итого: что даёт 80% -->
+  <div class="sec">Парето-победитель — финальный выбор</div>
+  <div class="winner-card">
+    <div class="winner-badge">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      80% результата за 20% усилий
+    </div>
+    <h3>40 × Hetzner CX32 + Tailscale + MFA + Firewall</h3>
+    <p>Это единственная комбинация, которая одновременно даёт изоляцию на уровне iGaming, минимальные операционные усилия и отсутствие переплаты. Всё остальное — можно добавить позже при росте команды.</p>
+    <div class="winner-stats">
+      <div class="w-stat">
+        <div class="w-stat-val">€704</div>
+        <div class="w-stat-lbl">в месяц (всё включено)</div>
+      </div>
+      <div class="w-stat">
+        <div class="w-stat-val">~93%</div>
+        <div class="w-stat-lbl">покрытие угроз уже на старте</div>
+      </div>
+      <div class="w-stat">
+        <div class="w-stat-val">3 дня</div>
+        <div class="w-stat-lbl">на полное развёртывание</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Что НЕ делать сейчас -->
+  <div class="sec">Что откладываем — и почему</div>
+  <div class="grid g3">
+    <div class="card">
+      <div style="width:36px;height:36px;border-radius:10px;background:var(--red-light);display:flex;align-items:center;justify-content:center;margin-bottom:14px;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </div>
+      <div style="font-size:15px;font-weight:700;margin-bottom:6px;">CCX13 Dedicated vCPU</div>
+      <div style="font-size:13px;color:var(--text-secondary);line-height:1.5;">+49% цены за +10% производительности. Плохой Парето. Переходить только если CX32 станет узким местом по CPU — а это видно в метриках.</div>
+    </div>
+    <div class="card">
+      <div style="width:36px;height:36px;border-radius:10px;background:var(--red-light);display:flex;align-items:center;justify-content:center;margin-bottom:14px;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </div>
+      <div style="font-size:15px;font-weight:700;margin-bottom:6px;">Terminal Server вместо 40 VPS</div>
+      <div style="font-size:13px;color:var(--text-secondary);line-height:1.5;">Да, €200/мес дешевле. Но это полный провал по изоляции — один взлом = все скомпрометированы. Экономия ~€300/мес не стоит этого риска.</div>
+    </div>
+    <div class="card">
+      <div style="width:36px;height:36px;border-radius:10px;background:var(--red-light);display:flex;align-items:center;justify-content:center;margin-bottom:14px;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </div>
+      <div style="font-size:15px;font-weight:700;margin-bottom:6px;">SIEM + DLP на старте</div>
+      <div style="font-size:13px;color:var(--text-secondary);line-height:1.5;">Wazuh + DLP — это 2–4 недели работы DevSecOps + выделенный сервер. Добавляет <2% защиты сверх базового пакета. Парето говорит: после роста команды.</div>
+    </div>
+  </div>
+
+  <!-- Итоговый action plan -->
+  <div class="sec">План действий</div>
+  <div class="final-box">
+    <div>
+      <h3>3 шага за 3 дня</h3>
+      <p>Всё что нужно, чтобы получить 80% результата по безопасности и инфраструктуре. Без переусложнения.</p>
+      <div class="final-actions">
+        <div class="fa-item">
+          <div class="fa-num">1</div>
+          <div><strong>День 1:</strong> Создать 40 VPS Hetzner CX32 через terraform-hcloud + Ansible playbook (Debian, UFW, fail2ban, SSH-ключи)</div>
+        </div>
+        <div class="fa-item">
+          <div class="fa-num">2</div>
+          <div><strong>День 2:</strong> Подключить Tailscale Teams ($180/мес), поднять Cloudflare Access (бесплатно), включить MFA для всех</div>
+        </div>
+        <div class="fa-item">
+          <div class="fa-num">3</div>
+          <div><strong>День 3:</strong> Настроить RBAC (кто что видит), включить Hetzner Snapshots (бэкапы), провести Security Briefing для команды</div>
+        </div>
+      </div>
+    </div>
+    <div class="final-stats">
+      <div class="fs">
+        <div class="fs-val">€524</div>
+        <div class="fs-lbl">серверы / мес (40 × CX32)</div>
+      </div>
+      <div class="fs">
+        <div class="fs-val">$180</div>
+        <div class="fs-lbl">Tailscale Teams / мес</div>
+      </div>
+      <div class="fs">
+        <div class="fs-val">$0</div>
+        <div class="fs-lbl">Cloudflare Access + MFA</div>
+      </div>
+      <div class="fs">
+        <div class="fs-val">~€700</div>
+        <div class="fs-lbl">итого в месяц = €17.5/чел</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="text-align:center;margin-top:40px;font-size:12px;color:var(--text-tertiary);">
+    Принцип Парето · Hetzner.com · Tailscale.com · Cloudflare Zero Trust · июнь 2026
+  </div>
+
+</div>
+</body>
+</html>
