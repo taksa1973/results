@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ENS + IPFS — как это работает</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: #F5F5F7;
+      color: #1D1D1F;
+      line-height: 1.6;
+    }
+
+    .container { max-width: 1060px; margin: 0 auto; padding: 56px 24px 80px; }
+
+    /* HERO */
+    .hero { text-align: center; margin-bottom: 64px; opacity: 0; transform: translateY(24px); }
+    .hero-tag {
+      display: inline-block; background: #0071E3; color: #fff;
+      font-size: 11px; font-weight: 700; letter-spacing: .08em;
+      text-transform: uppercase; padding: 4px 14px; border-radius: 100px; margin-bottom: 22px;
+    }
+    h1 {
+      font-size: 52px; font-weight: 800; letter-spacing: -.035em;
+      line-height: 1.08; margin-bottom: 18px;
+    }
+    .hero-sub { font-size: 18px; color: #6E6E73; max-width: 580px; margin: 0 auto; }
+
+    /* CARDS */
+    .card {
+      background: #fff; border-radius: 20px; padding: 28px;
+      opacity: 0; transform: translateY(20px);
+    }
+
+    /* BENTO */
+    .bento { display: grid; gap: 14px; margin-bottom: 14px; }
+    .bento-2 { grid-template-columns: 1fr 1fr; }
+    .bento-3 { grid-template-columns: 1fr 1fr 1fr; }
+
+    /* SECTION LABEL */
+    .section-label {
+      font-size: 11px; font-weight: 700; letter-spacing: .1em;
+      text-transform: uppercase; color: #0071E3; margin: 52px 0 16px;
+      opacity: 0; transform: translateY(12px);
+    }
+    h2 { font-size: 30px; font-weight: 800; letter-spacing: -.025em; margin-bottom: 4px; }
+    h3 { font-size: 17px; font-weight: 700; margin-bottom: 10px; }
+    p { font-size: 15px; color: #3D3D3F; line-height: 1.7; }
+
+    /* SCHEME FLOW */
+    .flow {
+      display: flex; align-items: center; gap: 0;
+      flex-wrap: wrap; justify-content: center;
+    }
+    .flow-node {
+      background: #F5F5F7; border-radius: 14px; padding: 16px 20px;
+      text-align: center; flex: 1; min-width: 120px;
+    }
+    .flow-node .icon { font-size: 28px; margin-bottom: 8px; }
+    .flow-node .label { font-size: 13px; font-weight: 700; color: #1D1D1F; }
+    .flow-node .sub { font-size: 11px; color: #6E6E73; margin-top: 3px; }
+    .flow-arrow {
+      font-size: 22px; color: #0071E3; padding: 0 8px; flex-shrink: 0;
+    }
+
+    /* CODE BLOCK */
+    .code-block {
+      background: #1D1D1F; color: #E5E5E7; border-radius: 14px;
+      padding: 20px 22px; font-family: 'SF Mono', 'Fira Code', monospace;
+      font-size: 13px; line-height: 1.9; overflow-x: auto;
+    }
+    .code-block .comment { color: #6E6E73; }
+    .code-block .key { color: #64D2FF; }
+    .code-block .val { color: #FFD60A; }
+    .code-block .str { color: #30D158; }
+    .code-block .cmd { color: #FF9F0A; }
+
+    code {
+      background: #F0F6FF; color: #0071E3; padding: 2px 8px;
+      border-radius: 6px; font-family: 'SF Mono', monospace; font-size: 13px; font-weight: 600;
+    }
+
+    /* BADGE */
+    .badge {
+      display: inline-flex; align-items: center; gap: 4px;
+      padding: 3px 10px; border-radius: 100px; font-size: 12px; font-weight: 600;
+    }
+    .badge-green  { background: #E3F5E9; color: #1A7F3C; }
+    .badge-red    { background: #FFE5E5; color: #C41E1E; }
+    .badge-yellow { background: #FFF5D6; color: #8B6E00; }
+    .badge-blue   { background: #E5F0FF; color: #0052A3; }
+
+    /* ALERT */
+    .alert {
+      border-radius: 13px; padding: 14px 18px; font-size: 14px;
+      display: flex; gap: 10px; align-items: flex-start;
+    }
+    .alert-info    { background: #E5F0FF; color: #003399; border-left: 3px solid #0071E3; }
+    .alert-warning { background: #FFF5D6; color: #5C4000; border-left: 3px solid #FF9F0A; }
+    .alert-success { background: #E3F5E9; color: #0A4F24; border-left: 3px solid #30D158; }
+
+    /* NUANCE CARDS */
+    .nuance {
+      border-radius: 16px; padding: 22px; border: 1px solid transparent;
+    }
+    .nuance-1 { background: #FFF5D6; border-color: #FFE088; }
+    .nuance-2 { background: #E5F0FF; border-color: #B0CFFF; }
+    .nuance-3 { background: #F0EEFF; border-color: #C8B8FF; }
+    .nuance h3 { font-size: 16px; }
+
+    /* COMPARE TABLE */
+    .compare { width: 100%; border-collapse: collapse; font-size: 14px; }
+    .compare th {
+      background: #F5F5F7; padding: 11px 14px; text-align: left;
+      font-size: 11px; font-weight: 700; color: #6E6E73;
+      text-transform: uppercase; letter-spacing: .05em;
+    }
+    .compare td { padding: 11px 14px; border-top: 1px solid #F0F0F3; vertical-align: middle; }
+    .compare tr:hover td { background: #FAFAFA; }
+
+    /* STEPS */
+    .steps { list-style: none; counter-reset: s; }
+    .step { counter-increment: s; display: flex; gap: 14px; margin-bottom: 14px; }
+    .step::before {
+      content: counter(s); min-width: 28px; height: 28px;
+      background: #F0F6FF; color: #0071E3; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px; font-weight: 700; flex-shrink: 0; margin-top: 2px;
+    }
+    .step p { font-size: 14px; color: #3D3D3F; line-height: 1.65; }
+    .step strong { color: #1D1D1F; }
+
+    /* FOOTER */
+    .footer {
+      text-align: center; margin-top: 72px; padding-top: 28px;
+      border-top: 1px solid #E0E0E5; font-size: 12px; color: #AEAEB2;
+    }
+
+    @media (max-width: 720px) {
+      .bento-2, .bento-3 { grid-template-columns: 1fr; }
+      h1 { font-size: 34px; }
+      .flow { gap: 8px; }
+      .flow-arrow { display: none; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <!-- HERO -->
+  <div class="hero" id="hero">
+    <div class="hero-tag">Explainer · Web3 Hosting</div>
+    <h1>ENS + IPFS:<br>как это работает</h1>
+    <p class="hero-sub">
+      Сайт на React с анимациями, попапами и Framer Motion —
+      хостится в блокчейне и P2P сети. Без серверов. Без ICANN.
+    </p>
+  </div>
+
+  <!-- SECTION: СХЕМА -->
+  <div class="section-label" id="lbl1">Архитектура</div>
+  <div class="card" id="c0">
+    <h2 style="margin-bottom:24px">Как всё связано</h2>
+    <div class="flow">
+      <div class="flow-node">
+        <div class="icon">⚛️</div>
+        <div class="label">React App</div>
+        <div class="sub">Собранная статика<br>dist/ после npm build</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node">
+        <div class="icon">📦</div>
+        <div class="label">IPFS</div>
+        <div class="sub">P2P хранилище файлов<br>Каждый файл = хэш CID</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node">
+        <div class="icon">🔷</div>
+        <div class="label">ENS запись</div>
+        <div class="sub">vitalik.eth указывает<br>на IPFS CID в блокчейне</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node">
+        <div class="icon">🌐</div>
+        <div class="label">eth.limo</div>
+        <div class="sub">Gateway: .eth → HTTPS<br>для обычных браузеров</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node" style="background:#E5F0FF">
+        <div class="icon">👤</div>
+        <div class="label">Пользователь</div>
+        <div class="sub">Видит обычный HTTPS<br>Не знает про Web3</div>
+      </div>
+    </div>
+    <div class="alert alert-info" style="margin-top:20px">
+      <span style="font-size:18px;flex-shrink:0">ℹ️</span>
+      <span>
+        <strong>IPFS — это не сервер.</strong> Это P2P сеть: файлы хранятся у множества участников,
+        каждый файл адресуется по своему хэшу (CID), а не по URL. ENS — это как DNS,
+        только в Ethereum: имя <code>mysite.eth</code> записано в смарт-контракте и указывает на CID.
+      </span>
+    </div>
+  </div>
+
+  <!-- SECTION: IPFS -->
+  <div class="section-label" id="lbl2">IPFS</div>
+  <div class="bento bento-2">
+    <div class="card" id="c1">
+      <h3>Что такое IPFS</h3>
+      <p style="margin-bottom:14px">
+        <strong>Inter­Planetary File System</strong> — P2P сеть хранения данных.
+        Вместо «файл лежит на сервере example.com» — «файл с хэшем <code>Qm…</code>
+        раздаётся тысячами узлов».
+      </p>
+      <p>
+        Хэш (CID) — это содержимое файла. Если файл изменился — хэш изменился.
+        Это значит: <strong>содержимое нельзя подменить незаметно</strong>.
+        Пользователь всегда получает именно то, на что ссылается ENS запись.
+      </p>
+    </div>
+    <div class="card" id="c2">
+      <h3>Что туда загружать</h3>
+      <p style="margin-bottom:14px">
+        IPFS хранит <strong>статические файлы</strong>. Ему всё равно, как они сделаны.
+        React после <code>npm run build</code> — это HTML + JS + CSS + картинки. Обычная статика.
+      </p>
+      <p>
+        Загружаешь папку <code>dist/</code> → получаешь один корневой CID →
+        ENS запись указывает на него. Пользователь открывает сайт.
+      </p>
+      <div style="margin-top:14px;display:flex;gap:6px;flex-wrap:wrap">
+        <span class="badge badge-green">React ✓</span>
+        <span class="badge badge-green">Vue ✓</span>
+        <span class="badge badge-green">Svelte ✓</span>
+        <span class="badge badge-green">Astro (SSG) ✓</span>
+        <span class="badge badge-green">Vanilla JS ✓</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION: ENS -->
+  <div class="section-label" id="lbl3">ENS</div>
+  <div class="bento bento-2">
+    <div class="card" id="c3">
+      <h3>Что такое ENS</h3>
+      <p style="margin-bottom:14px">
+        <strong>Ethereum Name Service</strong> — смарт-контракт в блокчейне Ethereum.
+        Работает как DNS, но децентрализованно: никто не может забрать твой домен,
+        заблокировать или изменить без твоего приватного ключа.
+      </p>
+      <p>
+        Покупаешь <code>mysite.eth</code> на ens.domains → ставишь в запись <code>contenthash</code>
+        значение <code>ipfs://Qm…</code> → всё, домен указывает на IPFS сайт.
+      </p>
+    </div>
+    <div class="card" id="c4">
+      <h3>Как купить ENS домен</h3>
+      <ol class="steps">
+        <li class="step"><p>Открой <strong>app.ens.domains</strong></p></li>
+        <li class="step"><p>Подключи MetaMask кошелёк</p></li>
+        <li class="step"><p>Найди свободное имя → зарегистрируй (~$5–20/год + газ)</p></li>
+        <li class="step"><p>В настройках записей установи <code>Content Hash</code> → вставь <code>ipfs://ВАШ_CID</code></p></li>
+        <li class="step"><p>Сохрани — транзакция в блокчейне (~$1–5 газа)</p></li>
+        <li class="step"><p>Готово: <code>ваш-домен.eth.limo</code> открывается в любом браузере</p></li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- SECTION: ЧТО РАБОТАЕТ -->
+  <div class="section-label" id="lbl4">Возможности</div>
+  <div class="card" id="c5" style="padding:0;overflow:hidden">
+    <table class="compare">
+      <thead>
+        <tr>
+          <th>Технология / Фича</th>
+          <th>Работает?</th>
+          <th>Комментарий</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>React / Vue / Svelte</strong></td>
+          <td><span class="badge badge-green">✓ Да</span></td>
+          <td>Любой фреймворк — лишь бы на выходе статика</td>
+        </tr>
+        <tr>
+          <td><strong>Framer Motion, GSAP, анимации</strong></td>
+          <td><span class="badge badge-green">✓ Да</span></td>
+          <td>Всё исполняется в браузере, IPFS не знает о JS</td>
+        </tr>
+        <tr>
+          <td><strong>Попапы, модалки, drag&drop</strong></td>
+          <td><span class="badge badge-green">✓ Да</span></td>
+          <td>Это клиентский JS — без ограничений</td>
+        </tr>
+        <tr>
+          <td><strong>Tailwind, shadcn/ui, CSS библиотеки</strong></td>
+          <td><span class="badge badge-green">✓ Да</span></td>
+          <td>CSS инлайнится в сборке</td>
+        </tr>
+        <tr>
+          <td><strong>fetch() к внешним API</strong></td>
+          <td><span class="badge badge-green">✓ Да</span></td>
+          <td>Supabase, REST, GraphQL — всё работает</td>
+        </tr>
+        <tr>
+          <td><strong>Web3 / MetaMask в браузере</strong></td>
+          <td><span class="badge badge-green">✓ Да</span></td>
+          <td>Кошелёк инжектируется браузером, не хостингом</td>
+        </tr>
+        <tr>
+          <td><strong>localStorage, IndexedDB, cookies</strong></td>
+          <td><span class="badge badge-green">✓ Да</span></td>
+          <td>Браузерные API, не зависят от хостинга</td>
+        </tr>
+        <tr>
+          <td><strong>React Router (hash mode)</strong></td>
+          <td><span class="badge badge-green">✓ Да</span></td>
+          <td>С <code>HashRouter</code> работает нормально</td>
+        </tr>
+        <tr>
+          <td><strong>React Router (history mode)</strong></td>
+          <td><span class="badge badge-yellow">⚡ Частично</span></td>
+          <td>Нужна доп. настройка или <code>_redirects</code> файл</td>
+        </tr>
+        <tr>
+          <td><strong>SSR / Next.js серверные функции</strong></td>
+          <td><span class="badge badge-red">✗ Нет</span></td>
+          <td>Нет сервера — только CSR. Next.js только в SSG режиме</td>
+        </tr>
+        <tr>
+          <td><strong>База данных на сервере</strong></td>
+          <td><span class="badge badge-red">✗ Нет</span></td>
+          <td>Используй внешний BaaS: Supabase, PlanetScale, Xata</td>
+        </tr>
+        <tr>
+          <td><strong>Serverless / Edge Functions</strong></td>
+          <td><span class="badge badge-red">✗ Нет</span></td>
+          <td>Деплой на отдельный сервер, IPFS только для фронта</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- SECTION: НЮАНСЫ -->
+  <div class="section-label" id="lbl5">Три нюанса</div>
+  <div class="bento bento-3">
+
+    <div class="card" id="c6">
+      <div class="nuance nuance-1" style="margin:-4px -4px 16px">
+        <h3 style="color:#5C4000">⚡ Нюанс 1 — Роутинг</h3>
+      </div>
+      <p style="margin-bottom:14px">
+        Обычный React Router с HTML5 history (<code>/about</code>, <code>/contact</code>)
+        сломается на IPFS — сеть не знает, как обслуживать эти пути.
+      </p>
+      <div class="code-block" style="font-size:12px">
+<span class="comment">// ❌ Сломается на IPFS</span>
+<span class="key">import</span> { <span class="val">BrowserRouter</span> }
+  from <span class="str">'react-router-dom'</span>
+
+<span class="comment">// ✅ Работает</span>
+<span class="key">import</span> { <span class="val">HashRouter</span> }
+  from <span class="str">'react-router-dom'</span>
+<span class="comment">// адреса: /#/about, /#/contact</span>
+      </div>
+      <div class="alert alert-warning" style="margin-top:14px;font-size:13px">
+        <span>В <strong>vite.config.js</strong> добавь <code>base: "./"</code> чтобы ассеты грузились по относительным путям.</span>
+      </div>
+    </div>
+
+    <div class="card" id="c7">
+      <div class="nuance nuance-2" style="margin:-4px -4px 16px">
+        <h3 style="color:#003399">💎 Нюанс 2 — Каждый деплой = газ</h3>
+      </div>
+      <p style="margin-bottom:14px">
+        Обновил сайт → изменился IPFS хэш (CID) → нужно обновить ENS запись →
+        транзакция в Ethereum → платишь газ.
+      </p>
+      <div style="background:#E5F0FF;border-radius:12px;padding:14px;font-size:13px;margin-bottom:14px">
+        <div style="font-weight:700;color:#003399;margin-bottom:6px">Примерные затраты:</div>
+        <div style="display:flex;justify-content:space-between;margin-bottom:4px"><span>Обновление ENS записи</span><span><strong>$1–5</strong></span></div>
+        <div style="display:flex;justify-content:space-between;margin-bottom:4px"><span>При нормальном газе (~20 gwei)</span><span><strong>~$1</strong></span></div>
+        <div style="display:flex;justify-content:space-between"><span>При перегрузке сети</span><span><strong>до $20</strong></span></div>
+      </div>
+      <div class="alert alert-info" style="font-size:13px">
+        <span><strong>Решение:</strong> Fleek автоматизирует деплой и обновление ENS. Ты пушишь в GitHub — они всё делают сами, ты только платишь газ.</span>
+      </div>
+    </div>
+
+    <div class="card" id="c8">
+      <div class="nuance" style="background:#F0EEFF;border:1px solid #C8B8FF;margin:-4px -4px 16px;border-radius:16px;padding:22px">
+        <h3 style="color:#5B21B6">🐢 Нюанс 3 — Скорость первой загрузки</h3>
+      </div>
+      <p style="margin-bottom:14px">
+        IPFS ищет пиров у которых есть твой контент. Если сайт малоизвестный — первый запрос
+        может занять 2–4 секунды.
+      </p>
+      <div style="display:flex;flex-direction:column;gap:8px;font-size:13px">
+        <div style="background:#F5F5F7;border-radius:10px;padding:10px;display:flex;justify-content:space-between">
+          <span>eth.limo gateway</span><span class="badge badge-green">Кешируют ✓</span>
+        </div>
+        <div style="background:#F5F5F7;border-radius:10px;padding:10px;display:flex;justify-content:space-between">
+          <span>Fleek CDN</span><span class="badge badge-green">Пинуют ✓</span>
+        </div>
+        <div style="background:#F5F5F7;border-radius:10px;padding:10px;display:flex;justify-content:space-between">
+          <span>Cloudflare IPFS GW</span><span class="badge badge-green">Быстро ✓</span>
+        </div>
+        <div style="background:#F5F5F7;border-radius:10px;padding:10px;display:flex;justify-content:space-between">
+          <span>Brave (локальный узел)</span><span class="badge badge-yellow">P2P скорость</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- SECTION: КАК ДЕПЛОИТЬ -->
+  <div class="section-label" id="lbl6">Деплой</div>
+  <div class="bento bento-2">
+
+    <div class="card" id="c9">
+      <h3>Способ 1 — Fleek (рекомендую)</h3>
+      <p style="margin-bottom:16px;font-size:14px;color:#6E6E73">
+        Коннектишь GitHub → Fleek сам собирает, загружает на IPFS, обновляет ENS. CI/CD для Web3.
+      </p>
+      <ol class="steps">
+        <li class="step"><p>Зарегистрируйся на <strong>fleek.co</strong></p></li>
+        <li class="step"><p>Подключи GitHub репозиторий</p></li>
+        <li class="step"><p>Укажи: Framework → <strong>React</strong>, build command → <code>npm run build</code>, publish dir → <code>dist</code></p></li>
+        <li class="step"><p>В настройках добавь ENS домен → подпиши транзакцию в MetaMask</p></li>
+        <li class="step"><p>Теперь каждый <code>git push</code> → автодеплой → обновление ENS</p></li>
+      </ol>
+      <div class="alert alert-success" style="margin-top:14px;font-size:13px">
+        <span>Fleek бесплатный на старте. Платишь только газ за ENS транзакции.</span>
+      </div>
+    </div>
+
+    <div class="card" id="c10">
+      <h3>Способ 2 — Вручную (полный контроль)</h3>
+      <p style="margin-bottom:16px;font-size:14px;color:#6E6E73">
+        Сам собираешь, сам загружаешь через CLI или web3.storage / nft.storage.
+      </p>
+      <div class="code-block" style="font-size:12px">
+<span class="comment"># 1. Собери React проект</span>
+<span class="cmd">npm run build</span>
+
+<span class="comment"># 2. Установи IPFS CLI</span>
+<span class="cmd">npm install -g ipfs</span>
+<span class="cmd">ipfs init && ipfs daemon</span>
+
+<span class="comment"># 3. Загрузи папку dist/</span>
+<span class="cmd">ipfs add -r ./dist</span>
+<span class="comment"># → получишь CID: QmXyz...</span>
+
+<span class="comment"># 4. Запини (чтобы не удалилось)</span>
+<span class="cmd">ipfs pin add QmXyz...</span>
+
+<span class="comment"># 5. Обнови ENS запись</span>
+<span class="comment"># app.ens.domains → Records →</span>
+<span class="comment"># Content Hash → ipfs://QmXyz...</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- SECTION: АРХИТЕКТУРА С БЭКЕНДОМ -->
+  <div class="section-label" id="lbl7">Полный стек</div>
+  <div class="card" id="c11">
+    <h2 style="margin-bottom:16px">React на IPFS + бэкенд</h2>
+    <p style="margin-bottom:20px;color:#6E6E73">
+      Фронт живёт в IPFS, бэкенд — на обычном сервере или BaaS. Fetch-запросы работают нормально.
+    </p>
+    <div class="bento bento-3">
+      <div style="background:#F5F5F7;border-radius:14px;padding:18px">
+        <div style="font-size:22px;margin-bottom:8px">🎨</div>
+        <div style="font-weight:700;margin-bottom:6px">Фронт</div>
+        <div style="font-size:13px;color:#6E6E73;line-height:1.7">
+          React + Vite<br>
+          Framer Motion<br>
+          shadcn/ui<br>
+          <strong style="color:#0071E3">→ IPFS + ENS</strong>
+        </div>
+      </div>
+      <div style="background:#F5F5F7;border-radius:14px;padding:18px;display:flex;flex-direction:column;justify-content:space-between">
+        <div>
+          <div style="font-size:22px;margin-bottom:8px">⚙️</div>
+          <div style="font-weight:700;margin-bottom:6px">API / BaaS</div>
+          <div style="font-size:13px;color:#6E6E73;line-height:1.7">
+            Supabase (БД + auth)<br>
+            PlanetScale (MySQL)<br>
+            Firebase / Xata<br>
+            <strong style="color:#0071E3">→ fetch() из React</strong>
+          </div>
+        </div>
+      </div>
+      <div style="background:#F5F5F7;border-radius:14px;padding:18px">
+        <div style="font-size:22px;margin-bottom:8px">🔐</div>
+        <div style="font-weight:700;margin-bottom:6px">Web3 слой</div>
+        <div style="font-size:13px;color:#6E6E73;line-height:1.7">
+          MetaMask / Wagmi<br>
+          Sign-in with Ethereum<br>
+          NFT-гейтинг<br>
+          <strong style="color:#0071E3">→ инжектируется браузером</strong>
+        </div>
+      </div>
+    </div>
+    <div class="alert alert-success" style="margin-top:16px">
+      <span style="font-size:18px;flex-shrink:0">✅</span>
+      <span>
+        <strong>Итог:</strong> IPFS ограничивает только серверный рендеринг.
+        Всё остальное — анимации, логин через кошелёк, работа с базой данных через API,
+        real-time через WebSocket — работает штатно.
+      </span>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <p>ENS + IPFS Explainer · ens.domains · fleek.co · ipfs.tech</p>
+  </div>
+
+</div>
+
+<script type="module">
+  import { animate, inView, stagger, spring } from "https://cdn.jsdelivr.net/npm/motion@11/+esm";
+
+  // Hero
+  inView("#hero", (el) => {
+    animate(el, { opacity: [0, 1], y: [24, 0] }, { duration: 0.7, easing: spring({ stiffness: 80 }) });
+  });
+
+  // Section labels
+  document.querySelectorAll(".section-label").forEach((el) => {
+    inView(el, () => {
+      animate(el, { opacity: [0, 1], y: [12, 0] }, { duration: 0.5, easing: "ease-out" });
+    });
+  });
+
+  // Cards staggered
+  const cards = document.querySelectorAll(".card");
+  cards.forEach((card) => {
+    inView(card, () => {
+      animate(card, { opacity: [0, 1], y: [20, 0] }, { duration: 0.55, easing: spring({ stiffness: 90, damping: 18 }) });
+    }, { margin: "0px 0px -60px 0px" });
+  });
+
+  // Flow nodes stagger on view
+  inView(".flow", () => {
+    animate(".flow-node", { opacity: [0, 1], scale: [0.9, 1] },
+      { delay: stagger(0.1), duration: 0.45, easing: spring({ stiffness: 120 }) });
+    animate(".flow-arrow", { opacity: [0, 1] },
+      { delay: stagger(0.1, { start: 0.15 }), duration: 0.3 });
+  });
+
+  // Hover lift on cards
+  cards.forEach((card) => {
+    card.addEventListener("mouseenter", () =>
+      animate(card, { y: -4 }, { duration: 0.2, easing: "ease-out" }));
+    card.addEventListener("mouseleave", () =>
+      animate(card, { y: 0 }, { duration: 0.2, easing: "ease-out" }));
+  });
+</script>
+</body>
+</html>
