@@ -526,38 +526,37 @@
 </div>
 
 <script type="module">
-  import { animate, inView, stagger, spring } from "https://cdn.jsdelivr.net/npm/motion@11/+esm";
+  import { animate, inView, stagger } from "https://cdn.jsdelivr.net/npm/motion@11/+esm";
 
-  // Hero
-  inView("#hero", (el) => {
-    animate(el, { opacity: [0, 1], y: [24, 0] }, { duration: 0.7, easing: spring({ stiffness: 80 }) });
-  });
+  const ease = [0.16, 1, 0.3, 1];
+
+  // Hero — сразу, не через inView
+  animate("#hero", { opacity: [0, 1], y: [24, 0] }, { duration: 0.7, delay: 0.1, easing: ease });
 
   // Section labels
   document.querySelectorAll(".section-label").forEach((el) => {
     inView(el, () => {
-      animate(el, { opacity: [0, 1], y: [12, 0] }, { duration: 0.5, easing: "ease-out" });
+      animate(el, { opacity: [0, 1], y: [12, 0] }, { duration: 0.45, easing: ease });
     });
   });
 
-  // Cards staggered
-  const cards = document.querySelectorAll(".card");
-  cards.forEach((card) => {
+  // Cards
+  document.querySelectorAll(".card").forEach((card) => {
     inView(card, () => {
-      animate(card, { opacity: [0, 1], y: [20, 0] }, { duration: 0.55, easing: spring({ stiffness: 90, damping: 18 }) });
-    }, { margin: "0px 0px -60px 0px" });
+      animate(card, { opacity: [0, 1], y: [20, 0] }, { duration: 0.55, easing: ease });
+    });
   });
 
-  // Flow nodes stagger on view
+  // Flow nodes
   inView(".flow", () => {
-    animate(".flow-node", { opacity: [0, 1], scale: [0.9, 1] },
-      { delay: stagger(0.1), duration: 0.45, easing: spring({ stiffness: 120 }) });
+    animate(".flow-node", { opacity: [0, 1], scale: [0.92, 1] },
+      { delay: stagger(0.08), duration: 0.4, easing: ease });
     animate(".flow-arrow", { opacity: [0, 1] },
-      { delay: stagger(0.1, { start: 0.15 }), duration: 0.3 });
+      { delay: stagger(0.1, { start: 0.2 }), duration: 0.3 });
   });
 
-  // Hover lift on cards
-  cards.forEach((card) => {
+  // Hover lift
+  document.querySelectorAll(".card").forEach((card) => {
     card.addEventListener("mouseenter", () =>
       animate(card, { y: -4 }, { duration: 0.2, easing: "ease-out" }));
     card.addEventListener("mouseleave", () =>
