@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Приглашение для визы в Германию — частный визит к друзьям</title>
+<style>
+  :root{
+    --bg:#F5F5F7;
+    --card:#FFFFFF;
+    --ink:#1D1D1F;
+    --muted:#6E6E73;
+    --line:#E2E2E6;
+    --blue:#0071E3;
+    --blue-press:#0060c0;
+    --green:#34C759;
+    --amber:#FF9F0A;
+    --radius:22px;
+    --shadow:0 1px 3px rgba(0,0,0,.04), 0 10px 30px rgba(0,0,0,.05);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:"Inter",-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:var(--bg);
+    color:var(--ink);
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+  }
+  .wrap{max-width:980px;margin:0 auto;padding:0 22px}
+  a{color:var(--blue);text-decoration:none}
+  a:hover{text-decoration:underline}
+
+  /* ---------- Hero ---------- */
+  header.hero{
+    text-align:center;
+    padding:88px 22px 56px;
+  }
+  .flag{
+    display:inline-flex;align-items:center;gap:8px;
+    background:#fff;border:1px solid var(--line);
+    padding:7px 14px;border-radius:980px;
+    font-size:13px;font-weight:600;color:var(--muted);
+    box-shadow:var(--shadow);margin-bottom:24px;
+  }
+  .flag .dots{display:flex;height:13px;width:20px;border-radius:3px;overflow:hidden;border:1px solid rgba(0,0,0,.08)}
+  .flag .dots i{flex:1}
+  .flag .dots i:nth-child(1){background:#000}
+  .flag .dots i:nth-child(2){background:#DD0000}
+  .flag .dots i:nth-child(3){background:#FFCE00}
+  h1{
+    font-size:clamp(34px,6vw,56px);
+    font-weight:700;letter-spacing:-.025em;line-height:1.05;
+    margin-bottom:18px;
+  }
+  .sub{
+    font-size:clamp(17px,2.5vw,21px);
+    color:var(--muted);max-width:620px;margin:0 auto 32px;
+  }
+  .hero-cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+  .btn{
+    display:inline-flex;align-items:center;gap:8px;
+    font-size:16px;font-weight:600;
+    padding:13px 26px;border-radius:980px;border:none;cursor:pointer;
+    transition:transform .2s ease, background .2s ease, box-shadow .2s ease;
+  }
+  .btn-primary{background:var(--blue);color:#fff}
+  .btn-primary:hover{background:var(--blue-press);transform:translateY(-2px);text-decoration:none}
+  .btn-ghost{background:#fff;color:var(--ink);border:1px solid var(--line)}
+  .btn-ghost:hover{transform:translateY(-2px);text-decoration:none}
+
+  /* ---------- Sections ---------- */
+  section{padding:34px 0}
+  .eyebrow{
+    font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+    color:var(--blue);margin-bottom:10px;
+  }
+  h2{font-size:clamp(26px,4vw,36px);font-weight:700;letter-spacing:-.02em;margin-bottom:8px}
+  .lead{font-size:17px;color:var(--muted);max-width:680px;margin-bottom:28px}
+
+  .card{
+    background:var(--card);border-radius:var(--radius);
+    box-shadow:var(--shadow);padding:28px;
+    transition:transform .25s ease, box-shadow .25s ease;
+  }
+  .card:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,.06),0 18px 44px rgba(0,0,0,.07)}
+
+  .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  @media(max-width:740px){.grid-2{grid-template-columns:1fr}}
+
+  .pill{
+    display:inline-block;font-size:12px;font-weight:700;
+    padding:5px 12px;border-radius:980px;margin-bottom:14px;
+  }
+  .pill.soft{background:#EAF4FF;color:var(--blue)}
+  .pill.formal{background:#FFF2E0;color:#B26A00}
+  .card h3{font-size:21px;font-weight:700;margin-bottom:6px;letter-spacing:-.01em}
+  .card .de{font-size:14px;color:var(--muted);font-style:italic;margin-bottom:14px}
+  .card ul{list-style:none;display:flex;flex-direction:column;gap:10px}
+  .card li{position:relative;padding-left:28px;font-size:15px;color:#333}
+  .card li::before{
+    content:"";position:absolute;left:0;top:6px;width:18px;height:18px;border-radius:50%;
+    background:var(--green) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E") center/11px no-repeat;
+  }
+  .card li.x::before{background:#FF3B30 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cline x1='18' y1='6' x2='6' y2='18'/%3E%3Cline x1='6' y1='6' x2='18' y2='18'/%3E%3C/svg%3E") center/11px no-repeat}
+  .card li.dot::before{background:var(--blue);box-shadow:none}
+
+  /* ---------- Steps ---------- */
+  .steps{display:flex;flex-direction:column;gap:16px}
+  .step{
+    background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);
+    padding:24px 26px;display:flex;gap:20px;align-items:flex-start;
+    transition:transform .25s ease;
+  }
+  .step:hover{transform:translateY(-2px)}
+  .step .num{
+    flex:none;width:42px;height:42px;border-radius:50%;
+    background:var(--blue);color:#fff;font-weight:700;font-size:18px;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .step .who{font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+  .step h4{font-size:18px;font-weight:650;margin-bottom:5px}
+  .step p{font-size:15px;color:#444}
+  .who.host{color:var(--amber)}
+  .who.guest{color:var(--blue)}
+
+  /* ---------- Docs ---------- */
+  .docs{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  @media(max-width:740px){.docs{grid-template-columns:1fr}}
+  .doc{
+    background:#fff;border:1px solid var(--line);border-radius:16px;
+    padding:16px 18px;display:flex;gap:13px;align-items:flex-start;
+    transition:transform .2s ease,border-color .2s ease;
+  }
+  .doc:hover{transform:translateY(-2px);border-color:#cfcfd4}
+  .doc .ic{flex:none;width:34px;height:34px;border-radius:10px;background:#EAF4FF;display:flex;align-items:center;justify-content:center}
+  .doc .ic svg{width:18px;height:18px;stroke:var(--blue)}
+  .doc b{display:block;font-size:15px;font-weight:650;margin-bottom:2px}
+  .doc span{font-size:13.5px;color:var(--muted)}
+
+  /* ---------- Template download ---------- */
+  .template{
+    background:linear-gradient(180deg,#fff, #fbfbfd);
+    border:1px solid var(--line);border-radius:var(--radius);
+    box-shadow:var(--shadow);padding:32px;
+  }
+  .tpl-top{display:flex;gap:22px;align-items:center;flex-wrap:wrap;margin-bottom:24px}
+  .tpl-icon{
+    flex:none;width:64px;height:64px;border-radius:18px;
+    background:linear-gradient(135deg,#0071E3,#42A5F5);
+    display:flex;align-items:center;justify-content:center;box-shadow:0 8px 20px rgba(0,113,227,.3)
+  }
+  .tpl-icon svg{width:32px;height:32px;stroke:#fff}
+  .tpl-top h3{font-size:22px;font-weight:700;margin-bottom:3px}
+  .tpl-top p{font-size:15px;color:var(--muted)}
+  .dl-row{display:flex;gap:12px;flex-wrap:wrap}
+  .preview{
+    margin-top:24px;border-top:1px solid var(--line);padding-top:22px;
+    font-family:"SF Mono",ui-monospace,"Menlo",monospace;
+    font-size:13px;color:#3a3a3c;white-space:pre-wrap;line-height:1.7;
+    background:#fafafa;border:1px solid var(--line);border-radius:14px;padding:20px;
+    max-height:340px;overflow:auto;
+  }
+
+  /* ---------- Note ---------- */
+  .note{
+    background:#FFF8E8;border:1px solid #FCE4B0;border-radius:18px;
+    padding:18px 22px;display:flex;gap:14px;align-items:flex-start;font-size:15px;color:#7a5600;
+  }
+  .note svg{flex:none;width:22px;height:22px;stroke:#B26A00;margin-top:1px}
+  .note b{color:#5e4200}
+
+  /* ---------- FAQ ---------- */
+  .faq details{
+    background:#fff;border-radius:16px;box-shadow:var(--shadow);
+    padding:0 22px;margin-bottom:10px;overflow:hidden;
+  }
+  .faq summary{
+    cursor:pointer;list-style:none;padding:18px 0;
+    font-size:17px;font-weight:600;display:flex;justify-content:space-between;align-items:center;
+  }
+  .faq summary::-webkit-details-marker{display:none}
+  .faq summary::after{content:"+";font-size:24px;color:var(--blue);font-weight:400;transition:transform .25s ease}
+  .faq details[open] summary::after{transform:rotate(45deg)}
+  .faq p{padding:0 0 20px;color:#444;font-size:15px}
+
+  /* ---------- Links ---------- */
+  .links{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  @media(max-width:740px){.links{grid-template-columns:1fr}}
+  .lnk{
+    background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px 20px;
+    display:flex;justify-content:space-between;align-items:center;transition:transform .2s ease;
+  }
+  .lnk:hover{transform:translateY(-2px);text-decoration:none}
+  .lnk b{font-size:15px;color:var(--ink);display:block}
+  .lnk span{font-size:13px;color:var(--muted)}
+  .lnk .arr{color:var(--blue);font-size:20px}
+
+  footer{text-align:center;padding:50px 22px;color:var(--muted);font-size:13.5px;line-height:1.7}
+
+  .reveal{opacity:0;transform:translateY(24px)}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="flag reveal">
+      <span class="dots"><i></i><i></i><i></i></span>
+      Германия · Шенгенская виза C · частный визит
+    </div>
+    <h1 class="reveal">Приглашение для визы<br>в Германию</h1>
+    <p class="sub reveal">Едете в гости к друзьям или родственникам? Вот понятная инструкция: какое приглашение нужно, что делает приглашающий, какие документы собрать и куда подать. Плюс готовый шаблон письма для скачивания.</p>
+    <div class="hero-cta reveal">
+      <a href="#template" class="btn btn-primary">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Скачать шаблон приглашения
+      </a>
+      <a href="#steps" class="btn btn-ghost">Как всё устроено</a>
+    </div>
+  </div>
+</header>
+
+<!-- ===== Два типа приглашения ===== -->
+<section id="types">
+  <div class="wrap">
+    <div class="eyebrow reveal">Главное, что нужно понять</div>
+    <h2 class="reveal">Бывает два вида приглашения</h2>
+    <p class="lead reveal">Для гостевой визы консульство хочет видеть, кто вас зовёт и кто оплачивает поездку. Это можно подтвердить двумя способами — выберите вместе с приглашающим тот, что подходит вашей ситуации.</p>
+
+    <div class="grid-2">
+      <div class="card reveal">
+        <span class="pill soft">Вариант 1 · проще</span>
+        <h3>Неформальное письмо</h3>
+        <div class="de">formloses Einladungsschreiben</div>
+        <ul>
+          <li>Обычное письмо в свободной форме от приглашающего</li>
+          <li>Никуда не нужно идти и заверять — пишется дома</li>
+          <li>Приглашающий присылает скан/PDF, вы распечатываете</li>
+          <li>Подходит, если у вас <b>свои деньги</b> на поездку и хорошая визовая история</li>
+          <li class="x">Само по себе не доказывает, что расходы покрыты</li>
+        </ul>
+      </div>
+
+      <div class="card reveal">
+        <span class="pill formal">Вариант 2 · надёжнее</span>
+        <h3>Формальное обязательство</h3>
+        <div class="de">Verpflichtungserklärung</div>
+        <ul>
+          <li>Официальный документ: приглашающий берёт на себя <b>все расходы</b></li>
+          <li>Оформляется лично в <b>Ausländerbehörde / Bürgeramt</b> в Германии</li>
+          <li>Приглашающий доказывает доход (≈ от €1200–1500/мес нетто на 1 гостя)</li>
+          <li>Госпошлина <b>€29</b>, действует 6 месяцев</li>
+          <li>Сильно повышает шансы, если своих финансов мало</li>
+        </ul>
+      </div>
+    </div>
+
+    <div style="margin-top:18px" class="note reveal">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4"/><path d="M12 17h.01"/><circle cx="12" cy="12" r="10"/></svg>
+      <div><b>Важно (правила 2026 ужесточились):</b> по гостевой цели визита консульство почти всегда ждёт минимум неформальное письмо, а при сомнениях в ваших финансах — именно Verpflichtungserklärung. Если своих средств на поездку немного, сразу делайте вариант 2.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Шаги ===== -->
+<section id="steps">
+  <div class="wrap">
+    <div class="eyebrow reveal">Пошагово</div>
+    <h2 class="reveal">Что и в каком порядке делать</h2>
+    <p class="lead reveal">Часть шагов делает приглашающий в Германии, часть — вы. Цвет метки подсказывает, чья это зона ответственности.</p>
+
+    <div class="steps">
+      <div class="step reveal">
+        <div class="num">1</div>
+        <div>
+          <div class="who host">Приглашающий · Германия</div>
+          <h4>Решает, какой тип приглашения делать</h4>
+          <p>Если он готов финансово ручаться за вас — идёт в Ausländerbehörde за Verpflichtungserklärung. Если у вас свои деньги — достаточно написать неформальное письмо по шаблону ниже.</p>
+        </div>
+      </div>
+
+      <div class="step reveal">
+        <div class="num">2</div>
+        <div>
+          <div class="who host">Приглашающий · Германия</div>
+          <h4>Готовит приглашение и присылает вам</h4>
+          <p>Письмо — сканом/PDF на почту, вы распечатываете. Verpflichtungserklärung — обычно <b>оригинал</b> почтой/курьером (некоторые консульства принимают скан, уточните). Прикладывает копию своего паспорта/ID и документа о жилье.</p>
+        </div>
+      </div>
+
+      <div class="step reveal">
+        <div class="num">3</div>
+        <div>
+          <div class="who guest">Вы</div>
+          <h4>Заполняете анкету онлайн (VIDEX)</h4>
+          <p>Анкета на визу заполняется на сайте <a href="https://videx-national.diplo.de/videx/visum-erfassung/#/videx-short-stay" target="_blank" rel="noopener">VIDEX</a>, затем распечатывается и подписывается. Цель поездки — «посещение друзей/родственников».</p>
+        </div>
+      </div>
+
+      <div class="step reveal">
+        <div class="num">4</div>
+        <div>
+          <div class="who guest">Вы</div>
+          <h4>Собираете пакет документов</h4>
+          <p>Загранпаспорт, фото, медстраховка на €30 000, подтверждение проживания, финансы, бронь билетов — полный список ниже.</p>
+        </div>
+      </div>
+
+      <div class="step reveal">
+        <div class="num">5</div>
+        <div>
+          <div class="who guest">Вы</div>
+          <h4>Записываетесь и подаёте</h4>
+          <p>Запись в визовый центр Германии (VisaMetric / iData) или консульство в стране проживания. Сдаёте документы и биометрию, оплачиваете консульский сбор.</p>
+        </div>
+      </div>
+
+      <div class="step reveal">
+        <div class="num">6</div>
+        <div>
+          <div class="who guest">Вы</div>
+          <h4>Ждёте решение и забираете паспорт</h4>
+          <p>Обычный срок рассмотрения — около 10–15 рабочих дней, в сезон дольше. Паспорт с визой забираете в визовом центре или получаете курьером.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Что должно быть в письме ===== -->
+<section id="content">
+  <div class="wrap">
+    <div class="eyebrow reveal">Содержание письма</div>
+    <h2 class="reveal">Что обязательно указать в приглашении</h2>
+    <p class="lead reveal">Письмо в свободной форме, но без этих пунктов его не примут. Всё это уже заложено в шаблон ниже.</p>
+    <div class="grid-2">
+      <div class="card reveal">
+        <h3 style="font-size:18px;margin-bottom:14px">О приглашающем</h3>
+        <ul>
+          <li class="dot">ФИО полностью</li>
+          <li class="dot">Полный адрес в Германии</li>
+          <li class="dot">Телефон и email</li>
+          <li class="dot">Кто он вам (друг, родственник — кем именно)</li>
+          <li class="dot">Статус в Германии (гражданин / ВНЖ)</li>
+        </ul>
+      </div>
+      <div class="card reveal">
+        <h3 style="font-size:18px;margin-bottom:14px">О визите</h3>
+        <ul>
+          <li class="dot">ФИО и данные приглашаемого (вас)</li>
+          <li class="dot">Цель — частный визит в гости</li>
+          <li class="dot">Точные даты приезда и отъезда</li>
+          <li class="dot">Где будете жить (адрес проживания)</li>
+          <li class="dot">Кто оплачивает поездку и проживание</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Шаблон ===== -->
+<section id="template">
+  <div class="wrap">
+    <div class="eyebrow reveal">Готовый файл</div>
+    <h2 class="reveal">Шаблон приглашения для скачивания</h2>
+    <p class="lead reveal">Двуязычный (немецкий + русский) шаблон неформального письма. Приглашающий открывает, подставляет свои данные в поля <b>[ ... ]</b>, подписывает от руки и присылает вам скан. Формат .doc открывается в Word, Pages и Google Docs.</p>
+
+    <div class="template reveal">
+      <div class="tpl-top">
+        <div class="tpl-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/></svg>
+        </div>
+        <div>
+          <h3>Einladungsschreiben · Приглашение</h3>
+          <p>Неформальное письмо · DE / RU · поля для заполнения</p>
+        </div>
+      </div>
+      <div class="dl-row">
+        <button class="btn btn-primary" onclick="downloadDoc()">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Скачать .doc (Word)
+        </button>
+        <button class="btn btn-ghost" onclick="downloadTxt()">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Скачать .txt
+        </button>
+      </div>
+
+      <div class="preview" id="previewBox"></div>
+    </div>
+
+    <div style="margin-top:18px" class="note reveal">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4"/><path d="M12 17h.01"/><circle cx="12" cy="12" r="10"/></svg>
+      <div>Это <b>шаблон-пример</b> для частного письма, а не официальная форма. Если нужен формальный документ — Verpflichtungserklärung оформляется только лично в немецком ведомстве, шаблоном его не заменить.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Документы заявителя ===== -->
+<section id="docs">
+  <div class="wrap">
+    <div class="eyebrow reveal">Пакет на подачу</div>
+    <h2 class="reveal">Документы для подачи на визу</h2>
+    <p class="lead reveal">Базовый набор для гостевой визы C. Точный список и нюансы всегда сверяйте на сайте визового центра вашей страны.</p>
+    <div class="docs">
+      <div class="doc reveal"><div class="ic"><svg fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"/><circle cx="12" cy="10" r="3"/><path d="M7 19a5 5 0 0 1 10 0"/></svg></div><div><b>Загранпаспорт</b><span>Действует ≥3 мес. после поездки, 2 пустые страницы, не старше 10 лет</span></div></div>
+      <div class="doc reveal"><div class="ic"><svg fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div><div><b>Анкета VIDEX</b><span>Заполнена онлайн, распечатана и подписана</span></div></div>
+      <div class="doc reveal"><div class="ic"><svg fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.5-3.5L9 20"/></svg></div><div><b>2 фото</b><span>Биометрические 35×45 мм, на светлом фоне, свежие</span></div></div>
+      <div class="doc reveal"><div class="ic"><svg fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div><div><b>Медстраховка</b><span>Покрытие от €30 000 на весь Шенген и весь срок поездки</span></div></div>
+      <div class="doc reveal"><div class="ic"><svg fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/></svg></div><div><b>Приглашение</b><span>Письмо или Verpflichtungserklärung + копия паспорта/ID приглашающего</span></div></div>
+      <div class="doc reveal"><div class="ic"><svg fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg></div><div><b>Финансы</b><span>Выписка со счёта за 3 мес., справка о доходах / спонсорство</span></div></div>
+      <div class="doc reveal"><div class="ic"><svg fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></svg></div><div><b>Бронь билетов</b><span>Авиабилеты туда-обратно (можно бронь без оплаты)</span></div></div>
+      <div class="doc reveal"><div class="ic"><svg fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div><div><b>Проживание</b><span>Адрес у приглашающего ИЛИ бронь отеля на даты визита</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Куда подавать ===== -->
+<section id="where">
+  <div class="wrap">
+    <div class="eyebrow reveal">Куда нести</div>
+    <h2 class="reveal">Куда подавать документы</h2>
+    <p class="lead reveal">Документы подаются в стране вашего проживания — в визовый центр, уполномоченный посольством Германии, или напрямую в консульство.</p>
+    <div class="grid-2">
+      <div class="card reveal">
+        <h3 style="font-size:19px">Визовый центр Германии</h3>
+        <p style="color:var(--muted);margin:8px 0 14px;font-size:15px">Самый частый путь. Приём документов, биометрия, запись онлайн. В большинстве стран это <b>VisaMetric</b> или <b>iData</b>.</p>
+        <a class="btn btn-ghost" href="https://www.visametric.com/" target="_blank" rel="noopener">VisaMetric →</a>
+      </div>
+      <div class="card reveal">
+        <h3 style="font-size:19px">Посольство / консульство</h3>
+        <p style="color:var(--muted);margin:8px 0 14px;font-size:15px">Официальная информация, точный список документов для вашей страны и запись на подачу — на сайте МИД Германии и местного консульства.</p>
+        <a class="btn btn-ghost" href="https://www.auswaertiges-amt.de/en/visa-service" target="_blank" rel="noopener">МИД Германии →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FAQ ===== -->
+<section id="faq">
+  <div class="wrap">
+    <div class="eyebrow reveal">Частые вопросы</div>
+    <h2 class="reveal" style="margin-bottom:24px">Коротко о важном</h2>
+    <div class="faq">
+      <details class="reveal"><summary>Нужен оригинал приглашения или хватит скана?</summary><p>Неформальное письмо можно подать распечаткой скана/PDF. А вот Verpflichtungserklärung часто требуют в <b>оригинале</b> — приглашающий присылает его почтой. Некоторые консульства принимают скан, поэтому заранее уточните требование на сайте конкретного визового центра.</p></details>
+      <details class="reveal"><summary>На каком языке писать приглашение?</summary><p>Подойдёт немецкий или английский. Наш шаблон двуязычный (немецкий + русский) — это удобно и приглашающему, и сотруднику консульства. Документы на других языках могут потребовать нотариальный перевод.</p></details>
+      <details class="reveal"><summary>Письма достаточно, или обязательно Verpflichtungserklärung?</summary><p>Если у вас есть свои деньги на поездку и нормальная визовая история — обычно хватает письма + ваших финансовых документов. Если средств мало или виза первая, Verpflichtungserklärung резко повышает шансы, потому что расходы официально берёт на себя приглашающий.</p></details>
+      <details class="reveal"><summary>Сколько денег нужно показать?</summary><p>Ориентир — покрытие всех дней поездки из расчёта суточных по Шенгену. Если приглашающий оформил Verpflichtungserklärung, требования к вашим личным финансам мягче, ведь он гарантирует расходы.</p></details>
+      <details class="reveal"><summary>Кто платит за Verpflichtungserklärung?</summary><p>Приглашающий в Германии — госпошлина €29 при оформлении в Ausländerbehörde. Документ действует 6 месяцев.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Ссылки ===== -->
+<section id="links">
+  <div class="wrap">
+    <div class="eyebrow reveal">Полезное</div>
+    <h2 class="reveal" style="margin-bottom:24px">Официальные источники</h2>
+    <div class="links">
+      <a class="lnk reveal" href="https://www.auswaertiges-amt.de/en/visa-service" target="_blank" rel="noopener"><span><b>МИД Германии — Visa Service</b><span>Официальная информация о визах</span></span><span class="arr">→</span></a>
+      <a class="lnk reveal" href="https://videx-national.diplo.de/videx/visum-erfassung/#/videx-short-stay" target="_blank" rel="noopener"><span><b>VIDEX</b><span>Заполнение визовой анкеты онлайн</span></span><span class="arr">→</span></a>
+      <a class="lnk reveal" href="https://www.berlin.de/einwanderung/en/entry/declarations-of-commitment/" target="_blank" rel="noopener"><span><b>Verpflichtungserklärung (Berlin.de)</b><span>Как оформить формальное обязательство</span></span><span class="arr">→</span></a>
+      <a class="lnk reveal" href="https://handbookgermany.de/en/visa-invitation-letter" target="_blank" rel="noopener"><span><b>Handbook Germany</b><span>Гид по приглашению для гостевой визы</span></span><span class="arr">→</span></a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    Информация носит справочный характер и актуальна на июнь 2026 года. Правила и список документов меняются —<br>
+    перед подачей сверяйтесь с сайтом посольства Германии и визового центра в вашей стране.
+  </div>
+</footer>
+
+<script>
+/* ====== Текст шаблона приглашения (DE / RU) ====== */
+const templateText =
+`EINLADUNGSSCHREIBEN / ПРИГЛАШЕНИЕ
+(formloses Einladungsschreiben für einen privaten Besuch)
+(неформальное письмо-приглашение для частного визита)
+
+Ort, Datum / Город, дата: ____________________________
+
+
+An die Botschaft / das Generalkonsulat der Bundesrepublik Deutschland
+В Посольство / Генеральное консульство Федеративной Республики Германия
+
+
+Sehr geehrte Damen und Herren,
+Уважаемые дамы и господа,
+
+hiermit lade ich / настоящим я приглашаю:
+
+------------------------------------------------------------
+EINLADENDE PERSON / ПРИГЛАШАЮЩИЙ
+------------------------------------------------------------
+Name, Vorname / ФИО:               [ ____________________ ]
+Geburtsdatum / Дата рождения:      [ ____________________ ]
+Staatsangehörigkeit / Гражданство: [ ____________________ ]
+Aufenthaltsstatus / Статус в ФРГ:  [ Bürger / ВНЖ № _____ ]
+Anschrift / Адрес в Германии:      [ ____________________ ]
+                                   [ ____________________ ]
+Telefon / Телефон:                 [ ____________________ ]
+E-Mail / Эл. почта:                [ ____________________ ]
+
+------------------------------------------------------------
+EINGELADENE PERSON / ПРИГЛАШАЕМЫЙ
+------------------------------------------------------------
+Name, Vorname / ФИО:               [ ____________________ ]
+Geburtsdatum / Дата рождения:      [ ____________________ ]
+Reisepass-Nr. / № загранпаспорта:  [ ____________________ ]
+Anschrift / Адрес:                 [ ____________________ ]
+Verwandtschaft / Кем приходится:   [ Freund / Verwandter: ____ ]
+                                   [ друг / родственник: ____ ]
+
+------------------------------------------------------------
+ANGABEN ZUM BESUCH / ДАННЫЕ О ВИЗИТЕ
+------------------------------------------------------------
+Zweck / Цель визита:               privater Besuch / частный визит
+Aufenthaltsdauer / Срок пребывания:
+   von / с:  [ __.__.____ ]   bis / по: [ __.__.____ ]
+Unterkunft / Место проживания:
+   [ bei mir unter o.g. Adresse / у меня по указанному адресу ]
+   [ oder Hotel / либо отель: ____________________ ]
+
+------------------------------------------------------------
+KOSTENÜBERNAHME / ОПЛАТА РАСХОДОВ
+------------------------------------------------------------
+Die Kosten für Reise, Unterkunft und Lebensunterhalt während
+des Aufenthalts werden übernommen von / Расходы на поездку,
+проживание и пребывание берёт на себя:
+
+   [  ] die eingeladene Person selbst / сам приглашаемый
+   [  ] ich als Gastgeber / я как приглашающая сторона
+        (ggf. Verpflichtungserklärung beigefügt /
+         при необходимости приложена Verpflichtungserklärung)
+
+
+Ich bitte Sie, der oben genannten Person ein Schengen-Visum
+zu erteilen. Für Rückfragen stehe ich gerne zur Verfügung.
+
+Прошу выдать указанному лицу шенгенскую визу. По всем вопросам
+готов(а) предоставить дополнительную информацию.
+
+
+Mit freundlichen Grüßen / С уважением,
+
+
+____________________________
+Unterschrift / Подпись
+
+[ Name in Druckbuchstaben / ФИО печатными буквами ]
+
+
+------------------------------------------------------------
+Anlagen / Приложения:
+- Kopie des Ausweises / Reisepasses des Gastgebers
+  Копия паспорта / удостоверения приглашающего
+- ggf. Nachweis der Unterkunft (Mietvertrag o. Ä.)
+  при необходимости — подтверждение жилья
+- ggf. Verpflichtungserklärung (Original)
+  при необходимости — Verpflichtungserklärung (оригинал)
+------------------------------------------------------------`;
+
+/* превью на странице */
+document.getElementById('previewBox').textContent = templateText;
+
+function triggerDownload(blob, filename){
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = filename;
+  document.body.appendChild(a); a.click();
+  document.body.removeChild(a);
+  setTimeout(()=>URL.revokeObjectURL(url), 1500);
+}
+
+function downloadTxt(){
+  const blob = new Blob([templateText], {type:'text/plain;charset=utf-8'});
+  triggerDownload(blob, 'Einladung_Priglashenie_Germany.txt');
+}
+
+function downloadDoc(){
+  /* Word-совместимый HTML-документ */
+  const html =
+`<!DOCTYPE html><html xmlns:o='urn:schemas-microsoft-com:office:office'
+xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
+<head><meta charset='utf-8'>
+<style>
+  body{font-family:'Calibri','Times New Roman',serif;font-size:11pt;line-height:1.5;color:#000}
+  pre{font-family:'Consolas','Courier New',monospace;font-size:10pt;white-space:pre-wrap}
+  h1{font-size:14pt}
+</style></head>
+<body><pre>${templateText.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}</pre></body></html>`;
+  const blob = new Blob(['﻿', html], {type:'application/msword'});
+  triggerDownload(blob, 'Einladung_Priglashenie_Germany.doc');
+}
+</script>
+
+<!-- ====== Страховка: контент виден даже если анимации не загрузились ====== -->
+<script>
+  function showAllReveal(){
+    document.querySelectorAll('.reveal').forEach(el=>{el.style.opacity='1';el.style.transform='none';});
+  }
+  /* если через 900мс что-то осталось скрытым — показать принудительно */
+  window.__revealFallback = setTimeout(showAllReveal, 900);
+</script>
+
+<!-- ====== Framer Motion (vanilla) ====== -->
+<script type="module">
+  try{
+    const { animate, inView, stagger } = await import("https://cdn.jsdelivr.net/npm/motion@11/+esm");
+    clearTimeout(window.__revealFallback);
+
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduce){
+      showAllReveal();
+    } else {
+      /* hero — сразу со стартовым стаггером */
+      animate(".hero .reveal",
+        { opacity:[0,1], y:[24,0] },
+        { duration:.6, delay:stagger(.08), ease:[0.22,0.61,0.36,1] });
+
+      /* секции — по мере появления в зоне видимости */
+      document.querySelectorAll('section').forEach(sec=>{
+        inView(sec, ()=>{
+          const items = sec.querySelectorAll('.reveal');
+          animate(items,
+            { opacity:[0,1], y:[24,0] },
+            { duration:.55, delay:stagger(.06), ease:[0.22,0.61,0.36,1] });
+        }, { amount:0.15 });
+      });
+    }
+  }catch(e){
+    /* CDN недоступен или ошибка — гарантированно показываем контент */
+    showAllReveal();
+  }
+</script>
+
+</body>
+</html>
