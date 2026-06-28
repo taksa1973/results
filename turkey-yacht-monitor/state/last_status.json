@@ -1,8 +1,7 @@
 {
-  "ts": "2026-06-27T08:40:34.956249+00:00",
+  "ts": "2026-06-28T08:56:17.389471+00:00",
   "findings": {},
   "errors": {
-    "Charterworld Turkey": "request_error: ConnectTimeout: HTTPSConnectionPool(host='www.charterworld.com', port=443): Max retries exceeded with url: /index.html?sub=turkey-yacht-charter (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.charterworld.com', port=443) at 0x7fa7283bf250>, 'Connection to www.charterworld.com timed out. (connect timeout=30)'))",
     "Navigare Yachting Turkey": "http_403",
     "Rotaneta Gocek catamaran": "http_503",
     "Rotaneta home": "http_503",
