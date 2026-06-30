@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>macOS в облаке — аренда и подключение</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #F5F5F7;
+    --card: #FFFFFF;
+    --blue: #0071E3;
+    --blue-l: #E8F2FF;
+    --green: #34C759;
+    --green-l: #E6F9EC;
+    --green-d: #248A3D;
+    --orange: #FF9500;
+    --orange-l: #FFF4E5;
+    --red: #FF3B30;
+    --red-l: #FFF0EF;
+    --purple: #AF52DE;
+    --purple-l: #F5EEFB;
+    --silver: #8E8E93;
+    --silver-l: #F2F2F7;
+    --t1: #1D1D1F;
+    --t2: #6E6E73;
+    --t3: #AEAEB2;
+    --border: rgba(0,0,0,0.07);
+    --sh: 0 1px 4px rgba(0,0,0,0.06), 0 2px 12px rgba(0,0,0,0.04);
+    --sh2: 0 4px 24px rgba(0,0,0,0.10), 0 1px 6px rgba(0,0,0,0.04);
+    --r: 20px; --rs: 12px;
+  }
+  body { font-family: 'Inter', -apple-system, sans-serif; background: var(--bg); color: var(--t1); padding: 40px 20px 80px; -webkit-font-smoothing: antialiased; }
+  .w { max-width: 1100px; margin: 0 auto; }
+
+  /* Hero */
+  .hero { text-align: center; margin-bottom: 56px; }
+  .hero-chip {
+    display: inline-flex; align-items: center; gap: 7px;
+    background: #1D1D1F; color: white;
+    font-size: 12px; font-weight: 700; letter-spacing: 0.05em;
+    text-transform: uppercase; padding: 7px 18px; border-radius: 100px; margin-bottom: 22px;
+  }
+  .hero h1 { font-size: clamp(30px, 5.5vw, 52px); font-weight: 700; letter-spacing: -0.035em; line-height: 1.1; margin-bottom: 16px; }
+  .hero h1 em { font-style: normal; color: var(--red); }
+  .hero p { font-size: 17px; color: var(--t2); max-width: 560px; margin: 0 auto; line-height: 1.65; }
+
+  /* Answer banner */
+  .answer {
+    border-radius: var(--r); padding: 32px 36px; margin-bottom: 16px;
+    display: grid; grid-template-columns: auto 1fr; gap: 24px; align-items: center;
+  }
+  .answer.no { background: var(--red-l); border: 1.5px solid rgba(255,59,48,0.2); }
+  .answer.yes { background: var(--green-l); border: 1.5px solid rgba(52,199,89,0.25); }
+  .answer-icon { width: 56px; height: 56px; border-radius: 16px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .answer.no .answer-icon { background: var(--red); }
+  .answer.yes .answer-icon { background: var(--green); }
+  .answer-icon svg { width: 26px; height: 26px; color: white; }
+  .answer h2 { font-size: 20px; font-weight: 700; margin-bottom: 6px; }
+  .answer.no h2 { color: #C0392B; }
+  .answer.yes h2 { color: var(--green-d); }
+  .answer p { font-size: 14px; line-height: 1.6; color: var(--t2); }
+
+  /* Section label */
+  .sec { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--t3); margin-bottom: 14px; margin-top: 52px; }
+
+  /* Cards */
+  .card { background: var(--card); border-radius: var(--r); border: 1px solid var(--border); box-shadow: var(--sh); padding: 28px; transition: transform 220ms ease, box-shadow 220ms ease; }
+  .card:hover { transform: translateY(-2px); box-shadow: var(--sh2); }
+  .g { display: grid; gap: 16px; }
+  .g2 { grid-template-columns: 1fr 1fr; }
+  .g3 { grid-template-columns: 1fr 1fr 1fr; }
+  .g4 { grid-template-columns: repeat(4,1fr); }
+
+  /* Provider cards */
+  .pcard {
+    background: var(--card); border-radius: var(--r); border: 1px solid var(--border);
+    box-shadow: var(--sh); overflow: hidden;
+    transition: transform 220ms ease, box-shadow 220ms ease;
+    display: flex; flex-direction: column;
+  }
+  .pcard:hover { transform: translateY(-3px); box-shadow: var(--sh2); }
+  .pcard-head { padding: 24px 24px 0; }
+  .pcard-logo {
+    width: 48px; height: 48px; border-radius: 14px;
+    display: flex; align-items: center; justify-content: center; margin-bottom: 14px;
+  }
+  .pcard-logo svg { width: 26px; height: 26px; }
+  .pcard-badge {
+    display: inline-block; font-size: 10px; font-weight: 800;
+    letter-spacing: 0.05em; text-transform: uppercase;
+    padding: 3px 10px; border-radius: 100px; margin-bottom: 10px;
+  }
+  .pcard h3 { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
+  .pcard-sub { font-size: 13px; color: var(--t2); margin-bottom: 16px; line-height: 1.5; }
+  .pcard-divider { height: 1px; background: var(--border); }
+  .pcard-body { padding: 20px 24px; flex: 1; }
+  .pcard-plans { display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px; }
+  .plan-row { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 8px; }
+  .plan-name { font-size: 13px; font-weight: 500; }
+  .plan-chip { font-size: 11px; color: var(--t2); }
+  .plan-price { font-size: 15px; font-weight: 700; text-align: right; white-space: nowrap; }
+  .pcard-footer { padding: 14px 24px; border-top: 1px solid var(--border); background: var(--silver-l); }
+  .pcard-link {
+    display: flex; align-items: center; gap: 6px; font-size: 13px;
+    font-weight: 600; color: var(--blue); text-decoration: none; cursor: pointer;
+  }
+  .pcard-link svg { width: 14px; height: 14px; }
+
+  /* Highlight border */
+  .pcard.featured { border: 2px solid var(--blue); }
+  .pcard.featured .pcard-head { padding-top: 16px; }
+  .featured-label {
+    text-align: center; font-size: 11px; font-weight: 800;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--blue); background: var(--blue-l);
+    padding: 6px 0; margin-bottom: 8px; border-radius: 8px;
+  }
+
+  /* Warning block */
+  .warn-box {
+    background: var(--orange-l); border: 1.5px solid rgba(255,149,0,0.25);
+    border-radius: var(--rs); padding: 16px 20px;
+    display: flex; gap: 12px; align-items: flex-start;
+  }
+  .warn-box svg { width: 18px; height: 18px; color: var(--orange); flex-shrink: 0; margin-top: 1px; }
+  .warn-box p { font-size: 13px; line-height: 1.6; color: var(--t1); }
+  .warn-box strong { color: var(--orange); }
+
+  /* Connection methods */
+  .conn-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; }
+  .conn-card {
+    border-radius: var(--rs); padding: 20px; border: 1px solid var(--border);
+    background: var(--card); transition: transform 200ms ease;
+    position: relative;
+  }
+  .conn-card:hover { transform: translateY(-2px); box-shadow: var(--sh2); }
+  .conn-card.best { border-color: rgba(0,113,227,0.3); background: var(--blue-l); }
+  .conn-card.ok { background: var(--card); }
+  .conn-card.no { opacity: 0.7; background: var(--silver-l); }
+  .conn-best-badge {
+    position: absolute; top: -9px; left: 16px;
+    font-size: 9px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase;
+    background: var(--blue); color: white; padding: 2px 10px; border-radius: 100px;
+  }
+  .conn-icon { width: 40px; height: 40px; border-radius: 11px; display: flex; align-items: center; justify-content: center; margin-bottom: 12px; }
+  .conn-icon svg { width: 20px; height: 20px; }
+  .conn-icon.b { background: var(--blue-l); color: var(--blue); }
+  .conn-icon.g { background: var(--green-l); color: var(--green-d); }
+  .conn-icon.s { background: var(--silver-l); color: var(--silver); }
+  .conn-icon.r { background: var(--red-l); color: var(--red); }
+  .conn-icon.p { background: var(--purple-l); color: var(--purple); }
+  .conn-title { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+  .conn-desc { font-size: 12px; color: var(--t2); line-height: 1.55; }
+  .conn-tag {
+    display: inline-block; font-size: 10px; font-weight: 700;
+    letter-spacing: 0.04em; text-transform: uppercase;
+    padding: 2px 8px; border-radius: 100px; margin-top: 8px;
+  }
+  .conn-tag.free { background: var(--green-l); color: var(--green-d); }
+  .conn-tag.paid { background: var(--orange-l); color: var(--orange); }
+  .conn-tag.nope { background: var(--red-l); color: var(--red); }
+
+  /* Why not VPS */
+  .why-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .why-item { display: flex; align-items: flex-start; gap: 12px; padding: 16px; border-radius: var(--rs); background: var(--silver-l); border: 1px solid var(--border); }
+  .why-num { width: 28px; height: 28px; border-radius: 8px; background: var(--t1); color: white; font-size: 12px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .why-text strong { font-size: 14px; font-weight: 700; display: block; margin-bottom: 3px; }
+  .why-text span { font-size: 12px; color: var(--t2); line-height: 1.55; }
+
+  /* Use cases */
+  .uc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .uc-item { border-radius: var(--rs); padding: 18px; border: 1px solid var(--border); }
+  .uc-item.yes-uc { background: var(--green-l); border-color: rgba(52,199,89,0.2); }
+  .uc-item.no-uc { background: var(--red-l); border-color: rgba(255,59,48,0.15); }
+  .uc-head { font-size: 12px; font-weight: 800; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 10px; }
+  .uc-item.yes-uc .uc-head { color: var(--green-d); }
+  .uc-item.no-uc .uc-head { color: var(--red); }
+  .uc-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .uc-list li { font-size: 13px; line-height: 1.5; display: flex; align-items: flex-start; gap: 7px; }
+  .uc-list li::before { content: ''; width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; margin-top: 5px; }
+  .yes-uc .uc-list li::before { background: var(--green); }
+  .no-uc .uc-list li::before { background: var(--red); }
+
+  /* Price table */
+  .ptable { width: 100%; border-collapse: collapse; font-size: 14px; }
+  .ptable thead th { text-align: left; padding: 10px 16px; font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--t3); border-bottom: 1px solid var(--border); }
+  .ptable tbody td { padding: 14px 16px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+  .ptable tbody tr:last-child td { border-bottom: none; }
+  .ptable tbody tr:hover { background: rgba(0,0,0,0.015); }
+  .ptable .price-val { font-weight: 700; font-size: 15px; }
+  .ptable .rec-row { background: rgba(0,113,227,0.04); }
+
+  /* Final verdict */
+  .verdict {
+    background: linear-gradient(135deg, #1D1D1F 0%, #2D2D30 100%);
+    border-radius: var(--r); padding: 40px; color: white;
+    display: grid; grid-template-columns: 1fr auto; gap: 32px; align-items: center;
+  }
+  .verdict h3 { font-size: 22px; font-weight: 700; margin-bottom: 10px; }
+  .verdict p { font-size: 15px; opacity: 0.75; line-height: 1.65; margin-bottom: 20px; }
+  .verdict-points { display: flex; flex-direction: column; gap: 10px; }
+  .vp { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; opacity: 0.9; }
+  .vp-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); flex-shrink: 0; margin-top: 6px; }
+  .verdict-price { text-align: center; background: rgba(255,255,255,0.08); border-radius: 20px; padding: 28px 32px; }
+  .vp-from { font-size: 12px; opacity: 0.6; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; }
+  .vp-num { font-size: 44px; font-weight: 700; letter-spacing: -0.03em; line-height: 1; }
+  .vp-sub { font-size: 13px; opacity: 0.6; margin-top: 6px; }
+  .vp-note { font-size: 11px; opacity: 0.5; margin-top: 4px; }
+
+  @media (max-width: 900px) {
+    .g2, .g3, .g4, .conn-grid, .why-grid, .uc-grid { grid-template-columns: 1fr 1fr; }
+    .answer { grid-template-columns: auto 1fr; }
+    .verdict { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 600px) {
+    .g2, .g3, .g4, .conn-grid, .why-grid, .uc-grid { grid-template-columns: 1fr; }
+    body { padding: 20px 14px 60px; }
+    .hero h1 { font-size: 28px; }
+    .answer { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="w">
+
+  <!-- Hero -->
+  <div class="hero">
+    <div class="hero-chip">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 20.94c1.5 0 2.75 1.06 4 1.06 3 0 6-8 6-12.22A4.91 4.91 0 0 0 17 5c-2.22 0-4 1.44-5 2-1-.56-2.78-2-5-2a4.9 4.9 0 0 0-5 4.78C2 14 5 22 8 22c1.25 0 2.5-1.06 4-1.06z"/><path d="M10 2c0 2.5.5 4.25 2 5"/></svg>
+      macOS в облаке · 2026
+    </div>
+    <h1>macOS на VPS —<br>правда и <em>мифы</em></h1>
+    <p>Можно ли запустить macOS на обычном VPS, как к нему подключиться и где реально взять Mac в аренду</p>
+  </div>
+
+  <!-- Ответ: нет / да -->
+  <div class="answer no" style="margin-bottom:12px;">
+    <div class="answer-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </div>
+    <div>
+      <h2>Обычный VPS (Hetzner, Contabo, OVH) — нет</h2>
+      <p>Apple EULA запрещает запускать macOS на не-Apple железе. Технически это тоже невозможно: x86/ARM серверы провайдеров не содержат Apple T2/M1 чипов, необходимых для загрузки системы. Хакинтош на VPS — нестабилен и нарушает лицензию.</p>
+    </div>
+  </div>
+  <div class="answer yes">
+    <div class="answer-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+    </div>
+    <div>
+      <h2>Аренда Mac в облаке — да, это работает</h2>
+      <p>Специализированные провайдеры устанавливают настоящие Mac mini в стойки дата-центров и сдают их в аренду. Apple официально разрешает это. AWS, MacStadium, Scaleway — все используют физическое Apple-железо.</p>
+    </div>
+  </div>
+
+  <!-- Почему обычный VPS не подойдёт -->
+  <div class="sec">Почему обычный VPS не вариант</div>
+  <div class="card">
+    <div class="why-grid">
+      <div class="why-item">
+        <div class="why-num">1</div>
+        <div class="why-text">
+          <strong>Лицензионный запрет Apple</strong>
+          <span>macOS EULA §2А прямо запрещает виртуализацию на не-Apple железе. Нарушение = юридические риски для компании.</span>
+        </div>
+      </div>
+      <div class="why-item">
+        <div class="why-num">2</div>
+        <div class="why-text">
+          <strong>Нет Secure Boot / Apple T-chip</strong>
+          <span>macOS 12+ требует Apple T2 или M1/M2 чип для верификации загрузки. На x86 серверах его нет — система не стартует.</span>
+        </div>
+      </div>
+      <div class="why-item">
+        <div class="why-num">3</div>
+        <div class="why-text">
+          <strong>Хакинтош нестабилен</strong>
+          <span>Виртуальный хакинтош (QEMU/KVM + OpenCore) существует, но падает при обновлениях, не поддерживает iCloud, Xcode, подписи приложений.</span>
+        </div>
+      </div>
+      <div class="why-item">
+        <div class="why-num">4</div>
+        <div class="why-text">
+          <strong>RDP к macOS — не нативно</strong>
+          <span>macOS не является RDP-сервером. Нужен VNC (Screen Sharing) или NoMachine. RDP возможен только через сторонние утилиты.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Провайдеры -->
+  <div class="sec">Где арендовать настоящий Mac</div>
+  <div class="g g2">
+
+    <!-- AWS -->
+    <div class="pcard featured">
+      <div class="pcard-head">
+        <div class="featured-label">★ Самый популярный</div>
+        <div class="pcard-logo" style="background:#FF9900;"><svg viewBox="0 0 24 24" fill="white"><path d="M13.23 10.56v-.15c-.97.1-2.07.15-3.21.2v.14a.3.3 0 0 0 .15.27l1.43.84c.3.18.46.5.46.84v2.2a.3.3 0 0 1-.3.3h-.77a.3.3 0 0 1-.3-.3v-1.95l-1.2-.7a1.53 1.53 0 0 1-.77-1.34v-.24c-1.1.04-2.15.06-3.1.06v8.5l9.46.01v-8.5c-.62-.03-1.23-.08-1.85-.18zm-5.38 7.19H6.77v-1.5h1.08v1.5zm2.07 0H8.84v-1.5h1.08v1.5zm0-2.25H8.84v-1.5h1.08v1.5zm2.08 2.25h-1.08v-1.5h1.08v1.5zm0-2.25h-1.08v-1.5h1.08v1.5z"/><path d="M6.23 9.5c1.08 0 2.18-.03 3.27-.07V8.1a.3.3 0 0 1 .3-.3h.77a.3.3 0 0 1 .3.3v1.27c1.17-.06 2.31-.13 3.36-.22V5.82a.3.3 0 0 0-.3-.3H6.53a.3.3 0 0 0-.3.3v3.68z"/></svg></div>
+        <div class="pcard-badge" style="background:#FF9900;color:white;">AWS</div>
+        <h3>Amazon EC2 Mac</h3>
+        <div class="pcard-sub">Физические Mac mini M1/M2/Intel в AWS. Поддерживает macOS 10.15+. Минимум аренды — 24 часа (Dedicated Host).</div>
+      </div>
+      <div class="pcard-divider"></div>
+      <div class="pcard-body">
+        <div class="pcard-plans">
+          <div class="plan-row">
+            <div><div class="plan-name">mac1 — Intel Mac mini</div><div class="plan-chip">macOS 10.15–13</div></div>
+            <div class="plan-price">~$1.08/час<br><span style="font-size:11px;font-weight:400;color:var(--t2);">≈$26/день</span></div>
+          </div>
+          <div class="plan-row" style="background:var(--blue-l);border-radius:8px;padding:6px 8px;">
+            <div><div class="plan-name" style="color:var(--blue);">mac2 — M1 Mac mini</div><div class="plan-chip">macOS 12+</div></div>
+            <div class="plan-price" style="color:var(--blue);">~$0.65/час<br><span style="font-size:11px;font-weight:400;color:var(--t2);">≈$16/день</span></div>
+          </div>
+          <div class="plan-row">
+            <div><div class="plan-name">mac2-m2 — M2 Mac mini</div><div class="plan-chip">macOS 13+</div></div>
+            <div class="plan-price">~$0.65/час<br><span style="font-size:11px;font-weight:400;color:var(--t2);">≈$16/день</span></div>
+          </div>
+          <div class="plan-row">
+            <div><div class="plan-name">mac2-m2pro — M2 Pro</div><div class="plan-chip">macOS 13+</div></div>
+            <div class="plan-price">~$1.30/час<br><span style="font-size:11px;font-weight:400;color:var(--t2);">≈$31/день</span></div>
+          </div>
+        </div>
+        <div class="warn-box">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          <p><strong>Минимум 24 часа</strong> — AWS выделяет Dedicated Host. Даже если нужна машина на 1 час — платишь за день (~$16). Для постоянной работы: ~$470/мес (M1).</p>
+        </div>
+      </div>
+      <div class="pcard-footer">
+        <a href="https://aws.amazon.com/ec2/instance-types/mac/" target="_blank" class="pcard-link">
+          aws.amazon.com/ec2/mac
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- MacStadium -->
+    <div class="pcard">
+      <div class="pcard-head">
+        <div class="pcard-logo" style="background:var(--purple-l);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--purple)" stroke-width="2"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
+        </div>
+        <div class="pcard-badge" style="background:var(--purple-l);color:var(--purple);">MacStadium</div>
+        <h3>MacStadium / Orka</h3>
+        <div class="pcard-sub">Специализированный Mac-хостинг. Mac mini, Mac Pro, Mac Studio. Также предлагают Orka — Kubernetes для Mac (CI/CD).</div>
+      </div>
+      <div class="pcard-divider"></div>
+      <div class="pcard-body">
+        <div class="pcard-plans">
+          <div class="plan-row">
+            <div><div class="plan-name">Mac mini M2</div><div class="plan-chip">8 GB RAM, 256 GB SSD</div></div>
+            <div class="plan-price">от $99/мес</div>
+          </div>
+          <div class="plan-row" style="background:var(--purple-l);border-radius:8px;padding:6px 8px;">
+            <div><div class="plan-name" style="color:var(--purple);">Mac mini M2 Pro</div><div class="plan-chip">16 GB RAM, 512 GB SSD</div></div>
+            <div class="plan-price" style="color:var(--purple);">от $149/мес</div>
+          </div>
+          <div class="plan-row">
+            <div><div class="plan-name">Mac Pro M2 Ultra</div><div class="plan-chip">192 GB RAM, 1 TB SSD</div></div>
+            <div class="plan-price">от $799/мес</div>
+          </div>
+          <div class="plan-row">
+            <div><div class="plan-name">Orka — CI/CD кластер</div><div class="plan-chip">Kubernetes on Mac</div></div>
+            <div class="plan-price">от $499/мес</div>
+          </div>
+        </div>
+      </div>
+      <div class="pcard-footer">
+        <a href="https://www.macstadium.com" target="_blank" class="pcard-link">
+          macstadium.com
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- MacInCloud -->
+    <div class="pcard">
+      <div class="pcard-head">
+        <div class="pcard-logo" style="background:var(--blue-l);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="2"><path d="M12 20.94c1.5 0 2.75 1.06 4 1.06 3 0 6-8 6-12.22A4.91 4.91 0 0 0 17 5c-2.22 0-4 1.44-5 2-1-.56-2.78-2-5-2a4.9 4.9 0 0 0-5 4.78C2 14 5 22 8 22c1.25 0 2.5-1.06 4-1.06z"/></svg>
+        </div>
+        <div class="pcard-badge" style="background:var(--blue-l);color:var(--blue);">MacInCloud</div>
+        <h3>MacInCloud</h3>
+        <div class="pcard-sub">Доступный старт: shared-планы для разработки iOS, тестирования. Есть dedicated-машины для постоянной работы.</div>
+      </div>
+      <div class="pcard-divider"></div>
+      <div class="pcard-body">
+        <div class="pcard-plans">
+          <div class="plan-row">
+            <div><div class="plan-name">Shared Mac</div><div class="plan-chip">Общая машина, ограниченно</div></div>
+            <div class="plan-price" style="color:var(--green-d);">от $10/мес</div>
+          </div>
+          <div class="plan-row">
+            <div><div class="plan-name">Dedicated M1</div><div class="plan-chip">Только ваша машина</div></div>
+            <div class="plan-price">от $79/мес</div>
+          </div>
+          <div class="plan-row">
+            <div><div class="plan-name">Dedicated M2</div><div class="plan-chip">8 GB / 256 GB</div></div>
+            <div class="plan-price">от $99/мес</div>
+          </div>
+          <div class="plan-row">
+            <div><div class="plan-name">On-Demand</div><div class="plan-chip">По часам</div></div>
+            <div class="plan-price">от $0.10/час</div>
+          </div>
+        </div>
+      </div>
+      <div class="pcard-footer">
+        <a href="https://www.macincloud.com" target="_blank" class="pcard-link">
+          macincloud.com
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- Scaleway -->
+    <div class="pcard">
+      <div class="pcard-head">
+        <div class="pcard-logo" style="background:var(--orange-l);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--orange)" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        </div>
+        <div class="pcard-badge" style="background:var(--orange-l);color:var(--orange);">Scaleway</div>
+        <h3>Scaleway Apple Silicon</h3>
+        <div class="pcard-sub">Европейский провайдер с поддержкой Apple M1/M2. Оплата по часам, нет минимального срока аренды в 24ч как у AWS.</div>
+      </div>
+      <div class="pcard-divider"></div>
+      <div class="pcard-body">
+        <div class="pcard-plans">
+          <div class="plan-row" style="background:var(--orange-l);border-radius:8px;padding:6px 8px;">
+            <div><div class="plan-name" style="color:var(--orange);">M1 Mac mini</div><div class="plan-chip">8 GB RAM, 256 GB SSD</div></div>
+            <div class="plan-price" style="color:var(--orange);">€0.12/час<br><span style="font-size:11px;font-weight:400;color:var(--t2);">≈€86/мес</span></div>
+          </div>
+          <div class="plan-row">
+            <div><div class="plan-name">M2 Mac mini</div><div class="plan-chip">8 GB RAM, 256 GB SSD</div></div>
+            <div class="plan-price">€0.15/час<br><span style="font-size:11px;font-weight:400;color:var(--t2);">≈€108/мес</span></div>
+          </div>
+          <div class="plan-row">
+            <div><div class="plan-name">M2 Pro Mac mini</div><div class="plan-chip">16 GB RAM, 512 GB SSD</div></div>
+            <div class="plan-price">€0.25/час<br><span style="font-size:11px;font-weight:400;color:var(--t2);">≈€180/мес</span></div>
+          </div>
+        </div>
+        <div class="warn-box" style="margin-top:12px;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          <p>Только ЕС датацентры (Париж, Амстердам). Нет US-регионов.</p>
+        </div>
+      </div>
+      <div class="pcard-footer">
+        <a href="https://www.scaleway.com/en/apple-silicon/" target="_blank" class="pcard-link">
+          scaleway.com/apple-silicon
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        </a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Сравнительная таблица -->
+  <div class="sec">Сравнение провайдеров</div>
+  <div class="card" style="padding:0;">
+    <div style="overflow-x:auto;">
+      <table class="ptable">
+        <thead>
+          <tr>
+            <th>Провайдер</th>
+            <th>Железо</th>
+            <th>Цена от</th>
+            <th>Мин. срок</th>
+            <th>Регион</th>
+            <th>Для кого</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>MacInCloud</strong></td>
+            <td>M1 / M2 (shared или dedicated)</td>
+            <td><span class="price-val" style="color:var(--green-d);">$10/мес</span></td>
+            <td>1 месяц</td>
+            <td>US</td>
+            <td>Разработчики iOS, тестирование</td>
+          </tr>
+          <tr class="rec-row">
+            <td><strong>Scaleway</strong></td>
+            <td>M1 / M2 / M2 Pro (dedicated)</td>
+            <td><span class="price-val" style="color:var(--blue);">€0.12/час</span></td>
+            <td>1 час</td>
+            <td>EU (FR/NL)</td>
+            <td>Гибкая аренда, ЕС-локация ★</td>
+          </tr>
+          <tr>
+            <td><strong>MacStadium</strong></td>
+            <td>M2 / M2 Pro / M2 Ultra / Mac Pro</td>
+            <td><span class="price-val">$99/мес</span></td>
+            <td>1 месяц</td>
+            <td>US / EU / ASIA</td>
+            <td>Бизнес, CI/CD, продакшн</td>
+          </tr>
+          <tr>
+            <td><strong>AWS EC2 Mac</strong></td>
+            <td>Intel / M1 / M2 / M2 Pro</td>
+            <td><span class="price-val">$0.65/час</span></td>
+            <td><strong>24 часа</strong></td>
+            <td>Все AWS регионы</td>
+            <td>Корпоративный CI/CD, большие команды</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Способы подключения -->
+  <div class="sec">Как подключиться к Mac в облаке</div>
+  <div class="conn-grid">
+
+    <div class="conn-card best">
+      <div class="conn-best-badge">Рекомендуется</div>
+      <div class="conn-icon b"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
+      <div class="conn-title">Screen Sharing (VNC)</div>
+      <div class="conn-desc">Встроен в macOS. System Settings → General → Sharing → Screen Sharing. Подключение через любой VNC-клиент (RealVNC, TigerVNC, Finder: ⌘K → vnc://IP).</div>
+      <div class="conn-tag free">Встроен · Бесплатно</div>
+    </div>
+
+    <div class="conn-card best">
+      <div class="conn-best-badge">Лучший по качеству</div>
+      <div class="conn-icon p"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><circle cx="12" cy="20" r="1"/></svg></div>
+      <div class="conn-title">NoMachine</div>
+      <div class="conn-desc">Протокол NX — лучшая скорость и отзывчивость среди всех вариантов. Ставится за 5 минут на Mac. Клиент на Windows/Linux/Mac/iOS. Бесплатен для личного использования.</div>
+      <div class="conn-tag free">nomachine.com · Бесплатно</div>
+    </div>
+
+    <div class="conn-card ok">
+      <div class="conn-icon g"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+      <div class="conn-title">AnyDesk</div>
+      <div class="conn-desc">Простая установка, низкая задержка, хорошо работает на медленном интернете. Хорош для нерегулярного доступа. Бесплатен для личного использования.</div>
+      <div class="conn-tag free">anydesk.com · Бесплатно</div>
+    </div>
+
+    <div class="conn-card ok">
+      <div class="conn-icon b"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg></div>
+      <div class="conn-title">SSH (терминал)</div>
+      <div class="conn-desc">Только командная строка, но максимальная скорость и безопасность. Включить: System Settings → Sharing → Remote Login. Нужен для настройки VNC/NoMachine.</div>
+      <div class="conn-tag free">Встроен · Бесплатно</div>
+    </div>
+
+    <div class="conn-card ok">
+      <div class="conn-icon b"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
+      <div class="conn-title">Microsoft Remote Desktop</div>
+      <div class="conn-desc">Клиент Microsoft может подключаться к Mac, если включён Apple Remote Desktop или поставлен сторонний RDP-сервер. Работает нестабильно. Не рекомендуем.</div>
+      <div class="conn-tag paid">Сложная настройка</div>
+    </div>
+
+    <div class="conn-card no">
+      <div class="conn-icon r"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div>
+      <div class="conn-title">Стандартный RDP</div>
+      <div class="conn-desc">macOS не является RDP-сервером. Подключиться стандартным Windows RDP клиентом к macOS напрямую — невозможно без дополнительных инструментов.</div>
+      <div class="conn-tag nope">Не поддерживается</div>
+    </div>
+
+  </div>
+
+  <!-- Когда стоит брать Mac в облаке -->
+  <div class="sec">Когда имеет смысл арендовать Mac</div>
+  <div class="uc-grid">
+    <div class="uc-item yes-uc">
+      <div class="uc-head">Да, стоит</div>
+      <ul class="uc-list">
+        <li>Разработка iOS / macOS / iPadOS приложений</li>
+        <li>CI/CD пайплайны для App Store (Xcode обязателен)</li>
+        <li>Тестирование macOS-совместимости ПО</li>
+        <li>Нотаризация приложений (требует macOS)</li>
+        <li>Редкий доступ (по часам) через Scaleway или MacInCloud</li>
+        <li>1–2 разработчика без своего Mac</li>
+      </ul>
+    </div>
+    <div class="uc-item no-uc">
+      <div class="uc-head">Не стоит</div>
+      <ul class="uc-list">
+        <li>Рабочее место для 40+ сотрудников — слишком дорого</li>
+        <li>Браузер, почта, офисные задачи — Linux VPS дешевле в 8–30×</li>
+        <li>Замена корпоративных ноутбуков — проще выдать физический Mac</li>
+        <li>Постоянная работа через медленный интернет — VNC лагает</li>
+        <li>Сэкономить деньги — Mac в облаке дороже аналогичного Linux VPS</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Итог -->
+  <div class="sec">Итог</div>
+  <div class="verdict">
+    <div>
+      <h3>Рекомендация для вашей задачи</h3>
+      <p>Если нужен Mac именно для разработки iOS/macOS — берите Scaleway M1 (€86/мес) или MacInCloud Dedicated ($79/мес). Подключайтесь через NoMachine или Screen Sharing (VNC) — не RDP. Для 40 человек Mac в облаке нецелесообразен: €86 × 40 = €3440/мес против €524/мес на Linux.</p>
+      <div class="verdict-points">
+        <div class="vp"><div class="vp-dot"></div>Лучший способ подключения — NoMachine или VNC, не RDP</div>
+        <div class="vp"><div class="vp-dot"></div>Самый гибкий — Scaleway (по часам, нет минимума)</div>
+        <div class="vp"><div class="vp-dot"></div>Самый дешёвый старт — MacInCloud Shared от $10/мес</div>
+        <div class="vp"><div class="vp-dot"></div>Для 40 чел с офисными задачами — Linux + xRDP в 8× дешевле</div>
+      </div>
+    </div>
+    <div class="verdict-price">
+      <div class="vp-from">Старт от</div>
+      <div class="vp-num">$10</div>
+      <div class="vp-sub">MacInCloud Shared</div>
+      <div style="height:16px;"></div>
+      <div class="vp-from">Оптимум</div>
+      <div class="vp-num" style="font-size:30px;">€86</div>
+      <div class="vp-sub">Scaleway M1/мес</div>
+      <div class="vp-note">без минимального срока</div>
+    </div>
+  </div>
+
+  <div style="text-align:center;margin-top:40px;font-size:12px;color:var(--t3);">
+    Данные: AWS.com, MacStadium.com, MacInCloud.com, Scaleway.com — июнь 2026
+  </div>
+
+</div>
+</body>
+</html>
