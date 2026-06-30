@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Свой сайт на блокчейне — полный гайд для новичков</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #08080f;
+    --bg2: #0f0f1a;
+    --card: #111120;
+    --border: rgba(255,255,255,0.07);
+    --border2: rgba(255,255,255,0.14);
+    --text: #e8e8f0;
+    --muted: #6e6e80;
+    --muted2: #9a9ab0;
+    --blue: #0071E3;
+    --blue-light: #64B5F6;
+    --green: #30D158;
+    --yellow: #FFD60A;
+    --red: #FF453A;
+    --purple: #BF5AF2;
+    --orange: #FF9F0A;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--blue-light); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  code {
+    background: rgba(255,255,255,0.07); border-radius: 5px;
+    padding: 2px 7px; font-size: 13px;
+    font-family: 'SF Mono', 'Fira Code', monospace; color: #a5b4fc;
+  }
+  strong { color: #fff; }
+
+  /* ─── Layout ─────────────────────────────────────────────── */
+  .wrap { max-width: 800px; margin: 0 auto; padding: 0 24px; }
+
+  /* ─── Nav ────────────────────────────────────────────────── */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(8,8,15,0.85); backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+    padding: 14px 24px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .nav-logo { font-size: 15px; font-weight: 800; color: #fff; }
+  .nav-logo span { color: var(--blue); }
+  .nav-steps {
+    display: flex; gap: 4px;
+  }
+  .nav-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--border2); cursor: pointer;
+    transition: background 0.2s;
+  }
+  .nav-dot:hover { background: var(--blue); }
+
+  /* ─── Hero ──────────────────────────────────────────────── */
+  .hero {
+    padding: 72px 24px 56px; text-align: center;
+    max-width: 800px; margin: 0 auto;
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(0,113,227,0.12); border: 1px solid rgba(0,113,227,0.25);
+    color: #64B5F6; border-radius: 100px;
+    padding: 6px 16px; font-size: 12px; font-weight: 700;
+    letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 24px;
+  }
+  .hero h1 {
+    font-size: clamp(36px, 6vw, 64px);
+    font-weight: 900; letter-spacing: -0.04em; line-height: 1.05;
+    color: #fff; margin-bottom: 16px;
+  }
+  .hero p { font-size: 17px; color: var(--muted2); max-width: 520px; margin: 0 auto 40px; }
+
+  /* Cost strip */
+  .cost-strip {
+    display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;
+    margin-bottom: 0;
+  }
+  .cost-pill {
+    background: var(--card); border: 1px solid var(--border2);
+    border-radius: 100px; padding: 8px 18px;
+    font-size: 13px; font-weight: 600; color: var(--muted2);
+    display: flex; align-items: center; gap: 6px;
+  }
+  .cost-pill span { color: #fff; }
+
+  /* ─── Tools needed ───────────────────────────────────────── */
+  .tools-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;
+    margin-bottom: 12px;
+  }
+  @media (max-width: 580px) { .tools-grid { grid-template-columns: 1fr 1fr; } }
+  .tool-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 14px; padding: 16px; text-align: center;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .tool-card:hover { border-color: var(--border2); transform: translateY(-2px); }
+  .tool-icon { font-size: 28px; margin-bottom: 8px; }
+  .tool-name { font-size: 14px; font-weight: 700; color: #fff; }
+  .tool-note { font-size: 12px; color: var(--muted); margin-top: 3px; }
+  .tool-free {
+    display: inline-block; background: rgba(48,209,88,0.12);
+    color: var(--green); border-radius: 4px;
+    padding: 1px 6px; font-size: 11px; font-weight: 700;
+    margin-top: 5px;
+  }
+
+  /* ─── Steps ──────────────────────────────────────────────── */
+  .step-section {
+    max-width: 800px; margin: 0 auto 56px; padding: 0 24px;
+  }
+  .step-header {
+    display: flex; align-items: flex-start; gap: 16px; margin-bottom: 20px;
+  }
+  .step-num {
+    width: 44px; height: 44px; border-radius: 14px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; font-weight: 900; color: #fff;
+  }
+  .step-header-text h2 {
+    font-size: clamp(20px, 3.5vw, 28px); font-weight: 800;
+    letter-spacing: -0.02em; color: #fff; line-height: 1.2;
+  }
+  .step-header-text p {
+    font-size: 14px; color: var(--muted2); margin-top: 4px;
+  }
+  .step-body { padding-left: 60px; }
+  @media (max-width: 480px) { .step-body { padding-left: 0; } }
+
+  /* Sub-steps */
+  .substep {
+    display: flex; gap: 14px; margin-bottom: 16px;
+    align-items: flex-start;
+  }
+  .substep-num {
+    width: 24px; height: 24px; border-radius: 7px; flex-shrink: 0;
+    background: rgba(255,255,255,0.07); border: 1px solid var(--border2);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 800; color: var(--muted2); margin-top: 1px;
+  }
+  .substep-content .ss-title {
+    font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 4px;
+  }
+  .substep-content .ss-desc {
+    font-size: 14px; color: var(--muted2); line-height: 1.6;
+  }
+
+  /* Screenshot placeholder */
+  .screen-mock {
+    background: var(--bg2); border: 1px solid var(--border2);
+    border-radius: 14px; padding: 20px;
+    display: flex; align-items: center; gap: 16px;
+    margin: 12px 0;
+  }
+  .screen-mock-icon {
+    width: 48px; height: 48px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 24px; flex-shrink: 0;
+  }
+  .screen-mock p { font-size: 13px; color: var(--muted2); line-height: 1.5; }
+  .screen-mock p strong { color: var(--text); }
+
+  /* URL preview */
+  .url-bar {
+    background: rgba(255,255,255,0.04); border: 1px solid var(--border2);
+    border-radius: 10px; padding: 10px 14px;
+    font-size: 13px; font-family: 'SF Mono', monospace;
+    color: var(--muted2); margin: 10px 0;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .url-bar .lock { color: var(--green); font-size: 11px; }
+  .url-bar .url-text { color: var(--text); }
+  .url-bar .url-text .dom { color: var(--blue-light); }
+
+  /* ─── Callouts ───────────────────────────────────────────── */
+  .callout {
+    border-radius: 14px; padding: 16px 18px;
+    display: flex; gap: 12px; align-items: flex-start;
+    margin: 14px 0; font-size: 14px; line-height: 1.6;
+  }
+  .callout-warn {
+    background: rgba(255,69,58,0.07); border: 1px solid rgba(255,69,58,0.2);
+    color: #ff8a84;
+  }
+  .callout-tip {
+    background: rgba(48,209,88,0.06); border: 1px solid rgba(48,209,88,0.18);
+    color: #7ae89a;
+  }
+  .callout-info {
+    background: rgba(0,113,227,0.07); border: 1px solid rgba(0,113,227,0.2);
+    color: #80bfff;
+  }
+  .callout-icon { font-size: 18px; flex-shrink: 0; line-height: 1; }
+  .callout p { margin: 0; }
+  .callout strong { color: inherit; filter: brightness(1.2); }
+
+  /* ─── Card ───────────────────────────────────────────────── */
+  .card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 18px; padding: 22px;
+  }
+
+  /* ─── Cost table ─────────────────────────────────────────── */
+  .cost-table { width: 100%; border-collapse: collapse; }
+  .cost-table td, .cost-table th {
+    padding: 12px 14px; border-bottom: 1px solid var(--border);
+    font-size: 14px; text-align: left;
+  }
+  .cost-table th { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); }
+  .cost-table tr:last-child td { border-bottom: none; }
+  .cost-table td:first-child { color: #fff; font-weight: 600; }
+  .cost-table td:last-child { font-weight: 700; }
+
+  /* ─── FAQ ────────────────────────────────────────────────── */
+  .faq-item {
+    border-bottom: 1px solid var(--border); padding: 16px 0;
+  }
+  .faq-item:last-child { border-bottom: none; }
+  .faq-q { font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 8px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+  .faq-a { font-size: 14px; color: var(--muted2); line-height: 1.7; }
+
+  /* ─── Section label ──────────────────────────────────────── */
+  .section-label {
+    font-size: 11px; font-weight: 700; letter-spacing: 0.15em;
+    text-transform: uppercase; color: var(--muted); margin-bottom: 16px;
+    max-width: 800px; margin-left: auto; margin-right: auto;
+    padding: 0 24px;
+  }
+
+  /* ─── Divider ────────────────────────────────────────────── */
+  .divider {
+    height: 1px; background: var(--border);
+    max-width: 800px; margin: 0 auto 48px; padding: 0 24px;
+  }
+
+  /* ─── Final card ─────────────────────────────────────────── */
+  .final-card {
+    background: linear-gradient(135deg, rgba(0,113,227,0.1), rgba(48,209,88,0.08));
+    border: 1px solid rgba(0,113,227,0.2);
+    border-radius: 24px; padding: 40px; text-align: center;
+    max-width: 800px; margin: 0 auto 24px;
+  }
+  .final-card h2 { font-size: 32px; font-weight: 900; letter-spacing: -0.03em; color: #fff; margin-bottom: 12px; }
+  .final-card p { color: var(--muted2); font-size: 15px; margin-bottom: 24px; }
+  .final-badges { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+  .fbadge {
+    background: rgba(255,255,255,0.06); border: 1px solid var(--border2);
+    border-radius: 100px; padding: 8px 16px; font-size: 13px; font-weight: 600; color: var(--muted2);
+  }
+
+  /* ─── Footer ─────────────────────────────────────────────── */
+  footer {
+    text-align: center; padding: 32px 24px 48px;
+    font-size: 13px; color: var(--muted);
+    border-top: 1px solid var(--border); margin-top: 16px;
+  }
+
+  /* ─── Step colors ────────────────────────────────────────── */
+  .s1 { background: rgba(0,113,227,0.2); }
+  .s2 { background: rgba(255,159,10,0.2); }
+  .s3 { background: rgba(191,90,242,0.2); }
+  .s4 { background: rgba(48,209,88,0.2); }
+  .s5 { background: rgba(0,209,255,0.2); }
+  .s6 { background: rgba(255,69,58,0.15); }
+  .s7 { background: rgba(255,214,10,0.18); }
+
+  .c1 { color: #64B5F6; }
+  .c2 { color: var(--orange); }
+  .c3 { color: var(--purple); }
+  .c4 { color: var(--green); }
+  .c5 { color: #00d8ff; }
+  .c6 { color: var(--red); }
+  .c7 { color: var(--yellow); }
+
+  @media (max-width: 480px) {
+    .step-num { width: 36px; height: 36px; font-size: 15px; }
+    .step-header { gap: 12px; }
+    .cost-strip { flex-direction: column; align-items: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ─── Nav ──────────────────────────────────────────────────── -->
+<nav>
+  <div class="nav-logo">ENS<span>.</span>guide</div>
+  <div style="display:flex; align-items:center; gap:12px">
+    <div class="nav-steps">
+      <div class="nav-dot"></div><div class="nav-dot"></div><div class="nav-dot"></div>
+      <div class="nav-dot"></div><div class="nav-dot"></div><div class="nav-dot"></div>
+      <div class="nav-dot"></div>
+    </div>
+    <div style="font-size:12px; color:var(--muted)">7 шагов</div>
+  </div>
+</nav>
+
+<!-- ─── Hero ─────────────────────────────────────────────────── -->
+<div class="hero">
+  <div class="hero-badge">
+    <svg width="8" height="8" viewBox="0 0 8 8" fill="currentColor"><circle cx="4" cy="4" r="4"/></svg>
+    Полный гайд для новичков
+  </div>
+  <h1>Свой сайт на блокчейне с нуля</h1>
+  <p>Как купить .eth домен, загрузить сайт на IPFS и запустить всё через ENS — пошагово, без технических знаний</p>
+  <div class="cost-strip">
+    <div class="cost-pill">💰 Стоимость: <span>~$20–40</span></div>
+    <div class="cost-pill">⏱ Время: <span>~30 минут</span></div>
+    <div class="cost-pill">🔧 Знания: <span>не нужны</span></div>
+  </div>
+</div>
+
+<!-- ─── Что понадобится ───────────────────────────────────────── -->
+<div class="wrap" style="margin-bottom:48px">
+  <div class="section-label" style="padding:0; margin-bottom:16px">Что понадобится</div>
+  <div class="tools-grid">
+    <div class="tool-card">
+      <div class="tool-icon">🦊</div>
+      <div class="tool-name">MetaMask</div>
+      <div class="tool-note">Криптокошелёк</div>
+      <div class="tool-free">Бесплатно</div>
+    </div>
+    <div class="tool-card">
+      <div class="tool-icon">💎</div>
+      <div class="tool-name">ETH</div>
+      <div class="tool-note">~$20–30 на старт</div>
+      <div style="margin-top:5px; font-size:11px; color:var(--orange); font-weight:700">Нужна покупка</div>
+    </div>
+    <div class="tool-card">
+      <div class="tool-icon">🌐</div>
+      <div class="tool-name">ENS</div>
+      <div class="tool-note">Регистрация домена</div>
+      <div class="tool-free">~$5–10/год</div>
+    </div>
+    <div class="tool-card">
+      <div class="tool-icon">📌</div>
+      <div class="tool-name">Pinata</div>
+      <div class="tool-note">IPFS-хостинг</div>
+      <div class="tool-free">Бесплатно до 1 GB</div>
+    </div>
+    <div class="tool-card">
+      <div class="tool-icon">📄</div>
+      <div class="tool-name">Сайт</div>
+      <div class="tool-note">HTML-файл или папка</div>
+      <div class="tool-free">Любой</div>
+    </div>
+    <div class="tool-card">
+      <div class="tool-icon">🌍</div>
+      <div class="tool-name">Браузер</div>
+      <div class="tool-note">Chrome / Brave / Firefox</div>
+      <div class="tool-free">Уже есть</div>
+    </div>
+  </div>
+  <div class="callout callout-info">
+    <div class="callout-icon">ℹ️</div>
+    <p><strong>Важно о деньгах:</strong> ETH нужен для оплаты домена и «газа» — комиссии сети Ethereum. Газ — это как почтовый сбор за каждое действие в блокчейне. Без газа транзакции не проходят.</p>
+  </div>
+</div>
+
+<!-- ─── Шаг 1: MetaMask ───────────────────────────────────────── -->
+<div class="step-section" id="step1">
+  <div class="step-header">
+    <div class="step-num s1"><span class="c1">1</span></div>
+    <div class="step-header-text">
+      <h2>Установи MetaMask — криптокошелёк</h2>
+      <p>Нужен для хранения ETH и подтверждения транзакций. Как обычный кошелёк, только цифровой.</p>
+    </div>
+  </div>
+  <div class="step-body">
+    <div class="substep">
+      <div class="substep-num">1</div>
+      <div class="substep-content">
+        <div class="ss-title">Установи расширение</div>
+        <div class="ss-desc">Зайди на <a href="https://metamask.io" target="_blank">metamask.io</a> → нажми <strong>Download</strong> → установи расширение для браузера (Chrome, Firefox, Edge, Brave).</div>
+      </div>
+    </div>
+    <div class="substep">
+      <div class="substep-num">2</div>
+      <div class="substep-content">
+        <div class="ss-title">Создай новый кошелёк</div>
+        <div class="ss-desc">Нажми <strong>Создать новый кошелёк</strong> → придумай пароль для входа → нажми далее.</div>
+      </div>
+    </div>
+    <div class="substep">
+      <div class="substep-num">3</div>
+      <div class="substep-content">
+        <div class="ss-title">Сохрани секретную фразу</div>
+        <div class="ss-desc">MetaMask покажет 12 слов — это твоя <strong>Seed-фраза</strong>. Запиши на бумаге и убери в надёжное место. Это единственный способ восстановить кошелёк.</div>
+      </div>
+    </div>
+    <div class="callout callout-warn">
+      <div class="callout-icon">🚨</div>
+      <p><strong>Никому не показывай seed-фразу.</strong> Кто знает 12 слов — тот владеет кошельком. Никакой сервис и никакая поддержка не попросят у тебя эти слова. Если просят — это мошенники.</p>
+    </div>
+    <div class="screen-mock">
+      <div class="screen-mock-icon" style="background:rgba(0,113,227,0.12)">🦊</div>
+      <p>После установки иконка MetaMask появится в правом углу браузера. Нажми на неё — откроется окно кошелька с твоим адресом вида <code>0x1a2b…3c4d</code></p>
+    </div>
+  </div>
+</div>
+
+<!-- ─── Шаг 2: Купить ETH ─────────────────────────────────────── -->
+<div class="step-section" id="step2">
+  <div class="step-header">
+    <div class="step-num s2"><span class="c2">2</span></div>
+    <div class="step-header-text">
+      <h2>Купи ETH и переведи в кошелёк</h2>
+      <p>Ethereum (ETH) — валюта для оплаты домена и газа. Нужно минимум ~$25–35.</p>
+    </div>
+  </div>
+  <div class="step-body">
+    <div class="substep">
+      <div class="substep-num">1</div>
+      <div class="substep-content">
+        <div class="ss-title">Купи ETH на бирже</div>
+        <div class="ss-desc">Лучшие варианты: <a href="https://www.binance.com" target="_blank">Binance</a>, <a href="https://www.bybit.com" target="_blank">Bybit</a>, <a href="https://www.okx.com" target="_blank">OKX</a>. Зарегистрируйся, пройди верификацию, купи ETH через карту или P2P.</div>
+      </div>
+    </div>
+    <div class="substep">
+      <div class="substep-num">2</div>
+      <div class="substep-content">
+        <div class="ss-title">Скопируй адрес кошелька</div>
+        <div class="ss-desc">Открой MetaMask → нажми на свой адрес вверху (он скопируется). Адрес выглядит так: <code>0x1a2b3c4d…</code></div>
+      </div>
+    </div>
+    <div class="substep">
+      <div class="substep-num">3</div>
+      <div class="substep-content">
+        <div class="ss-title">Выведи ETH с биржи на кошелёк</div>
+        <div class="ss-desc">На бирже: Вывод → Криптовалюта → ETH → Сеть: <strong>Ethereum (ERC-20)</strong> → вставь адрес MetaMask → подтверди. Ждать 5–15 минут.</div>
+      </div>
+    </div>
+    <div class="callout callout-warn">
+      <div class="callout-icon">⚠️</div>
+      <p><strong>Всегда выбирай сеть Ethereum (ERC-20)</strong> при выводе. Если выберешь BSC или другую сеть — ETH придёт, но не на ту сеть, и использовать для ENS не получится.</p>
+    </div>
+    <div class="card" style="margin-top:16px">
+      <div style="font-size:12px; color:var(--muted); font-weight:700; text-transform:uppercase; letter-spacing:0.1em; margin-bottom:14px">Сколько нужно ETH</div>
+      <table class="cost-table">
+        <thead><tr><th>Статья</th><th>Примерная стоимость</th></tr></thead>
+        <tbody>
+          <tr><td>Домен 5+ символов (1 год)</td><td style="color:var(--green)">~$5</td></tr>
+          <tr><td>Газ на регистрацию домена (2 транзакции)</td><td style="color:var(--yellow)">~$5–15</td></tr>
+          <tr><td>Газ на обновление contenthash</td><td style="color:var(--yellow)">~$1–5</td></tr>
+          <tr><td>Запас на будущие обновления</td><td style="color:var(--muted2)">~$5</td></tr>
+          <tr><td><strong>Итого на старт</strong></td><td style="color:#fff; font-size:16px">~$20–35</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout callout-info">
+      <div class="callout-icon">💡</div>
+      <p>Газ зависит от загруженности сети. Утром по московскому времени (3–9 утра) газ обычно дешевле. Проверить текущий газ: <a href="https://etherscan.io/gastracker" target="_blank">etherscan.io/gastracker</a></p>
+    </div>
+  </div>
+</div>
+
+<!-- ─── Шаг 3: Купить .eth ─────────────────────────────────────── -->
+<div class="step-section" id="step3">
+  <div class="step-header">
+    <div class="step-num s3"><span class="c3">3</span></div>
+    <div class="step-header-text">
+      <h2>Зарегистрируй .eth домен на ENS</h2>
+      <p>ENS — Ethereum Name Service. Регистрация занимает ~5 минут и 2 транзакции.</p>
+    </div>
+  </div>
+  <div class="step-body">
+    <div class="substep">
+      <div class="substep-num">1</div>
+      <div class="substep-content">
+        <div class="ss-title">Зайди на app.ens.domains</div>
+        <div class="ss-desc">Открой <a href="https://app.ens.domains" target="_blank">app.ens.domains</a> в браузере с MetaMask.</div>
+      </div>
+    </div>
+    <div class="substep">
+      <div class="substep-num">2</div>
+      <div class="substep-content">
+        <div class="ss-title">Подключи кошелёк</div>
+        <div class="ss-desc">Нажми <strong>Connect</strong> в правом верхнем углу → выбери MetaMask → нажми <strong>Connect</strong> в окне MetaMask. Твой адрес появится в шапке сайта.</div>
+      </div>
+    </div>
+    <div class="substep">
+      <div class="substep-num">3</div>
+      <div class="substep-content">
+        <div class="ss-title">Найди нужное имя</div>
+        <div class="ss-desc">Введи желаемое имя в поиске, например <code>мой-сайт</code>. Увидишь: доступно ✅ или занято ❌. Короткие имена (менее 5 символов) стоят дороже.</div>
+      </div>
+    </div>
+    <div class="substep">
+      <div class="substep-num">4</div>
+      <div class="substep-content">
+        <div class="ss-title">Выбери срок регистрации</div>
+        <div class="ss-desc">Нажми на доступное имя → выбери срок (1 год — минимум, чем больше тем дешевле за год) → нажми <strong>Register</strong>.</div>
+      </div>
+    </div>
+    <div class="substep">
+      <div class="substep-num">5</div>
+      <div class="substep-content">
+        <div class="ss-title">Две транзакции с паузой</div>
+        <div class="ss-desc">ENS требует <strong>2 транзакции с минутой ожидания между ними</strong> — это защита от перехвата имени. Нажми <strong>Begin</strong> → подтверди в MetaMask → жди 1 минуту → нажми <strong>Register</strong> → снова подтверди.</div>
+      </div>
+    </div>
+    <div class="screen-mock">
+      <div class="screen-mock-icon" style="background:rgba(191,90,242,0.12)">🌐</div>
+      <p><strong>Ход регистрации:</strong> Шаг 1 (Request) → ⏱ 60 секунд → Шаг 2 (Register). После Шага 2 домен твой — появится в разделе <strong>My Names</strong>.</p>
+    </div>
+    <div class="callout callout-tip">
+      <div class="callout-icon">✅</div>
+      <p><strong>Готово!</strong> Имя теперь в блокчейне — никто не может его отнять, пока ты платишь продление. Продлевать можно заранее, напоминание придёт в app.ens.domains.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ─── Шаг 4: Подготовить сайт ───────────────────────────────── -->
+<div class="step-section" id="step4">
+  <div class="step-header">
+    <div class="step-num s4"><span class="c4">4</span></div>
+    <div class="step-header-text">
+      <h2>Подготовь файлы сайта</h2>
+      <p>Что именно ты загружаешь — один HTML-файл или готовую папку с проектом.</p>
+    </div>
+  </div>
+  <div class="step-body">
+    <div class="card" style="margin-bottom:12px">
+      <div style="font-size:13px; font-weight:700; color:var(--green); margin-bottom:12px">Вариант А — Простой (один файл)</div>
+      <div class="ss-desc" style="font-size:14px; color:var(--muted2)">
+        Есть готовый <code>index.html</code> — можно загружать сразу.<br>
+        <strong>Главное:</strong> убедись что файл называется <code>index.html</code> — именно его браузер откроет первым.
+      </div>
+    </div>
+    <div class="card" style="margin-bottom:12px">
+      <div style="font-size:13px; font-weight:700; color:var(--blue-light); margin-bottom:12px">Вариант Б — React/Vite/Next.js проект</div>
+      <div class="ss-desc" style="font-size:14px; color:var(--muted2)">
+        Сначала сделай <strong>сборку</strong> проекта:<br><br>
+        <code>npm run build</code><br><br>
+        Появится папка <code>dist/</code> (или <code>build/</code> у Next.js, <code>out/</code> у некоторых). Загружать нужно <strong>эту папку целиком</strong>.
+      </div>
+    </div>
+    <div class="callout callout-warn">
+      <div class="callout-icon">⚠️</div>
+      <p><strong>Для React-проектов:</strong> используй HashRouter вместо BrowserRouter. На IPFS нет сервера, который обрабатывал бы пути — только HashRouter работает без него. Пути будут вида <code>site.eth.limo/#/page</code></p>
+    </div>
+    <div class="callout callout-info">
+      <div class="callout-icon">ℹ️</div>
+      <p>Максимальный размер для бесплатного Pinata — <strong>1 GB</strong>. Средний React-проект после сборки весит 200–500 KB — в разы меньше лимита.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ─── Шаг 5: Pinata ─────────────────────────────────────────── -->
+<div class="step-section" id="step5">
+  <div class="step-header">
+    <div class="step-num s5"><span class="c5">5</span></div>
+    <div class="step-header-text">
+      <h2>Загрузи сайт на IPFS через Pinata</h2>
+      <p>Pinata — бесплатный сервис для хранения файлов в IPFS-сети. Получишь CID — адрес твоего сайта.</p>
+    </div>
+  </div>
+  <div class="step-body">
+    <div class="substep">
+      <div class="substep-num">1</div>
+      <div class="substep-content">
+        <div class="ss-title">Зарегистрируйся на Pinata</div>
+        <div class="ss-desc">Зайди на <a href="https://app.pinata.cloud" target="_blank">app.pinata.cloud</a> → Sign Up → почта + пароль → подтверди email.</div>
+      </div>
+    </div>
+    <div class="substep">
+      <div class="substep-num">2</div>
+      <div class="substep-content">
+        <div class="ss-title">Загрузи файлы</div>
+        <div class="ss-desc">
+          На главной странице нажми <strong>Upload</strong> →<br>
+          • Один файл: <strong>File</strong> → выбери <code>index.html</code><br>
+          • Папка с проектом: <strong>Folder</strong> → выбери папку <code>dist/</code>
+        </div>
+      </div>
+    </div>
+    <div class="substep">
+      <div class="substep-num">3</div>
+      <div class="substep-content">
+        <div class="ss-title">Дожди завершения и скопируй CID</div>
+        <div class="ss-desc">Когда загрузка завершится, в списке файлов появится запись. Рядом — <strong>CID</strong> (выглядит как <code>bafybeihlcz…</code>). Скопируй его — он понадобится на следующем шаге.</div>
+      </div>
+    </div>
+    <div class="screen-mock">
+      <div class="screen-mock-icon" style="background:rgba(0,209,255,0.12)">📌</div>
+      <p><strong>CID</strong> (Content Identifier) — это уникальный «отпечаток» твоих файлов. Если хоть один байт изменится, CID изменится тоже. Поэтому при каждом обновлении сайта нужно загружать заново и обновлять ENS.</p>
+    </div>
+    <div class="callout callout-tip">
+      <div class="callout-icon">💡</div>
+      <p>Можешь сразу проверить что сайт загрузился: <code>ipfs.io/ipfs/ТУТ_ТВОЙ_CID</code> — вставь в браузер и замени <code>ТУТ_ТВОЙ_CID</code> на скопированный хеш.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ─── Шаг 6: ENS contenthash ────────────────────────────────── -->
+<div class="step-section" id="step6">
+  <div class="step-header">
+    <div class="step-num s6"><span class="c6">6</span></div>
+    <div class="step-header-text">
+      <h2>Привяжи IPFS к ENS домену</h2>
+      <p>Последний шаг — записать CID в поле Content Hash твоего .eth имени. Это одна транзакция.</p>
+    </div>
+  </div>
+  <div class="step-body">
+    <div class="substep">
+      <div class="substep-num">1</div>
+      <div class="substep-content">
+        <div class="ss-title">Открой свой домен в ENS</div>
+        <div class="ss-desc">Зайди на <a href="https://app.ens.domains" target="_blank">app.ens.domains</a> (кошелёк подключён) → нажми на имя аккаунта → <strong>My Names</strong> → кликни на свой домен.</div>
+      </div>
+    </div>
+    <div class="substep">
+      <div class="substep-num">2</div>
+      <div class="substep-content">
+        <div class="ss-title">Нажми Edit Profile или Records</div>
+        <div class="ss-desc">На странице домена нажми <strong>Edit Profile</strong> (или <strong>Records</strong> в зависимости от версии интерфейса). Найди поле <strong>Content Hash</strong>.</div>
+      </div>
+    </div>
+    <div class="substep">
+      <div class="substep-num">3</div>
+      <div class="substep-content">
+        <div class="ss-title">Введи IPFS-адрес</div>
+        <div class="ss-desc">В поле Content Hash введи в формате:</div>
+      </div>
+    </div>
+    <div class="url-bar" style="margin:8px 0 16px">
+      <span class="lock">ipfs://</span>
+      <span class="url-text"><span class="dom">bafybei</span>ТУТ_ТВОЙ_ПОЛНЫЙ_CID</span>
+    </div>
+    <div class="substep">
+      <div class="substep-num">4</div>
+      <div class="substep-content">
+        <div class="ss-title">Сохрани и подтверди в MetaMask</div>
+        <div class="ss-desc">Нажми <strong>Save</strong> → MetaMask покажет окно с суммой газа → нажми <strong>Confirm</strong>. Транзакция пройдёт за 30–120 секунд.</div>
+      </div>
+    </div>
+    <div class="callout callout-info">
+      <div class="callout-icon">⏱</div>
+      <p>После подтверждения транзакции подождите <strong>5–15 минут</strong> до распространения по сети. Только после этого сайт откроется по домену.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ─── Шаг 7: Проверить ───────────────────────────────────────── -->
+<div class="step-section" id="step7">
+  <div class="step-header">
+    <div class="step-num s7"><span class="c7">7</span></div>
+    <div class="step-header-text">
+      <h2>Проверь что всё работает</h2>
+      <p>Несколько способов открыть твой децентрализованный сайт.</p>
+    </div>
+  </div>
+  <div class="step-body">
+    <div style="display:flex; flex-direction:column; gap:10px; margin-bottom:16px">
+      <div class="screen-mock">
+        <div class="screen-mock-icon" style="background:rgba(255,214,10,0.12); font-size:20px">🌍</div>
+        <div>
+          <p style="margin-bottom:6px"><strong>Способ 1 — Через eth.limo (любой браузер)</strong></p>
+          <div class="url-bar" style="margin:0">
+            <span class="lock">🔒</span>
+            <span class="url-text"><span class="dom">твоёимя.eth</span>.limo</span>
+          </div>
+        </div>
+      </div>
+      <div class="screen-mock">
+        <div class="screen-mock-icon" style="background:rgba(255,100,0,0.12); font-size:20px">🦁</div>
+        <div>
+          <p style="margin-bottom:6px"><strong>Способ 2 — В Brave (нативно)</strong></p>
+          <div class="url-bar" style="margin:0">
+            <span class="lock">🔒</span>
+            <span class="url-text"><span class="dom">твоёимя.eth</span></span>
+          </div>
+          <p style="margin-top:6px; font-size:12px; color:var(--muted)">Brave открывает .eth-домены без посредников</p>
+        </div>
+      </div>
+      <div class="screen-mock">
+        <div class="screen-mock-icon" style="background:rgba(0,209,255,0.12); font-size:20px">📌</div>
+        <div>
+          <p style="margin-bottom:6px"><strong>Способ 3 — Прямой IPFS (без домена)</strong></p>
+          <div class="url-bar" style="margin:0">
+            <span class="lock">🔒</span>
+            <span class="url-text"><span class="dom">ipfs.io</span>/ipfs/bafybei…</span>
+          </div>
+          <p style="margin-top:6px; font-size:12px; color:var(--muted)">Работает всегда, независимо от ENS</p>
+        </div>
+      </div>
+    </div>
+    <div class="callout callout-tip">
+      <div class="callout-icon">🎉</div>
+      <p><strong>Всё готово!</strong> Твой сайт живёт в блокчейне и IPFS. Никто не может его удалить, пока ты продлеваешь домен. Контент на IPFS не исчезнет, пока есть хоть один пиннинг.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ─── Обновление сайта ────────────────────────────────────────── -->
+<div class="wrap" style="margin-bottom:48px">
+  <div class="section-label" style="padding:0">Как обновить сайт</div>
+  <div class="card">
+    <p style="font-size:14px; color:var(--muted2); margin-bottom:16px">Если изменил что-то в сайте — нужно повторить два шага:</p>
+    <div style="display:flex; flex-direction:column; gap:8px">
+      <div style="display:flex; align-items:center; gap:12px; padding:10px 14px; background:var(--bg2); border-radius:10px; border:1px solid var(--border)">
+        <div style="width:28px; height:28px; border-radius:8px; background:rgba(0,209,255,0.15); color:#00d8ff; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:800; flex-shrink:0">1</div>
+        <div style="font-size:14px; color:var(--text)">Загрузи новую версию на <strong>Pinata</strong> → получи новый CID</div>
+      </div>
+      <div style="display:flex; align-items:center; gap:12px; padding:10px 14px; background:var(--bg2); border-radius:10px; border:1px solid var(--border)">
+        <div style="width:28px; height:28px; border-radius:8px; background:rgba(255,69,58,0.15); color:var(--red); display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:800; flex-shrink:0">2</div>
+        <div style="font-size:14px; color:var(--text)">Обнови <strong>Content Hash</strong> в ENS на новый CID (одна транзакция, ~$1–5 газ)</div>
+      </div>
+    </div>
+    <p style="font-size:13px; color:var(--muted); margin-top:14px">Старый контент на IPFS никуда не денется — он просто перестанет быть привязан к домену.</p>
+  </div>
+</div>
+
+<!-- ─── FAQ ───────────────────────────────────────────────────── -->
+<div class="wrap" style="margin-bottom:56px">
+  <div class="section-label" style="padding:0">Частые вопросы</div>
+  <div class="card" style="padding:8px 22px">
+    <div class="faq-item">
+      <div class="faq-q">Транзакция висит «pending» уже 30 минут — что делать?</div>
+      <div class="faq-a">В MetaMask можно ускорить транзакцию: нажми на неё → <strong>Speed Up</strong> → увеличь Gas Price. Или подожди — при низком газе транзакции иногда висят часами, но всё равно проходят.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Сайт не открывается через eth.limo — почему?</div>
+      <div class="faq-a">Подожди 10–15 минут после обновления contenthash — изменения должны распространиться. Если всё равно не работает — проверь что CID введён правильно (formат <code>ipfs://bafybei…</code>) и попробуй открыть напрямую через ipfs.io.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Могу ли я потерять домен?</div>
+      <div class="faq-a">Да, если не продлишь его. ENS даёт 90 дней льготного периода после истечения — можно продлить без потери. После льготного периода имя становится доступным для всех. Следи за датой продления в app.ens.domains.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Что если Pinata закроется или удалит мои файлы?</div>
+      <div class="faq-a">Контент на IPFS распределён — пока существует хоть один «пиннинг», файлы живут. Но если Pinata единственный пиннер — файлы могут стать недоступны. Решение: запинь у нескольких сервисов (<a href="https://web3.storage" target="_blank">web3.storage</a>, <a href="https://nft.storage" target="_blank">nft.storage</a> — бесплатно) или запусти свой IPFS-узел.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Можно ли поставить кириллическое имя?</div>
+      <div class="faq-a">Да! ENS поддерживает интернационализированные домены. <code>мойсайт.eth</code> — валидное ENS-имя. При открытии через eth.limo браузер автоматически конвертирует в punycode.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Зачем нужны две транзакции при регистрации?</div>
+      <div class="faq-a">Это двухшаговый commit-reveal протокол. Защищает от «фронтраннинга» — когда бот видит твой запрос в мемпуле и перехватывает имя. Первая транзакция — «заявка» (без видимого имени), вторая — финальная регистрация.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── Final ──────────────────────────────────────────────────── -->
+<div class="wrap">
+  <div class="final-card">
+    <h2>Ты справился 🎉</h2>
+    <p>Твой сайт теперь живёт в блокчейне. Никакой хостинг не нужен, никто не может его удалить.</p>
+    <div class="final-badges">
+      <div class="fbadge">🌐 ENS домен зарегистрирован</div>
+      <div class="fbadge">📌 Контент на IPFS</div>
+      <div class="fbadge">🔗 Content Hash привязан</div>
+      <div class="fbadge">✅ Работает через eth.limo</div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>ENS + IPFS · Децентрализованный хостинг · 2026</p>
+  <p style="margin-top:6px">Сайты: <a href="https://app.ens.domains" target="_blank">app.ens.domains</a> · <a href="https://app.pinata.cloud" target="_blank">pinata.cloud</a> · <a href="https://metamask.io" target="_blank">metamask.io</a></p>
+</footer>
+
+<script type="module">
+// Nav dots
+const stepIds = ["step1","step2","step3","step4","step5","step6","step7"];
+document.querySelectorAll(".nav-dot").forEach((dot, i) => {
+  dot.title = `Шаг ${i+1}`;
+  dot.addEventListener("click", () => {
+    const el = document.getElementById(stepIds[i]);
+    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+  });
+});
+
+try {
+  const { animate, inView, stagger } = await import("https://cdn.jsdelivr.net/npm/motion@11/+esm");
+
+  inView(".step-section", (el) => {
+    animate(el, { y: [16, 0] }, { duration: 0.45, easing: [0.16, 1, 0.3, 1] });
+  }, { amount: 0.08 });
+
+  inView(".tools-grid", (el) => {
+    animate(el.querySelectorAll(".tool-card"), { y: [10, 0] }, {
+      duration: 0.35, delay: stagger(0.05), easing: [0.16, 1, 0.3, 1]
+    });
+  }, { amount: 0.1 });
+
+  inView(".step-body", (el) => {
+    animate(el.querySelectorAll(".substep"), { x: [-10, 0] }, {
+      duration: 0.35, delay: stagger(0.06), easing: [0.16, 1, 0.3, 1]
+    });
+  }, { amount: 0.05 });
+
+  document.querySelectorAll(".tool-card, .card").forEach(c => {
+    c.addEventListener("mouseenter", () =>
+      animate(c, { y: -2 }, { duration: 0.2, easing: "ease-out" }));
+    c.addEventListener("mouseleave", () =>
+      animate(c, { y: 0 }, { duration: 0.2, easing: "ease-in" }));
+  });
+} catch(e) {}
+</script>
+
+</body>
+</html>
