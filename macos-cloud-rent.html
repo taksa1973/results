@@ -210,6 +210,69 @@
   .vp-sub { font-size: 13px; opacity: 0.6; margin-top: 6px; }
   .vp-note { font-size: 11px; opacity: 0.5; margin-top: 4px; }
 
+  /* Storage security section */
+  .storage-diagram {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;
+  }
+  .phys-box {
+    border-radius: var(--r); padding: 24px; border: 2px dashed rgba(0,0,0,0.12);
+    background: var(--silver-l); position: relative;
+  }
+  .phys-label {
+    font-size: 10px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--t3); margin-bottom: 14px; display: flex; align-items: center; gap: 6px;
+  }
+  .phys-label svg { width: 14px; height: 14px; }
+  .vps-slots { display: flex; flex-direction: column; gap: 8px; }
+  .vps-slot {
+    border-radius: 10px; padding: 10px 14px; border: 1.5px solid var(--border);
+    display: flex; align-items: center; gap: 10px; background: var(--card);
+    font-size: 13px; font-weight: 500;
+  }
+  .vps-slot.yours { border-color: var(--blue); background: var(--blue-l); color: var(--blue); }
+  .vps-slot.other { opacity: 0.5; }
+  .vps-slot.danger { border-color: rgba(255,59,48,0.4); background: var(--red-l); }
+  .slot-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .slot-size { margin-left: auto; font-size: 11px; color: var(--t3); font-weight: 400; }
+
+  .risk-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .risk-item {
+    border-radius: var(--rs); padding: 16px; border: 1px solid var(--border);
+    display: flex; gap: 12px; align-items: flex-start;
+  }
+  .risk-item.high { background: var(--red-l); border-color: rgba(255,59,48,0.2); }
+  .risk-item.med { background: var(--orange-l); border-color: rgba(255,149,0,0.2); }
+  .risk-item.low { background: var(--green-l); border-color: rgba(52,199,89,0.2); }
+  .risk-icon { width: 34px; height: 34px; border-radius: 9px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .risk-icon svg { width: 16px; height: 16px; }
+  .risk-icon.r { background: var(--red); color: white; }
+  .risk-icon.o { background: var(--orange); color: white; }
+  .risk-icon.g { background: var(--green); color: white; }
+  .risk-title { font-size: 13px; font-weight: 700; margin-bottom: 3px; }
+  .risk-desc { font-size: 12px; color: var(--t2); line-height: 1.5; }
+
+  .isolation-compare { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .iso-card { border-radius: var(--rs); overflow: hidden; border: 1px solid var(--border); }
+  .iso-head { padding: 14px 18px; font-size: 13px; font-weight: 700; }
+  .iso-head.bad { background: var(--red-l); color: var(--red); }
+  .iso-head.good { background: var(--green-l); color: var(--green-d); }
+  .iso-body { padding: 14px 18px; background: var(--card); }
+  .iso-row { display: flex; align-items: flex-start; gap: 8px; margin-bottom: 8px; font-size: 13px; line-height: 1.45; }
+  .iso-row:last-child { margin-bottom: 0; }
+  .iso-row svg { width: 14px; height: 14px; flex-shrink: 0; margin-top: 1px; }
+
+  .protect-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; }
+  .protect-card {
+    border-radius: var(--rs); padding: 18px; border: 1px solid var(--border);
+    background: var(--card); transition: transform 200ms ease;
+  }
+  .protect-card:hover { transform: translateY(-2px); box-shadow: var(--sh2); }
+  .protect-icon { width: 38px; height: 38px; border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 12px; }
+  .protect-icon svg { width: 18px; height: 18px; }
+  .protect-title { font-size: 14px; font-weight: 700; margin-bottom: 5px; }
+  .protect-desc { font-size: 12px; color: var(--t2); line-height: 1.55; }
+  .protect-cmd { margin-top: 8px; font-size: 11px; font-family: 'SF Mono','Fira Code',monospace; background: var(--bg); padding: 6px 10px; border-radius: 6px; color: var(--t1); }
+
   /* Linux section */
   .linux-banner {
     background: linear-gradient(135deg, #23272E 0%, #2D3748 100%);
@@ -636,6 +699,302 @@
         <li>Постоянная работа через медленный интернет — VNC лагает</li>
         <li>Сэкономить деньги — Mac в облаке дороже аналогичного Linux VPS</li>
       </ul>
+    </div>
+  </div>
+
+  <!-- Безопасность данных на VPS -->
+  <div class="sec">Где хранятся данные и как это устроено изнутри</div>
+
+  <!-- Диаграмма физическое vs виртуальное -->
+  <div class="storage-diagram">
+
+    <!-- Shared VPS -->
+    <div class="phys-box">
+      <div class="phys-label">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/></svg>
+        Один физический диск (SSD 2 TB)
+      </div>
+      <div style="font-size:11px;color:var(--t2);margin-bottom:12px;line-height:1.5;">Гипервизор (KVM/Xen) нарезает диск на виртуальные образы. Каждый VPS видит только свой раздел — но физически они рядом.</div>
+      <div class="vps-slots">
+        <div class="vps-slot yours">
+          <div class="slot-dot" style="background:var(--blue);"></div>
+          Ваш VPS — worker_01
+          <span class="slot-size">80 GB</span>
+        </div>
+        <div class="vps-slot other">
+          <div class="slot-dot" style="background:var(--t3);"></div>
+          Чужой клиент А
+          <span class="slot-size">40 GB</span>
+        </div>
+        <div class="vps-slot other">
+          <div class="slot-dot" style="background:var(--t3);"></div>
+          Чужой клиент Б
+          <span class="slot-size">80 GB</span>
+        </div>
+        <div class="vps-slot other">
+          <div class="slot-dot" style="background:var(--t3);"></div>
+          Чужой клиент В
+          <span class="slot-size">120 GB</span>
+        </div>
+      </div>
+      <div style="margin-top:14px;padding:10px 12px;background:var(--orange-l);border-radius:10px;font-size:12px;color:var(--orange);line-height:1.5;">
+        <strong>Shared VPS:</strong> данные изолированы гипервизором, но физически на одном диске с чужими данными
+      </div>
+    </div>
+
+    <!-- Dedicated -->
+    <div class="phys-box" style="border-color:rgba(52,199,89,0.3);background:var(--green-l);">
+      <div class="phys-label" style="color:var(--green-d);">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/></svg>
+        Выделенный физический сервер (дедик)
+      </div>
+      <div style="font-size:11px;color:var(--green-d);margin-bottom:12px;line-height:1.5;opacity:0.8;">Весь физический сервер — только ваш. Никаких соседей. Провайдер не может получить данные без физического доступа к железу.</div>
+      <div class="vps-slots">
+        <div class="vps-slot yours" style="border-color:var(--green);background:white;">
+          <div class="slot-dot" style="background:var(--green);"></div>
+          Ваши данные — 100% диска
+          <span class="slot-size">512 GB NVMe</span>
+        </div>
+        <div style="padding:10px 14px;border-radius:10px;border:1.5px dashed rgba(52,199,89,0.3);font-size:12px;color:var(--green-d);text-align:center;margin-top:4px;">
+          Больше никого
+        </div>
+      </div>
+      <div style="margin-top:14px;padding:10px 12px;background:rgba(52,199,89,0.15);border-radius:10px;font-size:12px;color:var(--green-d);line-height:1.5;">
+        <strong>Dedicated:</strong> физическая изоляция — никаких соседей, только ваше железо
+      </div>
+    </div>
+  </div>
+
+  <!-- Риски -->
+  <div class="card" style="margin-bottom:16px;">
+    <div style="font-size:15px;font-weight:700;margin-bottom:16px;">Кто и что может видеть — реальные риски</div>
+    <div class="risk-grid">
+
+      <div class="risk-item high">
+        <div class="risk-icon r">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/></svg>
+        </div>
+        <div>
+          <div class="risk-title">Провайдер имеет физический доступ к диску</div>
+          <div class="risk-desc">Hetzner, Contabo, AWS — их сотрудники имеют физический доступ к железу. Без шифрования диска (LUKS) они теоретически могут снять образ VM и прочитать файлы. Это применимо ко всем облачным провайдерам.</div>
+        </div>
+      </div>
+
+      <div class="risk-item high">
+        <div class="risk-icon r">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        </div>
+        <div>
+          <div class="risk-title">Снапшоты и бэкапы у провайдера</div>
+          <div class="risk-desc">Hetzner Snapshot, AWS EBS Snapshot — резервные копии хранятся в инфраструктуре провайдера. Если данные не зашифрованы до снапшота, провайдер читает их как открытый файл.</div>
+        </div>
+      </div>
+
+      <div class="risk-item med">
+        <div class="risk-icon o">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><circle cx="12" cy="20" r="1"/></svg>
+        </div>
+        <div>
+          <div class="risk-title">Трафик внутри дата-центра</div>
+          <div class="risk-desc">Трафик между VPS одного провайдера по внутренней сети (например, от VPS к БД) может быть не зашифрован. Другие клиенты не видят его, но провайдер — потенциально да. Решение: TLS везде + WireGuard/Tailscale между машинами.</div>
+        </div>
+      </div>
+
+      <div class="risk-item med">
+        <div class="risk-icon o">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+        </div>
+        <div>
+          <div class="risk-title">Hypervisor escape (теоретически)</div>
+          <div class="risk-desc">Критические уязвимости в гипервизоре (редкие, но существуют: Spectre, Meltdown, VENOM) могут позволить злоумышленнику из соседней VM прочитать память вашей. На Dedicated-сервере этого риска нет.</div>
+        </div>
+      </div>
+
+      <div class="risk-item low">
+        <div class="risk-icon g">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <div>
+          <div class="risk-title">Другие клиенты не видят ваши данные</div>
+          <div class="risk-desc">На уровне гипервизора — полная изоляция. Клиент A не может прочитать диск клиента B. Это гарантирует сам механизм виртуализации (KVM/Xen). Реальных массовых утечек через гипервизор не зафиксировано.</div>
+        </div>
+      </div>
+
+      <div class="risk-item low">
+        <div class="risk-icon g">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <div>
+          <div class="risk-title">1 VPS на человека = изоляция между сотрудниками</div>
+          <div class="risk-desc">При схеме «1 VPS на 1 сотрудник» — если один взломан, данные остальных 39 не скомпрометированы. Это главное преимущество перед Terminal Server, где все 40 на одной машине.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Изоляция: 1 VPS на человека vs Terminal Server -->
+  <div class="card" style="margin-bottom:16px;">
+    <div style="font-size:15px;font-weight:700;margin-bottom:14px;">Изоляция данных: 40 VPS vs 1 Terminal Server</div>
+    <div class="isolation-compare">
+      <div class="iso-card">
+        <div class="iso-head bad">✗ Terminal Server — 1 сервер на всех</div>
+        <div class="iso-body">
+          <div class="iso-row">
+            <svg viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            Все 40 пользователей — один диск, одна ОС
+          </div>
+          <div class="iso-row">
+            <svg viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            Взлом одной учётки = доступ к данным всех
+          </div>
+          <div class="iso-row">
+            <svg viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            Один IP у всех сотрудников — легко заблокировать
+          </div>
+          <div class="iso-row">
+            <svg viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            Данные уволенного не изолировать без сброса всей системы
+          </div>
+          <div class="iso-row">
+            <svg viewBox="0 0 24 24" fill="none" stroke="var(--orange)" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+            Дёшево (€150–200/мес) — но провал по безопасности
+          </div>
+        </div>
+      </div>
+      <div class="iso-card">
+        <div class="iso-head good">✓ 40 VPS — один на человека</div>
+        <div class="iso-body">
+          <div class="iso-row">
+            <svg viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            Каждый сотрудник — изолированная ОС и диск
+          </div>
+          <div class="iso-row">
+            <svg viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            Взлом одного → 39 остальных не затронуты
+          </div>
+          <div class="iso-row">
+            <svg viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            У каждого свой IP — разные геолокации, нет блокировки
+          </div>
+          <div class="iso-row">
+            <svg viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            Увольнение = Delete VPS → данные уничтожены за секунду
+          </div>
+          <div class="iso-row">
+            <svg viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            €524/мес — правильная архитектура безопасности
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Как защитить данные -->
+  <div class="card" style="margin-bottom:16px;">
+    <div style="font-size:15px;font-weight:700;margin-bottom:14px;">Как защитить данные на VPS — 6 уровней</div>
+    <div class="protect-grid">
+
+      <div class="protect-card">
+        <div class="protect-icon" style="background:var(--blue-l);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        </div>
+        <div class="protect-title">LUKS — шифрование диска</div>
+        <div class="protect-desc">Данные на диске шифруются. Без пароля — провайдер видит только случайные байты, даже сняв образ VM. Защищает от физического доступа к железу.</div>
+        <div class="protect-cmd">cryptsetup luksFormat /dev/sda</div>
+      </div>
+
+      <div class="protect-card">
+        <div class="protect-icon" style="background:var(--green-l);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--green-d)" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div class="protect-title">TLS везде внутри сети</div>
+        <div class="protect-desc">Весь трафик между VPS (к БД, к API, к файловому серверу) — только через TLS 1.3. Даже если провайдер слушает внутреннюю сеть — видит зашифрованный поток.</div>
+        <div class="protect-cmd">certbot, Let's Encrypt, mTLS</div>
+      </div>
+
+      <div class="protect-card">
+        <div class="protect-icon" style="background:var(--purple-l);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--purple)" stroke-width="2"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><circle cx="12" cy="20" r="1"/></svg>
+        </div>
+        <div class="protect-title">Tailscale — шифрование трафика между VPS</div>
+        <div class="protect-desc">WireGuard-туннель между всеми 40 машинами. Трафик между сотрудниками идёт зашифрованным каналом — провайдер не может его прочитать.</div>
+        <div class="protect-cmd">tailscale up --hostname=worker01</div>
+      </div>
+
+      <div class="protect-card">
+        <div class="protect-icon" style="background:var(--orange-l);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--orange)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        </div>
+        <div class="protect-title">Зашифрованные бэкапы</div>
+        <div class="protect-desc">Перед загрузкой на облако бэкап шифруется GPG-ключом клиента. Провайдер хранит зашифрованный архив — без приватного ключа он бесполезен.</div>
+        <div class="protect-cmd">gpg --encrypt --recipient KEY backup.tar</div>
+      </div>
+
+      <div class="protect-card">
+        <div class="protect-icon" style="background:var(--red-l);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+        </div>
+        <div class="protect-title">Принцип минимальных прав</div>
+        <div class="protect-desc">Каждый сотрудник видит только свои данные. Никаких общих папок без необходимости. Файловый сервер с RBAC — вместо расшаренного диска.</div>
+        <div class="protect-cmd">chmod 700 /home/worker · chown worker</div>
+      </div>
+
+      <div class="protect-card">
+        <div class="protect-icon" style="background:var(--silver-l);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--silver)" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <div class="protect-title">Аудит доступа к файлам</div>
+        <div class="protect-desc">auditd фиксирует кто, когда и к каким файлам обращался. При инциденте — полная цепочка событий. Логи отправляются на отдельный сервер.</div>
+        <div class="protect-cmd">auditctl -w /data -p rwxa -k data_access</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Итоговая схема уровней доверия -->
+  <div class="card" style="padding:0;margin-bottom:0;">
+    <div style="padding:22px 24px 0;font-size:15px;font-weight:700;margin-bottom:14px;">Уровни доверия: кто что видит</div>
+    <div style="overflow-x:auto;">
+      <table style="width:100%;border-collapse:collapse;font-size:13px;">
+        <thead>
+          <tr>
+            <th style="text-align:left;padding:10px 18px;font-size:11px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--t3);border-bottom:1px solid var(--border);">Кто</th>
+            <th style="text-align:left;padding:10px 18px;font-size:11px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--t3);border-bottom:1px solid var(--border);">Без шифрования</th>
+            <th style="text-align:left;padding:10px 18px;font-size:11px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--t3);border-bottom:1px solid var(--border);">С LUKS + TLS + Tailscale</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:13px 18px;font-weight:600;">Другой клиент провайдера</td>
+            <td style="padding:13px 18px;color:var(--green-d);">✓ Не видит (гипервизор)</td>
+            <td style="padding:13px 18px;color:var(--green-d);">✓ Не видит</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:13px 18px;font-weight:600;">Другой сотрудник компании</td>
+            <td style="padding:13px 18px;color:var(--orange);">⚠ Видит если Terminal Server</td>
+            <td style="padding:13px 18px;color:var(--green-d);">✓ Не видит (1 VPS на чел)</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:13px 18px;font-weight:600;">Сотрудник провайдера</td>
+            <td style="padding:13px 18px;color:var(--red);">✗ Видит диск через гипервизор</td>
+            <td style="padding:13px 18px;color:var(--green-d);">✓ Видит только зашифрованные байты</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:13px 18px;font-weight:600;">Государство / следователь</td>
+            <td style="padding:13px 18px;color:var(--red);">✗ Запрос провайдеру = данные</td>
+            <td style="padding:13px 18px;color:var(--orange);">⚠ Получат зашифрованный диск (без ключа — бесполезно)</td>
+          </tr>
+          <tr>
+            <td style="padding:13px 18px;font-weight:600;">Хакер (взлом через сеть)</td>
+            <td style="padding:13px 18px;color:var(--red);">✗ При уязвимости — полный доступ</td>
+            <td style="padding:13px 18px;color:var(--orange);">⚠ Только данные своей машины (изоляция по VPS)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="padding:14px 18px;background:var(--blue-l);border-top:1px solid var(--border);">
+      <span style="font-size:13px;color:var(--blue);font-weight:500;">Вывод: LUKS + TLS + Tailscale закрывают 90% векторов утечки данных при разумных усилиях.</span>
     </div>
   </div>
 
