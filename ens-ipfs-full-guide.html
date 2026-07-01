@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>ENS + IPFS — Полный гайд по децентрализованному хостингу</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;500;600;700&family=Orbitron:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --bg: #0F172A;
+    --surface: #1E293B;
+    --surface2: #253347;
+    --gold: #F59E0B;
+    --gold-dim: rgba(245,158,11,0.12);
+    --purple: #8B5CF6;
+    --purple-dim: rgba(139,92,246,0.12);
+    --green: #10B981;
+    --green-dim: rgba(16,185,129,0.12);
+    --red: #EF4444;
+    --red-dim: rgba(239,68,68,0.12);
+    --blue: #3B82F6;
+    --blue-dim: rgba(59,130,246,0.12);
+    --text: #F8FAFC;
+    --muted: #94A3B8;
+    --border: #334155;
+    --radius: 16px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Exo 2', sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+  h1, h2, h3, h4 { font-family: 'Orbitron', sans-serif; letter-spacing: -0.02em; }
+
+  /* NAV */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(15,23,42,0.85);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+    padding: 16px 24px;
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 12px;
+  }
+  .nav-brand {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 15px; font-weight: 700;
+    color: var(--gold);
+    text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 8px; flex-wrap: wrap; }
+  .nav-links a {
+    color: var(--muted); text-decoration: none;
+    font-size: 13px; font-weight: 500;
+    padding: 6px 12px; border-radius: 8px;
+    transition: all 0.2s;
+    cursor: pointer;
+  }
+  .nav-links a:hover { color: var(--text); background: var(--surface); }
+
+  /* LAYOUT */
+  .container { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+  section { padding: 72px 0; }
+
+  /* HERO */
+  .hero {
+    padding: 96px 0 72px;
+    text-align: center;
+    position: relative;
+  }
+  .hero-badge {
+    display: inline-block;
+    background: var(--gold-dim);
+    border: 1px solid rgba(245,158,11,0.3);
+    color: var(--gold);
+    font-size: 12px; font-weight: 700;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    padding: 6px 16px; border-radius: 100px;
+    margin-bottom: 24px;
+  }
+  .hero h1 {
+    font-size: clamp(32px, 6vw, 60px);
+    font-weight: 700; line-height: 1.1;
+    margin-bottom: 20px;
+  }
+  .hero h1 span { color: var(--gold); }
+  .hero p {
+    font-size: 18px; color: var(--muted);
+    max-width: 600px; margin: 0 auto 40px;
+  }
+  .hero-stats {
+    display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;
+    margin-top: 40px;
+  }
+  .hero-stat {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px 24px;
+    text-align: center;
+  }
+  .hero-stat .val { font-size: 24px; font-weight: 700; font-family: 'Orbitron', sans-serif; color: var(--gold); }
+  .hero-stat .lbl { font-size: 12px; color: var(--muted); margin-top: 4px; }
+
+  /* SECTION TITLE */
+  .section-label {
+    font-size: 11px; font-weight: 700; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--gold);
+    margin-bottom: 12px;
+  }
+  .section-title {
+    font-size: clamp(24px, 4vw, 36px);
+    font-weight: 700; margin-bottom: 12px;
+  }
+  .section-sub {
+    color: var(--muted); font-size: 16px;
+    max-width: 640px; margin-bottom: 40px;
+  }
+
+  /* CARDS */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px;
+  }
+  .card-grid { display: grid; gap: 20px; }
+  .card-grid.cols-2 { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+  .card-grid.cols-3 { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+
+  /* STEPS */
+  .steps { display: flex; flex-direction: column; gap: 0; }
+  .step {
+    display: flex; gap: 24px;
+    padding: 32px 0;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+  }
+  .step:last-child { border-bottom: none; }
+  .step-num {
+    flex-shrink: 0;
+    width: 44px; height: 44px;
+    background: var(--gold-dim);
+    border: 1.5px solid rgba(245,158,11,0.4);
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 16px; font-weight: 700; color: var(--gold);
+  }
+  .step-content { flex: 1; }
+  .step-title { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
+  .step-body { color: var(--muted); font-size: 15px; }
+  .step-body strong { color: var(--text); }
+
+  /* CODE BLOCK */
+  .code {
+    background: #0a1020;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 20px;
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    font-size: 13px;
+    color: #a5f3fc;
+    margin-top: 12px;
+    overflow-x: auto;
+    white-space: pre;
+  }
+
+  /* CALLOUT */
+  .callout {
+    display: flex; gap: 14px; align-items: flex-start;
+    border-radius: 12px; padding: 16px 20px;
+    margin-top: 14px;
+    font-size: 14px;
+  }
+  .callout.tip { background: var(--green-dim); border: 1px solid rgba(16,185,129,0.25); color: #6ee7b7; }
+  .callout.warn { background: rgba(245,158,11,0.08); border: 1px solid rgba(245,158,11,0.25); color: #fcd34d; }
+  .callout.info { background: var(--blue-dim); border: 1px solid rgba(59,130,246,0.25); color: #93c5fd; }
+  .callout.danger { background: var(--red-dim); border: 1px solid rgba(239,68,68,0.25); color: #fca5a5; }
+  .callout-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+
+  /* FLOW DIAGRAM */
+  .flow {
+    display: flex; align-items: center; flex-wrap: wrap;
+    gap: 0; margin: 24px 0;
+  }
+  .flow-step {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 18px;
+    font-size: 13px; font-weight: 600;
+    text-align: center;
+    min-width: 120px;
+  }
+  .flow-arrow {
+    color: var(--gold); font-size: 20px;
+    padding: 0 8px; flex-shrink: 0;
+  }
+
+  /* TABLE */
+  .table-wrap { overflow-x: auto; margin-top: 20px; }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  th {
+    background: var(--surface2); color: var(--muted);
+    font-weight: 600; font-size: 12px; letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 12px 16px; text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+  td { padding: 12px 16px; border-bottom: 1px solid rgba(51,65,85,0.5); vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  .tag {
+    display: inline-block; font-size: 11px; font-weight: 700;
+    padding: 3px 8px; border-radius: 6px; letter-spacing: 0.04em;
+  }
+  .tag.green { background: var(--green-dim); color: var(--green); }
+  .tag.gold { background: var(--gold-dim); color: var(--gold); }
+  .tag.purple { background: var(--purple-dim); color: var(--purple); }
+  .tag.red { background: var(--red-dim); color: var(--red); }
+  .tag.blue { background: var(--blue-dim); color: var(--blue); }
+
+  /* GAS SECTION */
+  .gas-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; margin-top: 24px; }
+  .gas-card {
+    border-radius: 16px; padding: 24px;
+    border: 1px solid;
+  }
+  .gas-card.no-gas { background: var(--green-dim); border-color: rgba(16,185,129,0.3); }
+  .gas-card.yes-gas { background: var(--gold-dim); border-color: rgba(245,158,11,0.3); }
+  .gas-card h3 { font-size: 15px; margin-bottom: 12px; }
+  .gas-card.no-gas h3 { color: var(--green); }
+  .gas-card.yes-gas h3 { color: var(--gold); }
+  .gas-item { display: flex; gap: 8px; font-size: 14px; color: var(--muted); margin-bottom: 8px; }
+  .gas-item svg { flex-shrink: 0; margin-top: 2px; }
+
+  /* REDUNDANCY */
+  .server-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-top: 24px; }
+  .server-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px; padding: 20px;
+    transition: border-color 0.2s, transform 0.2s;
+    cursor: default;
+  }
+  .server-card:hover { border-color: rgba(245,158,11,0.4); transform: translateY(-2px); }
+  .server-name { font-weight: 700; font-size: 15px; margin-bottom: 4px; }
+  .server-loc { font-size: 12px; color: var(--muted); margin-bottom: 10px; }
+  .server-loc span { color: var(--gold); }
+  .server-free { font-size: 12px; }
+
+  /* LIMO */
+  .limo-flow {
+    display: flex; flex-direction: column; gap: 0;
+    margin: 24px 0;
+  }
+  .limo-row {
+    display: flex; align-items: center; gap: 16px;
+    padding: 16px 0;
+    border-bottom: 1px solid rgba(51,65,85,0.4);
+  }
+  .limo-row:last-child { border-bottom: none; }
+  .limo-icon {
+    width: 40px; height: 40px; flex-shrink: 0;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+    background: var(--surface2);
+  }
+  .limo-text strong { display: block; font-size: 14px; font-weight: 600; margin-bottom: 2px; }
+  .limo-text span { font-size: 13px; color: var(--muted); }
+
+  /* PERFORMANCE */
+  .perf-bar-wrap { margin: 8px 0; }
+  .perf-label { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 6px; }
+  .perf-bar { height: 8px; border-radius: 4px; background: var(--surface2); overflow: hidden; }
+  .perf-fill { height: 100%; border-radius: 4px; }
+
+  /* FAQ */
+  .faq { display: flex; flex-direction: column; gap: 12px; margin-top: 24px; }
+  .faq-item { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; }
+  .faq-q {
+    padding: 18px 24px;
+    font-weight: 600; font-size: 15px;
+    cursor: pointer;
+    display: flex; justify-content: space-between; align-items: center;
+    user-select: none;
+    transition: background 0.15s;
+  }
+  .faq-q:hover { background: var(--surface2); }
+  .faq-q .arrow { color: var(--gold); font-size: 18px; transition: transform 0.25s; }
+  .faq-a { padding: 0 24px 18px; color: var(--muted); font-size: 14px; line-height: 1.7; display: none; }
+  .faq-item.open .faq-a { display: block; }
+  .faq-item.open .arrow { transform: rotate(180deg); }
+
+  /* COST TABLE */
+  .cost-row { display: flex; justify-content: space-between; align-items: center; padding: 14px 0; border-bottom: 1px solid rgba(51,65,85,0.4); }
+  .cost-row:last-child { border-bottom: none; }
+  .cost-name { font-size: 14px; font-weight: 500; }
+  .cost-val { font-size: 14px; font-weight: 700; color: var(--gold); }
+
+  /* DIVIDER */
+  .divider { border: none; border-top: 1px solid var(--border); margin: 0; }
+
+  /* FOOTER */
+  footer {
+    text-align: center; padding: 48px 24px;
+    color: var(--muted); font-size: 13px;
+    border-top: 1px solid var(--border);
+  }
+  footer a { color: var(--gold); text-decoration: none; }
+
+  /* UTIL */
+  .mt-16 { margin-top: 16px; }
+  .mt-24 { margin-top: 24px; }
+  .glow-gold { text-shadow: 0 0 30px rgba(245,158,11,0.4); }
+  .glow-purple { text-shadow: 0 0 30px rgba(139,92,246,0.4); }
+
+  @media (max-width: 600px) {
+    .flow { flex-direction: column; align-items: flex-start; }
+    .flow-arrow { transform: rotate(90deg); }
+    .step { flex-direction: column; gap: 16px; }
+    .hero h1 { font-size: 28px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-brand" href="#">ENS + IPFS</a>
+  <div class="nav-links">
+    <a onclick="document.getElementById('what').scrollIntoView({behavior:'smooth'})">Суть</a>
+    <a onclick="document.getElementById('limo').scrollIntoView({behavior:'smooth'})">eth.limo</a>
+    <a onclick="document.getElementById('guide').scrollIntoView({behavior:'smooth'})">Гайд</a>
+    <a onclick="document.getElementById('redundancy').scrollIntoView({behavior:'smooth'})">Резервирование</a>
+    <a onclick="document.getElementById('gas').scrollIntoView({behavior:'smooth'})">Газ</a>
+    <a onclick="document.getElementById('faq').scrollIntoView({behavior:'smooth'})">FAQ</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="container">
+    <div class="hero-badge">Децентрализованный хостинг</div>
+    <h1>ENS + IPFS — <span class="glow-gold">сайт навсегда</span><br/>без серверов и цензуры</h1>
+    <p>Полный гайд: как опубликовать сайт на блокчейне, что такое eth.limo, как работает резервирование и когда нужен газ</p>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="val">$20–35</div>
+        <div class="lbl">стоимость запуска</div>
+      </div>
+      <div class="hero-stat">
+        <div class="val">0 газа</div>
+        <div class="lbl">бэкенд + БД</div>
+      </div>
+      <div class="hero-stat">
+        <div class="val">∞ серверов</div>
+        <div class="lbl">IPFS-пинеров</div>
+      </div>
+      <div class="hero-stat">
+        <div class="val">217×</div>
+        <div class="lbl">медленнее TTFB vs local</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- SECTION: ЧТО ЭТО -->
+  <section id="what">
+    <div class="section-label">Основы</div>
+    <h2 class="section-title">Как это работает в целом</h2>
+    <p class="section-sub">ENS — это имя (домен) на блокчейне. IPFS — это распределённое хранилище файлов. Вместе они дают сайт без единого сервера.</p>
+
+    <div class="flow">
+      <div class="flow-step">Браузер<br/><small style="color:var(--muted)">пользователь</small></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">eth.limo<br/><small style="color:var(--muted)">шлюз HTTP→ENS</small></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">ENS<br/><small style="color:var(--muted)">Ethereum</small></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">IPFS CID<br/><small style="color:var(--muted)">хэш файлов</small></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">Файлы<br/><small style="color:var(--muted)">Pinata / узлы</small></div>
+    </div>
+
+    <div class="card-grid cols-3 mt-24">
+      <div class="card">
+        <div style="font-size:28px;margin-bottom:12px">🌐</div>
+        <h3 style="font-size:15px;margin-bottom:8px">ENS-домен</h3>
+        <p style="font-size:14px;color:var(--muted)">Имя вида <strong style="color:var(--text)">site.eth</strong> — запись в смарт-контракте Ethereum. Содержит IPFS-хэш твоего сайта. Покупается раз в год.</p>
+      </div>
+      <div class="card">
+        <div style="font-size:28px;margin-bottom:12px">📦</div>
+        <h3 style="font-size:15px;margin-bottom:8px">IPFS-хранилище</h3>
+        <p style="font-size:14px;color:var(--muted)">Файлы сайта хранятся по <strong style="color:var(--text)">CID</strong> — хэшу содержимого. Любой узел, у которого есть твои файлы, может их отдать.</p>
+      </div>
+      <div class="card">
+        <div style="font-size:28px;margin-bottom:12px">🔗</div>
+        <h3 style="font-size:15px;margin-bottom:8px">Contenthash</h3>
+        <p style="font-size:14px;color:var(--muted)">В ENS-записи хранится <strong style="color:var(--text)">ipfs://CID</strong>. Когда обновляешь сайт — меняешь эту запись. Это и есть транзакция с газом.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider"/>
+
+  <!-- SECTION: ETH.LIMO -->
+  <section id="limo">
+    <div class="section-label">eth.limo</div>
+    <h2 class="section-title">Что такое eth.limo</h2>
+    <p class="section-sub">eth.limo — это HTTP-шлюз. Он переводит ENS-домены в обычные веб-адреса. Не регистратор, не провайдер, не ISP.</p>
+
+    <div class="card">
+      <div class="limo-flow">
+        <div class="limo-row">
+          <div class="limo-icon">🧑‍💻</div>
+          <div class="limo-text">
+            <strong>Пользователь открывает site.eth.limo</strong>
+            <span>Обычный HTTPS-запрос, любой браузер без расширений</span>
+          </div>
+        </div>
+        <div class="limo-row">
+          <div class="limo-icon" style="background:var(--gold-dim)">🔍</div>
+          <div class="limo-text">
+            <strong>eth.limo читает ENS-запись на Ethereum</strong>
+            <span>Находит поле contenthash: ipfs://Qm... или /ipfs/baf...</span>
+          </div>
+        </div>
+        <div class="limo-row">
+          <div class="limo-icon" style="background:var(--purple-dim)">📡</div>
+          <div class="limo-text">
+            <strong>Загружает файлы из IPFS по CID</strong>
+            <span>Обращается к пинерам (Pinata, Web3.storage и т.д.), получает данные</span>
+          </div>
+        </div>
+        <div class="limo-row">
+          <div class="limo-icon" style="background:var(--green-dim)">✅</div>
+          <div class="limo-text">
+            <strong>Отдаёт HTML/CSS/JS пользователю</strong>
+            <span>Как обычный сервер, только содержимое пришло из IPFS</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout info mt-16">
+      <span class="callout-icon">ℹ️</span>
+      <span><strong>.limo — это не зона доменов</strong>. .limo как TLD — это домены для лимузинных компаний. eth.limo — отдельный сервис от сообщества ENS. Они никак не связаны.</span>
+    </div>
+
+    <div class="card-grid cols-2 mt-24">
+      <div class="card">
+        <h3 style="font-size:14px;color:var(--green);margin-bottom:12px">✓ Что умеет eth.limo</h3>
+        <ul style="font-size:14px;color:var(--muted);padding-left:16px;line-height:2">
+          <li>Резолвить ENS → IPFS → HTTP</li>
+          <li>Работает в любом браузере без MetaMask</li>
+          <li>Поддерживает <strong style="color:var(--text)">contenthash</strong> и EIP-3668</li>
+          <li>HTTPS-сертификат (через Cloudflare)</li>
+          <li>Открытый исходный код</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3 style="font-size:14px;color:var(--red);margin-bottom:12px">✗ Что eth.limo не делает</h3>
+        <ul style="font-size:14px;color:var(--muted);padding-left:16px;line-height:2">
+          <li>Не регистрирует домены</li>
+          <li>Не хранит твои файлы</li>
+          <li>Не провайдер интернета</li>
+          <li>Не защищает от РКН (сам шлюз может быть заблокирован)</li>
+          <li>Не ускоряет IPFS-загрузку</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card mt-24">
+      <h3 style="font-size:16px;margin-bottom:16px">Скорость загрузки vs обычный хостинг</h3>
+      <div style="font-size:13px;color:var(--muted);margin-bottom:20px">Реальные измерения одного и того же сайта через Lighthouse</div>
+      <div class="perf-bar-wrap">
+        <div class="perf-label"><span>TTFB — Localhost</span><span style="color:var(--green)">10 мс</span></div>
+        <div class="perf-bar"><div class="perf-fill" style="width:0.5%;background:var(--green)"></div></div>
+      </div>
+      <div class="perf-bar-wrap" style="margin-top:12px">
+        <div class="perf-label"><span>TTFB — eth.limo</span><span style="color:var(--red)">2 175 мс</span></div>
+        <div class="perf-bar"><div class="perf-fill" style="width:100%;background:var(--red)"></div></div>
+      </div>
+      <div class="perf-bar-wrap" style="margin-top:12px">
+        <div class="perf-label"><span>FCP — Localhost</span><span style="color:var(--green)">652 мс</span></div>
+        <div class="perf-bar"><div class="perf-fill" style="width:12%;background:var(--green)"></div></div>
+      </div>
+      <div class="perf-bar-wrap" style="margin-top:12px">
+        <div class="perf-label"><span>FCP — eth.limo</span><span style="color:var(--red)">5 248 мс</span></div>
+        <div class="perf-bar"><div class="perf-fill" style="width:100%;background:var(--red)"></div></div>
+      </div>
+      <div class="callout warn" style="margin-top:20px">
+        <span class="callout-icon">⚠️</span>
+        <span>eth.limo медленнее в <strong>217 раз</strong> по TTFB. Для высоконагруженных проектов — детектируй скорость соединения и отдавай CDN-версию быстрым пользователям, IPFS-версию — остальным.</span>
+      </div>
+      <div class="code" style="margin-top:12px">if (navigator.connection?.effectiveType === '4g') {
+  window.location.href = 'https://твой-cdn.com';
+} // иначе остаёмся на IPFS</div>
+    </div>
+  </section>
+
+  <hr class="divider"/>
+
+  <!-- SECTION: ПОЛНЫЙ ГАЙД -->
+  <section id="guide">
+    <div class="section-label">Пошаговый гайд</div>
+    <h2 class="section-title">Как запустить сайт на ENS</h2>
+    <p class="section-sub">От нуля до работающего сайта. Для тех, кто ни разу не работал с Web3.</p>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <div class="step-title">Установи MetaMask</div>
+          <div class="step-body">
+            Скачай расширение <strong><a href="https://metamask.io" style="color:var(--gold)">MetaMask</a></strong> для Chrome/Firefox. Это твой крипто-кошелёк.
+            Создай новый кошелёк, запиши <strong>seed-фразу из 12 слов</strong> на бумаге — это единственный способ восстановить доступ.
+            <div class="callout danger">
+              <span class="callout-icon">🚨</span>
+              <span>Seed-фраза — это твои деньги. Никому не давай, не фотографируй, не сохраняй в облако.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <div class="step-title">Купи ETH</div>
+          <div class="step-body">
+            Нужно примерно <strong>$25–35 в ETH</strong>. Купи на любой бирже (<a href="https://www.binance.com" style="color:var(--gold)">Binance</a>, Bybit, OKX) и выведи на адрес MetaMask.
+            <div class="callout warn">
+              <span class="callout-icon">⚠️</span>
+              <span>При выводе выбирай сеть <strong>Ethereum (ERC-20)</strong> — не BSC, не Polygon, именно Ethereum mainnet.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <div class="step-title">Купи ENS-домен</div>
+          <div class="step-body">
+            Зайди на <strong><a href="https://app.ens.domains" style="color:var(--gold)">app.ens.domains</a></strong>, подключи MetaMask, найди свободное имя (например <code style="color:var(--gold)">mysite.eth</code>).
+            <div class="table-wrap">
+              <table style="margin-top:12px">
+                <thead>
+                  <tr>
+                    <th>Что</th>
+                    <th>Стоимость</th>
+                    <th>Тип</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td>Домен 5+ символов / год</td><td>~$5/год</td><td><span class="tag gold">разово + газ</span></td></tr>
+                  <tr><td>Домен 4 символа / год</td><td>~$160/год</td><td><span class="tag gold">дорого</span></td></tr>
+                  <tr><td>Домен 3 символа / год</td><td>~$640/год</td><td><span class="tag red">очень дорого</span></td></tr>
+                  <tr><td>Газ на регистрацию</td><td>$5–15</td><td><span class="tag purple">gas fee</span></td></tr>
+                  <tr><td>Газ на обновление сайта</td><td>$2–8</td><td><span class="tag purple">каждый деплой</span></td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="callout tip">
+              <span class="callout-icon">💡</span>
+              <span>Регистрируй сразу на <strong>3–5 лет</strong> — меньше транзакций с газом.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-content">
+          <div class="step-title">Собери сайт для IPFS</div>
+          <div class="step-body">
+            Для React/Vite — настрой <strong>HashRouter</strong> (не BrowserRouter), иначе страницы кроме главной не откроются.
+            Все пути к ассетам должны быть <strong>относительными</strong> (<code style="color:var(--gold)">./assets/</code>, не <code style="color:var(--red)">/assets/</code>).
+            <div class="code">// vite.config.js
+export default {
+  base: './',  // ← обязательно для IPFS
+}
+
+// App.jsx — HashRouter вместо BrowserRouter
+import { HashRouter } from 'react-router-dom'</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">5</div>
+        <div class="step-content">
+          <div class="step-title">Загрузи файлы на Pinata</div>
+          <div class="step-body">
+            Зайди на <strong><a href="https://pinata.cloud" style="color:var(--gold)">pinata.cloud</a></strong>, зарегистрируйся, нажми <strong>Upload → Folder</strong>, выбери папку <code style="color:var(--gold)">dist/</code>.
+            После загрузки Pinata даст тебе <strong>CID</strong> — хэш вида <code style="color:var(--gold)">bafybeif...</code>
+            <div class="callout tip">
+              <span class="callout-icon">💡</span>
+              <span>Pinata даёт <strong>1 GB бесплатно</strong>. Для большинства сайтов хватает. Позже добавь ещё пинеров для резервирования.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">6</div>
+        <div class="step-content">
+          <div class="step-title">Пропиши contenthash в ENS</div>
+          <div class="step-body">
+            В <a href="https://app.ens.domains" style="color:var(--gold)">app.ens.domains</a> найди свой домен → Edit Records → <strong>Content Hash</strong>.
+            Вставь CID в формате:
+            <div class="code">ipfs://bafybeif...твой_CID_от_Pinata</div>
+            Подтверди транзакцию в MetaMask. Это будет стоить газ ($2–8).
+            <div class="callout info">
+              <span class="callout-icon">ℹ️</span>
+              <span>После записи изменение видно через 1–10 минут (время финализации блока Ethereum).</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">7</div>
+        <div class="step-content">
+          <div class="step-title">Проверь сайт</div>
+          <div class="step-body">
+            Открой <code style="color:var(--gold)">твойдомен.eth.limo</code> в браузере.
+            Если всё ок — сайт работает без MetaMask, через обычный HTTPS.
+            <div class="card-grid cols-2" style="margin-top:16px">
+              <div style="background:var(--green-dim);border:1px solid rgba(16,185,129,0.25);border-radius:10px;padding:14px">
+                <div style="font-size:12px;color:var(--green);font-weight:700;margin-bottom:6px">С MetaMask (браузер)</div>
+                <div style="font-size:13px;color:var(--muted)">твойдомен.eth — через Brave или MetaMask Mobile</div>
+              </div>
+              <div style="background:var(--blue-dim);border:1px solid rgba(59,130,246,0.25);border-radius:10px;padding:14px">
+                <div style="font-size:12px;color:var(--blue);font-weight:700;margin-bottom:6px">Без MetaMask (все браузеры)</div>
+                <div style="font-size:13px;color:var(--muted)">твойдомен.eth.limo — работает везде</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider"/>
+
+  <!-- SECTION: РЕЗЕРВИРОВАНИЕ -->
+  <section id="redundancy">
+    <div class="section-label">Отказоустойчивость</div>
+    <h2 class="section-title">Несколько серверов — сайт не умрёт</h2>
+    <p class="section-sub">IPFS работает как BitTorrent: один и тот же CID может быть запиннен на множестве серверов. Если один упадёт — другие подхватят.</p>
+
+    <div class="callout tip">
+      <span class="callout-icon">✅</span>
+      <span><strong>Главное правило:</strong> пока хотя бы один пинер хранит твои файлы с нужным CID — сайт доступен. ENS-запись не меняется, домен тот же.</span>
+    </div>
+
+    <h3 style="font-size:16px;margin-top:32px;margin-bottom:16px">Рекомендуемые пинеры</h3>
+    <div class="server-grid">
+      <div class="server-card">
+        <div class="server-name">Pinata</div>
+        <div class="server-loc">США (<span>Нью-Йорк</span>) + edge</div>
+        <div style="font-size:13px;color:var(--muted);margin-bottom:8px">Надёжный, API, дашборд</div>
+        <div class="server-free"><span class="tag green">1 GB бесплатно</span></div>
+      </div>
+      <div class="server-card">
+        <div class="server-name">Web3.storage</div>
+        <div class="server-loc">США + <span>Европа</span></div>
+        <div style="font-size:13px;color:var(--muted);margin-bottom:8px">От Protocol Labs (создатели IPFS)</div>
+        <div class="server-free"><span class="tag green">5 GB бесплатно</span></div>
+      </div>
+      <div class="server-card">
+        <div class="server-name">NFT.storage</div>
+        <div class="server-loc">Глобальный CDN</div>
+        <div style="font-size:13px;color:var(--muted);margin-bottom:8px">Вечное хранилище, без срока</div>
+        <div class="server-free"><span class="tag green">Бесплатно</span></div>
+      </div>
+      <div class="server-card">
+        <div class="server-name">4EVERLAND</div>
+        <div class="server-loc">Азия + США + <span>ЕС</span></div>
+        <div style="font-size:13px;color:var(--muted);margin-bottom:8px">CI/CD из GitHub → IPFS</div>
+        <div class="server-free"><span class="tag gold">Freemium</span></div>
+      </div>
+      <div class="server-card">
+        <div class="server-name">Filebase</div>
+        <div class="server-loc">США (<span>Вирджиния</span>)</div>
+        <div style="font-size:13px;color:var(--muted);margin-bottom:8px">S3-совместимый, гео-репликация</div>
+        <div class="server-free"><span class="tag gold">$6/мес</span></div>
+      </div>
+      <div class="server-card">
+        <div class="server-name">Собственный узел</div>
+        <div class="server-loc"><span>VPS</span> (любая локация)</div>
+        <div style="font-size:13px;color:var(--muted);margin-bottom:8px">Полный контроль, ipfs daemon</div>
+        <div class="server-free"><span class="tag purple">~$5/мес VPS</span></div>
+      </div>
+    </div>
+
+    <div class="card mt-24">
+      <h3 style="font-size:16px;margin-bottom:16px">Как пиннить на несколько сервисов</h3>
+      <div style="font-size:14px;color:var(--muted);margin-bottom:16px">
+        У каждого пинера есть API. После деплоя на Pinata — продублируй тот же CID на другие сервисы:
+      </div>
+      <div class="code"># Pinata (основной, получаем CID)
+curl -X POST https://api.pinata.cloud/pinning/pinByHash \
+  -H "Authorization: Bearer YOUR_JWT" \
+  -d '{"hashToPin":"bafybeif...ваш_CID"}'
+
+# Web3.storage (дублируем)
+w3 put dist/ --name "mysite"
+
+# Или просто — ipfs pin remote add через любой пинер</div>
+      <div class="callout tip" style="margin-top:16px">
+        <span class="callout-icon">💡</span>
+        <span>CID зависит только от содержимого файлов, а не от того, где они лежат. Один и тот же CID на трёх пинерах = три копии одного сайта.</span>
+      </div>
+    </div>
+
+    <div class="card mt-24">
+      <h3 style="font-size:16px;margin-bottom:16px">Своё IPFS-ядро на VPS</h3>
+      <div style="font-size:14px;color:var(--muted);margin-bottom:12px">Полная независимость — никто не может "распиннить" твои файлы.</div>
+      <div class="code">## Установка на Ubuntu/Debian
+wget https://dist.ipfs.tech/kubo/v0.27.0/kubo_v0.27.0_linux-amd64.tar.gz
+tar -xvzf kubo_v0.27.0_linux-amd64.tar.gz && cd kubo && ./install.sh
+
+## Инициализация и запуск
+ipfs init
+ipfs daemon &
+
+## Пиннируем папку сайта
+ipfs add -r dist/ --cid-version=1
+# → получаем CID для ENS
+
+## Запуск как сервис
+sudo systemctl enable ipfs && sudo systemctl start ipfs</div>
+    </div>
+
+    <div class="card mt-24">
+      <h3 style="font-size:16px;margin-bottom:16px">Локации IPFS-нод по миру</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Регион</th><th>Пинеры</th><th>Задержка (EU)</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>🇺🇸 США (Восток)</td><td>Pinata, Web3.storage, NFT.storage, Filebase</td><td>~80–120 мс</td></tr>
+            <tr><td>🇺🇸 США (Запад)</td><td>Pinata edge, Web3.storage</td><td>~150–180 мс</td></tr>
+            <tr><td>🇪🇺 Европа</td><td>Web3.storage EU, 4EVERLAND EU</td><td>~20–40 мс</td></tr>
+            <tr><td>🇸🇬 Азия (Сингапур)</td><td>4EVERLAND Asia, Pinata edge</td><td>~180–250 мс</td></tr>
+            <tr><td>🖥️ Собственный VPS</td><td>Любой дата-центр</td><td>Зависит от локации</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout info" style="margin-top:16px">
+        <span class="callout-icon">ℹ️</span>
+        <span>eth.limo сам кэширует контент через Cloudflare CDN — после первого запроса последующие загрузки быстрее.</span>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider"/>
+
+  <!-- SECTION: ГАЗ -->
+  <section id="gas">
+    <div class="section-label">Gas Fees</div>
+    <h2 class="section-title">Когда нужен газ, а когда нет</h2>
+    <p class="section-sub">Главное заблуждение: "IPFS = всё стоит газ". На самом деле газ нужен только для операций с Ethereum-блокчейном.</p>
+
+    <div class="gas-grid">
+      <div class="gas-card no-gas">
+        <h3>
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="display:inline;margin-right:6px;vertical-align:-2px"><path d="M20 6L9 17l-5-5"/></svg>
+          Газ НЕ нужен
+        </h3>
+        <div class="gas-item">
+          <svg width="14" height="14" fill="none" stroke="#10B981" stroke-width="2" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+          <span>Запросы с сайта к бэкенду (REST API, WebSocket)</span>
+        </div>
+        <div class="gas-item">
+          <svg width="14" height="14" fill="none" stroke="#10B981" stroke-width="2" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+          <span>Запись в базу данных (PostgreSQL, MongoDB)</span>
+        </div>
+        <div class="gas-item">
+          <svg width="14" height="14" fill="none" stroke="#10B981" stroke-width="2" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+          <span>Авторизация пользователей</span>
+        </div>
+        <div class="gas-item">
+          <svg width="14" height="14" fill="none" stroke="#10B981" stroke-width="2" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+          <span>Загрузка файлов, изображений</span>
+        </div>
+        <div class="gas-item">
+          <svg width="14" height="14" fill="none" stroke="#10B981" stroke-width="2" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+          <span>Платежи через Stripe/иной процессинг</span>
+        </div>
+        <div class="gas-item">
+          <svg width="14" height="14" fill="none" stroke="#10B981" stroke-width="2" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+          <span>Пополнение баланса в казино/игре</span>
+        </div>
+        <div class="gas-item">
+          <svg width="14" height="14" fill="none" stroke="#10B981" stroke-width="2" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+          <span>Пиннинг файлов на Pinata</span>
+        </div>
+      </div>
+
+      <div class="gas-card yes-gas">
+        <h3>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline;margin-right:6px;vertical-align:-2px"><path d="M12 2v6m0 4v6M4.93 4.93l4.24 4.24m5.66 5.66l4.24 4.24M2 12h6m4 0h6M4.93 19.07l4.24-4.24m5.66-5.66l4.24-4.24"/></svg>
+          Газ нужен
+        </h3>
+        <div class="gas-item">
+          <svg width="14" height="14" fill="none" stroke="#F59E0B" stroke-width="2" viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+          <span>Обновление contenthash в ENS (новая версия сайта)</span>
+        </div>
+        <div class="gas-item">
+          <svg width="14" height="14" fill="none" stroke="#F59E0B" stroke-width="2" viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+          <span>Регистрация / продление ENS-домена</span>
+        </div>
+        <div class="gas-item">
+          <svg width="14" height="14" fill="none" stroke="#F59E0B" stroke-width="2" viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+          <span>Установка resolver и других ENS-записей</span>
+        </div>
+        <div class="gas-item">
+          <svg width="14" height="14" fill="none" stroke="#F59E0B" stroke-width="2" viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+          <span>Смарт-контракты: если твой бэкенд — контракт на Ethereum</span>
+        </div>
+        <div class="gas-item">
+          <svg width="14" height="14" fill="none" stroke="#F59E0B" stroke-width="2" viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+          <span>Токены, NFT, Web3-транзакции</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card mt-24">
+      <h3 style="font-size:16px;margin-bottom:16px">Казино/игра на IPFS — как это работает</h3>
+      <div class="limo-flow">
+        <div class="limo-row">
+          <div class="limo-icon" style="background:var(--blue-dim)">🌐</div>
+          <div class="limo-text">
+            <strong>Фронтенд на IPFS (казино-интерфейс)</strong>
+            <span>Статичный React-сайт. Отображает баланс, принимает ставки. Газ не нужен.</span>
+          </div>
+        </div>
+        <div class="limo-row">
+          <div class="limo-icon" style="background:var(--green-dim)">💳</div>
+          <div class="limo-text">
+            <strong>Пользователь пополняет баланс</strong>
+            <span>Фронтенд делает обычный HTTP POST на твой бэкенд. Газ не нужен.</span>
+          </div>
+        </div>
+        <div class="limo-row">
+          <div class="limo-icon" style="background:var(--purple-dim)">🖥️</div>
+          <div class="limo-text">
+            <strong>Бэкенд на обычном VPS ($5/мес)</strong>
+            <span>Node.js / Python / любой стек. Хранит баланс в PostgreSQL. Обрабатывает логику игры. Газ не нужен.</span>
+          </div>
+        </div>
+        <div class="limo-row">
+          <div class="limo-icon" style="background:var(--gold-dim)">⛽</div>
+          <div class="limo-text">
+            <strong>Газ нужен только при деплое нового фронтенда</strong>
+            <span>Поменял UI → загрузил на Pinata → получил новый CID → обновил ENS contenthash (транзакция $2–8).</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider"/>
+
+  <!-- SECTION: FAQ -->
+  <section id="faq">
+    <div class="section-label">FAQ</div>
+    <h2 class="section-title">Частые вопросы</h2>
+    <p class="section-sub">Всё что обычно непонятно — тут.</p>
+
+    <div class="faq">
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Может ли РКН заблокировать мой сайт на eth.limo? <span class="arrow">▾</span></div>
+        <div class="faq-a">
+          Да, РКН <strong>может заблокировать eth.limo как шлюз</strong> — это обычный домен. Но сам сайт в IPFS при этом не исчезнет. Пользователи смогут открыть его через другой шлюз (cloudflare-ipfs.com, ipfs.io) или Brave Browser с встроенным IPFS. ENS-домен в блокчейне — вечен, РКН его не удалит.
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Если контент постоянно обновляется — платить газ каждый раз? <span class="arrow">▾</span></div>
+        <div class="faq-a">
+          Только если меняется <strong>фронтенд</strong>. Если твой сайт отображает данные с бэкенда в реальном времени (чат, биржа, казино) — бэкенд обновляется без газа. Газ нужен только когда меняются сами файлы React/HTML/CSS, и нужно прописать новый CID в ENS.
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">IPFS небезопасно — файлы может скачать кто угодно? <span class="arrow">▾</span></div>
+        <div class="faq-a">
+          IPFS — публичная сеть, как веб. Если ты размещаешь публичный сайт — это нормально. Для приватных данных (ключи, пароли, персональные данные пользователей) — их на IPFS класть не надо. Они хранятся в базе данных на твоём бэкенде, как обычно.
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Что значит "несколько пинеров"? Сайт дублируется? <span class="arrow">▾</span></div>
+        <div class="faq-a">
+          Да. Один и тот же CID (хэш) хранится на Pinata, Web3.storage и твоём VPS одновременно. Если Pinata ляжет — eth.limo получит файлы от Web3.storage. Адрес сайта не меняется — CID один и тот же. Это как BitTorrent: много сидеров = файлы не пропадут.
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Можно тянуть данные с обычного сервера с IPFS-фронтенда? <span class="arrow">▾</span></div>
+        <div class="faq-a">
+          Да. Фронтенд на IPFS — это просто статичный HTML/JS. Он может делать <code>fetch('https://api.myserver.com/...')</code> к любому обычному бэкенду. Нужно настроить <strong>CORS</strong> на сервере, чтобы разрешить запросы с домена eth.limo.
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">eth.limo — это провайдер доменов? <span class="arrow">▾</span></div>
+        <div class="faq-a">
+          Нет. eth.limo — это <strong>HTTP-прокси/шлюз</strong>. Он не регистрирует домены, не хранит файлы, не является провайдером интернета. Это сервис-переходник: берёт ENS-имя, находит IPFS-файлы, отдаёт в браузер. Как Cloudflare Workers, только для ENS+IPFS.
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Как убрать strelnikov23028 из URL? <span class="arrow">▾</span></div>
+        <div class="faq-a">
+          GitHub Pages всегда включает имя аккаунта в URL (<code>username.github.io</code>). Убрать его можно только через <strong>кастомный домен</strong>: купи домен ($2–10/год), добавь CNAME-запись в DNS, укажи его в Settings → Pages → Custom domain. После этого URL станет <code>твойдомен.com/game/</code> вместо <code>username.github.io/results/game/</code>.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ИТОГ -->
+  <section>
+    <div class="card" style="background:linear-gradient(135deg,rgba(245,158,11,0.08),rgba(139,92,246,0.08));border-color:rgba(245,158,11,0.3)">
+      <div class="section-label">Итог</div>
+      <h2 style="font-size:24px;margin-bottom:16px">Стоит ли оно того?</h2>
+      <div class="card-grid cols-3" style="margin-top:0">
+        <div style="text-align:center">
+          <div style="font-size:32px;font-family:'Orbitron',sans-serif;color:var(--green);font-weight:700">7/10</div>
+          <div style="font-size:13px;color:var(--muted);margin-top:4px">надёжность eth.limo</div>
+        </div>
+        <div style="text-align:center">
+          <div style="font-size:32px;font-family:'Orbitron',sans-serif;color:var(--gold);font-weight:700">∞</div>
+          <div style="font-size:13px;color:var(--muted);margin-top:4px">цензуроустойчивость</div>
+        </div>
+        <div style="text-align:center">
+          <div style="font-size:32px;font-family:'Orbitron',sans-serif;color:var(--purple);font-weight:700">$20</div>
+          <div style="font-size:13px;color:var(--muted);margin-top:4px">вход в Web3-хостинг</div>
+        </div>
+      </div>
+      <div class="callout tip" style="margin-top:24px">
+        <span class="callout-icon">🎯</span>
+        <span><strong>Когда это имеет смысл:</strong> абузоустойчивость важна, хочешь присутствие в ENS/Web3-пространстве, контент не меняется часто. <strong>Когда не имеет:</strong> высокие требования к скорости загрузки (2 сек+ TTFB неприемлемы), контент меняется ежедневно.</span>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <div>Собрано из реальной сессии работы с ENS + IPFS · 2026</div>
+  <div style="margin-top:8px">
+    <a href="https://app.ens.domains">ENS</a> ·
+    <a href="https://pinata.cloud">Pinata</a> ·
+    <a href="https://eth.limo">eth.limo</a> ·
+    <a href="https://ipfs.tech">IPFS</a>
+  </div>
+</footer>
+
+<script>
+function toggleFaq(el) {
+  const item = el.parentElement;
+  item.classList.toggle('open');
+}
+
+try {
+  (async () => {
+    const { animate, inView, stagger } = await import("https://cdn.jsdelivr.net/npm/motion@11/+esm");
+    inView(".step", (el) => {
+      animate(el, { y: [16, 0] }, { duration: 0.5, easing: [0.16, 1, 0.3, 1] });
+    }, { amount: 0.1 });
+    inView(".card", (el) => {
+      animate(el, { y: [12, 0] }, { duration: 0.45, easing: [0.16, 1, 0.3, 1] });
+    }, { amount: 0.08 });
+    inView(".server-card", (el) => {
+      animate(el, { y: [10, 0] }, { duration: 0.4, easing: [0.16, 1, 0.3, 1] });
+    }, { amount: 0.1 });
+  })();
+} catch(e) {}
+</script>
+</body>
+</html>
