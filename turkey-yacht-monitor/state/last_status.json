@@ -1,8 +1,7 @@
 {
-  "ts": "2026-07-01T09:52:46.570675+00:00",
+  "ts": "2026-07-02T09:16:58.892670+00:00",
   "findings": {},
   "errors": {
-    "Charterworld Turkey": "request_error: ReadTimeout: HTTPSConnectionPool(host='www.charterworld.com', port=443): Read timed out. (read timeout=30)",
     "Navigare Yachting Turkey": "http_403",
     "Rotaneta Gocek catamaran": "http_503",
     "Rotaneta home": "http_503",
