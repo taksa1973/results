@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fast Track в аэропортах — как проходить по быстрой полосе всегда</title>
+<meta name="description" content="Все способы получить fast track в аэропортах: элитный статус, бизнес, платный проход, банковские карты, госпрограммы. Плюс — как узнавать, есть ли fast track в аэропорту, куда летишь. Актуально на 2026 с учётом EES/ETIAS.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F5F5F7;
+    --card:#FFFFFF;
+    --ink:#1D1D1F;
+    --ink-2:#6E6E73;
+    --line:#E5E5EA;
+    --blue:#0071E3;
+    --blue-soft:#EAF3FE;
+    --green:#2FA84F;
+    --green-soft:#E7F6EC;
+    --amber:#B25E00;
+    --amber-soft:#FCF0E3;
+    --red:#C7362F;
+    --red-soft:#FBECEB;
+    --violet:#6A4BB8;
+    --violet-soft:#F0ECFA;
+    --radius:22px;
+    --shadow:0 1px 2px rgba(0,0,0,.04), 0 8px 30px rgba(0,0,0,.06);
+    --shadow-hover:0 4px 12px rgba(0,0,0,.06), 0 18px 50px rgba(0,0,0,.10);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Inter',-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue',sans-serif;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+  }
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+  section{padding:56px 0}
+  @media(max-width:640px){section{padding:40px 0}}
+
+  /* HERO */
+  .hero{padding:96px 0 40px;text-align:center}
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:8px;
+    font-size:13px;font-weight:600;letter-spacing:.02em;color:var(--blue);
+    background:var(--blue-soft);padding:7px 14px;border-radius:100px;margin-bottom:22px;
+  }
+  h1{
+    font-size:clamp(34px,6vw,60px);
+    font-weight:800;letter-spacing:-.03em;line-height:1.05;
+    margin-bottom:22px;
+  }
+  h1 .grad{
+    background:linear-gradient(120deg,#0071E3,#6A4BB8);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .lede{
+    font-size:clamp(17px,2.4vw,21px);color:var(--ink-2);
+    max-width:660px;margin:0 auto 30px;
+  }
+  .hero-meta{
+    display:flex;flex-wrap:wrap;gap:10px;justify-content:center;
+    font-size:13.5px;color:var(--ink-2);
+  }
+  .chip{
+    background:var(--card);border:1px solid var(--line);
+    padding:8px 14px;border-radius:100px;font-weight:500;
+  }
+
+  h2{
+    font-size:clamp(26px,3.6vw,38px);font-weight:700;letter-spacing:-.02em;
+    line-height:1.12;margin-bottom:14px;
+  }
+  .section-sub{font-size:17px;color:var(--ink-2);max-width:680px;margin-bottom:36px}
+  .kicker{
+    font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--blue);margin-bottom:12px;
+  }
+
+  /* WHAT IS */
+  .what{
+    background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    padding:34px;box-shadow:var(--shadow);display:grid;grid-template-columns:1.3fr 1fr;gap:32px;align-items:center;
+  }
+  @media(max-width:720px){.what{grid-template-columns:1fr;padding:26px}}
+  .what p{color:var(--ink-2);font-size:16px}
+  .what p strong{color:var(--ink);font-weight:600}
+  .stat-box{
+    background:var(--blue-soft);border-radius:16px;padding:24px;text-align:center;
+  }
+  .stat-num{font-size:44px;font-weight:800;letter-spacing:-.03em;color:var(--blue);line-height:1}
+  .stat-lbl{font-size:14px;color:var(--ink-2);margin-top:8px}
+
+  /* METHOD CARDS */
+  .methods{display:grid;gap:18px}
+  .method{
+    background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    padding:28px 30px;box-shadow:var(--shadow);
+    transition:transform .25s cubic-bezier(.2,.7,.2,1), box-shadow .25s;
+    will-change:transform;
+  }
+  .method:hover{transform:translateY(-3px);box-shadow:var(--shadow-hover)}
+  .method-top{display:flex;gap:18px;align-items:flex-start}
+  .rank{
+    flex:none;width:44px;height:44px;border-radius:13px;
+    display:grid;place-items:center;font-weight:800;font-size:19px;
+    background:var(--ink);color:#fff;
+  }
+  .method-title-row{display:flex;flex-wrap:wrap;gap:10px 12px;align-items:center;margin-bottom:6px}
+  .method h3{font-size:21px;font-weight:700;letter-spacing:-.01em}
+  .badge{
+    font-size:12px;font-weight:600;padding:5px 11px;border-radius:100px;white-space:nowrap;
+  }
+  .b-green{background:var(--green-soft);color:var(--green)}
+  .b-blue{background:var(--blue-soft);color:var(--blue)}
+  .b-amber{background:var(--amber-soft);color:var(--amber)}
+  .b-violet{background:var(--violet-soft);color:var(--violet)}
+  .b-red{background:var(--red-soft);color:var(--red)}
+  .method p{color:var(--ink-2);font-size:15.5px;margin-top:4px}
+  .method .facts{
+    list-style:none;margin-top:16px;display:grid;gap:9px;
+  }
+  .method .facts li{display:flex;gap:11px;font-size:15px;color:var(--ink)}
+  .method .facts li svg{flex:none;margin-top:3px}
+  .ic-check{color:var(--green)}
+  .ic-minus{color:var(--amber)}
+  .ic-cross{color:var(--red)}
+  .method a{color:var(--blue);text-decoration:none;font-weight:500}
+  .method a:hover{text-decoration:underline}
+
+  /* CALLOUT */
+  .callout{
+    border-radius:var(--radius);padding:34px;
+    background:linear-gradient(135deg,#0071E3,#4B6FE0 55%,#6A4BB8);
+    color:#fff;box-shadow:0 20px 50px rgba(0,113,227,.28);
+  }
+  .callout h2{color:#fff}
+  .callout .kicker{color:#BFDBFE}
+  .callout .steps{list-style:none;display:grid;gap:14px;margin-top:22px}
+  .callout .steps li{display:flex;gap:15px;align-items:flex-start;font-size:16px}
+  .callout .steps .n{
+    flex:none;width:30px;height:30px;border-radius:9px;background:rgba(255,255,255,.18);
+    display:grid;place-items:center;font-weight:700;font-size:14px;
+  }
+  .callout .steps b{font-weight:600}
+  .callout .steps small{display:block;color:rgba(255,255,255,.78);font-size:14px;margin-top:2px}
+
+  /* EES */
+  .ees-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  @media(max-width:720px){.ees-grid{grid-template-columns:1fr}}
+  .info-card{
+    background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    padding:28px;box-shadow:var(--shadow);
+    transition:transform .25s cubic-bezier(.2,.7,.2,1), box-shadow .25s;
+  }
+  .info-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-hover)}
+  .info-card .ic-wrap{
+    width:46px;height:46px;border-radius:13px;display:grid;place-items:center;margin-bottom:16px;
+  }
+  .tint-amber{background:var(--amber-soft);color:var(--amber)}
+  .tint-blue{background:var(--blue-soft);color:var(--blue)}
+  .info-card h3{font-size:19px;font-weight:700;margin-bottom:8px}
+  .info-card p{color:var(--ink-2);font-size:15px}
+  .info-card p + p{margin-top:10px}
+
+  /* CHECK ORDER */
+  .steps-list{display:grid;gap:14px;counter-reset:s}
+  .step-item{
+    background:var(--card);border:1px solid var(--line);border-radius:18px;
+    padding:22px 24px;box-shadow:var(--shadow);display:flex;gap:18px;align-items:flex-start;
+    transition:transform .25s cubic-bezier(.2,.7,.2,1), box-shadow .25s;
+  }
+  .step-item:hover{transform:translateY(-2px);box-shadow:var(--shadow-hover)}
+  .step-item .s-num{
+    flex:none;width:38px;height:38px;border-radius:11px;background:var(--blue-soft);color:var(--blue);
+    display:grid;place-items:center;font-weight:800;font-size:17px;
+  }
+  .step-item h3{font-size:17px;font-weight:700;margin-bottom:4px}
+  .step-item p{color:var(--ink-2);font-size:15px}
+  .step-item p a{color:var(--blue);text-decoration:none}
+  .step-item p a:hover{text-decoration:underline}
+  .thumb-rule{
+    margin-top:18px;background:var(--green-soft);border-radius:16px;padding:20px 24px;
+    display:flex;gap:14px;align-items:flex-start;
+  }
+  .thumb-rule svg{flex:none;color:var(--green);margin-top:2px}
+  .thumb-rule p{font-size:15px;color:#1c5a30}
+  .thumb-rule b{color:var(--green)}
+
+  /* BOT CTA */
+  .bot{
+    background:var(--ink);color:#fff;border-radius:var(--radius);padding:40px;
+    box-shadow:var(--shadow);
+  }
+  .bot .kicker{color:#7FB4FF}
+  .bot h2{color:#fff}
+  .bot p{color:rgba(255,255,255,.72);font-size:16px;max-width:640px}
+  .bot .demo{
+    margin-top:26px;background:#000;border:1px solid #2a2a2c;border-radius:16px;
+    padding:20px;font-family:'SF Mono',ui-monospace,Menlo,monospace;font-size:14px;line-height:1.7;
+    overflow-x:auto;
+  }
+  .bot .demo .u{color:#7FB4FF}
+  .bot .demo .b{color:#9BE29B}
+  .bot .demo .dim{color:#8a8a8e}
+  .bot .cta-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
+  .btn{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:13px 22px;border-radius:100px;font-weight:600;font-size:15px;
+    text-decoration:none;transition:transform .2s, opacity .2s;cursor:pointer;
+  }
+  .btn:hover{transform:translateY(-2px)}
+  .btn-primary{background:var(--blue);color:#fff}
+  .btn-ghost{background:rgba(255,255,255,.10);color:#fff;border:1px solid rgba(255,255,255,.16)}
+
+  /* FOOTER */
+  footer{padding:48px 0 70px;border-top:1px solid var(--line);margin-top:20px}
+  footer h4{font-size:14px;font-weight:700;margin-bottom:14px;color:var(--ink)}
+  .src{display:grid;gap:8px}
+  .src a{color:var(--ink-2);font-size:13.5px;text-decoration:none;word-break:break-word}
+  .src a:hover{color:var(--blue)}
+  .foot-note{margin-top:24px;font-size:13px;color:var(--ink-2)}
+
+  .reveal{opacity:0}
+  @media(prefers-reduced-motion:reduce){.reveal{opacity:1 !important;transform:none !important}}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="eyebrow reveal">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12h20M12 2l4 4-4 4M22 12l-4 4 4 4"/></svg>
+      Гайд · актуально на июль 2026
+    </div>
+    <h1 class="reveal">Fast Track в аэропортах:<br><span class="grad">как проходить по быстрой полосе всегда</span></h1>
+    <p class="lede reveal">Все рабочие способы — от элитного статуса до разового платного прохода. Плюс вторая часть: как заранее узнавать, есть ли fast track в аэропорту, куда ты летишь.</p>
+    <div class="hero-meta reveal">
+      <span class="chip">🇷🇺 С поправкой на российский паспорт</span>
+      <span class="chip">С учётом EES/ETIAS в ЕС</span>
+      <span class="chip">+ идея бота-помощника</span>
+    </div>
+  </header>
+
+  <!-- WHAT IS -->
+  <section>
+    <div class="what reveal">
+      <div>
+        <div class="kicker">Что это вообще</div>
+        <h2 style="font-size:26px;margin-bottom:12px">Отдельная приоритетная линия</h2>
+        <p>Fast Track — это <strong>выделенная быстрая полоса на досмотре безопасности и/или паспортном контроле</strong>. Ей управляет сам аэропорт (а не авиакомпания), поэтому доступ можно получить разными путями — от статуса до разовой покупки. В пиковые часы экономит от <strong>20 до 90 минут</strong> в очереди.</p>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">~10<span style="font-size:24px">мин</span></div>
+        <div class="stat-lbl">проход через VIP/priority-канал вместо часовой очереди в пик</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- METHODS -->
+  <section>
+    <div class="kicker reveal">Часть 1</div>
+    <h2 class="reveal">5 способов сделать fast track «всегда»</h2>
+    <p class="section-sub reveal">Отсортированы от самого универсального к самому узкому. Тебе, скорее всего, нужна связка из 1–3 пунктов — она внизу, в синем блоке.</p>
+
+    <div class="methods">
+
+      <!-- 1 -->
+      <div class="method reveal">
+        <div class="method-top">
+          <div class="rank">1</div>
+          <div style="flex:1">
+            <div class="method-title-row">
+              <h3>Элитный статус авиакомпании / альянса</h3>
+              <span class="badge b-green">Самый универсальный «всегда»</span>
+              <span class="badge b-blue">Любой паспорт</span>
+            </div>
+            <p>Статус <strong>Star Alliance Gold</strong>, <strong>Oneworld Sapphire/Emerald</strong> или <strong>SkyTeam Elite&nbsp;Plus</strong> даёт fast track и приоритет на контроле в сотнях аэропортов мира — без доплаты за конкретный проход.</p>
+          </div>
+        </div>
+        <ul class="facts">
+          <li><svg class="ic-check" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span><b>Как получить быстро:</b> <a href="https://awardfares.com/blog/status-match-guide/" target="_blank" rel="noopener">status match</a> — перенос статуса от конкурента (часто мгновенно и бесплатно), co-branded кредитка авиакомпании или налёт в бизнес-классе.</span></li>
+          <li><svg class="ic-check" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>Работает в аэропортах, где у альянса есть присутствие — это большинство хабов, куда ты реально летаешь.</span></li>
+          <li><svg class="ic-minus" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/></svg><span>Минус: надо держаться одного альянса и поддерживать статус налётом.</span></li>
+        </ul>
+      </div>
+
+      <!-- 2 -->
+      <div class="method reveal">
+        <div class="method-top">
+          <div class="rank">2</div>
+          <div style="flex:1">
+            <div class="method-title-row">
+              <h3>Бизнес- / первый класс</h3>
+              <span class="badge b-blue">Когда берёшь премиум-тариф</span>
+              <span class="badge b-blue">Любой паспорт</span>
+            </div>
+            <p>Fast Track почти всегда <strong>включён в тариф</strong> бизнеса и первого — вместе с отдельной стойкой регистрации и лаунжем. Доступно прямо при покупке билета, без всяких статусов.</p>
+          </div>
+        </div>
+        <ul class="facts">
+          <li><svg class="ic-check" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>Самый простой путь на важный или длинный рейс — ничего заранее настраивать не нужно.</span></li>
+          <li><svg class="ic-minus" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/></svg><span>Минус: дорого и не при каждом полёте — «всегда» из этого не сделать.</span></li>
+        </ul>
+      </div>
+
+      <!-- 3 -->
+      <div class="method reveal">
+        <div class="method-top">
+          <div class="rank">3</div>
+          <div style="flex:1">
+            <div class="method-title-row">
+              <h3>Разовый платный Fast Track</h3>
+              <span class="badge b-green">Настоящий «всегда» под рейс</span>
+              <span class="badge b-blue">Любой паспорт</span>
+            </div>
+            <p>Покупается онлайн <strong>под конкретный рейс</strong> — на сайте аэропорта или через агрегаторы. Не нужен ни статус, ни бизнес-билет. Именно это делает fast track доступным тебе почти в любом крупном аэропорту.</p>
+          </div>
+        </div>
+        <ul class="facts">
+          <li><svg class="ic-check" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span><b>Где брать:</b> <a href="https://vaba.io" target="_blank" rel="noopener">VABA</a>, <a href="https://www.airportassist.com" target="_blank" rel="noopener">AirportAssist</a> (1156 аэропортов в 195 странах), <a href="https://fasttrack.aero/home" target="_blank" rel="noopener">Fasttrack.aero</a>, <a href="https://skyvipservices.com/fast-track-service" target="_blank" rel="noopener">SkyVIP</a> — или прямо на сайте аэропорта.</span></li>
+          <li><svg class="ic-check" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>Цена обычно <b>$20–100</b> с человека в зависимости от аэропорта и набора услуг.</span></li>
+          <li><svg class="ic-minus" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/></svg><span>Минус: продаётся не в 100% аэропортов, в пик цена растёт.</span></li>
+        </ul>
+      </div>
+
+      <!-- 4 -->
+      <div class="method reveal">
+        <div class="method-top">
+          <div class="rank">4</div>
+          <div style="flex:1">
+            <div class="method-title-row">
+              <h3>Премиальные банковские карты</h3>
+              <span class="badge b-violet">Fast track как перк карты</span>
+            </div>
+            <p><a href="https://travelexperiences.mastercard.com/" target="_blank" rel="noopener">Mastercard Travel Experiences</a> даёт Security Fast Track для eligible-карт по всему миру; ряд private/premium-карт и консьерж-программ тоже включают приоритетный проход.</p>
+          </div>
+        </div>
+        <ul class="facts">
+          <li><svg class="ic-check" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>Если у тебя уже есть премиум-карта — проверь её travel-портал, возможно fast track уже в перках.</span></li>
+          <li><svg class="ic-minus" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/></svg><span>Минус: зависит от банка и уровня карты, покрытие аэропортов ограничено. <b>Priority Pass — это про лаунжи, а не fast track.</b></span></li>
+        </ul>
+      </div>
+
+      <!-- 5 -->
+      <div class="method reveal">
+        <div class="method-top">
+          <div class="rank">5</div>
+          <div style="flex:1">
+            <div class="method-title-row">
+              <h3>Госпрограммы Trusted Traveler / eGates</h3>
+              <span class="badge b-amber">Быстро, но привязано к гражданству</span>
+              <span class="badge b-red">Российский паспорт — почти всё мимо</span>
+            </div>
+            <p>США: <strong>Global Entry</strong> (паспортный контроль + включает TSA PreCheck), <strong>TSA PreCheck</strong>, <strong>NEXUS</strong>. Европа: UK Registered Traveller, NL Privium, электронные ворота PARAFE/eGates.</p>
+          </div>
+        </div>
+        <ul class="facts">
+          <li><svg class="ic-cross" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg><span><b>TSA PreCheck</b> — только граждане и резиденты США.</span></li>
+          <li><svg class="ic-cross" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg><span><b>Global Entry</b> — только граждане стран-партнёров (Аргентина, Индия, Великобритания, Ю.Корея и др.). <a href="https://www.cbp.gov/travel/trusted-traveler-programs/global-entry/eligibility" target="_blank" rel="noopener">России в списке нет.</a></span></li>
+          <li><svg class="ic-minus" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/></svg><span>eGates в ЕС обычно только для граждан ЕС/EEA. Вывод: с российским паспортом это <b>не твой путь</b> — опирайся на пункты 1–3.</span></li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CALLOUT -->
+  <section>
+    <div class="callout reveal">
+      <div class="kicker">Твоя рабочая связка</div>
+      <h2>Что реально настроить под российский паспорт</h2>
+      <p style="color:rgba(255,255,255,.85);max-width:620px">Госпрограммы США и UK отпадают. Остаётся комбинация из трёх-четырёх рабочих инструментов — она закрывает почти любой аэропорт:</p>
+      <ul class="steps">
+        <li><span class="n">1</span><div><b>Элитный статус альянса</b> — базовый бесплатный «всегда».<small>Перенеси статус-матчем от карты/программы, которая у тебя уже есть, и держись одного альянса.</small></div></li>
+        <li><span class="n">2</span><div><b>Разовый платный Fast Track</b> — подстраховка там, где статус не действует.<small>VABA / AirportAssist / сайт аэропорта — покупаешь под конкретный рейс за $20–100.</small></div></li>
+        <li><span class="n">3</span><div><b>Бизнес-класс</b> — на длинных и важных рейсах.<small>Fast track уже в тарифе, ничего настраивать не надо.</small></div></li>
+        <li><span class="n">4</span><div><b>VIP meet &amp; greet</b> — там, где очереди сейчас особенно злые (Европа из-за EES).<small>Агент проводит через priority-канал за ~10 минут.</small></div></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- EES 2026 -->
+  <section>
+    <div class="kicker reveal">Актуалка 2026</div>
+    <h2 class="reveal">EES и ETIAS — почему fast track в Европе сейчас особенно ценен</h2>
+    <p class="section-sub reveal">Новые правила въезда в ЕС резко удлинили очереди на паспортном контроле. Fast track стал не роскошью, а способом не потерять два часа.</p>
+    <div class="ees-grid">
+      <div class="info-card reveal">
+        <div class="ic-wrap tint-amber">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8v4l3 2"/><circle cx="12" cy="12" r="9"/></svg>
+        </div>
+        <h3>EES — уже работает (с 10 апреля 2026)</h3>
+        <p>Вместо штампа в паспорте — биометрия на границе: отпечатки и фото в единой базе ЕС. Очереди выросли: в Париже <b>Charles de Gaulle</b> — до <b>двух часов</b>, терминал 2E обрабатывает на 35% меньше людей в час.</p>
+        <p>Fast Track биометрию <b>не отменяет</b> (регистрацию проходит каждый), но даёт приоритетный доступ к сотруднику/киоску в отдельном канале — проход за ~10 минут.</p>
+      </div>
+      <div class="info-card reveal">
+        <div class="ic-wrap tint-blue">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M8 4v4"/></svg>
+        </div>
+        <h3>ETIAS — ждём в конце 2026 / начале 2027</h3>
+        <p>Онлайн-разрешение на въезд заранее, около <b>€7</b>, действует 3 года — для безвизовых стран. Россиянам по-прежнему нужна шенгенская виза, но требование <b>биометрии EES касается всех</b> въезжающих.</p>
+        <p>Практический вывод: в европейские хабы сейчас стоит закладывать fast track или VIP-ассист заранее.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PART 2: HOW TO CHECK -->
+  <section>
+    <div class="kicker reveal">Часть 2</div>
+    <h2 class="reveal">Как узнать, есть ли fast track в аэропорту, куда летишь</h2>
+    <p class="section-sub reveal">Единой мировой «кнопки» нет, но есть надёжный порядок проверки — сверху вниз, от самого точного источника.</p>
+
+    <div class="steps-list">
+      <div class="step-item reveal">
+        <div class="s-num">1</div>
+        <div>
+          <h3>Сайт аэропорта → раздел «Fast Track» / «Security» / «Premium services»</h3>
+          <p>Самый точный источник. Там же публикуют список авиакомпаний и статусов, которым проход положен бесплатно (пример — <a href="https://www.heathrow.com/at-the-airport/airport-services/fast-track/airline-eligibility" target="_blank" rel="noopener">Heathrow airline eligibility</a>).</p>
+        </div>
+      </div>
+      <div class="step-item reveal">
+        <div class="s-num">2</div>
+        <div>
+          <h3>Агрегаторы бронирования по IATA-коду</h3>
+          <p>Вбей код аэропорта в <a href="https://vaba.io" target="_blank" rel="noopener">VABA</a>, <a href="https://www.airportassist.com" target="_blank" rel="noopener">AirportAssist</a> или <a href="https://fasttrack.aero/home" target="_blank" rel="noopener">Fasttrack.aero</a>. Если у них есть бронь на этот аэропорт — значит платный fast track там точно есть.</p>
+        </div>
+      </div>
+      <div class="step-item reveal">
+        <div class="s-num">3</div>
+        <div>
+          <h3>Если летишь со статусом или бизнесом</h3>
+          <p>Проверь на сайте аэропорта, принимает ли он именно твой статус/альянс — не везде правила одинаковые. Тогда fast track будет бесплатным.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="thumb-rule reveal">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11V6a3 3 0 0 1 6 0v5M5 11h14l-1 9H6z"/></svg>
+      <p><b>Правило большого пальца:</b> крупные хабы (LHR, CDG, IST, DXB, AMS, FRA) — fast track почти всегда есть. Малые региональные аэропорты — часто нет, но там и досмотр обычно быстрый.</p>
+    </div>
+  </section>
+
+  <!-- BOT -->
+  <section>
+    <div class="bot reveal">
+      <div class="kicker">Давай настроим автоматику</div>
+      <h2>Бот, который сам говорит про fast track</h2>
+      <p>Чтобы не проверять руками каждый раз — соберу Telegram-бота на твоей инфраструктуре (стек как у watcher-bot: SearXNG + Groq + Telethon, управление кнопками). Кидаешь IATA-код или ближайший рейс — он отвечает.</p>
+
+      <div class="demo">
+        <div><span class="u">Ты →</span> IST</div>
+        <div class="dim">   ⋯ проверяю аэропорт</div>
+        <div><span class="b">Бот →</span> Стамбул (IST) — fast track <b>есть</b> ✅</div>
+        <div class="b">        • Бесплатно: статус Star Alliance Gold / бизнес THY</div>
+        <div class="b">        • Платно: ~$30, ссылка на покупку ↗</div>
+        <div class="b">        • Очередь сейчас: умеренная</div>
+      </div>
+
+      <p style="margin-top:22px">Бот сможет: определять наличие fast track по аэропорту, подсказывать <b>каким способом он доступен именно тебе</b> (статус / бизнес / платно), давать прямую ссылку на покупку и, опционально, брать аэропорт из твоего ближайшего рейса.</p>
+
+      <div class="cta-row">
+        <span class="btn btn-primary">Скажи «собирай» — и сделаю бота</span>
+        <span class="btn btn-ghost">Или справочную таблицу по твоим частым аэропортам</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <h4>Источники</h4>
+    <div class="src">
+      <a href="https://navan.com/resources/glossary/what-is-fast-track-security" target="_blank" rel="noopener">Navan — What is Fast Track Security?</a>
+      <a href="https://www.heathrow.com/at-the-airport/airport-services/fast-track/airline-eligibility" target="_blank" rel="noopener">Heathrow — Fast Track airline eligibility</a>
+      <a href="https://awardfares.com/blog/status-match-guide/" target="_blank" rel="noopener">AwardFares — Airline Status Match Guide 2026</a>
+      <a href="https://www.cbp.gov/travel/trusted-traveler-programs/global-entry/eligibility" target="_blank" rel="noopener">U.S. CBP — Global Entry eligibility</a>
+      <a href="https://www.tsa.gov/travel/frequently-asked-questions/who-can-apply-tsa-precheckr" target="_blank" rel="noopener">TSA — Who can apply for TSA PreCheck</a>
+      <a href="https://www.airportassist.com/blog-detail/348/What-is-Fast-Track-at-the-Airport" target="_blank" rel="noopener">AirportAssist — What is Fast Track (1156 airports)</a>
+      <a href="https://vaba.io" target="_blank" rel="noopener">VABA — Fast Track booking aggregator</a>
+      <a href="https://fasttrack.aero/home" target="_blank" rel="noopener">Fasttrack.aero — Airport Services Reservation</a>
+      <a href="https://travelexperiences.mastercard.com/" target="_blank" rel="noopener">Mastercard Travel Experiences</a>
+      <a href="https://travel-europe.europa.eu/en/ees" target="_blank" rel="noopener">European Union — EES / ETIAS official</a>
+      <a href="https://www.theflightking.com/resources/europe-ees-2026/" target="_blank" rel="noopener">The Flight King — Europe EES 2026 explained</a>
+    </div>
+    <p class="foot-note">Составлено 3 июля 2026. Правила программ и наличие услуг меняются — перед вылетом сверяйся с сайтом конкретного аэропорта.</p>
+  </footer>
+
+</div>
+
+<script type="module">
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce) {
+    document.querySelectorAll('.reveal').forEach(el => el.style.opacity = 1);
+  } else {
+    try {
+      const { animate, inView, stagger } = await import('https://cdn.jsdelivr.net/npm/motion@11/+esm');
+
+      // Hero — плавное появление сверху вниз
+      animate(
+        document.querySelectorAll('.hero .reveal'),
+        { opacity: [0, 1], transform: ['translateY(20px)', 'translateY(0px)'] },
+        { duration: 0.6, delay: stagger(0.08), easing: [0.2, 0.7, 0.2, 1] }
+      );
+
+      // Секции при скролле
+      inView('section', (el) => {
+        const items = el.querySelectorAll('.reveal');
+        animate(
+          items,
+          { opacity: [0, 1], transform: ['translateY(24px)', 'translateY(0px)'] },
+          { duration: 0.55, delay: stagger(0.06), easing: [0.2, 0.7, 0.2, 1] }
+        );
+      }, { amount: 0.15, margin: '0px 0px -10% 0px' });
+    } catch (e) {
+      document.querySelectorAll('.reveal').forEach(el => el.style.opacity = 1);
+    }
+  }
+</script>
+
+</body>
+</html>
