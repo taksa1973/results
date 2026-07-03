@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Персеиды из Бразилии — август 2026: куда ехать и что реально видно</title>
+<meta name="description" content="Гид по наблюдению метеорного потока Персеид из Бразилии в августе 2026. Новолуние в пик, карта штатов по видимости, высота радианта, южные потоки-бонусы и практика наблюдений." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#05070e;
+    --bg-2:#0a0f1c;
+    --surface:rgba(255,255,255,.045);
+    --surface-2:rgba(255,255,255,.07);
+    --border:rgba(255,255,255,.10);
+    --border-strong:rgba(255,255,255,.18);
+    --text:#f4f6fb;
+    --muted:#9aa4b6;
+    --muted-2:#6f7a8d;
+    --gold:#ffce6b;
+    --gold-soft:#ffe0a3;
+    --blue:#6f9bff;
+    --violet:#b09bff;
+    --good:#4ade80;
+    --warn:#fbbf24;
+    --bad:#fb7185;
+    --r-lg:24px;
+    --r-md:18px;
+    --r-sm:12px;
+    --maxw:1120px;
+    --ease:cubic-bezier(.22,.61,.36,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+  body{
+    font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    line-height:1.6;
+    font-size:17px;
+    letter-spacing:-.01em;
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+  /* Fixed cosmic backdrop */
+  #sky{position:fixed;inset:0;z-index:-2;display:block}
+  .glow{position:fixed;z-index:-1;pointer-events:none;border-radius:50%;filter:blur(80px);opacity:.5}
+  .glow.a{top:-120px;left:-80px;width:420px;height:420px;background:radial-gradient(circle,rgba(111,155,255,.35),transparent 70%)}
+  .glow.b{top:30%;right:-140px;width:520px;height:520px;background:radial-gradient(circle,rgba(176,155,255,.28),transparent 70%)}
+  .glow.c{bottom:-160px;left:20%;width:600px;height:600px;background:radial-gradient(circle,rgba(255,206,107,.14),transparent 70%)}
+
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+  a{color:var(--gold-soft);text-decoration:none;border-bottom:1px solid rgba(255,224,163,.25);transition:border-color .2s,color .2s}
+  a:hover{color:#fff;border-color:var(--gold)}
+
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:8px;
+    font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
+    color:var(--gold);
+    padding:7px 14px;border:1px solid var(--border);border-radius:100px;
+    background:var(--surface);backdrop-filter:blur(10px);
+  }
+  .eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--gold);box-shadow:0 0 12px var(--gold)}
+
+  h1,h2,h3{letter-spacing:-.025em;line-height:1.08;font-weight:700}
+  .serif{font-family:'Instrument Serif',Georgia,serif;font-weight:400;letter-spacing:0}
+
+  /* HERO */
+  header.hero{position:relative;padding:120px 0 80px;text-align:center}
+  .hero h1{font-size:clamp(2.6rem,7vw,5.2rem);margin:26px auto 0;max-width:15ch}
+  .hero h1 .serif{color:var(--gold-soft);font-style:italic}
+  .hero .sub{font-size:clamp(1.05rem,2.2vw,1.35rem);color:var(--muted);max-width:44ch;margin:26px auto 0;line-height:1.5}
+  .hero .tldr{
+    display:inline-flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:40px;
+  }
+  .chip{
+    display:inline-flex;align-items:center;gap:9px;
+    padding:11px 18px;border-radius:100px;border:1px solid var(--border);
+    background:var(--surface);backdrop-filter:blur(12px);
+    font-size:14.5px;font-weight:500;color:var(--text);
+  }
+  .chip b{color:var(--gold-soft);font-weight:600}
+  .chip .em{font-size:17px;line-height:1}
+  .scrollcue{margin-top:56px;color:var(--muted-2);font-size:13px;letter-spacing:.05em}
+
+  section{padding:72px 0;position:relative}
+  .sec-head{max-width:52ch;margin-bottom:44px}
+  .sec-head.center{margin-inline:auto;text-align:center}
+  .sec-head h2{font-size:clamp(1.9rem,4vw,3rem)}
+  .sec-head p{color:var(--muted);font-size:clamp(1rem,2vw,1.18rem);margin-top:16px}
+  .kicker{color:var(--gold);font-weight:600;font-size:14px;letter-spacing:.05em;text-transform:uppercase;margin-bottom:14px;display:block}
+
+  /* Cards / bento */
+  .card{
+    background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);
+    padding:28px;backdrop-filter:blur(14px);
+    transition:transform .35s var(--ease),border-color .35s,background .35s;
+  }
+  .card:hover{transform:translateY(-3px);border-color:var(--border-strong);background:var(--surface-2)}
+
+  .verdict{
+    display:grid;grid-template-columns:1.2fr 1fr;gap:20px;
+  }
+  @media(max-width:820px){.verdict{grid-template-columns:1fr}}
+  .verdict .big{
+    background:linear-gradient(135deg,rgba(255,206,107,.14),rgba(176,155,255,.10));
+    border:1px solid var(--border-strong);border-radius:var(--r-lg);padding:36px;
+  }
+  .verdict .big h3{font-size:clamp(1.5rem,3vw,2.1rem);margin-bottom:16px}
+  .verdict .big p{color:var(--muted);font-size:1.05rem}
+  .verdict .big .hl{color:var(--gold-soft);font-weight:600}
+  .stat{display:flex;flex-direction:column;gap:6px;justify-content:center}
+  .stat .num{font-size:clamp(2.4rem,6vw,3.4rem);font-weight:700;letter-spacing:-.04em;line-height:1}
+  .stat .num.good{color:var(--good)}
+  .stat .num.gold{color:var(--gold)}
+  .stat .lbl{color:var(--muted);font-size:.95rem;line-height:1.4}
+  .stat + .stat{margin-top:22px;padding-top:22px;border-top:1px solid var(--border)}
+
+  /* Ranking */
+  .rank{display:flex;flex-direction:column;gap:16px}
+  .place{
+    display:grid;grid-template-columns:56px 1fr auto;gap:20px;align-items:center;
+    background:var(--surface);border:1px solid var(--border);border-radius:var(--r-md);
+    padding:22px 24px;transition:transform .3s var(--ease),border-color .3s,background .3s;
+  }
+  .place:hover{transform:translateX(4px);border-color:var(--border-strong);background:var(--surface-2)}
+  .place .badge{
+    width:56px;height:56px;border-radius:16px;display:grid;place-items:center;
+    font-size:1.5rem;font-weight:700;font-family:'Instrument Serif',serif;
+    background:var(--surface-2);border:1px solid var(--border);color:var(--muted)
+  }
+  .place.top .badge{background:linear-gradient(135deg,var(--gold),#ffab3d);color:#1a1206;border:none;box-shadow:0 6px 24px rgba(255,171,61,.3)}
+  .place.trap .badge{background:rgba(251,191,36,.14);color:var(--warn);border-color:rgba(251,191,36,.3)}
+  .place.no .badge{background:rgba(251,113,133,.12);color:var(--bad);border-color:rgba(251,113,133,.28)}
+  .place .body h3{font-size:1.2rem;margin-bottom:4px}
+  .place .body .where{color:var(--muted-2);font-size:.85rem;font-weight:500;letter-spacing:.02em}
+  .place .body p{color:var(--muted);font-size:.95rem;margin-top:8px;max-width:60ch}
+  .place .meta{display:flex;flex-direction:column;gap:10px;align-items:flex-end;min-width:150px}
+  .tags{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+  .tag{font-size:12px;font-weight:600;padding:5px 10px;border-radius:8px;white-space:nowrap;letter-spacing:.01em}
+  .tag.dry{background:rgba(74,222,128,.12);color:var(--good);border:1px solid rgba(74,222,128,.25)}
+  .tag.wet{background:rgba(251,113,133,.12);color:var(--bad);border:1px solid rgba(251,113,133,.25)}
+  .tag.dark{background:rgba(111,155,255,.12);color:var(--blue);border:1px solid rgba(111,155,255,.25)}
+  .tag.rad{background:rgba(255,206,107,.12);color:var(--gold);border:1px solid rgba(255,206,107,.25)}
+  @media(max-width:720px){
+    .place{grid-template-columns:44px 1fr;gap:14px}
+    .place .badge{width:44px;height:44px;font-size:1.2rem;border-radius:12px}
+    .place .meta{grid-column:1/-1;align-items:flex-start;flex-direction:row;flex-wrap:wrap}
+    .tags{justify-content:flex-start}
+  }
+
+  /* Radiant altitude chart */
+  .bars{display:flex;flex-direction:column;gap:14px}
+  .bar-row{display:grid;grid-template-columns:170px 1fr 52px;gap:14px;align-items:center}
+  .bar-row .name{font-size:.95rem;color:var(--text);font-weight:500}
+  .bar-row .name small{display:block;color:var(--muted-2);font-size:.75rem;font-weight:400}
+  .bar-track{height:24px;background:rgba(255,255,255,.05);border-radius:8px;overflow:hidden;position:relative}
+  .bar-fill{height:100%;width:0;border-radius:8px;background:linear-gradient(90deg,var(--blue),var(--gold));transition:width 1.1s var(--ease)}
+  .bar-row .val{font-weight:700;font-size:.95rem;text-align:right;color:var(--gold-soft)}
+  .bar-row.low .bar-fill{background:linear-gradient(90deg,#3a4666,#5b6b8f)}
+  .bar-row.low .val{color:var(--muted)}
+  @media(max-width:600px){.bar-row{grid-template-columns:110px 1fr 44px;gap:10px}.bar-row .name{font-size:.82rem}}
+
+  /* Moon timeline */
+  .moon-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  @media(max-width:820px){.moon-grid{grid-template-columns:1fr}}
+  .moon-card{padding:30px;border-radius:var(--r-lg);border:1px solid var(--border)}
+  .moon-card.win{background:linear-gradient(160deg,rgba(74,222,128,.10),rgba(111,155,255,.06));border-color:rgba(74,222,128,.25)}
+  .moon-card.lose{background:linear-gradient(160deg,rgba(251,113,133,.09),rgba(255,255,255,.02));border-color:rgba(251,113,133,.22)}
+  .moon-vis{display:flex;align-items:center;gap:18px;margin-bottom:20px}
+  .moon-disc{width:64px;height:64px;border-radius:50%;flex-shrink:0;position:relative;box-shadow:0 0 0 1px var(--border) inset}
+  .moon-disc.new{background:radial-gradient(circle at 50% 45%,#12151f,#05070e);box-shadow:0 0 30px rgba(111,155,255,.25),0 0 0 1px rgba(255,255,255,.08) inset}
+  .moon-disc.full{background:radial-gradient(circle at 42% 38%,#fff,#c9cfda 60%,#9aa4b6);box-shadow:0 0 34px rgba(255,255,255,.35)}
+  .moon-vis .mt .p{font-size:1.35rem;font-weight:700}
+  .moon-vis .mt .s{color:var(--muted);font-size:.9rem}
+  .moon-card h3{font-size:1.3rem;margin-bottom:6px}
+  .moon-card .date{color:var(--gold-soft);font-weight:600;font-size:.95rem;margin-bottom:14px}
+  .moon-card p{color:var(--muted);font-size:.98rem}
+  .verdict-pill{display:inline-flex;align-items:center;gap:8px;margin-top:16px;padding:8px 14px;border-radius:100px;font-weight:600;font-size:.9rem}
+  .verdict-pill.g{background:rgba(74,222,128,.14);color:var(--good)}
+  .verdict-pill.r{background:rgba(251,113,133,.14);color:var(--bad)}
+
+  /* Feature grid (bonus showers / tips) */
+  .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  @media(max-width:820px){.grid-2,.grid-3{grid-template-columns:1fr}}
+  .card .ic{width:46px;height:46px;border-radius:12px;display:grid;place-items:center;margin-bottom:18px;background:var(--surface-2);border:1px solid var(--border)}
+  .card h3{font-size:1.25rem;margin-bottom:10px}
+  .card p{color:var(--muted);font-size:.98rem}
+  .card .datapair{display:flex;gap:20px;margin-top:16px;flex-wrap:wrap}
+  .card .datapair div{font-size:.85rem;color:var(--muted-2)}
+  .card .datapair b{display:block;color:var(--gold-soft);font-size:1.15rem;font-weight:700;letter-spacing:-.02em}
+
+  /* steps */
+  .steps{counter-reset:s;display:flex;flex-direction:column;gap:14px}
+  .step{display:grid;grid-template-columns:44px 1fr;gap:18px;align-items:start;padding:20px 22px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-md)}
+  .step::before{counter-increment:s;content:counter(s);width:44px;height:44px;border-radius:12px;display:grid;place-items:center;font-weight:700;font-family:'Instrument Serif',serif;font-size:1.3rem;background:var(--surface-2);border:1px solid var(--border);color:var(--gold)}
+  .step h3{font-size:1.08rem;margin-bottom:4px}
+  .step p{color:var(--muted);font-size:.95rem}
+
+  /* Plan callout */
+  .plan{background:linear-gradient(135deg,rgba(255,206,107,.12),rgba(176,155,255,.09));border:1px solid var(--border-strong);border-radius:var(--r-lg);padding:clamp(28px,5vw,52px);text-align:center}
+  .plan h2{font-size:clamp(1.8rem,4vw,2.6rem);margin-bottom:14px}
+  .plan p{color:var(--muted);max-width:56ch;margin:0 auto 8px;font-size:1.08rem}
+  .plan .pgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:36px;text-align:left}
+  @media(max-width:820px){.plan .pgrid{grid-template-columns:1fr 1fr}}
+  @media(max-width:480px){.plan .pgrid{grid-template-columns:1fr}}
+  .plan .pcell{background:rgba(5,7,14,.35);border:1px solid var(--border);border-radius:var(--r-md);padding:20px}
+  .plan .pcell .k{font-size:.78rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted-2);margin-bottom:8px}
+  .plan .pcell .v{font-size:1.05rem;font-weight:600}
+  .plan .pcell .v small{display:block;color:var(--muted);font-weight:400;font-size:.85rem;margin-top:3px}
+
+  .note{font-size:.92rem;color:var(--muted-2);background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--gold);border-radius:10px;padding:16px 20px;margin-top:24px}
+
+  footer{border-top:1px solid var(--border);padding:52px 0 72px;margin-top:40px}
+  footer h3{font-size:1.1rem;margin-bottom:16px}
+  .src{columns:2;column-gap:36px;font-size:.9rem;color:var(--muted)}
+  @media(max-width:640px){.src{columns:1}}
+  .src li{margin-bottom:9px;break-inside:avoid;list-style:none}
+  .foot-meta{margin-top:36px;color:var(--muted-2);font-size:.85rem;line-height:1.7}
+
+  .reveal{opacity:1;transform:none}
+  html.js .reveal{opacity:0;transform:translateY(26px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+  html.js .reveal.in{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){
+    html.js .reveal{opacity:1!important;transform:none!important;transition:none}
+    .bar-fill{transition:none}
+    *{scroll-behavior:auto}
+  }
+</style>
+<script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+<canvas id="sky"></canvas>
+<div class="glow a"></div><div class="glow b"></div><div class="glow c"></div>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="eyebrow"><span class="dot"></span>Гид наблюдателя · Август 2026</span>
+    <h1>Персеиды из&nbsp;Бразилии: <span class="serif">стоит&nbsp;ли&nbsp;ехать</span> и&nbsp;куда</h1>
+    <p class="sub">Честный разбор: в 2026-м небо идеально тёмное, но радиант лежит низко. Разбираемся, в каком штате «падающих звёзд» реально будет больше.</p>
+    <div class="tldr">
+      <span class="chip"><span class="em">🌑</span> Новолуние <b>прямо в пик</b> 12–13 авг</span>
+      <span class="chip"><span class="em">📍</span> Лучший штат — <b>Токантинс (Жалапан)</b></span>
+      <span class="chip"><span class="em">⏰</span> Смотреть <b>2:00–5:00</b> утра</span>
+    </div>
+    <div class="scrollcue">↓ листай — карта штатов, высота радианта, план</div>
+  </div>
+</header>
+
+<!-- VERDICT -->
+<section>
+  <div class="wrap">
+    <div class="verdict">
+      <div class="big reveal">
+        <span class="kicker">Короткий вердикт</span>
+        <h3>Ехать <span class="hl">имеет смысл</span> — но не за самими Персеидами, а за тёмным небом.</h3>
+        <p>Персеиды — «северный» поток: их радиант в созвездии Персея (склонение +58°) поднимается над горизонтом Бразилии всего на <span class="hl">2–35°</span> — и тем выше, чем севернее вы находитесь. Зато <span class="hl">2026 год уникален</span>: пик 12–13 августа приходится ровно на новолуние, Луна не мешает вообще. Значит, из тёмного северного штата вы поймаете скромный, но реальный поток Персеид — <span class="hl">плюс</span> южные потоки, которые в это время стоят почти в зените.</p>
+      </div>
+      <div class="card reveal" style="display:flex">
+        <div style="width:100%">
+          <div class="stat">
+            <span class="num good">0%</span>
+            <span class="lbl">освещённость Луны в ночь пика 12–13 августа 2026 — новолуние. Лучший год для Персеид с 2018-го.</span>
+          </div>
+          <div class="stat">
+            <span class="num gold">~15–30</span>
+            <span class="lbl">метеоров в час — реалистичный максимум из тёмного севера Бразилии под утро (на широте Европы было бы ~100).</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHERE -->
+<section>
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="kicker">Главное · где больше видно</span>
+      <h2>Рейтинг штатов Бразилии для Персеид-2026</h2>
+      <p>Идеальная точка — компромисс трёх факторов: высота радианта (чем севернее, тем выше), сухой сезон (ясное небо в августе) и минимум засветки. Крайний север выигрывает по геометрии, но в августе там сезон дождей — поэтому побеждает пояс сухих саванн на широте −8…−11°.</p>
+    </div>
+    <div class="rank">
+
+      <div class="place top reveal">
+        <div class="badge">1</div>
+        <div class="body">
+          <h3>Жалапан <span class="where">· Токантинс (Jalapão)</span></h3>
+          <p>Лучший баланс. Радиант ещё держится на ~21°, небо Bortle 1–2 (одно из самых тёмных в Бразилии), а август — пик сухого сезона: сухой воздух пустынного типа, ясные ночи. Минус — тяжёлая логистика: нужен внедорожник, база — городок Матейрус через Палмас (PMW).</p>
+        </div>
+        <div class="meta">
+          <div class="tags"><span class="tag rad">радиант ~21°</span><span class="tag dark">Bortle 1–2</span><span class="tag dry">сухо, ясно</span></div>
+        </div>
+      </div>
+
+      <div class="place top reveal">
+        <div class="badge">2</div>
+        <div class="body">
+          <h3>Интерьер Сертана <span class="where">· Пиауи / Сеара / Пернамбуку (глубинка)</span></h3>
+          <p>Самый высокий радиант среди «сухих» точек — ~24°, потому что это уже широта −8°. Каатинга-глушь почти без засветки, август сухой и жаркий (эскарп задерживает влагу с побережья). Минус — мало туристической инфраструктуры, добираться через Петролину (PNZ) или Жуазейру-ду-Норти (JDO).</p>
+        </div>
+        <div class="meta">
+          <div class="tags"><span class="tag rad">радиант ~24°</span><span class="tag dark">Bortle 1–3</span><span class="tag dry">сухо</span></div>
+        </div>
+      </div>
+
+      <div class="place reveal">
+        <div class="badge">3</div>
+        <div class="body">
+          <h3>Шапада-дус-Веадейрус <span class="where">· Гояс (Chapada dos Veadeiros)</span></h3>
+          <p>Выбор «максимум неба при минимуме хлопот». Радиант ниже (~18°), зато это эталонное тёмное небо Bortle 1–2 (Млечный Путь отбрасывает тень), гарантированно сухой август и всего 3–4 часа на машине от Бразилиа (BSB). Развитый астротуризм, глэмпинг. Идеально, если север слишком далеко.</p>
+        </div>
+        <div class="meta">
+          <div class="tags"><span class="tag rad">радиант ~18°</span><span class="tag dark">Bortle 1–2</span><span class="tag dry">сухо · доступно</span></div>
+        </div>
+      </div>
+
+      <div class="place reveal">
+        <div class="badge">4</div>
+        <div class="body">
+          <h3>Шапада-Диамантина <span class="where">· Баия (Chapada Diamantina)</span></h3>
+          <p>Прохладное высокогорье, тёмное небо Bortle 2–3, сухой сезон май–сентябрь. Радиант ~19° — чуть выше Веадейруса за счёт более северного положения. Аэропорт Ленсойс (LEC) или ~6 ч на машине от Салвадора (SSA).</p>
+        </div>
+        <div class="meta">
+          <div class="tags"><span class="tag rad">радиант ~19°</span><span class="tag dark">Bortle 2–3</span><span class="tag dry">сухо</span></div>
+        </div>
+      </div>
+
+      <div class="place reveal">
+        <div class="badge">5</div>
+        <div class="body">
+          <h3>Пантанал <span class="where">· Мату-Гросу / Мату-Гросу-ду-Сул</span></h3>
+          <p>Огромные открытые горизонты без единого фонаря, Bortle 2–3, сухой зимний август (ночами бывает прохладно, +5…+10°). Радиант низковат (~14–15°), но чистый горизонт и бонус — сафари на ягуаров. Хабы: Куяба (CGB) или Кампу-Гранди (CGR).</p>
+        </div>
+        <div class="meta">
+          <div class="tags"><span class="tag rad">радиант ~15°</span><span class="tag dark">Bortle 2–3</span><span class="tag dry">сухо</span></div>
+        </div>
+      </div>
+
+      <div class="place trap reveal">
+        <div class="badge">!</div>
+        <div class="body">
+          <h3>Ловушка: Рорайма / Боа-Виста <span class="where">· крайний север</span></h3>
+          <p>Геометрически — <b>лучшая точка Бразилии</b>: радиант поднимается на ~35°. Но именно здесь сезон дождей май–август (обратный остальной стране): в августе ~21 дождливый день, высокая влажность, постоянная облачность. На бумаге идеально — на практике небо чаще закрыто. Не едьте сюда ради Персеид в августе.</p>
+        </div>
+        <div class="meta">
+          <div class="tags"><span class="tag rad">радиант ~35°</span><span class="tag wet">сезон дождей</span></div>
+        </div>
+      </div>
+
+      <div class="place no reveal">
+        <div class="badge">✕</div>
+        <div class="body">
+          <h3>Не тратьте время: Сан-Паулу, Рио, юг <span class="where">· Сан-Паулу · Риу-Гранди-ду-Сул</span></h3>
+          <p>Радиант поднимается всего на 2–8° и лишь под самый рассвет. Южнее широты ~32° ю. ш. (Порту-Алегри) он практически <b>вообще не восходит</b>. Плюс засветка мегаполисов. Персеиды отсюда — единичные росчерки, не стоит ожиданий.</p>
+        </div>
+        <div class="meta">
+          <div class="tags"><span class="tag wet">радиант 2–8°</span></div>
+        </div>
+      </div>
+
+    </div>
+    <div class="note reveal">💡 Во всех этих точках в середине августа к Персеидам добавляются <b>южные δ-Аквариды</b> (их радиант стоит почти над головой) и яркие болиды <b>α-Каприкорнид</b> — а Луны в 2026-м нет. Так что тёмный северный участок даёт полноценную «ночь падающих звёзд», а не только Персеиды.</div>
+  </div>
+</section>
+
+<!-- RADIANT CHART -->
+<section>
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="kicker">Почему так · геометрия</span>
+      <h2>Высота радианта: север против юга</h2>
+      <p>Максимальная высота радианта над горизонтом = 90° − |широта − 58°|. Чем ниже радиант, тем меньше метеоров: наблюдаемое число падает пропорционально синусу высоты. Отсюда — резкий градиент с севера на юг.</p>
+    </div>
+    <div class="card reveal" id="chart">
+      <div class="bars">
+        <div class="bar-row" data-w="97"><div class="name">Боа-Виста <small>Рорайма · +2,8°</small></div><div class="bar-track"><div class="bar-fill"></div></div><div class="val">35°</div></div>
+        <div class="bar-row" data-w="80"><div class="name">Форталеза <small>Сеара · −3,7°</small></div><div class="bar-track"><div class="bar-fill"></div></div><div class="val">28°</div></div>
+        <div class="bar-row" data-w="82"><div class="name">Манаус <small>Амазонас · −3,1°</small></div><div class="bar-track"><div class="bar-fill"></div></div><div class="val">29°</div></div>
+        <div class="bar-row" data-w="68"><div class="name">Сертан <small>Пиауи · −8°</small></div><div class="bar-track"><div class="bar-fill"></div></div><div class="val">24°</div></div>
+        <div class="bar-row" data-w="61"><div class="name">Жалапан <small>Токантинс · −10,5°</small></div><div class="bar-track"><div class="bar-fill"></div></div><div class="val">21°</div></div>
+        <div class="bar-row" data-w="51"><div class="name">Ш.-Диамантина <small>Баия · −12,6°</small></div><div class="bar-track"><div class="bar-fill"></div></div><div class="val">19°</div></div>
+        <div class="bar-row" data-w="46"><div class="name">Ш.-Веадейрус <small>Гояс · −14,1°</small></div><div class="bar-track"><div class="bar-fill"></div></div><div class="val">18°</div></div>
+        <div class="bar-row low" data-w="41"><div class="name">Бразилиа <small>ДФ · −15,8°</small></div><div class="bar-track"><div class="bar-fill"></div></div><div class="val">16°</div></div>
+        <div class="bar-row low" data-w="22"><div class="name">Сан-Паулу <small>−23,5°</small></div><div class="bar-track"><div class="bar-fill"></div></div><div class="val">8,5°</div></div>
+        <div class="bar-row low" data-w="6"><div class="name">Порту-Алегри <small>−30°</small></div><div class="bar-track"><div class="bar-fill"></div></div><div class="val">2°</div></div>
+      </div>
+      <div class="note" style="margin-top:26px">Это оптимистичный максимум — в момент кульминации под утро, при идеально тёмном небе. Реальные цифры ниже: у горизонта атмосфера гасит слабые метеоры сильнее, чем даёт синус. Но сравнение «север → юг» честное: нигде в Бразилии не достичь ZHR&nbsp;100, который видят наблюдатели северных широт.</div>
+    </div>
+  </div>
+</section>
+
+<!-- MOON -->
+<section>
+  <div class="wrap">
+    <div class="sec-head center reveal">
+      <span class="kicker">Фактор №1 · Луна</span>
+      <h2>Почему именно 2026-й — «тот самый» год</h2>
+      <p>Свет Луны убивает наблюдение метеоров сильнее всего остального. В 2026-м расклад перевёрнут: Персеидам повезло с новолунием, а обычно-удобным южным δ-Акваридам — не повезло с полнолунием.</p>
+    </div>
+    <div class="moon-grid">
+      <div class="moon-card win reveal">
+        <div class="moon-vis">
+          <div class="moon-disc new"></div>
+          <div class="mt"><div class="p">0%</div><div class="s">освещённость</div></div>
+        </div>
+        <h3>Персеиды — новолуние ✓</h3>
+        <div class="date">Пик: ночь 12–13 августа 2026</div>
+        <p>Новолуние наступает 12 августа. В окно наблюдения 2:00–5:00 Луна вообще под горизонтом (восходит только ~06:30). Небо абсолютно тёмное. В этот же день, кстати, полное солнечное затмение — что и подтверждает новолуние.</p>
+        <span class="verdict-pill g">→ Ехать за этим</span>
+      </div>
+      <div class="moon-card lose reveal">
+        <div class="moon-vis">
+          <div class="moon-disc full"></div>
+          <div class="mt"><div class="p">~100%</div><div class="s">освещённость</div></div>
+        </div>
+        <h3>δ-Аквариды — полнолуние ✗</h3>
+        <div class="date">Пик: ночь 29–30 июля 2026</div>
+        <p>Полнолуние 29 июля стоит в небе всю ночь и засвечивает эти и без того слабые метеоры. Обычно δ-Аквариды — главный «южный» поток лета, но в 2026-м их пик испорчен. Обходной путь: ловить их в тёмные утра ~10–14 августа, когда они ещё активны, а Луны уже нет.</p>
+        <span class="verdict-pill r">→ Пик пропустить</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BONUS SHOWERS -->
+<section>
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="kicker">Бонус · что ещё летит</span>
+      <h2>Три потока в одну ночь</h2>
+      <p>Тёмное августовское утро в Бразилии — это не только (низкие) Персеиды. Два «южных» потока в это время стоят почти в зените и работают на вас.</p>
+    </div>
+    <div class="grid-3">
+      <div class="card reveal">
+        <div class="ic">☄️</div>
+        <h3>Персеиды</h3>
+        <p>Быстрые, яркие, часто со следами. Из Бразилии низко над северным горизонтом — но в 2026-м без Луны видны хорошо для южного полушария.</p>
+        <div class="datapair"><div><b>~21–35°</b>высота (север)</div><div><b>ZHR 100</b>в зените (не здесь)</div></div>
+      </div>
+      <div class="card reveal">
+        <div class="ic">✨</div>
+        <h3>Южные δ-Аквариды</h3>
+        <p>Радиант в Водолее (−16°) — из Бразилии проходит почти над головой (~80–90°!). Активны до 23 августа, так что в середине августа добавляют метеоры при тёмном небе.</p>
+        <div class="datapair"><div><b>~80–90°</b>высота из Бразилии</div><div><b>ZHR 25</b>в пик</div></div>
+      </div>
+      <div class="card reveal">
+        <div class="ic">🔥</div>
+        <h3>α-Каприкорниды</h3>
+        <p>Медленные, но эффектные: яркие цветные болиды до −4…−10 звёздной величины. Мало по числу, зато каждый запоминается. Активны до 15 августа, радиант высоко.</p>
+        <div class="datapair"><div><b>~77–84°</b>высота из Бразилии</div><div><b>ZHR 5</b>но болиды</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW -->
+<section>
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="kicker">Практика</span>
+      <h2>Как смотреть, чтобы увидеть максимум</h2>
+    </div>
+    <div class="steps">
+      <div class="step reveal"><div class="body"><h3>Время: 2:00–5:00 по местному</h3><p>Радиант выше всего под утро, перед рассветом — тогда метеоров больше всего. До полуночи смысла почти нет.</p></div></div>
+      <div class="step reveal"><div class="body"><h3>Уезжайте от засветки города</h3><p>Проверьте точку на <a href="https://www.lightpollutionmap.info" target="_blank" rel="noopener">lightpollutionmap.info</a> — нужен участок Bortle 1–3. Даже 30–40 км от города радикально меняют картину.</p></div></div>
+      <div class="step reveal"><div class="body"><h3>Никакого телескопа</h3><p>Метеоры смотрят только глазами — широким полем зрения. Телескоп и бинокль тут только мешают. Лягте на шезлонг или коврик и смотрите в зенит.</p></div></div>
+      <div class="step reveal"><div class="body"><h3>20–30 минут на адаптацию глаз</h3><p>В темноте зрачок раскрывается не сразу. Не смотрите в телефон — экран сбивает адаптацию. Если нужен свет — только красный фонарик.</p></div></div>
+      <div class="step reveal"><div class="body"><h3>Тёплые вещи и прогноз</h3><p>Даже в тропиках на плато ночи +5…+12°. Возьмите куртку, плед, термос. Проверьте облачность на вечер по <a href="https://www.meteoblue.com" target="_blank" rel="noopener">meteoblue</a> и приложение-планетарий (<a href="https://stellarium.org" target="_blank" rel="noopener">Stellarium</a>) — найти созвездие Персея.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PLAN -->
+<section>
+  <div class="wrap">
+    <div class="plan reveal">
+      <span class="kicker" style="color:var(--gold)">Готовый план</span>
+      <h2>Если коротко — делай так</h2>
+      <p>Раз ты можешь в любой штат: целься в тёмное сухое небо севера-центра и лови ночь новолуния. Персеиды + два южных потока сразу.</p>
+      <div class="pgrid">
+        <div class="pcell"><div class="k">Куда</div><div class="v">Жалапан (Токантинс)<small>или Шапада-дус-Веадейрус, если хочется проще добраться</small></div></div>
+        <div class="pcell"><div class="k">Когда</div><div class="v">Ночь 12→13 августа<small>резерв: 11→12 и 13→14 августа</small></div></div>
+        <div class="pcell"><div class="k">Во сколько</div><div class="v">02:00–05:00<small>перед рассветом, лицом к северо-востоку</small></div></div>
+        <div class="pcell"><div class="k">Ожидания</div><div class="v">~15–30 метеоров/час<small>Персеиды + δ-Аквариды + болиды</small></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <h3>Источники и проверка</h3>
+    <ul class="src">
+      <li>Фазы Луны, восход/заход: <a href="https://www.timeanddate.com/moon/brazil/sao-paulo" target="_blank" rel="noopener">timeanddate.com</a>, <a href="https://www.moongiant.com" target="_blank" rel="noopener">moongiant.com</a></li>
+      <li>Календарь потоков и радианты: <a href="https://in-the-sky.org" target="_blank" rel="noopener">in-the-sky.org</a>, <a href="https://www.amsmeteors.org/meteor-showers/meteor-shower-calendar/" target="_blank" rel="noopener">American Meteor Society</a></li>
+      <li>Персеиды и видимость: <a href="https://earthsky.org/astronomy-essentials/everything-you-need-to-know-perseid-meteor-shower/" target="_blank" rel="noopener">EarthSky</a>, <a href="https://en.wikipedia.org/wiki/Perseids" target="_blank" rel="noopener">Wikipedia</a></li>
+      <li>Формула ZHR и высота радианта: <a href="https://en.wikipedia.org/wiki/Zenithal_hourly_rate" target="_blank" rel="noopener">Zenithal Hourly Rate</a>, <a href="https://www.imo.net" target="_blank" rel="noopener">IMO</a></li>
+      <li>Тёмное небо Бразилии: <a href="https://www.lightpollutionmap.info" target="_blank" rel="noopener">lightpollutionmap.info</a>, <a href="https://www.ico-optics.org/5-best-places-to-stargaze-in-brazil/" target="_blank" rel="noopener">гид по локациям</a></li>
+      <li>Климат по регионам: <a href="https://www.climatestotravel.com/climate/brazil" target="_blank" rel="noopener">climatestotravel.com</a>, <a href="https://weather-and-climate.com" target="_blank" rel="noopener">weather-and-climate.com</a></li>
+    </ul>
+    <p class="foot-meta">
+      Все ключевые числа (фаза Луны 12–13 августа и 29–30 июля 2026, высоты радианта, даты пиков) проверены перекрёстно по нескольким независимым источникам. Высоты радианта рассчитаны по формуле 90° − |широта − 58°| и являются максимумом в момент кульминации. Данные актуальны для 2026 года.<br />
+      Составлено 3 июля 2026 · тёмная тема, анимации на Framer&nbsp;Motion, уважает prefers-reduced-motion.
+    </p>
+  </div>
+</footer>
+
+<!-- Core: starfield + scroll reveals + bars. Plain JS, no dependencies — content never depends on a CDN. -->
+<script>
+(function(){
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* ---------- Starfield + meteors on canvas ---------- */
+  const cv = document.getElementById("sky");
+  const ctx = cv.getContext("2d");
+  let W, H, stars = [], meteors = [], dpr = Math.min(window.devicePixelRatio || 1, 2);
+  function resize(){
+    W = cv.width = innerWidth * dpr; H = cv.height = innerHeight * dpr;
+    cv.style.width = innerWidth + "px"; cv.style.height = innerHeight + "px";
+    const count = Math.min(220, Math.floor((innerWidth*innerHeight)/9000));
+    stars = Array.from({length:count}, () => ({
+      x: Math.random()*W, y: Math.random()*H,
+      r: (Math.random()*1.3+0.3)*dpr,
+      base: Math.random()*0.5+0.3,
+      tw: Math.random()*0.02+0.004,
+      ph: Math.random()*Math.PI*2
+    }));
+  }
+  resize();
+  addEventListener("resize", resize);
+
+  function spawnMeteor(){
+    const fromLeft = Math.random() > 0.4;
+    const x = fromLeft ? Math.random()*W*0.5 : Math.random()*W;
+    meteors.push({
+      x, y: Math.random()*H*0.4,
+      len: (Math.random()*160+120)*dpr,
+      sp: (Math.random()*7+6)*dpr,
+      a: 1,
+      ang: Math.PI/4 + (Math.random()*0.3-0.15)
+    });
+  }
+
+  let t = 0, lastMeteor = 0;
+  function draw(ts){
+    ctx.clearRect(0,0,W,H);
+    t += 1;
+    // stars
+    for(const s of stars){
+      const tw = reduce ? s.base : s.base + Math.sin(t*s.tw + s.ph)*0.35;
+      ctx.globalAlpha = Math.max(0.05, Math.min(1, tw));
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.r, 0, Math.PI*2);
+      ctx.fillStyle = "#dfe7ff";
+      ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+    // meteors
+    if(!reduce){
+      if(ts - lastMeteor > 2600 + Math.random()*3200){ spawnMeteor(); lastMeteor = ts; }
+      for(let i=meteors.length-1;i>=0;i--){
+        const m = meteors[i];
+        const dx = Math.cos(m.ang)*m.len, dy = Math.sin(m.ang)*m.len;
+        const g = ctx.createLinearGradient(m.x, m.y, m.x-dx, m.y-dy);
+        g.addColorStop(0, `rgba(255,224,163,${m.a})`);
+        g.addColorStop(0.3, `rgba(255,206,107,${m.a*0.5})`);
+        g.addColorStop(1, "rgba(255,206,107,0)");
+        ctx.strokeStyle = g; ctx.lineWidth = 2*dpr; ctx.lineCap = "round";
+        ctx.beginPath(); ctx.moveTo(m.x, m.y); ctx.lineTo(m.x-dx, m.y-dy); ctx.stroke();
+        m.x += Math.cos(m.ang)*m.sp; m.y += Math.sin(m.ang)*m.sp; m.a -= 0.012;
+        if(m.a <= 0 || m.x > W+200 || m.y > H+200) meteors.splice(i,1);
+      }
+    }
+    requestAnimationFrame(draw);
+  }
+  requestAnimationFrame(draw);
+
+  /* ---------- Fill radiant bars ---------- */
+  function fillBars(root){
+    const rows = root.querySelectorAll(".bar-row");
+    rows.forEach((row,i)=>{
+      const w = row.getAttribute("data-w") + "%";
+      const fill = row.querySelector(".bar-fill");
+      if(reduce){ fill.style.width = w; return; }
+      setTimeout(()=>{ fill.style.width = w; }, i*70);
+    });
+  }
+
+  /* ---------- Reveal on scroll (native IntersectionObserver) ---------- */
+  const reveals = document.querySelectorAll(".reveal");
+  function reveal(el){
+    el.classList.add("in");
+    if(el.id === "chart") fillBars(el);
+  }
+  if("IntersectionObserver" in window){
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach((e)=>{
+        if(e.isIntersecting){ reveal(e.target); io.unobserve(e.target); }
+      });
+    }, {rootMargin:"0px 0px -8% 0px"});
+    reveals.forEach((el)=> io.observe(el));
+    // Safety net: if anything is still hidden after load (e.g. observer edge cases), show it.
+    window.addEventListener("load", ()=> setTimeout(()=>{
+      document.querySelectorAll(".reveal:not(.in)").forEach((el)=>{
+        const r = el.getBoundingClientRect();
+        if(r.top < window.innerHeight) reveal(el);
+      });
+    }, 400), {once:true});
+  } else {
+    reveals.forEach(reveal);
+  }
+})();
+</script>
+
+<!-- Enhancement only: Framer Motion (motion) polishes the hero entrance. Content is already visible without it. -->
+<script type="module">
+  try{
+    const { animate, stagger } = await import("https://cdn.jsdelivr.net/npm/motion@11/+esm");
+    if(!window.matchMedia("(prefers-reduced-motion: reduce)").matches){
+      animate("header.hero .eyebrow", {opacity:[0,1], y:[16,0]}, {duration:.6});
+      animate("header.hero h1",      {opacity:[0,1], y:[26,0]}, {duration:.85, delay:.1});
+      animate("header.hero .sub",    {opacity:[0,1], y:[20,0]}, {duration:.7, delay:.28});
+      animate("header.hero .tldr .chip", {opacity:[0,1], y:[16,0]}, {duration:.6, delay:stagger(.09, {startDelay:.45})});
+      animate("header.hero .scrollcue", {opacity:[0,1]}, {duration:.8, delay:1});
+    }
+  }catch(e){ /* offline / CDN blocked — hero stays fully visible, no action needed */ }
+</script>
+</body>
+</html>
