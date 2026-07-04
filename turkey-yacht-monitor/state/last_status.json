@@ -1,12 +1,11 @@
 {
-  "ts": "2026-07-03T09:22:53.503607+00:00",
+  "ts": "2026-07-04T08:40:47.874639+00:00",
   "findings": {},
   "errors": {
     "Navigare Yachting Turkey": "http_403",
     "Rotaneta Gocek catamaran": "http_503",
     "Rotaneta home": "http_503",
     "Yacht-Rent Turkey": "http_403",
-    "Gulet Bookers (home, Bodrum-based)": "request_error: ConnectTimeout: HTTPSConnectionPool(host='www.guletbookers.com', port=443): Max retries exceeded with url: / (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.guletbookers.com', port=443) at 0x7f8bf6689310>, 'Connection to www.guletbookers.com timed out. (connect timeout=30)'))",
     "Gulet Escapes (UK)": "http_403",
     "GuletYacht.net": "http_403"
   }
