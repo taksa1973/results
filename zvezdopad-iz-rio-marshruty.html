@@ -201,7 +201,7 @@
     <span class="eyebrow"><span class="dot"></span>Из Рио-де-Жанейро · на двоих · август 2026</span>
     <h1>Звездопад <span class="serif">из Рио</span>: парк, ужин, отель — и ночь под звёздами</h1>
     <p class="sub">Три проверенных маршрута выходного дня по твоему сценарию: вас забирают из Рио, днём — парк и прогулка, ужин, отель отдохнуть, а ночью — выезд наблюдать метеоры под тёмным небом.</p>
-    <div class="flow reveal">
+    <div class="flow">
       <div class="step">
         <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 17h16M6 17V9l2-4h8l2 4v8M8 17v2M16 17v2M7 9h10"/><circle cx="8.5" cy="13.5" r="1"/><circle cx="15.5" cy="13.5" r="1"/></svg></div>
         <div class="t">Забрали из Рио</div><div class="s">трансфер / авто</div>
@@ -523,7 +523,7 @@
     try{
       const { animate, inView, stagger } = await import("https://cdn.jsdelivr.net/npm/motion@11/+esm");
       document.querySelectorAll('.steps, .flow').forEach(g=>{
-        inView(g,()=>{const items=g.querySelectorAll('.reveal, .step, .stp');animate(items,{opacity:[0,1],transform:['translateY(22px)','translateY(0)']},{duration:.55,delay:stagger(.06),easing:[.22,.61,.36,1]});},{margin:"0px 0px -12% 0px"});
+        inView(g,()=>{const items=[...(g.classList.contains('reveal')?[g]:[]),...g.querySelectorAll('.reveal, .step, .stp')];animate(items,{opacity:[0,1],transform:['translateY(22px)','translateY(0)']},{duration:.55,delay:stagger(.06),easing:[.22,.61,.36,1]});},{margin:"0px 0px -12% 0px"});
       });
       document.querySelectorAll('.reveal').forEach(el=>{
         if(el.closest('.steps,.flow'))return;
