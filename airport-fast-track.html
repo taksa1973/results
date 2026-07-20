@@ -192,6 +192,45 @@
   .thumb-rule p{font-size:15px;color:#1c5a30}
   .thumb-rule b{color:var(--green)}
 
+  /* BANK CARDS */
+  .group-label{
+    display:flex;align-items:center;gap:12px;margin:34px 0 18px;
+    font-size:15px;font-weight:700;color:var(--ink);
+  }
+  .group-label .tag{
+    font-size:12px;font-weight:600;padding:4px 11px;border-radius:100px;
+  }
+  .tag-ok{background:var(--green-soft);color:var(--green)}
+  .tag-ru{background:var(--amber-soft);color:var(--amber)}
+  .group-label .rule{flex:1;height:1px;background:var(--line)}
+  .bank-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:720px){.bank-grid{grid-template-columns:1fr}}
+  .bank-card{
+    background:var(--card);border:1px solid var(--line);border-radius:18px;
+    padding:24px;box-shadow:var(--shadow);border-left:4px solid var(--dot,#0071E3);
+    transition:transform .25s cubic-bezier(.2,.7,.2,1), box-shadow .25s;
+  }
+  .bank-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-hover)}
+  .bank-card .b-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:4px}
+  .bank-card h3{font-size:18px;font-weight:700;letter-spacing:-.01em}
+  .bank-card .tier{font-size:13px;color:var(--ink-2);margin-bottom:16px}
+  .bank-card .spec{display:grid;gap:11px}
+  .bank-card .spec .row{display:grid;grid-template-columns:96px 1fr;gap:12px;font-size:14.5px;align-items:start}
+  .bank-card .spec .k{color:var(--ink-2);font-weight:500}
+  .bank-card .spec .v{color:var(--ink);font-weight:500}
+  .bank-card .spec .v b{font-weight:700}
+  .passes{
+    display:inline-block;background:var(--blue-soft);color:var(--blue);
+    font-weight:700;font-size:13px;padding:3px 10px;border-radius:8px;
+  }
+  .warn-bar{
+    margin:18px 0 6px;background:var(--red-soft);border-radius:16px;padding:20px 24px;
+    display:flex;gap:14px;align-items:flex-start;
+  }
+  .warn-bar svg{flex:none;color:var(--red);margin-top:2px}
+  .warn-bar p{font-size:15px;color:#7a231e}
+  .warn-bar b{color:var(--red)}
+
   /* BOT CTA */
   .bot{
     background:var(--ink);color:#fff;border-radius:var(--radius);padding:40px;
@@ -398,6 +437,143 @@
     </div>
   </section>
 
+  <!-- BANK CARDS -->
+  <section>
+    <div class="kicker reveal">Подборка · метод №4 подробно</div>
+    <h2 class="reveal">Банковские карты с fast track и условия по каждой</h2>
+    <p class="section-sub reveal">Fast track от банка — это перк премиального уровня карты. Ниже — кто его даёт и что нужно выполнить, чтобы он работал. Главное деление: карты, которые работают за границей, и российские (работают в основном в аэропортах РФ).</p>
+
+    <!-- Международные -->
+    <div class="group-label reveal">
+      <span>Работают за границей</span>
+      <span class="tag tag-ok">нужна карта иностранного банка</span>
+      <span class="rule"></span>
+    </div>
+    <div class="bank-grid">
+
+      <div class="bank-card reveal" style="--dot:#EB621D">
+        <div class="b-head">
+          <h3>Mastercard World Elite / World Legend</h3>
+        </div>
+        <div class="tier">Через сервис Mastercard Travel Experiences</div>
+        <div class="spec">
+          <div class="row"><span class="k">Условие</span><span class="v">Держать карту уровня <b>World, World Elite или World Legend</b>, эмитированную банком-участником</span></div>
+          <div class="row"><span class="k">Как включить</span><span class="v">Забронировать проход в приложении <b>Mastercard Travel Pass</b> (или на travelexperiences.mastercard.com)</span></div>
+          <div class="row"><span class="k">Проходы</span><span class="v"><b>World Legend</b> — безлимит + до 3 гостей; World Elite/World — по eligibility</span></div>
+          <div class="row"><span class="k">Где</span><span class="v">Отобранные аэропорты, список растёт по Европе (Стамбул уже в деле)</span></div>
+        </div>
+      </div>
+
+      <div class="bank-card reveal" style="--dot:#016FD0">
+        <div class="b-head">
+          <h3>American Express Platinum</h3>
+        </div>
+        <div class="tier">Fast Track встроен в карту</div>
+        <div class="spec">
+          <div class="row"><span class="k">Условие</span><span class="v">Просто быть держателем <b>Amex Platinum</b> — активация не нужна</span></div>
+          <div class="row"><span class="k">Как включить</span><span class="v">Показать карту на входе в приоритетную линию (автоматически)</span></div>
+          <div class="row"><span class="k">Проходы</span><span class="v">Без лимита, <b>бесплатно</b></span></div>
+          <div class="row"><span class="k">Где</span><span class="v">Только отобранные аэропорты: Торонто, Рим FCO, Милан Linate, Неаполь и др. — не везде</span></div>
+        </div>
+      </div>
+
+      <div class="bank-card reveal" style="--dot:#1A1F71">
+        <div class="b-head">
+          <h3>Visa Infinite / Infinite Privilege</h3>
+        </div>
+        <div class="tier">Зависит от банка-эмитента</div>
+        <div class="spec">
+          <div class="row"><span class="k">Условие</span><span class="v">Карта уровня <b>Visa Infinite</b> от банка, который добавил этот перк</span></div>
+          <div class="row"><span class="k">Как включить</span><span class="v">Уточнять у своего банка — правила сильно различаются по странам</span></div>
+          <div class="row"><span class="k">Проходы</span><span class="v">По условиям эмитента</span></div>
+          <div class="row"><span class="k">Где</span><span class="v">Ограниченно и регионально (напр. аэропорты Канады). Не универсально</span></div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Российские -->
+    <div class="group-label reveal">
+      <span>Российские банки</span>
+      <span class="tag tag-ru">в основном аэропорты РФ · сервис ON.TRACK</span>
+      <span class="rule"></span>
+    </div>
+    <div class="bank-grid">
+
+      <div class="bank-card reveal" style="--dot:#009FDF">
+        <div class="b-head">
+          <h3>ВТБ Прайм+</h3>
+        </div>
+        <div class="tier">Самый доступный порог из всех</div>
+        <div class="spec">
+          <div class="row"><span class="k">Условие</span><span class="v">Доход от <b>16 667 ₽/мес</b> на счёт <b>или</b> 90 000 акций ВТБ</span></div>
+          <div class="row"><span class="k">Проходы</span><span class="v"><span class="passes">до 10 / мес</span></span></div>
+        </div>
+      </div>
+
+      <div class="bank-card reveal" style="--dot:#009FDF">
+        <div class="b-head">
+          <h3>ВТБ Привилегия</h3>
+        </div>
+        <div class="tier">Классический премиум-пакет</div>
+        <div class="spec">
+          <div class="row"><span class="k">Условие</span><span class="v">Остаток <b>2.5 млн ₽</b> (Москва) / <b>2 млн ₽</b> (регионы)</span></div>
+          <div class="row"><span class="k">Проходы</span><span class="v"><span class="passes">до 2 / мес</span></span></div>
+        </div>
+      </div>
+
+      <div class="bank-card reveal" style="--dot:#0079C1">
+        <div class="b-head">
+          <h3>Газпромбанк Премиум</h3>
+        </div>
+        <div class="tier">Можно за фикс. плату без остатка</div>
+        <div class="spec">
+          <div class="row"><span class="k">Условие</span><span class="v">Остаток <b>2.5 млн ₽</b> <b>или</b> обслуживание <b>2 990 ₽/мес</b></span></div>
+          <div class="row"><span class="k">Проходы</span><span class="v"><span class="passes">до 2 / мес</span></span></div>
+        </div>
+      </div>
+
+      <div class="bank-card reveal" style="--dot:#E4002B">
+        <div class="b-head">
+          <h3>Совкомбанк Premium «для путешественников»</h3>
+        </div>
+        <div class="tier">Заточен под поездки</div>
+        <div class="spec">
+          <div class="row"><span class="k">Условие</span><span class="v">Остаток <b>3 млн ₽</b> <b>или</b> обслуживание <b>4 000 ₽/мес</b></span></div>
+          <div class="row"><span class="k">Проходы</span><span class="v"><span class="passes">до 2 / мес</span></span></div>
+        </div>
+      </div>
+
+      <div class="bank-card reveal" style="--dot:#7AB800">
+        <div class="b-head">
+          <h3>ОТП Premium</h3>
+        </div>
+        <div class="tier">Порог по остатку</div>
+        <div class="spec">
+          <div class="row"><span class="k">Условие</span><span class="v">Остаток <b>2 млн ₽</b></span></div>
+          <div class="row"><span class="k">Проходы</span><span class="v"><span class="passes">до 2 / мес</span></span></div>
+        </div>
+      </div>
+
+      <div class="bank-card reveal" style="--dot:#EF3124">
+        <div class="b-head">
+          <h3>Альфа Only / Сбер СберПремьер</h3>
+        </div>
+        <div class="tier">Проверять отдельно</div>
+        <div class="spec">
+          <div class="row"><span class="k">Условие</span><span class="v">Премиум-пакет банка</span></div>
+          <div class="row"><span class="k">Нюанс</span><span class="v">Дают в основном <b>бизнес-залы</b>; fast track — не всегда, уточняй в приложении</span></div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="warn-bar reveal">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg>
+      <p><b>Главный нюанс для россиянина:</b> карты Visa/Mastercard российских банков за границей не проходят, поэтому их fast track реально работает <b>в аэропортах РФ</b> (через ON.TRACK). Для fast track за рубежом нужна карта <b>иностранного банка</b> уровня World Elite / Visa Infinite / Amex Platinum — либо просто покупай проход разово (VABA / AirportAssist), это часто проще и дешевле, чем гнаться за перком карты.</p>
+    </div>
+  </section>
+
   <!-- EES 2026 -->
   <section>
     <div class="kicker reveal">Актуалка 2026</div>
@@ -497,6 +673,9 @@
       <a href="https://vaba.io" target="_blank" rel="noopener">VABA — Fast Track booking aggregator</a>
       <a href="https://fasttrack.aero/home" target="_blank" rel="noopener">Fasttrack.aero — Airport Services Reservation</a>
       <a href="https://travelexperiences.mastercard.com/" target="_blank" rel="noopener">Mastercard Travel Experiences</a>
+      <a href="https://www.mastercard.com/news/europe/en/newsroom/press-releases/en/2026/mastercard-expands-airport-fast-track-access-across-europe/" target="_blank" rel="noopener">Mastercard — расширение Fast Track по Европе (2026)</a>
+      <a href="https://thepointsguy.com/news/amex-platinum-fast-track-security/" target="_blank" rel="noopener">The Points Guy — Amex Platinum fast-track security</a>
+      <a href="https://premiumbanking.info/premiumy-s-fast-trekom" target="_blank" rel="noopener">Премиум Банкинг Инфо — банки РФ с Fast Track</a>
       <a href="https://travel-europe.europa.eu/en/ees" target="_blank" rel="noopener">European Union — EES / ETIAS official</a>
       <a href="https://www.theflightking.com/resources/europe-ees-2026/" target="_blank" rel="noopener">The Flight King — Europe EES 2026 explained</a>
     </div>
