@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Звездопад из Рио — 3 маршрута на двоих: парк, ужин, отель и ночь под звёздами</title>
+<meta name="description" content="Выезды на звездопад из Рио-де-Жанейро на двоих по сценарию «забрали из Рио → парк и прогулка → ужин → отель → ночью наблюдение метеоров». 3 проверенных маршрута: Дезенгану (Dark Sky Park с астрономом), Итатиая и Висконде-ди-Мауа. Операторы, посады, цены, таймлайны." />
+<meta property="og:title" content="Звездопад из Рио — 3 маршрута на двоих" />
+<meta property="og:description" content="Из Рио → парк → ужин → отель → ночь под звёздами. 3 проверенных маршрута с трансфером, посадой и ночным наблюдением метеоров." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#05070e;--bg-2:#0a0f1c;
+    --surface:rgba(255,255,255,.045);--surface-2:rgba(255,255,255,.07);
+    --border:rgba(255,255,255,.10);--border-strong:rgba(255,255,255,.20);
+    --text:#f4f6fb;--muted:#9aa4b6;--muted-2:#6f7a8d;
+    --gold:#ffce6b;--gold-soft:#ffe0a3;--blue:#6f9bff;--violet:#b09bff;
+    --good:#4ade80;--warn:#fbbf24;--bad:#fb7185;
+    --r-xl:28px;--r-lg:22px;--r-md:16px;--r-sm:11px;--maxw:1160px;
+    --ease:cubic-bezier(.22,.61,.36,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+  body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);line-height:1.62;font-size:17px;letter-spacing:-.011em;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+  #sky{position:fixed;inset:0;z-index:-2;display:block}
+  .glow{position:fixed;z-index:-1;pointer-events:none;border-radius:50%;filter:blur(90px);opacity:.5}
+  .glow.a{top:-140px;left:-90px;width:440px;height:440px;background:radial-gradient(circle,rgba(111,155,255,.34),transparent 70%)}
+  .glow.b{top:30%;right:-160px;width:560px;height:560px;background:radial-gradient(circle,rgba(176,155,255,.26),transparent 70%)}
+  .glow.c{bottom:-180px;left:14%;width:640px;height:640px;background:radial-gradient(circle,rgba(255,206,107,.13),transparent 70%)}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+  a{color:var(--gold-soft);text-decoration:none;border-bottom:1px solid rgba(255,224,163,.28);transition:border-color .2s,color .2s}
+  a:hover{color:#fff;border-color:var(--gold)}
+  a.plain{border:none}
+  .eyebrow{display:inline-flex;align-items:center;gap:9px;font-size:12.5px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--gold);padding:8px 15px;border:1px solid var(--border);border-radius:100px;background:var(--surface);backdrop-filter:blur(10px)}
+  .eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--gold);box-shadow:0 0 12px var(--gold);animation:pulse 2.6s var(--ease) infinite}
+  @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.55;transform:scale(.8)}}
+  h1,h2,h3{letter-spacing:-.026em;line-height:1.09;font-weight:700}
+  .serif{font-family:'Instrument Serif',Georgia,serif;font-weight:400;letter-spacing:0}
+
+  header.hero{position:relative;padding:112px 0 56px;text-align:center}
+  .hero h1{font-size:clamp(2.4rem,6.4vw,4.6rem);margin:24px auto 0;max-width:17ch}
+  .hero h1 .serif{color:var(--gold-soft);font-style:italic}
+  .hero .sub{font-size:clamp(1.04rem,2.2vw,1.3rem);color:var(--muted);max-width:52ch;margin:22px auto 0;line-height:1.55}
+
+  /* FLOW STRIP */
+  .flow{margin:44px auto 0;max-width:960px;display:flex;align-items:stretch;gap:0;flex-wrap:wrap;justify-content:center}
+  .flow .step{flex:1;min-width:130px;position:relative;padding:20px 12px;border:1px solid var(--border);background:var(--surface);backdrop-filter:blur(12px)}
+  .flow .step:first-child{border-radius:var(--r-md) 0 0 var(--r-md)}
+  .flow .step:last-child{border-radius:0 var(--r-md) var(--r-md) 0}
+  .flow .step+.step{border-left:none}
+  .flow .ic{width:38px;height:38px;margin:0 auto 10px;border-radius:11px;display:grid;place-items:center;background:rgba(255,206,107,.12);color:var(--gold);border:1px solid var(--border)}
+  .flow .ic svg{width:20px;height:20px}
+  .flow .t{font-size:13.5px;font-weight:600}
+  .flow .s{font-size:11.5px;color:var(--muted-2);margin-top:3px}
+  @media(max-width:720px){.flow{max-width:420px}.flow .step{min-width:calc(50% - 1px);border-radius:0!important;border-left:1px solid var(--border)!important}}
+
+  section{padding:56px 0;position:relative}
+  .sec-head{max-width:56ch;margin-bottom:36px}
+  .sec-head.center{margin-inline:auto;text-align:center}
+  .sec-head h2{font-size:clamp(1.8rem,4vw,2.7rem)}
+  .sec-head p{color:var(--muted);font-size:clamp(1rem,2vw,1.14rem);margin-top:14px}
+  .kicker{color:var(--gold);font-weight:600;font-size:13px;letter-spacing:.06em;text-transform:uppercase;margin-bottom:12px;display:block}
+
+  /* OPTION BLOCK */
+  .opt{border:1px solid var(--border);border-radius:var(--r-xl);background:var(--surface);backdrop-filter:blur(14px);overflow:hidden;margin-bottom:30px;transition:border-color .4s}
+  .opt:hover{border-color:var(--border-strong)}
+  .opt.star{border-color:rgba(255,206,107,.4);box-shadow:0 0 0 1px rgba(255,206,107,.12),0 30px 80px -50px rgba(255,206,107,.4)}
+  .opt .ph{position:relative;height:230px;overflow:hidden;background:linear-gradient(135deg,#0d1424,#161d33)}
+  .opt .ph img{width:100%;height:100%;object-fit:cover;opacity:.9}
+  .opt .ph::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(5,7,14,.96) 4%,rgba(5,7,14,.35) 50%,rgba(5,7,14,.15) 100%)}
+  .opt .rank{position:absolute;top:16px;left:16px;z-index:2;width:36px;height:36px;border-radius:11px;display:grid;place-items:center;font-weight:700;font-size:16px;color:#05070e;background:linear-gradient(135deg,var(--gold-soft),var(--gold));box-shadow:0 6px 16px rgba(255,206,107,.35)}
+  .opt .verd{position:absolute;top:18px;right:16px;z-index:2;font-size:11.5px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;padding:7px 13px;border-radius:100px;backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.22)}
+  .verd.best{background:rgba(255,206,107,.22);color:#ffe9c2}
+  .verd.near{background:rgba(111,155,255,.2);color:#cadcff}
+  .verd.romance{background:rgba(176,155,255,.22);color:#e2d8ff}
+  .opt .cap{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:20px 26px}
+  .opt .cap .where{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:12.5px;color:var(--gold-soft);font-weight:500;margin-bottom:6px}
+  .opt .cap .where svg{width:14px;height:14px}
+  .opt .cap .where .sep{opacity:.4}
+  .opt .cap h3{font-size:clamp(1.5rem,3.4vw,2.1rem)}
+
+  .opt .body{padding:26px}
+  .opt .grid{display:grid;grid-template-columns:1fr 1fr;gap:26px}
+  @media(max-width:860px){.opt .grid{grid-template-columns:1fr;gap:22px}}
+  .colhead{font-size:12px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--muted-2);margin-bottom:14px}
+
+  /* building blocks (3 звена) */
+  .link3{display:flex;flex-direction:column;gap:12px}
+  .blk{display:flex;gap:13px;padding:14px 15px;border:1px solid var(--border);border-radius:var(--r-md);background:var(--bg-2);transition:border-color .3s,background .3s}
+  .blk:hover{border-color:var(--border-strong);background:rgba(255,255,255,.03)}
+  .blk .bic{width:34px;height:34px;flex:none;border-radius:10px;display:grid;place-items:center;border:1px solid var(--border)}
+  .blk.t1 .bic{background:rgba(111,155,255,.13);color:var(--blue)}
+  .blk.t2 .bic{background:rgba(74,222,128,.12);color:var(--good)}
+  .blk.t3 .bic{background:rgba(255,206,107,.14);color:var(--gold)}
+  .blk .bic svg{width:18px;height:18px}
+  .blk .bt{flex:1;min-width:0}
+  .blk .bt .lbl{font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted-2)}
+  .blk .bt .nm{font-weight:600;font-size:.98rem;margin:1px 0 3px}
+  .blk .bt p{font-size:.86rem;color:var(--muted);line-height:1.45}
+  .blk .bt .lk{display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:7px;font-size:12.5px}
+  .blk .bt .lk a{display:inline-flex;align-items:center;gap:5px}
+  .blk .bt .lk a svg{width:12px;height:12px;opacity:.75}
+  .tagmini{display:inline-block;font-size:10.5px;font-weight:600;padding:2px 8px;border-radius:6px;margin-left:6px;vertical-align:middle}
+  .tagmini.g{background:rgba(74,222,128,.14);color:#bef5cf}
+  .tagmini.w{background:rgba(255,206,107,.14);color:#ffd9a0}
+
+  /* timeline */
+  .tl{position:relative;padding-left:26px}
+  .tl::before{content:"";position:absolute;left:8px;top:6px;bottom:6px;width:2px;background:linear-gradient(var(--gold),rgba(255,206,107,.15))}
+  .tl .ev{position:relative;padding:0 0 18px}
+  .tl .ev:last-child{padding-bottom:0}
+  .tl .ev::before{content:"";position:absolute;left:-22px;top:5px;width:10px;height:10px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 4px rgba(255,206,107,.14)}
+  .tl .ev.moon::before{background:var(--violet);box-shadow:0 0 0 4px rgba(176,155,255,.18),0 0 12px var(--violet)}
+  .tl .ev .tm{font-size:12px;font-weight:700;color:var(--gold-soft);letter-spacing:.02em}
+  .tl .ev.moon .tm{color:var(--violet)}
+  .tl .ev p{font-size:.9rem;color:var(--muted);margin-top:2px}
+
+  .opt .foot{margin-top:24px;padding-top:22px;border-top:1px solid var(--border);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px}
+  .foot .price .n{font-size:1.3rem;font-weight:700;letter-spacing:-.02em}
+  .foot .price .n small{font-size:.82rem;color:var(--muted);font-weight:500}
+  .foot .price .lbl{font-size:11.5px;color:var(--muted-2);letter-spacing:.03em;margin-top:2px}
+  .cta-row{display:flex;flex-wrap:wrap;gap:10px}
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 20px;border-radius:100px;font-weight:600;font-size:14px;background:linear-gradient(135deg,var(--gold-soft),var(--gold));color:#05070e;border:none;cursor:pointer;transition:transform .25s var(--ease),box-shadow .25s}
+  .btn:hover{transform:translateY(-1px);box-shadow:0 10px 26px -10px rgba(255,206,107,.6);color:#05070e;border:none}
+  .btn.ghost{background:transparent;color:var(--gold-soft);border:1px solid var(--border-strong)}
+  .btn.ghost:hover{background:var(--surface);color:#fff;box-shadow:none}
+  .btn svg{width:15px;height:15px}
+
+  .whatsub{font-size:12px;color:var(--muted-2);margin-top:10px}
+
+  /* comparison */
+  .cmp{width:100%;border-collapse:separate;border-spacing:0;font-size:.92rem;border:1px solid var(--border);border-radius:var(--r-md);overflow:hidden}
+  .cmp th,.cmp td{padding:13px 15px;text-align:left;border-bottom:1px solid var(--border);vertical-align:top}
+  .cmp thead th{background:var(--bg-2);font-size:11.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted-2);font-weight:600}
+  .cmp tbody td{color:var(--muted)}
+  .cmp td b{color:var(--text)}
+  .cmp tr:last-child td{border-bottom:none}
+  .cmp .yes{color:var(--good);font-weight:600}
+  .cmp .mid{color:var(--warn);font-weight:600}
+  .cmp-scroll{overflow-x:auto}
+
+  .steps{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+  @media(max-width:760px){.steps{grid-template-columns:1fr}}
+  .stp{display:flex;gap:14px;padding:19px 21px;border:1px solid var(--border);border-radius:var(--r-md);background:var(--surface)}
+  .stp .n{width:30px;height:30px;border-radius:9px;flex:none;display:grid;place-items:center;font-weight:700;font-size:14px;color:var(--gold);background:rgba(255,206,107,.12);border:1px solid var(--border)}
+  .stp h3{font-size:1rem;margin-bottom:4px}
+  .stp p{color:var(--muted);font-size:.9rem}
+
+  .cta{border:1px solid var(--border-strong);border-radius:var(--r-xl);background:linear-gradient(135deg,rgba(111,155,255,.12),rgba(176,155,255,.10));padding:42px;text-align:center}
+  .cta h2{font-size:clamp(1.5rem,3.4vw,2.2rem);max-width:24ch;margin:0 auto 12px}
+  .cta p{color:var(--muted);max-width:54ch;margin:0 auto 24px}
+  .cta .row{display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
+
+  .note{margin-top:24px;padding:18px 20px;border-left:2px solid var(--gold);background:rgba(255,206,107,.06);border-radius:0 var(--r-sm) var(--r-sm) 0;color:var(--muted);font-size:.94rem}
+  .note b{color:var(--gold-soft)}
+
+  footer{padding:48px 0 60px;border-top:1px solid var(--border);margin-top:24px}
+  footer .wrap{color:var(--muted-2);font-size:13px;line-height:1.7}
+  footer a{color:var(--muted)}
+
+  .reveal{opacity:0;transform:translateY(24px)}
+  .no-motion .reveal{opacity:1;transform:none}
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}.reveal{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<canvas id="sky"></canvas>
+<div class="glow a"></div><div class="glow b"></div><div class="glow c"></div>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="eyebrow"><span class="dot"></span>Из Рио-де-Жанейро · на двоих · август 2026</span>
+    <h1>Звездопад <span class="serif">из Рио</span>: парк, ужин, отель — и ночь под звёздами</h1>
+    <p class="sub">Три проверенных маршрута выходного дня по твоему сценарию: вас забирают из Рио, днём — парк и прогулка, ужин, отель отдохнуть, а ночью — выезд наблюдать метеоры под тёмным небом.</p>
+    <div class="flow reveal">
+      <div class="step">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 17h16M6 17V9l2-4h8l2 4v8M8 17v2M16 17v2M7 9h10"/><circle cx="8.5" cy="13.5" r="1"/><circle cx="15.5" cy="13.5" r="1"/></svg></div>
+        <div class="t">Забрали из Рио</div><div class="s">трансфер / авто</div>
+      </div>
+      <div class="step">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 20l6-8 4 5 3-4 5 7M3 20h18"/><circle cx="8" cy="7" r="2"/></svg></div>
+        <div class="t">Парк, прогулка</div><div class="s">тропы, водопады</div>
+      </div>
+      <div class="step">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M5 3v8M8 3v8M6.5 11v10M16 3c-1.5 1-2 3-2 5s.5 3 2 3v10"/></svg></div>
+        <div class="t">Ужин</div><div class="s">ресторан посады</div>
+      </div>
+      <div class="step">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 18v-5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v5M3 18v2M21 18v2M3 14h18M7 11V8a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v3"/></svg></div>
+        <div class="t">Отель, отдых</div><div class="s">тёмное небо рядом</div>
+      </div>
+      <div class="step">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 20L14 9M14 9l1.6-4.6L20 3l-1.4 4.4L14 9zM7 15l-2 .6L5.6 13"/></svg></div>
+        <div class="t">Ночь под звёздами</div><div class="s">наблюдение метеоров</div>
+      </div>
+    </div>
+    <div class="note reveal" style="max-width:760px;margin:34px auto 0;text-align:left">🌑 <b>Лучшие ночи — 10–13 августа 2026 (новолуние).</b> В эти тёмные ночи из штата Рио одновременно видны Персеиды, южные δ-Аквариды (почти в зените!) и яркие болиды α-Каприкорнид. Даты у операторов плавающие — при бронировании проси именно новолунное окно.</div>
+  </div>
+</header>
+
+<section id="options" style="padding-top:20px">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="kicker">3 маршрута · отсортированы под твой запрос</span>
+      <h2>От «всё включено с астрономом» до романтики вдвоём</h2>
+      <p>Первый вариант — прямое развитие Дезенгану, который тебе понравился: единственный из трёх, где ночь ведёт настоящий астроном с телескопами и ужином. Два других — ближе к Рио и уютнее для пары, но небо смотрите сами.</p>
+    </div>
+
+    <!-- OPTION 1 — DESENGANO -->
+    <article class="opt star reveal">
+      <div class="ph">
+        <div class="rank">1</div><span class="verd best">★ Рекомендую · с астрономом</span>
+        <img loading="lazy" alt="Parque Estadual do Desengano — первый Dark Sky Park Латинской Америки, штат Рио" src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Desengano_State_Park.jpg/1280px-Desengano_State_Park.jpg" onerror="this.style.display='none'"/>
+        <div class="cap">
+          <div class="where"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7-5.2-7-10a7 7 0 0 1 14 0c0 4.8-7 10-7 10z"/><circle cx="12" cy="11" r="2.4"/></svg>Санта-Мария-Мадалена, RJ<span class="sep">·</span>~215 км<span class="sep">·</span>3ч20–4ч на авто</div>
+          <h3>Дезенгану — Dark Sky Park с ночью под руководством астронома</h3>
+        </div>
+      </div>
+      <div class="body">
+        <div class="grid">
+          <div>
+            <div class="colhead">Три звена маршрута</div>
+            <div class="link3">
+              <div class="blk t1">
+                <div class="bic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 17h16M6 17V9l2-4h8l2 4v8M8 19v1M16 19v1M7 9h10"/><circle cx="8.5" cy="13.5" r="1"/><circle cx="15.5" cy="13.5" r="1"/></svg></div>
+                <div class="bt"><div class="lbl">Трансфер из Рио</div><div class="nm">Star Planet Viagens<span class="tagmini g">door-to-door</span></div><p>Готовый пакет с забором из дома в Рио (Capital, Niterói, Nova Iguaçu, Duque de Caxias): проживание + питание + наблюдение включены. Альтернатива — своё авто ~4 ч.</p><div class="lk"><a href="https://starplanetviagens.com.br/avistamento-das-estrelas-em-santa-maria-madalena/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M10 13a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1M14 11a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1"/></svg>Сайт пакета</a></div></div>
+              </div>
+              <div class="blk t2">
+                <div class="bic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 20v-8l9-6 9 6v8M3 20h18M9 20v-5h6v5"/></svg></div>
+                <div class="bt"><div class="lbl">Посада с ужином</div><div class="nm">Pousada Verbicaro<span class="tagmini w">StarPark</span></div><p>В серре рядом с парком, сертификат тёмного неба StarPark — Млечный Путь виден прямо с территории. Тёплый бассейн, эко-формат.</p><div class="lk"><a href="https://pousadaverbicaro.com.br/" target="_blank" rel="noopener">pousadaverbicaro.com.br</a><a href="https://wa.me/5522998258647" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 21l1.6-4.8A8.5 8.5 0 1 1 8 19.2L3 21z"/></svg>WhatsApp</a></div></div>
+              </div>
+              <div class="blk t3">
+                <div class="bic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="3.5"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M5 19l2-2M17 7l2-2"/></svg></div>
+                <div class="bt"><div class="lbl">Ночное небо</div><div class="nm">Deguste Astronômico<span class="tagmini g">астроном UFRJ</span></div><p>Наблюдение в профессиональные телескопы под руководством астронома UFRJ + традиционный польский ужин из 3 блюд. 18:00–23:00, трансфер от центра города включён. R$295/чел.</p><div class="lk"><a href="https://degusteturismo.com.br/Roteiros/deguste-astronomico/" target="_blank" rel="noopener">Программа тура</a><a href="https://wa.me/5522999300545" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 21l1.6-4.8A8.5 8.5 0 1 1 8 19.2L3 21z"/></svg>WhatsApp</a></div></div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="colhead">Таймлайн выходного дня</div>
+            <div class="tl">
+              <div class="ev"><div class="tm">08:00 · выезд</div><p>Из Рио пакетом Star Planet, частным трансфером или на авто — ~3,5–4 ч по горной RJ-116 через серру.</p></div>
+              <div class="ev"><div class="tm">12:00 · обед</div><p>В центре Санта-Мария-Мадалены, короткая прогулка по историческому городку.</p></div>
+              <div class="ev"><div class="tm">13:30 · парк</div><p>Треккинг в Parque Estadual do Desengano: тропа к водопаду Cachoeira do Escorrega и смотровой, атлантический лес.</p></div>
+              <div class="ev"><div class="tm">17:00 · отель</div><p>Заселение в Pousada Verbicaro, отдых, тёплый бассейн, закат в горах.</p></div>
+              <div class="ev"><div class="tm">18:00 · встреча</div><p>Трансфер Deguste на площадку Sítio Gospoda, знакомство с астрономом.</p></div>
+              <div class="ev"><div class="tm">19:30 · ужин</div><p>Традиционный польский ужин из 3 блюд под открытым небом.</p></div>
+              <div class="ev moon"><div class="tm">21:00–23:00 · звездопад</div><p>Млечный Путь, планеты и метеоры в профессиональные телескопы в сертифицированном Dark Sky Park.</p></div>
+            </div>
+          </div>
+        </div>
+        <div class="foot">
+          <div class="price"><div class="n">~R$1200–2000 <small>на двоих (сами)</small></div><div class="lbl">или пакет «всё включено door-to-door» Star Planet ≈ R$4680 / двоих</div></div>
+          <div class="cta-row">
+            <a class="btn plain" href="https://degusteturismo.com.br/Roteiros/deguste-astronomico/" target="_blank" rel="noopener">Ночь с астрономом<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+            <a class="btn ghost plain" href="https://starplanetviagens.com.br/avistamento-das-estrelas-em-santa-maria-madalena/" target="_blank" rel="noopener">Пакет из Рио</a>
+          </div>
+        </div>
+        <div class="whatsub">Даты Star Planet групповые и плавающие — уточняй по WhatsApp (21) 2018-7999 и проси новолунное окно 10–13 августа. Цена посады не опубликована, бронь по WhatsApp (22) 99825-8647.</div>
+      </div>
+    </article>
+
+    <!-- OPTION 2 — ITATIAIA -->
+    <article class="opt reveal">
+      <div class="ph">
+        <div class="rank">2</div><span class="verd near">Ближе всего · ~2,5–3 ч</span>
+        <img loading="lazy" alt="Национальный парк Итатиая, RJ/MG" src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Parque_Nacional_de_Itatiaia_%2819%29.jpg/1280px-Parque_Nacional_de_Itatiaia_%2819%29.jpg" onerror="this.style.display='none'"/>
+        <div class="cap">
+          <div class="where"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7-5.2-7-10a7 7 0 0 1 14 0c0 4.8-7 10-7 10z"/><circle cx="12" cy="11" r="2.4"/></svg>Итатиая, RJ/MG<span class="sep">·</span>~165 км<span class="sep">·</span>2ч30–3ч на авто</div>
+          <h3>Итатиая — отель прямо в парке и тёмное небо высокогорья</h3>
+        </div>
+      </div>
+      <div class="body">
+        <div class="grid">
+          <div>
+            <div class="colhead">Три звена маршрута</div>
+            <div class="link3">
+              <div class="blk t1">
+                <div class="bic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 17h16M6 17V9l2-4h8l2 4v8M8 19v1M16 19v1M7 9h10"/><circle cx="8.5" cy="13.5" r="1"/><circle cx="15.5" cy="13.5" r="1"/></svg></div>
+                <div class="bt"><div class="lbl">Трансфер из Рио</div><div class="nm">Частный трансфер под запрос</div><p>Приватный трансфер по заказу (напр. Motorista Mulher RJ, Cadastur) или аренда авто — так удобнее подниматься в верхнюю часть парка. Ближайший из трёх — по Via Dutra.</p><div class="lk"><a href="https://www.motoristamulherrj.com.br/" target="_blank" rel="noopener">motoristamulherrj.com.br</a><a href="https://wa.me/5521988467223" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 21l1.6-4.8A8.5 8.5 0 1 1 8 19.2L3 21z"/></svg>WhatsApp</a></div></div>
+              </div>
+              <div class="blk t2">
+                <div class="bic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 20v-8l9-6 9 6v8M3 20h18M9 20v-5h6v5"/></svg></div>
+                <div class="bt"><div class="lbl">Посада с ужином</div><div class="nm">Hotel Donati<span class="tagmini w">внутри парка</span></div><p>Шале внутри нацпарка, ресторан на месте с локальной кухней, тёмная зона без засветки — Млечный Путь видно с территории. Отдых у камина.</p><div class="lk"><a href="https://hoteldonati.com.br/" target="_blank" rel="noopener">hoteldonati.com.br</a></div></div>
+              </div>
+              <div class="blk t3">
+                <div class="bic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9z"/></svg></div>
+                <div class="bt"><div class="lbl">Ночное небо</div><div class="nm">Самостоятельно + сессии ICMBio<span class="tagmini w">без гида</span></div><p>Небо парка (600–2791 м) — одно из самых тёмных у Рио. Наблюдение самостоятельное с территории отеля; иногда бывают публичные сессии ICMBio у Центра посетителей. Возьмите бинокль.</p><div class="lk"><a href="https://pnitatiaia.com.br/" target="_blank" rel="noopener">pnitatiaia.com.br</a></div></div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="colhead">Таймлайн выходного дня</div>
+            <div class="tl">
+              <div class="ev"><div class="tm">07:30 · выезд</div><p>Из Рио частным трансфером/на авто по Via Dutra (BR-116), ~2,5–3 ч до Итатиаи.</p></div>
+              <div class="ev"><div class="tm">10:30 · нижний парк</div><p>Вход в parte baixa (билет ~R$46), тропа Três Picos, водопады Véu da Noiva и Poranga, кофе-пикник.</p></div>
+              <div class="ev"><div class="tm">14:00 · верхний парк</div><p>Переезд в parte alta: плато Planalto, скалы Prateleiras, панорамы Агульяс-Неграс и закат.</p></div>
+              <div class="ev"><div class="tm">18:30 · ужин</div><p>В ресторане Hotel Donati внутри парка, локальная кухня.</p></div>
+              <div class="ev"><div class="tm">20:00 · отель</div><p>Заселение в шале, отдых у камина.</p></div>
+              <div class="ev moon"><div class="tm">21:30 · звездопад</div><p>Наблюдение с тёмной территории парка — Млечный Путь и метеоры без засветки. Утром — birdwatching на рассвете.</p></div>
+            </div>
+          </div>
+        </div>
+        <div class="foot">
+          <div class="price"><div class="n">~R$1500–2800 <small>на двоих</small></div><div class="lbl">трансфер туда-обратно R$900–1500 (или аренда ~R$300/сут) + отель с ужином</div></div>
+          <div class="cta-row">
+            <a class="btn plain" href="https://hoteldonati.com.br/" target="_blank" rel="noopener">Забронировать Hotel Donati<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+            <a class="btn ghost plain" href="https://pnitatiaia.com.br/" target="_blank" rel="noopener">О парке и билетах</a>
+          </div>
+        </div>
+        <div class="whatsub">В верхней части парка ночью бывает +0…5 °C — берите тёплую одежду. Гида с телескопом в Итатиае под конкретную дату не гарантировать, поэтому небо — самостоятельно (бинокль + приложение-планетарий).</div>
+      </div>
+    </article>
+
+    <!-- OPTION 3 — VISCONDE DE MAUA -->
+    <article class="opt reveal">
+      <div class="ph">
+        <div class="rank">3</div><span class="verd romance">Для пары · романтика</span>
+        <img loading="lazy" alt="Водопад Cachoeira do Escorrega, Висконде-ди-Мауа, Серра-да-Мантикейра" src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/Viscondedemaua_cachoeira-do-escorrega.jpg/1280px-Viscondedemaua_cachoeira-do-escorrega.jpg" onerror="this.style.display='none'"/>
+        <div class="cap">
+          <div class="where"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7-5.2-7-10a7 7 0 0 1 14 0c0 4.8-7 10-7 10z"/><circle cx="12" cy="11" r="2.4"/></svg>Висконде-ди-Мауа, RJ/MG<span class="sep">·</span>~205 км<span class="sep">·</span>2ч30–3ч на авто</div>
+          <h3>Висконде-ди-Мауа — горный романтичный побег с ужином у камина</h3>
+        </div>
+      </div>
+      <div class="body">
+        <div class="grid">
+          <div>
+            <div class="colhead">Три звена маршрута</div>
+            <div class="link3">
+              <div class="blk t1">
+                <div class="bic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 17h16M6 17V9l2-4h8l2 4v8M8 19v1M16 19v1M7 9h10"/><circle cx="8.5" cy="13.5" r="1"/><circle cx="15.5" cy="13.5" r="1"/></svg></div>
+                <div class="bt"><div class="lbl">Трансфер из Рио</div><div class="nm">ToursRJ (по запросу) / авто</div><p>Приватный трансфер/ван ToursRJ (Мауа — «по запросу», маршрут уточнять) или своё авто по Via Dutra до Resende (км 311) и дальше горной дорогой.</p><div class="lk"><a href="https://toursrj.com.br/transfers-rio-de-janeiro/" target="_blank" rel="noopener">toursrj.com.br</a></div></div>
+              </div>
+              <div class="blk t2">
+                <div class="bic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 20v-8l9-6 9 6v8M3 20h18M9 20v-5h6v5"/></svg></div>
+                <div class="bt"><div class="lbl">Посада с ужином</div><div class="nm">Pousada Mauá Brasil<span class="tagmini g">свой ресторан</span></div><p>Романтичная посада в Маромбе/Маринге: собственный ресторан (ужин в зале или в номере), офуро, сауна, камин. Идеально для двоих.</p><div class="lk"><a href="https://mauabrasil.com.br/" target="_blank" rel="noopener">mauabrasil.com.br</a></div></div>
+              </div>
+              <div class="blk t3">
+                <div class="bic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9z"/></svg></div>
+                <div class="bt"><div class="lbl">Ночное небо</div><div class="nm">Самостоятельно<span class="tagmini w">без гида</span></div><p>Тёмная зона Серра-да-Мантикейра (~1200 м). Наблюдение своими силами с территории посады или смотровой — попросите погасить внешний свет, возьмите бинокль и приложение-планетарий.</p></div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="colhead">Таймлайн выходного дня</div>
+            <div class="tl">
+              <div class="ev"><div class="tm">08:00 · выезд</div><p>Из Рио трансфером ToursRJ или на авто, Via Dutra до км 311 (Resende), ~2,5–3 ч.</p></div>
+              <div class="ev"><div class="tm">11:00 · заезд</div><p>Заброс вещей в Pousada Mauá Brasil (Маромба/Маринга).</p></div>
+              <div class="ev"><div class="tm">12:00 · водопады</div><p>Тропы и купания: Cachoeira do Escorrega, Véu da Noiva, Santa Clara, вид на Pedra Selada.</p></div>
+              <div class="ev"><div class="tm">17:30 · отдых</div><p>Закат, возвращение в посаду, офуро / сауна / камин.</p></div>
+              <div class="ev"><div class="tm">20:00 · ужин</div><p>В ресторане посады.</p></div>
+              <div class="ev moon"><div class="tm">22:00 · звездопад</div><p>Наблюдение звёзд с тёмной точки самостоятельно. Утром — поздний бранч до 13:00 и дорога назад.</p></div>
+            </div>
+          </div>
+        </div>
+        <div class="foot">
+          <div class="price"><div class="n">~R$1500–2500 <small>на двоих</small></div><div class="lbl">частный трансфер туда-обратно + посада + ужин</div></div>
+          <div class="cta-row">
+            <a class="btn plain" href="https://mauabrasil.com.br/" target="_blank" rel="noopener">Забронировать посаду<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+            <a class="btn ghost plain" href="https://toursrj.com.br/transfers-rio-de-janeiro/" target="_blank" rel="noopener">Трансфер ToursRJ</a>
+          </div>
+        </div>
+        <div class="whatsub">Ночное наблюдение здесь без астронома-гида — зато самый уютный вариант для пары. Бронь посады через сайт или reservas@mauabrasil.com.br.</div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- COMPARISON -->
+<section id="choose">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="kicker">Как выбрать</span>
+      <h2>Коротко: что под какой запрос</h2>
+    </div>
+    <div class="cmp-scroll reveal">
+      <table class="cmp">
+        <thead><tr><th>Маршрут</th><th>От Рио</th><th>Пикап из Рио</th><th>Ночь с астрономом</th><th>Кому лучше</th></tr></thead>
+        <tbody>
+          <tr><td><b>1 · Дезенгану</b></td><td>~215 км · 3,5–4 ч</td><td class="yes">да, door-to-door (Star Planet)</td><td class="yes">да — телескопы + астроном UFRJ</td><td>Хотите «всё включено» и настоящий гид-астроном. Прямое развитие варианта, что понравился.</td></tr>
+          <tr><td><b>2 · Итатиая</b></td><td>~165 км · 2,5–3 ч</td><td class="mid">частный трансфер / авто</td><td class="mid">нет — небо самостоятельно</td><td>Минимум дороги, отель прямо в парке, дневной треккинг и birdwatching.</td></tr>
+          <tr><td><b>3 · Висконде-ди-Мауа</b></td><td>~205 км · 2,5–3 ч</td><td class="mid">трансфер по запросу / авто</td><td class="mid">нет — небо самостоятельно</td><td>Романтика вдвоём: водопады, офуро, камин, ужин в посаде.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="note reveal">💡 <b>Гибрид.</b> Хотите и близко, и с гидом-астрономом? Съездите на ночь в <b>Дезенгану</b> ради сессии Deguste (это и есть тот самый Dark Sky Park), а в другой уикенд — в <b>Итатиаю</b> за треккингом. Обе точки — из Рио, обе тёмные.</div>
+  </div>
+</section>
+
+<!-- PRACTICAL -->
+<section id="how">
+  <div class="wrap">
+    <div class="sec-head reveal"><span class="kicker">Перед бронью</span><h2>6 практических деталей</h2></div>
+    <div class="steps">
+      <div class="stp reveal"><div class="n">1</div><div><h3>Ловите новолуние 10–13 августа</h3><p>Проси у оператора именно это окно — тогда Луна не мешает, а летят сразу три потока. Пик Персеид — ночь 12–13 августа.</p></div></div>
+      <div class="stp reveal"><div class="n">2</div><div><h3>Бронируйте по WhatsApp заранее</h3><p>У Deguste и посад брони через WhatsApp/почту, группы маленькие (до 8). За месяц-два до даты — надёжнее.</p></div></div>
+      <div class="stp reveal"><div class="n">3</div><div><h3>Тёплая одежда</h3><p>Ночью в горах RJ +5…+12°, в верхней Итатиае бывает около 0°. Куртка, плед, термос — обязательно.</p></div></div>
+      <div class="stp reveal"><div class="n">4</div><div><h3>Наблюдение — 2:00–5:00</h3><p>Больше всего метеоров под утро. Если ночная сессия заканчивается в 23:00 — попроси совет, где досмотреть под рассвет.</p></div></div>
+      <div class="stp reveal"><div class="n">5</div><div><h3>Бинокль, а не телескоп</h3><p>Метеоры смотрят глазами, широким полем. Бинокль — приятный бонус для Млечного Пути и планет там, где нет гида.</p></div></div>
+      <div class="stp reveal"><div class="n">6</div><div><h3>Приложение-планетарий</h3><p><a href="https://stellarium.org" target="_blank" rel="noopener">Stellarium</a> покажет, где Персей на севере и Водолей/Козерог в зените. Проверьте облачность на <a href="https://www.meteoblue.com" target="_blank" rel="noopener">meteoblue</a>.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta">
+  <div class="wrap">
+    <div class="cta reveal">
+      <span class="kicker" style="justify-content:center">Ещё варианты</span>
+      <h2>Хотите сравнить все направления Бразилии или копнуть в астрономию?</h2>
+      <p>Эти три маршрута — часть большой подборки. Рядом — полный разбор, где в Бразилии ловить звездопад, и геометрия потоков.</p>
+      <div class="row">
+        <a class="btn plain" href="zvezdopad-braziliya-tury-avgust-2026.html">Подборка: 6 направлений Бразилии<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:15px;height:15px"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a class="btn ghost plain" href="perseidy-braziliya-avgust-2026.html">Гид «Персеиды из Бразилии»</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>Маршруты и ссылки проверены на работоспособность через WebFetch, июль 2026. Цены на двоих — ориентир (кроме сессии Deguste R$295/чел и билета в Итатиаю ~R$46), точную стоимость и даты уточняйте у операторов. Пикап «из Рио» реально пакетом Star Planet (Дезенгану); для Итатиаи и Мауа нужен частный трансфер по запросу или своё авто. Ночь с гидом-астрономом подтверждена только в Дезенгану (Deguste). Курс для справки: 1 USD ≈ R$5,4.</div>
+    <div style="margin-top:12px">Источники: <a href="https://degusteturismo.com.br/Roteiros/deguste-astronomico/" target="_blank" rel="noopener">Deguste</a> · <a href="https://pousadaverbicaro.com.br/" target="_blank" rel="noopener">Verbicaro</a> · <a href="https://starplanetviagens.com.br/avistamento-das-estrelas-em-santa-maria-madalena/" target="_blank" rel="noopener">Star Planet</a> · <a href="https://hoteldonati.com.br/" target="_blank" rel="noopener">Hotel Donati</a> · <a href="https://pnitatiaia.com.br/" target="_blank" rel="noopener">PN Itatiaia</a> · <a href="https://mauabrasil.com.br/" target="_blank" rel="noopener">Mauá Brasil</a></div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  const c=document.getElementById('sky'), x=c.getContext('2d');
+  const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let w,h,stars=[],shooters=[];
+  function resize(){w=c.width=innerWidth;h=c.height=innerHeight;build();}
+  function build(){stars=[];const n=Math.min(240,Math.floor(w*h/8500));for(let i=0;i<n;i++)stars.push({x:Math.random()*w,y:Math.random()*h,r:Math.random()*1.3+.2,a:Math.random()*.6+.2,t:Math.random()*6.28,s:Math.random()*.9+.25});}
+  function shoot(){if(reduce)return;const fl=Math.random()>.5;shooters.push({x:fl?Math.random()*w*.5:w*.5+Math.random()*w*.5,y:Math.random()*h*.4,len:0,maxLen:Math.random()*220+140,vx:(fl?1:-1)*(Math.random()*3+4),vy:Math.random()*2+2.4,life:0});}
+  let last=0;
+  function draw(ts){
+    x.clearRect(0,0,w,h);
+    for(const st of stars){st.t+=0.02*st.s;const tw=st.a+Math.sin(st.t)*.28;x.beginPath();x.arc(st.x,st.y,st.r,0,6.29);x.fillStyle='rgba(255,255,255,'+Math.max(0,tw)+')';x.fill();}
+    for(let i=shooters.length-1;i>=0;i--){const s=shooters[i];s.x+=s.vx;s.y+=s.vy;s.len=Math.min(s.maxLen,s.len+14);s.life++;const g=x.createLinearGradient(s.x,s.y,s.x-s.vx*8,s.y-s.vy*8);g.addColorStop(0,'rgba(255,236,196,.95)');g.addColorStop(1,'rgba(255,236,196,0)');x.strokeStyle=g;x.lineWidth=2;x.lineCap='round';x.beginPath();x.moveTo(s.x,s.y);x.lineTo(s.x-s.vx*(s.len/14),s.y-s.vy*(s.len/14));x.stroke();if(s.x<-50||s.x>w+50||s.y>h+50||s.life>140)shooters.splice(i,1);}
+    if(!reduce && ts-last>1600 && Math.random()>.4){shoot();last=ts;}
+    requestAnimationFrame(draw);
+  }
+  resize();addEventListener('resize',resize);requestAnimationFrame(draw);
+})();
+</script>
+<script type="module">
+  const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(reduce){document.body.classList.add('no-motion');}
+  else{
+    try{
+      const { animate, inView, stagger } = await import("https://cdn.jsdelivr.net/npm/motion@11/+esm");
+      document.querySelectorAll('.steps, .flow').forEach(g=>{
+        inView(g,()=>{const items=g.querySelectorAll('.reveal, .step, .stp');animate(items,{opacity:[0,1],transform:['translateY(22px)','translateY(0)']},{duration:.55,delay:stagger(.06),easing:[.22,.61,.36,1]});},{margin:"0px 0px -12% 0px"});
+      });
+      document.querySelectorAll('.reveal').forEach(el=>{
+        if(el.closest('.steps,.flow'))return;
+        inView(el,()=>{animate(el,{opacity:[0,1],transform:['translateY(24px)','translateY(0)']},{duration:.6,easing:[.22,.61,.36,1]});},{margin:"0px 0px -10% 0px"});
+      });
+    }catch(e){document.body.classList.add('no-motion');}
+  }
+</script>
+</body>
+</html>
