@@ -130,6 +130,33 @@
 
   .whatsub{font-size:12px;color:var(--muted-2);margin-top:10px}
 
+  /* dates + booking */
+  .datebar{display:grid;grid-template-columns:auto 1fr;gap:24px;align-items:center;border:1px solid var(--border-strong);border-radius:var(--r-xl);background:linear-gradient(135deg,rgba(176,155,255,.15),rgba(111,155,255,.08));padding:26px 30px;margin-bottom:32px}
+  @media(max-width:680px){.datebar{grid-template-columns:1fr;text-align:center;gap:14px}}
+  .datebar .big{font-family:'Instrument Serif',Georgia,serif;font-size:clamp(2.6rem,8vw,4rem);line-height:.9;color:var(--gold-soft);white-space:nowrap}
+  .datebar .big small{display:block;font-family:'Inter',sans-serif;font-size:.72rem;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--muted-2);margin-top:10px}
+  .datebar p{color:var(--muted);font-size:1.02rem}
+  .datebar p b{color:var(--text)}
+  .bmodels{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:26px}
+  @media(max-width:760px){.bmodels{grid-template-columns:1fr}}
+  .bmodel{border:1px solid var(--border);border-radius:var(--r-md);background:var(--surface);padding:22px}
+  .bmodel h3{font-size:1.06rem;margin-bottom:8px;display:flex;align-items:center;gap:9px}
+  .bmodel h3 .b{width:9px;height:9px;border-radius:50%;flex:none}
+  .bmodel.g h3 .b{background:var(--good);box-shadow:0 0 10px var(--good)}
+  .bmodel.w h3 .b{background:var(--gold);box-shadow:0 0 10px var(--gold)}
+  .bmodel p{color:var(--muted);font-size:.93rem}
+  .bmodel p b{color:var(--gold-soft)}
+  .msgs{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:760px){.msgs{grid-template-columns:1fr}}
+  .msg{border:1px solid var(--border);border-radius:var(--r-md);background:var(--bg-2);padding:18px;display:flex;flex-direction:column}
+  .msg .mh{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:11px}
+  .msg .mh .nm{font-weight:600;font-size:.95rem}
+  .msg .mh .tg{font-size:10px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;padding:4px 9px;border-radius:6px;background:rgba(255,206,107,.13);color:#ffd9a0;white-space:nowrap}
+  .msg .tx{font-size:.8rem;color:var(--muted);line-height:1.5;font-style:italic;border-left:2px solid var(--border-strong);padding:3px 0 3px 12px;margin-bottom:14px;flex:1}
+  .wabtn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:11px 16px;border-radius:100px;font-weight:600;font-size:13.5px;background:#25D366;color:#04210f;border:none;transition:transform .25s var(--ease),background .25s}
+  .wabtn:hover{background:#2ee879;color:#04210f;border:none;transform:translateY(-1px)}
+  .wabtn svg{width:16px;height:16px}
+
   /* comparison */
   .cmp{width:100%;border-collapse:separate;border-spacing:0;font-size:.92rem;border:1px solid var(--border);border-radius:var(--r-md);overflow:hidden}
   .cmp th,.cmp td{padding:13px 15px;text-align:left;border-bottom:1px solid var(--border);vertical-align:top}
@@ -196,9 +223,54 @@
         <div class="t">Ночь под звёздами</div><div class="s">наблюдение метеоров</div>
       </div>
     </div>
-    <div class="note reveal" style="max-width:760px;margin:34px auto 0;text-align:left">🌑 <b>Лучшие ночи — 10–13 августа 2026 (новолуние).</b> В эти тёмные ночи из штата Рио одновременно видны Персеиды, южные δ-Аквариды (почти в зените!) и яркие болиды α-Каприкорнид. Даты у операторов плавающие — при бронировании проси именно новолунное окно.</div>
+    <div class="note reveal" style="max-width:780px;margin:34px auto 0;text-align:left">🌑 <b>Целевые ночи — 10–13 августа 2026, лучшая с 12 на 13-е.</b> Это новолуние (Луны нет) и пик Персеид: одновременно видны Персеиды, южные δ-Аквариды (почти в зените) и болиды α-Каприкорнид. До поездки ~3 недели — как забронировать именно эти ночи, сразу ниже.</div>
   </div>
 </header>
+
+<!-- DATES & HOW TO BOOK -->
+<section id="book" style="padding-top:44px;padding-bottom:16px">
+  <div class="wrap">
+    <div class="datebar reveal">
+      <div class="big">12→13<small>августа 2026 · главная ночь</small></div>
+      <p><b>Ночь с 12 на 13 августа 2026 — целевая:</b> новолуние (Луны нет вообще) совпало с пиком Персеид, до ~90–100 метеоров/час, плюс южные δ-Аквариды и α-Каприкорниды. Лучшее время — 2:00–5:00. Запасные ночи окна — 10→11 и 11→12 августа (на случай облаков). Это ~3 недели от сегодня, бронировать пора сейчас.</p>
+    </div>
+
+    <div class="sec-head reveal" style="margin-bottom:22px">
+      <span class="kicker">Как забронировать эти ночи</span>
+      <h2>Готового веб-пакета «выезд 12 августа» ни у кого нет — и это нормально</h2>
+      <p>Операторы маленькие: посады принимают на любые ночи, а ночь с астрономом ставят под новолуние и подтверждают по погоде за пару дней до. Поэтому на сайтах и висели июльские/образцовые даты. Бронь — точечная, на конкретные ночи, по WhatsApp. Ниже — готовые сообщения: жми — WhatsApp откроется с уже впечатанным текстом на нужные даты.</p>
+    </div>
+
+    <div class="bmodels reveal">
+      <div class="bmodel g"><h3><span class="b"></span>Посады — на любые ночи</h3><p>Verbicaro, Hotel Donati, Mauá Brasil бронируются как обычный отель. Ставишь заезд <b>10.08</b>, выезд <b>13.08</b> (3 ночи, покрывают пик) — и небо смотришь сам с тёмной территории. Доступно прямо сейчас.</p></div>
+      <div class="bmodel w"><h3><span class="b"></span>Ночь с астрономом — под новолуние</h3><p>Deguste не выкладывает жёсткий календарь: сессии ставят на тёмные ночи сезона (апр–окт), приоритет — <b>новолуние</b>. Ночь 12–13.08 ровно их профиль. Пишешь в WhatsApp, просишь эту ночь, держишь запасную на случай переноса по погоде.</p></div>
+    </div>
+
+    <div class="msgs reveal">
+      <div class="msg">
+        <div class="mh"><span class="nm">Deguste · ночь с астрономом</span><span class="tg">Дезенгану</span></div>
+        <div class="tx">«…numa das noites de 10 a 13 de agosto de 2026 — de preferência a noite de 12 para 13/08, que é lua nova e pico das Perseidas…»</div>
+        <a class="wabtn plain" href="https://wa.me/5522999300545?text=Ol%C3%A1%21%20Somos%20um%20casal%20vindo%20do%20Rio%20de%20Janeiro.%20Queremos%20participar%20do%20Deguste%20Astron%C3%B4mico%20numa%20das%20noites%20de%2010%20a%2013%20de%20agosto%20de%202026%20%E2%80%94%20de%20prefer%C3%AAncia%20a%20noite%20de%2012%20para%2013/08%2C%20que%20%C3%A9%20lua%20nova%20e%20pico%20das%20Perseidas%20%28c%C3%A9u%20escuro%29.%20Tem%20sess%C3%A3o%20programada%20nessas%20noites%3F%20Como%20reservamos%20e%20qual%20o%20valor%20para%202%20adultos%3F" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.5 15.3L2 22l4.8-1.5A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-2.9.9.9-2.8-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.7-6c-.26-.13-1.5-.74-1.74-.82-.23-.09-.4-.13-.57.13-.17.26-.65.82-.8 1-.14.17-.29.19-.54.06-1.5-.75-2.48-1.34-3.47-3.03-.26-.45.26-.42.74-1.4.08-.17.04-.32-.02-.45-.06-.13-.57-1.38-.79-1.88-.2-.49-.4-.42-.56-.43h-.48c-.17 0-.44.06-.67.32-.23.26-.88.86-.88 2.1s.9 2.44 1.03 2.6c.13.18 1.78 2.7 4.3 3.8.6.26 1.07.41 1.44.53.6.19 1.15.16 1.58.1.48-.07 1.5-.61 1.7-1.2.22-.59.22-1.1.15-1.2-.06-.11-.23-.17-.48-.3z"/></svg>Написать в WhatsApp</a>
+      </div>
+      <div class="msg">
+        <div class="mh"><span class="nm">Pousada Verbicaro · тёмное небо</span><span class="tg">Дезенгану</span></div>
+        <div class="tx">«…reservar um quarto para o casal: check-in 10/08/2026 e check-out 13/08/2026… observar as Perseidas na lua nova de 12/08…»</div>
+        <a class="wabtn plain" href="https://wa.me/5522998258647?text=Ol%C3%A1%21%20Gostaria%20de%20reservar%20um%20quarto%20para%20o%20casal%3A%20check-in%2010/08/2026%20e%20check-out%2013/08/2026%20%283%20noites%29.%20Vamos%20observar%20as%20Perseidas%20na%20lua%20nova%20de%2012/08%20do%20c%C3%A9u%20StarPark.%20Tem%20disponibilidade%20nessas%20datas%3F%20Qual%20categoria%20e%20valor%20para%202%20pessoas%3F" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.5 15.3L2 22l4.8-1.5A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-2.9.9.9-2.8-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.7-6c-.26-.13-1.5-.74-1.74-.82-.23-.09-.4-.13-.57.13-.17.26-.65.82-.8 1-.14.17-.29.19-.54.06-1.5-.75-2.48-1.34-3.47-3.03-.26-.45.26-.42.74-1.4.08-.17.04-.32-.02-.45-.06-.13-.57-1.38-.79-1.88-.2-.49-.4-.42-.56-.43h-.48c-.17 0-.44.06-.67.32-.23.26-.88.86-.88 2.1s.9 2.44 1.03 2.6c.13.18 1.78 2.7 4.3 3.8.6.26 1.07.41 1.44.53.6.19 1.15.16 1.58.1.48-.07 1.5-.61 1.7-1.2.22-.59.22-1.1.15-1.2-.06-.11-.23-.17-.48-.3z"/></svg>Написать в WhatsApp</a>
+      </div>
+      <div class="msg">
+        <div class="mh"><span class="nm">Hotel Donati · шале в парке</span><span class="tg">Итатиая</span></div>
+        <div class="tx">«…reservar um chalé para 2 pessoas de 10/08/2026 a 13/08/2026… observar as Perseidas na lua nova de 12/08…»</div>
+        <a class="wabtn plain" href="https://wa.me/5524998801286?text=Ol%C3%A1%21%20Gostaria%20de%20reservar%20um%20chal%C3%A9%20para%202%20pessoas%20de%2010/08/2026%20a%2013/08/2026%20%283%20noites%29.%20Vamos%20observar%20as%20Perseidas%20na%20lua%20nova%20de%2012/08%2C%20do%20c%C3%A9u%20escuro%20do%20parque.%20T%C3%AAm%20disponibilidade%20e%20qual%20o%20valor%3F%20Se%20poss%C3%ADvel%2C%20um%20chal%C3%A9%20mais%20afastado%20da%20luz." target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.5 15.3L2 22l4.8-1.5A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-2.9.9.9-2.8-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.7-6c-.26-.13-1.5-.74-1.74-.82-.23-.09-.4-.13-.57.13-.17.26-.65.82-.8 1-.14.17-.29.19-.54.06-1.5-.75-2.48-1.34-3.47-3.03-.26-.45.26-.42.74-1.4.08-.17.04-.32-.02-.45-.06-.13-.57-1.38-.79-1.88-.2-.49-.4-.42-.56-.43h-.48c-.17 0-.44.06-.67.32-.23.26-.88.86-.88 2.1s.9 2.44 1.03 2.6c.13.18 1.78 2.7 4.3 3.8.6.26 1.07.41 1.44.53.6.19 1.15.16 1.58.1.48-.07 1.5-.61 1.7-1.2.22-.59.22-1.1.15-1.2-.06-.11-.23-.17-.48-.3z"/></svg>Написать в WhatsApp</a>
+      </div>
+      <div class="msg">
+        <div class="mh"><span class="nm">Pousada Mauá Brasil · романтика</span><span class="tg">Висконде-ди-Мауа</span></div>
+        <div class="tx">«…reservar hospedagem para 2 pessoas de 10/08/2026 a 13/08/2026 (check-in 10/08, check-out 13/08)… observar as Perseidas na lua nova…»</div>
+        <a class="wabtn plain" href="https://wa.me/5524998330998?text=Ol%C3%A1%21%20Gostaria%20de%20reservar%20hospedagem%20para%202%20pessoas%20de%2010/08/2026%20a%2013/08/2026%20%28check-in%2010/08%2C%20check-out%2013/08%29.%20%C3%89%20para%20observar%20as%20Perseidas%20na%20lua%20nova.%20Podem%20confirmar%20disponibilidade%2C%20valor%20e%20op%C3%A7%C3%B5es%20de%20quarto%3F" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.5 15.3L2 22l4.8-1.5A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-2.9.9.9-2.8-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.7-6c-.26-.13-1.5-.74-1.74-.82-.23-.09-.4-.13-.57.13-.17.26-.65.82-.8 1-.14.17-.29.19-.54.06-1.5-.75-2.48-1.34-3.47-3.03-.26-.45.26-.42.74-1.4.08-.17.04-.32-.02-.45-.06-.13-.57-1.38-.79-1.88-.2-.49-.4-.42-.56-.43h-.48c-.17 0-.44.06-.67.32-.23.26-.88.86-.88 2.1s.9 2.44 1.03 2.6c.13.18 1.78 2.7 4.3 3.8.6.26 1.07.41 1.44.53.6.19 1.15.16 1.58.1.48-.07 1.5-.61 1.7-1.2.22-.59.22-1.1.15-1.2-.06-.11-.23-.17-.48-.3z"/></svg>Написать в WhatsApp</a>
+      </div>
+    </div>
+    <div class="note reveal">📅 <b>Star Planet</b> (пакет door-to-door из Рио) возит фиксированными группами и на август астро-выезд <b>не заявлен</b> (следующий — октябрь). Попасть в окно 10–13.08 через них можно только если соберут группу «sob demanda» — стоит спросить, но не рассчитывать как на основной вариант. Надёжная связка под эти ночи: посада (бронь сейчас) + ночь с астрономом Deguste (запрос на новолуние).</div>
+  </div>
+</section>
 
 <section id="options" style="padding-top:20px">
   <div class="wrap">
@@ -225,7 +297,7 @@
             <div class="link3">
               <div class="blk t1">
                 <div class="bic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 17h16M6 17V9l2-4h8l2 4v8M8 19v1M16 19v1M7 9h10"/><circle cx="8.5" cy="13.5" r="1"/><circle cx="15.5" cy="13.5" r="1"/></svg></div>
-                <div class="bt"><div class="lbl">Трансфер из Рио</div><div class="nm">Star Planet Viagens<span class="tagmini g">door-to-door</span></div><p>Готовый пакет с забором из дома в Рио (Capital, Niterói, Nova Iguaçu, Duque de Caxias): проживание + питание + наблюдение включены. Альтернатива — своё авто ~4 ч.</p><div class="lk"><a href="https://starplanetviagens.com.br/avistamento-das-estrelas-em-santa-maria-madalena/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M10 13a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1M14 11a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1"/></svg>Сайт пакета</a></div></div>
+                <div class="bt"><div class="lbl">Трансфер из Рио</div><div class="nm">Star Planet Viagens<span class="tagmini w">по запросу</span></div><p>Пакет door-to-door из Рио (проживание + ужин + наблюдение с астрономом). Но выезды — фиксированными группами, и на август астро-выезд <b style="color:var(--warn);font-weight:600">не заявлен</b> (следующий в октябре). Реально — попросить собрать группу на 12–13.08 или ехать своим авто ~4 ч.</p><div class="lk"><a href="https://starplanetviagens.com.br/avistamento-das-estrelas-em-santa-maria-madalena/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M10 13a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1M14 11a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1"/></svg>Сайт пакета</a></div></div>
               </div>
               <div class="blk t2">
                 <div class="bic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 20v-8l9-6 9 6v8M3 20h18M9 20v-5h6v5"/></svg></div>
@@ -251,13 +323,13 @@
           </div>
         </div>
         <div class="foot">
-          <div class="price"><div class="n">~R$1200–2000 <small>на двоих (сами)</small></div><div class="lbl">или пакет «всё включено door-to-door» Star Planet ≈ R$4680 / двоих</div></div>
+          <div class="price"><div class="n">~R$1200–2000 <small>на двоих (сами)</small></div><div class="lbl">пакет door-to-door Star Planet ≈ R$4680/двоих — только если соберут группу на эти даты</div></div>
           <div class="cta-row">
             <a class="btn plain" href="https://degusteturismo.com.br/Roteiros/deguste-astronomico/" target="_blank" rel="noopener">Ночь с астрономом<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-            <a class="btn ghost plain" href="https://starplanetviagens.com.br/avistamento-das-estrelas-em-santa-maria-madalena/" target="_blank" rel="noopener">Пакет из Рио</a>
+            <a class="btn ghost plain" href="https://starplanetviagens.com.br/avistamento-das-estrelas-em-santa-maria-madalena/" target="_blank" rel="noopener">Спросить Star Planet о группе</a>
           </div>
         </div>
-        <div class="whatsub">Даты Star Planet групповые и плавающие — уточняй по WhatsApp (21) 2018-7999 и проси новолунное окно 10–13 августа. Цена посады не опубликована, бронь по WhatsApp (22) 99825-8647.</div>
+        <div class="whatsub">Бронь на 10–13 августа: ночь с астрономом (Deguste) — по WhatsApp (22) 99930-0545, проси ночь 12→13.08 (новолуние) и держи запасную ночь на случай погоды; посада Verbicaro — на эти же ночи по WhatsApp (22) 99825-8647. Готовые сообщения — в блоке выше.</div>
       </div>
     </article>
 
@@ -309,7 +381,7 @@
             <a class="btn ghost plain" href="https://pnitatiaia.com.br/" target="_blank" rel="noopener">О парке и билетах</a>
           </div>
         </div>
-        <div class="whatsub">В верхней части парка ночью бывает +0…5 °C — берите тёплую одежду. Гида с телескопом в Итатиае под конкретную дату не гарантировать, поэтому небо — самостоятельно (бинокль + приложение-планетарий).</div>
+        <div class="whatsub">Бронь на 10–13 августа — как обычный отель: заезд 10.08, выезд 13.08 онлайн (hoteldonati.soufoco.com.br) или по WhatsApp +55 24 99880-1286. В верхней части парка ночью бывает +0…5 °C — берите тёплую одежду. Гида с телескопом под дату нет, небо — самостоятельно (бинокль + планетарий).</div>
       </div>
     </article>
 
@@ -361,7 +433,7 @@
             <a class="btn ghost plain" href="https://toursrj.com.br/transfers-rio-de-janeiro/" target="_blank" rel="noopener">Трансфер ToursRJ</a>
           </div>
         </div>
-        <div class="whatsub">Ночное наблюдение здесь без астронома-гида — зато самый уютный вариант для пары. Бронь посады через сайт или reservas@mauabrasil.com.br.</div>
+        <div class="whatsub">Бронь на 10–13 августа (заезд 10.08, выезд 13.08): онлайн «Ver Disponibilidade» на сайте, по WhatsApp +55 24 99833-0998 или reservas@mauabrasil.com.br. Ночное наблюдение без гида — зато самый уютный вариант для пары.</div>
       </div>
     </article>
   </div>
@@ -420,7 +492,7 @@
 
 <footer>
   <div class="wrap">
-    <div>Маршруты и ссылки проверены на работоспособность через WebFetch, июль 2026. Цены на двоих — ориентир (кроме сессии Deguste R$295/чел и билета в Итатиаю ~R$46), точную стоимость и даты уточняйте у операторов. Пикап «из Рио» реально пакетом Star Planet (Дезенгану); для Итатиаи и Мауа нужен частный трансфер по запросу или своё авто. Ночь с гидом-астрономом подтверждена только в Дезенгану (Deguste). Курс для справки: 1 USD ≈ R$5,4.</div>
+    <div>Маршруты, ссылки и модель брони проверены через WebFetch, июль 2026. Готового веб-пакета с фиксированной датой «12 августа» ни у одного оператора нет: посады бронируются на любые ночи (ставьте заезд 10.08 — выезд 13.08), а ночь с астрономом Deguste ставится под новолуние и подтверждается по погоде — бронь по WhatsApp на конкретные ночи. Star Planet на август астро-выезд не заявил (следующий — октябрь). Цены на двоих — ориентир (кроме сессии Deguste R$295/чел и билета в Итатиаю ~R$46). Ночь с гидом-астрономом подтверждена только в Дезенгану (Deguste). Курс: 1 USD ≈ R$5,4.</div>
     <div style="margin-top:12px">Источники: <a href="https://degusteturismo.com.br/Roteiros/deguste-astronomico/" target="_blank" rel="noopener">Deguste</a> · <a href="https://pousadaverbicaro.com.br/" target="_blank" rel="noopener">Verbicaro</a> · <a href="https://starplanetviagens.com.br/avistamento-das-estrelas-em-santa-maria-madalena/" target="_blank" rel="noopener">Star Planet</a> · <a href="https://hoteldonati.com.br/" target="_blank" rel="noopener">Hotel Donati</a> · <a href="https://pnitatiaia.com.br/" target="_blank" rel="noopener">PN Itatiaia</a> · <a href="https://mauabrasil.com.br/" target="_blank" rel="noopener">Mauá Brasil</a></div>
   </div>
 </footer>
