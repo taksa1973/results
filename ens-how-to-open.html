@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Как открыть .eth сайт — полная инструкция</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;500;600;700&family=Orbitron:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --bg: #0F172A;
+    --surface: #1E293B;
+    --surface2: #253347;
+    --gold: #F59E0B;
+    --gold-dim: rgba(245,158,11,0.10);
+    --gold-border: rgba(245,158,11,0.30);
+    --purple: #8B5CF6;
+    --purple-dim: rgba(139,92,246,0.10);
+    --green: #10B981;
+    --green-dim: rgba(16,185,129,0.10);
+    --green-border: rgba(16,185,129,0.30);
+    --blue: #3B82F6;
+    --blue-dim: rgba(59,130,246,0.10);
+    --blue-border: rgba(59,130,246,0.30);
+    --orange: #F97316;
+    --orange-dim: rgba(249,115,22,0.10);
+    --red: #EF4444;
+    --red-dim: rgba(239,68,68,0.10);
+    --text: #F8FAFC;
+    --muted: #94A3B8;
+    --border: #334155;
+    --radius: 16px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Exo 2', sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+  h1,h2,h3,h4 { font-family: 'Orbitron', sans-serif; letter-spacing: -0.02em; }
+  a { color: var(--gold); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  /* NAV */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(15,23,42,0.9);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+    padding: 14px 24px;
+    display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  .nav-brand { font-family: 'Orbitron', sans-serif; font-size: 14px; font-weight: 700; color: var(--gold); }
+  .nav-links { display: flex; gap: 6px; flex-wrap: wrap; }
+  .nav-links a {
+    color: var(--muted); font-size: 13px; font-weight: 500;
+    padding: 5px 12px; border-radius: 8px; transition: all 0.2s;
+  }
+  .nav-links a:hover { color: var(--text); background: var(--surface); text-decoration: none; }
+
+  .container { max-width: 920px; margin: 0 auto; padding: 0 24px; }
+  section { padding: 64px 0; }
+
+  /* HERO */
+  .hero { padding: 80px 0 56px; text-align: center; }
+  .badge {
+    display: inline-block;
+    background: var(--green-dim); border: 1px solid var(--green-border);
+    color: var(--green); font-size: 11px; font-weight: 700;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    padding: 5px 14px; border-radius: 100px; margin-bottom: 20px;
+  }
+  .hero h1 { font-size: clamp(28px, 5vw, 52px); font-weight: 700; line-height: 1.1; margin-bottom: 16px; }
+  .hero h1 span { color: var(--gold); }
+  .hero p { font-size: 17px; color: var(--muted); max-width: 560px; margin: 0 auto 40px; }
+
+  /* QUICK PICK */
+  .quick-pick {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 14px; margin-top: 32px;
+  }
+  .qp-card {
+    background: var(--surface); border: 1.5px solid var(--border);
+    border-radius: 14px; padding: 20px 18px;
+    cursor: pointer; transition: all 0.2s;
+    text-align: center;
+  }
+  .qp-card:hover { border-color: var(--gold-border); transform: translateY(-2px); }
+  .qp-card.recommended { border-color: var(--green-border); background: var(--green-dim); }
+  .qp-icon { font-size: 32px; margin-bottom: 8px; }
+  .qp-title { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+  .qp-sub { font-size: 12px; color: var(--muted); }
+  .qp-tag { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 0.08em; padding: 2px 8px; border-radius: 6px; margin-top: 8px; }
+  .tag-green { background: var(--green-dim); color: var(--green); border: 1px solid var(--green-border); }
+  .tag-gold { background: var(--gold-dim); color: var(--gold); border: 1px solid var(--gold-border); }
+  .tag-blue { background: var(--blue-dim); color: var(--blue); border: 1px solid var(--blue-border); }
+  .tag-orange { background: var(--orange-dim); color: var(--orange); }
+  .tag-purple { background: var(--purple-dim); color: var(--purple); }
+
+  /* SECTION HEADER */
+  .sec-label { font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
+  .sec-title { font-size: clamp(20px, 3.5vw, 32px); font-weight: 700; margin-bottom: 10px; }
+  .sec-sub { color: var(--muted); font-size: 15px; max-width: 600px; margin-bottom: 32px; }
+
+  /* METHOD CARD */
+  .method-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 28px 32px; margin-bottom: 20px;
+  }
+  .method-card.best { border-color: var(--green-border); background: linear-gradient(135deg, rgba(16,185,129,0.06), var(--surface)); }
+  .method-header { display: flex; align-items: flex-start; gap: 16px; margin-bottom: 20px; }
+  .method-logo {
+    width: 52px; height: 52px; border-radius: 14px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 26px; background: var(--surface2);
+  }
+  .method-title-wrap { flex: 1; }
+  .method-title { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
+  .method-platforms { display: flex; gap: 6px; flex-wrap: wrap; }
+  .platform-tag {
+    font-size: 11px; font-weight: 600; padding: 2px 8px;
+    border-radius: 6px; background: var(--surface2); color: var(--muted);
+  }
+  .method-desc { font-size: 14px; color: var(--muted); margin-bottom: 20px; line-height: 1.6; }
+  .method-desc strong { color: var(--text); }
+
+  /* STEPS */
+  .steps-sm { display: flex; flex-direction: column; gap: 10px; }
+  .step-sm {
+    display: flex; gap: 12px; align-items: flex-start;
+    background: var(--surface2); border-radius: 10px; padding: 12px 16px;
+  }
+  .step-num-sm {
+    width: 24px; height: 24px; flex-shrink: 0;
+    background: var(--gold-dim); border: 1px solid var(--gold-border);
+    border-radius: 6px; display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 700; color: var(--gold);
+    font-family: 'Orbitron', sans-serif;
+  }
+  .step-sm p { font-size: 14px; color: var(--muted); line-height: 1.5; margin: 0; }
+  .step-sm p strong { color: var(--text); }
+  .step-sm p code { background: rgba(245,158,11,0.12); color: var(--gold); padding: 1px 6px; border-radius: 4px; font-family: monospace; font-size: 13px; }
+
+  /* CALLOUT */
+  .callout {
+    display: flex; gap: 12px; border-radius: 10px;
+    padding: 14px 18px; font-size: 14px; margin-top: 14px;
+  }
+  .callout.tip { background: var(--green-dim); border: 1px solid var(--green-border); color: #6ee7b7; }
+  .callout.warn { background: var(--gold-dim); border: 1px solid var(--gold-border); color: #fcd34d; }
+  .callout.info { background: var(--blue-dim); border: 1px solid var(--blue-border); color: #93c5fd; }
+
+  /* COMPARISON TABLE */
+  .table-wrap { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  th {
+    background: var(--surface2); color: var(--muted);
+    font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+    padding: 12px 16px; text-align: left; border-bottom: 1px solid var(--border);
+    white-space: nowrap;
+  }
+  td { padding: 12px 16px; border-bottom: 1px solid rgba(51,65,85,0.4); vertical-align: middle; }
+  tr:last-child td { border-bottom: none; }
+  .check { color: var(--green); font-size: 16px; }
+  .cross { color: var(--red); font-size: 16px; }
+  .partial { color: var(--gold); font-size: 16px; }
+
+  /* MOBILE SECTION */
+  .mobile-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-top: 24px; }
+  .mobile-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 14px; padding: 22px 20px;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .mobile-card:hover { border-color: var(--gold-border); transform: translateY(-2px); }
+  .mobile-card .app-icon { font-size: 36px; margin-bottom: 10px; }
+  .mobile-card .app-name { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+  .mobile-card .app-os { font-size: 12px; color: var(--muted); margin-bottom: 10px; }
+  .mobile-card .app-desc { font-size: 13px; color: var(--muted); line-height: 1.5; }
+
+  /* GATEWAY CARDS */
+  .gateway-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin-top: 24px; }
+  .gw-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 14px; padding: 20px 22px;
+  }
+  .gw-url { font-family: monospace; font-size: 13px; color: var(--gold); background: var(--gold-dim); padding: 8px 12px; border-radius: 8px; margin-bottom: 12px; word-break: break-all; }
+  .gw-desc { font-size: 13px; color: var(--muted); }
+
+  hr.div { border: none; border-top: 1px solid var(--border); margin: 0; }
+  footer { text-align: center; padding: 40px 24px; color: var(--muted); font-size: 13px; border-top: 1px solid var(--border); }
+
+  @media (max-width: 600px) {
+    .method-header { flex-direction: column; gap: 12px; }
+    .method-card { padding: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="nav-brand">ENS .eth</span>
+  <div class="nav-links">
+    <a onclick="document.getElementById('no-ext').scrollIntoView({behavior:'smooth'})">Без расширений</a>
+    <a onclick="document.getElementById('with-ext').scrollIntoView({behavior:'smooth'})">С расширением</a>
+    <a onclick="document.getElementById('mobile').scrollIntoView({behavior:'smooth'})">Мобильные</a>
+    <a onclick="document.getElementById('gateways').scrollIntoView({behavior:'smooth'})">Шлюзы</a>
+    <a onclick="document.getElementById('compare').scrollIntoView({behavior:'smooth'})">Сравнение</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="container">
+    <div class="badge">Как открыть .eth без .limo</div>
+    <h1>Открыть <span>site.eth</span><br/>— полная инструкция</h1>
+    <p>Все способы зайти на ENS-сайт напрямую: браузеры с нативной поддержкой, расширения, мобильные приложения и HTTP-шлюзы</p>
+
+    <div class="quick-pick">
+      <div class="qp-card recommended" onclick="document.getElementById('brave').scrollIntoView({behavior:'smooth'})">
+        <div class="qp-icon">🦁</div>
+        <div class="qp-title">Brave</div>
+        <div class="qp-sub">Работает сразу, настройки не нужны</div>
+        <div class="qp-tag tag-green">Рекомендуется</div>
+      </div>
+      <div class="qp-card" onclick="document.getElementById('metamask').scrollIntoView({behavior:'smooth'})">
+        <div class="qp-icon">🦊</div>
+        <div class="qp-title">MetaMask</div>
+        <div class="qp-sub">Расширение для Chrome / Firefox</div>
+        <div class="qp-tag tag-gold">Популярный</div>
+      </div>
+      <div class="qp-card" onclick="document.getElementById('mobile').scrollIntoView({behavior:'smooth'})">
+        <div class="qp-icon">📱</div>
+        <div class="qp-title">Мобильные</div>
+        <div class="qp-sub">iOS и Android без ПК</div>
+        <div class="qp-tag tag-blue">Mobile</div>
+      </div>
+      <div class="qp-card" onclick="document.getElementById('gateways').scrollIntoView({behavior:'smooth'})">
+        <div class="qp-icon">🌐</div>
+        <div class="qp-title">HTTP-шлюзы</div>
+        <div class="qp-sub">Любой браузер, ничего не ставить</div>
+        <div class="qp-tag tag-orange">Без установки</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- BROWSERS WITHOUT EXTENSIONS -->
+  <section id="no-ext">
+    <div class="sec-label">Нативная поддержка</div>
+    <h2 class="sec-title">Браузеры — без расширений</h2>
+    <p class="sec-sub">Эти браузеры умеют открывать .eth домены прямо из адресной строки — ничего устанавливать не нужно.</p>
+
+    <!-- BRAVE -->
+    <div class="method-card best" id="brave">
+      <div class="method-header">
+        <div class="method-logo" style="background:rgba(249,115,22,0.12)">🦁</div>
+        <div class="method-title-wrap">
+          <div class="method-title">Brave Browser <span style="color:var(--green);font-size:13px;font-family:'Exo 2',sans-serif;font-weight:600">— лучший выбор</span></div>
+          <div class="method-platforms">
+            <span class="platform-tag">Windows</span>
+            <span class="platform-tag">macOS</span>
+            <span class="platform-tag">Linux</span>
+            <span class="platform-tag">Android</span>
+            <span class="platform-tag">iOS</span>
+          </div>
+        </div>
+      </div>
+      <div class="method-desc">
+        Единственный mainstream-браузер с <strong>встроенной поддержкой ENS</strong>. Просто вводишь <code style="background:rgba(245,158,11,0.12);color:var(--gold);padding:1px 6px;border-radius:4px;font-size:13px">site.eth</code> в адресную строку — и сайт открывается. Никаких расширений, никаких шлюзов.
+      </div>
+      <div class="steps-sm">
+        <div class="step-sm">
+          <div class="step-num-sm">1</div>
+          <p>Скачай <strong><a href="https://brave.com">brave.com</a></strong> и установи как обычный браузер</p>
+        </div>
+        <div class="step-sm">
+          <div class="step-num-sm">2</div>
+          <p>Открой настройки: <code>brave://settings/web3</code> в адресной строке</p>
+        </div>
+        <div class="step-sm">
+          <div class="step-num-sm">3</div>
+          <p>Найди <strong>«Resolve Ethereum Name Service (ENS)»</strong> → включи если выключено (по умолчанию включено)</p>
+        </div>
+        <div class="step-sm">
+          <div class="step-num-sm">4</div>
+          <p>Вводи <code>site.eth</code> прямо в адресную строку — всё работает</p>
+        </div>
+      </div>
+      <div class="callout tip">
+        <span>✅</span>
+        <span>Brave резолвит ENS через собственный узел Ethereum — <strong>не через сторонний сервис</strong>. Это самый децентрализованный способ из всех.</span>
+      </div>
+    </div>
+
+    <!-- OPERA -->
+    <div class="method-card">
+      <div class="method-header">
+        <div class="method-logo" style="background:rgba(239,68,68,0.1)">O</div>
+        <div class="method-title-wrap">
+          <div class="method-title">Opera / Opera GX</div>
+          <div class="method-platforms">
+            <span class="platform-tag">Windows</span>
+            <span class="platform-tag">macOS</span>
+            <span class="platform-tag">Android</span>
+          </div>
+        </div>
+      </div>
+      <div class="method-desc">
+        Opera имеет встроенный <strong>Crypto Browser</strong> с поддержкой Web3-кошелька и ENS-доменов. Работает без расширений, но требует активации Web3-режима.
+      </div>
+      <div class="steps-sm">
+        <div class="step-sm">
+          <div class="step-num-sm">1</div>
+          <p>Скачай <strong><a href="https://www.opera.com/crypto">opera.com/crypto</a></strong> (Opera Crypto Browser) или обычную Opera</p>
+        </div>
+        <div class="step-sm">
+          <div class="step-num-sm">2</div>
+          <p>При первом запуске настрой <strong>Web3 Wallet</strong> (встроен в браузер)</p>
+        </div>
+        <div class="step-sm">
+          <div class="step-num-sm">3</div>
+          <p>В настройках → Advanced → Crypto → включи <strong>Web3</strong> и <strong>ENS</strong></p>
+        </div>
+        <div class="step-sm">
+          <div class="step-num-sm">4</div>
+          <p>Вводи <code>site.eth</code> в адресную строку</p>
+        </div>
+      </div>
+      <div class="callout warn">
+        <span>⚠️</span>
+        <span>Opera резолвит ENS через централизованный сервис (не собственный узел). Для максимальной децентрализации предпочти Brave.</span>
+      </div>
+    </div>
+  </section>
+
+  <hr class="div"/>
+
+  <!-- WITH EXTENSIONS -->
+  <section id="with-ext">
+    <div class="sec-label">Расширения</div>
+    <h2 class="sec-title">Chrome, Firefox, Edge — с расширением</h2>
+    <p class="sec-sub">Если хочешь остаться в привычном браузере — поставь расширение. Добавляет поддержку .eth в адресную строку.</p>
+
+    <!-- METAMASK -->
+    <div class="method-card" id="metamask">
+      <div class="method-header">
+        <div class="method-logo" style="background:rgba(249,115,22,0.12)">🦊</div>
+        <div class="method-title-wrap">
+          <div class="method-title">MetaMask</div>
+          <div class="method-platforms">
+            <span class="platform-tag">Chrome</span>
+            <span class="platform-tag">Firefox</span>
+            <span class="platform-tag">Edge</span>
+            <span class="platform-tag">Brave</span>
+          </div>
+        </div>
+      </div>
+      <div class="method-desc">
+        Самый популярный Web3-кошелёк. Помимо работы с транзакциями, <strong>добавляет поддержку .eth в адресную строку браузера</strong>. Когда вводишь <code style="background:rgba(245,158,11,0.12);color:var(--gold);padding:1px 6px;border-radius:4px;font-size:13px">site.eth</code> — MetaMask перехватывает и резолвит через ENS.
+      </div>
+      <div class="steps-sm">
+        <div class="step-sm">
+          <div class="step-num-sm">1</div>
+          <p>Установи <strong><a href="https://metamask.io/download">metamask.io/download</a></strong> — выбери свой браузер</p>
+        </div>
+        <div class="step-sm">
+          <div class="step-num-sm">2</div>
+          <p>Создай кошелёк (или импортируй существующий). <strong>Seed-фразу запиши на бумаге</strong></p>
+        </div>
+        <div class="step-sm">
+          <div class="step-num-sm">3</div>
+          <p>Убедись что выбрана сеть <strong>Ethereum Mainnet</strong> в выпадашке сверху</p>
+        </div>
+        <div class="step-sm">
+          <div class="step-num-sm">4</div>
+          <p>Введи <code>site.eth</code> в адресную строку Chrome → появится запрос MetaMask → нажми <strong>«Open in MetaMask»</strong></p>
+        </div>
+        <div class="step-sm">
+          <div class="step-num-sm">5</div>
+          <p>MetaMask откроет сайт через встроенный браузер или перенаправит через шлюз</p>
+        </div>
+      </div>
+      <div class="callout info">
+        <span>ℹ️</span>
+        <span>В Chrome при вводе <code>.eth</code> домена может сначала появиться поиск Google — нажми Enter или добавь <code>https://</code> перед адресом: <code>https://site.eth</code></span>
+      </div>
+    </div>
+
+    <!-- IPFS COMPANION -->
+    <div class="method-card">
+      <div class="method-header">
+        <div class="method-logo" style="background:var(--blue-dim)">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><polygon points="12,2 22,7 22,17 12,22 2,17 2,7" stroke="#3B82F6" stroke-width="2" fill="rgba(59,130,246,0.15)"/><text x="12" y="16" text-anchor="middle" font-size="9" fill="#3B82F6" font-weight="700">∞</text></svg>
+        </div>
+        <div class="method-title-wrap">
+          <div class="method-title">IPFS Companion</div>
+          <div class="method-platforms">
+            <span class="platform-tag">Chrome</span>
+            <span class="platform-tag">Firefox</span>
+            <span class="platform-tag">Edge</span>
+          </div>
+        </div>
+      </div>
+      <div class="method-desc">
+        Расширение от Protocol Labs (создателей IPFS). Позволяет открывать <strong>IPFS-пути напрямую</strong>: <code style="background:rgba(59,130,246,0.12);color:#93c5fd;padding:1px 6px;border-radius:4px;font-size:13px">/ipfs/CID...</code> и <code style="background:rgba(59,130,246,0.12);color:#93c5fd;padding:1px 6px;border-radius:4px;font-size:13px">/ipns/site.eth</code>. Работает через локальный или удалённый шлюз.
+      </div>
+      <div class="steps-sm">
+        <div class="step-sm">
+          <div class="step-num-sm">1</div>
+          <p>Установи расширение: <strong><a href="https://github.com/ipfs/ipfs-companion">github.com/ipfs/ipfs-companion</a></strong> → ссылки на Chrome/Firefox Web Store</p>
+        </div>
+        <div class="step-sm">
+          <div class="step-num-sm">2</div>
+          <p>Опционально: установи <strong>IPFS Desktop</strong> для запуска локального узла (<a href="https://docs.ipfs.tech/install/ipfs-desktop">docs.ipfs.tech</a>)</p>
+        </div>
+        <div class="step-sm">
+          <div class="step-num-sm">3</div>
+          <p>В настройках расширения выбери шлюз: <strong>локальный</strong> (localhost:8080 через IPFS Desktop) или <strong>публичный</strong> (cloudflare-ipfs.com)</p>
+        </div>
+        <div class="step-sm">
+          <div class="step-num-sm">4</div>
+          <p>Вводи <code>ipns://site.eth</code> или обычный <code>site.eth</code> — расширение перехватит и откроет через IPFS</p>
+        </div>
+      </div>
+      <div class="callout tip">
+        <span>💡</span>
+        <span>IPFS Companion + локальный узел = <strong>самый быстрый способ</strong>. Файлы кэшируются на твоём компьютере и отдаются мгновенно.</span>
+      </div>
+    </div>
+  </section>
+
+  <hr class="div"/>
+
+  <!-- MOBILE -->
+  <section id="mobile">
+    <div class="sec-label">Мобильные</div>
+    <h2 class="sec-title">iOS и Android — без ПК</h2>
+    <p class="sec-sub">На телефоне проще всего использовать кошелёк со встроенным браузером — они уже умеют открывать .eth домены.</p>
+
+    <div class="mobile-grid">
+      <div class="mobile-card">
+        <div class="app-icon">🦁</div>
+        <div class="app-name">Brave Mobile</div>
+        <div class="app-os">iOS · Android</div>
+        <div class="app-desc">Полноценный браузер с нативной ENS-поддержкой. Вводишь <code style="background:var(--gold-dim);color:var(--gold);padding:1px 5px;border-radius:3px;font-size:12px">.eth</code> — открывается. Лучший вариант для мобильного.</div>
+        <div style="margin-top:10px"><span class="qp-tag tag-green">Рекомендуется</span></div>
+      </div>
+
+      <div class="mobile-card">
+        <div class="app-icon">🦊</div>
+        <div class="app-name">MetaMask Mobile</div>
+        <div class="app-os">iOS · Android</div>
+        <div class="app-desc">Встроенный браузер в приложении MetaMask. Работает с ENS — открывай <code style="background:var(--gold-dim);color:var(--gold);padding:1px 5px;border-radius:3px;font-size:12px">site.eth</code> прямо из кошелька.</div>
+        <div style="margin-top:10px"><span class="qp-tag tag-gold">Популярный</span></div>
+      </div>
+
+      <div class="mobile-card">
+        <div class="app-icon">🌈</div>
+        <div class="app-name">Rainbow Wallet</div>
+        <div class="app-os">iOS · Android</div>
+        <div class="app-desc">Красивый Ethereum-кошелёк с встроенным браузером. Поддерживает ENS-домены, есть dApp браузер для перехода на .eth сайты.</div>
+        <div style="margin-top:10px"><span class="qp-tag tag-blue">Альтернатива</span></div>
+      </div>
+
+      <div class="mobile-card">
+        <div class="app-icon">🔵</div>
+        <div class="app-name">Coinbase Wallet</div>
+        <div class="app-os">iOS · Android</div>
+        <div class="app-desc">Кошелёк от Coinbase со встроенным браузером. Поддерживает ENS и открывает .eth домены через внутренний dApp Browser.</div>
+        <div style="margin-top:10px"><span class="qp-tag tag-blue">Альтернатива</span></div>
+      </div>
+
+      <div class="mobile-card">
+        <div class="app-icon">O</div>
+        <div class="app-name">Opera Mobile</div>
+        <div class="app-os">Android</div>
+        <div class="app-desc">Opera для Android с Crypto Wallet. Поддерживает Web3 и ENS из коробки. На iOS поддержка ограничена.</div>
+        <div style="margin-top:10px"><span class="qp-tag tag-purple">Android only</span></div>
+      </div>
+
+      <div class="mobile-card">
+        <div class="app-icon">🔐</div>
+        <div class="app-name">Status</div>
+        <div class="app-os">iOS · Android</div>
+        <div class="app-desc">Децентрализованный мессенджер + кошелёк + браузер. ENS-поддержка встроена. Полностью открытый исходный код.</div>
+        <div style="margin-top:10px"><span class="qp-tag tag-purple">Open Source</span></div>
+      </div>
+    </div>
+
+    <div class="callout info" style="margin-top:20px">
+      <span>ℹ️</span>
+      <span>На <strong>iOS</strong> все браузеры обязаны использовать движок WebKit (Apple требование). Поэтому ENS-функции в сторонних браузерах на iPhone могут работать иначе. Brave Mobile на iOS — самый надёжный вариант.</span>
+    </div>
+  </section>
+
+  <hr class="div"/>
+
+  <!-- HTTP GATEWAYS -->
+  <section id="gateways">
+    <div class="sec-label">Без установки</div>
+    <h2 class="sec-title">HTTP-шлюзы — любой браузер</h2>
+    <p class="sec-sub">Если не хочется ничего устанавливать — добавь суффикс к домену. Шлюз переведёт ENS → IPFS → HTML за тебя.</p>
+
+    <div class="gateway-grid">
+      <div class="gw-card" style="border-color:var(--green-border)">
+        <div style="font-size:12px;color:var(--green);font-weight:700;margin-bottom:8px">Основной шлюз</div>
+        <div class="gw-url">https://site.eth.limo</div>
+        <div class="gw-desc">Официальный шлюз от сообщества ENS. Самый актуальный и надёжный. Поддерживает HTTPS, кэширование через Cloudflare.</div>
+      </div>
+
+      <div class="gw-card">
+        <div style="font-size:12px;color:var(--muted);font-weight:700;margin-bottom:8px">Альтернатива</div>
+        <div class="gw-url">https://site.eth.link</div>
+        <div class="gw-desc">Старый шлюз от Cloudflare + ENS. Работает, но eth.limo предпочтительнее — eth.link может быть медленнее.</div>
+      </div>
+
+      <div class="gw-card">
+        <div style="font-size:12px;color:var(--muted);font-weight:700;margin-bottom:8px">Cloudflare IPFS</div>
+        <div class="gw-url">https://cloudflare-ipfs.com/ipns/site.eth</div>
+        <div class="gw-desc">Шлюз от Cloudflare по IPNS-пути. Работает если знаешь CID или ENS-имя. Быстрый за счёт CDN Cloudflare.</div>
+      </div>
+
+      <div class="gw-card">
+        <div style="font-size:12px;color:var(--muted);font-weight:700;margin-bottom:8px">IPFS.io</div>
+        <div class="gw-url">https://ipfs.io/ipns/site.eth</div>
+        <div class="gw-desc">Публичный шлюз от Protocol Labs. Надёжный, но может быть медленнее коммерческих. Хороший запасной вариант.</div>
+      </div>
+
+      <div class="gw-card">
+        <div style="font-size:12px;color:var(--muted);font-weight:700;margin-bottom:8px">Dweb.link</div>
+        <div class="gw-url">https://CID.ipfs.dweb.link</div>
+        <div class="gw-desc">Шлюз по прямому CID. Нужен хэш контента — получаешь в Pinata после загрузки. Минует ENS полностью.</div>
+      </div>
+    </div>
+
+    <div class="callout warn" style="margin-top:20px">
+      <span>⚠️</span>
+      <span>HTTP-шлюзы — самый <strong>зависимый</strong> способ: если шлюз лежит или заблокирован РКН, сайт не откроется. Для надёжного доступа используй Brave или MetaMask.</span>
+    </div>
+  </section>
+
+  <hr class="div"/>
+
+  <!-- COMPARISON -->
+  <section id="compare">
+    <div class="sec-label">Сравнение</div>
+    <h2 class="sec-title">Все способы одним взглядом</h2>
+    <p class="sec-sub">Выбери подходящий исходя из устройства и уровня паранойи.</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Способ</th>
+            <th>Платформа</th>
+            <th>Установка</th>
+            <th>Децентр.</th>
+            <th>Работает без интернета</th>
+            <th>Устойчив к блокировке</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="background:rgba(16,185,129,0.04)">
+            <td><strong>🦁 Brave</strong></td>
+            <td>ПК + Mobile</td>
+            <td>Браузер</td>
+            <td><span class="check">✓✓</span></td>
+            <td><span class="cross">✗</span></td>
+            <td><span class="check">✓✓</span></td>
+          </tr>
+          <tr>
+            <td><strong>🦊 MetaMask</strong></td>
+            <td>Chrome / Firefox</td>
+            <td>Расширение</td>
+            <td><span class="partial">~</span></td>
+            <td><span class="cross">✗</span></td>
+            <td><span class="check">✓</span></td>
+          </tr>
+          <tr>
+            <td><strong>∞ IPFS Companion</strong></td>
+            <td>Chrome / Firefox</td>
+            <td>Расширение</td>
+            <td><span class="check">✓✓</span></td>
+            <td><span class="partial">~ (с локал. узлом)</span></td>
+            <td><span class="check">✓✓</span></td>
+          </tr>
+          <tr>
+            <td><strong>O Opera Crypto</strong></td>
+            <td>ПК + Android</td>
+            <td>Браузер</td>
+            <td><span class="partial">~</span></td>
+            <td><span class="cross">✗</span></td>
+            <td><span class="partial">~</span></td>
+          </tr>
+          <tr>
+            <td><strong>🦊 MetaMask Mobile</strong></td>
+            <td>iOS + Android</td>
+            <td>Приложение</td>
+            <td><span class="partial">~</span></td>
+            <td><span class="cross">✗</span></td>
+            <td><span class="check">✓</span></td>
+          </tr>
+          <tr>
+            <td><strong>🌈 Rainbow / Coinbase</strong></td>
+            <td>iOS + Android</td>
+            <td>Приложение</td>
+            <td><span class="partial">~</span></td>
+            <td><span class="cross">✗</span></td>
+            <td><span class="check">✓</span></td>
+          </tr>
+          <tr>
+            <td><strong>🌐 site.eth.limo</strong></td>
+            <td>Любой браузер</td>
+            <td>Ничего</td>
+            <td><span class="cross">✗</span></td>
+            <td><span class="cross">✗</span></td>
+            <td><span class="cross">✗</span></td>
+          </tr>
+          <tr>
+            <td><strong>🌐 IPFS Gateway</strong></td>
+            <td>Любой браузер</td>
+            <td>Ничего</td>
+            <td><span class="cross">✗</span></td>
+            <td><span class="cross">✗</span></td>
+            <td><span class="cross">✗</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="margin-top:12px;font-size:12px;color:var(--muted)">
+      <span class="check">✓✓</span> полная поддержка &nbsp;·&nbsp; <span class="partial">~</span> частичная &nbsp;·&nbsp; <span class="cross">✗</span> не поддерживается
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <div>Как открыть .eth домен — все способы · 2026</div>
+  <div style="margin-top:8px">
+    <a href="https://brave.com">Brave</a> ·
+    <a href="https://metamask.io">MetaMask</a> ·
+    <a href="https://github.com/ipfs/ipfs-companion">IPFS Companion</a> ·
+    <a href="https://app.ens.domains">ENS</a>
+  </div>
+</footer>
+
+<script>
+try {
+  (async () => {
+    const { animate, inView, stagger } = await import("https://cdn.jsdelivr.net/npm/motion@11/+esm");
+    inView(".method-card", el => {
+      animate(el, { y: [18, 0] }, { duration: 0.5, easing: [0.16,1,0.3,1] });
+    }, { amount: 0.08 });
+    inView(".mobile-card", el => {
+      animate(el, { y: [12, 0] }, { duration: 0.4, easing: [0.16,1,0.3,1] });
+    }, { amount: 0.1 });
+    inView(".qp-card", el => {
+      animate(el, { y: [10, 0] }, { duration: 0.35, easing: [0.16,1,0.3,1] });
+    }, { amount: 0.2 });
+    inView(".gw-card", el => {
+      animate(el, { y: [10, 0] }, { duration: 0.4, easing: [0.16,1,0.3,1] });
+    }, { amount: 0.1 });
+  })();
+} catch(e) {}
+</script>
+</body>
+</html>
