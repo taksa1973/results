@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Звездопад в Бразилии, август 2026 — 6 туров, где поймать сразу три потока</title>
+<meta name="description" content="Подборка астро-туров по Бразилии для наблюдения метеорного дождя в августе 2026: где одновременно видны Персеиды, южные δ-Аквариды и α-Каприкорниды. Реальные направления, операторы, цены, лучшие даты и тёмное новолунное небо." />
+<meta property="og:title" content="Звездопад в Бразилии, август 2026 — подборка астро-туров" />
+<meta property="og:description" content="6 направлений Бразилии, где под тёмным небом ловятся сразу три потока: Персеиды + южные δ-Аквариды + α-Каприкорниды. Операторы, цены, даты." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#05070e;
+    --bg-2:#0a0f1c;
+    --surface:rgba(255,255,255,.045);
+    --surface-2:rgba(255,255,255,.07);
+    --border:rgba(255,255,255,.10);
+    --border-strong:rgba(255,255,255,.20);
+    --text:#f4f6fb;
+    --muted:#9aa4b6;
+    --muted-2:#6f7a8d;
+    --gold:#ffce6b;
+    --gold-soft:#ffe0a3;
+    --blue:#6f9bff;
+    --violet:#b09bff;
+    --good:#4ade80;
+    --warn:#fbbf24;
+    --bad:#fb7185;
+    --r-xl:28px;
+    --r-lg:22px;
+    --r-md:16px;
+    --r-sm:11px;
+    --maxw:1160px;
+    --ease:cubic-bezier(.22,.61,.36,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+  body{
+    font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    line-height:1.62;
+    font-size:17px;
+    letter-spacing:-.011em;
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+  #sky{position:fixed;inset:0;z-index:-2;display:block}
+  .glow{position:fixed;z-index:-1;pointer-events:none;border-radius:50%;filter:blur(90px);opacity:.5}
+  .glow.a{top:-140px;left:-90px;width:440px;height:440px;background:radial-gradient(circle,rgba(111,155,255,.34),transparent 70%)}
+  .glow.b{top:26%;right:-160px;width:560px;height:560px;background:radial-gradient(circle,rgba(176,155,255,.26),transparent 70%)}
+  .glow.c{bottom:-180px;left:14%;width:640px;height:640px;background:radial-gradient(circle,rgba(255,206,107,.13),transparent 70%)}
+
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+  a{color:var(--gold-soft);text-decoration:none;border-bottom:1px solid rgba(255,224,163,.28);transition:border-color .2s,color .2s}
+  a:hover{color:#fff;border-color:var(--gold)}
+  a.plain{border:none}
+
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:9px;
+    font-size:12.5px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;
+    color:var(--gold);
+    padding:8px 15px;border:1px solid var(--border);border-radius:100px;
+    background:var(--surface);backdrop-filter:blur(10px);
+  }
+  .eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--gold);box-shadow:0 0 12px var(--gold);animation:pulse 2.6s var(--ease) infinite}
+  @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.55;transform:scale(.8)}}
+
+  h1,h2,h3{letter-spacing:-.026em;line-height:1.08;font-weight:700}
+  .serif{font-family:'Instrument Serif',Georgia,serif;font-weight:400;letter-spacing:0}
+
+  /* HERO */
+  header.hero{position:relative;padding:118px 0 64px;text-align:center}
+  .hero h1{font-size:clamp(2.5rem,7vw,5rem);margin:26px auto 0;max-width:16ch}
+  .hero h1 .serif{color:var(--gold-soft);font-style:italic}
+  .hero .sub{font-size:clamp(1.05rem,2.2vw,1.32rem);color:var(--muted);max-width:50ch;margin:24px auto 0;line-height:1.55}
+  .hero .tldr{display:inline-flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:38px}
+  .chip{
+    display:inline-flex;align-items:center;gap:9px;
+    padding:11px 17px;border-radius:100px;border:1px solid var(--border);
+    background:var(--surface);backdrop-filter:blur(12px);
+    font-size:14px;font-weight:500;color:var(--text);
+  }
+  .chip b{color:var(--gold-soft);font-weight:600}
+  .chip svg{width:16px;height:16px;flex:none;opacity:.9}
+
+  section{padding:66px 0;position:relative}
+  .sec-head{max-width:56ch;margin-bottom:40px}
+  .sec-head.center{margin-inline:auto;text-align:center}
+  .sec-head h2{font-size:clamp(1.85rem,4vw,2.85rem)}
+  .sec-head p{color:var(--muted);font-size:clamp(1rem,2vw,1.16rem);margin-top:15px}
+  .kicker{color:var(--gold);font-weight:600;font-size:13px;letter-spacing:.06em;text-transform:uppercase;margin-bottom:13px;display:block}
+
+  .card{
+    background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);
+    padding:26px;backdrop-filter:blur(14px);
+    transition:transform .4s var(--ease),border-color .4s,background .4s;
+  }
+  .card:hover{transform:translateY(-3px);border-color:var(--border-strong);background:var(--surface-2)}
+
+  /* DATE VERDICT */
+  .verdict{
+    display:grid;grid-template-columns:1.15fr .85fr;gap:18px;
+    border:1px solid var(--border-strong);border-radius:var(--r-xl);
+    background:linear-gradient(135deg,rgba(255,206,107,.13),rgba(176,155,255,.09));
+    padding:8px;
+  }
+  @media(max-width:860px){.verdict{grid-template-columns:1fr}}
+  .verdict .lead{padding:30px 30px 26px}
+  .verdict .lead .win{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--good);margin-bottom:16px}
+  .verdict .lead .win .d{width:8px;height:8px;border-radius:50%;background:var(--good);box-shadow:0 0 12px var(--good)}
+  .verdict .lead h3{font-size:clamp(1.5rem,3.4vw,2.15rem);margin-bottom:14px}
+  .verdict .lead h3 .hl{color:var(--gold-soft)}
+  .verdict .lead p{color:var(--muted);font-size:1.02rem}
+  .verdict .aside{
+    background:rgba(5,7,14,.5);border-radius:calc(var(--r-xl) - 8px);
+    padding:26px;display:flex;flex-direction:column;justify-content:center;gap:18px
+  }
+  .vrow{display:flex;align-items:flex-start;gap:14px}
+  .vrow .moon{width:40px;height:40px;border-radius:50%;flex:none;position:relative;box-shadow:inset -8px -3px 14px rgba(0,0,0,.7)}
+  .vrow .moon.new{background:radial-gradient(circle at 35% 35%,#141922,#05070e);border:1px solid rgba(255,255,255,.12)}
+  .vrow .moon.full{background:radial-gradient(circle at 38% 34%,#fff,#c9cfdc 60%,#8b93a6);box-shadow:0 0 18px rgba(255,255,255,.3)}
+  .vrow .vt b{display:block;font-weight:600;font-size:1rem}
+  .vrow .vt .g{color:var(--good)}
+  .vrow .vt .r{color:var(--bad)}
+  .vrow .vt span{color:var(--muted);font-size:.9rem;line-height:1.45;display:block;margin-top:2px}
+
+  /* SHOWERS LEGEND */
+  .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  @media(max-width:820px){.grid-3{grid-template-columns:1fr}}
+  .sh .ic{width:46px;height:46px;border-radius:13px;display:grid;place-items:center;margin-bottom:16px;border:1px solid var(--border)}
+  .sh .ic svg{width:24px;height:24px}
+  .sh.a .ic{background:rgba(111,155,255,.14);color:var(--blue)}
+  .sh.b .ic{background:rgba(74,222,128,.13);color:var(--good)}
+  .sh.c .ic{background:rgba(255,206,107,.14);color:var(--gold)}
+  .sh h3{font-size:1.2rem;margin-bottom:4px}
+  .sh .peak{font-size:.82rem;color:var(--muted-2);letter-spacing:.02em;margin-bottom:12px}
+  .sh p{color:var(--muted);font-size:.96rem}
+  .sh .datapair{display:flex;gap:10px;margin-top:16px;padding-top:16px;border-top:1px solid var(--border)}
+  .sh .datapair div{flex:1;font-size:.82rem;color:var(--muted-2)}
+  .sh .datapair b{display:block;color:var(--text);font-size:1.12rem;font-weight:700;letter-spacing:-.02em;margin-bottom:2px}
+
+  /* TOUR CARDS */
+  .tours{display:grid;grid-template-columns:repeat(2,1fr);gap:22px}
+  @media(max-width:900px){.tours{grid-template-columns:1fr}}
+  .tour{
+    display:flex;flex-direction:column;overflow:hidden;
+    background:var(--surface);border:1px solid var(--border);border-radius:var(--r-xl);
+    backdrop-filter:blur(14px);
+    transition:transform .45s var(--ease),border-color .45s,box-shadow .45s;
+  }
+  .tour:hover{transform:translateY(-4px);border-color:var(--border-strong);box-shadow:0 24px 60px -30px rgba(0,0,0,.9)}
+  .tour .ph{position:relative;aspect-ratio:16/10;overflow:hidden;background:linear-gradient(135deg,#0d1424,#161d33)}
+  .tour .ph img{width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease);opacity:.94}
+  .tour:hover .ph img{transform:scale(1.05)}
+  .tour .ph::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(5,7,14,.92) 2%,rgba(5,7,14,.15) 45%,transparent 75%)}
+  .tour .rank{position:absolute;top:14px;left:14px;z-index:2;width:34px;height:34px;border-radius:10px;display:grid;place-items:center;font-weight:700;font-size:15px;color:#05070e;background:linear-gradient(135deg,var(--gold-soft),var(--gold));box-shadow:0 6px 16px rgba(255,206,107,.35)}
+  .tour .verd{position:absolute;top:16px;right:14px;z-index:2;font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;padding:6px 11px;border-radius:100px;backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.2)}
+  .tour .verd.best{background:rgba(74,222,128,.2);color:#bef5cf}
+  .tour .verd.great{background:rgba(111,155,255,.2);color:#cadcff}
+  .tour .verd.niche{background:rgba(176,155,255,.2);color:#ded3ff}
+  .tour .head{position:absolute;bottom:0;left:0;right:0;z-index:2;padding:18px 22px}
+  .tour .head .where{display:flex;align-items:center;gap:7px;font-size:12.5px;color:var(--gold-soft);font-weight:500;margin-bottom:5px}
+  .tour .head .where svg{width:14px;height:14px}
+  .tour .head h3{font-size:1.42rem;letter-spacing:-.02em}
+  .tour .body{padding:22px 22px 24px;display:flex;flex-direction:column;flex:1}
+  .tour .body>p{color:var(--muted);font-size:.97rem}
+  .tour .tags{display:flex;flex-wrap:wrap;gap:7px;margin:16px 0 18px}
+  .tour .tag{font-size:11.5px;font-weight:500;padding:5px 10px;border-radius:8px;background:rgba(255,255,255,.05);border:1px solid var(--border);color:var(--muted);white-space:nowrap}
+  .tour .tag.g{color:#bef5cf;background:rgba(74,222,128,.10);border-color:rgba(74,222,128,.25)}
+  .tour .tag.w{color:#ffd9a0;background:rgba(255,206,107,.10);border-color:rgba(255,206,107,.25)}
+  .tour .tag.b{color:#cadcff;background:rgba(111,155,255,.10);border-color:rgba(111,155,255,.25)}
+
+  .specs{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border:1px solid var(--border);border-radius:var(--r-md);overflow:hidden;margin-bottom:18px}
+  .spec{background:var(--bg-2);padding:12px 14px}
+  .spec .l{font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted-2);margin-bottom:3px}
+  .spec .v{font-size:.96rem;font-weight:600}
+  .spec .v small{font-weight:400;color:var(--muted);font-size:.82rem}
+
+  .tour .foot{margin-top:auto;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;padding-top:18px;border-top:1px solid var(--border)}
+  .tour .price .n{font-size:1.28rem;font-weight:700;letter-spacing:-.02em}
+  .tour .price .lbl{font-size:11px;color:var(--muted-2);letter-spacing:.03em}
+  .btn{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:11px 18px;border-radius:100px;font-weight:600;font-size:14px;
+    background:linear-gradient(135deg,var(--gold-soft),var(--gold));color:#05070e;
+    border:none;cursor:pointer;transition:transform .25s var(--ease),box-shadow .25s;
+  }
+  .btn:hover{transform:translateY(-1px);box-shadow:0 10px 26px -10px rgba(255,206,107,.6);color:#05070e;border:none}
+  .btn svg{width:15px;height:15px}
+  .links{display:flex;flex-wrap:wrap;gap:7px 16px;margin-top:16px;font-size:13px}
+  .links a{display:inline-flex;align-items:center;gap:6px}
+  .links a svg{width:13px;height:13px;opacity:.7}
+
+  /* HOW TO CHOOSE */
+  .choose{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  @media(max-width:820px){.choose{grid-template-columns:1fr}}
+  .choose .card h3{font-size:1.08rem;margin-bottom:8px;display:flex;align-items:center;gap:9px}
+  .choose .card h3 .em{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;font-size:15px;background:rgba(255,206,107,.13);color:var(--gold);border:1px solid var(--border);flex:none}
+  .choose .card p{color:var(--muted);font-size:.94rem}
+  .choose .card b{color:var(--gold-soft);font-weight:600}
+
+  /* PRACTICAL */
+  .steps{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+  @media(max-width:760px){.steps{grid-template-columns:1fr}}
+  .step{display:flex;gap:15px;padding:20px 22px;border:1px solid var(--border);border-radius:var(--r-md);background:var(--surface);transition:border-color .3s,background .3s}
+  .step:hover{border-color:var(--border-strong);background:var(--surface-2)}
+  .step .n{width:30px;height:30px;border-radius:9px;flex:none;display:grid;place-items:center;font-weight:700;font-size:14px;color:var(--gold);background:rgba(255,206,107,.12);border:1px solid var(--border)}
+  .step h3{font-size:1rem;margin-bottom:4px}
+  .step p{color:var(--muted);font-size:.92rem}
+
+  /* CROSSLINK / CTA */
+  .cta{
+    border:1px solid var(--border-strong);border-radius:var(--r-xl);
+    background:linear-gradient(135deg,rgba(111,155,255,.12),rgba(176,155,255,.10));
+    padding:44px;text-align:center
+  }
+  .cta h2{font-size:clamp(1.6rem,3.6vw,2.4rem);max-width:22ch;margin:0 auto 14px}
+  .cta p{color:var(--muted);max-width:52ch;margin:0 auto 26px}
+
+  .note{margin-top:26px;padding:18px 20px;border-left:2px solid var(--gold);background:rgba(255,206,107,.06);border-radius:0 var(--r-sm) var(--r-sm) 0;color:var(--muted);font-size:.95rem}
+  .note b{color:var(--gold-soft)}
+
+  footer{padding:52px 0 60px;border-top:1px solid var(--border);margin-top:30px}
+  footer .wrap{color:var(--muted-2);font-size:13px;line-height:1.7}
+  footer a{color:var(--muted)}
+  .src{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:14px}
+
+  /* reveal */
+  .reveal{opacity:0;transform:translateY(26px)}
+  .no-motion .reveal{opacity:1;transform:none}
+
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+    .reveal{opacity:1;transform:none}
+    .tour .ph img{transform:none!important}
+  }
+</style>
+</head>
+<body>
+<canvas id="sky"></canvas>
+<div class="glow a"></div><div class="glow b"></div><div class="glow c"></div>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="wrap">
+    <span class="eyebrow"><span class="dot"></span>Астротуризм · Бразилия · август 2026</span>
+    <h1>Звездопад в Бразилии: <span class="serif">три потока</span> в одну ночь</h1>
+    <p class="sub">Подборка из 6 направлений, где под тёмным новолунным небом ловятся сразу Персеиды, южные δ-Аквариды и α-Каприкорниды. С операторами, ценами и лучшими датами.</p>
+    <div class="tldr">
+      <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 3v2M12 19v2M5 12H3M21 12h-2M6 6l1.5 1.5M18 18l-1.5-1.5M6 18l1.5-1.5M18 6l-1.5 1.5"/><circle cx="12" cy="12" r="4"/></svg>Пик — ночь <b>10–13 августа</b></span>
+      <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 0 0 18 6 6 0 0 1 0-18z" fill="currentColor" stroke="none" opacity=".25"/></svg>Луна: <b>новолуние 0%</b></span>
+      <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 21s-7-5.2-7-10a7 7 0 0 1 14 0c0 4.8-7 10-7 10z"/><circle cx="12" cy="11" r="2.5"/></svg><b>6 направлений</b> · север → юг</span>
+    </div>
+    <p style="margin-top:34px;color:var(--muted-2);font-size:13px;letter-spacing:.04em">↓ сначала — почему именно август, а не конец июля</p>
+  </div>
+</header>
+
+<!-- DATE VERDICT -->
+<section id="dates">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="kicker">Главное о датах</span>
+      <h2>Хотите увидеть все три потока сразу — езжайте на августовское новолуние</h2>
+      <p>Пик южных δ-Акварид и α-Каприкорнид — ночь 29–30 июля, и по геометрии это идеальное «южное» время. Но в 2026-м их убивает почти полная Луна. А Персеиды 12–13 августа попадают на новолуние — и в эту же тёмную ночь оба южных потока ещё активны. Поэтому окно <b>10–13 августа</b> даёт все три потока под чёрным небом.</p>
+    </div>
+    <div class="verdict reveal">
+      <div class="lead">
+        <span class="win"><span class="d"></span>Рекомендация</span>
+        <h3>Целитесь в ночи <span class="hl">10–13 августа 2026</span>, наблюдение 2:00–5:00</h3>
+        <p>Персеиды в пике (12–13 авг.), а южные δ-Аквариды (активны до 23 авг.) и α-Каприкорниды (до ~15 авг.) в эти же ночи стоят почти в зените над Бразилией. Луны нет — небо тёмное до рассвета. Это честный ответ на «увидеть звездопад из трёх потоков».</p>
+      </div>
+      <div class="aside">
+        <div class="vrow">
+          <div class="moon new"></div>
+          <div class="vt"><b class="g">12–13 августа — новолуние ✓</b><span>Освещённость 0%. Персеиды + хвост δ-Акварид + болиды α-Каприкорнид. Ехать за этим.</span></div>
+        </div>
+        <div class="vrow">
+          <div class="moon full"></div>
+          <div class="vt"><b class="r">29–30 июля — полнолуние ✗</b><span>«Родной» пик южных потоков, но Луна ~100% всю ночь засвечивает метеоры. В 2026-м пик пропускаем.</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 3 SHOWERS -->
+<section id="showers">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="kicker">Что именно летит</span>
+      <h2>Три потока, и два из них — «южные», как под заказ для Бразилии</h2>
+      <p>Персеиды из Южного полушария низко над северным горизонтом. Зато δ-Аквариды и α-Каприкорниды радиантами проходят почти над головой — Бразилия для них одно из лучших мест на планете.</p>
+    </div>
+    <div class="grid-3">
+      <div class="card sh a reveal">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 21L14 10M14 10l1.5-4.5L20 4l-1.5 4.5L14 10zM8 15l-2 .5L6.5 13"/></svg></div>
+        <h3>Персеиды</h3>
+        <div class="peak">Пик 12–13 августа · радиант в Персее (север)</div>
+        <p>Быстрые, яркие, часто со следами. Из Бразилии низко — но в 2026-м без Луны видны хорошо. Чем севернее точка, тем выше радиант и больше метеоров.</p>
+        <div class="datapair"><div><b>15–24°</b>высота (север Бр.)</div><div><b>ZHR 100</b>в зените (не здесь)</div></div>
+      </div>
+      <div class="card sh b reveal">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 2l1.8 6.2L20 10l-6.2 1.8L12 18l-1.8-6.2L4 10l6.2-1.8L12 2z"/></svg></div>
+        <h3>Южные δ-Аквариды</h3>
+        <div class="peak">Пик 30 июля · активны до 23 августа</div>
+        <p>Радиант в Водолее (−16°) — из Бразилии проходит почти над головой. Даже в середине августа ещё уверенно подсыпают метеоры при тёмном небе. Главный «южный» поток лета.</p>
+        <div class="datapair"><div><b>~80–90°</b>высота из Бразилии</div><div><b>ZHR 25</b>в пик</div></div>
+      </div>
+      <div class="card sh c reveal">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 3c1 3.5 3.5 6 7 7-3.5 1-6 3.5-7 7-1-3.5-3.5-6-7-7 3.5-1 6-3.5 7-7z"/></svg></div>
+        <h3>α-Каприкорниды</h3>
+        <div class="peak">Пик 31 июля · активны до ~15 августа</div>
+        <p>Медленные, но эффектные: яркие цветные болиды до −4…−10 звёздной величины. По числу их мало, зато каждый запоминается. Радиант в Козероге — высоко над Бразилией.</p>
+        <div class="datapair"><div><b>~77–84°</b>высота из Бразилии</div><div><b>ZHR 5</b>но болиды</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TOURS COLLECTION -->
+<section id="tours">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="kicker">Подборка · 6 направлений</span>
+      <h2>Где смотреть: от сертана до Пантанала</h2>
+      <p>Отсортировано по совокупности «тёмное небо + высота радианта Персеид + удобство и инфраструктура». Чем выше в списке — тем полнее вы увидите все три потока сразу.</p>
+    </div>
+
+    <div class="tours">
+
+      <!-- 1 CHAPADA DOS VEADEIROS -->
+      <article class="tour reveal">
+        <div class="ph">
+          <div class="rank">1</div><span class="verd best">Лучший баланс</span>
+          <img loading="lazy" alt="Плато Шапада-дус-Веадейрус, штат Гояс" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Chapada_Veadeiros%2C_Alto_Paraiso_GO_-_40252529604.jpg/1280px-Chapada_Veadeiros%2C_Alto_Paraiso_GO_-_40252529604.jpg" onerror="this.style.display='none'"/>
+          <div class="head"><div class="where"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7-5.2-7-10a7 7 0 0 1 14 0c0 4.8-7 10-7 10z"/><circle cx="12" cy="11" r="2.4"/></svg>Гояс · 4 ч от Бразилиа (BSB)</div><h3>Шапада-дус-Веадейрус</h3></div>
+        </div>
+        <div class="body">
+          <p>Эталонное тёмное небо Bortle 1–2 (Млечный Путь отбрасывает тень), гарантированно сухой август и развитый астротуризм. Здесь работает <b>Обсерватория Bellatrix</b> — первая на плато, телескоп 25 см и профессиональный астроном на площадке. Максимум неба при минимуме хлопот.</p>
+          <div class="tags"><span class="tag g">Bortle 1–2</span><span class="tag">радиант ~18°</span><span class="tag w">δ-Аквариды в зените</span><span class="tag">гид-астроном</span></div>
+          <div class="specs">
+            <div class="spec"><div class="l">Лучше всего для</div><div class="v">Всех трёх сразу</div></div>
+            <div class="spec"><div class="l">Как добраться</div><div class="v">Авто из Бразилиа <small>(BSB)</small></div></div>
+            <div class="spec"><div class="l">Сезон неба</div><div class="v">Сухо, май–сентябрь</div></div>
+            <div class="spec"><div class="l">Астро-тур</div><div class="v">R$175 <small>/ чел (Bellatrix)</small></div></div>
+          </div>
+          <div class="foot">
+            <div class="price"><div class="n">R$1500–3500</div><div class="lbl">ориентир поездки на 3–4 дня / чел</div></div>
+            <a class="btn plain" href="https://ceudegaia.com.br/produto/tour-astronomico-no-observatorio-bellatrix-o-primeiro-observatorio-da-chapada-dos-veadeiros/" target="_blank" rel="noopener">Забронировать тур<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          </div>
+          <div class="links">
+            <a href="https://visitveadeiros.com.br/melhor-ceu-do-brasil-para-astroturismo/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18"/></svg>visitveadeiros.com.br</a>
+            <a href="https://www.oort.com.br/chapadadosveadeiros" target="_blank" rel="noopener">Воркшоп Oort</a>
+            <a href="https://feel.visitbrasil.com/en/astronomical-tour-at-the-bellatrix-observatory/" target="_blank" rel="noopener">EN · Feel Brasil</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- 2 SERRA DA CAPIVARA -->
+      <article class="tour reveal">
+        <div class="ph">
+          <div class="rank">2</div><span class="verd great">Самый высокий радиант</span>
+          <img loading="lazy" alt="Педра-Фурада, Национальный парк Серра-да-Капивара, Пиауи" src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Pedra_Furada_-_Serra_da_Capivara_I.jpg/1280px-Pedra_Furada_-_Serra_da_Capivara_I.jpg" onerror="this.style.display='none'"/>
+          <div class="head"><div class="where"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7-5.2-7-10a7 7 0 0 1 14 0c0 4.8-7 10-7 10z"/><circle cx="12" cy="11" r="2.4"/></svg>Пиауи · сертан, широта −8,5°</div><h3>Серра-да-Капивара</h3></div>
+        </div>
+        <div class="body">
+          <p>«Один из лучших небес мира» — так о сертане Пиауи говорит популяризатор Сержио Сакани. Сухой воздух, нулевая засветка, Bortle 1 и <b>самый высокий из «сухих» точек радиант Персеид (~24°)</b> — это уже почти экватор. Бонус — древнейшая наскальная живопись Америк прямо под этим небом.</p>
+          <div class="tags"><span class="tag g">Bortle 1</span><span class="tag w">радиант ~24° — макс.</span><span class="tag">археология</span><span class="tag b">сухо и жарко</span></div>
+          <div class="specs">
+            <div class="spec"><div class="l">Лучше всего для</div><div class="v">Персеид + всех трёх</div></div>
+            <div class="spec"><div class="l">Как добраться</div><div class="v">Петролина <small>(PNZ)</small> / JDO</div></div>
+            <div class="spec"><div class="l">Сезон неба</div><div class="v">Сухо, идеально в авг.</div></div>
+            <div class="spec"><div class="l">Формат</div><div class="v">Джип-гид по парку</div></div>
+          </div>
+          <div class="foot">
+            <div class="price"><div class="n">R$2500–4500</div><div class="lbl">ориентир поездки на 4–5 дней / чел</div></div>
+            <a class="btn plain" href="https://www.serradacapivara.pi.gov.br/" target="_blank" rel="noopener">Планировать<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          </div>
+          <div class="links">
+            <a href="https://www.instagram.com/parnaserradacapivaraoficial/" target="_blank" rel="noopener">Instagram парка</a>
+            <a href="https://ne9.com.br/nordeste-tem-um-dos-melhores-locais-do-mundo-para-se-observar-o-espaco" target="_blank" rel="noopener">О небе Пиауи</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- 3 CHAPADA DIAMANTINA -->
+      <article class="tour reveal">
+        <div class="ph">
+          <div class="rank">3</div><span class="verd great">Небо + треккинг</span>
+          <img loading="lazy" alt="Национальный парк Шапада-Диамантина, Баия" src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Parque_Nacional_Chapada_Diamantina_Rafael_Cristo_Watanabe_04.jpg/1280px-Parque_Nacional_Chapada_Diamantina_Rafael_Cristo_Watanabe_04.jpg" onerror="this.style.display='none'"/>
+          <div class="head"><div class="where"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7-5.2-7-10a7 7 0 0 1 14 0c0 4.8-7 10-7 10z"/><circle cx="12" cy="11" r="2.4"/></svg>Баия · Ленсойс / Вале-ду-Капан</div><h3>Шапада-Диамантина</h3></div>
+        </div>
+        <div class="body">
+          <p>Прохладное высокогорье с тёмным небом Bortle 2–3 и сухим сезоном май–сентябрь. Радиант Персеид ~19° — чуть выше Веадейруса. Идеально, если хочется совместить звёзды с плато, каньонами и водопадами: базы — Ленсойс, Вале-ду-Капан, Мукужи.</p>
+          <div class="tags"><span class="tag g">Bortle 2–3</span><span class="tag">радиант ~19°</span><span class="tag b">треки + водопады</span><span class="tag">прохладно ночью</span></div>
+          <div class="specs">
+            <div class="spec"><div class="l">Лучше всего для</div><div class="v">Небо + активный отдых</div></div>
+            <div class="spec"><div class="l">Как добраться</div><div class="v">Ленсойс <small>(LEC)</small> / 6 ч SSA</div></div>
+            <div class="spec"><div class="l">Сезон неба</div><div class="v">Сухо, май–сентябрь</div></div>
+            <div class="spec"><div class="l">Формат</div><div class="v">Гиды, мультидень</div></div>
+          </div>
+          <div class="foot">
+            <div class="price"><div class="n">R$2500–5000</div><div class="lbl">ориентир поездки на 4–6 дней / чел</div></div>
+            <a class="btn plain" href="https://blog.blablacar.com.br/destinos/astroturismo-brasil" target="_blank" rel="noopener">Смотреть<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          </div>
+          <div class="links">
+            <a href="https://www.seguroviagem.srv.br/blog/astroturismo-brasil-guia-completo-destinos-estrelas/" target="_blank" rel="noopener">Гайд по астротуризму</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- 4 JALAPAO -->
+      <article class="tour reveal">
+        <div class="ph">
+          <div class="rank">4</div><span class="verd great">Дикая природа</span>
+          <img loading="lazy" alt="Дюны и саванна Жалапан, штат Токантинс" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Terras_Altas_do_Brasil.jpg/1280px-Terras_Altas_do_Brasil.jpg" onerror="this.style.display='none'"/>
+          <div class="head"><div class="where"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7-5.2-7-10a7 7 0 0 1 14 0c0 4.8-7 10-7 10z"/><circle cx="12" cy="11" r="2.4"/></svg>Токантинс · широта −10,5°</div><h3>Жалапан</h3></div>
+        </div>
+        <div class="body">
+          <p>Оранжевые дюны, «фервердоуру» (родники, в которых нельзя утонуть) и по-настоящему дикое тёмное небо в самом центре Бразилии. Одна из трёх главных астротуристических зон страны. Радиант Персеид ~21°. Едут ради связки «сырая природа + созерцание ночи» — обычно джип-экспедицией.</p>
+          <div class="tags"><span class="tag g">Bortle 1–2</span><span class="tag">радиант ~21°</span><span class="tag b">дюны, фервердоуру</span><span class="tag">джип-экспедиция</span></div>
+          <div class="specs">
+            <div class="spec"><div class="l">Лучше всего для</div><div class="v">Приключение + небо</div></div>
+            <div class="spec"><div class="l">Как добраться</div><div class="v">Палмас <small>(PMW)</small> + 4×4</div></div>
+            <div class="spec"><div class="l">Сезон неба</div><div class="v">Сухо, июнь–сентябрь</div></div>
+            <div class="spec"><div class="l">Формат</div><div class="v">Пакет-экспедиция 3–4 дня</div></div>
+          </div>
+          <div class="foot">
+            <div class="price"><div class="n">R$1800–3500</div><div class="lbl">ориентир пакет-тура 3–4 дня / чел</div></div>
+            <a class="btn plain" href="https://www.terra.com.br/vida-e-estilo/turismo/astroturismo-destinos-no-brasil-para-explorar-o-universo,b7995d3720b2ae388f4688419a44afc0kjhvfif0.html" target="_blank" rel="noopener">Смотреть<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          </div>
+          <div class="links">
+            <a href="https://nowboarding.com.br/brasil-astroturismo/" target="_blank" rel="noopener">Астротуризм по Бразилии</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- 5 PANTANAL -->
+      <article class="tour reveal">
+        <div class="ph">
+          <div class="rank">5</div><span class="verd great">Горизонт + сафари</span>
+          <img loading="lazy" alt="Пантанал, Мату-Гросу" src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/As_montanhas_da_plan%C3%ADcie.jpg/1280px-As_montanhas_da_plan%C3%ADcie.jpg" onerror="this.style.display='none'"/>
+          <div class="head"><div class="where"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7-5.2-7-10a7 7 0 0 1 14 0c0 4.8-7 10-7 10z"/><circle cx="12" cy="11" r="2.4"/></svg>Мату-Гросу / -ду-Сул</div><h3>Пантанал</h3></div>
+        </div>
+        <div class="body">
+          <p>Огромные открытые горизонты без единого фонаря, Bortle 2–3 и сухой прохладный август (ночью бывает +5…+10°). Радиант Персеид низковат (~15°), зато чистый горизонт до края и уникальный бонус — сафари на ягуаров днём, звездопад ночью. Для тех, кто едет за природой №1.</p>
+          <div class="tags"><span class="tag g">Bortle 2–3</span><span class="tag">радиант ~15°</span><span class="tag b">ягуары, сафари</span><span class="tag">открытый горизонт</span></div>
+          <div class="specs">
+            <div class="spec"><div class="l">Лучше всего для</div><div class="v">Дикая природа + δ-Аквариды</div></div>
+            <div class="spec"><div class="l">Как добраться</div><div class="v">Куяба <small>(CGB)</small> / CGR</div></div>
+            <div class="spec"><div class="l">Сезон неба</div><div class="v">Сухо, зимний август</div></div>
+            <div class="spec"><div class="l">Формат</div><div class="v">Сафари-лодж 2–3 ночи</div></div>
+          </div>
+          <div class="foot">
+            <div class="price"><div class="n">R$1500–4000</div><div class="lbl">ориентир лоджа на 2–3 ночи / чел</div></div>
+            <a class="btn plain" href="https://www.em.com.br/trends/2026/01/7328998-astroturismo-5-lugares-no-brasil-para-ver-o-ceu-estrelado-como-nunca.html" target="_blank" rel="noopener">Смотреть<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          </div>
+        </div>
+      </article>
+
+      <!-- 6 DESENGANO -->
+      <article class="tour reveal">
+        <div class="ph">
+          <div class="rank">6</div><span class="verd niche">Ближе всего к Рио</span>
+          <img loading="lazy" alt="Государственный парк Дезенгану, штат Рио-де-Жанейро" src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Desengano_State_Park.jpg/1280px-Desengano_State_Park.jpg" onerror="this.style.display='none'"/>
+          <div class="head"><div class="where"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7-5.2-7-10a7 7 0 0 1 14 0c0 4.8-7 10-7 10z"/><circle cx="12" cy="11" r="2.4"/></svg>Рио-де-Жанейро · 4 ч от Рио</div><h3>Парк Дезенгану</h3></div>
+        </div>
+        <div class="body">
+          <p>Первый в Латинской Америке сертифицированный <b>Dark Sky Park</b> (IDA): небо 21,75 mag/arcsec², более 3000 звёзд глазом. В штаб-квартире парка проводят публичные сессии наблюдения. Честно: это юг (−21,8°), Персеиды здесь низко, зато δ-Аквариды и α-Каприкорниды почти в зените — и это самая доступная тёмная точка от Рио.</p>
+          <div class="tags"><span class="tag g">Dark Sky Park (IDA)</span><span class="tag w">Персеиды низко ~10°</span><span class="tag b">δ-Аквариды в зените</span><span class="tag">рядом с Рио</span></div>
+          <div class="specs">
+            <div class="spec"><div class="l">Лучше всего для</div><div class="v">δ-Аквариды + α-Каприкорн.</div></div>
+            <div class="spec"><div class="l">Как добраться</div><div class="v">Авто из Рио <small>(GIG)</small></div></div>
+            <div class="spec"><div class="l">Небо</div><div class="v">21,75 mag/arcsec²</div></div>
+            <div class="spec"><div class="l">Формат</div><div class="v">Сессии + экспедиции</div></div>
+          </div>
+          <div class="foot">
+            <div class="price"><div class="n">R$800–2000</div><div class="lbl">ориентир поездки на 2–3 дня / чел</div></div>
+            <a class="btn plain" href="https://www.nightsky.com.br/desengano" target="_blank" rel="noopener">Экспедиция Night Sky<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          </div>
+          <div class="links">
+            <a href="https://gooutside.com.br/astroturismo-no-parque-estadual-do-desengano/" target="_blank" rel="noopener">О Dark Sky Park</a>
+          </div>
+        </div>
+      </article>
+
+    </div>
+
+    <div class="note reveal">⚠️ <b>Ловушка — Рорайма / Боа-Виста.</b> Геометрически лучшая точка страны (радиант Персеид ~35°), но именно там сезон дождей в мае–августе: небо чаще закрыто облаками. На бумаге идеально — на практике не едьте туда ради августовского звездопада.</div>
+  </div>
+</section>
+
+<!-- HOW TO CHOOSE -->
+<section id="choose">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="kicker">Как выбрать под себя</span>
+      <h2>Три коротких сценария</h2>
+    </div>
+    <div class="choose">
+      <div class="card reveal">
+        <h3><span class="em">1</span>Хочу максимум метеоров</h3>
+        <p>Берите <b>Пиауи (Серра-да-Капивара)</b> или <b>Жалапан</b> — самый северный сухой сертан, где радиант Персеид выше всего, а южные потоки стоят в зените. Небо Bortle 1.</p>
+      </div>
+      <div class="card reveal">
+        <h3><span class="em">2</span>Минимум логистики</h3>
+        <p><b>Шапада-дус-Веадейрус</b>: 4 часа от аэропорта Бразилиа, готовый тур с астрономом и телескопом за R$175, глэмпинг и эталонное тёмное небо. Оптимальный старт для первого раза.</p>
+      </div>
+      <div class="card reveal">
+        <h3><span class="em">3</span>Только выходные из Рио/Сан-Паулу</h3>
+        <p><b>Парк Дезенгану</b> — единственный сертифицированный Dark Sky Park и самая доступная тёмная точка юго-востока. Персеиды низко, но δ-Аквариды и α-Каприкорниды отработают сполна.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRACTICAL -->
+<section id="how">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="kicker">Практика наблюдения</span>
+      <h2>Что сделать, чтобы точно увидеть</h2>
+    </div>
+    <div class="steps">
+      <div class="step reveal"><div class="n">1</div><div><h3>Время: 2:00–5:00 по местному</h3><p>Радиант выше всего под утро, перед рассветом — тогда метеоров больше всего. До полуночи смысла почти нет.</p></div></div>
+      <div class="step reveal"><div class="n">2</div><div><h3>Уезжайте от засветки</h3><p>Проверьте точку на <a href="https://www.lightpollutionmap.info" target="_blank" rel="noopener">lightpollutionmap.info</a> — нужен Bortle 1–3. Даже 30–40 км от города меняют картину.</p></div></div>
+      <div class="step reveal"><div class="n">3</div><div><h3>Никакого телескопа</h3><p>Метеоры смотрят только глазами — широким полем. Лягте на шезлонг и смотрите в зенит, где δ-Аквариды и α-Каприкорниды.</p></div></div>
+      <div class="step reveal"><div class="n">4</div><div><h3>20–30 минут на адаптацию</h3><p>Не смотрите в телефон — экран сбивает ночное зрение. Нужен свет — только красный фонарик.</p></div></div>
+      <div class="step reveal"><div class="n">5</div><div><h3>Тёплые вещи</h3><p>На плато ночью +5…+12° даже в тропиках. Куртка, плед, термос. Проверьте облачность на <a href="https://www.meteoblue.com" target="_blank" rel="noopener">meteoblue</a>.</p></div></div>
+      <div class="step reveal"><div class="n">6</div><div><h3>Планетарий в телефоне</h3><p><a href="https://stellarium.org" target="_blank" rel="noopener">Stellarium</a> поможет найти Персея на севере и Водолей/Козерог в зените — откуда летят южные потоки.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA / CROSSLINK -->
+<section id="cta">
+  <div class="wrap">
+    <div class="cta reveal">
+      <span class="kicker" style="justify-content:center">Копнуть глубже</span>
+      <h2>Нужна вся теория: карта штатов, геометрия радианта и фактор Луны?</h2>
+      <p>Есть подробный разбор именно по Персеидам из Бразилии — почему север лучше юга, точная высота радианта по городам и почему 2026-й — «тот самый» год.</p>
+      <a class="btn plain" href="perseidy-braziliya-avgust-2026.html">Открыть полный гид «Персеиды из Бразилии»<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:15px;height:15px"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>Подборка составлена на 2026 год. Цены со звёздочкой «ориентир» — рыночные оценки на поездку/пакет, точную стоимость уточняйте у оператора; проверенная цена — тур в Обсерватории Bellatrix R$175/чел. Курс для справки: 1 USD ≈ R$5,4.</div>
+    <div class="src">
+      <span>Источники:</span>
+      <a href="https://www.amsmeteors.org/meteor-showers/meteor-shower-calendar/" target="_blank" rel="noopener">AMS</a>
+      <a href="https://earthsky.org/astronomy-essentials/everything-you-need-to-know-delta-aquarid-meteor-shower/" target="_blank" rel="noopener">EarthSky</a>
+      <a href="https://www.imo.net/resources/calendar/" target="_blank" rel="noopener">IMO</a>
+      <a href="https://starwalk.space/en/news/watch-summer-meteor-showers-peaking-in-late-july" target="_blank" rel="noopener">Star Walk</a>
+      <a href="https://visitveadeiros.com.br/melhor-ceu-do-brasil-para-astroturismo/" target="_blank" rel="noopener">Visit Veadeiros</a>
+      <a href="https://gooutside.com.br/astroturismo-no-parque-estadual-do-desengano/" target="_blank" rel="noopener">Go Outside</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* Starfield + shooting stars on canvas */
+(function(){
+  const c=document.getElementById('sky'), x=c.getContext('2d');
+  const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let w,h,stars=[],shooters=[];
+  function resize(){w=c.width=innerWidth;h=c.height=innerHeight;build();}
+  function build(){
+    stars=[];const n=Math.min(240,Math.floor(w*h/8500));
+    for(let i=0;i<n;i++)stars.push({x:Math.random()*w,y:Math.random()*h,r:Math.random()*1.3+.2,a:Math.random()*.6+.2,t:Math.random()*6.28,s:Math.random()*.9+.25});
+  }
+  function shoot(){
+    if(reduce)return;
+    const fromLeft=Math.random()>.5;
+    shooters.push({x:fromLeft?Math.random()*w*.5:w*.5+Math.random()*w*.5,y:Math.random()*h*.4,len:0,maxLen:Math.random()*220+140,vx:(fromLeft?1:-1)*(Math.random()*3+4),vy:Math.random()*2+2.4,life:0});
+  }
+  let last=0;
+  function draw(ts){
+    x.clearRect(0,0,w,h);
+    for(const st of stars){
+      st.t+=0.02*st.s;const tw=st.a+Math.sin(st.t)*.28;
+      x.beginPath();x.arc(st.x,st.y,st.r,0,6.29);
+      x.fillStyle='rgba(255,255,255,'+Math.max(0,tw)+')';x.fill();
+    }
+    for(let i=shooters.length-1;i>=0;i--){
+      const s=shooters[i];s.x+=s.vx;s.y+=s.vy;s.len=Math.min(s.maxLen,s.len+14);s.life++;
+      const g=x.createLinearGradient(s.x,s.y,s.x-s.vx*8,s.y-s.vy*8);
+      g.addColorStop(0,'rgba(255,236,196,.95)');g.addColorStop(1,'rgba(255,236,196,0)');
+      x.strokeStyle=g;x.lineWidth=2;x.lineCap='round';
+      x.beginPath();x.moveTo(s.x,s.y);x.lineTo(s.x-s.vx*(s.len/14),s.y-s.vy*(s.len/14));x.stroke();
+      if(s.x<-50||s.x>w+50||s.y>h+50||s.life>140)shooters.splice(i,1);
+    }
+    if(!reduce && ts-last>1600 && Math.random()>.4){shoot();last=ts;}
+    requestAnimationFrame(draw);
+  }
+  resize();addEventListener('resize',resize);requestAnimationFrame(draw);
+})();
+</script>
+<script type="module">
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(reduce){document.body.classList.add('no-motion');}
+  else{
+    try{
+      const { animate, inView, stagger } = await import("https://cdn.jsdelivr.net/npm/motion@11/+esm");
+      // group reveals so cards in one row stagger together
+      const groups = [
+        ...document.querySelectorAll('.tours'),
+        ...document.querySelectorAll('.grid-3'),
+        ...document.querySelectorAll('.choose'),
+        ...document.querySelectorAll('.steps'),
+      ];
+      groups.forEach(g=>{
+        inView(g,()=>{
+          const items=g.querySelectorAll('.reveal');
+          animate(items,{opacity:[0,1],transform:['translateY(26px)','translateY(0)']},{duration:.6,delay:stagger(.07),easing:[.22,.61,.36,1]});
+        },{margin:"0px 0px -12% 0px"});
+      });
+      // standalone reveals (headings, banners)
+      document.querySelectorAll('.reveal').forEach(el=>{
+        if(el.closest('.tours,.grid-3,.choose,.steps'))return;
+        inView(el,()=>{animate(el,{opacity:[0,1],transform:['translateY(26px)','translateY(0)']},{duration:.6,easing:[.22,.61,.36,1]});},{margin:"0px 0px -10% 0px"});
+      });
+    }catch(e){ document.body.classList.add('no-motion'); }
+  }
+</script>
+</body>
+</html>
