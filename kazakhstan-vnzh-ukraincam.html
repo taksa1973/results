@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Помогаторы по ВНЖ и визам в Казахстане для украинцев — через работу или учёбу</title>
+<meta name="description" content="Каталог из 24 проверенных агентств и миграционных юристов Казахстана: легализация украинцев через трудоустройство или поступление в вуз. Контакты, цены, рейтинг доверия, красные флаги.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F5F5F7; --surface:#FFFFFF; --surface-2:#FBFBFD;
+    --ink:#1D1D1F; --ink-2:#6E6E73; --ink-3:#86868B;
+    --blue:#0071E3; --blue-dark:#0058b9;
+    --green:#1F9E5E; --green-bg:#E7F6EE;
+    --amber:#B4690E; --amber-bg:#FBF0E1;
+    --red:#D7263D; --red-bg:#FBE9EB;
+    --border:#E5E5EA; --border-2:#EDEDF0;
+    --shadow:0 1px 2px rgba(0,0,0,.04), 0 8px 24px rgba(0,0,0,.05);
+    --shadow-hover:0 4px 12px rgba(0,0,0,.08), 0 18px 40px rgba(0,0,0,.09);
+    --radius:22px; --radius-sm:14px;
+    --maxw:1080px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    background:var(--bg); color:var(--ink);
+    line-height:1.6; -webkit-font-smoothing:antialiased;
+    letter-spacing:-0.01em;
+  }
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 22px}
+  a{color:var(--blue); text-decoration:none}
+  a:hover{text-decoration:underline}
+  h1,h2,h3{letter-spacing:-0.03em; line-height:1.12; font-weight:700}
+  section{padding:44px 0}
+  .eyebrow{
+    font-size:13px; font-weight:600; letter-spacing:.02em;
+    color:var(--blue); text-transform:uppercase; margin-bottom:12px;
+  }
+  .lead{font-size:18px; color:var(--ink-2); max-width:640px}
+
+  /* HERO */
+  .hero{
+    padding:76px 0 44px;
+    background:
+      radial-gradient(1200px 500px at 80% -10%, rgba(0,113,227,.10), transparent 60%),
+      radial-gradient(900px 500px at 0% 0%, rgba(31,158,94,.07), transparent 55%);
+  }
+  .hero h1{font-size:clamp(32px,5.4vw,56px); font-weight:800; max-width:880px}
+  .hero .lead{font-size:clamp(17px,2.3vw,21px); margin-top:20px; max-width:720px}
+  .flag-chip{
+    display:inline-flex; align-items:center; gap:8px;
+    background:var(--surface); border:1px solid var(--border);
+    padding:7px 14px; border-radius:999px; font-size:13px; font-weight:600;
+    color:var(--ink-2); margin-bottom:22px; box-shadow:var(--shadow);
+  }
+  .flag-chip svg{width:16px;height:16px}
+  .hero-cta{display:flex; gap:12px; flex-wrap:wrap; margin-top:30px}
+  .btn{
+    display:inline-flex; align-items:center; gap:8px; cursor:pointer;
+    padding:13px 22px; border-radius:999px; font-weight:600; font-size:15px;
+    border:1px solid transparent; transition:transform .2s ease, box-shadow .2s ease, background .2s ease;
+  }
+  .btn-primary{background:var(--blue); color:#fff}
+  .btn-primary:hover{background:var(--blue-dark); text-decoration:none; transform:translateY(-2px); box-shadow:0 8px 20px rgba(0,113,227,.28)}
+  .btn-ghost{background:var(--surface); color:var(--ink); border-color:var(--border)}
+  .btn-ghost:hover{text-decoration:none; transform:translateY(-2px); box-shadow:var(--shadow-hover)}
+
+  .stat-row{display:flex; gap:14px; flex-wrap:wrap; margin-top:38px}
+  .stat{
+    background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-sm);
+    padding:16px 20px; min-width:150px; box-shadow:var(--shadow);
+  }
+  .stat b{display:block; font-size:26px; font-weight:800; letter-spacing:-0.03em}
+  .stat span{font-size:13px; color:var(--ink-2)}
+
+  /* SECTION HEAD */
+  .sec-head{margin-bottom:26px}
+  .sec-head h2{font-size:clamp(24px,3.4vw,34px)}
+  .sec-head p{color:var(--ink-2); margin-top:10px; max-width:680px; font-size:16px}
+
+  /* PATH CARDS (how it works) */
+  .paths{display:grid; grid-template-columns:1fr 1fr; gap:18px}
+  .path{
+    background:var(--surface); border:1px solid var(--border); border-radius:var(--radius);
+    padding:26px; box-shadow:var(--shadow);
+  }
+  .path .ic{width:46px;height:46px;border-radius:12px;display:grid;place-items:center;margin-bottom:16px}
+  .path.study .ic{background:var(--green-bg); color:var(--green)}
+  .path.work .ic{background:rgba(0,113,227,.10); color:var(--blue)}
+  .path .ic svg{width:24px;height:24px}
+  .path h3{font-size:20px; margin-bottom:8px}
+  .path p{color:var(--ink-2); font-size:15px}
+  .path ul{list-style:none; margin-top:14px; display:flex; flex-direction:column; gap:9px}
+  .path li{position:relative; padding-left:26px; font-size:14.5px; color:var(--ink)}
+  .path li svg{position:absolute; left:0; top:3px; width:17px; height:17px; color:var(--green)}
+  .path.work li svg{color:var(--blue)}
+  .tag-best{display:inline-block; font-size:11px; font-weight:700; letter-spacing:.03em; text-transform:uppercase; color:var(--green); background:var(--green-bg); padding:3px 9px; border-radius:6px; margin-left:8px; vertical-align:middle}
+
+  /* WARNING CALLOUT */
+  .callout{
+    background:var(--amber-bg); border:1px solid #F0D9B5; border-radius:var(--radius);
+    padding:22px 24px; margin-top:20px; display:flex; gap:16px; align-items:flex-start;
+  }
+  .callout svg{width:24px;height:24px;color:var(--amber);flex-shrink:0;margin-top:2px}
+  .callout h4{font-size:16px;margin-bottom:6px;color:#7c4a06}
+  .callout p{font-size:14.5px;color:#7c4a06;opacity:.95}
+
+  /* FILTER */
+  .filters{display:flex; gap:10px; flex-wrap:wrap; margin-bottom:24px}
+  .chip{
+    cursor:pointer; padding:9px 16px; border-radius:999px; font-size:14px; font-weight:600;
+    background:var(--surface); border:1px solid var(--border); color:var(--ink-2);
+    transition:all .18s ease;
+  }
+  .chip:hover{color:var(--ink); border-color:#d5d5da}
+  .chip.active{background:var(--ink); color:#fff; border-color:var(--ink)}
+
+  /* CATALOG */
+  .grid{display:grid; grid-template-columns:1fr 1fr; gap:18px}
+  .card{
+    background:var(--surface); border:1px solid var(--border); border-radius:var(--radius);
+    padding:24px; box-shadow:var(--shadow); display:flex; flex-direction:column;
+    transition:transform .2s ease, box-shadow .2s ease; will-change:transform;
+  }
+  .card:hover{transform:translateY(-3px); box-shadow:var(--shadow-hover)}
+  .card-top{display:flex; justify-content:space-between; align-items:flex-start; gap:12px; margin-bottom:6px}
+  .card h3{font-size:19px; letter-spacing:-0.02em}
+  .card h3 a{color:var(--ink)}
+  .card h3 a:hover{color:var(--blue)}
+  .badge{
+    flex-shrink:0; display:inline-flex; align-items:center; gap:5px;
+    font-size:11.5px; font-weight:700; padding:5px 10px; border-radius:999px; white-space:nowrap;
+  }
+  .badge svg{width:13px;height:13px}
+  .badge.rec{background:var(--green-bg); color:var(--green)}
+  .badge.check{background:var(--amber-bg); color:var(--amber)}
+  .badge.avoid{background:var(--red-bg); color:var(--red)}
+  .meta{font-size:13px; color:var(--ink-3); display:flex; align-items:center; gap:7px; flex-wrap:wrap; margin-bottom:12px}
+  .meta .dot{width:3px;height:3px;border-radius:50%;background:#c7c7cc}
+  .rating{display:inline-flex;align-items:center;gap:4px;font-weight:600;color:var(--ink-2)}
+  .rating svg{width:14px;height:14px;color:#F5A623}
+  .tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+  .t{font-size:11.5px;font-weight:600;padding:4px 9px;border-radius:7px;background:var(--surface-2);border:1px solid var(--border-2);color:var(--ink-2);display:inline-flex;align-items:center;gap:5px}
+  .t svg{width:12px;height:12px}
+  .t.vnzh{color:var(--blue)} .t.work{color:#7a4bd1} .t.study{color:var(--green)}
+  .card .note{font-size:14px;color:var(--ink-2);flex:1}
+  .card .note b{color:var(--ink);font-weight:600}
+  .price{font-size:13px;color:var(--ink);background:var(--surface-2);border:1px solid var(--border-2);border-radius:10px;padding:9px 12px;margin-top:14px}
+  .price b{font-weight:600}
+  .contacts{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;padding-top:14px;border-top:1px solid var(--border-2)}
+  .contacts a, .contacts span{
+    font-size:12.5px;font-weight:600;color:var(--ink-2);background:var(--surface-2);
+    border:1px solid var(--border-2);border-radius:8px;padding:6px 10px;display:inline-flex;align-items:center;gap:5px;
+  }
+  .contacts a:hover{text-decoration:none;color:var(--blue);border-color:#cfe3fb;background:#f2f8ff}
+  .contacts svg{width:13px;height:13px}
+  .card.hidden{display:none}
+
+  /* LEGAL / INFO ACCORDION */
+  .info-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .info{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:26px;box-shadow:var(--shadow)}
+  .info h3{font-size:18px;margin-bottom:12px;display:flex;align-items:center;gap:10px}
+  .info h3 svg{width:20px;height:20px;color:var(--blue)}
+  .info p, .info li{font-size:14.5px;color:var(--ink-2)}
+  .info ul{list-style:none;display:flex;flex-direction:column;gap:8px;margin-top:6px}
+  .info li{position:relative;padding-left:22px}
+  .info li::before{content:"";position:absolute;left:2px;top:9px;width:6px;height:6px;border-radius:50%;background:var(--blue)}
+  .info .step{display:flex;gap:12px;margin-top:12px}
+  .info .step .n{flex-shrink:0;width:24px;height:24px;border-radius:50%;background:var(--ink);color:#fff;font-size:12px;font-weight:700;display:grid;place-items:center}
+
+  /* CHECKLIST (scam) */
+  .scam{background:linear-gradient(180deg,#fff, #FBFAFC);border:1px solid var(--border)}
+  .check-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:8px}
+  .ci{display:flex;gap:12px;align-items:flex-start;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:16px 18px}
+  .ci svg{width:20px;height:20px;flex-shrink:0;margin-top:2px}
+  .ci.ok svg{color:var(--green)} .ci.bad svg{color:var(--red)}
+  .ci b{font-size:14.5px;display:block;margin-bottom:2px}
+  .ci span{font-size:13px;color:var(--ink-2)}
+
+  /* RESOURCES */
+  .res-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+  .res{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:18px 20px;box-shadow:var(--shadow);transition:transform .2s ease,box-shadow .2s ease}
+  .res:hover{transform:translateY(-2px);box-shadow:var(--shadow-hover)}
+  .res h4{font-size:15px;margin-bottom:4px}
+  .res p{font-size:13.5px;color:var(--ink-2)}
+  .res a{font-weight:600}
+
+  footer{padding:40px 0 60px;border-top:1px solid var(--border);margin-top:30px}
+  footer p{font-size:13px;color:var(--ink-3);max-width:760px}
+  .disclaim{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:16px 20px;margin-bottom:20px}
+  .disclaim p{font-size:13px;color:var(--ink-2)}
+
+  @media (max-width:760px){
+    .paths,.grid,.info-grid,.check-grid,.res-grid{grid-template-columns:1fr}
+    section{padding:34px 0}
+    .hero{padding:52px 0 30px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none!important;transition:none!important}
+    html{scroll-behavior:auto}
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="wrap">
+    <span class="flag-chip reveal">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-4.35-7-10a7 7 0 0 1 14 0c0 5.65-7 10-7 10z"/><circle cx="12" cy="11" r="2.5"/></svg>
+      🇺🇦 Украина → 🇰🇿 Казахстан · легализация 2025–2026
+    </span>
+    <h1 class="reveal">Помогаторы по ВНЖ и визам в&nbsp;Казахстане для украинцев</h1>
+    <p class="lead reveal">Кто реально помогает легализоваться через <b>трудоустройство</b> или <b>поступление в&nbsp;учебное заведение</b>: 24&nbsp;агентства и&nbsp;миграционных юриста, проверенных на&nbsp;реальность, контакты, цены и&nbsp;репутацию. Без иллюзий про «гарантию гражданства».</p>
+    <div class="hero-cta reveal">
+      <a href="#catalog" class="btn btn-primary">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h12"/></svg>
+        Смотреть каталог
+      </a>
+      <a href="#how" class="btn btn-ghost">Как это реально работает</a>
+    </div>
+    <div class="stat-row reveal">
+      <div class="stat"><b>24</b><span>проверенных исполнителя</span></div>
+      <div class="stat"><b>8</b><span>рекомендуем уверенно</span></div>
+      <div class="stat"><b>2</b><span>пути: работа / учёба</span></div>
+      <div class="stat"><b>90/180</b><span>дней безвиза на въезд</span></div>
+    </div>
+  </div>
+</header>
+
+<!-- HOW IT WORKS -->
+<section id="how">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="eyebrow">Сначала — честно</div>
+      <h2>Как «устроить в компанию или в учебное заведение» работает на самом деле</h2>
+      <p>Легальный ВНЖ в Казахстане даётся не «за деньги», а по конкретному основанию. Схема двухступенчатая: сначала <b>РВП</b> (разрешение на временное проживание, до&nbsp;1&nbsp;года), затем <b>ВНЖ</b> на&nbsp;10&nbsp;лет. Есть два реалистичных основания под ваш запрос.</p>
+    </div>
+
+    <div class="paths">
+      <div class="path study reveal">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10L12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1 3 2.5 6 2.5s6-1.5 6-2.5v-5"/></svg></div>
+        <h3>Через учёбу <span class="tag-best">самый доступный</span></h3>
+        <p>Агентство/платформа помогает поступить в вуз или колледж — дальше сам вуз оформляет студенту учебную визу C9 и РВП. Это и есть «устроить в заведение».</p>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Есть бесплатные госгранты для иностранцев (550/год)</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Платно — в среднем 3 000–5 000 $ за год обучения</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Оформить статус нужно ДО конца 90 дней безвиза</li>
+        </ul>
+      </div>
+
+      <div class="path work reveal">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></div>
+        <h3>Через работу</h3>
+        <p>Разрешение на работу оформляет <b>работодатель</b> (не вы). Вы находите работодателя сами или через рекрутинг/аутстаффинг, а миграционный юрист оформляет разрешение, рабочую визу C3 и ВНЖ.</p>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Украинцы не в ЕАЭС → разрешение на работу обязательно</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>С 01.09.2025 работодатель сперва 15 дней ищет местных</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Госпошлина за привлечение ИРС: ~137–250 МРП</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="callout reveal">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v4M12 17h.01"/><path d="M10.3 3.9L1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg>
+      <div>
+        <h4>«Купить трудоустройство» ради статуса — это фиктивное трудоустройство</h4>
+        <p>В Казахстане это уголовно наказуемо, причём ответственность несёт и сам мигрант, предоставивший данные (в 2024–2025 гг. раскрыты сотни фиктивных работодателей). Ни одна из легальных фирм ниже не «продаёт» вам работу — они оформляют документы под <b>реальную</b> работу или учёбу. Любой, кто обещает «гарантию гражданства/ВНЖ» или мнимый договор, — красный флаг.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CATALOG -->
+<section id="catalog">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="eyebrow">Каталог · 24 исполнителя</div>
+      <h2>Проверенные агентства и миграционные юристы</h2>
+      <p>Каждого проверяли на реальность юрлица, офиса, отзывов и красных флагов. Бейджи: <b style="color:var(--green)">Рекомендуем</b> — реальны, прозрачны, хорошая репутация; <b style="color:var(--amber)">С проверкой</b> — реальны, но есть оговорки (цены по запросу, узкий профиль, мало отзывов); <b style="color:var(--red)">Осторожно</b> — есть серьёзные риски.</p>
+    </div>
+
+    <div class="filters reveal" id="filters">
+      <button class="chip active" data-f="all">Все</button>
+      <button class="chip" data-f="rec">★ Рекомендуем</button>
+      <button class="chip" data-f="study">🎓 Учёба</button>
+      <button class="chip" data-f="work">💼 Работа</button>
+      <button class="chip" data-f="vnzh">🏠 ВНЖ под ключ</button>
+      <button class="chip" data-f="avoid">⚠️ Осторожно</button>
+    </div>
+
+    <div class="grid" id="cards"></div>
+  </div>
+</section>
+
+<!-- LEGAL CONTEXT -->
+<section id="legal">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="eyebrow">Правовой контекст</div>
+      <h2>Что нужно знать до обращения к помогатору</h2>
+    </div>
+    <div class="info-grid">
+      <div class="info reveal">
+        <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><path d="M21 12c0 5-3.5 7.5-8.5 9.5C7.5 19.5 4 17 4 12V6l8.5-3L21 6z"/></svg>Основания для ВНЖ</h3>
+        <ul>
+          <li>Трудоустройство (разрешение на работу / виза C3)</li>
+          <li>Очная учёба в вузе или колледже</li>
+          <li>Брак с гражданином РК / воссоединение семьи</li>
+          <li>Инвестиции или высокая квалификация</li>
+          <li>Длительное легальное проживание по РВП (3–5 лет)</li>
+        </ul>
+        <p style="margin-top:14px">Порог платёжеспособности — ориентир юристов ≈1320 МРП/год на человека (~5,7 млн ₸ в 2026). Госпошлина за сам документ ВНЖ — около 865 ₸; региональные сборы называют 17 000–34 000 ₸. Срок — 17 дней (ускоренно до 7).</p>
+      </div>
+
+      <div class="info reveal">
+        <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>Путь через работу — по шагам</h3>
+        <div class="step"><div class="n">1</div><p>Работодатель подаёт заявку на квоту в акимат (до 30 сентября на след. год)</p></div>
+        <div class="step"><div class="n">2</div><p>Публикует вакансию на бирже труда и ждёт 15 дней (поиск казахстанцев)</p></div>
+        <div class="step"><div class="n">3</div><p>Получает разрешение на привлечение иностранной рабочей силы</p></div>
+        <div class="step"><div class="n">4</div><p>Вы оформляете визу C3 → по прибытии РВП, договор регистрируют в ЕСУТД, дают ИИН</p></div>
+      </div>
+
+      <div class="info reveal">
+        <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10L12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1 3 2.5 6 2.5s6-1.5 6-2.5v-5"/></svg>Путь через учёбу — по шагам</h3>
+        <div class="step"><div class="n">1</div><p>Подаёте документы в вуз/колледж (аттестат/диплом с нотариальным переводом, часто нострификация)</p></div>
+        <div class="step"><div class="n">2</div><p>Поступаете на грант (бесплатно) или на платной основе (≈3 000–5 000 $/год)</p></div>
+        <div class="step"><div class="n">3</div><p>Оформляется учебная виза категории C9</p></div>
+        <div class="step"><div class="n">4</div><p>Вуз оформляет студенту РВП — именно он выступает принимающей стороной</p></div>
+      </div>
+
+      <div class="info reveal">
+        <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></svg>Специфика для украинцев</h3>
+        <ul>
+          <li>Безвиз: до 90 дней суммарно в любые 180 дней (соглашение 2000 г.)</li>
+          <li>Заполнить и сохранить миграционную карту на границе</li>
+          <li>Принимающая сторона уведомляет миграцию в течение 3 рабочих дней</li>
+          <li>НЕ в ЕАЭС → для работы нужно разрешение (в отличие от РФ/Беларуси)</li>
+          <li>Документы из Украины — перевод на казахский/русский + нотариус; при проблемах с оригиналами → консульский отдел Посольства Украины</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SCAM CHECKLIST -->
+<section id="scam">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="eyebrow">Безопасность</div>
+      <h2>Как отличить нормального помогатора от мошенника</h2>
+      <p>Красные флаги по данным factcheck.kz и МВД/Минтруда РК. Сохраните этот чек-лист перед оплатой.</p>
+    </div>
+    <div class="info scam reveal">
+      <div class="check-grid">
+        <div class="ci ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6L9 17l-5-5"/></svg><div><b>Есть юрлицо и БИН</b><span>ТОО/ИП, физический офис, договор с реквизитами — можно проверить</span></div></div>
+        <div class="ci bad"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 6L6 18M6 6l12 12"/></svg><div><b>«Гарантия гражданства/ВНЖ»</b><span>Госорган решает сам — гарантировать результат невозможно</span></div></div>
+        <div class="ci ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6L9 17l-5-5"/></svg><div><b>Оплата по этапам и по договору</b><span>Не 100% предоплата «на карту» или наличными в конверт</span></div></div>
+        <div class="ci bad"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 6L6 18M6 6l12 12"/></svg><div><b>Просят отдать оригинал паспорта</b><span>В РК фиксировали изъятие паспортов у мигрантов — не отдавать</span></div></div>
+        <div class="ci ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6L9 17l-5-5"/></svg><div><b>Госпошлины платите сами</b><span>Через egov.kz по официальным реквизитам, а не «посреднику»</span></div></div>
+        <div class="ci bad"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 6L6 18M6 6l12 12"/></svg><div><b>Предлагают «ложные основания»</b><span>Фиктивный договор, «купить» квоту/разрешение — уголовно наказуемо</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FREE / OFFICIAL RESOURCES -->
+<section id="free">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="eyebrow">Бесплатно и официально</div>
+      <h2>Ресурсы, которые можно использовать без посредников</h2>
+    </div>
+    <div class="res-grid">
+      <div class="res reveal">
+        <h4>eGov.kz — госпортал</h4>
+        <p>Официальные инструкции по <a href="https://egov.kz/cms/ru/articles/vid_na_jitelstvo" target="_blank" rel="noopener">ВНЖ</a> и <a href="https://egov.kz/cms/ru/articles/workpermit" target="_blank" rel="noopener">разрешению на работу</a>, подача заявлений.</p>
+      </div>
+      <div class="res reveal">
+        <h4>StudyIn + Bolashak</h4>
+        <p>Бесплатные госгранты на учёбу для иностранцев: <a href="https://studyin.kz" target="_blank" rel="noopener">studyin.kz</a>, сверять сроки на <a href="https://bolashak.gov.kz" target="_blank" rel="noopener">bolashak.gov.kz</a>.</p>
+      </div>
+      <div class="res reveal">
+        <h4>Посольство Украины в РК</h4>
+        <p>Астана (консотдел): +7 (7172) 32-85-37. Генконсульство в Алматы: +7 (727) 230-42-02. Подтверждение данных, если нет оригиналов документов.</p>
+      </div>
+      <div class="res reveal">
+        <h4>UNHCR / КМБПЧ</h4>
+        <p>Бесплатная юрпомощь беженцам и просителям убежища: <a href="https://help.unhcr.org/centralasia/ru/kazakhstan/" target="_blank" rel="noopener">help.unhcr.org/centralasia</a>.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="disclaim reveal">
+      <p><b>Дисклеймер.</b> Материал носит справочный характер и собран по открытым источникам (сайты компаний, 2ГИС/Zoon, egov.kz, factcheck.kz) на июль 2026. Это не реклама и не рекомендация к оплате конкретной фирмы. Ни одно агентство не может гарантировать выдачу ВНЖ, визы или гражданства — решение принимает госорган. Перед оплатой заключайте письменный договор с реквизитами юрлица, проверяйте БИН и не вносите полную предоплату. Цены и контакты могут меняться — уточняйте у исполнителя.</p>
+    </div>
+    <p>🇺🇦 → 🇰🇿 Легализация украинцев в Казахстане · через работу или учёбу · обновлено 20 июля 2026</p>
+  </div>
+</footer>
+
+<script>
+/* ---------- Данные каталога ---------- */
+const DATA = [
+  // ===== РЕКОМЕНДУЕМ =====
+  { name:"KazImmigration", tier:"rec", url:"https://kazimmigration.kz/", cities:"Алматы · Астана", rating:"2ГИС ~4.9", tags:["vnzh","work","study"],
+    note:"<b>Универсал:</b> закрывает и ВНЖ/РВП/ПМЖ, и рабочие визы+разрешение на работу, и учебные визы — редкий случай «всё в одном». Сильный рейтинг, офисы в двух городах, обжалование отказов.",
+    price:"Цены по запросу", tel:"+7 706 818 18 45", wa:"+7 706 818 18 45", tg:"kazimmigration", email:"info@kazimmigration.kz" },
+
+  { name:"MG Partners", tier:"rec", url:"https://mg-partner.com/", cities:"Астана · Алматы · Караганда", rating:"Legal 500 · 2ГИС 5.0", tags:["vnzh","work"],
+    note:"Солидная юрфирма с 2008 г. в международных рейтингах (Legal 500, IFLR1000). ВНЖ/РВП/ПМЖ и оформление разрешения на работу. Не ищут работу и не занимаются учёбой.",
+    price:"Цены по запросу", tel:"+7 708 425-30-33", tg:"mg_partners", email:"info@mg-partner.com" },
+
+  { name:"DOS Immigration", tier:"rec", url:"https://dos-immigration.kz/", cities:"Астана · Алматы · Атырау", rating:"2ГИС 4.8", tags:["vnzh","work"],
+    note:"Есть <b>отдельная страница для украинцев</b>. ВНЖ/РВП и разрешение на работу, бизнес-иммиграция. 3 офиса с названными директорами. Учёбой не занимаются.",
+    price:"Цены по запросу", wa:"+7 705 532 03 20", email:"almaty@dos-i.kz" },
+
+  { name:"Мигрон (Migron)", tier:"rec", url:"https://migron.kz/", cities:"Алматы", rating:"2ГИС 4.5", tags:["vnzh","work"],
+    note:"<b>Прямо работает с украинцами</b> (истребуют справки из Украины). Цены открыты и фиксируются в договоре. Совет: внимательно читайте договор — что делают сами, а что собираете вы.",
+    price:"ВНЖ от 860 000 ₸ · продление от 150 000 ₸", tel:"+7 727 310 7843", wa:"+7 707 568 3062", tg:"migronkz", email:"info@migron.kz" },
+
+  { name:"Profusion Projects", tier:"rec", url:"https://pprojects.kz/migratsionnyye-uslugi", cities:"Алматы · Астана", rating:"2ГИС 5.0", tags:["vnzh","work"],
+    note:"11 лет на рынке, отзывы именно по ВНЖ, официально отвечают на отзывы. Заявлена <b>гарантия возврата денег при отказе</b> в ВНЖ/РВП (проверяйте условия в договоре).",
+    price:"Цены по запросу", tel:"+7 700 807 87 00", wa:"+7 777 744 44 39", tg:"profusion_kz", email:"hello@pprojects.kz" },
+
+  { name:"Femida Justice", tier:"rec", url:"https://femida-justice.com/", cities:"Алматы", rating:"2ГИС 4.1", tags:["vnzh","work"],
+    note:"Сильны в <b>судебном обжаловании отказов</b> в ВНЖ, работают с украинцами (в т.ч. статус беженца). Полезны, если нужен не просто «помогатор», а юрист для спора с госорганом.",
+    price:"Консультация от 10 000 ₸", tel:"+7 708 983 65 77", wa:"+7 708 983 65 77", email:"info@femida-justice.com" },
+
+  { name:"StudyIn", tier:"rec", url:"https://studyin.kz", cities:"Онлайн · госпрограмма", rating:"официальная платформа", tags:["study"],
+    note:"<b>Лучший старт для учёбы.</b> Официальная платформа поступления иностранцев в вузы КЗ (121 вуз) + приём на <b>бесплатные госгранты</b> (550/год). ВНЖ и работу не оформляет — только учебный трек.",
+    price:"Госгранты — бесплатно · платно ≈3 000–5 000 $/год", tg:"study_inkazakhstan", email:"info@studyin.kz" },
+
+  { name:"Smart Solutions (SmartHR)", tier:"rec", url:"https://smarthr.kz/foreigners/", cities:"Алматы (+офис в Украине)", rating:"2ГИС 4.8", tags:["work","vnzh"],
+    note:"Крупный HR-провайдер с <b>украинскими корнями</b>. Оформляет иностранных сотрудников «под ключ» и ВНЖ как основание — но нужен работодатель (аутстаффинг). Клиенты: Nestlé, Mars, Metro.",
+    price:"Цены по запросу", tel:"+7 727 237 71 68", email:"info@smarthr.kz" },
+
+  // ===== С ПРОВЕРКОЙ =====
+  { name:"WPK (Work Permits KZ)", tier:"check", url:"https://new.wpk.kz/", cities:"Астана · Алматы · Атырау", rating:"2ГИС 4.5–4.8", tags:["work","vnzh"],
+    note:"20+ лет, корпоративная трудовая миграция: разрешения на работу, визы C3, ВНЖ, РВП. Прямо пишут <b>«мы не занимаемся трудоустройством»</b> — работу не ищут, оформляют под работодателя.",
+    price:"Цены по запросу", tel:"+7 771 718-07-05", tg:"wpkkz", email:"info@wpk.kz" },
+
+  { name:"ERNST & PARTNERS", tier:"check", url:"https://ernst-partners.kz/migracionnye_uslugi", cities:"Астана", rating:"2ГИС 4.8", tags:["vnzh","work","study"],
+    note:"Профильная миграция: ВНЖ, рабочие/студенческие визы, защита от депортации. Оговорка: в госреестре — налоговая задолженность и расхождение по директору. Обязательно договор.",
+    price:"Цены по запросу · консультации платные", wa:"+7 707 113-50-45", email:"info@eplf.kz" },
+
+  { name:"Yur.kz — адвокат Таткен Т.", tier:"check", url:"https://yur.kz/uslugi/migracionnye-voprosy/", cities:"Астана · Алматы · Шымкент", rating:"адвокат 5.0 (68 отзывов)", tags:["vnzh","work"],
+    note:"Каталог + конкретный адвокат (стаж 20 лет). Сильны в <b>судебных спорах</b>: обжалование отказов, депортация, снятие запрета на въезд. Минус: нет email и адреса офиса.",
+    price:"Консультация от 5 000 ₸", tel:"+7 705 319 5997", wa:"+7 705 319 5997" },
+
+  { name:"AFFARI", tier:"check", url:"https://affari.kz/inostrannaya-rabochaya-sila/", cities:"Алматы", rating:"2ГИС 4.6", tags:["work","vnzh"],
+    note:"С 2011 г., БИН есть. Профиль — разрешения на иностранную рабочую силу для работодателей + ВНЖ под ключ. Скорее B2B; отдельного «украинского» трека нет.",
+    price:"Цены по запросу", tel:"+7 727 329-33-99", wa:"+7 705 111-33-99", tg:"—", email:"affari@affari.kz" },
+
+  { name:"GVGroup Kazakhstan", tier:"check", url:"https://gvg.kz/", cities:"Алматы", rating:"Zoon 4.0", tags:["work"],
+    note:"15+ лет, узкий профиль: разрешения на работу, рабочие/деловые визы (B/C), РВП. Корпоративные клиенты (Deloitte). Не ВНЖ-под-ключ и не учёба; цены по запросу.",
+    price:"Цены по запросу", tel:"+7 700 364 09 09", email:"wp@gvg.kz" },
+
+  { name:"INTEGRO", tier:"check", url:"https://integrokz.com/", cities:"Астана · Алматы", rating:"мало отзывов", tags:["work","vnzh"],
+    note:"Редкость — <b>открытый прайс</b>. Бизнес-иммиграция, РВП, рабочие/деловые визы. Важно: для украинцев льгота ЕАЭС недоступна — только бизнес/работа (дороже).",
+    price:"РВП бизнес от 450 000 ₸ · виза C3 от 575 000 ₸", tel:"+7 707 681 65 06", wa:"+7 707 681 65 06", tg:"integrokz" },
+
+  { name:"KD Legal", tier:"check", url:"https://kdlegal.kz/", cities:"Астана (МФЦА)", rating:"отзывов не найдено", tags:["work","vnzh"],
+    note:"Рабочие визы C3/C5, наём иностранных специалистов, регистрация в МФЦА. Легальные каналы (МВД РК). Премиум/корпоративный сегмент — физлицу без работодателя подойдёт хуже.",
+    price:"Цены по запросу · консультация бесплатно", tel:"+7 747 666-7474", wa:"+7 747 666-7474", email:"info@kdlegal.kz" },
+
+  { name:"Adept", tier:"check", url:"https://lawadept.kz/", cities:"Алматы", rating:"лицензия Минюста", tags:["work"],
+    note:"Только <b>разрешение на работу</b> + рабочая виза + регистрация — для уже нанятых компанией сотрудников. Не оформляет ВНЖ, гражданство, учёбу. Почти нет публичных отзывов.",
+    price:"Цены по запросу", tel:"+7 727 259 09 10", email:"office@lawadept.kz" },
+
+  { name:"Smart Migration", tier:"check", url:"https://smart-migration.kz/", cities:"Казахстан", rating:"отзывов не найдено", tags:["work","vnzh"],
+    note:"Разрешение на работу <b>с сопровождением трудоустройства</b> (подбор должности под требования закона), ВНЖ/РВП, виза C5. Минус: анонимное юрлицо — нет БИН, адреса и email, только WhatsApp.",
+    price:"Консультации 20 000–150 000 ₸", tel:"+7 777 966-37-77", wa:"+7 777 966-37-77" },
+
+  { name:"Visa4U", tier:"check", url:"https://visa4u.kz", cities:"Алматы", rating:"2ГИС 4.9 · Zoon 2.9", tags:["study"],
+    note:"Профиль — выездные визы, но оформляют <b>учебную визу C9</b> в Казахстан, есть эксперт по образованию. ВНЖ и работу в РК не делают. Расхождение рейтингов — проверяйте отзывы адресно.",
+    price:"Расчёт онлайн · прайса нет", tel:"+7 707 911 9977", wa:"+7 707 911 9977", email:"info@visa4u.kz" },
+
+  { name:"MIGRANT GARANT", tier:"check", url:"https://migrantgarant.kz/", cities:"Алматы", rating:"Яндекс 4.3 (мало отзывов)", tags:["vnzh","work"],
+    note:"Открытые невысокие цены. Минусы: очень мало независимых отзывов, нестыковки реквизитов, почта на mail.ru, а в услугах — «гражданство» и продажа медсправок. Осторожно.",
+    price:"Разрешение на работу 60 000 ₸ · ВНЖ-прописка 150 000 ₸", tel:"+7 775 108 2756", wa:"+7 775 108 2756" },
+
+  { name:"S-Agency (Aylan Visa)", tier:"check", url:"https://support-agency.kz/", cities:"Алматы", rating:"есть отзывы с именами", tags:["vnzh","work"],
+    note:"ВНЖ/РВП/рабочие визы, реальный офис. Красный флаг — маркетинг <b>«100% гарантия / 98% одобрено»</b>: гарантий по госрешениям не бывает. Цены и условия оплаты нигде не указаны.",
+    price:"Цены не указаны", tel:"+7 705 186 57 67", wa:"+7 705 186 57 67" },
+
+  { name:"MIGRO", tier:"check", url:"https://migro.kz/", cities:"Алматы", rating:"нет отзывов", tags:["vnzh","work"],
+    note:"Заявлены ВНЖ/РВП/виза C3, но фактически <b>анонимно</b>: нет юрлица/БИН, адреса, email и ни одного независимого отзыва. Легко спутать с «Мигрон». Только как запасной вариант с проверкой.",
+    price:"Цены не указаны", tel:"+7 707 796 2020", tg:"nomands_kz" },
+
+  { name:"GB Consult", tier:"check", url:"https://gbconsult.kz/uslugi/trudovaya-immigraciya-v-kazakhstane/", cities:"Алматы", rating:"2ГИС 3.1–3.4", tags:["work"],
+    note:"В основе — бухгалтерия, миграция вторична (рабочая/деловая виза, разрешение на работу). Есть <b>тревожные отзывы</b> «взяли деньги — результата нет». Средний рейтинг; сравнивайте с профильными.",
+    price:"Цены по запросу", tel:"+7 700 327-00-50", wa:"+7 700 327-00-50", email:"info@gbconsult.kz" },
+
+  // ===== ОСТОРОЖНО =====
+  { name:"Migronium", tier:"avoid", url:"https://migronium.com/", cities:"Дистанционно (офисы в Украине/РФ/ЕС)", rating:"otzovix 2.4 · жалобы", tags:["study","vnzh"],
+    note:"<b>Не рекомендуем.</b> Массовые жалобы 2024 г. на предоплатное мошенничество (потери до 10 000 €), подделку документов и угрозы при возврате денег; юрлицо не подтверждается в реестре. По КЗ — непрофильно, без офиса в стране.",
+    price:"Скрыты · средний чек от ~4 000 €", email:"company@migronium.com" },
+
+  { name:"Relokatz", tier:"avoid", url:"https://relokatz.com/country/kz", cities:"Онлайн · анонимно", rating:"2.4/5", tags:["study","work","vnzh"],
+    note:"Полезен как <b>бесплатный справочник</b> по основаниям ВНЖ КЗ и чаты Алматы/Астаны. Но полностью анонимен (нет юрлица/офиса/телефона), а в отзывах всплывают предложения <b>серых схем</b>. Платно «под ключ» — не рекомендуем.",
+    price:"Скрыты", tg:"relokatz_move_bot", email:"relokacz@relokatz.com" }
+];
+
+/* ---------- Иконки ---------- */
+const IC = {
+  vnzh:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>',
+  work:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>',
+  study:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10L12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1 3 2.5 6 2.5s6-1.5 6-2.5v-5"/></svg>',
+  star:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.5 7 .6-5.3 4.6 1.6 6.8L12 17l-6 3.5 1.6-6.8L2.3 9l7-.6z"/></svg>',
+  rec:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>',
+  check:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/></svg>',
+  avoid:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M10.3 3.9L1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/></svg>',
+  phone:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.1-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.4-1.2a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>',
+  wa:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.8 4.9-1.3A10 10 0 1 0 12 2zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.2-.7-2.7-1.1-4.4-3.8-4.5-4-.1-.2-1.1-1.4-1.1-2.7s.7-1.9 .9-2.2c.2-.2.5-.3.6-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.4 0 .5l-.4.6-.3.3c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.5.1.6-.1l.9-1c.2-.2.4-.2.6-.1l1.8.9c.3.1.5.2.5.4.1.2.1.7-.1 1.3z"/></svg>',
+  tg:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 3L2 10.5l6 2 2.5 7 3-4 5 3.5L22 3z"/></svg>',
+  mail:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 6l10 7 10-7"/></svg>',
+  link:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1"/><path d="M14 11a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1"/></svg>'
+};
+const BADGE = { rec:{t:"Рекомендуем",i:IC.rec}, check:{t:"С проверкой",i:IC.check}, avoid:{t:"Осторожно",i:IC.avoid} };
+const TAG = { vnzh:{t:"ВНЖ",i:IC.vnzh}, work:{t:"Работа",i:IC.work}, study:{t:"Учёба",i:IC.study} };
+
+/* ---------- Рендер карточек ---------- */
+function contactBtns(d){
+  let h="";
+  if(d.url) h+=`<a href="${d.url}" target="_blank" rel="noopener">${IC.link}Сайт</a>`;
+  if(d.tel) h+=`<a href="tel:${d.tel.replace(/[^+\d]/g,'')}">${IC.phone}${d.tel}</a>`;
+  if(d.wa)  h+=`<a href="https://wa.me/${d.wa.replace(/[^\d]/g,'')}" target="_blank" rel="noopener">${IC.wa}WhatsApp</a>`;
+  if(d.tg && d.tg!=="—") h+=`<a href="https://t.me/${d.tg}" target="_blank" rel="noopener">${IC.tg}@${d.tg}</a>`;
+  if(d.email) h+=`<a href="mailto:${d.email}">${IC.mail}Email</a>`;
+  return h;
+}
+function render(list){
+  const el=document.getElementById('cards');
+  el.innerHTML = list.map(d=>{
+    const b=BADGE[d.tier];
+    const tags=d.tags.map(t=>`<span class="t ${t}">${TAG[t].i}${TAG[t].t}</span>`).join('');
+    return `<article class="card reveal" data-tier="${d.tier}" data-tags="${d.tags.join(' ')}">
+      <div class="card-top">
+        <h3><a href="${d.url}" target="_blank" rel="noopener">${d.name}</a></h3>
+        <span class="badge ${d.tier}">${b.i}${b.t}</span>
+      </div>
+      <div class="meta">
+        <span>${d.cities}</span>
+        <span class="dot"></span>
+        <span class="rating">${IC.star}${d.rating}</span>
+      </div>
+      <div class="tags">${tags}</div>
+      <p class="note">${d.note}</p>
+      <div class="price">${IC.star?'':''}<b>Цены:</b> ${d.price}</div>
+      <div class="contacts">${contactBtns(d)}</div>
+    </article>`;
+  }).join('');
+}
+render(DATA);
+
+/* ---------- Фильтры ---------- */
+document.getElementById('filters').addEventListener('click', e=>{
+  const btn=e.target.closest('.chip'); if(!btn) return;
+  document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));
+  btn.classList.add('active');
+  const f=btn.dataset.f;
+  let list=DATA;
+  if(f==='rec') list=DATA.filter(d=>d.tier==='rec');
+  else if(f==='avoid') list=DATA.filter(d=>d.tier==='avoid');
+  else if(['study','work','vnzh'].includes(f)) list=DATA.filter(d=>d.tags.includes(f));
+  render(list);
+  requestAnimationFrame(runReveal);
+});
+
+/* ---------- Анимации (Framer Motion, с гарантией видимости) ----------
+   Принцип: по умолчанию весь контент ВИДИМ (opacity:1). Motion лишь усиливает
+   появление. Если CDN не загрузился или элемент вне зоны видимости — сработает
+   страховочный таймер, и ничего не останется невидимым. */
+let runReveal = ()=>{};
+const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+if(!reduce){
+  import('https://cdn.jsdelivr.net/npm/motion@11/+esm').then(({animate, inView})=>{
+    const show = (el)=>animate(el,{opacity:[0,1],transform:['translateY(16px)','translateY(0)']},{duration:.55,easing:[.16,1,.3,1]});
+    const hide = (el)=>{ el.style.opacity=0; };
+    const guard = (nodes)=>setTimeout(()=>nodes.forEach(el=>{
+      if(parseFloat(getComputedStyle(el).opacity) < .9){ el.style.transition='opacity .5s ease, transform .5s ease'; el.style.opacity=1; el.style.transform='none'; }
+    }), 1300);
+    // Секции
+    const secs=[...document.querySelectorAll('.reveal:not(.card)')];
+    secs.forEach(hide); secs.forEach(el=>inView(el,()=>show(el),{margin:'-30px'})); guard(secs);
+    // Карточки (перерисовываются при фильтрации)
+    runReveal = ()=>{
+      const cards=[...document.querySelectorAll('.card.reveal')];
+      cards.forEach(hide);
+      inView('.card.reveal',(el)=>show(el),{margin:'-60px'});
+      guard(cards);
+    };
+    runReveal();
+  }).catch(()=>{ /* тихо: контент остаётся видимым без анимаций */ });
+}
+</script>
+</body>
+</html>
