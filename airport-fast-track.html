@@ -216,6 +216,8 @@
   .bank-card .tier{font-size:13px;color:var(--ink-2);margin-bottom:16px}
   .bank-card .spec{display:grid;gap:11px}
   .bank-card .spec .row{display:grid;grid-template-columns:96px 1fr;gap:12px;font-size:14.5px;align-items:start}
+  .bank-card .spec.wide .row{grid-template-columns:132px 1fr}
+  @media(max-width:420px){.bank-card .spec .row,.bank-card .spec.wide .row{grid-template-columns:1fr}.bank-card .spec .k{margin-bottom:-6px}}
   .bank-card .spec .k{color:var(--ink-2);font-weight:500}
   .bank-card .spec .v{color:var(--ink);font-weight:500}
   .bank-card .spec .v b{font-weight:700}
@@ -574,6 +576,142 @@
     </div>
   </section>
 
+  <!-- HOW TO GET / KYC -->
+  <section>
+    <div class="kicker reveal">Условия получения и верификации</div>
+    <h2 class="reveal">Как получить эти карты и какие KYC-проверки нужны</h2>
+    <p class="section-sub reveal">Тут два разных мира. Российскую премиум-карту получить легко (только паспорт), но fast track по ней — лишь в аэропортах РФ. Международную карту с fast track за границей получить сложнее — нужен банк другой страны. Разберём оба.</p>
+
+    <div class="thumb-rule reveal" style="background:var(--blue-soft)">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0071E3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.3 1 2.1h6c0-.8.4-1.6 1-2.1A7 7 0 0 0 12 2z"/></svg>
+      <p style="color:#0a4a8f"><b>Коротко.</b> Для fast track за границей нужна карта иностранного банка. Самый простой реальный путь россиянину в 2026 — <b>Mastercard World Elite через киргизский MBANK</b> (оформляется удалённо из РФ, курьером, ~15 000 сом). Amex Platinum, Visa Infinite и World Legend для гражданина РФ практически недостижимы без зарубежного резидентства и крупных активов.</p>
+    </div>
+
+    <!-- Пути получить международную карту -->
+    <div class="group-label reveal">
+      <span>Международная карта: 4 пути для гражданина РФ</span>
+      <span class="tag tag-ok">от простого к сложному</span>
+      <span class="rule"></span>
+    </div>
+    <div class="bank-grid">
+
+      <div class="bank-card reveal" style="--dot:#2FA84F">
+        <div class="b-head">
+          <h3>🇰🇬 Кыргызстан — MBANK</h3>
+          <span class="badge b-green">проще всего</span>
+        </div>
+        <div class="tier">World Elite удалённо, без поездки</div>
+        <div class="spec wide">
+          <div class="row"><span class="k">Что нужно</span><span class="v">Оформляется <b>удалённо из РФ</b>. Выпуск ~<b>15 000 сом</b> (≈15 000 ₽, включает 1-й год). Изготовление 3–5 дней + доставка курьером 1–2 недели. Мультивалюта сом/USD/EUR</span></div>
+          <div class="row"><span class="k">Верификация</span><span class="v">Скан паспорта (загран или внутренний), телефон, email, адрес доставки; иногда — источник средств. Банки Киргизии <b>не под санкциями</b></span></div>
+          <div class="row"><span class="k">Нюанс</span><span class="v">Срок действия официально не публикуется (обычно 3–5 лет). Часть выпусков идёт через посредников с доставкой</span></div>
+        </div>
+      </div>
+
+      <div class="bank-card reveal" style="--dot:#B25E00">
+        <div class="b-head">
+          <h3>🇰🇿 Казахстан — Halyk / Freedom / Kaspi</h3>
+          <span class="badge b-amber">нужен визит</span>
+        </div>
+        <div class="tier">World Elite / Visa / Mastercard</div>
+        <div class="spec wide">
+          <div class="row"><span class="k">Что нужно</span><span class="v">Личная поездка + <b>ИИН</b> (лично в ЦОН, либо цифровой ИИН по гос-программе eResidency удалённо ~$499/год) + местная SIM. Выпуск ~20 000 ₸, обслуживание базово 0 ₽</span></div>
+          <div class="row"><span class="k">Верификация</span><span class="v">Загранпаспорт + ИИН + местный номер + документ о законности пребывания; AML/санкционный скрининг (россияне — «высокий риск»). Kaspi доп. просит ИНН РФ и адрес</span></div>
+          <div class="row"><span class="k">Нюанс</span><span class="v">Карта нерезиденту — <b>на 1 год</b> (Freedom Bank — до 5 лет, если ИИН уже есть)</span></div>
+        </div>
+      </div>
+
+      <div class="bank-card reveal" style="--dot:#B25E00">
+        <div class="b-head">
+          <h3>🇦🇲 Армения — Unibank / Ameriabank</h3>
+          <span class="badge b-amber">нужен визит</span>
+        </div>
+        <div class="tier">World Elite / Visa, лояльный комплаенс</div>
+        <div class="spec wide">
+          <div class="row"><span class="k">Что нужно</span><span class="v"><b>Один личный визит</b> (или удалённо по нотариальной доверенности через юрфирму ~$600). Соцкарта (Public Services Number), подтверждение адреса, армянская SIM</span></div>
+          <div class="row"><span class="k">Верификация</span><span class="v">Очная KYC при первом открытии (требование закона РА); загранпаспорт; источник средств (Ameriabank почти всегда спрашивает); усиленный комплаенс из-за вторичных санкций</span></div>
+          <div class="row"><span class="k">Нюанс</span><span class="v">World Elite (Byblos) — бесплатно при депозите ~30 млн AMD (~$70 000) от 6 мес</span></div>
+        </div>
+      </div>
+
+      <div class="bank-card reveal" style="--dot:#C7362F">
+        <div class="b-head">
+          <h3>🇦🇪 ОАЭ — Emirates NBD / ADCB / Mashreq</h3>
+          <span class="badge b-red">сложно и дорого</span>
+        </div>
+        <div class="tier">Премиум-карта с marhaba / fast track</div>
+        <div class="spec wide">
+          <div class="row"><span class="k">Что нужно</span><span class="v">Для нормальной премиум-карты — <b>резидентская виза + Emirates ID</b> (виза: недвижимость, компания во free zone или работа). Без визы — только сберегательный счёт с остатком от ~AED 100 000, без fast track</span></div>
+          <div class="row"><span class="k">Верификация</span><span class="v"><b>Source of funds/wealth за 2–3 года</b> (декларации ФНС и пр.), справка о зарплате, кредитное бюро AECB, enhanced due diligence. Сроки для россиян 2–6 недель, часть заявок отклоняют</span></div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Требования по продуктам -->
+    <div class="group-label reveal">
+      <span>Требования по конкретным международным продуктам</span>
+      <span class="rule"></span>
+    </div>
+    <div class="bank-grid">
+
+      <div class="bank-card reveal" style="--dot:#EB621D">
+        <div class="b-head"><h3>Mastercard World Elite</h3></div>
+        <div class="spec wide">
+          <div class="row"><span class="k">Западный порог</span><span class="v">Доход от <b>$80 000/год</b> или активы от <b>$400 000</b> + хорошая кредитная история</span></div>
+          <div class="row"><span class="k">Через банки СНГ</span><span class="v">Формального порога дохода <b>нет</b> — выдают дебетовую World Elite с пакетом (LoungeKey, страховка, fast track). «Элитность» маркетинговая, но перки реальные</span></div>
+          <div class="row"><span class="k">Россиянину</span><span class="v"><b>Да</b> (Кыргызстан удалённо — проще всего). А вот <b>World Legend</b> (топ-тир 2025–26) — почти нет: нужен вид на жительство США/Канады + SSN или private banking по приглашению</span></div>
+        </div>
+      </div>
+
+      <div class="bank-card reveal" style="--dot:#016FD0">
+        <div class="b-head"><h3>American Express Platinum</h3></div>
+        <div class="spec wide">
+          <div class="row"><span class="k">В России</span><span class="v"><b>Нельзя.</b> Amex ушёл в 2022, дочерний банк ликвидирован в 2024, карты не работают</span></div>
+          <div class="row"><span class="k">За рубежом</span><span class="v">Только через резидентство. ОАЭ: кредитная Platinum — зарплата от <b>AED 30 605/мес</b>; флагманская charge-карта — ~AED 5 000+/год. Казахстан (Halyk) требует <b>гражданства РК</b></span></div>
+          <div class="row"><span class="k">Верификация</span><span class="v">Кредитное бюро (FICO в США / AECB в ОАЭ), salary certificate, резидентская виза + Emirates ID, source of funds, санкционный комплаенс</span></div>
+        </div>
+      </div>
+
+      <div class="bank-card reveal" style="--dot:#1A1F71">
+        <div class="b-head"><h3>Visa Infinite / Infinite Privilege</h3></div>
+        <div class="spec wide">
+          <div class="row"><span class="k">Пороги</span><span class="v">Высокие: Канада — доход от <b>60 000 CAD</b> (базовый) / <b>150 000 CAD</b> (Privilege); ОАЭ — зарплата от AED 30 000/мес; депозит в Казахстане ~20 млн ₸; private banking — активы от <b>$5 млн</b></span></div>
+          <div class="row"><span class="k">Россиянину</span><span class="v">Работающий международный Infinite нерезиденту <b>почти недостижим</b>. На практике россияне получают Visa Platinum/World/Signature, а не Infinite (Русский Стандарт выпускает Infinite, но она работает только внутри РФ)</span></div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Российские банки: получить просто -->
+    <div class="group-label reveal">
+      <span>Российские банки: получить просто — вопрос только в деньгах</span>
+      <span class="tag tag-ru">паспорт РФ, без справок</span>
+      <span class="rule"></span>
+    </div>
+    <div class="bank-grid">
+
+      <div class="bank-card reveal" style="--dot:#009FDF">
+        <div class="b-head"><h3>Как оформляется и что проверяют</h3></div>
+        <div class="spec wide">
+          <div class="row"><span class="k">Что нужно</span><span class="v">Только <b>паспорт РФ</b>. Заявка онлайн/в приложении за минуты, карта курьером. Справки о доходе и 2-НДФЛ <b>не нужны</b>, кредитную историю не проверяют</span></div>
+          <div class="row"><span class="k">Верификация</span><span class="v">Стандартный KYC дебетовой карты. Премиум-статус и бесплатность считаются <b>автоматически</b> по остаткам/тратам за прошлый месяц — банк видит движения по своим счетам</span></div>
+          <div class="row"><span class="k">Реальное условие</span><span class="v">Не документы, а <b>деньги</b>: держать порог (2,5–3 млн ₽ остатка либо высокая зарплата/траты), иначе списывается плата: ВТБ Привилегия <b>3 990 ₽/мес</b>, Газпромбанк 2 990 ₽, Совкомбанк 4 000 ₽, ОТП 2 800 ₽</span></div>
+        </div>
+      </div>
+
+      <div class="bank-card reveal" style="--dot:#EF3124">
+        <div class="b-head"><h3>Важные оговорки</h3></div>
+        <div class="spec wide">
+          <div class="row"><span class="k">Fast track есть</span><span class="v"><b>ВТБ, Газпромбанк, Совкомбанк, ОТП</b> — через сервис ON.TRACK, в аэропортах РФ</span></div>
+          <div class="row"><span class="k">Fast track нет</span><span class="v"><b>Альфа (Alfa Only) и Сбер (СберПремьер/Первый) fast track НЕ дают</b> — только доступ в бизнес-залы. Не путать</span></div>
+          <div class="row"><span class="k">Только в РФ</span><span class="v">Карты росбанков за границей не принимаются (санкции); их fast track работает лишь в российских аэропортах</span></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
   <!-- EES 2026 -->
   <section>
     <div class="kicker reveal">Актуалка 2026</div>
@@ -676,6 +814,11 @@
       <a href="https://www.mastercard.com/news/europe/en/newsroom/press-releases/en/2026/mastercard-expands-airport-fast-track-access-across-europe/" target="_blank" rel="noopener">Mastercard — расширение Fast Track по Европе (2026)</a>
       <a href="https://thepointsguy.com/news/amex-platinum-fast-track-security/" target="_blank" rel="noopener">The Points Guy — Amex Platinum fast-track security</a>
       <a href="https://premiumbanking.info/premiumy-s-fast-trekom" target="_blank" rel="noopener">Премиум Банкинг Инфо — банки РФ с Fast Track</a>
+      <a href="https://mbank.kg/en/cards/mastercard" target="_blank" rel="noopener">MBANK (Кыргызстан) — Mastercard World Elite</a>
+      <a href="https://astanatimes.com/2025/04/how-foreign-citizens-can-get-bank-cards-in-kazakhstan/" target="_blank" rel="noopener">Astana Times — карты для иностранцев в Казахстане</a>
+      <a href="https://afm.am/en/journal/debit-cards/bank-cards-in-armenia-for-russian-citizens-which-banks-open-accounts-and-on-what-terms-in-2026" target="_blank" rel="noopener">AFM.am — карты Армении для граждан РФ (2026)</a>
+      <a href="https://emirabiz.com/uae-non-resident-bank-account/" target="_blank" rel="noopener">Emirabiz — счёт нерезидента в ОАЭ</a>
+      <a href="https://eurasiabusinessnews.com/2024/07/28/american-express-leaves-russia/" target="_blank" rel="noopener">American Express — уход из России (2024)</a>
       <a href="https://travel-europe.europa.eu/en/ees" target="_blank" rel="noopener">European Union — EES / ETIAS official</a>
       <a href="https://www.theflightking.com/resources/europe-ees-2026/" target="_blank" rel="noopener">The Flight King — Europe EES 2026 explained</a>
     </div>
