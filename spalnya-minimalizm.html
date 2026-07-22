@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Спальня в минимализме — 3 концепции · Лемана ПРО</title>
+<meta name="description" content="Редизайн спальни в современном минимализме: серая, оливковая и бордовая концепции. ТВ-зона под 50 дюймов, подбор мебели и товаров Лемана ПРО.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F4F2ED; --bg-2:#EDEAE3; --ink:#17140F; --ink-2:#4A463E; --ink-3:#8A857A;
+    --line:#DED9CF; --card:#FBFAF7; --white:#fff;
+    --grey:#5B6169; --grey-wall:#3A3D42;
+    --olive:#77794B; --olive-wall:#5E6035;
+    --bordo:#6B2436; --bordo-wall:#5A1E2E;
+    --brass:#B08D57;
+    --r:18px; --shadow:0 1px 2px rgba(20,17,15,.04), 0 12px 34px -18px rgba(20,17,15,.22);
+    --maxw:1180px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    font-size:17px; line-height:1.65; -webkit-font-smoothing:antialiased; overflow-x:hidden;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --bg:#171512; --bg-2:#1E1B17; --ink:#F3F0EA; --ink-2:#C4BEB2; --ink-3:#8E887C;
+      --line:#2E2A24; --card:#201D18; --white:#201D18; --shadow:0 1px 2px rgba(0,0,0,.3), 0 18px 40px -20px rgba(0,0,0,.6);}
+  }
+  h1,h2,h3,h4{font-family:'Cormorant Garamond',Georgia,serif; font-weight:600; line-height:1.08; margin:0; letter-spacing:-.01em;}
+  a{color:inherit}
+  img{max-width:100%; display:block}
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 24px}
+  .eyebrow{font-family:'Inter'; font-size:12.5px; font-weight:600; letter-spacing:.22em; text-transform:uppercase; color:var(--ink-3);}
+  .lead{font-size:19px; color:var(--ink-2); font-weight:300}
+  .tnum{font-variant-numeric:tabular-nums}
+
+  /* NAV */
+  header.nav{position:sticky; top:0; z-index:100; backdrop-filter:saturate(180%) blur(14px);
+    background:color-mix(in srgb, var(--bg) 82%, transparent); border-bottom:1px solid var(--line);}
+  .nav-in{display:flex; align-items:center; justify-content:space-between; height:62px; gap:20px}
+  .brand{font-family:'Cormorant Garamond'; font-weight:600; font-size:21px; letter-spacing:.01em; white-space:nowrap}
+  .brand b{color:var(--brass); font-weight:600}
+  .nav-links{display:flex; gap:26px; font-size:14px; font-weight:500}
+  .nav-links a{color:var(--ink-2); text-decoration:none; transition:color .2s}
+  .nav-links a:hover{color:var(--ink)}
+  .nav-cta{font-size:13px; font-weight:600; padding:9px 16px; border-radius:999px; background:var(--ink); color:var(--bg); text-decoration:none; white-space:nowrap; transition:transform .2s, opacity .2s}
+  .nav-cta:hover{transform:translateY(-1px); opacity:.9}
+  @media(max-width:860px){ .nav-links{display:none} }
+
+  /* HERO */
+  .hero{position:relative; padding:76px 0 60px; overflow:hidden}
+  .hero-bg{position:absolute; inset:0; z-index:0; pointer-events:none;
+    background:
+      radial-gradient(60% 70% at 82% 18%, color-mix(in srgb,var(--bordo) 26%, transparent), transparent 62%),
+      radial-gradient(52% 62% at 12% 84%, color-mix(in srgb,var(--olive) 26%, transparent), transparent 60%),
+      radial-gradient(46% 54% at 55% 40%, color-mix(in srgb,var(--grey) 22%, transparent), transparent 62%);
+    opacity:.5; filter:blur(6px);}
+  .hero .wrap{position:relative; z-index:1}
+  .hero h1{font-size:clamp(2.9rem,8.5vw,6.4rem); font-weight:600; letter-spacing:-.02em; max-width:16ch}
+  .hero h1 em{font-style:italic; color:var(--brass)}
+  .hero .lead{max-width:56ch; margin-top:22px}
+  .hero-meta{display:flex; flex-wrap:wrap; gap:14px 34px; margin-top:34px; align-items:center}
+  .dot-row{display:flex; gap:10px; align-items:center}
+  .swatch-dot{width:26px; height:26px; border-radius:50%; box-shadow:inset 0 0 0 1px rgba(0,0,0,.08)}
+  .stat{display:flex; flex-direction:column}
+  .stat b{font-family:'Cormorant Garamond'; font-size:30px; font-weight:600; line-height:1}
+  .stat span{font-size:12.5px; color:var(--ink-3); letter-spacing:.02em; margin-top:4px}
+  .hero-note{margin-top:30px; font-size:13.5px; color:var(--ink-3); display:flex; align-items:center; gap:9px}
+  .hero-note svg{flex:none}
+
+  /* SECTIONS */
+  section{padding:66px 0}
+  .sec-head{max-width:64ch; margin-bottom:38px}
+  .sec-head h2{font-size:clamp(2.1rem,5vw,3.5rem); font-weight:600}
+  .sec-head p{color:var(--ink-2); margin-top:14px; font-weight:300; font-size:18px}
+  .kicker{margin-bottom:16px}
+
+  /* DIAGNOSIS */
+  .grid-2{display:grid; grid-template-columns:1fr 1fr; gap:22px}
+  .panel{background:var(--card); border:1px solid var(--line); border-radius:var(--r); padding:26px 26px}
+  .panel h3{font-size:26px; margin-bottom:6px}
+  .tag-was{display:inline-flex; align-items:center; gap:7px; font-size:11.5px; font-weight:600; letter-spacing:.12em; text-transform:uppercase; padding:5px 11px; border-radius:999px}
+  .tag-was.was{background:color-mix(in srgb,var(--bordo) 12%, transparent); color:var(--bordo)}
+  .tag-was.now{background:color-mix(in srgb,var(--olive) 15%, transparent); color:var(--olive-wall)}
+  ul.clean{list-style:none; padding:0; margin:14px 0 0}
+  ul.clean li{position:relative; padding:9px 0 9px 26px; border-top:1px solid var(--line); font-size:15.5px; color:var(--ink-2)}
+  ul.clean li:first-child{border-top:0}
+  ul.clean li::before{content:""; position:absolute; left:2px; top:16px; width:8px; height:8px; border-radius:2px; background:currentColor; opacity:.4}
+  ul.clean.now li{color:var(--ink)}
+
+  .principles{display:grid; grid-template-columns:repeat(5,1fr); gap:14px; margin-top:30px}
+  .principle{background:var(--bg-2); border:1px solid var(--line); border-radius:14px; padding:18px 16px}
+  .principle .n{font-family:'Cormorant Garamond'; font-size:34px; color:var(--brass); line-height:1; font-weight:600}
+  .principle h4{font-size:19px; margin:8px 0 4px; font-family:'Inter'; font-weight:600; letter-spacing:-.01em}
+  .principle p{font-size:13px; color:var(--ink-3); margin:0; line-height:1.5}
+  @media(max-width:900px){ .principles{grid-template-columns:repeat(2,1fr)} .grid-2{grid-template-columns:1fr} }
+
+  /* TV ZONE */
+  .tv-wrap{display:grid; grid-template-columns:1fr 1fr; gap:22px}
+  .tv-card{background:var(--card); border:1px solid var(--line); border-radius:var(--r); padding:0; overflow:hidden; display:flex; flex-direction:column}
+  .tv-visual{position:relative; aspect-ratio:16/10; background:var(--bg-2); display:flex; align-items:center; justify-content:center; border-bottom:1px solid var(--line)}
+  /* mini room illustration */
+  .room{position:relative; width:86%; height:78%}
+  .wall{position:absolute; inset:0; border-radius:8px; background:linear-gradient(180deg,var(--grey-wall),color-mix(in srgb,var(--grey-wall) 78%, #000)); overflow:hidden}
+  .floor{position:absolute; left:0; right:0; bottom:0; height:20%; background:linear-gradient(180deg,#CDBBA0,#B9A588)}
+  .tvset{position:absolute; background:#111; border-radius:4px; box-shadow:0 6px 16px rgba(0,0,0,.35); border:2px solid #222}
+  .tvset::after{content:"50\""; position:absolute; right:5px; bottom:4px; font-size:9px; color:#7a7a7a; font-family:'Inter'}
+  .console{position:absolute; background:linear-gradient(180deg,#E7E2DA,#D3CCC0); border-radius:5px; box-shadow:0 8px 18px rgba(0,0,0,.2)}
+  .shelf{position:absolute; height:7px; background:linear-gradient(180deg,#C79A6A,#A97C4E); border-radius:3px; box-shadow:0 8px 14px rgba(0,0,0,.28)}
+  .label-pin{position:absolute; font-size:10.5px; font-weight:600; background:var(--white); color:var(--ink); padding:3px 8px; border-radius:999px; box-shadow:var(--shadow); border:1px solid var(--line)}
+  .tv-body{padding:22px 24px 24px; display:flex; flex-direction:column; flex:1}
+  .tv-body h3{font-size:25px; margin-bottom:4px}
+  .opt-badge{font-size:11.5px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--brass)}
+  .procon{display:grid; grid-template-columns:1fr 1fr; gap:10px 18px; margin:16px 0 18px; font-size:13.5px}
+  .procon .h{font-weight:600; font-size:11.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-3); margin-bottom:4px}
+  .procon ul{list-style:none; margin:0; padding:0}
+  .procon li{padding:3px 0 3px 18px; position:relative; color:var(--ink-2)}
+  .procon li::before{position:absolute; left:0; top:2px; font-size:13px}
+  .procon .pro li::before{content:"+"; color:var(--olive)}
+  .procon .con li::before{content:"–"; color:var(--bordo)}
+  .sizing{margin-top:auto; padding:14px 16px; background:var(--bg-2); border-radius:12px; font-size:13px; color:var(--ink-2); border:1px solid var(--line)}
+  .sizing b{color:var(--ink)}
+  @media(max-width:900px){ .tv-wrap{grid-template-columns:1fr} }
+
+  /* CONCEPTS */
+  .concept{border-radius:24px; overflow:hidden; border:1px solid var(--line); margin-top:26px; background:var(--card)}
+  .concept-top{position:relative; padding:40px 38px 34px; color:#fff; overflow:hidden}
+  .concept-top .n{font-size:13px; font-weight:600; letter-spacing:.2em; text-transform:uppercase; opacity:.85}
+  .concept-top h3{font-size:clamp(2rem,4.6vw,3.2rem); font-weight:600; margin-top:6px; color:#fff}
+  .concept-top p{max-width:60ch; margin-top:12px; font-weight:300; opacity:.94; font-size:16.5px}
+  .palette{display:flex; gap:0; margin-top:26px; border-radius:12px; overflow:hidden; box-shadow:0 10px 30px -12px rgba(0,0,0,.5)}
+  .palette .chip{flex:1; height:60px; display:flex; align-items:flex-end; padding:7px 8px; font-size:10px; color:#fff; text-shadow:0 1px 2px rgba(0,0,0,.4); min-width:0}
+  .palette .chip.light{color:#2a2a2a; text-shadow:none}
+  .concept-body{padding:30px 38px 38px}
+  .cb-grid{display:grid; grid-template-columns:1.15fr 2fr; gap:34px}
+  .recipe h4{font-size:22px; margin-bottom:4px}
+  .recipe .rrow{display:flex; gap:12px; padding:12px 0; border-top:1px solid var(--line); align-items:flex-start}
+  .recipe .rrow:first-of-type{border-top:0}
+  .recipe .rk{font-size:12px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-3); width:96px; flex:none; padding-top:2px}
+  .recipe .rv{font-size:14.5px; color:var(--ink); flex:1}
+  .recipe .rv small{color:var(--ink-3); display:block; font-size:12.5px}
+  .wallcolor{display:inline-flex; align-items:center; gap:8px; margin-top:2px; font-size:12px; color:var(--ink-2)}
+  .wallcolor i{width:16px; height:16px; border-radius:4px; box-shadow:inset 0 0 0 1px rgba(0,0,0,.1)}
+  @media(max-width:820px){ .cb-grid{grid-template-columns:1fr} .concept-top,.concept-body{padding-left:24px; padding-right:24px} }
+
+  /* PRODUCTS */
+  .filters{display:flex; flex-wrap:wrap; gap:9px; margin-bottom:26px}
+  .filter{font-size:13.5px; font-weight:600; padding:9px 17px; border-radius:999px; border:1px solid var(--line); background:var(--card); color:var(--ink-2); cursor:pointer; transition:all .2s}
+  .filter:hover{border-color:var(--ink-3)}
+  .filter.active{background:var(--ink); color:var(--bg); border-color:var(--ink)}
+  .products{display:grid; grid-template-columns:repeat(4,1fr); gap:18px}
+  .p-card{background:var(--card); border:1px solid var(--line); border-radius:16px; overflow:hidden; display:flex; flex-direction:column; text-decoration:none; color:inherit; transition:transform .25s cubic-bezier(.2,.7,.2,1), box-shadow .25s; will-change:transform}
+  .p-card:hover{transform:translateY(-4px); box-shadow:var(--shadow)}
+  .p-img{aspect-ratio:1; background:#fff; padding:10px; display:flex; align-items:center; justify-content:center}
+  .p-img img{max-height:100%; object-fit:contain; mix-blend-mode:multiply}
+  .p-body{padding:13px 14px 15px; display:flex; flex-direction:column; flex:1; gap:6px}
+  .p-cat{font-size:10.5px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-3)}
+  .p-name{font-size:13.5px; line-height:1.35; font-weight:500; color:var(--ink); flex:1}
+  .p-foot{display:flex; align-items:center; justify-content:space-between; margin-top:6px; gap:8px}
+  .p-price{font-family:'Inter'; font-weight:700; font-size:16px}
+  .p-price small{font-weight:500; font-size:12px; color:var(--ink-3)}
+  .p-buy{font-size:12px; font-weight:600; color:var(--brass); white-space:nowrap; display:inline-flex; align-items:center; gap:3px}
+  .p-cardtag{display:inline-flex; gap:5px; margin-bottom:2px}
+  .mini-dot{width:9px; height:9px; border-radius:50%; box-shadow:inset 0 0 0 1px rgba(0,0,0,.12)}
+  @media(max-width:1000px){ .products{grid-template-columns:repeat(3,1fr)} }
+  @media(max-width:720px){ .products{grid-template-columns:repeat(2,1fr)} }
+  @media(max-width:420px){ .products{grid-template-columns:1fr 1fr; gap:12px} }
+
+  /* BUDGET */
+  .budget{display:grid; grid-template-columns:repeat(3,1fr); gap:20px}
+  .bud-card{background:var(--card); border:1px solid var(--line); border-radius:20px; padding:26px 24px; position:relative; overflow:hidden}
+  .bud-card .bar{position:absolute; top:0; left:0; right:0; height:5px}
+  .bud-card h3{font-size:25px; margin-bottom:2px}
+  .bud-card .sub{font-size:13px; color:var(--ink-3); margin-bottom:16px}
+  .bud-line{display:flex; justify-content:space-between; gap:10px; padding:7px 0; border-top:1px solid var(--line); font-size:13.5px; color:var(--ink-2)}
+  .bud-line span:last-child{font-variant-numeric:tabular-nums; font-weight:600; color:var(--ink); white-space:nowrap}
+  .bud-total{margin-top:14px; padding-top:14px; border-top:2px solid var(--ink); display:flex; justify-content:space-between; align-items:baseline}
+  .bud-total b{font-family:'Cormorant Garamond'; font-size:30px; font-weight:600}
+  .bud-total span{font-size:12px; color:var(--ink-3)}
+  @media(max-width:900px){ .budget{grid-template-columns:1fr} }
+
+  /* CHECKLIST */
+  .steps{display:grid; grid-template-columns:repeat(3,1fr); gap:16px; counter-reset:st}
+  .step{background:var(--card); border:1px solid var(--line); border-radius:16px; padding:22px; counter-increment:st}
+  .step::before{content:counter(st,decimal-leading-zero); font-family:'Cormorant Garamond'; font-size:26px; color:var(--brass); font-weight:600}
+  .step h4{font-size:19px; font-family:'Inter'; font-weight:600; margin:6px 0 6px; letter-spacing:-.01em}
+  .step p{font-size:13.5px; color:var(--ink-3); margin:0}
+  @media(max-width:820px){ .steps{grid-template-columns:1fr} }
+
+  /* FOOTER */
+  footer{border-top:1px solid var(--line); padding:44px 0 60px; margin-top:20px}
+  .foot-in{display:flex; flex-wrap:wrap; justify-content:space-between; gap:20px; align-items:flex-start}
+  .foot-in p{font-size:13px; color:var(--ink-3); max-width:62ch; margin:0}
+  .foot-cta{font-size:14px; font-weight:600; padding:12px 22px; border-radius:999px; background:var(--ink); color:var(--bg); text-decoration:none; white-space:nowrap; transition:transform .2s}
+  .foot-cta:hover{transform:translateY(-1px)}
+  .disc{margin-top:22px; font-size:11.5px; color:var(--ink-3); line-height:1.6}
+
+  /* VISUALIZATION */
+  .viz-tabs{display:flex; gap:10px; flex-wrap:wrap; margin-bottom:8px}
+  .viz-tab{cursor:pointer; border:1px solid var(--line); background:var(--card); border-radius:999px; padding:11px 20px; font-size:14.5px; font-weight:600; color:var(--ink-2); display:inline-flex; align-items:center; gap:9px; transition:all .22s}
+  .viz-tab:hover{border-color:var(--ink-3)}
+  .viz-tab .vt-dot{width:14px; height:14px; border-radius:50%; box-shadow:inset 0 0 0 1px rgba(0,0,0,.12)}
+  .viz-tab.active{color:#fff; border-color:transparent}
+  .viz-caption{font-size:14.5px; color:var(--ink-2); margin:12px 0 26px; max-width:74ch}
+  .viz-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:20px}
+  .viz-scene{background:var(--card); border:1px solid var(--line); border-radius:18px; overflow:hidden; box-shadow:var(--shadow)}
+  .viz-scene svg{display:block; width:100%; height:auto; background:var(--bg-2)}
+  .viz-scene .vs-cap{padding:14px 18px 16px}
+  .viz-scene .vs-cap b{font-family:'Inter'; font-weight:600; font-size:15px; letter-spacing:-.01em}
+  .viz-scene .vs-cap span{display:block; font-size:12.5px; color:var(--ink-3); margin-top:3px}
+  .viz-scene .vs-cap .num{font-size:11px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--brass)}
+  .viz-sub{display:flex; align-items:baseline; gap:12px; margin:34px 0 16px; padding-bottom:10px; border-bottom:1px solid var(--line)}
+  .viz-sub span{font-family:'Cormorant Garamond',serif; font-size:26px; font-weight:600; letter-spacing:-.01em}
+  .viz-sub em{font-style:normal; font-size:12px; font-weight:600; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-3)}
+  .viz-renders{display:grid; grid-template-columns:1fr 1fr; gap:20px}
+  .viz-render{margin:0; background:var(--card); border:1px solid var(--line); border-radius:18px; overflow:hidden; box-shadow:var(--shadow)}
+  .viz-render img{width:100%; aspect-ratio:16/10; object-fit:cover; display:block}
+  .viz-render figcaption{padding:12px 16px 14px; font-size:13.5px; font-weight:500; color:var(--ink-2)}
+  .viz-note{font-size:12.5px; color:var(--ink-3); margin:12px 2px 0; display:flex; align-items:flex-start; gap:8px; line-height:1.5}
+  .viz-note svg{flex:none; margin-top:2px}
+  .viz-plan-card{background:var(--card); border:1px solid var(--line); border-radius:18px; box-shadow:var(--shadow); padding:22px; display:flex; flex-direction:column; align-items:center}
+  .viz-plan-card svg{width:100%; max-width:600px; height:auto; display:block}
+  .viz-legend{display:flex; flex-wrap:wrap; gap:8px 20px; margin-top:16px; justify-content:center}
+  .viz-legend span{display:inline-flex; align-items:center; gap:7px; font-size:12.5px; color:var(--ink-2)}
+  .viz-legend i{width:14px; height:14px; border-radius:4px; box-shadow:inset 0 0 0 1px rgba(0,0,0,.1)}
+  @media(max-width:760px){ .viz-grid{grid-template-columns:1fr} .viz-renders{grid-template-columns:1fr} }
+
+  [data-reveal]{opacity:0; transform:translateY(24px); transition:opacity .7s cubic-bezier(.22,.7,.2,1), transform .7s cubic-bezier(.22,.7,.2,1)}
+  [data-reveal].in{opacity:1; transform:none}
+  [data-reveal-item]{opacity:0; transform:translateY(16px) scale(.985); transition:opacity .5s ease, transform .55s cubic-bezier(.22,.7,.2,1); transition-delay:calc(min(var(--i,0),14) * 32ms)}
+  [data-reveal-item].in{opacity:1; transform:none}
+  @media (prefers-reduced-motion: reduce){ [data-reveal],[data-reveal-item]{opacity:1 !important; transform:none !important; transition:none !important} html{scroll-behavior:auto} }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap nav-in">
+    <div class="brand">Спальня · <b>минимализм</b></div>
+    <nav class="nav-links">
+      <a href="#diagnoz">Что меняем</a>
+      <a href="#tv">ТВ-зона</a>
+      <a href="#concepts">Концепции</a>
+      <a href="#viz">Визуализация</a>
+      <a href="#catalog">Каталог</a>
+      <a href="#budget">Смета</a>
+    </nav>
+    <a class="nav-cta" href="https://lemanapro.ru/" target="_blank" rel="noopener">Лемана ПРО ↗</a>
+  </div>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="wrap">
+    <div class="eyebrow" data-reveal>Дизайн-проект · перепланировка интерьера</div>
+    <h1 data-reveal>Спальня в современном <em>минимализме</em></h1>
+    <p class="lead" data-reveal>Из тёмной комнаты с массивной корпусной «стенкой» — в тихую, светлую спальню. Три готовых цветовых сценария: <b>графит</b>, <b>олива</b> и <b>бордо-нуар</b>. С проработанной ТВ-зоной под телевизор 50″ и подбором всех позиций в Лемана&nbsp;ПРО.</p>
+
+    <div class="hero-meta" data-reveal>
+      <div class="dot-row">
+        <span class="swatch-dot" style="background:#5B6169"></span>
+        <span class="swatch-dot" style="background:#77794B"></span>
+        <span class="swatch-dot" style="background:#6B2436"></span>
+      </div>
+      <div class="stat"><b>3</b><span>цветовые концепции</span></div>
+      <div class="stat"><b>2</b><span>решения ТВ-зоны 50″</span></div>
+      <div class="stat"><b>от 26 000&nbsp;₽</b><span>за преображение (материалы)</span></div>
+    </div>
+
+    <div class="hero-note" data-reveal>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg>
+      Все товары ниже — реальные позиции lemanapro.ru с ценами и прямыми ссылками (регион Москва, июль 2026).
+    </div>
+  </div>
+</div>
+
+<!-- DIAGNOSIS -->
+<section id="diagnoz">
+  <div class="wrap">
+    <div class="sec-head" data-reveal>
+      <div class="eyebrow kicker">01 — Отправная точка</div>
+      <h2>Что не так с комнатой сейчас</h2>
+      <p>Пространство «глушат» три вещи: громоздкая мебель, тёмный текстиль и разнобой оттенков дерева. Минимализм решает это не добавлением, а вычитанием.</p>
+    </div>
+
+    <div class="grid-2">
+      <div class="panel" data-reveal>
+        <span class="tag-was was">Было</span>
+        <h3 style="margin-top:12px">Тяжёлый интерьер 2000-х</h3>
+        <ul class="clean">
+          <li>Массивная корпусная «стенка» из дуба во всю стену — визуально крадёт объём</li>
+          <li>Тёмно-коричневые плотные шторы поглощают дневной свет</li>
+          <li>Телевизор утоплен в мебельную нишу — «дырка» в композиции</li>
+          <li>3–4 разных оттенка дерева и текстиля рядом друг с другом</li>
+          <li>Пёстрое покрывало-«шахматка» перетягивает всё внимание</li>
+        </ul>
+      </div>
+      <div class="panel" data-reveal>
+        <span class="tag-was now">Станет</span>
+        <h3 style="margin-top:12px">Спокойный минимализм</h3>
+        <ul class="clean now">
+          <li>Свободная стена напротив кровати: лаконичная тумба или парящая полка + ТВ на стене</li>
+          <li>Матовая краска стен + одна акцентная стена в цвете концепции</li>
+          <li>Один материал дерева на всю комнату — тёплый дуб или графит</li>
+          <li>Монохромный текстиль в 2–3 тонах одной палитры</li>
+          <li>Свет-сценарии: верхний рассеянный + тёплый торшер у кровати</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="principles">
+      <div class="principle" data-reveal><div class="n">1</div><h4>Меньше корпуса</h4><p>Убрать «стенку», оставить воздух и 1–2 функциональных предмета.</p></div>
+      <div class="principle" data-reveal><div class="n">2</div><h4>Один тон дерева</h4><p>Дуб ИЛИ графит — но не всё сразу. Единая порода = порядок.</p></div>
+      <div class="principle" data-reveal><div class="n">3</div><h4>Акцентная стена</h4><p>Цвет живёт на одной плоскости, остальные — нейтральный фон.</p></div>
+      <div class="principle" data-reveal><div class="n">4</div><h4>Матовые поверхности</h4><p>Матовая краска и текстиль-велюр вместо глянца и лака.</p></div>
+      <div class="principle" data-reveal><div class="n">5</div><h4>Тёплый свет</h4><p>2700–3000K, несколько источников вместо одной люстры.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- TV ZONE -->
+<section id="tv" style="background:var(--bg-2)">
+  <div class="wrap">
+    <div class="sec-head" data-reveal>
+      <div class="eyebrow kicker">02 — Стена напротив кровати · ТВ 50″</div>
+      <h2>Тумба или парящая полка?</h2>
+      <p>Диагональ 50″ — это ширина корпуса телевизора ≈ 112&nbsp;см. Оба решения ниже рассчитаны под неё. Выбор зависит от того, нужно ли место для хранения.</p>
+    </div>
+
+    <div class="tv-wrap">
+      <!-- Option A -->
+      <div class="tv-card" data-reveal>
+        <div class="tv-visual">
+          <div class="room">
+            <div class="wall"><div class="floor"></div></div>
+            <div class="tvset" style="left:32%; top:16%; width:36%; height:34%"></div>
+            <div class="console" style="left:20%; bottom:22%; width:60%; height:14%"></div>
+            <div class="label-pin" style="left:50%; bottom:20%; transform:translateX(-50%)">тумба ≥ 120 см</div>
+          </div>
+        </div>
+        <div class="tv-body">
+          <span class="opt-badge">Вариант A</span>
+          <h3>Тумба напротив кровати</h3>
+          <div class="procon">
+            <div class="pro"><div class="h">Плюсы</div><ul>
+              <li>Место для хранения и техники</li>
+              <li>Не нужно штробить стену под провода</li>
+              <li>ТВ можно ставить, а не вешать</li>
+            </ul></div>
+            <div class="con"><div class="h">Минусы</div><ul>
+              <li>Занимает площадь пола</li>
+              <li>Визуально «тяжелее» полки</li>
+            </ul></div>
+          </div>
+          <div class="sizing">📐 Под 50″ берите тумбу <b>шириной 120–200 см</b> — ТВ должен стоять с запасом по краям. В подборке ниже — серые, бетонные и венге-модели под все три концепции.</div>
+        </div>
+      </div>
+
+      <!-- Option B -->
+      <div class="tv-card" data-reveal>
+        <div class="tv-visual">
+          <div class="room">
+            <div class="wall"><div class="floor"></div></div>
+            <div class="tvset" style="left:32%; top:14%; width:36%; height:34%"></div>
+            <div class="shelf" style="left:26%; top:56%; width:48%"></div>
+            <div class="label-pin" style="left:50%; top:52%; transform:translate(-50%,-140%)">ТВ на кронштейне</div>
+            <div class="label-pin" style="left:50%; top:58%; transform:translateX(-50%)">полка 100 см</div>
+          </div>
+        </div>
+        <div class="tv-body">
+          <span class="opt-badge">Вариант B</span>
+          <h3>Парящая полка + ТВ на стене</h3>
+          <div class="procon">
+            <div class="pro"><div class="h">Плюсы</div><ul>
+              <li>Пол свободен — максимум «воздуха»</li>
+              <li>Самое минималистичное решение</li>
+              <li>Полка со скрытым креплением — от 800 ₽</li>
+            </ul></div>
+            <div class="con"><div class="h">Минусы</div><ul>
+              <li>Провода лучше спрятать в кабель-канал</li>
+              <li>Мало места для хранения</li>
+            </ul></div>
+          </div>
+          <div class="sizing">📐 ТВ 50″ вешаем на <b>кронштейн 20″–55″</b>, центр экрана на высоте ~110 см от пола (лёжа в кровати смотреть комфортно чуть выше). Под ним — полка 80–100 см для саундбара и мелочей.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONCEPTS -->
+<section id="concepts">
+  <div class="wrap">
+    <div class="sec-head" data-reveal>
+      <div class="eyebrow kicker">03 — Три сценария</div>
+      <h2>Выберите настроение</h2>
+      <p>Планировка и мебель одинаковые — меняется только палитра стен и текстиля. Каждая концепция — это акцентная стена + монохромный текстиль + единый тон дерева.</p>
+    </div>
+
+    <!-- Concept 1: Graphite -->
+    <div class="concept" data-reveal>
+      <div class="concept-top" style="background:linear-gradient(135deg,#4C525A,#2C2F34)">
+        <div class="n">Концепция 01</div>
+        <h3>Графитовый шёлк</h3>
+        <p>Тихая роскошь в оттенках серого. Монохром от светлого гри до глубокого графита, тёплое дерево и хром. Самый универсальный и «дорого выглядящий» вариант.</p>
+        <div class="palette">
+          <div class="chip" style="background:#F0EEE9" title="Оф-вайт"><span class="light">#F0EEE9</span></div>
+          <div class="chip" style="background:#C9C7C1" title="Тёплый серый"><span class="light">#C9C7C1</span></div>
+          <div class="chip" style="background:#8A8E93" title="Сталь">#8A8E93</div>
+          <div class="chip" style="background:#4C525A" title="Графит">#4C525A</div>
+          <div class="chip" style="background:#2C2F34" title="Тёмный графит">#2C2F34</div>
+        </div>
+      </div>
+      <div class="concept-body">
+        <div class="cb-grid">
+          <div class="recipe">
+            <h4>Рецепт</h4>
+            <div class="rrow"><div class="rk">Стены фон</div><div class="rv">Светло-серый матовый<small>колеровка NCS S 2000-N / RAL 9002</small></div></div>
+            <div class="rrow"><div class="rk">Акцент</div><div class="rv">Графит за ТВ или у изголовья<div class="wallcolor"><i style="background:#3A3D42"></i>PALIZH «графит» · RAL 7024</div></div></div>
+            <div class="rrow"><div class="rk">Дерево</div><div class="rv">Светлый дуб или белый корпус</div></div>
+            <div class="rrow"><div class="rk">Текстиль</div><div class="rv">Серый велюр, блэкаут-графит</div></div>
+            <div class="rrow"><div class="rk">Металл</div><div class="rv">Хром / чёрный матовый</div></div>
+          </div>
+          <div>
+            <div class="p-cat" style="margin-bottom:12px">Ключевые позиции концепции</div>
+            <div class="products" data-concept-grid="grey"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Concept 2: Olive -->
+    <div class="concept" data-reveal>
+      <div class="concept-top" style="background:linear-gradient(135deg,#7D7F4E,#54562F)">
+        <div class="n">Концепция 02</div>
+        <h3>Олива и лён</h3>
+        <p>Природное тепло: приглушённая олива, натуральный лён и тёплый дуб. Латунные детали и живое растение. Уютная, «дышащая» спальня в стиле джапанди.</p>
+        <div class="palette">
+          <div class="chip" style="background:#EEE9DB" title="Тёплый лён"><span class="light">#EEE9DB</span></div>
+          <div class="chip" style="background:#C3C2A0" title="Шалфей"><span class="light">#C3C2A0</span></div>
+          <div class="chip" style="background:#8E9059" title="Олива">#8E9059</div>
+          <div class="chip" style="background:#5E6035" title="Тёмная олива">#5E6035</div>
+          <div class="chip" style="background:#B08D57" title="Латунь / дуб">#B08D57</div>
+        </div>
+      </div>
+      <div class="concept-body">
+        <div class="cb-grid">
+          <div class="recipe">
+            <h4>Рецепт</h4>
+            <div class="rrow"><div class="rk">Стены фон</div><div class="rv">Тёплый белый / светлый гриж<small>колеровка RAL 9010 / NCS S 1005-Y20R</small></div></div>
+            <div class="rrow"><div class="rk">Акцент</div><div class="rv">Олива на стене за кроватью<div class="wallcolor"><i style="background:#5E6035"></i>Palizh «оливковый» · RAL 6013</div></div></div>
+            <div class="rrow"><div class="rk">Дерево</div><div class="rv">Тёплый дуб (полка, тумба)</div></div>
+            <div class="rrow"><div class="rk">Текстиль</div><div class="rv">Зелёное покрывало, лён, ротанг</div></div>
+            <div class="rrow"><div class="rk">Металл</div><div class="rv">Латунь / состаренное золото</div></div>
+          </div>
+          <div>
+            <div class="p-cat" style="margin-bottom:12px">Ключевые позиции концепции</div>
+            <div class="products" data-concept-grid="olive"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Concept 3: Bordo -->
+    <div class="concept" data-reveal>
+      <div class="concept-top" style="background:linear-gradient(135deg,#6B2436,#2E2C30)">
+        <div class="n">Концепция 03</div>
+        <h3>Бордо-нуар</h3>
+        <p>Драматичная спальня-кокон. Глубокий графитовый фон и одна винно-бордовая стена, бархат-терракота и латунь. Камерно, по-вечернему, атмосферно.</p>
+        <div class="palette">
+          <div class="chip" style="background:#CDBDB6" title="Дымчато-розовый"><span class="light">#CDBDB6</span></div>
+          <div class="chip" style="background:#A6553B" title="Терракота">#A6553B</div>
+          <div class="chip" style="background:#6B2436" title="Винный бордо">#6B2436</div>
+          <div class="chip" style="background:#37343A" title="Графит">#37343A</div>
+          <div class="chip" style="background:#B08D57" title="Латунь">#B08D57</div>
+        </div>
+      </div>
+      <div class="concept-body">
+        <div class="cb-grid">
+          <div class="recipe">
+            <h4>Рецепт</h4>
+            <div class="rrow"><div class="rk">Стены фон</div><div class="rv">Тёмно-серый графит матовый<small>колеровка RAL 7024 / NCS S 7005-N</small></div></div>
+            <div class="rrow"><div class="rk">Акцент</div><div class="rv">Винный бордо за изголовьем<div class="wallcolor"><i style="background:#6B2436"></i>Malare «винный бордо» · RAL 3005</div></div></div>
+            <div class="rrow"><div class="rk">Дерево</div><div class="rv">Венге / чёрный корпус, графит</div></div>
+            <div class="rrow"><div class="rk">Текстиль</div><div class="rv">Бархат терракота/бордо, графит</div></div>
+            <div class="rrow"><div class="rk">Металл</div><div class="rv">Латунь / тёплое золото</div></div>
+          </div>
+          <div>
+            <div class="p-cat" style="margin-bottom:12px">Ключевые позиции концепции</div>
+            <div class="products" data-concept-grid="bordo"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VISUALIZATION -->
+<section id="viz">
+  <div class="wrap">
+    <div class="sec-head" data-reveal>
+      <div class="eyebrow kicker">04 — Визуализация</div>
+      <h2>Комната со всех сторон</h2>
+      <p>Три способа увидеть будущую спальню: фотореалистичные ИИ-рендеры, план-вид сверху и развёртки всех четырёх стен. Переключайте палитру — обновится сразу всё.</p>
+    </div>
+    <div class="viz-tabs" id="viz-tabs" data-reveal></div>
+    <div class="viz-caption" id="viz-caption" data-reveal></div>
+
+    <div class="viz-sub" data-reveal><span>Фотореалистичные рендеры</span><em>ИИ-визуализация настроения</em></div>
+    <div class="viz-renders" id="viz-renders"></div>
+    <div class="viz-note" id="viz-note">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg>
+      <span>Рендеры сгенерированы нейросетью (Flux) как иллюстрация настроения и палитры. Реальная расстановка — по плану ниже; конкретные товары — в каталоге. Мелкие детали на ИИ-картинке могут отличаться от финальной комплектации.</span>
+    </div>
+
+    <div class="viz-sub" data-reveal><span>Вид сверху</span><em>план расстановки мебели</em></div>
+    <div class="viz-plan-card" data-reveal><div id="viz-plan"></div><div class="viz-legend" id="viz-legend"></div></div>
+
+    <div class="viz-sub" data-reveal><span>Развёртки стен</span><em>комната со всех сторон</em></div>
+    <div class="viz-grid" id="viz-grid"></div>
+  </div>
+</section>
+
+<!-- CATALOG -->
+<section id="catalog" style="background:var(--bg-2)">
+  <div class="wrap">
+    <div class="sec-head" data-reveal>
+      <div class="eyebrow kicker">05 — Полный каталог</div>
+      <h2>Все товары Лемана ПРО</h2>
+      <p>Реальные позиции с прямыми ссылками. Отфильтруйте по концепции или категории — цены указаны за штуку (регион Москва).</p>
+    </div>
+    <div class="filters" id="filters" data-reveal></div>
+    <div class="products" id="catalog-grid"></div>
+  </div>
+</section>
+
+<!-- BUDGET -->
+<section id="budget">
+  <div class="wrap">
+    <div class="sec-head" data-reveal>
+      <div class="eyebrow kicker">06 — Смета</div>
+      <h2>Сколько стоит преображение</h2>
+      <p>Ориентир по материалам и мебели из Лемана ПРО — без стоимости телевизора, кровати и работ. «Эконом» — базовый набор, «Комфорт» — с торшером, большим зеркалом и премиум-текстилем.</p>
+    </div>
+    <div class="budget">
+      <div class="bud-card" data-reveal>
+        <div class="bar" style="background:linear-gradient(90deg,#8A8E93,#2C2F34)"></div>
+        <h3>Графитовый шёлк</h3>
+        <div class="sub">Серая монохромная спальня</div>
+        <div class="bud-line"><span>Краска (фон + акцент)</span><span>≈ 7 200 ₽</span></div>
+        <div class="bud-line"><span>Тумба под ТВ, серая</span><span>6 298 ₽</span></div>
+        <div class="bud-line"><span>Покрывало велюр, серое</span><span>3 878 ₽</span></div>
+        <div class="bud-line"><span>Штора блэкаут, серая</span><span>3 750 ₽</span></div>
+        <div class="bud-line"><span>Ковёр, серый</span><span>1 576 ₽</span></div>
+        <div class="bud-line"><span>Зеркало круглое, чёрное</span><span>3 990 ₽</span></div>
+        <div class="bud-line"><span>Декор: тумба, картина, пампас</span><span>≈ 4 900 ₽</span></div>
+        <div class="bud-total"><span>Эконом-набор</span><b>≈ 31 600 ₽</b></div>
+        <div class="sub" style="margin:8px 0 0">Комфорт с торшером — от 42 000 ₽</div>
+      </div>
+      <div class="bud-card" data-reveal>
+        <div class="bar" style="background:linear-gradient(90deg,#C3C2A0,#5E6035)"></div>
+        <h3>Олива и лён</h3>
+        <div class="sub">Натуральная, тёплая</div>
+        <div class="bud-line"><span>Краска (фон + олива)</span><span>≈ 7 000 ₽</span></div>
+        <div class="bud-line"><span>Полка дуб + кронштейн ТВ</span><span>4 065 ₽</span></div>
+        <div class="bud-line"><span>Покрывало, зелёное</span><span>3 948 ₽</span></div>
+        <div class="bud-line"><span>Штора блэкаут, зелёная</span><span>2 268 ₽</span></div>
+        <div class="bud-line"><span>Ковёр, кремовый</span><span>1 113 ₽</span></div>
+        <div class="bud-line"><span>Зеркало круглое, чёрное</span><span>3 990 ₽</span></div>
+        <div class="bud-line"><span>Декор: тумба, ботаника, сухоцветы</span><span>≈ 6 100 ₽</span></div>
+        <div class="bud-total"><span>Эконом-набор</span><b>≈ 28 500 ₽</b></div>
+        <div class="sub" style="margin:8px 0 0">Комфорт с торшером — от 39 000 ₽</div>
+      </div>
+      <div class="bud-card" data-reveal>
+        <div class="bar" style="background:linear-gradient(90deg,#A6553B,#2E2C30)"></div>
+        <h3>Бордо-нуар</h3>
+        <div class="sub">Драматичная спальня-кокон</div>
+        <div class="bud-line"><span>Краска (графит + бордо)</span><span>≈ 9 900 ₽</span></div>
+        <div class="bud-line"><span>Тумба под ТВ, венге</span><span>12 999 ₽</span></div>
+        <div class="bud-line"><span>Покрывало бархат, терракота</span><span>от 2 689 ₽</span></div>
+        <div class="bud-line"><span>Штора блэкаут, графит</span><span>3 750 ₽</span></div>
+        <div class="bud-line"><span>Ковёр, тёмно-серый</span><span>1 576 ₽</span></div>
+        <div class="bud-line"><span>Зеркало круглое D81, чёрное</span><span>5 978 ₽</span></div>
+        <div class="bud-line"><span>Декор: тумба, картина, роза</span><span>≈ 10 500 ₽</span></div>
+        <div class="bud-total"><span>Эконом-набор</span><b>≈ 47 500 ₽</b></div>
+        <div class="sub" style="margin:8px 0 0">Комфорт с торшером — от 60 000 ₽</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CHECKLIST -->
+<section id="steps" style="background:var(--bg-2)">
+  <div class="wrap">
+    <div class="sec-head" data-reveal>
+      <div class="eyebrow kicker">07 — Порядок работ</div>
+      <h2>Как внедрять по шагам</h2>
+      <p>Правильная последовательность бережёт нервы и бюджет: сначала «грязные» работы, потом чистовая и текстиль в самом конце.</p>
+    </div>
+    <div class="steps">
+      <div class="step" data-reveal><h4>Демонтаж и вынос</h4><p>Убрать корпусную «стенку» и старый текстиль. Оценить розетки под будущую ТВ-зону.</p></div>
+      <div class="step" data-reveal><h4>Стены и потолок</h4><p>Выровнять, прогрунтовать. Красить в 2 слоя: сначала фон, затем акцентная стена.</p></div>
+      <div class="step" data-reveal><h4>ТВ-зона</h4><p>Повесить кронштейн/полку или собрать тумбу. Спрятать провода в кабель-канал.</p></div>
+      <div class="step" data-reveal><h4>Свет</h4><p>Тёплые лампы 2700–3000K. Добавить торшер у кровати и, по желанию, бра.</p></div>
+      <div class="step" data-reveal><h4>Мебель и зеркало</h4><p>Расставить тумбы, повесить круглое зеркало-акцент. Проверить симметрию.</p></div>
+      <div class="step" data-reveal><h4>Текстиль</h4><p>Финальный аккорд: покрывало, шторы, ковёр и 1–2 подушки в тон палитры.</p></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-in">
+      <div>
+        <h3 style="font-size:30px; margin-bottom:8px">Готово к покупке в один клик</h3>
+        <p>Кликните по любой карточке товара — откроется страница на lemanapro.ru. Начните с краски и ТВ-зоны, текстиль добирайте под выбранную концепцию.</p>
+      </div>
+      <a class="foot-cta" href="https://lemanapro.ru/" target="_blank" rel="noopener">Открыть Лемана ПРО ↗</a>
+    </div>
+    <p class="disc">⚠️ Цены, наличие и артикулы указаны для региона Москва по состоянию на июль 2026 и могут меняться — проверяйте актуальное на карточке товара. Краска в готовых цветах или колеруется на месте под указанные коды RAL/NCS. Диагональ ТВ 50″ ≈ 111 см по ширине — параметры мебели даны с запасом. Дизайн-проект носит рекомендательный характер и не является офертой Лемана ПРО.</p>
+  </div>
+</footer>
+
+<script>
+/* ---------- Каталог товаров Лемана ПРО (реальные позиции) ---------- */
+const IMG = (v,code,file) => `https://cdn.lemanapro.ru/lmru/image/upload/dpr_1.0/f_auto/q_auto/w_800/h_800/c_pad/b_white/d_photoiscoming.png/${v}/lmcode/${code}/${file}`;
+
+const P = [
+  // ТВ-зона — тумбы
+  {cat:'Тумба под ТВ', tags:['grey'], name:'Тумба под ТВ Арника Денвер 200 см, серый', price:6298, url:'https://lemanapro.ru/product/tumba-pod-televizor-arnika-denver-2001x355x346-sm-ldsp-cvet-seryy-91594897/', img:IMG('v1707415028','-Y0t7X10nE-nnjEFHMxKFg','91594897.jpg')},
+  {cat:'Тумба под ТВ', tags:['grey'], name:'Тумба под ТВ Гуд Лакк 194 см, серый', price:10699, url:'https://lemanapro.ru/product/tumba-pod-televizor-gud-lakk-203031104-1944x542x396-sm-dsp-cvet-seryy-92235744/', img:IMG('v1748002907','ZzpZf2_aAUOocxb27vqzYg','92235744_01.jpg')},
+  {cat:'Тумба под ТВ', tags:['grey','bordo'], name:'Тумба под ТВ Simaland 213 см с панелью, бетон', price:12011, url:'https://lemanapro.ru/product/tumba-pod-televizor-simaland-7786872-213x168x35-sm-ldsp-cvet-beton-90819793/', img:IMG('v1727996855','6VPr02fsuE-FjMXxrRe-Yg','90819793.jpg')},
+  {cat:'Тумба под ТВ', tags:['bordo'], name:'Тумба под ТВ Гуд Лакк Кастор 194 см, венге', price:12999, url:'https://lemanapro.ru/product/tumba-pod-televizor-gud-lakk-kastor-s-20222-1944x542x396-sm-6-yashchikov-ldsp-cvet-venge-90820856/', img:IMG('v1748002843','DfxILmOzP0qsuiJWrB1rSg','90820856_01.jpg')},
+  {cat:'Тумба под ТВ', tags:['olive'], name:'Тумба под ТВ Homegrad Oregon 140 см, белый', price:15450, url:'https://lemanapro.ru/product/tumba-pod-televizor-homegrad-oregon-140x46x46-sm-ldsp-cvet-belyy-92505387/', img:IMG('v1750830630','uR3Va19OQU-UwxwWY9ruzA','92505387_01.png')},
+  // ТВ-зона — полка + кронштейн
+  {cat:'Полка под ТВ', tags:['olive','grey'], name:'Полка настенная KONSENSA 100 см, дуб (скрытое крепление)', price:1275, url:'https://lemanapro.ru/product/nastennaya-polka-konsensa-100x235-sm-so-skrytym-krepleniem-mdf-cvet-dub-89425854/', img:IMG('v1773155290','M3uwRxdKQ0awysFl1-vKiA','89425854.png')},
+  {cat:'Полка под ТВ', tags:['bordo','grey'], name:'Полка настенная KONSENSA 100 см, чёрный (скрытое крепление)', price:1211, url:'https://lemanapro.ru/product/nastennaya-polka-konsensa-100x235-sm-so-skrytym-krepleniem-mdf-cvet-chernyy-89425859/', img:IMG('v1773155290','hZkUxDvn10K54DgdJmjWqQ','89425859.png')},
+  {cat:'Кронштейн ТВ', tags:['grey','olive','bordo'], name:'Кронштейн для ТВ Kromax Optima-414, 20″–55″', price:2790, url:'https://lemanapro.ru/product/kronshteyn-dlya-tv-kromax-optima-414-91260581/', img:IMG('v1746596916','1rxm5wyjr0KCyHE6ortGew','91260581_01.jpg')},
+  // Краска
+  {cat:'Краска', tags:['grey','olive','bordo'], name:'Краска моющаяся Luxium Classic Colour, база под колеровку, 9 л', price:7132, url:'https://lemanapro.ru/product/kraska-dlya-sten-i-potolkov-moyushchayasya-luxium-classic-colour-matovaya-cvet-belyy-baza-bw-9-l-89425744/', img:IMG('v1778591975','hxWJRT6tY0y-5M0GAn122g','89425744.png')},
+  {cat:'Краска', tags:['grey','bordo'], name:'Краска акриловая PALIZH, цвет графит, 2.7 л', price:1609, url:'https://lemanapro.ru/product/kraska-akrilovaya-palizh-pc-317-33-cvet-grafit-27-l-90314979/', img:IMG('v1753954480','4cHcsDji0kWekoYXgMkyyg','90314979_01.png')},
+  {cat:'Краска', tags:['olive'], name:'Краска интерьерная Palizh №326, цвет оливковый, 3.7 кг', price:1386, url:'https://lemanapro.ru/product/kraska-akrilovaya-interernaya-moyushchayasya-palizh-326-cvet-olivkovyy-37-kg-92896321/', img:IMG('v1772047278','36nbjLh2y06RqiUOObD4hw','92896321_01.png')},
+  {cat:'Краска', tags:['bordo'], name:'Краска Malare Professional, цвет винный бордо, 2.7 л', price:4323, url:'https://lemanapro.ru/product/kraska-dlya-sten-malare-professional-bez-zapaha-matovaya-cvet-vinnyy-bordo-27l-92154700/', img:IMG('v1746572718','expVcDsDIkaEVaRjEo_btg','92154700_01.jpg')},
+  {cat:'Краска', tags:['grey','olive'], name:'Краска для спальни Wow Now, моющаяся матовая, база А, 9 л', price:5611, url:'https://lemanapro.ru/product/kraska-dlya-sten-i-potolkov-v-gostinoy-i-spalne-wow-now-moyushchayasya-matovaya-cvet-belyy-baza-a-9-l-82928875/', img:IMG('v1784193515','mnw_jEme1062PowUYFiLyQ','82928875.png')},
+  // Шторы
+  {cat:'Шторы', tags:['grey','bordo'], name:'Штора рулонная блэкаут KREAFORTA Taiga 160×190, серая', price:3750, url:'https://lemanapro.ru/product/shtora-rulonnaya-blekaut-kreaforta-taiga-160x190-sm-seraya-89401454/', img:IMG('v1754484708','xZjBftDF1EupPFz4CKAhsQ','89401454.png')},
+  {cat:'Шторы', tags:['olive'], name:'Штора рулонная блэкаут KREAFORTA Karelia 120×175, зелёная', price:2268, url:'https://lemanapro.ru/product/shtora-rulonnaya-blekaut-kreaforta-karelia-120x175-sm-cvet-zelenyy-89390162/', img:IMG('v1754484708','kVHShAuPckuaLhqRlRuTHg','89390162.png')},
+  // Текстиль — покрывала
+  {cat:'Покрывало', tags:['grey'], name:'Покрывало Inspire Etna 240×220, велюр, серый', price:3878, url:'https://lemanapro.ru/product/pokryvalo-inspire-etna-240x220-sm-velyur-cvet-seryy-89334841/', img:IMG('v1783333161','8DATzA_UDEmqKjWZc3AOmw','89334841.png')},
+  {cat:'Покрывало', tags:['olive'], name:'Покрывало Tango Marrakech 240×260, микрофибра, зелёный', price:3948, url:'https://lemanapro.ru/product/pokryvalo-tango-marrakech-trm2426-19-240x260-sm-mikrofibra-cvet-zelenyy-93728384/', img:IMG('v1625216463','GaA5nYRUjkO_UO13goO-fA','93728384.jpg')},
+  {cat:'Покрывало', tags:['bordo'], name:'Покрывало Sofi de Marko Алира 240×260, бархат, терракота', price:19040, url:'https://lemanapro.ru/product/pokryvalo-sofi-de-marko-alira-pok-al-240x260ter-240x260-sm-barhat-cvet-terrakota-92360551/', img:IMG('v1746563743','ClOpNDs6yUOoc1GhifjctQ','92360551_01.jpg')},
+  {cat:'Покрывало', tags:['bordo'], name:'Покрывало Sofi de Marko Саломея 230×250, сатин, пудра', price:2689, url:'https://lemanapro.ru/product/pokryvalo-sofi-de-marko-salomeya-230x250-sm-satin-cvet-pudra-91268169/', img:IMG('v1631526784','XJHVugMgJU68sFdVa7FrvA','91268169.jpg')},
+  // Ковры
+  {cat:'Ковёр', tags:['grey','bordo'], name:'Ковёр Лугано 160×200, серый', price:1576, url:'https://lemanapro.ru/product/kover-lugano-160x200-sm-polipropilen-9540-cvet-seryy-89356370/', img:IMG('v1722956278','iToSP1UriEqR5ZkV06nusw','89356370.jpg')},
+  {cat:'Ковёр', tags:['olive'], name:'Ковёр Merinos Point 80×150, кремовый', price:1113, url:'https://lemanapro.ru/product/kover-merinos-point-80x150-sm-polipropilen-l058-cvet-kremovyy-89423605/', img:IMG('v1749203981','r50uWhzx4UGIqvlGmBJ0KQ','89423605.jpg')},
+  // Свет
+  {cat:'Свет', tags:['grey','olive','bordo'], name:'Торшер Lussole Lgo Woodruff, чёрный', price:12720, url:'https://lemanapro.ru/product/torsher-lussole-lgo-woodruff-lsp-0333-e27-150-vt-cvet-chernyy-93856738/', img:IMG('v1676280075','4xFBCOh6AkG-R4O0-EOkqw','93856738.jpg')},
+  // Зеркала
+  {cat:'Зеркало', tags:['grey','olive'], name:'Зеркало круглое Inspire Barbier Black D57, чёрное', price:3990, url:'https://lemanapro.ru/product/zerkalo-dekorativnoe-inspire-barbier-black-krugloe-d57-sm-metall-cvet-chernyy-86484794/', img:IMG('v1696419738','KjReDCOSgEqzeVhBNxiGAA','86484794.png')},
+  {cat:'Зеркало', tags:['bordo'], name:'Зеркало круглое Inspire Focale D81, чёрное', price:5978, url:'https://lemanapro.ru/product/zerkalo-dekorativnoe-nastennoe-inspire-focale-krugloe-d81-sm-metall-cvet-chernyy-84466759/', img:IMG('v1713905801','fAjyt7mbRE6BeGvicur1Ew','84466759.jpg')},
+  // Прикроватные тумбы
+  {cat:'Прикроватная тумба', tags:['grey','bordo'], name:'Тумба прикроватная Гуд Лакк Кастор, серый', price:3499, url:'https://lemanapro.ru/product/tumba-prikrovatnaya-gud-lakk-kastor-373x492x396-sm-2-yashchika-dsp-cvet-seryy-92235746/', img:IMG('v1745235936','CcIHeAimwE2ZW6atJMObkw','92235746_01.jpg')},
+  {cat:'Прикроватная тумба', tags:['olive'], name:'Тумба прикроватная Лион, дуб комано', price:3688, url:'https://lemanapro.ru/product/tumba-prikrovatnaya-lion-2-yashchika-45x445x416-sm-ldsp-cvet-dub-komano-89428009/', img:IMG('v1761810556','3bY25BuReE-CatpzwQekYg','89428009.png')},
+  {cat:'Прикроватная тумба', tags:['bordo'], name:'Тумба прикроватная Storys Сити, чёрный', price:7490, url:'https://lemanapro.ru/product/tumba-prikrovatnaya-storys-siti40-40x18x34-sm-1-yashchik-ldsp-cvet-chernyy-90739524/', img:IMG('v1671631017','dhf7OB6OI0m7UkNU-LpqhA','90739524.png')},
+  // Искусственные цветы и растения
+  {cat:'Цветы и растения', tags:['olive'], name:'Букет сухоцветов Donnaflor (пшеница, лаванда) 40 см', price:1100, url:'https://lemanapro.ru/product/buket-iz-suhocvetov-donnaflor-pshenica-92453571/', img:IMG('v1748486875','1-Q2n8c9UEWwfEY5sx9xSQ','92453571.jpg')},
+  {cat:'Цветы и растения', tags:['grey'], name:'Растение искусственное Ковыль (пампас), белый h53', price:212, url:'https://lemanapro.ru/product/rastenie-iskusstvennoe-kovyl-belyy-h53-sm-82686502/', img:IMG('v1641817595','j-kWNJvftEOuAVVHShr8Ag','82686502.png')},
+  {cat:'Цветы и растения', tags:['bordo'], name:'Цветы искусственные Роза «Нежный бархат», красный h55', price:230, url:'https://lemanapro.ru/product/cvety-iskusstvennye-roza-nezhnyy-barhat-d-12-sm-h-55-sm-krasnyy-90859630/', img:IMG('v1676871886','x9FL8FeHu0W-dXAQxp6g1g','90859630.jpg')},
+  {cat:'Цветы и растения', tags:['grey','olive'], name:'Растение искусственное LED Мюленбекия 83 см', price:507, url:'https://lemanapro.ru/product/iskusstvennoe-rastenie-svetodiodnoe-myulenbekiya-83-sm-89376950/', img:IMG('v1723129941','ebatNVFp1USQIZryt1Bq4w','89376950.jpg')},
+  // Картины
+  {cat:'Картина', tags:['grey'], name:'Картина «Нежная абстракция» 50×70', price:1197, url:'https://lemanapro.ru/product/kartina-nezhnaya-abstrakciya-50x70-sm-89394678/', img:IMG('v1725457603','Ym028nWT6kWDeMi_DioqQw','89394678.jpg')},
+  {cat:'Картина', tags:['olive'], name:'Картина модульная «Ботаника» 40×50, 2 шт', price:1330, url:'https://lemanapro.ru/product/kartina-modulnaya-botanika-40x50-sm-2-sht-89394672/', img:IMG('v1725457813','zU5V_DRtGk68v36QwfYopA','89394672.jpg')},
+  {cat:'Картина', tags:['bordo'], name:'Картина «Цветы на каменной стене» 40×30', price:2749, url:'https://lemanapro.ru/product/kartina-policentr-cvety-na-kamennoy-stene-40x30-sm-92492700/', img:IMG('v1750128435','_OZWEwggi0mDFcAvj8D9qw','92492700_01.jpg')},
+  // Кровать (опционально)
+  {cat:'Кровать', tags:['grey','bordo'], name:'Кровать Homegrad 160×200, цвет графит', price:31682, url:'https://lemanapro.ru/product/krovat-homegrad-016018-00-117-x-72-x-222-sm-ldsp-cvet-grafit-92212670/', img:IMG('v1746584594','j5BqQJaAckabiruLzjLY7g','92212670_01.jpg')},
+];
+
+const THEME = {grey:'#5B6169', olive:'#77794B', bordo:'#6B2436'};
+const fmt = n => n.toLocaleString('ru-RU');
+
+function card(p,i){
+  if(!p) return '';
+  const dots = p.tags.map(t=>`<span class="mini-dot" style="background:${THEME[t]}" title="${t}"></span>`).join('');
+  return `<a class="p-card" href="${p.url}" target="_blank" rel="noopener" data-reveal-item style="--i:${i||0}">
+    <div class="p-img"><img loading="lazy" src="${p.img}" alt="${p.name}"
+      onerror="this.style.mixBlendMode='normal';this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22120%22 height=%22120%22><rect width=%22100%25%22 height=%22100%25%22 fill=%22%23eee%22/><text x=%2250%25%22 y=%2250%25%22 fill=%22%23999%22 font-size=%2211%22 text-anchor=%22middle%22 dominant-baseline=%22middle%22>фото</text></svg>'"></div>
+    <div class="p-body">
+      <div class="p-cardtag">${dots}</div>
+      <div class="p-cat">${p.cat}</div>
+      <div class="p-name">${p.name}</div>
+      <div class="p-foot">
+        <div class="p-price">${fmt(p.price)}&nbsp;<small>₽</small></div>
+        <div class="p-buy">Купить →</div>
+      </div>
+    </div>
+  </a>`;
+}
+
+// Концептные мини-подборки (по 4 ключевые позиции)
+const featured = {
+  grey:  ['Тумба под ТВ Арника Денвер 200 см, серый','Краска акриловая PALIZH, цвет графит, 2.7 л','Тумба прикроватная Гуд Лакк Кастор, серый','Покрывало Inspire Etna 240×220, велюр, серый','Картина «Нежная абстракция» 50×70','Растение искусственное Ковыль (пампас), белый h53'],
+  olive: ['Полка настенная KONSENSA 100 см, дуб (скрытое крепление)','Краска интерьерная Palizh №326, цвет оливковый, 3.7 кг','Тумба прикроватная Лион, дуб комано','Покрывало Tango Marrakech 240×260, микрофибра, зелёный','Картина модульная «Ботаника» 40×50, 2 шт','Букет сухоцветов Donnaflor (пшеница, лаванда) 40 см'],
+  bordo: ['Тумба под ТВ Гуд Лакк Кастор 194 см, венге','Краска Malare Professional, цвет винный бордо, 2.7 л','Тумба прикроватная Storys Сити, чёрный','Покрывало Sofi de Marko Алира 240×260, бархат, терракота','Картина «Цветы на каменной стене» 40×30','Цветы искусственные Роза «Нежный бархат», красный h55'],
+};
+Object.entries(featured).forEach(([k,names])=>{
+  const grid = document.querySelector(`[data-concept-grid="${k}"]`);
+  if(grid) grid.innerHTML = names.map((n,i)=>card(P.find(p=>p.name===n), i)).join('');
+});
+
+// Полный каталог + фильтры
+const cats = [...new Set(P.map(p=>p.cat))];
+const filters = [
+  {key:'all', label:'Все товары'},
+  {key:'grey', label:'● Графит', color:THEME.grey},
+  {key:'olive', label:'● Олива', color:THEME.olive},
+  {key:'bordo', label:'● Бордо', color:THEME.bordo},
+  ...cats.map(c=>({key:'cat:'+c, label:c})),
+];
+const fbox = document.getElementById('filters');
+fbox.innerHTML = filters.map((f,i)=>`<button class="filter${i===0?' active':''}" data-f="${f.key}">${f.label}</button>`).join('');
+const grid = document.getElementById('catalog-grid');
+function renderCatalog(key){
+  let list = P;
+  if(key.startsWith('cat:')) list = P.filter(p=>p.cat===key.slice(4));
+  else if(key!=='all') list = P.filter(p=>p.tags.includes(key));
+  grid.innerHTML = list.map(card).join('');
+  if(window.__revealObserve) window.__revealObserve();
+}
+renderCatalog('all');
+fbox.addEventListener('click', e=>{
+  const b = e.target.closest('.filter'); if(!b) return;
+  fbox.querySelectorAll('.filter').forEach(x=>x.classList.remove('active'));
+  b.classList.add('active');
+  renderCatalog(b.dataset.f);
+});
+
+/* ---------- Визуализация: развёртки 4 стен для каждой концепции (SVG) ---------- */
+const VIZ = {
+  grey: {label:'Графит', accent:'#4C525A', main:'#DBD8D2', floor:'#CBB79B', wood:'#E1DCD2', textile:'#9DA0A5', metal:'#33353A', plant:'#AEB79E', pot:'#C9C4BC', art:'#EDEBE6', blind:'#8E9195', sky:'#DCE6EC', dark:false,
+    desc:'Светло-серый фон, графитовая акцентная стена за изголовьем, светлый дуб и чёрный металл. Пампасная трава и мягкая абстракция в тон.'},
+  olive:{label:'Олива', accent:'#5E6035', main:'#E8E3D3', floor:'#C7B394', wood:'#C29A63', textile:'#8E9059', metal:'#B08D57', plant:'#6E7A3E', pot:'#B8895A', art:'#EAE6D6', blind:'#7C7E4E', sky:'#DCE6EC', dark:false,
+    desc:'Тёплый лён на стенах, оливковый акцент за кроватью, дуб и латунь. Сухоцветы и модульная ботаника поддерживают природную гамму.'},
+  bordo:{label:'Бордо', accent:'#5A1E2E', main:'#38353B', floor:'#6E5A4B', wood:'#3A2E2A', textile:'#A6553B', metal:'#B08D57', plant:'#8A2C42', pot:'#2E2A2C', art:'#EBE3DA', blind:'#4A2530', sky:'#AEB9C2', dark:true,
+    desc:'Графитовый фон и винно-бордовая акцентная стена, венге и латунь, бархат-терракота. Красная роза и флоральная картина добавляют драмы.'},
+};
+const svgWrap = inner => `<svg viewBox="0 0 360 232" role="img" preserveAspectRatio="xMidYMid meet">${inner}</svg>`;
+const bg = (c,accent) => `<rect x="0" y="0" width="360" height="196" fill="${accent?c.accent:c.main}"/><rect x="0" y="196" width="360" height="36" fill="${c.floor}"/><rect x="0" y="194" width="360" height="3" fill="rgba(0,0,0,.09)"/>`;
+const sh = (cx,cy,rx,ry=4) => `<ellipse cx="${cx}" cy="${cy}" rx="${rx}" ry="${ry}" fill="rgba(0,0,0,.13)"/>`;
+function pic(x,y,w,h,c,kind){
+  const mc = kind==='olive'?'#6E7A3E':kind==='bordo'?'#A6553B':'#9DA0A5';
+  const cx=x+w/2; let motif='';
+  if(kind==='olive'){ motif=`<path d="M${cx} ${y+h-8} C ${cx-13} ${y+h-28}, ${cx-10} ${y+12}, ${cx} ${y+10} C ${cx+10} ${y+12}, ${cx+13} ${y+h-28}, ${cx} ${y+h-8} Z" fill="none" stroke="${mc}" stroke-width="2"/><line x1="${cx}" y1="${y+12}" x2="${cx}" y2="${y+h-9}" stroke="${mc}" stroke-width="1.4"/>`; }
+  else if(kind==='bordo'){ motif=`<circle cx="${cx}" cy="${y+h/2-4}" r="7" fill="${mc}"/><circle cx="${cx-9}" cy="${y+h/2+6}" r="5" fill="${mc}" opacity=".85"/><circle cx="${cx+9}" cy="${y+h/2+6}" r="5" fill="${mc}" opacity=".85"/><line x1="${cx}" y1="${y+h/2+4}" x2="${cx}" y2="${y+h-8}" stroke="#6E7A3E" stroke-width="1.5"/>`; }
+  else { motif=`<line x1="${x+8}" y1="${y+h*0.42}" x2="${x+w-8}" y2="${y+h*0.42}" stroke="${mc}" stroke-width="2"/><line x1="${x+8}" y1="${y+h*0.62}" x2="${x+w-14}" y2="${y+h*0.62}" stroke="${mc}" stroke-width="2" opacity=".6"/>`; }
+  return `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="2" fill="${c.art}" stroke="${c.metal}" stroke-width="3"/>${motif}`;
+}
+function plant(x,baseY,c,s=1){
+  const g=c.plant, pot=c.pot;
+  return `<g><ellipse cx="${x}" cy="${baseY+2}" rx="${16*s}" ry="4" fill="rgba(0,0,0,.13)"/>`
+   +`<path d="M${x-11*s} ${baseY-14*s} L ${x-8*s} ${baseY} L ${x+8*s} ${baseY} L ${x+11*s} ${baseY-14*s} Z" fill="${pot}"/>`
+   +`<path d="M${x} ${baseY-12*s} C ${x-18*s} ${baseY-34*s}, ${x-14*s} ${baseY-58*s}, ${x-2*s} ${baseY-70*s}" fill="none" stroke="${g}" stroke-width="2.4"/>`
+   +`<path d="M${x} ${baseY-12*s} C ${x+16*s} ${baseY-32*s}, ${x+14*s} ${baseY-56*s}, ${x+3*s} ${baseY-68*s}" fill="none" stroke="${g}" stroke-width="2.4"/>`
+   +`<path d="M${x} ${baseY-12*s} C ${x-4*s} ${baseY-40*s}, ${x+2*s} ${baseY-60*s}, ${x} ${baseY-76*s}" fill="none" stroke="${g}" stroke-width="2.4"/>`
+   +`<circle cx="${x-2*s}" cy="${baseY-70*s}" r="${3*s}" fill="${g}"/><circle cx="${x+3*s}" cy="${baseY-67*s}" r="${3*s}" fill="${g}"/><circle cx="${x}" cy="${baseY-76*s}" r="${3*s}" fill="${g}"/></g>`;
+}
+const tLamp = (x,topY,baseY,c) => `<line x1="${x}" y1="${baseY}" x2="${x}" y2="${topY+10}" stroke="${c.metal}" stroke-width="2"/><path d="M${x-11} ${topY+10} L ${x-7} ${topY} L ${x+7} ${topY} L ${x+11} ${topY+10} Z" fill="#F0EBE2" stroke="${c.metal}" stroke-width="1"/>`;
+
+function vBed(c,k){ return svgWrap(
+  bg(c,true)
+  + pic(150,42,38,50,c,k) + pic(194,42,38,50,c,k)
+  + sh(83,196,24) + `<rect x="66" y="162" width="34" height="34" rx="3" fill="${c.wood}"/>` + tLamp(83,146,162,c)
+  + sh(277,196,24) + `<rect x="260" y="162" width="34" height="34" rx="3" fill="${c.wood}"/>` + tLamp(277,146,162,c)
+  + sh(180,197,96,6)
+  + `<rect x="108" y="104" width="144" height="54" rx="7" fill="${c.textile}"/>`
+  + `<rect x="104" y="150" width="152" height="46" rx="4" fill="${c.wood}"/>`
+  + `<rect x="104" y="150" width="152" height="30" rx="6" fill="#F2EFEA"/>`
+  + `<rect x="104" y="172" width="152" height="16" rx="5" fill="${c.textile}" opacity=".92"/>`
+  + `<rect x="120" y="132" width="52" height="24" rx="9" fill="#FBFAF7" stroke="rgba(0,0,0,.06)"/>`
+  + `<rect x="188" y="132" width="52" height="24" rx="9" fill="#FBFAF7" stroke="rgba(0,0,0,.06)"/>`
+  + plant(30,196,c,0.8)
+); }
+function vTv(c,k){ return svgWrap(
+  bg(c,false)
+  + `<rect x="120" y="16" width="120" height="180" fill="${c.accent}"/>`
+  + `<circle cx="66" cy="78" r="27" fill="#E4E7EA" stroke="${c.metal}" stroke-width="4"/><line x1="52" y1="66" x2="74" y2="92" stroke="#fff" stroke-width="3" opacity=".65"/>`
+  + pic(286,54,44,58,c,k)
+  + `<rect x="140" y="46" width="80" height="50" rx="3" fill="#17171A" stroke="#000" stroke-width="1"/><rect x="146" y="52" width="68" height="38" rx="1" fill="#23242A"/>`
+  + sh(180,140,60,4) + `<rect x="126" y="126" width="108" height="9" rx="2" fill="${c.wood}"/>`
+  + `<rect x="134" y="112" width="7" height="14" fill="${c.textile}"/><rect x="142" y="108" width="7" height="18" fill="${c.metal}"/><rect x="150" y="114" width="7" height="12" fill="${c.accent}"/>`
+  + plant(214,126,c,0.5)
+  + plant(322,196,c,0.95)
+  + `<ellipse cx="176" cy="214" rx="120" ry="12" fill="${c.textile}" opacity=".28"/>`
+); }
+function vWin(c,k){ return svgWrap(
+  bg(c,false)
+  + `<rect x="108" y="34" width="144" height="126" rx="2" fill="#FBFAF7"/><rect x="114" y="40" width="132" height="114" fill="${c.sky}"/>`
+  + `<line x1="180" y1="40" x2="180" y2="154" stroke="#FBFAF7" stroke-width="4"/><line x1="114" y1="97" x2="246" y2="97" stroke="#FBFAF7" stroke-width="4"/>`
+  + `<rect x="104" y="26" width="152" height="8" rx="2" fill="${c.metal}"/><rect x="110" y="34" width="140" height="30" fill="${c.blind}"/><line x1="110" y1="63" x2="250" y2="63" stroke="rgba(0,0,0,.15)" stroke-width="2"/>`
+  + sh(180,196,42) + `<rect x="150" y="170" width="60" height="24" rx="10" fill="${c.textile}"/>`
+  + `<ellipse cx="300" cy="196" rx="14" ry="4" fill="${c.metal}"/><line x1="300" y1="194" x2="300" y2="96" stroke="${c.metal}" stroke-width="3"/><path d="M286 96 L314 96 L308 74 L292 74 Z" fill="#F0EBE2" stroke="${c.metal}" stroke-width="1"/>`
+  + plant(40,196,c,0.9)
+); }
+function vEntry(c,k){ return svgWrap(
+  bg(c,false)
+  + sh(282,196,54,5) + `<rect x="228" y="22" width="108" height="174" rx="3" fill="${c.wood}"/><line x1="282" y1="24" x2="282" y2="194" stroke="rgba(0,0,0,.20)" stroke-width="2"/><rect x="274" y="96" width="4" height="26" rx="2" fill="${c.metal}"/><rect x="286" y="96" width="4" height="26" rx="2" fill="${c.metal}"/>`
+  + `<rect x="24" y="26" width="66" height="170" rx="2" fill="${c.dark?'#2b2b30':'#EDEBE6'}" stroke="${c.metal}" stroke-width="2"/><rect x="34" y="40" width="46" height="66" rx="2" fill="none" stroke="rgba(0,0,0,.14)" stroke-width="2"/><rect x="34" y="116" width="46" height="66" rx="2" fill="none" stroke="rgba(0,0,0,.14)" stroke-width="2"/><circle cx="82" cy="112" r="3" fill="${c.metal}"/>`
+  + `<rect x="150" y="58" width="48" height="134" rx="24" fill="#E4E7EA" stroke="${c.metal}" stroke-width="4"/><line x1="164" y1="74" x2="182" y2="150" stroke="#fff" stroke-width="3" opacity=".7"/>`
+  + plant(122,196,c,0.72)
+  + `<ellipse cx="150" cy="212" rx="118" ry="12" fill="${c.textile}" opacity=".26"/>`
+); }
+
+function vPlan(c,k){
+  const lc = c.dark ? '#ECE6DD' : '#4A463E';
+  const wall = c.dark ? '#211d24' : '#463f37';
+  const pot = (x,y)=>`<circle cx="${x}" cy="${y}" r="13" fill="${c.plant}" opacity=".85"/><circle cx="${x}" cy="${y}" r="6" fill="${c.pot}"/>`;
+  const lbl = (x,y,t,anchor='middle',col=lc)=>`<text x="${x}" y="${y}" fill="${col}" font-family="Inter,sans-serif" font-size="12" font-weight="600" text-anchor="${anchor}" opacity=".92">${t}</text>`;
+  return `<svg viewBox="0 0 460 340" role="img" preserveAspectRatio="xMidYMid meet">`
+   +`<rect x="14" y="14" width="432" height="312" fill="${c.floor}"/>`
+   +`<rect x="14" y="14" width="432" height="11" fill="${c.accent}"/>`
+   +`<rect x="112" y="150" width="236" height="150" rx="8" fill="${c.textile}" opacity=".22"/>`
+   +`<rect x="442" y="120" width="8" height="110" fill="${c.sky}"/><line x1="442" y1="158" x2="450" y2="158" stroke="rgba(0,0,0,.3)" stroke-width="1.5"/><line x1="442" y1="192" x2="450" y2="192" stroke="rgba(0,0,0,.3)" stroke-width="1.5"/>`
+   +`<rect x="14" y="14" width="432" height="312" fill="none" stroke="${wall}" stroke-width="7"/>`
+   +`<rect x="46" y="320" width="54" height="12" fill="${c.floor}"/><rect x="46" y="281" width="4" height="45" fill="#8a8275"/><path d="M50 281 A45 45 0 0 1 95 326" fill="none" stroke="rgba(0,0,0,.28)" stroke-width="1.4" stroke-dasharray="4 4"/>`
+   +`<rect x="17" y="150" width="26" height="120" rx="2" fill="${c.wood}"/><line x1="30" y1="152" x2="30" y2="268" stroke="rgba(0,0,0,.18)" stroke-width="1.5"/>`
+   +`<rect x="126" y="24" width="30" height="30" rx="3" fill="${c.wood}"/><circle cx="141" cy="39" r="5" fill="${c.metal}"/>`
+   +`<rect x="304" y="24" width="30" height="30" rx="3" fill="${c.wood}"/><circle cx="319" cy="39" r="5" fill="${c.metal}"/>`
+   +`<rect x="160" y="20" width="140" height="12" rx="3" fill="${c.textile}"/>`
+   +`<rect x="166" y="30" width="128" height="160" rx="6" fill="#F2EFEA" stroke="rgba(0,0,0,.10)"/>`
+   +`<rect x="176" y="38" width="50" height="26" rx="7" fill="#FBFAF7" stroke="rgba(0,0,0,.06)"/><rect x="234" y="38" width="50" height="26" rx="7" fill="#FBFAF7" stroke="rgba(0,0,0,.06)"/>`
+   +`<rect x="166" y="150" width="128" height="40" rx="4" fill="${c.textile}" opacity=".85"/>`
+   +`<rect x="150" y="300" width="160" height="20" rx="3" fill="${c.wood}"/><rect x="196" y="316" width="68" height="5" rx="1" fill="#17171A"/><rect x="158" y="293" width="22" height="7" rx="1" fill="${c.textile}"/>`
+   +pot(422,300)+pot(120,300)+pot(430,150)
+   +lbl(230,116,'Кровать','middle','#4A463E')+lbl(230,289,'ТВ-зона')+lbl(30,286,'Шкаф','start')+lbl(408,112,'Окно')+lbl(74,316,'Вход')
+   +`</svg>`;
+}
+
+const VIZ_ORDER=['grey','olive','bordo'];
+const vizViews=[
+  {num:'Стена 1', title:'Изголовье', fn:vBed, note:'Кровать, две прикроватные тумбы с лампами, пара картин над изголовьем, акцентная стена.'},
+  {num:'Стена 2', title:'ТВ-зона', fn:vTv, note:'ТВ на акцентной нише, парящая полка, круглое зеркало, картина и растение.'},
+  {num:'Стена 3', title:'Окно', fn:vWin, note:'Рулонный блэкаут в цвете концепции, банкетка, торшер и высокое растение.'},
+  {num:'Стена 4', title:'Гардероб и вход', fn:vEntry, note:'Шкаф-купе, дверь, ростовое зеркало и зелень у входа.'},
+];
+function renderViz(k){
+  const c=VIZ[k];
+  document.getElementById('viz-caption').textContent = c.desc;
+  document.getElementById('viz-renders').innerHTML =
+    [['1','Спальня · вид на изголовье'],['2','ТВ-зона напротив кровати']].map(([n,cap])=>
+      `<figure class="viz-render" data-reveal-item><img loading="lazy" src="renders/${k}-${n}.jpg" alt="Фотореалистичный рендер спальни «${c.label}» — ${cap}"><figcaption>${cap}</figcaption></figure>`).join('');
+  document.getElementById('viz-plan').innerHTML = vPlan(c,k);
+  document.getElementById('viz-legend').innerHTML = [['accent','Акцентная стена'],['textile','Текстиль'],['wood','Дерево'],['plant','Зелень']].map(([key,lab])=>`<span><i style="background:${c[key]}"></i>${lab}</span>`).join('');
+  document.getElementById('viz-grid').innerHTML = vizViews.map(v=>`<div class="viz-scene" data-reveal-item>${v.fn(c,k)}<div class="vs-cap"><span class="num">${v.num}</span><b>${v.title}</b><span>${v.note}</span></div></div>`).join('');
+  document.querySelectorAll('#viz-tabs .viz-tab').forEach(b=>{ const on=b.dataset.k===k; b.classList.toggle('active',on); b.style.background = on?VIZ[k].accent:''; });
+  if(window.__revealObserve) window.__revealObserve();
+}
+document.getElementById('viz-tabs').innerHTML = VIZ_ORDER.map(k=>`<button class="viz-tab" data-k="${k}"><span class="vt-dot" style="background:${THEME[k]}"></span>${VIZ[k].label}</button>`).join('');
+document.getElementById('viz-tabs').addEventListener('click', e=>{ const b=e.target.closest('.viz-tab'); if(b) renderViz(b.dataset.k); });
+renderViz('grey');
+
+/* ---------- Надёжное появление при скролле (нативный IntersectionObserver) ---------- */
+(function(){
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const all = () => document.querySelectorAll('[data-reveal]:not(.in),[data-reveal-item]:not(.in)');
+  if(reduce || !('IntersectionObserver' in window)){
+    document.querySelectorAll('[data-reveal],[data-reveal-item]').forEach(e=>e.classList.add('in'));
+    window.__revealObserve = ()=>document.querySelectorAll('[data-reveal-item]').forEach(e=>e.classList.add('in'));
+    return;
+  }
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(en=>{ if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); } });
+  }, {rootMargin:'0px 0px -7% 0px', threshold:0.04});
+  window.__revealObserve = ()=>all().forEach(e=>io.observe(e));
+  window.__revealObserve();
+})();
+</script>
+
+<!-- Framer Motion (motion) — микро-взаимодействия и параллакс (прогрессивное улучшение) -->
+<script type="module">
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(!reduce){
+    try{
+      const { animate, scroll } = await import('https://cdn.jsdelivr.net/npm/motion@11/+esm');
+      // Параллакс цветных пятен hero — привязан к скроллу через motion scroll()
+      const bg = document.querySelector('.hero-bg');
+      if(bg){
+        scroll((p)=>{ bg.style.transform = `translateY(${p*90}px)`; },
+          { target: document.querySelector('.hero'), offset: ['start start','end start'] });
+      }
+      // Мягкое «дыхание» акцентных точек в hero при загрузке
+      const dots = document.querySelectorAll('.hero .swatch-dot');
+      if(dots.length){
+        animate(dots, {opacity:[0,1], scale:[0.6,1]},
+          {duration:.6, delay:(i)=>0.15*i, easing:[.34,1.56,.64,1]});
+      }
+    }catch(err){ /* motion — необязателен, страница уже видима через IO */ }
+  }
+</script>
+</body>
+</html>
