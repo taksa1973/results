@@ -136,6 +136,49 @@
   .tbl td .price{font-family:var(--mono); font-weight:600}
   .scroll-x{overflow-x:auto; -webkit-overflow-scrolling:touch}
 
+  /* ---------- cheat sheet ---------- */
+  .cheat-toolbar{display:flex; flex-wrap:wrap; gap:10px; align-items:center; margin:0 0 14px}
+  .cheat-toolbar .hint{font-size:13px; color:var(--muted); margin-right:auto; display:flex; align-items:center; gap:8px}
+  .cheat-toolbar .hint b{color:var(--ink); font-family:var(--mono)}
+  .btn{display:inline-flex; align-items:center; gap:7px; background:#fff; border:1px solid var(--line); border-radius:10px; padding:8px 14px; font-size:13.5px; font-weight:600; color:var(--ink); cursor:pointer; box-shadow:var(--shadow); transition:border-color .15s, background .15s}
+  .btn:hover{border-color:var(--blue); background:#f5faff}
+  .btn svg{width:15px; height:15px; stroke:var(--ink2); fill:none; stroke-width:2}
+  .check-wrap{background:var(--card); border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow); overflow:hidden}
+  .check-tbl{width:100%; border-collapse:collapse; font-size:13.5px; min-width:960px}
+  .check-tbl th{position:sticky; top:0; background:#f4f4f6; z-index:2; font-size:11.5px; text-transform:uppercase; letter-spacing:.03em; color:var(--muted); font-weight:600; padding:12px 12px; text-align:left; border-bottom:1px solid var(--line)}
+  .check-tbl td{padding:11px 12px; border-bottom:1px solid var(--line2); vertical-align:top}
+  .check-tbl tbody tr:last-child td{border-bottom:none}
+  .check-tbl tbody tr:hover{background:#fafbfd}
+  .check-tbl tr.done{background:#f3faf5}
+  .check-tbl tr.done td.c-name, .check-tbl tr.done td.c-who{opacity:.5; text-decoration:line-through}
+  .check-tbl td.c-chk{text-align:center; width:38px}
+  .chk{width:19px; height:19px; accent-color:var(--blue); cursor:pointer; vertical-align:middle}
+  .cnum{font-family:var(--mono); color:var(--muted); font-weight:600; width:34px}
+  .check-tbl .c-name b{font-weight:600}
+  .check-tbl .c-qty{white-space:nowrap; color:var(--ink2)}
+  .check-tbl .price{font-family:var(--mono); font-weight:600; white-space:nowrap}
+  .dtag{display:inline-block; font-size:11px; font-weight:600; padding:2px 9px; border-radius:100px; white-space:nowrap}
+  .dtag.l{background:var(--green-bg); color:var(--green)}
+  .dtag.b{background:#eaf1ff; color:#1a3b73}
+  .dtag.i{background:var(--amber-bg); color:var(--amber)}
+  .dtag.n{background:#eef0f2; color:var(--muted)}
+  .prio{display:inline-block; font-size:11px; font-weight:700; padding:3px 9px; border-radius:7px; white-space:nowrap}
+  .prio.p1{background:#e6f0fd; color:var(--blue-ink)}
+  .prio.now{background:var(--green-bg); color:var(--green)}
+  .prio.hold{background:#fbf1dc; color:var(--amber)}
+  .prio.stop{background:var(--red-bg); color:var(--red)}
+  .legend{display:flex; flex-wrap:wrap; gap:14px; margin:14px 2px 0; font-size:12.5px; color:var(--muted)}
+  .legend span{display:inline-flex; align-items:center; gap:6px}
+
+  @media print{
+    body{background:#fff; -webkit-print-color-adjust:exact; print-color-adjust:exact}
+    html.js-anim .reveal{opacity:1 !important; transform:none !important}
+    header.hero, .stages, .rules, .bento, .note, section .grid, .budget, footer, .cheat-toolbar .btn{display:none !important}
+    #cheat{display:block !important}
+    .check-tbl{min-width:0; font-size:11px}
+    .check-tbl th{position:static}
+  }
+
   /* ---------- budget ---------- */
   .budget{background:#111; color:#fff; border-radius:var(--radius); padding:30px; box-shadow:var(--shadow)}
   .budget h2{color:#fff; margin:0 0 18px; font-size:24px; letter-spacing:-.01em}
@@ -215,6 +258,90 @@
       <div class="bcard reveal"><div class="k"><span class="badge b-first"><span class="bd"></span>Импорт · заказать первой</span></div><div class="v">Оптика и фильтры<br><span>AmScope, eBay, Thorlabs, Chroma</span></div></div>
     </div>
     <div class="note info reveal"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/></svg><div><b>Бразильская таможня — отдельный риск.</b> Тяжёлые импортные пошлины и придирчивое оформление. Разделяйте заказы по поставщикам, заранее уточняйте у продавцов, отправляют ли они в Бразилию, и закладывайте дополнительное время и бюджет. Дешёвую мелочёвку (датчики, трубки, штуцеры, Пельтье, шлейфы) берите на месте или с AliExpress.</div></div>
+  </section>
+
+  <!-- CHEAT SHEET -->
+  <section id="cheat">
+    <div class="sec-head reveal">
+      <div class="sec-ico"><svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
+      <div><div class="sec-num">ШПАРГАЛКА</div><h2>Чек-лист заказа — всё на одном экране</h2></div>
+    </div>
+    <p class="sec-sub reveal">Одна таблица для закупки: что, сколько, у кого, почём, куда едет и в какую очередь заказывать. Отмечайте галочками — <b>отметки сохраняются в этом браузере</b>. Кнопка «Печать» выводит только таблицу.</p>
+
+    <div class="cheat-toolbar reveal">
+      <div class="hint"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>Заказано: <b id="cheat-count">0 / 26</b></div>
+      <button class="btn" id="cheat-print"><svg viewBox="0 0 24 24"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><path d="M6 14h12v8H6z"/></svg>Печать</button>
+      <button class="btn" id="cheat-reset"><svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg>Сбросить</button>
+    </div>
+
+    <div class="check-wrap reveal">
+      <div class="scroll-x">
+        <table class="check-tbl">
+          <thead>
+            <tr><th></th><th>№</th><th>Позиция</th><th>Кол-во</th><th>У кого заказать</th><th>Цена</th><th>Доставка</th><th>Очередь</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="c-chk"><input class="chk" type="checkbox" data-id="p"></td><td class="cnum">П</td><td class="c-name"><b>3D-печать пластика</b> (комплект STL)</td><td class="c-qty">1 компл.</td><td class="c-who"><a href="https://ranger3d.com.br/services/impressao-3d/" target="_blank" rel="noopener">Ranger 3D</a> / Koios (Рио)</td><td><span class="price">$50–200</span></td><td><span class="dtag l">Локально · Рио</span></td><td><span class="prio now">можно сразу</span></td></tr>
+
+            <tr><td class="c-chk"><input class="chk" type="checkbox" data-id="1"></td><td class="cnum">1</td><td class="c-name"><b>Набор OpenFlexure</b> (Sangaboard v5 + моторы + крепёж)</td><td class="c-qty">1 компл.</td><td class="c-who"><a href="https://labcrafter.co.uk/products/openflexure-microscope-assembly-kit" target="_blank" rel="noopener">LabCrafter</a> / TauLab</td><td><span class="price">$120–250</span></td><td><span class="dtag i">Импорт</span></td><td><span class="prio p1">1-я очередь</span></td></tr>
+
+            <tr><td class="c-chk"><input class="chk" type="checkbox" data-id="2"></td><td class="cnum">2</td><td class="c-name"><b>Камера HQ</b> IMX477 + переходник C→RMS</td><td class="c-qty">1 шт.</td><td class="c-who"><a href="https://www.amazon.com.br/Raspberry-Pi-HQ-sensibilidade-alternativa/dp/B08LHJR3K4" target="_blank" rel="noopener">Amazon.br</a> / AliExpress</td><td><span class="price">$60–120</span></td><td><span class="dtag b">Бразилия / имп.</span></td><td><span class="prio now">можно сразу</span></td></tr>
+
+            <tr><td class="c-chk"><input class="chk" type="checkbox" data-id="3"></td><td class="cnum">3</td><td class="c-name"><b>Шлейф камеры</b> 300–500 мм (+ переходник 22↔15 pin для Pi 5)</td><td class="c-qty">1 компл.</td><td class="c-who"><a href="https://www.adafruit.com/product/5819" target="_blank" rel="noopener">Adafruit</a> / офиц. RPi</td><td><span class="price">$15–40</span></td><td><span class="dtag i">Импорт</span></td><td><span class="prio now">можно сразу</span></td></tr>
+
+            <tr><td class="c-chk"><input class="chk" type="checkbox" data-id="4"></td><td class="cnum">4</td><td class="c-name"><b>Объектив 40×</b> RMS · 160/0.17 · NA 0.75</td><td class="c-qty">1 шт.</td><td class="c-who"><a href="https://amscope.com/products/pa40x-v300" target="_blank" rel="noopener">AmScope</a> / eBay (б/у)</td><td><span class="price">$200–450</span></td><td><span class="dtag i">Импорт</span></td><td><span class="prio p1">1-я очередь</span></td></tr>
+
+            <tr><td class="c-chk"><input class="chk" type="checkbox" data-id="5"></td><td class="cnum">5</td><td class="c-name"><b>Ахроматический дублет</b> (линза модуля)</td><td class="c-qty">1 шт.</td><td class="c-who"><a href="https://www.thorlabs.com/thorproduct.cfm?partnumber=AC254-050-A" target="_blank" rel="noopener">Thorlabs</a> / AliExpress</td><td><span class="price">$20–60</span></td><td><span class="dtag i">Импорт</span></td><td><span class="prio p1">1-я очередь</span></td></tr>
+
+            <tr><td class="c-chk"><input class="chk" type="checkbox" data-id="6"></td><td class="cnum">6</td><td class="c-name"><b>Фильтры GFP</b> (зелёный канал)</td><td class="c-qty">1 компл.</td><td class="c-who"><a href="https://microscopecentral.com/products/chroma-49002-et-egfp-fitc-cy2-fluorescence-filter-set" target="_blank" rel="noopener">Chroma 49002</a> / AliExpress</td><td><span class="price">$150–350</span></td><td><span class="dtag i">Импорт</span></td><td><span class="prio p1">1-я очередь</span></td></tr>
+
+            <tr><td class="c-chk"><input class="chk" type="checkbox" data-id="7"></td><td class="cnum">7</td><td class="c-name"><b>Фильтры RFP</b> (красный канал)</td><td class="c-qty">1 компл.</td><td class="c-who"><a href="https://microscopecentral.com/products/chroma-49005-et-dsred-cy3-tritc-fluorescence-filter-set" target="_blank" rel="noopener">Chroma 49005</a> / AliExpress</td><td><span class="price">$150–350</span></td><td><span class="dtag i">Импорт</span></td><td><span class="prio p1">1-я очередь</span></td></tr>
+
+            <tr><td class="c-chk"><input class="chk" type="checkbox" data-id="8"></td><td class="cnum">8</td><td class="c-name"><b>LED 470 нм</b> (синий) + драйвер пост. тока</td><td class="c-qty">1 компл.</td><td class="c-who"><a href="https://www.thorlabs.com/item/M470L4" target="_blank" rel="noopener">Thorlabs</a> / Chanzon</td><td><span class="price">$40–120</span></td><td><span class="dtag i">Импорт</span></td><td><span class="prio p1">1-я очередь</span></td></tr>
+
+            <tr><td class="c-chk"><input class="chk" type="checkbox" data-id="9"></td><td class="cnum">9</td><td class="c-name"><b>LED 530–560 нм</b> (зелёный) + драйвер</td><td class="c-qty">1 компл.</td><td class="c-who"><a href="https://www.thorlabs.com/thorproduct.cfm?partnumber=M565L3" target="_blank" rel="noopener">Thorlabs</a> / Chanzon</td><td><span class="price">$40–120</span></td><td><span class="dtag i">Импорт</span></td><td><span class="prio p1">1-я очередь</span></td></tr>
+
+            <tr><td class="c-chk"><input class="chk" type="checkbox" data-id="10"></td><td class="cnum">10</td><td class="c-name"><b>LED brightfield</b> (белый + диффузор)</td><td class="c-qty">1 компл.</td><td class="c-who">обычно <b>в наборе OpenFlexure</b></td><td><span class="price">$0–30</span></td><td><span class="dtag n">—</span></td><td><span class="prio hold">проверить в наборе</span></td></tr>
+
+            <tr><td class="c-chk"><input class="chk" type="checkbox" data-id="11"></td><td class="cnum">11</td><td class="c-name"><b>Raspberry Pi 5</b> 8 ГБ + БП 27 Вт + microSD 64</td><td class="c-qty">1 компл.</td><td class="c-who"><a href="https://www.mercadolivre.com.br/raspberry-pi-5-modelo-b-8gb/p/MLB32625223" target="_blank" rel="noopener">Mercado Livre</a> / RoboCore</td><td><span class="price">$110–170</span></td><td><span class="dtag b">Бразилия</span></td><td><span class="prio now">можно сразу</span></td></tr>
+
+            <tr><td class="c-chk"><input class="chk" type="checkbox" data-id="12"></td><td class="cnum">12</td><td class="c-name"><b>SSD 1 ТБ</b> USB 3.0 внешний</td><td class="c-qty">1 шт.</td><td class="c-who"><a href="https://www.amazon.com.br/SanDisk-SSD-port%C3%A1til-TB-SDSSDE30-1T00-G26/dp/B0C5JQ68FY" target="_blank" rel="noopener">Amazon.br</a></td><td><span class="price">$70–110</span></td><td><span class="dtag b">Бразилия</span></td><td><span class="prio now">можно сразу</span></td></tr>
+
+            <tr><td class="c-chk"><input class="chk" type="checkbox" data-id="13"></td><td class="cnum">13</td><td class="c-name"><b>Корпус Pi 5</b> + радиатор</td><td class="c-qty">1 шт.</td><td class="c-who"><a href="https://www.robocore.net/acessorios-raspberry-pi/case-para-raspberry-pi-5-com-cooler-branco" target="_blank" rel="noopener">RoboCore</a> / Amazon.br</td><td><span class="price">$15–30</span></td><td><span class="dtag b">Бразилия</span></td><td><span class="prio now">можно сразу</span></td></tr>
+
+            <tr><td class="c-chk"><input class="chk" type="checkbox" data-id="14"></td><td class="cnum">14</td><td class="c-name"><b>Герметичный бокс</b> (акрил, лазер)</td><td class="c-qty">1 шт.</td><td class="c-who"><a href="https://www.corteshow.com/" target="_blank" rel="noopener">Corteshow</a> (Рио)</td><td><span class="price">$150–400</span></td><td><span class="dtag l">Локально · Рио</span></td><td><span class="prio hold">после сборки</span></td></tr>
+
+            <tr><td class="c-chk"><input class="chk" type="checkbox" data-id="15"></td><td class="cnum">15</td><td class="c-name"><b>Датчик CO₂ 0–20 %</b> SprintIR-6S-20 <span style="color:var(--red)">(не SCD30)</span></td><td class="c-qty">1 шт.</td><td class="c-who"><a href="https://www.co2meter.com/products/sprintir6s-20-co2-smart-sensor" target="_blank" rel="noopener">CO2Meter</a> / DigiKey</td><td><span class="price">$197–318</span></td><td><span class="dtag i">Импорт</span></td><td><span class="prio now">можно сразу</span></td></tr>
+
+            <tr><td class="c-chk"><input class="chk" type="checkbox" data-id="16"></td><td class="cnum">16</td><td class="c-name"><b>Датчик темп./влаж.</b> SHT31 / BME280</td><td class="c-qty">2 шт.</td><td class="c-who"><a href="https://www.usinainfo.com.br/sensor-de-pressao/sensor-de-pressao-umidade-e-temperatura-bme280-de-alta-precisao-33v-4682.html" target="_blank" rel="noopener">Usinainfo</a> / Saravati</td><td><span class="price">$15–30</span></td><td><span class="dtag b">Бразилия</span></td><td><span class="prio now">можно сразу</span></td></tr>
+
+            <tr><td class="c-chk"><input class="chk" type="checkbox" data-id="17"></td><td class="cnum">17</td><td class="c-name"><b>Нагрев</b>: Пельтье ×2 + ПИД ITC-100VH + SSR <span style="color:var(--red)">(не W1209/ITC-308)</span></td><td class="c-qty">1 компл.</td><td class="c-who"><a href="https://www.mercadolivre.com.br/inkbird-itc-100vh-pid-thermostat-controller-100-240v-k-type/p/MLB2051313350" target="_blank" rel="noopener">Mercado Livre</a></td><td><span class="price">$80–150</span></td><td><span class="dtag b">Бразилия</span></td><td><span class="prio now">можно сразу</span></td></tr>
+
+            <tr><td class="c-chk"><input class="chk" type="checkbox" data-id="18"></td><td class="cnum">18</td><td class="c-name"><b>Подача CO₂</b>: баллон + редуктор + клапан 12 В + игла</td><td class="c-qty">1 компл.</td><td class="c-who"><a href="https://www.amazon.com.br/dp/B0DCBH4KQ8" target="_blank" rel="noopener">Amazon.br</a> (аквариумистика)</td><td><span class="price">$70–140</span></td><td><span class="dtag b">Бразилия</span></td><td><span class="prio now">можно сразу</span></td></tr>
+
+            <tr><td class="c-chk"><input class="chk" type="checkbox" data-id="19"></td><td class="cnum">19</td><td class="c-name"><b>Гермовводы</b> M16/M20 IP68</td><td class="c-qty">3 шт.</td><td class="c-who"><a href="https://cetti.com.br/p/prensa-cabo-m20-metalico-ip68/" target="_blank" rel="noopener">Cetti</a></td><td><span class="price">$10–20</span></td><td><span class="dtag b">Бразилия</span></td><td><span class="prio now">можно сразу</span></td></tr>
+
+            <tr><td class="c-chk"><input class="chk" type="checkbox" data-id="20"></td><td class="cnum">20</td><td class="c-name"><b>Расходники</b>: силикон нейтр., трубка 4 мм, штуцеры, лоток <span style="color:var(--red)">(не кислотный)</span></td><td class="c-qty">компл.</td><td class="c-who"><a href="https://www.impermarket.com.br/selante-de-silicone-neutro-resistente-a-intemperies-dowsil-791-preto-300ml-3699/p" target="_blank" rel="noopener">DowSil</a> / ML</td><td><span class="price">$25–50</span></td><td><span class="dtag b">Бразилия</span></td><td><span class="prio now">можно сразу</span></td></tr>
+
+            <tr><td class="c-chk"><input class="chk" type="checkbox" data-id="21"></td><td class="cnum">21</td><td class="c-name"><b>Антивибро-опоры</b> + датчик протечки</td><td class="c-qty">компл.</td><td class="c-who"><a href="https://www.amazon.com.br/Nivelador-Amortecedor-Vibra-Stop-Maquina-Borracha/dp/B0BS1RWDCP" target="_blank" rel="noopener">Amazon.br</a> / ML</td><td><span class="price">$15–30</span></td><td><span class="dtag b">Бразилия</span></td><td><span class="prio now">можно сразу</span></td></tr>
+
+            <tr><td class="c-chk"><input class="chk" type="checkbox" data-id="22"></td><td class="cnum">22</td><td class="c-name"><b>Клетки этап 1</b> U2OS / HeLa / NIH-3T3</td><td class="c-qty">1</td><td class="c-who"><a href="https://bcrj.org.br/celula/u-2-os" target="_blank" rel="noopener">BCRJ</a> (Рио, RJ)</td><td><span class="price">$100–300</span></td><td><span class="dtag l">Локально · RJ</span></td><td><span class="prio now">можно сразу</span></td></tr>
+
+            <tr><td class="c-chk"><input class="chk" type="checkbox" data-id="23"></td><td class="cnum">23</td><td class="c-name"><b>Среда, FBS, антибиотики, трипсин</b></td><td class="c-qty">1</td><td class="c-who"><a href="http://www.cultilab.com.br/" target="_blank" rel="noopener">Cultilab</a> / LGC / Prolab</td><td><span class="price">$200–400</span></td><td><span class="dtag b">Бразилия</span></td><td><span class="prio hold">заказывает лаба</span></td></tr>
+
+            <tr><td class="c-chk"><input class="chk" type="checkbox" data-id="24"></td><td class="cnum">24</td><td class="c-name"><b>Чашки со стекл. дном</b> 35 мм · #1.5</td><td class="c-qty">1</td><td class="c-who"><a href="https://www.cellvis.com/_35-mm-glass-bottom-dish-with-20-mm-micro-well-number-1.5-cover-glass_/product_detail.php?product_id=17" target="_blank" rel="noopener">Cellvis</a> / Induslab</td><td><span class="price">$100–200</span></td><td><span class="dtag b">Бразилия / имп.</span></td><td><span class="prio now">можно сразу</span></td></tr>
+
+            <tr><td class="c-chk"><input class="chk" type="checkbox" data-id="25"></td><td class="cnum">25</td><td class="c-name"><b>Клетки с метками</b> (этап 2, центриоли)</td><td class="c-qty">2</td><td class="c-who">по лаборатории</td><td><span class="price">уточнить</span></td><td><span class="dtag n">—</span></td><td><span class="prio stop">заморожено</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="legend reveal">
+      <span><span class="prio p1">1-я очередь</span> импорт с долгой доставкой — оптика и набор</span>
+      <span><span class="prio now">можно сразу</span> не блокирует ничего</span>
+      <span><span class="prio hold">позже</span> зависит от сборки/лаборатории</span>
+      <span><span class="prio stop">заморожено</span> до подтверждения лаборатории</span>
+    </div>
   </section>
 
   <!-- BLOCK 01 · 3D PRINT -->
@@ -828,6 +955,27 @@
       }
     }
   }catch(e){ /* CDN недоступен — hero уже виден */ }
+</script>
+<!-- Cheat sheet: галочки сохраняются в браузере -->
+<script>
+(function(){
+  var KEY='argus_cheat_v1', state={};
+  try{ state=JSON.parse(localStorage.getItem(KEY)||'{}'); }catch(e){}
+  var boxes=[].slice.call(document.querySelectorAll('.check-tbl input.chk'));
+  function save(){ try{ localStorage.setItem(KEY, JSON.stringify(state)); }catch(e){} }
+  function count(){ var d=0; boxes.forEach(function(b){ if(b.checked) d++; }); var el=document.getElementById('cheat-count'); if(el) el.textContent=d+' / '+boxes.length; }
+  boxes.forEach(function(b){
+    var id=b.getAttribute('data-id'), tr=b.closest('tr');
+    if(state[id]){ b.checked=true; tr.classList.add('done'); }
+    b.addEventListener('change',function(){ state[id]=b.checked; tr.classList.toggle('done', b.checked); save(); count(); });
+  });
+  var p=document.getElementById('cheat-print'); if(p) p.addEventListener('click',function(){ window.print(); });
+  var r=document.getElementById('cheat-reset'); if(r) r.addEventListener('click',function(){
+    boxes.forEach(function(b){ b.checked=false; b.closest('tr').classList.remove('done'); });
+    state={}; try{ localStorage.removeItem(KEY); }catch(e){} count();
+  });
+  count();
+})();
 </script>
 </body>
 </html>
