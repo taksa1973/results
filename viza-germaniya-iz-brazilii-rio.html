@@ -150,9 +150,22 @@
   footer{padding:44px 0 60px;text-align:center;border-top:1px solid var(--line);margin-top:30px}
   footer p{color:var(--ink-3);font-size:13px;max-width:640px;margin:0 auto 8px}
 
-  .reveal{opacity:0;transform:translateY(24px)}
-  @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none}}
+  /* Контент виден ПО УМОЛЧАНИЮ. Прячем для анимации только если JS подтвердил готовность (.js-anim). */
+  .reveal{opacity:1;transform:none}
+  .js-anim .reveal{opacity:0;transform:translateY(24px)}
+  @media(prefers-reduced-motion:reduce){.js-anim .reveal{opacity:1;transform:none}}
 </style>
+<script>
+  /* Включаем «спрятать для анимации» только если JS работает и движение не отключено.
+     Если этот скрипт не выполнится — весь контент останется видимым по умолчанию. */
+  (function(){
+    try{
+      if(!window.matchMedia || !window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+        document.documentElement.classList.add('js-anim');
+      }
+    }catch(e){}
+  })();
+</script>
 </head>
 <body>
 
@@ -501,28 +514,51 @@
   <p>Составлено на основе официальных данных МИД Германии (diplo.de / auswaertiges-amt.de).</p>
 </footer>
 
+<!-- Надёжный показ: контент оживает через Framer Motion; если CDN недоступен — нативный IntersectionObserver; если и он не сработал — жёсткий тайм-аут всё покажет. -->
+<script>
+  // Показать элемент(ы) без анимации — аварийный путь.
+  window.__showAll = function(){
+    document.querySelectorAll(".reveal").forEach(function(el){ el.style.opacity=1; el.style.transform="none"; });
+  };
+  // Нативное появление при скролле (не зависит ни от какого CDN).
+  window.__nativeReveal = function(){
+    if(window.__nativeDone) return; window.__nativeDone = true;
+    var els = document.querySelectorAll(".reveal");
+    if(!("IntersectionObserver" in window)){ window.__showAll(); return; }
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){
+          en.target.style.transition = "opacity .6s cubic-bezier(.2,.7,.2,1), transform .6s cubic-bezier(.2,.7,.2,1)";
+          en.target.style.opacity = 1; en.target.style.transform = "none";
+          io.unobserve(en.target);
+        }
+      });
+    }, { rootMargin: "0px 0px -8% 0px" });
+    els.forEach(function(el){ io.observe(el); });
+  };
+
+  // Если через 1200мс Framer Motion не поднялся — включаем нативный fallback.
+  setTimeout(function(){ if(!window.__motionReady && !window.__nativeDone){ window.__nativeReveal(); } }, 1200);
+  // Финальная страховка: что бы ни случилось, через 3000мс весь контент виден.
+  setTimeout(function(){
+    document.querySelectorAll(".reveal").forEach(function(el){
+      if(getComputedStyle(el).opacity === "0"){ el.style.opacity=1; el.style.transform="none"; }
+    });
+  }, 3000);
+</script>
 <script type="module">
-  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if(!reduce){
+  if(document.documentElement.classList.contains("js-anim")){
     try{
       const { animate, inView, stagger } = await import("https://cdn.jsdelivr.net/npm/motion@11/+esm");
-      // Плавное появление секций/карточек при скролле
+      window.__motionReady = true;
+      // Плавное появление секций и карточек при скролле.
       inView(".reveal", (el) => {
         animate(el, { opacity:[0,1], y:[24,0] }, { duration:0.6, easing:[0.2,0.7,0.2,1] });
       }, { margin:"0px 0px -10% 0px" });
-
-      // Лёгкий stagger для сеток карточек
-      document.querySelectorAll(".grid").forEach((grid)=>{
-        inView(grid, ()=>{
-          const cards = grid.querySelectorAll(".card, .callout");
-          animate(cards, { opacity:[0,1], y:[18,0] }, { delay: stagger(0.06), duration:0.5, easing:[0.2,0.7,0.2,1] });
-        }, { margin:"0px 0px -12% 0px" });
-      });
     }catch(e){
-      document.querySelectorAll(".reveal").forEach(el=>{el.style.opacity=1;el.style.transform="none";});
+      // CDN недоступен — переходим на нативный механизм.
+      window.__nativeReveal();
     }
-  } else {
-    document.querySelectorAll(".reveal").forEach(el=>{el.style.opacity=1;el.style.transform="none";});
   }
 </script>
 </body>
