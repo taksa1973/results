@@ -1,0 +1,618 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Как посадить сотрудника на удалённый Mac — гайд 2026</title>
+<meta name="description" content="Гайд для работодателя: как безопасно дать сотруднику удалённый Mac. Аренда облачного Mac mini vs покупка своего с расчётом окупаемости, реальные цены 2026, команды macOS, безопасность через FileVault, MDM, Apple Business Manager и Tailscale.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%96%A5%EF%B8%8F%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F5F5F7; --surface:#FFFFFF; --ink:#1D1D1F; --ink-2:#424245; --ink-3:#6E6E73;
+    --line:#E3E3E6; --line-2:#D2D2D7;
+    --blue:#0071E3; --blue-ink:#0058b3; --blue-tint:#EAF3FE;
+    --green:#1D8F4E; --green-tint:#E7F5EC;
+    --amber:#9A6400; --amber-tint:#FBF1DE;
+    --red:#C7362B; --red-tint:#FBEAE8;
+    --purple:#6E56CF; --purple-tint:#EEEAFB;
+    --radius:20px; --radius-sm:14px; --radius-xs:10px;
+    --shadow:0 1px 2px rgba(0,0,0,.04),0 8px 30px rgba(0,0,0,.06);
+    --shadow-hover:0 2px 6px rgba(0,0,0,.06),0 18px 50px rgba(0,0,0,.12);
+    --maxw:1120px; --mono:"JetBrains Mono",ui-monospace,"SF Mono",Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.6;-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+  a{color:var(--blue);text-decoration:none}
+  a:hover{text-decoration:underline}
+  h1,h2,h3{letter-spacing:-.02em;line-height:1.12;margin:0}
+  .eyebrow{font-size:13px;font-weight:600;letter-spacing:.04em;color:var(--blue);text-transform:uppercase}
+  .muted{color:var(--ink-3)}
+  .tabnum{font-variant-numeric:tabular-nums}
+
+  .nav{position:sticky;top:0;z-index:100;background:rgba(245,245,247,.72);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);border-bottom:1px solid var(--line)}
+  .nav .wrap{display:flex;align-items:center;justify-content:space-between;height:52px;gap:16px}
+  .nav .brand{font-weight:600;font-size:15px;color:var(--ink);white-space:nowrap}
+  .nav .links{display:flex;gap:22px;font-size:14px;flex-wrap:wrap}
+  .nav .links a{color:var(--ink-2)}
+  .nav .links a.cta{color:var(--blue);font-weight:600}
+  @media(max-width:820px){.nav .links{display:none}}
+
+  .hero{padding:84px 0 36px;text-align:center}
+  .hero .eyebrow{margin-bottom:16px;display:inline-block}
+  .hero h1{font-size:clamp(33px,6vw,58px);font-weight:700}
+  .hero p.lead{font-size:clamp(17px,2.4vw,21px);color:var(--ink-2);max-width:740px;margin:20px auto 0}
+  .hero .meta{margin-top:28px;display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+  .pill{display:inline-flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--line);
+    border-radius:999px;padding:8px 15px;font-size:13.5px;font-weight:500;color:var(--ink-2);box-shadow:var(--shadow)}
+  .pill svg{width:16px;height:16px;stroke:var(--blue);fill:none;stroke-width:1.9}
+
+  section{padding:46px 0}
+  .sec-head{margin-bottom:28px;max-width:780px}
+  .sec-head .eyebrow{display:block;margin-bottom:12px}
+  .sec-head h2{font-size:clamp(25px,4vw,36px);font-weight:700}
+  .sec-head p{color:var(--ink-2);font-size:17px;margin:12px 0 0}
+
+  .bento{display:grid;grid-template-columns:repeat(12,1fr);gap:18px}
+  .card{grid-column:span 6;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:26px;box-shadow:var(--shadow);transition:transform .25s cubic-bezier(.2,.7,.3,1),box-shadow .25s}
+  .card:hover{transform:translateY(-3px);box-shadow:var(--shadow-hover)}
+  .card.rec{border-color:var(--green);box-shadow:0 0 0 1px var(--green),var(--shadow)}
+  .card h3{font-size:20px;font-weight:600;margin-bottom:8px;display:flex;align-items:center;gap:10px}
+  .card .tag{font-size:11.5px;font-weight:600;padding:3px 9px;border-radius:999px;background:var(--green-tint);color:var(--green)}
+  .card p{margin:0;color:var(--ink-2);font-size:15px}
+  .card ul{margin:12px 0 0;padding-left:0;list-style:none}
+  .card ul li{position:relative;padding-left:24px;margin:8px 0;font-size:14.5px;color:var(--ink-2)}
+  .card ul li::before{content:"";position:absolute;left:2px;top:8px;width:8px;height:8px;border-radius:50%;background:var(--blue)}
+  .card.rec ul li::before{background:var(--green)}
+  @media(max-width:860px){.card{grid-column:span 12}}
+
+  .ico{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;margin-bottom:16px;background:var(--blue-tint)}
+  .ico svg{width:23px;height:23px;stroke:var(--blue);fill:none;stroke-width:1.8}
+  .ico.green{background:var(--green-tint)} .ico.green svg{stroke:var(--green)}
+  .ico.amber{background:var(--amber-tint)} .ico.amber svg{stroke:var(--amber)}
+  .ico.purple{background:var(--purple-tint)} .ico.purple svg{stroke:var(--purple)}
+
+  .stat{background:linear-gradient(120deg,#1D8F4E,#137a41);border-radius:var(--radius);padding:30px;color:#fff;display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:20px}
+  @media(max-width:760px){.stat{grid-template-columns:1fr;gap:16px}}
+  .stat .s .n{font-size:30px;font-weight:700;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+  .stat .s .l{font-size:14px;color:rgba(255,255,255,.85);margin-top:4px}
+
+  .tbl-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface);box-shadow:var(--shadow)}
+  table{width:100%;border-collapse:collapse;min-width:760px;font-size:14px}
+  thead th{background:#FAFAFC;text-align:left;font-weight:600;color:var(--ink-2);padding:14px 16px;border-bottom:1px solid var(--line)}
+  tbody td{padding:14px 16px;border-bottom:1px solid var(--line);vertical-align:top}
+  tbody tr:last-child td{border-bottom:none}
+  tbody tr:hover{background:#FAFBFD}
+  tbody tr.hl{background:#F1FAF4}
+  tbody tr.hl:hover{background:#EAF6EE}
+  .subrow td{background:#F0F4F9;font-weight:600;color:var(--ink);font-size:13px;letter-spacing:.02em}
+  .badge{display:inline-block;font-size:11.5px;font-weight:600;padding:3px 9px;border-radius:999px;white-space:nowrap}
+  .badge.best{background:var(--green-tint);color:var(--green)}
+  .badge.warn{background:var(--amber-tint);color:var(--amber)}
+  .badge.info{background:var(--blue-tint);color:var(--blue-ink)}
+  .badge.no{background:var(--red-tint);color:var(--red)}
+  .stars{color:var(--blue);font-weight:600;font-variant-numeric:tabular-nums;white-space:nowrap}
+  .price{font-variant-numeric:tabular-nums;font-weight:600;color:var(--ink)}
+
+  .tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  @media(max-width:860px){.tiers{grid-template-columns:1fr}}
+  .tier{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:26px;box-shadow:var(--shadow);position:relative;transition:transform .25s,box-shadow .25s}
+  .tier:hover{transform:translateY(-3px);box-shadow:var(--shadow-hover)}
+  .tier.featured{border-color:var(--green);box-shadow:0 0 0 1px var(--green),var(--shadow)}
+  .tier .tag{position:absolute;top:-11px;left:26px;background:var(--green);color:#fff;font-size:11.5px;font-weight:600;padding:4px 11px;border-radius:999px}
+  .tier h3{font-size:19px;font-weight:600}
+  .tier .cost{font-size:20px;font-weight:700;margin:10px 0 14px;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+  .tier p{font-size:14.5px;color:var(--ink-2);margin:0 0 12px}
+  .tier .for{font-size:13.5px;color:var(--ink-3);border-top:1px solid var(--line);padding-top:12px}
+
+  .steps{position:relative;margin-top:8px}
+  .steps::before{content:"";position:absolute;left:19px;top:10px;bottom:10px;width:2px;background:var(--line-2)}
+  .step{position:relative;padding-left:60px;padding-bottom:30px}
+  .step:last-child{padding-bottom:0}
+  .step .dot{position:absolute;left:0;top:0;width:40px;height:40px;border-radius:50%;background:var(--blue);color:#fff;
+    display:grid;place-items:center;font-weight:700;font-size:16px;box-shadow:0 4px 12px rgba(0,113,227,.35)}
+  .step h3{font-size:19px;font-weight:600;margin-bottom:7px}
+  .step>p{color:var(--ink-2);margin:0 0 12px;font-size:15px}
+
+  .code{background:#1C1C1E;border-radius:var(--radius-sm);overflow:hidden;margin:12px 0;border:1px solid #2C2C2E}
+  .code .bar{display:flex;align-items:center;justify-content:space-between;padding:9px 14px;background:#232326;border-bottom:1px solid #2C2C2E}
+  .code .bar .t{font-size:12px;color:#9A9AA0;font-family:var(--mono)}
+  .code .bar button{background:#333338;color:#E5E5EA;border:none;border-radius:7px;padding:5px 11px;font-size:12px;cursor:pointer;transition:background .15s;font-weight:500}
+  .code .bar button:hover{background:#43434a}
+  .code pre{margin:0;padding:14px 16px;overflow-x:auto}
+  .code code{font-family:var(--mono);font-size:12.5px;line-height:1.75;color:#E5E5EA;white-space:pre}
+  .code .c{color:#7ecb8f} .code .k{color:#79b8ff}
+
+  .checklist{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+  .checklist.two{grid-template-columns:1fr 1fr}
+  @media(max-width:820px){.checklist.two{grid-template-columns:1fr}}
+  .checklist li{display:flex;gap:13px;align-items:flex-start;background:var(--surface);border:1px solid var(--line);
+    border-radius:var(--radius-sm);padding:15px 17px;box-shadow:var(--shadow);font-size:14.5px;color:var(--ink-2)}
+  .checklist .ck{flex:0 0 22px;width:22px;height:22px;border-radius:50%;background:var(--green-tint);display:grid;place-items:center;margin-top:1px}
+  .checklist .ck svg{width:13px;height:13px;stroke:var(--green);stroke-width:2.8;fill:none}
+  .checklist.off .ck{background:var(--blue-tint)} .checklist.off .ck svg{stroke:var(--blue)}
+  .checklist b{font-weight:600;color:var(--ink)}
+
+  .callout{border-radius:var(--radius-sm);padding:16px 18px;display:flex;gap:12px;margin:16px 0;font-size:14.5px;align-items:flex-start}
+  .callout.tip{background:var(--blue-tint);color:#0a3f74}
+  .callout.warn{background:var(--amber-tint);color:#6b4500}
+  .callout.danger{background:var(--red-tint);color:#8a251d}
+  .callout svg{flex:0 0 20px;width:20px;height:20px;margin-top:1px;fill:none;stroke-width:1.9}
+  .callout b{font-weight:600}
+
+  .pitfalls{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:820px){.pitfalls{grid-template-columns:1fr}}
+  .pitfall{background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--amber);border-radius:var(--radius-sm);padding:15px 17px;font-size:14.5px;color:var(--ink-2);box-shadow:var(--shadow)}
+
+  .tools{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  @media(max-width:860px){.tools{grid-template-columns:1fr}}
+  .tool{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-sm);padding:18px;box-shadow:var(--shadow)}
+  .tool .th{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:6px}
+  .tool h4{margin:0;font-size:15.5px;font-weight:600}
+  .tool p{margin:0;font-size:13.5px;color:var(--ink-2)}
+
+  .crosslink{background:linear-gradient(120deg,#0071E3,#0a5bd0);border-radius:var(--radius);padding:32px;color:#fff;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+  .crosslink h3{font-size:22px;font-weight:600;margin:0 0 6px}
+  .crosslink p{margin:0;color:rgba(255,255,255,.85);font-size:15px}
+  .crosslink a.btn{background:#fff;color:var(--blue);font-weight:600;padding:12px 22px;border-radius:999px;white-space:nowrap;font-size:15px}
+  .crosslink a.btn:hover{text-decoration:none;opacity:.92}
+
+  footer{border-top:1px solid var(--line);padding:38px 0;color:var(--ink-3);font-size:13.5px;text-align:center;line-height:1.7}
+
+  .reveal{opacity:0;transform:translateY(20px)}
+  @media(prefers-reduced-motion:reduce){.reveal{opacity:1 !important;transform:none !important}}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wrap">
+    <span class="brand">Удалённый Mac для сотрудника · 2026</span>
+    <div class="links">
+      <a href="#decision">Аренда vs своё</a>
+      <a href="#providers">Провайдеры</a>
+      <a href="#tiers">Бюджет</a>
+      <a href="#steps">Пошагово</a>
+      <a href="#security">Безопасность</a>
+      <a href="vps-onboarding-sotrudnika.html" class="cta">→ Гайд по VPS</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="eyebrow reveal">Инструкция для работодателя</span>
+    <h1 class="reveal">Как посадить сотрудника<br>на удалённый Mac</h1>
+    <p class="lead reveal">Дать одному сотруднику удалённый macOS — для iOS/macOS-разработки, дизайна, работы в Apple-экосистеме. Разберём главную развилку: <b>арендовать облачный Mac mini или купить свой</b> — с расчётом окупаемости, реальными ценами 2026 и командами macOS. Безопасно: отдельная учётка, FileVault, MDM, управляемый Apple ID.</p>
+    <div class="meta">
+      <span class="pill reveal"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="13" rx="1.5"/><path d="M3 9h18M7 21h10"/></svg>Аренда vs свой Mac</span>
+      <span class="pill reveal"><svg viewBox="0 0 24 24"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6z"/></svg>FileVault · MDM · Apple ID</span>
+      <span class="pill reveal"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v10M9 10h4.5a2 2 0 010 4H9"/></svg>Окупаемость 4–8 месяцев</span>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- РАЗВИЛКА -->
+<section id="decision">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Главное решение</span>
+      <h2>Арендовать или купить свой Mac?</h2>
+      <p>Ответ зависит от срока и сценария. Для одного сотрудника, работающего постоянно и надолго, покупка выгоднее в разы. Аренда — для коротких проектов, CI-ферм и когда нужен зарубежный IP для App&nbsp;Store.</p>
+    </div>
+    <div class="bento">
+      <div class="card rec reveal">
+        <h3><span class="tag">Рекомендуется</span> Купить свой Mac mini M4</h3>
+        <p>Разовая покупка ~56&nbsp;690&nbsp;₽ (M4, 16/256, оплата рублями в РФ), дальше почти бесплатно — электричество ~50–150&nbsp;₽/мес. Удалёнка бесплатная: Tailscale + встроенный Screen&nbsp;Sharing или RustDesk.</p>
+        <ul>
+          <li>Нативный M4 без виртуализации и лимитов — максимум за рубль</li>
+          <li>Полный контроль над Xcode, версиями macOS и сертификатами подписи</li>
+          <li>Разовая оплата рублями — без валютных рисков и блокировок карт</li>
+          <li><b>Когда:</b> один сотрудник, одна машина, 6+ месяцев</li>
+        </ul>
+      </div>
+      <div class="card reveal">
+        <h3>Арендовать облачный Mac</h3>
+        <p>Scaleway (€149/мес или €0.22/ч), MyRemoteMac ($85/мес), из РФ рублями — RentAMac.ru (~4&nbsp;290&nbsp;₽/мес) или Selectel (Tier&nbsp;III, документы для юрлица). Платишь только пока проект идёт.</p>
+        <ul>
+          <li>Нет CapEx и ответственности за железо (гарантия, ремонт)</li>
+          <li>Burst-нагрузки, CI-фермы, параллельные машины, SLA дата-центра</li>
+          <li>Разные регионы и чистый зарубежный IP для App Store Connect</li>
+          <li><b>Когда:</b> срок &lt; 4–8 мес или нужны CI/SLA/зарубежный IP</li>
+        </ul>
+      </div>
+    </div>
+    <div class="stat reveal">
+      <div class="s"><div class="n">4–8 мес</div><div class="l">окупаемость своего Mac mini M4 против аренды</div></div>
+      <div class="s"><div class="n">~59 000 ₽</div><div class="l">владение за 2 года (покупка + электричество)</div></div>
+      <div class="s"><div class="n">170–320 тыс ₽</div><div class="l">аренда за те же 2 года</div></div>
+    </div>
+    <div class="callout warn reveal">
+      <svg viewBox="0 0 24 24" stroke="#6b4500"><path d="M12 3l9 16H3z"/><path d="M12 10v4M12 17h.01"/></svg>
+      <div><b>AWS EC2 Mac для одного сотрудника — переплата.</b> ~$885/мес за M4, жёсткий минимум 24 часа, биллинг идёт даже при остановленном инстансе + скрытые расходы на диск и трафик. Это инструмент для энтерпрайза с уже развёрнутым AWS и CI-фермами, а не для одного человека.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ПРОВАЙДЕРЫ -->
+<section id="providers">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Цена / качество</span>
+      <h2>Сравнение вариантов удалённого Mac</h2>
+      <p>Отобраны по соотношению цена/качество на 23.07.2026. Ключевой момент для РФ: напрямую картами РФ платят только российские провайдеры; у зарубежных оплата через Stripe/карту РФ обычно не проходит — нужна зарубежная карта или посредник.</p>
+    </div>
+    <div class="tbl-wrap reveal">
+      <table>
+        <thead>
+          <tr><th>Вариант</th><th>Что это</th><th>Цена 2026</th><th>Оплата из РФ</th><th>Чем хорош</th><th>Ц/К</th></tr>
+        </thead>
+        <tbody>
+          <tr class="subrow"><td colspan="6">Своё железо — лучший вариант на дистанции</td></tr>
+          <tr class="hl">
+            <td><a href="https://www.apple.com/mac-mini/" target="_blank" rel="noopener"><b>Свой Mac mini M4</b></a><br><span class="muted">физический Mac + удалёнка</span></td>
+            <td>M4, 16 ГБ / 256 ГБ, у себя дома/в офисе</td>
+            <td><span class="price">~56 690 ₽</span> разово<br><span class="muted">+ ~50–150 ₽/мес свет</span></td>
+            <td><span class="badge best">рубли, РФ ✓</span></td>
+            <td>Лучший Ц/К при работе 6+ мес; окупаемость 4–8 мес; полный контроль</td>
+            <td class="stars">★ 10</td>
+          </tr>
+          <tr class="subrow"><td colspan="6">Аренда из РФ — рубли, карты МИР, документы для юрлица</td></tr>
+          <tr>
+            <td><a href="https://rentamac.ru/" target="_blank" rel="noopener"><b>RentAMac.ru</b></a><br><span class="muted">выделенный Mac mini M4</span></td>
+            <td>M4, 16/256, root по SSH/VNC, раннер CI</td>
+            <td><span class="price">~4 290 ₽/мес</span><br><span class="muted">годовой ~3 647 ₽ · ~186 ₽/день</span></td>
+            <td><span class="badge best">рубли, ЮKassa ✓</span></td>
+            <td>Оплата рублями и МИР, закрывающие документы, онбординг в Telegram</td>
+            <td class="stars">★ 8</td>
+          </tr>
+          <tr>
+            <td><a href="https://selectel.ru/services/dedicated/mac/" target="_blank" rel="noopener"><b>Selectel macOS</b></a><br><span class="muted">выделенный Mac, Tier III РФ</span></td>
+            <td>M1 / M2 Pro / M4 Pro (48 ГБ / 2 ТБ)</td>
+            <td><span class="price">по запросу</span><br><span class="muted">рубли, от ~7 000 ₽</span></td>
+            <td><span class="badge best">рубли, РФ ✓</span></td>
+            <td>Мощный M4 Pro, свои Tier III ЦОД (Москва/СПб), SLA, низкий пинг</td>
+            <td class="stars">★ 7.5</td>
+          </tr>
+          <tr class="subrow"><td colspan="6">Аренда за рубежом — карта / крипта (карты РФ обычно не проходят)</td></tr>
+          <tr>
+            <td><a href="https://www.scaleway.com/en/pricing/apple-silicon/" target="_blank" rel="noopener"><b>Scaleway</b></a><br><span class="muted">облачный Mac mini, почасовой</span></td>
+            <td>M1–M4 Pro, до 64 ГБ / 2 ТБ</td>
+            <td><span class="price">M4-S €149/мес</span><br><span class="muted">€0.22/ч · M1-M €75 · min 24ч</span></td>
+            <td><span class="badge no">не РФ · карта ЕС</span></td>
+            <td>Самая гибкая линейка, почасовая оплата, честный биллinг — топ для CI</td>
+            <td class="stars">★ 9</td>
+          </tr>
+          <tr>
+            <td><a href="https://myremotemac.com/" target="_blank" rel="noopener"><b>MyRemoteMac</b></a><br><span class="muted">bare-metal Mac mini</span></td>
+            <td>выделенный M4 (16/256); M4 Pro тоже</td>
+            <td><span class="price">$85/мес</span> M4<br><span class="muted">M4 Pro от $229/мес</span></td>
+            <td><span class="badge no">не РФ · карта</span></td>
+            <td>Самый дешёвый выделенный M4 за рубежом, полный root, ЕС-локация</td>
+            <td class="stars">★ 9</td>
+          </tr>
+          <tr>
+            <td><a href="https://macly.io/" target="_blank" rel="noopener"><b>Macly</b></a><br><span class="muted">выделенный Mac mini M4</span></td>
+            <td>M4, 16/256, полный доступ, 24/7 поддержка</td>
+            <td><span class="price">$99.99/мес</span><br><span class="muted">или $14.99/день</span></td>
+            <td><span class="badge no">не РФ · карта</span></td>
+            <td>Дешевле MacStadium (~17%), есть посуточная оплата для коротких задач</td>
+            <td class="stars">★ 8</td>
+          </tr>
+          <tr>
+            <td><a href="https://www.macincloud.com/" target="_blank" rel="noopener"><b>MacinCloud</b></a><br><span class="muted">managed + dedicated</span></td>
+            <td>Intel–M4; managed с готовым окружением</td>
+            <td><span class="price">M4 $164/мес</span><br><span class="muted">managed $1/ч · $4/день</span></td>
+            <td><span class="badge warn">карта / PayPal</span></td>
+            <td>Низкий порог входа, managed с поддержкой, гибкая почасовая оплата</td>
+            <td class="stars">★ 7</td>
+          </tr>
+          <tr>
+            <td><a href="https://macstadium.com/pricing" target="_blank" rel="noopener"><b>MacStadium</b></a><br><span class="muted">выделенный Mac + Orka</span></td>
+            <td>Mac mini/Studio, виртуализация Orka</td>
+            <td><span class="price">M4 $99–119/мес</span><br><span class="muted">часто годовой, от 3 шт</span></td>
+            <td><span class="badge no">не РФ · карта</span></td>
+            <td>Энтерпрайз: SLA, Orka-виртуализация, парк Mac под CI/CD-фермы</td>
+            <td class="stars">★ 7</td>
+          </tr>
+          <tr>
+            <td><a href="https://aws.amazon.com/ec2/instance-types/mac/" target="_blank" rel="noopener"><b>AWS EC2 Mac</b></a><br><span class="muted">bare-metal, Dedicated Host</span></td>
+            <td>M1–M4 Pro, глобальные регионы AWS</td>
+            <td><span class="price">~$885/мес</span> M4<br><span class="muted">$1.23/ч · min 24ч</span></td>
+            <td><span class="badge no">не РФ · AWS</span></td>
+            <td>Глобальные регионы, интеграция с AWS — для энтерпрайз-CI, не для одного</td>
+            <td class="stars">★ 5</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- БЮДЖЕТНЫЕ УРОВНИ -->
+<section id="tiers">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Сколько закладывать</span>
+      <h2>Три бюджетных уровня</h2>
+      <p>Инструменты удалёнки во всех уровнях бесплатны — платите только за сам Mac.</p>
+    </div>
+    <div class="tiers">
+      <div class="tier reveal">
+        <h3>Эконом</h3>
+        <div class="cost">от ~3 647 ₽/мес</div>
+        <p>Аренда: RentAMac.ru ~4&nbsp;290&nbsp;₽/мес (годовой ~3&nbsp;647&nbsp;₽) рублями; при зарубежной карте — Scaleway M1-M €75/мес или MacinCloud $4/день. Удалёнка бесплатно: RustDesk + Tailscale. Нет CapEx.</p>
+        <div class="for">Для: короткие/эпизодические задачи (&lt;4–8 мес), тесты на разных чипах, CI-прогоны.</div>
+      </div>
+      <div class="tier featured reveal">
+        <span class="tag">Рекомендуется</span>
+        <h3>Оптимум</h3>
+        <div class="cost">~56 690 ₽ разово</div>
+        <p>Свой Mac mini M4 (16/256, РФ-розница) + ~50–150&nbsp;₽/мес электричество; инструменты $0. Полный контроль над окружением, Xcode и сертификатами. Окупаемость 4–8 мес, за 2 года ~59&nbsp;000&nbsp;₽ против 170–320&nbsp;тыс аренды.</p>
+        <div class="for">Для: один сотрудник (iOS/macOS-разработка, дизайн) на дистанции 6+ месяцев.</div>
+      </div>
+      <div class="tier reveal">
+        <h3>Комфорт</h3>
+        <div class="cost">M4 Pro · по запросу</div>
+        <p>Selectel Tier&nbsp;III M4&nbsp;Pro (48&nbsp;ГБ / 2&nbsp;ТБ) рублями с SLA и документами; либо свой M4&nbsp;Pro + Jump&nbsp;Desktop ($29.99 разово) + Mosyle&nbsp;MDM (free). За рубежом — MyRemoteMac M4&nbsp;Pro $229/мес.</p>
+        <div class="for">Для: тяжёлые CI-сборки, команда/юрлицо, где важны SLA, надёжность ДЦ и MDM.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ПОШАГОВЫЙ ПЛАН -->
+<section id="steps">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">От выбора до передачи</span>
+      <h2>Пошаговый план</h2>
+      <p>Семь шагов настройки macOS-машины под сотрудника. Команды — для Терминала macOS; часть действий делается в System&nbsp;Settings. Замените <code>worker</code> и <code>100.x.x.x</code> на свои.</p>
+    </div>
+    <div class="steps">
+
+      <div class="step reveal">
+        <div class="dot">1</div>
+        <h3>Выбрать путь и заказать / подготовить</h3>
+        <p>Нужен Mac постоянно одному человеку дольше 4–8&nbsp;мес — покупайте свой Mac&nbsp;mini&nbsp;M4. Нужен короткий/burst-сценарий, CI-ферма, SLA или зарубежный IP для App&nbsp;Store — берите аренду. Оплата картой РФ рублями возможна только у российских провайдеров. Для своего Mac заранее обеспечьте стабильные питание и интернет — белый статический IP не нужен, Tailscale пробивает NAT.</p>
+        <div class="code"><div class="bar"><span class="t">как выбрать</span><button>Копировать</button></div><pre><code># Mac нужен дольше 4–8 мес одному сотруднику?  -> покупка (окупаемость 4–8 мес)
+# Покупка (РФ, рубли): Mac mini M4 16/256 ~56 690 ₽ — apple-market.ru / М.Видео
+# Аренда с картой РФ: RentAMac.ru ~4 290 ₽/мес (годовой ~3 647), ЮKassa + документы; либо Selectel Tier III
+# Аренда с зарубежной картой: MyRemoteMac $85/мес или Scaleway M4-S €149/мес (min 24ч)
+# НЕ для одного сотрудника: AWS EC2 Mac (~$885/мес, биллинг даже при остановке)</code></pre></div>
+      </div>
+
+      <div class="step reveal">
+        <div class="dot">2</div>
+        <h3>Первичная настройка macOS (из учётки владельца)</h3>
+        <p>Первый вход и настройку делаете вы под своей администраторской учёткой (для аренды — под выданным админом). Обновите систему, задайте имя, настройте энергосбережение так, чтобы Mac-сервер не уходил в сон и сам поднимался после сбоя питания, отключите автологин.</p>
+        <div class="code"><div class="bar"><span class="t">Терминал (под учёткой владельца)</span><button>Копировать</button></div><pre><code>sudo softwareupdate -ia                                  # обновить macOS
+sudo scutil --set ComputerName workmac
+sudo scutil --set LocalHostName workmac
+sudo pmset -a sleep 0 disksleep 0                        # сервер всегда онлайн, без сна
+sudo pmset -a autorestart 1                              # автостарт после сбоя питания
+# System Settings -> Users & Groups -> Automatically log in as -> Off</code></pre></div>
+      </div>
+
+      <div class="step reveal">
+        <div class="dot">3</div>
+        <h3>Создать отдельную стандартную (не админ) учётку</h3>
+        <p>Один сотрудник = одна именная <b>стандартная</b> учётка. Единственный администратор — владелец. Стандартный пользователь не ставит системный софт, не отключает защиту, не читает чужие данные. Обязательно проверьте, что учётка не попала в группу admin, и закройте домашнюю папку.</p>
+        <div class="code"><div class="bar"><span class="t">Терминал</span><button>Копировать</button></div><pre><code>sudo sysadminctl -addUser worker -fullName "Worker" -password -   # БЕЗ флага -admin!
+dscl . -read /Groups/admin GroupMembership                        # проверить: worker НЕ должен быть тут
+sudo dseditgroup -o edit -d worker -t user admin                  # если попал — убрать из админов
+sudo chmod 700 /Users/worker                                      # закрыть домашнюю папку от чужих</code></pre></div>
+      </div>
+
+      <div class="step reveal">
+        <div class="dot">4</div>
+        <h3>Включить Screen Sharing / Remote Management или поставить RustDesk / Jump Desktop</h3>
+        <p>Базовый бесплатный вариант — встроенный Screen&nbsp;Sharing (VNC), разрешённый <b>только</b> рабочей учётке. Кроссплатформенная бесплатная альтернатива — RustDesk со своим relay. Максимум комфорта с iPad/Mac — Jump&nbsp;Desktop (кодек Fluid). Ключевое правило: порт VNC 5900 никогда не открывать в интернет — только через Tailscale.</p>
+        <div class="code"><div class="bar"><span class="t">Терминал — встроенный Screen Sharing</span><button>Копировать</button></div><pre><code>sudo launchctl enable system/com.apple.screensharing
+sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.screensharing.plist
+# System Settings -> General -> Sharing -> Screen Sharing -> "Allow access for: Only these users" -> worker
+# тонкие права (ARD):
+sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -activate -configure -allowAccessFor -specifiedUsers -privs -ControlObserve
+# ВАЖНО: порт 5900 НЕ выставлять в публичный интернет — только внутри tailnet
+# альтернативы: RustDesk OSS (свой relay) либо Jump Desktop (кодек Fluid, разово $29.99)</code></pre></div>
+      </div>
+
+      <div class="step reveal">
+        <div class="dot">5</div>
+        <h3>Безопасность: FileVault, Apple ID, MDM, Tailscale</h3>
+        <p>Зашифруйте диск FileVault (ключ восстановления — у владельца или в MDM, никогда не у сотрудника). Поставьте Tailscale — порт 5900 виден только внутри приватной сети. Используйте <b>управляемый Apple&nbsp;Account через Apple&nbsp;Business&nbsp;Manager</b> (не личный Apple&nbsp;ID сотрудника) + supervise-режим, иначе включённый сотрудником Activation&nbsp;Lock превратит Mac в кирпич. Подключите бесплатный MDM для remote lock/erase.</p>
+        <div class="code"><div class="bar"><span class="t">Терминал + консоль MDM</span><button>Копировать</button></div><pre><code>sudo fdesetup enable                     # FileVault; recovery key сохранить у ВЛАДЕЛЬЦА
+fdesetup status                          # проверка
+curl -fsSL https://tailscale.com/install.sh | sh &amp;&amp; sudo tailscale up --ssh
+# ACL в панели Tailscale: worker -> только эта машина; ключи с истечением срока + MFA/SSO
+# firewall: 5900 пускать только с интерфейса Tailscale (100.64.0.0/10), не с публичного
+# MDM: Mosyle Business FREE (до 30 устройств) / JumpCloud Free (до 10) — remote lock/erase + эскроу FileVault-ключа
+# Managed Apple Account через Apple Business Manager + supervise (НЕ личный Apple ID сотрудника)
+# профиль com.apple.applicationaccess: allowAccountModification=false, allowPasswordModification=false
+# Find My Mac -> On (под учёткой владельца/организации)</code></pre></div>
+      </div>
+
+      <div class="step reveal">
+        <div class="dot">6</div>
+        <h3>Передать доступ сотруднику</h3>
+        <p>Выдавайте по принципу наименьших привилегий и только нужное: приглашение в tailnet, реквизиты VNC/RustDesk и логин стандартной учётки с временным паролем. <b>Пароль администратора-владельца и recovery-ключ FileVault не передавать.</b> До передачи войдите сами и проверьте, что всё работает.</p>
+        <div class="code"><div class="bar"><span class="t">что передать сотруднику</span><button>Копировать</button></div><pre><code># 1. Приглашение в tailnet (Tailscale admin -> Invite), сотрудник ставит Tailscale
+# 2. Логин worker + временный пароль (сменит при первом входе) и адрес Mac в tailnet 100.x.x.x
+# 3. Подключение по VNC:  vnc://100.x.x.x  (клиент Screen Sharing / RealVNC) либо RustDesk по ID
+# 4. Проверить вход самому ДО передачи
+# НЕ давать: пароль администратора-владельца, recovery key FileVault</code></pre></div>
+      </div>
+
+      <div class="step reveal">
+        <div class="dot">7</div>
+        <h3>Контроль, бэкапы и подготовка к офбордингу</h3>
+        <p>Настройте мониторинг входов, регулярные бэкапы (Time&nbsp;Machine на внешний диск/NAS; для аренды — снапшоты в панели провайдера) и отчёты MDM. Мониторить можно только рабочую машину и о факте логирования сотрудника нужно уведомить. Держите наготове план офбординга, чтобы отозвать доступ за минуты.</p>
+        <div class="code"><div class="bar"><span class="t">Терминал — мониторинг и бэкап</span><button>Копировать</button></div><pre><code>log show --predicate 'process=="screensharingd"' --last 1d   # кто заходил по VNC
+last ; who ; w                                               # входы и кто онлайн
+# бэкап: Time Machine на внешний диск/NAS; при аренде — снапшоты диска в панели провайдера
+# отчёты MDM (Mosyle/JumpCloud): статус устройства, соответствие политикам, последняя активность
+# оповещения о входе (Telegram/e-mail) + журнал Tailscale admin — детект чужого IP</code></pre></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ИНСТРУМЕНТЫ ДОСТУПА -->
+<section id="tools">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Чем подключаться к Mac</span>
+      <h2>Инструменты доступа</h2>
+      <p>Базовый стек бесплатный. Порт VNC 5900 всегда прячем за Tailscale — в интернет не светим.</p>
+    </div>
+    <div class="tools">
+      <div class="tool reveal"><div class="th"><h4><a href="https://support.apple.com/guide/mac-help/share-the-screen-of-another-mac-mh14066/mac" target="_blank" rel="noopener">Apple Screen Sharing</a></h4><span class="badge best">встроен · free</span></div><p>Штатный VNC/ARD в составе macOS, нулевая установка. Отлично в локальной сети и внутри tailnet.</p></div>
+      <div class="tool reveal"><div class="th"><h4><a href="https://rustdesk.com" target="_blank" rel="noopener">RustDesk</a></h4><span class="badge best">★ 10 · free</span></div><p>Опенсорс, свой relay, сквозное шифрование, кроссплатформа. Не блокируется по региону — топ для РФ.</p></div>
+      <div class="tool reveal"><div class="th"><h4><a href="https://tailscale.com" target="_blank" rel="noopener">Tailscale</a></h4><span class="badge info">★ 9 · free-план</span></div><p>Mesh-VPN на WireGuard. Закрывает порт 5900 от интернета, работает за NAT. Обязательный слой безопасности.</p></div>
+      <div class="tool reveal"><div class="th"><h4><a href="https://jumpdesktop.com" target="_blank" rel="noopener">Jump Desktop</a></h4><span class="badge info">★ 8 · $29.99 разово</span></div><p>Кодек Fluid — лучший UX для управления Mac с iPad/Mac. Поддержка VNC и RDP, разовая покупка.</p></div>
+      <div class="tool reveal"><div class="th"><h4><a href="https://www.nomachine.com" target="_blank" rel="noopener">NoMachine</a></h4><span class="badge info">★ 8 · free (личн.)</span></div><p>Очень быстрый NX-протокол, отлично тянет графику. Бесплатен для личного использования, бессрочно.</p></div>
+      <div class="tool reveal"><div class="th"><h4><a href="https://parsec.app" target="_blank" rel="noopener">Parsec</a></h4><span class="badge warn">дизайн/GPU</span></div><p>Минимальная латентность для дизайна/видео/3D. Хостинг заточен под Windows-с-GPU; на Mac-хосте ограничен.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- БЕЗОПАСНОСТЬ -->
+<section id="security">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Контроль остаётся у вас</span>
+      <h2>Чек-лист безопасности macOS</h2>
+      <p>Стандартная учётка + FileVault + управляемый Apple&nbsp;ID + MDM + Tailscale. Пройдите весь список до передачи доступа.</p>
+    </div>
+    <ul class="checklist two reveal">
+      <li><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 6"/></svg></span><span><b>Учётка сотрудника — Стандартная, не администратор.</b> Единственный админ — владелец. Проверка: <code>dscl . -read /Groups/admin GroupMembership</code>.</span></li>
+      <li><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 6"/></svg></span><span><b>FileVault включён обязательно.</b> Ключ восстановления хранит владелец или эскроу в MDM — никогда не сотрудник.</span></li>
+      <li><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 6"/></svg></span><span><b>Screen Sharing разрешён только рабочей учётке.</b> Порт 5900 никогда не в публичный интернет — только через Tailscale.</span></li>
+      <li><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 6"/></svg></span><span><b>Tailscale обязателен:</b> не пробрасывать 5900/22 наружу. ACL ограничивает worker только этой машиной, ключи с истечением срока, MFA.</span></li>
+      <li><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 6"/></svg></span><span><b>Управляемый Apple Account через Apple Business Manager</b> + supervise-режим — иначе Activation Lock от сотрудника превратит Mac в кирпич.</span></li>
+      <li><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 6"/></svg></span><span><b>Профиль ограничений:</b> allowAccountModification=false и allowPasswordModification=false — запрет выхода из аккаунта и смены пароля Apple&nbsp;ID.</span></li>
+      <li><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 6"/></svg></span><span><b>Find My Mac включён</b> под учёткой владельца/организации — удалённая блокировка, стирание, геолокация.</span></li>
+      <li><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 6"/></svg></span><span><b>Бесплатный MDM подключён</b> (Mosyle Business FREE до 30 устройств / JumpCloud Free до 10): remote lock/erase, эскроу FileVault-ключа, политики.</span></li>
+      <li><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 6"/></svg></span><span><b>Тайм-аут экрана и пароль сразу после сна;</b> автозавершение забытых Screen Sharing-сессий.</span></li>
+      <li><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 6"/></svg></span><span><b>Домашняя папка 700</b> — стандартный юзер не читает данные владельца: <code>sudo chmod 700 /Users/worker</code>.</span></li>
+      <li><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 6"/></svg></span><span><b>Автообновления macOS включены;</b> если используется SSH — только по ключам, спрятан за Tailscale, с fail2ban.</span></li>
+      <li><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 6"/></svg></span><span><b>Мониторинг входов включён</b> (last, log show, отчёты MDM, оповещения) — логировать только рабочую машину и уведомить сотрудника.</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ОФБОРДИНГ -->
+<section id="offboarding">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Увольнение</span>
+      <h2>Отзыв доступа за минуты</h2>
+      <p>С MDM + Tailscale отзыв мгновенный. Всё, что сотрудник мог видеть, считается скомпрометированным.</p>
+    </div>
+    <ul class="checklist off reveal">
+      <li><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 6"/></svg></span><span><b>Немедленно заблокировать вход и убить сессии:</b> отключить worker в Screen Sharing, <code>sudo dscl . -create /Users/worker IsHidden 1</code>; или Remote Lock/Erase через MDM.</span></li>
+      <li><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 6"/></svg></span><span><b>Удалить из Tailscale:</b> панель → Users → Remove user, деавторизовать все его устройства.</span></li>
+      <li><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 6"/></svg></span><span><b>Отозвать устройство в MDM:</b> снять с учётки в Mosyle/JumpCloud, при необходимости Remote Lock/Erase.</span></li>
+      <li><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 6"/></svg></span><span><b>Отозвать SSH-ключи</b>, если использовались; проверить чужие ~/.ssh на подложенные ключи.</span></li>
+      <li><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 6"/></svg></span><span><b>Снять снапшот / Time Machine</b> до удаления данных — для форензики и споров.</span></li>
+      <li><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 6"/></svg></span><span><b>Ротация секретов:</b> пароли БД, API-ключи, токены, .env, deploy-ключи, PAT на GitHub/GitLab — всё, что он видел.</span></li>
+      <li><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 6"/></svg></span><span><b>Вычистить закладки:</b> cron/launchd сотрудника, autossh/reverse-туннели, добавленные пакеты, изменённые конфиги.</span></li>
+      <li><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 6"/></svg></span><span><b>После архивации — удалить учётку:</b> <code>sudo sysadminctl -deleteUser worker</code>. При аренде — закрыть тариф; при своём железе — вернуть или удалённо стереть устройство.</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ПОДВОДНЫЕ КАМНИ -->
+<section id="pitfalls">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Частые ошибки</span>
+      <h2>Подводные камни</h2>
+    </div>
+    <div class="pitfalls">
+      <div class="pitfall reveal"><b>Дать админ-права «чтобы не мешало».</b> Тогда сотрудник ставит софт, отключает защиту, читает чужие данные и может захватить машину. Только стандартная учётка.</div>
+      <div class="pitfall reveal"><b>Открыть VNC 5900 / SSH 22 в интернет.</b> Постоянная цель ботов и брутфорса. Всегда прятать за Tailscale/VPN.</div>
+      <div class="pitfall reveal"><b>Использовать личный Apple ID сотрудника.</b> При увольнении он включит Activation Lock, и Mac станет кирпичом. Только Managed Apple Account через ABM + supervise.</div>
+      <div class="pitfall reveal"><b>Не включить FileVault или потерять ключ.</b> При доступе провайдера или краже снапшота диск читается в открытом виде. Ключ — у владельца или в MDM.</div>
+      <div class="pitfall reveal"><b>Платить зарубежным провайдерам картой РФ.</b> Stripe обычно не пропускает. Для РФ — RentAMac.ru/Selectel (рубли) или зарубежная карта/посредник.</div>
+      <div class="pitfall reveal"><b>Арендовать надолго «на всякий случай».</b> При 6+ мес аренда за 2 года 170–320 тыс ₽ против ~59 000 ₽ владения. Считайте точку окупаемости (4–8 мес).</div>
+      <div class="pitfall reveal"><b>AWS EC2 Mac для одного человека.</b> Переплата (~$885/мес), минимум 24 ч, биллинг при остановке, скрытые расходы. Это для энтерпрайз-CI.</div>
+      <div class="pitfall reveal"><b>Не настроить pmset (сон/автостарт).</b> Mac уходит в сон или не поднимается после сбоя питания — сотрудник теряет доступ до ручного вмешательства.</div>
+    </div>
+  </div>
+</section>
+
+<!-- КРОСС-ССЫЛКА -->
+<section>
+  <div class="wrap">
+    <div class="crosslink reveal">
+      <div>
+        <h3>Сотруднику подойдёт обычный сервер?</h3>
+        <p>Для ботов, скриптов, разработки, 1С и офисных программ Mac не нужен — дешевле и проще посадить на VPS (Linux или Windows).</p>
+      </div>
+      <a class="btn" href="vps-onboarding-sotrudnika.html">Открыть гайд по VPS →</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    Гайд подготовлен на 23 июля 2026 · цены проверены веб-поиском и могут меняться — сверяйте на сайте провайдера перед оплатой.<br>
+    Все упомянутые сервисы — кликабельные ссылки на официальные сайты. Не является публичной офертой или рекламой конкретного провайдера.
+  </div>
+</footer>
+
+<script>
+  document.querySelectorAll('.code code').forEach(code=>{
+    const esc=s=>s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    code.innerHTML=code.textContent.split('\n').map(line=>{
+      if(line.trimStart().startsWith('#')) return '<span class="c">'+esc(line)+'</span>';
+      const m=line.match(/^(\s*)([\w./-]+)(.*)$/);
+      return m ? esc(m[1])+'<span class="k">'+esc(m[2])+'</span>'+esc(m[3]) : esc(line);
+    }).join('\n');
+  });
+  document.addEventListener('click',e=>{
+    const btn=e.target.closest('.code .bar button'); if(!btn) return;
+    const code=btn.closest('.code').querySelector('code');
+    navigator.clipboard.writeText(code.innerText).then(()=>{
+      const t=btn.textContent; btn.textContent='Скопировано ✓';
+      setTimeout(()=>btn.textContent=t,1500);
+    });
+  });
+</script>
+<script type="module">
+  try{
+    const {animate,inView,stagger,spring}=await import("https://cdn.jsdelivr.net/npm/motion@11/+esm");
+    const hero=document.querySelectorAll('.hero .reveal');
+    animate(hero,{opacity:[0,1],y:[20,0]},{duration:.6,delay:stagger(.08),easing:spring({stiffness:110,damping:18})});
+    inView(".reveal:not(.hero .reveal)",(el)=>{
+      animate(el,{opacity:[0,1],y:[22,0]},{duration:.6,easing:spring({stiffness:120,damping:20})});
+    },{amount:.12});
+  }catch(e){
+    document.querySelectorAll('.reveal').forEach(el=>{el.style.opacity=1;el.style.transform='none';});
+  }
+  function safetyReveal(){
+    document.querySelectorAll('.reveal').forEach(el=>{
+      const r=el.getBoundingClientRect();
+      if(r.top < window.innerHeight*0.95 && getComputedStyle(el).opacity==='0'){
+        el.style.opacity=1; el.style.transform='none';
+      }
+    });
+  }
+  window.addEventListener('scroll',safetyReveal,{passive:true});
+  window.addEventListener('load',()=>setTimeout(safetyReveal,1500));
+</script>
+</body>
+</html>
