@@ -172,7 +172,7 @@
       <a href="#providers">Провайдеры</a>
       <a href="#tiers">Бюджет</a>
       <a href="#steps">Пошагово</a>
-      <a href="#security">Безопасность</a>
+      <a href="#offboarding">Офбординг</a>
       <a href="mac-onboarding-sotrudnika.html" class="cta">→ Гайд по Mac</a>
     </div>
   </div>
@@ -519,31 +519,6 @@ sudo fail2ban-client status sshd ; sudo ausearch -k work_access ; tailscale stat
   </div>
 </section>
 
-<!-- БЕЗОПАСНОСТЬ -->
-<section id="security">
-  <div class="wrap">
-    <div class="sec-head reveal">
-      <span class="eyebrow">Контроль остаётся у вас</span>
-      <h2>Чек-лист безопасности</h2>
-      <p>Принцип наименьших привилегий + единственный сетевой слой Tailscale. Пройдите весь список до передачи доступа сотруднику.</p>
-    </div>
-    <ul class="checklist two reveal">
-      <li><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 6"/></svg></span><span><b>Отдельная именная учётка</b> (не root/admin); домашняя папка 700, рабочая /srv/work — 750.</span></li>
-      <li><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 6"/></svg></span><span><b>SSH только по ключам ed25519:</b> PasswordAuthentication no, PermitRootLogin no, AllowUsers worker.</span></li>
-      <li><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 6"/></svg></span><span><b>fail2ban:</b> автобан IP после 3–4 неудачных попыток входа.</span></li>
-      <li><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 6"/></svg></span><span><b>Файрвол deny-by-default</b> (ufw): SSH принимается только с интерфейса tailscale0.</span></li>
-      <li><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 6"/></svg></span><span><b>Порты 22/3389/5900 спрятаны за Tailscale</b> — в интернет не светятся; отзыв доступа = удаление устройства из tailnet.</span></li>
-      <li><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 6"/></svg></span><span><b>Никакого sudo по умолчанию;</b> если нужны 1–2 команды — точечно через /etc/sudoers.d/worker с логированием.</span></li>
-      <li><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 6"/></svg></span><span><b>2FA на SSH</b> (TOTP через PAM) или SSO/MFA автоматически через Tailscale SSH.</span></li>
-      <li><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 6"/></svg></span><span><b>Автообновления безопасности</b> (unattended-upgrades) — закрывают CVE без ручного участия.</span></li>
-      <li><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 6"/></svg></span><span><b>Оповещения о каждом SSH-входе</b> в Telegram/e-mail — детект чужого IP и входа после увольнения.</span></li>
-      <li><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 6"/></svg></span><span><b>auditd</b> — журнал команд и доступа к файлам; <b>дисковые квоты</b>, чтобы не забил диск.</span></li>
-      <li><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 6"/></svg></span><span><b>Шифрование диска:</b> LUKS (Linux) / BitLocker (Windows). Recovery-ключ хранит владелец, не сотрудник.</span></li>
-      <li><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 6"/></svg></span><span><b>Windows:</b> стандартная учётка, только Remote Desktop Users; NLA включён; RDP ограничен 100.64.0.0/10; тайм-ауты сессий.</span></li>
-    </ul>
-  </div>
-</section>
-
 <!-- ОФБОРДИНГ -->
 <section id="offboarding">
   <div class="wrap">
@@ -562,26 +537,6 @@ sudo fail2ban-client status sshd ; sudo ausearch -k work_access ; tailscale stat
       <li><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 6"/></svg></span><span><b>Панель хостера:</b> если сотрудник знал доступы к личному кабинету — сменить пароль и включить там 2FA.</span></li>
       <li><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 6"/></svg></span><span><b>После архивации — удалить учётку:</b> <code>sudo deluser --remove-home worker</code>; Windows — <code>net user worker /delete</code>.</span></li>
     </ul>
-  </div>
-</section>
-
-<!-- ПОДВОДНЫЕ КАМНИ -->
-<section id="pitfalls">
-  <div class="wrap">
-    <div class="sec-head reveal">
-      <span class="eyebrow">Частые ошибки</span>
-      <h2>Подводные камни</h2>
-    </div>
-    <div class="pitfalls">
-      <div class="pitfall reveal"><b>Открыть порт 22/3389/5900 в интернет.</b> Постоянная цель автобрута. Всегда прятать за Tailscale/VPN, а не полагаться на пароль.</div>
-      <div class="pitfall reveal"><b>Дать root «чтобы не мешало».</b> Теряется изоляция, логируемость и лёгкий отзыв. Строго принцип наименьших привилегий.</div>
-      <div class="pitfall reveal"><b>Windows-лицензия — скрытый фактор цены.</b> У Timeweb +≈2&nbsp;900&nbsp;₽/мес, у Cloudzy её нет вовсе (trial/BYOL — нелегально). Брать где включена: VDSina, RuVDS, Lightsail, Contabo.</div>
-      <div class="pitfall reveal"><b>Память впритык.</b> Windows-RDP на 4&nbsp;ГБ тормозит при браузере+офисе — берите 8&nbsp;ГБ; Linux-GUI ниже 4&nbsp;ГБ некомфортен.</div>
-      <div class="pitfall reveal"><b>Оплата из РФ.</b> Hetzner, DigitalOcean, Linode, OVH, Lightsail, Netcup не принимают МИР. Пути: крипта (Vultr напрямую), PayPal, реселлеры.</div>
-      <div class="pitfall reveal"><b>Бэкапы не включены по умолчанию.</b> У Timeweb — платная опция, DDoS тоже. Включить снапшоты заранее, а не после сбоя.</div>
-      <div class="pitfall reveal"><b>Потерять recovery-ключ BitLocker/LUKS.</b> Риск навсегда потерять доступ к зашифрованному диску. Ключ — у владельца.</div>
-      <div class="pitfall reveal"><b>Верить ценам из обзоров как окончательным.</b> Тарифы меняются, зависят от локации и акций — проверять итог в конфигураторе перед оплатой.</div>
-    </div>
   </div>
 </section>
 
