@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>ARGUS MVP — что заказать и где · доставка в Рио-де-Жанейро</title>
-<meta name="description" content="Полный перечень деталей для сборки микроскопа OpenFlexure (проект ARGUS MVP): 25 позиций по блокам, ссылки на товары, где что заказывать, 3D-печать, оптика, электроника, клетки. Доставка в Рио-де-Жанейро.">
+<title>ARGUS MVP — что докупить к Full Kit · доставка в Рио-де-Жанейро</title>
+<meta name="description" content="Закупка для микроскопа OpenFlexure на базе IO Rodeo Full Kit: что уже в наборе и что докупаем сверх него. Ссылки на товары, доставка в Рио-де-Жанейро.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -31,7 +31,7 @@
   code, .mono{font-family:var(--mono); font-size:.86em}
   .tnum{font-variant-numeric:tabular-nums}
 
-  /* ---------- reveal (visible by default, hidden only with confirmed JS) ---------- */
+  /* ---------- reveal ---------- */
   .reveal{opacity:1; transform:none}
   html.js-anim .reveal{opacity:0; transform:translateY(22px)}
   html.js-anim .reveal.in{opacity:1; transform:none;
@@ -45,7 +45,7 @@
   .eyebrow{font-size:13px; font-weight:600; letter-spacing:.02em; color:var(--muted); text-transform:uppercase; margin-bottom:18px}
   .eyebrow .dot{color:var(--blue)}
   h1{font-size:clamp(34px,6vw,60px); line-height:1.05; letter-spacing:-.028em; font-weight:800; margin:0 0 20px}
-  .lede{font-size:clamp(17px,2.2vw,20px); color:var(--ink2); max-width:760px; margin:0 0 26px}
+  .lede{font-size:clamp(17px,2.2vw,20px); color:var(--ink2); max-width:780px; margin:0 0 26px}
   .lede b{color:var(--ink); font-weight:600}
   .meta-chips{display:flex; flex-wrap:wrap; gap:10px; margin-top:6px}
   .mchip{background:var(--card); border:1px solid var(--line); border-radius:100px; padding:9px 16px; font-size:14px; font-weight:600; box-shadow:var(--shadow)}
@@ -85,6 +85,21 @@
   .b-frozen{background:#eef0f2; color:var(--muted)}
   .badge .bd{width:6px; height:6px; border-radius:50%; background:currentColor}
 
+  /* ---------- kit-included block ---------- */
+  .kit{background:linear-gradient(180deg,#f0faf3,#ffffff); border:1px solid #cdeed7; border-radius:var(--radius); padding:26px 28px; box-shadow:var(--shadow)}
+  .kit-top{display:flex; flex-wrap:wrap; align-items:baseline; gap:10px 14px; margin-bottom:6px}
+  .kit-top h3{margin:0; font-size:21px; letter-spacing:-.01em}
+  .kit-top .pill{background:var(--green-bg); color:var(--green); font-size:12px; font-weight:700; padding:5px 12px; border-radius:100px}
+  .kit-top .pr{margin-left:auto; font-family:var(--mono); font-weight:600; font-size:18px}
+  .kit p.sub{margin:2px 0 18px; color:var(--ink2); font-size:15px}
+  .kit-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:10px 22px}
+  .kit-grid .k{display:flex; gap:11px; align-items:flex-start; font-size:14.5px; color:var(--ink2)}
+  .kit-grid .k svg{width:19px; height:19px; flex:0 0 auto; margin-top:2px; stroke:var(--green); fill:none; stroke-width:2.2}
+  .kit-grid .k b{color:var(--ink)}
+  .kit-grid .k.no svg{stroke:var(--muted)}
+  .kit-grid .k.no{color:var(--muted)}
+  .kit-cta{margin-top:20px; display:flex; flex-wrap:wrap; gap:10px}
+
   /* ---------- item card ---------- */
   .grid{display:grid; grid-template-columns:1fr 1fr; gap:16px}
   .item{background:var(--card); border:1px solid var(--line); border-radius:var(--radius); padding:22px; box-shadow:var(--shadow); display:flex; flex-direction:column; transition:transform .18s ease, box-shadow .18s ease}
@@ -107,8 +122,6 @@
   .buy:hover{border-color:var(--blue); background:#f5faff; text-decoration:none; transform:translateY(-1px)}
   .buy .arr{width:13px; height:13px; stroke:var(--muted); fill:none; stroke-width:2}
   .buy .price{font-family:var(--mono); font-weight:600; color:var(--muted); font-size:12.5px}
-  .buy.soldout{opacity:.62}
-  .buy.soldout::after{content:'sold out'; font-family:var(--mono); font-size:10px; color:var(--red); border:1px solid #f0cfcb; border-radius:5px; padding:1px 5px}
   .foot{margin-top:auto; padding-top:14px; border-top:1px dashed var(--line); display:flex; gap:10px; align-items:flex-start; font-size:13px; color:var(--muted)}
   .foot svg{width:15px; height:15px; stroke:var(--green); fill:none; stroke-width:2; flex:0 0 auto; margin-top:2px}
   .price-tag{font-family:var(--mono); font-weight:600; font-size:14px; color:var(--ink); background:#f2f2f4; border-radius:8px; padding:3px 9px; white-space:nowrap}
@@ -120,13 +133,6 @@
   .note.danger{background:var(--red-bg); color:#7a1a15} .note.danger svg{stroke:var(--red)}
   .note.info{background:#eef4ff; color:#1a3b73} .note.info svg{stroke:var(--blue-ink)}
   .note b{font-weight:700}
-
-  /* ---------- supplier map / bento ---------- */
-  .bento{display:grid; grid-template-columns:repeat(3,1fr); gap:14px}
-  .bcard{background:var(--card); border:1px solid var(--line); border-radius:var(--radius-sm); padding:18px; box-shadow:var(--shadow)}
-  .bcard .k{font-size:13px; color:var(--muted); font-weight:600; margin-bottom:6px; display:flex; align-items:center; gap:7px}
-  .bcard .v{font-size:15px; font-weight:600; letter-spacing:-.01em; line-height:1.35}
-  .bcard .v span{color:var(--muted); font-weight:400; font-size:13.5px}
 
   /* ---------- tables ---------- */
   .tbl{width:100%; border-collapse:collapse; background:var(--card); border:1px solid var(--line); border-radius:var(--radius-sm); overflow:hidden; box-shadow:var(--shadow); font-size:14px}
@@ -144,12 +150,13 @@
   .btn:hover{border-color:var(--blue); background:#f5faff}
   .btn svg{width:15px; height:15px; stroke:var(--ink2); fill:none; stroke-width:2}
   .check-wrap{background:var(--card); border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow); overflow:hidden}
-  .check-tbl{width:100%; border-collapse:collapse; font-size:13.5px; min-width:960px}
+  .check-tbl{width:100%; border-collapse:collapse; font-size:13.5px; min-width:920px}
   .check-tbl th{position:sticky; top:0; background:#f4f4f6; z-index:2; font-size:11.5px; text-transform:uppercase; letter-spacing:.03em; color:var(--muted); font-weight:600; padding:12px 12px; text-align:left; border-bottom:1px solid var(--line)}
   .check-tbl td{padding:11px 12px; border-bottom:1px solid var(--line2); vertical-align:top}
   .check-tbl tbody tr:last-child td{border-bottom:none}
   .check-tbl tbody tr:hover{background:#fafbfd}
   .check-tbl tr.done{background:#f3faf5}
+  .check-tbl tr.base{background:#f0faf3}
   .check-tbl tr.done td.c-name, .check-tbl tr.done td.c-who{opacity:.5; text-decoration:line-through}
   .check-tbl td.c-chk{text-align:center; width:38px}
   .chk{width:19px; height:19px; accent-color:var(--blue); cursor:pointer; vertical-align:middle}
@@ -167,17 +174,9 @@
   .prio.now{background:var(--green-bg); color:var(--green)}
   .prio.hold{background:#fbf1dc; color:var(--amber)}
   .prio.stop{background:var(--red-bg); color:var(--red)}
+  .prio.base{background:#d9f0e1; color:var(--green)}
   .legend{display:flex; flex-wrap:wrap; gap:14px; margin:14px 2px 0; font-size:12.5px; color:var(--muted)}
   .legend span{display:inline-flex; align-items:center; gap:6px}
-
-  @media print{
-    body{background:#fff; -webkit-print-color-adjust:exact; print-color-adjust:exact}
-    html.js-anim .reveal{opacity:1 !important; transform:none !important}
-    header.hero, .stages, .rules, .bento, .note, section .grid, .budget, footer, .cheat-toolbar .btn{display:none !important}
-    #cheat{display:block !important}
-    .check-tbl{min-width:0; font-size:11px}
-    .check-tbl th{position:static}
-  }
 
   /* ---------- budget ---------- */
   .budget{background:#111; color:#fff; border-radius:var(--radius); padding:30px; box-shadow:var(--shadow)}
@@ -189,14 +188,21 @@
   .btotal .lab{font-size:15px; color:#c7c7cc; max-width:60%}
   .btotal .sum{font-family:var(--mono); font-weight:600; font-size:26px}
 
-  /* ---------- footer ---------- */
   footer{padding:50px 0 70px; color:var(--muted); font-size:13.5px; text-align:center; border-top:1px solid var(--line); margin-top:40px}
   footer a{color:var(--muted); text-decoration:underline}
 
   @media (max-width:820px){
-    .stages,.grid,.bento{grid-template-columns:1fr}
+    .stages,.grid,.kit-grid{grid-template-columns:1fr}
     .item-head-r{flex-direction:row-reverse; align-items:center}
     header.hero{padding:52px 0 30px}
+  }
+  @media print{
+    body{background:#fff; -webkit-print-color-adjust:exact; print-color-adjust:exact}
+    html.js-anim .reveal{opacity:1 !important; transform:none !important}
+    header.hero, .stages, .rules, .kit, .bento, .note, section .grid, .budget, footer, .cheat-toolbar .btn{display:none !important}
+    #cheat{display:block !important}
+    .check-tbl{min-width:0; font-size:11px}
+    .check-tbl th{position:static}
   }
 </style>
 </head>
@@ -204,72 +210,84 @@
 
 <header class="hero">
   <div class="wrap">
-    <div class="eyebrow reveal" data-hero>ТЗ на закупку <span class="dot">·</span> исполнение в Рио‑де‑Жанейро <span class="dot">·</span> ред. 2</div>
-    <h1 class="reveal" data-hero>ARGUS MVP — что заказать<br>и где напечатать</h1>
-    <p class="lede reveal" data-hero>Микроскоп <b>OpenFlexure</b> в инвертированной схеме (объектив снизу, смотрит вверх через стеклянное дно чашки), сухой объектив <b>40×</b>, два флуоресцентных канала, в герметичном боксе с <b>37 °C и CO₂</b>. Raspberry Pi вынесен наружу бокса. Ниже — все <b>25 позиций по пунктам</b>: печать заказываем тут, управление тут, линзу тут — с рабочими ссылками и доставкой в Рио.</p>
+    <div class="eyebrow reveal" data-hero>ARGUS MVP <span class="dot">·</span> сборка на базе IO Rodeo Full Kit <span class="dot">·</span> доставка в Рио</div>
+    <h1 class="reveal" data-hero>Что докупить<br>к набору Full Kit</h1>
+    <p class="lede reveal" data-hero>Механическую часть микроскопа <b>OpenFlexure</b> берём готовой — <b>IO Rodeo Full Kit ($200)</b>: напечатанный корпус, плата, моторы, подсветка и крепёж уже внутри. Ниже — только то, что <b>реально нужно докупить сверх набора</b>: управляющий Pi, камера HQ, оптика с флуоресценцией, герметичный бокс с климатом и клетки. С доставкой в <b>Рио‑де‑Жанейро</b>.</p>
     <div class="meta-chips reveal" data-hero>
-      <div class="mchip">25 <span>позиций</span></div>
-      <div class="mchip">6 <span>блоков закупки</span></div>
-      <div class="mchip tnum">$1 955–4 210 <span>бюджет MVP</span></div>
-      <div class="mchip">Доставка <span>→ Рио‑де‑Жанейро</span></div>
+      <div class="mchip">Full Kit <span>= база</span></div>
+      <div class="mchip tnum">23 <span>позиции докупаем</span></div>
+      <div class="mchip">4 <span>блока</span></div>
+      <div class="mchip tnum">≈ $2 000–4 100 <span>бюджет MVP</span></div>
     </div>
   </div>
 </header>
 
 <div class="wrap">
 
+  <!-- WHAT'S IN THE KIT -->
+  <section>
+    <div class="kit reveal">
+      <div class="kit-top">
+        <h3>Уже в наборе — докупать НЕ нужно</h3>
+        <span class="pill">IO Rodeo Full Kit</span>
+        <span class="pr">$200</span>
+      </div>
+      <p class="sub">Полный сборочный набор с напечатанным пластиком. Всё перечисленное входит в коробку — не заказывайте это отдельно.</p>
+      <div class="kit-grid">
+        <div class="k"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><div><b>Корпус микроскопа</b> — напечатанные пластиковые детали в цвете</div></div>
+        <div class="k"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><div><b>Подсветка brightfield</b> — LED‑плата <b>+ диффузоры</b></div></div>
+        <div class="k"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><div><b>Sangaboard v0.5</b> — плата управления моторами (прошита)</div></div>
+        <div class="k"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><div><b>3× мотора 28BYJ‑48</b> — оси X / Y / Z</div></div>
+        <div class="k"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><div><b>Конденсорная линза 5 мм</b> + масло</div></div>
+        <div class="k"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><div><b>microSD 64 ГБ</b> с OpenFlexure OS</div></div>
+        <div class="k"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><div><b>Крепёж</b> — винты / гайки / шайбы M3 + O‑ring</div></div>
+        <div class="k"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><div><b>Инструменты</b> для сборки (allen‑ключ)</div></div>
+        <div class="k no"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12h8"/></svg><div><b>Камера Pi v2</b> — есть в наборе, но <b>НЕ используем</b> (ставим HQ, см. п.2)</div></div>
+      </div>
+      <div class="kit-cta">
+        <a class="buy" href="https://iorodeo.com/products/openflexure-microscope-kit" target="_blank" rel="noopener">IO Rodeo — Full Kit <span class="price">$200</span><svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
+      </div>
+    </div>
+
+    <div class="note danger reveal"><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg><div><b>Не путать: «корпус микроскопа» ≠ герметичный бокс.</b> В наборе идёт пластиковый корпус <b>самого микроскопа</b>. А герметичный инкубационный бокс (37 °C + CO₂), который ставится <b>вокруг всего микроскопа</b>, — это отдельная лазерная коробка, её всё равно делаем локально (блок C).</div></div>
+
+    <div class="note warn reveal"><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg><div><b>Проверьте пластик набора на теплостойкость.</b> Микроскоп постоянно живёт при <b>37 °C во влажном боксе</b>. Уточните у IO Rodeo материал корпуса: если это PLA — он поведёт при 37 °C, и детали придётся перепечатать в Рио из <b>ASA или PETG</b>. Если ASA/PETG — всё в порядке.</div></div>
+  </section>
+
   <!-- STAGES -->
   <div class="stages">
     <div class="stage s1 reveal">
       <span class="tag">ЭТАП 1 — можно начинать сразу</span>
       <h3>Робот работает</h3>
-      <p>Обычный свет (brightfield), дешёвые клетки из местного банка BCRJ, без генетики. Проверяем: держит 37 °C и CO₂, автофокус не уплывает, ловит деление, управляется онлайн. Не зависит от биолаборатории.</p>
+      <p>Обычный свет (уже в наборе), дешёвые клетки из BCRJ. Проверяем: держит 37 °C и CO₂, автофокус не уплывает, ловит деление, управляется онлайн. Не зависит от биолаборатории.</p>
     </div>
     <div class="stage s2 reveal">
-      <span class="tag">ЭТАП 2 — оптику заказать сразу, использовать позже</span>
+      <span class="tag">ЭТАП 2 — оптику заказать сразу</span>
       <h3>Видим центриоли</h3>
-      <p>Включаем флуоресценцию и клетки с метками. Центриоли в обычном свете не видны в принципе. Требует подтверждённой лаборатории. Оптику берём сразу (долгая доставка).</p>
+      <p>Флуоресценция и клетки с метками. Требует подтверждённой лаборатории. Оптику (объектив, фильтры, LED возбуждения) берём сразу — самая долгая доставка.</p>
     </div>
   </div>
 
   <!-- HARD RULES -->
   <div class="rules reveal">
-    <h4>Три правила, которые нельзя нарушать при закупке</h4>
+    <h4>Три правила, которые нельзя нарушать</h4>
     <ul>
-      <li><span class="rn">1</span><div><b>Пластик — только ASA или PETG.</b> PLA категорически нельзя: деформируется уже при 37 °C, а прибор постоянно живёт при этой температуре во влажном боксе.</div></li>
-      <li><span class="rn">2</span><div><b>Датчик CO₂ — только на диапазон 0–20 %.</b> Популярный Sensirion SCD30 не подходит: меряет примерно до 4 %, а рабочая уставка — 5 %. Он физически не увидит рабочую концентрацию.</div></li>
-      <li><span class="rn">3</span><div><b>Клетки с генетическими метками (этап 2) не заказывать, пока не подтверждена лаборатория.</b> Клетки для этапа 1 — можно и нужно, см. блок 06.</div></li>
+      <li><span class="rn">1</span><div><b>Пластик, живущий при 37 °C — только ASA/PETG, не PLA.</b> Касается и корпуса из набора (проверить материал), и любой доп. печати.</div></li>
+      <li><span class="rn">2</span><div><b>Датчик CO₂ — только на диапазон 0–20 %.</b> Sensirion SCD30 не подходит: меряет до ~4 %, а рабочая уставка — 5 %.</div></li>
+      <li><span class="rn">3</span><div><b>Клетки с метками (этап 2) не заказывать, пока не подтверждена лаборатория.</b> Клетки для этапа 1 — можно и нужно (блок D).</div></li>
     </ul>
   </div>
-
-  <!-- LOGISTICS / SUPPLIER MAP -->
-  <section>
-    <div class="sec-head reveal">
-      <div class="sec-ico"><svg viewBox="0 0 24 24"><path d="M3 7l9-4 9 4-9 4-9-4z"/><path d="M3 7v10l9 4 9-4V7"/><path d="M12 11v10"/></svg></div>
-      <div><div class="sec-num">ЛОГИСТИКА</div><h2>Где что заказывать — карта поставщиков</h2></div>
-    </div>
-    <p class="sec-sub reveal">Через границу едет <b>минимум</b>: пластик печатается в Рио, акриловый бокс режется в Рио, клетки — из местного банка BCRJ. Ввозить нужно только набор электроники, камеру, оптику и датчик CO₂. Оптику заказывать <b>в первую очередь</b> — самая долгая позиция.</p>
-    <div class="bento">
-      <div class="bcard reveal"><div class="k"><span class="badge b-local"><span class="bd"></span>Локально · Рио</span></div><div class="v">3D‑печать пластика<br><span>Ranger 3D, Koios 3D, Fab Lab Firjan</span></div></div>
-      <div class="bcard reveal"><div class="k"><span class="badge b-local"><span class="bd"></span>Локально · Рио</span></div><div class="v">Акриловый бокс (лазер)<br><span>Corteshow, Ranger 3D, Rei do Corte</span></div></div>
-      <div class="bcard reveal"><div class="k"><span class="badge b-local"><span class="bd"></span>Локально · Рио (RJ)</span></div><div class="v">Клетки и биорасходники<br><span>BCRJ — Duque de Caxias, RJ</span></div></div>
-      <div class="bcard reveal"><div class="k"><span class="badge b-local"><span class="bd"></span>Доставка по Бразилии</span></div><div class="v">Raspberry Pi, датчики, Пельтье<br><span>RoboCore, Mercado Livre, Amazon.br</span></div></div>
-      <div class="bcard reveal"><div class="k"><span class="badge b-import"><span class="bd"></span>Импорт · таможня</span></div><div class="v">Набор OpenFlexure, камера HQ<br><span>IO Rodeo, LabCrafter, TauLab</span></div></div>
-      <div class="bcard reveal"><div class="k"><span class="badge b-first"><span class="bd"></span>Импорт · заказать первой</span></div><div class="v">Оптика и фильтры<br><span>AmScope, eBay, Thorlabs, Chroma</span></div></div>
-    </div>
-    <div class="note info reveal"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/></svg><div><b>Бразильская таможня — отдельный риск.</b> Тяжёлые импортные пошлины и придирчивое оформление. Разделяйте заказы по поставщикам, заранее уточняйте у продавцов, отправляют ли они в Бразилию, и закладывайте дополнительное время и бюджет. Дешёвую мелочёвку (датчики, трубки, штуцеры, Пельтье, шлейфы) берите на месте или с AliExpress.</div></div>
-  </section>
 
   <!-- CHEAT SHEET -->
   <section id="cheat">
     <div class="sec-head reveal">
       <div class="sec-ico"><svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
-      <div><div class="sec-num">ШПАРГАЛКА</div><h2>Чек-лист заказа — всё на одном экране</h2></div>
+      <div><div class="sec-num">ШПАРГАЛКА</div><h2>Что докупаем сверх набора — чек-лист</h2></div>
     </div>
-    <p class="sec-sub reveal">Одна таблица для закупки: что, сколько, у кого, почём, куда едет и в какую очередь заказывать. Отмечайте галочками — <b>отметки сохраняются в этом браузере</b>. Кнопка «Печать» выводит только таблицу.</p>
+    <p class="sec-sub reveal">Только то, чего <b>нет в Full Kit</b>. Отмечайте галочками — <b>сохраняется в этом браузере</b>. Кнопка «Печать» выводит только таблицу.</p>
 
     <div class="cheat-toolbar reveal">
-      <div class="hint"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>Заказано: <b id="cheat-count">0 / 26</b></div>
+      <div class="hint"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>Заказано: <b id="cheat-count">0 / 24</b></div>
       <button class="btn" id="cheat-print"><svg viewBox="0 0 24 24"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><path d="M6 14h12v8H6z"/></svg>Печать</button>
       <button class="btn" id="cheat-reset"><svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg>Сбросить</button>
     </div>
@@ -281,539 +299,358 @@
             <tr><th></th><th>№</th><th>Позиция</th><th>Кол-во</th><th>У кого заказать</th><th>Цена</th><th>Доставка</th><th>Очередь</th></tr>
           </thead>
           <tbody>
-            <tr><td class="c-chk"><input class="chk" type="checkbox" data-id="p"></td><td class="cnum">П</td><td class="c-name"><b>3D-печать пластика</b> (комплект STL)</td><td class="c-qty">1 компл.</td><td class="c-who"><a href="https://ranger3d.com.br/services/impressao-3d/" target="_blank" rel="noopener">Ranger 3D</a> / Koios (Рио)</td><td><span class="price">$50–200</span></td><td><span class="dtag l">Локально · Рио</span></td><td><span class="prio now">можно сразу</span></td></tr>
+            <tr class="base"><td class="c-chk"><input class="chk" type="checkbox" data-id="k"></td><td class="cnum">Б</td><td class="c-name"><b>IO Rodeo Full Kit</b> (корпус, плата, моторы, подсветка, крепёж)</td><td class="c-qty">1 компл.</td><td class="c-who"><a href="https://iorodeo.com/products/openflexure-microscope-kit" target="_blank" rel="noopener">IO Rodeo</a></td><td><span class="price">$200</span></td><td><span class="dtag i">Импорт</span></td><td><span class="prio base">база</span></td></tr>
 
-            <tr><td class="c-chk"><input class="chk" type="checkbox" data-id="1"></td><td class="cnum">1</td><td class="c-name"><b>Набор OpenFlexure</b> — Assembly ($148) или Full+пластик ($200)</td><td class="c-qty">1 компл.</td><td class="c-who"><a href="https://iorodeo.com/products/openflexure-microscope-hardware-kit" target="_blank" rel="noopener">IO Rodeo</a> / LabCrafter</td><td><span class="price">$148–200</span></td><td><span class="dtag i">Импорт</span></td><td><span class="prio p1">1-я очередь</span></td></tr>
+            <tr><td class="c-chk"><input class="chk" type="checkbox" data-id="1"></td><td class="cnum">1</td><td class="c-name"><b>Raspberry Pi 4B</b> 4/8 ГБ + БП 15 Вт <span style="color:var(--red)">(не Pi 5)</span> <span style="color:var(--muted)">· microSD в наборе</span></td><td class="c-qty">1 компл.</td><td class="c-who"><a href="https://www.robocore.net/placa-raspberry-pi/raspberry-pi-4-model-b-8gb" target="_blank" rel="noopener">RoboCore</a> / Mercado Livre</td><td><span class="price">$55–100</span></td><td><span class="dtag b">Бразилия</span></td><td><span class="prio now">можно сразу</span></td></tr>
 
-            <tr><td class="c-chk"><input class="chk" type="checkbox" data-id="2"></td><td class="cnum">2</td><td class="c-name"><b>Камера HQ</b> IMX477 + переходник C→RMS</td><td class="c-qty">1 шт.</td><td class="c-who"><a href="https://www.amazon.com.br/Raspberry-Pi-HQ-sensibilidade-alternativa/dp/B08LHJR3K4" target="_blank" rel="noopener">Amazon.br</a> / AliExpress</td><td><span class="price">$60–120</span></td><td><span class="dtag b">Бразилия / имп.</span></td><td><span class="prio now">можно сразу</span></td></tr>
+            <tr><td class="c-chk"><input class="chk" type="checkbox" data-id="2"></td><td class="cnum">2</td><td class="c-name"><b>Камера HQ</b> IMX477 + переходник C→RMS <span style="color:var(--red)">(вместо v2 из набора)</span></td><td class="c-qty">1 шт.</td><td class="c-who"><a href="https://www.amazon.com.br/Raspberry-Pi-HQ-sensibilidade-alternativa/dp/B08LHJR3K4" target="_blank" rel="noopener">Amazon.br</a> / AliExpress</td><td><span class="price">$60–120</span></td><td><span class="dtag b">Бразилия / имп.</span></td><td><span class="prio now">можно сразу</span></td></tr>
 
-            <tr><td class="c-chk"><input class="chk" type="checkbox" data-id="3"></td><td class="cnum">3</td><td class="c-name"><b>Шлейф камеры</b> 300–500 мм (+ переходник 22↔15 pin для Pi 5)</td><td class="c-qty">1 компл.</td><td class="c-who"><a href="https://www.adafruit.com/product/5819" target="_blank" rel="noopener">Adafruit</a> / офиц. RPi</td><td><span class="price">$15–40</span></td><td><span class="dtag i">Импорт</span></td><td><span class="prio now">можно сразу</span></td></tr>
+            <tr><td class="c-chk"><input class="chk" type="checkbox" data-id="3"></td><td class="cnum">3</td><td class="c-name"><b>Длинный шлейф камеры</b> CSI 15‑pin, 300–500 мм <span style="color:var(--muted)">(Pi 4B — без переходника)</span></td><td class="c-qty">1 компл.</td><td class="c-who"><a href="https://www.raspberrypi.com/products/camera-cable/" target="_blank" rel="noopener">Офиц. RPi</a> / Adafruit</td><td><span class="price">$10–30</span></td><td><span class="dtag i">Импорт</span></td><td><span class="prio now">можно сразу</span></td></tr>
 
-            <tr><td class="c-chk"><input class="chk" type="checkbox" data-id="4"></td><td class="cnum">4</td><td class="c-name"><b>Объектив 40×</b> RMS · 160/0.17 · NA 0.75</td><td class="c-qty">1 шт.</td><td class="c-who"><a href="https://amscope.com/products/pa40x-v300" target="_blank" rel="noopener">AmScope</a> / eBay (б/у)</td><td><span class="price">$200–450</span></td><td><span class="dtag i">Импорт</span></td><td><span class="prio p1">1-я очередь</span></td></tr>
+            <tr><td class="c-chk"><input class="chk" type="checkbox" data-id="4"></td><td class="cnum">4</td><td class="c-name"><b>SSD 1 ТБ</b> USB 3.0 (хранение таймлапса)</td><td class="c-qty">1 шт.</td><td class="c-who"><a href="https://www.amazon.com.br/SanDisk-SSD-port%C3%A1til-TB-SDSSDE30-1T00-G26/dp/B0C5JQ68FY" target="_blank" rel="noopener">Amazon.br</a></td><td><span class="price">$70–110</span></td><td><span class="dtag b">Бразилия</span></td><td><span class="prio now">можно сразу</span></td></tr>
 
-            <tr><td class="c-chk"><input class="chk" type="checkbox" data-id="5"></td><td class="cnum">5</td><td class="c-name"><b>Ахроматический дублет</b> (линза модуля)</td><td class="c-qty">1 шт.</td><td class="c-who"><a href="https://www.thorlabs.com/thorproduct.cfm?partnumber=AC254-050-A" target="_blank" rel="noopener">Thorlabs</a> / AliExpress</td><td><span class="price">$20–60</span></td><td><span class="dtag i">Импорт</span></td><td><span class="prio p1">1-я очередь</span></td></tr>
+            <tr><td class="c-chk"><input class="chk" type="checkbox" data-id="5"></td><td class="cnum">5</td><td class="c-name"><b>Корпус Pi 5</b> + радиатор</td><td class="c-qty">1 шт.</td><td class="c-who"><a href="https://www.robocore.net/acessorios-raspberry-pi/case-para-raspberry-pi-5-com-cooler-branco" target="_blank" rel="noopener">RoboCore</a> / Amazon.br</td><td><span class="price">$15–30</span></td><td><span class="dtag b">Бразилия</span></td><td><span class="prio now">можно сразу</span></td></tr>
 
-            <tr><td class="c-chk"><input class="chk" type="checkbox" data-id="6"></td><td class="cnum">6</td><td class="c-name"><b>Фильтры GFP</b> (зелёный канал)</td><td class="c-qty">1 компл.</td><td class="c-who"><a href="https://microscopecentral.com/products/chroma-49002-et-egfp-fitc-cy2-fluorescence-filter-set" target="_blank" rel="noopener">Chroma 49002</a> / AliExpress</td><td><span class="price">$150–350</span></td><td><span class="dtag i">Импорт</span></td><td><span class="prio p1">1-я очередь</span></td></tr>
+            <tr><td class="c-chk"><input class="chk" type="checkbox" data-id="6"></td><td class="cnum">6</td><td class="c-name"><b>Объектив 40×</b> RMS · 160/0.17 · NA 0.75</td><td class="c-qty">1 шт.</td><td class="c-who"><a href="https://amscope.com/products/pa40x-v300" target="_blank" rel="noopener">AmScope</a> / eBay (б/у)</td><td><span class="price">$200–450</span></td><td><span class="dtag i">Импорт</span></td><td><span class="prio p1">1-я очередь</span></td></tr>
 
-            <tr><td class="c-chk"><input class="chk" type="checkbox" data-id="7"></td><td class="cnum">7</td><td class="c-name"><b>Фильтры RFP</b> (красный канал)</td><td class="c-qty">1 компл.</td><td class="c-who"><a href="https://microscopecentral.com/products/chroma-49005-et-dsred-cy3-tritc-fluorescence-filter-set" target="_blank" rel="noopener">Chroma 49005</a> / AliExpress</td><td><span class="price">$150–350</span></td><td><span class="dtag i">Импорт</span></td><td><span class="prio p1">1-я очередь</span></td></tr>
+            <tr><td class="c-chk"><input class="chk" type="checkbox" data-id="7"></td><td class="cnum">7</td><td class="c-name"><b>Ахроматический дублет</b> (линза модуля high-res)</td><td class="c-qty">1 шт.</td><td class="c-who"><a href="https://www.thorlabs.com/thorproduct.cfm?partnumber=AC254-050-A" target="_blank" rel="noopener">Thorlabs</a> / AliExpress</td><td><span class="price">$20–60</span></td><td><span class="dtag i">Импорт</span></td><td><span class="prio p1">1-я очередь</span></td></tr>
 
-            <tr><td class="c-chk"><input class="chk" type="checkbox" data-id="8"></td><td class="cnum">8</td><td class="c-name"><b>LED 470 нм</b> (синий) + драйвер пост. тока</td><td class="c-qty">1 компл.</td><td class="c-who"><a href="https://www.thorlabs.com/item/M470L4" target="_blank" rel="noopener">Thorlabs</a> / Chanzon</td><td><span class="price">$40–120</span></td><td><span class="dtag i">Импорт</span></td><td><span class="prio p1">1-я очередь</span></td></tr>
+            <tr><td class="c-chk"><input class="chk" type="checkbox" data-id="8"></td><td class="cnum">8</td><td class="c-name"><b>Фильтры GFP</b> (зелёный канал)</td><td class="c-qty">1 компл.</td><td class="c-who"><a href="https://microscopecentral.com/products/chroma-49002-et-egfp-fitc-cy2-fluorescence-filter-set" target="_blank" rel="noopener">Chroma 49002</a> / AliExpress</td><td><span class="price">$150–350</span></td><td><span class="dtag i">Импорт</span></td><td><span class="prio p1">1-я очередь</span></td></tr>
 
-            <tr><td class="c-chk"><input class="chk" type="checkbox" data-id="9"></td><td class="cnum">9</td><td class="c-name"><b>LED 530–560 нм</b> (зелёный) + драйвер</td><td class="c-qty">1 компл.</td><td class="c-who"><a href="https://www.thorlabs.com/thorproduct.cfm?partnumber=M565L3" target="_blank" rel="noopener">Thorlabs</a> / Chanzon</td><td><span class="price">$40–120</span></td><td><span class="dtag i">Импорт</span></td><td><span class="prio p1">1-я очередь</span></td></tr>
+            <tr><td class="c-chk"><input class="chk" type="checkbox" data-id="9"></td><td class="cnum">9</td><td class="c-name"><b>Фильтры RFP</b> (красный канал)</td><td class="c-qty">1 компл.</td><td class="c-who"><a href="https://microscopecentral.com/products/chroma-49005-et-dsred-cy3-tritc-fluorescence-filter-set" target="_blank" rel="noopener">Chroma 49005</a> / AliExpress</td><td><span class="price">$150–350</span></td><td><span class="dtag i">Импорт</span></td><td><span class="prio p1">1-я очередь</span></td></tr>
 
-            <tr><td class="c-chk"><input class="chk" type="checkbox" data-id="10"></td><td class="cnum">10</td><td class="c-name"><b>LED brightfield</b> (белый + диффузор)</td><td class="c-qty">1 компл.</td><td class="c-who">обычно <b>в наборе OpenFlexure</b></td><td><span class="price">$0–30</span></td><td><span class="dtag n">—</span></td><td><span class="prio hold">проверить в наборе</span></td></tr>
+            <tr><td class="c-chk"><input class="chk" type="checkbox" data-id="10"></td><td class="cnum">10</td><td class="c-name"><b>LED 470 нм</b> (синий) + драйвер пост. тока</td><td class="c-qty">1 компл.</td><td class="c-who"><a href="https://www.thorlabs.com/item/M470L4" target="_blank" rel="noopener">Thorlabs</a> / Chanzon</td><td><span class="price">$40–120</span></td><td><span class="dtag i">Импорт</span></td><td><span class="prio p1">1-я очередь</span></td></tr>
 
-            <tr><td class="c-chk"><input class="chk" type="checkbox" data-id="11"></td><td class="cnum">11</td><td class="c-name"><b>Raspberry Pi 5</b> 8 ГБ + БП 27 Вт + microSD 64</td><td class="c-qty">1 компл.</td><td class="c-who"><a href="https://www.mercadolivre.com.br/raspberry-pi-5-modelo-b-8gb/p/MLB32625223" target="_blank" rel="noopener">Mercado Livre</a> / RoboCore</td><td><span class="price">$110–170</span></td><td><span class="dtag b">Бразилия</span></td><td><span class="prio now">можно сразу</span></td></tr>
+            <tr><td class="c-chk"><input class="chk" type="checkbox" data-id="11"></td><td class="cnum">11</td><td class="c-name"><b>LED 530–560 нм</b> (зелёный) + драйвер</td><td class="c-qty">1 компл.</td><td class="c-who"><a href="https://www.thorlabs.com/thorproduct.cfm?partnumber=M565L3" target="_blank" rel="noopener">Thorlabs</a> / Chanzon</td><td><span class="price">$40–120</span></td><td><span class="dtag i">Импорт</span></td><td><span class="prio p1">1-я очередь</span></td></tr>
 
-            <tr><td class="c-chk"><input class="chk" type="checkbox" data-id="12"></td><td class="cnum">12</td><td class="c-name"><b>SSD 1 ТБ</b> USB 3.0 внешний</td><td class="c-qty">1 шт.</td><td class="c-who"><a href="https://www.amazon.com.br/SanDisk-SSD-port%C3%A1til-TB-SDSSDE30-1T00-G26/dp/B0C5JQ68FY" target="_blank" rel="noopener">Amazon.br</a></td><td><span class="price">$70–110</span></td><td><span class="dtag b">Бразилия</span></td><td><span class="prio now">можно сразу</span></td></tr>
+            <tr><td class="c-chk"><input class="chk" type="checkbox" data-id="12"></td><td class="cnum">12</td><td class="c-name"><b>Герметичный бокс</b> (акрил, лазер) — вокруг микроскопа</td><td class="c-qty">1 шт.</td><td class="c-who"><a href="https://www.corteshow.com/" target="_blank" rel="noopener">Corteshow</a> (Рио)</td><td><span class="price">$150–400</span></td><td><span class="dtag l">Локально · Рио</span></td><td><span class="prio hold">после сборки</span></td></tr>
 
-            <tr><td class="c-chk"><input class="chk" type="checkbox" data-id="13"></td><td class="cnum">13</td><td class="c-name"><b>Корпус Pi 5</b> + радиатор</td><td class="c-qty">1 шт.</td><td class="c-who"><a href="https://www.robocore.net/acessorios-raspberry-pi/case-para-raspberry-pi-5-com-cooler-branco" target="_blank" rel="noopener">RoboCore</a> / Amazon.br</td><td><span class="price">$15–30</span></td><td><span class="dtag b">Бразилия</span></td><td><span class="prio now">можно сразу</span></td></tr>
+            <tr><td class="c-chk"><input class="chk" type="checkbox" data-id="13"></td><td class="cnum">13</td><td class="c-name"><b>Датчик CO₂ 0–20 %</b> SprintIR-6S-20 <span style="color:var(--red)">(не SCD30)</span></td><td class="c-qty">1 шт.</td><td class="c-who"><a href="https://www.co2meter.com/products/sprintir6s-20-co2-smart-sensor" target="_blank" rel="noopener">CO2Meter</a> / DigiKey</td><td><span class="price">$197–318</span></td><td><span class="dtag i">Импорт</span></td><td><span class="prio now">можно сразу</span></td></tr>
 
-            <tr><td class="c-chk"><input class="chk" type="checkbox" data-id="14"></td><td class="cnum">14</td><td class="c-name"><b>Герметичный бокс</b> (акрил, лазер)</td><td class="c-qty">1 шт.</td><td class="c-who"><a href="https://www.corteshow.com/" target="_blank" rel="noopener">Corteshow</a> (Рио)</td><td><span class="price">$150–400</span></td><td><span class="dtag l">Локально · Рио</span></td><td><span class="prio hold">после сборки</span></td></tr>
+            <tr><td class="c-chk"><input class="chk" type="checkbox" data-id="14"></td><td class="cnum">14</td><td class="c-name"><b>Датчик темп./влаж.</b> SHT31 / BME280</td><td class="c-qty">2 шт.</td><td class="c-who"><a href="https://www.usinainfo.com.br/sensor-de-pressao/sensor-de-pressao-umidade-e-temperatura-bme280-de-alta-precisao-33v-4682.html" target="_blank" rel="noopener">Usinainfo</a> / Saravati</td><td><span class="price">$15–30</span></td><td><span class="dtag b">Бразилия</span></td><td><span class="prio now">можно сразу</span></td></tr>
 
-            <tr><td class="c-chk"><input class="chk" type="checkbox" data-id="15"></td><td class="cnum">15</td><td class="c-name"><b>Датчик CO₂ 0–20 %</b> SprintIR-6S-20 <span style="color:var(--red)">(не SCD30)</span></td><td class="c-qty">1 шт.</td><td class="c-who"><a href="https://www.co2meter.com/products/sprintir6s-20-co2-smart-sensor" target="_blank" rel="noopener">CO2Meter</a> / DigiKey</td><td><span class="price">$197–318</span></td><td><span class="dtag i">Импорт</span></td><td><span class="prio now">можно сразу</span></td></tr>
+            <tr><td class="c-chk"><input class="chk" type="checkbox" data-id="15"></td><td class="cnum">15</td><td class="c-name"><b>Нагрев</b>: Пельтье ×2 + ПИД ITC-100VH + SSR <span style="color:var(--red)">(не W1209/ITC-308)</span></td><td class="c-qty">1 компл.</td><td class="c-who"><a href="https://www.mercadolivre.com.br/inkbird-itc-100vh-pid-thermostat-controller-100-240v-k-type/p/MLB2051313350" target="_blank" rel="noopener">Mercado Livre</a></td><td><span class="price">$80–150</span></td><td><span class="dtag b">Бразилия</span></td><td><span class="prio now">можно сразу</span></td></tr>
 
-            <tr><td class="c-chk"><input class="chk" type="checkbox" data-id="16"></td><td class="cnum">16</td><td class="c-name"><b>Датчик темп./влаж.</b> SHT31 / BME280</td><td class="c-qty">2 шт.</td><td class="c-who"><a href="https://www.usinainfo.com.br/sensor-de-pressao/sensor-de-pressao-umidade-e-temperatura-bme280-de-alta-precisao-33v-4682.html" target="_blank" rel="noopener">Usinainfo</a> / Saravati</td><td><span class="price">$15–30</span></td><td><span class="dtag b">Бразилия</span></td><td><span class="prio now">можно сразу</span></td></tr>
+            <tr><td class="c-chk"><input class="chk" type="checkbox" data-id="16"></td><td class="cnum">16</td><td class="c-name"><b>Подача CO₂</b>: баллон + редуктор + клапан 12 В + игла</td><td class="c-qty">1 компл.</td><td class="c-who"><a href="https://www.amazon.com.br/dp/B0DCBH4KQ8" target="_blank" rel="noopener">Amazon.br</a> (аквариумистика)</td><td><span class="price">$70–140</span></td><td><span class="dtag b">Бразилия</span></td><td><span class="prio now">можно сразу</span></td></tr>
 
-            <tr><td class="c-chk"><input class="chk" type="checkbox" data-id="17"></td><td class="cnum">17</td><td class="c-name"><b>Нагрев</b>: Пельтье ×2 + ПИД ITC-100VH + SSR <span style="color:var(--red)">(не W1209/ITC-308)</span></td><td class="c-qty">1 компл.</td><td class="c-who"><a href="https://www.mercadolivre.com.br/inkbird-itc-100vh-pid-thermostat-controller-100-240v-k-type/p/MLB2051313350" target="_blank" rel="noopener">Mercado Livre</a></td><td><span class="price">$80–150</span></td><td><span class="dtag b">Бразилия</span></td><td><span class="prio now">можно сразу</span></td></tr>
+            <tr><td class="c-chk"><input class="chk" type="checkbox" data-id="17"></td><td class="cnum">17</td><td class="c-name"><b>Гермовводы</b> M16/M20 IP68</td><td class="c-qty">3 шт.</td><td class="c-who"><a href="https://cetti.com.br/p/prensa-cabo-m20-metalico-ip68/" target="_blank" rel="noopener">Cetti</a></td><td><span class="price">$10–20</span></td><td><span class="dtag b">Бразилия</span></td><td><span class="prio now">можно сразу</span></td></tr>
 
-            <tr><td class="c-chk"><input class="chk" type="checkbox" data-id="18"></td><td class="cnum">18</td><td class="c-name"><b>Подача CO₂</b>: баллон + редуктор + клапан 12 В + игла</td><td class="c-qty">1 компл.</td><td class="c-who"><a href="https://www.amazon.com.br/dp/B0DCBH4KQ8" target="_blank" rel="noopener">Amazon.br</a> (аквариумистика)</td><td><span class="price">$70–140</span></td><td><span class="dtag b">Бразилия</span></td><td><span class="prio now">можно сразу</span></td></tr>
+            <tr><td class="c-chk"><input class="chk" type="checkbox" data-id="18"></td><td class="cnum">18</td><td class="c-name"><b>Расходники</b>: силикон нейтр., трубка 4 мм, штуцеры, лоток <span style="color:var(--red)">(не кислотный)</span></td><td class="c-qty">компл.</td><td class="c-who"><a href="https://www.impermarket.com.br/selante-de-silicone-neutro-resistente-a-intemperies-dowsil-791-preto-300ml-3699/p" target="_blank" rel="noopener">DowSil</a> / ML</td><td><span class="price">$25–50</span></td><td><span class="dtag b">Бразилия</span></td><td><span class="prio now">можно сразу</span></td></tr>
 
-            <tr><td class="c-chk"><input class="chk" type="checkbox" data-id="19"></td><td class="cnum">19</td><td class="c-name"><b>Гермовводы</b> M16/M20 IP68</td><td class="c-qty">3 шт.</td><td class="c-who"><a href="https://cetti.com.br/p/prensa-cabo-m20-metalico-ip68/" target="_blank" rel="noopener">Cetti</a></td><td><span class="price">$10–20</span></td><td><span class="dtag b">Бразилия</span></td><td><span class="prio now">можно сразу</span></td></tr>
+            <tr><td class="c-chk"><input class="chk" type="checkbox" data-id="19"></td><td class="cnum">19</td><td class="c-name"><b>Антивибро-опоры</b> + датчик протечки</td><td class="c-qty">компл.</td><td class="c-who"><a href="https://www.amazon.com.br/Nivelador-Amortecedor-Vibra-Stop-Maquina-Borracha/dp/B0BS1RWDCP" target="_blank" rel="noopener">Amazon.br</a> / ML</td><td><span class="price">$15–30</span></td><td><span class="dtag b">Бразилия</span></td><td><span class="prio now">можно сразу</span></td></tr>
 
-            <tr><td class="c-chk"><input class="chk" type="checkbox" data-id="20"></td><td class="cnum">20</td><td class="c-name"><b>Расходники</b>: силикон нейтр., трубка 4 мм, штуцеры, лоток <span style="color:var(--red)">(не кислотный)</span></td><td class="c-qty">компл.</td><td class="c-who"><a href="https://www.impermarket.com.br/selante-de-silicone-neutro-resistente-a-intemperies-dowsil-791-preto-300ml-3699/p" target="_blank" rel="noopener">DowSil</a> / ML</td><td><span class="price">$25–50</span></td><td><span class="dtag b">Бразилия</span></td><td><span class="prio now">можно сразу</span></td></tr>
+            <tr><td class="c-chk"><input class="chk" type="checkbox" data-id="20"></td><td class="cnum">20</td><td class="c-name"><b>Клетки этап 1</b> U2OS / HeLa / NIH-3T3</td><td class="c-qty">1</td><td class="c-who"><a href="https://bcrj.org.br/celula/u-2-os" target="_blank" rel="noopener">BCRJ</a> (Рио, RJ)</td><td><span class="price">$100–300</span></td><td><span class="dtag l">Локально · RJ</span></td><td><span class="prio now">можно сразу</span></td></tr>
 
-            <tr><td class="c-chk"><input class="chk" type="checkbox" data-id="21"></td><td class="cnum">21</td><td class="c-name"><b>Антивибро-опоры</b> + датчик протечки</td><td class="c-qty">компл.</td><td class="c-who"><a href="https://www.amazon.com.br/Nivelador-Amortecedor-Vibra-Stop-Maquina-Borracha/dp/B0BS1RWDCP" target="_blank" rel="noopener">Amazon.br</a> / ML</td><td><span class="price">$15–30</span></td><td><span class="dtag b">Бразилия</span></td><td><span class="prio now">можно сразу</span></td></tr>
+            <tr><td class="c-chk"><input class="chk" type="checkbox" data-id="21"></td><td class="cnum">21</td><td class="c-name"><b>Среда, FBS, антибиотики, трипсин</b></td><td class="c-qty">1</td><td class="c-who"><a href="http://www.cultilab.com.br/" target="_blank" rel="noopener">Cultilab</a> / LGC / Prolab</td><td><span class="price">$200–400</span></td><td><span class="dtag b">Бразилия</span></td><td><span class="prio hold">заказывает лаба</span></td></tr>
 
-            <tr><td class="c-chk"><input class="chk" type="checkbox" data-id="22"></td><td class="cnum">22</td><td class="c-name"><b>Клетки этап 1</b> U2OS / HeLa / NIH-3T3</td><td class="c-qty">1</td><td class="c-who"><a href="https://bcrj.org.br/celula/u-2-os" target="_blank" rel="noopener">BCRJ</a> (Рио, RJ)</td><td><span class="price">$100–300</span></td><td><span class="dtag l">Локально · RJ</span></td><td><span class="prio now">можно сразу</span></td></tr>
+            <tr><td class="c-chk"><input class="chk" type="checkbox" data-id="22"></td><td class="cnum">22</td><td class="c-name"><b>Чашки со стекл. дном</b> 35 мм · #1.5</td><td class="c-qty">1</td><td class="c-who"><a href="https://www.cellvis.com/_35-mm-glass-bottom-dish-with-20-mm-micro-well-number-1.5-cover-glass_/product_detail.php?product_id=17" target="_blank" rel="noopener">Cellvis</a> / Induslab</td><td><span class="price">$100–200</span></td><td><span class="dtag b">Бразилия / имп.</span></td><td><span class="prio now">можно сразу</span></td></tr>
 
-            <tr><td class="c-chk"><input class="chk" type="checkbox" data-id="23"></td><td class="cnum">23</td><td class="c-name"><b>Среда, FBS, антибиотики, трипсин</b></td><td class="c-qty">1</td><td class="c-who"><a href="http://www.cultilab.com.br/" target="_blank" rel="noopener">Cultilab</a> / LGC / Prolab</td><td><span class="price">$200–400</span></td><td><span class="dtag b">Бразилия</span></td><td><span class="prio hold">заказывает лаба</span></td></tr>
-
-            <tr><td class="c-chk"><input class="chk" type="checkbox" data-id="24"></td><td class="cnum">24</td><td class="c-name"><b>Чашки со стекл. дном</b> 35 мм · #1.5</td><td class="c-qty">1</td><td class="c-who"><a href="https://www.cellvis.com/_35-mm-glass-bottom-dish-with-20-mm-micro-well-number-1.5-cover-glass_/product_detail.php?product_id=17" target="_blank" rel="noopener">Cellvis</a> / Induslab</td><td><span class="price">$100–200</span></td><td><span class="dtag b">Бразилия / имп.</span></td><td><span class="prio now">можно сразу</span></td></tr>
-
-            <tr><td class="c-chk"><input class="chk" type="checkbox" data-id="25"></td><td class="cnum">25</td><td class="c-name"><b>Клетки с метками</b> (этап 2, центриоли)</td><td class="c-qty">2</td><td class="c-who">по лаборатории</td><td><span class="price">уточнить</span></td><td><span class="dtag n">—</span></td><td><span class="prio stop">заморожено</span></td></tr>
+            <tr><td class="c-chk"><input class="chk" type="checkbox" data-id="23"></td><td class="cnum">23</td><td class="c-name"><b>Клетки с метками</b> (этап 2, центриоли)</td><td class="c-qty">2</td><td class="c-who">по лаборатории</td><td><span class="price">уточнить</span></td><td><span class="dtag n">—</span></td><td><span class="prio stop">заморожено</span></td></tr>
           </tbody>
         </table>
       </div>
     </div>
     <div class="legend reveal">
-      <span><span class="prio p1">1-я очередь</span> импорт с долгой доставкой — оптика и набор</span>
+      <span><span class="prio base">база</span> сам набор Full Kit</span>
+      <span><span class="prio p1">1-я очередь</span> оптика — долгий импорт</span>
       <span><span class="prio now">можно сразу</span> не блокирует ничего</span>
       <span><span class="prio hold">позже</span> зависит от сборки/лаборатории</span>
-      <span><span class="prio stop">заморожено</span> до подтверждения лаборатории</span>
+      <span><span class="prio stop">заморожено</span> до лаборатории</span>
     </div>
   </section>
 
-  <!-- BLOCK 01 · 3D PRINT -->
-  <section>
-    <div class="sec-head reveal">
-      <div class="sec-ico"><svg viewBox="0 0 24 24"><path d="M6 9V3h12v6"/><path d="M6 18H4a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="7" rx="1"/></svg></div>
-      <div><div class="sec-num">БЛОК 01 · <span class="badge b-local"><span class="bd"></span>Локально · Рио</span></div><h2>3D‑печать: файлы и печатник</h2></div>
-    </div>
-    <p class="sec-sub reveal">Пластиковые детали печатаются на месте в Рио — их не надо ввозить. Это самая дешёвая и быстрая часть проекта. Печать ASA требует <b>закрытого принтера</b>; если закрытого нет — берите PETG, он прощает открытую камеру.</p>
-    <div class="note info reveal"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/></svg><div><b>Опционально:</b> если берёте <b>IO Rodeo Full Kit ($200)</b> — пластик уже входит, этот блок можно пропустить. Но локальная печать в Рио дешевле и быстрее, чем ввоз объёмного пластика через таможню, и позволяет выбрать ASA/PETG под жизнь при 37 °C.</div></div>
-
-    <div class="grid">
-      <div class="item span2 reveal">
-        <div class="item-top">
-          <div class="inum">STL</div>
-          <div><h3>Файлы деталей и конфигурация сборки</h3></div>
-        </div>
-        <p class="desc">Официальный конструктор соберёт нужный набор STL по выбранным опциям. <b>Выберите опции до отправки печатнику</b> — они меняют набор деталей. Наша конфигурация:</p>
-        <div class="chips">
-          <span class="chip mono">motorised = true</span>
-          <span class="chip mono">riser = sample</span>
-          <span class="chip mono">pi_in_base = false</span>
-          <span class="chip mono">high-resolution optics module</span>
-          <span class="chip mono">C/CS-mount</span>
-          <span class="chip">материал: ASA (предпочт.) / PETG</span>
-        </div>
-        <div class="buy-label">Скачать файлы и документацию</div>
-        <div class="buys">
-          <a class="buy" href="https://build.openflexure.org/openflexure-microscope/" target="_blank" rel="noopener">build.openflexure.org — конструктор STL<svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
-          <a class="buy" href="https://openflexure.org/projects/microscope/build" target="_blank" rel="noopener">openflexure.org — инструкция сборки<svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
-          <a class="buy" href="https://gitlab.com/openflexure/openflexure-microscope" target="_blank" rel="noopener">GitLab — исходники OpenSCAD<svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
-        </div>
-        <div class="foot"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><div>Свежая ветка — v7.0.0‑beta; есть стабильные v6.x. В папке builds есть readme про выбор версий деталей — не печатать всё подряд.</div></div>
-      </div>
-    </div>
-
-    <div class="buy-label reveal" style="margin-top:20px">Печать заказываем тут — сервисы FDM (ASA/PETG) в Рио</div>
-    <div class="scroll-x reveal">
-      <table class="tbl">
-        <thead><tr><th>Мастерская</th><th>Профиль</th><th>Контакт / район</th><th>Ссылка</th></tr></thead>
-        <tbody>
-          <tr><td><b>Ranger 3D</b></td><td>FDM в ABS, ASA, PETG, TPU, Nylon. Точное попадание по материалам</td><td>Santa Teresa, RJ · (21) 95951‑5975</td><td><a href="https://ranger3d.com.br/services/impressao-3d/" target="_blank" rel="noopener">ranger3d.com.br ↗</a></td></tr>
-          <tr><td><b>Koios 3D</b></td><td>FDM PLA/PETG/ABS/TPU + смолы, онлайн‑расчёт</td><td>страница по Рио</td><td><a href="https://koios3d.com.br/impressao-3d/rio-de-janeiro" target="_blank" rel="noopener">koios3d.com.br ↗</a></td></tr>
-          <tr><td><b>Imagina 3D</b></td><td>PLA/ABS/PETG/смола, онлайн‑оценка</td><td>Рио</td><td><a href="https://imagina3d.com.br/" target="_blank" rel="noopener">imagina3d.com.br ↗</a></td></tr>
-          <tr><td><b>Fábrica3D</b></td><td>Онлайн: загрузка STL → расчёт за секунды, доставка по стране</td><td>Indaiatuba (SP), шлёт в Рио</td><td><a href="https://www.fabrica3d.co/" target="_blank" rel="noopener">fabrica3d.co ↗</a></td></tr>
-          <tr><td><b>Fab Lab Firjan SENAI</b></td><td>Фаблаб: 3D‑печать, лазер, ЧПУ. Понимают точную механику</td><td>Benfica, Рио · (21) 2587‑4823</td><td><a href="https://www.fablabs.io/labs/senaifablab" target="_blank" rel="noopener">fablabs.io ↗</a></td></tr>
-          <tr><td>3D Lab / Indusmart</td><td>Печать по требованию, онлайн‑расчёт по STL</td><td>онлайн, вся Бразилия</td><td><a href="https://3dlab.com.br/orcamento/" target="_blank" rel="noopener">3dlab.com.br ↗</a></td></tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="note info reveal"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/></svg><div><b>Как принять печать (чек‑лист):</b> детали не покороблены, углы не отогнуты от стола; слои не расслаиваются; отверстия не заплыли и винт M3 входит без насилия; <b>гибкие элементы (флексуры) пружинят плавно и без хруста</b> — это главный признак удачной печати. Сначала закажите одну пробную деталь с флексурами, не отдавайте весь комплект вслепую.</div></div>
-    <div style="display:flex; justify-content:flex-end; margin-top:6px" class="reveal"><span class="price-tag">Печать комплекта: $50–200</span></div>
-  </section>
-
-  <!-- BLOCK 02 · KIT ELECTRONICS -->
-  <section>
-    <div class="sec-head reveal">
-      <div class="sec-ico"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 9h6v6H9z"/><path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"/></svg></div>
-      <div><div class="sec-num">БЛОК 02 · <span class="badge b-import"><span class="bd"></span>Импорт · таможня</span></div><h2>Механика и электроника — готовым набором</h2></div>
-    </div>
-    <p class="sec-sub reveal">Главный лайфхак: <b>не собирать по винтику</b>. В официальном наборе уже лежат правильные моторы, плата, шлейф, винты M3, гайки, шайбы и O‑ring — вся «мелочёвка» в нужных типоразмерах. Берём вариант «Assembly Kit» (без пластика) — через границу едет одна небольшая коробка.</p>
-
-    <div class="grid">
-      <!-- Item 1 -->
-      <div class="item reveal">
-        <div class="item-top">
-          <div class="inum">1</div>
-          <div><h3>OpenFlexure Assembly Kit <span style="color:var(--muted); font-weight:500">(без 3D‑деталей)</span></h3></div>
-        </div>
-        <div class="chips">
-          <span class="chip">Sangaboard (v0.5 / v5)</span><span class="chip">28BYJ‑48 ×3</span>
-          <span class="chip">подсветка + диффузоры</span><span class="chip">конденсор</span><span class="chip">крепёж M3 + O‑ring</span>
-        </div>
-        <p class="desc">Плата управления моторами, три шаговых мотора, шлейф, конденсор, <b>LED‑подсветка brightfield</b> (закрывает п.10) и полный набор винтов/гаек/шайб/O‑ring. Камера v2 в наборе — <b>не используем, у нас HQ</b>. У IO Rodeo плата Sangaboard v0.5, у LabCrafter — v5.</p>
-        <div class="buy-label">Где заказать — берём набором</div>
-        <div class="buys">
-          <a class="buy" href="https://iorodeo.com/products/openflexure-microscope-hardware-kit" target="_blank" rel="noopener">IO Rodeo — Assembly (без пластика) <span class="price">$148</span><svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
-          <a class="buy" href="https://iorodeo.com/products/openflexure-microscope-kit" target="_blank" rel="noopener">IO Rodeo — Full Kit (с пластиком) <span class="price">$200</span><svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
-          <a class="buy" href="https://labcrafter.co.uk/products/openflexure-microscope-assembly-kit" target="_blank" rel="noopener">LabCrafter (UK) — v5 <span class="price">£106</span><svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
-        </div>
-        <div class="foot"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><div>Комплектность по списку продавца; плата без погнутых контактов; все три мотора крутятся от простого теста.</div></div>
-        <div style="margin-top:10px"><span class="price-tag">$148–200 / компл. (IO Rodeo)</span></div>
-      </div>
-
-      <!-- Item 3 -->
-      <div class="item reveal">
-        <div class="item-top">
-          <div class="inum">3</div>
-          <div><h3>Удлинённый шлейф камеры + удлинение проводки моторов</h3></div>
-        </div>
-        <div class="chips">
-          <span class="chip">CSI‑шлейф 300–500 мм</span><span class="chip">провод 5‑жильный (моторы)</span>
-          <span class="chip warn">Pi 5: нужен переходник 22↔15 pin</span>
-        </div>
-        <p class="desc">Нужно, потому что <b>Pi выносится наружу бокса</b>. Шлейф деликатный: брать минимально достаточную длину. У Pi 5 узкий 22‑pin разъём — камера подключается через переходной шлейф 22↔15 pin.</p>
-        <div class="buy-label">Где заказать</div>
-        <div class="buys">
-          <a class="buy" href="https://www.adafruit.com/product/5819" target="_blank" rel="noopener">Adafruit 5819 — 300 мм (Pi 5)<svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
-          <a class="buy" href="https://www.adafruit.com/product/5820" target="_blank" rel="noopener">Adafruit 5820 — 500 мм (Pi 5)<svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
-          <a class="buy" href="https://www.raspberrypi.com/products/camera-cable/" target="_blank" rel="noopener">Официальный RPi‑кабель 200/300/500<svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
-        </div>
-        <div class="foot"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><div>Шлейф той же ширины/типа, что разъём камеры HQ и Pi 5. Ставьте Pi вплотную к стенке бокса снаружи — чем короче шлейф, тем меньше помех.</div></div>
-        <div style="margin-top:10px"><span class="price-tag">$15–40 / компл.</span></div>
-      </div>
-    </div>
-
-    <div class="note info reveal"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/></svg><div><b>Два варианта у IO Rodeo — берём набором, не по частям:</b> <b>Assembly Kit</b> ($148) — только электроника и крепёж, пластик печатаем в Рио; <b>Full Kit</b> ($200) — то же самое <b>плюс напечатанные пластиковые детали</b> в цвете, тогда локальная 3D‑печать (блок 01) не нужна. Оба идут с <b>Sangaboard v0.5</b> и камерой v2 (v2 не используем — у нас HQ; подсветка brightfield и конденсор в наборе есть). Нюанс v0.5: печатайте STL той версии микроскопа, что рассчитана под v0.5, либо сверьте, что отсек под плату в корпусе подходит.</div></div>
-  </section>
-
-  <!-- BLOCK 03 · CAMERA + PI -->
+  <!-- BLOCK A · CONTROL + CAMERA -->
   <section>
     <div class="sec-head reveal">
       <div class="sec-ico"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M7 7l2-3h6l2 3"/><circle cx="12" cy="14" r="4"/></svg></div>
-      <div><div class="sec-num">БЛОК 03 · <span class="badge b-local"><span class="bd"></span>Доставка по Бразилии</span></div><h2>Камера и управляющий компьютер</h2></div>
+      <div><div class="sec-num">БЛОК A · <span class="badge b-local"><span class="bd"></span>Доставка по Бразилии</span></div><h2>Управление и камера</h2></div>
     </div>
-    <p class="sec-sub reveal">Raspberry Pi и плата моторов ставятся <b>снаружи бокса</b> — внутри тепло и влажно, электронике там плохо. Внутрь через гермовводы заходят только шлейф камеры, провода моторов, питание светодиодов и датчиков.</p>
+    <p class="sec-sub reveal">Raspberry Pi ставится <b>снаружи бокса</b>. В наборе камера v2 и microSD с ОС — камеру меняем на <b>HQ</b> (чувствительность и поле зрения), microSD оставляем из набора.</p>
 
     <div class="grid">
-      <!-- Item 2 -->
       <div class="item span2 reveal">
         <div class="item-top">
           <div class="inum">2</div>
-          <div><h3>Raspberry Pi HQ Camera <span style="color:var(--muted); font-weight:500">+ переходник C‑mount → RMS</span></h3></div>
-          <div class="item-head-r">
-            <img class="thumb" src="https://images.prismic.io/rpf-products/12dad121-ba00-4121-873c-3d10abc13207_HQ+CS%3AM12.jpg" alt="Raspberry Pi HQ Camera" loading="lazy" referrerpolicy="no-referrer" onerror="this.style.display='none'">
-          </div>
+          <div><h3>Камера HQ IMX477 <span style="color:var(--muted); font-weight:500">+ переходник C→RMS</span> · вместо v2 из набора</h3></div>
+          <div class="item-head-r"><img class="thumb" src="https://images.prismic.io/rpf-products/12dad121-ba00-4121-873c-3d10abc13207_HQ+CS%3AM12.jpg" alt="Raspberry Pi HQ Camera" loading="lazy" referrerpolicy="no-referrer" onerror="this.style.display='none'"></div>
         </div>
-        <div class="chips">
-          <span class="chip">сенсор IMX477, 12.3 МП</span><span class="chip">C/CS‑mount</span>
-          <span class="chip">переходник на резьбу RMS</span><span class="chip warn">не камера v2</span>
-        </div>
-        <p class="desc">Выбрана из‑за большей чувствительности и большего поля зрения. Переходник <b>C‑mount → RMS</b> нужен, чтобы вкрутить объектив микроскопа (в комплект камеры не входит). Если в наборе шла камера v2 — её не используем.</p>
-        <div class="buy-label">Где заказать — камера</div>
+        <div class="chips"><span class="chip">сенсор IMX477, 12.3 МП</span><span class="chip">C/CS‑mount</span><span class="chip">переходник RMS</span><span class="chip warn">камеру v2 из набора не используем</span></div>
+        <p class="desc">Большая чувствительность и поле зрения — критично для слабой флуоресценции. Переходник <b>C→RMS</b> нужен, чтобы вкрутить объектив (в комплект камеры не входит).</p>
+        <div class="buy-label">Где заказать</div>
         <div class="buys">
-          <a class="buy" href="https://www.amazon.com.br/Raspberry-Pi-HQ-sensibilidade-alternativa/dp/B08LHJR3K4" target="_blank" rel="noopener">Amazon.com.br<svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
-          <a class="buy" href="https://www.makerhero.com/busca/?q=camera+raspberry+pi+high+quality" target="_blank" rel="noopener">MakerHero (поиск)<svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
-        </div>
-        <div class="buy-label" style="margin-top:10px">Где заказать — переходник C→RMS</div>
-        <div class="buys">
-          <a class="buy" href="https://www.amazon.com/Microscope-Objective-Adapter-C-Mount-AD-M25-RMS/dp/B0DPVZS1T2" target="_blank" rel="noopener">Amazon (US) — C→RMS<svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
+          <a class="buy" href="https://www.amazon.com.br/Raspberry-Pi-HQ-sensibilidade-alternativa/dp/B08LHJR3K4" target="_blank" rel="noopener">Amazon.br — камера HQ<svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
+          <a class="buy" href="https://www.amazon.com/Microscope-Objective-Adapter-C-Mount-AD-M25-RMS/dp/B0DPVZS1T2" target="_blank" rel="noopener">Amazon — C→RMS<svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
           <a class="buy" href="https://www.aliexpress.us/item/2255800158643584.html" target="_blank" rel="noopener">AliExpress — C→RMS<svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
-          <a class="buy" href="https://www.thorlabs.com/thorproduct.cfm?partnumber=SM1A9" target="_blank" rel="noopener">Thorlabs SM1A9 (лаб.)<svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
         </div>
-        <div class="foot"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><div>Именно IMX477; в комплекте пылезащитная крышка и переходник C↔CS. RMS ≈ M20×0.706 — убедитесь, что объектив именно RMS.</div></div>
-        <div style="margin-top:10px"><span class="price-tag">$60–120 (камера) + переходник</span></div>
+        <div class="foot"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><div>Именно IMX477; в комплекте крышка и переходник C↔CS. Нужен модуль оптики high-res под HQ (см. п.7).</div></div>
+        <div style="margin-top:10px"><span class="price-tag">$60–120</span></div>
       </div>
 
-      <!-- Item 11 -->
       <div class="item reveal">
         <div class="item-top">
-          <div class="inum">11</div>
-          <div><h3>Raspberry Pi 5, 8 ГБ + БП 27 Вт + microSD 64 ГБ</h3></div>
-          <div class="item-head-r">
-            <img class="thumb" src="https://assets.raspberrypi.com/static/c671804c05a51efc4e3c2a1bdcbafbcf/e58b5/raspberry-pi-5.png" alt="Raspberry Pi 5" loading="lazy" referrerpolicy="no-referrer" onerror="this.style.display='none'">
-          </div>
+          <div class="inum">1</div>
+          <div><h3>Raspberry Pi 4B, 4/8 ГБ + БП USB‑C 15 Вт</h3></div>
+          <div class="item-head-r"><img class="thumb" src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Raspberry_Pi_4_Model_B_-_Top.jpg/500px-Raspberry_Pi_4_Model_B_-_Top.jpg" alt="Raspberry Pi 4 Model B" loading="lazy" referrerpolicy="no-referrer" onerror="this.style.display='none'"></div>
         </div>
-        <div class="chips">
-          <span class="chip">Pi 5 · 8 ГБ</span><span class="chip">оригинальный БП 27 Вт USB‑C PD</span><span class="chip">microSD 64 ГБ A2</span>
-        </div>
-        <p class="desc">Управляет моторами и камерой. <b>БП только оригинальный</b> — Pi 5 капризен к питанию, дешёвые БП дают сбои, похожие на «глючит софт».</p>
+        <div class="chips"><span class="chip">Pi 4B · 4/8 ГБ</span><span class="chip">БП 15 Вт USB‑C</span><span class="chip">microSD — из набора</span><span class="chip warn">не Pi 5</span></div>
+        <p class="desc">Управляет моторами и камерой. <b>Берём Pi 4B, а не Pi 5</b> — именно 3B/3B+/4B поддерживает ПО OpenFlexure и образ ОС из набора. 4 ГБ достаточно, 8 ГБ — с запасом.</p>
         <div class="buy-label">Где заказать</div>
         <div class="buys">
-          <a class="buy" href="https://www.mercadolivre.com.br/raspberry-pi-5-modelo-b-8gb/p/MLB32625223" target="_blank" rel="noopener">Mercado Livre — Pi 5 <span class="price">R$789</span><svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
-          <a class="buy" href="https://www.robocore.net/placa-raspberry-pi/raspberry-pi-5-8gb" target="_blank" rel="noopener">RoboCore (офиц.)<svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
-          <a class="buy" href="https://produto.mercadolivre.com.br/MLB-4363277072-fonte-oficial-original-raspberry-pi-5-pi5-27w-tipo-c-51v-5a-_JM" target="_blank" rel="noopener">ML — БП 27 Вт <span class="price">R$199+</span><svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
-          <a class="buy" href="https://www.amazon.com.br/SanDisk-SDSQXA2-064G-GN6MA-microSDXC-adaptador-Vermelho/dp/B07FCMBLV6" target="_blank" rel="noopener">Amazon.br — microSD 64<svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
+          <a class="buy" href="https://www.robocore.net/placa-raspberry-pi/raspberry-pi-4-model-b-8gb" target="_blank" rel="noopener">RoboCore — Pi 4B 8 ГБ<svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
+          <a class="buy" href="https://lista.mercadolivre.com.br/raspberry-pi-4-model-b-8gb" target="_blank" rel="noopener">Mercado Livre (поиск)<svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
         </div>
-        <div class="foot"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><div>БП именно 5.1 В / 5 А (27 Вт USB‑C PD) — иначе Pi 5 режет ток на USB‑портах.</div></div>
-        <div style="margin-top:10px"><span class="price-tag">$110–170 / компл.</span></div>
+        <div class="foot"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><div>БП оригинальный 5.1 В / 3 А (USB‑C, 15 Вт). microSD с ОС уже в наборе — совпадает с Pi 4B.</div></div>
+        <div style="margin-top:10px"><span class="price-tag">$55–100</span></div>
       </div>
 
-      <!-- Item 12 -->
       <div class="item reveal">
-        <div class="item-top">
-          <div class="inum">12</div>
-          <div><h3>SSD 1 ТБ, USB 3.0, внешний</h3></div>
-        </div>
-        <div class="chips"><span class="chip">1 ТБ</span><span class="chip">USB 3.0 (синий разъём)</span></div>
-        <p class="desc">Хранение кадров таймлапса — за длинный прогон накапливаются десятки и сотни гигабайт. На microSD такое писать нельзя, она быстро выйдет из строя.</p>
+        <div class="item-top"><div class="inum">3</div><div><h3>Длинный шлейф камеры (стандартный 15‑pin)</h3></div></div>
+        <div class="chips"><span class="chip">CSI 15‑pin, 300–500 мм</span><span class="chip">Pi 4B — переходник не нужен</span></div>
+        <p class="desc">Pi вынесен наружу бокса — шлейф из набора (20 см) короткий. У Pi 4B <b>стандартный 15‑pin разъём</b>, поэтому просто длинный шлейф, без переходника (переходник 22↔15 нужен был бы только для Pi 5).</p>
         <div class="buy-label">Где заказать</div>
         <div class="buys">
-          <a class="buy" href="https://www.amazon.com.br/SanDisk-SSD-port%C3%A1til-TB-SDSSDE30-1T00-G26/dp/B0C5JQ68FY" target="_blank" rel="noopener">Amazon.br — SanDisk 1 ТБ <span class="price">R$869</span><svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
+          <a class="buy" href="https://www.raspberrypi.com/products/camera-cable/" target="_blank" rel="noopener">Офиц. RPi 15‑pin 300/500<svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
+          <a class="buy" href="https://www.adafruit.com/product/1731" target="_blank" rel="noopener">Adafruit 1731 — 300 мм<svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
         </div>
-        <div class="foot"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><div>Именно USB 3.0, не 2.0. Не перепутать с HDD — нужен SSD.</div></div>
+        <div style="margin-top:10px"><span class="price-tag">$10–30</span></div>
+      </div>
+
+      <div class="item reveal">
+        <div class="item-top"><div class="inum">4</div><div><h3>SSD 1 ТБ, USB 3.0</h3></div></div>
+        <div class="chips"><span class="chip">1 ТБ</span><span class="chip">USB 3.0</span></div>
+        <p class="desc">Для кадров таймлапса — десятки/сотни ГБ. На microSD такое писать нельзя.</p>
+        <div class="buy-label">Где заказать</div>
+        <div class="buys"><a class="buy" href="https://www.amazon.com.br/SanDisk-SSD-port%C3%A1til-TB-SDSSDE30-1T00-G26/dp/B0C5JQ68FY" target="_blank" rel="noopener">Amazon.br <span class="price">R$869</span><svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a></div>
         <div style="margin-top:10px"><span class="price-tag">$70–110</span></div>
       </div>
 
-      <!-- Item 13 -->
       <div class="item reveal">
-        <div class="item-top">
-          <div class="inum">13</div>
-          <div><h3>Корпус для Pi 5 + пассивный радиатор</h3></div>
-        </div>
-        <div class="chips"><span class="chip">именно под Pi 5</span><span class="chip">пассивное охлаждение</span></div>
+        <div class="item-top"><div class="inum">5</div><div><h3>Корпус для Pi 5 + радиатор</h3></div></div>
+        <div class="chips"><span class="chip">именно Pi 5</span><span class="chip">охлаждение</span></div>
         <p class="desc">Pi стоит рядом с тёплым боксом и работает месяцами — нужен отвод тепла и защита от пыли.</p>
         <div class="buy-label">Где заказать</div>
         <div class="buys">
-          <a class="buy" href="https://www.robocore.net/acessorios-raspberry-pi/case-para-raspberry-pi-5-com-cooler-branco" target="_blank" rel="noopener">RoboCore — офиц. корпус<svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
-          <a class="buy" href="https://www.amazon.com.br/Raspberry-Aluminum-Heatsink-Passive-Cooling/dp/B0CN8NQC47" target="_blank" rel="noopener">Amazon.br — алюм. armor (пассив)<svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
+          <a class="buy" href="https://www.robocore.net/acessorios-raspberry-pi/case-para-raspberry-pi-5-com-cooler-branco" target="_blank" rel="noopener">RoboCore<svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
+          <a class="buy" href="https://www.amazon.com.br/Raspberry-Aluminum-Heatsink-Passive-Cooling/dp/B0CN8NQC47" target="_blank" rel="noopener">Amazon.br<svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
         </div>
-        <div class="foot"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><div>Совместим именно с Pi 5 (у него другая раскладка, чем у Pi 4).</div></div>
         <div style="margin-top:10px"><span class="price-tag">$15–30</span></div>
       </div>
     </div>
 
-    <!-- HQ vs v2 -->
-    <div class="buy-label reveal" style="margin-top:22px">Справка: почему камера HQ, а не дешёвая v2</div>
+    <div class="note warn reveal"><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg><div><b>Берём Pi 4B, а не Pi 5.</b> ПО OpenFlexure и образ ОС из набора официально поддерживают <b>Raspberry Pi 3B / 3B+ / 4B</b>; <b>Pi 5 пока не поддерживается</b> (<a href="https://openflexure.discourse.group/t/raspberry-pi-5-support/1739" target="_blank" rel="noopener">форум проекта</a>) — у него другой разъём камеры и другой камера‑стек. Pi 4B к тому же совпадает с microSD‑образом, который уже лежит в наборе. HQ‑камера на Pi 4B поддерживается (picamera2).</div></div>
+
+    <div class="buy-label reveal" style="margin-top:22px">Почему меняем камеру набора (v2) на HQ</div>
     <div class="scroll-x reveal">
       <table class="tbl">
-        <thead><tr><th>Параметр</th><th>Camera Module v2</th><th>HQ Camera — берём</th></tr></thead>
+        <thead><tr><th>Параметр</th><th>Camera v2 (в наборе)</th><th>HQ Camera — берём</th></tr></thead>
         <tbody>
           <tr><td>Сенсор</td><td>IMX219, 8 МП</td><td><b>IMX477, 12.3 МП</b></td></tr>
-          <tr><td>Площадь пикселя</td><td>меньше</td><td>≈ на 50 % больше → лучше в слабом свете</td></tr>
+          <tr><td>Пиксель / свет</td><td>меньше</td><td>≈ на 50 % больше → лучше в слабом свете</td></tr>
           <tr><td>Поле зрения</td><td>меньше</td><td>больше → больше клеток в кадре</td></tr>
-          <tr><td>Крепление объектива</td><td>несъёмное</td><td>C/CS‑mount → ставится переходник RMS</td></tr>
+          <tr><td>Объектив</td><td>несъёмный</td><td>C/CS‑mount → переходник RMS под объектив</td></tr>
         </tbody>
       </table>
     </div>
   </section>
 
-  <!-- BLOCK 04 · OPTICS -->
+  <!-- BLOCK B · OPTICS -->
   <section>
     <div class="sec-head reveal">
       <div class="sec-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg></div>
-      <div><div class="sec-num">БЛОК 04 · <span class="badge b-first"><span class="bd"></span>Импорт · заказать первой</span></div><h2>Оптика — самая ответственная закупка</h2></div>
+      <div><div class="sec-num">БЛОК B · <span class="badge b-first"><span class="bd"></span>Импорт · заказать первой</span></div><h2>Оптика и флуоресценция</h2></div>
     </div>
-    <p class="sec-sub reveal">Здесь легче всего ошибиться: у объективов есть параметры, которые не видны в названии, но делают деталь несовместимой. Спецификации ниже <b>обязательны, не «желательны»</b>. Фильтры и объектив — самая долгая позиция, заказывать сразу.</p>
+    <p class="sec-sub reveal">В наборе есть только конденсор и brightfield‑подсветка. Всё для увеличения и флуоресценции докупаем. Спецификации <b>обязательны, не «желательны»</b>. Самая долгая доставка — заказывать сразу.</p>
 
     <div class="grid">
-      <!-- Item 4 -->
       <div class="item span2 reveal">
         <div class="item-top">
-          <div class="inum">4</div>
+          <div class="inum">6</div>
           <div><h3>Объектив 40×, сухой, резьба RMS</h3></div>
-          <div class="item-head-r">
-            <img class="thumb" src="https://www.fiberoptics4sale.com/cdn/shop/products/TTN088610-xl.jpg" alt="Микроскопный объектив RMS" loading="lazy" referrerpolicy="no-referrer" onerror="this.style.display='none'">
-          </div>
+          <div class="item-head-r"><img class="thumb" src="https://www.fiberoptics4sale.com/cdn/shop/products/TTN088610-xl.jpg" alt="Микроскопный объектив RMS" loading="lazy" referrerpolicy="no-referrer" onerror="this.style.display='none'"></div>
         </div>
-        <div class="chips">
-          <span class="chip mono">резьба RMS</span><span class="chip mono">NA 0.75</span>
-          <span class="chip mono">finite / 160 мм</span><span class="chip mono">парфокал 45 мм</span>
-          <span class="chip warn">не infinity (∞)</span><span class="chip warn">не NA 0.95</span>
-        </div>
-        <p class="desc">Три спецификации критичны: <b>резьба RMS</b> (иначе не вкрутится), <b>конечная сопряжённость 160 мм</b> (маркировка <code>160/0.17</code>, не «∞» — с infinity нужна отдельная тубусная линза, у нас её нет) и <b>парфокал 45 мм</b> (стандарт DIN). Берём 0.75, а не 0.65 — на треть больше собранного света. Не брать 0.95 — вчетверо дороже и бесполезно для нашей задачи.</p>
+        <div class="chips"><span class="chip mono">RMS</span><span class="chip mono">NA 0.75</span><span class="chip mono">finite / 160 мм</span><span class="chip mono">парфокал 45 мм</span><span class="chip warn">не ∞ · не NA 0.95</span></div>
+        <p class="desc">Критичны: <b>резьба RMS</b>, <b>160 мм</b> (маркировка <code>160/0.17</code>, не «∞»), <b>парфокал 45 мм</b>. Не брать Thorlabs RMS40X — он infinity.</p>
         <div class="buy-label">Где заказать</div>
         <div class="buys">
-          <a class="buy" href="https://amscope.com/products/pa40x-v300" target="_blank" rel="noopener">AmScope PA40X‑V300 (новый, 0.65) <span class="price">$67</span><svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
-          <a class="buy" href="https://www.ebay.com/sch/i.html?_nkw=40x+0.75+160+0.17+objective" target="_blank" rel="noopener">eBay — Nikon/Olympus 40×/0.75 (б/у)<svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
+          <a class="buy" href="https://amscope.com/products/pa40x-v300" target="_blank" rel="noopener">AmScope PA40X‑V300 (новый) <span class="price">$67</span><svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
+          <a class="buy" href="https://www.ebay.com/sch/i.html?_nkw=40x+0.75+160+0.17+objective" target="_blank" rel="noopener">eBay — Nikon/Olympus 40×/0.75<svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
         </div>
-        <div class="foot"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><div>На корпусе выбито <code>40x</code>, значение NA и <code>160/0.17</code> (если <code>∞</code> — вернуть). Линзы без грибка, царапин и мути — смотреть на просвет.</div></div>
+        <div class="foot"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><div>NA 0.75 finite новым почти не купить — либо б/у fluorite с eBay, либо AmScope (0.65). Линзы без грибка и мути.</div></div>
         <div style="margin-top:10px"><span class="price-tag">$200–450</span></div>
       </div>
-    </div>
 
-    <div class="note warn reveal"><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg><div><b>Про объектив честно:</b> настоящую NA 0.75 в финитном (160 мм) исполнении новой почти не купить — это либо б/у фирменные fluorite (Nikon/Zeiss/Olympus) с eBay за $100–400, либо дорого. Новый гарантированный вариант — AmScope PA40X‑V300 (NA 0.65, $67). <b>Не брать Thorlabs RMS40X</b> — он infinity‑corrected, под нашу finite‑схему не годится.</div></div>
-
-    <div class="grid">
-      <!-- Item 5 -->
       <div class="item reveal">
-        <div class="item-top"><div class="inum">5</div><div><h3>Ахроматический дублет (линза модуля оптики)</h3></div></div>
+        <div class="item-top"><div class="inum">7</div><div><h3>Ахроматический дублет (модуль high-res)</h3></div></div>
         <div class="chips"><span class="chip">по спецификации модуля</span><span class="chip">VIS‑покрытие</span></div>
-        <p class="desc">Точное фокусное и диаметр зависят от выбранного модуля оптики под HQ‑камеру. <b>Взять параметры из документации модуля, не угадывать.</b></p>
+        <p class="desc">Тубусная линза для модуля оптики под HQ. <b>Параметры взять из документации модуля</b>, не угадывать.</p>
         <div class="buy-label">Где заказать</div>
         <div class="buys">
           <a class="buy" href="https://www.thorlabs.com/thorproduct.cfm?partnumber=AC254-050-A" target="_blank" rel="noopener">Thorlabs AC254‑050‑A<svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
-          <a class="buy" href="https://www.edmundoptics.com/f/vis-0-coated-achromatic-lenses/12206/" target="_blank" rel="noopener">Edmund Optics<svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
-          <a class="buy" href="https://www.aliexpress.com/wholesale?SearchText=achromatic+doublet+lens+25mm" target="_blank" rel="noopener">AliExpress (дешевле)<svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
+          <a class="buy" href="https://www.aliexpress.com/wholesale?SearchText=achromatic+doublet+lens+25mm" target="_blank" rel="noopener">AliExpress<svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
         </div>
-        <div class="foot"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><div>Диаметр под HQ обычно Ø1″/25 мм; фокус (часто ~50 мм) сверить с BOM модуля.</div></div>
         <div style="margin-top:10px"><span class="price-tag">$20–60</span></div>
       </div>
 
-      <!-- Item 6 -->
       <div class="item reveal">
-        <div class="item-top"><div class="inum">6</div><div><h3>Фильтры — канал 1, зелёный (GFP)</h3></div></div>
-        <div class="chips"><span class="chip">дихроик ~495–500 нм</span><span class="chip">эмиссия 510–540 нм</span></div>
-        <p class="desc">Без фильтров флуоресценция невозможна. Перед заказом сверить размеры с документацией фильтр‑куба OpenFlexure — фильтры должны физически влезть в печатный куб.</p>
+        <div class="item-top"><div class="inum">8</div><div><h3>Фильтры — канал GFP (зелёный)</h3></div></div>
+        <div class="chips"><span class="chip">дихроик ~495 нм</span><span class="chip">эмиссия 510–540 нм</span></div>
+        <p class="desc">Без фильтров флуоресценция невозможна. Сверить размеры с фильтр‑кубом OpenFlexure.</p>
         <div class="buy-label">Где заказать</div>
         <div class="buys">
-          <a class="buy" href="https://microscopecentral.com/products/chroma-49002-et-egfp-fitc-cy2-fluorescence-filter-set" target="_blank" rel="noopener">Chroma 49002 ET<svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
-          <a class="buy" href="https://www.edmundoptics.com/p/fluorescence-filter-set-for-green-fluorescence-protein-gfp/21525" target="_blank" rel="noopener">Edmund GFP set<svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
-          <a class="buy" href="https://www.aliexpress.com/wholesale?SearchText=GFP+fluorescence+filter+set" target="_blank" rel="noopener">AliExpress (поштучно)<svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
+          <a class="buy" href="https://microscopecentral.com/products/chroma-49002-et-egfp-fitc-cy2-fluorescence-filter-set" target="_blank" rel="noopener">Chroma 49002<svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
+          <a class="buy" href="https://www.edmundoptics.com/p/fluorescence-filter-set-for-green-fluorescence-protein-gfp/21525" target="_blank" rel="noopener">Edmund GFP<svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
         </div>
-        <div class="foot"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><div>Размер совпадает с посадочным местом в кубе; на фильтре указана полоса пропускания.</div></div>
         <div style="margin-top:10px"><span class="price-tag">$150–350</span></div>
       </div>
 
-      <!-- Item 7 -->
       <div class="item reveal">
-        <div class="item-top"><div class="inum">7</div><div><h3>Фильтры — канал 2, красный (RFP)</h3></div></div>
+        <div class="item-top"><div class="inum">9</div><div><h3>Фильтры — канал RFP (красный)</h3></div></div>
         <div class="chips"><span class="chip">дихроик ~570 нм</span><span class="chip">эмиссия 590–630 нм</span><span class="chip">решено — нужен</span></div>
-        <p class="desc">Второй канал нужен: один зелёный показал бы центриоли, но не позволил бы отличить старую от новой. Для этого нужен второй маркер и второй канал.</p>
+        <p class="desc">Второй канал нужен, чтобы отличить старую центриоль от новой.</p>
         <div class="buy-label">Где заказать</div>
         <div class="buys">
-          <a class="buy" href="https://microscopecentral.com/products/chroma-49005-et-dsred-cy3-tritc-fluorescence-filter-set" target="_blank" rel="noopener">Chroma 49005 ET<svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
-          <a class="buy" href="https://www.idex-hs.com/store/product-detail/txred_4040c_000/s-000967" target="_blank" rel="noopener">Semrock TxRed‑4040C<svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
-          <a class="buy" href="https://www.aliexpress.com/wholesale?SearchText=TRITC+mCherry+fluorescence+filter+set" target="_blank" rel="noopener">AliExpress (поштучно)<svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
+          <a class="buy" href="https://microscopecentral.com/products/chroma-49005-et-dsred-cy3-tritc-fluorescence-filter-set" target="_blank" rel="noopener">Chroma 49005<svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
+          <a class="buy" href="https://www.idex-hs.com/store/product-detail/txred_4040c_000/s-000967" target="_blank" rel="noopener">Semrock TxRed<svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
         </div>
-        <div class="foot"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><div>Аналогично п. 6 — сверить размер с фильтр‑кубом.</div></div>
         <div style="margin-top:10px"><span class="price-tag">$150–350</span></div>
       </div>
 
-      <!-- Item 8 -->
       <div class="item reveal">
-        <div class="item-top"><div class="inum">8</div><div><h3>Светодиод возбуждения — синий (канал 1)</h3></div></div>
-        <div class="chips"><span class="chip">~470 нм, мощный</span><span class="chip">+ драйвер постоянного тока</span></div>
-        <p class="desc">Возбуждает зелёный маркер. Нужен именно <b>драйвер постоянного тока</b> — от него зависит стабильность яркости между кадрами, а значит сравнимость снимков.</p>
+        <div class="item-top"><div class="inum">10</div><div><h3>LED возбуждения — синий (канал 1)</h3></div></div>
+        <div class="chips"><span class="chip">~470 нм, мощный</span><span class="chip">+ драйвер пост. тока</span></div>
+        <p class="desc">Возбуждает зелёный маркер. Драйвер постоянного тока — для стабильной яркости между кадрами.</p>
         <div class="buy-label">Где заказать</div>
         <div class="buys">
-          <a class="buy" href="https://www.thorlabs.com/item/M470L4" target="_blank" rel="noopener">Thorlabs M470L4 (лаб.)<svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
-          <a class="buy" href="https://www.amazon.com/CHANZON-High-Power-Chip-900mA/dp/B01DBZJZV0" target="_blank" rel="noopener">Chanzon 10W 470нм (дёшево)<svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
-          <a class="buy" href="https://www.ledsupply.com/led-drivers/mean-well-ldd-h-series-cc-step-down-mode" target="_blank" rel="noopener">Mean Well LDD‑H (драйвер)<svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
+          <a class="buy" href="https://www.thorlabs.com/item/M470L4" target="_blank" rel="noopener">Thorlabs M470L4<svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
+          <a class="buy" href="https://www.amazon.com/CHANZON-High-Power-Chip-900mA/dp/B01DBZJZV0" target="_blank" rel="noopener">Chanzon 470нм<svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
+          <a class="buy" href="https://www.ledsupply.com/led-drivers/mean-well-ldd-h-series-cc-step-down-mode" target="_blank" rel="noopener">Mean Well LDD‑H<svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
         </div>
-        <div class="foot"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><div>Драйвер в комплекте и рассчитан на ток светодиода.</div></div>
         <div style="margin-top:10px"><span class="price-tag">$40–120</span></div>
       </div>
 
-      <!-- Item 9 -->
       <div class="item reveal">
-        <div class="item-top"><div class="inum">9</div><div><h3>Светодиод возбуждения — зелёный/янтарный (канал 2)</h3></div></div>
-        <div class="chips"><span class="chip">~530–560 нм</span><span class="chip">+ драйвер постоянного тока</span><span class="chip">решено — нужен</span></div>
-        <p class="desc">Для второго канала (возбуждение TRITC/DsRed). Точнее взять LED ближе к 545–555 нм.</p>
+        <div class="item-top"><div class="inum">11</div><div><h3>LED возбуждения — зелёный (канал 2)</h3></div></div>
+        <div class="chips"><span class="chip">~530–560 нм</span><span class="chip">+ драйвер пост. тока</span><span class="chip">решено — нужен</span></div>
+        <p class="desc">Для второго канала (TRITC/DsRed). Точнее взять LED ближе к 545–555 нм.</p>
         <div class="buy-label">Где заказать</div>
         <div class="buys">
-          <a class="buy" href="https://www.thorlabs.com/thorproduct.cfm?partnumber=M565L3" target="_blank" rel="noopener">Thorlabs M565L3 (лаб.)<svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
-          <a class="buy" href="https://www.amazon.com/CHANZON-High-Power-Green-900mA/dp/B01DBZK0ZA" target="_blank" rel="noopener">Chanzon 10W зелёный<svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
-          <a class="buy" href="https://www.ledsupply.com/led-drivers/mean-well-ldd-h-series-cc-step-down-mode" target="_blank" rel="noopener">Mean Well LDD‑H (драйвер)<svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
+          <a class="buy" href="https://www.thorlabs.com/thorproduct.cfm?partnumber=M565L3" target="_blank" rel="noopener">Thorlabs M565L3<svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
+          <a class="buy" href="https://www.amazon.com/CHANZON-High-Power-Green-900mA/dp/B01DBZK0ZA" target="_blank" rel="noopener">Chanzon зелёный<svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
         </div>
-        <div class="foot"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><div>Аналогично п. 8.</div></div>
         <div style="margin-top:10px"><span class="price-tag">$40–120</span></div>
-      </div>
-
-      <!-- Item 10 -->
-      <div class="item reveal">
-        <div class="item-top"><div class="inum">10</div><div><h3>Светодиод обычного света (brightfield)</h3></div></div>
-        <div class="chips"><span class="chip">белый, с диффузором</span><span class="chip">этап 1</span></div>
-        <p class="desc">Для этапа 1 — именно им ловим деления. Обычно <b>входит в набор OpenFlexure</b> (LED‑плата + диффузор), проверить наличие — не дублировать покупку.</p>
-        <div class="foot"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><div>Есть в наборе — не покупать отдельно.</div></div>
-        <div style="margin-top:10px"><span class="price-tag">$0–30</span></div>
       </div>
     </div>
 
-    <div class="note warn reveal"><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg><div><b>Про бюджет на фильтры.</b> Фирменные наборы Chroma/Semrock — $950–1 640 за канал (дороже, чем ориентир $150–350 в ТЗ). Реальная экономия для Бразилии — собрать куб из отдельных фильтров или взять китайские на AliExpress с проверкой спектров.</div></div>
+    <div class="note info reveal"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/></svg><div><b>Подсветку brightfield (белый LED + диффузоры) докупать не нужно</b> — она уже входит в Full Kit. Здесь только оптика увеличения и флуоресценция.</div></div>
   </section>
 
-  <!-- BLOCK 05 · BOX + CLIMATE -->
+  <!-- BLOCK C · BOX + CLIMATE -->
   <section>
     <div class="sec-head reveal">
       <div class="sec-ico"><svg viewBox="0 0 24 24"><path d="M21 8l-9-5-9 5 9 5 9-5z"/><path d="M3 8v8l9 5 9-5V8"/><path d="M12 13v8"/></svg></div>
-      <div><div class="sec-num">БЛОК 05 · <span class="badge b-local"><span class="bd"></span>Рио</span> <span class="badge b-import"><span class="bd"></span>+ импорт</span></div><h2>Герметичный бокс и климат</h2></div>
+      <div><div class="sec-num">БЛОК C · <span class="badge b-local"><span class="bd"></span>Рио</span> <span class="badge b-import"><span class="bd"></span>+ импорт</span></div><h2>Герметичный бокс и климат</h2></div>
     </div>
-    <p class="sec-sub reveal">Небольшой герметичный ящик вокруг микроскопа: 37 °C, 5 % CO₂, высокая влажность. <b>Финальные размеры снимаются с напечатанного микроскопа</b> — заказывать бокс до сборки нельзя. Ориентир для сметы: <b>350 × 350 × 400 мм</b> внутри, непрозрачный (чёрный) акрил/поликарбонат 5–6 мм.</p>
+    <p class="sec-sub reveal">Отдельная герметичная коробка <b>вокруг всего микроскопа</b> (не путать с корпусом из набора): 37 °C, 5 % CO₂, влажность. Размеры снимаются с собранного микроскопа — заказывать бокс до сборки нельзя.</p>
 
     <div class="grid">
-      <!-- Item 14 -->
       <div class="item span2 reveal">
-        <div class="item-top"><div class="inum">14</div><div><h3>Корпус бокса — резка акрила лазером в Рио</h3></div></div>
-        <div class="chips">
-          <span class="chip">чёрный акрил / поликарбонат 5–6 мм</span><span class="chip">силиконовый уплотнитель + защёлки</span>
-          <span class="chip">сальники M16/M20</span><span class="chip">2 штуцера CO₂ 4 мм</span>
-        </div>
-        <p class="desc">Изготавливается локально в Рио по чертежу — те же мастерские, что режут акрил (<code>corte a laser acrílico Rio de Janeiro</code>). Непрозрачный: для флуоресценции нужна темнота. Дно с уклоном в угол для сбора конденсата.</p>
+        <div class="item-top"><div class="inum">12</div><div><h3>Корпус бокса — резка акрила лазером в Рио</h3></div></div>
+        <div class="chips"><span class="chip">чёрный акрил 5–6 мм</span><span class="chip">силикон + защёлки</span><span class="chip">сальники + штуцеры CO₂</span></div>
+        <p class="desc">По чертежу локально (<code>corte a laser acrílico Rio</code>). Непрозрачный — для флуоресценции нужна темнота. Дно с уклоном для конденсата.</p>
         <div class="buy-label">Где заказать</div>
         <div class="buys">
-          <a class="buy" href="https://www.corteshow.com/" target="_blank" rel="noopener">Corteshow (Taquara, RJ)<svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
-          <a class="buy" href="https://ranger3d.com.br/services/corte-laser/" target="_blank" rel="noopener">Ranger 3D — corte laser<svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
+          <a class="buy" href="https://www.corteshow.com/" target="_blank" rel="noopener">Corteshow (Рио)<svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
+          <a class="buy" href="https://ranger3d.com.br/services/corte-laser/" target="_blank" rel="noopener">Ranger 3D<svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
           <a class="buy" href="https://reidocortealaser.com.br/" target="_blank" rel="noopener">Rei do Corte a Laser<svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
         </div>
-        <div class="foot"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><div>Крышка прилегает плотно по всему периметру; швы проклеены нейтральным силиконом; сальники и штуцеры установлены.</div></div>
+        <div class="foot"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><div>Ориентир 350×350×400 мм внутри. Крышка плотная, швы проклеены нейтральным силиконом.</div></div>
         <div style="margin-top:10px"><span class="price-tag">$150–400</span></div>
       </div>
 
-      <!-- Item 15 -->
       <div class="item reveal">
         <div class="item-top">
-          <div class="inum">15</div><div><h3>Датчик CO₂ на диапазон 0–20 %</h3></div>
+          <div class="inum">13</div><div><h3>Датчик CO₂ на диапазон 0–20 %</h3></div>
           <div class="item-head-r"><img class="thumb" src="https://www.co2meter.com/cdn/shop/files/SprintIR_-6S20_CO2SensorlCO2Meter.jpg" alt="Датчик CO₂ SprintIR-6S" loading="lazy" referrerpolicy="no-referrer" onerror="this.style.display='none'"></div>
         </div>
-        <div class="chips"><span class="chip">GSS SprintIR‑6S‑20</span><span class="chip">или ExplorIR‑M‑20</span><span class="chip warn">не SCD30</span></div>
-        <p class="desc">Рабочая уставка — 5 % CO₂. Бытовые датчики (включая SCD30) меряют максимум ~4 % и бесполезны. NDIR, UART, до 20 изм/сек.</p>
+        <div class="chips"><span class="chip">SprintIR‑6S‑20</span><span class="chip">или ExplorIR‑M‑20</span><span class="chip warn">не SCD30</span></div>
+        <p class="desc">Рабочая уставка 5 %. Бытовые датчики (SCD30) меряют до ~4 % и бесполезны.</p>
         <div class="buy-label">Где заказать</div>
         <div class="buys">
-          <a class="buy" href="https://www.co2meter.com/products/sprintir6s-20-co2-smart-sensor" target="_blank" rel="noopener">CO2Meter SprintIR‑6S‑20 <span class="price">$318</span><svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
-          <a class="buy" href="https://www.co2meter.com/products/cozir-wrv-20-percent-co2-sensor" target="_blank" rel="noopener">ExplorIR‑M‑20 (дешевле) <span class="price">$197</span><svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
-          <a class="buy" href="https://www.digikey.com/en/products/detail/gas-sensing-solutions-ltd/SPRINTIR-6S-20/13148755" target="_blank" rel="noopener">DigiKey<svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
+          <a class="buy" href="https://www.co2meter.com/products/sprintir6s-20-co2-smart-sensor" target="_blank" rel="noopener">CO2Meter SprintIR <span class="price">$318</span><svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
+          <a class="buy" href="https://www.co2meter.com/products/cozir-wrv-20-percent-co2-sensor" target="_blank" rel="noopener">ExplorIR‑M‑20 <span class="price">$197</span><svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
         </div>
-        <div class="foot"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><div>На корпусе/в описании явно указан диапазон до 20 %.</div></div>
         <div style="margin-top:10px"><span class="price-tag">$197–318</span></div>
       </div>
 
-      <!-- Item 16 -->
-      <div class="item reveal">
-        <div class="item-top"><div class="inum">16</div><div><h3>Датчик температуры и влажности ×2</h3></div></div>
-        <div class="chips"><span class="chip">SHT31 или BME280</span><span class="chip">I²C</span><span class="chip">2 шт.</span></div>
-        <p class="desc">Контроль 37 °C и влажности. Берём два: один у образца, один в другом углу — проверить равномерность. <b>Осторожно с AliExpress:</b> под видом BME280 часто шлют BMP280 (без влажности).</p>
-        <div class="buy-label">Где заказать</div>
-        <div class="buys">
-          <a class="buy" href="https://www.usinainfo.com.br/sensor-de-pressao/sensor-de-pressao-umidade-e-temperatura-bme280-de-alta-precisao-33v-4682.html" target="_blank" rel="noopener">Usinainfo — BME280 <span class="price">R$47</span><svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
-          <a class="buy" href="https://www.saravati.com.br/modulo-sensor-de-umidade-e-temperatura-digital-i2c-sht-31.html" target="_blank" rel="noopener">Saravati — SHT31 <span class="price">R$42</span><svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
-          <a class="buy" href="https://www.aliexpress.com/w/wholesale-sht31.html" target="_blank" rel="noopener">AliExpress<svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
-        </div>
-        <div class="foot"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><div>SHT31 (±2 % RH, ±0.3 °C) точнее BME280. Интерфейс I²C, есть распаянные контакты.</div></div>
-        <div style="margin-top:10px"><span class="price-tag">$15–30</span></div>
-      </div>
-
-      <!-- Item 17 -->
       <div class="item reveal">
         <div class="item-top">
-          <div class="inum">17</div><div><h3>Нагрев + ПИД‑регулятор</h3></div>
+          <div class="inum">15</div><div><h3>Нагрев + ПИД‑регулятор</h3></div>
           <div class="item-head-r"><img class="thumb" src="https://www.inkbird.com/cdn/shop/files/pid-temperature-controller-itc-100-series-476102.png" alt="ПИД-регулятор Inkbird ITC-100VH" loading="lazy" referrerpolicy="no-referrer" onerror="this.style.display='none'"></div>
         </div>
-        <div class="chips"><span class="chip">Пельтье TEC1‑12706 ×2</span><span class="chip">ПИД + ШИМ</span><span class="chip">радиаторы + вентиляторы</span><span class="chip warn">не W1209</span></div>
-        <p class="desc">Держит 37 °C. Нужен именно ПИД (стабильность ±0.3 °C), а не релейный термостат. <b>Inkbird ITC‑308 — это ON/OFF</b>; для истинного ПИД+ШИМ берите ITC‑100VH + твердотельное реле (SSR‑25DA).</p>
+        <div class="chips"><span class="chip">Пельтье TEC1‑12706 ×2</span><span class="chip">ПИД ITC‑100VH + SSR</span><span class="chip warn">не W1209/ITC‑308</span></div>
+        <p class="desc">Держит 37 °C со стабильностью ±0.3 °C. Нужен ПИД+ШИМ, а не релейный термостат.</p>
         <div class="buy-label">Где заказать</div>
         <div class="buys">
-          <a class="buy" href="https://produto.mercadolivre.com.br/MLB-3488001457-placa-pastilha-termoeletrica-peltier-tec1-12706-_JM" target="_blank" rel="noopener">Mercado Livre — Пельтье TEC1‑12706<svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
-          <a class="buy" href="https://www.mercadolivre.com.br/inkbird-itc-100vh-pid-thermostat-controller-100-240v-k-type/p/MLB2051313350" target="_blank" rel="noopener">ML — Inkbird ITC‑100VH (ПИД)<svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
-          <a class="buy" href="https://www.inkbird.com/products/pid-temperature-controller-itc-100" target="_blank" rel="noopener">Inkbird офиц. <span class="price">$30</span><svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
+          <a class="buy" href="https://produto.mercadolivre.com.br/MLB-3488001457-placa-pastilha-termoeletrica-peltier-tec1-12706-_JM" target="_blank" rel="noopener">ML — Пельтье<svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
+          <a class="buy" href="https://www.mercadolivre.com.br/inkbird-itc-100vh-pid-thermostat-controller-100-240v-k-type/p/MLB2051313350" target="_blank" rel="noopener">ML — ITC‑100VH<svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
         </div>
-        <div class="foot"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><div>Регулятор поддерживает ПИД, а не только релейный режим. В Рио (Zona Sul) розетки 110 В — берите 110 В версию.</div></div>
         <div style="margin-top:10px"><span class="price-tag">$80–150</span></div>
       </div>
 
-      <!-- Item 18 -->
       <div class="item reveal">
-        <div class="item-top"><div class="inum">18</div><div><h3>Подача CO₂ (перезаправляемая)</h3></div></div>
-        <div class="chips"><span class="chip">баллон ≥100 г</span><span class="chip">редуктор</span><span class="chip">электроклапан 12 В</span><span class="chip">игольчатый вентиль</span></div>
-        <p class="desc">Баллончики 16 г кончаются за часы — нужен перезаправляемый баллон. Клапан управляется с Pi по датчику. В Бразилии ищется по <code>cilindro CO₂ recarregável</code> (аквариумистика/сварка). Весь комплект есть на Amazon.br в наличии.</p>
+        <div class="item-top"><div class="inum">14</div><div><h3>Датчик температуры и влажности ×2</h3></div></div>
+        <div class="chips"><span class="chip">SHT31 / BME280</span><span class="chip">I²C</span><span class="chip">2 шт.</span></div>
+        <p class="desc">Один у образца, один в другом углу — проверить равномерность. Осторожно: под видом BME280 часто шлют BMP280 (без влажности).</p>
         <div class="buy-label">Где заказать</div>
         <div class="buys">
-          <a class="buy" href="https://www.amazon.com.br/dp/B0DCBH4KQ8" target="_blank" rel="noopener">Amazon.br — баллон 1.1 кг <span class="price">R$652</span><svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
-          <a class="buy" href="https://www.amazon.com.br/dp/B07QFT69P8" target="_blank" rel="noopener">FZONE — редуктор + соленоид DC 12В <span class="price">R$430</span><svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
-          <a class="buy" href="https://www.amazon.com.br/dp/B07ZFPDDF7" target="_blank" rel="noopener">Игольчатый вентиль инокс <span class="price">R$93</span><svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
+          <a class="buy" href="https://www.usinainfo.com.br/sensor-de-pressao/sensor-de-pressao-umidade-e-temperatura-bme280-de-alta-precisao-33v-4682.html" target="_blank" rel="noopener">Usinainfo <span class="price">R$47</span><svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
+          <a class="buy" href="https://www.saravati.com.br/modulo-sensor-de-umidade-e-temperatura-digital-i2c-sht-31.html" target="_blank" rel="noopener">Saravati SHT31<svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
         </div>
-        <div class="foot"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><div>Баллоны в Бразилии продаются пустыми («sem carga») — заправка в фирмах по огнетушителям (empresas de extintores). Клапан на 12 В.</div></div>
+        <div style="margin-top:10px"><span class="price-tag">$15–30</span></div>
+      </div>
+
+      <div class="item reveal">
+        <div class="item-top"><div class="inum">16</div><div><h3>Подача CO₂ (перезаправляемая)</h3></div></div>
+        <div class="chips"><span class="chip">баллон ≥100 г</span><span class="chip">редуктор</span><span class="chip">клапан 12 В</span><span class="chip">игольчатый вентиль</span></div>
+        <p class="desc">Клапан управляется с Pi по датчику. Ищется по <code>cilindro CO₂ recarregável</code> (аквариумистика). Весь комплект есть на Amazon.br.</p>
+        <div class="buy-label">Где заказать</div>
+        <div class="buys">
+          <a class="buy" href="https://www.amazon.com.br/dp/B0DCBH4KQ8" target="_blank" rel="noopener">Баллон 1.1 кг <span class="price">R$652</span><svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
+          <a class="buy" href="https://www.amazon.com.br/dp/B07QFT69P8" target="_blank" rel="noopener">Редуктор + соленоид 12В<svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
+          <a class="buy" href="https://www.amazon.com.br/dp/B07ZFPDDF7" target="_blank" rel="noopener">Игольчатый вентиль<svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
+        </div>
+        <div class="foot"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><div>Баллоны продаются пустыми — заправка в empresas de extintores.</div></div>
         <div style="margin-top:10px"><span class="price-tag">$70–140</span></div>
       </div>
 
-      <!-- Item 19 -->
       <div class="item reveal">
-        <div class="item-top"><div class="inum">19</div><div><h3>Гермовводы для кабелей ×3</h3></div></div>
-        <div class="chips"><span class="chip">кабельный сальник M16/M20</span><span class="chip">IP68</span><span class="chip">3 шт.</span></div>
-        <p class="desc">Через них кабели заходят в бокс, не нарушая герметичность. Металл надёжнее пластика.</p>
+        <div class="item-top"><div class="inum">17</div><div><h3>Гермовводы для кабелей ×3</h3></div></div>
+        <div class="chips"><span class="chip">сальник M16/M20</span><span class="chip">IP68</span></div>
+        <p class="desc">Через них кабели заходят в бокс, не нарушая герметичность.</p>
         <div class="buy-label">Где заказать</div>
         <div class="buys">
-          <a class="buy" href="https://cetti.com.br/p/prensa-cabo-m20-metalico-ip68/" target="_blank" rel="noopener">Cetti — M20 <span class="price">R$18</span><svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
-          <a class="buy" href="https://cetti.com.br/p/prensa-cabo-m16-metalico-ip68/" target="_blank" rel="noopener">Cetti — M16 <span class="price">R$13</span><svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
+          <a class="buy" href="https://cetti.com.br/p/prensa-cabo-m20-metalico-ip68/" target="_blank" rel="noopener">Cetti M20 <span class="price">R$18</span><svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
+          <a class="buy" href="https://cetti.com.br/p/prensa-cabo-m16-metalico-ip68/" target="_blank" rel="noopener">Cetti M16 <span class="price">R$13</span><svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
         </div>
-        <div class="foot"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><div>Диаметр под ваш кабель; в комплекте гайка и уплотнитель.</div></div>
         <div style="margin-top:10px"><span class="price-tag">$10–20</span></div>
       </div>
 
-      <!-- Item 20 -->
       <div class="item reveal">
-        <div class="item-top"><div class="inum">20</div><div><h3>Расходники герметизации и подводки</h3></div></div>
-        <div class="chips"><span class="chip">силикон нейтральный</span><span class="chip">трубка Ø4 мм, 3 м</span><span class="chip">штуцеры‑ёлочки 4 мм</span><span class="chip">лоток для воды</span><span class="chip warn">не кислотный герметик</span></div>
-        <p class="desc">Лоток с водой даёт влажность пассивно. <b>Герметик только нейтральный</b> (neutral cure): кислотный выделяет уксусную кислоту и вредит клеткам и оптике.</p>
+        <div class="item-top"><div class="inum">18</div><div><h3>Расходники герметизации</h3></div></div>
+        <div class="chips"><span class="chip">силикон нейтр.</span><span class="chip">трубка Ø4 мм</span><span class="chip">штуцеры 4 мм</span><span class="chip warn">не кислотный</span></div>
+        <p class="desc">Лоток с водой даёт влажность пассивно. Герметик только нейтральный (neutral cure).</p>
         <div class="buy-label">Где заказать</div>
         <div class="buys">
-          <a class="buy" href="https://www.impermarket.com.br/selante-de-silicone-neutro-resistente-a-intemperies-dowsil-791-preto-300ml-3699/p" target="_blank" rel="noopener">DowSil 791 нейтральный<svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
-          <a class="buy" href="https://lista.mercadolivre.com.br/mangueira-silicone-4mm" target="_blank" rel="noopener">ML — трубка силикон 4 мм<svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
-          <a class="buy" href="https://lista.mercadolivre.com.br/espigao-4mm" target="_blank" rel="noopener">ML — штуцеры‑ёлочки 4 мм<svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
+          <a class="buy" href="https://www.impermarket.com.br/selante-de-silicone-neutro-resistente-a-intemperies-dowsil-791-preto-300ml-3699/p" target="_blank" rel="noopener">DowSil 791<svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
+          <a class="buy" href="https://lista.mercadolivre.com.br/mangueira-silicone-4mm" target="_blank" rel="noopener">ML — трубка 4 мм<svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
         </div>
-        <div class="foot"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><div>На герметике написано «neutral cure» / нейтральный.</div></div>
         <div style="margin-top:10px"><span class="price-tag">$25–50</span></div>
       </div>
 
-      <!-- Item 21 -->
       <div class="item reveal">
-        <div class="item-top"><div class="inum">21</div><div><h3>Антивибрационные опоры + датчик протечки</h3></div></div>
-        <div class="chips"><span class="chip">опоры (гасят вибрацию)</span><span class="chip">датчик протечки</span></div>
-        <p class="desc">Опоры гасят вибрацию от вентиляторов и стола — иначе смазывается кадр. Датчик протечки — в нижнюю точку уклона, где собирается конденсат.</p>
+        <div class="item-top"><div class="inum">19</div><div><h3>Антивибро-опоры + датчик протечки</h3></div></div>
+        <div class="chips"><span class="chip">опоры</span><span class="chip">датчик протечки</span></div>
+        <p class="desc">Опоры гасят вибрацию — иначе смазывается кадр. Датчик протечки — в нижнюю точку уклона.</p>
         <div class="buy-label">Где заказать</div>
         <div class="buys">
           <a class="buy" href="https://www.amazon.com.br/Nivelador-Amortecedor-Vibra-Stop-Maquina-Borracha/dp/B0BS1RWDCP" target="_blank" rel="noopener">Amazon.br — Vibra‑Stop<svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
@@ -824,70 +661,59 @@
     </div>
   </section>
 
-  <!-- BLOCK 06 · CELLS -->
+  <!-- BLOCK D · CELLS -->
   <section>
     <div class="sec-head reveal">
       <div class="sec-ico"><svg viewBox="0 0 24 24"><path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 2 3h10a2 2 0 0 0 2-3l-5-9V3"/><path d="M7 15h10"/></svg></div>
-      <div><div class="sec-num">БЛОК 06 · <span class="badge b-local"><span class="bd"></span>Локально · Рио (RJ)</span></div><h2>Клетки и биорасходники</h2></div>
+      <div><div class="sec-num">БЛОК D · <span class="badge b-local"><span class="bd"></span>Локально · Рио (RJ)</span></div><h2>Клетки и биорасходники</h2></div>
     </div>
-    <p class="sec-sub reveal">Не смешивать: для этапа 1 — простые дешёвые клетки, чтобы увидеть деление; для этапа 2 — специальные клетки с метками. Хорошая новость: клеточный банк <b>BCRJ</b> — прямо в вашем штате (Duque de Caxias, RJ), ~400 линий, проверка на микоплазму. Никакого импорта и таможни.</p>
+    <p class="sec-sub reveal">Клеточный банк <b>BCRJ</b> — прямо в вашем штате (Duque de Caxias, RJ). Для этапа 1 — простые клетки, чтобы увидеть деление; для этапа 2 — клетки с метками (заморожено до лаборатории).</p>
 
-    <div class="note info reveal"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/></svg><div><b>Как заказать в BCRJ:</b> на карточке линии нет корзины — внизу форма «Fale com o BCRJ». Пишите на <code>bcrj@bcrj.org.br</code>, тел. <b>+55 21 2145‑3337</b>. Адрес: Av. N. S. das Graças, 50, Prédio 32, Parque Tecnológico de Xerém, Duque de Caxias — RJ. <a href="https://bcrj.org.br/pesquisa/" target="_blank" rel="noopener">Поиск по каталогу ↗</a></div></div>
+    <div class="note info reveal"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/></svg><div><b>Как заказать в BCRJ:</b> корзины нет — пишите на <code>bcrj@bcrj.org.br</code>, тел. <b>+55 21 2145‑3337</b>. Адрес: Parque Tecnológico de Xerém, Duque de Caxias — RJ. <a href="https://bcrj.org.br/pesquisa/" target="_blank" rel="noopener">Поиск по каталогу ↗</a></div></div>
 
     <div class="grid">
-      <!-- Item 22 -->
       <div class="item span2 reveal">
-        <div class="item-top"><div class="inum">22</div><div><h3>Клеточная линия для проверки прибора (этап 1)</h3></div></div>
-        <div class="chips"><span class="chip">HeLa · BCRJ 0100</span><span class="chip">U‑2 OS · BCRJ 0304</span><span class="chip">NIH/3T3 · BCRJ 0191</span></div>
-        <p class="desc">Любая из трёх: дешёвые, живучие, быстро делятся, прилипают к стеклу. <b>U2OS особенно удобна</b> — крупные плоские клетки, деление видно отчётливо в обычном свете (метки не нужны).</p>
+        <div class="item-top"><div class="inum">20</div><div><h3>Клеточная линия для проверки (этап 1)</h3></div></div>
+        <div class="chips"><span class="chip">HeLa · 0100</span><span class="chip">U‑2 OS · 0304</span><span class="chip">NIH/3T3 · 0191</span></div>
+        <p class="desc">Любая из трёх. <b>U2OS удобна</b> — крупные плоские клетки, деление видно в обычном свете (метки не нужны).</p>
         <div class="buy-label">Карточки линий в BCRJ</div>
         <div class="buys">
           <a class="buy" href="https://bcrj.org.br/celula/u-2-os" target="_blank" rel="noopener">U‑2 OS (0304)<svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
           <a class="buy" href="https://bcrj.org.br/celula/hela/" target="_blank" rel="noopener">HeLa (0100)<svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
           <a class="buy" href="https://bcrj.org.br/celula/nih3t3/" target="_blank" rel="noopener">NIH/3T3 (0191)<svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
         </div>
-        <div class="foot"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><div>Заказывать можно сразу — как только будет где их растить.</div></div>
         <div style="margin-top:10px"><span class="price-tag">$100–300</span></div>
       </div>
 
-      <!-- Item 24 -->
       <div class="item reveal">
-        <div class="item-top"><div class="inum">24</div><div><h3>Чашки со стеклянным дном 35 мм</h3></div></div>
-        <div class="chips"><span class="chip">покровное #1.5 (0.17 мм)</span><span class="chip warn">не пластиковое дно</span></div>
-        <p class="desc">Обязательно стеклянное дно: объектив смотрит сквозь него снизу. Через обычный пластик снимать нельзя — мутный и толстый.</p>
+        <div class="item-top"><div class="inum">22</div><div><h3>Чашки со стеклянным дном 35 мм</h3></div></div>
+        <div class="chips"><span class="chip">покровное #1.5</span><span class="chip warn">не пластик</span></div>
+        <p class="desc">Обязательно стекло: объектив смотрит снизу. Через пластик снимать нельзя.</p>
         <div class="buy-label">Где заказать</div>
         <div class="buys">
-          <a class="buy" href="https://www.cellvis.com/_35-mm-glass-bottom-dish-with-20-mm-micro-well-number-1.5-cover-glass_/product_detail.php?product_id=17" target="_blank" rel="noopener">Cellvis D35‑20‑1.5‑N<svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
-          <a class="buy" href="https://www.induslab.com.br/placa-de-cult-celular-fundo-de-vidro-35-10mm-esteril-greiner-pct-10un-1.html" target="_blank" rel="noopener">Induslab — Greiner (BR)<svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
-          <a class="buy" href="https://ibidi.com/94-35-mm-dishes" target="_blank" rel="noopener">ibidi µ‑Dish<svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
+          <a class="buy" href="https://www.cellvis.com/_35-mm-glass-bottom-dish-with-20-mm-micro-well-number-1.5-cover-glass_/product_detail.php?product_id=17" target="_blank" rel="noopener">Cellvis<svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
+          <a class="buy" href="https://www.induslab.com.br/placa-de-cult-celular-fundo-de-vidro-35-10mm-esteril-greiner-pct-10un-1.html" target="_blank" rel="noopener">Induslab (BR)<svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
         </div>
-        <div class="foot"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><div>Толщина покровного именно #1.5.</div></div>
         <div style="margin-top:10px"><span class="price-tag">$100–200</span></div>
       </div>
 
-      <!-- Item 23 -->
       <div class="item reveal">
-        <div class="item-top"><div class="inum">23</div><div><h3>Среда, сыворотка FBS, антибиотики, трипсин</h3></div></div>
-        <div class="chips"><span class="chip">DMEM</span><span class="chip">FBS</span><span class="chip">Pen/Strep</span><span class="chip">трипсин</span><span class="chip">продаётся в Бразилии</span></div>
-        <p class="desc">Марка среды зависит от линии — BCRJ подскажет при заказе. Дешевле брать бразильское производство.</p>
+        <div class="item-top"><div class="inum">21</div><div><h3>Среда, FBS, антибиотики, трипсин</h3></div></div>
+        <div class="chips"><span class="chip">DMEM</span><span class="chip">FBS</span><span class="chip">Pen/Strep</span><span class="chip">трипсин</span></div>
+        <p class="desc">Марка среды зависит от линии — BCRJ подскажет. Дешевле бразильское производство.</p>
         <div class="buy-label">Где заказать</div>
         <div class="buys">
-          <a class="buy" href="http://www.cultilab.com.br/" target="_blank" rel="noopener">Cultilab (среды/FBS, BR)<svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
+          <a class="buy" href="http://www.cultilab.com.br/" target="_blank" rel="noopener">Cultilab<svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
           <a class="buy" href="https://lgcbiotecnologia.com.br/produto/soro-fetal-bovino-esteril-bioplus/" target="_blank" rel="noopener">LGC Biotecnologia<svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
-          <a class="buy" href="https://www.prolab.com.br/produtos/biologia-molecular/cultura-celular-meios-classicos/" target="_blank" rel="noopener">Prolab — DMEM и др.<svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
+          <a class="buy" href="https://www.prolab.com.br/produtos/biologia-molecular/cultura-celular-meios-classicos/" target="_blank" rel="noopener">Prolab<svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
         </div>
-        <div class="foot"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><div>Заказывает лаборатория / тот, кто ведёт культуру.</div></div>
         <div style="margin-top:10px"><span class="price-tag">$200–400</span></div>
       </div>
 
-      <!-- Item 25 -->
       <div class="item span2 reveal" style="border-style:dashed; background:#fbfbfc">
-        <div class="item-top">
-          <div class="inum" style="background:#8a8a8f">25</div>
-          <div><h3>Клетки с метками центриолей <span class="badge b-frozen" style="margin-left:6px"><span class="bd"></span>заморожено до лаборатории</span></h3></div>
-        </div>
-        <div class="chips"><span class="chip">этап 2</span><span class="chip">линия для науки (обсуждается BJ‑hTERT)</span><span class="chip">конструкты для двух каналов</span></div>
-        <p class="desc">Требует настоящей лаборатории и отдельного согласования с профессором. <b>Не заказывать до подтверждения лаборатории</b> — но этап 1 это не блокирует: прибор можно построить и проверить полностью на обычных клетках из BCRJ.</p>
+        <div class="item-top"><div class="inum" style="background:#8a8a8f">23</div><div><h3>Клетки с метками центриолей <span class="badge b-frozen" style="margin-left:6px"><span class="bd"></span>заморожено до лаборатории</span></h3></div></div>
+        <div class="chips"><span class="chip">этап 2</span><span class="chip">линия для науки (BJ‑hTERT)</span><span class="chip">конструкты 2 каналов</span></div>
+        <p class="desc"><b>Не заказывать до подтверждения лаборатории.</b> Этап 1 это не блокирует — прибор строится и проверяется на обычных клетках из BCRJ.</p>
         <div style="margin-top:6px"><span class="price-tag">уточнить</span></div>
       </div>
     </div>
@@ -896,14 +722,13 @@
   <!-- BUDGET -->
   <section>
     <div class="budget reveal">
-      <h2>Бюджет до работающего этапа 1 + вся оптика под этап 2</h2>
-      <div class="brow"><span>Печать пластика (Рио)</span><span class="price tnum">$50–200</span></div>
-      <div class="brow"><span>Набор электроники, камера HQ, удлинения</span><span class="price tnum">$195–410</span></div>
-      <div class="brow"><span>Оптика: объектив, дублет, фильтры ×2, светодиоды ×2</span><span class="price tnum">$600–1 400</span></div>
-      <div class="brow"><span>Raspberry Pi 5 + SSD + корпус</span><span class="price tnum">$195–310</span></div>
-      <div class="brow"><span>Бокс, нагрев, газ, датчики, расходники</span><span class="price tnum">$515–990</span></div>
-      <div class="brow"><span>Клетки и расходники для этапа 1 (BCRJ, локально)</span><span class="price tnum">$400–900</span></div>
-      <div class="btotal"><span class="lab">Итого MVP <span style="opacity:.7">(клетки с метками для этапа 2 — отдельно, после лаборатории)</span></span><span class="sum tnum">$1 955–4 210</span></div>
+      <h2>Бюджет: Full Kit + всё докупаемое</h2>
+      <div class="brow"><span>IO Rodeo Full Kit (корпус, плата, моторы, подсветка, крепёж)</span><span class="price tnum">$200</span></div>
+      <div class="brow"><span>Блок A · Pi 4B, камера HQ, шлейф, SSD, корпус</span><span class="price tnum">$215–400</span></div>
+      <div class="brow"><span>Блок B · оптика: объектив, дублет, фильтры ×2, LED ×2</span><span class="price tnum">$600–1 400</span></div>
+      <div class="brow"><span>Блок C · бокс, нагрев, газ, датчики, расходники</span><span class="price tnum">$562–1 138</span></div>
+      <div class="brow"><span>Блок D · клетки и расходники этапа 1 (BCRJ, локально)</span><span class="price tnum">$400–900</span></div>
+      <div class="btotal"><span class="lab">Итого MVP <span style="opacity:.7">(клетки с метками этапа 2 — отдельно, после лаборатории)</span></span><span class="sum tnum">≈ $2 000–4 100</span></div>
     </div>
   </section>
 
@@ -912,9 +737,9 @@
     <div class="rules reveal" style="background:linear-gradient(180deg,#fff,#f7f9ff)">
       <h4>Что осталось решить</h4>
       <ul>
-        <li><span class="rn" style="background:#e6f0fd; color:var(--blue-ink)">?</span><div><b>Где лаборатория для этапа 2?</b> Нужна для клеток с генетическими метками. Пока нет ответа — позиция 25 заморожена, но <b>этап 1 это не блокирует</b>: прибор строится и проверяется полностью на обычных клетках из BCRJ.</div></li>
+        <li><span class="rn" style="background:#e6f0fd; color:var(--blue-ink)">?</span><div><b>Где лаборатория для этапа 2?</b> Нужна для клеток с метками. Пока нет ответа — позиция 23 заморожена, но <b>этап 1 это не блокирует</b>.</div></li>
+        <li><span class="rn" style="background:var(--amber-bg); color:var(--amber)">!</span><div><b>Материал корпуса в наборе.</b> Уточнить у IO Rodeo — если PLA, перепечатать в Рио из ASA/PETG под жизнь при 37 °C.</div></li>
       </ul>
-      <div style="margin-top:14px; font-size:14px; color:var(--muted)">Три из четырёх прежних вопросов закрыты: два канала — да; камера — HQ; Raspberry Pi — снаружи.</div>
     </div>
   </section>
 
@@ -922,8 +747,8 @@
 
 <footer>
   <div class="wrap">
-    Составлено на основе ТЗ <b>«ARGUS MVP — что заказать и где напечатать»</b> · микроскоп OpenFlexure · доставка в Рио‑де‑Жанейро.<br>
-    Цены и наличие — ориентир на момент подготовки; перед оплатой проверяйте на странице товара. Ссылки на Mercado Livre / Amazon.br / AliExpress ведут на реальные листинги, но продавцы и цены могут меняться.
+    Сборка микроскопа OpenFlexure на базе <b>IO Rodeo Full Kit</b> · проект ARGUS MVP · доставка в Рио‑де‑Жанейро.<br>
+    Цены и наличие — ориентир на момент подготовки; перед оплатой проверяйте на странице товара.
   </div>
 </footer>
 
@@ -931,7 +756,7 @@
 <script>
 (function(){
   var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if(reduce) return; // всё видимо по умолчанию
+  if(reduce) return;
   var root = document.documentElement;
   root.classList.add('js-anim');
   function revealAll(){ var n=document.querySelectorAll('.reveal'); for(var i=0;i<n.length;i++) n[i].classList.add('in'); }
@@ -941,26 +766,24 @@
   }, { rootMargin:'0px 0px -8% 0px', threshold:0.08 });
   function boot(){ var n=document.querySelectorAll('.reveal'); for(var i=0;i<n.length;i++) io.observe(n[i]); }
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', boot); else boot();
-  setTimeout(revealAll, 2600); // жёсткий тайм-аут: показать всё при любом сбое
+  setTimeout(revealAll, 2600);
 })();
 </script>
-<!-- Framer Motion enhancement (bonus; страница работает и без CDN) -->
+<!-- Framer Motion enhancement (bonus) -->
 <script type="module">
   try{
     const { animate, stagger } = await import("https://cdn.jsdelivr.net/npm/motion@11/+esm");
     const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
     if(!reduce){
       const hero = document.querySelectorAll('[data-hero]');
-      if(hero.length){
-        animate(hero, { opacity:[0,1], y:[18,0] }, { duration:.7, delay: stagger(0.08), easing:[.16,1,.3,1] });
-      }
+      if(hero.length) animate(hero, { opacity:[0,1], y:[18,0] }, { duration:.7, delay: stagger(0.08), easing:[.16,1,.3,1] });
     }
   }catch(e){ /* CDN недоступен — hero уже виден */ }
 </script>
 <!-- Cheat sheet: галочки сохраняются в браузере -->
 <script>
 (function(){
-  var KEY='argus_cheat_v1', state={};
+  var KEY='argus_cheat_fullkit_v1', state={};
   try{ state=JSON.parse(localStorage.getItem(KEY)||'{}'); }catch(e){}
   var boxes=[].slice.call(document.querySelectorAll('.check-tbl input.chk'));
   function save(){ try{ localStorage.setItem(KEY, JSON.stringify(state)); }catch(e){} }
