@@ -1,14 +1,13 @@
 {
-  "ts": "2026-07-23T08:35:52.811675+00:00",
+  "ts": "2026-07-24T08:32:37.634067+00:00",
   "findings": {},
   "errors": {
+    "Saysail (catamarans)": "request_error: ConnectionError: HTTPSConnectionPool(host='saysail.com', port=443): Max retries exceeded with url: /en/yacht-rental?country=100181&boat_type=51&regions=559906&marinas=1317289 (Caused by NewConnectionError(\"HTTPSConnection(host='saysail.com', port=443): Failed to establish a new connection: [Errno 101] Network is unreachable\"))",
+    "Saysail (full fleet)": "request_error: ConnectionError: HTTPSConnectionPool(host='saysail.com', port=443): Max retries exceeded with url: /en/yacht-rental (Caused by NewConnectionError(\"HTTPSConnection(host='saysail.com', port=443): Failed to establish a new connection: [Errno 101] Network is unreachable\"))",
     "Navigare Yachting Turkey": "http_403",
-    "Irmak Yachting (home)": "request_error: ReadTimeout: HTTPSConnectionPool(host='www.irmakyachting.com', port=443): Read timed out. (read timeout=30)",
-    "Irmak Yachting (fleet)": "request_error: ReadTimeout: HTTPSConnectionPool(host='www.irmakyachting.com', port=443): Read timed out. (read timeout=30)",
     "Rotaneta Gocek catamaran": "http_503",
     "Rotaneta home": "http_503",
     "Yacht-Rent Turkey": "http_403",
-    "Gulet Bookers (home, Bodrum-based)": "request_error: ConnectTimeout: HTTPSConnectionPool(host='www.guletbookers.com', port=443): Max retries exceeded with url: / (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.guletbookers.com', port=443) at 0x7f21784c0590>, 'Connection to www.guletbookers.com timed out. (connect timeout=30)'))",
     "Gulet Escapes (UK)": "http_403",
     "GuletYacht.net": "http_403"
   }
