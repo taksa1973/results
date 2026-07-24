@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ARGUS MVP — инструкция по сборке микроскопа OpenFlexure</title>
+<meta name="description" content="Полная пошаговая инструкция сборки микроскопа OpenFlexure (ARGUS): куда какие комплектующие, 16 этапов от механики до флуоресценции и климат-бокса.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F5F5F7; --card:#FFFFFF; --ink:#1D1D1F; --ink2:#424245; --muted:#6E6E73;
+    --line:#E5E5EA; --line2:#EDEDF0; --blue:#0071E3; --blue-ink:#0058b8;
+    --green:#1a7f37; --amber:#8a5a00; --red:#b3261e; --red-bg:#fbe9e7;
+    --radius:20px; --shadow:0 1px 3px rgba(0,0,0,.04), 0 8px 30px rgba(0,0,0,.05);
+    --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{background:var(--bg); color:var(--ink); font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; line-height:1.6; -webkit-font-smoothing:antialiased}
+  a{color:var(--blue-ink); text-decoration:none} a:hover{text-decoration:underline}
+  .wrap{max-width:1000px; margin:0 auto; padding:0 22px}
+  code{font-family:var(--mono); font-size:.86em; background:#f2f2f4; padding:1px 5px; border-radius:5px}
+
+  .reveal{opacity:1; transform:none}
+  html.js-anim .reveal{opacity:0; transform:translateY(20px)}
+  html.js-anim .reveal.in{opacity:1; transform:none; transition:opacity .55s cubic-bezier(.16,1,.3,1), transform .55s cubic-bezier(.16,1,.3,1)}
+  @media (prefers-reduced-motion: reduce){ html.js-anim .reveal{opacity:1; transform:none; transition:none} }
+
+  header.hero{padding:70px 0 30px}
+  .eyebrow{font-size:13px; font-weight:600; letter-spacing:.02em; color:var(--muted); text-transform:uppercase; margin-bottom:16px}
+  .eyebrow a{color:var(--muted); text-decoration:underline}
+  h1{font-size:clamp(32px,5.5vw,54px); line-height:1.06; letter-spacing:-.028em; font-weight:800; margin:0 0 18px}
+  .lede{font-size:clamp(16px,2vw,19px); color:var(--ink2); max-width:780px; margin:0 0 22px}
+  .meta-chips{display:flex; flex-wrap:wrap; gap:10px}
+  .mchip{background:var(--card); border:1px solid var(--line); border-radius:100px; padding:9px 16px; font-size:14px; font-weight:600; box-shadow:var(--shadow)}
+  .mchip span{color:var(--muted); font-weight:500}
+
+  .legend{display:flex; flex-wrap:wrap; gap:8px 16px; margin:22px 0 4px; font-size:12.5px; color:var(--muted)}
+  .lg{display:inline-flex; align-items:center; gap:6px}
+  .lgdot{width:9px; height:9px; border-radius:50%}
+
+  .progress-bar{position:sticky; top:0; z-index:40; background:rgba(245,245,247,.85); backdrop-filter:saturate(180%) blur(12px); -webkit-backdrop-filter:saturate(180%) blur(12px); border-bottom:1px solid var(--line); margin:26px 0 0}
+  .progress-inner{max-width:1000px; margin:0 auto; padding:11px 22px; display:flex; align-items:center; gap:14px}
+  .ptrack{flex:1; height:7px; background:#e3e3e8; border-radius:100px; overflow:hidden}
+  .pfill{height:100%; width:0%; background:linear-gradient(90deg,#0071E3,#1a7f37); border-radius:100px; transition:width .3s ease}
+  .pcount{font-family:var(--mono); font-size:13px; font-weight:600; white-space:nowrap}
+  .preset{font-size:12.5px; color:var(--blue-ink); cursor:pointer; border:none; background:none; font-weight:600}
+
+  section{padding:26px 0}
+  .block{background:var(--card); border:1px solid var(--line); border-radius:var(--radius); padding:24px 26px; box-shadow:var(--shadow); margin-bottom:16px}
+  .block h2{margin:0 0 14px; font-size:20px; letter-spacing:-.01em}
+  .tools-list, .comp-list, .caut-list{list-style:none; margin:0; padding:0; display:grid; gap:9px}
+  .tools-list li, .comp-list li, .caut-list li{display:flex; gap:10px; align-items:flex-start; font-size:14.5px; color:var(--ink2)}
+  .tools-list svg{width:17px; height:17px; flex:0 0 auto; margin-top:2px; stroke:var(--muted); fill:none; stroke-width:1.8}
+  .comp-list svg{width:16px; height:16px; flex:0 0 auto; margin-top:3px; stroke:var(--blue); fill:none; stroke-width:2}
+  .caut-list svg{width:16px; height:16px; flex:0 0 auto; margin-top:2px; stroke:var(--red); fill:none; stroke-width:2}
+
+  .stage{background:var(--card); border:1px solid var(--line); border-radius:var(--radius); padding:24px 26px; box-shadow:var(--shadow); margin-bottom:16px; scroll-margin-top:70px}
+  .stage.done{background:#f4faf5; border-color:#cde9d3}
+  .stage-head{display:flex; gap:15px; align-items:flex-start; margin-bottom:14px}
+  .stnum-wrap{position:relative; cursor:pointer; flex:0 0 auto}
+  .stnum-wrap input{position:absolute; opacity:0; width:100%; height:100%; cursor:pointer; margin:0}
+  .stnum{width:40px; height:40px; border-radius:12px; color:#fff; font-family:var(--mono); font-weight:700; font-size:17px; display:grid; place-items:center; transition:transform .15s}
+  .stnum-wrap:hover .stnum{transform:scale(1.06)}
+  .stage.done .stnum::after{content:'✓'; position:absolute; font-size:20px}
+  .stage.done .stnum span, .stage.done .stnum{}
+  .stage-title h3{margin:3px 0 0; font-size:18.5px; letter-spacing:-.01em; line-height:1.3}
+  .scat{display:inline-block; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.04em; padding:3px 9px; border-radius:7px}
+  .goal{font-size:14.5px; color:var(--ink); background:#f6f7f9; border:1px solid var(--line2); border-radius:12px; padding:11px 14px; margin-bottom:16px}
+  .goal-ico{font-weight:700}
+  .stage-grid{display:grid; grid-template-columns:minmax(0,0.85fr) minmax(0,1.15fr); gap:22px}
+  .sub-label{font-size:11.5px; text-transform:uppercase; letter-spacing:.05em; color:var(--muted); font-weight:600; margin-bottom:10px}
+  .warn-label{color:var(--red)}
+  .comp{background:#fbfbfd; border:1px solid var(--line2); border-radius:14px; padding:15px 16px}
+  .steps-list{margin:0; padding:0 0 0 2px; list-style:none; counter-reset:st; display:grid; gap:11px}
+  .steps-list li{position:relative; padding-left:34px; font-size:14.5px; color:var(--ink2)}
+  .steps-list li::before{counter-increment:st; content:counter(st); position:absolute; left:0; top:0; width:23px; height:23px; background:#111; color:#fff; border-radius:7px; font-family:var(--mono); font-size:12px; font-weight:600; display:grid; place-items:center}
+  .caut{margin-top:16px; background:var(--red-bg); border-radius:12px; padding:13px 15px}
+  .caut .sub-label{margin-bottom:8px}
+  .doclink{display:inline-flex; align-items:center; gap:7px; margin-top:15px; font-size:13px; font-weight:600; color:var(--blue-ink)}
+  .doclink .arr, .buy .arr{width:13px; height:13px; stroke:currentColor; fill:none; stroke-width:2}
+
+  .buys{display:flex; flex-wrap:wrap; gap:9px}
+  .buy{display:inline-flex; align-items:center; gap:7px; background:#fff; border:1px solid var(--line); border-radius:10px; padding:8px 13px; font-size:13.5px; font-weight:600; color:var(--ink); box-shadow:0 1px 2px rgba(0,0,0,.03); transition:border-color .15s, background .15s}
+  .buy:hover{border-color:var(--blue); background:#f5faff; text-decoration:none}
+
+  footer{padding:44px 0 66px; color:var(--muted); font-size:13.5px; text-align:center; border-top:1px solid var(--line); margin-top:30px}
+  footer a{color:var(--muted); text-decoration:underline}
+
+  @media (max-width:760px){ .stage-grid{grid-template-columns:1fr; gap:16px} header.hero{padding:48px 0 24px} }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow reveal" data-hero>ARGUS MVP · инструкция по сборке · <a href="microscopio-argus-rio.html">← к списку закупки</a></div>
+    <h1 class="reveal" data-hero>Инструкция по сборке<br>микроскопа</h1>
+    <p class="lede reveal" data-hero>Собираем настольный флуоресцентный микроскоп OpenFlexure (проект ARGUS) на базе IO Rodeo Full Kit: печатная флексурная механика с тремя моторизованными осями X/Y/Z, high-res оптический модуль с объективом 40× и камерой Raspberry Pi HQ (инвертированная схема, объектив смотрит вверх), управление на Sangaboard + Raspberry Pi 4B с ПО OpenFlexure. Логика ровно линейная: сначала собираем и оживляем сам микроскоп в brightfield (механика → оптика+камера → электроника → Pi/софт → проверка светлопольного захвата), затем строим вокруг него разборный герметичный климат-бокс 37 °C/CO2 (бокс → монтаж микроскопа и вынос Pi наружу → датчики → нагрев/ПИД → CO2 → влажность → запуск), и только в самом конце навешиваем флуоресцентный модуль (этап 2: фильтр-куб, каналы GFP/RFP, LED возбуждения) — юстировку по реальным образцам оставляем на пост-лабораторный этап.</p>
+    <div class="meta-chips reveal" data-hero>
+      <div class="mchip">16 <span>этапов</span></div>
+      <div class="mchip">от механики <span>до флуоресценции</span></div>
+      <div class="mchip">база <span>IO Rodeo Full Kit + Pi 4B</span></div>
+    </div>
+    <div class="legend reveal" data-hero><span class="lg"><span class="lgdot" style="background:#0071E3"></span>механика</span><span class="lg"><span class="lgdot" style="background:#6a3ea1"></span>оптика</span><span class="lg"><span class="lgdot" style="background:#b26a00"></span>электроника</span><span class="lg"><span class="lgdot" style="background:#0a7d6b"></span>софт</span><span class="lg"><span class="lgdot" style="background:#1d3f73"></span>запуск</span><span class="lg"><span class="lgdot" style="background:#4a5568"></span>бокс</span><span class="lg"><span class="lgdot" style="background:#c0392b"></span>климат</span><span class="lg"><span class="lgdot" style="background:#1a7f37"></span>флуоресценция</span></div>
+  </div>
+</header>
+
+<div class="progress-bar">
+  <div class="progress-inner">
+    <span class="pcount" id="pcount">0 / 16</span>
+    <div class="ptrack"><div class="pfill" id="pfill"></div></div>
+    <button class="preset" id="preset">сбросить</button>
+  </div>
+</div>
+
+<div class="wrap">
+  <section>
+    <div class="block reveal">
+      <h2>Инструмент</h2>
+      <ul class="tools-list"><li><svg viewBox="0 0 24 24"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18v3h3l6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2-2 2.5-2.5z"/></svg><span>В наборе IO Rodeo: шестигранный ключ 2.5 мм с шаром (основной крепёж M3 cap), band-tool (два рычага + чехол) для установки Viton-бэндов, nut spinner / gear holder для сборки ходовых винтов, lens tool&#x27;ы (оптический модуль и конденсор), запасной винт M3x10 как оправка для запрессовки гаек, запасная гайка M3</span></li><li><svg viewBox="0 0 24 24"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18v3h3l6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2-2 2.5-2.5z"/></svg><span>Отвёртка Pozidrive №1 — саморезы No.2 6.5 мм (шестерни моторов, крышка камеры, cable-tidy caps, конденсор)</span></li><li><svg viewBox="0 0 24 24"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18v3h3l6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2-2 2.5-2.5z"/></svg><span>Нож/скальпель + точные бокорезы (флаш-к485) — снятие brim и срезание печатных стяжек заподлицо</span></li><li><svg viewBox="0 0 24 24"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18v3h3l6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2-2 2.5-2.5z"/></svg><span>Лёгкое машинное масло — по капле на резьбу каждого ходового винта (без него сорвёт резьбу)</span></li><li><svg viewBox="0 0 24 24"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18v3h3l6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2-2 2.5-2.5z"/></svg><span>Изопропиловый спирт + салфетки для оптики, пинцет с мягкими губками, перчатки — чистая работа с линзами, дихроиками и фильтрами (не трогать пальцами)</span></li><li><svg viewBox="0 0 24 24"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18v3h3l6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2-2 2.5-2.5z"/></svg><span>Антистатический браслет или заземлённый металл — HQ-камера и Sangaboard чувствительны к статике</span></li><li><svg viewBox="0 0 24 24"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18v3h3l6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2-2 2.5-2.5z"/></svg><span>ДОКУПИТЬ для ARGUS/бокса: паяльник + припой и термоусадка (силовые LED возбуждения, драйверы, разводка Пельтье), мультиметр (полярность LED, ток драйверов, проверка undervoltage), термопаста, дрель + острые/корончатые/ступенчатые свёрла по акрилу, нейтральный (оксимный) силиконовый герметик — НЕ кислотный, мыльный раствор для опрессовки CO2, ключи под сальники M16/M20</span></li></ul>
+    </div>
+
+    
+    <div class="stage reveal" id="stage-1">
+      <div class="stage-head">
+        <label class="stnum-wrap"><input class="stchk" type="checkbox" data-id="s1"><span class="stnum" style="background:#0071E3">1</span></label>
+        <div class="stage-title">
+          <span class="scat" style="color:#0071E3; background:#e6f0fd">механика</span>
+          <h3>Механика: подготовка корпуса и стенда, освобождение флексур</h3>
+        </div>
+      </div>
+      <div class="goal"><span class="goal-ico" style="color:#0071E3">▸</span> Печатный main body со свободно ходящими флексурами и 12 запрессованными гайками M3 плюс стенд с 4 гайками — механическая база под приводы, моторы и оптику.</div>
+      <div class="stage-grid">
+        <div class="comp">
+          <div class="sub-label">Комплектующие — куда идут</div>
+          <ul class="comp-list"><li><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span>1× печатный main body (основной корпус) — несущая деталь всей механики: колонны актуаторов, столик (stage), платформа освещения</span></li><li><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span>12× гайка M3 — 4 в боковые гнёзда столика, 2 в платформу освещения над осью Z (третье отверстие пустое), по 2 в крепления моторов X и Y (4 шт.), 2 в место мотора Z</span></li><li><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span>1× печатный microscope stand (стенд) + 4× гайка M3 — в 4 проушины (lugs) стенда, на них сядет корпус</span></li><li><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span>1× винт M3x10 cap (расходный, только как оправка для запрессовки гаек), ключ 2.5 мм с шаром, нож, точные бокорезы</span></li></ul>
+        </div>
+        <div class="steps">
+          <div class="sub-label">Порядок сборки</div>
+          <ol class="steps-list"><li>Ножом и бокорезами снять brim (юбку прилипания) по всему периметру корпуса.</li><li>Вырезать печатные перемычки-стяжки: 6 внутри колонн актуаторов и 4 у задних ножек; оставшиеся пеньки срезать ЗАПОДЛИЦО — именно это освобождает гибкие направляющие (флексуры).</li><li>Запрессовать гайку M3 в каждое из 4 боковых гнёзд столика: вставить гайку, вкрутить расходный M3x10 ключом 2.5 мм до умеренного сопротивления, затем выкрутить — гайка остаётся в пластике.</li><li>Тем же приёмом запрессовать 2× M3 в платформу освещения над осью Z (третье отверстие оставить пустым).</li><li>Запрессовать по 2× M3 в места моторов X и Y (4 шт.) и 2× M3 в место мотора Z.</li><li>На стенде срезать поддержки, зачистить бугорки и запрессовать 4× M3 в проушины (гайка снизу, винт сверху, затянуть, выкрутить).</li></ol>
+          <div class="caut"><div class="sub-label warn-label">Осторожно</div><ul class="caut-list"><li><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg><span>Флексуры (тонкие пластиковые «петли»-шарниры) хрупкие: срезать только временные стяжки, сами флексуры не гнуть и не тянуть.</span></li><li><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg><span>Пеньки резать строго заподлицо — иначе заклинит ход столика.</span></li><li><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg><span>Запрессовывать до умеренного сопротивления, расходным винтом не пережимать, чтобы не сорвать резьбу.</span></li></ul></div>
+          <a class="doclink" href="https://build.openflexure.org/openflexure-microscope/v7.0.0-beta5/high_res_microscope/prepare_main_body.html" target="_blank" rel="noopener">Официальная инструкция этого шага<svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
+        </div>
+      </div>
+    </div>
+    <div class="stage reveal" id="stage-2">
+      <div class="stage-head">
+        <label class="stnum-wrap"><input class="stchk" type="checkbox" data-id="s2"><span class="stnum" style="background:#0071E3">2</span></label>
+        <div class="stage-title">
+          <span class="scat" style="color:#0071E3; background:#e6f0fd">механика</span>
+          <h3>Механика: сборка флексурных актуаторов осей X, Y, Z</h3>
+        </div>
+      </div>
+      <div class="goal"><span class="goal-ico" style="color:#0071E3">▸</span> Три винтовых актуатора с шестернями и упругими Viton-бэндами вставлены в колонны корпуса и отцентрованы — механизм перемещения по X, Y, Z.</div>
+      <div class="stage-grid">
+        <div class="comp">
+          <div class="sub-label">Комплектующие — куда идут</div>
+          <ul class="comp-list"><li><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span>3× ходовой винт M3x25 hex (leadscrew) — по одному в колонну каждой оси</span></li><li><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span>3× латунная гайка M3 (brass nut) — в отверстие внутренней колонны каждого актуатора, ходит по винту</span></li><li><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span>6× шайба M3 (2 на ось) — выгнутыми сторонами друг к другу под шестерню</span></li><li><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span>3× большая шестерня (large gear) — на верх ходового винта каждой оси</span></li><li><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span>3× Viton O-ring 30×2 мм — упругий бэнд, продевается через ножку привода</span></li><li><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span>3× печатная ножка привода (foot) — вставляется в корпус до щелчка, фиксирует бэнд и актуатор</span></li><li><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span>1× запасная гайка M3 (для насадки винта на инструмент), лёгкое масло (капля на ось)</span></li></ul>
+        </div>
+        <div class="steps">
+          <div class="sub-label">Порядок сборки</div>
+          <ol class="steps-list"><li>Собрать ходовой винт: продеть M3x25 через большую шестерню и nut spinner, затянуть встречным вращением gear-holder&#x27;ом до посадки.</li><li>Вставить латунную гайку M3 в отверстие колонны актуатора строго ровно, без перекоса.</li><li>Поставить шестерню: 2 шайбы M3 выгнутыми сторонами друг к другу, продеть болт через них до латунной гайки, закрутить.</li><li>Смазать: 1 капля лёгкого масла на ~5 мм открытой резьбы — НЕ пропускать, иначе повредите винт.</li><li>Собрать band-tool, провернуть шестерню, чтобы резьба показалась в отверстии, зафиксировать nut tool&#x27;ом внутренний актуатор.</li><li>Продеть Viton O-ring 30×2 через ножку, band-tool&#x27;ом зацепить бэнд с двух сторон, вдавить узел в корпус с заметным усилием до щелчка, ножку посадить заподлицо.</li><li>Повторить для Y и Z (смазать обе резьбы, посадить обе ножки, по 2 шайбы на ось).</li><li>Отцентровать актуаторы: вращать каждую шестерню, пока отверстие внутренней колонны не совпадёт с прорезью наружного корпуса.</li></ol>
+          <div class="caut"><div class="sub-label warn-label">Осторожно</div><ul class="caut-list"><li><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg><span>Установка Viton-бэндов — самая сложная часть: давить ощутимо, но НЕ перетягивать и не рвать флексуры (при трудностях — troubleshooting).</span></li><li><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg><span>Латунная гайка должна лежать ровно, иначе винт пойдёт криво.</span></li><li><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg><span>Обязательно смазать резьбу — сухой винт сорвёт резьбу.</span></li><li><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg><span>Усилие идёт на защёлкивание ножки, а не на изгиб шарниров.</span></li></ul></div>
+          <a class="doclink" href="https://build.openflexure.org/openflexure-microscope/v7.0.0-beta5/high_res_microscope/actuator_assembly.html" target="_blank" rel="noopener">Официальная инструкция этого шага<svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
+        </div>
+      </div>
+    </div>
+    <div class="stage reveal" id="stage-3">
+      <div class="stage-head">
+        <label class="stnum-wrap"><input class="stchk" type="checkbox" data-id="s3"><span class="stnum" style="background:#0071E3">3</span></label>
+        <div class="stage-title">
+          <span class="scat" style="color:#0071E3; background:#e6f0fd">механика</span>
+          <h3>Механика: установка шаговых моторов 28BYJ-48 на оси X, Y, Z</h3>
+        </div>
+      </div>
+      <div class="goal"><span class="goal-ico" style="color:#0071E3">▸</span> Три мотора 28BYJ-48 закреплены на посадочных местах, их шестерни в зацеплении с актуаторами, кабели уложены и промаркированы по осям.</div>
+      <div class="stage-grid">
+        <div class="comp">
+          <div class="sub-label">Комплектующие — куда идут</div>
+          <ul class="comp-list"><li><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span>3× шаговый мотор 28BYJ-48 — X-мотор на lug оси X, Y-мотор на lug оси Y, Z-мотор у центральной колонны Z</span></li><li><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span>3× малая шестерня мотора — на вал каждого мотора флянцем вниз</span></li><li><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span>6× саморез No.2 6.5 мм — по 2 на фиксацию каждой шестерни на валу</span></li><li><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span>6× винт M3x10 cap — по 2 на крепление каждого мотора к корпусу (ключ 2.5 мм)</span></li><li><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span>3× cable-tidy cap (X/Y/Z-cap) + по 1 саморезу (Pozidrive №1) — укладка кабелей</span></li></ul>
+        </div>
+        <div class="steps">
+          <div class="sub-label">Порядок сборки</div>
+          <ol class="steps-list"><li>Надеть шестерню флянцем вниз, совместив плоские грани вала и отверстия; закрутить 2 самореза No.2 6.5 мм почти до касания вала.</li><li>Пометить кабель каждого мотора (скотч/маркер), чтобы не перепутать X/Y/Z.</li><li>Через отверстие гайки проверить центровку актуатора (отверстие внутренней колонны совпадает с прорезью корпуса).</li><li>X и Y: провести кабели через прямоугольные каналы наружной стенки, посадить моторы на lugs шестернёй наружу, проверить зацепление; поставить X-cap и Y-cap; закрепить каждый мотор 2× M3x10.</li><li>Z: завести кабель в паз слева от Z-актуатора, смонтировать так же.</li><li>Зафиксировать каждый cable-tidy cap одним саморезом (Pozidrive №1).</li></ol>
+          <div class="caut"><div class="sub-label warn-label">Осторожно</div><ul class="caut-list"><li><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg><span>Промаркировать кабели ДО монтажа — иначе перепутаете X/Y/Z при подключении электроники.</span></li><li><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg><span>Саморезы шестерни не сорвать в пластике; проверить зацепление до финальной затяжки M3x10 (иначе ось пропускает шаги).</span></li><li><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg><span>Не перетягивать M3x10 в пластиковых гайках корпуса.</span></li></ul></div>
+          <a class="doclink" href="https://build.openflexure.org/openflexure-microscope/v7.0.0-beta5/high_res_microscope/motors.html" target="_blank" rel="noopener">Официальная инструкция этого шага<svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
+        </div>
+      </div>
+    </div>
+    <div class="stage reveal" id="stage-4">
+      <div class="stage-head">
+        <label class="stnum-wrap"><input class="stchk" type="checkbox" data-id="s4"><span class="stnum" style="background:#6a3ea1">4</span></label>
+        <div class="stage-title">
+          <span class="scat" style="color:#6a3ea1; background:#f0e9fa">оптика</span>
+          <h3>Оптика: сборка high-res оптического модуля и запрессовка тубусной линзы f=50</h3>
+        </div>
+      </div>
+      <div class="goal"><span class="goal-ico" style="color:#6a3ea1">▸</span> Чистый чёрный корпус оптического модуля собран, ахроматический дублет f=50 мм ровно, без перекоса, запрессован в оптический канал правильной стороной.</div>
+      <div class="stage-grid">
+        <div class="comp">
+          <div class="sub-label">Комплектующие — куда идут</div>
+          <ul class="comp-list"><li><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span>Печатный модуль optics_picamera_2_rms_f50d13_LS65 (чёрный пластик обязательно) — базовый корпус, внутрь идут тубусная линза, объектив, камера</span></li><li><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span>Ахроматический дублет Ø12.7 мм, f=50 мм (напр. Thorlabs AC127-050-A) — тубусная линза внутри канала между объективом и сенсором</span></li><li><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span>Печатный lens tool — центрирует линзу при запрессовке</span></li><li><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span>Печатная крышка камеры (Pi camera cover), M3 гайка + винт M3x10 в nut trap, 2 самореза No.2 6.5 мм (пойдут дальше)</span></li></ul>
+        </div>
+        <div class="steps">
+          <div class="sub-label">Порядок сборки</div>
+          <ol class="steps-list"><li>Осмотреть модуль: чёрный, обеспылен, центральный оптический канал свободен от нитей/соплей пластика; печатная резьба RMS чистая (при необходимости прогнать её самим объективом на пол-оборота без усилия).</li><li>Убедиться, что nut trap и посадочное место камеры без облоя; снять статику перед работой.</li><li>Поставить lens tool на устойчивую поверхность.</li><li>Положить дублет на инструмент БОЛЕЕ ВЫПУКЛОЙ стороной ВНИЗ (к камере).</li><li>Надеть корпус модуля сверху на инструмент и равномерно надавить, чтобы линза села в гнездо канала.</li><li>Проверить посадку: линза лежит плоско, без наклона; при перекосе выпрессовать и повторить.</li></ol>
+          <div class="caut"><div class="sub-label warn-label">Осторожно</div><ul class="caut-list"><li><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg><span>Модуль обязательно чёрный — светлый пластик даёт переотражения и туман на снимке.</span></li><li><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg><span>НЕ касаться линз пальцами (только за торец); ориентация критична — более выпуклая сторона вниз.</span></li><li><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg><span>Давить равномерно через корпус, не точечно — иначе перекос/скол линзы.</span></li><li><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg><span>Модуль в оригинале под Pi Camera v2; под HQ (C/CS-mount) крепление отличается — сверить на этапе 5.</span></li></ul></div>
+          <a class="doclink" href="https://build.openflexure.org/openflexure-microscope/v7.0.0-beta4/high_res_optics_module.html" target="_blank" rel="noopener">Официальная инструкция этого шага<svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
+        </div>
+      </div>
+    </div>
+    <div class="stage reveal" id="stage-5">
+      <div class="stage-head">
+        <label class="stnum-wrap"><input class="stchk" type="checkbox" data-id="s5"><span class="stnum" style="background:#6a3ea1">5</span></label>
+        <div class="stage-title">
+          <span class="scat" style="color:#6a3ea1; background:#f0e9fa">оптика</span>
+          <h3>Оптика+камера: объектив 40× через переходник C-mount→RMS и монтаж камеры Raspberry Pi HQ</h3>
+        </div>
+      </div>
+      <div class="goal"><span class="goal-ico" style="color:#6a3ea1">▸</span> Объектив 40× (парфокаль 45 мм, тубус 160 мм) соосно установлен через переходник, камера HQ зафиксирована на модуле сенсором в оптический канал, шлейф подключён, крепёжный винт M3 предустановлен.</div>
+      <div class="stage-grid">
+        <div class="comp">
+          <div class="sub-label">Комплектующие — куда идут</div>
+          <ul class="comp-list"><li><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span>Микрообъектив RMS 40× (конечно-сопряжённый, парфокаль 45 мм) — в RMS-резьбу переходника/модуля</span></li><li><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span>Переходник C-mount→RMS — RMS-сторона принимает объектив, C-mount-сторона на резьбу камеры HQ</span></li><li><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span>Камера Raspberry Pi HQ (Sony IMX477, C/CS-mount) с кольцом-адаптером C-CS 5 мм — сенсорный модуль</span></li><li><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span>Модуль с уже установленной тубусной линзой (этап 4) — принимает узел снизу</span></li><li><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span>Печатная крышка камеры + 2 самореза No.2 6.5 мм, M3 гайка + винт M3x10 в nut trap, шлейф Raspberry Pi Camera (для high-res удобнее 300–400 мм — больше слабины)</span></li></ul>
+        </div>
+        <div class="steps">
+          <div class="sub-label">Порядок сборки</div>
+          <ol class="steps-list"><li>Оставить на камере HQ штатное кольцо C-CS 5 мм (задаёт C-mount рабочий отрезок), накрутить переходник C-mount→RMS на резьбу камеры до упора ровно.</li><li>Вкрутить объектив 40× в RMS-сторону переходника до плеча (буртика), медленно и строго по оси, без cross-threading.</li><li>Проверить соосность: объектив и переходник не перекошены относительно сенсора; парфокаль = 45 мм.</li><li>Наложить камеру HQ на посадочное место в нижней части модуля так, чтобы сенсор смотрел в оптический канал соосно объективу.</li><li>Накрыть Pi camera cover и притянуть двумя саморезами No.2 6.5 мм Pozidrive №1 — равномерно, НЕ перетягивая.</li><li>Вставить M3-гайку в nut trap, вкрутить M3x10 на пару оборотов (оставить ~5 мм резьбы наружу — затянется при монтаже в корпус).</li><li>Проверить шлейф (контакты на противоположных концах ленты), подключить к разъёму камеры: оттянуть защёлку, вставить контактами к плате, закрыть защёлку.</li></ol>
+          <div class="caut"><div class="sub-label warn-label">Осторожно</div><ul class="caut-list"><li><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg><span>Печатная/адаптерная резьба RMS хрупкая — вкручивать строго прямо, не перетягивать; не касаться фронтальной линзы.</span></li><li><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg><span>Использовать объектив именно с парфокалем 45 мм и тубусом 160 мм — под них рассчитаны f50-дублет и высота LS65.</span></li><li><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg><span>Шлейф ПРАВИЛЬНОГО типа/ориентации — неверный сожжёт камеру за секунды; не перетягивать саморезы (сорвёте резьбу, потеряете соосность).</span></li><li><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg><span>Габарит HQ больше Pi v2 — убедиться, что крышка/посадка под HQ; сенсор открыт — беречь от пыли и статики.</span></li></ul></div>
+          <a class="doclink" href="https://build.openflexure.org/openflexure-microscope/master/customisations/optics_options.html" target="_blank" rel="noopener">Официальная инструкция этого шага<svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
+        </div>
+      </div>
+    </div>
+    <div class="stage reveal" id="stage-6">
+      <div class="stage-head">
+        <label class="stnum-wrap"><input class="stchk" type="checkbox" data-id="s6"><span class="stnum" style="background:#0071E3">6</span></label>
+        <div class="stage-title">
+          <span class="scat" style="color:#0071E3; background:#e6f0fd">механика</span>
+          <h3>Механика: установка модуля в корпус снизу, посадка на стенд, столик LS10 + клипсы</h3>
+        </div>
+      </div>
+      <div class="goal"><span class="goal-ico" style="color:#0071E3">▸</span> Оптический модуль закреплён в корпусе снизу (объектив смотрит вверх, инвертированная схема), корпус привинчен к стенду, на столике ризер LS10 и две прижимные клипсы — микроскоп стоит устойчиво и держит образец в фокусном диапазоне.</div>
+      <div class="stage-grid">
+        <div class="comp">
+          <div class="sub-label">Комплектующие — куда идут</div>
+          <ul class="comp-list"><li><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span>Собранный оптический модуль (этапы 4–5) — заводится в корпус СНИЗУ, крепится к keyhole-пазу Z-актуатора предустановленным M3x10</span></li><li><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span>4× винт M3x10 cap — крепят корпус к проушинам (lugs) стенда</span></li><li><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span>1× sample_riser_LS10 (10 мм) — на столик под предметное стекло, обеспечивает парфокаль 45 мм для RMS-объектива</span></li><li><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span>2× sample clip (клипсы) + 2× винт M3x10 — прижимают стекло/ризер симметрично по бокам столика (ключ 2.5 мм)</span></li></ul>
+        </div>
+        <div class="steps">
+          <div class="sub-label">Порядок сборки</div>
+          <ol class="steps-list"><li>Провести модуль в корпус снизу так, чтобы объектив прошёл в шахту и фронтальная линза смотрела ВВЕРХ на столик.</li><li>Вставить крепёжный M3x10 модуля в keyhole-паз Z-актуатора; ключом 2.5 мм с шаром через переднее каплевидное (teardrop) отверстие завести и подхватить винт, сдвинуть модуль вверх по keyhole до упора и затянуть.</li><li>Убедиться, что объектив ходит по Z свободно и по центру отверстия столика, не цепляя края.</li><li>Поставить корпус на стенд, совместив lugs, и закрепить 4× M3x10.</li><li>Положить sample_riser_LS10 на столик; в каждую клипсу вставить M3x10 в отверстие на конце, провести через изогнутую часть и прикрутить к столику; вторую клипсу — симметрично.</li><li>Проложить шлейф камеры к будущему месту Pi с запасом слабины на полный ход фокусировки.</li></ol>
+          <div class="caut"><div class="sub-label warn-label">Осторожно</div><ul class="caut-list"><li><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg><span>Объектив заводится снизу, но смотрит вверх и открыт — не касаться передней линзы, беречь резьбу RMS.</span></li><li><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg><span>Для high-res ризер LS10 обязателен: без него не выйти в фокус (нужен парфокаль 45 мм).</span></li><li><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg><span>Столик и Z-актуатор на флексурах — винты в пластиковых гайках и клипсы не перетягивать (перекос столика, деформация шарнира).</span></li><li><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg><span>Не пережать шлейф камеры при затяжке — заложить петлю слабины.</span></li></ul></div>
+          <a class="doclink" href="https://build.openflexure.org/openflexure-microscope/v7.0.0-beta5/high_res_microscope/mount_optics_and_microscope.html" target="_blank" rel="noopener">Официальная инструкция этого шага<svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
+        </div>
+      </div>
+    </div>
+    <div class="stage reveal" id="stage-7">
+      <div class="stage-head">
+        <label class="stnum-wrap"><input class="stchk" type="checkbox" data-id="s7"><span class="stnum" style="background:#6a3ea1">7</span></label>
+        <div class="stage-title">
+          <span class="scat" style="color:#6a3ea1; background:#f0e9fa">оптика</span>
+          <h3>Оптика: brightfield-подсветка сверху (конденсор 5 мм + LED-плата + диффузор)</h3>
+        </div>
+      </div>
+      <div class="goal"><span class="goal-ico" style="color:#6a3ea1">▸</span> Над образцом собран осветитель проходящего света LED → диффузор → апертура → конденсорная линза, дающий равномерное светлопольное освещение по тракту до сенсора HQ.</div>
+      <div class="stage-grid">
+        <div class="comp">
+          <div class="sub-label">Комплектующие — куда идут</div>
+          <ul class="comp-list"><li><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span>Конденсорная линза f=5 мм (плоско-выпуклая) — в печатный корпус конденсора, критическое освещение</span></li><li><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span>Печатный lens tool конденсора — центрирует линзу</span></li><li><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span>Диффузор Ø~14 мм из белого полипропилена 0.5 мм — поверх апертуры конденсора</span></li><li><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span>Condenser board spacer (проставка) — зазор между диффузором и LED-платой</span></li><li><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span>Illumination PCB (LED + драйвер) — источник света, пинами к слоту</span></li><li><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span>Печатный арм/корпус конденсора + dovetail — держит осветитель НАД образцом</span></li><li><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span>Саморезы No.2 6.5 мм (2 на стек + 2 на крепление к арму), M3 гайка + винт M3x10, красный/чёрный jumper F-F 2-pin Dupont</span></li></ul>
+        </div>
+        <div class="steps">
+          <div class="sub-label">Порядок сборки</div>
+          <ol class="steps-list"><li>Положить конденсорную линзу 5 мм на lens tool ПЛОСКОЙ стороной вниз и вдавить в корпус конденсора до щелчка.</li><li>Вырезать диффузор Ø~14 мм, разметить отверстия под саморезы по проставке.</li><li>На перевёрнутый конденсор уложить стек: диффузор → condenser board spacer → illumination PCB (пинами к слоту); притянуть 2 саморезами No.2 6.5 мм, не перетягивая.</li><li>Подключить питающий жгут (красный/чёрный 2-pin Dupont) к illumination PCB.</li><li>Насадить конденсор на dovetail арма над образцом 2 саморезами так, чтобы проводка и малый слот смотрели ОТ ласточкина хвоста; зафиксировать M3-гайкой и M3x10.</li><li>Проверить тракт brightfield: LED → диффузор → апертура → конденсор 5 мм → образец → объектив 40× (снизу) → тубусная линза f50 → сенсор HQ.</li></ol>
+          <div class="caut"><div class="sub-label warn-label">Осторожно</div><ul class="caut-list"><li><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg><span>НЕ касаться пальцами линзы и диффузора — жир/пыль дают неравномерную засветку.</span></li><li><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg><span>Плоская сторона конденсорной линзы — вниз; пины LED-платы к слоту, жгут прочь от dovetail (иначе конденсор не сядет).</span></li><li><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg><span>Проставку и диффузор не пропускать (равномерность и рабочий зазор); беречь LED-плату от статики и КЗ.</span></li></ul></div>
+          <a class="doclink" href="https://build.openflexure.org/openflexure-microscope/v7.0.0-beta2/upright_illumination.html" target="_blank" rel="noopener">Официальная инструкция этого шага<svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
+        </div>
+      </div>
+    </div>
+    <div class="stage reveal" id="stage-8">
+      <div class="stage-head">
+        <label class="stnum-wrap"><input class="stchk" type="checkbox" data-id="s8"><span class="stnum" style="background:#b26a00">8</span></label>
+        <div class="stage-title">
+          <span class="scat" style="color:#b26a00; background:#fbf1dc">электроника</span>
+          <h3>Электроника: обесточивание, подключение моторов X/Y/Z и LED к выходу CC</h3>
+        </div>
+      </div>
+      <div class="goal"><span class="goal-ico" style="color:#b26a00">▸</span> Система обесточена и снята статика, три мотора заведены каждый в свой помеченный порт оси, LED подключён к constant-current выходу Sangaboard с правильной полярностью.</div>
+      <div class="stage-grid">
+        <div class="comp">
+          <div class="sub-label">Комплектующие — куда идут</div>
+          <ul class="comp-list"><li><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span>Sangaboard v0.5 (RP2040) — контроллер моторов и LED (пока не под питанием)</span></li><li><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span>3× мотор 28BYJ-48 (5-проводные ключёванные штекеры) — в разъёмы, помеченные X, Y, Z</span></li><li><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span>Несущая плата LED-подсветки — в осветительную колонну</span></li><li><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span>2-контактный шлейф LED — на male-хедер CC (Constant Current, ~30 мА)</span></li><li><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span>Антистатический браслет/заземление</span></li></ul>
+        </div>
+        <div class="steps">
+          <div class="sub-label">Порядок сборки</div>
+          <ol class="steps-list"><li>Отключить БП от сети, USB-C НЕ вставлять до конца проверки; надеть антистатический браслет (на Sangaboard v0.5 мелкие SMD-компоненты).</li><li>Найти на плате маркировку портов моторов X/Y/Z, 2-контактный хедер CC, 40-пиновый HAT снизу, serial-пины GPIO14/15.</li><li>Определить соответствие моторов осям (X — вдоль длинной оси стола, Y — поперёк, Z — фокус) и вставить каждый штекер в свой помеченный разъём до полной посадки, по ключу без усилия.</li><li>Проверить, что штекеры сели плотно и провода не натянуты.</li><li>Определить полярность LED (красный = «+» на пин «+»), надеть 2-контактное гнездо на хедер CC так, чтобы «+» совпал с «+»; проложить шлейф к колонне без натяга.</li></ol>
+          <div class="caut"><div class="sub-label warn-label">Осторожно</div><ul class="caut-list"><li><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg><span>Любое подключение/отключение — только при полностью обесточенной системе (USB-C вынут).</span></li><li><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg><span>Не перепутать X/Y/Z (ось поедет не туда, упор/срыв шагов; логику инверсии правят в софте, но порт обязан соответствовать оси).</span></li><li><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg><span>28BYJ-48 — униполярные 5 В: не подключать биполярные драйверы; тянуть только за корпус штекера.</span></li><li><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg><span>Полярность LED обязательна; не спутать хедер CC с силовыми PWM-хедерами; хедеры v0.5 высотой 11 мм.</span></li></ul></div>
+          <a class="doclink" href="https://build.openflexure.org/openflexure-microscope/v7.0.0-beta5/high_res_microscope/illumination.html" target="_blank" rel="noopener">Официальная инструкция этого шага<svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
+        </div>
+      </div>
+    </div>
+    <div class="stage reveal" id="stage-9">
+      <div class="stage-head">
+        <label class="stnum-wrap"><input class="stchk" type="checkbox" data-id="s9"><span class="stnum" style="background:#b26a00">9</span></label>
+        <div class="stage-title">
+          <span class="scat" style="color:#b26a00; background:#fbf1dc">электроника</span>
+          <h3>Электроника: Sangaboard на Raspberry Pi 4B, питание USB-C, шлейф камеры CSI, укладка проводов</h3>
+        </div>
+      </div>
+      <div class="goal"><span class="goal-ico" style="color:#b26a00">▸</span> Sangaboard закреплена как HAT на GPIO Pi (или соединена по USB для старых ревизий), питание заведено единым USB-C ≥3 А, HQ-камера подключена к 15-pin CSI, все шлейфы уложены с запасом слабины.</div>
+      <div class="stage-grid">
+        <div class="comp">
+          <div class="sub-label">Комплектующие — куда идут</div>
+          <ul class="comp-list"><li><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span>Sangaboard v0.5 — на 40-пиновый GPIO Raspberry Pi 4B (режим HAT) + стойки</span></li><li><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span>Блок питания USB-C ≥3 А (5.1 В/3 А, 15 Вт) — в разъём питания Sangaboard (питает и плату, и Pi)</span></li><li><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span>HQ-камера (Sony IMX477) + 15-пиновый FFC-шлейф — в разъём CAMERA/CSI на Pi 4B (между аудиоджеком и micro-HDMI)</span></li><li><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span>Мягкие стяжки/штатные каналы корпуса — фиксация без пережима</span></li></ul>
+        </div>
+        <div class="steps">
+          <div class="sub-label">Порядок сборки</div>
+          <ol class="steps-list"><li>Совместить 40-пиновый разъём Sangaboard с гребёнкой GPIO Pi и надеть строго по всем пинам без смещения; зафиксировать стойками. Связь идёт по serial на GPIO14/15 — их не занимать.</li><li>Питание завести одним USB-C ≥3 А в Sangaboard; отдельный БП для Pi НЕ нужен.</li><li>ВАЖНО про ревизии: если в наборе не RP2040-HAT, а старая плата (Arduino Nano, v0.3/0.4) — она соединяется кабелем micro-USB с USB Pi, а Pi питается своим БП; версии v3/v4/v5 — по USB. Определить свою плату и выбрать способ.</li><li>Продеть шлейф камеры через штатную прорезь Sangaboard; на Pi поднять защёлку CSI и вставить шлейф контактами к micro-HDMI, синей меткой к USB/Ethernet, до упора, опустить защёлку; так же подключить сторону камеры.</li><li>Оставить у каждого мотора и у камеры петлю слабины, не пересекать зоны хода стола X/Y и фокуса Z; зафиксировать в каналах корпуса мягкими стяжками, не пережимая FFC.</li><li>Финальная проверка: ничего не защемлено, разъёмы сидят, GPIO14/15 свободны, полярность LED соблюдена, система обесточена.</li></ol>
+          <div class="caut"><div class="sub-label warn-label">Осторожно</div><ul class="caut-list"><li><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg><span>HAT надевать только обесточенным: смещение на один пин GPIO может сжечь плату и/или Pi; не подавать двойное питание.</span></li><li><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg><span>Pi 4B — именно 15-пиновый CSI (не 22-pin mini-CSI Pi 5); вставлять шлейф только при поднятой защёлке, не заламывать FFC.</span></li><li><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg><span>Не перепутать сторону шлейфа (контакты/синяя метка) — камера не определится.</span></li><li><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg><span>Не натягивать шлейфы: натяг выдёргивает разъёмы и ломает пайку.</span></li></ul></div>
+          <a class="doclink" href="https://build.openflexure.org/openflexure-microscope/v7.0.0-beta5/high_res_microscope/prepare_pi_and_sangaboard.html" target="_blank" rel="noopener">Официальная инструкция этого шага<svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
+        </div>
+      </div>
+    </div>
+    <div class="stage reveal" id="stage-10">
+      <div class="stage-head">
+        <label class="stnum-wrap"><input class="stchk" type="checkbox" data-id="s10"><span class="stnum" style="background:#0a7d6b">10</span></label>
+        <div class="stage-title">
+          <span class="scat" style="color:#0a7d6b; background:#e2f4f0">софт</span>
+          <h3>Софт: microSD с OpenFlexure OS, первый запуск и веб-интерфейс</h3>
+        </div>
+      </div>
+      <div class="goal"><span class="goal-ico" style="color:#0a7d6b">▸</span> Pi загружается с Raspbian-OpenFlexure, сервер микроскопа поднимается сам, в браузере открыт веб-интерфейс с живым потоком камеры.</div>
+      <div class="stage-grid">
+        <div class="comp">
+          <div class="sub-label">Комплектующие — куда идут</div>
+          <ul class="comp-list"><li><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span>microSD с OpenFlexure OS (уже прошита в наборе IO Rodeo) → слот на нижней стороне Pi 4B; либо чистая microSD 16+ ГБ + образ «Full Desktop» с openflexure.org + Raspberry Pi Imager v1.9.6</span></li><li><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span>Официальный USB-C БП 15 Вт (5.1 В/3 А) → порт питания Pi</span></li><li><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span>ПК/смартфон в той же Wi-Fi → браузер, либо приложение OpenFlexure Connect</span></li></ul>
+        </div>
+        <div class="steps">
+          <div class="sub-label">Порядок сборки</div>
+          <ol class="steps-list"><li>Если карта из набора уже прошита — вставить её в слот Pi контактами к плате (при выключенном Pi) и прошивку пропустить.</li><li>Если нужна свежая карта: скачать образ Full Desktop (для Pi 4B, не Lite), Imager именно v1.9.6 → «Use custom» → указать .img; в Storage выбрать microSD (не диск ПК); Edit Settings — задать пользователя, пароль, hostname (microscope), Wi-Fi SSID/пароль/страну; записать и вставить в Pi.</li><li>Проверить все подключения (SD, шлейф камеры защёлкнут, Sangaboard, моторы, LED) и подать USB-C 5.1 В/3 А.</li><li>Дождаться загрузки — ПЕРВЫЙ старт дольше (расширение ФС), питание не выдёргивать; индикация: постоянный красный PWR, мигающий зелёный ACT.</li><li>Открыть http://microscope.local:5000 (или http://microscope:5000 / http://&lt;IP&gt;:5000); при проблемах с .local — по IP или через OpenFlexure Connect → Nearby Devices.</li><li>Убедиться, что в панели виден живой поток с камеры — это подтверждает верное подключение CSI.</li></ol>
+          <div class="caut"><div class="sub-label warn-label">Осторожно</div><ul class="caut-list"><li><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg><span>Только Pi 4B или младше (Pi 5 официально не поддерживается); Imager именно v1.9.6, образ Full Desktop, а не Lite.</span></li><li><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg><span>Питание строго официальный 15 Вт — слабый зарядник даёт undervoltage (значок молнии), троттлинг, сбои камеры/моторов.</span></li><li><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg><span>microSD и шлейф камеры трогать только на обесточенном Pi; выключать корректно (shutdown), а не выдёргиванием.</span></li><li><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg><span>Порт обязательно :5000; Pi и клиент в одной подсети (гостевой Wi-Fi часто изолирует).</span></li></ul></div>
+          <a class="doclink" href="https://openflexure.org/software/raspbian-openflexure" target="_blank" rel="noopener">Официальная инструкция этого шага<svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
+        </div>
+      </div>
+    </div>
+    <div class="stage reveal" id="stage-11">
+      <div class="stage-head">
+        <label class="stnum-wrap"><input class="stchk" type="checkbox" data-id="s11"><span class="stnum" style="background:#1d3f73">11</span></label>
+        <div class="stage-title">
+          <span class="scat" style="color:#1d3f73; background:#e6eefb">запуск</span>
+          <h3>Софт/запуск: калибровка осей, автофокус и тест brightfield-захвата</h3>
+        </div>
+      </div>
+      <div class="goal"><span class="goal-ico" style="color:#1d3f73">▸</span> Оси движутся в правильную сторону с компенсацией люфта, автофокус по Z работает, микроскоп снимает и сохраняет полноразмерный светлопольный кадр — базовый микроскоп полностью рабочий.</div>
+      <div class="stage-grid">
+        <div class="comp">
+          <div class="sub-label">Комплектующие — куда идут</div>
+          <ul class="comp-list"><li><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span>Панель Navigate → перемещения X/Y/Z и кнопки автофокуса</span></li><li><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span>Панель Settings (stage/motor) → инверсия осей, backlash</span></li><li><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span>Панель Capture → полноразмерный снимок; панель Gallery → просмотр/скачивание</span></li><li><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span>LED-подсветка + препарат на столике</span></li></ul>
+        </div>
+        <div class="steps">
+          <div class="sub-label">Порядок сборки</div>
+          <ol class="steps-list"><li>В Navigate малыми шагами подать +X/−X, +Y/−Y, +Z/−Z и проверить направление движения; неверную ось инвертировать в stage settings.</li><li>Проверить отсутствие мёртвого хода при смене направления, при необходимости задать backlash; идти от малых шагов к большим (для сшивки — калибровка «пиксели ↔ шаги»).</li><li>Положить препарат, включить LED, грубо навести резкость по Z вручную.</li><li>Нажать автофокус (Fast autofocus) — Pi прогонит ось Z и найдёт пик резкости; при промахе сузить диапазон и повторить.</li><li>Прогнать каждую ось X/Y/Z в обе стороны (плавно, без пропусков), в панели Capture сделать полноразмерный снимок, в Gallery убедиться, что кадр сохранился.</li></ol>
+          <div class="caut"><div class="sub-label warn-label">Осторожно</div><ul class="caut-list"><li><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg><span>Не гонять оси в крайние упоры на больших шагах — упор/пропуск шагов; сначала направление, потом точность/backlash.</span></li><li><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg><span>Объектив не должен упираться в препарат по Z; для автофокуса нужна достаточная освещённость.</span></li><li><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg><span>Дёрганое движение/пропуск шагов = проверить undervoltage и подключение Sangaboard; не выключать Pi выдёргиванием во время захвата.</span></li></ul></div>
+          <a class="doclink" href="https://openflexure-microscope-software.readthedocs.io/en/latest/webapp/index.html" target="_blank" rel="noopener">Официальная инструкция этого шага<svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
+        </div>
+      </div>
+    </div>
+    <div class="stage reveal" id="stage-12">
+      <div class="stage-head">
+        <label class="stnum-wrap"><input class="stchk" type="checkbox" data-id="s12"><span class="stnum" style="background:#4a5568">12</span></label>
+        <div class="stage-title">
+          <span class="scat" style="color:#4a5568; background:#eceef1">бокс</span>
+          <h3>Бокс: сборка разборного герметичного климат-бокса и рабочей крышки</h3>
+        </div>
+      </div>
+      <div class="goal"><span class="goal-ico" style="color:#4a5568">▸</span> Газоплотный, но легко открываемый чёрный акриловый бокс 350×350×400 мм: дно + 4 стенки в жёсткий короб, сверху смотровая крышка на тумблерных защёлках с уплотнителем; держит небольшое избыточное давление CO2, разбирается без инструмента.</div>
+      <div class="stage-grid">
+        <div class="comp">
+          <div class="sub-label">Комплектующие — куда идут</div>
+          <ul class="comp-list"><li><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span>6× панель чёрного литого акрила PMMA 5–6 мм → дно + 4 стенки + верхняя крышка (крой под внутренние 350×350×400)</span></li><li><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span>Каркас из алюминиевого профиля 20×20 → внутренние рёбра/стойки по углам, к ним крепятся панели</span></li><li><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span>8–12× тумблерная защёлка-лягушка (нержавейка) → по 2–3 на разъёмный стык и по периметру крышки</span></li><li><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span>Самоклеящийся EPDM/силиконовый пенопрофиль 10×5 мм (закрытая ячейка) → по всем сопрягаемым кромкам и фланцу крышки</span></li><li><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span>Нейтральный (оксимный) силиконовый герметик → только несъёмные стыки дно↔стенки и герметизация отверстий</span></li><li><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span>Прозрачная зона/окно = сама крышка из акрила, ручки + петля/упор на крышку</span></li></ul>
+        </div>
+        <div class="steps">
+          <div class="sub-label">Порядок сборки</div>
+          <ol class="steps-list"><li>Сухая примерка: собрать каркас-куб из профиля, выставить по угольнику, проверить диагонали, разметить панели по факту.</li><li>Несъёмные стыки (дно ↔ нижний пояс стенок) проклеить нейтральным силиконом сплошной ниткой, стянуть, выдержать 24 ч полимеризации.</li><li>На все разъёмные кромки и фланец крышки наклеить уплотнитель одной непрерывной петлёй без разрывов, стыки срезать «на ус».</li><li>Съёмные стенки/крышку прижать тумблерными защёлками так, чтобы уплотнитель обжимался на 30–50 % (равномерно, отрегулировать вылет крюка).</li><li>Заранее НЕ сверлить лишнего — только наметить места сальников (этап 13), штуцеров CO2 (этап 15) и вводов датчиков.</li><li>Тест герметичности: заглушить вводы, слегка поддуть в бокс и обмылить швы/защёлки, ловить пузыри (или тест на спад давления); подтянуть по местам утечки. Бокс газоплотный, но НЕ сосуд под давлением — сброс через выходной штуцер CO2.</li></ol>
+          <div class="caut"><div class="sub-label warn-label">Осторожно</div><ul class="caut-list"><li><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg><span>Только нейтральный герметик: кислотный (уксусный) мутит и растрескивает акрил, корродирует контакты.</span></li><li><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg><span>Акрил сверлить острым сверлом на малых оборотах, отверстия под сальники — корончатым/ступенчатым, чтобы не расколоть.</span></li><li><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg><span>Не герметизировать «наглухо под давлением» — при подаче CO2 давление отожмёт панели/сорвёт защёлки, нужен открытый путь сброса.</span></li><li><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg><span>Уплотнитель закрытоячеистый — при 100 % влажности не намокнет и не потеряет герметичность.</span></li></ul></div>
+          <a class="doclink" href="https://build.openflexure.org/" target="_blank" rel="noopener">Официальная инструкция этого шага<svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
+        </div>
+      </div>
+    </div>
+    <div class="stage reveal" id="stage-13">
+      <div class="stage-head">
+        <label class="stnum-wrap"><input class="stchk" type="checkbox" data-id="s13"><span class="stnum" style="background:#4a5568">13</span></label>
+        <div class="stage-title">
+          <span class="scat" style="color:#4a5568; background:#eceef1">бокс</span>
+          <h3>Бокс: монтаж микроскопа на антивибро-опоры и вынос Pi/Sangaboard наружу через сальники</h3>
+        </div>
+      </div>
+      <div class="goal"><span class="goal-ico" style="color:#4a5568">▸</span> Микроскоп стоит на дне на виброразвязке под смотровым окном; управляющая электроника (Pi + Sangaboard + БП) вынесена НАРУЖУ, внутрь через герметичные сальники M16/M20 заходят только шлейф камеры, провода 3 моторов, питание LED и линии датчиков.</div>
+      <div class="stage-grid">
+        <div class="comp">
+          <div class="sub-label">Комплектующие — куда идут</div>
+          <ul class="comp-list"><li><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span>Микроскоп ARGUS (тело OpenFlexure, оптика, Pi-камера, LED) → в центр дна под смотровое окно</span></li><li><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span>Жёсткая базовая плита (акрил/алюминий 6–8 мм) + 4× антивибро-опоры (сорботан/силикон) → между плитой и дном</span></li><li><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span>Внешний вентилируемый бокс электроники → Raspberry Pi + Sangaboard + разводка питания снаружи</span></li><li><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span>Кабельный сальник M20 (нейлон IP68) ×1–2 → шлейф камеры и жгут 3 моторов; сальник M16 ×2 → питание LED и шина датчиков</span></li><li><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span>Панельный CSI/FPC-проходник или круглый CSI-кабель → герметичный проход плоского шлейфа камеры</span></li></ul>
+        </div>
+        <div class="steps">
+          <div class="sub-label">Порядок сборки</div>
+          <ol class="steps-list"><li>Положить базовую плиту на 4 антивибро-опоры по углам (зазор до стенок ≥15 мм), установить микроскоп, выровнять по уровню, столик — по центру окна.</li><li>Проверить полный ход осей X/Y/Z — рама не задевает стенки, будущий лоток воды и датчики; убедиться, что горячий поток радиаторов Пельтье (этап 14) не бьёт в оптику.</li><li>Просверлить в стенке отверстия под сальники (M16 → Ø16.5, M20 → Ø20.5), посадить с уплотнительными шайбами.</li><li>Распределить вводы: M20 — шлейф камеры; M20 — жгут моторов X/Y/Z; M16 — питание LED; M16 — провода датчиков. Плоский FPC заменить круглым CSI или поставить панельный проходник и запенить нейтральным силиконом.</li><li>Протянуть жгуты с запасом, затянуть цанги до обжатия, сделать разгрузку натяжения; снаружи подключить шлейф к Pi-камере, моторы к Sangaboard, LED и датчики.</li><li>Смотать внутренние кабели свободными петлями с запасом хода; проверить: камера даёт картинку, моторы едут, LED управляется, датчики опрашиваются — до окончательной герметизации.</li></ol>
+          <div class="caut"><div class="sub-label warn-label">Осторожно</div><ul class="caut-list"><li><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg><span>Ни Pi, ни Sangaboard, ни БП не оставлять внутри: 37 °C + ~100 % влажности + CO2 = конденсат, коррозия, КЗ.</span></li><li><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg><span>Виброразвязка обязательна: вентиляторы Пельтье и соленоид CO2 смазывают кадр на большом увеличении; микроскоп без жёсткого контакта со стенками.</span></li><li><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg><span>Через стенку — только перечисленные линии; никаких 220 В внутрь. Плоский шлейф в обычном сальнике негерметичен — проходник или заливка нейтральным герметиком.</span></li><li><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg><span>Каждый ввод — с разгрузкой натяжения, иначе ход осей выдёргивает разъёмы.</span></li></ul></div>
+          <a class="doclink" href="https://openflexure.org/projects/sangaboard/" target="_blank" rel="noopener">Официальная инструкция этого шага<svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
+        </div>
+      </div>
+    </div>
+    <div class="stage reveal" id="stage-14">
+      <div class="stage-head">
+        <label class="stnum-wrap"><input class="stchk" type="checkbox" data-id="s14"><span class="stnum" style="background:#c0392b">14</span></label>
+        <div class="stage-title">
+          <span class="scat" style="color:#c0392b; background:#fbe9e7">климат</span>
+          <h3>Климат: датчики CO2 (SprintIR 0–20 %) и 2× температура/влажность, нагрев Пельтье + ПИД (37 °C)</h3>
+        </div>
+      </div>
+      <div class="goal"><span class="goal-ico" style="color:#c0392b">▸</span> В боксе стоят датчики климата (CO2 у образца + два SHT: у образца и в дальнем углу) и система термостатирования: 2× Пельтье TEC1-12706 в радиаторных сэндвичах, ПИД ITC-100VH по термопаре у образца через SSR держит 37,0 °C.</div>
+      <div class="stage-grid">
+        <div class="comp">
+          <div class="sub-label">Комплектующие — куда идут</div>
+          <ul class="comp-list"><li><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span>CO2-датчик SprintIR-6S/W (0–20 %, UART/I2C) → на стойке средней высоты у образца, мембраной вбок/вниз</span></li><li><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span>SHT31/SHT35 №1 (I2C) → у образца (опорная точка климата и ПИД); SHT №2 (второй адрес или мультиплексор TCA9548A) → в дальнем верхнем углу</span></li><li><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span>2× TEC1-12706 → врезаны в стенку горячей стороной внутрь; 4× радиатор CPU + вентилятор (2 внутри греют/мешают воздух, 2 снаружи сбрасывают тепло) + термопаста</span></li><li><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span>ПИД Inkbird ITC-100VH + термопара K-типа (у образца) + SSR-40DD (DC-DC, коммутирует 12 В) → снаружи</span></li><li><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span>БП 12 В / 20 А (≥240 Вт) → снаружи, TEC ×2 + вентиляторы; термоизоляционная прокладка проходки TEC</span></li></ul>
+        </div>
+        <div class="steps">
+          <div class="sub-label">Порядок сборки</div>
+          <ol class="steps-list"><li>Смонтировать SprintIR у образца вне тёплой струи и вне капель; SHT №1 максимально близко к образцу, SHT №2 в дальнем углу для контроля градиента; развести SHT по разным I2C-адресам (или мультиплексор), CO2 на UART/I2C; вывести шину наружу к Pi (сальник M16) и проверить чтение CO2/T/RH.</li><li>Вырезать в стенке (не в крышке) два проёма под Пельтье, собрать сэндвич: внутренний радиатор+вентилятор → термопаста → TEC1-12706 → термопаста → наружный радиатор+вентилятор.</li><li>Смонтировать сэндвичи, стык модуль/стенка уплотнить нейтральным герметиком и термоизолирующей прокладкой; проверить полярность — внутренняя сторона греется.</li><li>Подключить оба TEC к выходу SSR-DD, SSR к БП 12 В; вентиляторы на постоянные 12 В (крутятся всегда, пока подан ток на TEC).</li><li>Завести термопару K внутрь к образцу рядом с опорным SHT; настроить ITC-100VH: вход = термопара, выход = SSR, SV = 37,0 °C, включить автотюнинг.</li><li>Перекрёстно проверить: ПИД и SHT №1 у образца совпадают, SHT №2 в углу близко (нет большого градиента); наружные вентиляторы дуют свободно, внутренние не создают сквозняк на образец.</li></ol>
+          <div class="caut"><div class="sub-label warn-label">Осторожно</div><ul class="caut-list"><li><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg><span>Конденсат — главный враг SprintIR и SHT: ставить мембраной вниз/вбок под козырёк, вне зоны стекания; струя входа CO2 не должна бить в мембрану.</span></li><li><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg><span>Вентиляция обратной стороны Пельтье критична: без наружного вентилятора модуль деградирует за минуты — заблокировать нагрев при остановке вентилятора.</span></li><li><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg><span>Электробезопасность: коммутировать нагрев только по 12 В снаружи, 220 В в бокс не вводить; БП/SSR/ПИД снаружи с предохранителем и УЗО; термопаста тонким ровным слоем (воздушный зазор = перегрев).</span></li><li><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg><span>Уставку 37 °C держать по датчику у образца, а не по воздуху у радиатора; два SHT на одной шине — разные адреса или мультиплексор.</span></li></ul></div>
+          <a class="doclink" href="https://inkbird.com/products/temperature-controller-itc-100vh" target="_blank" rel="noopener">Официальная инструкция этого шага<svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
+        </div>
+      </div>
+    </div>
+    <div class="stage reveal" id="stage-15">
+      <div class="stage-head">
+        <label class="stnum-wrap"><input class="stchk" type="checkbox" data-id="s15"><span class="stnum" style="background:#c0392b">15</span></label>
+        <div class="stage-title">
+          <span class="scat" style="color:#c0392b; background:#fbe9e7">климат</span>
+          <h3>Климат/запуск: контур CO2, влажность и аварийная защита по протечке</h3>
+        </div>
+      </div>
+      <div class="goal"><span class="goal-ico" style="color:#c0392b">▸</span> Контур CO2 поддерживает заданную концентрацию (напр. 5 %) по SprintIR через управляемый с Pi электроклапан, открытый лоток воды поднимает влажность, датчик протечки в нижней точке переводит систему в безопасное состояние — климат-бокс запущен и держит режим.</div>
+      <div class="stage-grid">
+        <div class="comp">
+          <div class="sub-label">Комплектующие — куда идут</div>
+          <ul class="comp-list"><li><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span>Баллон CO2 + двухступенчатый редуктор (0,5–1 бар) → снаружи, баллон вертикально; NC-электроклапан 12 В + игольчатый вентиль → снаружи после редуктора</span></li><li><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span>2× проходной штуцер-барб: ВХОД (с рассеивателем, не в образец) на одной стенке, ВЫХОД/сброс на противоположной; трубка PU 4/6 мм; реле/MOSFET + гасящий диод между GPIO Pi и клапаном</span></li><li><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span>Инертный плоский лоток с дистиллированной водой → на дно в угол вне оптики/осей; опц. губка-фитиль; перемешивание внутренним вентилятором Пельтье</span></li><li><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span>Датчик протечки (резистивный щуп/поплавок) → в самую низкую точку дна (уклон/приямок-сумп); провода через сальник на GPIO Pi</span></li><li><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span>Аварийные ключи: реле CO2-клапана + канал SSR нагрева под управлением Pi; оповещение (бот/лог)</span></li></ul>
+        </div>
+        <div class="steps">
+          <div class="sub-label">Порядок сборки</div>
+          <ol class="steps-list"><li>Закрепить баллон вертикально, выставить на редукторе 0,5–1 бар; собрать линию редуктор → NC-клапан 12 В → игольчатый вентиль → штуцер ВХОДА (через рассеиватель, вбок); штуцер ВЫХОДА на противоположной стенке на барботёр/в вытяжку.</li><li>Подключить клапан через реле/MOSFET к GPIO Pi с гасящим диодом на катушке; в ПО: читать SprintIR, при CO2 &lt; уставки открывать клапан, при достижении закрывать (с гистерезисом); игольчатым вентилем задать плавный набор.</li><li>Опрессовать все резьбы и штуцеры мыльным раствором; убедиться, что выход открыт и давление не растёт (панели не отжимает).</li><li>Поставить лоток с дистиллированной водой в угол вне проекции оптики и хода осей; за счёт 37 °C и перемешивания влажность выходит на высокий уровень — контролировать по SHT; следить за уровнем и доливать.</li><li>Сделать/найти самую низкую точку дна (уклон/приямок), поставить датчик протечки, вывести на GPIO; настроить тревогу: при протечке немедленно закрыть CO2-клапан и снять нагрев, поднять оповещение.</li><li>Запуск и тесты: датчик видит падение CO2 → клапан открылся → концентрация набралась → закрылся; капнуть воды в приямок → клапан CO2 закрылся, нагрев снят, пришло оповещение. Проверить, что конденсат не заливает датчики/оптику.</li></ol>
+          <div class="caut"><div class="sub-label warn-label">Осторожно</div><ul class="caut-list"><li><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg><span>CO2 — удушающий газ тяжелее воздуха: помещение проветривать, баллон надёжно закрепить; не создавать избыточного давления (низкое давление + всегда открытый выход = сброс).</span></li><li><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg><span>Клапан 12 В — низковольтная сторона снаружи, на катушку обязательно гасящий диод; струя входа не в образец и не в мембрану SprintIR (ложный зашкал → ложное закрытие).</span></li><li><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg><span>Только дистиллированная вода (без накипи); конденсат оседает на самых холодных поверхностях (окно, оптика) — держать окно чуть теплее точки росы.</span></li><li><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg><span>Датчик протечки строго в нижней точке (проверить уклон водой); в влажной зоне нет сетевого напряжения; аварийная логика закрывает именно CO2-клапан и снимает нагрев.</span></li></ul></div>
+          <a class="doclink" href="https://www.co2meter.com/blogs/news/how-to-build-a-co2-incubator" target="_blank" rel="noopener">Официальная инструкция этого шага<svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
+        </div>
+      </div>
+    </div>
+    <div class="stage reveal" id="stage-16">
+      <div class="stage-head">
+        <label class="stnum-wrap"><input class="stchk" type="checkbox" data-id="s16"><span class="stnum" style="background:#1a7f37">16</span></label>
+        <div class="stage-title">
+          <span class="scat" style="color:#1a7f37; background:#e7f6ec">флуоресценция</span>
+          <h3>Флуоресценция (этап 2): фильтр-куб, каналы GFP и RFP, LED возбуждения, юстировка и светозащита</h3>
+        </div>
+      </div>
+      <div class="goal"><span class="goal-ico" style="color:#1a7f37">▸</span> В оптический тракт установлены светонепроницаемые печатные фильтр-кубы под каналы GFP и RFP (каждый со своим согласованным набором ex-фильтр / дихроик 45° / em-фильтр и своим мощным LED возбуждения на драйвере постоянного тока); тракт грубо отъюстирован и герметичен по свету. Юстировку по реальным флуоресцентным образцам и калибровку экспозиции делаем уже после лаборатории.</div>
+      <div class="stage-grid">
+        <div class="comp">
+          <div class="sub-label">Комплектующие — куда идут</div>
+          <ul class="comp-list"><li><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span>2× печатный fl_cube (ветка fluorescence) из чёрного матового PLA/PETG → в оптический модуль между tube-lens и камерой, эпи-геометрия; ОДИН куб = ОДИН канал</span></li><li><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span>GFP-набор: ex bandpass 470/40 (боковой слот со стороны синего LED), дихроик LP495 под 45° (центр), em bandpass 510–540 нм (слот к сенсору)</span></li><li><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span>RFP-набор (второй куб): ex 530–560 нм, дихроик LP570 под 45°, em 590–630 нм</span></li><li><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span>Синий LED 470 нм (1–3 Вт на звезде) → грань GFP-куба напротив отражающей стороны дихроика; зелёный 530–560 нм → грань RFP-куба</span></li><li><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span>Драйвер постоянного тока на каждый LED (AL8860/RCD или LM317 CC) + алюминиевый радиатор + термопаста; управление на PWM-канал Sangaboard (MOSFET до 1 А); чёрные бленды/флок/light-tight foam для светозащиты</span></li></ul>
+        </div>
+        <div class="steps">
+          <div class="sub-label">Порядок сборки</div>
+          <ol class="steps-list"><li>Напечатать fl_cube чёрным матовым пластиком, зачистить слоты, прокрасить внутренние стенки матовой чёрной краской/флоком; снять конденсор проходящего света и закрыть его канал заглушкой (для эпифлуоресценции проходящий свет не нужен).</li><li>GFP-куб: вставить ex-фильтр 470/40 в боковой слот стрелкой от LED к дихроику; дихроик LP495 под 45° покрытой (отражающей) стороной к LED и вверх к объективу; em-фильтр 510–540 в слот к сенсору стрелкой к камере; промаркировать «GFP / ex470 / di495 / em510-540».</li><li>RFP-куб (второй экземпляр): ex 530–560 к дихроику, дихроик LP570 под 45° покрытием к LED и вверх, em 590–630 к сенсору; промаркировать «RFP / ex530-560 / di570 / em590-630».</li><li>Смонтировать LED-звезду на радиатор через термопасту, посадить на грань куба так, чтобы центр LED был на оси бокового слота напротив отражающей стороны дихроика; каждый LED закреплён на своём кубе (синий — GFP, зелёный — RFP).</li><li>Запитать каждый LED через драйвер постоянного тока (соблюсти полярность, ток по даташиту: ~350 мА для 1 Вт, ~700 мА для 3 Вт, начать с меньшего), управление на PWM-канал Sangaboard; кратко включить и убедиться, что пучок отражается дихроиком вверх в объектив.</li><li>Грубая юстировка: центр дихроика на оптической оси, отражённый пучок вертикально в объектив, em-фильтр перпендикулярен оси, поле освещается равномерно без ярких пятен.</li><li>Светозащита и консервация: закрыть стыки куба/LED/камерного тракта чёрным матовым материалом; тест на светонепроницаемость (LED без образца в темноте → почти чёрное поле; яркое = утечка); поставить пылезащитные заглушки, оба куба промаркированы и убраны.</li></ol>
+          <div class="caut"><div class="sub-label warn-label">Осторожно</div><ul class="caut-list"><li><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg><span>Ориентация дихроика критична: покрытая сторона к LED и к объективу, ровно 45°; зеркальная установка убивает сигнал или даёт ghost-отражения.</span></li><li><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg><span>Не смешивать фильтры разных каналов в одном кубе — спектры не совпадут; bandpass-фильтры угло-зависимы, ставить строго перпендикулярно пучку.</span></li><li><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg><span>Только constant-current драйвер + радиатор: без токоограничения мощный LED сгорает, пульсации тока смещают длину волны и делают флуоресценцию невоспроизводимой; UV/синий опасны для глаз — работать при закрытом тракте.</span></li><li><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg><span>Весь тоннель светонепроницаемый: сигнал слабый, любой паразитный свет его глушит; финальная юстировка по флуоресцентному образцу и калибровка экспозиции — уже после лаборатории.</span></li><li><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg><span>Брать стёкла только за рёбра: отпечатки пальцев сами флуоресцируют; не хранить куб с открытой оптикой.</span></li></ul></div>
+          <a class="doclink" href="https://build.openflexure.org/openflexure-microscope/master/models/fl_cube.html" target="_blank" rel="noopener">Официальная инструкция этого шага<svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="block reveal">
+      <h2>Официальная документация OpenFlexure</h2>
+      <p style="color:var(--ink2); font-size:14.5px; margin:0 0 14px">Первоисточники — сверяйтесь с ними при сборке (там же фото каждого шага):</p>
+      <div class="buys"><a class="buy" href="https://build.openflexure.org/openflexure-microscope/v7.0.0-beta5/high_res_microscope/prepare_main_body.html" target="_blank" rel="noopener">OpenFlexure Build — Подготовка корпуса (main body)<svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a><a class="buy" href="https://build.openflexure.org/openflexure-microscope/v7.0.0-beta5/high_res_microscope/actuator_assembly.html" target="_blank" rel="noopener">OpenFlexure Build — Сборка флексурных актуаторов<svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a><a class="buy" href="https://build.openflexure.org/openflexure-microscope/v7.0.0-beta4/high_res_optics_module.html" target="_blank" rel="noopener">OpenFlexure Build — High-res оптический модуль (объектив, дублет, HQ-камера)<svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a><a class="buy" href="https://build.openflexure.org/openflexure-microscope/master/customisations/optics_options.html" target="_blank" rel="noopener">OpenFlexure — Варианты оптики (объективы, парфокаль, переходники)<svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a><a class="buy" href="https://build.openflexure.org/openflexure-microscope/v7.0.0-beta5/high_res_microscope/prepare_pi_and_sangaboard.html" target="_blank" rel="noopener">OpenFlexure Build — Подготовка Pi и Sangaboard, подключение камеры<svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a><a class="buy" href="https://openflexure.org/software/raspbian-openflexure" target="_blank" rel="noopener">OpenFlexure — Образ Raspbian-OpenFlexure (прошивка microSD)<svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a><a class="buy" href="https://openflexure-microscope-software.readthedocs.io/en/latest/webapp/index.html" target="_blank" rel="noopener">OpenFlexure Microscope Software — веб-интерфейс, калибровка, автофокус<svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a><a class="buy" href="https://build.openflexure.org/openflexure-microscope/master/models/fl_cube.html" target="_blank" rel="noopener">OpenFlexure Models — печатный фильтр-куб fl_cube (флуоресценция)<svg class="arr" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg></a></div>
+    </div>
+  </section>
+</div>
+
+<footer>
+  <div class="wrap">
+    Инструкция по сборке микроскопа OpenFlexure · проект ARGUS MVP.<br>
+    Механика и оптика — по официальным инструкциям OpenFlexure; климат-бокс и флуоресценция — доработка ARGUS. Сверяйтесь с первоисточником по ссылкам выше. · <a href="microscopio-argus-rio.html">Список закупки и где заказать →</a>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(reduce) return;
+  var root=document.documentElement; root.classList.add('js-anim');
+  function all(){document.querySelectorAll('.reveal').forEach(function(n){n.classList.add('in')})}
+  if(!('IntersectionObserver' in window)){all();return;}
+  var io=new IntersectionObserver(function(es){es.forEach(function(en){if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target)}})},{rootMargin:'0px 0px -6% 0px',threshold:0.06});
+  function boot(){document.querySelectorAll('.reveal').forEach(function(n){io.observe(n)})}
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot);else boot();
+  setTimeout(all,2600);
+})();
+</script>
+<script type="module">
+  try{
+    const {animate, stagger} = await import("https://cdn.jsdelivr.net/npm/motion@11/+esm");
+    if(!matchMedia('(prefers-reduced-motion: reduce)').matches){
+      const h=document.querySelectorAll('[data-hero]');
+      if(h.length) animate(h,{opacity:[0,1],y:[16,0]},{duration:.7,delay:stagger(0.08),easing:[.16,1,.3,1]});
+    }
+  }catch(e){}
+</script>
+<script>
+(function(){
+  var KEY='argus_build_v1', state={};
+  try{ state=JSON.parse(localStorage.getItem(KEY)||'{}'); }catch(e){}
+  var boxes=[].slice.call(document.querySelectorAll('.stchk'));
+  var total=boxes.length;
+  function upd(){
+    var d=0; boxes.forEach(function(b){if(b.checked)d++;});
+    document.getElementById('pcount').textContent=d+' / '+total;
+    document.getElementById('pfill').style.width=(total?Math.round(d/total*100):0)+'%';
+  }
+  boxes.forEach(function(b){
+    var id=b.getAttribute('data-id'), st=b.closest('.stage');
+    if(state[id]){b.checked=true; st.classList.add('done');}
+    b.addEventListener('change',function(){
+      state[id]=b.checked; st.classList.toggle('done',b.checked);
+      try{localStorage.setItem(KEY,JSON.stringify(state));}catch(e){}
+      upd();
+    });
+  });
+  document.getElementById('preset').addEventListener('click',function(){
+    boxes.forEach(function(b){b.checked=false; b.closest('.stage').classList.remove('done');});
+    state={}; try{localStorage.removeItem(KEY);}catch(e){} upd();
+  });
+  upd();
+})();
+</script>
+</body>
+</html>
