@@ -111,6 +111,17 @@
   .wabtn:hover{background:#2ee879;color:#04210f;border:none;transform:translateY(-1px)}
   .wabtn svg{width:16px;height:16px}
 
+  /* personal route */
+  .maplink{display:inline-flex;align-items:center;gap:6px;margin-top:9px;margin-right:8px;padding:7px 13px;border-radius:100px;font-size:12.5px;font-weight:600;background:rgba(111,155,255,.14);color:#cadcff;border:1px solid rgba(111,155,255,.28);transition:background .25s,border-color .25s}
+  .maplink:hover{background:rgba(111,155,255,.24);color:#fff;border-color:rgba(111,155,255,.5)}
+  .maplink svg{width:13px;height:13px}
+  .ev .q{margin-top:8px;font-size:.84rem;color:var(--muted);background:rgba(74,222,128,.07);border:1px solid rgba(74,222,128,.18);border-radius:10px;padding:9px 12px;line-height:1.5}
+  .ev .q b{color:#bef5cf}
+  .ev .q.w{background:rgba(255,206,107,.07);border-color:rgba(255,206,107,.2)}
+  .ev .q.w b{color:var(--gold-soft)}
+  .daysep{font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--gold);margin:8px 0 16px;display:inline-block;padding:6px 13px;border:1px solid var(--border);border-radius:100px;background:rgba(255,206,107,.08)}
+  .daysep+.daysep,.tl+.daysep{margin-top:26px}
+
   /* packing */
   .pk{display:grid;grid-template-columns:1fr 1fr;gap:24px}
   @media(max-width:760px){.pk{grid-template-columns:1fr}}
@@ -239,13 +250,66 @@
         <div class="dh"><span class="d">День 2 — парк и возвращение</span><span class="w">чт, 13 августа</span></div>
         <div class="tl">
           <div class="ev"><div class="tm">09:00 · завтрак</div><p>Выспаться после ночи, неспешный завтрак в посаде.</p></div>
-          <div class="ev"><div class="tm">10:30 · тропа к водопаду</div><p>Cachoeira do Escorrega в Parque Estadual do Desengano: ~8 км туда-обратно, ~2 ч, лёгкая. Вход бесплатный, лучше с местным гидом-кондуктором.</p></div>
+          <div class="ev"><div class="tm">10:30 · тропа к водопаду</div><p>Тропа к водопаду в Parque Estadual do Desengano (напр. Cachoeira do Roncador рядом с посадой): лёгкая прогулка ~2 ч. Вход в парк бесплатный, для внутренних троп нужен местный гид-кондуктор.</p></div>
           <div class="ev"><div class="tm">13:00 · обед</div><p>В центре Санта-Мария-Мадалены, короткая прогулка по городку.</p></div>
           <div class="ev"><div class="tm">15:00 · обратно в Рио</div><p>Автобус (Мадалена → Фрибургу 17:00) / трансфер / авто по BR-101. Дома вечером 13-го.</p></div>
         </div>
       </div>
     </div>
     <div class="note warn reveal">⚠️ <b>Парк закрыт по понедельникам</b> (работает вт–вс, 8:00–17:00). 12–13 августа — среда и четверг, всё открыто. Приезжайте засветло: дороги к парку без освещения.</div>
+  </div>
+</section>
+
+<!-- PERSONAL ROUTE -->
+<section id="myroute">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="kicker">★ Твой маршрут · выбранные даты</span>
+      <h2>По часам: заезд 14 августа, звездопад в ночь 15→16</h2>
+      <p>Пятница 14-го — приезд вечером. Суббота 15-го — завтрак, тропа с водопадом, обед, отдых и ночь с астрономом. Ниже — что где, с картами и ответами на всё, что спрашивал.</p>
+    </div>
+
+    <div class="day reveal">
+      <span class="daysep">Пт 14 августа · заезд</span>
+      <div class="tl">
+        <div class="ev"><div class="tm">15:08 · выезд из Рио</div><p>Автобус 1001 с Rodoviária Novo Rio (Av. Francisco Bicalho, 1). Прямой, ~7 ч.</p></div>
+        <div class="ev moon"><div class="tm">22:05 · прибытие в Мадалену → отель → сон</div><p>Вокзал Santa Maria Madalena (Centro). Оттуда до Pousada Verbicaro ~1 км.</p>
+          <div class="q w">⚠️ Приезжаешь в темноте, посада в лесу. <b>Напиши Verbicaro заранее</b> (WhatsApp (22) 99825-8647), попроси подвоз от родовиарии к 22:05 — ночью такси может не быть.</div>
+          <a class="maplink" href="https://www.google.com/maps/search/?api=1&query=Pousada%20Verbicaro%20Santa%20Maria%20Madalena" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7-5.2-7-10a7 7 0 0 1 14 0c0 4.8-7 10-7 10z"/><circle cx="12" cy="11" r="2.4"/></svg>Отель на карте</a>
+        </div>
+      </div>
+
+      <span class="daysep">Сб 15 августа · день + звездопад</span>
+      <div class="tl">
+        <div class="ev"><div class="tm">08:00–10:00 · завтрак в отеле</div><p>Не спеша, набраться сил перед прогулкой и ночью.</p>
+          <div class="q">✅ <b>Завтрак включён в проживание</b> — подают ежедневно 8:00–10:00, домашняя выпечка (bolo de fubá и местные вкусности). Отдельно искать где позавтракать не нужно.</div>
+        </div>
+        <div class="ev"><div class="tm">10:30 · тропа с водопадом</div><p>Лёгкая прогулка к водопаду <b>Cachoeira do Roncador</b> (рядом с посадой) или к водопаду внутри Parque Estadual do Desengano. Атлантический лес, ~2–3 ч.</p>
+          <div class="q w">🧭 <b>Где взять гида:</b> для троп/водопадов внутри парка PED гид обязателен. Проще всего — попросить <b>посаду организовать гида</b> накануне (у них свой заповедник RPPN и тропы). Альтернатива — визит-центр парка в <b>Horto Florestal Santos Lima</b> (центр города, тел. (22) 2561-3110, открыт ежедневно 7:00–17:00).</div>
+          <a class="maplink" href="https://www.google.com/maps/search/?api=1&query=Horto%20Florestal%20Santos%20Lima%20Santa%20Maria%20Madalena" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7-5.2-7-10a7 7 0 0 1 14 0c0 4.8-7 10-7 10z"/><circle cx="12" cy="11" r="2.4"/></svg>Визит-центр / гид</a>
+          <a class="maplink" href="https://www.google.com/maps/dir/Pousada%20Verbicaro%2C%20Estrada%20Madalena%20x%20Terras%20Frias%20Km%2001%2C%20Santa%20Maria%20Madalena%20-%20RJ/Horto%20Florestal%20Santos%20Lima%2C%20Santa%20Maria%20Madalena%20-%20RJ" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Отель → визит-центр</a>
+        </div>
+        <div class="ev"><div class="tm">13:00 · обед рядом с прогулкой</div><p>В центре, в 5–10 мин от Horto: <b>Massa di Casa</b> (self-service «por quilo», R. Barão de Madalena, 68, пн–сб 11:00–24:00, тел. (22) 99708-9296). Рядом ещё пара ресторанов на той же улице.</p>
+          <a class="maplink" href="https://www.google.com/maps/search/?api=1&query=Massa%20di%20Casa%20Santa%20Maria%20Madalena" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7-5.2-7-10a7 7 0 0 1 14 0c0 4.8-7 10-7 10z"/><circle cx="12" cy="11" r="2.4"/></svg>Обед на карте</a>
+        </div>
+        <div class="ev"><div class="tm">14:30 · назад в отель, отдых</div><p>Отдохнуть перед ночью: бассейн, сауна, вздремнуть. Собрать тёплые вещи и бинокль на вечер.</p></div>
+        <div class="ev"><div class="tm">17:45 · готовность → 18:00 Deguste забирает</div><p>Встречаешь трансфер оператора у посады.</p>
+          <div class="q">🚐 <b>Как добраться до площадки:</b> никак сам — <b>трансфер туда и обратно входит в тур Deguste</b>. Дай им адрес Verbicaro как точку подачи. Дорога до площадки <b>Sítio Gospoda</b> (у подножия парка) ~15–25 мин.</div>
+        </div>
+        <div class="ev moon"><div class="tm">18:00–23:00 · ужин + телескопы + астроном</div><p>Польский ужин из 3 блюд, затем наблюдение: планеты, Млечный Путь, южные δ-Аквариды (почти в зените!) и Персеиды.</p></div>
+      </div>
+
+      <span class="daysep">Ночь → Вс 16 августа · назад</span>
+      <div class="tl">
+        <div class="ev moon"><div class="tm">~23:00 · возвращение в отель</div><p>Программа заканчивается около 23:00.</p>
+          <div class="q">🔙 <b>Как уехать обратно:</b> обратный трансфер <b>тоже включён</b> — Deguste довозит тебя от площадки прямо до посады. Ничего ловить и заказывать не надо.</div>
+        </div>
+        <div class="ev moon"><div class="tm">02:00–05:00 · досмотр под утро (по желанию)</div><p>Самый плотный поток — перед рассветом. Можно досмотреть прямо с тёмной территории Verbicaro: шезлонг, плед, глаза в зенит.</p></div>
+        <div class="ev"><div class="tm">Вс 16 · завтрак и дорога в Рио</div><p>Выспаться, завтрак в отеле, обратный автобус 1001 (прямой рейс или через Nova Friburgo). Если хочешь отоспаться после ночи — можно заложить ещё ночь и уехать 16-го во второй половине дня.</p></div>
+      </div>
+    </div>
+
+    <div class="note reveal">📌 <b>Даты 15→16 vs пик 12→13.</b> Ты выбрал наблюдение в ночь 15→16 (суббота) — это на 3 дня после пика Персеид. Небо всё равно тёмное (Луна — тонкий серп, заходит рано), а южные δ-Аквариды в зените ещё активны, так что звездопад будет. Пик 12→13 плотнее, но 15→16 удобнее по выходным — разница для наблюдателя из Бразилии небольшая.</div>
   </div>
 </section>
 
@@ -369,7 +433,7 @@
 <footer>
   <div class="wrap">
     <div>План собран под ночь 12→13 августа 2026 (новолуние 12.08, пик Персеид). Транспорт, расписание и контакты проверены через WebFetch/WebSearch, июль 2026. Расписания автобусов и число прямых рейсов плавают — проверяйте под дату 12.08 при покупке. Готового веб-пакета «выезд 12 августа» нет: посада бронируется на любые ночи, ночь с астрономом Deguste — по WhatsApp под новолуние. Цены — ориентир на двоих, R$; 1 USD ≈ R$5,4.</div>
-    <div style="margin-top:12px">Источники: <a href="https://degusteturismo.com.br/Roteiros/deguste-astronomico/" target="_blank" rel="noopener">Deguste</a> · <a href="https://pousadaverbicaro.com.br/" target="_blank" rel="noopener">Verbicaro</a> · <a href="https://www.autoviacao1001.com.br/" target="_blank" rel="noopener">Auto Viação 1001</a> · <a href="https://www.pmsmm.rj.gov.br/como_chegar" target="_blank" rel="noopener">Мэрия SMM</a> · <a href="https://caminhodamataatlantica.org.br/roteiros-associados/cachoeira-do-escorrega/" target="_blank" rel="noopener">Тропа Escorrega</a></div>
+    <div style="margin-top:12px">Источники: <a href="https://degusteturismo.com.br/Roteiros/deguste-astronomico/" target="_blank" rel="noopener">Deguste</a> · <a href="https://pousadaverbicaro.com.br/" target="_blank" rel="noopener">Verbicaro</a> · <a href="https://www.autoviacao1001.com.br/" target="_blank" rel="noopener">Auto Viação 1001</a> · <a href="https://www.pmsmm.rj.gov.br/como_chegar" target="_blank" rel="noopener">Мэрия SMM</a> · <a href="https://visitmadalena.com.br/ecoturismo-e-aventura/" target="_blank" rel="noopener">Экотуризм Мадалены</a></div>
   </div>
 </footer>
 
