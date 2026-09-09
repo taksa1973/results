@@ -94,8 +94,9 @@ export async function sendFromClient(contactId, person, text, env, source = 'sit
 
 /**
  * Разбирает вебхук amoCRM: менеджер ответил в чате карточки.
- * Возвращает { conversationId, text, msgid } или null, если это не сообщение
- * от менеджера (amojo шлёт сюда же статусы доставки и служебные события).
+ * Возвращает { conversationId, text, msgid, author } или null, если это не
+ * сообщение от менеджера (amojo шлёт сюда же статусы доставки и служебные
+ * события).
  */
 export function parseWebhook(body) {
   const message = body?.message?.message || body?.message;
@@ -107,7 +108,33 @@ export function parseWebhook(body) {
   );
   if (!text || !conversationId) return null;
 
-  return { conversationId, text, msgid: message.id || message.msgid || null };
+  return {
+    conversationId,
+    text,
+    msgid: message.id || message.msgid || null,
+    author: authorName(body, message),
+  };
+}
+
+/**
+ * Имя менеджера, чтобы клиент видел, кто ему отвечает. amojo кладёт автора
+ * по-разному в зависимости от того, откуда отправлено сообщение, — перебираем
+ * известные места и берём первое непустое.
+ */
+function authorName(body, message) {
+  const candidates = [
+    message?.sender?.name,
+    message?.author?.name,
+    message?.receiver?.name,
+    body?.message?.sender?.name,
+    body?.message?.author?.name,
+    body?.account?.name,
+  ];
+  for (const name of candidates) {
+    const clean = String(name || '').trim();
+    if (clean) return clean;
+  }
+  return '';
 }
 
 /** Общий вызов к amojo с подписью. */

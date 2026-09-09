@@ -596,9 +596,11 @@
       var el = document.createElement('div');
       el.className = 'msg ' + (m.me ? 'me' : 'them');
       if (!m.me) {
+        // Имя менеджера приходит из amoCRM: человеку спокойнее, когда видно,
+        // кто именно ему отвечает. Не пришло — подписываем компанией.
         var who = document.createElement('span');
         who.className = 'who';
-        who.textContent = 'neoved';
+        who.textContent = m.author || 'neoved';
         el.appendChild(who);
       }
       el.appendChild(document.createTextNode(m.text));
@@ -815,7 +817,7 @@
             state.forcePhone = true;
             if (!m.text) push({ sys: true, text: 'Менеджер просит оставить номер телефона' });
           }
-          if (m.text) push({ id: m.id, me: false, text: m.text });
+          if (m.text) push({ id: m.id, me: false, text: m.text, author: m.author || '' });
         });
         state.lastId = lastId;
         save();

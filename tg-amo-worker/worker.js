@@ -492,8 +492,13 @@ async function onAmoNote(note, env, cfg) {
  */
 async function onChatReply(body, env) {
   const contactId = String(body?.contact_id ?? '').trim();
-  const text = String(body?.text ?? '').trim();
+  const author = String(body?.author ?? '').trim();
+  let text = String(body?.text ?? '').trim();
   if (!contactId || !text) return;
+
+  // Подписываем ответ именем менеджера из amoCRM: в Telegram нет отдельного
+  // поля автора, поэтому имя идёт первой строкой сообщения.
+  if (author) text = `${author}:\n${text}`;
 
   const raw = env.S ? await env.S.get(`contact:${contactId}`) : null;
   if (!raw) {

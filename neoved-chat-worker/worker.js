@@ -1087,6 +1087,13 @@ async function onAmoNote(note, env, cfg) {
 
 const msgKey = (leadId, noteId) => `m:${leadId}:${String(noteId).padStart(14, '0')}`;
 
+/** Дерево ключей объекта без значений — чтобы в журнале был виден формат. */
+function shapeOf(value, depth = 0) {
+  if (!value || typeof value !== 'object' || depth > 3) return typeof value;
+  if (Array.isArray(value)) return `[${shapeOf(value[0], depth + 1)}]`;
+  return `{${Object.entries(value).map(([k, v]) => `${k}:${shapeOf(v, depth + 1)}`).join(',')}}`;
+}
+
 /**
  * Вебхук чатов: менеджер ответил в переписке карточки.
  *
@@ -1119,7 +1126,7 @@ async function handleChatHook(raw, env) {
     const res = await fetch(env.TG_FORWARD_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ contact_id: contactId, text: parsed.text }),
+      body: JSON.stringify({ contact_id: contactId, text: parsed.text, author: parsed.author || '' }),
     });
     return writeLog(env, {
       verdict: `ответ менеджера → Telegram (контакт ${contactId}), ${res.status}`,
@@ -1130,12 +1137,15 @@ async function handleChatHook(raw, env) {
   const at = Date.now();
   await env.S.put(msgKey(`c${contactId}`, at), parsed.text, {
     expirationTtl: SESSION_TTL,
-    metadata: { at },
+    metadata: parsed.author ? { at, author: parsed.author } : { at },
   });
 
   await writeLog(env, {
     verdict: `ответ менеджера из чата → виджет (контакт ${contactId})`,
-    contact_id: contactId, text: parsed.text.slice(0, 200),
+    contact_id: contactId, author: parsed.author || '—', text: parsed.text.slice(0, 200),
+    // Пока не подтверждено, где именно amojo кладёт имя автора: держим срез
+    // структуры вебхука под рукой, чтобы поправить разбор без переписки.
+    shape: shapeOf(body).slice(0, 300),
   });
 }
 
@@ -1167,7 +1177,7 @@ async function readQueue(env, leadId, after, since) {
     const text = await env.S.get(k.key);
     // У команды менеджера («/инн») текста может не быть вовсе — она сама
     // по себе событие для виджета.
-    if (text || k.ask) out.push({ id: k.id, text: text || '', at: k.at, ask: k.ask });
+    if (text || k.ask) out.push({ id: k.id, text: text || '', at: k.at, ask: k.ask, author: k.author });
   }
   return out;
 }
