@@ -458,35 +458,13 @@ async function onAmoNote(note, env, cfg) {
     return log(env, { verdict: 'скип: примечание создано воркером', note_id: noteId });
   }
 
-  let text = String(note.text ?? '').trim();
-  if (cfg.REPLY_PREFIX) {
-    if (!text.startsWith(cfg.REPLY_PREFIX)) {
-      return log(env, { verdict: `скип: примечание без префикса «${cfg.REPLY_PREFIX}»`, note_id: noteId });
-    }
-    text = text.slice(cfg.REPLY_PREFIX.length).trim();
-  }
-  if (!text) return log(env, { verdict: 'скип: пустой текст примечания', note_id: noteId });
-
-  // Реплика в переписке карточки порождает и примечание — если пропустить его
-  // дальше, подписчик получит ответ дважды. Но только для сделок, где чат
-  // действительно ведётся: в старых переписках менеджер отвечает примечанием,
-  // и оно остаётся единственным способом до него достучаться.
-  if (chatsEnabled(env) && env.S && await env.S.get(`chatlead:${leadId}`)) {
-    return log(env, { verdict: 'скип: ответ уже ушёл через чат', lead_id: leadId, note_id: noteId });
-  }
-
-  const route = await routeByLead(leadId, env);
-  if (!route) {
-    return log(env, {
-      verdict: 'скип: неизвестно, куда отвечать — клиент не писал в канал после запуска воркера',
-      lead_id: leadId, note_id: noteId,
-    });
-  }
-
-  const sent = await sendToTelegram(route, text, env);
-  await log(env, {
-    verdict: `ответ отправлен клиенту (сделка ${leadId})`,
-    lead_id: leadId, note_id: noteId, message_id: sent?.message_id, text: text.slice(0, 200),
+  // Примечания подписчику не пересылаются НИКОГДА: в них менеджеры пишут и
+  // внутренние заметки, а один случайно отправленный клиенту комментарий
+  // дороже любого удобства. Разговор идёт только через переписку карточки —
+  // ответ оттуда приходит на /chat-reply от neoved-chat.
+  return log(env, {
+    verdict: 'скип: примечания клиенту не пересылаются',
+    lead_id: leadId, note_id: noteId,
   });
 }
 
