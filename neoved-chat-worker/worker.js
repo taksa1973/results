@@ -1006,6 +1006,17 @@ async function onAmoNote(note, env, cfg) {
 
   if (!text && !ask) return;
 
+  // Пока работает канал чатов, ответы доезжают до клиента через него. Реплика
+  // менеджера порождает и примечание — если пропустить его дальше, клиент
+  // увидит один и тот же ответ дважды. Команды («/инн») пропускаем: их пишут
+  // именно примечанием, и через чат они не приходят.
+  if (!ask && chatsEnabled(env)) {
+    return writeLog(env, {
+      verdict: 'скип: ответ уже ушёл клиенту через чат',
+      lead_id: leadId, note_id: noteId,
+    });
+  }
+
   // Каждый ответ — отдельный ключ, а не элемент общего списка: два примечания
   // подряд иначе могли бы прочитать одну и ту же версию списка и затереть друг
   // друга. Ключи сортируются как строки, поэтому id примечания дополняется
@@ -1039,9 +1050,15 @@ async function handleChatHook(raw, env) {
   const parsed = parseWebhook(body);
   if (!parsed) return;
 
-  const contactId = String(parsed.conversationId).replace(/^contact-/, '');
-  if (!/^\d+$/.test(contactId)) {
+  // «site-123» — переписка виджета на сайте, «tg-123» — Telegram-канал: канал
+  // чатов один на аккаунт, и по префиксу видно, куда доставлять ответ.
+  const match = String(parsed.conversationId).match(/^(site|tg)-(\d+)$/);
+  if (!match) {
     return writeLog(env, { verdict: 'скип: чужой чат', conversation: parsed.conversationId });
+  }
+  const [, source, contactId] = match;
+  if (source !== 'site') {
+    return writeLog(env, { verdict: `скип: ответ для источника ${source}`, contact_id: contactId });
   }
 
   const at = Date.now();

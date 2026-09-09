@@ -22,17 +22,21 @@ const AMOJO = 'https://amojo.amocrm.ru';
 export const chatsEnabled = (env) => Boolean(env.SCOPE_ID && env.CHANNEL_SECRET);
 
 /**
- * Чат клиента. Один контакт — один чат, поэтому conversation_id собирается из
- * id контакта: переписка не рвётся между обращениями.
+ * Чат клиента. Один контакт — один чат на источник, поэтому conversation_id
+ * собирается из источника и id контакта: `site-123`, `tg-123`.
+ *
+ * Источник в имени нужен потому, что канал чатов у аккаунта один, а вебхук с
+ * ответом менеджера приходит на один адрес: по префиксу видно, куда этот ответ
+ * доставлять — в виджет на сайте или подписчику в Telegram.
  */
-export async function ensureChat(contactId, person, env) {
-  const known = await env.S.get(`chat:${contactId}`);
+export async function ensureChat(contactId, person, env, source = 'site') {
+  const known = await env.S.get(`chat:${source}-${contactId}`);
   if (known) return known;
 
   const created = await call('POST', `/v2/origin/custom/${env.SCOPE_ID}/chats`, {
-    conversation_id: `contact-${contactId}`,
+    conversation_id: `${source}-${contactId}`,
     user: {
-      id: `contact-${contactId}`,
+      id: `${source}-${contactId}`,
       name: person.name || `Клиент ${contactId}`,
       profile: {
         ...(person.email ? { email: person.email } : {}),
@@ -61,21 +65,21 @@ export async function ensureChat(contactId, person, env) {
     }
   }
 
-  await env.S.put(`chat:${contactId}`, chatId, { expirationTtl: 60 * 60 * 24 * 365 });
+  await env.S.put(`chat:${source}-${contactId}`, chatId, { expirationTtl: 60 * 60 * 24 * 365 });
   return chatId;
 }
 
 /** Сообщение клиента → в чат карточки. */
-export async function sendFromClient(contactId, person, text, env) {
+export async function sendFromClient(contactId, person, text, env, source = 'site') {
   return call('POST', `/v2/origin/custom/${env.SCOPE_ID}`, {
     event_type: 'new_message',
     payload: {
       timestamp: Math.floor(Date.now() / 1000),
       msec_timestamp: Date.now(),
       msgid: crypto.randomUUID(),
-      conversation_id: `contact-${contactId}`,
+      conversation_id: `${source}-${contactId}`,
       sender: {
-        id: `contact-${contactId}`,
+        id: `${source}-${contactId}`,
         name: person.name || `Клиент ${contactId}`,
         profile: {
           ...(person.email ? { email: person.email } : {}),
