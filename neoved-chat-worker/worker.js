@@ -82,6 +82,12 @@ const DEFAULTS = {
   INN_COMMANDS: '/инн,/inn',
   PHONE_COMMANDS: '/телефон,/тел,/phone',
 
+  // Воронки партнёров: «База партнёров», «Продажи партнёрам», «Продажи
+  // клиентам партнёров», «Реанимация партнёров». В переписке по таким сделкам
+  // ответ уходит без подписи менеджера — партнёр общается с компанией,
+  // а не с конкретным сотрудником.
+  PARTNER_PIPELINES: '9647638,9522274,9622366,9652634',
+
   // Антиспам: сколько заявок принимаем с одного адреса в час и сколько
   // сообщений — в рамках одной сессии.
   START_LIMIT: '5',
@@ -249,6 +255,12 @@ async function apiStart(request, env, cfg) {
     email: person.email,
     at: Date.now(),
   }), { expirationTtl: SESSION_TTL });
+
+  // Связка «контакт → сделка»: вебхук чатов знает только контакт, а воронку
+  // сделки нужно проверять, чтобы понять, подписывать ли ответ менеджера.
+  if (result.contactId && result.leadId) {
+    await env.S.put(`lead-of:${result.contactId}`, String(result.leadId), { expirationTtl: SESSION_TTL });
+  }
 
   // Первое сообщение — уже в переписку карточки. Сводка с ИНН, согласиями и
   // страницей остаётся примечанием: это данные заявки, а не реплика клиента.
@@ -1087,6 +1099,31 @@ async function onAmoNote(note, env, cfg) {
 
 const msgKey = (leadId, noteId) => `m:${leadId}:${String(noteId).padStart(14, '0')}`;
 
+/**
+ * Идёт ли переписка по партнёрской сделке. Партнёр общается с компанией,
+ * а не с конкретным сотрудником, поэтому подпись менеджера там лишняя.
+ *
+ * Вебхук чатов знает только контакт, поэтому сделку берём из связки, которую
+ * оставил приём заявки. Сделку могли перенести в другую воронку уже после
+ * первого сообщения, поэтому воронку спрашиваем у amoCRM каждый раз, а не
+ * запоминаем.
+ */
+async function partnerLead(contactId, env, cfg) {
+  const partners = list(cfg.PARTNER_PIPELINES);
+  if (!partners.length) return false;
+
+  const leadId = await env.S.get(`lead-of:${contactId}`);
+  if (!leadId) return false;
+
+  try {
+    const lead = await amo(`/api/v4/leads/${leadId}`, env);
+    return partners.includes(String(lead?.pipeline_id ?? ''));
+  } catch (e) {
+    console.error('не удалось определить воронку сделки', e);
+    return false;
+  }
+}
+
 /** Дерево ключей объекта без значений — чтобы в журнале был виден формат. */
 function shapeOf(value, depth = 0) {
   if (!value || typeof value !== 'object' || depth > 3) return typeof value;
@@ -1134,10 +1171,12 @@ async function handleChatHook(raw, env) {
     });
   }
 
+  const author = await partnerLead(contactId, env, cfg) ? '' : parsed.author;
+
   const at = Date.now();
   await env.S.put(msgKey(`c${contactId}`, at), parsed.text, {
     expirationTtl: SESSION_TTL,
-    metadata: parsed.author ? { at, author: parsed.author } : { at },
+    metadata: author ? { at, author } : { at },
   });
 
   await writeLog(env, {
