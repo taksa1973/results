@@ -244,6 +244,7 @@ async function apiStart(request, env, cfg) {
     leadId: result.leadId,
     contactId: result.contactId,
     companyId: result.companyId,
+    inn: person.inn,
     name: person.name,
     email: person.email,
     at: Date.now(),
@@ -307,11 +308,30 @@ async function apiInn(request, env, cfg) {
 
   const session = await getSession(env, sid);
   const company = await ensureCompany({ inn, email: session.email }, env, cfg);
+
+  // Тот же ИНН прислали второй раз — сообщать не о чем.
+  if (String(session.companyId || '') === String(company.id)) {
+    return { ok: true, unchanged: true };
+  }
+
+  // ИНН исправляют: в первый раз человек мог ошибиться цифрой, и менеджер
+  // просит прислать заново. Прежнюю компанию отцепляем от сделки и контакта —
+  // иначе в карточке останутся две организации, и непонятно, какая настоящая.
+  // Саму карточку компании не трогаем: вдруг это живой клиент, просто не этот.
+  const previous = session.companyId;
+  if (previous) {
+    await unlink('leads', session.leadId, 'companies', previous, env);
+    if (session.contactId) await unlink('contacts', session.contactId, 'companies', previous, env);
+  }
+
   await linkCompany(company.id, session, env);
-  await addNote(session.leadId, `Клиент указал ИНН: ${inn}`, env);
+  await addNote(session.leadId, previous
+    ? `Клиент исправил ИНН: было ${session.inn || previous}, стало ${inn}`
+    : `Клиент указал ИНН: ${inn}`, env);
   if (company.existed) await reportCompanyTwin(company, session, env);
 
   session.companyId = company.id;
+  session.inn = inn;
   await env.S.put(`sid:${sid}`, JSON.stringify(session), { expirationTtl: SESSION_TTL });
 
   await writeLog(env, {
@@ -703,6 +723,19 @@ async function link(entity, id, toType, toId, env) {
     });
   } catch (e) {
     console.error(`link ${entity}/${id} → ${toType}/${toId}`, e);
+  }
+}
+
+/** Обратная операция: снять связь. Ошибка «связи и не было» безобидна. */
+async function unlink(entity, id, toType, toId, env) {
+  if (!id || !toId) return;
+  try {
+    await amo(`/api/v4/${entity}/${id}/unlink`, env, {
+      method: 'POST',
+      body: [{ to_entity_id: Number(toId), to_entity_type: toType }],
+    });
+  } catch (e) {
+    console.error(`unlink ${entity}/${id} → ${toType}/${toId}`, e);
   }
 }
 
