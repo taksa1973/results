@@ -1169,6 +1169,7 @@ async function readQueue(env, leadId, after, since) {
       id: Number(k.name.split(':').pop()),
       at: Number(k.metadata?.at) || 0,
       ask: k.metadata?.ask || null,
+      author: k.metadata?.author || '',
     }))
     .filter((k) => k.id > after && k.at >= since);
 
