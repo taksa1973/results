@@ -33,6 +33,7 @@
  */
 
 import WIDGET from './widget.js';
+import { chatsEnabled, ensureChat, sendFromClient, parseWebhook } from './amojo.js';
 
 const DEFAULTS = {
   // Воронка «Чат на сайте» и её этап «Первичный контакт».
@@ -140,6 +141,19 @@ export default {
       return json({ ok: true }, origin, cfg);
     }
 
+    // Вебхук чатов amoCRM: менеджер ответил в переписке карточки.
+    // Адрес зарегистрирован при создании канала и заканчивается на scope_id.
+    if (env.SCOPE_ID && request.method === 'POST' && url.pathname === `/amojo/${env.SCOPE_ID}`) {
+      const raw = await request.text();
+      ctx.waitUntil(
+        handleChatHook(raw, env).catch(async (e) => {
+          console.error('handleChatHook failed', e);
+          await writeLog(env, { verdict: 'ошибка хука чатов', error: String(e).slice(0, 400) });
+        }),
+      );
+      return json({ ok: true }, origin, cfg);
+    }
+
     if (url.pathname.startsWith('/api/')) {
       if (!originAllowed(origin, cfg)) {
         return json({ ok: false, error: 'origin не разрешён' }, origin, cfg, 403);
@@ -235,6 +249,10 @@ async function apiStart(request, env, cfg) {
     at: Date.now(),
   }), { expirationTtl: SESSION_TTL });
 
+  // Первое сообщение — уже в переписку карточки. Сводка с ИНН, согласиями и
+  // страницей остаётся примечанием: это данные заявки, а не реплика клиента.
+  await deliverToManager(result.contactId, person, text, env, result.leadId);
+
   await writeLog(env, {
     verdict: result.verdict, lead_id: result.leadId, contact_id: result.contactId,
     company_id: result.companyId, name: person.name, sid,
@@ -251,12 +269,33 @@ async function apiSend(request, env, cfg) {
   const session = await getSession(env, sid);
   await rateLimit(env, `msg:${sid}`, Number(cfg.MSG_LIMIT) || 60, 'Слишком много сообщений подряд');
 
-  await addNote(session.leadId, text, env);
+  await deliverToManager(session.contactId, session, text, env, session.leadId);
   await writeLog(env, {
     verdict: `сообщение клиента → сделка ${session.leadId}`,
     lead_id: session.leadId, text: text.slice(0, 200),
   });
   return { ok: true };
+}
+
+/**
+ * Реплика клиента менеджеру. Пока канал чатов настроен — она уходит в
+ * переписку карточки и выглядит там пузырём; без канала (или если amojo
+ * ответил ошибкой) остаётся прежний путь — примечание в ленте сделки.
+ * Терять сообщение из-за сбоя чата нельзя, поэтому примечание работает
+ * запасным вариантом, а не заменой.
+ */
+async function deliverToManager(contactId, person, text, env, leadId) {
+  if (chatsEnabled(env) && contactId) {
+    try {
+      await ensureChat(contactId, person, env);
+      await sendFromClient(contactId, person, text, env);
+      return;
+    } catch (e) {
+      console.error('чат amoCRM не принял сообщение', e);
+      await writeLog(env, { verdict: 'чат недоступен, ушло примечанием', error: String(e).slice(0, 300) });
+    }
+  }
+  await addNote(leadId, text, env);
 }
 
 /** ИНН, названный уже в разговоре: заводим компанию и подшиваем её к сделке. */
@@ -514,11 +553,16 @@ async function apiPoll(url, env) {
   const after = Number(url.searchParams.get('after')) || 0;
   const session = await getSession(env, sid);   // чужой/протухший sid — 404
 
-  // Очередь висит на сделке, а не на сессии: человек мог заполнить форму
-  // заново (новый sid), и ответ менеджера, положенный по старому ключу, до
-  // него бы не доехал. Из общей ленты берём только то, что написано после
-  // начала этой сессии, — старую переписку показывать незачем.
-  const messages = await readQueue(env, session.leadId, after, Number(session.at) || 0);
+  // Очередей две: ответы из переписки карточки лежат на контакте (чат живёт
+  // на нём и переживает смену сделок), примечания — на сделке. Читаем обе:
+  // менеджер может ответить и в чате, и примечанием.
+  const since = Number(session.at) || 0;
+  const [fromChat, fromNotes] = await Promise.all([
+    session.contactId ? readQueue(env, `c${session.contactId}`, after, since) : [],
+    readQueue(env, session.leadId, after, since),
+  ]);
+
+  const messages = [...fromChat, ...fromNotes].sort((a, b) => a.at - b.at);
   return { ok: true, messages };
 }
 
@@ -980,6 +1024,37 @@ async function onAmoNote(note, env, cfg) {
 }
 
 const msgKey = (leadId, noteId) => `m:${leadId}:${String(noteId).padStart(14, '0')}`;
+
+/**
+ * Вебхук чатов: менеджер ответил в переписке карточки.
+ *
+ * Кладём ответ в ту же очередь, откуда виджет забирает сообщения, только
+ * ключ считается от контакта: чат живёт на контакте, а не на сделке, и одна
+ * переписка переживает несколько сделок.
+ */
+async function handleChatHook(raw, env) {
+  let body;
+  try { body = JSON.parse(raw); } catch { return; }
+
+  const parsed = parseWebhook(body);
+  if (!parsed) return;
+
+  const contactId = String(parsed.conversationId).replace(/^contact-/, '');
+  if (!/^\d+$/.test(contactId)) {
+    return writeLog(env, { verdict: 'скип: чужой чат', conversation: parsed.conversationId });
+  }
+
+  const at = Date.now();
+  await env.S.put(msgKey(`c${contactId}`, at), parsed.text, {
+    expirationTtl: SESSION_TTL,
+    metadata: { at },
+  });
+
+  await writeLog(env, {
+    verdict: `ответ менеджера из чата → виджет (контакт ${contactId})`,
+    contact_id: contactId, text: parsed.text.slice(0, 200),
+  });
+}
 
 /** Тег виджета на сделке — признак того, что клиент ждёт ответа в чате. */
 async function taggedByWidget(leadId, env, cfg) {
