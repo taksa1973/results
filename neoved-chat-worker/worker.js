@@ -485,9 +485,14 @@ async function apiAsk(request, env, cfg) {
     : `Менеджер запросил у клиента ${what}`, env);
   if (!noteId) throw new HttpError('amoCRM не принял примечание — проверьте номер сделки', 502);
 
-  await env.S.put(msgKey(leadId, noteId), text, {
+  // Идентификатор события — время, а не номер примечания. Виджет отбрасывает
+  // всё, что не новее последнего показанного, а номера примечаний (сотни
+  // миллионов) меньше миллисекунд эпохи: после первого же ответа из чата
+  // событие кнопки выглядело старым и терялось.
+  const at = Date.now();
+  await env.S.put(msgKey(leadId, at), text, {
     expirationTtl: SESSION_TTL,
-    metadata: { at: Date.now(), ask },
+    metadata: { at, ask, note_id: noteId },
   });
 
   await writeLog(env, {
@@ -1052,11 +1057,12 @@ async function onAmoNote(note, env, cfg) {
 
   // Каждый ответ — отдельный ключ, а не элемент общего списка: два примечания
   // подряд иначе могли бы прочитать одну и ту же версию списка и затереть друг
-  // друга. Ключи сортируются как строки, поэтому id примечания дополняется
-  // нулями — так list отдаёт их в хронологическом порядке.
-  await env.S.put(msgKey(leadId, noteId), text, {
+  // друга. В имени ключа — время: оно же служит идентификатором сообщения,
+  // общим для очередей чата и примечаний, и ключи сортируются хронологически.
+  const at = Date.now();
+  await env.S.put(msgKey(leadId, at), text, {
     expirationTtl: SESSION_TTL,
-    metadata: ask ? { at: Date.now(), ask } : { at: Date.now() },
+    metadata: ask ? { at, ask, note_id: noteId } : { at, note_id: noteId },
   });
 
   await writeLog(env, {
