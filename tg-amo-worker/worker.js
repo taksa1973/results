@@ -43,6 +43,11 @@ const DEFAULTS = {
   // её собственной воронки — сделка не переезжает между воронками.
   NEW_STATUS_NAME: 'Новая заявка',
   TAG_NAME: 'telegram_channel',
+
+  // Воронки партнёров: «База партнёров», «Продажи партнёрам», «Продажи
+  // клиентам партнёров», «Реанимация партнёров». В переписке по таким сделкам
+  // ответ уходит без подписи менеджера.
+  PARTNER_PIPELINES: '9647638,9522274,9622366,9652634',
   LEAD_NAME_PREFIX: 'telegram channel',
   // Пусто — принимаем любой монофорум, куда добавлен бот. Иначе список ID через запятую.
   ALLOWED_CHAT_IDS: '',
@@ -94,7 +99,7 @@ export default {
     if (secret && url.pathname === `/chat-reply/${secret}`) {
       const body = await request.json().catch(() => null);
       ctx.waitUntil(
-        onChatReply(body, env).catch(async (e) => {
+        onChatReply(body, env, cfg).catch(async (e) => {
           console.error('onChatReply failed', e);
           await writeLog(env, { verdict: 'ошибка доставки ответа из чата', error: String(e).slice(0, 400) });
         }),
@@ -200,7 +205,9 @@ async function handleUpdate(update, env, cfg) {
     await env.S.put(`route:${route.chat_id}:${route.topic_id}`, String(result.leadId));
   }
   if (result.contactId && env.S) {
-    await env.S.put(`contact:${result.contactId}`, JSON.stringify(route));
+    // Сделку кладём рядом с веткой: по ней проверяется воронка, когда решаем,
+    // подписывать ли ответ именем менеджера.
+    await env.S.put(`contact:${result.contactId}`, JSON.stringify({ ...route, lead_id: result.leadId }));
   }
   await log(env, {
     verdict: result.verdict, chat_id: route.chat_id, topic_id: route.topic_id,
@@ -472,7 +479,24 @@ async function onAmoNote(note, env, cfg) {
  * Ответ, написанный менеджером в переписке карточки: neoved-chat переслал его
  * сюда, а мы знаем, в какую ветку монофорума писать этому контакту.
  */
-async function onChatReply(body, env) {
+/**
+ * Идёт ли переписка по партнёрской сделке — тогда ответ уходит без подписи
+ * менеджера. Воронку спрашиваем у amoCRM в момент доставки: сделку могли
+ * перенести уже после первого сообщения.
+ */
+async function partnerLead(leadId, env, cfg) {
+  const partners = list(cfg.PARTNER_PIPELINES);
+  if (!partners.length || !leadId) return false;
+  try {
+    const lead = await amo(`/api/v4/leads/${leadId}`, env);
+    return partners.includes(String(lead?.pipeline_id ?? ''));
+  } catch (e) {
+    console.error('не удалось определить воронку сделки', e);
+    return false;
+  }
+}
+
+async function onChatReply(body, env, cfg) {
   const contactId = String(body?.contact_id ?? '').trim();
   const author = String(body?.author ?? '').trim();
   let text = String(body?.text ?? '').trim();
@@ -491,6 +515,13 @@ async function onChatReply(body, env) {
   }
 
   const route = JSON.parse(raw);
+
+  // В партнёрских воронках подпись убираем: партнёр общается с компанией,
+  // а не с конкретным сотрудником.
+  if (author && await partnerLead(route.lead_id, env, cfg)) {
+    text = String(body?.text ?? '').trim();
+  }
+
   const sent = await sendToTelegram(route, text, env);
   await log(env, {
     verdict: `ответ из карточки → Telegram (контакт ${contactId})`,
