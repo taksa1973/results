@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Halyk: карта под fast track — сравнение</title>
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="description" content="Сравнение трёх карт Halyk Bank под fast track: Mastercard World Elite Imperial, Visa Infinite Ultra, Mastercard World Elite. Fast track, лаунжи, страховка, кэшбэк, стоимость и вердикт.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F5F5F7; --card:#FFFFFF; --ink:#1D1D1F; --ink-2:#6E6E73; --line:#E5E5EA;
+    --blue:#0071E3; --blue-soft:#EAF3FE;
+    --green:#2FA84F; --green-soft:#E7F6EC;
+    --amber:#B25E00; --amber-soft:#FCF0E3;
+    --red:#C7362F; --red-soft:#FBECEB;
+    --violet:#6A4BB8; --violet-soft:#F0ECFA;
+    --radius:22px;
+    --shadow:0 1px 2px rgba(0,0,0,.04), 0 8px 30px rgba(0,0,0,.06);
+    --shadow-hover:0 4px 12px rgba(0,0,0,.06), 0 18px 50px rgba(0,0,0,.10);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--ink);font-family:'Inter',-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+  section{padding:52px 0}
+  @media(max-width:640px){section{padding:38px 0}}
+  .hero{padding:88px 0 32px;text-align:center}
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--blue);background:var(--blue-soft);padding:7px 14px;border-radius:100px;margin-bottom:20px}
+  h1{font-size:clamp(32px,5.5vw,54px);font-weight:800;letter-spacing:-.03em;line-height:1.06;margin-bottom:20px}
+  h1 .grad{background:linear-gradient(120deg,#0071E3,#6A4BB8);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .lede{font-size:clamp(16px,2.3vw,20px);color:var(--ink-2);max-width:640px;margin:0 auto 26px}
+  .chips{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;font-size:13.5px}
+  .chip{background:var(--card);border:1px solid var(--line);padding:8px 14px;border-radius:100px;font-weight:500;color:var(--ink-2)}
+  h2{font-size:clamp(24px,3.4vw,36px);font-weight:700;letter-spacing:-.02em;line-height:1.12;margin-bottom:12px}
+  .kicker{font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--blue);margin-bottom:12px}
+  .section-sub{font-size:17px;color:var(--ink-2);max-width:700px;margin-bottom:30px}
+
+  /* reality bar */
+  .warn-bar{border-radius:var(--radius);padding:26px 28px;display:flex;gap:16px;align-items:flex-start;background:var(--amber-soft)}
+  .warn-bar svg{flex:none;color:var(--amber);margin-top:2px}
+  .warn-bar p{font-size:15px;color:#7a4a12;margin-bottom:10px}
+  .warn-bar ul{margin:0 0 0 18px;color:#7a4a12;font-size:14.5px;display:grid;gap:7px}
+
+  /* card grid */
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  @media(max-width:860px){.grid{grid-template-columns:1fr}}
+  .pcard{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:26px;box-shadow:var(--shadow);transition:transform .25s cubic-bezier(.2,.7,.2,1),box-shadow .25s;display:flex;flex-direction:column;position:relative}
+  .pcard:hover{transform:translateY(-3px);box-shadow:var(--shadow-hover)}
+  .pcard.win{border:2px solid var(--blue)}
+  .tag-win{position:absolute;top:-12px;left:26px;background:var(--blue);color:#fff;font-size:12px;font-weight:700;padding:5px 12px;border-radius:100px}
+  .net{display:inline-block;font-size:12px;font-weight:600;padding:4px 10px;border-radius:8px;margin-bottom:10px}
+  .net-mc{background:#FFF0E6;color:#EB621D}
+  .net-visa{background:#EAEEFB;color:#1A1F71}
+  .pcard h3{font-size:19px;font-weight:700;letter-spacing:-.01em;margin-bottom:4px}
+  .pcard .price{font-size:14px;color:var(--ink-2);margin-bottom:16px}
+  .pcard .price b{color:var(--ink)}
+  .feat{list-style:none;display:grid;gap:10px;margin-top:2px}
+  .feat li{display:flex;gap:10px;font-size:14.5px;align-items:flex-start}
+  .feat li svg{flex:none;margin-top:3px}
+  .ic-plus{color:var(--green)}
+  .ic-minus{color:var(--amber)}
+  .feat li b{font-weight:600}
+
+  /* table */
+  .table-wrap{overflow-x:auto;border-radius:var(--radius);border:1px solid var(--line);box-shadow:var(--shadow);background:var(--card)}
+  table{border-collapse:collapse;width:100%;min-width:720px;font-size:14px}
+  th,td{padding:14px 16px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
+  thead th{background:#FBFBFD;font-weight:700;font-size:13px;position:sticky;top:0}
+  thead th:first-child{color:var(--ink-2)}
+  tbody th{font-weight:600;color:var(--ink-2);white-space:nowrap}
+  td b{font-weight:600}
+  .col-win{background:var(--blue-soft)}
+  tr:last-child td,tr:last-child th{border-bottom:none}
+  .yes{color:var(--green);font-weight:700}
+  .cond{color:var(--amber);font-weight:600}
+
+  /* verdict */
+  .verdict{display:grid;gap:16px}
+  .vcard{border-radius:var(--radius);padding:26px 28px;box-shadow:var(--shadow)}
+  .v1{background:linear-gradient(135deg,#0071E3,#4B6FE0 55%,#6A4BB8);color:#fff}
+  .v2{background:var(--card);border:1px solid var(--line)}
+  .v3{background:var(--card);border:1px solid var(--line)}
+  .vcard .medal{font-size:13px;font-weight:700;letter-spacing:.04em;margin-bottom:8px;opacity:.9}
+  .vcard h3{font-size:20px;font-weight:700;margin-bottom:8px}
+  .v1 h3{color:#fff}
+  .vcard p{font-size:15px;color:var(--ink-2)}
+  .v1 p{color:rgba(255,255,255,.9)}
+  .vcard p b{color:var(--ink)}
+  .v1 p b{color:#fff}
+
+  /* steps */
+  .steps{display:grid;gap:12px}
+  .step{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 22px;box-shadow:var(--shadow);display:flex;gap:16px;align-items:flex-start}
+  .step .n{flex:none;width:34px;height:34px;border-radius:10px;background:var(--blue-soft);color:var(--blue);display:grid;place-items:center;font-weight:800}
+  .step p{font-size:15px;color:var(--ink-2)}
+  .step p b{color:var(--ink)}
+
+  .note{margin-top:16px;background:var(--green-soft);border-radius:16px;padding:18px 22px;font-size:14.5px;color:#1c5a30}
+  .note b{color:var(--green)}
+
+  footer{padding:44px 0 66px;border-top:1px solid var(--line);margin-top:14px}
+  footer h4{font-size:14px;font-weight:700;margin-bottom:12px}
+  .src{display:grid;gap:8px}
+  .src a{color:var(--ink-2);font-size:13.5px;text-decoration:none;word-break:break-word}
+  .src a:hover{color:var(--blue)}
+  .foot-note{margin-top:20px;font-size:13px;color:var(--ink-2)}
+
+  .reveal{opacity:0;animation:revealUp .6s cubic-bezier(.2,.7,.2,1) both;animation-delay:var(--d,0s)}
+  @keyframes revealUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+  @media(prefers-reduced-motion:reduce){.reveal{animation:none;opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="hero">
+    <div class="eyebrow reveal">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12h20M12 2l4 4-4 4M22 12l-4 4 4 4"/></svg>
+      Halyk Bank · сверено 9 сентября 2026
+    </div>
+    <h1 class="reveal">Три карты Halyk под fast track:<br><span class="grad">какую взять</span></h1>
+    <p class="lede reveal">Сравнил Visa Infinite Ultra, Mastercard World Elite Imperial и Mastercard World Elite по fast track и по допам — страховке, лаунжам, кэшбэку и цене. Вердикт внизу.</p>
+    <div class="chips reveal">
+      <span class="chip">🇰🇿 карты Halyk (Казахстан)</span>
+      <span class="chip">Приоритет: fast track + допы</span>
+      <span class="chip">🇷🇺 с учётом паспорта РФ</span>
+    </div>
+  </header>
+
+  <!-- REALITY -->
+  <section>
+    <div class="warn-bar reveal">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg>
+      <div>
+        <p><b>Сначала честно про сам fast track — это одинаково для всех трёх карт.</b> Проход на досмотре даёт не банк, а платёжная система (Mastercard Travel Experiences / Visa Travel Fast Track):</p>
+        <ul>
+          <li>Работает только в <b>~30–70 аэропортах</b> — в основном Европа + Турция. В <b>Алматы, Астане и почти по всему СНГ его нет</b> — там у карт отдельная привилегия: CIP-зал (бизнес-зал).</li>
+          <li>Проход надо <b>бронировать заранее в приложении</b> (Mastercard Travel Experiences или Visa Concierge) под конкретный рейс.</li>
+          <li>Это приоритет на <b>досмотре безопасности</b>, а не на паспортном (исключение — Стамбул).</li>
+          <li>Поэтому карту выбираем не «у кого fast track есть» (он у всех), а <b>у кого он бесплатный без условий + лучше допы</b>.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- CARDS -->
+  <section>
+    <div class="kicker reveal">Три карты вблизи</div>
+    <h2 class="reveal">Что даёт каждая</h2>
+    <p class="section-sub reveal">Цены: выпуск разовый, обслуживание ежемесячное. Бесплатное обслуживание — при остатке на депозитах от 80 млн ₸ (~$150k), что нереально для большинства, так что смотрим на реальную месячную плату.</p>
+    <div class="grid">
+
+      <div class="pcard win reveal">
+        <span class="tag-win">Наш выбор</span>
+        <span class="net net-mc">Mastercard</span>
+        <h3>World Elite Imperial</h3>
+        <div class="price">Выпуск <b>30 000 ₸</b> · обслуж. <b>10 000 ₸/мес</b></div>
+        <ul class="feat">
+          <li><svg class="ic-plus" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>Fast track <b>безлимит и бесплатно без условий</b></span></li>
+          <li><svg class="ic-plus" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>Лаунжи LoungeKey 1300+, безлимит держателю</span></li>
+          <li><svg class="ic-plus" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>CIP-залы в РК — лучшие: <b>2–4/мес</b></span></li>
+          <li><svg class="ic-plus" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>Кэшбэк 5% + <b>до 20% за границей</b></span></li>
+          <li><svg class="ic-plus" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>Валюта <b>RUB</b> в наборе + страховка $1,5 млн</span></li>
+        </ul>
+      </div>
+
+      <div class="pcard reveal">
+        <span class="net net-visa">Visa</span>
+        <h3>Infinite Ultra</h3>
+        <div class="price">Выпуск <b>30 000 ₸</b> · обслуж. <b>10 000 ₸/мес</b></div>
+        <ul class="feat">
+          <li><svg class="ic-plus" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>Fast track <b>безлимит и бесплатно</b> (сеть Visa, 30+)</span></li>
+          <li><svg class="ic-plus" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>Страховка <b>до $2,5 млн</b> — максимум</span></li>
+          <li><svg class="ic-plus" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>Роуминг <b>AirAlo — 136 стран</b></span></li>
+          <li><svg class="ic-plus" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>Лаунжи DragonPass 1300+, кэшбэк 5%</span></li>
+          <li><svg class="ic-minus" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/></svg><span>CIP-залы в РК скромнее (2–10/год), нет RUB</span></li>
+        </ul>
+      </div>
+
+      <div class="pcard reveal">
+        <span class="net net-mc">Mastercard</span>
+        <h3>World Elite</h3>
+        <div class="price">Выпуск <b>0 ₸</b> · обслуж. <b>5 000 ₸/мес</b></div>
+        <ul class="feat">
+          <li><svg class="ic-plus" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>Самая дешёвая, fast track безлимит…</span></li>
+          <li><svg class="ic-minus" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/></svg><span>…но бесплатен <b>только при тратах 300 000 ₸/37 дней</b>, иначе 17,80 €/проход</span></li>
+          <li><svg class="ic-minus" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/></svg><span>Кэшбэк только <b>3%</b> (лимит 60k ₸)</span></li>
+          <li><svg class="ic-minus" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/></svg><span>CIP-залы в РК — 1/мес, нет роуминга</span></li>
+          <li><svg class="ic-plus" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>Страховка $1,5 млн, аренда авто $50k</span></li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- TABLE -->
+  <section>
+    <div class="kicker reveal">Построчно</div>
+    <h2 class="reveal">Таблица сравнения</h2>
+    <p class="section-sub reveal">Синим выделена карта-победитель.</p>
+    <div class="table-wrap reveal">
+      <table>
+        <thead>
+          <tr>
+            <th>Параметр</th>
+            <th class="col-win">MC World Elite Imperial</th>
+            <th>Visa Infinite Ultra</th>
+            <th>MC World Elite</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th>Fast track</th>
+            <td class="col-win"><span class="yes">Безлимит, бесплатно</span> (Mastercard Travel Experiences)</td>
+            <td><span class="yes">Безлимит, бесплатно</span> (Visa, 30+ аэропортов, бронь Visa Concierge)</td>
+            <td><span class="cond">Безлимит, но бесплатно лишь при тратах 300k ₸/37 дн</span>; иначе 17,80 €</td>
+          </tr>
+          <tr>
+            <th>Бизнес-залы</th>
+            <td class="col-win">LoungeKey 1300+, безлимит; гости 12/год, далее $32</td>
+            <td>DragonPass 1300+, безлимит; гости 12/год, далее $32</td>
+            <td>LoungeKey 1300+ (при тратах 300k/37дн); гости 12/год</td>
+          </tr>
+          <tr>
+            <th>CIP-залы в РК</th>
+            <td class="col-win"><b>Алматы/Астана/Атырау 2–4/мес</b>; прочие 2/мес; возврат бонусами до 31.12.26</td>
+            <td>2–10 проходов/год по локации</td>
+            <td>1/мес, возврат 100% бонусами</td>
+          </tr>
+          <tr>
+            <th>Страховка ВЗР</th>
+            <td class="col-win">до <b>$1,5 млн</b> + СК Halyk 110 360 € + НС 10 млн ₸ + аренда авто $50k</td>
+            <td>до <b>$2,5 млн</b> + СК Halyk 110 360 € + НС 10 млн ₸</td>
+            <td>до <b>$1,5 млн</b> + СК Halyk + аренда авто $50k</td>
+          </tr>
+          <tr>
+            <th>Кэшбэк</th>
+            <td class="col-win"><b>5%</b> в Halyk (лимит 100k ₸) + Halyk+ до 100k + <b>до 20% за границей</b></td>
+            <td><b>5%</b> в Halyk (лимит 100k ₸) + Halyk+ до 100k</td>
+            <td><b>3%</b> (лимит 60k ₸); акции до 10%; Halyk Club до 30%</td>
+          </tr>
+          <tr>
+            <th>Роуминг</th>
+            <td class="col-win">FlexiRoam 3 ГБ/год, −15% на допы</td>
+            <td><b>AirAlo 3 ГБ в 136 странах</b>, 3 QR/год</td>
+            <td>—</td>
+          </tr>
+          <tr>
+            <th>Валюты</th>
+            <td class="col-win">KZT, USD, EUR, GBP, <b>RUB</b></td>
+            <td>KZT, USD, EUR, AED, GBP</td>
+            <td>KZT, USD, EUR</td>
+          </tr>
+          <tr>
+            <th>Консьерж</th>
+            <td class="col-win">Персональный (WhatsApp/Viber/Telegram)</td>
+            <td>Visa Concierge (чат-бот 24/7)</td>
+            <td>Есть</td>
+          </tr>
+          <tr>
+            <th>Выпуск / обслуживание</th>
+            <td class="col-win">30 000 ₸ / 10 000 ₸ в мес</td>
+            <td>30 000 ₸ / 10 000 ₸ в мес</td>
+            <td><b>0 ₸ / 5 000 ₸ в мес</b></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- VERDICT -->
+  <section>
+    <div class="kicker reveal">Вывод</div>
+    <h2 class="reveal">Какую брать</h2>
+    <div class="verdict">
+      <div class="vcard v1 reveal">
+        <div class="medal">🏆 ЛУЧШИЙ БАЛАНС fast track + допы</div>
+        <h3>Mastercard World Elite Imperial</h3>
+        <p>Fast track <b>бесплатный без условий</b> на проверенной сети Mastercard (Европа + Турция, включая приоритет на паспортном в Стамбуле). Плюс валюта <b>RUB</b> в наборе (удобно тебе как гражданину РФ), лучшие CIP-залы в казахстанских аэропортах (2–4/мес), кэшбэк до 20% за границей, страховка $1,5 млн. Цена та же, что у Visa-флагмана. Для «важен fast track + допы» — оптимально.</p>
+      </div>
+      <div class="vcard v2 reveal">
+        <div class="medal" style="color:var(--violet)">🥈 ЕСЛИ ВАЖНЕЕ СТРАХОВКА И РОУМИНГ</div>
+        <h3>Visa Infinite Ultra</h3>
+        <p>Бери, если для тебя в приоритете <b>максимальная страховка ($2,5 млн)</b> и роуминг <b>AirAlo на 136 стран</b>. Fast track тоже безлимитный и бесплатный, но на сети Visa (30+ аэропортов) с бронью через Visa Concierge, а CIP-залы в РК скромнее (годовые, не месячные) и нет RUB. По цене — идентична Imperial.</p>
+      </div>
+      <div class="vcard v3 reveal">
+        <div class="medal" style="color:var(--amber)">💸 БЮДЖЕТНЫЙ ВАРИАНТ</div>
+        <h3>Mastercard World Elite (обычная)</h3>
+        <p>Самая дешёвая: выпуск 0 ₸, обслуживание 5 000 ₸/мес. Но fast track и лаунжи бесплатны <b>только при тратах от 300 000 ₸ за 37 дней</b> (~$600/мес по карте), кэшбэк всего 3%, меньше допов. Годится, если экономишь и реально столько тратишь этой картой. Если fast track для тебя важен «просто чтобы был» — это не она.</p>
+      </div>
+    </div>
+    <div class="note reveal">
+      <b>Если у тебя уже есть World Elite от MBANK (Киргизия):</b> fast track у неё ровно тот же — программа Mastercard, те же аэропорты. Новая карта Halyk его не расширит. Смысл брать Halyk — ради казахстанского счёта, кэшбэка, страховки и CIP-залов РК, а не ради самого fast track.
+    </div>
+  </section>
+
+  <!-- HOW TO GET -->
+  <section>
+    <div class="kicker reveal">Как получить (гражданину РФ, нерезиденту)</div>
+    <h2 class="reveal">3 шага</h2>
+    <div class="steps">
+      <div class="step reveal"><div class="n">1</div><p><b>ИИН</b> — лично в ЦОН по загранпаспорту (обычно за 1 день; консульская выдача за рубежом закрыта с 01.01.2026, только очно в РК).</p></div>
+      <div class="step reveal"><div class="n">2</div><p><b>Местная SIM</b> — казахстанский номер нужен для приложения Halyk и SMS/2FA.</p></div>
+      <div class="step reveal"><div class="n">3</div><p><b>Визит в отделение</b> с загранпаспортом + ИИН + номером. Нерезиденту карту выдают <b>на 1 год</b>, дальше перевыпуск.</p></div>
+    </div>
+  </section>
+
+  <footer>
+    <h4>Источники (Halyk Bank, сверено 09.09.2026)</h4>
+    <div class="src">
+      <a href="https://halykbank.kz/card/mastercard-worldelite-imperial" target="_blank" rel="noopener">halykbank.kz — Mastercard World Elite Imperial</a>
+      <a href="https://halykbank.kz/card/visa-infinite-ultra" target="_blank" rel="noopener">halykbank.kz — Visa Infinite Ultra</a>
+      <a href="https://halykbank.kz/card/mastercard-worldelite-new" target="_blank" rel="noopener">halykbank.kz — Mastercard World Elite</a>
+      <a href="https://travelexperiences.mastercard.com/airport-list" target="_blank" rel="noopener">Mastercard Travel Experiences — список аэропортов fast track</a>
+    </div>
+    <p class="foot-note">Условия банков и акции периодически меняются — перед оформлением сверься на страницах карт halykbank.kz и в приложении платёжной системы. Цифры приведены по состоянию на 9 сентября 2026.</p>
+  </footer>
+
+</div>
+
+<script>
+  // Лёгкий каскад появления; если скрипт не выполнится — CSS всё равно всё покажет.
+  (function () {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    document.querySelectorAll('header.hero, section').forEach(function (group) {
+      group.querySelectorAll('.reveal').forEach(function (el, i) {
+        el.style.setProperty('--d', (i * 0.06) + 's');
+      });
+    });
+  })();
+</script>
+</body>
+</html>
