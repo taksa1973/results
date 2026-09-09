@@ -1057,8 +1057,23 @@ async function handleChatHook(raw, env) {
     return writeLog(env, { verdict: 'скип: чужой чат', conversation: parsed.conversationId });
   }
   const [, source, contactId] = match;
-  if (source !== 'site') {
-    return writeLog(env, { verdict: `скип: ответ для источника ${source}`, contact_id: contactId });
+
+  // Переписку Telegram-канала ведёт соседний воркер: у него ветки монофорума и
+  // токен бота. Канал чатов один на аккаунт, вебхук приходит только сюда,
+  // поэтому чужие ответы просто передаём дальше.
+  if (source === 'tg') {
+    if (!env.TG_FORWARD_URL) {
+      return writeLog(env, { verdict: 'скип: некуда переслать ответ для Telegram', contact_id: contactId });
+    }
+    const res = await fetch(env.TG_FORWARD_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ contact_id: contactId, text: parsed.text }),
+    });
+    return writeLog(env, {
+      verdict: `ответ менеджера → Telegram (контакт ${contactId}), ${res.status}`,
+      contact_id: contactId, text: parsed.text.slice(0, 200),
+    });
   }
 
   const at = Date.now();
