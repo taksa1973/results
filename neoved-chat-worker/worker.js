@@ -307,7 +307,7 @@ async function apiInn(request, env, cfg) {
   if (!isInn(inn)) throw new HttpError('ИНН — 10 цифр у компании или 12 у ИП');
 
   const session = await getSession(env, sid);
-  const company = await ensureCompany({ inn, email: session.email }, env, cfg);
+  const company = await ensureCompany({ inn, email: session.email, phone: session.phone }, env, cfg);
 
   // Тот же ИНН прислали второй раз — сообщать не о чем.
   if (String(session.companyId || '') === String(company.id)) {
@@ -325,6 +325,11 @@ async function apiInn(request, env, cfg) {
   }
 
   await linkCompany(company.id, session, env);
+
+  // Телефон мог быть оставлен до того, как назвали ИНН: тогда компании ещё не
+  // существовало, и номер попал только к контакту. Дописываем.
+  if (session.phone) await addPhone('companies', company.id, session.phone, env, cfg);
+
   await addNote(session.leadId, previous
     ? `Клиент исправил ИНН: было ${session.inn || previous}, стало ${inn}`
     : `Клиент указал ИНН: ${inn}`, env);
@@ -360,6 +365,12 @@ async function apiPhone(request, env, cfg) {
   if (session.companyId) await addPhone('companies', session.companyId, pretty, env, cfg);
   await rememberPhone(pretty, session.contactId, env);
   await addNote(session.leadId, `Клиент оставил телефон: ${pretty}`, env);
+
+  // Запоминаем номер в сессии: ИНН могут назвать позже, и тогда телефон нужно
+  // будет продублировать в карточку компании — иначе он останется только у
+  // контакта, а у организации поле «Раб. тел.» будет пустым.
+  session.phone = pretty;
+  await env.S.put(`sid:${sid}`, JSON.stringify(session), { expirationTtl: SESSION_TTL });
 
   if (twin) await reportPhoneTwin(twin, pretty, session, env, cfg);
 
@@ -803,6 +814,7 @@ async function ensureCompany(person, env, cfg) {
   // менеджер переименует карточку, когда узнает организацию.
   const fields = [field(cfg.COMPANY_INN_FIELD, person.inn)];
   if (person.email) fields.push(multitext(cfg.EMAIL_FIELD, person.email));
+  if (person.phone) fields.push(multitext(cfg.PHONE_FIELD, person.phone));
   const res = await amo('/api/v4/companies', env, {
     method: 'POST',
     body: [{ name: person.inn, custom_fields_values: fields }],
