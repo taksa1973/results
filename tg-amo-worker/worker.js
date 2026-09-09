@@ -269,6 +269,9 @@ async function deliverToManager(contactId, person, text, env, leadId) {
     try {
       await ensureChat(contactId, chatProfile(person), env, 'tg');
       await sendFromClient(contactId, chatProfile(person), text, env, 'tg');
+      // Метка «по этой сделке переписка идёт чатом»: без неё нельзя отличить
+      // сделку с живым чатом от старой, где менеджер отвечает примечанием.
+      if (leadId && env.S) await env.S.put(`chatlead:${leadId}`, '1', { expirationTtl: 60 * 60 * 24 * 90 });
       return;
     } catch (e) {
       console.error('чат amoCRM не принял сообщение', e);
@@ -464,10 +467,11 @@ async function onAmoNote(note, env, cfg) {
   }
   if (!text) return log(env, { verdict: 'скип: пустой текст примечания', note_id: noteId });
 
-  // Пока работает канал чатов, ответы менеджера доезжают через него: реплика
-  // в переписке карточки порождает и примечание, и если пропустить его дальше,
-  // подписчик получит один и тот же ответ дважды.
-  if (chatsEnabled(env)) {
+  // Реплика в переписке карточки порождает и примечание — если пропустить его
+  // дальше, подписчик получит ответ дважды. Но только для сделок, где чат
+  // действительно ведётся: в старых переписках менеджер отвечает примечанием,
+  // и оно остаётся единственным способом до него достучаться.
+  if (chatsEnabled(env) && env.S && await env.S.get(`chatlead:${leadId}`)) {
     return log(env, { verdict: 'скип: ответ уже ушёл через чат', lead_id: leadId, note_id: noteId });
   }
 
