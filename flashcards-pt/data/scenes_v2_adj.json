@@ -98,5 +98,10 @@
  "significativo": "one line on a chart shooting far above all the others, a standout result",
  "essencial": "a single keystone at the top of a stone arch holding the whole structure",
  "irregular": "a row of neat identical tiles with one tile visibly crooked and out of line",
- "vendido": "an auction lot with a SOLD sticker slapped across its label"
+ "vendido": "an auction lot with a SOLD sticker slapped across its label",
+ "normal": "a machine control panel with one single green indicator lamp lit and no red or amber lights anywhere, everything running normally",
+ "interessante": "a group of museum visitors crowded closely around one single exhibit, every one of them leaning in fascinated",
+ "perdido": "a single small childs glove left stuck on a park railing spike, nobody around, grey day",
+ "sábio(a)": "an old man with a long white beard sitting calmly with an ancient open book on his knees, serene knowing expression",
+ "cumprido": "a hand holding a pen and drawing the final green tick into the last of a column of square check boxes, every box above it already ticked, the sheet completely blank apart from the boxes and the ticks, no writing anywhere"
 }

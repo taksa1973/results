@@ -1,21 +1,8 @@
 {
- "_comment": "Переделка по замечаниям: у каждого слова принципиально другой заход, а не вариация прежней сцены.",
-
- "tempo":     "a classic hourglass on a wooden desk, sand streaming through the narrow waist, warm side light, close-up",
- "vez":       "a hand holding up exactly one index finger against a plain background, clear gesture meaning one time",
- "moço(a)":   "a young man and a young woman in their early twenties standing side by side outdoors, relaxed and smiling at the camera",
- "pior":      "two apples side by side on a table, one fresh and shiny, the other rotten and brown, the rotten one in sharp focus",
- "certo(a)":  "a big bright green check mark drawn on a school notebook page by a teacher's hand",
- "fácil":     "a hand effortlessly lifting a single white feather with two fingers, light and airy",
- "ser":       "an open passport lying on a table with the photo page visible, identity document close-up",
- "estar":     "a traveller with a suitcase standing on a railway platform, waiting, looking around",
- "poder":     "strong hands easily twisting open a tightly sealed glass jar lid",
- "achar":     "a delighted man picking up a coin he just found on the ground, holding it up",
- "o/a":       "one single book pulled halfway out of a long row of identical books on a shelf",
- "esta/este": "an extreme close-up of a finger pointing directly at one specific cup standing on a table",
- "maneiro":   "an excited young man in sunglasses giving an enthusiastic double thumbs up, delighted expression",
- "tchau":     "a woman on a station platform waving goodbye to a departing train",
- "médio":     "three apples in a row on a table, small, medium and large, the medium one in sharp focus and the others blurred",
- "o mesmo":   "identical twin boys in matching clothes standing next to each other, looking at the camera",
- "existe":    "a shopkeeper holding up a product from the shelf to show a customer that it is in stock"
+ "_comment": "Переделка картинок одиннадцатой партии: где сцена вышла нечитаемой или в кадр залез текст.",
+ "perna": "a close-up of one single bare human leg standing straight, seen from the side from the thigh down to the ankle, filling the frame vertically against a plain light studio background, only that one leg in the picture",
+ "morango": "a handful of fresh ripe red strawberries with their green leafy tops, cupped in two open hands, close-up in daylight",
+ "vaga": "one empty marked-out parking bay between two parked cars in a car park, the vacant space right in the middle of the frame, photographed at eye level",
+ "cumprido": "a hand holding a pen and drawing the final green tick into the last of a column of square check boxes, every box above it already ticked, the sheet completely blank apart from the boxes and the ticks, no writing anywhere",
+ "tive": "a man standing alone in an empty garage holding one old car key up in his open palm, an oil stain on the bare concrete floor where the car used to stand, the car gone"
 }

@@ -5822,12 +5822,12 @@
  {
   "id": 258,
   "pt": "quente",
-  "en": "hot",
-  "ru": "горячий",
+  "en": "hot, warm",
+  "ru": "горячий, тёплый",
   "pos": "adjectives",
   "examples": [],
   "imgQuery": "hot fire flame",
-  "image": "cartoes-img/горячий — quente.webp",
+  "image": "cartoes-img/горячий, тёплый — quente.webp",
   "credit": {
    "author": "",
    "url": "",
@@ -12262,8 +12262,8 @@
  {
   "id": 593,
   "pt": "conselho",
-  "en": "advice",
-  "ru": "совет",
+  "en": "advice; board",
+  "ru": "совет (рекомендация); правление, совет (орган)",
   "pos": "nouns",
   "examples": [],
   "imgQuery": "an older man giving advice to a younger one, hand on his shoulder",
@@ -13618,6 +13618,828 @@
   },
   "sources": [
    "extra10"
+  ]
+ },
+ {
+  "id": 664,
+  "pt": "cérebro",
+  "en": "brain",
+  "ru": "мозг",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "an anatomical model of a human brain held in two open hands, close-up, only the brain filling the frame",
+  "image": "cartoes-img/мозг — cérebro.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra11"
+  ]
+ },
+ {
+  "id": 665,
+  "pt": "perna",
+  "en": "leg",
+  "ru": "нога (вся, от бедра)",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "a close-up of one single bare human leg standing straight, seen from the side from the thigh down to the ankle, filling the frame vertically against a plain light studio background, only that one leg in the picture",
+  "image": "cartoes-img/нога — perna.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra11"
+  ]
+ },
+ {
+  "id": 666,
+  "pt": "pé",
+  "en": "foot",
+  "ru": "ступня, стопа",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "a single bare human foot photographed from the side on a plain white studio background, nothing else in frame",
+  "image": "cartoes-img/ступня, стопа — pé.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra11"
+  ]
+ },
+ {
+  "id": 667,
+  "pt": "torso / tronco",
+  "en": "torso, trunk",
+  "ru": "торс, туловище",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "a human torso from the neck to the waist seen straight on against a plain grey studio background, head and arms out of frame",
+  "image": "cartoes-img/торс, туловище — torso - tronco.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra11"
+  ]
+ },
+ {
+  "id": 668,
+  "pt": "olhos",
+  "en": "eyes",
+  "ru": "глаза",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "the upper half of a face in close-up, both eyes wide open and looking straight into the camera",
+  "image": "cartoes-img/глаза — olhos.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra11"
+  ]
+ },
+ {
+  "id": 669,
+  "pt": "orelhas",
+  "en": "ears",
+  "ru": "уши (ушные раковины)",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "the back of a shaved human head photographed straight on, both ears standing out clearly on either side",
+  "image": "cartoes-img/уши — orelhas.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra11"
+  ]
+ },
+ {
+  "id": 670,
+  "pt": "porta-malas",
+  "en": "car boot, trunk",
+  "ru": "багажник (машины)",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "the open boot of a saloon car seen from behind with suitcases packed inside the luggage compartment",
+  "image": "cartoes-img/багажник — porta-malas.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra11"
+  ]
+ },
+ {
+  "id": 671,
+  "pt": "pressão",
+  "en": "pressure",
+  "ru": "давление",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "a heavy steel block pressing down on a foam cube and squashing it flat, the material visibly compressed under the load",
+  "image": "cartoes-img/давление — pressão.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra11"
+  ]
+ },
+ {
+  "id": 672,
+  "pt": "sorvete",
+  "en": "ice cream",
+  "ru": "мороженое",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "a gelato shop display counter with metal trays of many different colours of ice cream behind glass",
+  "image": "cartoes-img/мороженое — sorvete.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra11"
+  ]
+ },
+ {
+  "id": 673,
+  "pt": "pato",
+  "en": "duck",
+  "ru": "утка",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "an adult mallard duck swimming alone on calm pond water, side view close-up",
+  "image": "cartoes-img/утка — pato.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra11"
+  ]
+ },
+ {
+  "id": 674,
+  "pt": "patinho",
+  "en": "duckling",
+  "ru": "утёнок",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "one tiny fluffy yellow duckling standing alone on green grass, macro shot",
+  "image": "cartoes-img/утёнок — patinho.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra11"
+  ]
+ },
+ {
+  "id": 675,
+  "pt": "morango",
+  "en": "strawberry",
+  "ru": "клубника",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "a handful of fresh ripe red strawberries with their green leafy tops, cupped in two open hands, close-up in daylight",
+  "image": "cartoes-img/клубника — morango.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra11"
+  ]
+ },
+ {
+  "id": 676,
+  "pt": "brinquedo",
+  "en": "toy",
+  "ru": "игрушка",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "a well-loved teddy bear sitting upright alone on a wooden floor in daylight",
+  "image": "cartoes-img/игрушка — brinquedo.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra11"
+  ]
+ },
+ {
+  "id": 677,
+  "pt": "perigo",
+  "en": "danger",
+  "ru": "опасность",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "a walking shoe stopping right at the rim of an open uncovered manhole in the pavement, the dark shaft gaping below",
+  "image": "cartoes-img/опасность — perigo.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra11"
+  ]
+ },
+ {
+  "id": 678,
+  "pt": "maçaneta",
+  "en": "door handle",
+  "ru": "дверная ручка",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "an extreme close-up of a polished brass door handle filling the whole frame, a hand just closing around it",
+  "image": "cartoes-img/дверная ручка — maçaneta.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra11"
+  ]
+ },
+ {
+  "id": 679,
+  "pt": "ciúme",
+  "en": "jealousy",
+  "ru": "ревность",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "a woman in the foreground with a hurt resentful expression while behind her out of focus her partner laughs with another woman",
+  "image": "cartoes-img/ревность — ciúme.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra11"
+  ],
+  "fix": "Ciume → ciúme"
+ },
+ {
+  "id": 680,
+  "pt": "coroa",
+  "en": "crown; old-timer",
+  "ru": "корона; старик (разг.)",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "a golden royal crown resting alone on a red velvet cushion under warm light",
+  "image": "cartoes-img/корона, старик — coroa.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra11"
+  ]
+ },
+ {
+  "id": 681,
+  "pt": "vaga",
+  "en": "vacancy, free slot",
+  "ru": "вакансия; свободное место (слот)",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "one empty marked-out parking bay between two parked cars in a car park, the vacant space right in the middle of the frame, photographed at eye level",
+  "image": "cartoes-img/вакансия, свободное место — vaga.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra11"
+  ]
+ },
+ {
+  "id": 682,
+  "pt": "dados",
+  "en": "data",
+  "ru": "данные",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "rows of server racks in a data centre corridor, blue indicator lights blinking along the units",
+  "image": "cartoes-img/данные — dados.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra11"
+  ]
+ },
+ {
+  "id": 683,
+  "pt": "óculos",
+  "en": "glasses",
+  "ru": "очки",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "a pair of clear-lens reading glasses lying folded on a plain wooden table, close-up, nothing else in frame",
+  "image": "cartoes-img/очки — óculos.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra11"
+  ],
+  "fix": "Oculos → óculos"
+ },
+ {
+  "id": 684,
+  "pt": "avisar",
+  "en": "to notify, to warn",
+  "ru": "предупреждать, сообщать",
+  "pos": "verbs",
+  "examples": [],
+  "imgQuery": "a hand pressing a big red alarm button on a wall panel, the warning lamp above it already flashing",
+  "image": "cartoes-img/предупреждать, сообщать — avisar.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra11"
+  ]
+ },
+ {
+  "id": 685,
+  "pt": "criar",
+  "en": "to create",
+  "ru": "создавать",
+  "pos": "verbs",
+  "examples": [],
+  "imgQuery": "a 3D printer building an object layer by layer on its platform, the shape emerging from nothing, close-up",
+  "image": "cartoes-img/создавать — criar.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra11"
+  ]
+ },
+ {
+  "id": 686,
+  "pt": "levar",
+  "en": "to take, to take away",
+  "ru": "нести, относить; забирать с собой",
+  "pos": "verbs",
+  "examples": [],
+  "imgQuery": "a customer walking out of a cafe carrying a paper takeaway bag and a coffee cup, leaving with the order",
+  "image": "cartoes-img/нести, относить, забирать с собой — levar.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra11"
+  ]
+ },
+ {
+  "id": 687,
+  "pt": "lanchar",
+  "en": "to have a snack",
+  "ru": "перекусить",
+  "pos": "verbs",
+  "examples": [],
+  "imgQuery": "a person sitting on a park bench biting into a sandwich during a quick break",
+  "image": "cartoes-img/перекусить — lanchar.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra11"
+  ]
+ },
+ {
+  "id": 688,
+  "pt": "colher",
+  "en": "to pick, to harvest; spoon",
+  "ru": "собирать, срывать (урожай); ложка",
+  "pos": "verbs",
+  "examples": [],
+  "imgQuery": "two hands cutting a bunch of grapes off the vine and laying it into a wicker basket in a vineyard",
+  "image": "cartoes-img/собирать, срывать — colher.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra11"
+  ]
+ },
+ {
+  "id": 689,
+  "pt": "chutar",
+  "en": "to kick",
+  "ru": "пинать, бить ногой",
+  "pos": "verbs",
+  "examples": [],
+  "imgQuery": "a close-up of a trainer shoe kicking an empty tin can along the asphalt, the can already tumbling away",
+  "image": "cartoes-img/пинать, бить ногой — chutar.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra11"
+  ]
+ },
+ {
+  "id": 690,
+  "pt": "mudar",
+  "en": "to change",
+  "ru": "менять, изменять",
+  "pos": "verbs",
+  "examples": [],
+  "imgQuery": "a paint roller repainting a wall, half the wall still the old dull colour and half already bright new colour",
+  "image": "cartoes-img/менять, изменять — mudar.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra11"
+  ]
+ },
+ {
+  "id": 691,
+  "pt": "procurar",
+  "en": "to search, to look for",
+  "ru": "искать",
+  "pos": "verbs",
+  "examples": [],
+  "imgQuery": "a person on hands and knees shining a torch into the gap under a sofa, searching for something lost",
+  "image": "cartoes-img/искать — procurar.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra11"
+  ]
+ },
+ {
+  "id": 692,
+  "pt": "tropeçar",
+  "en": "to stumble, to trip",
+  "ru": "споткнуться",
+  "pos": "verbs",
+  "examples": [],
+  "imgQuery": "a shoe catching on a raised broken paving slab, the person lurching forward off balance with arms flying up",
+  "image": "cartoes-img/споткнуться — tropeçar.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra11"
+  ]
+ },
+ {
+  "id": 693,
+  "pt": "cair",
+  "en": "to fall",
+  "ru": "падать",
+  "pos": "verbs",
+  "examples": [],
+  "imgQuery": "a book tumbling off the edge of a desk, frozen in mid-air just below the tabletop before hitting the floor",
+  "image": "cartoes-img/падать — cair.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra11"
+  ]
+ },
+ {
+  "id": 694,
+  "pt": "roubar",
+  "en": "to steal",
+  "ru": "красть, воровать",
+  "pos": "verbs",
+  "examples": [],
+  "imgQuery": "a gloved hand slipping a wallet out of the back pocket of an unsuspecting passer-by on a busy street",
+  "image": "cartoes-img/красть, воровать — roubar.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra11"
+  ]
+ },
+ {
+  "id": 695,
+  "pt": "solicitar",
+  "en": "to apply, to request",
+  "ru": "подавать заявку, запрашивать",
+  "pos": "verbs",
+  "examples": [],
+  "imgQuery": "close-up of a completed paper application form being handed across a service counter to an official reaching to take it",
+  "image": "cartoes-img/подавать заявку, запрашивать — solicitar.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra11"
+  ]
+ },
+ {
+  "id": 696,
+  "pt": "tive",
+  "en": "I had",
+  "ru": "у меня был, было (прош. вр. от ter)",
+  "pos": "verbs",
+  "examples": [],
+  "imgQuery": "a man standing alone in an empty garage holding one old car key up in his open palm, an oil stain on the bare concrete floor where the car used to stand, the car gone",
+  "image": "cartoes-img/у меня был, было — tive.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra11"
+  ],
+  "note": "pretérito perfeito от ter"
+ },
+ {
+  "id": 697,
+  "pt": "pedalando",
+  "en": "cycling, pedalling",
+  "ru": "крутя педали, на велосипеде",
+  "pos": "verbs",
+  "examples": [],
+  "imgQuery": "an extreme close-up of legs pushing bicycle pedals round, feet on the pedals and the crank turning, motion blur in the wheel",
+  "image": "cartoes-img/крутя педали, на велосипеде — pedalando.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra11"
+  ]
+ },
+ {
+  "id": 698,
+  "pt": "normal",
+  "en": "normal, usual",
+  "ru": "обычный, нормальный",
+  "pos": "adjectives",
+  "examples": [],
+  "imgQuery": "a machine control panel with one single green indicator lamp lit and no red or amber lights anywhere, everything running normally",
+  "image": "cartoes-img/обычный, нормальный — normal.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra11"
+  ]
+ },
+ {
+  "id": 699,
+  "pt": "interessante",
+  "en": "interesting",
+  "ru": "интересный",
+  "pos": "adjectives",
+  "examples": [],
+  "imgQuery": "a group of museum visitors crowded closely around one single exhibit, every one of them leaning in fascinated",
+  "image": "cartoes-img/интересный — interessante.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra11"
+  ]
+ },
+ {
+  "id": 700,
+  "pt": "perdido",
+  "en": "lost",
+  "ru": "потерянный",
+  "pos": "adjectives",
+  "examples": [],
+  "imgQuery": "a single small childs glove left stuck on a park railing spike, nobody around, grey day",
+  "image": "cartoes-img/потерянный — perdido.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra11"
+  ]
+ },
+ {
+  "id": 701,
+  "pt": "sábio(a)",
+  "en": "wise",
+  "ru": "мудрый",
+  "pos": "adjectives",
+  "examples": [],
+  "imgQuery": "an old man with a long white beard sitting calmly with an ancient open book on his knees, serene knowing expression",
+  "image": "cartoes-img/мудрый — sábio(a).webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra11"
+  ],
+  "fix": "Sabia → sábio(a)"
+ },
+ {
+  "id": 702,
+  "pt": "cumprido",
+  "en": "fulfilled, met",
+  "ru": "выполненный, исполненный",
+  "pos": "adjectives",
+  "examples": [],
+  "imgQuery": "a hand holding a pen and drawing the final green tick into the last of a column of square check boxes, every box above it already ticked, the sheet completely blank apart from the boxes and the ticks, no writing anywhere",
+  "image": "cartoes-img/выполненный, исполненный — cumprido.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra11"
+  ],
+  "fix": "Cuprido → cumprido"
+ },
+ {
+  "id": 703,
+  "pt": "algo",
+  "en": "something",
+  "ru": "что-то, нечто",
+  "pos": "function words",
+  "examples": [],
+  "imgQuery": "an unidentified object hidden under a draped cloth, only its outline showing through the fabric",
+  "image": "cartoes-img/что-то, нечто — algo.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra11"
+  ]
+ },
+ {
+  "id": 704,
+  "pt": "neles",
+  "en": "in them, on them",
+  "ru": "в них, на них (em + eles)",
+  "pos": "function words",
+  "examples": [],
+  "imgQuery": "three open glass jars standing in a row on a shelf, each one clearly full of coins, the contents inside them plainly visible through the glass",
+  "image": "cartoes-img/в них, на них — neles.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra11"
+  ]
+ },
+ {
+  "id": 705,
+  "pt": "ufa",
+  "en": "phew",
+  "ru": "уф! (облегчение)",
+  "pos": "phrases",
+  "examples": [],
+  "imgQuery": "a person leaning back in an office chair with eyes closed and a relieved smile, breathing out after finishing the work",
+  "image": "cartoes-img/уф! — ufa.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra11"
+  ]
+ },
+ {
+  "id": 706,
+  "pt": "há tanto",
+  "en": "for so long",
+  "ru": "так давно, столько времени",
+  "pos": "phrases",
+  "examples": [],
+  "imgQuery": "a young tree grown right up through the rusted shell of an abandoned car in a forest, decades clearly passed",
+  "image": "cartoes-img/так давно, столько времени — há tanto.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra11"
   ]
  }
 ]
