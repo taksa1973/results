@@ -1,13 +1,15 @@
 {
-  "ts": "2026-09-14T12:07:09.177736+00:00",
+  "ts": "2026-09-15T11:21:00.624570+00:00",
   "findings": {},
   "errors": {
     "Navigare Yachting Turkey": "http_403",
+    "Irmak Yachting (home)": "http_522",
+    "Irmak Yachting (fleet)": "http_522",
     "Rotaneta Gocek catamaran": "http_503",
     "Rotaneta home": "http_503",
     "Yacht-Rent Turkey": "http_403",
-    "GuletCharter.org fleet": "request_error: ConnectTimeout: HTTPSConnectionPool(host='guletcharter.org', port=443): Max retries exceeded with url: /gulet-fleet/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='guletcharter.org', port=443) at 0x7f4e8ac93e90>, 'Connection to guletcharter.org timed out. (connect timeout=30)'))",
     "Gulet Escapes (UK)": "http_403",
-    "GuletYacht.net": "http_403"
+    "GuletYacht.net": "http_403",
+    "Lumar Yachts luxury sailing yachts": "request_error: ReadTimeout: HTTPSConnectionPool(host='www.lumar-yachts.com', port=443): Read timed out. (read timeout=30)"
   }
 }
