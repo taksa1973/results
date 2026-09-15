@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Итог звонка в сделке amoCRM: стоимость и варианты</title>
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="description" content="Разбор текущей схемы Телфин → Yandex SpeechKit → TXT, фактическая нагрузка отдела продаж, себестоимость минуты, сравнение пяти вариантов и одна рекомендация.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F5F5F7; --surface:#FFFFFF; --surface-2:#FAFAFC;
+  --ink:#1D1D1F; --ink-2:#424245; --ink-3:#6E6E73; --ink-4:#86868B;
+  --line:#E3E3E6; --line-strong:#D2D2D7;
+  --blue:#0071E3; --blue-bg:#EAF3FD;
+  --green:#1D8A46; --green-bg:#E9F6EE;
+  --red:#C1121F; --red-bg:#FDECEE;
+  --amber:#8A5A00; --amber-bg:#FDF3E2;
+  --radius:18px; --radius-lg:24px;
+  --shadow:0 1px 2px rgba(0,0,0,.04),0 8px 24px rgba(0,0,0,.05);
+  --shadow-hover:0 2px 6px rgba(0,0,0,.06),0 16px 40px rgba(0,0,0,.09);
+  --maxw:1120px;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%; scroll-behavior:smooth}
+body{
+  margin:0; background:var(--bg); color:var(--ink);
+  font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  font-size:17px; line-height:1.6; -webkit-font-smoothing:antialiased;
+  font-variant-numeric:tabular-nums;
+}
+.wrap{max-width:var(--maxw); margin:0 auto; padding:0 24px}
+h1,h2,h3,h4{line-height:1.2; letter-spacing:-.02em; margin:0}
+h1{font-size:clamp(32px,5.2vw,52px); font-weight:700}
+h2{font-size:clamp(24px,3.4vw,34px); font-weight:600}
+h3{font-size:20px; font-weight:600}
+h4{font-size:16px; font-weight:600}
+p{margin:0 0 14px}
+a{color:var(--blue); text-decoration:none}
+a:hover{text-decoration:underline}
+a:focus-visible{outline:3px solid var(--blue); outline-offset:3px; border-radius:6px}
+code{
+  font-family:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  font-size:.86em; background:#EFEFF2; padding:.15em .42em; border-radius:6px;
+  color:#31313A; word-break:break-word;
+}
+header{padding:76px 0 40px}
+.eyebrow{
+  display:inline-flex; align-items:center; gap:8px;
+  font-size:13px; font-weight:600; letter-spacing:.06em; text-transform:uppercase;
+  color:var(--blue); margin-bottom:20px;
+}
+.eyebrow svg{width:16px;height:16px}
+.lede{font-size:clamp(18px,2.2vw,21px); color:var(--ink-2); max-width:66ch; margin-top:18px}
+.meta{margin-top:24px; font-size:14px; color:var(--ink-4)}
+section{padding:44px 0}
+.section-head{margin-bottom:26px; max-width:74ch}
+.section-head p{color:var(--ink-2); margin-top:12px}
+.kicker{
+  font-size:12px; font-weight:700; letter-spacing:.08em; text-transform:uppercase;
+  color:var(--ink-4); margin-bottom:10px;
+}
+.card{
+  background:var(--surface); border:1px solid var(--line); border-radius:var(--radius);
+  padding:26px; box-shadow:var(--shadow);
+  transition:transform .22s cubic-bezier(.2,.7,.3,1), box-shadow .22s cubic-bezier(.2,.7,.3,1);
+}
+.card:hover{transform:translateY(-2px); box-shadow:var(--shadow-hover)}
+.card h3{margin-bottom:10px}
+.card p:last-child{margin-bottom:0}
+.bento-2{display:grid; gap:16px; grid-template-columns:repeat(2,1fr)}
+.bento-3{display:grid; gap:16px; grid-template-columns:repeat(3,1fr)}
+.bento-4{display:grid; gap:16px; grid-template-columns:repeat(4,1fr)}
+@media(max-width:900px){ .bento-2,.bento-3{grid-template-columns:1fr} .bento-4{grid-template-columns:repeat(2,1fr)} }
+@media(max-width:520px){ .bento-4{grid-template-columns:1fr} }
+
+.verdict{
+  background:linear-gradient(180deg,#FFFFFF 0%,#FBFBFD 100%);
+  border:1px solid var(--line-strong); border-radius:var(--radius-lg);
+  padding:32px; box-shadow:var(--shadow);
+}
+.verdict h2{margin-bottom:14px}
+.steps{list-style:none; margin:20px 0 0; padding:0; display:grid; gap:12px}
+.steps li{display:grid; grid-template-columns:40px 1fr; gap:14px; align-items:start; padding:16px 18px; background:var(--surface-2); border:1px solid var(--line); border-radius:14px}
+.steps .n{width:40px; height:40px; border-radius:12px; background:var(--blue); color:#fff; font-weight:700; display:grid; place-items:center; font-size:16px}
+.steps strong{display:block; margin-bottom:4px}
+.steps span{color:var(--ink-2); font-size:15.5px}
+
+.kpi{display:grid; gap:16px; grid-template-columns:repeat(4,1fr)}
+@media(max-width:900px){ .kpi{grid-template-columns:repeat(2,1fr)} }
+@media(max-width:520px){ .kpi{grid-template-columns:1fr} }
+.kpi .card{padding:22px 24px}
+.kpi .v{font-size:clamp(30px,3.6vw,40px); font-weight:700; letter-spacing:-.03em; line-height:1.05}
+.kpi .l{font-size:14px; color:var(--ink-3); margin-top:8px}
+.kpi .s{font-size:13px; color:var(--ink-4); margin-top:4px}
+
+.badge{
+  display:inline-flex; align-items:center; gap:6px; font-size:12.5px; font-weight:600;
+  padding:4px 10px; border-radius:999px; border:1px solid transparent; white-space:nowrap;
+}
+.b-green{background:var(--green-bg); color:var(--green)}
+.b-red{background:var(--red-bg); color:var(--red)}
+.b-amber{background:var(--amber-bg); color:var(--amber)}
+.b-blue{background:var(--blue-bg); color:var(--blue)}
+.b-gray{background:#EFEFF2; color:var(--ink-3)}
+
+.callout{border-radius:14px; padding:18px 20px; border:1px solid; font-size:15.5px}
+.callout strong{display:block; margin-bottom:4px}
+.c-blue{background:var(--blue-bg); border-color:#CFE3F8; color:#123B63}
+.c-amber{background:var(--amber-bg); border-color:#F0DDB3; color:#5A3E00}
+.c-red{background:var(--red-bg); border-color:#F3C4C9; color:#6E0B14}
+.c-green{background:var(--green-bg); border-color:#BFE3CB; color:#0F4A26}
+
+.chain{display:flex; flex-wrap:wrap; gap:10px; align-items:center; margin:14px 0 6px}
+.chain .node{background:var(--surface-2); border:1px solid var(--line); border-radius:12px; padding:10px 14px; font-size:14.5px; font-weight:500}
+.chain .node.hot{background:var(--blue-bg); border-color:#CFE3F8; color:#123B63}
+.chain .node.new{background:var(--green-bg); border-color:#BFE3CB; color:#0F4A26}
+.chain .arrow{color:var(--ink-4); font-size:18px; line-height:1}
+
+.table-scroll{overflow-x:auto; -webkit-overflow-scrolling:touch; border:1px solid var(--line); border-radius:var(--radius); background:var(--surface); box-shadow:var(--shadow)}
+table{border-collapse:collapse; width:100%; min-width:720px; font-size:15px}
+th,td{padding:13px 16px; text-align:left; vertical-align:top; border-bottom:1px solid var(--line)}
+th{font-size:12.5px; font-weight:700; letter-spacing:.05em; text-transform:uppercase; color:var(--ink-3); background:var(--surface-2); white-space:nowrap}
+tbody tr:last-child td{border-bottom:0}
+td.num,th.num{text-align:right; white-space:nowrap}
+tbody td:first-child{white-space:nowrap}
+tr.hl td{background:#F3F8FE}
+tr.dim td{color:var(--ink-3)}
+td small,th small{display:block; font-weight:400; text-transform:none; letter-spacing:0; color:var(--ink-4); font-size:12.5px; margin-top:2px}
+.pos{color:var(--green); font-weight:600}
+.neg{color:var(--red); font-weight:600}
+
+.facts{list-style:none; margin:0; padding:0; display:grid; gap:12px}
+.facts li{display:grid; grid-template-columns:22px 1fr; gap:12px; align-items:start; font-size:15.5px; color:var(--ink-2)}
+.facts svg{width:20px; height:20px; margin-top:3px; color:var(--blue); flex:none}
+.facts strong{color:var(--ink)}
+
+.q{display:grid; grid-template-columns:220px 1fr; gap:18px; padding:16px 0; border-top:1px solid var(--line)}
+.q:first-child{border-top:0; padding-top:0}
+.q strong{font-size:15.5px}
+.q span{color:var(--ink-2); font-size:15.5px}
+@media(max-width:700px){ .q{grid-template-columns:1fr; gap:6px} }
+
+.opt{position:relative}
+.opt .tag{position:absolute; top:18px; right:18px}
+.opt .price{font-size:26px; font-weight:700; letter-spacing:-.02em; margin:6px 0 2px}
+.opt .price small{font-size:14px; font-weight:500; color:var(--ink-3); letter-spacing:0}
+.opt ul{margin:12px 0 0; padding-left:18px; color:var(--ink-2); font-size:15px}
+.opt li{margin:4px 0}
+.opt.rec{border-color:var(--blue); box-shadow:0 0 0 3px rgba(0,113,227,.12), var(--shadow)}
+
+.chart{padding:26px 26px 18px}
+.bars{display:grid; grid-template-columns:repeat(12,1fr); gap:8px; align-items:end; height:220px; margin-top:34px}
+.bar{position:relative; display:flex; flex-direction:column; justify-content:flex-end; height:100%}
+.bar i{position:relative; font-style:normal; display:block; width:100%; background:var(--blue); border-radius:4px 4px 0 0; min-height:4px; transition:opacity .15s}
+.bar:hover i{opacity:.75}
+.bar b{position:absolute; left:0; right:0; bottom:calc(100% + 4px); text-align:center; font-size:12px; font-weight:600; color:var(--ink-2); pointer-events:none}
+.bar .m{font-size:12px; color:var(--ink-4); text-align:center; margin-top:6px}
+.bar .tip{display:none; position:absolute; bottom:calc(100% + 6px); left:50%; transform:translateX(-50%); background:var(--ink); color:#fff; font-size:12.5px; padding:6px 10px; border-radius:8px; white-space:nowrap; pointer-events:none; z-index:5}
+.bar:hover .tip,.bar:focus-within .tip{display:block}
+.bar:nth-child(-n+3) .tip{left:0; transform:none}
+.bar:nth-child(n+9) .tip{left:auto; right:0; transform:none}
+@media(max-width:700px){ .bar b{display:none} .bar .m{font-size:10px} }
+
+.note-example{background:var(--surface-2); border:1px solid var(--line); border-radius:14px; padding:20px 22px; font-size:15px; line-height:1.55}
+.note-example .hd{font-size:12.5px; color:var(--ink-4); margin-bottom:10px}
+.note-example h4{margin:10px 0 4px}
+.note-example ul{margin:0 0 8px; padding-left:20px}
+.note-example p{margin:0 0 6px}
+figure{margin:0}
+figure img{width:100%; height:auto; display:block; border-radius:12px; border:1px solid var(--line)}
+figcaption{font-size:13.5px; color:var(--ink-4); margin-top:10px}
+
+.sources ol{margin:0; padding-left:20px; font-size:15px; color:var(--ink-2)}
+.sources li{margin:8px 0}
+footer{padding:40px 0 70px; font-size:14px; color:var(--ink-4)}
+
+.js-motion .reveal{opacity:0}
+@media(prefers-reduced-motion:reduce){
+  .js-motion .reveal{opacity:1 !important; transform:none !important}
+  .card,.bar i{transition:none}
+}
+</style>
+<script>
+  (function () {
+    try {
+      var r = document.documentElement;
+      if (!window.matchMedia || !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        r.classList.add('js-motion');
+        setTimeout(function () { r.classList.remove('js-motion'); }, 2500);
+      }
+    } catch (e) {}
+  })();
+</script>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="eyebrow">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.72 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.35 1.85.59 2.81.72A2 2 0 0 1 22 16.92z"/></svg>
+      neoved · amoCRM · Телфин
+    </div>
+    <h1>Итог звонка в карточке сделки: что это стоит сейчас и что менять</h1>
+    <p class="lede">Транскрибация всех звонков отдела продаж обходится в <strong>≈180 ₽ в месяц</strong>. Экономить тут нечего — задача не в цене, а в формате. Нужный формат даёт тумблер в уже подключённой интеграции Телфина, а под свой шаблон «Итог / Договорённости / Следующий шаг» хватает небольшого воркера на нашем сервере.</p>
+    <div class="meta">Данные: все примечания о звонках и вложениях аккаунта neoved.amocrm.ru за 16.01.2025 – 15.09.2026, выгружены через API v4 15 сентября 2026. Тарифы — с публичных страниц Телфина, Yandex AI Studio, T-Bank, Sber, Groq, OpenAI, DeepSeek, «Войси» на 15.09.2026. Курс ЦБ РФ на 15.09.2026: 84,34 ₽/$.</div>
+  </div>
+</header>
+
+<section id="verdict">
+  <div class="wrap">
+    <div class="verdict reveal">
+      <div class="kicker">Рекомендация</div>
+      <h2>Не менять транскрибацию. Включить пересказ Телфина сегодня, свой формат — воркером</h2>
+      <p style="color:var(--ink-2); max-width:78ch">За 11.08–11.09 распознано 76 звонков на 270,7 минуты. По тарифу SpeechKit это 176–182 ₽. Даже самый дешёвый легальный российский движок (T-Bank VoiceKit) сэкономит около 70 ₽ в месяц — внедрение за 50 000 ₽ окупится через 60 лет. Менять поставщика распознавания имеет смысл только при объёмах от 5 000 минут в месяц; сейчас объём в 20 раз меньше.</p>
+      <ol class="steps">
+        <li><span class="n">1</span><div><strong>Сегодня, 0 ₽: включить «Загружать краткий пересказ звонка»</strong><span>В настройках интеграции Телфин ↔ amoCRM рядом с уже включённым «Перевод звонка в текст» есть второй тумблер. Пересказ приходит примечанием в ленту, без файла. Плюс ≈1 ₽ за звонок (YandexGPT), ≈90 ₽ в месяц на текущем объёме.</span></div></li>
+        <li><span class="n">2</span><div><strong>Две недели смотрим на формат</strong><span>У Телфина шаблон фиксированный: «Краткий пересказ» + «Ключевые моменты». Если менеджерам этого хватает — задача закрыта бесплатно. Если нужны именно «Итог / Договорённости / Следующий шаг» и запись должна лежать в сделке, а не на контакте — шаг 3.</span></div></li>
+        <li><span class="n">3</span><div><strong>Воркер <code>amo-call-summary</code> на сервере neoved: ≈10 часов, ≈4–22 ₽ в месяц</strong><span>Слушает вебхук о появлении TXT, забирает готовую расшифровку (за неё уже заплачено), гонит через DeepSeek или YandexGPT Lite по нашему шаблону и пишет примечание в сделку. Бонус: дата из «следующего шага» превращается в задачу менеджеру в amoCRM. Транскрибацию Телфина и TXT не трогаем.</span></div></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section id="kpi">
+  <div class="wrap">
+    <div class="kpi">
+      <div class="card reveal"><div class="v">271 мин</div><div class="l">Разговоров за 11.08 – 11.09.2026</div><div class="s">101 звонок, 81 отвеченный, 20 пропущенных</div></div>
+      <div class="card reveal"><div class="v">3,35 мин</div><div class="l">Средний отвеченный звонок</div><div class="s">самый длинный — 27,6 мин; 64 звонка дольше 30 с</div></div>
+      <div class="card reveal"><div class="v">≈180 ₽</div><div class="l">Транскрибация за период</div><div class="s">76 файлов TXT, 270,7 мин × 0,65 ₽</div></div>
+      <div class="card reveal"><div class="v">0,65 ₽</div><div class="l">Себестоимость 1 минуты</div><div class="s">Yandex SpeechKit, без наценки Телфина</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="now">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="kicker">1 · Как устроено сейчас</div>
+      <h2>Телфин работает агентом Яндекса, а TXT кладёт его собственная интеграция</h2>
+      <p>Никакого своего пайплайна в Яндекс Облаке у компании нет. Расшифровку делает штатная функция интеграции «Телфин.Офис ↔ amoCRM», а Yandex Cloud AI Studio подключён через агентское поручение Телфину.</p>
+    </div>
+    <div class="chain reveal">
+      <span class="node">Телфин.Офис (АТС)</span><span class="arrow">→</span>
+      <span class="node">Запись MP3 в storage.telphin.ru<br><small style="color:var(--ink-4)">8 кГц, 2 канала, 32 кбит/с</small></span><span class="arrow">→</span>
+      <span class="node hot">Yandex SpeechKit<br><small>через агентский договор с Телфином</small></span><span class="arrow">→</span>
+      <span class="node">Примечание «звонок» + файл «Перевод звонка в текст.txt»<br><small style="color:var(--ink-4)">на карточке контакта, через 1 с после звонка</small></span>
+    </div>
+    <div class="bento-2" style="margin-top:20px">
+      <div class="card reveal">
+        <h3>Что показал API amoCRM</h3>
+        <ul class="facts">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Примечание о звонке приходит с <code>source: "TELPHIN"</code> и прямой ссылкой на запись в <code>storage.telphin.ru</code> — файл скачивается без авторизации.</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>TXT появляется <strong>ровно через 1 секунду</strong> после примечания о звонке, от системного пользователя (<code>created_by: 0</code>), во всех 80 случаях. Это поведение встроенной функции, а не отдельного сервиса.</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Файл прикрепляется <strong>к контакту</strong>, не к сделке (в ленте сделки он виден, потому что amoCRM показывает события связанных контактов).</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Первый TXT — 11.08.2026. Транскрибируется практически всё отвеченное: 76 из 81 звонков за период, пропущены только разговоры до 22 секунд.</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Токен наших воркеров не имеет scope <code>files</code> — скачать TXT через Drive API сейчас нельзя. Для воркера из шага 3 понадобится интеграция с этим правом.</span></li>
+        </ul>
+      </div>
+      <div class="card reveal">
+        <h3>Что говорят документы Телфина</h3>
+        <ul class="facts">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span><strong>Цена: «1 минута — 64 копейки»</strong>, функция есть в каждом тарифе АТС «Телфин.Офис». Текущий прайс Яндекса за потоковое/синхронное распознавание — 0,1626 ₽ за 15 с = 0,6504 ₽/мин.</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span><strong>Наценки нет.</strong> FAQ: «Дополнительной оплаты за подключение и использование не взимается. Оплата производится только за факт транскрибации или саммаризации по тарифам Яндекса». В поручении принципала: «по ценам ООО „Яндекс.Облако“».</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span><strong>Ресурсы Яндекса</strong> по договору: SpeechKit (распознавание), YandexGPT API (пересказ, если включён), SpeechSense (речевая аналитика — у нас не используется). Object Storage не нужен: записи лежат у Телфина.</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span><strong>Каждый звонок распознаётся один раз</strong>: если он уже расшифрован в CRM, в отчётах АТС покажут готовый текст без повторного списания.</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span><strong>Пересказ уже есть в продукте:</strong> тумблер «Загружать краткий пересказ звонка», звонки короче 30 с не анализируются, результат — примечанием в карточку «в течение нескольких минут».</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="callout c-amber reveal" style="margin-top:16px">
+      <strong>Что проверить в личном кабинете Телфина (у меня нет доступа)</strong>
+      Тариф АТС и абонентская плата за интеграцию с amoCRM (на сайте: «Старт» 1 190, «Бизнес» 2 090, «Интеграции» от 3 690 ₽/мес; интеграция с CRM — от 650 ₽/мес на младших тарифах). Строка за Yandex Cloud AI Studio в детализации за август–сентябрь: по моему расчёту она должна быть 176–182 ₽. Хранилище записей: базовое 100 МБ, расширенное 25 ГБ — 450 ₽/мес; при 240 КБ на минуту разговора текущий поток съедает ≈65 МБ в месяц, так что либо включено расширенное, либо старые записи затираются.
+    </div>
+  </div>
+</section>
+
+<section id="load">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="kicker">2 · Фактическая нагрузка</div>
+      <h2>Объём скачет от 54 до 633 минут в месяц; типичный — около 200</h2>
+      <p>Считаю по примечаниям о звонках в amoCRM (дедупликация по идентификатору звонка Телфина). Минуты — только отвеченные звонки, пропущенные имеют длительность 0 и ничего не стоят.</p>
+    </div>
+    <div class="card chart reveal">
+      <div class="kicker" style="margin-bottom:0">Минуты разговоров по месяцам, октябрь 2025 – сентябрь 2026 (сентябрь — по 15-е число)</div>
+      <div class="bars" role="img" aria-label="Минуты разговоров по месяцам: октябрь 192, ноябрь 186, декабрь 202, январь 85, февраль 116, март 171, апрель 187, май 633, июнь 243, июль 54, август 234, сентябрь 114">
+        <div class="bar" tabindex="0"><span class="tip">окт 2025 · 135 звонков · 192 мин</span><i style="height:30%"><b>192</b></i><span class="m">окт</span></div>
+        <div class="bar" tabindex="0"><span class="tip">ноя 2025 · 184 звонка · 186 мин</span><i style="height:29%"><b>186</b></i><span class="m">ноя</span></div>
+        <div class="bar" tabindex="0"><span class="tip">дек 2025 · 192 звонка · 202 мин</span><i style="height:32%"><b>202</b></i><span class="m">дек</span></div>
+        <div class="bar" tabindex="0"><span class="tip">янв 2026 · 111 звонков · 85 мин</span><i style="height:13%"><b>85</b></i><span class="m">янв</span></div>
+        <div class="bar" tabindex="0"><span class="tip">фев 2026 · 125 звонков · 116 мин</span><i style="height:18%"><b>116</b></i><span class="m">фев</span></div>
+        <div class="bar" tabindex="0"><span class="tip">мар 2026 · 186 звонков · 171 мин</span><i style="height:27%"><b>171</b></i><span class="m">мар</span></div>
+        <div class="bar" tabindex="0"><span class="tip">апр 2026 · 105 звонков · 187 мин</span><i style="height:30%"><b>187</b></i><span class="m">апр</span></div>
+        <div class="bar" tabindex="0"><span class="tip">май 2026 · 904 звонка · 633 мин (обзвон, 543 пропущенных)</span><i style="height:100%"><b>633</b></i><span class="m">май</span></div>
+        <div class="bar" tabindex="0"><span class="tip">июн 2026 · 263 звонка · 243 мин</span><i style="height:38%"><b>243</b></i><span class="m">июн</span></div>
+        <div class="bar" tabindex="0"><span class="tip">июл 2026 · 43 звонка · 54 мин</span><i style="height:9%"><b>54</b></i><span class="m">июл</span></div>
+        <div class="bar" tabindex="0"><span class="tip">авг 2026 · 94 звонка · 234 мин</span><i style="height:37%"><b>234</b></i><span class="m">авг</span></div>
+        <div class="bar" tabindex="0"><span class="tip">сен 2026 (по 15-е) · 55 звонков · 114 мин</span><i style="height:18%"><b>114</b></i><span class="m">сен</span></div>
+      </div>
+    </div>
+    <div class="table-scroll reveal" style="margin-top:16px">
+      <table>
+        <thead><tr><th>Период</th><th class="num">Звонков</th><th class="num">Вход. / исход.</th><th class="num">Отвечено</th><th class="num">Минут</th><th class="num">Средний, мин</th><th class="num">Стоит транскрибировать<small>отвеченные ≥ 30 с</small></th><th class="num">Транскрибация<small>0,65 ₽/мин</small></th></tr></thead>
+        <tbody>
+          <tr><td>11.06 – 10.07.2026</td><td class="num">55</td><td class="num">23 / 32</td><td class="num">38</td><td class="num">73,9</td><td class="num">1,94</td><td class="num">26 зв. · 71,3 мин</td><td class="num">48 ₽</td></tr>
+          <tr><td>11.07 – 10.08.2026</td><td class="num">71</td><td class="num">30 / 41</td><td class="num">49</td><td class="num">116,1</td><td class="num">2,37</td><td class="num">29 зв. · 113,1 мин</td><td class="num">76 ₽</td></tr>
+          <tr class="hl"><td><strong>11.08 – 11.09.2026</strong><small>запрошенный период</small></td><td class="num"><strong>101</strong></td><td class="num">40 / 61</td><td class="num"><strong>81</strong></td><td class="num"><strong>271,1</strong></td><td class="num">3,35</td><td class="num">64 зв. · 267,8 мин</td><td class="num"><strong>176 ₽</strong><small>факт: 76 TXT, 270,7 мин</small></td></tr>
+          <tr><td>3 месяца, среднее</td><td class="num">76</td><td class="num">31 / 45</td><td class="num">56</td><td class="num">154</td><td class="num">2,74</td><td class="num">40 зв. · 151 мин</td><td class="num">100 ₽</td></tr>
+          <tr><td>12 месяцев, среднее<small>11.09.2025 – 11.09.2026</small></td><td class="num">200</td><td class="num">20 / 180</td><td class="num">107</td><td class="num">202</td><td class="num">1,89</td><td class="num">76 зв. · 195 мин</td><td class="num">131 ₽</td></tr>
+          <tr class="dim"><td>Май 2026, пик обзвона</td><td class="num">904</td><td class="num">44 / 860</td><td class="num">361</td><td class="num">633</td><td class="num">1,75</td><td class="num">299 зв. · 617 мин</td><td class="num">412 ₽</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout c-blue reveal" style="margin-top:16px">
+      <strong>Сколько звонков реально нужно транскрибировать</strong>
+      Из 101 звонка за период: 20 пропущенных (0 с) и 17 отвеченных короче 30 секунд — их анализировать нечего. Остаются 64 звонка, и это 267,8 из 271,1 минуты. Порог 30 с уже зашит в пересказ Телфина; в свой воркер его тоже закладываем. На деньгах отсечка не сказывается (короткие звонки — 1% минут), но убирает мусорные примечания из ленты.
+    </div>
+  </div>
+</section>
+
+<section id="cost">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="kicker">3 · Себестоимость текущего решения</div>
+      <h2>Переменная часть — 176 ₽ в месяц. Всё остальное — абонентка, которая не зависит от схемы</h2>
+      <p>Формула: <strong>Телфин.Офис (абонентка) + интеграция amoCRM + Yandex SpeechKit + хранение записей</strong>. Первые два слагаемых и хранение остаются в любом из вариантов ниже — компания в любом случае звонит через Телфин. Сравнивать варианты честно можно только по переменной части: распознавание + AI + инфраструктура.</p>
+    </div>
+    <div class="bento-3">
+      <div class="card reveal">
+        <div class="kicker">Распознавание, SpeechKit</div>
+        <div class="q" style="grid-template-columns:1fr auto; padding:8px 0"><strong>1 минута</strong><span>0,6504 ₽</span></div>
+        <div class="q" style="grid-template-columns:1fr auto; padding:8px 0"><strong>100 минут</strong><span>65 ₽</span></div>
+        <div class="q" style="grid-template-columns:1fr auto; padding:8px 0"><strong>1 000 минут</strong><span>650 ₽</span></div>
+        <div class="q" style="grid-template-columns:1fr auto; padding:8px 0"><strong>Факт за период</strong><span>176 ₽ (182 ₽ с округлением каждого звонка до 15 с)</span></div>
+        <p style="font-size:13.5px; color:var(--ink-4); margin-top:10px">Тарификация потокового распознавания — отрезками по 15 с с округлением вверх; 1 118 отрезков × 0,1626 ₽ = 181,8 ₽.</p>
+      </div>
+      <div class="card reveal">
+        <div class="kicker">Добавить AI-пересказ, на один звонок 3,5 мин</div>
+        <div class="q" style="grid-template-columns:1fr auto; padding:8px 0"><strong>YandexGPT Pro 5.1</strong><span>≈1,14 ₽</span></div>
+        <div class="q" style="grid-template-columns:1fr auto; padding:8px 0"><strong>YandexGPT Lite</strong><span>≈0,29 ₽</span></div>
+        <div class="q" style="grid-template-columns:1fr auto; padding:8px 0"><strong>DeepSeek V4.1 Flash</strong><span>≈0,06 ₽</span></div>
+        <div class="q" style="grid-template-columns:1fr auto; padding:8px 0"><strong>На 76 звонков в месяц</strong><span>4 – 88 ₽</span></div>
+        <p style="font-size:13.5px; color:var(--ink-4); margin-top:10px">Допущение: 250 токенов расшифровки на минуту речи, 300 токенов инструкции и 250 токенов ответа на звонок. Цены: Pro 5.1 — 0,8 ₽ / 1 000 токенов вход и выход; Lite — 0,2 ₽; DeepSeek — $0,30 / $1,20 за 1 млн (пик).</p>
+      </div>
+      <div class="card reveal">
+        <div class="kicker">Постоянные расходы (в каждом варианте)</div>
+        <div class="q" style="grid-template-columns:1fr auto; padding:8px 0"><strong>Телфин.Офис, АТС</strong><span>по счёту</span></div>
+        <div class="q" style="grid-template-columns:1fr auto; padding:8px 0"><strong>Интеграция с amoCRM</strong><span>от 650 ₽ или в тарифе</span></div>
+        <div class="q" style="grid-template-columns:1fr auto; padding:8px 0"><strong>Хранение записей</strong><span>0 или 450 ₽</span></div>
+        <div class="q" style="grid-template-columns:1fr auto; padding:8px 0"><strong>Сервер для воркеров</strong><span>уже оплачен</span></div>
+        <p style="font-size:13.5px; color:var(--ink-4); margin-top:10px">На сервере neoved уже крутятся семь наших воркеров (amo-meet, amo-zoom, amo-phone, amo-mail и другие); восьмой добавляется без новых расходов.</p>
+      </div>
+    </div>
+    <div class="callout c-green reveal" style="margin-top:16px">
+      <strong>Стоимость одной обработанной минуты сейчас = 176 ₽ / 270,7 мин = 0,65 ₽.</strong>
+      Это ровно тариф Яндекса: Телфин ничего не добавляет сверху. За год при текущем ритме (≈200 минут в месяц) транскрибация стоит порядка 1 600 ₽, при пиковых 633 минутах — 412 ₽ за месяц.
+    </div>
+  </div>
+</section>
+
+<section id="keep">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="kicker">4 · Можно ли оставить схему и убрать TXT</div>
+      <h2>Да. Второй тумблер в той же интеграции уже делает пересказ примечанием</h2>
+      <p>Инструкция Телфина по интеграции с amoCRM, раздел «Автозаполнение комментариев к звонкам»: при подключённом Яндекс Облаке доступны две опции — «Загружать перевод звонка в текст» (это наш TXT) и «Загружать краткий пересказ звонка». У neoved включена только первая.</p>
+    </div>
+    <div class="bento-2">
+      <figure class="card reveal">
+        <img src="img/telphin-amocrm-toggles.png" alt="Окно настроек интеграции Телфин с amoCRM: блок Yandex Cloud AI Studio с идентификатором каталога и API-ключом и два тумблера — «Загружать перевод звонка в текст» и «Загружать краткий пересказ звонка»" width="1160" height="499" loading="lazy">
+        <figcaption>Настройки интеграции в личном кабинете Телфин.Офис. Здесь же выдаются каталог и API-ключ Yandex Cloud — их можно вставить в amoAI (Настройки → amoAI → «Подключить аккаунт YandexGPT»).</figcaption>
+      </figure>
+      <figure class="card reveal">
+        <img src="img/telphin-amocrm-example.png" alt="Пример ленты карточки amoCRM: примечание о звонке, затем примечание «Телфин.Краткий пересказ» с абзацем и списком ключевых моментов, затем файл «Перевод звонка в текст.txt»" width="1176" height="805" loading="lazy">
+        <figcaption>Так это выглядит в карточке по документации: «Телфин.Краткий пересказ: …» и список «Ключевые моменты». Формат задан Телфином и не настраивается.</figcaption>
+      </figure>
+    </div>
+    <div class="bento-2" style="margin-top:16px">
+      <div class="card reveal">
+        <h3>Что получаем бесплатно</h3>
+        <ul class="facts">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Пересказ текстом в ленте, менеджер ничего не скачивает. Внедрение — один тумблер, 0 ₽ и 0 часов разработки.</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Стоимость — по тарифам YandexGPT через того же агента; на 76 звонков в месяц это до 90 ₽ (если Телфин использует Pro; модель в документации не названа — уточнить у поддержки).</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Тумблер TXT можно оставить: полная расшифровка остаётся файлом «на всякий случай» и не мешает, либо выключить — тогда платим только за пересказ.</span></li>
+        </ul>
+      </div>
+      <div class="card reveal">
+        <h3>Чего тумблер не даст</h3>
+        <ul class="facts">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg><span>Своего шаблона. Блоков «Договорённости» и «Следующий шаг» с датой в нём нет — только пересказ и ключевые моменты.</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg><span>Примечания в самой сделке: как и TXT, оно ляжет на контакт. В ленте сделки видно, но в выгрузках и фильтрах по сделке его нет.</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg><span>Задачи менеджеру по итогам звонка и любых других действий в CRM.</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="options">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="kicker">5 · Альтернативы</div>
+      <h2>Пять вариантов: два поверх текущей схемы, три с заменой распознавания</h2>
+      <p>Во всех вариантах цепочка одна: <strong>Телфин → запись → распознавание → AI-итог → примечание в CRM</strong>. Отличается, кто распознаёт и где живёт логика. Цена указана за переменную часть на текущем объёме (271 мин, 76 звонков в месяц).</p>
+    </div>
+    <div class="bento-3">
+      <div class="card opt reveal">
+        <span class="tag badge b-green">0 ₽ внедрение</span>
+        <div class="kicker">Вариант 1</div>
+        <h3>Тумблер «Краткий пересказ» в Телфине</h3>
+        <div class="price">≈264 ₽<small> / мес</small></div>
+        <div class="chain"><span class="node">Телфин</span><span class="arrow">→</span><span class="node hot">SpeechKit</span><span class="arrow">→</span><span class="node hot">YandexGPT</span><span class="arrow">→</span><span class="node">примечание на контакте</span></div>
+        <ul>
+          <li>Интеграции: ничего нового, всё внутри Телфина.</li>
+          <li>AI-итог: есть, формат Телфина.</li>
+          <li>Сложность: тумблер в настройках.</li>
+        </ul>
+      </div>
+      <div class="card opt rec reveal">
+        <span class="tag badge b-blue">Рекомендуемый</span>
+        <div class="kicker">Вариант 2</div>
+        <h3>Свой воркер поверх готового TXT</h3>
+        <div class="price">≈180 ₽<small> / мес</small></div>
+        <div class="chain"><span class="node">Телфин</span><span class="arrow">→</span><span class="node hot">SpeechKit → TXT</span><span class="arrow">→</span><span class="node new">воркер: Drive API → DeepSeek / YandexGPT Lite</span><span class="arrow">→</span><span class="node new">примечание в сделке + задача</span></div>
+        <ul>
+          <li>Интеграции: вебхук amoCRM <code>note_contact</code>, Drive API (scope <code>files</code>), API DeepSeek или Yandex AI Studio, <code>POST /leads/{id}/notes</code>, <code>POST /tasks</code>.</li>
+          <li>AI-итог: наш шаблон «Итог / Договорённости / Следующий шаг».</li>
+          <li>Сложность: ≈10 часов, сервер уже есть.</li>
+        </ul>
+      </div>
+      <div class="card opt reveal">
+        <span class="tag badge b-amber">−39% на минуте</span>
+        <div class="kicker">Вариант 3</div>
+        <h3>Свой пайплайн: T-Bank VoiceKit + DeepSeek</h3>
+        <div class="price">≈107 ₽<small> / мес</small></div>
+        <div class="chain"><span class="node">Телфин</span><span class="arrow">→</span><span class="node">MP3 по ссылке из примечания</span><span class="arrow">→</span><span class="node new">VoiceKit 0,38 ₽/мин</span><span class="arrow">→</span><span class="node new">DeepSeek</span><span class="arrow">→</span><span class="node new">примечание в сделке</span></div>
+        <ul>
+          <li>Интеграции: вебхук о звонке, gRPC/REST VoiceKit (договор с Т-Банком, постоплата), LLM, amoCRM. Транскрибацию Телфина выключаем.</li>
+          <li>AI-итог: наш шаблон.</li>
+          <li>Сложность: ≈20 часов; сборка диалога из двух каналов на нас.</li>
+        </ul>
+      </div>
+      <div class="card opt reveal">
+        <span class="tag badge b-gray">−5% на минуте</span>
+        <div class="kicker">Вариант 4</div>
+        <h3>Yandex SpeechKit напрямую, без Телфина</h3>
+        <div class="price">≈168 ₽<small> / мес</small></div>
+        <div class="chain"><span class="node">Телфин</span><span class="arrow">→</span><span class="node">MP3</span><span class="arrow">→</span><span class="node new">SpeechKit async 0,61 ₽/мин, свой биллинг Yandex Cloud</span><span class="arrow">→</span><span class="node new">YandexGPT / DeepSeek</span><span class="arrow">→</span><span class="node new">сделка</span></div>
+        <ul>
+          <li>Интеграции: свой аккаунт Yandex Cloud, Object Storage для загрузки файлов в async-распознавание, LLM, amoCRM.</li>
+          <li>Смысл теряется: Телфин отдаёт Яндекс по прайсу, «без посредника» дешевле не становится. Отложенный режим (0,15 ₽/мин) ждёт результата до 24 часов — менеджеру не подходит.</li>
+          <li>Сложность: ≈18 часов.</li>
+        </ul>
+      </div>
+      <div class="card opt reveal">
+        <span class="tag badge b-red">Риски: оплата, 152-ФЗ</span>
+        <div class="kicker">Вариант 5</div>
+        <h3>Зарубежный STT: Groq Whisper / OpenAI</h3>
+        <div class="price">≈46 ₽<small> / мес</small></div>
+        <div class="chain"><span class="node">Телфин</span><span class="arrow">→</span><span class="node">MP3</span><span class="arrow">→</span><span class="node new">Groq whisper-large-v3 0,16 ₽/мин<br><small>OpenAI gpt-4o-mini-transcribe 0,25 ₽/мин</small></span><span class="arrow">→</span><span class="node new">DeepSeek</span><span class="arrow">→</span><span class="node new">сделка</span></div>
+        <ul>
+          <li>Самый дешёвый в минуте, но: оплата картой из РФ невозможна напрямую; запись разговора с ФИО и телефоном клиента уходит на серверы вне РФ — трансграничная передача персональных данных; Whisper сводит два канала в один и не различает говорящих.</li>
+          <li>Сложность: ≈16 часов + вопрос оплаты.</li>
+        </ul>
+      </div>
+      <div class="card opt reveal">
+        <span class="tag badge b-gray">Справочно</span>
+        <div class="kicker">Готовые виджеты amoCRM</div>
+        <h3>«Войси», Voice AI и подобные</h3>
+        <div class="price">≈2 260 ₽<small> / мес</small></div>
+        <ul style="margin-top:4px">
+          <li>«Войси» для юрлиц: 500 ₽ за час записи = 8,33 ₽/мин, минимальная предоплата 5 000 ₽. Саммари входит, ставится из amoCRM Маркета за минуты.</li>
+          <li>В 13 раз дороже текущей схемы. Оправдано только если нет никого, кто напишет воркер.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="callout c-amber reveal" style="margin-top:16px">
+      <strong>Кого не взял в сравнение и почему</strong>
+      SaluteSpeech (Сбер): 0,6 ₽/мин, но минимальный платёж 15 000 ₽ в месяц, а с 15.07.2026 новым клиентам пакеты и pay-as-you-go недоступны. Локальный Whisper на сервере neoved: лимит юнита 512 МБ памяти, модель не поместится. Zoom AI Companion, который уже пишет конспекты созвонов из сделок, — про видеовстречи, к телефонии Телфина он не подключается.
+    </div>
+  </div>
+</section>
+
+<section id="compare">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="kicker">6 · Сравнение</div>
+      <h2>Стоимость минуты и месяца по объёмам</h2>
+      <p>Переменная часть: распознавание + AI-итог + инфраструктура. Число звонков для расчётных объёмов — минуты ÷ 3,5 (средняя длина транскрибируемого звонка за период). Для варианта 1 AI посчитан по YandexGPT Pro 5.1 — верхняя оценка.</p>
+    </div>
+    <div class="table-scroll reveal">
+      <table>
+        <thead><tr><th>Решение</th><th class="num">1 мин<small>распознавание</small></th><th class="num">1 000 мин</th><th class="num">10 000 мин</th><th>AI-итог</th><th>Автокомментарий в CRM</th><th>Сложность внедрения</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Текущее</strong> Телфин → SpeechKit → TXT</td><td class="num">0,65 ₽</td><td class="num">650 ₽</td><td class="num">6 504 ₽</td><td><span class="badge b-red">нет</span></td><td>файл TXT на контакте</td><td>—</td></tr>
+          <tr><td><strong>Вариант 1</strong> тумблер «Краткий пересказ»</td><td class="num">0,65 ₽</td><td class="num">976 ₽</td><td class="num">9 761 ₽</td><td><span class="badge b-amber">формат Телфина</span></td><td>примечание на контакте</td><td><span class="badge b-green">тумблер</span></td></tr>
+          <tr class="hl"><td><strong>Вариант 2</strong> воркер поверх TXT + DeepSeek</td><td class="num">0,65 ₽</td><td class="num">666 ₽</td><td class="num">6 661 ₽</td><td><span class="badge b-green">наш шаблон</span></td><td>примечание в сделке + задача</td><td><span class="badge b-green">≈10 ч</span></td></tr>
+          <tr><td><strong>Вариант 3</strong> T-Bank VoiceKit + DeepSeek</td><td class="num">0,38 ₽</td><td class="num">394 ₽</td><td class="num">3 937 ₽</td><td><span class="badge b-green">наш шаблон</span></td><td>примечание в сделке + задача</td><td><span class="badge b-amber">≈20 ч + договор</span></td></tr>
+          <tr><td><strong>Вариант 4</strong> SpeechKit async напрямую + DeepSeek</td><td class="num">0,61 ₽</td><td class="num">622 ₽</td><td class="num">6 217 ₽</td><td><span class="badge b-green">наш шаблон</span></td><td>примечание в сделке + задача</td><td><span class="badge b-amber">≈18 ч + Yandex Cloud</span></td></tr>
+          <tr><td><strong>Вариант 5</strong> Groq Whisper + DeepSeek</td><td class="num">0,16 ₽</td><td class="num">172 ₽</td><td class="num">1 717 ₽</td><td><span class="badge b-green">наш шаблон</span></td><td>примечание в сделке + задача</td><td><span class="badge b-red">≈16 ч + оплата + ПДн</span></td></tr>
+          <tr class="dim"><td>Справочно: «Войси»</td><td class="num">8,33 ₽</td><td class="num">8 333 ₽</td><td class="num">83 333 ₽</td><td><span class="badge b-green">есть</span></td><td>примечание в сделке</td><td><span class="badge b-green">виджет</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 style="margin:36px 0 14px" class="reveal">Расходы в месяц по объёмам, ₽</h3>
+    <div class="table-scroll reveal">
+      <table>
+        <thead><tr><th>Объём звонков</th><th class="num">Текущее</th><th class="num">Вариант 1<small>тумблер</small></th><th class="num">Вариант 2<small>воркер</small></th><th class="num">Вариант 3<small>T-Bank</small></th><th class="num">Вариант 4<small>Yandex напрямую</small></th><th class="num">Вариант 5<small>Groq</small></th></tr></thead>
+        <tbody>
+          <tr><td>1 000 мин / мес</td><td class="num">650</td><td class="num">976</td><td class="num">666</td><td class="num">394</td><td class="num">622</td><td class="num">172</td></tr>
+          <tr><td>5 000 мин / мес</td><td class="num">3 252</td><td class="num">4 881</td><td class="num">3 331</td><td class="num">1 969</td><td class="num">3 109</td><td class="num">859</td></tr>
+          <tr><td>10 000 мин / мес</td><td class="num">6 504</td><td class="num">9 761</td><td class="num">6 661</td><td class="num">3 937</td><td class="num">6 217</td><td class="num">1 717</td></tr>
+          <tr class="hl"><td><strong>Факт компании: 271 мин, 76 звонков</strong></td><td class="num"><strong>176</strong></td><td class="num"><strong>264</strong></td><td class="num"><strong>180</strong></td><td class="num"><strong>107</strong></td><td class="num"><strong>168</strong></td><td class="num"><strong>46</strong></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 style="margin:36px 0 14px" class="reveal">Экономия относительно текущего решения на фактическом объёме</h3>
+    <div class="table-scroll reveal">
+      <table>
+        <thead><tr><th>Решение</th><th class="num">Расходы в месяц</th><th class="num">Расходы в год</th><th class="num">Экономия в месяц</th><th class="num">Экономия в год</th><th class="num">Экономия, %</th></tr></thead>
+        <tbody>
+          <tr><td>Текущее решение</td><td class="num">176 ₽</td><td class="num">2 112 ₽</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr>
+          <tr><td>Вариант 1 · тумблер</td><td class="num">264 ₽</td><td class="num">3 168 ₽</td><td class="num neg">−88 ₽</td><td class="num neg">−1 056 ₽</td><td class="num neg">−50%</td></tr>
+          <tr class="hl"><td>Вариант 2 · воркер поверх TXT</td><td class="num">180 ₽</td><td class="num">2 160 ₽</td><td class="num neg">−4 ₽</td><td class="num neg">−48 ₽</td><td class="num neg">−2%</td></tr>
+          <tr><td>Вариант 3 · T-Bank VoiceKit</td><td class="num">107 ₽</td><td class="num">1 284 ₽</td><td class="num pos">+69 ₽</td><td class="num pos">+828 ₽</td><td class="num pos">39%</td></tr>
+          <tr><td>Вариант 4 · Yandex напрямую</td><td class="num">168 ₽</td><td class="num">2 016 ₽</td><td class="num pos">+8 ₽</td><td class="num pos">+96 ₽</td><td class="num pos">5%</td></tr>
+          <tr><td>Вариант 5 · Groq</td><td class="num">46 ₽</td><td class="num">552 ₽</td><td class="num pos">+130 ₽</td><td class="num pos">+1 560 ₽</td><td class="num pos">74%</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout c-blue reveal" style="margin-top:16px">
+      <strong>Разница в стоимости — десятки рублей в месяц.</strong>
+      Формула «экономия = текущее − новое» на объёме 271 минуты даёт от −88 до +130 ₽. Менять решение ради этого экономически нецелесообразно. Варианты 1 и 2 не экономят, а добавляют функцию — их и нужно оценивать как покупку функции за 4–88 ₽ в месяц.
+    </div>
+  </div>
+</section>
+
+<section id="payback">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="kicker">7 · Внедрение и окупаемость</div>
+      <h2>Ни одна замена распознавания не окупается при текущем объёме</h2>
+      <p>Стоимость внедрения — оценка в часах × 2 500 ₽/час (условная ставка, подставьте свою). В неё входят разработка интеграции, подключение API, настройка вебхуков и CRM, тестирование. Миграции данных нет: старые звонки не пересчитываем. Серверная часть — существующий сервер neoved, отдельно не тарифицируется.</p>
+    </div>
+    <div class="table-scroll reveal">
+      <table>
+        <thead><tr><th>Решение</th><th class="num">Часы</th><th class="num">Внедрение</th><th class="num">Экономия / мес<small>факт 271 мин</small></th><th class="num">Окупаемость<small>факт</small></th><th class="num">Окупаемость<small>при 5 000 мин</small></th><th class="num">Окупаемость<small>при 10 000 мин</small></th></tr></thead>
+        <tbody>
+          <tr><td>Вариант 1 · тумблер</td><td class="num">0</td><td class="num">0 ₽</td><td class="num neg">−88 ₽</td><td class="num">нечего окупать</td><td class="num">—</td><td class="num">—</td></tr>
+          <tr class="hl"><td>Вариант 2 · воркер поверх TXT</td><td class="num">≈10</td><td class="num">≈25 000 ₽</td><td class="num neg">−4 ₽</td><td class="num">покупка функции</td><td class="num">—</td><td class="num">—</td></tr>
+          <tr><td>Вариант 3 · T-Bank VoiceKit</td><td class="num">≈20</td><td class="num">≈50 000 ₽</td><td class="num pos">+69 ₽</td><td class="num">≈60 лет</td><td class="num">39 мес</td><td class="num">19,5 мес</td></tr>
+          <tr><td>Вариант 4 · Yandex напрямую</td><td class="num">≈18</td><td class="num">≈45 000 ₽</td><td class="num pos">+8 ₽</td><td class="num">≈470 лет</td><td class="num">315 мес</td><td class="num">157 мес</td></tr>
+          <tr><td>Вариант 5 · Groq</td><td class="num">≈16</td><td class="num">≈40 000 ₽</td><td class="num pos">+130 ₽</td><td class="num">≈26 лет</td><td class="num">16,7 мес</td><td class="num">8,4 мес</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="bento-2" style="margin-top:16px">
+      <div class="card reveal">
+        <h3>Когда возвращаться к вопросу</h3>
+        <p style="color:var(--ink-2)">Порог, с которого замена распознавания начинает окупаться в разумные сроки, — <strong>5 000 минут в месяц</strong> (это 18 текущих объёмов или 8 пиковых майских). При 10 000 минутах T-Bank VoiceKit экономит ≈2 600 ₽ в месяц и окупается за полтора-два года; Groq — ≈4 800 ₽, но с оплатой и персональными данными вопрос всё равно придётся решать.</p>
+      </div>
+      <div class="card reveal">
+        <h3>Что делает воркер за свои 10 часов</h3>
+        <ul class="facts">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Новая интеграция amoCRM с правами <code>crm</code> + <code>files</code>, долгосрочный токен.</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Вебхук <code>note_contact</code>: ловим вложение «Перевод звонка в текст.txt», скачиваем через Drive API, находим сделку контакта тем же окном, что уже работает в amo-phone.</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Промпт под шаблон, JSON-ответ модели, примечание в сделку; если модель нашла дату следующего шага — задача ответственному.</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Порог 30 с, защита от повторов через файловое KV, лог решений <code>/debug</code>, деплой в тот же контейнер.</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="format">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="kicker">8 · Формат результата</div>
+      <h2>Примечание в сделке, которое пишет воркер</h2>
+      <p>Короткий итог — в ленту сделки, полная расшифровка остаётся файлом на контакте (её уже делает Телфин). Примечание создаётся через <code>POST /api/v4/leads/{id}/notes</code> типом <code>common</code>, задача — через <code>POST /api/v4/tasks</code> с датой из блока «Следующий шаг».</p>
+    </div>
+    <div class="bento-2">
+      <div class="card reveal">
+        <div class="note-example">
+          <div class="hd">Примечание · сделка «Входящий +7 920 …» · 15.09.2026 14:31 · amo-call-summary</div>
+          <h4>Итог звонка</h4>
+          <p>Клиент импортирует оборудование из Китая. Средний платёж — 50 000 USD. Сейчас использует платёжного агента, комиссия 3%. Интересует снижение комиссии и возможность оплаты в CNY.</p>
+          <h4>Договорённости</h4>
+          <ul><li>отправить условия;</li><li>рассчитать платёж на 50 000 USD;</li><li>связаться 15 сентября.</li></ul>
+          <h4>Следующий шаг</h4>
+          <p>Менеджеру позвонить клиенту 15 сентября. <span class="badge b-blue">→ задача создана</span></p>
+          <p style="color:var(--ink-4); font-size:13px; margin-top:8px">Звонок 3:47, исходящий. Полная расшифровка — файл «Перевод звонка в текст.txt» в карточке контакта.</p>
+        </div>
+      </div>
+      <div class="card reveal">
+        <h3>Правила, которые закладываем в промпт</h3>
+        <ul class="facts">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Только факты из разговора; суммы, валюты, сроки — как прозвучали. Нет договорённостей — так и писать, не выдумывать.</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Лимит 1 200 символов: примечание читается с телефона. Всё, что длиннее, — в файле.</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Дата следующего шага — отдельным полем JSON в формате ISO, чтобы из неё получалась задача; относительные «через неделю» модель считает от даты звонка.</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Расшифровка Телфина размечена по говорящим («сотрудник / клиент») — модель получает диалог, а не сплошной текст, поэтому «кто что обещал» не путается.</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="answers">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="kicker">Итог задачи</div>
+      <h2>Ответы по пунктам</h2>
+    </div>
+    <div class="card reveal">
+      <div class="q"><strong>1. Сколько стоит текущее решение</strong><span>Переменная часть: 0,65 ₽ за минуту, 176 ₽ за 11.08–11.09 (182 ₽ с округлением каждого звонка до 15 с), ≈1 600 ₽ в год при среднем объёме 200 мин/мес. Плюс абонентка Телфин.Офис и интеграции amoCRM по счёту — она одинакова во всех вариантах.</span></div>
+      <div class="q"><strong>2. Фактический месячный объём</strong><span>271 минута и 101 звонок за последний месяц; 154 мин/мес в среднем за три месяца; 202 мин/мес за год; пик — 633 мин в мае 2026 во время обзвона.</span></div>
+      <div class="q"><strong>3. Убрать TXT и выводить результат комментарием</strong><span>Да, двумя способами: тумблер «Загружать краткий пересказ звонка» в интеграции Телфина (формат Телфина, на контакте) или свой воркер (наш шаблон, в сделке, с задачей). TXT можно оставить архивом или выключить.</span></div>
+      <div class="q"><strong>4. Самое дешёвое решение</strong><span>По минуте — Groq Whisper (0,16 ₽) и T-Bank VoiceKit (0,38 ₽). На фактическом объёме разница с текущим — 69–130 ₽ в месяц, внедрение не окупается.</span></div>
+      <div class="q"><strong>5. Оптимальное по цене / качеству / сложности</strong><span>Вариант 2: воркер поверх готовой расшифровки Телфина. Ничего не ломаем, качество распознавания то же, формат наш, +4–22 ₽ в месяц, ≈10 часов работы.</span></div>
+      <div class="q"><strong>6. Экономия после перехода</strong><span>Нулевая: варианты 1 и 2 — это добавленная функция за 4–88 ₽ в месяц (48–1 056 ₽ в год). Экономить в этой схеме нечего — вся транскрибация стоит меньше одного обеда.</span></div>
+      <div class="q"><strong>7. Стоимость внедрения</strong><span>Вариант 1 — 0 ₽. Вариант 2 — ≈10 часов, при ставке 2 500 ₽/час ≈25 000 ₽. Замена распознавания — 40 000–50 000 ₽ и не нужна.</span></div>
+      <div class="q"><strong>8. Срок окупаемости</strong><span>Не применим: новые расходы выше текущих на десятки рублей. Окупаемость замены STT наступает только при объёмах от 5 000 минут в месяц (T-Bank — 39 месяцев при 5 000, 19,5 при 10 000).</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="sources">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="kicker">Источники</div>
+      <h2>Откуда цифры</h2>
+    </div>
+    <div class="card sources reveal">
+      <ol>
+        <li>amoCRM API v4 аккаунта neoved: <code>GET /api/v4/{contacts,leads}/notes?filter[note_type]=call_in|call_out|attachment</code>, 2 958 примечаний, дедупликация по <code>params.uniq</code>. Пример сделки: <a href="https://neoved.amocrm.ru/leads/detail/37930935" target="_blank" rel="noopener">37930935</a>, контакт 51882839.</li>
+        <li>Телфин, «Перевод звонков в текст»: цена 64 коп./мин, условие «Телфин.Офис», FAQ про оплату по тарифам Яндекса и однократное распознавание — <a href="https://www.telphin.ru/products/virtual-atc/basic-options/transfer-calls-to-text" target="_blank" rel="noopener">telphin.ru</a>.</li>
+        <li>Телфин, инструкция по интеграции с amoCRM (PDF, стр. 35–37): поручение принципала на Yandex Cloud AI Studio, тумблеры «перевод в текст» и «краткий пересказ», порог 30 с — <a href="https://www.telphin.ru/static/docs/support-pdf/amocrm_telphin_office.pdf" target="_blank" rel="noopener">amocrm_telphin_office.pdf</a>.</li>
+        <li>Телфин, тарифы АТС и хранилища записей — <a href="https://www.telphin.ru/products/virtual-atc/tariffs" target="_blank" rel="noopener">telphin.ru/products/virtual-atc/tariffs</a>.</li>
+        <li>Yandex AI Studio, тарификация SpeechKit: потоковое и синхронное 0,1626 ₽ / 15 с, асинхронное 0,1515 ₽ / 15 с, отложенное 0,0381 ₽ / 15 с — <a href="https://aistudio.yandex.ru/ru/docs/speechkit/pricing" target="_blank" rel="noopener">aistudio.yandex.ru</a>.</li>
+        <li>Yandex AI Studio, тарификация моделей: YandexGPT Pro 5.1 — 0,8 ₽, Lite — 0,2 ₽ за 1 000 токенов — <a href="https://aistudio.yandex.ru/ru/docs/ai-studio/pricing" target="_blank" rel="noopener">aistudio.yandex.ru</a>.</li>
+        <li>T-Bank VoiceKit: онлайн-файл 0,63 коп./с, отложенная 0,25 коп./с, поток 1 коп./с — <a href="https://developer.tbank.ru/voicekit/intro/tariff" target="_blank" rel="noopener">developer.tbank.ru</a>.</li>
+        <li>SaluteSpeech для юрлиц: 0,01 ₽/с, минимум 15 000 ₽/мес, ограничения с 15.07.2026 — <a href="https://developers.sber.ru/docs/ru/salutespeech/tariffs/legal-tariffs" target="_blank" rel="noopener">developers.sber.ru</a>.</li>
+        <li>Groq, speech-to-text: whisper-large-v3 $0,111/ч, turbo $0,04/ч, моно-даунсэмплинг — <a href="https://console.groq.com/docs/speech-to-text" target="_blank" rel="noopener">console.groq.com</a>.</li>
+        <li>OpenAI, pricing: gpt-4o-mini-transcribe $0,003/мин, gpt-4o-transcribe $0,006/мин — <a href="https://developers.openai.com/api/docs/pricing" target="_blank" rel="noopener">developers.openai.com</a>.</li>
+        <li>DeepSeek, pricing: deepseek-flash $0,30 / $1,20 за 1 млн токенов в пик — <a href="https://api-docs.deepseek.com/quick_start/pricing" target="_blank" rel="noopener">api-docs.deepseek.com</a>.</li>
+        <li>«Войси», цены для юрлиц: 500 ₽ за час записи, предоплата от 5 000 ₽ — <a href="https://voicee.ru/price" target="_blank" rel="noopener">voicee.ru/price</a>.</li>
+        <li>Курс ЦБ РФ на 15.09.2026: 84,3363 ₽/$ — <a href="https://www.cbr.ru/scripts/XML_daily.asp" target="_blank" rel="noopener">cbr.ru</a>.</li>
+        <li>amoCRM, API: примечания <a href="https://www.amocrm.ru/developers/content/crm_platform/events-and-notes" target="_blank" rel="noopener">events-and-notes</a>, задачи <a href="https://www.amocrm.ru/developers/content/crm_platform/tasks-api" target="_blank" rel="noopener">tasks-api</a>, файлы <a href="https://www.amocrm.ru/developers/content/files/files-api" target="_blank" rel="noopener">files-api</a>, вебхуки <a href="https://www.amocrm.ru/developers/content/crm_platform/webhooks-api" target="_blank" rel="noopener">webhooks-api</a>.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">Подготовлено 15 сентября 2026. Цены зарубежных сервисов пересчитаны по курсу ЦБ на дату; тарифы Яндекса, Т-Банка и Сбера — с НДС, как указано на их страницах. Модель YandexGPT, которую Телфин использует для пересказа, в документации не названа — взята Pro 5.1 как верхняя оценка.</div>
+</footer>
+
+<script type="module">
+  import { animate, inView } from "https://cdn.jsdelivr.net/npm/motion@11/+esm";
+
+  const root = document.documentElement;
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  root.classList.remove('js-motion');
+  if (!reduced) {
+    document.querySelectorAll('.reveal').forEach((el) => { el.style.opacity = '0'; });
+
+    inView('.reveal', (el) => {
+      animate(el, { opacity: [0, 1], transform: ['translateY(18px)', 'translateY(0px)'] },
+        { duration: 0.5, easing: [0.2, 0.7, 0.3, 1] });
+      return () => {};
+    }, { margin: '0px 0px -10% 0px' });
+
+    document.querySelectorAll('.bento-2, .bento-3, .kpi').forEach((grid) => {
+      inView(grid, () => {
+        const kids = grid.querySelectorAll(':scope > .reveal');
+        kids.forEach((kid, i) => {
+          animate(kid, { opacity: [0, 1], transform: ['translateY(18px)', 'translateY(0px)'] },
+            { duration: 0.45, delay: i * 0.06, easing: [0.2, 0.7, 0.3, 1] });
+        });
+        return () => {};
+      }, { margin: '0px 0px -8% 0px' });
+    });
+
+    document.querySelectorAll('.bars i').forEach((bar) => {
+      const h = bar.style.height;
+      bar.style.transform = 'scaleY(0)';
+      bar.style.transformOrigin = 'bottom';
+      inView(bar, () => {
+        animate(bar, { transform: ['scaleY(0)', 'scaleY(1)'] }, { duration: 0.6, easing: [0.2, 0.7, 0.3, 1] });
+        return () => {};
+      });
+    });
+
+    setTimeout(() => {
+      document.querySelectorAll('.reveal').forEach((el) => {
+        if (getComputedStyle(el).opacity === '0') el.style.opacity = '1';
+      });
+      document.querySelectorAll('.bars i').forEach((bar) => { bar.style.transform = ''; });
+    }, 3000);
+  }
+</script>
+</body>
+</html>
