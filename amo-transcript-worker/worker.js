@@ -41,6 +41,10 @@
  *                     оба права). amoCRM выдаёт права поштучно, и отдельный
  *                     токен «только файлы» — нормальный расклад.
  *   HOOK_SECRET     — произвольная строка, она же часть URL вебхука
+ *
+ * После записи текста файл удаляется (DELETE_FILE): дублировать расшифровку
+ * в хранилище незачем. Удаление идёт только по факту успешной записи, а сам
+ * файл попадает в корзину amoCRM — не в небытие.
  * Остальное — см. DEFAULTS.
  * KV binding: S (дедупликация + кольцевой лог для /debug).
  */
@@ -63,6 +67,11 @@ const DEFAULTS = {
   CALL_WINDOW_SEC: '900',
   // Шапка с направлением, длительностью и номером перед текстом.
   HEADER: 'true',
+  // Удалять файл после того, как текст записан в примечание: он больше не
+  // нужен, а место в хранилище аккаунта занимает. Удаляется только после
+  // успешной записи — если запись не прошла, исключение случится раньше.
+  // Файл уходит в корзину amoCRM, откуда его можно вернуть (restore).
+  DELETE_FILE: 'true',
 };
 
 const ENTITY_BY_TYPE = { 1: 'contacts', 2: 'leads' };
@@ -195,7 +204,48 @@ async function onAttachment({ entity, noteId }, env, cfg) {
   }
 
   if (env.S) await env.S.put(doneKey, '1', { expirationTtl: 2592000 });
-  return `записано в ${written.join(', ')}: ${parts.length} прим., ${text.length} симв.`;
+
+  let removed = '';
+  if (cfg.DELETE_FILE === 'true') {
+    try {
+      await removeFile(entity, note.entity_id, uuid, env);
+      removed = ', файл удалён';
+    } catch (e) {
+      // Текст уже в сделке — ради неудавшейся уборки задачу не заваливаем.
+      removed = `, файл остался (${String(e.message || e).slice(0, 120)})`;
+    }
+  }
+
+  return `записано в ${written.join(', ')}: ${parts.length} прим., ${text.length} симв.${removed}`;
+}
+
+/**
+ * Убираем файл: сначала открепляем от карточки, потом удаляем из хранилища.
+ * Порядок важен — открепление у уже удалённого файла смысла не имеет.
+ * Оба метода требуют scope files (удаление — ещё и «Удаление файлов»).
+ * https://www.amocrm.ru/developers/content/files/files-api
+ *
+ * Примечание-вложение в ленте останется: удаления примечаний в API v4 нет
+ * (DELETE /api/v4/{entity}/notes → 405).
+ */
+async function removeFile(entity, entityId, uuid, env) {
+  const token = env.AMO_FILES_TOKEN || env.AMO_TOKEN;
+
+  await amo(`/api/v4/${entity}/${entityId}/files`, env, {
+    method: 'DELETE',
+    body: [{ file_uuid: uuid }],
+    token,
+  });
+
+  const drive = await driveUrl(env);
+  const res = await fetch(`${drive}/v1.0/files`, {
+    method: 'DELETE',
+    headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
+    body: JSON.stringify([{ uuid }]),
+  });
+  if (!res.ok) {
+    throw new Error(`удаление ${res.status}: ${(await res.text()).slice(0, 200)}`);
+  }
 }
 
 /** Куда класть текст: сделка контакта, сам контакт или и то и другое. */
@@ -317,7 +367,9 @@ async function amo(path, env, opts = {}) {
   const res = await fetch(`https://${env.AMO_SUBDOMAIN}.amocrm.ru${path}`, {
     method: opts.method || 'GET',
     headers: {
-      Authorization: `Bearer ${env.AMO_TOKEN}`,
+      // Методы файлов живут на том же домене, но требуют токен с правом
+      // на файлы — его передаёт вызывающий.
+      Authorization: `Bearer ${opts.token || env.AMO_TOKEN}`,
       'Content-Type': 'application/json',
     },
     body: opts.body ? JSON.stringify(opts.body) : undefined,
