@@ -34,9 +34,13 @@
  * API — там он приходит строкой `attachment`.
  *
  * Секреты (.env рядом с воркером):
- *   AMO_SUBDOMAIN — поддомен аккаунта без .amocrm.ru
- *   AMO_TOKEN     — долгосрочный токен интеграции со scope crm + файлы
- *   HOOK_SECRET   — произвольная строка, она же часть URL вебхука
+ *   AMO_SUBDOMAIN   — поддомен аккаунта без .amocrm.ru
+ *   AMO_TOKEN       — долгосрочный токен со scope crm: примечания, сделки
+ *   AMO_FILES_TOKEN — токен со scope files: только скачивание расшифровки.
+ *                     Пусто — для файлов берётся AMO_TOKEN (если у него есть
+ *                     оба права). amoCRM выдаёт права поштучно, и отдельный
+ *                     токен «только файлы» — нормальный расклад.
+ *   HOOK_SECRET     — произвольная строка, она же часть URL вебхука
  * Остальное — см. DEFAULTS.
  * KV binding: S (дедупликация + кольцевой лог для /debug).
  */
@@ -286,14 +290,15 @@ async function oneNote(entity, noteId, env) {
  * поэтому берётся из настроек аккаунта и кешируется на сутки.
  */
 async function downloadFile(uuid, env) {
+  const token = env.AMO_FILES_TOKEN || env.AMO_TOKEN;
   const drive = await driveUrl(env);
   const meta = await fetchJson(`${drive}/v1.0/files/${uuid}`, {
-    headers: { Authorization: `Bearer ${env.AMO_TOKEN}` },
+    headers: { Authorization: `Bearer ${token}` },
   });
   const href = meta?._links?.download?.href;
   if (!href) throw new Error(`нет ссылки на скачивание: ${JSON.stringify(meta).slice(0, 200)}`);
 
-  const res = await fetch(href, { headers: { Authorization: `Bearer ${env.AMO_TOKEN}` } });
+  const res = await fetch(href, { headers: { Authorization: `Bearer ${token}` } });
   if (!res.ok) throw new Error(`скачивание ${res.status}: ${(await res.text()).slice(0, 200)}`);
   return await res.text();
 }
