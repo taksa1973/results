@@ -67,6 +67,15 @@ const DEFAULTS = {
   CALL_WINDOW_SEC: '900',
   // Шапка с направлением, длительностью и номером перед текстом.
   HEADER: 'true',
+  // Дата примечания: file — на секунду позже файла, чтобы в ленте текст
+  // стоял сразу за ним, даже если воркер сработал с задержкой или разбирает
+  // историю; now — текущее время.
+  NOTE_AT: 'file',
+  // Сделку ищем среди созданных не позже, чем файл + столько секунд. Сделка
+  // «Входящий +7…» появляется в начале разговора, файл — в конце, но менеджер
+  // мог завести сделку руками уже после. Сделки, созданные сильно позже
+  // звонка, — другое обращение, туда старый разговор не кладём.
+  LEAD_GRACE_SEC: '300',
   // Удалять файл после того, как текст записан в примечание: он больше не
   // нужен, а место в хранилище аккаунта занимает. Удаляется только после
   // успешной записи — если запись не прошла, исключение случится раньше.
@@ -98,8 +107,10 @@ export default {
       const noteId = Number(url.searchParams.get('note_id'));
       const entity = url.searchParams.get('entity') || 'contacts';
       if (!noteId) return json({ ok: false, error: 'нужен note_id' }, 400);
+      // dry=1 — только план: куда и с какой датой легло бы, без записи и удаления.
+      const dry = url.searchParams.get('dry') === '1';
       try {
-        const verdict = await onAttachment({ entity, noteId }, env, cfg);
+        const verdict = await onAttachment({ entity, noteId, dry }, env, cfg);
         return json({ ok: true, verdict });
       } catch (e) {
         return json({ ok: false, error: String(e).slice(0, 500) }, 500);
@@ -156,7 +167,7 @@ async function handle(raw, env, cfg) {
 }
 
 /** Пришло примечание. Расшифровка ли это и что с ней делать. */
-async function onAttachment({ entity, noteId }, env, cfg) {
+async function onAttachment({ entity, noteId, dry = false }, env, cfg) {
   // Тип берём из API: в хуке он числом, и кода вложения мы не знаем.
   const note = await oneNote(entity, noteId, env);
   if (!note) return 'скип: примечание не нашлось в API';
@@ -175,29 +186,45 @@ async function onAttachment({ entity, noteId }, env, cfg) {
   if (!uuid) return 'скип: у вложения нет file_uuid';
 
   const doneKey = `done:${uuid}`;
-  if (env.S && (await env.S.get(doneKey))) return 'скип: этот файл уже разобран';
+  if (!dry && env.S && (await env.S.get(doneKey))) return 'скип: этот файл уже разобран';
 
   // Звонок нужен для шапки и для отсечки коротких разговоров.
   const call = await findCall(entity, note.entity_id, note.created_at, env, cfg);
   const minDuration = Number(cfg.MIN_DURATION_SEC) || 0;
   if (call && minDuration && Number(call.params?.duration || 0) < minDuration) {
-    if (env.S) await env.S.put(doneKey, '1', { expirationTtl: 2592000 });
+    if (!dry && env.S) await env.S.put(doneKey, '1', { expirationTtl: 2592000 });
     return `скип: звонок ${call.params?.duration} с, короче ${minDuration} с`;
   }
 
   const text = (await downloadFile(uuid, env)).trim();
   if (!text) return 'скип: файл пустой';
 
-  const targets = await resolveTargets(entity, note.entity_id, env, cfg);
+  const fileAt = Number(note.created_at) || nowSec();
+  const targets = await resolveTargets(entity, note.entity_id, fileAt, env, cfg);
   if (!targets.length) return 'скип: некуда писать — у контакта нет сделок';
 
-  const parts = splitText(text, header(call, cfg), Number(cfg.MAX_NOTE_CHARS) || 20000);
+  // Примечание встаёт на секунду позже файла — прямо за ним в ленте.
+  const noteAt = cfg.NOTE_AT === 'now' ? nowSec() : fileAt + 1;
+  const head = header(call, cfg);
+  const parts = splitText(text, head, Number(cfg.MAX_NOTE_CHARS) || 20000);
+
+  if (dry) {
+    return `план: ${targets.map((t) => `${t.entity}/${t.id}`).join(', ')} · дата ${new Date(noteAt * 1000).toISOString()} · ${parts.length} прим., ${text.length} симв. · ${head || 'без шапки'}`;
+  }
+
   const written = [];
   for (const { entity: target, id } of targets) {
-    for (const part of parts) {
+    // Страховка от повторов помимо KV: тот же текст в той же карточке
+    // (например, когда историю разбирали ещё до появления отметок).
+    if (await alreadyThere(target, id, parts[0], env)) {
+      written.push(`${target}/${id} (уже было)`);
+      continue;
+    }
+    for (let i = 0; i < parts.length; i++) {
       await amo(`/api/v4/${target}/${id}/notes`, env, {
         method: 'POST',
-        body: [{ note_type: 'common', params: { text: part } }],
+        // Части идут с шагом в секунду, чтобы порядок в ленте совпадал с номером.
+        body: [{ note_type: 'common', created_at: noteAt + i, params: { text: parts[i] } }],
       });
     }
     written.push(`${target}/${id}`);
@@ -249,7 +276,7 @@ async function removeFile(entity, entityId, uuid, env) {
 }
 
 /** Куда класть текст: сделка контакта, сам контакт или и то и другое. */
-async function resolveTargets(entity, entityId, env, cfg) {
+async function resolveTargets(entity, entityId, fileAt, env, cfg) {
   const want = String(cfg.TARGET || 'lead').toLowerCase();
 
   if (entity === 'leads') return [{ entity: 'leads', id: entityId }];
@@ -258,17 +285,45 @@ async function resolveTargets(entity, entityId, env, cfg) {
   if (want === 'contact' || want === 'both') out.push({ entity: 'contacts', id: entityId });
 
   if (want === 'lead' || want === 'both') {
-    // Последняя сделка контакта: звонок относится к текущему обращению,
-    // а не ко всей его истории.
-    const contact = await amo(`/api/v4/contacts/${entityId}?with=leads`, env);
-    const leads = (contact?._embedded?.leads || []).map((l) => l.id).filter(Boolean);
-    const leadId = leads.length ? leads[leads.length - 1] : null;
+    const leadId = await leadForCall(entityId, fileAt, env, cfg);
     if (leadId) out.push({ entity: 'leads', id: leadId });
     else if (cfg.FALLBACK_TO_CONTACT === 'true' && !out.length) {
       out.push({ entity: 'contacts', id: entityId });
     }
   }
   return out;
+}
+
+/**
+ * Сделка, к которой относится звонок: последняя из существовавших на момент
+ * файла (с запасом LEAD_GRACE_SEC на сделку, заведённую сразу после
+ * разговора). Для живого звонка это просто последняя сделка контакта; для
+ * истории — та, что была текущей тогда, а не заведённая неделю спустя.
+ * Если все сделки моложе звонка — берём самую раннюю: скорее всего, её
+ * завели по итогам этого разговора.
+ */
+async function leadForCall(contactId, fileAt, env, cfg) {
+  const contact = await amo(`/api/v4/contacts/${contactId}?with=leads`, env);
+  const ids = (contact?._embedded?.leads || []).map((l) => l.id).filter(Boolean);
+  if (!ids.length) return null;
+
+  const query = ids.map((id) => `filter[id][]=${id}`).join('&');
+  const res = await amo(`/api/v4/leads?${query}&limit=250`, env);
+  const leads = (res?._embedded?.leads || [])
+    .map((l) => ({ id: l.id, at: Number(l.created_at) || 0 }))
+    .sort((a, b) => a.at - b.at);
+  if (!leads.length) return ids[ids.length - 1];
+
+  const grace = Number(cfg.LEAD_GRACE_SEC) || 0;
+  const before = leads.filter((l) => l.at <= fileAt + grace);
+  return before.length ? before[before.length - 1].id : leads[0].id;
+}
+
+/** Есть ли уже в карточке примечание с этим текстом. */
+async function alreadyThere(entity, id, firstPart, env) {
+  const res = await amo(`/api/v4/${entity}/${id}/notes?filter[note_type]=common&limit=250`, env);
+  const probe = firstPart.slice(0, 300);
+  return (res?._embedded?.notes || []).some((n) => String(n.params?.text || '').startsWith(probe));
 }
 
 /** Примечание-звонок рядом с файлом: направление, длительность, номер. */
@@ -421,6 +476,7 @@ async function log(env, entry) {
   await writeLog(env, entry);
 }
 
+const nowSec = () => Math.floor(Date.now() / 1000);
 const values = (obj) => (obj && typeof obj === 'object' ? Object.values(obj) : []);
 const json = (obj, status = 200) => new Response(JSON.stringify(obj), {
   status,
