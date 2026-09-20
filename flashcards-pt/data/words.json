@@ -14441,5 +14441,579 @@
   "sources": [
    "extra11"
   ]
+ },
+ {
+  "id": 707,
+  "pt": "time",
+  "en": "team",
+  "ru": "команда (спортивная, рабочая)",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "a sports team huddle seen from directly above, six hands stacked together in the centre of the circle",
+  "image": "cartoes-img/команда — time.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra12"
+  ]
+ },
+ {
+  "id": 708,
+  "pt": "pesca",
+  "en": "fishing",
+  "ru": "рыбалка",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "an angler standing on a misty lake shore at dawn casting a long fishing rod, the line arcing over the water",
+  "image": "cartoes-img/рыбалка — pesca.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra12"
+  ],
+  "fix": "pesco → pesca (pesco = «я рыбачу»)"
+ },
+ {
+  "id": 709,
+  "pt": "banco",
+  "en": "bank; bench",
+  "ru": "банк; скамейка",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "the massive round steel door of a bank vault standing half open, thick locking bolts and dial visible",
+  "image": "cartoes-img/банк, скамейка — banco.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra12"
+  ]
+ },
+ {
+  "id": 710,
+  "pt": "estacionamento",
+  "en": "parking, car park",
+  "ru": "парковка, стоянка",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "the interior of a multi-storey car park with rows of parked cars and a curving concrete ramp leading up",
+  "image": "cartoes-img/парковка, стоянка — estacionamento.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra12"
+  ]
+ },
+ {
+  "id": 711,
+  "pt": "segredinho",
+  "en": "little secret",
+  "ru": "секретик",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "a small child whispering into another childs ear with a hand cupped around the mouth, both giggling",
+  "image": "cartoes-img/секретик — segredinho.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra12"
+  ]
+ },
+ {
+  "id": 712,
+  "pt": "ação",
+  "en": "action; share (stock)",
+  "ru": "действие; акция (ценная бумага)",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "a film clapperboard with blank slate being snapped shut in front of a movie camera on set, the take starting",
+  "image": "cartoes-img/действие, акция — ação.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra12"
+  ]
+ },
+ {
+  "id": 713,
+  "pt": "lista",
+  "en": "list",
+  "ru": "список",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "a clipboard holding a long sheet with a neat column of bullet dots and short horizontal lines standing in for words, no letters anywhere",
+  "image": "cartoes-img/список — lista.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra12"
+  ]
+ },
+ {
+  "id": 714,
+  "pt": "mistura",
+  "en": "mix, mixture",
+  "ru": "смесь",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "a bowl of trail mix seen from above, nuts, seeds, raisins and dried fruit all tossed together",
+  "image": "cartoes-img/смесь — mistura.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra12"
+  ]
+ },
+ {
+  "id": 715,
+  "pt": "refém",
+  "en": "hostage",
+  "ru": "заложник",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "a person sitting on a chair in a bare room with hands tied behind the back and a cloth blindfold over the eyes",
+  "image": "cartoes-img/заложник — refém.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra12"
+  ]
+ },
+ {
+  "id": 716,
+  "pt": "corrida",
+  "en": "ride (taxi); race",
+  "ru": "поездка (на такси); гонка, бег",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "the view from the back seat of a car mid-journey, the driver at the wheel and a city road ahead through the windscreen",
+  "image": "cartoes-img/поездка — corrida.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra12"
+  ]
+ },
+ {
+  "id": 717,
+  "pt": "voo",
+  "en": "flight",
+  "ru": "рейс, полёт",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "the view through an aeroplane window seat of the wing above a sea of white clouds in bright sunlight",
+  "image": "cartoes-img/рейс, полёт — voo.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra12"
+  ]
+ },
+ {
+  "id": 718,
+  "pt": "ensinam",
+  "en": "they teach, you teach",
+  "ru": "(они, вы) учат, обучают (от ensinar)",
+  "pos": "verbs",
+  "examples": [],
+  "imgQuery": "a parent kneeling down teaching a small child to tie shoelaces, guiding the childs hands on the laces",
+  "image": "cartoes-img/— ensinam.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra12"
+  ]
+ },
+ {
+  "id": 719,
+  "pt": "preencha",
+  "en": "fill in",
+  "ru": "заполните (бланк) (от preencher)",
+  "pos": "verbs",
+  "examples": [],
+  "imgQuery": "a hand holding a pen filling in a printed paper form lying on a desk, several labelled fields with empty lines, the pen writing into one of the fields, close-up from above",
+  "image": "cartoes-img/заполните — preencha.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra12"
+  ]
+ },
+ {
+  "id": 720,
+  "pt": "mover",
+  "en": "to move",
+  "ru": "двигать, перемещать",
+  "pos": "verbs",
+  "examples": [],
+  "imgQuery": "two people pushing a heavy wooden wardrobe across a room floor, the furniture sliding on a blanket",
+  "image": "cartoes-img/двигать, перемещать — mover.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra12"
+  ]
+ },
+ {
+  "id": 721,
+  "pt": "chover",
+  "en": "to rain",
+  "ru": "идти (о дожде)",
+  "pos": "verbs",
+  "examples": [],
+  "imgQuery": "a car windscreen in heavy rain seen from inside, wipers mid-sweep and water streaming down the glass",
+  "image": "cartoes-img/идти — chover.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra12"
+  ]
+ },
+ {
+  "id": 722,
+  "pt": "tiver",
+  "en": "if there is / if you have",
+  "ru": "если будет; если у тебя будет (от ter)",
+  "pos": "verbs",
+  "examples": [],
+  "imgQuery": "a ceramic piggy bank on a table with a small toy model bicycle standing beside it, saving up in case the money comes",
+  "image": "cartoes-img/если будет, если у тебя будет — tiver.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra12"
+  ],
+  "note": "futuro do subjuntivo от ter: se tiver tempo — если будет время"
+ },
+ {
+  "id": 723,
+  "pt": "aproveite",
+  "en": "enjoy, make the most of it",
+  "ru": "наслаждайтесь; пользуйтесь (случаем)",
+  "pos": "verbs",
+  "examples": [],
+  "imgQuery": "a person lying back in a hammock strung between two palm trees, eyes closed, hands behind the head",
+  "image": "cartoes-img/наслаждайтесь, пользуйтесь — aproveite.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra12"
+  ]
+ },
+ {
+  "id": 724,
+  "pt": "quiser",
+  "en": "if you want",
+  "ru": "если захочешь (от querer)",
+  "pos": "verbs",
+  "examples": [],
+  "imgQuery": "a host standing beside an open front door stepping aside with a welcoming sweep of the arm, inviting the viewer in",
+  "image": "cartoes-img/если захочешь — quiser.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra12"
+  ],
+  "note": "futuro do subjuntivo от querer: se quiser — если хочешь"
+ },
+ {
+  "id": 725,
+  "pt": "atirando",
+  "en": "shooting",
+  "ru": "стреляя, стреляющий (от atirar)",
+  "pos": "verbs",
+  "examples": [],
+  "imgQuery": "a person at an indoor shooting range firing a pistol at a paper target, ear defenders on, a spent casing in the air",
+  "image": "cartoes-img/стреляя, стреляющий — atirando.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra12"
+  ]
+ },
+ {
+  "id": 726,
+  "pt": "velozes",
+  "en": "fast (plural)",
+  "ru": "быстрые (мн. ч. от veloz)",
+  "pos": "adjectives",
+  "examples": [],
+  "imgQuery": "several racing cars streaking past on a circuit, bodies blurred by speed against a sharp background",
+  "image": "cartoes-img/быстрые — velozes.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra12"
+  ]
+ },
+ {
+  "id": 727,
+  "pt": "incrível",
+  "en": "incredible",
+  "ru": "невероятный",
+  "pos": "adjectives",
+  "examples": [],
+  "imgQuery": "vivid green curtains of the northern lights rippling across a night sky over a snowy landscape",
+  "image": "cartoes-img/невероятный — incrível.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra12"
+  ]
+ },
+ {
+  "id": 728,
+  "pt": "viciantes",
+  "en": "addictive (plural)",
+  "ru": "затягивающие, вызывающие зависимость",
+  "pos": "adjectives",
+  "examples": [],
+  "imgQuery": "a hand reaching yet again into an almost empty bowl of crisps on a sofa, crumbs everywhere, unable to stop",
+  "image": "cartoes-img/затягивающие, вызывающие зависимость — viciantes.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra12"
+  ]
+ },
+ {
+  "id": 729,
+  "pt": "levezinho",
+  "en": "nice and light",
+  "ru": "лёгонький (уменьш. от leve)",
+  "pos": "adjectives",
+  "examples": [],
+  "imgQuery": "a single dandelion seed with its fluffy parachute drifting in the air, macro shot against a soft background",
+  "image": "cartoes-img/лёгонький — levezinho.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra12"
+  ]
+ },
+ {
+  "id": 730,
+  "pt": "feito",
+  "en": "done, made",
+  "ru": "сделанный, готовый; сделано",
+  "pos": "adjectives",
+  "examples": [],
+  "imgQuery": "a finished hand-knitted scarf folded neatly beside the knitting needles and an empty yarn spool, the work complete",
+  "image": "cartoes-img/сделанный, готовый, сделано — feito.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra12"
+  ]
+ },
+ {
+  "id": 731,
+  "pt": "sozinho",
+  "en": "alone",
+  "ru": "один, в одиночестве",
+  "pos": "adjectives",
+  "examples": [],
+  "imgQuery": "one person sitting alone on a swing in an empty playground at dusk, all the other swings still",
+  "image": "cartoes-img/один, в одиночестве — sozinho.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra12"
+  ]
+ },
+ {
+  "id": 732,
+  "pt": "provavelmente",
+  "en": "probably",
+  "ru": "вероятно",
+  "pos": "adverbs",
+  "examples": [],
+  "imgQuery": "a tall wobbly tower of stacked cardboard boxes leaning far to one side, about to topple over",
+  "image": "cartoes-img/вероятно — provavelmente.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra12"
+  ]
+ },
+ {
+  "id": 733,
+  "pt": "até logo",
+  "en": "see you soon",
+  "ru": "до скорого",
+  "pos": "phrases",
+  "examples": [],
+  "imgQuery": "a person walking out through a garden gate giving a quick backward wave over the shoulder",
+  "image": "cartoes-img/до скорого — até logo.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra12"
+  ],
+  "fix": "ate logo → até logo"
+ },
+ {
+  "id": 734,
+  "pt": "vale a pena",
+  "en": "worth it",
+  "ru": "стоит того, оно того стоит",
+  "pos": "phrases",
+  "examples": [],
+  "imgQuery": "a hiker sitting exhausted but smiling on a summit rock with boots off, gazing out at a vast valley view below",
+  "image": "cartoes-img/стоит того, оно того стоит — vale a pena.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra12"
+  ]
+ },
+ {
+  "id": 735,
+  "pt": "tá?",
+  "en": "okay?",
+  "ru": "ладно?, окей? (сокр. от está)",
+  "pos": "phrases",
+  "examples": [],
+  "imgQuery": "two people hooking their little fingers together in a pinky promise, sealing an agreement, close-up on the hands",
+  "image": "cartoes-img/ладно, окей — tá.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra12"
+  ]
+ },
+ {
+  "id": 736,
+  "pt": "numa",
+  "en": "in a",
+  "ru": "в одной, в какой-то (em + uma)",
+  "pos": "function words",
+  "examples": [],
+  "imgQuery": "a row of four identical wooden birdhouses on a fence, a bright red bird clearly sitting in the entrance hole of one of them, the other three holes empty, close-up",
+  "image": "cartoes-img/в одной, в какой-то — numa.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra12"
+  ]
  }
 ]
