@@ -328,7 +328,8 @@ const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({'&':'&amp;','<':'
 function fmtDate(iso){
   if (!iso) return '—';
   const d = new Date(iso);
-  return d.toLocaleString('ru-RU', {day:'2-digit', month:'short', hour:'2-digit', minute:'2-digit'});
+  // Всё время в отделе — московское, независимо от того, где открыт браузер
+  return d.toLocaleString('ru-RU', {day:'2-digit', month:'short', hour:'2-digit', minute:'2-digit', timeZone:'Europe/Moscow'});
 }
 function fmtSeconds(s){
   if (s === null || s === undefined) return '—';
@@ -491,7 +492,7 @@ function fmtH(h){
   if (h === null || h === undefined) return '—';
   if (h < 1) return Math.round(h * 60) + ' мин';
   const s = (Math.round(h * 10) / 10).toLocaleString('ru-RU');
-  return h >= 16 ? `${s} ч (${(Math.round(h / 8 * 10) / 10).toLocaleString('ru-RU')} раб. дн)` : s + ' ч';
+  return h >= 16 ? `${s} ч (${(Math.round(h / 9 * 10) / 10).toLocaleString('ru-RU')} раб. дн)` : s + ' ч';
 }
 function pctClass(p){
   if (p === null || p === undefined) return 'muted';
@@ -790,7 +791,7 @@ async function renderKpi(d, v){
   };
   const slaBlock = `
     <h2 style="margin:26px 0 6px">Нормы на квартал</h2>
-    <p class="muted" style="margin-bottom:12px">Плановые значения в рабочих часах (день — 8 часов). Из процента плана выводится автоматическая оценка:
+    <p class="muted" style="margin-bottom:12px">Плановые значения в рабочих часах (день 9:00–18:00 по Москве, 9 часов). Из процента плана выводится автоматическая оценка:
       60 % — 6, 100 % и выше — 10. Действуют с выбранного квартала и дальше, прошлые кварталы считаются по своим нормам.</p>
     <div class="card">
       <div class="sla-grid">
@@ -1132,7 +1133,7 @@ async function openTask(id){
       Сдана: ${fmtDate(t.submittedAt || t.doneAt)}${t.timing.toDoHuman !== '—' ? ` — ${t.open ? 'в работе уже' : 'делалась'} <b>${t.timing.toDoHuman}</b>` : ''}<br>
       Принята: ${fmtDate(t.doneAt)}<br>
       Срок: ${fmtDate(t.deadline)}${t.timing.overdueHuman ? ` — <span style="color:var(--red)">просрочка ${t.timing.overdueHuman}</span>` : ''}<br>
-      <span class="muted">Все интервалы — в рабочих часах (день — 8 часов), время в блокере и ожидании вычтено${t.priority ? ` · приоритет ${t.priority}` : ''}${t.level ? ` · уровень ${t.level}` : ''}</span>
+      <span class="muted">Время московское. Все интервалы — в рабочих часах (день 9:00–18:00), время на проверке, в блокере и ожидании вычтено${t.priority ? ` · приоритет ${t.priority}` : ''}${t.level ? ` · уровень ${t.level}` : ''}</span>
       ${t.returns ? `<br>Возвратов с проверки: <b>${t.returns}</b>` : ''}
     </div>
 
