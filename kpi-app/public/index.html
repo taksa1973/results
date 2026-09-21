@@ -477,7 +477,7 @@ function fmtH(h){
   if (h === null || h === undefined) return '—';
   if (h < 1) return Math.round(h * 60) + ' мин';
   const s = (Math.round(h * 10) / 10).toLocaleString('ru-RU');
-  return h >= 16 ? `${s} ч (${(Math.round(h / 8 * 10) / 10).toLocaleString('ru-RU')} дн)` : s + ' ч';
+  return h >= 16 ? `${s} ч (${(Math.round(h / 8 * 10) / 10).toLocaleString('ru-RU')} раб. дн)` : s + ' ч';
 }
 function pctClass(p){
   if (p === null || p === undefined) return 'muted';
@@ -500,7 +500,7 @@ function monthShort(period){
 }
 
 /** Столбики факта по месяцам, пунктир — план. Зелёный уложился, красный нет. */
-function chartSvg(months, facts, plan){
+function chartSvg(months, facts, plan, empty){
   const W = 300, H = 120, padB = 22, padT = 16;
   const max = Math.max(plan || 0, ...facts.filter((v) => v !== null), 0.001) * 1.18;
   const y = (v) => padT + (H - padT - padB) * (1 - v / max);
@@ -510,8 +510,9 @@ function chartSvg(months, facts, plan){
     const x = gap + i * (bw + gap);
     const f = facts[i];
     if (f === null || f === undefined) {
+      // пустой месяц: либо задач не ставили, либо ни одна не дошла до нужной стадии
       out += `<rect x="${x}" y="${y(0) - 3}" width="${bw}" height="3" rx="1.5" class="b-none"/>`;
-      out += `<text x="${x + bw / 2}" y="${y(0) - 8}" text-anchor="middle">нет задач</text>`;
+      out += `<text x="${x + bw / 2}" y="${y(0) - 15}" text-anchor="middle">${(empty && empty[i]) || 'нет задач'}</text>`;
     } else {
       const top = y(f), h = Math.max(2, y(0) - top);
       out += `<rect x="${x}" y="${top}" width="${bw}" height="${h}" rx="5" class="${plan && f > plan ? 'b-over' : 'b-ok'}"/>`;
@@ -522,7 +523,10 @@ function chartSvg(months, facts, plan){
   });
   if (plan) {
     out += `<line x1="0" x2="${W}" y1="${y(plan)}" y2="${y(plan)}" class="plan"/>`;
-    out += `<text x="${W}" y="${y(plan) - 4}" text-anchor="end">план ${fmtH(plan)}</text>`;
+    // Подпись плана — над линией. Когда план много меньше факта, линия лежит
+    // у самой оси и подпись налезала бы на «нет задач» — тогда уводим её вверх.
+    const low = y(plan) > H - padB - 22;
+    out += `<text x="${W}" y="${low ? padT - 4 : y(plan) - 4}" text-anchor="end">план ${fmtH(plan)}${low ? ' ↓' : ''}</text>`;
   }
   return `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none">${out}</svg>`;
 }
@@ -586,11 +590,16 @@ function renderKpiSlice(){
   $('kpiCharts').innerHTML = keys.map((k) => {
     const m = k.slice(0, 3), l = +k.slice(3);
     const facts = months.map((x) => x.metrics[k]);
+    // задачи уровня были, но стадия не наступила — это не «нет задач»
+    const empty = months.map((x) => {
+      const ofLevel = (x.tasks || []).filter((t) => t.level === l).length;
+      return ofLevel ? (m === 't2s' ? `не взято (${ofLevel})` : `не сдано (${ofLevel})`) : 'нет задач';
+    });
     return `<div class="card chart">
       <div class="lbl">${TM[m].name} · уровень ${l}</div>
       <div class="val">${fmtH(qm[k])} <span class="sub" style="font-size:14px">${pctHtml(qp[k])}</span></div>
       <div class="sub">${LEVEL_NAME[l]} задачи, среднее за квартал · ${TM[m].hint}</div>
-      ${chartSvg(months.map((x) => x.period), facts, d.sla[k])}
+      ${chartSvg(months.map((x) => x.period), facts, d.sla[k], empty)}
     </div>`;
   }).join('');
 
