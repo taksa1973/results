@@ -1987,6 +1987,11 @@ function stickerValue(task, stickerId, map, fallback) {
  * поэтому задача, поставленная в пятницу вечером, ждёт понедельника,
  * а не оказывается просроченной за выходные.
  */
+/** Срок по приоритету: N полных рабочих дней от постановки, в рабочих часах. */
+function deadlineByPriority(fromIso, days, settings = {}) {
+  return addWorkMinutes(fromIso, Math.max(0, Math.round(days)) * workWindow(settings).dayMin, settings);
+}
+
 function addWorkdays(from, days, tzOffset = 3, settings = {}) {
   // Считаем в местном времени: иначе суббота 01:00 по Москве выглядит
   // как пятница по UTC, и выходной день ошибочно засчитывается рабочим.
@@ -2348,10 +2353,12 @@ async function upsertTaskFromYougile(env, t, settings, opts = {}) {
     stickerValue(t, settings.sticker_priority, stateMap(settings, 'priority_states'),
                  settings.priority_default || '7')
   );
-  const tz = num(settings, 'tz_offset', 3);
+  // Срок — полные рабочие дни в рабочих часах от постановки: приоритет 3 —
+  // это 27 рабочих часов. Иначе задача, поставленная в 17:26, теряла бы
+  // почти целый день: он засчитывался первым из трёх.
   const deadline = t.deadline?.deadline
     ? new Date(t.deadline.deadline).toISOString()
-    : (priorityDays ? addWorkdays(createdAt, priorityDays, tz, settings) : existing?.deadline || null);
+    : (priorityDays ? deadlineByPriority(createdAt, priorityDays, settings) : existing?.deadline || null);
 
   let { status, taken, submitted, done, returns, pausedMin, pausedSince, workDoneAt, workDoneKind } = st;
   // взята раньше, чем назначена этому исполнителю (переназначили в ходе работы) —
@@ -3388,7 +3395,7 @@ export default {
 export const __test = {
   quarterOf, monthsOfQuarter, MARKS, MARK_LABEL,
   levelOfTask, taskDurations, timeMetrics, planPercent, autoMark,
-  workMinutesBetween, addWorkMinutes, addWorkdays, workWindow, applyStage, replayLog, freshTimeline,
+  workMinutesBetween, addWorkMinutes, addWorkdays, deadlineByPriority, workWindow, applyStage, replayLog, freshTimeline,
   scoreTask, scoreChat, computeMetrics, scoreFromPercent, skipPriorities,
 };
 

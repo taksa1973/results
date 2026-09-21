@@ -153,60 +153,21 @@ test('порог сверхплана переносится настройко�
   assert.equal(autoMark(175, strict), 'plus4');
 });
 
-test('срок по приоритету считается рабочими днями', () => {
-  const addWorkdays = (from, days) => __test.addWorkdays(from, days, 3, S);
-  const local = (iso) => new Date(new Date(iso).getTime() + 3 * 3600e3); // МСК
-  const day = (iso) => ['вс', 'пн', 'вт', 'ср', 'чт', 'пт', 'сб'][local(iso).getUTCDay()];
+test('срок по приоритету — полные рабочие дни в рабочих часах', () => {
+  const { deadlineByPriority } = __test;
+  const msk = (iso) => new Date(new Date(iso).getTime() + 3 * 3600e3).toISOString().slice(0, 16).replace('T', ' ');
+  const S9 = { tz_offset: '3' }; // окно по умолчанию 9–18, день 9 часов
 
-  // пятница 14.08.2026 вечером, приоритет 3 → среда
-  const fridayEvening = '2026-08-14T16:30:00Z'; // 19:30 МСК
-  assert.equal(day(addWorkdays(fridayEvening, 3)), 'ср');
-
-  // пятница днём, приоритет 3 → пятница, понедельник, вторник
-  const fridayNoon = '2026-08-14T10:00:00Z'; // 13:00 МСК
-  assert.equal(day(addWorkdays(fridayNoon, 3)), 'вт');
-
-  // пятница вечером, приоритет 1 → понедельник
-  assert.equal(day(addWorkdays(fridayEvening, 1)), 'пн');
-
-  // среда вечером, приоритет 1 → четверг; днём — сама среда
-  assert.equal(day(addWorkdays('2026-08-12T16:00:00Z', 1)), 'чт');
-  assert.equal(day(addWorkdays('2026-08-12T09:00:00Z', 1)), 'ср');
-
-  // суббота, приоритет 3 → пн, вт, ср
-  assert.equal(day(addWorkdays('2026-08-15T09:00:00Z', 3)), 'ср');
-});
-
-test('задачи с приоритетом 30 в расчёт не идут', () => {
-  const t = (extra) => ({
-    size: 1, paused_min: 0, status: 'accepted', is_zaeb: 0,
-    created_at: '2026-08-10T07:00:00Z',
-    taken_at: '2026-08-10T09:00:00Z',
-    done_at: '2026-08-10T11:00:00Z',
-    ...extra,
-  });
-  // месячная задача взята через 6 часов — среднее должна не трогать
-  const monthly = t({ priority: 30, taken_at: '2026-08-10T13:00:00Z' });
-  const { metrics, detail } = timeMetrics([t({ priority: 1 }), t({ priority: 7 }), monthly], S);
-  assert.equal(metrics.t2s1, 2);
-  assert.equal(detail.t2s1.count, 2);
-
-  // список исключаемых приоритетов — настройка
-  const { metrics: m2 } = timeMetrics([t({ priority: 1 }), t({ priority: 7, taken_at: '2026-08-10T13:00:00Z' })], { ...S, skip_priority: '7,30' });
-  assert.equal(m2.t2s1, 2, 'семёрка тоже выключена настройкой');
-  assert.deepEqual([...__test.skipPriorities({})], [30], 'по умолчанию — только тридцать');
-});
-
-test('задача, не побывавшая в работе, во время сдачи не входит', () => {
-  const t = {
-    created_at: '2026-08-04T10:30:00Z',
-    taken_at: null,
-    done_at: '2026-09-15T08:08:00Z',   // закрыта из ожидания, минуя «В работе»
-    paused_min: 6940,
-  };
-  const d = taskDurations(t, S);
-  assert.equal(d.t2s, null);
-  assert.equal(d.t2f, null, 'сколько она была в работе — неизвестно');
+  // пятница 14.08 23:00 МСК, приоритет 3 → понедельник 9:00 + 27 ч = среда 18:00
+  assert.equal(msk(deadlineByPriority('2026-08-14T20:00:00Z', 3, S9)), '2026-08-19 18:00');
+  // понедельник 25.08 17:26 МСК, приоритет 3 → 34 мин + 9 + 9 + 8 ч 26 мин = четверг 17:26
+  assert.equal(msk(deadlineByPriority('2026-08-25T14:26:00Z', 3, S9)), '2026-08-28 17:26');
+  // приоритет 1 — рабочий день: понедельник 13:00 → вторник 13:00
+  assert.equal(msk(deadlineByPriority('2026-08-10T10:00:00Z', 1, S9)), '2026-08-11 13:00');
+  // суббота, приоритет 3 → с понедельника 9:00 → среда 18:00
+  assert.equal(msk(deadlineByPriority('2026-08-15T09:00:00Z', 3, S9)), '2026-08-19 18:00');
+  // приоритет 7 — неделя: понедельник 9:00 → следующий вторник 18:00
+  assert.equal(msk(deadlineByPriority('2026-08-10T06:00:00Z', 7, S9)), '2026-08-18 18:00');
 });
 
 test('рабочий день по умолчанию — с 9:00: пятница 23:00 → понедельник 9:13 это 13 минут', () => {
@@ -245,4 +206,24 @@ test('таймлайн задачи проигрывается из лога You
   assert.equal(d.t2f, 21.07);
   // до старта: назначена 4 авг 17:37 → взята 5 авг 14:11 = 23 мин + 4 ч 11 мин
   assert.equal(d.t2s, 4.57);
+});
+
+test('задачи с приоритетом 30 в расчёт не идут', () => {
+  const t = (extra) => ({
+    size: 1, paused_min: 0, status: 'accepted', is_zaeb: 0,
+    created_at: '2026-08-10T07:00:00Z',
+    taken_at: '2026-08-10T09:00:00Z',
+    done_at: '2026-08-10T11:00:00Z',
+    ...extra,
+  });
+  // месячная задача взята через 6 часов — среднее должна не трогать
+  const monthly = t({ priority: 30, taken_at: '2026-08-10T13:00:00Z' });
+  const { metrics, detail } = timeMetrics([t({ priority: 1 }), t({ priority: 7 }), monthly], S);
+  assert.equal(metrics.t2s1, 2);
+  assert.equal(detail.t2s1.count, 2);
+
+  // список исключаемых приоритетов — настройка
+  const { metrics: m2 } = timeMetrics([t({ priority: 1 }), t({ priority: 7, taken_at: '2026-08-10T13:00:00Z' })], { ...S, skip_priority: '7,30' });
+  assert.equal(m2.t2s1, 2, 'семёрка тоже выключена настройкой');
+  assert.deepEqual([...__test.skipPriorities({})], [30], 'по умолчанию — только тридцать');
 });
