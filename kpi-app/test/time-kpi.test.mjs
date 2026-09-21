@@ -227,3 +227,40 @@ test('задачи с приоритетом 30 в расчёт не идут', 
   assert.equal(m2.t2s1, 2, 'семёрка тоже выключена настройкой');
   assert.deepEqual([...__test.skipPriorities({})], [30], 'по умолчанию — только тридцать');
 });
+
+test('переоткрытая задача — новый цикл; созданная сразу в «В работе» — взята при постановке (VSE-325)', () => {
+  const { replayLog, taskDurations } = __test;
+  const S2 = { tz_offset: '3', column_in_progress: 'c-work', column_blocked: 'c-block', column_done: 'c-done' };
+  const log = [
+    { at: '2026-08-07T11:23:39.454Z', kind: 'assigned', user: 'yg-lead' },                       // создана сразу в «В работе»
+    { at: '2026-08-10T11:54:10.030Z', kind: 'move', from: 'c-work', to: 'c-block', by: 'yg-lead' },
+    { at: '2026-08-17T05:42:52.141Z', kind: 'completed', by: 'yg-lead' },
+    { at: '2026-08-17T05:42:52.149Z', kind: 'move', from: 'c-block', to: 'c-done', by: 'yg-lead' },
+    { at: '2026-09-02T12:40:03.889Z', kind: 'reopened', by: 'yg-lead' },                         // сняли галочку
+    { at: '2026-09-02T12:40:16.057Z', kind: 'move', from: 'c-done', to: 'c-work', by: 'yg-lead' }, // 15:40 МСК
+    { at: '2026-09-02T15:48:06.392Z', kind: 'move', from: 'c-work', to: 'c-block', by: 'yg-lead' }, // 18:48 МСК
+    { at: '2026-09-03T13:54:32.297Z', kind: 'move', from: 'c-block', to: 'c-work', by: 'yg-lead' }, // 16:54 МСК
+    { at: '2026-09-04T06:21:37.133Z', kind: 'move', from: 'c-work', to: 'c-block', by: 'yg-lead' }, // 09:21 МСК
+  ];
+
+  // первый цикл, до переоткрытия: взята при постановке, закрыта 17 августа
+  const first = replayLog(log.slice(0, 4), S2);
+  assert.equal(first.taken, '2026-08-07T11:23:39.454Z', 'создана в «В работе» — взята при постановке');
+  assert.equal(first.status, 'accepted');
+  assert.equal(first.done, '2026-08-17T05:42:52.141Z');
+
+  // после переоткрытия — всё заново
+  const st = replayLog(log, S2);
+  assert.equal(st.cycleStart, '2026-09-02T12:40:03.889Z', 'поставлена заново в момент переоткрытия');
+  assert.equal(st.taken, '2026-09-02T12:40:16.057Z', 'взята через 13 секунд');
+  assert.equal(st.done, null, 'старое закрытие к новому циклу не относится');
+  assert.equal(st.status, 'blocked');
+  assert.ok(st.pausedSince, 'сейчас в блокере — таймер стоит');
+
+  const d = taskDurations({ created_at: st.cycleStart, taken_at: st.taken, work_done_at: st.workDoneAt, done_at: st.done, paused_min: st.pausedMin }, S2);
+  assert.equal(d.t2s, 0, 'до старта — ноль');
+  assert.equal(d.t2f, null, 'ещё не сдана');
+  // в работе: 15:40–18:00 (2 ч 20) и 16:54–18:00 + 9:00–9:21 (1 ч 27) = 3 ч 47
+  const inWork = __test.workMinutesBetween(st.taken, '2026-09-04T06:21:37.133Z', S2) - st.pausedMin;
+  assert.equal(Math.round(inWork), 227);
+});

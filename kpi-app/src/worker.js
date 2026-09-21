@@ -2209,10 +2209,12 @@ async function fetchTaskLog(env, taskId, settings) {
         const p = m.properties || {};
         const at = Number(m.id) > 0 ? new Date(Number(m.id)).toISOString() : null; // id сообщения — его время
         if (!at) continue;
+        const reason = String(p.reason || '');
         if (p.move && p.to) events.push({ at, kind: 'move', from: p.from || null, to: p.to, by: p.actionBy || null });
         else if (p.assigned) events.push({ at, kind: 'assigned', user: p.assigned, by: p.actionBy || null });
-        else if (p.after === 'done') events.push({ at, kind: 'completed', by: p.actionBy || null });
-        else if (p.after === 'undone' || p.after === 'notDone') events.push({ at, kind: 'reopened', by: p.actionBy || null });
+        // галочка «выполнена»: снята — «-> !isCompleted», поставлена — «-> isCompleted»
+        else if (p.after === 'undone' || p.after === 'notDone' || /->\s*!isCompleted/.test(reason)) events.push({ at, kind: 'reopened', by: p.actionBy || null });
+        else if (p.after === 'done' || /->\s*isCompleted/.test(reason)) events.push({ at, kind: 'completed', by: p.actionBy || null });
       }
       if (!data.paging?.next) break;
       offset += (data.content || []).length || 100;
@@ -2226,17 +2228,31 @@ async function fetchTaskLog(env, taskId, settings) {
 
 /** Проигрывает лог с нуля: получается таймлайн, каким его видел трекер. */
 function replayLog(events, settings) {
-  const st = freshTimeline();
+  let st = freshTimeline();
   st.assignedAt = {}; // когда кого назначили: для исполнителя «поставлена» — это его назначение
+  st.cycleStart = null; // переоткрыли — задача поставлена заново с этого момента
+  const firstAt = events.length ? events[0].at : null;
   for (const e of events) {
     if (e.kind === 'move') {
       const stage = stageOfColumn(e.to, settings);
+      // Карточка уезжает из «В работе», а взятия в логе не было — значит,
+      // её создали прямо в этой колонке: взята в момент постановки.
+      if (stageOfColumn(e.from, settings) === 'in_progress' && !st.taken) {
+        st.taken = st.cycleStart || firstAt;
+        st.status = 'in_progress';
+        st.takenBy = st.takenBy || e.by;
+      }
       if (stage === 'in_progress' && !st.taken && e.by) st.takenBy = e.by; // кто взял — тот и делает
       applyStage(st, stage, e.at, settings);
+    } else if (e.kind === 'assigned') {
+      st.assignedAt[e.user] = st.assignedAt[e.user] || e.at;
+    } else if (e.kind === 'completed') {
+      applyStage(st, 'accepted', e.at, settings);
+    } else if (e.kind === 'reopened') {
+      // Сняли галочку «выполнена»: это новый цикл. Всё, что было до —
+      // отработано и посчитано; с этого момента задача поставлена заново.
+      st = { ...freshTimeline(), assignedAt: st.assignedAt, cycleStart: e.at };
     }
-    else if (e.kind === 'assigned') st.assignedAt[e.user] = st.assignedAt[e.user] || e.at;
-    else if (e.kind === 'completed') applyStage(st, 'accepted', e.at, settings);
-    else if (e.kind === 'reopened' && st.status === 'accepted') { st.status = 'open'; st.done = null; }
   }
   return st;
 }
@@ -2280,8 +2296,10 @@ async function upsertTaskFromYougile(env, t, settings, opts = {}) {
       st = replayLog(log, settings);
       fromLog = true;
       // Карточку могли только что перетащить, а лог ещё не дописан —
-      // текущая колонка важнее последней записи.
-      if (stage && stage !== st.status && stage !== 'open') applyStage(st, stage, now, settings);
+      // текущая колонка важнее последней записи. Пустой лог у новой карточки
+      // в «В работе» — её так и создали: взята при постановке.
+      const at = !log.length && !existing && t.timestamp ? new Date(t.timestamp).toISOString() : now;
+      if (stage && stage !== st.status && stage !== 'open') applyStage(st, stage, at, settings);
     } else if (moved) {
       applyStage(st, stage, now, settings);
     }
@@ -2306,7 +2324,8 @@ async function upsertTaskFromYougile(env, t, settings, opts = {}) {
   // «Поставлена» для исполнителя — когда его назначили, а не когда карточку
   // завели: руководитель нередко заводит задачу себе и отдаёт позже.
   const assignedAt = fromLog && assignee && st.assignedAt ? st.assignedAt[assignee] || null : null;
-  const createdAt = assignedAt
+  const cycleStart = fromLog ? st.cycleStart || null : null;
+  const createdAt = [assignedAt, cycleStart].filter(Boolean).sort().pop()
     || (!fromLog && existing?.created_at)
     || (t.timestamp ? new Date(t.timestamp).toISOString() : now);
 
