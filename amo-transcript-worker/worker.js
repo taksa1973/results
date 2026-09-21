@@ -81,7 +81,27 @@ const DEFAULTS = {
   // успешной записи — если запись не прошла, исключение случится раньше.
   // Файл уходит в корзину amoCRM, откуда его можно вернуть (restore).
   DELETE_FILE: 'true',
+  // Итог звонка вслед за расшифровкой: «Итог / Договорённости / Следующий
+  // шаг». Пишется отдельным примечанием сразу после текста. Нужен
+  // DEEPSEEK_API_KEY; без ключа тихо пропускается.
+  SUMMARY: 'true',
+  AI_API_URL: 'https://api.deepseek.com/chat/completions',
+  AI_MODEL: 'deepseek-chat',
+  // Сколько символов расшифровки отдаём модели (самые длинные звонки ~36 000).
+  AI_INPUT_CHARS: '60000',
 };
+
+const SUMMARY_SYSTEM = `Ты помощник отдела продаж компании, которая занимается международными платежами для бизнеса: оплата инвойсов за рубеж через платёжного агента, ВЭД, расчёты в CNY/USD/USDT.
+Тебе дают расшифровку телефонного разговора. Роли: «Менеджер» — наш сотрудник; «Клиент» — собеседник (это может быть клиент, банк, партнёр или поставщик — определи по разговору).
+Составь краткий итог для карточки сделки в CRM. Только факты из разговора: суммы, валюты, сроки, названия — как прозвучали. Ничего не додумывай. Если чего-то в разговоре нет — так и отметь.
+Ответь строго JSON без пояснений:
+{
+  "summary": "2–4 предложения: кто звонил/кому, что нужно, ключевые условия и цифры",
+  "agreements": ["каждая договорённость отдельной строкой; пустой список, если договорённостей нет"],
+  "next_step": "кто, что и когда делает дальше; пустая строка, если следующий шаг не прозвучал",
+  "next_step_date": "дата следующего шага в формате YYYY-MM-DD, если она названа или однозначно вычисляется от даты звонка; иначе null"
+}
+Пиши по-русски, без markdown, без эмодзи. Summary — не длиннее 500 символов.`;
 
 const ENTITY_BY_TYPE = { 1: 'contacts', 2: 'leads' };
 const CALL_TYPES = ['call_in', 'call_out'];
@@ -112,6 +132,20 @@ export default {
       try {
         const verdict = await onAttachment({ entity, noteId, dry }, env, cfg);
         return json({ ok: true, verdict });
+      } catch (e) {
+        return json({ ok: false, error: String(e).slice(0, 500) }, 500);
+      }
+    }
+
+    // Итог к расшифровке, которая уже лежит примечанием (для истории):
+    // /summarize/<секрет>?entity=leads&note_id=123   (+ dry=1 — только текст)
+    if (secret && url.pathname === `/summarize/${secret}`) {
+      const noteId = Number(url.searchParams.get('note_id'));
+      const entity = url.searchParams.get('entity') || 'leads';
+      const dry = url.searchParams.get('dry') === '1';
+      if (!noteId) return json({ ok: false, error: 'нужен note_id' }, 400);
+      try {
+        return json({ ok: true, verdict: await summarizeExisting({ entity, noteId, dry }, env, cfg) });
       } catch (e) {
         return json({ ok: false, error: String(e).slice(0, 500) }, 500);
       }
@@ -228,6 +262,21 @@ async function onAttachment({ entity, noteId, dry = false }, env, cfg) {
       });
     }
     written.push(`${target}/${id}`);
+
+    // Итог — следующей секундой после последней части расшифровки.
+    if (cfg.SUMMARY === 'true' && env.DEEPSEEK_API_KEY) {
+      try {
+        const summary = await summarize(text, call, fileAt, env, cfg);
+        await amo(`/api/v4/${target}/${id}/notes`, env, {
+          method: 'POST',
+          body: [{ note_type: 'common', created_at: noteAt + parts.length, params: { text: summary } }],
+        });
+        written.push('итог');
+      } catch (e) {
+        // Расшифровка уже в сделке — без итога хуже, но не смертельно.
+        written.push(`итог не вышел (${String(e.message || e).slice(0, 100)})`);
+      }
+    }
   }
 
   if (env.S) await env.S.put(doneKey, '1', { expirationTtl: 2592000 });
@@ -317,6 +366,80 @@ async function leadForCall(contactId, fileAt, env, cfg) {
   const grace = Number(cfg.LEAD_GRACE_SEC) || 0;
   const before = leads.filter((l) => l.at <= fileAt + grace);
   return before.length ? before[before.length - 1].id : leads[0].id;
+}
+
+/**
+ * Итог к расшифровке, которая уже лежит примечанием в сделке. Кладётся
+ * следующей секундой после неё, поэтому в ленте встаёт сразу за текстом,
+ * как и при живой обработке. Повтор не создаётся: если за расшифровкой уже
+ * есть «Итог звонка», выходим.
+ */
+async function summarizeExisting({ entity, noteId, dry }, env, cfg) {
+  const note = await oneNote(entity, noteId, env);
+  if (!note) return 'скип: примечание не нашлось';
+  const text = String(note.params?.text || '');
+  if (!/^Расшифровка звонка/.test(text)) return 'скип: это не расшифровка';
+
+  const at = Number(note.created_at) + 1;
+  const all = await amo(`/api/v4/${entity}/${note.entity_id}/notes?filter[note_type]=common&limit=250`, env);
+  const dup = (all?._embedded?.notes || []).find((n) => Number(n.created_at) === at && /^Итог звонка/.test(String(n.params?.text || '')));
+  if (dup && !dry) return `скип: итог уже есть (note ${dup.id})`;
+
+  // Шапку и параметры звонка восстанавливаем из первой строки расшифровки.
+  const headLine = text.split('\n')[0];
+  const body = text.split('\n').slice(1).join('\n').trim();
+  const summary = await summarize(body, null, Number(note.created_at) - 1, env, cfg, headLine.replace(/^Расшифровка звонка/, 'Итог звонка').replace(/ \(часть \d+ из \d+\)$/, ''));
+  if (dry) return summary;
+
+  const r = await amo(`/api/v4/${entity}/${note.entity_id}/notes`, env, {
+    method: 'POST',
+    body: [{ note_type: 'common', created_at: at, params: { text: summary } }],
+  });
+  return `итог записан в ${entity}/${note.entity_id} (note ${r?._embedded?.notes?.[0]?.id}), ${summary.length} симв.`;
+}
+
+/** Итог разговора через DeepSeek: JSON → плоский текст для примечания. */
+async function summarize(transcript, call, callAt, env, cfg, headOverride = null) {
+  const date = new Date(callAt * 1000).toLocaleDateString('ru-RU', { timeZone: 'Europe/Moscow', day: '2-digit', month: '2-digit', year: 'numeric' });
+  const user = [
+    `Дата звонка: ${date}.`,
+    call ? `Направление: ${call.note_type === 'call_in' ? 'входящий' : 'исходящий'}.` : '',
+    '',
+    'Расшифровка:',
+    transcript.slice(0, Number(cfg.AI_INPUT_CHARS) || 60000),
+  ].filter((l) => l !== '').join('\n');
+
+  const res = await fetch(cfg.AI_API_URL, {
+    method: 'POST',
+    headers: { Authorization: `Bearer ${env.DEEPSEEK_API_KEY}`, 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      model: cfg.AI_MODEL,
+      temperature: 0.2,
+      max_tokens: 900,
+      response_format: { type: 'json_object' },
+      messages: [
+        { role: 'system', content: SUMMARY_SYSTEM },
+        { role: 'user', content: user },
+      ],
+    }),
+  });
+  const data = await res.json().catch(() => null);
+  if (!res.ok) throw new Error(`DeepSeek ${res.status}: ${JSON.stringify(data).slice(0, 200)}`);
+
+  const raw = String(data?.choices?.[0]?.message?.content || '');
+  const m = raw.match(/\{[\s\S]*\}/);
+  if (!m) throw new Error(`DeepSeek ответил не по форме: ${raw.slice(0, 120)}`);
+  let obj;
+  try { obj = JSON.parse(m[0]); } catch { throw new Error(`DeepSeek: JSON не разбирается: ${raw.slice(0, 120)}`); }
+
+  const head = headOverride || (header(call, cfg) || 'Расшифровка звонка').replace(/^Расшифровка звонка/, 'Итог звонка');
+  const agreements = Array.isArray(obj.agreements) ? obj.agreements.map((a) => String(a).trim()).filter(Boolean) : [];
+  const next = String(obj.next_step || '').trim();
+  const lines = [head, '', String(obj.summary || '').trim(), '', 'Договорённости'];
+  if (agreements.length) lines.push(...agreements.map((a) => `— ${a}`));
+  else lines.push('— не зафиксированы');
+  lines.push('', 'Следующий шаг', next || 'не определён');
+  return lines.join('\n').trim();
 }
 
 /** Есть ли уже в карточке примечание с этим текстом. */
