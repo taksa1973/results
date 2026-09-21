@@ -44,9 +44,11 @@ function columnsOf(db, table) {
 }
 
 test('миграция 003 приводит старую базу к новой схеме', () => {
+  // Схема до модели времени — из последнего коммита перед миграцией.
+  // Именно такая база стояла на сервере, когда миграцию применяли.
   let oldSchema;
   try {
-    oldSchema = execSync('git show HEAD:kpi-app/schema.sql', { cwd: root, encoding: 'utf8' });
+    oldSchema = execSync('git show a82d706:kpi-app/schema.sql', { cwd: root, encoding: 'utf8' });
   } catch {
     return; // без git сравнивать не с чем
   }
