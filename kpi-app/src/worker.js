@@ -359,22 +359,29 @@ function taskDurations(task, settings) {
   return { t2s: hours(from, toStart, false), t2f: hours(toStart, toFill, true) };
 }
 
+/** Попадает ли момент в месяц вида 2026-09. */
+const inPeriod = (iso, period) => Boolean(iso) && String(iso).slice(0, 7) === period;
+
 /**
  * Шесть метрик человека за период: среднее время по каждому уровню.
  *
- * Считается только по задачам, где стадия действительно наступила:
- * незакрытая задача не портит Time to fill, пока её не закрыли.
+ * Задача относится к месяцу по событию, а не по постановке: «до старта» —
+ * к месяцу, когда её взяли, «в работе» — когда сдали. Так сентябрьская
+ * работа над августовской задачей считается в сентябре. Без периода
+ * (в тестах) берётся всё подряд.
  */
-function timeMetrics(tasks, settings) {
+function timeMetrics(tasks, settings, period = null) {
   const out = {};
   const detail = {};
   const skip = skipPriorities(settings);
+  const eventOf = { t2s: (t) => t.taken_at, t2f: (t) => t.work_done_at || t.done_at };
 
   for (const metric of TIME_METRICS) {
     for (const level of LEVELS) {
       const key = `${metric}${level}`;
       const vals = tasks
         .filter((t) => levelOfTask(t) === level && !t.is_zaeb && t.status !== 'cancelled' && !skip.has(Number(t.priority)))
+        .filter((t) => !period || inPeriod(eventOf[metric](t), period))
         .map((t) => taskDurations(t, settings)[metric])
         .filter((v) => v !== null);
 
@@ -427,20 +434,26 @@ async function monthMetrics(db, userId, period, settings, sla) {
     ? { sql: 'assignee_id = ?', args: [userId] }
     : { sql: "assignee_id IN (SELECT id FROM users WHERE role = 'assistant' AND active = 1)", args: [] };
 
+  // Задачи месяца — взятые в работу или сданные в нём. Поставленные, но
+  // не тронутые, сюда не попадают: по ним ещё нечего мерить.
   const skip = [...skipPriorities(settings)];
+  const from = `${period}-01`, to = `${period}-32`;
   const { results: tasks } = await db
     .prepare(
       `SELECT * FROM tasks
        WHERE ${who.sql} AND is_zaeb = 0
          AND status NOT IN ('cancelled','historical')
-         AND (created_at >= ? AND created_at < ?)
+         AND ((taken_at >= ? AND taken_at < ?)
+           OR (COALESCE(work_done_at, done_at) >= ? AND COALESCE(work_done_at, done_at) < ?))
          ${skip.length ? `AND (priority IS NULL OR priority NOT IN (${skip.map(() => '?').join(',')}))` : ''}
-       ORDER BY created_at`
+       ORDER BY COALESCE(taken_at, created_at)`
     )
-    .bind(...who.args, `${period}-01`, `${period}-32`, ...skip)
+    .bind(...who.args, from, to, from, to, ...skip)
     .all();
 
-  const { metrics, detail } = timeMetrics(tasks, settings);
+  const { metrics, detail } = timeMetrics(tasks, settings, period);
+  const takenHere = tasks.filter((t) => inPeriod(t.taken_at, period)).length;
+  const doneHere = tasks.filter((t) => inPeriod(t.work_done_at || t.done_at, period)).length;
   const percents = {};
   for (const key of Object.keys(metrics)) {
     percents[key] = planPercent(metrics[key], sla[key]);
@@ -453,15 +466,22 @@ async function monthMetrics(db, userId, period, settings, sla) {
     percents,
     detail,
     count: tasks.length,
+    taken: takenHere,
+    done: doneHere,
     // Список задач с часами — для раскрытого месяца: видно, какая именно
-    // задача тянет среднее вверх.
+    // задача тянет среднее вверх. У каждой помечено, какой из двух метрик
+    // она принадлежит в этом месяце.
     tasks: tasks.map((t) => {
       const d = taskDurations(t, settings);
+      const inStart = inPeriod(t.taken_at, period);
+      const inFill = inPeriod(t.work_done_at || t.done_at, period);
       return {
         id: t.id, number: t.project_no || t.number, title: t.title, url: t.url, assignee_id: t.assignee_id,
         level: levelOfTask(t), level_src: t.level_src || 'default',
-        status: t.status, created_at: t.created_at, priority: t.priority,
-        t2s: d.t2s, t2f: d.t2f,
+        status: t.status, created_at: t.created_at, taken_at: t.taken_at,
+        done_at: t.work_done_at || t.done_at, priority: t.priority,
+        t2s: inStart ? d.t2s : null, t2f: inFill ? d.t2f : null,
+        t2s_all: d.t2s, t2f_all: d.t2f,
       };
     }),
     // Среднее закрытие плана по тем метрикам, где были задачи.
@@ -1607,7 +1627,7 @@ async function handleYougileHook(request, env, settings, { trusted = false } = {
  * /task-list отдаёт задачи целиком, поэтому хватает одного обхода с пагинацией.
  * Ключ берётся из секретов; настройка в базе оставлена как запасной путь.
  */
-async function syncYougile(env, settings, { limit = 1000 } = {}) {
+async function syncYougile(env, settings, { limit = 1000, rebuild = false, quiet = false } = {}) {
   const db = env.DB;
   const key = env.YOUGILE_KEY || settings.yougile_key;
   if (!key) return { ok: false, error: 'не задан ключ YouGile' };
@@ -1630,7 +1650,7 @@ async function syncYougile(env, settings, { limit = 1000 } = {}) {
       // Одна сбойная задача не должна обрывать синхронизацию на середине:
       // остальные важнее, а причина уходит в лог.
       try {
-        await upsertTaskFromYougile(env, t, settings);
+        await upsertTaskFromYougile(env, t, settings, { rebuild, quiet });
         touched += 1;
       } catch (e) {
         failed.push({ id: t.id, title: t.title, error: String(e).slice(0, 200) });
@@ -2101,18 +2121,188 @@ function stageOfColumn(columnId, settings) {
   return null;
 }
 
-async function upsertTaskFromYougile(env, t, settings) {
+// ── таймлайн задачи ─────────────────────────────────────────────────────────
+//
+// Источник истины — системный лог карточки в YouGile: каждое перемещение
+// между колонками с точным временем и автором. Синхронизация раз в час
+// такие переходы пропускала (взяли и вернули между опросами — и следа нет),
+// а по логу таймлайн восстанавливается целиком, в том числе у задач,
+// закрытых до запуска системы.
+
+function freshTimeline() {
+  return {
+    status: 'open', taken: null, submitted: null, done: null,
+    workDoneAt: null, workDoneKind: null, returns: 0, pausedMin: 0, pausedSince: null,
+  };
+}
+
+/**
+ * Один переход карточки в стадию. Таймер выполнения идёт только в «В работе»:
+ * на проверке, в блокере, в ожидании, «на потом» и «на контроле» он стоит
+ * и продолжается, когда карточка возвращается в работу. Пауза копится
+ * в рабочих минутах: календарные дарили бы сутки за каждые выходные.
+ */
+function applyStage(st, stage, at, settings) {
+  const pausedHere = st.pausedSince ? workMinutesBetween(st.pausedSince, at, settings) : 0;
+
+  if (stage === 'in_progress') {
+    if (st.status === 'review') st.returns += 1; // вернулась с проверки
+    st.status = 'in_progress';
+    st.taken = st.taken || at;
+    if (st.pausedSince) { st.pausedMin += pausedHere; st.pausedSince = null; }
+    // вернулись к работе — значит она не была закончена
+    st.workDoneAt = null;
+    st.workDoneKind = null;
+  } else if (stage === 'review') {
+    st.status = 'review';
+    st.submitted = st.submitted || at;
+    if (!st.workDoneAt) { st.workDoneAt = at; st.workDoneKind = 'submitted'; }
+    if (st.taken) st.pausedSince = st.pausedSince || at;
+  } else if (stage === 'accepted') {
+    st.status = 'accepted';
+    st.done = st.done || at;
+    // приняли прямо из паузы без сдачи (блокер → завершена): стоявшее время не в счёт
+    if (st.pausedSince && !st.workDoneAt) st.pausedMin += pausedHere;
+    st.pausedSince = null;
+    if (!st.workDoneAt) { st.workDoneAt = st.done; st.workDoneKind = 'accepted'; }
+  } else if (stage === 'blocked') {
+    st.status = 'blocked';
+    if (st.taken) st.pausedSince = st.pausedSince || at;
+  } else if (stage === 'waiting') {
+    // работа сдана, ждём внешний результат
+    st.status = 'waiting';
+    if (st.taken) st.pausedSince = st.pausedSince || at;
+    if (!st.workDoneAt) { st.workDoneAt = at; st.workDoneKind = 'handed_off'; }
+  } else if (stage === 'shelved') {
+    st.status = 'shelved';
+    if (st.taken) st.pausedSince = st.pausedSince || at;
+  } else if (stage === 'cancelled') {
+    st.status = 'cancelled';
+    st.pausedSince = null;
+  } else if (stage === 'open') {
+    // вернули в «Добавлена»: как будто и не брали — если ещё не сдана
+    if (!st.workDoneAt) { st.status = 'open'; st.pausedSince = null; }
+  }
+  return st;
+}
+
+/** Системные события карточки из YouGile, по времени. null — лог недоступен. */
+async function fetchTaskLog(env, taskId, settings) {
+  const key = env.YOUGILE_KEY || settings.yougile_key;
+  if (!key) return null;
+  const base = settings.yougile_base || 'https://yougile.com/api-v2';
+  const events = [];
+  try {
+    for (let offset = 0, guard = 0; guard < 20; guard += 1) {
+      const res = await fetch(
+        `${base}/chats/${taskId}/messages?limit=100&offset=${offset}&includeSystem=true`,
+        { headers: { Authorization: `Bearer ${key}` } }
+      );
+      if (!res.ok) return null;
+      const data = await res.json().catch(() => ({}));
+      for (const m of data.content || []) {
+        const p = m.properties || {};
+        const at = Number(m.id) > 0 ? new Date(Number(m.id)).toISOString() : null; // id сообщения — его время
+        if (!at) continue;
+        if (p.move && p.to) events.push({ at, kind: 'move', from: p.from || null, to: p.to, by: p.actionBy || null });
+        else if (p.assigned) events.push({ at, kind: 'assigned', user: p.assigned, by: p.actionBy || null });
+        else if (p.after === 'done') events.push({ at, kind: 'completed', by: p.actionBy || null });
+        else if (p.after === 'undone' || p.after === 'notDone') events.push({ at, kind: 'reopened', by: p.actionBy || null });
+      }
+      if (!data.paging?.next) break;
+      offset += (data.content || []).length || 100;
+    }
+  } catch {
+    return null;
+  }
+  events.sort((a, b) => (a.at < b.at ? -1 : a.at > b.at ? 1 : 0));
+  return events;
+}
+
+/** Проигрывает лог с нуля: получается таймлайн, каким его видел трекер. */
+function replayLog(events, settings) {
+  const st = freshTimeline();
+  st.assignedAt = {}; // когда кого назначили: для исполнителя «поставлена» — это его назначение
+  for (const e of events) {
+    if (e.kind === 'move') {
+      const stage = stageOfColumn(e.to, settings);
+      if (stage === 'in_progress' && !st.taken && e.by) st.takenBy = e.by; // кто взял — тот и делает
+      applyStage(st, stage, e.at, settings);
+    }
+    else if (e.kind === 'assigned') st.assignedAt[e.user] = st.assignedAt[e.user] || e.at;
+    else if (e.kind === 'completed') applyStage(st, 'accepted', e.at, settings);
+    else if (e.kind === 'reopened' && st.status === 'accepted') { st.status = 'open'; st.done = null; }
+  }
+  return st;
+}
+
+async function upsertTaskFromYougile(env, t, settings, opts = {}) {
   const db = env.DB;
   const existing = await db.prepare('SELECT * FROM tasks WHERE id = ?').bind(t.id).first();
   const now = nowIso();
+  const assigned = Array.isArray(t.assigned) ? t.assigned : t.assigned ? [t.assigned] : [];
 
-  const assignee = Array.isArray(t.assigned) ? t.assigned[0] : t.assigned || null;
-  const user = assignee
-    ? await db.prepare('SELECT id FROM users WHERE yougile_id = ?').bind(assignee).first()
-    : null;
+  // Кто из назначенных известен приложению — исполнитель выбирается ниже,
+  // когда прочитан лог: важно, кто на самом деле взял карточку в работу.
+  let known = [];
+  if (assigned.length) {
+    const marks = assigned.map(() => '?').join(',');
+    known = (await db
+      .prepare(`SELECT id, yougile_id, role FROM users WHERE active = 1 AND yougile_id IN (${marks})`)
+      .bind(...assigned)
+      .all()).results;
+  }
 
   const title = t.title || existing?.title || 'Без названия';
-  const createdAt = existing?.created_at
+  const stage = stageOfColumn(t.columnId, settings);
+  const completedAt = t.completedTimestamp ? new Date(t.completedTimestamp).toISOString() : null;
+
+  // Карточка сдвинулась (или её просят пересчитать) — берём лог из трекера
+  // и проигрываем заново. Не сдвинулась — оставляем как есть. Лог недоступен —
+  // считаем по текущему переходу, как раньше.
+  const moved = !existing
+    || existing.column_id !== (t.columnId || null)
+    || Boolean(t.completed) !== (existing.status === 'accepted' || existing.status === 'historical');
+  let st = existing ? {
+    status: existing.status, taken: existing.taken_at, submitted: existing.submitted_at,
+    done: existing.done_at, workDoneAt: existing.work_done_at, workDoneKind: existing.work_done_kind,
+    returns: existing.returns || 0, pausedMin: existing.paused_min || 0, pausedSince: existing.paused_since,
+  } : freshTimeline();
+  let fromLog = false;
+  if (moved || opts.rebuild) {
+    const log = await fetchTaskLog(env, t.id, settings);
+    if (log) {
+      st = replayLog(log, settings);
+      fromLog = true;
+      // Карточку могли только что перетащить, а лог ещё не дописан —
+      // текущая колонка важнее последней записи.
+      if (stage && stage !== st.status && stage !== 'open') applyStage(st, stage, now, settings);
+    } else if (moved) {
+      applyStage(st, stage, now, settings);
+    }
+  }
+
+  // Исполнитель. На карточке может стоять несколько человек из отдела —
+  // руководитель тоже делает задачи как ассистент. Делает тот, кто перетащил
+  // карточку в «В работе»; если её ещё не брали — назначенный последним;
+  // один человек — он и есть. Никого из отдела — задача ничья.
+  let user = null;
+  if (known.length === 1) {
+    user = known[0];
+  } else if (known.length > 1) {
+    const byTaken = st.takenBy ? known.find((u) => u.yougile_id === st.takenBy) : null;
+    const byAssigned = st.assignedAt
+      ? [...known].sort((a, b) => String(st.assignedAt[b.yougile_id] || '').localeCompare(String(st.assignedAt[a.yougile_id] || '')))[0]
+      : null;
+    user = byTaken || (existing && known.find((u) => u.id === existing.assignee_id)) || byAssigned || known[0];
+  }
+  const assignee = user ? user.yougile_id : assigned[0] || null;
+
+  // «Поставлена» для исполнителя — когда его назначили, а не когда карточку
+  // завели: руководитель нередко заводит задачу себе и отдаёт позже.
+  const assignedAt = fromLog && assignee && st.assignedAt ? st.assignedAt[assignee] || null : null;
+  const createdAt = assignedAt
+    || (!fromLog && existing?.created_at)
     || (t.timestamp ? new Date(t.timestamp).toISOString() : now);
 
   // Ссылка в YouGile строится по проектному номеру (VSE-370), а не по общему
@@ -2163,90 +2353,36 @@ async function upsertTaskFromYougile(env, t, settings) {
     ? new Date(t.deadline.deadline).toISOString()
     : (priorityDays ? addWorkdays(createdAt, priorityDays, tz, settings) : existing?.deadline || null);
 
-  let status = existing?.status || 'open';
-  let taken = existing?.taken_at || null;
-  let submitted = existing?.submitted_at || null;
-  let done = existing?.done_at || null;
-  let returns = existing?.returns || 0;
-  let pausedMin = existing?.paused_min || 0;
-  let pausedSince = existing?.paused_since || null;
-  let workDoneAt = existing?.work_done_at || null;
-  let workDoneKind = existing?.work_done_kind || null;
-
-  const stage = stageOfColumn(t.columnId, settings);
-  const completedAt = t.completedTimestamp ? new Date(t.completedTimestamp).toISOString() : null;
-
-  // Таймер выполнения идёт только в «В работе». На проверке, в блокере,
-  // в ожидании, «на потом» и «на контроле» он стоит и продолжается, когда
-  // карточка возвращается в работу. Пауза копится в рабочих минутах:
-  // календарные дарили бы сутки за каждые выходные, проведённые в блокере.
-  const pausedHere = pausedSince ? workMinutesBetween(pausedSince, now, settings) : 0;
-
-  if (stage === 'in_progress') {
-    if (status === 'review') returns += 1; // вернулась с проверки — признак «без правок» гаснет
-    status = 'in_progress';
-    taken = taken || now;
-    // вернулась в работу — стоявшее время не в счёт
-    if (pausedSince) { pausedMin += pausedHere; pausedSince = null; }
-    // Вернулись к работе — значит она не была закончена. Отметка сдачи
-    // аннулируется, часы идут дальше: иначе «сдал пустышку» останавливало бы срок.
-    workDoneAt = null;
-    workDoneKind = null;
-  } else if (stage === 'review') {
-    status = 'review';
-    submitted = submitted || now;
-    // сдал на проверку — работа с его стороны закончена, таймер стоит
-    if (!workDoneAt) { workDoneAt = now; workDoneKind = 'submitted'; }
-    if (taken) pausedSince = pausedSince || now;
-  } else if (stage === 'accepted') {
-    status = 'accepted';
-    done = done || completedAt || now;
-    // приняли прямо из паузы, а сдачи не было (блокер → завершена):
-    // стоявшее время не в счёт. Если сдача была раньше — она уже всё зафиксировала.
-    if (pausedSince && !workDoneAt) pausedMin += pausedHere;
-    pausedSince = null;
-    if (!workDoneAt) { workDoneAt = done; workDoneKind = 'accepted'; }
-  } else if (stage === 'blocked') {
-    // Часы на паузе, но работа не сдана: блокером нельзя остановить срок,
-    // ничего не сделав.
-    status = 'blocked';
-    if (taken) pausedSince = pausedSince || now;
-  } else if (stage === 'waiting') {
-    // Работа ассистента закончена, ждём внешний результат. Часы стоят,
-    // и задача засчитывается сданной — по этой дате и меряется срок.
-    status = 'waiting';
-    if (taken) pausedSince = pausedSince || now;
-    if (!workDoneAt) {
-      workDoneAt = now;
-      workDoneKind = 'handed_off';
-    }
-  } else if (stage === 'shelved') {
-    // «На потом», «На контроле»: отложена, таймер стоит.
-    status = 'shelved';
-    if (taken) pausedSince = pausedSince || now;
-  } else if (stage === 'cancelled') {
-    status = 'cancelled';
-    pausedSince = null;
-  }
+  let { status, taken, submitted, done, returns, pausedMin, pausedSince, workDoneAt, workDoneKind } = st;
+  // взята раньше, чем назначена этому исполнителю (переназначили в ходе работы) —
+  // до старта у него ноль, а не отрицательное
+  if (taken && taken < createdAt) taken = createdAt;
 
   // YouGile сам отмечает завершённость — это надёжнее, чем угадывать по колонке
   if (t.completed && status !== 'accepted' && status !== 'cancelled') {
     status = 'accepted';
     done = done || completedAt || now;
+    if (!workDoneAt) { workDoneAt = done; workDoneKind = 'accepted'; }
   }
-  // Трекер знает точное время закрытия. Если мы записали более позднее —
-  // заметили с опозданием, синхронизация раз в час — исправляем на реальное.
+  // Точное время закрытия из трекера
   if (completedAt && status === 'accepted' && (!done || done > completedAt)) {
     done = completedAt;
     if (workDoneKind === 'accepted' || !workDoneAt) { workDoneAt = completedAt; workDoneKind = 'accepted'; }
   }
+  if (!t.completed && status === 'accepted' && stage && stage !== 'accepted') {
+    // сняли галочку и вернули на доску
+    status = stage;
+    done = null;
+  }
 
-  // Задача, закрытая до запуска системы, остаётся исторической навсегда:
-  // иначе очередная синхронизация снова проставит ей сегодняшнюю дату
-  // закрытия и она вернётся в расчёт.
-  if (existing?.status === 'historical' && (status === 'accepted' || stage === null)) {
+  // Историческая — закрытая до запуска, когда реальных дат не было. С логом
+  // даты есть, и такая задача возвращается в расчёт при пересчёте.
+  if (existing?.status === 'historical' && !fromLog && (status === 'accepted' || stage === null)) {
     status = 'historical';
     done = null;
+  }
+  if (fromLog && status === 'accepted' && !taken) {
+    // закрыта, но в «В работе» не была: метрик по ней нет, но и не историческая
   }
   if (t.archived || t.deleted) status = 'cancelled';
 
@@ -2271,15 +2407,15 @@ async function upsertTaskFromYougile(env, t, settings) {
     await db
       .prepare(
         `UPDATE tasks SET title=?, number=?, project_no=?, url=?, board_id=?, column_id=?, keywords=?, assignee_id=?,
-         size=?, level=?, level_src=?, priority=?, deadline=?, status=?, taken_at=?,
+         size=?, level=?, level_src=?, priority=?, created_at=?, deadline=?, status=?, taken_at=?,
          submitted_at=?, done_at=?, work_done_at=?, work_done_kind=?, returns=?,
          paused_min=?, paused_since=?, t2s_hours=?, t2f_hours=?,
          period=?, updated_at=? WHERE id=?`
       )
       .bind(title, t.idTaskCommon || existing.number, projectNo, url, t.boardId || existing.board_id,
             t.columnId || existing.column_id, keywords,
-            user?.id || existing.assignee_id, size, level, levelSrc,
-            priorityDays, deadline, status, taken,
+            user?.id || (assigned.length ? null : existing.assignee_id), size, level, levelSrc,
+            priorityDays, createdAt, deadline, status, taken,
             submitted, done, workDoneAt, workDoneKind,
             returns, pausedMin, pausedSince, dur.t2s, dur.t2f, period, now, t.id)
       .run();
@@ -2287,10 +2423,9 @@ async function upsertTaskFromYougile(env, t, settings) {
     // задачу завёл сам исполнитель — это инициатива
     const isInitiative = assignee && t.createdBy && t.createdBy === assignee ? 1 : 0;
 
-    // Задача, которая попала в базу уже закрытой, закрыта до запуска системы.
-    // Реальной даты закрытия YouGile не отдаёт, а подставлять сегодняшнюю
-    // нечестно: человек получил бы оценку за работу, которой никто не мерил.
-    if (status === 'accepted') {
+    // Задача, которая попала в базу уже закрытой и без лога, — историческая:
+    // подставлять сегодняшнюю дату закрытия нечестно. С логом даты настоящие.
+    if (status === 'accepted' && !fromLog) {
       status = 'historical';
       done = null;
     }
@@ -2319,7 +2454,7 @@ async function upsertTaskFromYougile(env, t, settings) {
   const wasZaeb = colSet(settings, 'column_zaeb').has(existing?.column_id || '')
     || existing?.is_zaeb === 1;
   const isZaebNow = colSet(settings, 'column_zaeb').has(t.columnId || '');
-  if ((wasZaeb || isZaebNow) && status === 'accepted' && !existing?.zaeb_awarded) {
+  if ((wasZaeb || isZaebNow) && status === 'accepted' && !existing?.zaeb_awarded && !opts.quiet) {
     await db.prepare('UPDATE tasks SET is_zaeb = 1, zaeb_awarded = 1 WHERE id = ?').bind(t.id).run();
 
     // Кто передвинул карточку в «Завершена» — тот и закрыл заёб.
@@ -2340,8 +2475,8 @@ async function upsertTaskFromYougile(env, t, settings) {
     await db.prepare('UPDATE tasks SET is_zaeb = 1 WHERE id = ?').bind(t.id).run();
   }
 
-  if (stage === 'in_progress' && !existing?.taken_at) await logEvent(db, { taskId: t.id, type: 'taken' });
-  if (stage === 'review' && existing?.status !== 'review') await logEvent(db, { taskId: t.id, type: 'submitted' });
+  if (stage === 'in_progress' && !existing?.taken_at) await logEvent(db, { taskId: t.id, type: 'taken', at: taken || now });
+  if (stage === 'review' && existing?.status !== 'review') await logEvent(db, { taskId: t.id, type: 'submitted', at: submitted || now });
   if (stage === 'paused' && existing?.status !== 'paused') {
     await logEvent(db, { taskId: t.id, type: 'manual', note: 'ушла в ожидание или блокер' });
   }
@@ -3253,7 +3388,7 @@ export default {
 export const __test = {
   quarterOf, monthsOfQuarter, MARKS, MARK_LABEL,
   levelOfTask, taskDurations, timeMetrics, planPercent, autoMark,
-  workMinutesBetween, addWorkMinutes, addWorkdays, workWindow,
+  workMinutesBetween, addWorkMinutes, addWorkdays, workWindow, applyStage, replayLog, freshTimeline,
   scoreTask, scoreChat, computeMetrics, scoreFromPercent, skipPriorities,
 };
 

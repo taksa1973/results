@@ -219,3 +219,30 @@ test('рабочий день по умолчанию — с 9:00: пятниц�
   // внутри окна — минута в минуту
   assert.equal(workMinutesBetween('2026-08-17T06:13:00Z', '2026-08-17T07:00:00Z', {}), 47);
 });
+
+test('таймлайн задачи проигрывается из лога YouGile (VSE-312)', () => {
+  const { replayLog, taskDurations } = __test;
+  const S2 = { ...S, column_backlog: 'c-backlog', column_in_progress: 'c-work', column_blocked: 'c-block', column_done: 'c-done' };
+  // события как в логе трекера: назначения, переходы, закрытие
+  const log = [
+    { at: '2026-08-04T14:30:41.709Z', kind: 'assigned', user: 'yg-lead' },
+    { at: '2026-08-04T14:37:28.304Z', kind: 'assigned', user: 'yg-kate' },
+    { at: '2026-08-05T11:11:02.706Z', kind: 'move', from: 'c-backlog', to: 'c-work', by: 'yg-kate' },   // 14:11 МСК
+    { at: '2026-08-10T08:15:25.290Z', kind: 'move', from: 'c-work', to: 'c-block', by: 'yg-kate' },    // 11:15 МСК
+    { at: '2026-09-15T08:10:42.413Z', kind: 'completed', by: 'yg-kate' },
+    { at: '2026-09-15T08:10:42.800Z', kind: 'move', from: 'c-block', to: 'c-done', by: 'yg-kate' },
+  ];
+  const st = replayLog(log, S2);
+  assert.equal(st.taken, '2026-08-05T11:11:02.706Z', 'взята в момент переноса в «В работе»');
+  assert.equal(st.takenBy, 'yg-kate', 'кто перетащил — тот и делает');
+  assert.equal(st.status, 'accepted');
+  assert.equal(st.done, '2026-09-15T08:10:42.413Z');
+  assert.equal(st.assignedAt['yg-kate'], '2026-08-04T14:37:28.304Z', 'поставлена Кате, когда назначили');
+  assert.ok(st.pausedMin > 0, 'месяц в блокере — пауза');
+
+  // в работе: ср 14:11–18:00, чт, пт по 8 ч, пн 10:00–11:15 → 21,1 ч; блокер не в счёт
+  const d = taskDurations({ created_at: st.assignedAt['yg-kate'], taken_at: st.taken, work_done_at: st.workDoneAt, done_at: st.done, paused_min: st.pausedMin }, S2);
+  assert.equal(d.t2f, 21.07);
+  // до старта: назначена 4 авг 17:37 → взята 5 авг 14:11 = 23 мин + 4 ч 11 мин
+  assert.equal(d.t2s, 4.57);
+});
