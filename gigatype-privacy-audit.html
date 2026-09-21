@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Аудит GigaType: куда уходят данные</title>
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="description" content="Разбор установщика Type.exe 2.0.0 с gigatype.app: телеметрия PostHog и stats.multitool.works, очереди на диске, автообновление, загрузки с Hugging Face. Что локально, что нет, как отключить.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add('js-anim');</script>
+<style>
+:root{
+  --page-bg:#F5F5F7;--surface:#FFFFFF;--text-1:#1D1D1F;--text-2:#6E6E73;--text-3:#AEAEB2;
+  --blue:#0071E3;--border:rgba(0,0,0,0.08);
+  --red:#D70015;--red-bg:#FFF1F0;--red-border:rgba(215,0,21,0.18);
+  --amber:#B25000;--amber-bg:#FFF6E5;--amber-border:rgba(178,80,0,0.18);
+  --green:#1B7F3B;--green-bg:#EEF9F0;--green-border:rgba(27,127,59,0.18);
+  --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+  --shadow:0 1px 2px rgba(0,0,0,0.04),0 8px 24px rgba(0,0,0,0.04);
+  --shadow-hover:0 2px 6px rgba(0,0,0,0.06),0 16px 40px rgba(0,0,0,0.08);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--page-bg);color:var(--text-1);font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:var(--blue);text-decoration:none}
+a:hover{text-decoration:underline}
+a:focus-visible,button:focus-visible{outline:3px solid var(--blue);outline-offset:2px;border-radius:6px}
+code,.mono{font-family:var(--mono);font-size:0.86em}
+.mono{word-break:break-all;overflow-wrap:anywhere}
+code{background:rgba(0,0,0,0.05);padding:2px 6px;border-radius:6px;word-break:break-all}
+pre{font-family:var(--mono);font-size:13px;line-height:1.6;background:#1D1D1F;color:#F5F5F7;padding:18px 20px;border-radius:14px;overflow-x:auto;margin:14px 0 0}
+pre code{background:none;padding:0;color:inherit;font-size:inherit}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+.eyebrow{font-size:12px;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-3);font-weight:600;margin:0 0 10px}
+h1{font-size:clamp(32px,5vw,56px);line-height:1.08;letter-spacing:-0.02em;font-weight:800;margin:0 0 20px}
+h1 span{color:var(--red)}
+h2{font-size:clamp(24px,3vw,34px);line-height:1.15;letter-spacing:-0.02em;font-weight:700;margin:0 0 8px}
+h3{font-size:18px;font-weight:600;letter-spacing:-0.01em;margin:0 0 8px}
+p{margin:0 0 12px}
+.lead{font-size:19px;color:var(--text-2);max-width:760px}
+.sub{color:var(--text-2);max-width:760px;margin-bottom:28px}
+
+/* hero */
+.hero{background:var(--surface);border-bottom:1px solid var(--border);padding:72px 0 56px}
+.pills{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
+.pill{display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border-radius:999px;border:1px solid var(--border);background:var(--page-bg);font-size:14px;font-weight:500;color:var(--text-1)}
+.pill b{font-weight:700}
+.pill.red{background:var(--red-bg);border-color:var(--red-border);color:var(--red)}
+.pill.green{background:var(--green-bg);border-color:var(--green-border);color:var(--green)}
+.pill.amber{background:var(--amber-bg);border-color:var(--amber-border);color:var(--amber)}
+.pill svg{width:16px;height:16px;flex:none}
+
+section{padding:56px 0}
+section+section{padding-top:0}
+
+/* cards */
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:24px;box-shadow:var(--shadow);transition:box-shadow .2s,transform .2s;min-width:0}
+.card:hover{transform:translateY(-2px);box-shadow:var(--shadow-hover)}
+.card.span2{grid-column:span 2}
+.card.span3{grid-column:span 3}
+.card .k{font-size:12px;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-3);font-weight:600;margin-bottom:8px}
+.card .v{font-size:36px;font-weight:800;letter-spacing:-0.02em;line-height:1.05;margin-bottom:6px}
+.card .v.red{color:var(--red)}
+.card .v.green{color:var(--green)}
+.card .v.amber{color:var(--amber)}
+.card p:last-child{margin-bottom:0}
+.card ul{margin:0;padding-left:20px}
+.card li{margin-bottom:6px}
+.card.tone-red{background:linear-gradient(180deg,#FFF6F5 0%,#FFFFFF 60%);border-color:var(--red-border)}
+.card.tone-green{background:linear-gradient(180deg,#F1FAF3 0%,#FFFFFF 60%);border-color:var(--green-border)}
+.card.tone-amber{background:linear-gradient(180deg,#FFF8EC 0%,#FFFFFF 60%);border-color:var(--amber-border)}
+
+/* status tag */
+.tag{display:inline-flex;align-items:center;gap:6px;padding:3px 10px;border-radius:999px;font-size:12px;font-weight:600;white-space:nowrap;line-height:1.6}
+.tag svg{width:12px;height:12px}
+.tag.red{background:var(--red-bg);color:var(--red);border:1px solid var(--red-border)}
+.tag.green{background:var(--green-bg);color:var(--green);border:1px solid var(--green-border)}
+.tag.amber{background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-border)}
+.tag.gray{background:rgba(0,0,0,0.05);color:var(--text-2);border:1px solid var(--border)}
+
+/* table */
+.tblwrap{background:var(--surface);border:1px solid var(--border);border-radius:20px;box-shadow:var(--shadow);overflow:hidden}
+.scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table{width:100%;border-collapse:collapse;font-size:14.5px;min-width:820px}
+thead th{background:var(--text-1);color:#fff;text-align:left;padding:14px 16px;font-weight:600;font-size:13px;letter-spacing:0.02em;white-space:nowrap}
+tbody td{padding:14px 16px;border-bottom:1px solid var(--border);vertical-align:top}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover td{background:#FAFAFB}
+td .mono{font-size:12.5px;color:var(--text-2);display:block;margin-top:4px;word-break:break-all}
+td strong{font-weight:600}
+
+/* steps / timeline */
+.timeline{position:relative;padding-left:32px}
+.timeline:before{content:"";position:absolute;left:9px;top:8px;bottom:8px;width:2px;background:var(--border)}
+.step{position:relative;margin-bottom:22px}
+.step:last-child{margin-bottom:0}
+.step:before{content:"";position:absolute;left:-32px;top:6px;width:20px;height:20px;border-radius:50%;background:var(--blue);border:4px solid var(--surface);box-shadow:0 0 0 1px var(--border)}
+.step.red:before{background:var(--red)}
+.step.amber:before{background:var(--amber)}
+.step.green:before{background:var(--green)}
+.step h3{margin-bottom:4px}
+.step p{color:var(--text-2);margin-bottom:0}
+.step .when{font-size:12px;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-3);font-weight:600}
+
+/* claims */
+.claims{display:grid;grid-template-columns:1fr;gap:12px}
+.claim{display:grid;grid-template-columns:1fr 1fr;gap:20px;background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:20px 24px;box-shadow:var(--shadow)}
+.claim .q{color:var(--text-2);font-style:italic;position:relative;padding-left:16px}
+.claim .q:before{content:"";position:absolute;left:0;top:4px;bottom:4px;width:3px;border-radius:3px;background:var(--text-3)}
+.claim .a{padding-left:0}
+.claim .a .tag{margin-bottom:8px}
+
+/* tips */
+.tips{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.tip{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:22px;box-shadow:var(--shadow);transition:box-shadow .2s,transform .2s;min-width:0}
+.claim{min-width:0}
+.claim>div{min-width:0}
+.tip:hover{transform:translateY(-2px);box-shadow:var(--shadow-hover)}
+.tip .n{width:30px;height:30px;border-radius:8px;background:var(--text-1);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;margin-bottom:14px}
+.tip p{color:var(--text-2);font-size:14.5px;margin-bottom:0}
+.tip p+p{margin-top:8px}
+
+.note{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:16px 20px;font-size:14.5px;color:var(--text-2)}
+.note strong{color:var(--text-1)}
+
+.dl{display:grid;grid-template-columns:200px 1fr;gap:6px 16px;font-size:14.5px;margin:0}
+.dl dt{color:var(--text-2)}
+.dl dd{margin:0;word-break:break-word}
+
+footer{border-top:1px solid var(--border);padding:32px 0 48px;color:var(--text-3);font-size:13px}
+footer p{margin-bottom:4px}
+
+/* reveal: content visible by default; hide only when JS confirmed */
+.reveal{opacity:1}
+.js-anim .reveal{opacity:0;transform:translateY(16px)}
+.js-anim .reveal.is-in{opacity:1;transform:none;transition:opacity .55s cubic-bezier(.2,.7,.2,1),transform .55s cubic-bezier(.2,.7,.2,1)}
+@media (prefers-reduced-motion:reduce){
+  .js-anim .reveal{opacity:1;transform:none;transition:none}
+  .card:hover,.tip:hover{transform:none}
+  html{scroll-behavior:auto}
+}
+@media (max-width:900px){
+  .grid,.tips{grid-template-columns:1fr 1fr}
+  .card.span2,.card.span3{grid-column:span 2}
+  .claim{grid-template-columns:1fr}
+  .dl{grid-template-columns:1fr}
+}
+@media (max-width:600px){
+  .hero{padding:48px 0 40px}
+  .grid,.tips{grid-template-columns:1fr}
+  .card.span2,.card.span3{grid-column:span 1}
+  section{padding:40px 0}
+  .wrap{padding:0 16px}
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="eyebrow reveal">Аудит приватности · Type (GigaType) 2.0.0 для Windows · 21 сентября 2026</p>
+    <h1 class="reveal">Уходят ли данные из GigaType? <span>Да — и отложенно тоже.</span></h1>
+    <p class="lead reveal">Распознавание речи действительно работает локально: модель GigaAM лежит внутри установщика, голос и текст на сервер не отправляются. Но приложение с первого запуска шлёт телеметрию с постоянным идентификатором на два сервера, хранит неотправленные события на диске и досылает их, когда появится сеть. Переключателя в интерфейсе нет.</p>
+    <div class="pills reveal">
+      <span class="pill red"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4M12 17h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg><b>2</b>&nbsp;сервера телеметрии</span>
+      <span class="pill red"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-9-9"/><path d="M21 3v6h-6"/></svg><b>2</b>&nbsp;очереди на диске с досылкой</span>
+      <span class="pill amber"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg><b>2</b>&nbsp;фоновые загрузки без спроса</span>
+      <span class="pill amber"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="8" rx="4"/><circle cx="8" cy="12" r="2"/></svg><b>0</b>&nbsp;переключателей в интерфейсе</span>
+      <span class="pill green"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Голос и текст&nbsp;<b>локально</b></span>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<section id="itog">
+  <div class="wrap">
+    <p class="eyebrow reveal">Коротко</p>
+    <h2 class="reveal">Ответ на вопрос</h2>
+    <p class="sub reveal">Вопрос был: «вообще никуда, даже отложенно, данные не уходят?». Проверено по коду самого установщика <code>Type.exe</code> (938 МБ, SHA-256 <span class="mono">1692d773…6bcd</span>), а не по обещаниям на сайте.</p>
+    <div class="grid">
+      <div class="card tone-red reveal">
+        <div class="k">Отправка</div>
+        <div class="v red">Есть</div>
+        <p>PostHog (EU) и собственный сервер разработчика <code>stats.multitool.works</code>. Первые события <code>first_app_opened</code> и <code>app_opened</code> уходят при старте, до появления окна.</p>
+      </div>
+      <div class="card tone-red reveal">
+        <div class="k">Отложенно</div>
+        <div class="v red">Есть</div>
+        <p>Две очереди <code>.jsonl</code> на диске. Нет сети — события ждут и уходят при следующем удачном запуске: в PostHog до 7 дней, в multitool — бессрочно (до 1000 событий).</p>
+      </div>
+      <div class="card tone-green reveal">
+        <div class="k">Голос и текст</div>
+        <div class="v green">Локально</div>
+        <p>Модель GigaAM v3 (ONNX, 885 МБ) внутри сборки, инференс через Electron IPC. В телеметрию идут только длительность аудио и число символов/слов — не содержимое.</p>
+      </div>
+      <div class="card span2 reveal">
+        <div class="k">Что именно привязывается к вам</div>
+        <p><strong>Два постоянных UUID</strong> — <code>anonymous_user_id</code> (хранится зашифрованным в <code>telemetry/anonymous-user-id.enc</code>) и <code>install_id</code> (<code>telemetry/state.json</code>). Они не сбрасываются между сессиями, то есть вся история одной установки склеивается в один профиль. Плюс <code>app_version</code>, <code>platform</code>, полная строка <code>os_version</code> (<code>os.version()</code>, например «Windows 11 Pro»), <code>arch</code>, <code>session_id</code>. IP-адрес сервер видит по определению.</p>
+      </div>
+      <div class="card tone-amber reveal">
+        <div class="k">Отключение</div>
+        <div class="v amber">Только вручную</div>
+        <p>В настройках нет ни одного пункта. Работает только переменная окружения <code>GIGATYPE_TELEMETRY_ENABLED=0</code> — её можно положить в файл <code>.env</code> в папке приложения. Загрузку с Hugging Face так не отключить — только файрволом.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="karta">
+  <div class="wrap">
+    <p class="eyebrow reveal">Карта соединений</p>
+    <h2 class="reveal">Куда и когда приложение ходит в сеть</h2>
+    <p class="sub reveal">Все хосты вытащены из распакованного <code>app.asar</code>. Столбец «Отложенно» — есть ли механизм досылки после восстановления сети.</p>
+    <div class="tblwrap reveal">
+      <div class="scroll">
+        <table>
+          <thead>
+            <tr><th>Куда</th><th>Когда</th><th>Что передаётся</th><th>Отложенно</th><th>Отключение</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>PostHog</strong><span class="mono">POST https://eu.i.posthog.com/batch/<br>ключ phc_xQjeveprGamdNM3FRBgwuXefAwXfWgctzMaGfswmReQq</span></td>
+              <td>Старт приложения, каждая диктовка, каждая ошибка. Отправка каждые 30 с батчами по 20 и при выходе.</td>
+              <td>21 тип событий, 60 полей: идентификаторы, ОС, длительность и размер аудио, число символов/слов, задержки, тексты ошибок до 180 символов (URL/e-mail/пути замаскированы), хеш стека.</td>
+              <td><span class="tag red"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 12a9 9 0 1 1-9-9"/><path d="M21 3v6h-6"/></svg>да, 7 дней</span><span class="mono">telemetry/queue.jsonl</span></td>
+              <td><code>GIGATYPE_TELEMETRY_ENABLED=0</code></td>
+            </tr>
+            <tr>
+              <td><strong>Traction (свой сервер разработчика)</strong><span class="mono">POST https://stats.multitool.works/p/gigatype/events<br>X-Ingest-Token 1bfde59c…a71c0 · IP 158.160.233.163 (Yandex Cloud)</span></td>
+              <td>Те же события, «дистиллят» для продуктовой статистики. Каждые 30 с батчами до 200 и при выходе.</td>
+              <td><code>device_id</code> (= install_id), версия, платформа, воронка диктовки: <code>session_id</code>, длительность аудио, <code>raw_transcript_chars/words</code>, <code>final_output_chars/words</code>, способ вставки, задержки, коды ошибок.</td>
+              <td><span class="tag red"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 12a9 9 0 1 1-9-9"/><path d="M21 3v6h-6"/></svg>да, бессрочно</span><span class="mono">telemetry/traction-queue.jsonl</span></td>
+              <td>Та же переменная (живёт за общим гейтом)</td>
+            </tr>
+            <tr>
+              <td><strong>SberCloud OBS — автообновление</strong><span class="mono">https://obs.ru-moscow-1.hc.sbercloud.ru/d-ssdev-crowd/function_descriptions/gigatype-electron/prod/latest.yml</span></td>
+              <td>Через 3 с после старта и далее каждые 4 часа.</td>
+              <td>Обычный GET манифеста (User-Agent electron-updater с версией). Если версия новее — <strong>скачивает установщик в фоне без вопроса</strong>, спрашивает только перед установкой.</td>
+              <td><span class="tag gray">повтор через 4 ч</span></td>
+              <td><code>GIGATYPE_DISABLE_AUTO_UPDATES=1</code></td>
+            </tr>
+            <tr>
+              <td><strong>Hugging Face — модель эмбеддингов</strong><span class="mono">https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/…/model.onnx (90,4 МБ) + tokenizer.json</span></td>
+              <td>При <strong>каждом</strong> запуске, пока модель не скачана. В сборке её нет.</td>
+              <td>GET-загрузка файлов. Нужна для функции заметок/поиска, но вызывается безусловно (<code>main.js</code>, блок <code>localEmbeddings.downloadModel()</code>).</td>
+              <td><span class="tag amber"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 12a9 9 0 1 1-9-9"/><path d="M21 3v6h-6"/></svg>повтор при старте</span></td>
+              <td>Переменной нет. Только файрвол или блок хоста.</td>
+            </tr>
+            <tr>
+              <td><strong>Hugging Face — модель GigaAM</strong><span class="mono">https://huggingface.co/istupakov/gigaam-v3-onnx/resolve/main/…</span></td>
+              <td>Только если встроенная модель в <code>resources/gigaam-model</code> не найдена.</td>
+              <td>Запасной путь; в нормальной установке не срабатывает (модель в сборке есть, манифест указывает на Яндекс.Диск как источник сборки).</td>
+              <td><span class="tag green">нет</span></td>
+              <td>Не требуется</td>
+            </tr>
+            <tr>
+              <td><strong>Облачные LLM (OpenAI, Anthropic, Google, Groq, Mistral, Azure, Bedrock)</strong></td>
+              <td>Только если вы сами включите «очистку текста» и введёте свой ключ.</td>
+              <td>По умолчанию <code>useCleanupModel = false</code>, провайдер <code>qwen</code> (локальный llama.cpp). Вшитых ключей в коде нет.</td>
+              <td><span class="tag green">нет</span></td>
+              <td>Не включать</td>
+            </tr>
+            <tr>
+              <td><strong>GitHub — llama.cpp</strong><span class="mono">github.com/ggerganov/llama.cpp/releases/latest</span></td>
+              <td>Только при включении локальной LLM-очистки.</td>
+              <td>Загрузка бинарника llama-server.</td>
+              <td><span class="tag green">нет</span></td>
+              <td>Не включать</td>
+            </tr>
+            <tr>
+              <td><strong>Google Calendar API</strong></td>
+              <td>Только с добавленным аккаунтом; <code>GOOGLE_CALENDAR_CLIENT_ID</code> в сборке отсутствует.</td>
+              <td>Фактически неработоспособно в этой сборке.</td>
+              <td><span class="tag green">нет</span></td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td><strong>GitHub — sherpa-onnx (диаризация), Qdrant</strong></td>
+              <td>Только при наличии бинарников <code>sherpa-onnx-diarize-*.exe</code> / <code>qdrant</code>.</td>
+              <td>В <code>resources/bin</code> их нет — ветки мёртвые.</td>
+              <td><span class="tag green">нет</span></td>
+              <td>—</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="otlozhenno">
+  <div class="wrap">
+    <p class="eyebrow reveal">Механика</p>
+    <h2 class="reveal">Как работает отложенная отправка</h2>
+    <p class="sub reveal">Именно это делает ответ «нет» невозможным: даже если сейчас сети нет, событие не теряется.</p>
+    <div class="grid">
+      <div class="card span2 reveal">
+        <div class="timeline">
+          <div class="step red">
+            <div class="when">Запуск, до окна</div>
+            <h3>TelemetryService.init() → capture()</h3>
+            <p>Создаются или читаются <code>install_id</code> и <code>anonymous_user_id</code>. События <code>first_app_opened</code> (один раз за установку) и <code>app_opened</code> пишутся в <code>queue.jsonl</code>, копия — через маппер в <code>traction-queue.jsonl</code>.</p>
+          </div>
+          <div class="step red">
+            <div class="when">Сразу и каждые 30 секунд</div>
+            <h3>flush() → fetch(POST)</h3>
+            <p>Читает очередь с диска, берёт батч (20 для PostHog, 200 для Traction), шлёт. Успех — срезает отправленное. Ошибка или таймаут 5 с — файл переписывается целиком и <strong>остаётся ждать</strong>.</p>
+          </div>
+          <div class="step red">
+            <div class="when">Каждая диктовка</div>
+            <h3>dictation_started → … → dictation_finished</h3>
+            <p>Шесть событий на одну диктовку с общим <code>session_id</code>: длительность и размер аудио, был ли распознан голос, число символов и слов до и после, метод вставки, три вида задержек, результат.</p>
+          </div>
+          <div class="step amber">
+            <div class="when">Выход из приложения</div>
+            <h3>shutdown() → flush() обеих очередей</h3>
+            <p>Последняя попытка отправить всё накопленное перед закрытием (таймаут 5 с, параллельно для обоих серверов).</p>
+          </div>
+          <div class="step amber">
+            <div class="when">Следующий запуск</div>
+            <h3>Очередь пережила перезагрузку</h3>
+            <p>Всё, что не ушло, лежит в <code>%APPDATA%\…\telemetry\</code>. PostHog-очередь чистится от событий старше 7 дней и обрезается до 1000. Traction-очередь срока не имеет — только лимит 1000 записей.</p>
+          </div>
+        </div>
+      </div>
+      <div class="card reveal">
+        <div class="k">21 событие в белом списке</div>
+        <ul style="font-size:14px;color:var(--text-2);columns:1">
+          <li><code>first_app_opened</code>, <code>app_opened</code></li>
+          <li><code>permission_granted</code>, <code>requirement_status_changed</code>, <code>all_required_permissions_granted</code>, <code>requirements_ready</code></li>
+          <li><code>model_download_started / succeeded / failed</code>, <code>model_ready</code></li>
+          <li><code>settings_screen_viewed</code></li>
+          <li><code>dictation_started</code>, <code>dictation_audio_captured</code>, <code>dictation_transcribed</code>, <code>dictation_output_attempted</code>, <code>dictation_finished</code>, <code>dictation_output_succeeded</code></li>
+          <li><code>error_occurred</code>, <code>main_process_error</code>, <code>renderer_process_gone</code>, <code>app_crashed</code></li>
+        </ul>
+      </div>
+      <div class="card span3 reveal">
+        <div class="k">Что подтверждает, что содержимое не уходит</div>
+        <p>Отправка проходит через белый список из 60 полей (<code>ALLOWED_PROPERTIES</code> в <code>telemetryService.js</code>); всё остальное отбрасывается. Полей с текстом транскрипта или аудио в списке нет — только <code>raw_transcript_chars</code>, <code>raw_transcript_words</code>, <code>final_output_chars</code>, <code>final_output_words</code>, <code>audio_duration_ms</code>, <code>audio_size_bytes</code>. Единственное свободное текстовое поле — <code>safe_message</code> ошибки (до 180 символов): в нём маскируются URL, e-mail и пути к пользовательским папкам, но если текст ошибки процесса вставки включит фрагмент буфера обмена, фильтр его не распознает. Это теоретический канал, в коде вставки такого не найдено.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="lokalno">
+  <div class="wrap">
+    <p class="eyebrow reveal">Что действительно локально</p>
+    <h2 class="reveal">Распознавание — да. И ещё пара вещей, о которых стоит знать</h2>
+    <div class="grid">
+      <div class="card tone-green reveal">
+        <span class="tag green">локально</span>
+        <h3 style="margin-top:12px">GigaAM v3 RNNT (ONNX)</h3>
+        <p>Файлы <code>v3_e2e_rnnt_encoder.onnx</code> (885 МБ), decoder, joint, vocab лежат в <code>resources/gigaam-model</code>. Инференс через <code>onnxruntime</code> в отдельном процессе, обмен — Electron IPC. HTTP-мост поднимается только с <code>GIGAAM_HTTP_BRIDGE=1</code> и только на loopback.</p>
+      </div>
+      <div class="card tone-green reveal">
+        <span class="tag green">локально</span>
+        <h3 style="margin-top:12px">VAD и аудио</h3>
+        <p>Silero VAD (<code>ggml-silero-v5.1.2.bin</code>) в сборке. Хранение аудио выключено (<code>audioRetentionDays = 0</code>), история транскриптов — в локальной SQLite.</p>
+      </div>
+      <div class="card tone-amber reveal">
+        <span class="tag amber">локально, но</span>
+        <h3 style="margin-top:12px">windows-text-monitor.exe</h3>
+        <p>После вставки читает содержимое активного поля ввода через Accessibility API каждые 500 мс — чтобы понять, правил ли пользователь текст. В сеть не ходит, но по сути это чтение чужого окна.</p>
+      </div>
+      <div class="card tone-amber reveal">
+        <span class="tag amber">локально, но</span>
+        <h3 style="margin-top:12px">Сканер процессов (ps-list)</h3>
+        <p>Опрашивает список процессов, ищет <code>cpthost.exe</code> (Zoom), <code>ms-teams_modulehost.exe</code>, <code>webexmeetingsapp.exe</code> для «детекции встреч». Имена процессов в телеметрию не попадают.</p>
+      </div>
+      <div class="card tone-amber reveal">
+        <span class="tag amber">без спроса</span>
+        <h3 style="margin-top:12px">Автозагрузка</h3>
+        <p><code>ensureAutoStartEnabledByDefault()</code> при первом запуске прописывает приложение в автозапуск Windows (<code>openAtLogin: true, openAsHidden: true</code>). Значит, телеметрия и проверка обновлений идут при каждом входе в систему.</p>
+      </div>
+      <div class="card tone-amber reveal">
+        <span class="tag amber">спящий код</span>
+        <h3 style="margin-top:12px">Форк OpenWhispr</h3>
+        <p>По <code>package.json</code> это <code>open-whispr 2.0.0</code>: внутри остались модули аккаунтов (<code>openwhispr.com/auth</code>), Google Calendar, Qdrant, диаризации. Конфигурация <code>VITE_AUTH_URL</code> пустая — ветки не активны, но при обновлении могут включиться.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="ui">
+  <div class="wrap">
+    <p class="eyebrow reveal">Интерфейс</p>
+    <h2 class="reveal">Почему переключателя нет, хотя строка «Аналитика использования» в переводах есть</h2>
+    <div class="grid">
+      <div class="card span2 reveal">
+        <p>В словаре переводов (<code>locales/ru/translation.json</code>) лежит текст: <em>«Аналитика использования — помогите нам улучшить Type, делясь анонимными метриками…»</em>. Но в скомпилированном интерфейсе эта строка нигде не используется — компонент, который её показывал в OpenWhispr, вырезан.</p>
+        <p>В хранилище настроек рендерера значение захардкожено: <code>telemetryEnabled: !1</code> (всегда <code>false</code>), а <code>setTelemetryEnabled</code> — заглушка, которая пишет <code>false</code> независимо от аргумента. При этом main-процесс это значение <strong>не читает вообще</strong>: <code>TelemetryService._resolveEnabled()</code> смотрит только на переменную окружения и наличие API-ключа, который вшит по умолчанию. Итог: даже если бы тумблер отрисовался, он бы ни на что не влиял.</p>
+      </div>
+      <div class="card reveal">
+        <div class="k">Фрагмент telemetryService.js</div>
+<pre><code>_resolveEnabled() {
+  const override = normalizeBoolEnv(
+    process.env.GIGATYPE_TELEMETRY_ENABLED);
+  if (override === false) {
+    this.disabledReason = "env-disabled";
+    return false;
+  }
+  if (!this.apiKey) { … return false; }
+  return true;   // ← по умолчанию
+}</code></pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="sait">
+  <div class="wrap">
+    <p class="eyebrow reveal">Сайт gigatype.app</p>
+    <h2 class="reveal">Сайт тоже собирает</h2>
+    <div class="grid">
+      <div class="card span2 reveal">
+        <p><strong>Яндекс.Метрика</strong>, счётчик <code>110570567</code>, инициализируется с <code>webvisor: true</code>, <code>clickmap: true</code>, <code>trackLinks: true</code>, <code>accurateTrackBounce: true</code>. Вебвизор — это запись сессии: движения мыши, скролл, клики, ввод в поля. Кнопка «Скачать» дополнительно отправляет цели <code>click_button_download</code> и <code>click_button_download_macos</code> / <code>_windows</code>.</p>
+        <p>Политика конфиденциальности на сайте это признаёт («подключена Яндекс Метрика, включая Вебвизор»), так что тут расхождения нет — просто имейте в виду.</p>
+      </div>
+      <div class="card reveal">
+        <div class="k">Хостинг и дистрибуция</div>
+        <dl class="dl">
+          <dt>Сервер сайта</dt><dd>Caddy, HSTS</dd>
+          <dt>Windows-сборка</dt><dd>gigatype.app/downloads/Type.exe</dd>
+          <dt>macOS-сборка</dt><dd>SberCloud OBS, бакет <code>d-ssdev-crowd</code></dd>
+          <dt>Правообладатель</dt><dd>Disrupt Builders, Алматы (из schema.org на сайте)</dd>
+          <dt>Контакт</dt><dd>Михаил Наер, mishanaer.com</dd>
+          <dt>Репозиторий</dt><dd><code>github.com/mishanaer/GigaType2</code> — 404, закрыт</dd>
+        </dl>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="zayavleniya">
+  <div class="wrap">
+    <p class="eyebrow reveal">Слова и код</p>
+    <h2 class="reveal">Заявления сайта против того, что в сборке</h2>
+    <div class="claims">
+      <div class="claim reveal">
+        <div class="q">«Работает локально, без интернета и полностью приватно» — заголовок главной страницы</div>
+        <div class="a"><span class="tag amber">частично</span><p>Распознавание — локально, это правда. «Без интернета» — распознавание не требует, но само приложение при каждом запуске обращается минимум к трём хостам. «Полностью приватно» — с постоянным идентификатором установки это утверждение не выдерживает проверки.</p></div>
+      </div>
+      <div class="claim reveal">
+        <div class="q">«Голос и распознанный текст остаются на компьютере. Для распознавания они не отправляются на сервер» — политика конфиденциальности</div>
+        <div class="a"><span class="tag green">подтверждается</span><p>Белый список полей телеметрии не содержит ни аудио, ни текста. Модель встроена, облачные провайдеры выключены и требуют своего ключа.</p></div>
+      </div>
+      <div class="claim reveal">
+        <div class="q">«Приложение собирает технические события: ошибки, длительность диктовки и количество символов» — политика конфиденциальности</div>
+        <div class="a"><span class="tag amber">неполно</span><p>Верно по существу, но не названы: получатели (PostHog в ЕС и сервер разработчика в Yandex Cloud), постоянные идентификаторы, версия ОС, хранение и досылка очереди, отсутствие способа отключить. Загрузка модели с Hugging Face и автообновление с SberCloud не упомянуты вовсе.</p></div>
+      </div>
+      <div class="claim reveal">
+        <div class="q">«MIT License… Тайп можно бесплатно использовать, копировать, менять…» — подвал сайта</div>
+        <div class="a"><span class="tag amber">не проверить</span><p>Лицензия MIT указана и в <code>package.json</code>, но исходники не опубликованы: <code>mishanaer/GigaType2</code> отдаёт 404. Внешний аудит по коду возможен только через распаковку сборки, как сделано здесь.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="otklyuchit">
+  <div class="wrap">
+    <p class="eyebrow reveal">Если всё-таки пользоваться</p>
+    <h2 class="reveal">Как заглушить всё, что можно</h2>
+    <p class="sub reveal">Приложению сеть не нужна ни для чего полезного: модель внутри, обновления можно ставить руками. Три шага закрывают все найденные каналы.</p>
+    <div class="tips">
+      <div class="tip reveal">
+        <div class="n">1</div>
+        <h3>Файл .env в папке приложения</h3>
+        <p><code>main.js:130</code> читает <code>.env</code> из userData. По <code>package.json</code> имя приложения <code>open-whispr</code>, значит путь: <code>%APPDATA%\open-whispr\.env</code> (проверьте, какая папка появится после первого запуска).</p>
+<pre><code>GIGATYPE_TELEMETRY_ENABLED=0
+GIGATYPE_DISABLE_AUTO_UPDATES=1</code></pre>
+        <p>Создать до первого запуска, иначе <code>first_app_opened</code> успеет уйти. После — удалить папку <code>telemetry</code> с очередями и идентификаторами.</p>
+      </div>
+      <div class="tip reveal">
+        <div class="n">2</div>
+        <h3>Исходящий запрет в файрволе</h3>
+        <p>Переменной для Hugging Face нет, поэтому надёжнее запретить исходящие соединения самому процессу. От имени администратора:</p>
+<pre><code>New-NetFirewallRule -DisplayName "Type: no outbound" `
+  -Direction Outbound -Action Block `
+  -Program "$env:LOCALAPPDATA\Programs\Type\Type.exe"</code></pre>
+        <p>Путь к <code>Type.exe</code> уточните после установки (NSIS ставит в <code>%LOCALAPPDATA%\Programs\…</code> для текущего пользователя).</p>
+      </div>
+      <div class="tip reveal">
+        <div class="n">3</div>
+        <h3>Автозагрузка и проверка</h3>
+        <p>Убрать Type из автозапуска (Диспетчер задач → Автозагрузка), иначе он будет пробовать сеть при каждом входе.</p>
+        <p>Проверить, что ничего не уходит: <code>Get-NetTCPConnection -OwningProcess (Get-Process Type).Id</code> после диктовки должен показывать только loopback. Очередь <code>telemetry\queue.jsonl</code> при рабочем запрете будет расти — это и есть «отложенные» события, которые ждут своего часа.</p>
+      </div>
+    </div>
+    <div class="note reveal" style="margin-top:16px">
+      <strong>Альтернатива без компромиссов.</strong> Та же модель GigaAM v3 ONNX (<code>istupakov/gigaam-v3-onnx</code> на Hugging Face) открыта и работает через <code>onnxruntime</code> без всего этого обвеса. Если нужна именно офлайн-диктовка на русском, дешевле собрать тонкий скрипт вокруг модели, чем вырезать телеметрию из чужого Electron-приложения.
+    </div>
+  </div>
+</section>
+
+<section id="metod">
+  <div class="wrap">
+    <p class="eyebrow reveal">Методика</p>
+    <h2 class="reveal">Как проверялось</h2>
+    <div class="grid">
+      <div class="card span2 reveal">
+        <ol style="margin:0;padding-left:20px;color:var(--text-2)">
+          <li>Скачан установщик <code>https://gigatype.app/downloads/Type.exe</code>: 937 912 202 байт, <code>Last-Modified: 24 Aug 2026</code>, SHA-256 <span class="mono">1692d7732ffb5850b716145c6edb86d4532d08afdaaed5ff0db9d263a99d6bcd</span>.</li>
+          <li>NSIS-установщик распакован 7-Zip (<code>7za x</code>) без запуска. Из <code>resources/app.asar</code> извлечён исходный код <code>@electron/asar</code>.</li>
+          <li>Прочитаны целиком: <code>main.js</code>, <code>src/helpers/telemetryService.js</code>, <code>tractionAnalytics.js</code>, <code>tractionEventMapper.js</code>, <code>src/updater.js</code>, <code>localEmbeddings.js</code>, <code>gigaamLocalAsr.js</code>, <code>googleCalendarManager.js</code>, <code>meetingProcessDetector.js</code>, <code>textEditMonitor.js</code>, <code>app-update.yml</code>, <code>package.json</code>.</li>
+          <li>Все <code>http(s)://</code> и доменные строки собраны из исходников и из бандла рендерера (<code>src/dist/assets/*.js</code>); проверено отсутствие SDK PostHog/Sentry/Amplitude/Mixpanel/Метрики в рендерере и вшитых ключей OpenAI/Anthropic/Google.</li>
+          <li>Дефолты настроек взяты из бандла: <code>useCleanupModel:K(\`useCleanupModel\`,!1)</code>, <code>cleanupProvider:W(\`cleanupProvider\`,\`qwen\`)</code>, <code>telemetryEnabled:!1</code>.</li>
+          <li>Сайт: HTML и 10 JS-чанков Next.js, страницы <code>/privacy</code>, <code>/about</code>, <code>/help</code>, <code>/contact</code>. Живость приёмников — DNS и HTTP к корню хостов, без обращения к ingest-эндпоинтам.</li>
+        </ol>
+      </div>
+      <div class="card reveal">
+        <div class="k">Границы проверки</div>
+        <p style="color:var(--text-2);font-size:14.5px">Это статический анализ сборки от 24 августа 2026. Приложение <strong>не устанавливалось и не запускалось</strong> — поэтому здесь нет перехваченного трафика, только код, который его порождает. Автообновление может изменить поведение в любой момент: манифест на SberCloud проверяется каждые 4 часа. Нативные хелперы (<code>windows-key-listener.exe</code>, <code>windows-text-monitor.exe</code>, <code>windows-fast-paste.exe</code>) дизассемблированы не были; в JS-обвязке сетевых вызовов к ним нет.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>Аудит подготовлен 21 сентября 2026 по сборке Type 2.0.0 (Windows x64). Все пути к файлам — относительно распакованного <code>resources/app.asar</code>.</p>
+    <p>Источники: gigatype.app, gigatype.app/privacy, gigatype.app/downloads/Type.exe, huggingface.co/sentence-transformers/all-MiniLM-L6-v2, api.github.com.</p>
+  </div>
+</footer>
+
+<script type="module">
+  const items = Array.from(document.querySelectorAll('.reveal'));
+  const showAll = () => items.forEach(el => el.classList.add('is-in'));
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduced) { showAll(); }
+  else {
+    // Жёсткий тайм-аут: через 3 с показать всё, что ещё скрыто, независимо от CDN
+    const fallback = setTimeout(showAll, 3000);
+    try {
+      const { inView, animate, stagger } = await import('https://cdn.jsdelivr.net/npm/motion@11/+esm');
+      inView('section, .hero', (entry) => {
+        const el = entry && entry.target ? entry.target : entry;
+        const kids = Array.from(el.querySelectorAll('.reveal')).filter(k => !k.classList.contains('is-in'));
+        if (!kids.length) return;
+        animate(kids, { opacity: [0, 1], y: [16, 0] }, { duration: 0.55, delay: stagger(0.06), easing: [0.2, 0.7, 0.2, 1] })
+          .finished.then(() => kids.forEach(k => k.classList.add('is-in')));
+      }, { margin: '0px 0px -10% 0px' });
+      document.querySelectorAll('.card, .tip').forEach(c => {
+        c.addEventListener('pointerdown', () => animate(c, { scale: 0.985 }, { duration: 0.12 }));
+        c.addEventListener('pointerup', () => animate(c, { scale: 1 }, { duration: 0.18 }));
+        c.addEventListener('pointerleave', () => animate(c, { scale: 1 }, { duration: 0.18 }));
+      });
+    } catch (e) {
+      // CDN недоступен — нативный IntersectionObserver, тайм-аут остаётся
+      if ('IntersectionObserver' in window) {
+        const io = new IntersectionObserver((entries) => {
+          entries.forEach(en => { if (en.isIntersecting) { en.target.classList.add('is-in'); io.unobserve(en.target); } });
+        }, { rootMargin: '0px 0px -10% 0px' });
+        items.forEach(el => io.observe(el));
+      } else { showAll(); }
+    }
+  }
+</script>
+</body>
+</html>
