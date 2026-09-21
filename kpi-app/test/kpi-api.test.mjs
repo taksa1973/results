@@ -83,7 +83,7 @@ async function freshEnv() {
       .prepare(`INSERT INTO users (id, name, role, grade, grade_num, salary, key_hash) VALUES (?,?,?,?,?,?,?)`)
       .run(id, name, role, 'A2', gradeNum, salary, await sha256(`key-${id}`));
   };
-  await add('lead', 'Ярослав', 'lead', 3, 0);
+  await add('lead', 'Ярослав', 'lead', 4, 100000);
   await add('chief', 'Алекс', 'chief', 3, 0);
   await add('kate', 'Екатерина', 'assistant', 3, 60000);
   await add('ksu', 'Ксения', 'assistant', 5, 80000);
@@ -126,59 +126,62 @@ async function freshEnv() {
   return { sqlite, env, call };
 }
 
-test('доска: руководитель видит всех, метрики сходятся', async () => {
+test('доска: KPI руководителя — результат отдела, люди — срезы', async () => {
   const { call } = await freshEnv();
   await call('lead', 'POST', '/kpi/sla', {
     quarter: '2026-Q3',
     values: { t2s1: 2, t2s2: 4, t2s3: 8, t2f1: 4, t2f2: 16, t2f3: 40 },
   });
 
-  const { status, body } = await call('lead', 'GET', '/kpi/board?quarter=2026-Q3');
+  const { status, body } = await call('chief', 'GET', '/kpi/board?quarter=2026-Q3');
   assert.equal(status, 200);
   assert.deepEqual(body.months, ['2026-07', '2026-08', '2026-09']);
+
+  // руководитель: грейд 4, оклад 100 000 → квартал 300 000
+  assert.equal(body.lead.name, 'Ярослав');
+  assert.equal(body.lead.grade, 4);
+  assert.equal(body.lead.salaryQuarter, 300000);
+  assert.ok(body.lead.quarter.markAuto, 'система предложила оценку');
+  assert.ok(body.lead.bonus.percent > 0, 'премия по матрице для грейда 4');
+
+  // его метрики — по всем задачам отдела: уровень 2 — Катя 4 ч и Ксюша 1 ч → 2.5
+  const aug = body.lead.months.find((m) => m.period === '2026-08');
+  assert.equal(aug.metrics.t2s2, 2.5);
+  assert.equal(aug.metrics.t2f2, 7.5);
+  assert.equal(aug.count, 5, 'все задачи отдела кроме заёба');
+  assert.equal(aug.tasks.length, 5);
+
+  // срезы по людям — только метрики, без премий и оценок
   assert.equal(body.people.length, 2);
-
   const kate = body.people.find((p) => p.name === 'Екатерина');
-  assert.equal(kate.grade, 3);
-  assert.equal(kate.salaryQuarter, 180000);
-  const aug = kate.months.find((m) => m.period === '2026-08');
-  assert.equal(aug.metrics.t2s1, 1);
-  assert.equal(aug.metrics.t2f1, 3);
-  assert.equal(aug.metrics.t2s2, 4);
-  assert.equal(aug.metrics.t2f2, 12);
-  assert.equal(aug.metrics.t2s3, null, 'сложных задач у Кати не было');
-  assert.equal(aug.count, 3);
-  assert.equal(aug.tasks.length, 3);
-  assert.equal(aug.tasks[0].level, 1);
-
-  // проценты: t2s1 план 2 / факт 1 → 200; t2f2 план 16 / факт 12 → 133
-  assert.equal(aug.percents.t2s1, 200);
-  assert.equal(aug.percents.t2f2, 133);
-
-  // квартал: июль и сентябрь пусты, значит квартал равен августу
-  assert.equal(kate.quarter.metrics.t2f2, 12);
-  assert.equal(kate.quarter.avgPercent, aug.avgPercent);
-  assert.ok(kate.quarter.markAuto, 'система предложила оценку');
-  assert.ok(kate.bonus.percent >= 0);
-
+  assert.equal(kate.bonus, undefined);
+  assert.equal(kate.mark, undefined);
+  const kAug = kate.months.find((m) => m.period === '2026-08');
+  assert.equal(kAug.metrics.t2s1, 1);
+  assert.equal(kAug.metrics.t2f2, 12);
+  assert.equal(kAug.percents.t2f2, 133, 'план 16 / факт 12');
   const ksu = body.people.find((p) => p.name === 'Ксения');
-  const kAug = ksu.months.find((m) => m.period === '2026-08');
-  assert.equal(kAug.metrics.t2s3, 2, 'взятие в работу засчитано, хотя задача открыта');
-  assert.equal(kAug.metrics.t2f3, null, 'незакрытая задача не портит завершение');
-  assert.equal(kAug.count, 2, 'заёб в отчёт не попал');
-
-  // срез отдела: уровень 2 по всем — Катя 4 ч и Ксюша 1 ч → 2.5
-  const teamAug = body.team.months.find((m) => m.period === '2026-08');
-  assert.equal(teamAug.metrics.t2s2, 2.5);
-  assert.equal(teamAug.metrics.t2f2, 7.5);
+  const sAug = ksu.months.find((m) => m.period === '2026-08');
+  assert.equal(sAug.metrics.t2s3, 2, 'взятие в работу засчитано, хотя задача открыта');
+  assert.equal(sAug.metrics.t2f3, null, 'незакрытая задача не портит завершение');
 });
 
-test('ассистент видит только себя и срез отдела', async () => {
+test('ассистенту доска закрыта, отзыв о руководителе — открыт', async () => {
   const { call } = await freshEnv();
-  const { body } = await call('kate', 'GET', '/kpi/board?quarter=2026-Q3');
-  assert.equal(body.people.length, 1);
-  assert.equal(body.people[0].name, 'Екатерина');
-  assert.ok(body.team.months.length === 3, 'срез отдела доступен');
+  const denied = await call('kate', 'GET', '/kpi/board?quarter=2026-Q3');
+  assert.equal(denied.status, 403);
+
+  const mine = await call('kate', 'GET', '/kpi/my-review?quarter=2026-Q3');
+  assert.equal(mine.status, 200);
+  assert.equal(mine.body.lead.name, 'Ярослав');
+  assert.equal(mine.body.review, null);
+
+  const sent = await call('kate', 'POST', '/kpi/reviews', { quarter: '2026-Q3', text: 'Всегда на связи', mark: 'plus2' });
+  assert.equal(sent.status, 200);
+  assert.equal(sent.body.kind, 'peer', 'вид отзыва следует из роли');
+
+  const again = await call('kate', 'GET', '/kpi/my-review?quarter=2026-Q3');
+  assert.equal(again.body.review.text, 'Всегда на связи');
 });
 
 test('нормы нельзя менять ассистенту, и они действуют с нужного квартала', async () => {
@@ -195,76 +198,65 @@ test('нормы нельзя менять ассистенту, и они де�
   assert.equal(q4.body.current.t2s1, 1, 'четвёртый — по новой');
 });
 
-test('отзывы: кто о ком может писать', async () => {
+test('отзывы о руководителе: три источника, вид по роли', async () => {
   const { call } = await freshEnv();
   const q = '2026-Q3';
 
-  const self = await call('kate', 'POST', '/kpi/reviews', { kind: 'self', quarter: q, text: 'Старалась', mark: 'plus' });
-  assert.equal(self.status, 200);
-
-  const selfOther = await call('kate', 'POST', '/kpi/reviews', { kind: 'self', quarter: q, user_id: 'ksu', text: 'x' });
-  assert.equal(selfOther.status, 403, 'самооценку о другом писать нельзя');
-
-  const peer = await call('ksu', 'POST', '/kpi/reviews', { kind: 'peer', quarter: q, user_id: 'kate', text: 'Помогала' });
-  assert.equal(peer.status, 200);
-
-  const peerSelf = await call('kate', 'POST', '/kpi/reviews', { kind: 'peer', quarter: q, user_id: 'kate', text: 'x' });
-  assert.equal(peerSelf.status, 403, 'отзыв коллеги о себе — нет');
-
-  const leadByAssistant = await call('kate', 'POST', '/kpi/reviews', { kind: 'lead', quarter: q, user_id: 'ksu', text: 'x' });
-  assert.equal(leadByAssistant.status, 403);
-
-  const lead = await call('lead', 'POST', '/kpi/reviews', { kind: 'lead', quarter: q, user_id: 'kate', text: 'Растёт', mark: 'plus2' });
-  assert.equal(lead.status, 200);
+  const self = await call('lead', 'POST', '/kpi/reviews', { quarter: q, text: 'Квартал тяжёлый, но вытянули', mark: 'plus' });
+  assert.equal(self.body.kind, 'self');
+  const peer = await call('ksu', 'POST', '/kpi/reviews', { quarter: q, text: 'Помогает, когда горит' });
+  assert.equal(peer.body.kind, 'peer');
+  const chief = await call('chief', 'POST', '/kpi/reviews', { quarter: q, text: 'Отдел стал быстрее', mark: 'plus2' });
+  assert.equal(chief.body.kind, 'chief');
 
   // повторная отправка обновляет, а не плодит
-  const again = await call('kate', 'POST', '/kpi/reviews', { kind: 'self', quarter: q, text: 'Очень старалась', mark: 'plus2' });
+  const again = await call('lead', 'POST', '/kpi/reviews', { quarter: q, text: 'Дополнил', mark: 'plus2' });
   assert.equal(again.body.updated, true);
 
-  const { body } = await call('lead', 'GET', `/kpi/board?quarter=${q}`);
-  const kate = body.people.find((p) => p.name === 'Екатерина');
-  assert.equal(kate.reviews.length, 3);
-  assert.deepEqual(kate.reviews.map((r) => r.kind).sort(), ['lead', 'peer', 'self']);
-  assert.equal(kate.reviews.find((r) => r.kind === 'self').text, 'Очень старалась');
+  const { body } = await call('chief', 'GET', `/kpi/board?quarter=${q}`);
+  assert.equal(body.lead.reviews.length, 3);
+  assert.deepEqual(body.lead.reviews.map((r) => r.kind).sort(), ['chief', 'peer', 'self']);
+  assert.equal(body.lead.reviews.find((r) => r.kind === 'self').text, 'Дополнил');
 
-  // Ксюша чужие отзывы читать не может: только факт их наличия
-  const ksuView = await call('ksu', 'GET', `/kpi/board?quarter=${q}`);
-  assert.equal(ksuView.body.people.length, 1, 'в списке только она сама');
+  // чужой отзыв удаляет только владелец
+  const peerId = body.lead.reviews.find((r) => r.kind === 'peer').id;
+  const denied = await call('lead', 'DELETE', `/kpi/reviews/${peerId}`);
+  assert.equal(denied.status, 403);
+  const ok = await call('chief', 'DELETE', `/kpi/reviews/${peerId}`);
+  assert.equal(ok.status, 200);
 });
 
-test('закрытие квартала: премия по матрице от квартальной зарплаты', async () => {
+test('квартал закрывает владелец: премия руководителю по матрице', async () => {
   const { call } = await freshEnv();
   const q = '2026-Q3';
   await call('lead', 'POST', '/kpi/sla', {
     quarter: q, values: { t2s1: 2, t2s2: 4, t2s3: 8, t2f1: 4, t2f2: 16, t2f3: 40 },
   });
 
-  const denied = await call('kate', 'POST', '/kpi/quarter/close', { user_id: 'kate', quarter: q, mark: 'plus4' });
-  assert.equal(denied.status, 403);
+  const byLead = await call('lead', 'POST', '/kpi/quarter/close', { quarter: q, mark: 'plus4' });
+  assert.equal(byLead.status, 403, 'сам себе квартал не закрывает');
 
-  // Ксюша: грейд 5, оклад 80 000 → квартал 240 000; «+++» у грейда 5 = 20 %
-  const closed = await call('lead', 'POST', '/kpi/quarter/close', { user_id: 'ksu', quarter: q, mark: 'plus3', note: 'молодец' });
+  // грейд 4, оклад 100 000 → квартал 300 000; «+++» у грейда 4 = 18 %
+  const closed = await call('chief', 'POST', '/kpi/quarter/close', { quarter: q, mark: 'plus3', note: 'хороший квартал' });
   assert.equal(closed.status, 200);
-  assert.equal(closed.body.bonus.percent, 20);
-  assert.equal(closed.body.bonus.sum, 48000);
+  assert.equal(closed.body.bonus.percent, 18);
+  assert.equal(closed.body.bonus.sum, 54000);
 
   const { body } = await call('lead', 'GET', `/kpi/board?quarter=${q}`);
-  const ksu = body.people.find((p) => p.name === 'Ксения');
-  assert.equal(ksu.result.mark, 'plus3');
-  assert.equal(ksu.result.bonus_sum, 48000);
-  assert.equal(ksu.mark, 'plus3', 'после закрытия доска показывает итоговую оценку');
-  assert.ok(ksu.result.closed_at);
+  assert.equal(body.lead.result.mark, 'plus3');
+  assert.equal(body.lead.result.bonus_sum, 54000);
+  assert.equal(body.lead.mark, 'plus3', 'после закрытия доска показывает итоговую оценку');
+  assert.ok(body.lead.result.closed_at);
 
   // грейд 2 премии не даёт вовсе
-  await call('lead', 'POST', '/admin/users', { id: 'kate', name: 'Екатерина', role: 'assistant', grade_num: 2, salary: 60000 });
-  const kate = await call('lead', 'POST', '/kpi/quarter/close', { user_id: 'kate', quarter: q, mark: 'plus4' });
-  assert.equal(kate.body.bonus.percent, 0);
-  assert.equal(kate.body.bonus.sum, 0);
+  await call('chief', 'POST', '/admin/users', { id: 'lead', name: 'Ярослав', role: 'lead', grade_num: 2, salary: 100000 });
+  const low = await call('chief', 'POST', '/kpi/quarter/close', { quarter: q, mark: 'plus4' });
+  assert.equal(low.body.bonus.percent, 0);
 
   // переоткрыть — итог исчезает
-  await call('lead', 'POST', '/kpi/quarter/reopen', { user_id: 'ksu', quarter: q });
-  const after = await call('lead', 'GET', `/kpi/board?quarter=${q}`);
-  assert.equal(after.body.people.find((p) => p.name === 'Ксения').result, null);
+  await call('chief', 'POST', '/kpi/quarter/reopen', { quarter: q });
+  const after = await call('chief', 'GET', `/kpi/board?quarter=${q}`);
+  assert.equal(after.body.lead.result, null);
 });
 
 test('матрицу можно актуализировать по грейду', async () => {
@@ -301,6 +293,22 @@ test('уровень задачи можно поправить руками', a
   assert.equal(aug.metrics.t2s1, 1, 'на первом осталась одна');
 });
 
+test('ассистенту сверх оклада — только заёбы и экономия', async () => {
+  const { call } = await freshEnv();
+  const { status, body } = await call('kate', 'GET', '/me?period=2026-08');
+  assert.equal(status, 200);
+  assert.deepEqual(Object.keys(body.money).sort(), ['salary', 'savingPay', 'savingSum', 'total', 'zaeb']);
+  assert.equal(body.money.total, body.money.zaeb + body.money.savingPay);
+  assert.equal(body.help, undefined, 'коэффициента помощи больше нет');
+
+  const team = await call('chief', 'GET', '/team?period=2026-08');
+  assert.equal(team.status, 200);
+  assert.equal(team.body.people.length, 2);
+  assert.equal(team.body.people[0].kef, undefined, 'кэфов нет');
+  assert.equal(team.body.lead.name, 'Ярослав');
+  assert.ok('shareZaeb' in team.body.lead && 'shareSaving' in team.body.lead);
+});
+
 test('месячная сводка в личку строится по модели времени', async () => {
   const { env, sqlite } = await freshEnv();
   sqlite.prepare("UPDATE users SET tg_user_id = '292525734' WHERE id = 'lead'").run();
@@ -332,6 +340,7 @@ test('месячная сводка в личку строится по моде
     assert.equal(sent.length, 1, 'одно сообщение');
     const text = sent[0].text;
     assert.match(text, /Итоги 2026-08/);
+    assert.match(text, /Отдел/);
     assert.match(text, /Екатерина/);
     assert.match(text, /до старта:/);
     assert.match(text, /до сдачи:/);

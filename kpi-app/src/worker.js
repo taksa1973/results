@@ -606,100 +606,6 @@ function medianSeconds(replies) {
   return vals.length % 2 ? vals[mid] : Math.round((vals[mid - 1] + vals[mid]) / 2);
 }
 
-/** Деньги: сколько забрано из каждого кошелька. */
-function computeMoney(metrics, settings, extra = {}) {
-  const basePurses = {
-    quality: num(settings, 'purse_quality', 17500),
-    autonomy: num(settings, 'purse_autonomy', 10000),
-    speed: num(settings, 'purse_speed', 2500),
-  };
-  const values = {
-    quality: metrics.quality,
-    speed: metrics.speed,
-    autonomy: metrics.autonomy,
-  };
-
-  // Метрика без данных — это не ноль и не десятка, это «нечем мерить».
-  //
-  // Если за месяц не было ни одного вопроса в чате, «скорость 10» ничего
-  // не доказывает: сигнала не было. Платить за это нельзя, но и наказывать
-  // человека за чужое молчание несправедливо. Поэтому такой кошелёк
-  // не выплачивается и не сгорает — он расходится по остальным метрикам,
-  // и человек зарабатывает те же деньги, но только за измеренное.
-  const usable = metrics.usable || {};
-  const skipped = Object.keys(basePurses).filter((k) => usable[k] === false);
-  const live = Object.keys(basePurses).filter((k) => !skipped.includes(k));
-
-  const purses = { ...basePurses };
-  if (skipped.length && live.length) {
-    const freed = skipped.reduce((a, k) => a + basePurses[k], 0);
-    const liveSum = live.reduce((a, k) => a + basePurses[k], 0) || 1;
-    for (const k of skipped) purses[k] = 0;
-    for (const k of live) {
-      purses[k] = Math.round(basePurses[k] + freed * (basePurses[k] / liveSum));
-    }
-  }
-
-  const threshold = num(settings, 'cut_threshold', 5);
-  const cutFactor = num(settings, 'cut_factor', 0.85);
-  const low = live.some((k) => values[k] < threshold);
-  const cut = low ? cutFactor : 1;
-  const mult = extra.chiefMultiplier ?? 1;
-
-  // Какие метрики просели ниже порога — из-за них режется весь итог.
-  // Без этого пояснения оценка «10 из 10» рядом с неполной суммой
-  // выглядит ошибкой расчёта, хотя это сработавшая отсечка.
-  const NAMES = { quality: 'качество', speed: 'скорость', autonomy: 'самостоятельность' };
-  // отсечка смотрит только на метрики, у которых была база
-  const lowNames = live
-    .filter((k) => values[k] < threshold)
-    .map((k) => `${NAMES[k]} ${round2(values[k])}`);
-
-  const wallets = {};
-  let bonus = 0;
-  for (const k of Object.keys(purses)) {
-    const earned = purses[k] * (values[k] / 10); // до поправок
-    // Безупречная метрика отсечкой не режется: если человек всегда на связи
-    // и отвечает вовремя, он забирает эту часть целиком, чем бы ни закончились
-    // остальные направления. Наказывать за чужую метрику здесь не за что.
-    const perfect = values[k] >= 10;
-    const got = earned * mult * (perfect ? 1 : cut);
-    wallets[k] = {
-      pool: purses[k],
-      score: values[k],
-      earned: Math.round(earned),
-      got: Math.round(got),
-      perfect,
-      // почему из кошелька пришло меньше, чем набрано по оценке
-      reductions: [
-        cut !== 1 && !perfect && {
-          kind: 'отсечка',
-          factor: cut,
-          amount: Math.round(earned * mult * (1 - cut)),
-          why: `есть метрика ниже ${threshold}: ${lowNames.join(', ')}`,
-        },
-        mult !== 1 && {
-          kind: mult > 1 ? 'надбавка за оценку месяца' : 'оценка месяца',
-          factor: mult,
-          amount: Math.round(earned * (mult - 1)),
-          why: 'множитель от руководителя',
-        },
-      ].filter(Boolean),
-    };
-    bonus += got;
-  }
-
-  const pool = num(settings, 'bonus_pool', 30000);
-  return {
-    wallets,
-    bonus: Math.round(bonus),
-    kef: round2((bonus / mult / cut / pool) * 10),
-    cutApplied: low,
-    cutFactor: cut,
-    cutReason: low ? `сработала отсечка ×${cut}: ${lowNames.join(', ')}` : null,
-    multiplier: mult,
-  };
-}
 
 /** Комиссия с экономии по регрессивной шкале. */
 function savingCommission(sum, settings) {
@@ -754,14 +660,6 @@ async function fetchUserData(db, userId, period, role = 'assistant', startFrom =
   return { tasks: tasks.results, replies: replies.results, awards: awards.results };
 }
 
-/** Коэффициент помощи держим в разумных пределах и с шагом настройки. */
-function clampHelp(value, settings) {
-  const v = Number(value);
-  if (!Number.isFinite(v) || v <= 0) return 1;
-  const min = num(settings, 'help_min', 0.5);
-  const max = num(settings, 'help_max', 2);
-  return Math.min(max, Math.max(min, Math.round(v * 100) / 100));
-}
 
 /** Полная карточка человека: метрики, деньги, задачи с таймингами. */
 async function buildProfile(db, user, period, settings) {
@@ -769,16 +667,9 @@ async function buildProfile(db, user, period, settings) {
     db, user.id, period, user.role, settings.start_from || null
   );
 
-  // Коэффициент за помощь. Владелец ставит его вручную: плюс и минус
-  // двигают на шаг, число можно вписать напрямую. Значение меньше единицы
-  // тоже допустимо — коэффициент работает в обе стороны.
-  const helpRow = await db
-    .prepare('SELECT value, note FROM help_marks WHERE user_id = ? AND period = ?')
-    .bind(user.id, period)
-    .first();
-  const helpMult = clampHelp(helpRow ? helpRow.value : 1, settings);
+  // Метрики по задачам и чату по-прежнему считаются: по ним строится
+  // список задач и справка о реакции, но денег за них больше нет.
   const metrics = computeMetrics({ tasks, replies, settings, grade: user.grade });
-  const money = computeMoney(metrics, settings, { chiefMultiplier: helpMult });
 
   const zaebSum = awards
     .filter((a) => a.kind === 'zaeb' && a.status !== 'rejected')
@@ -792,22 +683,14 @@ async function buildProfile(db, user, period, settings) {
     user: { id: user.id, name: user.name, role: user.role, grade: user.grade },
     period,
     metrics,
+    // Сверх оклада ассистент получает только призы за заёбы и комиссию
+    // с экономии. Кошельков за качество, скорость и самостоятельность нет.
     money: {
-      ...money,
       zaeb: zaebSum,
       savingSum,
       savingPay,
       salary: user.salary || 0,
-      total: money.bonus + zaebSum + savingPay,
-    },
-    help: {
-      multiplier: round2(helpMult),
-      note: helpRow?.note || null,
-      step: num(settings, 'help_step', 0.1),
-      min: num(settings, 'help_min', 0.5),
-      max: num(settings, 'help_max', 2),
-      // сколько рублей добавил или отнял коэффициент
-      delta: Math.round(money.bonus - money.bonus / helpMult),
+      total: zaebSum + savingPay,
     },
     awards,
     tasks: metrics.scored.map(decorateTask),
@@ -933,7 +816,10 @@ async function handleApi(request, env, url) {
     return handleKpiApi(request, db, path.slice(4), url, me, settings);
   }
 
-  // сводка по отделу — только лид и руководитель
+  // Сводка по отделу — только лид и владелец.
+  // Ассистентам платится только за заёбы и экономию; руководитель отдела
+  // получает долю с того и другого. Его собственный KPI — модель времени,
+  // он живёт в /kpi/board.
   if (path === '/team') {
     if (!['lead', 'chief'].includes(me.role)) return bad('нет доступа', 403);
     const { results: people } = await db
@@ -943,110 +829,37 @@ async function handleApi(request, env, url) {
     const profiles = [];
     for (const p of people) profiles.push(await buildProfile(db, p, period, settings));
 
-    const avgKef = profiles.length
-      ? round2(profiles.reduce((a, p) => a + p.money.kef, 0) / profiles.length)
-      : 0;
-
-    // метрики лида
-    const allClosed = profiles.flatMap((p) => p.tasks);
-    const acceptedFirstTry = allClosed.filter((t) => t.returns === 0).length;
-    const filterRate = allClosed.length ? acceptedFirstTry / allClosed.length : 0;
-    const solo = allClosed.filter((t) => !t.chiefTouched).length;
-    const unloadRate = allClosed.length ? solo / allClosed.length : 0;
-
     const leadShareZaeb = num(settings, 'lead_share_zaeb', 0.17);
     const leadShareSaving = num(settings, 'lead_share_saving', 0.05);
     const teamZaeb = profiles.reduce((a, p) => a + p.money.zaeb, 0);
     const teamSaving = profiles.reduce((a, p) => a + p.money.savingSum, 0);
 
-    // Скорость лида: своя реакция на вопросы руководителя плюс скорость
-    // команды. Одной командной мало — молчать самому тоже нельзя, а одной
-    // своей мало тем более: если ассистент систематически просрачивает
-    // ответы, это должно бить и по доходу того, кто им руководит.
-    //
-    // Профиль лида считается всегда, а не только когда он сам смотрит:
-    // владельцу нужно видеть и его цифры тоже.
     const leadUser = await db
-      .prepare("SELECT * FROM users WHERE role = 'lead' AND active = 1 ORDER BY created_at LIMIT 1")
+      .prepare("SELECT id, name FROM users WHERE role = 'lead' AND active = 1 ORDER BY created_at LIMIT 1")
       .first();
-    const leadOwn = leadUser ? await buildProfile(db, leadUser, period, settings) : null;
-    const teamSpeed = profiles.length
-      ? round2(profiles.reduce((a, p) => a + p.metrics.speed, 0) / profiles.length)
-      : 0;
-    const wPersonal = num(settings, 'lead_speed_personal', 0.4);
-    const wTeam = num(settings, 'lead_speed_team', 0.6);
-    const leadSpeed = leadOwn
-      ? round2(wPersonal * leadOwn.metrics.speed + wTeam * teamSpeed)
-      : teamSpeed;
-
-    // Кошельки лида. «Фильтр» и «Разгрузка» убраны: они мерили возвраты
-    // от владельца и его вовлечение в карточки, а владелец в трекер
-    // не заходит вовсе. Обе всегда показывали 100 % и просто дарили деньги.
-    // Вместо них — собственные задачи лида, по тем же правилам,
-    // что у ассистентов, плюс результат команды.
-    const leadPools = {
-      team: num(settings, 'lead_purse_team', 20000),
-      quality: num(settings, 'lead_purse_quality', 15000),
-      autonomy: num(settings, 'lead_purse_autonomy', 8000),
-      speed: num(settings, 'lead_purse_speed', 7000),
-    };
-    const leadWallets = {
-      team: Math.round(leadPools.team * (avgKef / 10)),
-      quality: Math.round(leadPools.quality * ((leadOwn?.metrics.quality || 0) / 10)),
-      autonomy: Math.round(leadPools.autonomy * ((leadOwn?.metrics.autonomy || 0) / 10)),
-      speed: Math.round(leadPools.speed * (leadSpeed / 10)),
-    };
 
     return json({
       period,
-      avgKef,
       people: profiles.map((p) => ({
         id: p.user.id,
         name: p.user.name,
-        grade: p.user.grade,
-        kef: p.money.kef,
-        metrics: {
-          quality: p.metrics.quality,
-          speed: p.metrics.speed,
-          autonomy: p.metrics.autonomy,
-        },
+        zaeb: p.money.zaeb,
+        savingSum: p.money.savingSum,
+        savingPay: p.money.savingPay,
+        total: p.money.total,
         tasksClosed: p.tasks.length,
         tasksOpen: p.openTasks.length,
         medianReply: p.metrics.breakdown.speed.medianReply,
-        help: p.help,
-        bonus: p.money.bonus,
-        total: p.money.total,
       })),
       lead: {
-        avgKef,
         id: leadUser?.id || null,
         name: leadUser?.name || null,
-        // Владельцу нужны те же подробности, что и по ассистентам,
-        // поэтому отдаём полный разбор, а не только итоговые цифры.
-        own: leadOwn ? {
-          quality: leadOwn.metrics.quality,
-          autonomy: leadOwn.metrics.autonomy,
-          speed: leadOwn.metrics.speed,
-          tasks: leadOwn.tasks.length,
-          openTasks: leadOwn.openTasks.length,
-          breakdown: leadOwn.metrics.breakdown,
-          money: leadOwn.money,
-          help: leadOwn.help,
-        } : null,
-        wallets: leadWallets,
-        speed: {
-          total: leadSpeed,
-          personal: leadOwn ? leadOwn.metrics.speed : null,
-          team: teamSpeed,
-          weights: { personal: wPersonal, team: wTeam },
-          formula: `своя ${leadOwn ? leadOwn.metrics.speed : '—'} × ${wPersonal} + команда ${teamSpeed} × ${wTeam}`,
-          ownDetail: leadOwn ? leadOwn.metrics.breakdown.speed : null,
-        },
         shareZaeb: Math.round(teamZaeb * leadShareZaeb),
         shareSaving: Math.round(teamSaving * leadShareSaving),
-        bonus:
-          leadWallets.team + leadWallets.quality + leadWallets.autonomy + leadWallets.speed,
+        shares: { zaeb: leadShareZaeb, saving: leadShareSaving },
       },
+      teamZaeb,
+      teamSaving,
     });
   }
 
@@ -1057,51 +870,6 @@ async function handleApi(request, env, url) {
     const user = await db.prepare('SELECT * FROM users WHERE id = ?').bind(id).first();
     if (!user) return bad('не найден', 404);
     return json(withChatLinks(await buildProfile(db, user, period, settings), settings));
-  }
-
-  // Коэффициент за помощь. Ставит владелец: кнопками по шагу или вписав
-  // число напрямую. Меньше единицы тоже можно — коэффициент работает
-  // в обе стороны и умножает всю премию человека.
-  if (path.startsWith('/help/')) {
-    if (!['chief', 'lead'].includes(me.role)) return bad('только руководитель', 403);
-    const [, , userId, action] = path.split('/');
-    const target = await db.prepare('SELECT id, name FROM users WHERE id = ?').bind(userId).first();
-    if (!target) return bad('не найден', 404);
-
-    const body = await request.json().catch(() => ({}));
-    const cur = await db
-      .prepare('SELECT value FROM help_marks WHERE user_id = ? AND period = ?')
-      .bind(userId, period)
-      .first();
-    const step = num(settings, 'help_step', 0.1);
-    const was = cur ? Number(cur.value) : 1;
-
-    let next = was;
-    if (action === 'add') next = was + step;
-    else if (action === 'sub') next = was - step;
-    else if (action === 'set') next = Number(body.value);
-    else if (action === 'reset') next = 1;
-    next = clampHelp(next, settings);
-
-    await db
-      .prepare(
-        `INSERT INTO help_marks (user_id, period, value, note, actor, at)
-         VALUES (?,?,?,?,?,?)
-         ON CONFLICT(user_id, period) DO UPDATE SET
-           value = excluded.value, note = excluded.note,
-           actor = excluded.actor, at = excluded.at`
-      )
-      .bind(userId, period, next, body.note || null, me.name, nowIso())
-      .run();
-
-    if (round2(next) !== round2(was)) {
-      await logEvent(db, {
-        userId, type: 'manual', actor: me.name, source: 'manual',
-        note: `коэффициент помощи ${round2(was)} → ${round2(next)}${body.note ? `: ${body.note}` : ''}`,
-      });
-    }
-
-    return json({ ok: true, multiplier: round2(next), step });
   }
 
   // Раздражители: список закрытых с подтверждением выплаты.
@@ -1362,11 +1130,12 @@ async function handleApi(request, env, url) {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// API модели времени.
+// API модели времени — KPI руководителя отдела.
 //
-// Ассистент видит себя и обезличенный срез отдела. Руководитель отдела и
-// владелец — всех. Нормы, грейды, матрица премий и закрытие квартала —
-// только руководителю и владельцу.
+// Метрики считаются по задачам всего отдела: результат руководителя — это
+// результат его людей. Оценку ставит владелец, премия — руководителю.
+// Ассистенты премии по этой модели не получают; им доступен только отзыв
+// о руководителе. Срезы по людям — диагностика: где узкое место.
 // ─────────────────────────────────────────────────────────────────────────────
 async function handleKpiApi(request, db, path, url, me, settings) {
   const isBoss = ['lead', 'chief'].includes(me.role);
@@ -1374,75 +1143,103 @@ async function handleKpiApi(request, db, path, url, me, settings) {
   const quarter = url.searchParams.get('quarter') || quarterOf(currentPeriod(tz));
   if (!/^\d{4}-Q[1-4]$/.test(quarter)) return bad('квартал в виде 2026-Q3');
 
-  // Вся доска одним запросом: люди, их месяцы, квартал, нормы, срез отдела.
-  // Данных немного — несколько человек на три месяца — и клиенту удобнее
-  // строить графики и раскрывать месяцы, не бегая за каждым кусочком.
+  // Руководитель отдела — тот, о ком вся модель. Один активный.
+  const lead = await db
+    .prepare("SELECT * FROM users WHERE role = 'lead' AND active = 1 ORDER BY created_at LIMIT 1")
+    .first();
+  if (!lead) return bad('руководитель отдела не заведён', 409);
+
+  // ── Отзыв о руководителе: сам о себе, ассистент по желанию, владелец ────
+  // Единственный маршрут модели, открытый ассистенту.
+  if (path === '/reviews' && request.method === 'POST') {
+    const b = await request.json().catch(() => ({}));
+    const q = b.quarter || quarter;
+    if (!/^\d{4}-Q[1-4]$/.test(q)) return bad('квартал в виде 2026-Q3');
+    if (b.mark && !MARKS.includes(b.mark)) return bad('такой оценки нет');
+
+    // вид отзыва следует из роли, выбирать его нельзя
+    const kind = me.role === 'lead' ? 'self' : me.role === 'chief' ? 'chief' : 'peer';
+    const text = String(b.text || '').trim();
+    if (!text && !b.mark) return bad('нужен текст или оценка');
+
+    const existing = await db
+      .prepare('SELECT id FROM reviews WHERE user_id = ? AND author_id = ? AND kind = ? AND quarter = ?')
+      .bind(lead.id, me.id, kind, q)
+      .first();
+    if (existing) {
+      await db
+        .prepare('UPDATE reviews SET mark = ?, text = ?, created_at = ? WHERE id = ?')
+        .bind(b.mark || null, text, nowIso(), existing.id)
+        .run();
+      return json({ ok: true, id: existing.id, updated: true, kind });
+    }
+    const r = await db
+      .prepare('INSERT INTO reviews (user_id, author_id, kind, quarter, mark, text, created_at) VALUES (?,?,?,?,?,?,?)')
+      .bind(lead.id, me.id, kind, q, b.mark || null, text, nowIso())
+      .run();
+    return json({ ok: true, id: r.meta?.last_row_id, kind });
+  }
+
+  if (path.startsWith('/reviews/') && request.method === 'DELETE') {
+    const id = Number(path.split('/').pop());
+    const r = await db.prepare('SELECT * FROM reviews WHERE id = ?').bind(id).first();
+    if (!r) return bad('отзыва нет', 404);
+    if (r.author_id !== me.id && me.role !== 'chief') return bad('нет доступа', 403);
+    await db.prepare('DELETE FROM reviews WHERE id = ?').bind(id).run();
+    return json({ ok: true });
+  }
+
+  // свой отзыв за квартал — чтобы ассистент видел, что уже написал
+  if (path === '/my-review' && request.method === 'GET') {
+    const r = await db
+      .prepare('SELECT id, kind, mark, text, created_at FROM reviews WHERE user_id = ? AND author_id = ? AND quarter = ?')
+      .bind(lead.id, me.id, quarter)
+      .first();
+    return json({ quarter, lead: { id: lead.id, name: lead.name }, review: r || null, marks: MARKS.map((m) => ({ id: m, label: MARK_LABEL[m] })) });
+  }
+
+  if (!isBoss) return bad('нет доступа', 403);
+
+  // ── Доска: KPI руководителя, срезы по людям, нормы ──────────────────────
   if (path === '/board' && request.method === 'GET') {
     const sla = await loadSla(db, quarter);
-    const { results: people } = await db
+
+    // Результат отдела — и есть результат руководителя
+    const team = await quarterMetrics(db, null, quarter, settings);
+    const result = await db
+      .prepare('SELECT * FROM quarter_results WHERE user_id = ? AND quarter = ?')
+      .bind(lead.id, quarter)
+      .first();
+    const { results: reviews } = await db
       .prepare(
-        `SELECT id, name, role, grade_num, salary, yougile_id, tg_username, active
-         FROM users WHERE role = 'assistant' AND active = 1 ${isBoss ? '' : 'AND id = ?'}
-         ORDER BY name`
+        `SELECT r.id, r.kind, r.mark, r.text, r.created_at, r.author_id, u.name AS author
+         FROM reviews r LEFT JOIN users u ON u.id = r.author_id
+         WHERE r.user_id = ? AND r.quarter = ? ORDER BY r.created_at`
       )
-      .bind(...(isBoss ? [] : [me.id]))
+      .bind(lead.id, quarter)
       .all();
 
+    const mark = result?.mark || team.markAuto;
+    const salaryQuarter = (lead.salary || 0) * 3;
+    const bonus = await quarterBonus(db, lead.grade_num, mark, salaryQuarter);
+
+    // Срезы по людям — только метрики: премии по этой модели у них нет
+    const { results: people } = await db
+      .prepare(
+        `SELECT id, name, yougile_id, tg_username FROM users
+         WHERE role = 'assistant' AND active = 1 ORDER BY name`
+      )
+      .all();
     const rows = [];
     for (const p of people) {
       const q = await quarterMetrics(db, p.id, quarter, settings);
-      const result = await db
-        .prepare('SELECT * FROM quarter_results WHERE user_id = ? AND quarter = ?')
-        .bind(p.id, quarter)
-        .first();
-      const { results: reviews } = await db
-        .prepare(
-          `SELECT r.id, r.kind, r.mark, r.text, r.created_at, r.author_id, u.name AS author
-           FROM reviews r LEFT JOIN users u ON u.id = r.author_id
-           WHERE r.user_id = ? AND r.quarter = ? ORDER BY r.created_at`
-        )
-        .bind(p.id, quarter)
-        .all();
-
-      // Премия «как есть»: по итоговой оценке, если квартал закрыт,
-      // иначе по той, что предлагает система.
-      const mark = result?.mark || q.markAuto;
-      const salaryQuarter = (p.salary || 0) * 3;
-      const bonus = await quarterBonus(db, p.grade_num, mark, salaryQuarter);
-
       rows.push({
-        id: p.id, name: p.name, role: p.role, grade: p.grade_num,
-        salary: p.salary, salaryQuarter,
+        id: p.id, name: p.name,
         access: { yougile: Boolean(p.yougile_id), telegram: Boolean(p.tg_username) },
-        quarter: { metrics: q.metrics, percents: q.percents, avgPercent: q.avgPercent, markAuto: q.markAuto },
+        quarter: { metrics: q.metrics, percents: q.percents, avgPercent: q.avgPercent },
         months: q.months,
-        mark, bonus,
-        result: result || null,
-        // текст отзывов только тому, кто имеет право их читать
-        reviews: isBoss || p.id === me.id
-          ? reviews
-          : reviews.map((r) => ({ id: r.id, kind: r.kind, created_at: r.created_at })),
       });
     }
-
-    // Срез отдела — по тем же правилам, но по всем задачам разом.
-    const team = await quarterMetrics(db, null, quarter, settings);
-
-    // Коллеги ассистента — только имена: чтобы было о ком написать отзыв.
-    // Чужие цифры ему не показываются.
-    const { results: peers } = await db
-      .prepare("SELECT id, name FROM users WHERE role = 'assistant' AND active = 1 AND id != ? ORDER BY name")
-      .bind(me.id)
-      .all();
-    // и что он уже написал о коллегах в этом квартале
-    const { results: myPeerReviews } = await db
-      .prepare(
-        `SELECT r.id, r.user_id, r.mark, r.text, r.created_at, u.name
-         FROM reviews r JOIN users u ON u.id = r.user_id
-         WHERE r.author_id = ? AND r.kind = 'peer' AND r.quarter = ?`
-      )
-      .bind(me.id, quarter)
-      .all();
 
     return json({
       quarter,
@@ -1450,11 +1247,17 @@ async function handleKpiApi(request, db, path, url, me, settings) {
       sla,
       overplan: num(settings, 'overplan_percent', 120),
       marks: MARKS.map((m) => ({ id: m, label: MARK_LABEL[m] })),
+      lead: {
+        id: lead.id, name: lead.name, grade: lead.grade_num,
+        salary: lead.salary || 0, salaryQuarter,
+        quarter: { metrics: team.metrics, percents: team.percents, avgPercent: team.avgPercent, markAuto: team.markAuto },
+        months: team.months,
+        mark, bonus,
+        result: result || null,
+        reviews,
+      },
       people: rows,
-      team: { metrics: team.metrics, percents: team.percents, avgPercent: team.avgPercent, months: team.months },
       me: { id: me.id, role: me.role },
-      peers: me.role === 'assistant' ? peers : [],
-      myPeerReviews: me.role === 'assistant' ? myPeerReviews : [],
     });
   }
 
@@ -1465,7 +1268,6 @@ async function handleKpiApi(request, db, path, url, me, settings) {
   }
 
   if (path === '/sla' && request.method === 'POST') {
-    if (!isBoss) return bad('нет доступа', 403);
     const b = await request.json().catch(() => ({}));
     const from = b.quarter || quarter;
     if (!/^\d{4}-Q[1-4]$/.test(from)) return bad('квартал в виде 2026-Q3');
@@ -1494,7 +1296,6 @@ async function handleKpiApi(request, db, path, url, me, settings) {
   }
 
   if (path === '/matrix' && request.method === 'POST') {
-    if (!isBoss) return bad('нет доступа', 403);
     const b = await request.json().catch(() => ({}));
     const grade = Number(b.grade);
     if (!(grade >= 1 && grade <= 7)) return bad('грейд от 1 до 7');
@@ -1511,72 +1312,19 @@ async function handleKpiApi(request, db, path, url, me, settings) {
     return json({ ok: true });
   }
 
-  // ── Отзывы: сам о себе, коллега по желанию, руководитель ──────────────────
-  if (path === '/reviews' && request.method === 'POST') {
-    const b = await request.json().catch(() => ({}));
-    const kind = b.kind;
-    const about = b.user_id || me.id;
-    const q = b.quarter || quarter;
-    if (!['self', 'peer', 'lead'].includes(kind)) return bad('вид отзыва: self, peer или lead');
-    if (!/^\d{4}-Q[1-4]$/.test(q)) return bad('квартал в виде 2026-Q3');
-    if (b.mark && !MARKS.includes(b.mark)) return bad('такой оценки нет');
-
-    // Кто о ком может писать. Самооценка — только о себе; отзыв коллеги —
-    // ассистент о другом ассистенте; отзыв руководителя — только руководитель.
-    if (kind === 'self' && about !== me.id) return bad('самооценку пишут о себе', 403);
-    if (kind === 'peer' && (about === me.id || isBoss)) return bad('отзыв коллеги пишет ассистент о коллеге', 403);
-    if (kind === 'lead' && !isBoss) return bad('отзыв руководителя пишет руководитель', 403);
-
-    const text = String(b.text || '').trim();
-    if (!text && !b.mark) return bad('нужен текст или оценка');
-
-    // Один отзыв от одного автора на квартал: повторная отправка обновляет
-    const existing = await db
-      .prepare('SELECT id FROM reviews WHERE user_id = ? AND author_id = ? AND kind = ? AND quarter = ?')
-      .bind(about, me.id, kind, q)
-      .first();
-    if (existing) {
-      await db
-        .prepare('UPDATE reviews SET mark = ?, text = ?, created_at = ? WHERE id = ?')
-        .bind(b.mark || null, text, nowIso(), existing.id)
-        .run();
-      return json({ ok: true, id: existing.id, updated: true });
-    }
-    const r = await db
-      .prepare('INSERT INTO reviews (user_id, author_id, kind, quarter, mark, text, created_at) VALUES (?,?,?,?,?,?,?)')
-      .bind(about, me.id, kind, q, b.mark || null, text, nowIso())
-      .run();
-    return json({ ok: true, id: r.meta?.last_row_id });
-  }
-
-  if (path.startsWith('/reviews/') && request.method === 'DELETE') {
-    const id = Number(path.split('/').pop());
-    const r = await db.prepare('SELECT * FROM reviews WHERE id = ?').bind(id).first();
-    if (!r) return bad('отзыва нет', 404);
-    if (r.author_id !== me.id && !isBoss) return bad('нет доступа', 403);
-    await db.prepare('DELETE FROM reviews WHERE id = ?').bind(id).run();
-    return json({ ok: true });
-  }
-
-  // ── Итог квартала ──────────────────────────────────────────────────────────
-  // Руководитель смотрит на процент плана и отзывы и ставит оценку.
-  // После закрытия цифры замораживаются: пересинхронизация задач их не тронет.
+  // ── Итог квартала — ставит владелец ────────────────────────────────────────
+  // Смотрит на процент плана и отзывы, выбирает оценку. После закрытия
+  // цифры замораживаются: пересинхронизация задач их не тронет.
   if (path === '/quarter/close' && request.method === 'POST') {
-    if (!isBoss) return bad('нет доступа', 403);
+    if (me.role !== 'chief') return bad('квартал закрывает владелец', 403);
     const b = await request.json().catch(() => ({}));
     const q = b.quarter || quarter;
     if (!/^\d{4}-Q[1-4]$/.test(q)) return bad('квартал в виде 2026-Q3');
     if (!MARKS.includes(b.mark)) return bad('нужна итоговая оценка');
 
-    const user = await db
-      .prepare("SELECT * FROM users WHERE id = ? AND role = 'assistant'")
-      .bind(b.user_id)
-      .first();
-    if (!user) return bad('сотрудник не найден', 404);
-
-    const m = await quarterMetrics(db, user.id, q, settings);
-    const salaryQuarter = (user.salary || 0) * 3;
-    const bonus = await quarterBonus(db, user.grade_num, b.mark, salaryQuarter);
+    const m = await quarterMetrics(db, null, q, settings);
+    const salaryQuarter = (lead.salary || 0) * 3;
+    const bonus = await quarterBonus(db, lead.grade_num, b.mark, salaryQuarter);
 
     await db
       .prepare(
@@ -1585,18 +1333,18 @@ async function handleKpiApi(request, db, path, url, me, settings) {
           bonus_percent, bonus_sum, note, closed_at)
          VALUES (?,?,?,?,?,?,?,?,?,?,?)`
       )
-      .bind(user.id, q, m.avgPercent, b.mark, m.markAuto, user.grade_num, salaryQuarter,
+      .bind(lead.id, q, m.avgPercent, b.mark, m.markAuto, lead.grade_num, salaryQuarter,
             bonus.percent, bonus.sum, b.note || null, nowIso())
       .run();
     return json({ ok: true, mark: b.mark, markAuto: m.markAuto, planPercent: m.avgPercent, bonus });
   }
 
   if (path === '/quarter/reopen' && request.method === 'POST') {
-    if (!isBoss) return bad('нет доступа', 403);
+    if (me.role !== 'chief') return bad('квартал открывает владелец', 403);
     const b = await request.json().catch(() => ({}));
     await db
       .prepare('DELETE FROM quarter_results WHERE user_id = ? AND quarter = ?')
-      .bind(b.user_id, b.quarter || quarter)
+      .bind(lead.id, b.quarter || quarter)
       .run();
     return json({ ok: true });
   }
@@ -1604,7 +1352,6 @@ async function handleKpiApi(request, db, path, url, me, settings) {
   // ── Уровень задачи руками ──────────────────────────────────────────────────
   // Модель ошиблась или стикера нет — руководитель правит уровень сам.
   if (path.startsWith('/task/') && path.endsWith('/level') && request.method === 'POST') {
-    if (!isBoss) return bad('нет доступа', 403);
     const id = decodeURIComponent(path.split('/')[2]);
     const b = await request.json().catch(() => ({}));
     const level = Number(b.level);
@@ -2037,6 +1784,12 @@ function addWorkdays(from, days, tzOffset = 3) {
   const d = new Date(new Date(from).getTime() + shift);
   const isWeekend = (x) => x.getUTCDay() === 0 || x.getUTCDay() === 6;
 
+  // Поставлена после конца рабочего дня — считается поставленной утром
+  // следующего: пятница вечером с приоритетом 3 — это среда, а не вторник.
+  if (d.getUTCHours() >= WORK_TO_H) {
+    d.setUTCDate(d.getUTCDate() + 1);
+    d.setUTCHours(0, 0, 0, 0);
+  }
   // задача, поставленная в выходной, считается поставленной в понедельник
   while (isWeekend(d)) d.setUTCDate(d.getUTCDate() + 1);
 
@@ -3138,32 +2891,44 @@ async function sendMonthlyDigest(env, settings) {
   const sla = await loadSla(db, quarter);
   const fmtH = (h) => (h === null || h === undefined ? '—' : `${Math.round(h * 10) / 10} ч`);
   const fmtP = (v) => (v === null || v === undefined ? '—' : `${v} %`);
-  const lines = [`<b>Итоги ${period}</b> · квартал ${quarter}`, ''];
-
-  for (const p of people) {
-    const month = await monthMetrics(db, p.id, period, settings, sla);
-    const q = await quarterMetrics(db, p.id, quarter, settings);
-
-    lines.push(
-      `<b>${p.name}</b> — план за месяц <b>${fmtP(month.avgPercent)}</b>, задач ${month.count}`,
-      `  до старта:  1 — ${fmtH(month.metrics.t2s1)} (${fmtP(month.percents.t2s1)}) · ` +
-        `2 — ${fmtH(month.metrics.t2s2)} (${fmtP(month.percents.t2s2)}) · ` +
-        `3 — ${fmtH(month.metrics.t2s3)} (${fmtP(month.percents.t2s3)})`,
-      `  до сдачи:   1 — ${fmtH(month.metrics.t2f1)} (${fmtP(month.percents.t2f1)}) · ` +
-        `2 — ${fmtH(month.metrics.t2f2)} (${fmtP(month.percents.t2f2)}) · ` +
-        `3 — ${fmtH(month.metrics.t2f3)} (${fmtP(month.percents.t2f3)})`,
-      `  квартал: план ${fmtP(q.avgPercent)}, система предлагает ${q.markAuto ? MARK_LABEL[q.markAuto] : '—'}`
-    );
-
-    // где узкое место: метрика с худшим процентом
-    const worst = Object.entries(month.percents)
+  const six = (m) => [
+    `  до старта:  1 — ${fmtH(m.metrics.t2s1)} (${fmtP(m.percents.t2s1)}) · ` +
+      `2 — ${fmtH(m.metrics.t2s2)} (${fmtP(m.percents.t2s2)}) · ` +
+      `3 — ${fmtH(m.metrics.t2s3)} (${fmtP(m.percents.t2s3)})`,
+    `  до сдачи:   1 — ${fmtH(m.metrics.t2f1)} (${fmtP(m.percents.t2f1)}) · ` +
+      `2 — ${fmtH(m.metrics.t2f2)} (${fmtP(m.percents.t2f2)}) · ` +
+      `3 — ${fmtH(m.metrics.t2f3)} (${fmtP(m.percents.t2f3)})`,
+  ];
+  // где узкое место: метрика с худшим процентом
+  const worstLine = (m) => {
+    const worst = Object.entries(m.percents)
       .filter(([, v]) => v !== null)
       .sort((a, b) => a[1] - b[1])[0];
-    if (worst && worst[1] < 100) {
-      const [k, v] = worst;
-      const name = k.startsWith('t2s') ? 'до старта' : 'до сдачи';
-      lines.push(`  ⚠ слабее всего: ${name}, уровень ${k.slice(3)} — ${v} % плана`);
-    }
+    if (!worst || worst[1] >= 100) return null;
+    const [k, v] = worst;
+    return `  ⚠ слабее всего: ${k.startsWith('t2s') ? 'до старта' : 'до сдачи'}, уровень ${k.slice(3)} — ${v} % плана`;
+  };
+
+  // Сначала KPI руководителя — результат отдела целиком
+  const teamMonth = await monthMetrics(db, null, period, settings, sla);
+  const teamQ = await quarterMetrics(db, null, quarter, settings);
+  const lines = [
+    `<b>Итоги ${period}</b> · квартал ${quarter}`,
+    '',
+    `<b>Отдел</b> — план за месяц <b>${fmtP(teamMonth.avgPercent)}</b>, задач ${teamMonth.count}`,
+    ...six(teamMonth),
+    `  квартал: план ${fmtP(teamQ.avgPercent)}, система предлагает ${teamQ.markAuto ? MARK_LABEL[teamQ.markAuto] : '—'}`,
+  ];
+  const tw = worstLine(teamMonth);
+  if (tw) lines.push(tw);
+  lines.push('');
+
+  // Потом по людям — чтобы видеть, кто тянет отдел вниз
+  for (const p of people) {
+    const month = await monthMetrics(db, p.id, period, settings, sla);
+    lines.push(`<b>${p.name}</b> — план за месяц <b>${fmtP(month.avgPercent)}</b>, задач ${month.count}`, ...six(month));
+    const w = worstLine(month);
+    if (w) lines.push(w);
     lines.push('');
   }
 
@@ -3254,7 +3019,7 @@ export const __test = {
   quarterOf, monthsOfQuarter, MARKS, MARK_LABEL,
   levelOfTask, taskDurations, timeMetrics, planPercent, autoMark,
   workMinutesBetween, addWorkMinutes, addWorkdays,
-  scoreTask, scoreChat, computeMetrics, computeMoney,
+  scoreTask, scoreChat, computeMetrics,
 };
 
 // Для служебных скриптов на сервере: полная пересинхронизация без ключа доступа.

@@ -426,12 +426,14 @@ function start(){
   QUARTER = qs.value;
   qs.onchange = () => { QUARTER = qs.value; render(); };
 
-  // Первая вкладка у всех — модель времени: по ней считается премия.
-  // У владельца нет своих задач, поэтому нет и вкладки с личным результатом:
-  // он смотрит отдел, принимает работу и подтверждает закрытые раздражители.
-  const tabs = [{ id: 'kpi', name: 'KPI' }];
+  // KPI по модели времени — только у руководителя отдела; владелец его
+  // оценивает, ассистенты видят свои заёбы и экономию и могут оставить
+  // отзыв о руководителе.
+  const tabs = [];
+  if (ME.role === 'lead') tabs.push({ id: 'kpi', name: 'Мой KPI' });
+  if (ME.role === 'chief') tabs.push({ id: 'kpi', name: 'KPI руководителя' });
   if (ME.role === 'lead' || ME.role === 'chief') tabs.push({ id: 'team', name: 'Отдел' });
-  if (ME.role === 'assistant' || ME.role === 'lead') tabs.push({ id: 'me', name: 'Мои результаты' });
+  if (ME.role === 'assistant') tabs.push({ id: 'me', name: 'Мои результаты' });
   if (ME.role === 'lead' || ME.role === 'chief') {
     tabs.push({ id: 'inbox', name: 'Приёмка' });
     tabs.push({ id: 'zaeby', name: 'Раздражители' });
@@ -464,7 +466,7 @@ async function render(){
   $('periodSel').classList.toggle('hide', TAB === 'kpi' || TAB === 'admin' || TAB === 'inbox');
   try {
     if (TAB === 'kpi')   return renderKpi(await api(`/kpi/board?quarter=${QUARTER}`), v);
-    if (TAB === 'me')    return renderProfile(await api(`/me?period=${PERIOD}`), v);
+    if (TAB === 'me')    return await renderProfile(await api(`/me?period=${PERIOD}`), v);
     if (TAB === 'team')  return renderTeam(await api(`/team?period=${PERIOD}`), v);
     if (TAB === 'inbox') return renderInbox(await api('/inbox'), v);
     if (TAB === 'zaeby') return renderZaeby(await api(`/zaeby?period=${PERIOD}`), v);
@@ -590,12 +592,11 @@ function monthHtml(m, sla, showWho, people){
 /** Графики и месяцы для выбранного среза — перерисовываются без запроса. */
 function renderKpiSlice(){
   const d = KPI_DATA;
-  const src = KPI_VIEW.who === 'team' ? d.team : d.people.find((p) => p.id === KPI_VIEW.who);
+  const src = KPI_VIEW.who === 'team' ? d.lead : d.people.find((p) => p.id === KPI_VIEW.who);
   if (!src) return;
   const months = src.months;
   const keys = KPI_VIEW.level ? KEYS6.filter((k) => +k.slice(3) === KPI_VIEW.level) : KEYS6;
-  const qm = src.quarter ? src.quarter.metrics : src.metrics;
-  const qp = src.quarter ? src.quarter.percents : src.percents;
+  const qm = src.quarter.metrics, qp = src.quarter.percents;
 
   $('kpiCharts').innerHTML = keys.map((k) => {
     const m = k.slice(0, 3), l = +k.slice(3);
@@ -609,129 +610,107 @@ function renderKpiSlice(){
   }).join('');
 
   $('kpiMonths').innerHTML = months.map((m) => monthHtml(m, d.sla, KPI_VIEW.who === 'team', d.people)).join('');
+  $('sliceTitle').textContent = KPI_VIEW.who === 'team' ? 'Весь отдел' : src.name;
 }
 
+/**
+ * KPI руководителя отдела. Метрики — по задачам всего отдела, срезы по людям —
+ * диагностика узкого места. Оценку ставит владелец, премия — руководителю.
+ */
 async function renderKpi(d, v){
   KPI_DATA = d;
-  const boss = ['lead', 'chief'].includes(ME.role);
-  if (!d.people.find((p) => p.id === KPI_VIEW.who) && KPI_VIEW.who !== 'team') KPI_VIEW.who = 'team';
-  if (!boss && d.people.length === 1) KPI_VIEW.who = d.people[0].id;
+  const chief = ME.role === 'chief';
+  const L = d.lead;
+  if (KPI_VIEW.who !== 'team' && !d.people.find((p) => p.id === KPI_VIEW.who)) KPI_VIEW.who = 'team';
 
-  // ── таблица сотрудников
-  const rows = d.people.map((p) => `
-    <tr class="clickable" data-open="${esc(p.id)}">
-      <td><strong>${esc(p.name)}</strong></td>
-      <td class="num"><strong>${p.grade}</strong></td>
-      <td><span class="access">
-        <i class="${p.access.yougile ? 'on' : ''}" title="YouGile">YG</i>
-        <i class="${p.access.telegram ? 'on' : ''}" title="Telegram">TG</i></span></td>
-      <td class="num">${pctHtml(p.quarter.avgPercent)}</td>
-      <td>${markHtml(p.mark, !p.result)}</td>
-      <td class="num">${p.bonus.percent} %</td>
-      <td class="num"><strong>${money(p.bonus.sum)}</strong></td>
-      <td>${p.result
-        ? `<span class="tag t-green">закрыт</span>`
-        : `<span class="tag t-grey">открыт</span>`}</td>
-    </tr>`).join('');
+  // ── карточки руководителя
+  const head = `<div class="grid g4" style="margin-bottom:22px">
+    <div class="card metric"><div class="lbl">План за квартал</div>
+      <div class="val ${pctClass(L.quarter.avgPercent)}">${L.quarter.avgPercent === null ? '—' : L.quarter.avgPercent + ' %'}</div>
+      <div class="sub">среднее по шести метрикам отдела</div></div>
+    <div class="card metric"><div class="lbl">Оценка</div>
+      <div class="val">${markHtml(L.mark, !L.result)}</div>
+      <div class="sub">${L.result ? 'итоговая, поставил владелец' : `предложение системы · ${MARK_HINT[L.mark] || ''}`}</div></div>
+    <div class="card metric"><div class="lbl">Премия</div>
+      <div class="val">${money(L.bonus.sum)}</div>
+      <div class="sub">${L.bonus.percent} % от ${money(L.salaryQuarter)} · грейд ${L.grade}</div></div>
+    <div class="card metric"><div class="lbl">Квартал</div>
+      <div class="val">${L.result ? '<span class="tag t-green" style="font-size:15px">закрыт</span>' : '<span class="tag t-grey" style="font-size:15px">открыт</span>'}</div>
+      <div class="sub">${L.result ? fmtDate(L.result.closed_at) : 'цифры живые, меняются с задачами'}</div></div>
+  </div>`;
 
-  const whoSeg = boss || d.people.length > 1
-    ? `<div class="seg" id="segWho">
-        <button data-who="team" class="${KPI_VIEW.who === 'team' ? 'on' : ''}">Весь отдел</button>
-        ${d.people.map((p) => `<button data-who="${esc(p.id)}" class="${KPI_VIEW.who === p.id ? 'on' : ''}">${esc(p.name)}</button>`).join('')}
-      </div>`
-    : `<div class="seg" id="segWho">
-        <button data-who="${esc(d.people[0]?.id)}" class="${KPI_VIEW.who !== 'team' ? 'on' : ''}">Я</button>
-        <button data-who="team" class="${KPI_VIEW.who === 'team' ? 'on' : ''}">Весь отдел</button>
-      </div>`;
-
+  // ── срезы
+  const whoSeg = `<div class="seg" id="segWho">
+    <button data-who="team" class="${KPI_VIEW.who === 'team' ? 'on' : ''}">Весь отдел</button>
+    ${d.people.map((p) => `<button data-who="${esc(p.id)}" class="${KPI_VIEW.who === p.id ? 'on' : ''}">${esc(p.name)}</button>`).join('')}
+  </div>`;
   const lvlSeg = `<div class="seg" id="segLvl">
     <button data-lvl="0" class="${KPI_VIEW.level === 0 ? 'on' : ''}">Все уровни</button>
     ${[1, 2, 3].map((l) => `<button data-lvl="${l}" class="${KPI_VIEW.level === l ? 'on' : ''}">Уровень ${l}</button>`).join('')}
   </div>`;
 
-  // ── карточки людей: отзывы и итог квартала
-  const personCard = (p) => {
-    const mine = p.id === ME.id;
-    const reviews = p.reviews.map((r) => `<div class="review">
-      <div class="h"><b>${({ self: 'Самооценка', peer: 'Отзыв коллеги', lead: 'Отзыв руководителя' })[r.kind]}</b>
-        ${r.author ? `· ${esc(r.author)}` : ''} · ${fmtDate(r.created_at)}
-        ${r.mark ? markHtml(r.mark) : ''}
-        ${(r.author_id === ME.id || boss) ? `<button class="btn ghost sm" style="min-height:26px;margin-left:auto" data-delrev="${r.id}">удалить</button>` : ''}
-      </div>
-      ${r.text ? esc(r.text) : '<span class="muted">без текста</span>'}
-    </div>`).join('') || '<p class="muted">Отзывов за квартал пока нет.</p>';
+  // ── люди: где узкое место. Только проценты плана, денег здесь нет
+  const cell = (p, k) => `<td class="num">${pctHtml(p.quarter.percents[k])}</td>`;
+  const peopleRows = d.people.map((p) => `
+    <tr class="clickable" data-slice="${esc(p.id)}">
+      <td><strong>${esc(p.name)}</strong></td>
+      <td><span class="access">
+        <i class="${p.access.yougile ? 'on' : ''}" title="YouGile">YG</i>
+        <i class="${p.access.telegram ? 'on' : ''}" title="Telegram">TG</i></span></td>
+      <td class="num"><strong>${pctHtml(p.quarter.avgPercent)}</strong></td>
+      ${cell(p, 't2s1')}${cell(p, 't2s2')}${cell(p, 't2s3')}
+      ${cell(p, 't2f1')}${cell(p, 't2f2')}${cell(p, 't2f3')}
+    </tr>`).join('');
+  const teamRow = `
+    <tr style="border-top:2px solid var(--border)">
+      <td><strong>Весь отдел</strong></td><td></td>
+      <td class="num"><strong>${pctHtml(L.quarter.avgPercent)}</strong></td>
+      ${KEYS6.map((k) => `<td class="num">${pctHtml(L.quarter.percents[k])}</td>`).join('')}
+    </tr>`;
 
-    // какой отзыв может оставить смотрящий
-    const kind = boss ? 'lead' : mine ? 'self' : 'peer';
-    const kindName = { self: 'Самооценка за квартал', peer: 'Отзыв о коллеге (по желанию)', lead: 'Отзыв руководителя' }[kind];
-    const markSel = (id, cur) => `<select id="${id}" style="width:auto;min-width:120px">
-      <option value="">без оценки</option>
-      ${d.marks.map((m) => `<option value="${m.id}"${cur === m.id ? ' selected' : ''}>${m.label} — ${MARK_HINT[m.id]}</option>`).join('')}
-    </select>`;
+  // ── отзывы и итог
+  const reviews = L.reviews.map((r) => `<div class="review">
+    <div class="h"><b>${({ self: 'Самооценка', peer: 'Отзыв ассистента', chief: 'Отзыв владельца' })[r.kind] || r.kind}</b>
+      ${r.author ? `· ${esc(r.author)}` : ''} · ${fmtDate(r.created_at)}
+      ${r.mark ? markHtml(r.mark) : ''}
+      ${(r.author_id === ME.id || chief) ? `<button class="btn ghost sm" style="min-height:26px;margin-left:auto" data-delrev="${r.id}">удалить</button>` : ''}
+    </div>
+    ${r.text ? esc(r.text) : '<span class="muted">без текста</span>'}
+  </div>`).join('') || '<p class="muted">Отзывов за квартал пока нет.</p>';
 
-    const closeBlock = boss ? (p.result
-      ? `<div class="why">Квартал закрыт ${fmtDate(p.result.closed_at)}: оценка ${markHtml(p.result.mark)},
-          план ${p.result.plan_percent ?? '—'} %, грейд ${p.result.grade}, премия ${p.result.bonus_percent} % от ${money(p.result.salary_quarter)} =
-          <b>${money(p.result.bonus_sum)}</b>${p.result.note ? ` · ${esc(p.result.note)}` : ''}
-          <div style="margin-top:8px"><button class="btn ghost sm" data-reopen="${esc(p.id)}">Переоткрыть</button></div></div>`
-      : `<div class="card" style="margin-top:12px;padding:16px">
-          <h4 style="margin-bottom:8px">Итог квартала</h4>
-          <p class="muted" style="margin-bottom:10px">Система предлагает ${markHtml(p.quarter.markAuto, true)} по проценту плана
-            ${p.quarter.avgPercent ?? '—'} %. Итоговую оценку ставите вы — с учётом отзывов.
-            Премия: грейд ${p.grade} × оценка → % от квартальной зарплаты ${money(p.salaryQuarter)}.</p>
-          <div class="row">
-            ${markSel(`close_mark_${p.id}`, p.quarter.markAuto)}
-            <input id="close_note_${p.id}" placeholder="комментарий (необязательно)" style="flex:1;min-width:200px">
-            <button class="btn" data-close="${esc(p.id)}">Закрыть квартал</button>
-          </div>
-        </div>`) : '';
+  const mine = L.reviews.find((r) => r.author_id === ME.id);
+  const markSel = (id, cur) => `<select id="${id}" style="width:auto;min-width:140px">
+    <option value="">без оценки</option>
+    ${d.marks.map((m) => `<option value="${m.id}"${cur === m.id ? ' selected' : ''}>${m.label} — ${MARK_HINT[m.id]}</option>`).join('')}
+  </select>`;
+  const reviewForm = `<div class="card" style="margin-top:12px;padding:16px">
+    <h4 style="margin-bottom:8px">${chief ? 'Отзыв владельца' : 'Самооценка за квартал'}</h4>
+    <textarea id="rev_text" placeholder="${chief
+      ? 'Что было хорошо, что стоит поменять — руководитель это увидит'
+      : 'Что получилось за три месяца, что нет, что хочу изменить'}">${esc(mine?.text || '')}</textarea>
+    <div class="row" style="margin-top:8px">${markSel('rev_mark', mine?.mark)}
+      <button class="btn ghost" id="sendReview">${mine ? 'Обновить' : 'Отправить'}</button></div>
+  </div>`;
 
-    return `<details class="person" id="person_${esc(p.id)}">
-      <summary>${esc(p.name)}
-        <span class="sum-metrics">
-          <span>грейд <b>${p.grade}</b></span>
-          <span>план <b>${p.quarter.avgPercent ?? '—'} %</b></span>
-          <span>оценка ${markHtml(p.mark, !p.result)}</span>
-          <span>премия <b>${money(p.bonus.sum)}</b></span>
-        </span></summary>
-      <div class="body">
-        <h4 style="margin:10px 0 4px">Квартал по шести метрикам</h4>
-        ${sixHtml(p.quarter.metrics, p.quarter.percents, d.sla)}
-        <h4 style="margin:4px 0 8px">Отзывы</h4>
-        ${reviews}
-        <div class="card" style="margin-top:12px;padding:16px">
-          <h4 style="margin-bottom:8px">${kindName}</h4>
-          <textarea id="rev_text_${p.id}" placeholder="${kind === 'self'
-            ? 'Что получилось за три месяца, что нет, что хочу изменить'
-            : 'Коротко и по делу'}"></textarea>
-          <div class="row" style="margin-top:8px">${markSel(`rev_mark_${p.id}`)}
-            <button class="btn ghost" data-review="${esc(p.id)}" data-kind="${kind}">Отправить</button></div>
+  const closeBlock = !chief ? '' : (L.result
+    ? `<div class="why">Квартал закрыт ${fmtDate(L.result.closed_at)}: оценка ${markHtml(L.result.mark)},
+        план ${L.result.plan_percent ?? '—'} %, грейд ${L.result.grade}, премия ${L.result.bonus_percent} % от ${money(L.result.salary_quarter)} =
+        <b>${money(L.result.bonus_sum)}</b>${L.result.note ? ` · ${esc(L.result.note)}` : ''}
+        <div style="margin-top:8px"><button class="btn ghost sm" id="reopen">Переоткрыть</button></div></div>`
+    : `<div class="card" style="margin-top:12px;padding:16px">
+        <h4 style="margin-bottom:8px">Итог квартала</h4>
+        <p class="muted" style="margin-bottom:10px">Система предлагает ${markHtml(L.quarter.markAuto, true)} по проценту плана
+          ${L.quarter.avgPercent ?? '—'} %. Итоговую оценку ставите вы — с учётом отзывов.
+          Премия: грейд ${L.grade} × оценка → % от квартальной зарплаты ${money(L.salaryQuarter)}.</p>
+        <div class="row">
+          ${markSel('close_mark', L.quarter.markAuto)}
+          <input id="close_note" placeholder="комментарий (необязательно)" style="flex:1;min-width:200px">
+          <button class="btn" id="closeQ">Закрыть квартал</button>
         </div>
-        ${closeBlock}
-      </div>
-    </details>`;
-  };
+      </div>`);
 
-  // ── отзыв о коллеге — ассистенту, по желанию
-  const peerBlock = !boss && d.peers?.length ? `
-    <div class="card" style="margin-bottom:22px">
-      <h3 style="margin-bottom:4px">Отзыв о коллеге</h3>
-      <p class="muted" style="margin-bottom:12px">По желанию. Руководитель увидит его при подведении итога квартала.</p>
-      ${(d.myPeerReviews || []).map((r) => `<div class="review">
-        <div class="h"><b>О ${esc(r.name)}</b> · ${fmtDate(r.created_at)} ${r.mark ? markHtml(r.mark) : ''}
-          <button class="btn ghost sm" style="min-height:26px;margin-left:auto" data-delrev="${r.id}">удалить</button></div>
-        ${esc(r.text || '')}</div>`).join('')}
-      <div class="row" style="margin-bottom:8px">
-        <select id="peer_who" style="width:auto;min-width:160px">${d.peers.map((p) => `<option value="${esc(p.id)}">${esc(p.name)}</option>`).join('')}</select>
-        <select id="peer_mark" style="width:auto;min-width:120px"><option value="">без оценки</option>
-          ${d.marks.map((m) => `<option value="${m.id}">${m.label} — ${MARK_HINT[m.id]}</option>`).join('')}</select>
-      </div>
-      <textarea id="peer_text" placeholder="Что коллега делает хорошо, где помогает, что стоило бы подтянуть"></textarea>
-      <div class="row" style="margin-top:8px"><button class="btn ghost" id="peerSend">Отправить</button></div>
-    </div>` : '';
-
-  // ── нормы и матрица — руководителю и владельцу
-  const slaBlock = boss ? `
+  // ── нормы и матрица
+  const slaBlock = `
     <h2 style="margin:26px 0 6px">Нормы на квартал</h2>
     <p class="muted" style="margin-bottom:12px">Плановые значения в рабочих часах (день — 8 часов). Действуют с выбранного квартала и дальше,
       прошлые кварталы считаются по своим нормам.</p>
@@ -755,45 +734,55 @@ async function renderKpi(d, v){
     </div>
 
     <h2 style="margin:26px 0 6px">Матрица премий</h2>
-    <p class="muted" style="margin-bottom:12px">Процент от квартальной зарплаты по грейду и итоговой оценке. Грейды 1 и 2 премии не дают.</p>
+    <p class="muted" style="margin-bottom:12px">Процент от квартальной зарплаты по грейду и итоговой оценке. Грейды 1 и 2 премии не дают.
+      Грейд руководителя — в «Люди и настройки».</p>
     <div class="tbl"><table class="matrix" id="matrixTable">
       <thead><tr><th>Грейд</th>${d.marks.map((m) => `<th class="num" title="${MARK_HINT[m.id]}">${m.label}</th>`).join('')}<th></th></tr></thead>
       <tbody id="matrixBody"><tr><td colspan="8" class="muted">Загружаю…</td></tr></tbody>
-    </table></div>` : '';
+    </table></div>`;
 
   v.innerHTML = `
-    <div class="row" style="margin-bottom:6px"><h1>KPI · ${esc($('quarterSel').selectedOptions[0]?.textContent || d.quarter)}</h1></div>
-    <p class="muted" style="margin-bottom:16px">Две скорости — до старта и до сдачи — по трём уровням сложности, в рабочих часах.
-      Каждый месяц сравнивается с планом, квартал — среднее трёх месяцев. Оценка и премия — по итогу квартала.</p>
-
-    <div class="tbl" style="margin-bottom:22px"><table id="kpiTable">
-      <thead><tr><th>Сотрудник</th><th class="num">Грейд</th><th>Доступы</th><th class="num">План</th>
-        <th>Оценка</th><th class="num">Премия</th><th class="num">Сумма</th><th>Квартал</th></tr></thead>
-      <tbody>${rows || '<tr><td colspan="8" class="muted">Ассистентов нет</td></tr>'}</tbody>
-    </table></div>
+    <div class="row" style="margin-bottom:6px">
+      <h1>${chief ? `KPI руководителя · ${esc(L.name)}` : 'Мой KPI'} · ${esc($('quarterSel').selectedOptions[0]?.textContent || d.quarter)}</h1>
+    </div>
+    <p class="muted" style="margin-bottom:16px">Две скорости отдела — до старта и до сдачи — по трём уровням сложности, в рабочих часах.
+      Месяц сравнивается с нормой, квартал — среднее трёх месяцев. Оценка и премия — руководителю отдела по итогу квартала.</p>
+    ${head}
 
     <div class="row" style="margin-bottom:12px">
-      <h2>Метрики по месяцам</h2><span class="spacer"></span>${whoSeg}${lvlSeg}
+      <h2>Метрики по месяцам · <span id="sliceTitle"></span></h2><span class="spacer"></span>${whoSeg}${lvlSeg}
     </div>
     <div class="charts" id="kpiCharts" style="margin-bottom:22px"></div>
 
     <h2 style="margin-bottom:10px">Месяцы</h2>
     <div id="kpiMonths" style="margin-bottom:22px"></div>
 
-    <h2 style="margin-bottom:10px">${boss ? 'Люди, отзывы и итог' : 'Мои отзывы и итог'}</h2>
-    <div id="kpiPeople">${d.people.map(personCard).join('')}</div>
-    ${peerBlock}
+    <h2 style="margin-bottom:6px">Где узкое место</h2>
+    <p class="muted" style="margin-bottom:12px">Процент плана по каждому ассистенту — это диагностика, а не премия. Строка кликается и переключает срез выше.</p>
+    <div class="tbl" style="margin-bottom:22px"><table id="kpiTable">
+      <thead><tr><th>Ассистент</th><th>Доступы</th><th class="num">План</th>
+        <th class="num" title="до старта, уровень 1">Ст·1</th><th class="num" title="до старта, уровень 2">Ст·2</th><th class="num" title="до старта, уровень 3">Ст·3</th>
+        <th class="num" title="до сдачи, уровень 1">Сд·1</th><th class="num" title="до сдачи, уровень 2">Сд·2</th><th class="num" title="до сдачи, уровень 3">Сд·3</th></tr></thead>
+      <tbody>${peopleRows || '<tr><td colspan="9" class="muted">Ассистентов нет</td></tr>'}${teamRow}</tbody>
+    </table></div>
+
+    <h2 style="margin-bottom:10px">Отзывы и итог квартала</h2>
+    ${reviews}
+    ${reviewForm}
+    ${closeBlock}
     ${slaBlock}`;
 
   renderKpiSlice();
 
   // ── обработчики
-  v.querySelectorAll('#segWho button').forEach((b) => {
-    b.onclick = () => {
-      KPI_VIEW.who = b.dataset.who;
-      v.querySelectorAll('#segWho button').forEach((x) => x.classList.toggle('on', x === b));
-      renderKpiSlice();
-    };
+  const pickWho = (who) => {
+    KPI_VIEW.who = who;
+    v.querySelectorAll('#segWho button').forEach((x) => x.classList.toggle('on', x.dataset.who === who));
+    renderKpiSlice();
+  };
+  v.querySelectorAll('#segWho button').forEach((b) => { b.onclick = () => pickWho(b.dataset.who); });
+  v.querySelectorAll('tr[data-slice]').forEach((tr) => {
+    tr.onclick = () => { pickWho(tr.dataset.slice); $('kpiCharts').scrollIntoView({ behavior: 'smooth', block: 'start' }); };
   });
   v.querySelectorAll('#segLvl button').forEach((b) => {
     b.onclick = () => {
@@ -802,27 +791,15 @@ async function renderKpi(d, v){
       renderKpiSlice();
     };
   });
-  v.querySelectorAll('tr[data-open]').forEach((tr) => {
-    tr.onclick = () => {
-      const el = $('person_' + tr.dataset.open);
-      if (!el) return;
-      el.open = true;
-      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    };
-  });
 
-  v.querySelectorAll('[data-review]').forEach((b) => {
-    b.onclick = async () => {
-      const id = b.dataset.review;
-      try {
-        await api('/kpi/reviews', { method: 'POST', body: JSON.stringify({
-          user_id: id, kind: b.dataset.kind, quarter: d.quarter,
-          text: $('rev_text_' + id).value, mark: $('rev_mark_' + id).value || null,
-        }) });
-        render();
-      } catch (e) { alert(e.message); }
-    };
-  });
+  $('sendReview').onclick = async () => {
+    try {
+      await api('/kpi/reviews', { method: 'POST', body: JSON.stringify({
+        quarter: d.quarter, text: $('rev_text').value, mark: $('rev_mark').value || null,
+      }) });
+      render();
+    } catch (e) { alert(e.message); }
+  };
   v.querySelectorAll('[data-delrev]').forEach((b) => {
     b.onclick = async () => {
       if (!confirm('Удалить отзыв?')) return;
@@ -830,41 +807,24 @@ async function renderKpi(d, v){
       render();
     };
   });
-  if ($('peerSend')) {
-    $('peerSend').onclick = async () => {
+  if ($('closeQ')) {
+    $('closeQ').onclick = async () => {
+      const mark = $('close_mark').value;
+      if (!mark) return alert('Выберите итоговую оценку');
+      if (!confirm(`Закрыть квартал для «${L.name}» с оценкой ${MARK_TXT[mark]}? Цифры заморозятся.`)) return;
       try {
-        await api('/kpi/reviews', { method: 'POST', body: JSON.stringify({
-          user_id: $('peer_who').value, kind: 'peer', quarter: d.quarter,
-          text: $('peer_text').value, mark: $('peer_mark').value || null,
-        }) });
+        await api('/kpi/quarter/close', { method: 'POST', body: JSON.stringify({ quarter: d.quarter, mark, note: $('close_note').value }) });
         render();
       } catch (e) { alert(e.message); }
     };
   }
-  v.querySelectorAll('[data-close]').forEach((b) => {
-    b.onclick = async () => {
-      const id = b.dataset.close;
-      const mark = $('close_mark_' + id).value;
-      if (!mark) return alert('Выберите итоговую оценку');
-      const p = d.people.find((x) => x.id === id);
-      if (!confirm(`Закрыть квартал для «${p.name}» с оценкой ${MARK_TXT[mark]}? Цифры заморозятся.`)) return;
-      try {
-        await api('/kpi/quarter/close', { method: 'POST', body: JSON.stringify({
-          user_id: id, quarter: d.quarter, mark, note: $('close_note_' + id).value,
-        }) });
-        render();
-      } catch (e) { alert(e.message); }
-    };
-  });
-  v.querySelectorAll('[data-reopen]').forEach((b) => {
-    b.onclick = async () => {
+  if ($('reopen')) {
+    $('reopen').onclick = async () => {
       if (!confirm('Переоткрыть квартал? Итог будет удалён, цифры снова станут живыми.')) return;
-      await api('/kpi/quarter/reopen', { method: 'POST', body: JSON.stringify({ user_id: b.dataset.reopen, quarter: d.quarter }) });
+      await api('/kpi/quarter/reopen', { method: 'POST', body: JSON.stringify({ quarter: d.quarter }) });
       render();
     };
-  });
-
-  if (!boss) return;
+  }
 
   $('saveSla').onclick = async () => {
     const values = {};
@@ -881,7 +841,7 @@ async function renderKpi(d, v){
   try {
     const { matrix } = await api('/kpi/matrix');
     $('matrixBody').innerHTML = [7, 6, 5, 4, 3, 2, 1].map((g) => `
-      <tr data-grade="${g}"><td><strong>${g}</strong></td>
+      <tr data-grade="${g}"${g === L.grade ? ' style="background:var(--accent-soft)"' : ''}><td><strong>${g}</strong>${g === L.grade ? ' <span class="tag t-blue">текущий</span>' : ''}</td>
         ${d.marks.map((m) => `<td class="num"><input type="number" min="0" max="100" step="0.5" data-mark="${m.id}" value="${matrix[g]?.[m.id] ?? 0}"></td>`).join('')}
         <td class="num"><button class="btn ghost sm" data-savegrade="${g}">Сохранить</button></td></tr>`).join('');
     $('matrixBody').querySelectorAll('[data-savegrade]').forEach((b) => {
@@ -901,124 +861,74 @@ async function renderKpi(d, v){
   }
 }
 
-const METRIC_META = {
-  quality:     { name:'Качество',      purse:'quality' },
-  speed:       { name:'Скорость',      purse:'speed' },
-  autonomy:    { name:'Автономность',  purse:'autonomy' },
-};
+/**
+ * Ассистент: сверх оклада — только призы за заёбы и комиссия с экономии.
+ * Плюс отзыв о руководителе отдела, по желанию.
+ */
+async function renderProfile(p, v){
+  let rv = null;
+  try { rv = await api(`/kpi/my-review?quarter=${quarterOfPeriod(p.period)}`); } catch { /* без отзыва страница живёт */ }
 
-function renderProfile(p, v){
-  const m = p.metrics, w = p.money.wallets, b = m.breakdown;
-
-  const cards = Object.keys(METRIC_META).map((k) => {
-    const meta = METRIC_META[k];
-    const val = m[k];
-    const wal = w[meta.purse];
-    let why = '';
-    if (k === 'quality') why = `<b>${b.quality.points}</b> баллов ÷ <b>${b.quality.weight}</b> размеров по <b>${b.quality.tasks}</b> задачам`;
-    if (k === 'speed')   why = `реакция <b>${b.speed.chatScore}</b>: быстро ${b.speed.repliesFast}, медленно ${b.speed.repliesSlow}, вне часов ${b.speed.offHoursAnswered}, пропусков <b>${b.speed.misses}</b><br>медиана <b>${fmtSeconds(b.speed.medianReply)}</b><br>срок: <b>${b.speed.inTime}</b> из <b>${b.speed.withDeadline}</b> (${b.speed.slaRate})`;
-    if (k === 'autonomy') why = `<b>${b.autonomy.solo}</b> из <b>${b.autonomy.of}</b> задач закрыто без вопросов в чат (${b.autonomy.rate}) при норме ${b.autonomy.norm}`;
-
-    // Оценка 10 при неполном кошельке — это не ошибка, а сработавшая
-    // поправка. Показываем её прямо в карточке, а не прячем в отчёт.
-    const cuts = (wal.reductions || []).map((r) =>
-      `<div class="cut">${r.factor < 1 ? '−' : '+'}${money(Math.abs(r.amount))} · ${esc(r.kind)} ×${r.factor}<br>
-       <span class="muted">${esc(r.why)}</span></div>`
-    ).join('');
-
-    return `<div class="card metric">
-      <div class="lbl">${meta.name}</div>
-      <div class="val">${val.toFixed(2)}<span style="font-size:16px;color:var(--fg-3);font-weight:600"> / 10</span></div>
-      <div class="sub">${money(wal.got)} из ${money(wal.pool)}</div>
-      <div class="bar"><i style="width:${Math.min(100, val*10)}%"></i></div>
-      ${cuts ? `<div class="cuts">по оценке набрано ${money(wal.earned)}${cuts}</div>` : ''}
-      <details style="margin-top:10px"><summary>Откуда цифра</summary><div class="why">${why}<br><span class="muted">${esc(b[k].formula)}</span></div></details>
-    </div>`;
-  }).join('');
+  const reviewBlock = rv ? `
+    <div class="card" style="margin-bottom:22px">
+      <h3 style="margin-bottom:4px">Отзыв о руководителе · ${esc(rv.lead.name)}</h3>
+      <p class="muted" style="margin-bottom:12px">По желанию, раз в квартал. Владелец увидит его при подведении итога квартала ${esc(rv.quarter)}.
+        Прочитают только руководитель отдела и владелец.</p>
+      ${rv.review ? `<div class="review"><div class="h"><b>Мой отзыв</b> · ${fmtDate(rv.review.created_at)} ${rv.review.mark ? markHtml(rv.review.mark) : ''}
+        <button class="btn ghost sm" style="min-height:26px;margin-left:auto" data-delrev="${rv.review.id}">удалить</button></div>${esc(rv.review.text || '')}</div>` : ''}
+      <textarea id="peer_text" placeholder="Что руководитель делает хорошо, где помогает, что стоило бы подтянуть">${esc(rv.review?.text || '')}</textarea>
+      <div class="row" style="margin-top:8px">
+        <select id="peer_mark" style="width:auto;min-width:140px"><option value="">без оценки</option>
+          ${rv.marks.map((m) => `<option value="${m.id}"${rv.review?.mark === m.id ? ' selected' : ''}>${m.label} — ${MARK_HINT[m.id]}</option>`).join('')}</select>
+        <button class="btn ghost" id="peerSend">${rv.review ? 'Обновить' : 'Отправить'}</button>
+      </div>
+    </div>` : '';
 
   v.innerHTML = `
     <div class="row" style="margin-bottom:16px">
-      <div><h1>${esc(p.user.name)}</h1><p class="muted">${
-        p.user.role === 'assistant' ? `Грейд ${esc(p.user.grade)} · ` : ''
-      }${p.tasks.length} закрытых задач, ${p.openTasks.length} в работе</p></div>
+      <div><h1>${esc(p.user.name)}</h1><p class="muted">${p.tasks.length} закрытых задач, ${p.openTasks.length} в работе</p></div>
       <div class="spacer"></div>
       <div class="card" style="padding:14px 20px">
-        <div class="kef"><span class="big">${p.money.kef.toFixed(2)}</span><span class="muted">кэф месяца</span></div>
-      </div>
-      <div class="card" style="padding:14px 20px">
         <div class="money">${money(p.money.total)}</div>
-        <div class="muted">сверх оклада${p.money.cutApplied ? ' · применена отсечка ×0.85' : ''}</div>
+        <div class="muted">сверх оклада за период</div>
       </div>
     </div>
-
-    <div class="grid g4" style="margin-bottom:18px">${cards}</div>
 
     <div class="grid g4" style="margin-bottom:22px">
-      <div class="card"><div class="lbl muted">KPI-бонус</div><div class="money">${money(p.money.bonus)}</div></div>
-      <div class="card"><div class="lbl muted">Комиссия с экономии</div><div class="money">${money(p.money.savingPay)}</div><div class="muted">с ${money(p.money.savingSum)}</div></div>
       <div class="card"><div class="lbl muted">Призы за заёбы</div><div class="money">${money(p.money.zaeb)}</div></div>
+      <div class="card"><div class="lbl muted">Комиссия с экономии</div><div class="money">${money(p.money.savingPay)}</div><div class="muted">с ${money(p.money.savingSum)}</div></div>
       <div class="card"><div class="lbl muted">Оклад</div><div class="money">${money(p.money.salary)}</div></div>
+      <div class="card"><div class="lbl muted">Итого</div><div class="money">${money(p.money.salary + p.money.total)}</div></div>
     </div>
 
-    ${p.help && p.help.multiplier !== 1 ? `
-      <div class="card" style="margin-bottom:22px;border-color:${p.help.multiplier > 1 ? 'var(--green)' : 'var(--amber)'}">
-        <div class="row">
-          <div>
-            <h3>${p.help.multiplier > 1 ? 'Надбавка от руководителя' : 'Понижающий коэффициент'}</h3>
-            <p class="muted" style="margin:4px 0 0">
-              Премия умножена на <b>×${p.help.multiplier.toFixed(2)}</b>${
-                p.help.note ? ` — ${esc(p.help.note)}` : ''
-              }
-            </p>
-          </div>
-          <div class="spacer"></div>
-          <div class="money" style="color:${p.help.multiplier > 1 ? 'var(--green)' : 'var(--amber)'}">
-            ${p.help.delta > 0 ? '+' : ''}${money(p.help.delta)}
-          </div>
-        </div>
-      </div>` : ''}
-
-    ${chatReport(p)}
+    ${reviewBlock}
 
     <h2 style="margin-bottom:12px">Задачи за период</h2>
     ${taskTable(p.tasks.concat(p.openTasks))}
   `;
+
+  if ($('peerSend')) {
+    $('peerSend').onclick = async () => {
+      try {
+        await api('/kpi/reviews', { method: 'POST', body: JSON.stringify({
+          quarter: rv.quarter, text: $('peer_text').value, mark: $('peer_mark').value || null,
+        }) });
+        render();
+      } catch (e) { alert(e.message); }
+    };
+  }
+  v.querySelectorAll('[data-delrev]').forEach((b) => {
+    b.onclick = async () => {
+      if (!confirm('Удалить отзыв?')) return;
+      await api('/kpi/reviews/' + b.dataset.delrev, { method: 'DELETE' });
+      render();
+    };
+  });
 }
 
-/** Отчёт по баллам: за что сняли, за что добавили, со ссылками на сообщения. */
-function chatReport(p){
-  const d = p.metrics.breakdown.speed.detail || [];
-  if (!d.length) return '';
-
-  const LABEL = {
-    fast:    ['t-green', 'быстрый ответ'],
-    slow:    ['t-grey',  'ответ вне нормы'],
-    offhours:['t-blue',  'ответ в нерабочее время'],
-    miss:    ['t-red',   'остался без ответа'],
-  };
-
-  const rows = d.map((x) => {
-    const [cls, label] = LABEL[x.kind] || ['t-grey', x.kind];
-    const link = x.link ? `<a href="${esc(x.link)}" target="_blank" rel="noopener">открыть</a>` : '';
-    const sign = x.delta > 0 ? '+' : '';
-    return `<tr>
-      <td>${fmtDate(x.asked_at)}</td>
-      <td><span class="tag ${cls}">${label}</span>${x.urgent ? ' <span class="tag t-amber">срочно</span>' : ''}</td>
-      <td>${esc(x.why)}</td>
-      <td class="num"><strong style="color:${x.delta < 0 ? 'var(--red)' : x.delta > 0 ? 'var(--green)' : 'var(--fg-3)'}">${sign}${x.delta}</strong></td>
-      <td class="num">${link}</td>
-    </tr>`;
-  }).join('');
-
-  const s = p.metrics.breakdown.speed;
-  return `
-    <h2 style="margin-bottom:6px">Отчёт по баллам за ответы</h2>
-    <p class="muted" style="margin-bottom:12px">${esc(s.chatFormula)} — итог реакции <b>${s.chatScore}</b> из 10.
-      Пропуск стоит трёх быстрых ответов, ответ в нерабочее время даёт вдвое больше обычного.</p>
-    <div class="tbl" style="margin-bottom:26px"><table style="min-width:640px">
-      <thead><tr><th>Когда</th><th>Что засчитано</th><th>Почему</th><th class="num">Баллы</th><th class="num">Сообщение</th></tr></thead>
-      <tbody>${rows}</tbody>
-    </table></div>`;
+function quarterOfPeriod(period){
+  const [y, m] = String(period).split('-').map(Number);
+  return `${y}-Q${Math.floor((m - 1) / 3) + 1}`;
 }
 
 function taskTable(tasks){
@@ -1029,33 +939,27 @@ function taskTable(tasks){
       review:'<span class="tag t-amber">на проверке</span>',
       in_progress:'<span class="tag t-blue">в работе</span>',
       open:'<span class="tag t-grey">не взята</span>',
+      blocked:'<span class="tag t-grey">блокер</span>',
+      waiting:'<span class="tag t-grey">в ожидании</span>',
+      shelved:'<span class="tag t-grey">отложена</span>',
       failed:'<span class="tag t-red">сорвана</span>',
       returned:'<span class="tag t-red">возвращена</span>',
     }[t.status] || t.status;
 
-    const flags = t.flags ? [
-      t.flags.inTime ? '' : '<span class="tag t-red">не в срок</span>',
-      t.flags.noReturns ? '' : `<span class="tag t-amber">возвратов: ${t.returns}</span>`,
-      t.flags.noChief ? '' : '<span class="tag t-amber">дёргал руководителя</span>',
-    ].filter(Boolean).join(' ') : '';
-
     return `<tr class="clickable" data-task="${esc(t.id)}">
-      <td><strong>${esc(t.title)}</strong><div style="margin-top:5px">${flags}</div></td>
+      <td><strong>${esc(t.title)}</strong>${t.returns ? ` <span class="tag t-amber">возвратов: ${t.returns}</span>` : ''}</td>
       <td>${st}</td>
       <td class="num">${fmtDate(t.createdAt)}</td>
       <td class="num">${t.timing.toTakeHuman}</td>
       <td class="num">${t.timing.toDoHuman}</td>
       <td class="num">${t.timing.overdueHuman ? '<span style="color:var(--red)">+'+t.timing.overdueHuman+'</span>' : '<span style="color:var(--green)">в срок</span>'}</td>
-      <td class="num">${t.size}${t.night ? '×1.5' : ''}</td>
-      <td class="num"><strong style="font-size:16px">${t.score ?? '—'}</strong></td>
     </tr>`;
   }).join('');
 
   const html = `<div class="tbl"><table>
     <thead><tr>
       <th>Задача</th><th>Статус</th><th class="num">Поставлена</th>
-      <th class="num">Взята через</th><th class="num">Делалась</th>
-      <th class="num">Срок</th><th class="num">Размер</th><th class="num">Оценка</th>
+      <th class="num">Взята через</th><th class="num">Делалась</th><th class="num">Срок</th>
     </tr></thead><tbody>${rows}</tbody>
   </table></div>`;
 
@@ -1070,7 +974,7 @@ function taskTable(tasks){
 async function openTask(id){
   let data;
   try { data = await api(`/events/${id}`); } catch (e) { return alert(e.message); }
-  const t = data.task, ev = data.events, sc = data.score;
+  const t = data.task, ev = data.events;
 
   const canAccept = ME.role === 'lead' || ME.role === 'chief';
   const actions = canAccept && t.status === 'review'
@@ -1078,9 +982,6 @@ async function openTask(id){
          <button class="btn" data-act="accept">Принято</button>
          <button class="btn danger" data-act="return">Вернуть</button>
        </div>`
-    : '';
-  const disputeBtn = ME.role === 'lead' && t.chiefTouched && !t.disputed
-    ? `<button class="btn ghost sm" data-act="dispute" style="margin-top:12px">Списать вовлечение: вопрос был по делу</button>`
     : '';
 
   const bg = document.createElement('div');
@@ -1090,24 +991,17 @@ async function openTask(id){
       <button class="btn ghost sm" data-act="close">Закрыть</button></div>
     ${t.url ? `<p class="muted"><a href="${esc(t.url)}" target="_blank" rel="noopener">Открыть в YouGile →</a></p>` : ''}
 
-    <div class="grid g2" style="margin-top:14px">
-      <div class="why">
-        <b>Тайминги</b><br>
-        Поставлена: ${fmtDate(t.createdAt)}<br>
-        Взята в работу: ${fmtDate(t.takenAt)} — через <b>${t.timing.toTakeHuman}</b><br>
-        Отправлена на проверку: ${fmtDate(t.submittedAt)} — делалась <b>${t.timing.toDoHuman}</b><br>
-        Принята: ${fmtDate(t.doneAt)}<br>
-        Дедлайн: ${fmtDate(t.deadline)}${t.timing.overdueHuman ? ` — <span style="color:var(--red)">просрочка ${t.timing.overdueHuman}</span>` : ''}
-      </div>
-      <div class="why">
-        <b>Оценка ${sc.score}</b> ${sc.reason ? `(${esc(sc.reason)})` : ''}<br>
-        В срок: <b>${sc.flags.inTime ? 'да' : 'нет'}</b><br>
-        Без правок: <b>${sc.flags.noReturns ? 'да' : 'нет'}</b> ${t.returns ? `(возвратов: ${t.returns})` : ''}<br>
-        Без вовлечения руководителя: <b>${sc.flags.noChief ? 'да' : 'нет'}</b> ${t.disputed ? '<span class="tag t-blue">списано лидом</span>' : ''}<br>
-      </div>
+    <div class="why" style="margin-top:14px">
+      <b>Тайминги</b><br>
+      Поставлена: ${fmtDate(t.createdAt)}<br>
+      Взята в работу: ${fmtDate(t.takenAt)} — через <b>${t.timing.toTakeHuman}</b><br>
+      Отправлена на проверку: ${fmtDate(t.submittedAt)} — делалась <b>${t.timing.toDoHuman}</b><br>
+      Принята: ${fmtDate(t.doneAt)}<br>
+      Срок: ${fmtDate(t.deadline)}${t.timing.overdueHuman ? ` — <span style="color:var(--red)">просрочка ${t.timing.overdueHuman}</span>` : ''}
+      ${t.returns ? `<br>Возвратов с проверки: <b>${t.returns}</b>` : ''}
     </div>
 
-    ${actions}${disputeBtn}
+    ${actions}
 
     <h3 style="margin-top:20px">Что происходило</h3>
     <ul class="timeline">
@@ -1124,7 +1018,6 @@ async function openTask(id){
     try {
       if (act === 'accept')   await api(`/task/${id}/accept`, {method:'POST', body:'{}'});
       if (act === 'return')   await api(`/task/${id}/return`, {method:'POST', body: JSON.stringify({note: prompt('Что не так?') || ''})});
-      if (act === 'dispute')  await api(`/task/${id}/dispute`, {method:'POST', body: JSON.stringify({note: prompt('Почему вопрос был по делу?') || ''})});
       bg.remove(); render();
     } catch (err) { alert(err.message); }
   };
@@ -1226,132 +1119,60 @@ function renderZaeby(d, v){
   });
 }
 
+/**
+ * Отдел: сверх оклада ассистентам платится только за заёбы и экономию,
+ * руководитель отдела получает долю с того и другого. Его собственный
+ * KPI — на вкладке модели времени.
+ */
 function renderTeam(d, v){
   const L = d.lead;
-  const iAmLead = ME && ME.role === 'lead';
-
-  const iAmChief = ME && ME.role === 'chief';
-
-  // Коэффициент помощи. Кнопки двигают на шаг, по самому числу можно
-  // кликнуть и вписать своё — в том числе меньше единицы.
-  const canSetHelp = iAmChief || iAmLead;
-  const helpCell = (p) => {
-    if (!p.help) return '<td class="num">—</td>';
-    const m = p.help.multiplier;
-    const color = m > 1 ? 'var(--green)' : m < 1 ? 'var(--red)' : 'var(--fg-3)';
-    return `<td class="num help-cell">
-      ${canSetHelp ? `<button class="btn ghost sm hb" data-help-sub="${esc(p.id)}"
-              ${m <= p.help.min ? 'disabled' : ''} title="минус ${p.help.step}">−</button>` : ''}
-      <b class="help-val" style="color:${color}"
-         ${canSetHelp ? `data-help-set="${esc(p.id)}" title="нажмите, чтобы вписать своё значение"` : ''}
-      >×${m.toFixed(2)}</b>
-      ${canSetHelp ? `<button class="btn sm hb" data-help-add="${esc(p.id)}"
-              ${m >= p.help.max ? 'disabled' : ''} title="плюс ${p.help.step}">+</button>` : ''}
-    </td>`;
-  };
-
-  const row = (p, extra) => `
+  const rows = d.people.map((p) => `
     <tr data-person="${esc(p.id)}">
-      <td class="clickable"><strong>${esc(p.name)}</strong> ${extra || ''}</td>
-      <td class="num"><strong style="font-size:17px;color:var(--accent)">${p.kef.toFixed(2)}</strong></td>
-      <td class="num">${p.metrics.quality.toFixed(1)}</td>
-      <td class="num">${p.metrics.autonomy.toFixed(1)}</td>
-      <td class="num">${p.metrics.speed.toFixed(1)}</td>
+      <td class="clickable"><strong>${esc(p.name)}</strong></td>
       <td class="num">${p.tasksClosed} / ${p.tasksOpen}</td>
-      ${helpCell(p)}
+      <td class="num">${p.medianReply === null || p.medianReply === undefined ? '—' : fmtSeconds(p.medianReply)}</td>
+      <td class="num">${money(p.zaeb)}</td>
+      <td class="num">${money(p.savingPay)}<div class="muted" style="font-size:12px">с ${money(p.savingSum)}</div></td>
       <td class="num"><strong>${money(p.total)}</strong></td>
-    </tr>`;
+    </tr>`).join('');
 
-  const rows = d.people.map((p) => row(p, `<span class="tag t-grey">${esc(p.grade)}</span>`)).join('');
-
-  // Строка руководителя отдела в общей таблице: у него другой пул и другие
-  // кошельки, но владельцу нужно видеть всех в одном месте.
-  const leadRow = L.own ? `
-    <tr class="clickable" data-person="${esc(L.id || '')}" style="border-top:2px solid var(--border)">
-      <td><strong>${esc(L.name || 'Руководитель отдела')}</strong>
-        <span class="tag t-blue">рук. отдела</span></td>
-      <td class="num"><strong style="font-size:17px;color:var(--accent)">${(L.bonus / 5000).toFixed(2)}</strong></td>
-      <td class="num">${L.own.quality.toFixed(1)}</td>
-      <td class="num">${L.own.autonomy.toFixed(1)}</td>
-      <td class="num">${L.own.speed.toFixed(1)}</td>
-      <td class="num">${L.own.tasks} / ${L.own.openTasks}</td>
-      ${helpCell({ id: L.id, help: L.own.help })}
-      <td class="num"><strong>${money(L.bonus + L.shareZaeb + L.shareSaving)}</strong></td>
+  const leadTotal = L.shareZaeb + L.shareSaving;
+  const leadRow = L.id ? `
+    <tr style="border-top:2px solid var(--border)">
+      <td><strong>${esc(L.name)}</strong> <span class="tag t-blue">рук. отдела</span></td>
+      <td class="num">—</td><td class="num">—</td>
+      <td class="num">${money(L.shareZaeb)}<div class="muted" style="font-size:12px">${Math.round(L.shares.zaeb * 100)} % с заёбов отдела</div></td>
+      <td class="num">${money(L.shareSaving)}<div class="muted" style="font-size:12px">${Math.round(L.shares.saving * 100)} % с экономии</div></td>
+      <td class="num"><strong>${money(leadTotal)}</strong></td>
     </tr>` : '';
 
   v.innerHTML = `
     <div class="row" style="margin-bottom:16px">
-      <div><h1>Отдел</h1><p class="muted">Результаты за период</p></div>
-      <div class="spacer"></div>
-      <div class="card" style="padding:14px 20px"><div class="kef"><span class="big">${d.avgKef.toFixed(2)}</span><span class="muted">средний кэф ассистентов</span></div></div>
+      <div><h1>Отдел</h1><p class="muted">Заёбы и экономия за период. Премия руководителя отдела считается отдельно — по модели времени.</p></div>
     </div>
 
-    <div class="tbl" style="margin-bottom:26px"><table>
+    <div class="grid g4" style="margin-bottom:22px">
+      <div class="card"><div class="lbl muted">Заёбов закрыто на</div><div class="money">${money(d.teamZaeb)}</div></div>
+      <div class="card"><div class="lbl muted">Сэкономлено</div><div class="money">${money(d.teamSaving)}</div></div>
+      <div class="card"><div class="lbl muted">Ассистентам сверх оклада</div><div class="money">${money(d.people.reduce((a, p) => a + p.total, 0))}</div></div>
+      <div class="card"><div class="lbl muted">Доля руководителя</div><div class="money">${money(leadTotal)}</div></div>
+    </div>
+
+    <div class="tbl"><table>
       <thead><tr>
-        <th>Человек</th><th class="num">Кэф</th><th class="num">Кач.</th>
-        <th class="num">Самост.</th><th class="num">Скор.</th><th class="num">Закрыто / в работе</th>
-        <th class="num">Помощь</th><th class="num">К выплате</th>
-      </tr></thead><tbody>${rows || '<tr><td colspan="8" class="muted">Ассистентов пока нет</td></tr>'}${leadRow}</tbody>
+        <th>Человек</th><th class="num">Закрыто / в работе</th><th class="num">Медиана ответа</th>
+        <th class="num">Заёбы</th><th class="num">Экономия</th><th class="num">К выплате</th>
+      </tr></thead><tbody>${rows || '<tr><td colspan="6" class="muted">Ассистентов пока нет</td></tr>'}${leadRow}</tbody>
     </table></div>
-
-    <h2 style="margin-bottom:4px">${iAmLead ? 'Ваш результат' : 'Результат руководителя отдела'}</h2>
-    <p class="muted" style="margin-bottom:12px">Премия 50 000 ₽: своя работа плюс результат команды</p>
-    <div class="grid g4">
-      <div class="card metric"><div class="lbl">Результат отдела</div><div class="val">${money(L.wallets.team)}</div><div class="sub">средний кэф ассистентов ${L.avgKef.toFixed(2)}</div></div>
-      <div class="card metric"><div class="lbl">Качество</div><div class="val">${money(L.wallets.quality)}</div><div class="sub">свои задачи: ${L.own ? L.own.quality.toFixed(1) : '—'} из 10</div></div>
-      <div class="card metric"><div class="lbl">Самостоятельность</div><div class="val">${money(L.wallets.autonomy)}</div><div class="sub">свои задачи: ${L.own ? L.own.autonomy.toFixed(1) : '—'} из 10</div></div>
-      <div class="card metric"><div class="lbl">Скорость</div><div class="val">${money(L.wallets.speed)}</div><div class="sub">${esc(L.speed.formula)}</div></div>
-    </div>
-    <div class="card" style="margin-top:14px">
-      <div class="row">
-        <div>
-          <h3>Итого за период</h3>
-          <p class="muted" style="margin:4px 0 0">включая долю с команды: заёбы ${money(L.shareZaeb)} + экономия ${money(L.shareSaving)}</p>
-        </div>
-        <div class="spacer"></div>
-        <div class="money">${money(L.bonus + L.shareZaeb + L.shareSaving)}</div>
-      </div>
-    </div>
+    <p class="muted" style="margin-top:8px">Медиана ответа в рабочем чате — справочно, на выплаты не влияет.</p>
   `;
-
-  // Коэффициент помощи: кнопки на шаг, клик по числу — ручной ввод.
-  const setHelp = async (id, action, body = {}) => {
-    try {
-      await api(`/help/${id}/${action}?period=${PERIOD}`,
-                { method: 'POST', body: JSON.stringify(body) });
-      render();
-    } catch (err) { alert(err.message); }
-  };
-
-  v.querySelectorAll('[data-help-add]').forEach((b) => {
-    b.onclick = (e) => { e.stopPropagation(); setHelp(b.dataset.helpAdd, 'add'); };
-  });
-  v.querySelectorAll('[data-help-sub]').forEach((b) => {
-    b.onclick = (e) => { e.stopPropagation(); setHelp(b.dataset.helpSub, 'sub'); };
-  });
-  v.querySelectorAll('[data-help-set]').forEach((el) => {
-    el.onclick = (e) => {
-      e.stopPropagation();
-      const cur = el.textContent.replace('×', '').trim();
-      const raw = prompt(
-        'Коэффициент премии. Больше 1 — надбавка, меньше 1 — снижение.\n' +
-        'Например: 1.3 или 0.8',
-        cur
-      );
-      if (raw === null) return;
-      const value = Number(String(raw).replace(',', '.'));
-      if (!Number.isFinite(value) || value <= 0) return alert('Нужно положительное число');
-      const note = prompt('За что? Можно оставить пустым') ?? null;
-      setHelp(el.dataset.helpSet, 'set', { value, note });
-    };
-  });
 
   v.querySelectorAll('tr[data-person] td.clickable').forEach((td) => {
     const tr = td.closest('tr');
     td.onclick = async () => {
       try {
         const p = await api(`/person/${tr.dataset.person}?period=${PERIOD}`);
-        renderProfile(p, $('view'));
+        await renderProfile(p, $('view'));
         window.scrollTo({top:0, behavior:'smooth'});
       } catch (e) { alert(e.message); }
     };
@@ -1384,7 +1205,7 @@ async function renderAdmin(v){
     <tr data-id="${esc(u.id)}"${u.active ? '' : ' class="off"'}>
       <td><input class="e" data-f="name" value="${esc(u.name)}" title="${esc(u.name)}"></td>
       <td><select class="e" data-f="role">${roleOpts(u.role)}</select></td>
-      <td>${u.role === 'assistant'
+      <td>${u.role === 'lead'
         ? `<select class="e" data-f="grade_num">${[1,2,3,4,5,6,7].map((g) =>
             `<option value="${g}"${g === (u.grade_num || 3) ? ' selected' : ''}>${g}</option>`).join('')}</select>`
         : '<span class="muted">—</span>'}</td>
@@ -1417,7 +1238,8 @@ async function renderAdmin(v){
   v.innerHTML = `
     <h1 style="margin-bottom:6px">Люди</h1>
     <p class="muted" style="margin-bottom:14px">Любое поле правится прямо здесь. Telegram ID и ID в YouGile
-      можно вписать вручную — бот подставит их сам только после первого сообщения в чате.</p>
+      можно вписать вручную — бот подставит их сам только после первого сообщения в чате.
+      Оклад руководителя отдела нужен для квартальной премии: она считается от трёх окладов.</p>
     <div class="tbl" style="margin-bottom:16px"><table id="peopleTable">
       <colgroup>
         <col class="c-name"><col class="c-role"><col class="c-grade"><col class="c-salary">
@@ -1436,7 +1258,7 @@ async function renderAdmin(v){
           <option value="chief">руководитель</option></select></div>
         <div class="field" id="gradeField"><label>Грейд</label><select id="n_grade">
           ${[1,2,3,4,5,6,7].map((g) => `<option value="${g}"${g === 3 ? ' selected' : ''}>${g}</option>`).join('')}</select>
-          <div class="muted" style="margin-top:5px">Только для ассистентов: от грейда зависит процент премии</div></div>
+          <div class="muted" style="margin-top:5px">Только у руководителя отдела: от грейда зависит процент квартальной премии</div></div>
         <div class="field"><label>Оклад</label><input id="n_salary" type="number" value="0"></div>
         <div class="field"><label>ID в YouGile</label><input id="n_yg"></div>
         <div class="field"><label>ID в Telegram</label><input id="n_tg"></div>
@@ -1455,9 +1277,9 @@ async function renderAdmin(v){
       </div>
     </div>`;
 
-  // грейд есть только у ассистентов — у руководителей его прячем
+  // грейд есть только у руководителя отдела — остальным его не показываем
   const syncGradeField = () => {
-    $('gradeField').style.display = $('n_role').value === 'assistant' ? '' : 'none';
+    $('gradeField').style.display = $('n_role').value === 'lead' ? '' : 'none';
   };
   $('n_role').onchange = syncGradeField;
   syncGradeField();

@@ -151,3 +151,27 @@ test('порог сверхплана переносится настройко�
   assert.equal(autoMark(160, strict), 'plus3');
   assert.equal(autoMark(175, strict), 'plus4');
 });
+
+test('срок по приоритету считается рабочими днями', () => {
+  const { addWorkdays } = __test;
+  const local = (iso) => new Date(new Date(iso).getTime() + 3 * 3600e3); // МСК
+  const day = (iso) => ['вс', 'пн', 'вт', 'ср', 'чт', 'пт', 'сб'][local(iso).getUTCDay()];
+
+  // пятница 14.08.2026 вечером, приоритет 3 → среда
+  const fridayEvening = '2026-08-14T16:30:00Z'; // 19:30 МСК
+  assert.equal(day(addWorkdays(fridayEvening, 3)), 'ср');
+
+  // пятница днём, приоритет 3 → пятница, понедельник, вторник
+  const fridayNoon = '2026-08-14T10:00:00Z'; // 13:00 МСК
+  assert.equal(day(addWorkdays(fridayNoon, 3)), 'вт');
+
+  // пятница вечером, приоритет 1 → понедельник
+  assert.equal(day(addWorkdays(fridayEvening, 1)), 'пн');
+
+  // среда вечером, приоритет 1 → четверг; днём — сама среда
+  assert.equal(day(addWorkdays('2026-08-12T16:00:00Z', 1)), 'чт');
+  assert.equal(day(addWorkdays('2026-08-12T09:00:00Z', 1)), 'ср');
+
+  // суббота, приоритет 3 → пн, вт, ср
+  assert.equal(day(addWorkdays('2026-08-15T09:00:00Z', 3)), 'ср');
+});
