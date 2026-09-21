@@ -189,6 +189,87 @@ details>summary:hover{text-decoration:underline}
   font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:14px;background:var(--surface-2);
   border:1px solid var(--border);border-radius:10px;padding:12px;word-break:break-all;margin-top:8px;
 }
+
+/* ── Модель времени ─────────────────────────────────────────────────────── */
+/* таблица сотрудников: влезает целиком, строки раскрываются */
+#kpiTable{min-width:0;table-layout:fixed}
+#kpiTable th,#kpiTable td{padding:11px 10px}
+#kpiTable td.num{font-variant-numeric:tabular-nums}
+@media(max-width:900px){#kpiTable{min-width:760px;table-layout:auto}}
+.mark{display:inline-block;min-width:44px;text-align:center;font-weight:800;letter-spacing:.02em;
+  padding:3px 9px;border-radius:8px;font-size:14px}
+.mark.m-minus{background:var(--red-soft);color:var(--red)}
+.mark.m-plusminus{background:var(--amber-soft);color:var(--amber)}
+.mark.m-plus{background:var(--accent-soft);color:var(--accent)}
+.mark.m-plus2,.mark.m-plus3,.mark.m-plus4{background:var(--green-soft);color:var(--green)}
+.mark.auto{opacity:.7;outline:1px dashed currentColor;outline-offset:-1px}
+.pct-good{color:var(--green);font-weight:700}
+.pct-mid{color:var(--amber);font-weight:700}
+.pct-bad{color:var(--red);font-weight:700}
+.access{display:inline-flex;gap:5px}
+.access i{font-style:normal;font-size:11.5px;font-weight:700;padding:1px 7px;border-radius:6px;
+  background:var(--surface-2);color:var(--fg-3);border:1px solid var(--border)}
+.access i.on{background:var(--green-soft);color:var(--green);border-color:transparent}
+
+/* переключатели среза */
+.seg{display:inline-flex;background:var(--surface-2);border:1px solid var(--border);border-radius:100px;padding:3px;gap:2px}
+.seg button{border:none;background:transparent;font-family:inherit;font-size:13.5px;font-weight:600;color:var(--fg-2);
+  padding:6px 13px;border-radius:100px;cursor:pointer;transition:background .15s,color .15s;white-space:nowrap}
+.seg button.on{background:var(--surface);color:var(--fg);box-shadow:var(--shadow)}
+
+/* графики метрик */
+.charts{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media(max-width:960px){.charts{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:640px){.charts{grid-template-columns:1fr}}
+.chart .lbl{font-size:12.5px;color:var(--fg-3);font-weight:600;text-transform:uppercase;letter-spacing:.04em}
+.chart .val{font-size:26px;font-weight:800;letter-spacing:-.03em;line-height:1.1;margin-top:4px}
+.chart .sub{font-size:12.5px;color:var(--fg-3);margin-top:2px}
+.chart svg{width:100%;height:120px;margin-top:10px;display:block;overflow:visible}
+.chart svg text{font-family:inherit;font-size:11px;fill:var(--fg-3)}
+.chart svg .plan{stroke:var(--fg-3);stroke-dasharray:4 4;stroke-width:1.5}
+.chart svg .b-ok{fill:var(--green)}
+.chart svg .b-over{fill:var(--red)}
+.chart svg .b-none{fill:var(--border)}
+.chart svg .bv{fill:var(--fg);font-weight:700;font-size:11.5px}
+
+/* раскрываемые месяцы и карточки людей */
+details.month,details.person{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);
+  padding:0;margin-bottom:10px;box-shadow:var(--shadow)}
+details.month>summary,details.person>summary{
+  display:flex;align-items:center;gap:12px;padding:13px 16px;font-size:15px;font-weight:650;color:var(--fg);
+  cursor:pointer;list-style:none;flex-wrap:wrap
+}
+details.month>summary::before,details.person>summary::before{
+  content:'';width:8px;height:8px;border-right:2px solid var(--fg-3);border-bottom:2px solid var(--fg-3);
+  transform:rotate(-45deg);transition:transform .2s;flex:none
+}
+details[open].month>summary::before,details[open].person>summary::before{transform:rotate(45deg)}
+details.month>summary:hover,details.person>summary:hover{background:var(--surface-2);text-decoration:none}
+details.month>.body,details.person>.body{padding:6px 16px 16px;border-top:1px solid var(--border-2)}
+.sum-metrics{display:flex;gap:14px;flex-wrap:wrap;margin-left:auto;font-size:13px;color:var(--fg-3);font-weight:500}
+.sum-metrics b{color:var(--fg)}
+.six{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin:10px 0 14px}
+@media(max-width:900px){.six{grid-template-columns:repeat(3,1fr)}}
+.six .m{background:var(--surface-2);border-radius:10px;padding:9px 10px;border:1px solid var(--border-2)}
+.six .m .k{font-size:11px;color:var(--fg-3);font-weight:600;text-transform:uppercase;letter-spacing:.04em}
+.six .m .v{font-size:17px;font-weight:800;letter-spacing:-.02em;margin-top:2px}
+.six .m .p{font-size:11.5px;margin-top:1px}
+.lvl{display:inline-block;width:22px;height:22px;line-height:22px;text-align:center;border-radius:6px;font-size:12px;font-weight:800;
+  background:var(--accent-soft);color:var(--accent)}
+.lvl.l3{background:var(--red-soft);color:var(--red)}
+.lvl.l2{background:var(--amber-soft);color:var(--amber)}
+.lvl.l1{background:var(--green-soft);color:var(--green)}
+.src{font-size:11px;color:var(--fg-3);margin-left:4px}
+.review{padding:10px 12px;border-radius:10px;background:var(--surface-2);border:1px solid var(--border-2);margin-bottom:8px;font-size:14px}
+.review .h{display:flex;gap:8px;align-items:center;font-size:12.5px;color:var(--fg-3);margin-bottom:4px}
+textarea{padding:10px 12px;font-size:15px;font-family:inherit;border:1px solid var(--border);border-radius:10px;
+  background:var(--surface);color:var(--fg);width:100%;min-height:84px;resize:vertical}
+textarea:focus{border-color:var(--accent);outline:none;box-shadow:0 0 0 3px var(--accent-soft)}
+.matrix{min-width:0;table-layout:fixed}
+.matrix input{padding:6px 8px;min-height:34px;font-size:14px;text-align:right}
+.sla-grid{display:grid;grid-template-columns:auto repeat(3,1fr);gap:8px 12px;align-items:center;max-width:620px}
+.sla-grid .hd{font-size:12px;color:var(--fg-3);font-weight:600;text-transform:uppercase;letter-spacing:.04em;text-align:center}
+.sla-grid .rl{font-size:14px;font-weight:600}
 </style>
 </head>
 <body>
@@ -215,6 +296,7 @@ details>summary:hover{text-decoration:underline}
       <span class="brand">KPI отдела</span>
       <span class="who">Вход: <b id="whoName">—</b> · <span id="whoRole"></span></span>
       <select id="periodSel" style="width:auto;min-width:150px"></select>
+      <select id="quarterSel" class="hide" style="width:auto;min-width:150px"></select>
       <button class="btn ghost sm" id="logoutBtn">Выйти</button>
     </div>
     <div class="wrap"><div class="tabs" id="tabs"></div></div>
@@ -228,7 +310,8 @@ const API = '/api';
 let KEY = localStorage.getItem('kpi_key') || '';
 let ME = null;
 let PERIOD = '';
-let TAB = 'me';
+let QUARTER = '';
+let TAB = 'kpi';
 
 // ── вспомогательное ─────────────────────────────────────────────────────────
 const $ = (id) => document.getElementById(id);
@@ -328,9 +411,25 @@ function start(){
   PERIOD = sel.value;
   sel.onchange = () => { PERIOD = sel.value; render(); };
 
+  // кварталы: текущий и семь предыдущих — модель времени сводится поквартально
+  const qs = $('quarterSel');
+  qs.innerHTML = '';
+  const curQ = Math.floor(now.getMonth() / 3) + 1;
+  for (let i = 0; i < 8; i++){
+    let q = curQ - i, y = now.getFullYear();
+    while (q < 1) { q += 4; y -= 1; }
+    const o = document.createElement('option');
+    o.value = `${y}-Q${q}`;
+    o.textContent = `${q}-й квартал ${y}`;
+    qs.appendChild(o);
+  }
+  QUARTER = qs.value;
+  qs.onchange = () => { QUARTER = qs.value; render(); };
+
+  // Первая вкладка у всех — модель времени: по ней считается премия.
   // У владельца нет своих задач, поэтому нет и вкладки с личным результатом:
   // он смотрит отдел, принимает работу и подтверждает закрытые раздражители.
-  const tabs = [];
+  const tabs = [{ id: 'kpi', name: 'KPI' }];
   if (ME.role === 'lead' || ME.role === 'chief') tabs.push({ id: 'team', name: 'Отдел' });
   if (ME.role === 'assistant' || ME.role === 'lead') tabs.push({ id: 'me', name: 'Мои результаты' });
   if (ME.role === 'lead' || ME.role === 'chief') {
@@ -360,7 +459,11 @@ function start(){
 async function render(){
   const v = $('view');
   v.innerHTML = '<p class="muted">Загружаю…</p>';
+  // модель времени живёт по кварталам, остальное — по месяцам
+  $('quarterSel').classList.toggle('hide', TAB !== 'kpi');
+  $('periodSel').classList.toggle('hide', TAB === 'kpi' || TAB === 'admin' || TAB === 'inbox');
   try {
+    if (TAB === 'kpi')   return renderKpi(await api(`/kpi/board?quarter=${QUARTER}`), v);
     if (TAB === 'me')    return renderProfile(await api(`/me?period=${PERIOD}`), v);
     if (TAB === 'team')  return renderTeam(await api(`/team?period=${PERIOD}`), v);
     if (TAB === 'inbox') return renderInbox(await api('/inbox'), v);
@@ -368,6 +471,433 @@ async function render(){
     if (TAB === 'admin') return renderAdmin(v);
   } catch (e) {
     v.innerHTML = `<div class="card"><p class="err">${esc(e.message)}</p></div>`;
+  }
+}
+
+// ── Модель времени: Time to start / Time to fill ────────────────────────────
+const TM = {
+  t2s: { name: 'Время до старта', short: 'До старта', hint: 'от постановки до взятия в работу' },
+  t2f: { name: 'Время до сдачи',  short: 'До сдачи',  hint: 'от постановки до завершения' },
+};
+const LEVEL_NAME = { 1: 'простые', 2: 'обычные', 3: 'сложные' };
+const KEYS6 = ['t2s1', 't2s2', 't2s3', 't2f1', 't2f2', 't2f3'];
+const MARK_TXT = { minus: '−', plusminus: '+−', plus: '+', plus2: '++', plus3: '+++', plus4: '++++' };
+const MARK_HINT = {
+  minus: 'план сорван', plusminus: 'ниже плана', plus: 'в плане',
+  plus2: 'выше плана', plus3: 'сильно выше плана', plus4: 'сверхплан',
+};
+// что показывать в графиках: весь отдел или человек, все уровни или один
+let KPI_VIEW = { who: 'team', level: 0 };
+let KPI_DATA = null;
+
+function fmtH(h){
+  if (h === null || h === undefined) return '—';
+  if (h < 1) return Math.round(h * 60) + ' мин';
+  const s = (Math.round(h * 10) / 10).toLocaleString('ru-RU');
+  return h >= 16 ? `${s} ч (${(Math.round(h / 8 * 10) / 10).toLocaleString('ru-RU')} дн)` : s + ' ч';
+}
+function pctClass(p){
+  if (p === null || p === undefined) return 'muted';
+  return p >= 100 ? 'pct-good' : p >= 80 ? 'pct-mid' : 'pct-bad';
+}
+function pctHtml(p){
+  return p === null || p === undefined ? '<span class="muted">—</span>' : `<span class="${pctClass(p)}">${p} %</span>`;
+}
+function markHtml(mark, auto){
+  if (!mark) return '<span class="muted">—</span>';
+  return `<span class="mark m-${mark}${auto ? ' auto' : ''}" title="${auto ? 'предложение системы: ' : ''}${MARK_HINT[mark] || ''}">${MARK_TXT[mark] || mark}</span>`;
+}
+function monthName(period){
+  const [y, m] = period.split('-').map(Number);
+  return new Date(y, m - 1, 1).toLocaleString('ru-RU', { month: 'long', year: 'numeric' });
+}
+function monthShort(period){
+  const [y, m] = period.split('-').map(Number);
+  return new Date(y, m - 1, 1).toLocaleString('ru-RU', { month: 'short' }).replace('.', '');
+}
+
+/** Столбики факта по месяцам, пунктир — план. Зелёный уложился, красный нет. */
+function chartSvg(months, facts, plan){
+  const W = 300, H = 120, padB = 22, padT = 16;
+  const max = Math.max(plan || 0, ...facts.filter((v) => v !== null), 0.001) * 1.18;
+  const y = (v) => padT + (H - padT - padB) * (1 - v / max);
+  const bw = 40, gap = (W - months.length * bw) / (months.length + 1);
+  let out = '';
+  months.forEach((p, i) => {
+    const x = gap + i * (bw + gap);
+    const f = facts[i];
+    if (f === null || f === undefined) {
+      out += `<rect x="${x}" y="${y(0) - 3}" width="${bw}" height="3" rx="1.5" class="b-none"/>`;
+      out += `<text x="${x + bw / 2}" y="${y(0) - 8}" text-anchor="middle">нет задач</text>`;
+    } else {
+      const top = y(f), h = Math.max(2, y(0) - top);
+      out += `<rect x="${x}" y="${top}" width="${bw}" height="${h}" rx="5" class="${plan && f > plan ? 'b-over' : 'b-ok'}"/>`;
+      // над узким столбиком — только часы, дни не помещаются
+      out += `<text x="${x + bw / 2}" y="${top - 5}" text-anchor="middle" class="bv">${f < 1 ? fmtH(f) : (Math.round(f * 10) / 10).toLocaleString('ru-RU') + ' ч'}</text>`;
+    }
+    out += `<text x="${x + bw / 2}" y="${H - 5}" text-anchor="middle">${monthShort(p)}</text>`;
+  });
+  if (plan) {
+    out += `<line x1="0" x2="${W}" y1="${y(plan)}" y2="${y(plan)}" class="plan"/>`;
+    out += `<text x="${W}" y="${y(plan) - 4}" text-anchor="end">план ${fmtH(plan)}</text>`;
+  }
+  return `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none">${out}</svg>`;
+}
+
+/** Шесть плашек: значение, план и процент. */
+function sixHtml(metrics, percents, sla, counts){
+  return `<div class="six">${KEYS6.map((k) => {
+    const m = k.slice(0, 3), l = +k.slice(3);
+    const n = counts ? counts[k] : null;
+    return `<div class="m" title="${TM[m].hint}">
+      <div class="k">${TM[m].short} · ${l}</div>
+      <div class="v">${fmtH(metrics[k])}</div>
+      <div class="p">${pctHtml(percents[k])} <span class="muted">· план ${fmtH(sla[k])}${n !== null && n !== undefined ? ` · задач ${n}` : ''}</span></div>
+    </div>`;
+  }).join('')}</div>`;
+}
+
+/** Раскрываемый месяц: шесть метрик и список задач с часами. */
+function monthHtml(m, sla, showWho, people){
+  const who = (id) => (people.find((p) => p.id === id) || {}).name || '—';
+  const counts = {};
+  KEYS6.forEach((k) => { counts[k] = m.detail?.[k]?.count ?? 0; });
+  const rows = m.tasks.map((t) => `
+    <tr>
+      <td><span class="lvl l${t.level}">${t.level}</span><span class="src" title="откуда уровень">${
+        ({ sticker: 'стикер', model: 'модель', manual: 'руками', default: 'по размеру' })[t.level_src] || ''}</span></td>
+      <td><strong>${esc(t.number || '')}</strong> ${esc(t.title)}</td>
+      ${showWho ? `<td>${esc(who(t.assignee_id))}</td>` : ''}
+      <td class="num">${fmtH(t.t2s)}</td>
+      <td class="num">${t.t2f === null ? '<span class="muted">в работе</span>' : fmtH(t.t2f)}</td>
+    </tr>`).join('');
+  return `<details class="month">
+    <summary>${monthName(m.period)}
+      <span class="sum-metrics">
+        <span>задач <b>${m.count}</b></span>
+        <span>план <b>${m.avgPercent === null ? '—' : m.avgPercent + ' %'}</b></span>
+      </span></summary>
+    <div class="body">
+      ${sixHtml(m.metrics, m.percents, sla, counts)}
+      ${m.tasks.length ? `<div class="tbl"><table style="min-width:0">
+        <thead><tr><th style="width:90px">Уровень</th><th>Задача</th>${showWho ? '<th>Кто</th>' : ''}
+          <th class="num">До старта</th><th class="num">До сдачи</th></tr></thead>
+        <tbody>${rows}</tbody></table></div>` : '<p class="muted">В этом месяце задач не ставилось.</p>'}
+    </div>
+  </details>`;
+}
+
+/** Графики и месяцы для выбранного среза — перерисовываются без запроса. */
+function renderKpiSlice(){
+  const d = KPI_DATA;
+  const src = KPI_VIEW.who === 'team' ? d.team : d.people.find((p) => p.id === KPI_VIEW.who);
+  if (!src) return;
+  const months = src.months;
+  const keys = KPI_VIEW.level ? KEYS6.filter((k) => +k.slice(3) === KPI_VIEW.level) : KEYS6;
+  const qm = src.quarter ? src.quarter.metrics : src.metrics;
+  const qp = src.quarter ? src.quarter.percents : src.percents;
+
+  $('kpiCharts').innerHTML = keys.map((k) => {
+    const m = k.slice(0, 3), l = +k.slice(3);
+    const facts = months.map((x) => x.metrics[k]);
+    return `<div class="card chart">
+      <div class="lbl">${TM[m].name} · уровень ${l}</div>
+      <div class="val">${fmtH(qm[k])} <span class="sub" style="font-size:14px">${pctHtml(qp[k])}</span></div>
+      <div class="sub">${LEVEL_NAME[l]} задачи, среднее за квартал · ${TM[m].hint}</div>
+      ${chartSvg(months.map((x) => x.period), facts, d.sla[k])}
+    </div>`;
+  }).join('');
+
+  $('kpiMonths').innerHTML = months.map((m) => monthHtml(m, d.sla, KPI_VIEW.who === 'team', d.people)).join('');
+}
+
+async function renderKpi(d, v){
+  KPI_DATA = d;
+  const boss = ['lead', 'chief'].includes(ME.role);
+  if (!d.people.find((p) => p.id === KPI_VIEW.who) && KPI_VIEW.who !== 'team') KPI_VIEW.who = 'team';
+  if (!boss && d.people.length === 1) KPI_VIEW.who = d.people[0].id;
+
+  // ── таблица сотрудников
+  const rows = d.people.map((p) => `
+    <tr class="clickable" data-open="${esc(p.id)}">
+      <td><strong>${esc(p.name)}</strong></td>
+      <td class="num"><strong>${p.grade}</strong></td>
+      <td><span class="access">
+        <i class="${p.access.yougile ? 'on' : ''}" title="YouGile">YG</i>
+        <i class="${p.access.telegram ? 'on' : ''}" title="Telegram">TG</i></span></td>
+      <td class="num">${pctHtml(p.quarter.avgPercent)}</td>
+      <td>${markHtml(p.mark, !p.result)}</td>
+      <td class="num">${p.bonus.percent} %</td>
+      <td class="num"><strong>${money(p.bonus.sum)}</strong></td>
+      <td>${p.result
+        ? `<span class="tag t-green">закрыт</span>`
+        : `<span class="tag t-grey">открыт</span>`}</td>
+    </tr>`).join('');
+
+  const whoSeg = boss || d.people.length > 1
+    ? `<div class="seg" id="segWho">
+        <button data-who="team" class="${KPI_VIEW.who === 'team' ? 'on' : ''}">Весь отдел</button>
+        ${d.people.map((p) => `<button data-who="${esc(p.id)}" class="${KPI_VIEW.who === p.id ? 'on' : ''}">${esc(p.name)}</button>`).join('')}
+      </div>`
+    : `<div class="seg" id="segWho">
+        <button data-who="${esc(d.people[0]?.id)}" class="${KPI_VIEW.who !== 'team' ? 'on' : ''}">Я</button>
+        <button data-who="team" class="${KPI_VIEW.who === 'team' ? 'on' : ''}">Весь отдел</button>
+      </div>`;
+
+  const lvlSeg = `<div class="seg" id="segLvl">
+    <button data-lvl="0" class="${KPI_VIEW.level === 0 ? 'on' : ''}">Все уровни</button>
+    ${[1, 2, 3].map((l) => `<button data-lvl="${l}" class="${KPI_VIEW.level === l ? 'on' : ''}">Уровень ${l}</button>`).join('')}
+  </div>`;
+
+  // ── карточки людей: отзывы и итог квартала
+  const personCard = (p) => {
+    const mine = p.id === ME.id;
+    const reviews = p.reviews.map((r) => `<div class="review">
+      <div class="h"><b>${({ self: 'Самооценка', peer: 'Отзыв коллеги', lead: 'Отзыв руководителя' })[r.kind]}</b>
+        ${r.author ? `· ${esc(r.author)}` : ''} · ${fmtDate(r.created_at)}
+        ${r.mark ? markHtml(r.mark) : ''}
+        ${(r.author_id === ME.id || boss) ? `<button class="btn ghost sm" style="min-height:26px;margin-left:auto" data-delrev="${r.id}">удалить</button>` : ''}
+      </div>
+      ${r.text ? esc(r.text) : '<span class="muted">без текста</span>'}
+    </div>`).join('') || '<p class="muted">Отзывов за квартал пока нет.</p>';
+
+    // какой отзыв может оставить смотрящий
+    const kind = boss ? 'lead' : mine ? 'self' : 'peer';
+    const kindName = { self: 'Самооценка за квартал', peer: 'Отзыв о коллеге (по желанию)', lead: 'Отзыв руководителя' }[kind];
+    const markSel = (id, cur) => `<select id="${id}" style="width:auto;min-width:120px">
+      <option value="">без оценки</option>
+      ${d.marks.map((m) => `<option value="${m.id}"${cur === m.id ? ' selected' : ''}>${m.label} — ${MARK_HINT[m.id]}</option>`).join('')}
+    </select>`;
+
+    const closeBlock = boss ? (p.result
+      ? `<div class="why">Квартал закрыт ${fmtDate(p.result.closed_at)}: оценка ${markHtml(p.result.mark)},
+          план ${p.result.plan_percent ?? '—'} %, грейд ${p.result.grade}, премия ${p.result.bonus_percent} % от ${money(p.result.salary_quarter)} =
+          <b>${money(p.result.bonus_sum)}</b>${p.result.note ? ` · ${esc(p.result.note)}` : ''}
+          <div style="margin-top:8px"><button class="btn ghost sm" data-reopen="${esc(p.id)}">Переоткрыть</button></div></div>`
+      : `<div class="card" style="margin-top:12px;padding:16px">
+          <h4 style="margin-bottom:8px">Итог квартала</h4>
+          <p class="muted" style="margin-bottom:10px">Система предлагает ${markHtml(p.quarter.markAuto, true)} по проценту плана
+            ${p.quarter.avgPercent ?? '—'} %. Итоговую оценку ставите вы — с учётом отзывов.
+            Премия: грейд ${p.grade} × оценка → % от квартальной зарплаты ${money(p.salaryQuarter)}.</p>
+          <div class="row">
+            ${markSel(`close_mark_${p.id}`, p.quarter.markAuto)}
+            <input id="close_note_${p.id}" placeholder="комментарий (необязательно)" style="flex:1;min-width:200px">
+            <button class="btn" data-close="${esc(p.id)}">Закрыть квартал</button>
+          </div>
+        </div>`) : '';
+
+    return `<details class="person" id="person_${esc(p.id)}">
+      <summary>${esc(p.name)}
+        <span class="sum-metrics">
+          <span>грейд <b>${p.grade}</b></span>
+          <span>план <b>${p.quarter.avgPercent ?? '—'} %</b></span>
+          <span>оценка ${markHtml(p.mark, !p.result)}</span>
+          <span>премия <b>${money(p.bonus.sum)}</b></span>
+        </span></summary>
+      <div class="body">
+        <h4 style="margin:10px 0 4px">Квартал по шести метрикам</h4>
+        ${sixHtml(p.quarter.metrics, p.quarter.percents, d.sla)}
+        <h4 style="margin:4px 0 8px">Отзывы</h4>
+        ${reviews}
+        <div class="card" style="margin-top:12px;padding:16px">
+          <h4 style="margin-bottom:8px">${kindName}</h4>
+          <textarea id="rev_text_${p.id}" placeholder="${kind === 'self'
+            ? 'Что получилось за три месяца, что нет, что хочу изменить'
+            : 'Коротко и по делу'}"></textarea>
+          <div class="row" style="margin-top:8px">${markSel(`rev_mark_${p.id}`)}
+            <button class="btn ghost" data-review="${esc(p.id)}" data-kind="${kind}">Отправить</button></div>
+        </div>
+        ${closeBlock}
+      </div>
+    </details>`;
+  };
+
+  // ── отзыв о коллеге — ассистенту, по желанию
+  const peerBlock = !boss && d.peers?.length ? `
+    <div class="card" style="margin-bottom:22px">
+      <h3 style="margin-bottom:4px">Отзыв о коллеге</h3>
+      <p class="muted" style="margin-bottom:12px">По желанию. Руководитель увидит его при подведении итога квартала.</p>
+      ${(d.myPeerReviews || []).map((r) => `<div class="review">
+        <div class="h"><b>О ${esc(r.name)}</b> · ${fmtDate(r.created_at)} ${r.mark ? markHtml(r.mark) : ''}
+          <button class="btn ghost sm" style="min-height:26px;margin-left:auto" data-delrev="${r.id}">удалить</button></div>
+        ${esc(r.text || '')}</div>`).join('')}
+      <div class="row" style="margin-bottom:8px">
+        <select id="peer_who" style="width:auto;min-width:160px">${d.peers.map((p) => `<option value="${esc(p.id)}">${esc(p.name)}</option>`).join('')}</select>
+        <select id="peer_mark" style="width:auto;min-width:120px"><option value="">без оценки</option>
+          ${d.marks.map((m) => `<option value="${m.id}">${m.label} — ${MARK_HINT[m.id]}</option>`).join('')}</select>
+      </div>
+      <textarea id="peer_text" placeholder="Что коллега делает хорошо, где помогает, что стоило бы подтянуть"></textarea>
+      <div class="row" style="margin-top:8px"><button class="btn ghost" id="peerSend">Отправить</button></div>
+    </div>` : '';
+
+  // ── нормы и матрица — руководителю и владельцу
+  const slaBlock = boss ? `
+    <h2 style="margin:26px 0 6px">Нормы на квартал</h2>
+    <p class="muted" style="margin-bottom:12px">Плановые значения в рабочих часах (день — 8 часов). Действуют с выбранного квартала и дальше,
+      прошлые кварталы считаются по своим нормам.</p>
+    <div class="card">
+      <div class="sla-grid">
+        <div></div><div class="hd">Уровень 1<br><span style="text-transform:none;font-weight:500">простые</span></div>
+        <div class="hd">Уровень 2<br><span style="text-transform:none;font-weight:500">обычные</span></div>
+        <div class="hd">Уровень 3<br><span style="text-transform:none;font-weight:500">сложные</span></div>
+        ${['t2s', 't2f'].map((m) => `<div class="rl">${TM[m].name}</div>
+          ${[1, 2, 3].map((l) => `<input id="sla_${m}${l}" type="number" step="0.5" min="0.5" value="${d.sla[m + l] ?? ''}">`).join('')}`).join('')}
+      </div>
+      <div class="row" style="margin-top:14px">
+        <span class="muted">Действуют с</span>
+        <select id="slaFrom" style="width:auto">${[...$('quarterSel').options].map((o) =>
+          `<option value="${o.value}"${o.value === d.quarter ? ' selected' : ''}>${o.textContent}</option>`).join('')}</select>
+        <span class="muted">· сверхплан от</span>
+        <input id="overplan" type="number" min="100" max="300" value="${d.overplan}" style="width:90px"><span class="muted">%</span>
+        <button class="btn" id="saveSla">Сохранить нормы</button>
+        <span id="slaMsg" class="muted"></span>
+      </div>
+    </div>
+
+    <h2 style="margin:26px 0 6px">Матрица премий</h2>
+    <p class="muted" style="margin-bottom:12px">Процент от квартальной зарплаты по грейду и итоговой оценке. Грейды 1 и 2 премии не дают.</p>
+    <div class="tbl"><table class="matrix" id="matrixTable">
+      <thead><tr><th>Грейд</th>${d.marks.map((m) => `<th class="num" title="${MARK_HINT[m.id]}">${m.label}</th>`).join('')}<th></th></tr></thead>
+      <tbody id="matrixBody"><tr><td colspan="8" class="muted">Загружаю…</td></tr></tbody>
+    </table></div>` : '';
+
+  v.innerHTML = `
+    <div class="row" style="margin-bottom:6px"><h1>KPI · ${esc($('quarterSel').selectedOptions[0]?.textContent || d.quarter)}</h1></div>
+    <p class="muted" style="margin-bottom:16px">Две скорости — до старта и до сдачи — по трём уровням сложности, в рабочих часах.
+      Каждый месяц сравнивается с планом, квартал — среднее трёх месяцев. Оценка и премия — по итогу квартала.</p>
+
+    <div class="tbl" style="margin-bottom:22px"><table id="kpiTable">
+      <thead><tr><th>Сотрудник</th><th class="num">Грейд</th><th>Доступы</th><th class="num">План</th>
+        <th>Оценка</th><th class="num">Премия</th><th class="num">Сумма</th><th>Квартал</th></tr></thead>
+      <tbody>${rows || '<tr><td colspan="8" class="muted">Ассистентов нет</td></tr>'}</tbody>
+    </table></div>
+
+    <div class="row" style="margin-bottom:12px">
+      <h2>Метрики по месяцам</h2><span class="spacer"></span>${whoSeg}${lvlSeg}
+    </div>
+    <div class="charts" id="kpiCharts" style="margin-bottom:22px"></div>
+
+    <h2 style="margin-bottom:10px">Месяцы</h2>
+    <div id="kpiMonths" style="margin-bottom:22px"></div>
+
+    <h2 style="margin-bottom:10px">${boss ? 'Люди, отзывы и итог' : 'Мои отзывы и итог'}</h2>
+    <div id="kpiPeople">${d.people.map(personCard).join('')}</div>
+    ${peerBlock}
+    ${slaBlock}`;
+
+  renderKpiSlice();
+
+  // ── обработчики
+  v.querySelectorAll('#segWho button').forEach((b) => {
+    b.onclick = () => {
+      KPI_VIEW.who = b.dataset.who;
+      v.querySelectorAll('#segWho button').forEach((x) => x.classList.toggle('on', x === b));
+      renderKpiSlice();
+    };
+  });
+  v.querySelectorAll('#segLvl button').forEach((b) => {
+    b.onclick = () => {
+      KPI_VIEW.level = +b.dataset.lvl;
+      v.querySelectorAll('#segLvl button').forEach((x) => x.classList.toggle('on', x === b));
+      renderKpiSlice();
+    };
+  });
+  v.querySelectorAll('tr[data-open]').forEach((tr) => {
+    tr.onclick = () => {
+      const el = $('person_' + tr.dataset.open);
+      if (!el) return;
+      el.open = true;
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    };
+  });
+
+  v.querySelectorAll('[data-review]').forEach((b) => {
+    b.onclick = async () => {
+      const id = b.dataset.review;
+      try {
+        await api('/kpi/reviews', { method: 'POST', body: JSON.stringify({
+          user_id: id, kind: b.dataset.kind, quarter: d.quarter,
+          text: $('rev_text_' + id).value, mark: $('rev_mark_' + id).value || null,
+        }) });
+        render();
+      } catch (e) { alert(e.message); }
+    };
+  });
+  v.querySelectorAll('[data-delrev]').forEach((b) => {
+    b.onclick = async () => {
+      if (!confirm('Удалить отзыв?')) return;
+      await api('/kpi/reviews/' + b.dataset.delrev, { method: 'DELETE' });
+      render();
+    };
+  });
+  if ($('peerSend')) {
+    $('peerSend').onclick = async () => {
+      try {
+        await api('/kpi/reviews', { method: 'POST', body: JSON.stringify({
+          user_id: $('peer_who').value, kind: 'peer', quarter: d.quarter,
+          text: $('peer_text').value, mark: $('peer_mark').value || null,
+        }) });
+        render();
+      } catch (e) { alert(e.message); }
+    };
+  }
+  v.querySelectorAll('[data-close]').forEach((b) => {
+    b.onclick = async () => {
+      const id = b.dataset.close;
+      const mark = $('close_mark_' + id).value;
+      if (!mark) return alert('Выберите итоговую оценку');
+      const p = d.people.find((x) => x.id === id);
+      if (!confirm(`Закрыть квартал для «${p.name}» с оценкой ${MARK_TXT[mark]}? Цифры заморозятся.`)) return;
+      try {
+        await api('/kpi/quarter/close', { method: 'POST', body: JSON.stringify({
+          user_id: id, quarter: d.quarter, mark, note: $('close_note_' + id).value,
+        }) });
+        render();
+      } catch (e) { alert(e.message); }
+    };
+  });
+  v.querySelectorAll('[data-reopen]').forEach((b) => {
+    b.onclick = async () => {
+      if (!confirm('Переоткрыть квартал? Итог будет удалён, цифры снова станут живыми.')) return;
+      await api('/kpi/quarter/reopen', { method: 'POST', body: JSON.stringify({ user_id: b.dataset.reopen, quarter: d.quarter }) });
+      render();
+    };
+  });
+
+  if (!boss) return;
+
+  $('saveSla').onclick = async () => {
+    const values = {};
+    KEYS6.forEach((k) => { values[k] = +$('sla_' + k).value; });
+    try {
+      await api('/kpi/sla', { method: 'POST', body: JSON.stringify({ quarter: $('slaFrom').value, values }) });
+      await api('/admin/settings', { method: 'POST', body: JSON.stringify({ overplan_percent: String(+$('overplan').value || 120) }) });
+      $('slaMsg').textContent = 'Сохранено';
+      render();
+    } catch (e) { $('slaMsg').textContent = e.message; }
+  };
+
+  // матрица подгружается отдельно — она нужна редко
+  try {
+    const { matrix } = await api('/kpi/matrix');
+    $('matrixBody').innerHTML = [7, 6, 5, 4, 3, 2, 1].map((g) => `
+      <tr data-grade="${g}"><td><strong>${g}</strong></td>
+        ${d.marks.map((m) => `<td class="num"><input type="number" min="0" max="100" step="0.5" data-mark="${m.id}" value="${matrix[g]?.[m.id] ?? 0}"></td>`).join('')}
+        <td class="num"><button class="btn ghost sm" data-savegrade="${g}">Сохранить</button></td></tr>`).join('');
+    $('matrixBody').querySelectorAll('[data-savegrade]').forEach((b) => {
+      b.onclick = async () => {
+        const tr = b.closest('tr');
+        const cells = {};
+        tr.querySelectorAll('input[data-mark]').forEach((i) => { cells[i.dataset.mark] = +i.value; });
+        try {
+          await api('/kpi/matrix', { method: 'POST', body: JSON.stringify({ grade: +b.dataset.savegrade, cells }) });
+          b.textContent = 'Сохранено';
+          setTimeout(() => { b.textContent = 'Сохранить'; }, 1500);
+        } catch (e) { alert(e.message); }
+      };
+    });
+  } catch (e) {
+    $('matrixBody').innerHTML = `<tr><td colspan="8" class="err">${esc(e.message)}</td></tr>`;
   }
 }
 
@@ -855,8 +1385,8 @@ async function renderAdmin(v){
       <td><input class="e" data-f="name" value="${esc(u.name)}" title="${esc(u.name)}"></td>
       <td><select class="e" data-f="role">${roleOpts(u.role)}</select></td>
       <td>${u.role === 'assistant'
-        ? `<select class="e" data-f="grade">${['A1','A2','A3'].map((g) =>
-            `<option${g === u.grade ? ' selected' : ''}>${g}</option>`).join('')}</select>`
+        ? `<select class="e" data-f="grade_num">${[1,2,3,4,5,6,7].map((g) =>
+            `<option value="${g}"${g === (u.grade_num || 3) ? ' selected' : ''}>${g}</option>`).join('')}</select>`
         : '<span class="muted">—</span>'}</td>
       <td><input class="e" data-f="salary" type="number" value="${u.salary | 0}"></td>
       <td><input class="e id" data-f="yougile_id" value="${esc(u.yougile_id || '')}"
@@ -905,8 +1435,8 @@ async function renderAdmin(v){
           <option value="assistant">ассистент</option><option value="lead">руководитель отдела</option>
           <option value="chief">руководитель</option></select></div>
         <div class="field" id="gradeField"><label>Грейд</label><select id="n_grade">
-          <option>A1</option><option selected>A2</option><option>A3</option></select>
-          <div class="muted" style="margin-top:5px">Только для ассистентов: задаёт норму самостоятельности</div></div>
+          ${[1,2,3,4,5,6,7].map((g) => `<option value="${g}"${g === 3 ? ' selected' : ''}>${g}</option>`).join('')}</select>
+          <div class="muted" style="margin-top:5px">Только для ассистентов: от грейда зависит процент премии</div></div>
         <div class="field"><label>Оклад</label><input id="n_salary" type="number" value="0"></div>
         <div class="field"><label>ID в YouGile</label><input id="n_yg"></div>
         <div class="field"><label>ID в Telegram</label><input id="n_tg"></div>
@@ -935,7 +1465,7 @@ async function renderAdmin(v){
   $('addUser').onclick = async () => {
     try {
       const res = await api('/admin/users', {method:'POST', body: JSON.stringify({
-        name: $('n_name').value.trim(), role: $('n_role').value, grade: $('n_grade').value,
+        name: $('n_name').value.trim(), role: $('n_role').value, grade_num: +$('n_grade').value,
         salary: +$('n_salary').value || 0, yougile_id: $('n_yg').value.trim(),
         tg_user_id: $('n_tg').value.trim(),
       })});
@@ -950,7 +1480,7 @@ async function renderAdmin(v){
     const tr = v.querySelector(`tr[data-id="${CSS.escape(id)}"]`);
     const b = { id };
     tr.querySelectorAll('.e').forEach((el) => {
-      b[el.dataset.f] = el.dataset.f === 'salary' ? (+el.value || 0) : el.value.trim();
+      b[el.dataset.f] = ['salary', 'grade_num'].includes(el.dataset.f) ? (+el.value || 0) : el.value.trim();
     });
     return b;
   };

@@ -1,6 +1,10 @@
 -- KPI отдела ассистентов. Cloudflare D1.
 -- Применить: npx wrangler d1 execute kpi --file=schema.sql --remote
 
+DROP TABLE IF EXISTS quarter_results;
+DROP TABLE IF EXISTS reviews;
+DROP TABLE IF EXISTS bonus_matrix;
+DROP TABLE IF EXISTS sla;
 DROP TABLE IF EXISTS chat_replies;
 DROP TABLE IF EXISTS awards;
 DROP TABLE IF EXISTS events;
@@ -20,6 +24,7 @@ CREATE TABLE users (
   tg_username  TEXT,                          -- ник: по нему человека заводят
                                               -- до первого сообщения, id придёт позже
   salary       INTEGER NOT NULL DEFAULT 0,    -- оклад, для итоговой сводки
+  grade_num    INTEGER NOT NULL DEFAULT 3,    -- грейд 1..7, от него процент премии
   active       INTEGER NOT NULL DEFAULT 1,
   created_at   TEXT NOT NULL DEFAULT (datetime('now'))
 );
@@ -78,11 +83,68 @@ CREATE TABLE tasks (
   disputed          INTEGER NOT NULL DEFAULT 0,-- лид списал признак как «вопрос по делу»
   dispute_note      TEXT,
   period            TEXT,                      -- YYYY-MM, проставляется при закрытии
+
+  -- Модель времени. Уровень сложности 1/2/3: со стикера размера, от модели
+  -- по заголовку или поправленный руками. Часы считаются при синхронизации.
+  level             INTEGER,
+  level_src         TEXT,                      -- sticker | model | manual | default
+  t2s_hours         REAL,                      -- Time to start: до взятия в работу
+  t2f_hours         REAL,                      -- Time to fill: до сдачи работы
   updated_at        TEXT NOT NULL DEFAULT (datetime('now'))
 );
 CREATE INDEX idx_tasks_user   ON tasks(assignee_id);
 CREATE INDEX idx_tasks_period ON tasks(period);
 CREATE INDEX idx_tasks_status ON tasks(status);
+
+-- ── Модель времени: нормы, матрица премий, отзывы, итоги кварталов ─────────
+-- Плановые значения. Пересматриваются раз в квартал, история сохраняется:
+-- старые кварталы считаются по нормам, действовавшим тогда.
+CREATE TABLE sla (
+  metric     TEXT NOT NULL,          -- t2s | t2f
+  level      INTEGER NOT NULL,       -- 1 | 2 | 3
+  hours      REAL NOT NULL,          -- рабочих часов
+  valid_from TEXT NOT NULL,          -- квартал: 2026-Q3
+  note       TEXT,
+  PRIMARY KEY (metric, level, valid_from)
+);
+
+-- Процент премии от квартальной зарплаты: грейд × итоговая оценка.
+CREATE TABLE bonus_matrix (
+  grade   INTEGER NOT NULL,          -- 1..7
+  mark    TEXT NOT NULL,             -- minus | plusminus | plus | plus2 | plus3 | plus4
+  percent REAL NOT NULL,
+  PRIMARY KEY (grade, mark)
+);
+
+-- Отзывы за квартал: сам о себе, коллега по желанию, руководитель.
+CREATE TABLE reviews (
+  id         INTEGER PRIMARY KEY AUTOINCREMENT,
+  user_id    TEXT NOT NULL REFERENCES users(id),
+  author_id  TEXT REFERENCES users(id),
+  kind       TEXT NOT NULL,          -- self | peer | lead
+  quarter    TEXT NOT NULL,
+  mark       TEXT,
+  text       TEXT,
+  created_at TEXT NOT NULL DEFAULT (datetime('now'))
+);
+CREATE INDEX idx_reviews_user ON reviews(user_id, quarter);
+
+-- Итог квартала: оценка руководителя и посчитанная премия. После закрытия
+-- цифры заморожены.
+CREATE TABLE quarter_results (
+  user_id        TEXT NOT NULL REFERENCES users(id),
+  quarter        TEXT NOT NULL,
+  plan_percent   REAL,
+  mark           TEXT,
+  mark_auto      TEXT,
+  grade          INTEGER,
+  salary_quarter INTEGER,
+  bonus_percent  REAL,
+  bonus_sum      INTEGER,
+  note           TEXT,
+  closed_at      TEXT,
+  PRIMARY KEY (user_id, quarter)
+);
 
 -- ── Лог событий: на нём держится вся прозрачность ────────────────────────────
 -- Любую цифру в отчёте можно развернуть до списка событий с временем и автором.
@@ -295,3 +357,27 @@ INSERT INTO settings (key, value) VALUES
   ('size_states',       '9dd99e96c71c=1,0b2e97716e0e=2,b6e9a764ce20=3,d036c20324cb=5'),
   ('size_default',      '1'),
   ('tg_chat_id',        '');
+
+-- ── Стартовые данные модели времени ─────────────────────────────────────────
+-- С какого процента закрытия плана начинается «сверхплан» (оценка ++++).
+INSERT INTO settings (key, value) VALUES ('overplan_percent', '120');
+
+-- Матрица премий. Грейды 1 и 2 премии не дают.
+INSERT INTO bonus_matrix (grade, mark, percent) VALUES
+  (7,'minus',0), (7,'plusminus',9), (7,'plus',18), (7,'plus2',20), (7,'plus3',27), (7,'plus4',36),
+  (6,'minus',0), (6,'plusminus',8), (6,'plus',16), (6,'plus2',18), (6,'plus3',24), (6,'plus4',32),
+  (5,'minus',0), (5,'plusminus',7), (5,'plus',14), (5,'plus2',16), (5,'plus3',20), (5,'plus4',28),
+  (4,'minus',0), (4,'plusminus',6), (4,'plus',12), (4,'plus2',14), (4,'plus3',18), (4,'plus4',24),
+  (3,'minus',0), (3,'plusminus',5), (3,'plus',10), (3,'plus2',12), (3,'plus3',15), (3,'plus4',20),
+  (2,'minus',0), (2,'plusminus',0), (2,'plus',0),  (2,'plus2',0),  (2,'plus3',0),  (2,'plus4',0),
+  (1,'minus',0), (1,'plusminus',0), (1,'plus',0),  (1,'plus2',0),  (1,'plus3',0),  (1,'plus4',0);
+
+-- Стартовые нормы в рабочих часах (день — восемь). Отправная точка,
+-- руководитель правит их в приложении.
+INSERT INTO sla (metric, level, hours, valid_from, note) VALUES
+  ('t2s', 1, 2,  '2026-Q3', 'стартовая норма'),
+  ('t2s', 2, 4,  '2026-Q3', 'стартовая норма'),
+  ('t2s', 3, 8,  '2026-Q3', 'стартовая норма'),
+  ('t2f', 1, 8,  '2026-Q3', 'стартовая норма'),
+  ('t2f', 2, 24, '2026-Q3', 'стартовая норма'),
+  ('t2f', 3, 80, '2026-Q3', 'стартовая норма');

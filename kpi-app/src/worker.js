@@ -43,6 +43,24 @@ function minutesBetween(a, b) {
   return Math.max(0, Math.round((new Date(b) - new Date(a)) / 60000));
 }
 
+/** Квартал по месяцу: 2026-08 → 2026-Q3. */
+function quarterOf(period) {
+  const [y, m] = String(period).split('-').map(Number);
+  return `${y}-Q${Math.floor((m - 1) / 3) + 1}`;
+}
+
+/** Три месяца квартала: 2026-Q3 → ['2026-07','2026-08','2026-09']. */
+function monthsOfQuarter(quarter) {
+  const [y, q] = String(quarter).split('-Q').map(Number);
+  const first = (q - 1) * 3 + 1;
+  return [0, 1, 2].map((i) => `${y}-${String(first + i).padStart(2, '0')}`);
+}
+
+const MARKS = ['minus', 'plusminus', 'plus', 'plus2', 'plus3', 'plus4'];
+const MARK_LABEL = {
+  minus: '−', plusminus: '+−', plus: '+', plus2: '++', plus3: '+++', plus4: '++++',
+};
+
 /** Человекочитаемая длительность: 95 → «1 ч 35 мин». */
 function humanMinutes(m) {
   if (m === null || m === undefined) return '—';
@@ -268,6 +286,197 @@ function computeMetrics({ tasks, replies, settings, grade }) {
     },
     scored,
   };
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Метрики времени: Time to start и Time to fill по трём уровням сложности
+//
+// Time to start — от постановки задачи до момента, когда её взяли в работу.
+// Time to fill  — от постановки до завершения.
+//
+// Обе в рабочих часах: ночь и выходные не идут в счёт, иначе задача,
+// поставленная в пятницу вечером, показывала бы двое суток простоя.
+// ─────────────────────────────────────────────────────────────────────────────
+
+const LEVELS = [1, 2, 3];
+const TIME_METRICS = ['t2s', 't2f'];
+
+/** Размер со стикера в уровень сложности: S → 1, M → 2, L и XL → 3. */
+function sizeToLevel(size) {
+  const s = Number(size) || 1;
+  return s <= 1 ? 1 : s === 2 ? 2 : 3;
+}
+
+/** Уровень сложности задачи: проставленный при синхронизации, иначе по размеру. */
+function levelOfTask(task) {
+  if (task.level) return task.level;
+  return sizeToLevel(task.size);
+}
+
+/** Часы обеих стадий для одной задачи. null, если стадия ещё не наступила. */
+function taskDurations(task, settings) {
+  const from = task.created_at;
+  const toStart = task.taken_at;
+  const toFill = task.work_done_at || task.done_at;
+
+  // Пауза в блокере и ожидании не идёт против исполнителя
+  const pause = task.paused_min || 0;
+  const hours = (a, b, subtractPause) => {
+    if (!a || !b) return null;
+    const mins = workMinutesBetween(a, b, settings) - (subtractPause ? pause : 0);
+    return Math.max(0, Math.round((mins / 60) * 100) / 100);
+  };
+
+  return { t2s: hours(from, toStart, false), t2f: hours(from, toFill, true) };
+}
+
+/**
+ * Шесть метрик человека за период: среднее время по каждому уровню.
+ *
+ * Считается только по задачам, где стадия действительно наступила:
+ * незакрытая задача не портит Time to fill, пока её не закрыли.
+ */
+function timeMetrics(tasks, settings) {
+  const out = {};
+  const detail = {};
+
+  for (const metric of TIME_METRICS) {
+    for (const level of LEVELS) {
+      const key = `${metric}${level}`;
+      const vals = tasks
+        .filter((t) => levelOfTask(t) === level && !t.is_zaeb && t.status !== 'cancelled')
+        .map((t) => taskDurations(t, settings)[metric])
+        .filter((v) => v !== null);
+
+      out[key] = vals.length
+        ? Math.round((vals.reduce((a, b) => a + b, 0) / vals.length) * 100) / 100
+        : null;
+      detail[key] = { count: vals.length, values: vals };
+    }
+  }
+  return { metrics: out, detail };
+}
+
+/**
+ * Процент закрытия плана. Для времени меньше — лучше, поэтому берётся
+ * отношение плана к факту: уложился вдвое быстрее — двести процентов.
+ */
+function planPercent(fact, plan) {
+  if (fact === null || fact === undefined || !plan) return null;
+  if (fact <= 0) return 200; // мгновенно — считаем верхней границей, а не бесконечностью
+  return Math.round(Math.min(200, (plan / fact) * 100));
+}
+
+/** Оценка, которую система предлагает по проценту закрытия плана. */
+function autoMark(percent, settings = {}) {
+  if (percent === null || percent === undefined) return null;
+  const over = num(settings, 'overplan_percent', 120);
+  if (percent < 70) return 'minus';
+  if (percent < 90) return 'plusminus';
+  if (percent < 110) return 'plus';
+  if (percent < over) return 'plus2';
+  if (percent < over + 20) return 'plus3';
+  return 'plus4';
+}
+
+/** Плановые значения на квартал: берём последние, что действуют не позже него. */
+async function loadSla(db, quarter) {
+  const { results } = await db
+    .prepare('SELECT metric, level, hours, valid_from FROM sla WHERE valid_from <= ? ORDER BY valid_from')
+    .bind(quarter)
+    .all();
+  const map = {};
+  for (const r of results) map[`${r.metric}${r.level}`] = r.hours; // поздние перекрывают ранние
+  return map;
+}
+
+/** Метрики человека за один месяц вместе с процентом закрытия плана. */
+async function monthMetrics(db, userId, period, settings, sla) {
+  // Без userId — весь отдел: так строится срез «как все закрывают уровень N».
+  const who = userId
+    ? { sql: 'assignee_id = ?', args: [userId] }
+    : { sql: "assignee_id IN (SELECT id FROM users WHERE role = 'assistant' AND active = 1)", args: [] };
+
+  const { results: tasks } = await db
+    .prepare(
+      `SELECT * FROM tasks
+       WHERE ${who.sql} AND is_zaeb = 0
+         AND status NOT IN ('cancelled','historical')
+         AND (created_at >= ? AND created_at < ?)
+       ORDER BY created_at`
+    )
+    .bind(...who.args, `${period}-01`, `${period}-32`)
+    .all();
+
+  const { metrics, detail } = timeMetrics(tasks, settings);
+  const percents = {};
+  for (const key of Object.keys(metrics)) {
+    percents[key] = planPercent(metrics[key], sla[key]);
+  }
+
+  const live = Object.values(percents).filter((v) => v !== null);
+  return {
+    period,
+    metrics,
+    percents,
+    detail,
+    count: tasks.length,
+    // Список задач с часами — для раскрытого месяца: видно, какая именно
+    // задача тянет среднее вверх.
+    tasks: tasks.map((t) => {
+      const d = taskDurations(t, settings);
+      return {
+        id: t.id, number: t.number, title: t.title, assignee_id: t.assignee_id,
+        level: levelOfTask(t), level_src: t.level_src || 'default',
+        status: t.status, created_at: t.created_at,
+        t2s: d.t2s, t2f: d.t2f,
+      };
+    }),
+    // Среднее закрытие плана по тем метрикам, где были задачи.
+    // Метрика без задач в среднее не входит: месяц без сложных задач
+    // не должен ни портить результат, ни улучшать его.
+    avgPercent: live.length ? Math.round(live.reduce((a, b) => a + b, 0) / live.length) : null,
+  };
+}
+
+/** Квартал: три месяца, среднее по каждой метрике и итоговый процент. */
+async function quarterMetrics(db, userId, quarter, settings) {
+  const sla = await loadSla(db, quarter);
+  const months = [];
+  for (const period of monthsOfQuarter(quarter)) {
+    months.push(await monthMetrics(db, userId, period, settings, sla));
+  }
+
+  const metrics = {};
+  const percents = {};
+  for (const metric of TIME_METRICS) {
+    for (const level of LEVELS) {
+      const key = `${metric}${level}`;
+      const vals = months.map((m) => m.metrics[key]).filter((v) => v !== null);
+      metrics[key] = vals.length
+        ? Math.round((vals.reduce((a, b) => a + b, 0) / vals.length) * 100) / 100
+        : null;
+      percents[key] = planPercent(metrics[key], sla[key]);
+    }
+  }
+
+  const live = Object.values(percents).filter((v) => v !== null);
+  const avgPercent = live.length
+    ? Math.round(live.reduce((a, b) => a + b, 0) / live.length)
+    : null;
+
+  return { quarter, months, metrics, percents, sla, avgPercent, markAuto: autoMark(avgPercent, settings) };
+}
+
+/** Премия за квартал по матрице «грейд × оценка». */
+async function quarterBonus(db, grade, mark, salaryQuarter) {
+  if (!mark || !grade) return { percent: 0, sum: 0 };
+  const row = await db
+    .prepare('SELECT percent FROM bonus_matrix WHERE grade = ? AND mark = ?')
+    .bind(grade, mark)
+    .first();
+  const percent = row ? row.percent : 0;
+  return { percent, sum: Math.round(((salaryQuarter || 0) * percent) / 100) };
 }
 
 const round2 = (n) => Math.round(n * 100) / 100;
@@ -719,6 +928,11 @@ async function handleApi(request, env, url) {
     return json(withChatLinks(await buildProfile(db, full, period, settings), settings));
   }
 
+  // ── Модель времени: Time to start / Time to fill ─────────────────────────
+  if (path.startsWith('/kpi/')) {
+    return handleKpiApi(request, db, path.slice(4), url, me, settings);
+  }
+
   // сводка по отделу — только лид и руководитель
   if (path === '/team') {
     if (!['lead', 'chief'].includes(me.role)) return bad('нет доступа', 403);
@@ -1047,7 +1261,7 @@ async function handleApi(request, env, url) {
     if (path === '/admin/users' && request.method === 'GET') {
       const { results } = await db
         .prepare(
-          `SELECT id, name, role, grade, salary, active, yougile_id, tg_user_id, tg_username
+          `SELECT id, name, role, grade, grade_num, salary, active, yougile_id, tg_user_id, tg_username
            FROM users ORDER BY role, name`
         )
         .all();
@@ -1069,6 +1283,9 @@ async function handleApi(request, env, url) {
       const hash = key ? await sha256(key) : null;
 
       const nick = (b.tg_username || '').replace('@', '').toLowerCase() || null;
+      // Грейд 1–7: от него зависит процент премии. Вне диапазона — не трогаем.
+      const gradeNum = Number.isInteger(Number(b.grade_num)) && b.grade_num >= 1 && b.grade_num <= 7
+        ? Number(b.grade_num) : null;
 
       if (b.id) {
         // Грейд приходит не всегда: у руководителей поле скрыто, и форма
@@ -1076,12 +1293,13 @@ async function handleApi(request, env, url) {
         // иначе любое переименование падало бы на ограничении NOT NULL.
         await db
           .prepare(
-            `UPDATE users SET name=?, role=?, grade=COALESCE(?, grade), salary=?,
+            `UPDATE users SET name=?, role=?, grade=COALESCE(?, grade),
+             grade_num=COALESCE(?, grade_num), salary=?,
              yougile_id=?, tg_user_id=?, tg_username=?, active=?
              ${hash ? ', key_hash=?' : ''} WHERE id=?`
           )
           .bind(...[
-            b.name, b.role, b.grade || null, b.salary | 0,
+            b.name, b.role, b.grade || null, gradeNum, b.salary | 0,
             b.yougile_id || null, b.tg_user_id || null,
             nick, b.active === false ? 0 : 1,
             ...(hash ? [hash] : []),
@@ -1091,12 +1309,13 @@ async function handleApi(request, env, url) {
       } else {
         await db
           .prepare(
-            `INSERT INTO users (id, name, role, grade, salary, yougile_id, tg_user_id, tg_username, key_hash)
-             VALUES (?,?,?,?,?,?,?,?,?)`
+            `INSERT INTO users (id, name, role, grade, grade_num, salary, yougile_id, tg_user_id, tg_username, key_hash)
+             VALUES (?,?,?,?,?,?,?,?,?,?)`
           )
           .bind(id, b.name, b.role || 'assistant',
                 // у руководителей грейд не спрашивают: ставим строгую норму
                 b.grade || (b.role === 'assistant' ? 'A2' : 'A3'),
+                gradeNum || 3,
                 b.salary | 0, b.yougile_id || null, b.tg_user_id || null, nick, hash)
           .run();
       }
@@ -1137,6 +1356,264 @@ async function handleApi(request, env, url) {
       const report = await syncYougile(env, settings);
       return json(report);
     }
+  }
+
+  return bad('маршрут не найден', 404);
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// API модели времени.
+//
+// Ассистент видит себя и обезличенный срез отдела. Руководитель отдела и
+// владелец — всех. Нормы, грейды, матрица премий и закрытие квартала —
+// только руководителю и владельцу.
+// ─────────────────────────────────────────────────────────────────────────────
+async function handleKpiApi(request, db, path, url, me, settings) {
+  const isBoss = ['lead', 'chief'].includes(me.role);
+  const tz = num(settings, 'tz_offset', 3);
+  const quarter = url.searchParams.get('quarter') || quarterOf(currentPeriod(tz));
+  if (!/^\d{4}-Q[1-4]$/.test(quarter)) return bad('квартал в виде 2026-Q3');
+
+  // Вся доска одним запросом: люди, их месяцы, квартал, нормы, срез отдела.
+  // Данных немного — несколько человек на три месяца — и клиенту удобнее
+  // строить графики и раскрывать месяцы, не бегая за каждым кусочком.
+  if (path === '/board' && request.method === 'GET') {
+    const sla = await loadSla(db, quarter);
+    const { results: people } = await db
+      .prepare(
+        `SELECT id, name, role, grade_num, salary, yougile_id, tg_username, active
+         FROM users WHERE role = 'assistant' AND active = 1 ${isBoss ? '' : 'AND id = ?'}
+         ORDER BY name`
+      )
+      .bind(...(isBoss ? [] : [me.id]))
+      .all();
+
+    const rows = [];
+    for (const p of people) {
+      const q = await quarterMetrics(db, p.id, quarter, settings);
+      const result = await db
+        .prepare('SELECT * FROM quarter_results WHERE user_id = ? AND quarter = ?')
+        .bind(p.id, quarter)
+        .first();
+      const { results: reviews } = await db
+        .prepare(
+          `SELECT r.id, r.kind, r.mark, r.text, r.created_at, r.author_id, u.name AS author
+           FROM reviews r LEFT JOIN users u ON u.id = r.author_id
+           WHERE r.user_id = ? AND r.quarter = ? ORDER BY r.created_at`
+        )
+        .bind(p.id, quarter)
+        .all();
+
+      // Премия «как есть»: по итоговой оценке, если квартал закрыт,
+      // иначе по той, что предлагает система.
+      const mark = result?.mark || q.markAuto;
+      const salaryQuarter = (p.salary || 0) * 3;
+      const bonus = await quarterBonus(db, p.grade_num, mark, salaryQuarter);
+
+      rows.push({
+        id: p.id, name: p.name, role: p.role, grade: p.grade_num,
+        salary: p.salary, salaryQuarter,
+        access: { yougile: Boolean(p.yougile_id), telegram: Boolean(p.tg_username) },
+        quarter: { metrics: q.metrics, percents: q.percents, avgPercent: q.avgPercent, markAuto: q.markAuto },
+        months: q.months,
+        mark, bonus,
+        result: result || null,
+        // текст отзывов только тому, кто имеет право их читать
+        reviews: isBoss || p.id === me.id
+          ? reviews
+          : reviews.map((r) => ({ id: r.id, kind: r.kind, created_at: r.created_at })),
+      });
+    }
+
+    // Срез отдела — по тем же правилам, но по всем задачам разом.
+    const team = await quarterMetrics(db, null, quarter, settings);
+
+    // Коллеги ассистента — только имена: чтобы было о ком написать отзыв.
+    // Чужие цифры ему не показываются.
+    const { results: peers } = await db
+      .prepare("SELECT id, name FROM users WHERE role = 'assistant' AND active = 1 AND id != ? ORDER BY name")
+      .bind(me.id)
+      .all();
+    // и что он уже написал о коллегах в этом квартале
+    const { results: myPeerReviews } = await db
+      .prepare(
+        `SELECT r.id, r.user_id, r.mark, r.text, r.created_at, u.name
+         FROM reviews r JOIN users u ON u.id = r.user_id
+         WHERE r.author_id = ? AND r.kind = 'peer' AND r.quarter = ?`
+      )
+      .bind(me.id, quarter)
+      .all();
+
+    return json({
+      quarter,
+      months: monthsOfQuarter(quarter),
+      sla,
+      overplan: num(settings, 'overplan_percent', 120),
+      marks: MARKS.map((m) => ({ id: m, label: MARK_LABEL[m] })),
+      people: rows,
+      team: { metrics: team.metrics, percents: team.percents, avgPercent: team.avgPercent, months: team.months },
+      me: { id: me.id, role: me.role },
+      peers: me.role === 'assistant' ? peers : [],
+      myPeerReviews: me.role === 'assistant' ? myPeerReviews : [],
+    });
+  }
+
+  // ── Нормы (SLA) ────────────────────────────────────────────────────────────
+  if (path === '/sla' && request.method === 'GET') {
+    const { results } = await db.prepare('SELECT * FROM sla ORDER BY valid_from, metric, level').all();
+    return json({ sla: results, current: await loadSla(db, quarter) });
+  }
+
+  if (path === '/sla' && request.method === 'POST') {
+    if (!isBoss) return bad('нет доступа', 403);
+    const b = await request.json().catch(() => ({}));
+    const from = b.quarter || quarter;
+    if (!/^\d{4}-Q[1-4]$/.test(from)) return bad('квартал в виде 2026-Q3');
+    const values = b.values || {};
+    let saved = 0;
+    for (const metric of TIME_METRICS) {
+      for (const level of LEVELS) {
+        const v = Number(values[`${metric}${level}`]);
+        if (!(v > 0)) continue;
+        await db
+          .prepare('INSERT OR REPLACE INTO sla (metric, level, hours, valid_from, note) VALUES (?,?,?,?,?)')
+          .bind(metric, level, v, from, b.note || null)
+          .run();
+        saved += 1;
+      }
+    }
+    return json({ ok: true, saved, current: await loadSla(db, from) });
+  }
+
+  // ── Матрица премий: грейд × оценка ────────────────────────────────────────
+  if (path === '/matrix' && request.method === 'GET') {
+    const { results } = await db.prepare('SELECT * FROM bonus_matrix ORDER BY grade DESC').all();
+    const matrix = {};
+    for (const r of results) (matrix[r.grade] ||= {})[r.mark] = r.percent;
+    return json({ matrix, marks: MARKS });
+  }
+
+  if (path === '/matrix' && request.method === 'POST') {
+    if (!isBoss) return bad('нет доступа', 403);
+    const b = await request.json().catch(() => ({}));
+    const grade = Number(b.grade);
+    if (!(grade >= 1 && grade <= 7)) return bad('грейд от 1 до 7');
+    const cells = b.cells || {};
+    for (const mark of MARKS) {
+      if (cells[mark] === undefined) continue;
+      const percent = Number(cells[mark]);
+      if (!(percent >= 0 && percent <= 100)) return bad(`процент для ${MARK_LABEL[mark]} вне 0–100`);
+      await db
+        .prepare('INSERT OR REPLACE INTO bonus_matrix (grade, mark, percent) VALUES (?,?,?)')
+        .bind(grade, mark, percent)
+        .run();
+    }
+    return json({ ok: true });
+  }
+
+  // ── Отзывы: сам о себе, коллега по желанию, руководитель ──────────────────
+  if (path === '/reviews' && request.method === 'POST') {
+    const b = await request.json().catch(() => ({}));
+    const kind = b.kind;
+    const about = b.user_id || me.id;
+    const q = b.quarter || quarter;
+    if (!['self', 'peer', 'lead'].includes(kind)) return bad('вид отзыва: self, peer или lead');
+    if (!/^\d{4}-Q[1-4]$/.test(q)) return bad('квартал в виде 2026-Q3');
+    if (b.mark && !MARKS.includes(b.mark)) return bad('такой оценки нет');
+
+    // Кто о ком может писать. Самооценка — только о себе; отзыв коллеги —
+    // ассистент о другом ассистенте; отзыв руководителя — только руководитель.
+    if (kind === 'self' && about !== me.id) return bad('самооценку пишут о себе', 403);
+    if (kind === 'peer' && (about === me.id || isBoss)) return bad('отзыв коллеги пишет ассистент о коллеге', 403);
+    if (kind === 'lead' && !isBoss) return bad('отзыв руководителя пишет руководитель', 403);
+
+    const text = String(b.text || '').trim();
+    if (!text && !b.mark) return bad('нужен текст или оценка');
+
+    // Один отзыв от одного автора на квартал: повторная отправка обновляет
+    const existing = await db
+      .prepare('SELECT id FROM reviews WHERE user_id = ? AND author_id = ? AND kind = ? AND quarter = ?')
+      .bind(about, me.id, kind, q)
+      .first();
+    if (existing) {
+      await db
+        .prepare('UPDATE reviews SET mark = ?, text = ?, created_at = ? WHERE id = ?')
+        .bind(b.mark || null, text, nowIso(), existing.id)
+        .run();
+      return json({ ok: true, id: existing.id, updated: true });
+    }
+    const r = await db
+      .prepare('INSERT INTO reviews (user_id, author_id, kind, quarter, mark, text, created_at) VALUES (?,?,?,?,?,?,?)')
+      .bind(about, me.id, kind, q, b.mark || null, text, nowIso())
+      .run();
+    return json({ ok: true, id: r.meta?.last_row_id });
+  }
+
+  if (path.startsWith('/reviews/') && request.method === 'DELETE') {
+    const id = Number(path.split('/').pop());
+    const r = await db.prepare('SELECT * FROM reviews WHERE id = ?').bind(id).first();
+    if (!r) return bad('отзыва нет', 404);
+    if (r.author_id !== me.id && !isBoss) return bad('нет доступа', 403);
+    await db.prepare('DELETE FROM reviews WHERE id = ?').bind(id).run();
+    return json({ ok: true });
+  }
+
+  // ── Итог квартала ──────────────────────────────────────────────────────────
+  // Руководитель смотрит на процент плана и отзывы и ставит оценку.
+  // После закрытия цифры замораживаются: пересинхронизация задач их не тронет.
+  if (path === '/quarter/close' && request.method === 'POST') {
+    if (!isBoss) return bad('нет доступа', 403);
+    const b = await request.json().catch(() => ({}));
+    const q = b.quarter || quarter;
+    if (!/^\d{4}-Q[1-4]$/.test(q)) return bad('квартал в виде 2026-Q3');
+    if (!MARKS.includes(b.mark)) return bad('нужна итоговая оценка');
+
+    const user = await db
+      .prepare("SELECT * FROM users WHERE id = ? AND role = 'assistant'")
+      .bind(b.user_id)
+      .first();
+    if (!user) return bad('сотрудник не найден', 404);
+
+    const m = await quarterMetrics(db, user.id, q, settings);
+    const salaryQuarter = (user.salary || 0) * 3;
+    const bonus = await quarterBonus(db, user.grade_num, b.mark, salaryQuarter);
+
+    await db
+      .prepare(
+        `INSERT OR REPLACE INTO quarter_results
+         (user_id, quarter, plan_percent, mark, mark_auto, grade, salary_quarter,
+          bonus_percent, bonus_sum, note, closed_at)
+         VALUES (?,?,?,?,?,?,?,?,?,?,?)`
+      )
+      .bind(user.id, q, m.avgPercent, b.mark, m.markAuto, user.grade_num, salaryQuarter,
+            bonus.percent, bonus.sum, b.note || null, nowIso())
+      .run();
+    return json({ ok: true, mark: b.mark, markAuto: m.markAuto, planPercent: m.avgPercent, bonus });
+  }
+
+  if (path === '/quarter/reopen' && request.method === 'POST') {
+    if (!isBoss) return bad('нет доступа', 403);
+    const b = await request.json().catch(() => ({}));
+    await db
+      .prepare('DELETE FROM quarter_results WHERE user_id = ? AND quarter = ?')
+      .bind(b.user_id, b.quarter || quarter)
+      .run();
+    return json({ ok: true });
+  }
+
+  // ── Уровень задачи руками ──────────────────────────────────────────────────
+  // Модель ошиблась или стикера нет — руководитель правит уровень сам.
+  if (path.startsWith('/task/') && path.endsWith('/level') && request.method === 'POST') {
+    if (!isBoss) return bad('нет доступа', 403);
+    const id = decodeURIComponent(path.split('/')[2]);
+    const b = await request.json().catch(() => ({}));
+    const level = Number(b.level);
+    if (!LEVELS.includes(level)) return bad('уровень 1, 2 или 3');
+    await db
+      .prepare("UPDATE tasks SET level = ?, level_src = 'manual' WHERE id = ?")
+      .bind(level, id)
+      .run();
+    return json({ ok: true });
   }
 
   return bad('маршрут не найден', 404);
@@ -1394,6 +1871,69 @@ async function pickTaskWithModel(candidates, question, settings) {
 }
 
 /**
+ * Уровень сложности по заголовку — для задач без стикера размера.
+ *
+ * Спрашиваем ту же локальную модель. Не ответила или ответила чепухой —
+ * возвращаем null: подставлять выдуманный уровень хуже, чем взять размер.
+ */
+async function guessLevelWithModel(title, settings) {
+  if (!title || settings.llm_enabled === '0') return null;
+  const url = settings.llm_url || 'http://127.0.0.1:11434/api/generate';
+  const model = settings.llm_model || 'qwen3:8b';
+  const timeout = num(settings, 'llm_timeout_ms', 45000);
+
+  // Примеры взяты с реальной доски: без них модель почти всё называла
+  // «обычным» и простые задачи теряли свой уровень.
+  const prompt =
+    `Оцени сложность задачи для личного ассистента одной цифрой.\n\n` +
+    `1 — простая: одно действие, понятно что делать, результат за час-два. ` +
+    `Купить конкретную вещь, оформить подписку или аккаунт, пополнить симкарту, ` +
+    `записать к врачу, найти конкретный товар на маркетплейсе, скачать книгу.\n` +
+    `2 — обычная: сравнить несколько вариантов или пройти несколько шагов. ` +
+    `Подобрать авиабилет, найти квартиру, найти специалиста по отзывам, ` +
+    `разобраться в условиях, договориться о встрече.\n` +
+    `3 — сложная: исследование или проект на дни, много неизвестных, несколько источников или стран. ` +
+    `Изучить рынок, спланировать поездку или переезд, разобраться в законах и визах, настроить мониторинг.\n\n` +
+    `Примеры:\n` +
+    `«Оформить гемини» — 1\n` +
+    `«Купить пероральный амброксол» — 1\n` +
+    `«Найти дермапен на mercado livre» — 1\n` +
+    `«Подобрать авиабилет Батуми-Алматы на 20.09» — 2\n` +
+    `«Найти квартиру для руководителя с женой в КЗ» — 2\n` +
+    `«Найти психолога, хорошие отзывы, цена до 2к» — 2\n` +
+    `«Рынок аренды автодомов в Бразилии изучить» — 3\n` +
+    `«Спланировать суррогатное материнство, выбор гео» — 3\n\n` +
+    `Задача: "${String(title).replace(/\s+/g, ' ').slice(0, 200)}"\n` +
+    `Ответ — только цифра 1, 2 или 3:`;
+
+  const ctrl = new AbortController();
+  const timer = setTimeout(() => ctrl.abort(), timeout);
+  try {
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      signal: ctrl.signal,
+      body: JSON.stringify({
+        model,
+        prompt,
+        stream: false,
+        think: false,
+        keep_alive: settings.llm_keep_alive || '2h',
+        options: { temperature: 0, num_predict: 4 },
+      }),
+    });
+    if (!res.ok) return null;
+    const data = await res.json().catch(() => ({}));
+    const n = parseInt(String(data.response || '').replace(/[^0-9]/g, '').slice(0, 1), 10);
+    return n >= 1 && n <= 3 ? n : null;
+  } catch {
+    return null; // модель недоступна — уровень возьмётся со стикера размера
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+/**
  * Кому адресован вопрос: сначала слова, при равных кандидатах — модель.
  * Возвращает саму задачу и то, как она была выбрана: это попадает в отчёт,
  * чтобы любое решение бота можно было объяснить.
@@ -1583,6 +2123,28 @@ async function upsertTaskFromYougile(env, t, settings) {
                  settings.size_default || '1')
   ) || 1;
 
+  // Уровень сложности — то, по чему разложены все шесть метрик времени.
+  // Стикер размера ставит человек, поэтому он главнее всего. Где стикера нет,
+  // уровень один раз угадывает локальная модель по заголовку и остаётся
+  // записанным: заголовок почти не меняется, гонять модель заново незачем.
+  const hasSizeSticker = Boolean(settings.sticker_size && t?.stickers?.[settings.sticker_size]);
+  let level = existing?.level || null;
+  let levelSrc = existing?.level_src || null;
+  if (levelSrc === 'manual') {
+    // руководитель поправил руками — ни стикер, ни модель это не перебивают
+  } else if (hasSizeSticker) {
+    level = sizeToLevel(size);
+    levelSrc = 'sticker';
+  } else if (!level || levelSrc === 'default') {
+    // Исторические и отменённые в метрики не идут — модель на них не тратим:
+    // на двух ядрах каждая задача стоит секунды.
+    const skipModel = existing?.status === 'historical' || existing?.status === 'cancelled'
+      || (!existing && t.completed) || t.archived || t.deleted;
+    const guessed = skipModel ? null : await guessLevelWithModel(title, settings);
+    level = guessed || sizeToLevel(size);
+    levelSrc = guessed ? 'model' : 'default';
+  }
+
   // Срок вычисляется из стикера «Приоритет»: это рабочие дни от постановки.
   // Явная дата в карточке, если она есть, важнее — её ставили руками.
   // Приоритет фиксируется снимком при первой синхронизации: смена стикера
@@ -1668,6 +2230,16 @@ async function upsertTaskFromYougile(env, t, settings) {
   }
   if (t.archived || t.deleted) status = 'cancelled';
 
+  // Часы обеих стадий считаем сразу и храним готовыми: иначе каждый отчёт
+  // заново разбирал бы рабочий календарь по всем задачам квартала.
+  const dur = taskDurations(
+    { created_at: createdAt, taken_at: taken, work_done_at: workDoneAt, done_at: done,
+      paused_min: pausedMin },
+    settings
+  );
+
+  // Месяц закрытия — им пользуются деньги и заёбы. Метрики времени
+  // привязаны к дате постановки и берут её отдельно, из created_at.
   const period = done ? done.slice(0, 7) : existing?.period || null;
 
   if (existing) {
@@ -1679,15 +2251,17 @@ async function upsertTaskFromYougile(env, t, settings) {
     await db
       .prepare(
         `UPDATE tasks SET title=?, number=?, board_id=?, column_id=?, keywords=?, assignee_id=?,
-         size=?, priority=?, deadline=?, status=?, taken_at=?, submitted_at=?, done_at=?,
-         work_done_at=?, work_done_kind=?, returns=?, paused_min=?, paused_since=?,
+         size=?, level=?, level_src=?, priority=?, deadline=?, status=?, taken_at=?,
+         submitted_at=?, done_at=?, work_done_at=?, work_done_kind=?, returns=?,
+         paused_min=?, paused_since=?, t2s_hours=?, t2f_hours=?,
          period=?, updated_at=? WHERE id=?`
       )
       .bind(title, t.idTaskCommon || existing.number, t.boardId || existing.board_id,
             t.columnId || existing.column_id, keywords,
-            user?.id || existing.assignee_id, size, priorityDays, deadline, status, taken,
+            user?.id || existing.assignee_id, size, level, levelSrc,
+            priorityDays, deadline, status, taken,
             submitted, done, workDoneAt, workDoneKind,
-            returns, pausedMin, pausedSince, period, now, t.id)
+            returns, pausedMin, pausedSince, dur.t2s, dur.t2f, period, now, t.id)
       .run();
   } else {
     // задачу завёл сам исполнитель — это инициатива
@@ -1703,16 +2277,18 @@ async function upsertTaskFromYougile(env, t, settings) {
     await db
       .prepare(
         `INSERT INTO tasks (id, title, number, board_id, column_id, keywords, assignee_id,
-         author_id, size, priority, created_at, deadline, status, taken_at, submitted_at,
-         done_at, work_done_at, work_done_kind, returns, paused_min, paused_since,
+         author_id, size, level, level_src, priority, created_at, deadline, status,
+         taken_at, submitted_at, done_at, work_done_at, work_done_kind, returns,
+         paused_min, paused_since, t2s_hours, t2f_hours,
          is_initiative, is_zaeb, period)
-         VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`
+         VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`
       )
       .bind(t.id, title, t.idTaskCommon || null, t.boardId || null, t.columnId || null,
             taskKeywords({ ...t, title }),
-            user?.id || null, t.createdBy || null, size, priorityDays, createdAt, deadline,
+            user?.id || null, t.createdBy || null, size, level, levelSrc,
+            priorityDays, createdAt, deadline,
             status, taken, submitted, done, workDoneAt, workDoneKind,
-            returns, pausedMin, pausedSince, isInitiative,
+            returns, pausedMin, pausedSince, dur.t2s, dur.t2f, isInitiative,
             colSet(settings, 'column_zaeb').has(t.columnId || '') ? 1 : 0, period)
       .run();
     await logEvent(db, { taskId: t.id, type: 'created', at: createdAt });
@@ -2514,35 +3090,52 @@ async function sendMonthlyDigest(env, settings) {
     .all();
 
   const chatId = settings.tg_chat_id;
-  const lines = [`<b>Итоги ${period}</b>`, ''];
+  const quarter = quarterOf(period);
+  const sla = await loadSla(db, quarter);
+  const fmtH = (h) => (h === null || h === undefined ? '—' : `${Math.round(h * 10) / 10} ч`);
+  const fmtP = (v) => (v === null || v === undefined ? '—' : `${v} %`);
+  const lines = [`<b>Итоги ${period}</b> · квартал ${quarter}`, ''];
 
   for (const p of people) {
-    const { tasks, replies } = await fetchUserData(db, p.id, period, p.role);
-    const m = computeMetrics({ tasks, replies, settings, grade: p.grade });
-    const s = m.breakdown.speed;
+    const month = await monthMetrics(db, p.id, period, settings, sla);
+    const q = await quarterMetrics(db, p.id, quarter, settings);
 
     lines.push(
-      `<b>${p.name}</b> — скорость <b>${m.speed}</b> из 10`,
-      `  реакция ${s.chatScore} (${s.chatFormula})`,
-      `  медиана ответа: ${s.medianReply === null ? '—' : humanSeconds(s.medianReply)}`,
-      `  быстро: ${s.repliesFast} · медленно: ${s.repliesSlow} · вне часов: ${s.offHoursAnswered}`,
-      `  пропусков: ${s.misses}`
+      `<b>${p.name}</b> — план за месяц <b>${fmtP(month.avgPercent)}</b>, задач ${month.count}`,
+      `  до старта:  1 — ${fmtH(month.metrics.t2s1)} (${fmtP(month.percents.t2s1)}) · ` +
+        `2 — ${fmtH(month.metrics.t2s2)} (${fmtP(month.percents.t2s2)}) · ` +
+        `3 — ${fmtH(month.metrics.t2s3)} (${fmtP(month.percents.t2s3)})`,
+      `  до сдачи:   1 — ${fmtH(month.metrics.t2f1)} (${fmtP(month.percents.t2f1)}) · ` +
+        `2 — ${fmtH(month.metrics.t2f2)} (${fmtP(month.percents.t2f2)}) · ` +
+        `3 — ${fmtH(month.metrics.t2f3)} (${fmtP(month.percents.t2f3)})`,
+      `  квартал: план ${fmtP(q.avgPercent)}, система предлагает ${q.markAuto ? MARK_LABEL[q.markAuto] : '—'}`
     );
 
-    // за что сняли баллы — со ссылками на сообщения
-    const bad = (s.detail || []).filter((d) => d.delta < 0).slice(0, 5);
-    for (const d of bad) {
-      lines.push(`    −${Math.abs(d.delta)} ${d.why} ${msgLink(chatId, d.request_msg)}`);
-    }
-    // и за что добавили сверх обычного
-    const great = (s.detail || []).filter((d) => d.kind === 'offhours').slice(0, 3);
-    for (const d of great) {
-      lines.push(`    +${d.delta} ${d.why} ${msgLink(chatId, d.request_msg)}`);
+    // где узкое место: метрика с худшим процентом
+    const worst = Object.entries(month.percents)
+      .filter(([, v]) => v !== null)
+      .sort((a, b) => a[1] - b[1])[0];
+    if (worst && worst[1] < 100) {
+      const [k, v] = worst;
+      const name = k.startsWith('t2s') ? 'до старта' : 'до сдачи';
+      lines.push(`  ⚠ слабее всего: ${name}, уровень ${k.slice(3)} — ${v} % плана`);
     }
     lines.push('');
   }
 
-  lines.push(`Полный разбор с задачами — в приложении, раздел «Отчёт».`);
+  // реакция в чате — по-прежнему считается, но премии не определяет
+  for (const p of people) {
+    const { tasks, replies } = await fetchUserData(db, p.id, period, p.role);
+    const m = computeMetrics({ tasks, replies, settings, grade: p.grade });
+    const s = m.breakdown.speed;
+    if (!s || !s.requests) continue;
+    lines.push(`<b>${p.name}</b>, чат: медиана ответа ${s.medianReply === null ? '—' : humanSeconds(s.medianReply)}, ` +
+      `пропусков ${s.misses}, вне часов ${s.offHoursAnswered}`);
+    const bad = (s.detail || []).filter((d) => d.delta < 0).slice(0, 3);
+    for (const d of bad) lines.push(`    ${d.why} ${msgLink(chatId, d.request_msg)}`);
+  }
+
+  lines.push('', `Графики, месяцы и отзывы — в приложении, вкладка «KPI».`);
 
   // Telegram не принимает сообщения длиннее 4096 символов
   const text = lines.join('\n');
@@ -2611,3 +3204,14 @@ export default {
     }
   },
 };
+
+// Открыто для тестов: чистые функции расчёта, без обращений к базе.
+export const __test = {
+  quarterOf, monthsOfQuarter, MARKS, MARK_LABEL,
+  levelOfTask, taskDurations, timeMetrics, planPercent, autoMark,
+  workMinutesBetween, addWorkMinutes, addWorkdays,
+  scoreTask, scoreChat, computeMetrics, computeMoney,
+};
+
+// Для служебных скриптов на сервере: полная пересинхронизация без ключа доступа.
+export const __ops = { syncYougile, loadSettings, sendMonthlyDigest };

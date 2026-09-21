@@ -1,3 +1,7 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
 <title>Как считается KPI ассистентов</title>
 <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
 <meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet">
@@ -170,18 +174,43 @@ footer{padding:44px 0 60px; color:var(--fg-3); font-size:14px; text-align:center
   .reveal,.reveal.pre{opacity:1 !important; transform:none !important; transition:none !important}
   *{animation-duration:.01ms !important; transition-duration:.01ms !important}
 }
-</style>
 
+/* модель времени */
+.timeline{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:22px 24px;box-shadow:var(--shadow);margin-top:16px}
+.tl-row{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:12px;align-items:center}
+.tl-pt{display:flex;flex-direction:column;gap:2px;align-items:center;text-align:center}
+.tl-pt b{color:var(--fg);font-size:15.5px}
+.tl-pt .muted{font-size:13px}
+.tl-dot{width:12px;height:12px;border-radius:50%;margin-bottom:6px}
+.tl-seg{position:relative;min-width:90px;height:2px;background:var(--border);align-self:center;margin-top:-30px}
+.tl-seg::before,.tl-seg::after{content:'';position:absolute;top:-3px;width:8px;height:8px;border-radius:50%;background:var(--border)}
+.tl-seg::before{left:-4px}.tl-seg::after{right:-4px}
+.tl-lbl{position:absolute;left:50%;top:-30px;transform:translateX(-50%);font-size:12.5px;font-weight:600;padding:3px 10px;border-radius:100px;white-space:nowrap}
+@media(max-width:760px){.tl-row{grid-template-columns:1fr}.tl-seg{width:2px;min-width:0;height:44px;margin:0 auto}.tl-seg::before{left:-3px;top:-4px}.tl-seg::after{left:-3px;top:auto;bottom:-4px}.tl-lbl{top:50%;left:auto;right:auto;transform:translate(14px,-50%)}}
+.lvl{display:inline-flex;width:38px;height:38px;border-radius:11px;align-items:center;justify-content:center;font-size:18px;font-weight:800}
+.lvl.l1{background:var(--green-soft);color:var(--green)}
+.lvl.l2{background:var(--amber-soft);color:var(--amber)}
+.lvl.l3{background:var(--red-soft);color:var(--red)}
+.mark{display:inline-block;min-width:56px;text-align:center;font-weight:800;padding:4px 10px;border-radius:8px;font-size:15px;letter-spacing:.02em}
+.mark.m-minus{background:var(--red-soft);color:var(--red)}
+.mark.m-plusminus{background:var(--amber-soft);color:var(--amber)}
+.mark.m-plus{background:var(--accent-soft);color:var(--accent)}
+.mark.m-plus2,.mark.m-plus3,.mark.m-plus4{background:var(--green-soft);color:var(--green)}
+table.matrix td.num{font-weight:600;color:var(--fg)}
+</style>
+</head>
+<body>
 <nav class="nav">
   <div class="nav-in">
     <a class="brand" href="#top">KPI ассистентов</a>
-    <a href="#istochniki">Откуда данные</a>
-    <a href="#avtomat">Что считается само</a>
+    <a href="#dve-skorosti">Две скорости</a>
+    <a href="#urovni">Три уровня</a>
+    <a href="#shest">Шесть цифр</a>
+    <a href="#kvartal">Квартал и оценка</a>
+    <a href="#otzyvy">Отзывы</a>
+    <a href="#premiya">Премия</a>
     <a href="#ot-vas">Что нужно от вас</a>
-    <a href="#koshelki">Из чего сумма</a>
-    <a href="#metriki">Четыре метрики</a>
     <a href="#ne-schitaetsya">Что не считается</a>
-    <a href="#prozrachnost">Проверяемость</a>
     <a href="#granicy">Ограничения</a>
   </div>
 </nav>
@@ -190,132 +219,255 @@ footer{padding:44px 0 60px; color:var(--fg-3); font-size:14px; text-align:center
 
 <header class="hero">
   <div class="wrap">
-    <span class="eyebrow">Отдел ассистентов</span>
+    <span class="eyebrow">Отдел ассистентов · модель с 3-го квартала 2026</span>
     <h1>Как считается KPI</h1>
-    <p class="lead">Оценки никто не выставляет вручную. Всё считается из двух систем, которыми команда пользуется каждый день: задачи берутся из YouGile, скорость ответа — из рабочего чата в Telegram. Любую цифру можно развернуть до конкретных задач и сообщений.</p>
+    <p class="lead">Меряются две скорости: как быстро задача взята в работу и как быстро сдана. Каждая — отдельно для простых, обычных и сложных задач. Всё берётся из YouGile автоматически, месяц сравнивается с планом, квартал даёт оценку, оценка и грейд — премию. Любую цифру можно раскрыть до списка задач с часами.</p>
   </div>
 </header>
 
-<section id="istochniki">
+<section id="dve-skorosti">
   <div class="wrap">
     <div class="sec-head reveal">
-      <div class="kicker">Источники</div>
-      <h2>Откуда берутся данные</h2>
-      <p>Отдельных отчётов и таблиц никто не заполняет. Система читает то, что и так происходит в работе.</p>
+      <div class="kicker">Что меряется</div>
+      <h2>Две скорости у каждой задачи</h2>
+      <p>Обе считаются от момента, когда задача поставлена в YouGile. Обе — в рабочих часах: день с 10 до 18, ночь и выходные не идут в счёт.</p>
     </div>
 
-    <div class="flow reveal">
-      <div class="src">
-        <h4><span class="dot" style="background:var(--accent)"></span>YouGile</h4>
-        <ul class="clean">
-          <li>Кто исполнитель задачи и кто её завёл</li>
-          <li>Когда взята в работу, отправлена на проверку, завершена</li>
-          <li>Срок, если он проставлен</li>
-          <li>Сколько раз задача возвращалась с проверки</li>
-          <li>Кто передвинул карточку — из журнала событий задачи</li>
-        </ul>
+    <div class="grid g2">
+      <div class="card hoverable reveal">
+        <span class="tag t-blue">Time to start</span>
+        <h3 style="margin-top:12px">Время до старта</h3>
+        <p class="fg2">От постановки задачи до момента, когда ассистент перетащил карточку в «В работе». Показывает, как быстро задачу заметили и взяли.</p>
+        <p class="muted" style="margin:0">Простая задача, которая пролежала день нетронутой, — это именно сюда.</p>
       </div>
-      <div class="arrow">→</div>
-      <div class="src">
-        <h4><span class="dot" style="background:var(--violet)"></span>Telegram, рабочий чат</h4>
-        <ul class="clean">
-          <li>Когда задан вопрос и когда на него ответили</li>
-          <li>Кто ответил первым</li>
-          <li>Реакция под сообщением — тоже ответ</li>
-          <li>Вопросы самих ассистентов: сколько раз пришлось вас отвлечь</li>
-        </ul>
+      <div class="card hoverable reveal">
+        <span class="tag t-violet">Time to fill</span>
+        <h3 style="margin-top:12px">Время до сдачи</h3>
+        <p class="fg2">От постановки до момента, когда работа ассистента закончена: карточка ушла на проверку, в «Завершено» или в ожидание внешнего результата.</p>
+        <p class="muted" style="margin:0">Ждать, пока вы примете работу, ассистент не может — поэтому меряется сдача, а не приёмка.</p>
       </div>
     </div>
 
-    <div class="note reveal">
-      <div class="title">Текст переписки нигде не хранится</div>
-      <p class="fg2" style="margin:0">В базе остаются только отметки времени, автор ответа и номер сообщения — чтобы можно было открыть нужное место в чате. Содержание сообщений не сохраняется и никуда не передаётся.</p>
+    <div class="timeline reveal">
+      <div class="tl-row">
+        <div class="tl-pt"><span class="tl-dot" style="background:var(--fg-3)"></span><b>Поставлена</b><span class="muted">карточка появилась на доске</span></div>
+        <div class="tl-seg"><span class="tl-lbl t-blue">до старта</span></div>
+        <div class="tl-pt"><span class="tl-dot" style="background:var(--accent)"></span><b>Взята</b><span class="muted">переход в «В работе»</span></div>
+        <div class="tl-seg"><span class="tl-lbl t-violet">до сдачи</span></div>
+        <div class="tl-pt"><span class="tl-dot" style="background:var(--violet)"></span><b>Сдана</b><span class="muted">на проверке или завершена</span></div>
+      </div>
+    </div>
+
+    <div class="grid g3" style="margin-top:16px">
+      <div class="card reveal">
+        <h4>Вычитается: блокер и ожидание</h4>
+        <p class="muted" style="margin:0">Пока карточка стоит в «Блокер» или «В ожидании», часы не идут. Гаджет едет из США месяц — это не время ассистента.</p>
+      </div>
+      <div class="card reveal">
+        <h4>Вычитается: вечера и выходные</h4>
+        <p class="muted" style="margin:0">Задача, поставленная в пятницу в 17:00 и взятая в понедельник в 10:30, заняла полтора часа, а не трое суток.</p>
+      </div>
+      <div class="card reveal">
+        <h4>Не вычитается: приёмка</h4>
+        <p class="muted" style="margin:0">Если задачу вернули на доработку, часы продолжают идти до повторной сдачи. Сдать пустышку и остановить время нельзя.</p>
+      </div>
     </div>
   </div>
 </section>
 
 <div class="divider"></div>
 
-<section id="avtomat">
+<section id="urovni">
   <div class="wrap">
     <div class="sec-head reveal">
-      <div class="kicker">Без ручной работы</div>
-      <h2>Что система определяет сама</h2>
-      <p>Оценка задачи не ставится человеком. Она складывается из фактов, у каждого из которых есть время и след в системе.</p>
+      <div class="kicker">Сложность</div>
+      <h2>Три уровня задач</h2>
+      <p>Скорость сложной задачи нельзя сравнивать со скоростью простой. Поэтому у каждого уровня свои нормы, а шесть цифр в месяц — это две скорости на три уровня.</p>
     </div>
 
-    <div class="tbl-scroll reveal">
-      <table style="min-width:700px">
-        <thead><tr><th style="width:24%">Признак</th><th style="width:38%">Как определяется</th><th style="width:38%">Что означает</th></tr></thead>
-        <tbody>
-          <tr>
-            <td><strong>Успел в срок</strong><br><span class="tag t-blue">Скорость</span></td>
-            <td>Срок вычисляется из приоритета в рабочих днях. Сравнивается с моментом, когда ассистент <strong>сдал работу</strong>, а не когда карточка закрылась</td>
-            <td>Это «быстро»: работа сделана в отведённое время</td>
-          </tr>
-          <tr>
-            <td><strong>Без правок</strong><br><span class="tag t-blue">Качество</span></td>
-            <td>Задача ни разу не вернулась с проверки обратно в работу</td>
-            <td>Это «качественно»: сделано с первого раза</td>
-          </tr>
-          <tr>
-            <td><strong>Без вопросов</strong><br><span class="tag t-blue">Самостоятельность</span></td>
-            <td>По задаче не было вопросов ассистента в рабочем чате</td>
-            <td>Это «самостоятельно»: вас не пришлось отвлекать</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <p class="tbl-hint">Таблица прокручивается вбок →</p>
-
-    <div class="grid g2" style="margin-top:22px">
-      <div class="card reveal">
-        <h3>Оценка задачи в баллах</h3>
-        <p class="muted" style="margin-bottom:12px">Каждый признак влияет ровно на одну метрику и нигде не повторяется. Сама оценка задачи отвечает только за качество работы — приходилось ли переделывать:</p>
-        <div class="tbl-scroll" style="box-shadow:none;border:1px solid var(--border)">
-          <table style="min-width:0">
-            <tbody>
-              <tr><td>Принято с первого раза</td><td class="num"><span class="tag t-green">10</span></td></tr>
-              <tr><td>Одна правка</td><td class="num"><span class="tag t-green">9</span></td></tr>
-              <tr><td>Две правки</td><td class="num"><span class="tag t-blue">7</span></td></tr>
-              <tr><td>Три правки</td><td class="num"><span class="tag t-amber">5</span></td></tr>
-              <tr><td>Четыре правки</td><td class="num"><span class="tag t-amber">3</span></td></tr>
-              <tr><td>Пять правок</td><td class="num"><span class="tag t-red">1</span></td></tr>
-              <tr><td>Шесть и больше</td><td class="num"><span class="tag t-red">0</span></td></tr>
-              <tr><td>Задача сорвана</td><td class="num"><span class="tag t-red">0</span></td></tr>
-            </tbody>
-          </table>
-        </div>
-        <p class="muted" style="margin-top:12px"><strong style="color:var(--fg-2)">Первая правка почти не штрафуется</strong> — уточнить и доделать это нормальный рабочий ход. А вот каждая следующая дороже: два круга по задаче и двадцать кругов — разные вещи, и оценка это различает.</p>
-        <p class="muted" style="margin-top:10px">Просрочка при этом бьёт по «Скорости», а вопросы к вам — по «Самостоятельности». Раньше один и тот же промах резал сразу две метрики: человек терял дважды за одну ошибку.</p>
+    <div class="grid g3">
+      <div class="card hoverable reveal">
+        <div class="lvl l1">1</div>
+        <h3 style="margin-top:12px">Простая</h3>
+        <p class="fg2">Одно действие, понятно что делать, результат за час-два.</p>
+        <p class="muted" style="margin:0">Оформить подписку, купить конкретную вещь, пополнить симкарту, записать к врачу, найти товар на маркетплейсе.</p>
       </div>
-
-      <div class="card reveal">
-        <h3>Срок задаётся приоритетом</h3>
-        <p class="muted" style="margin-bottom:14px">Отдельную дату никто не проставляет. У задачи стоит приоритет — это и есть срок в <strong style="color:var(--fg-2)">рабочих днях</strong> от момента постановки.</p>
-        <div class="tbl-scroll" style="box-shadow:none;border:1px solid var(--border)">
-          <table style="min-width:0">
-            <tbody>
-              <tr><td class="num" style="width:52px"><span class="tag t-red">1</span></td><td>в течение дня или в первый рабочий день после выходных</td></tr>
-              <tr><td class="num"><span class="tag t-amber">3</span></td><td>в течение двух-трёх рабочих дней</td></tr>
-              <tr><td class="num"><span class="tag t-blue">7</span></td><td>в течение недели</td></tr>
-              <tr><td class="num"><span class="tag t-violet">30</span></td><td>в течение месяца</td></tr>
-            </tbody>
-          </table>
-        </div>
-        <p class="muted" style="margin-top:12px">Выходные не считаются: задача, поставленная в пятницу вечером с приоритетом 1, ждёт понедельника, а не оказывается просроченной за субботу.</p>
+      <div class="card hoverable reveal">
+        <div class="lvl l2">2</div>
+        <h3 style="margin-top:12px">Обычная</h3>
+        <p class="fg2">Сравнить несколько вариантов или пройти несколько шагов.</p>
+        <p class="muted" style="margin:0">Подобрать авиабилет, найти квартиру, найти специалиста по отзывам, разобраться в условиях, договориться о встрече.</p>
+      </div>
+      <div class="card hoverable reveal">
+        <div class="lvl l3">3</div>
+        <h3 style="margin-top:12px">Сложная</h3>
+        <p class="fg2">Исследование или проект на дни, много неизвестных.</p>
+        <p class="muted" style="margin:0">Изучить рынок, спланировать переезд, разобраться в визах и законах, настроить мониторинг.</p>
       </div>
     </div>
 
     <div class="card reveal" style="margin-top:16px">
-      <h3>Размер задачи</h3>
-      <p class="muted" style="margin-bottom:14px">Оценки складываются с учётом размера — он тоже стоит на карточке отдельным полем. Иначе десять мелких поручений перевесили бы один переезд.</p>
-      <div class="grid g4">
-        <div><span class="tag t-blue">S</span><p class="muted" style="margin-top:8px">вес 1 — мелочь на пятнадцать минут</p></div>
-        <div><span class="tag t-blue">M</span><p class="muted" style="margin-top:8px">вес 2 — обычная задача до двух часов</p></div>
-        <div><span class="tag t-amber">L</span><p class="muted" style="margin-top:8px">вес 3 — работа на день</p></div>
-        <div><span class="tag t-red">XL</span><p class="muted" style="margin-top:8px">вес 5 — проект на несколько дней</p></div>
+      <h4>Кто определяет уровень</h4>
+      <div class="steps" style="margin-top:12px">
+        <div class="step"><div class="n">1</div><div class="txt"><b>Стикер «Размер задачи»</b> в YouGile, если он проставлен: S — простая, M — обычная, L и XL — сложная. Это решение человека, оно главнее всего.</div></div>
+        <div class="step"><div class="n">2</div><div class="txt"><b>Локальная модель</b> читает заголовок и ставит уровень по описанию выше. Работает на сервере, наружу ничего не передаёт. Делается один раз при появлении задачи.</div></div>
+        <div class="step"><div class="n">3</div><div class="txt"><b>Руководитель отдела</b> может поправить уровень любой задачи руками. Ручная правка не перебивается ни стикером, ни моделью.</div></div>
       </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section id="shest">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="kicker">Ежемесячно</div>
+      <h2>Шесть цифр и план к каждой</h2>
+      <p>По каждой из шести метрик считается среднее за месяц по задачам, поставленным в этом месяце. Рядом — плановое значение. Процент показывает, насколько факт лучше или хуже плана.</p>
+    </div>
+
+    <div class="tbl-scroll reveal">
+      <table style="min-width:640px">
+        <thead><tr><th>Метрика</th><th class="num">Уровень 1<br><span style="text-transform:none;font-weight:500">простые</span></th><th class="num">Уровень 2<br><span style="text-transform:none;font-weight:500">обычные</span></th><th class="num">Уровень 3<br><span style="text-transform:none;font-weight:500">сложные</span></th></tr></thead>
+        <tbody>
+          <tr><td><strong>Время до старта</strong><br><span class="muted">план, рабочих часов</span></td><td class="num"><strong>2 ч</strong></td><td class="num"><strong>4 ч</strong></td><td class="num"><strong>8 ч</strong><br><span class="muted">день</span></td></tr>
+          <tr><td><strong>Время до сдачи</strong><br><span class="muted">план, рабочих часов</span></td><td class="num"><strong>8 ч</strong><br><span class="muted">день</span></td><td class="num"><strong>24 ч</strong><br><span class="muted">три дня</span></td><td class="num"><strong>80 ч</strong><br><span class="muted">две недели</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="tbl-hint">← таблицу можно прокрутить</p>
+
+    <div class="note amber reveal">
+      <div class="title">Это стартовые нормы, а не окончательные</div>
+      <p class="fg2" style="margin:0">Они заданы как отправная точка, чтобы модель заработала. Руководитель отдела правит их в приложении, новые действуют с выбранного квартала, а прошлые кварталы считаются по своим нормам — история не пересчитывается.</p>
+    </div>
+
+    <div class="grid g3" style="margin-top:16px">
+      <div class="card reveal">
+        <div class="big" style="color:var(--green)">133 %</div>
+        <p class="muted" style="margin:8px 0 0">План 4 часа, факт 3 часа. Чем быстрее — тем выше процент: план делится на факт.</p>
+      </div>
+      <div class="card reveal">
+        <div class="big" style="color:var(--red)">50 %</div>
+        <p class="muted" style="margin:8px 0 0">План 4 часа, факт 8 часов. Вдвое дольше плана — половина.</p>
+      </div>
+      <div class="card reveal">
+        <div class="big" style="color:var(--fg-3)">—</div>
+        <p class="muted" style="margin:8px 0 0">Сложных задач в месяце не было. Метрика пустая и в среднее не входит: месяц без них ничего не портит и не улучшает.</p>
+      </div>
+    </div>
+
+    <div class="note reveal">
+      <div class="title">Процент за месяц</div>
+      <p class="fg2" style="margin:0">Среднее по тем метрикам, где были задачи. Выше 200 % процент не поднимается: мгновенно закрытая задача не должна перекрывать десять просроченных.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section id="kvartal">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="kicker">Раз в три месяца</div>
+      <h2>Квартал и оценка</h2>
+      <p>Квартал — среднее трёх месяцев по каждой метрике, и итоговый процент закрытия плана. По нему система предлагает оценку. Итоговую ставит руководитель отдела, с учётом отзывов.</p>
+    </div>
+
+    <div class="tbl-scroll reveal">
+      <table style="min-width:560px">
+        <thead><tr><th style="width:110px">Оценка</th><th>Что означает</th><th class="num">Процент плана за квартал</th></tr></thead>
+        <tbody>
+          <tr><td><span class="mark m-minus">−</span></td><td>План сорван</td><td class="num">меньше 70 %</td></tr>
+          <tr><td><span class="mark m-plusminus">+−</span></td><td>Ниже плана</td><td class="num">70 – 89 %</td></tr>
+          <tr><td><span class="mark m-plus">+</span></td><td>В плане</td><td class="num">90 – 109 %</td></tr>
+          <tr><td><span class="mark m-plus2">++</span></td><td>Выше плана</td><td class="num">110 – 119 %</td></tr>
+          <tr><td><span class="mark m-plus3">+++</span></td><td>Сильно выше плана</td><td class="num">120 – 139 %</td></tr>
+          <tr><td><span class="mark m-plus4">++++</span></td><td>Сверхплан</td><td class="num">от 140 %</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="tbl-hint">← таблицу можно прокрутить</p>
+
+    <div class="note reveal">
+      <div class="title">Порог сверхплана — 120 %, и он настраивается</div>
+      <p class="fg2" style="margin:0">Строки «+++» и «++++» отсчитываются от него: если порог поднять до 150 %, то «+++» станет 150 – 169 %, а «++++» — от 170 %. Первые четыре ступени от порога не зависят.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section id="otzyvy">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="kicker">Не только цифры</div>
+      <h2>Три отзыва за квартал</h2>
+      <p>Проценты показывают скорость, но не объясняют её. Перед тем как ставить итоговую оценку, руководитель отдела видит три взгляда на человека.</p>
+    </div>
+
+    <div class="grid g3">
+      <div class="card hoverable reveal">
+        <span class="tag t-blue">Обязательно</span>
+        <h4 style="margin-top:12px">Самооценка</h4>
+        <p class="muted" style="margin:0">Ассистент пишет о себе за три месяца: что получилось, что нет, что хочет изменить. Может предложить себе оценку.</p>
+      </div>
+      <div class="card hoverable reveal">
+        <span class="tag t-green">По желанию</span>
+        <h4 style="margin-top:12px">Отзыв коллеги</h4>
+        <p class="muted" style="margin:0">Другой ассистент — о том, как работается рядом: подхватывает ли, помогает ли, где стоило бы подтянуться.</p>
+      </div>
+      <div class="card hoverable reveal">
+        <span class="tag t-violet">Обязательно</span>
+        <h4 style="margin-top:12px">Отзыв руководителя отдела</h4>
+        <p class="muted" style="margin:0">Взгляд сверху: что было в задачах, чего не видно в часах. Пишется перед закрытием квартала.</p>
+      </div>
+    </div>
+
+    <p class="muted reveal" style="margin-top:16px">Отзывы пишутся в приложении, в карточке человека. Тексты видят только сам сотрудник, руководитель отдела и вы. Коллеги чужих отзывов не читают.</p>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section id="premiya">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="kicker">Деньги</div>
+      <h2>Премия: грейд × оценка</h2>
+      <p>Премия — процент от <strong>квартальной</strong> зарплаты, то есть от трёх окладов. Процент берётся из матрицы по грейду сотрудника и итоговой оценке.</p>
+    </div>
+
+    <div class="tbl-scroll reveal">
+      <table style="min-width:620px" class="matrix">
+        <thead><tr><th>Грейд</th><th class="num">−</th><th class="num">+−</th><th class="num">+</th><th class="num">++</th><th class="num">+++</th><th class="num">++++</th></tr></thead>
+        <tbody>
+          <tr><td><strong>7</strong></td><td class="num">0</td><td class="num">9</td><td class="num">18</td><td class="num">20</td><td class="num">27</td><td class="num">36</td></tr>
+          <tr><td><strong>6</strong></td><td class="num">0</td><td class="num">8</td><td class="num">16</td><td class="num">18</td><td class="num">24</td><td class="num">32</td></tr>
+          <tr><td><strong>5</strong></td><td class="num">0</td><td class="num">7</td><td class="num">14</td><td class="num">16</td><td class="num">20</td><td class="num">28</td></tr>
+          <tr><td><strong>4</strong></td><td class="num">0</td><td class="num">6</td><td class="num">12</td><td class="num">14</td><td class="num">18</td><td class="num">24</td></tr>
+          <tr><td><strong>3</strong></td><td class="num">0</td><td class="num">5</td><td class="num">10</td><td class="num">12</td><td class="num">15</td><td class="num">20</td></tr>
+          <tr><td><strong>2</strong></td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">0</td></tr>
+          <tr><td><strong>1</strong></td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">0</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="tbl-hint">← таблицу можно прокрутить</p>
+    <p class="muted reveal" style="margin-top:10px">Числа — проценты от квартальной зарплаты. Грейды 1 и 2 премии не дают: это стажёрские ступени.</p>
+
+    <div class="card reveal" style="margin-top:16px">
+      <h4>Пример</h4>
+      <div class="steps" style="margin-top:12px">
+        <div class="step"><div class="n">1</div><div class="txt">Ассистент с грейдом <b>4</b> и окладом <b>70 000 ₽</b>. Квартальная зарплата — <b>210 000 ₽</b>.</div></div>
+        <div class="step"><div class="n">2</div><div class="txt">За квартал план закрыт на <b>115 %</b> — система предлагает <b>++</b>. Руководитель, прочитав отзывы, соглашается.</div></div>
+        <div class="step"><div class="n">3</div><div class="txt">Грейд 4, оценка ++ — по матрице <b>14 %</b>. Премия: 210 000 × 14 % = <b>29 400 ₽</b>.</div></div>
+      </div>
+    </div>
+
+    <div class="note green reveal">
+      <div class="title">После закрытия квартала цифры замораживаются</div>
+      <p class="fg2" style="margin:0">Оценка, процент плана, грейд и сумма записываются в итог. Дальнейшая синхронизация задач их не меняет. Если что-то нужно поправить — квартал переоткрывается явно, и это видно.</p>
     </div>
   </div>
 </section>
@@ -325,182 +477,32 @@ footer{padding:44px 0 60px; color:var(--fg-3); font-size:14px; text-align:center
 <section id="ot-vas">
   <div class="wrap">
     <div class="sec-head reveal">
-      <div class="kicker">Ваше участие</div>
+      <div class="kicker">Участие</div>
       <h2>Что требуется лично от вас</h2>
-      <p>Ничего не заполнять и никуда не заходить. Всё сводится к нажатиям в Telegram.</p>
+      <p>Ежемесячно — ничего. Метрики считаются сами, сводка приходит руководителю отдела в Telegram последним днём месяца.</p>
     </div>
 
-    <div class="grid g2" style="margin-bottom:22px">
-      <div class="card hoverable reveal" style="text-align:center">
-        <div class="big" style="color:var(--accent)">1 нажатие</div>
-        <p class="muted" style="margin-top:8px">когда закрыт пункт из списка бытовых раздражителей — подтвердить, что вопрос действительно снят. Один-два раза в месяц</p>
+    <div class="grid g2">
+      <div class="card reveal">
+        <h4>От вас</h4>
+        <ul class="clean check">
+          <li>Раз в квартал взглянуть на таблицу: кто с какой оценкой и премией. Всё видно в приложении на первой вкладке.</li>
+          <li>При желании — открыть любого человека и посмотреть, какая метрика и какой месяц тянут вниз.</li>
+        </ul>
       </div>
-      <div class="card hoverable reveal" style="text-align:center">
-        <div class="big" style="color:var(--accent)">1 цифра</div>
-        <p class="muted" style="margin-top:8px">в конце месяца — насколько стало легче работать, от нуля до десяти</p>
+      <div class="card reveal">
+        <h4>От руководителя отдела</h4>
+        <ul class="clean check">
+          <li>Раз в квартал: написать отзыв, поставить итоговую оценку каждому, закрыть квартал.</li>
+          <li>Раз в квартал актуализировать четыре вещи: нормы по уровням, порог сверхплана, грейды, проценты в матрице.</li>
+          <li>По ходу: поправить уровень задачи, если модель ошиблась.</li>
+        </ul>
       </div>
     </div>
 
     <div class="note reveal">
-      <div class="title">Это весь список</div>
-      <p class="fg2" style="margin:0">Оценивать задачи, подтверждать инициативы, заходить в трекер или заполнять что-либо не нужно. Раньше в системе была метрика проактивности, требовавшая от вас подтверждений, — она убрана: все задачи ставит руководитель отдела, поэтому измерять там было нечего.</p>
-    </div>
-
-    <div class="note green reveal">
-      <div class="title">Ваша цифра за месяц влияет на всю сумму</div>
-      <p class="fg2" style="margin:0">Она умножает итог целиком: <strong>9–10 → ×1.1</strong>, 7–8 → ×1.0, 5–6 → ×0.9, ниже пяти → ×0.75. Это единственная субъективная величина во всей системе, и она намеренно оставлена за вами — метрики не покрывают всего, что вы чувствуете по работе отдела.</p>
-    </div>
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<section id="koshelki">
-  <div class="wrap">
-    <div class="sec-head reveal">
-      <div class="kicker">Структура премии</div>
-      <h2>Из чего складывается сумма</h2>
-      <p>Схемы две: у ассистента премия <strong>30 000 ₽</strong>, у руководителя отдела — <strong>50 000 ₽</strong>. По каждой части человек получает оценку от нуля до десяти и забирает такую же долю: оценка 10 — всю часть, оценка 5 — половину.</p>
-    </div>
-
-    <h3 class="reveal" style="margin-bottom:14px">Ассистент — 30 000 ₽</h3>
-    <div class="grid g3" style="margin-bottom:26px">
-      <div class="card hoverable reveal wallet">
-        <h4>Качество</h4>
-        <div class="sum">17 500 ₽</div>
-        <div class="bar"><i style="width:58%"></i></div>
-        <p class="muted" style="margin-top:12px">Средняя оценка задач с учётом размера. Самая большая часть: если результат приходится переделывать, остальное не имеет значения.</p>
-      </div>
-      <div class="card hoverable reveal wallet">
-        <h4>Самостоятельность</h4>
-        <div class="sum">10 000 ₽</div>
-        <div class="bar"><i style="width:33%"></i></div>
-        <p class="muted" style="margin-top:12px">Доля задач, закрытых без вопросов к вам. Это и есть разница между помощником и ещё одной заботой.</p>
-      </div>
-      <div class="card hoverable reveal wallet">
-        <h4>Скорость</h4>
-        <div class="sum">2 500 ₽</div>
-        <div class="bar"><i style="width:9%"></i></div>
-        <p class="muted" style="margin-top:12px">Отзывчивость в чате и попадание в срок. Намеренно самая маленькая часть: быстро ответить — не то же самое, что хорошо сделать.</p>
-      </div>
-    </div>
-
-    <h3 class="reveal" style="margin-bottom:14px">Руководитель отдела — 50 000 ₽</h3>
-    <div class="grid g4" style="margin-bottom:20px">
-      <div class="card hoverable reveal wallet">
-        <h4>Результат отдела</h4>
-        <div class="sum">20 000 ₽</div>
-        <p class="muted" style="margin-top:10px">Средний результат ассистентов. Чужая просрочка бьёт и по его доходу.</p>
-      </div>
-      <div class="card hoverable reveal wallet">
-        <h4>Качество</h4>
-        <div class="sum">15 000 ₽</div>
-        <p class="muted" style="margin-top:10px">Его собственные задачи, по тем же правилам, что у ассистентов.</p>
-      </div>
-      <div class="card hoverable reveal wallet">
-        <h4>Самостоятельность</h4>
-        <div class="sum">8 000 ₽</div>
-        <p class="muted" style="margin-top:10px">Его задачи, закрытые без вопросов к вам.</p>
-      </div>
-      <div class="card hoverable reveal wallet">
-        <h4>Скорость</h4>
-        <div class="sum">7 000 ₽</div>
-        <p class="muted" style="margin-top:10px">Своя отзывчивость на 40 % и командная на 60 %.</p>
-      </div>
-    </div>
-
-    <div class="note green reveal">
-      <div class="title">Почему результат команды влияет на доход руководителя отдела</div>
-      <p class="fg2" style="margin:0">Результат отдела и командная скорость считаются по ассистентам. Если он отвечает мгновенно, а кто-то в команде систематически просрачивает, падает не только премия этого человека, но и его собственная. Это сделано намеренно: иначе руководить отделом выгоднее, чем добиваться, чтобы отдел работал.</p>
-    </div>
-
-    <div class="note amber reveal">
-      <div class="title">Метрика без данных не платится и не наказывает</div>
-      <p class="fg2" style="margin:0">Если за месяц не было ни одного вопроса в чате, «скорость 10 из 10» ничего не доказывает — сигнала просто не было. Такой кошелёк не выплачивается, но и не сгорает: его сумма расходится по остальным метрикам пропорционально. Человек зарабатывает те же деньги, но только за то, что действительно измерено. Отсечка за провал такую метрику тоже не учитывает — нельзя срезать премию за отсутствие того, чего не было.</p>
-    </div>
-
-    <div class="note amber reveal">
-      <div class="title">Провал по одному направлению режет всю премию</div>
-      <p class="fg2" style="margin:0">Если хотя бы одна из оценок опускается ниже пяти, итоговая сумма умножается на <strong>0.85</strong> целиком. Вытянуть слабое направление сильными можно, но не бесплатно — иначе качество приносили бы в жертву скорости. В приложении при этом прямо написано, какая метрика вызвала вычет и на сколько рублей.</p>
-    </div>
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<section id="metriki">
-  <div class="wrap">
-    <div class="sec-head reveal">
-      <div class="kicker">Подробности</div>
-      <h2>Как считается каждая из четырёх</h2>
-    </div>
-
-    <div class="grid g2" style="margin-bottom:16px">
-      <div class="card reveal">
-        <h3>Качество</h3>
-        <div class="steps" style="margin-top:14px">
-          <div class="step"><div class="n">1</div><div class="txt">Оценку каждой задачи умножаем на её размер — получаем баллы</div></div>
-          <div class="step"><div class="n">2</div><div class="txt">Складываем баллы всех задач за месяц</div></div>
-          <div class="step"><div class="n">3</div><div class="txt">Складываем размеры этих задач</div></div>
-          <div class="step"><div class="n">4</div><div class="txt">Делим одно на другое — это <b>оценка качества</b></div></div>
-        </div>
-        <p class="muted" style="margin-top:14px">Пример: пять задач дали 70 баллов при сумме размеров 10 → оценка 7.0.</p>
-      </div>
-
-      <div class="card reveal">
-        <h3>Скорость</h3>
-        <p class="muted" style="margin-bottom:6px">Каждый ответ в чате приносит или отнимает баллы:</p>
-        <div class="pts">
-          <div class="pt plus"><b>+0.5</b> ответил в срок, быстрее 15 минут</div>
-          <div class="pt minus"><b>−2</b> ответил, но позже нормы</div>
-          <div class="pt minus"><b>−4</b> не ответил вовсе</div>
-          <div class="pt plus"><b>+1</b> ответил в выходной или после работы</div>
-        </div>
-        <p class="muted" style="margin-top:14px">Оценка — это доля от максимума: ответили в срок на все вопросы, значит ровно десятка. Своевременный ответ даёт немного, потому что это ожидаемое поведение, а не заслуга.</p>
-        <p class="muted" style="margin-top:10px"><strong style="color:var(--fg-2)">Молчание стоит восьми своевременных ответов</strong>, а опоздание — четырёх. Проигнорировать неудобный вопрос заметно дороже, чем ответить поздно.</p>
-        <p class="muted" style="margin-top:10px">Ответ в выходной или вечером ценится вдвое против обычного и идёт сверх максимума: им можно вытянуть провал, но выше десяти подняться нельзя.</p>
-      </div>
-
-      <div class="card reveal">
-        <h3>Самостоятельность</h3>
-        <p class="muted">Считается доля задач, закрытых без единого вопроса ассистента в чат. Норма зависит от опыта: у новичка 60 %, у опытного 85 %, у старшего 95 %. Закрыл без вопросов 76 % при норме 85 % — оценка 8.9.</p>
-        <p class="muted" style="margin-top:12px">Уточняющий вопрос по существу задачи — это нормально. Метрику снижает вопрос, ответ на который уже был в переписке или в регламенте.</p>
-      </div>
-
-    </div>
-
-    <div class="card reveal" style="margin-top:16px;border-color:var(--violet)">
-      <h3>Долгие задачи: когда результат приходит извне</h3>
-      <p class="fg2" style="margin-bottom:16px">Самый частый случай, где обычный расчёт срока даёт несправедливость. Задача «заказать гаджет» с приоритетом 3: ассистент за два дня нашёл устройство, согласовал и оформил заказ на адрес в США. Дальше посылка едет три месяца. Если считать срок по дате закрытия карточки, человек получит просрочку за работу почты.</p>
-
-      <div class="grid g2">
-        <div>
-          <h4>Две разные даты</h4>
-          <ul class="clean">
-            <li><strong>Работа сдана</strong> — ассистент сделал всё, что от него зависело</li>
-            <li><strong>Результат получен</strong> — посылка доехала, карточка закрылась</li>
-          </ul>
-          <p class="muted" style="margin-top:12px">Срок меряется по первой дате. Вторая нужна только вам — знать, что вопрос закрыт.</p>
-        </div>
-        <div>
-          <h4>Как это видно системе</h4>
-          <ul class="clean">
-            <li>Карточка ушла в «На проверке» — работа сдана</li>
-            <li>Карточка ушла в «В ожидании» или «Гаджеты» — работа сдана, ждём внешний результат</li>
-            <li>Карточка вернулась в «В работе» — значит не была закончена, часы идут дальше</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="note amber" style="margin-bottom:0">
-        <div class="title">Почему «Блокер» устроен иначе</div>
-        <p class="fg2" style="margin:0">«Блокер» останавливает часы, но <strong>не засчитывает работу сданной</strong> — иначе любую задачу можно было бы уронить в блокер и остановить срок, ничего не сделав. И поблажка не бесконечна: время в паузе сдвигает срок максимум на столько же, сколько было отведено на саму задачу, но не меньше трёх рабочих дней. Держать задачу в блокере месяц ради сдвига срока не выйдет.</p>
-      </div>
-    </div>
-
-    <div class="note reveal">
-      <div class="title">Если приоритет у задачи не проставлен</div>
-      <p class="fg2" style="margin:0">Оценка скорости складывается из двух частей: реакция в чате и попадание в срок. Срок берётся из приоритета; если приоритет не стоит, по умолчанию считается неделя. А если приоритеты не проставлены меньше чем у трети задач за месяц, вторая часть не учитывается вовсе, и скорость меряется по одной реакции — человек не должен терять треть премии за то, как оформлены чужие задачи.</p>
+      <div class="title">KPI руководителя отдела</div>
+      <p class="fg2" style="margin:0">Считается по тем же шести метрикам, но по всем задачам отдела разом: срез «весь отдел» в приложении — это и есть его результат. Отдельных ручных оценок для него нет.</p>
     </div>
   </div>
 </section>
@@ -511,43 +513,27 @@ footer{padding:44px 0 60px; color:var(--fg-3); font-size:14px; text-align:center
   <div class="wrap">
     <div class="sec-head reveal">
       <div class="kicker">Границы расчёта</div>
-      <h2>Что в KPI не входит</h2>
-      <p>Часть задач намеренно исключена — по ним оценка была бы недостоверной или несправедливой.</p>
+      <h2>Что в метрики не входит</h2>
     </div>
 
     <div class="grid g2">
       <div class="card reveal">
-        <h3 style="color:var(--red)">Не участвует в расчёте</h3>
+        <h4>Не участвуют вовсе</h4>
         <ul class="clean cross">
-          <li><strong>Задачи в «Блокере»</strong> — работа стоит не по вине исполнителя. Часы на паузе, время простоя сдвигает срок в его пользу, но не больше чем на срок самой задачи</li>
-          <li><strong>«На контроле» и «На потом»</strong> — задача отложена, а не решена. В зачёт пойдёт, только когда будет действительно закрыта</li>
-          <li><strong>«Отменена»</strong> — задачу сняли, её не делали</li>
-          <li><strong>Закрытые до запуска системы</strong> — по ним нет ни признаков приёмки, ни переписки. Отсчёт начат с чистого листа</li>
+          <li>Задачи из колонки «Заёб» — у них отдельный приз, в скорость они не идут.</li>
+          <li>Отменённые и удалённые.</li>
+          <li>Закрытые до запуска системы: реальных дат у них нет, подставлять сегодняшние нечестно.</li>
+          <li>Отложенные («На контроле», «На потом») — пока их не вернули в работу.</li>
         </ul>
-        <p class="muted" style="margin-top:14px">А вот «В ожидании» и «Гаджеты» из расчёта <strong style="color:var(--fg-2)">не выпадают</strong>: там работа уже сдана, ждём только внешний результат. Такая задача засчитывается сразу, не дожидаясь, пока приедет посылка.</p>
       </div>
-
       <div class="card reveal">
-        <h3 style="color:var(--violet)">Считается отдельно от KPI</h3>
-        <p class="fg2" style="margin-bottom:12px">Задачи из колонки бытовых раздражителей — то, что регулярно мешает работать. Они висят сразу на всех и в метрики не входят: ни время, ни качество, ни самостоятельность.</p>
-        <div class="tbl-scroll" style="box-shadow:none;border:1px solid var(--border)">
-          <table style="min-width:0">
-            <thead><tr><th>Размер</th><th class="num">Закрывшему</th><th class="num">Лиду</th></tr></thead>
-            <tbody>
-              <tr><td><span class="tag t-blue">S</span> редко</td><td class="num"><strong>3 000 ₽</strong></td><td class="num">300 ₽</td></tr>
-              <tr><td><span class="tag t-blue">M</span> еженедельно</td><td class="num"><strong>5 000 ₽</strong></td><td class="num">500 ₽</td></tr>
-              <tr><td><span class="tag t-amber">L</span> ежедневно</td><td class="num"><strong>10 000 ₽</strong></td><td class="num">1 000 ₽</td></tr>
-              <tr><td><span class="tag t-red">XL</span> бьёт по здоровью</td><td class="num"><strong>15 000 ₽</strong></td><td class="num">1 500 ₽</td></tr>
-            </tbody>
-          </table>
-        </div>
-        <p class="muted" style="margin-top:12px">Кто закрыл — определяется из журнала событий задачи. Руководителю отдела идёт 10 % сверху, и только если закрыл не он сам: его работа — добиться, чтобы это сделала команда.</p>
+        <h4>Участвуют частично</h4>
+        <ul class="clean">
+          <li>Задача взята, но не сдана: идёт только во «время до старта». Время до сдачи появится, когда сдадут.</li>
+          <li>Задача ещё не взята: не идёт никуда. Лежать нетронутой она может сколько угодно — но день взятия покажет, сколько лежала.</li>
+          <li>Реакция в рабочем чате по-прежнему замеряется и попадает в месячную сводку, но на оценку и премию не влияет.</li>
+        </ul>
       </div>
-    </div>
-
-    <div class="note reveal">
-      <div class="title">Половина суммы — через тридцать дней</div>
-      <p class="fg2" style="margin:0">Приз выплачивается пополам: половина сразу, вторая — через месяц, если проблема не всплыла снова. Ровно через тридцать дней система сама спросит вас об этом одним сообщением. Это отделяет решённую проблему от закрытой на бумаге.</p>
     </div>
   </div>
 </section>
@@ -558,32 +544,22 @@ footer{padding:44px 0 60px; color:var(--fg-3); font-size:14px; text-align:center
   <div class="wrap">
     <div class="sec-head reveal">
       <div class="kicker">Проверяемость</div>
-      <h2>Любую цифру можно развернуть</h2>
-      <p>В базе не хранится ни одной готовой оценки — только события с отметками времени. Все цифры выводятся из них заново при каждом открытии, поэтому подогнать их нельзя.</p>
+      <h2>Любую цифру можно раскрыть</h2>
+      <p>В приложении каждый месяц — раскрываемая строка. Внутри — шесть метрик за месяц и список задач: уровень, откуда он взялся, часы до старта и до сдачи.</p>
     </div>
 
-    <div class="grid g3" style="margin-bottom:20px">
+    <div class="grid g3">
       <div class="card hoverable reveal">
-        <h4>Оценка раскрывается до задач</h4>
-        <p class="muted">«Самостоятельность 8.9» разворачивается в «33 задачи из 44 закрыты без вопросов, это 75 % при норме 85 %» и дальше в список этих задач.</p>
+        <h4>Срез по человеку</h4>
+        <p class="muted" style="margin:0">Как Екатерина закрывает задачи второго уровня: шесть графиков по месяцам, столбик красный, если факт хуже плана.</p>
       </div>
       <div class="card hoverable reveal">
-        <h4>У задачи есть лента</h4>
-        <p class="muted">Поставлена, взята, отправлена на проверку, возвращена, закрыта — каждое событие со временем. Спор о том, была ли правка, закрывается открытием карточки.</p>
+        <h4>Срез по отделу</h4>
+        <p class="muted" style="margin:0">Как все вместе закрывают сложные задачи. Если красное у всех — дело в норме или в постановке, а не в человеке.</p>
       </div>
       <div class="card hoverable reveal">
-        <h4>Ссылки на сообщения</h4>
-        <p class="muted">Каждый снятый или добавленный балл за скорость сопровождается ссылкой на конкретное сообщение в чате.</p>
-      </div>
-    </div>
-
-    <div class="card reveal">
-      <h3>Правила, которые делают систему честной</h3>
-      <div class="steps" style="margin-top:16px">
-        <div class="step"><div class="n">1</div><div class="txt"><b>Цифры видны каждый день, а не первого числа.</b> Ассистент открывает приложение и видит текущий результат. Узнать о провале в день выплаты — худшее, что может случиться с такой системой</div></div>
-        <div class="step"><div class="n">2</div><div class="txt"><b>Правила не меняются задним числом.</b> Нормы и ставки правятся только с начала следующего месяца</div></div>
-        <div class="step"><div class="n">3</div><div class="txt"><b>Живой диалог не накручивает баллы.</b> Пока переписка идёт, новый отсчёт не начинается — только после двадцати минут тишины. Иначе одна беседа давала бы десяток «быстрых ответов»</div></div>
-        <div class="step"><div class="n">4</div><div class="txt"><b>Молчание дороже медленного ответа.</b> Доля быстрых ответов считается от всех вопросов, а не только от тех, на которые ответили. Проигнорировать неудобный вопрос невыгоднее, чем ответить поздно</div></div>
+        <h4>Узкое горлышко</h4>
+        <p class="muted" style="margin:0">Худшая метрика видна сразу: в сводке и в карточке. Это то место, куда стоит посмотреть в первую очередь.</p>
       </div>
     </div>
   </div>
@@ -596,38 +572,37 @@ footer{padding:44px 0 60px; color:var(--fg-3); font-size:14px; text-align:center
     <div class="sec-head reveal">
       <div class="kicker">Честно о слабых местах</div>
       <h2>Чего система не умеет</h2>
-      <p>Чтобы к цифрам было доверие, важно понимать и границы их применимости.</p>
     </div>
 
     <div class="grid g2">
       <div class="card reveal">
-        <h4>Личная переписка не видна</h4>
-        <p class="muted">Если вопрос задан в личных сообщениях, а не в рабочем чате, система о нём не знает: ни время ответа, ни сам факт вопроса не попадут в расчёт. Всё, что должно учитываться, живёт в общем чате.</p>
+        <h4>Уровень — это оценка по заголовку</h4>
+        <p class="muted" style="margin:0">Модель читает только название задачи. «Найти квартиру» может оказаться и обычной, и сложной. Стикер размера в YouGile или правка руками решают это точнее.</p>
       </div>
       <div class="card reveal">
-        <h4>История до запуска недоступна</h4>
-        <p class="muted">Бот получает сообщения только с момента подключения, а признаки приёмки появляются только у новых задач. Первый месяц — это ещё и калибровка норм.</p>
+        <h4>Время до старта зависит от дисциплины на доске</h4>
+        <p class="muted" style="margin:0">Если ассистент начал работать, но карточку в «В работе» не передвинул, система этого не видит. Метрика честна ровно настолько, насколько честно ведётся доска.</p>
       </div>
       <div class="card reveal">
-        <h4>Связь вопроса с задачей не всегда точна</h4>
-        <p class="muted">Когда вопрос задан без указания человека, система сама ищет подходящую задачу по смыслу. В большинстве случаев она попадает верно, но ошибку можно поправить вручную — и это видно в истории.</p>
+        <h4>Нормы поначалу примерные</h4>
+        <p class="muted" style="margin:0">Стартовые нормы взяты из здравого смысла, а не из статистики. Первый квартал покажет, где они завышены или занижены, — после него их стоит пересмотреть.</p>
       </div>
       <div class="card reveal">
-        <h4>Метрика не заменяет разговор</h4>
-        <p class="muted">Цифры показывают, где проседает работа, но не объясняют почему. Поэтому за вами остаётся оценка месяца, а за руководителем отдела — разбор спорных случаев до расчёта, а не после.</p>
+        <h4>Цифры не заменяют разговор</h4>
+        <p class="muted" style="margin:0">Проценты показывают, где проседает работа, но не почему. Поэтому итоговую оценку ставит человек, а не формула, — с отзывами перед глазами.</p>
       </div>
     </div>
 
     <div class="note green reveal">
       <div class="title">Что это даёт по итогу</div>
-      <p class="fg2" style="margin:0">Премия перестаёт быть предметом переговоров. Ассистент в любой день видит свой результат и знает, какая задача его просадила. Руководитель отдела разбирает спорное до того, как посчитаны деньги. От вас требуется около двадцати нажатий в месяц и одна цифра — а расчёт по каждому человеку выгружается со всеми задачами и таймингами, и его не нужно защищать словами, достаточно показать.</p>
+      <p class="fg2" style="margin:0">Премия перестаёт быть предметом переговоров: она следует из оценки, оценка — из плана и отзывов, план — из задач с часами, которые можно открыть. Ассистент в любой день видит, где он относительно нормы. Руководитель отдела видит узкое место отдела. От вас — раз в квартал взглянуть на одну таблицу.</p>
     </div>
   </div>
 </section>
 
 <footer>
   <div class="wrap">
-    <p>Все суммы и нормы — настраиваемые параметры, а не константы. Правятся с начала следующего месяца.</p>
+    <p>Нормы, порог сверхплана, грейды и проценты матрицы — настраиваемые параметры. Правятся раз в квартал, действуют с выбранного квартала.</p>
   </div>
 </footer>
 
@@ -681,3 +656,6 @@ footer{padding:44px 0 60px; color:var(--fg-3); font-size:14px; text-align:center
     }
   }
 </script>
+
+</body>
+</html>
