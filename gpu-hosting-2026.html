@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Аренда GPU для ML — сентябрь 2026</title>
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="description" content="Обзор 45 хостеров аренды GPU (GB200, H100, RTX 5090, RTX 6000 Ada) с ценами на 21.09.2026 и сравнением с бейслайном задачи VSE-35.">
+<script>document.documentElement.classList.add('js-anim');</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --page-bg:#F5F5F7; --surface:#FFFFFF; --text-1:#1D1D1F; --text-2:#6E6E73; --text-3:#AEAEB2;
+  --blue:#0071E3; --border:rgba(0,0,0,0.08);
+  --ok-bg:#E6F6EA; --ok-text:#1B7F3B; --ok-border:#BFE6C9;
+  --shadow:0 1px 2px rgba(0,0,0,0.04),0 8px 24px rgba(0,0,0,0.05);
+  --shadow-hover:0 2px 4px rgba(0,0,0,0.05),0 16px 40px rgba(0,0,0,0.09);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--page-bg);color:var(--text-1);font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;font-size:16px;line-height:1.55;font-feature-settings:"tnum" 1,"cv11" 1}
+a{color:var(--blue);text-decoration:none} a:hover{text-decoration:underline}
+a:focus-visible,button:focus-visible{outline:3px solid rgba(0,113,227,.45);outline-offset:2px;border-radius:6px}
+.wrap{max-width:1240px;margin:0 auto;padding:0 16px}
+.wrap.wide{max-width:1400px}
+.hero{background:var(--surface);border-bottom:1px solid var(--border);padding:64px 0 40px}
+.eyebrow{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--text-3);font-weight:600;margin:0 0 14px}
+h1{font-size:clamp(32px,5vw,56px);line-height:1.08;letter-spacing:-.02em;font-weight:800;margin:0 0 18px;max-width:900px}
+h1 span{color:var(--blue)}
+.lead{font-size:18px;color:var(--text-2);max-width:760px;margin:0 0 24px}
+.pills{display:flex;flex-wrap:wrap;gap:8px}
+.pill{background:var(--page-bg);border:1px solid var(--border);border-radius:999px;padding:8px 14px;font-size:14px;font-weight:500;color:var(--text-1)}
+.pill b{font-weight:700}
+section{padding:44px 0 8px}
+h2{font-size:clamp(24px,3vw,34px);letter-spacing:-.02em;font-weight:700;margin:0 0 8px}
+.sub-h{color:var(--text-2);margin:0 0 24px;max-width:760px}
+.bento{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:22px 24px;box-shadow:var(--shadow);transition:box-shadow .2s,transform .2s}
+.card:hover{transform:translateY(-2px);box-shadow:var(--shadow-hover)}
+.card.span2{grid-column:span 2}
+.card h3{font-size:18px;margin:0 0 8px;letter-spacing:-.01em}
+.card p{margin:0;color:var(--text-2);font-size:15px}
+.card .big{font-size:34px;font-weight:800;letter-spacing:-.02em;color:var(--text-1);line-height:1.1;margin:4px 0 6px}
+.card .big small{font-size:15px;font-weight:500;color:var(--text-2);margin-left:6px}
+.kv{display:grid;grid-template-columns:1fr auto auto;gap:6px 14px;font-size:14px;margin-top:10px}
+.kv span{color:var(--text-2)} .kv b{font-weight:600} .kv .up{color:var(--text-1)}
+.legend{display:flex;flex-wrap:wrap;gap:14px;align-items:center;font-size:14px;color:var(--text-2);margin:0 0 14px}
+.sw{display:inline-block;width:18px;height:18px;border-radius:5px;vertical-align:-4px;margin-right:6px;border:1px solid var(--border);background:#fff}
+.sw.ok{background:var(--ok-bg);border-color:var(--ok-border)}
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 16px}
+.chip{background:var(--surface);border:1px solid var(--border);border-radius:999px;padding:9px 14px;font-size:14px;font-weight:500;color:var(--text-1);cursor:pointer;min-height:44px;transition:background .15s,border-color .15s,transform .15s;font-family:inherit}
+.chip:hover{border-color:rgba(0,0,0,.2)}
+.chip.active{background:var(--text-1);color:#fff;border-color:var(--text-1)}
+.chip:active{transform:scale(.97)}
+.tablewrap{background:var(--surface);border:1px solid var(--border);border-radius:20px;box-shadow:var(--shadow);overflow:auto;max-height:85vh;-webkit-overflow-scrolling:touch}
+@media (min-width:1400px){.tablewrap{overflow:visible;max-height:none} thead th:first-child{border-top-left-radius:20px} thead th:last-child{border-top-right-radius:20px} tbody tr:last-child td:first-child{border-bottom-left-radius:20px} tbody tr:last-child td:last-child{border-bottom-right-radius:20px}}
+table{border-collapse:separate;border-spacing:0;width:100%;min-width:1340px;font-size:14px;table-layout:fixed}
+#main col.c-prov{width:200px} #main col.c-gb{width:100px} #main col.c-h100{width:150px} #main col.c-5090{width:135px} #main col.c-ada{width:130px} #main col.c-pro{width:130px} #main col.c-av{width:195px} #main col.c-note{width:auto}
+thead th{position:sticky;top:0;z-index:3;background:var(--text-1);color:#fff;text-align:left;font-weight:600;padding:12px 12px;font-size:13px;white-space:normal;vertical-align:top;border-bottom:1px solid #000}
+thead th .hs{display:block;font-weight:400;color:#C7C7CC;font-size:11px;margin-top:2px}
+thead th.sortable{cursor:pointer;user-select:none}
+thead th.sortable:hover{background:#2C2C2E}
+thead th.sortable::after{content:"↕";opacity:.5;margin-left:6px;font-size:11px}
+thead th.sortable.asc::after{content:"↑";opacity:1} thead th.sortable.desc::after{content:"↓";opacity:1}
+tbody td{padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:top;background:var(--surface)}
+tbody tr:last-child td{border-bottom:0}
+tbody tr:hover td{background:#FAFAFA}
+td.prov{position:sticky;left:0;z-index:2;font-weight:600;box-shadow:1px 0 0 var(--border)}
+td.prov a{color:var(--text-1);font-weight:700}
+td.prov a:hover{color:var(--blue)}
+thead th:first-child{position:sticky;left:0;z-index:4}
+.price{display:block;font-weight:600;font-variant-numeric:tabular-nums;white-space:nowrap}
+.sub{display:block;font-size:12px;font-weight:400;color:var(--text-2);margin-top:3px;line-height:1.4}
+.sub.muted{color:var(--text-3)}
+td.ok{background:var(--ok-bg)!important;box-shadow:inset 0 0 0 1px var(--ok-border)}
+td.ok .price{color:var(--ok-text)}
+td.na{color:var(--text-3)} td.req{color:var(--text-2);font-style:italic}
+td.avail{color:var(--text-2);font-size:12.5px}
+td.note{color:var(--text-2);font-size:12.5px}
+tr.baseline td{background:#F5F5F7!important;border-bottom:2px solid var(--text-1)}
+tr.baseline .price{font-weight:800;font-size:15px}
+tr.hidden{display:none}
+.count{font-size:13px;color:var(--text-3);margin:10px 0 0}
+.recs{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.rec{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:22px 24px;box-shadow:var(--shadow);transition:box-shadow .2s,transform .2s}
+.rec:hover{transform:translateY(-2px);box-shadow:var(--shadow-hover)}
+.rec h3{margin:0 0 4px;font-size:20px;letter-spacing:-.01em}
+.rec .tag{display:inline-block;font-size:12px;font-weight:600;border-radius:6px;padding:3px 8px;margin-bottom:12px}
+.rec .tag.ok{background:var(--ok-bg);color:var(--ok-text)} .rec .tag.no{background:#F5F5F7;color:var(--text-2)}
+.rec ol{margin:0;padding-left:20px;color:var(--text-1);font-size:15px}
+.rec li{margin:0 0 10px} .rec li b{font-weight:600} .rec li span{color:var(--text-2)}
+.rec .why{margin:12px 0 0;font-size:14px;color:var(--text-2);border-top:1px solid var(--border);padding-top:12px}
+.small-table{background:var(--surface);border:1px solid var(--border);border-radius:20px;box-shadow:var(--shadow);overflow:auto}
+.small-table table{min-width:760px;table-layout:auto} .small-table td.prov{position:static}
+.tips{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.tip{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:20px 22px;box-shadow:var(--shadow);font-size:15px;color:var(--text-2)}
+.tip .n{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:8px;background:var(--text-1);color:#fff;font-weight:700;font-size:14px;margin-bottom:10px}
+.tip b{color:var(--text-1);display:block;margin-bottom:4px}
+.sources{columns:2;column-gap:32px;font-size:14px;margin:0;padding-left:18px}
+.sources li{break-inside:avoid;margin:0 0 6px}
+footer{padding:40px 0 60px;color:var(--text-3);font-size:13px}
+.reveal{opacity:1;transform:none}
+.js-anim .reveal{opacity:0;transform:translateY(16px)}
+.js-anim .reveal.shown{opacity:1;transform:none;transition:opacity .5s ease-out,transform .5s ease-out}
+@media (prefers-reduced-motion:reduce){.js-anim .reveal{opacity:1;transform:none;transition:none} .card,.rec,.chip{transition:none}}
+@media (max-width:1024px){.bento{grid-template-columns:repeat(2,1fr)} .card.span2{grid-column:span 2} .tips{grid-template-columns:1fr 1fr} .sources{columns:1}}
+@media (max-width:700px){.kv{grid-template-columns:1fr auto} .kv .up{grid-column:1/-1;margin:-4px 0 6px;color:var(--text-2);font-weight:500} .hero{padding:44px 0 28px} .bento,.recs,.tips{grid-template-columns:1fr} .card.span2{grid-column:auto} .tablewrap{max-height:none;border-radius:14px} #main col.c-prov{width:170px}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="eyebrow">Задача VSE-35 · обновление анализа · 21 сентября 2026</p>
+    <h1>Аренда GPU для ML: <span>45 хостеров</span> против бейслайна</h1>
+    <p class="lead">Кроме vast.ai, RunPod и Lambda. Четыре карты из задачи — GB200, H100, RTX 5090, RTX 6000 Ada — плюс новые площадки вроде Modal. Цены сняты 21.09.2026 со страниц провайдеров и перепроверены по двум агрегаторам.</p>
+    <div class="pills">
+      <span class="pill"><b>45</b> провайдеров</span>
+      <span class="pill"><b>13</b> с ценой ниже бейслайна хотя бы по одной карте</span>
+      <span class="pill">RTX 5090 ≤ $0,75 — <b>11</b></span>
+      <span class="pill">RTX 6000 Ada ≤ $0,90 — <b>5</b></span>
+      <span class="pill">H100 ≤ $0,90 — <b>0</b> on-demand</span>
+      <span class="pill">GB200 ≤ $1,50 — <b>0</b></span>
+    </div>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <h2 class="reveal">Главное</h2>
+    <p class="sub-h reveal">Бейслайн из задачи ставился в марте. За полгода рынок сместился, и по двум картам из четырёх он больше не отражает реальность.</p>
+    <div class="bento">
+      <div class="card span2 reveal">
+        <h3>Рынок ушёл вверх: медианы on-demand на 21.09.2026</h3>
+        <div class="kv">
+          <span>H100 (54 провайдера)</span><b>$3,30</b><b class="up">бейслайн $0,90 — ×3,7</b>
+          <span>RTX 5090 (21 провайдер)</span><b>$0,68</b><b class="up">бейслайн $0,75 — реален</b>
+          <span>RTX 6000 Ada (18 провайдеров)</span><b>$0,86</b><b class="up">бейслайн $0,90 — реален</b>
+          <span>GB200 NVL72 (9 провайдеров)</span><b>$16,00</b><b class="up">бейслайн $1,50 — ×10,7</b>
+        </div>
+        <p style="margin-top:12px">Источник медиан — <a href="https://getdeploying.com/gpus/nvidia-h100" target="_blank" rel="noopener">getdeploying.com</a>, 21.09.2026. Hyperbolic за 10 недель весны поднял H100 с $1,50 до $3,19; SaladCloud 12.09 поднял цены на 5090 «из-за спроса».</p>
+      </div>
+      <div class="card reveal">
+        <h3>RTX 5090 — бейслайн бьётся легко</h3>
+        <div class="big">11<small>провайдеров ≤ $0,75</small></div>
+        <p>Самые низкие: HyperAI $0,35, SaladCloud $0,25–0,50, GPU.ai $0,43, GPUhub $0,46, Lium $0,50–0,69. Лучший по надёжности/цене — Lium (106 карт в наличии) и Nova Cloud (свой ДЦ, $0,66).</p>
+      </div>
+      <div class="card reveal">
+        <h3>RTX 6000 Ada — есть выбор, и есть замена</h3>
+        <div class="big">5<small>провайдеров ≤ $0,90</small></div>
+        <p>GPU.ai $0,65, Lium $0,70, TensorDock от $0,75, Massed Compute $0,79. Многие уже перешли на RTX PRO 6000 Blackwell (96 ГБ, быстрее): HyperAI $0,80, Verda spot $0,93, Nebius preemptible $0,95, Beam $1,09.</p>
+      </div>
+      <div class="card reveal">
+        <h3>H100 — бейслайн $0,90 недостижим</h3>
+        <div class="big">$1,30<small>минимум on-demand (Lium, PCIe)</small></div>
+        <p>Дальше Gcore ≈$2,60 (bare-metal), HyperAI $1,80, Beam $1,83, Voltage Park $1,99, Together preemptible $1,99. Около бейслайна только прерываемый spot: Prime Intellect $0,94, Lyceum $1,10, Verda $1,67.</p>
+      </div>
+      <div class="card reveal">
+        <h3>GB200 — только крупные игроки</h3>
+        <div class="big">$10,50<small>минимум за GPU-час (CoreWeave)</small></div>
+        <p>Публичные цены есть у пяти: CoreWeave $10,50, AWS $10,58 (резерв), Azure $11,90 (резерв 3 года) / $27,04 on-demand, Oracle $16. Nebius, Together, Crusoe, Cudo — по запросу. Бейслайн $1,50 ниже рынка в 7 раз.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap wide">
+    <h2 class="reveal">Сводная таблица</h2>
+    <p class="sub-h reveal">USD за 1 GPU-час, on-demand, если не сказано иное. Строка бейслайна закреплена сверху. Заголовки колонок с ценами кликабельны — сортировка. Для площадок с ценой ниже бейслайна указано наличие машин по данным на 21.09.</p>
+    <div class="legend reveal">
+      <span><i class="sw ok"></i>цена ≤ бейслайна</span>
+      <span><i class="sw"></i>выше бейслайна</span>
+      <span>«—» нет предложения · «по запросу» — публичной цены нет</span>
+    </div>
+    <div class="filters reveal" role="group" aria-label="Фильтр строк">
+      <button class="chip active" data-filter="all" type="button">Все (45)</button>
+      <button class="chip" data-filter="below" type="button">Дешевле бейслайна (13)</button>
+      <button class="chip" data-filter="has-h100" type="button">Есть H100</button>
+      <button class="chip" data-filter="has-r5090" type="button">Есть RTX 5090</button>
+      <button class="chip" data-filter="has-r6000ada" type="button">Есть RTX 6000 Ada</button>
+      <button class="chip" data-filter="has-gb200" type="button">GB200</button>
+    </div>
+    <div class="tablewrap reveal">
+      <table id="main">
+        <colgroup><col class="c-prov"><col class="c-gb"><col class="c-h100"><col class="c-5090"><col class="c-ada"><col class="c-pro"><col class="c-av"><col class="c-note"></colgroup>
+        <thead>
+          <tr>
+            <th>Провайдер<span class="hs">тип · регион</span></th>
+            <th class="sortable" data-col="1">GB200<span class="hs">NVL72, за 1 GPU</span></th>
+            <th class="sortable" data-col="2">H100<span class="hs">80 ГБ</span></th>
+            <th class="sortable" data-col="3">RTX 5090<span class="hs">32 ГБ</span></th>
+            <th class="sortable" data-col="4">RTX 6000 Ada<span class="hs">48 ГБ</span></th>
+            <th class="sortable" data-col="5">RTX PRO 6000<span class="hs">Blackwell 96 ГБ · справочно</span></th>
+            <th>Наличие<span class="hs">для цен ниже бейслайна</span></th>
+            <th>Примечание · источник</th>
+          </tr>
+        </thead>
+        <tbody>
+          
+<tr class="baseline" data-flags="baseline">
+  <td class="prov"><strong>Бейслайн</strong><span class="sub">целевая цена из задачи VSE-35</span></td>
+  <td data-v="1.5"><span class="price">$1,50</span></td>
+  <td data-v="0.9"><span class="price">$0,90</span></td>
+  <td data-v="0.75"><span class="price">$0,75</span></td>
+  <td data-v="0.9"><span class="price">$0,90</span></td>
+  <td class="na">—</td>
+  <td class="avail">—</td>
+  <td class="note">Зелёная ячейка = цена не выше бейслайна. Остальные — выше или нет предложения.</td>
+</tr>
+          
+<tr data-flags="below has-h100 has-r5090 has-r6000ada" data-below="2">
+  <td class="prov"><a href="https://lium.io/pricing" target="_blank" rel="noopener">Lium</a><span class="sub">Маркетплейс (Bittensor SN51), посекундно, SSH root</span><span class="sub muted">Операторы в 14 странах</span></td>
+  <td class="na" data-v="">—</td>
+  <td class="" data-v="1.3"><span class="price">$1,30–2,75</span><span class="sub">PCIe 1× от $1,30; SXM 8× $2,75</span></td>
+  <td class="ok" data-v="0.5"><span class="price">$0,50–0,69</span><span class="sub">8× $0,50; 1× от $0,59</span></td>
+  <td class="ok" data-v="0.7"><span class="price">$0,70–1,04</span></td>
+  <td class="na" data-v="">—</td>
+  <td class="avail">21.09: RTX 5090 — 20 подов · 106 GPU; RTX 6000 Ada — 14 подов · 16 GPU; H100 — 34 GPU HBM3 + 9 PCIe</td>
+  <td class="note">Цена — за весь под с локальным диском. Узлы независимых операторов: качество и сеть отличаются от пода к поду. Баланс на 15 минут аренды вперёд.<span class="sub muted">Источник: lium.io/pricing; getdeploying.com/lium</span></td>
+</tr>
+<tr data-flags="below has-h100 has-r5090 has-r6000ada" data-below="2">
+  <td class="prov"><a href="https://www.novita.ai/gpu-instance" target="_blank" rel="noopener">Novita AI</a><span class="sub">AI-облако</span><span class="sub muted">США · ЕС (Исландия) · Азия</span></td>
+  <td class="na" data-v="">—</td>
+  <td class="" data-v="3.39"><span class="price">$3,39</span><span class="sub">SXM</span></td>
+  <td class="ok" data-v="0.56"><span class="price">$0,56</span><span class="sub">spot $0,35</span></td>
+  <td class="ok" data-v="0.77"><span class="price">$0,77</span></td>
+  <td class="na" data-v="">—</td>
+  <td class="avail">21.09: все четыре позиции (H100, 5090, 6000 Ada, L40S) — нет в наличии</td>
+  <td class="note">В марте в старой таблице стояла H100 за $0,11 — это была ошибка. Хорошие цены на бумаге, но склад пустой.<span class="sub muted">Источник: computeprices.com/providers/novita; getdeploying (21.09)</span></td>
+</tr>
+<tr data-flags="below has-h100 has-r5090 has-r6000ada" data-below="2">
+  <td class="prov"><a href="https://gpu.ai/pricing" target="_blank" rel="noopener">GPU.ai</a><span class="sub">Агрегатор 12+ облаков без наценки, посекундно</span><span class="sub muted">США (партнёры — глобально)</span></td>
+  <td class="na" data-v="">—</td>
+  <td class="" data-v="3.49"><span class="price">$3,49</span><span class="sub">SXM по прайсу; PCIe от $1,98 по getdeploying</span></td>
+  <td class="ok" data-v="0.43"><span class="price">$0,43</span></td>
+  <td class="ok" data-v="0.65"><span class="price">$0,65</span></td>
+  <td class="na" data-v="">—</td>
+  <td class="avail">Маршрутизирует на самого дешёвого партнёра; счётчик не публикуется, 5090 и 6000 Ada — in stock (getdeploying, 21.09)</td>
+  <td class="note">Community-тир $0,43 — мощности независимых поставщиков; Secure-тир (проверенные ДЦ) $0,99 за 5090.<span class="sub muted">Источник: gpu.ai/pricing; gpu.ai/gpus/rtx-5090</span></td>
+</tr>
+<tr data-flags="below has-h100 has-r5090" data-below="1">
+  <td class="prov"><a href="https://hyper.ai/en/pricing" target="_blank" rel="noopener">HyperAI</a><span class="sub">GPU-облако</span><span class="sub muted">Юрлицо и ДЦ на сайте не раскрыты</span></td>
+  <td class="na" data-v="">—</td>
+  <td class="" data-v="1.8"><span class="price">$1,80</span></td>
+  <td class="ok" data-v="0.35"><span class="price">$0,35</span></td>
+  <td class="na" data-v="">—</td>
+  <td class="" data-v="0.8"><span class="price">$0,80</span></td>
+  <td class="avail">5090 — в наличии (getdeploying, 21.09); счётчик не публикуется</td>
+  <td class="note">Самая низкая цена на RTX 5090 и RTX PRO 6000. Есть Pro-подписка $4,99/мес = 30 ч RTX 5090. Перед оплатой уточнить юрисдикцию и регион ДЦ — на сайте этого нет.<span class="sub muted">Источник: hyper.ai/en/pricing</span></td>
+</tr>
+<tr data-flags="below has-h100 has-r5090" data-below="1">
+  <td class="prov"><a href="https://www.beam.cloud/pricing" target="_blank" rel="noopener">Beam</a><span class="sub">Serverless + on-demand VM, посекундно</span><span class="sub muted">США</span></td>
+  <td class="na" data-v="">—</td>
+  <td class="" data-v="1.83"><span class="price">$1,83</span><span class="sub">PCIe, on-demand; serverless $3,50</span></td>
+  <td class="ok" data-v="0.72"><span class="price">$0,72</span><span class="sub">serverless $1,09</span></td>
+  <td class="na" data-v="">—</td>
+  <td class="" data-v="1.09"><span class="price">$1,09</span></td>
+  <td class="avail">Не публикуется (getdeploying: «not reported»)</td>
+  <td class="note">RTX A6000 (не Ada) $0,54; H200 $2,09; B200 $4,11. Основан в 2021.<span class="sub muted">Источник: beam.cloud/pricing; getdeploying.com/beam</span></td>
+</tr>
+<tr data-flags="below has-h100 has-r6000ada" data-below="1">
+  <td class="prov"><a href="https://www.tensordock.com/" target="_blank" rel="noopener">TensorDock</a><span class="sub">Маркетплейс независимых хостов, посекундно</span><span class="sub muted">США, 100+ локаций</span></td>
+  <td class="na" data-v="">—</td>
+  <td class="" data-v="2.25"><span class="price">от $2,25</span><span class="sub">SXM5; getdeploying — $2,36</span></td>
+  <td class="na" data-v="">—</td>
+  <td class="ok" data-v="0.75"><span class="price">от $0,75</span><span class="sub">getdeploying — $0,86</span></td>
+  <td class="na" data-v="">—</td>
+  <td class="avail">«Сотни GPU», точных цифр нет</td>
+  <td class="note">RTX 5090 на прайсе нет. Депозит от $5, без квот. Цены задают хосты — колеблются.<span class="sub muted">Источник: tensordock.com/cloud-gpus.html; getdeploying.com/tensordock</span></td>
+</tr>
+<tr data-flags="below has-h100 has-r6000ada" data-below="1">
+  <td class="prov"><a href="https://vm.massedcompute.com/pricing" target="_blank" rel="noopener">Massed Compute</a><span class="sub">Свой ДЦ</span><span class="sub muted">США (Канзас)</span></td>
+  <td class="na" data-v="">—</td>
+  <td class="" data-v="2.73"><span class="price">$2,73</span><span class="sub">SXM5 $2,89; NVL 2× $5,84</span></td>
+  <td class="na" data-v="">—</td>
+  <td class="ok" data-v="0.79"><span class="price">$0,79</span></td>
+  <td class="" data-v="2.19"><span class="price">$2,19</span></td>
+  <td class="avail">RTX 6000 Ada — в наличии (getdeploying, 21.09)</td>
+  <td class="note">Только on-demand на сайте, резервов нет. RTX A6000 $0,57, L40S $0,97, A100 80 ГБ $1,35.<span class="sub muted">Источник: vm.massedcompute.com/pricing</span></td>
+</tr>
+<tr data-flags="below has-h100 has-r5090" data-below="1">
+  <td class="prov"><a href="https://www.databasemart.com/" target="_blank" rel="noopener">Database Mart</a><span class="sub">Выделенные серверы/VPS помесячно</span><span class="sub muted">США (Даллас, Канзас-Сити)</span></td>
+  <td class="na" data-v="">—</td>
+  <td class="" data-v="2.92"><span class="price">$2,92</span><span class="sub">контракт 24 мес</span></td>
+  <td class="ok" data-v="0.41"><span class="price">$0,41</span><span class="sub">контракт 24 мес</span></td>
+  <td class="na" data-v="">—</td>
+  <td class="" data-v="0.9"><span class="price">$0,90</span><span class="sub">контракт 24 мес</span></td>
+  <td class="avail">Не публикуется</td>
+  <td class="note">Цены — пересчёт месячной аренды при контракте 24 мес; на 1 мес заметно дороже. Windows/Linux, с 2005 г.<span class="sub muted">Источник: getdeploying.com/database-mart (21.09)</span></td>
+</tr>
+<tr data-flags="below has-r5090" data-below="1">
+  <td class="prov"><a href="https://salad.com/pricing/" target="_blank" rel="noopener">SaladCloud</a><span class="sub">Распределённые потребительские GPU (домашние ПК), только контейнеры</span><span class="sub muted">США, сеть — глобально</span></td>
+  <td class="na" data-v="">—</td>
+  <td class="na" data-v="">—</td>
+  <td class="ok" data-v="0.25"><span class="price">$0,25–0,50</span><span class="sub">Lowest $0,25 · Low $0,33 · Medium $0,42 · High $0,50</span></td>
+  <td class="na" data-v="">—</td>
+  <td class="na" data-v="">—</td>
+  <td class="avail">«Тысячи RTX-GPU»; точный счётчик не публикуется</td>
+  <td class="note">Прайс с 12.09.2026 (цены на 5090 подняли из-за спроса). Нет SSH/VM, узел может отвалиться — для батч-инференса и рендера, не для обучения. High-приоритет не вытесняется. H100/Ada нет.<span class="sub muted">Источник: blog.salad.com (12.09.2026); salad.com/pricing</span></td>
+</tr>
+<tr data-flags="below has-r5090" data-below="1">
+  <td class="prov"><a href="https://www.gpuhub.com/" target="_blank" rel="noopener">GPUhub</a><span class="sub">GPU-контейнеры, бесплатный egress</span><span class="sub muted">Сингапур (2 ДЦ)</span></td>
+  <td class="na" data-v="">—</td>
+  <td class="na" data-v="">—</td>
+  <td class="ok" data-v="0.46"><span class="price">$0,46</span></td>
+  <td class="na" data-v="">—</td>
+  <td class="" data-v="1.1"><span class="price">$1,10</span><span class="sub">PRO 6000D $0,97</span></td>
+  <td class="avail">Не публикуется</td>
+  <td class="note">50 ГБ диск бесплатно. Основан в 2024. Есть OpenAI-совместимый LLM-шлюз.<span class="sub muted">Источник: getdeploying.com/gpuhub (21.09)</span></td>
+</tr>
+<tr data-flags="below has-r5090 has-r6000ada" data-below="1">
+  <td class="prov"><a href="https://www.swissgpu.ch/" target="_blank" rel="noopener">SwissGPU</a><span class="sub">Bare-metal (физические машины), поминутно</span><span class="sub muted">Швейцария</span></td>
+  <td class="na" data-v="">—</td>
+  <td class="na" data-v="">—</td>
+  <td class="ok" data-v="0.61"><span class="price">CHF 0,50 ≈ $0,61</span><span class="sub">+ электричество CHF 0,30/кВт·ч отдельно</span></td>
+  <td class="" data-v="1.21"><span class="price">CHF 1,00 ≈ $1,21</span><span class="sub">+ электричество</span></td>
+  <td class="" data-v="1.82"><span class="price">CHF 1,50 ≈ $1,82</span><span class="sub">+ электричество</span></td>
+  <td class="avail">Не публикуется</td>
+  <td class="note">Оператор LongLink SAGL. Электричество считается сверх цены (CHF 0,30/кВт·ч — у 5090 под нагрузкой это ещё ~CHF 0,15–0,20/ч), переустановка ОС CHF 0,50. Оплата Stripe/TWINT. Курс CHF 1,2112.<span class="sub muted">Источник: swissgpu.ch/pricing</span></td>
+</tr>
+<tr data-flags="below has-r5090" data-below="1">
+  <td class="prov"><a href="https://nova-cloud.ai/" target="_blank" rel="noopener">Nova Cloud</a><span class="sub">Свой ДЦ, выделенные VM, посекундно</span><span class="sub muted">Канада</span></td>
+  <td class="na" data-v="">—</td>
+  <td class="na" data-v="">—</td>
+  <td class="ok" data-v="0.66"><span class="price">$0,66</span><span class="sub">spot $0,20 · резерв 6 мес $0,53</span></td>
+  <td class="na" data-v="">—</td>
+  <td class="" data-v="1.56"><span class="price">$1,56</span><span class="sub">нет в наличии; spot $0,30</span></td>
+  <td class="avail">RTX 5090 — в наличии, 40 конфигураций (21.09)</td>
+  <td class="note">Собственная площадка с 2018 г., без контрактов и минимального чека. Только 5090 и PRO 6000.<span class="sub muted">Источник: getdeploying.com/nova-cloud (21.09)</span></td>
+</tr>
+<tr data-flags="below has-r5090" data-below="1">
+  <td class="prov"><a href="https://hostkey.com/gpu-dedicated-servers/rtx-5090/" target="_blank" rel="noopener">HOSTKEY</a><span class="sub">Выделенные серверы, почасово и помесячно</span><span class="sub muted">Нидерланды · Франция · Исландия</span></td>
+  <td class="na" data-v="">—</td>
+  <td class="na" data-v="">—</td>
+  <td class="ok" data-v="0.72"><span class="price">€0,624 ≈ $0,72</span></td>
+  <td class="na" data-v="">—</td>
+  <td class="" data-v="2.54"><span class="price">от €2,22 ≈ $2,54</span></td>
+  <td class="avail">Не публикуется</td>
+  <td class="note">H100/A100 — по запросу через отдел продаж. Курс €1 = $1,146 (ЕЦБ, 18.09.2026).<span class="sub muted">Источник: hostkey.com (21.09)</span></td>
+</tr>
+<tr data-flags="has-h100" data-below="0">
+  <td class="prov"><a href="https://www.voltagepark.com/pricing" target="_blank" rel="noopener">Voltage Park</a><span class="sub">Свой парк H100, без контракта</span><span class="sub muted">США</span></td>
+  <td class="na" data-v="">—</td>
+  <td class="" data-v="1.99"><span class="price">от $1,99</span></td>
+  <td class="na" data-v="">—</td>
+  <td class="na" data-v="">—</td>
+  <td class="na" data-v="">—</td>
+  <td class="avail">On-demand 1–1016 H100; InfiniBand — от 8 GPU</td>
+  <td class="note">Остальные тарифы (InfiniBand, резерв 32–8000+ GPU) — по запросу. Только H100.<span class="sub muted">Источник: voltagepark.com/pricing</span></td>
+</tr>
+<tr data-flags="has-h100" data-below="0">
+  <td class="prov"><a href="https://www.vultr.com/pricing/" target="_blank" rel="noopener">Vultr</a><span class="sub">Облако</span><span class="sub muted">32 локации</span></td>
+  <td class="na" data-v="">—</td>
+  <td class="" data-v="2.3"><span class="price">$2,30</span><span class="sub">spot, 8×; нет в наличии</span></td>
+  <td class="na" data-v="">—</td>
+  <td class="na" data-v="">—</td>
+  <td class="na" data-v="">—</td>
+  <td class="avail">—</td>
+  <td class="note">On-demand H100 не листится; B200 spot $3,20 (нет в наличии), A100 spot $1,49.<span class="sub muted">Источник: getdeploying.com/vultr (21.09)</span></td>
+</tr>
+<tr data-flags="has-h100" data-below="0">
+  <td class="prov"><a href="https://www.primeintellect.ai/" target="_blank" rel="noopener">Prime Intellect</a><span class="sub">Агрегатор 50+ провайдеров + обучение</span><span class="sub muted">США (партнёры — глобально)</span></td>
+  <td class="na" data-v="">—</td>
+  <td class="" data-v="2.43"><span class="price">$2,43</span><span class="sub">spot $0,94 — почти бейслайн, но прерываемый</span></td>
+  <td class="na" data-v="">—</td>
+  <td class="na" data-v="">—</td>
+  <td class="" data-v="3.14"><span class="price">$3,14</span></td>
+  <td class="avail">21.09 на главной: H100 — 2 доступно</td>
+  <td class="note">B200 $3,49, H200 от $1,99 — агрегированные цены партнёров, меняются. Spot H100 за $0,94 — единственное, что близко к $0,90.<span class="sub muted">Источник: primeintellect.ai (главная, 21.09)</span></td>
+</tr>
+<tr data-flags="has-h100" data-below="0">
+  <td class="prov"><a href="https://www.hyperstack.cloud/gpu-pricing" target="_blank" rel="noopener">Hyperstack</a><span class="sub">AI-облако</span><span class="sub muted">Великобритания · ЕС</span></td>
+  <td class="na" data-v="">—</td>
+  <td class="" data-v="2.5"><span class="price">$2,50</span><span class="sub">SXM $3,20; spot PCIe $2,00; резерв от $1,75</span></td>
+  <td class="na" data-v="">—</td>
+  <td class="na" data-v="">—</td>
+  <td class="" data-v="1.85"><span class="price">$1,85</span><span class="sub">Server Edition; spot $1,48</span></td>
+  <td class="avail">—</td>
+  <td class="note">В старой таблице стояла H100 за $0,11 — ошибка. RTX A6000 (не Ada) $0,50, B200 $6,00.<span class="sub muted">Источник: hyperstack.cloud/gpu-pricing</span></td>
+</tr>
+<tr data-flags="has-h100" data-below="0">
+  <td class="prov"><a href="https://www.koyeb.com/pricing" target="_blank" rel="noopener">Koyeb</a><span class="sub">Serverless-платформа, посекундно</span><span class="sub muted">США · ЕС</span></td>
+  <td class="na" data-v="">—</td>
+  <td class="" data-v="2.5"><span class="price">$2,50</span></td>
+  <td class="na" data-v="">—</td>
+  <td class="na" data-v="">—</td>
+  <td class="" data-v="2.2"><span class="price">$2,20</span></td>
+  <td class="avail">—</td>
+  <td class="note">RTX A6000 $0,75, L40S $1,20, H200 $3,00. Pro-план $29/мес (включает $10 compute).<span class="sub muted">Источник: koyeb.com/pricing</span></td>
+</tr>
+<tr data-flags="has-h100" data-below="0">
+  <td class="prov"><a href="https://gcore.com/pricing/ai" target="_blank" rel="noopener">Gcore</a><span class="sub">Облако + bare-metal, 180+ точек</span><span class="sub muted">Люксембург; ДЦ по миру</span></td>
+  <td class="na" data-v="">—</td>
+  <td class="" data-v="2.6"><span class="price">€2,27–2,36 ≈ $2,60–2,70</span><span class="sub">bare-metal 8× / виртуальная GPU</span></td>
+  <td class="na" data-v="">—</td>
+  <td class="na" data-v="">—</td>
+  <td class="na" data-v="">—</td>
+  <td class="avail">—</td>
+  <td class="note">Everywhere Inference 1×H100 — €1,53/ч (≈$1,75): это managed-инференс, не VM. H200 €2,73, B300 €6,00, GB300 — по запросу. Курс €1 = $1,146.<span class="sub muted">Источник: gcore.com/pricing/ai; getdeploying.com/gcore</span></td>
+</tr>
+<tr data-flags="has-h100" data-below="0">
+  <td class="prov"><a href="https://jarvislabs.ai/pricing" target="_blank" rel="noopener">JarvisLabs</a><span class="sub">AI-облако, поминутно, pause/resume</span><span class="sub muted">Индия · США</span></td>
+  <td class="na" data-v="">—</td>
+  <td class="" data-v="2.69"><span class="price">$2,69</span><span class="sub">SXM; spot до −56 %</span></td>
+  <td class="na" data-v="">—</td>
+  <td class="na" data-v="">—</td>
+  <td class="" data-v="1.89"><span class="price">$1,89</span></td>
+  <td class="avail">—</td>
+  <td class="note">A100 80 ГБ $1,49, H200 $3,99. Скидка до 9 % за год.<span class="sub muted">Источник: jarvislabs.ai/pricing</span></td>
+</tr>
+<tr data-flags="has-h100" data-below="0">
+  <td class="prov"><a href="https://northflank.com/pricing" target="_blank" rel="noopener">Northflank</a><span class="sub">PaaS с GPU</span><span class="sub muted">США · ЕС</span></td>
+  <td class="na" data-v="">—</td>
+  <td class="" data-v="2.74"><span class="price">$2,74</span></td>
+  <td class="na" data-v="">—</td>
+  <td class="na" data-v="">—</td>
+  <td class="" data-v="3.0"><span class="price">$3,00</span></td>
+  <td class="avail">—</td>
+  <td class="note">A100 80 ГБ $1,76, L4 $0,80.<span class="sub muted">Источник: northflank.com/pricing</span></td>
+</tr>
+<tr data-flags="has-h100 has-r5090 has-r6000ada" data-below="0">
+  <td class="prov"><a href="https://www.sesterce.com/" target="_blank" rel="noopener">Sesterce</a><span class="sub">VM и bare-metal кластеры</span><span class="sub muted">Франция, 43 локации</span></td>
+  <td class="na" data-v="">—</td>
+  <td class="" data-v="2.75"><span class="price">$2,75</span></td>
+  <td class="" data-v="0.77"><span class="price">$0,77</span></td>
+  <td class="" data-v="1.07"><span class="price">$1,07</span></td>
+  <td class="na" data-v="">—</td>
+  <td class="avail">H100, 5090, 6000 Ada — в наличии (21.09)</td>
+  <td class="note">B200 $4,11, B300 $4,95 (нет в наличии). GB200 не листится.<span class="sub muted">Источник: getdeploying.com/sesterce (21.09)</span></td>
+</tr>
+<tr data-flags="has-h100 has-r5090 has-r6000ada" data-below="0">
+  <td class="prov"><a href="https://www.runcrate.ai/" target="_blank" rel="noopener">Runcrate</a><span class="sub">GPU-облако, посекундно + inference API</span><span class="sub muted">США</span></td>
+  <td class="na" data-v="">—</td>
+  <td class="" data-v="2.75"><span class="price">$2,75</span><span class="sub">SXM5</span></td>
+  <td class="" data-v="0.77"><span class="price">$0,77</span></td>
+  <td class="" data-v="1.07"><span class="price">$1,07</span></td>
+  <td class="" data-v="2.41"><span class="price">$2,41</span></td>
+  <td class="avail">Не требуется (нет цен ниже бейслайна)</td>
+  <td class="note">Основан в 2024. RTX A6000 $0,55, A100 SXM $1,49.<span class="sub muted">Источник: getdeploying.com/runcrate (21.09)</span></td>
+</tr>
+<tr data-flags="has-h100" data-below="0">
+  <td class="prov"><a href="https://www.lyceum.technology/" target="_blank" rel="noopener">Lyceum</a><span class="sub">EU-sovereign облако, посекундно, egress бесплатно</span><span class="sub muted">Германия · Финляндия · Нидерланды</span></td>
+  <td class="na" data-v="">—</td>
+  <td class="" data-v="2.79"><span class="price">$2,79</span><span class="sub">spot $1,10</span></td>
+  <td class="na" data-v="">—</td>
+  <td class="na" data-v="">—</td>
+  <td class="" data-v="1.99"><span class="price">$1,99</span><span class="sub">spot $0,99</span></td>
+  <td class="avail">—</td>
+  <td class="note">Основан в 2025. B200 $6,49, A100 $1,59. Домен lyceum.ai из старой таблицы продаётся — сайт lyceum.technology.<span class="sub muted">Источник: getdeploying.com/lyceum (21.09)</span></td>
+</tr>
+<tr data-flags="has-h100" data-below="0">
+  <td class="prov"><a href="https://www.civo.com/pricing" target="_blank" rel="noopener">Civo</a><span class="sub">K8s-облако</span><span class="sub muted">Великобритания · США</span></td>
+  <td class="na" data-v="">—</td>
+  <td class="" data-v="2.99"><span class="price">$2,99</span><span class="sub">SXM</span></td>
+  <td class="na" data-v="">—</td>
+  <td class="na" data-v="">—</td>
+  <td class="na" data-v="">—</td>
+  <td class="avail">—</td>
+  <td class="note">H200 $3,49, B300 8× $59,92. 5090/6000 Ada нет.<span class="sub muted">Источник: civo.com/pricing</span></td>
+</tr>
+<tr data-flags="has-h100" data-below="0">
+  <td class="prov"><a href="https://www.ovhcloud.com/en/public-cloud/prices/" target="_blank" rel="noopener">OVHcloud</a><span class="sub">Public Cloud</span><span class="sub muted">Франция · Канада · и др.</span></td>
+  <td class="na" data-v="">—</td>
+  <td class="" data-v="2.99"><span class="price">$2,99</span></td>
+  <td class="na" data-v="">—</td>
+  <td class="na" data-v="">—</td>
+  <td class="na" data-v="">—</td>
+  <td class="avail">—</td>
+  <td class="note">Цена по getdeploying (21.09); прайс OVH в EUR. Есть H200, L40S, L4.<span class="sub muted">Источник: getdeploying.com/gpus/nvidia-h100</span></td>
+</tr>
+<tr data-flags="has-h100" data-below="0">
+  <td class="prov"><a href="https://www.hyperbolic.ai/marketplace" target="_blank" rel="noopener">Hyperbolic</a><span class="sub">Маркетплейс, цены обновляются еженедельно</span><span class="sub muted">США</span></td>
+  <td class="na" data-v="">—</td>
+  <td class="" data-v="3.19"><span class="price">$3,19</span><span class="sub">SXM</span></td>
+  <td class="na" data-v="">—</td>
+  <td class="na" data-v="">—</td>
+  <td class="na" data-v="">—</td>
+  <td class="avail">—</td>
+  <td class="note">H200 $3,99, B200 $5,99. Весной 2026 H100 стоила $1,50 — за 10 недель выросла вдвое (Thunder Compute, 09.2026).<span class="sub muted">Источник: hyperbolic.ai/marketplace</span></td>
+</tr>
+<tr data-flags="has-h100" data-below="0">
+  <td class="prov"><a href="https://www.thundercompute.com/pricing" target="_blank" rel="noopener">Thunder Compute</a><span class="sub">GPU-облако для разработчиков, поминутно</span><span class="sub muted">США</span></td>
+  <td class="na" data-v="">—</td>
+  <td class="" data-v="3.2"><span class="price">$3,20</span><span class="sub">PCIe</span></td>
+  <td class="na" data-v="">—</td>
+  <td class="na" data-v="">—</td>
+  <td class="na" data-v="">—</td>
+  <td class="avail">—</td>
+  <td class="note">A100 80 ГБ $1,09 — одна из самых дешёвых A100. RTX A6000 $0,35.<span class="sub muted">Источник: thundercompute.com/pricing</span></td>
+</tr>
+<tr data-flags="has-h100" data-below="0">
+  <td class="prov"><a href="https://www.scaleway.com/en/pricing/gpu/" target="_blank" rel="noopener">Scaleway</a><span class="sub">Public Cloud</span><span class="sub muted">Франция (PAR-2)</span></td>
+  <td class="na" data-v="">—</td>
+  <td class="" data-v="3.29"><span class="price">$3,29</span><span class="sub">PCIe; SXM 2× $3,79</span></td>
+  <td class="na" data-v="">—</td>
+  <td class="na" data-v="">—</td>
+  <td class="na" data-v="">—</td>
+  <td class="avail">—</td>
+  <td class="note">B300 $8,60, L40S $1,68 (часто нет в наличии).<span class="sub muted">Источник: getdeploying.com/scaleway (21.09)</span></td>
+</tr>
+<tr data-flags="has-h100 has-r6000ada" data-below="0">
+  <td class="prov"><a href="https://verda.com/pricing" target="_blank" rel="noopener">Verda (ex-DataCrunch)</a><span class="sub">AI-облако, 100 % ВИЭ</span><span class="sub muted">Финляндия · Исландия</span></td>
+  <td class="na" data-v="">—</td>
+  <td class="" data-v="3.35"><span class="price">$3,35</span><span class="sub">SXM5; spot $1,67</span></td>
+  <td class="na" data-v="">—</td>
+  <td class="" data-v="1.1"><span class="price">$1,10</span><span class="sub">spot $0,55; 21.09 — нет в наличии</span></td>
+  <td class="" data-v="1.86"><span class="price">$1,86</span><span class="sub">spot $0,93</span></td>
+  <td class="avail">—</td>
+  <td class="note">Скидки 2 % (1 мес) … 25 % (2 года). B200 $6,49, H200 $4,37.<span class="sub muted">Источник: verda.com/pricing</span></td>
+</tr>
+<tr data-flags="has-h100" data-below="0">
+  <td class="prov"><a href="https://www.cerebrium.ai/pricing" target="_blank" rel="noopener">Cerebrium</a><span class="sub">Serverless, посекундно</span><span class="sub muted">США</span></td>
+  <td class="na" data-v="">—</td>
+  <td class="" data-v="3.4"><span class="price">$3,40</span><span class="sub">$0,000944/с</span></td>
+  <td class="na" data-v="">—</td>
+  <td class="na" data-v="">—</td>
+  <td class="" data-v="2.5"><span class="price">$2,50</span><span class="sub">$0,000694/с</span></td>
+  <td class="avail">—</td>
+  <td class="note">B200 $6,01, H200 $4,20. Hobby-план бесплатный, до 5 GPU одновременно.<span class="sub muted">Источник: cerebrium.ai/pricing</span></td>
+</tr>
+<tr data-flags="has-gb200 has-h100" data-below="0">
+  <td class="prov"><a href="https://nebius.com/prices" target="_blank" rel="noopener">Nebius</a><span class="sub">AI-облако (задача VSE-100)</span><span class="sub muted">Финляндия · Франция · США</span></td>
+  <td class="req" data-v="">по запросу</td>
+  <td class="" data-v="3.85"><span class="price">$3,85</span><span class="sub">preemptible $2,15</span></td>
+  <td class="na" data-v="">—</td>
+  <td class="na" data-v="">—</td>
+  <td class="" data-v="1.8"><span class="price">$1,80</span><span class="sub">preemptible $0,95</span></td>
+  <td class="avail">—</td>
+  <td class="note">Проверка по VSE-100: НЕ дёшево. On-demand H100 дороже медианы рынка ($3,30). Выгода только в preemptible-режиме и при резерве кластеров на месяцы (−35 %). B200 $7,15, H200 $4,50. Мин. платёж $25.<span class="sub muted">Источник: nebius.com/prices</span></td>
+</tr>
+<tr data-flags="has-gb200 has-h100" data-below="0">
+  <td class="prov"><a href="https://www.crusoe.ai/cloud/pricing" target="_blank" rel="noopener">Crusoe</a><span class="sub">AI-облако</span><span class="sub muted">США · Исландия</span></td>
+  <td class="req" data-v="">по запросу</td>
+  <td class="" data-v="3.9"><span class="price">$3,90</span><span class="sub">поминутно</span></td>
+  <td class="na" data-v="">—</td>
+  <td class="na" data-v="">—</td>
+  <td class="na" data-v="">—</td>
+  <td class="avail">—</td>
+  <td class="note">H200 $4,29, L40S $1,50. B200 и GB200 — только через продажи.<span class="sub muted">Источник: crusoe.ai/cloud/pricing</span></td>
+</tr>
+<tr data-flags="has-h100" data-below="0">
+  <td class="prov"><a href="https://modal.com/pricing" target="_blank" rel="noopener">Modal</a><span class="sub">Serverless (посекундно), автоскейл</span><span class="sub muted">США · ЕС</span></td>
+  <td class="na" data-v="">—</td>
+  <td class="" data-v="3.95"><span class="price">$3,95</span><span class="sub">$0,001097/с</span></td>
+  <td class="na" data-v="">—</td>
+  <td class="na" data-v="">—</td>
+  <td class="" data-v="3.03"><span class="price">$3,03</span><span class="sub">$0,000842/с</span></td>
+  <td class="avail">—</td>
+  <td class="note">Новый ресурс из запроса. RTX 5090 и 6000 Ada нет. $30/мес бесплатно (Team — $100). Платишь только за секунды выполнения — выгодно для инференса с простоями и батчей, невыгодно для непрерывного обучения 24/7. B200 $6,25, H200 $4,54, A100 80 ГБ $2,50.<span class="sub muted">Источник: modal.com/pricing</span></td>
+</tr>
+<tr data-flags="has-gb200 has-h100" data-below="0">
+  <td class="prov"><a href="https://www.together.ai/pricing" target="_blank" rel="noopener">Together AI</a><span class="sub">AI-облако, кластеры</span><span class="sub muted">США</span></td>
+  <td class="req" data-v="">по запросу</td>
+  <td class="" data-v="3.99"><span class="price">$3,99</span><span class="sub">preemptible $1,99; резерв 7–180 дн. $3,69→$3,19</span></td>
+  <td class="na" data-v="">—</td>
+  <td class="na" data-v="">—</td>
+  <td class="na" data-v="">—</td>
+  <td class="avail">—</td>
+  <td class="note">B200 $8,19 (preemptible $4,09). GB200/GB300 NVL72 — только через отдел продаж.<span class="sub muted">Источник: together.ai/pricing</span></td>
+</tr>
+<tr data-flags="has-h100 has-r6000ada" data-below="0">
+  <td class="prov"><a href="https://www.digitalocean.com/pricing/gpu-droplets" target="_blank" rel="noopener">DigitalOcean</a><span class="sub">Облако (GPU Droplets)</span><span class="sub muted">США · ЕС</span></td>
+  <td class="na" data-v="">—</td>
+  <td class="" data-v="4.41"><span class="price">$4,41</span><span class="sub">резерв 12 мес $3,26</span></td>
+  <td class="na" data-v="">—</td>
+  <td class="" data-v="1.57"><span class="price">$1,57</span></td>
+  <td class="na" data-v="">—</td>
+  <td class="avail">—</td>
+  <td class="note">Прайс с 01.08.2026. H200 $4,47, L40S $1,57, MI300X $2,59.<span class="sub muted">Источник: digitalocean.com/pricing/gpu-droplets</span></td>
+</tr>
+<tr data-flags="has-gb200 has-h100" data-below="0">
+  <td class="prov"><a href="https://www.coreweave.com/pricing" target="_blank" rel="noopener">CoreWeave</a><span class="sub">Неоклауд для крупных кластеров</span><span class="sub muted">США · ЕС</span></td>
+  <td class="" data-v="10.5"><span class="price">$10,50</span><span class="sub">инстанс 4 GPU — $42,00/ч</span></td>
+  <td class="" data-v="6.16"><span class="price">$6,16</span><span class="sub">HGX 8× — $49,24/ч</span></td>
+  <td class="na" data-v="">—</td>
+  <td class="na" data-v="">—</td>
+  <td class="" data-v="2.5"><span class="price">$2,50</span><span class="sub">8× — $20,00/ч</span></td>
+  <td class="avail">—</td>
+  <td class="note">Самый дешёвый публичный GB200 NVL72. B200 $8,60. В старой таблице «42» — это цена инстанса, не GPU.<span class="sub muted">Источник: coreweave.com/pricing</span></td>
+</tr>
+<tr data-flags="has-gb200 has-h100" data-below="0">
+  <td class="prov"><a href="https://aws.amazon.com/ec2/pricing/" target="_blank" rel="noopener">AWS</a><span class="sub">Гиперскейлер</span><span class="sub muted">Глобально</span></td>
+  <td class="" data-v="10.58"><span class="price">$10,58</span><span class="sub">резерв, 72× NVL72</span></td>
+  <td class="" data-v="6.88"><span class="price">$6,88</span><span class="sub">p5</span></td>
+  <td class="na" data-v="">—</td>
+  <td class="na" data-v="">—</td>
+  <td class="na" data-v="">—</td>
+  <td class="avail">—</td>
+  <td class="note">Цены по getdeploying (21.09).<span class="sub muted">Источник: getdeploying.com/gpus/nvidia-gb200</span></td>
+</tr>
+<tr data-flags="has-gb200 has-h100" data-below="0">
+  <td class="prov"><a href="https://azure.microsoft.com/pricing/" target="_blank" rel="noopener">Microsoft Azure</a><span class="sub">Гиперскейлер</span><span class="sub muted">Глобально</span></td>
+  <td class="" data-v="27.04"><span class="price">$27,04</span><span class="sub">резерв 36 мес — $11,90</span></td>
+  <td class="" data-v="6.98"><span class="price">$6,98</span><span class="sub">NVL</span></td>
+  <td class="na" data-v="">—</td>
+  <td class="na" data-v="">—</td>
+  <td class="na" data-v="">—</td>
+  <td class="avail">—</td>
+  <td class="note">Цены по getdeploying (21.09).<span class="sub muted">Источник: getdeploying.com/gpus/nvidia-gb200</span></td>
+</tr>
+<tr data-flags="has-gb200 has-h100" data-below="0">
+  <td class="prov"><a href="https://www.oracle.com/cloud/compute/pricing/" target="_blank" rel="noopener">Oracle Cloud</a><span class="sub">Гиперскейлер</span><span class="sub muted">Глобально</span></td>
+  <td class="" data-v="16.0"><span class="price">$16,00</span></td>
+  <td class="" data-v="10.0"><span class="price">$10,00</span></td>
+  <td class="na" data-v="">—</td>
+  <td class="na" data-v="">—</td>
+  <td class="na" data-v="">—</td>
+  <td class="avail">—</td>
+  <td class="note">B200 $14,00, H200 $10,00. Цены по getdeploying (21.09).<span class="sub muted">Источник: getdeploying.com/oracle-cloud</span></td>
+</tr>
+<tr data-flags="has-h100" data-below="0">
+  <td class="prov"><a href="https://cloud.google.com/compute/gpus-pricing" target="_blank" rel="noopener">Google Cloud</a><span class="sub">Гиперскейлер</span><span class="sub muted">Глобально</span></td>
+  <td class="na" data-v="">—</td>
+  <td class="" data-v="11.07"><span class="price">$11,07</span><span class="sub">a3</span></td>
+  <td class="na" data-v="">—</td>
+  <td class="na" data-v="">—</td>
+  <td class="na" data-v="">—</td>
+  <td class="avail">—</td>
+  <td class="note">GB200 публично не листится. Цена по getdeploying (21.09).<span class="sub muted">Источник: getdeploying.com/gpus/nvidia-h100</span></td>
+</tr>
+<tr data-flags="has-r5090" data-below="0">
+  <td class="prov"><a href="https://hostiko.network/" target="_blank" rel="noopener">Hostiko</a><span class="sub">VPS и GPU-серверы</span><span class="sub muted">Украина · Польша · Швеция</span></td>
+  <td class="na" data-v="">—</td>
+  <td class="na" data-v="">—</td>
+  <td class="" data-v="0.91"><span class="price">$0,91</span><span class="sub">резерв 1 мес — $0,61</span></td>
+  <td class="na" data-v="">—</td>
+  <td class="na" data-v="">—</td>
+  <td class="avail">14 конфигураций 5090</td>
+  <td class="note">On-demand выше бейслайна, но при оплате за месяц — $0,61/ч. Только RTX 5090.<span class="sub muted">Источник: getdeploying.com/hostiko (18.09)</span></td>
+</tr>
+<tr data-flags="has-r5090" data-below="0">
+  <td class="prov"><a href="https://cloudzy.com/" target="_blank" rel="noopener">Cloudzy</a><span class="sub">VPS/GPU VPS, почасово</span><span class="sub muted">ОАЭ, 13 локаций</span></td>
+  <td class="na" data-v="">—</td>
+  <td class="na" data-v="">—</td>
+  <td class="" data-v="1.49"><span class="price">$1,49</span><span class="sub">нет в наличии</span></td>
+  <td class="na" data-v="">—</td>
+  <td class="" data-v="1.93"><span class="price">$1,93</span></td>
+  <td class="avail">—</td>
+  <td class="note">RTX 5090 и A100 — out of stock на 21.09.<span class="sub muted">Источник: getdeploying.com/cloudzy (21.09)</span></td>
+</tr>
+<tr data-flags="" data-below="0">
+  <td class="prov"><a href="https://www.hetzner.com/dedicated-rootserver/gex131/" target="_blank" rel="noopener">Hetzner</a><span class="sub">Выделенный сервер GEX131, помесячно/почасово</span><span class="sub muted">Германия · Финляндия</span></td>
+  <td class="na" data-v="">—</td>
+  <td class="na" data-v="">—</td>
+  <td class="na" data-v="">—</td>
+  <td class="na" data-v="">—</td>
+  <td class="" data-v="1.585"><span class="price">$1,585</span><span class="sub">$989/мес, без setup-платежа</span></td>
+  <td class="avail">Не публикуется</td>
+  <td class="note">RTX PRO 6000 Blackwell Max-Q 96 ГБ + Xeon Gold 5412U + 256 ГБ RAM. Пресс-релиз 11.12.2025: €889 / $989 в месяц, €1,4247 / $1,585 в час. RTX 6000 Ada у Hetzner нет.<span class="sub muted">Источник: hetzner.com/pressroom/new-gex131</span></td>
+</tr>
+<tr data-flags="has-gb200 has-h100" data-below="0">
+  <td class="prov"><a href="https://www.cudocompute.com/pricing" target="_blank" rel="noopener">Cudo Compute</a><span class="sub">Распределённое облако</span><span class="sub muted">Глобально</span></td>
+  <td class="req" data-v="">по запросу</td>
+  <td class="req" data-v="">по запросу</td>
+  <td class="na" data-v="">—</td>
+  <td class="na" data-v="">—</td>
+  <td class="na" data-v="">—</td>
+  <td class="avail">—</td>
+  <td class="note">На странице цен всё «Quote on request» — H100 PCIe/SXM, H200, B200, B300, GB200 NVL72. В старой таблице стояла H100 за $0,29 — публично такой цены нет.<span class="sub muted">Источник: cudocompute.com/pricing</span></td>
+</tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="count" id="count">Показано 45 из 45</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2 class="reveal">Дёшево и качественно — что брать по каждой карте</h2>
+    <p class="sub-h reveal">«Качественно» здесь — свои ДЦ или проверенные площадки, SSH/VM, посекундная оплата, карты реально в наличии. Порядок внутри карточки — рекомендация.</p>
+    <div class="recs">
+      <div class="rec reveal">
+        <h3>RTX 5090</h3><span class="tag ok">бейслайн $0,75 — достижим</span>
+        <ol>
+          <li><b>Lium — $0,50–0,69.</b> <span>106 карт в наличии, SSH root, посекундно, без минималки. Минус — узлы независимых операторов, стоит проверить сеть конкретного пода.</span></li>
+          <li><b>Nova Cloud — $0,66.</b> <span>Свой ДЦ в Канаде, выделенная VM, spot $0,20, резерв на 6 мес $0,53. Самый «спокойный» вариант.</span></li>
+          <li><b>HyperAI — $0,35.</b> <span>Самая низкая цена, но юрлицо и расположение ДЦ не раскрыты. Годится для теста на малые суммы.</span></li>
+          <li><b>SaladCloud — $0,25–0,50.</b> <span>Только контейнеры на домашних ПК: для батч-инференса и рендера, не для обучения.</span></li>
+        </ol>
+        <p class="why">Ещё в бейслайне: GPU.ai $0,43 (агрегатор), GPUhub $0,46 (Сингапур), SwissGPU ≈$0,61 + электричество, Beam $0,72, HOSTKEY ≈$0,72 (NL/FR/IS). Novita $0,56 — нет в наличии. Hostiko $0,61 только при оплате за месяц.</p>
+      </div>
+      <div class="rec reveal">
+        <h3>RTX 6000 Ada</h3><span class="tag ok">бейслайн $0,90 — достижим</span>
+        <ol>
+          <li><b>Massed Compute — $0,79.</b> <span>Свой ДЦ в США, в наличии. Наиболее предсказуемый вариант.</span></li>
+          <li><b>Lium — $0,70–1,04.</b> <span>16 карт в наличии, посекундно.</span></li>
+          <li><b>GPU.ai — $0,65.</b> <span>Агрегатор без наценки, роутит на самого дешёвого партнёра.</span></li>
+          <li><b>TensorDock — от $0,75.</b> <span>Маркетплейс, цена зависит от хоста.</span></li>
+        </ol>
+        <p class="why">Стоит рассмотреть RTX PRO 6000 Blackwell (96 ГБ, вдвое больше памяти и быстрее): HyperAI $0,80, Verda $1,86 (spot $0,93), Nebius $1,80 (preemptible $0,95), Beam $1,09, Hetzner $1,585 при помесячной аренде ($989/мес). Если задача упирается в VRAM — это дешевле, чем две Ada.</p>
+      </div>
+      <div class="rec reveal">
+        <h3>H100</h3><span class="tag no">бейслайн $0,90 — нет on-demand ни у кого</span>
+        <ol>
+          <li><b>Lium — от $1,30 (PCIe).</b> <span>Ближе всех к бейслайну; 9 PCIe и 34 SXM-карты в наличии. SXM 8× — $2,75.</span></li>
+          <li><b>Voltage Park — от $1,99.</b> <span>Свой парк H100: от 1 до 1016 карт on-demand без контракта, резерв — до 8000+. Для серьёзной нагрузки — самый надёжный из дешёвых.</span></li>
+          <li><b>Beam — $1,83 (PCIe).</b> <span>On-demand VM, США.</span></li>
+          <li><b>Together AI — $1,99 preemptible.</b> <span>Кластерный режим, может быть прерван.</span></li>
+        </ol>
+        <p class="why">Если нагрузка переживает прерывания — spot: Prime Intellect $0,94, Lyceum $1,10, Verda $1,67, Hyperstack $2,00. Nebius ($3,85, preemptible $2,15) и Modal ($3,95) — дороже медианы рынка. HyperAI $1,80 — с оговоркой про юрисдикцию.</p>
+      </div>
+      <div class="rec reveal">
+        <h3>GB200 NVL72</h3><span class="tag no">бейслайн $1,50 — ниже рынка в 7 раз</span>
+        <ol>
+          <li><b>CoreWeave — $10,50 за GPU-час.</b> <span>Инстанс из 4 GPU (2 суперчипа) — $42/ч. Единственный неоклауд с публичной ценой.</span></li>
+          <li><b>AWS — $10,58</b> <span>только резерв на полную стойку 72 GPU.</span></li>
+          <li><b>Azure — $11,90</b> <span>резерв на 36 мес; on-demand $27,04.</span></li>
+          <li><b>Oracle — $16,00.</b></li>
+        </ol>
+        <p class="why">По запросу: Nebius, Together AI, Crusoe, Cudo, Gcore (GB300). Если цель — просто дешёвая Blackwell-мощность, а не именно NVL72: B200 от $3,49 (Prime Intellect), $4,11 (Beam/Sesterce), $5,50 (Koyeb), $5,98 (RunPod), $6,25 (Modal).</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2 class="reveal">Modal и другие serverless-платформы</h2>
+    <p class="sub-h reveal">Это другой класс сервиса: платишь за секунды выполнения кода, контейнер поднимается по запросу и автоматически масштабируется. Цена за час у них выше, чем у аренды VM, но при простоях 70–90 % итоговый счёт ниже.</p>
+    <div class="small-table reveal">
+      <table>
+        <thead><tr><th>Платформа</th><th>H100</th><th>RTX PRO 6000</th><th>B200</th><th>Модель оплаты · бесплатный лимит</th></tr></thead>
+        <tbody>
+          <tr><td class="prov"><a href="https://modal.com/pricing" target="_blank" rel="noopener">Modal</a></td><td>$3,95</td><td>$3,03</td><td>$6,25</td><td class="note">Посекундно; $30/мес бесплатно (Team — $100 при $250/мес). 5090 и Ada нет. Сильная сторона — быстрый холодный старт и Python-first SDK.</td></tr>
+          <tr><td class="prov"><a href="https://www.beam.cloud/pricing" target="_blank" rel="noopener">Beam</a></td><td>$3,50 serverless / $1,83 VM</td><td>$1,09 (VM)</td><td>$4,11</td><td class="note">Есть оба режима — serverless и обычные VM; в VM-режиме одни из самых низких цен.</td></tr>
+          <tr><td class="prov"><a href="https://www.cerebrium.ai/pricing" target="_blank" rel="noopener">Cerebrium</a></td><td>$3,40</td><td>$2,50</td><td>$6,01</td><td class="note">Посекундно; Hobby-план бесплатный, до 5 GPU. Хранилище $0,05/ГБ/мес (100 ГБ бесплатно).</td></tr>
+          <tr><td class="prov"><a href="https://www.koyeb.com/pricing" target="_blank" rel="noopener">Koyeb</a></td><td>$2,50</td><td>$2,20</td><td>$5,50</td><td class="note">Посекундно; Pro $29/мес включает $10 compute. Дешевле Modal на H100 на 37 %.</td></tr>
+          <tr><td class="prov"><a href="https://northflank.com/pricing" target="_blank" rel="noopener">Northflank</a></td><td>$2,74</td><td>$3,00</td><td>—</td><td class="note">PaaS с GPU-контейнерами; A100 80 ГБ $1,76.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2 class="reveal">Ориентиры: vast.ai, RunPod, Lambda</h2>
+    <p class="sub-h reveal">Исключены из задачи, но нужны как точка отсчёта — именно с ними сравнивают все остальные.</p>
+    <div class="small-table reveal">
+      <table>
+        <thead><tr><th>Площадка</th><th>H100</th><th>RTX 5090</th><th>RTX 6000 Ada</th><th>Примечание</th></tr></thead>
+        <tbody>
+<tr>
+  <td class="prov"><a href="https://vast.ai/pricing" target="_blank" rel="noopener">Vast.ai</a></td>
+  <td>$1,73 (SXM) · spot $0,35</td><td>$0,40 · spot $0,26</td><td>$0,49 · spot $0,27</td>
+  <td class="note">Маркетплейс; getdeploying 21.09. Сам сайт живых цен без JS не отдаёт.</td>
+</tr>
+<tr>
+  <td class="prov"><a href="https://www.runpod.io/pricing" target="_blank" rel="noopener">RunPod</a></td>
+  <td>$1,99 PCIe / $2,69 SXM (Community) · Secure $2,89 / $3,49</td><td>$0,69 · Secure $0,99</td><td>$0,74 · Secure $0,84</td>
+  <td class="note">Прайс от 13.09.2026. RTX PRO 6000 $1,69, B200 $5,98.</td>
+</tr>
+<tr>
+  <td class="prov"><a href="https://lambda.ai/pricing" target="_blank" rel="noopener">Lambda</a></td>
+  <td>$3,29 PCIe / $3,99–4,29 SXM</td><td>—</td><td>—</td>
+  <td class="note">Только серверные карты. B200 $6,69–6,99, GH200 $2,29. Резерв — по запросу.</td>
+</tr></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2 class="reveal">Что учесть перед выбором</h2>
+    <div class="tips">
+      <div class="tip reveal"><span class="n">1</span><b>Цена ≠ счёт</b>Маркетплейсы (Lium, TensorDock, GPU.ai) показывают «от»: реальная цена зависит от узла. Диски, egress и электричество (SwissGPU) считаются отдельно.</div>
+      <div class="tip reveal"><span class="n">2</span><b>Spot и preemptible — не для обучения без чекпоинтов</b>Prime Intellect $0,94 и Lyceum $1,10 за H100 выглядят как бейслайн, но машину могут забрать в любой момент.</div>
+      <div class="tip reveal"><span class="n">3</span><b>Наличие важнее прайса</b>Novita и Cloudzy показывают хорошие цены при пустом складе. Перед закупкой смотреть счётчик у Lium или писать в поддержку.</div>
+      <div class="tip reveal"><span class="n">4</span><b>Юрисдикция</b>HyperAI не раскрывает юрлицо и ДЦ; SaladCloud — домашние ПК; Hostiko — Украина/Польша/Швеция. Для чувствительных данных — Verda, Lyceum, Hetzner, Nova Cloud, Massed Compute.</div>
+      <div class="tip reveal"><span class="n">5</span><b>Бейслайн по H100 и GB200 стоит пересмотреть</b>Реалистичные ориентиры на сентябрь 2026: H100 — $1,30–2,00 on-demand, GB200 — $10–12 за GPU-час.</div>
+      <div class="tip reveal"><span class="n">6</span><b>Цены живые</b>У маркетплейсов цена меняется ежедневно, у облаков — раз в 1–3 месяца (DigitalOcean 01.08, SaladCloud 12.09, RunPod 13.09). Таблицу стоит обновлять раз в квартал.</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2 class="reveal">Методика и источники</h2>
+    <p class="sub-h reveal">Цены сняты 21.09.2026. Для каждого провайдера — сначала его страница цен; где страница не отдаёт данные без JS (Gcore, OVH, Vast, Hetzner-конфигуратор), взяты сводки агрегаторов getdeploying.com и computeprices.com с датой обновления 18–21.09.2026 — это указано в колонке «источник». Цены в EUR и CHF переведены по курсу ЕЦБ на 18.09.2026 (€1 = $1,146; CHF 1 = $1,2112). Все цены без НДС, за 1 GPU-час; для инстансов из нескольких карт цена поделена на число GPU.</p>
+    <div class="card reveal" style="margin-bottom:16px">
+      <h3>Исправления к старой таблице (март 2026)</h3>
+      <p>Hyperstack и Novita «H100 за $0,11», Cudo «$0,29», Lyceum «$0,39» — таких публичных цен нет ни сейчас, ни в архивах прайсов; CoreWeave GB200 «42» — это цена инстанса из 4 GPU ($10,50 за GPU). Домен lyceum.ai продаётся, рабочий сайт — lyceum.technology. Задача VSE-100 (Nebius): on-demand H100 $3,85 — дороже медианы рынка, дёшево только в preemptible ($2,15).</p>
+    </div>
+    <ol class="sources reveal"><li><a href="https://getdeploying.com/gpus/nvidia-h100" target="_blank" rel="noopener">getdeploying.com — сводки по GPU (H100, RTX 5090, RTX 6000 Ada, GB200), 21.09.2026</a></li><li><a href="https://computeprices.com/gpu" target="_blank" rel="noopener">computeprices.com — средние и диапазоны по 47 провайдерам</a></li><li><a href="https://modal.com/pricing" target="_blank" rel="noopener">Modal — pricing</a></li><li><a href="https://nebius.com/prices" target="_blank" rel="noopener">Nebius — prices</a></li><li><a href="https://hyper.ai/en/pricing" target="_blank" rel="noopener">HyperAI — pricing</a></li><li><a href="https://lium.io/pricing" target="_blank" rel="noopener">Lium — pricing (наличие подов)</a></li><li><a href="https://gpu.ai/pricing" target="_blank" rel="noopener">GPU.ai — pricing</a></li><li><a href="https://blog.salad.com/saladcloud-price-changes-september-2026/" target="_blank" rel="noopener">SaladCloud — изменение цен с 12.09.2026</a></li><li><a href="https://www.beam.cloud/pricing" target="_blank" rel="noopener">Beam — pricing</a></li><li><a href="https://vm.massedcompute.com/pricing" target="_blank" rel="noopener">Massed Compute — pricing</a></li><li><a href="https://www.tensordock.com/cloud-gpus.html" target="_blank" rel="noopener">TensorDock — cloud GPUs</a></li><li><a href="https://www.swissgpu.ch/pricing" target="_blank" rel="noopener">SwissGPU — pricing (CHF, электричество отдельно)</a></li><li><a href="https://hostkey.com/gpu-dedicated-servers/rtx-5090/" target="_blank" rel="noopener">HOSTKEY — RTX 5090</a></li><li><a href="https://www.hetzner.com/pressroom/new-gex131/" target="_blank" rel="noopener">Hetzner — пресс-релиз GEX131</a></li><li><a href="https://www.voltagepark.com/pricing" target="_blank" rel="noopener">Voltage Park — pricing</a></li><li><a href="https://www.together.ai/pricing" target="_blank" rel="noopener">Together AI — pricing</a></li><li><a href="https://gcore.com/pricing/ai" target="_blank" rel="noopener">Gcore — AI pricing (EUR)</a></li><li><a href="https://www.hyperstack.cloud/gpu-pricing" target="_blank" rel="noopener">Hyperstack — GPU pricing</a></li><li><a href="https://verda.com/pricing" target="_blank" rel="noopener">Verda — pricing</a></li><li><a href="https://www.crusoe.ai/cloud/pricing" target="_blank" rel="noopener">Crusoe — pricing</a></li><li><a href="https://www.coreweave.com/pricing" target="_blank" rel="noopener">CoreWeave — pricing</a></li><li><a href="https://www.digitalocean.com/pricing/gpu-droplets" target="_blank" rel="noopener">DigitalOcean — GPU Droplets</a></li><li><a href="https://www.koyeb.com/pricing" target="_blank" rel="noopener">Koyeb — pricing</a></li><li><a href="https://www.cerebrium.ai/pricing" target="_blank" rel="noopener">Cerebrium — pricing</a></li><li><a href="https://northflank.com/pricing" target="_blank" rel="noopener">Northflank — pricing</a></li><li><a href="https://jarvislabs.ai/pricing" target="_blank" rel="noopener">JarvisLabs — pricing</a></li><li><a href="https://www.civo.com/pricing" target="_blank" rel="noopener">Civo — pricing</a></li><li><a href="https://www.thundercompute.com/pricing" target="_blank" rel="noopener">Thunder Compute — pricing</a></li><li><a href="https://www.hyperbolic.ai/marketplace" target="_blank" rel="noopener">Hyperbolic — marketplace</a></li><li><a href="https://www.primeintellect.ai/" target="_blank" rel="noopener">Prime Intellect — главная (цены на 21.09)</a></li><li><a href="https://www.runpod.io/pricing" target="_blank" rel="noopener">RunPod — pricing (13.09.2026)</a></li><li><a href="https://lambda.ai/pricing" target="_blank" rel="noopener">Lambda — pricing</a></li><li><a href="https://api.frankfurter.dev/v1/latest?base=EUR&amp;symbols=USD" target="_blank" rel="noopener">Курсы ЕЦБ через frankfurter.dev (18.09.2026): €1 = $1,146; CHF 1 = $1,2112</a></li></ol>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">Обновление анализа по задаче VSE-35 · собрано 21.09.2026 · 45 провайдеров · цены могут измениться — перед закупкой проверять на сайте площадки.</div>
+</footer>
+
+<script>
+(function(){
+  // --- фильтры ---
+  var rows=[].slice.call(document.querySelectorAll('#main tbody tr:not(.baseline)'));
+  var chips=[].slice.call(document.querySelectorAll('.chip'));
+  var count=document.getElementById('count');
+  function apply(f){
+    var n=0;
+    rows.forEach(function(r){
+      var ok=(f==='all')||((' '+r.getAttribute('data-flags')+' ').indexOf(' '+f+' ')>=0);
+      r.classList.toggle('hidden',!ok); if(ok)n++;
+    });
+    count.textContent='Показано '+n+' из '+rows.length;
+  }
+  chips.forEach(function(c){c.addEventListener('click',function(){
+    chips.forEach(function(x){x.classList.remove('active')}); c.classList.add('active'); apply(c.getAttribute('data-filter'));
+  })});
+  // --- сортировка ---
+  var tbody=document.querySelector('#main tbody'), base=tbody.querySelector('tr.baseline');
+  var ths=[].slice.call(document.querySelectorAll('#main th.sortable'));
+  ths.forEach(function(th){th.addEventListener('click',function(){
+    var col=+th.getAttribute('data-col'); var dir=th.classList.contains('asc')?'desc':'asc';
+    ths.forEach(function(t){t.classList.remove('asc','desc')}); th.classList.add(dir);
+    var sorted=rows.slice().sort(function(a,b){
+      var va=a.children[col].getAttribute('data-v'), vb=b.children[col].getAttribute('data-v');
+      var na=va===''?Infinity:parseFloat(va), nb=vb===''?Infinity:parseFloat(vb);
+      if(na===nb) return 0; if(na===Infinity) return 1; if(nb===Infinity) return -1;
+      return dir==='asc'?na-nb:nb-na;
+    });
+    sorted.forEach(function(r){tbody.appendChild(r)});
+  })});
+})();
+</script>
+<script type="module">
+  // Появление секций при скролле (Framer Motion / motion). Контент виден и без него.
+  const els=[...document.querySelectorAll('.reveal')];
+  const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const showAll=()=>els.forEach(e=>e.classList.add('shown'));
+  if(reduced){showAll();} else {
+    let done=false;
+    const t=setTimeout(()=>{if(!done)showAll();},3000);
+    try{
+      const {animate,inView,stagger}=await import('https://cdn.jsdelivr.net/npm/motion@11/+esm');
+      done=true; clearTimeout(t);
+      els.forEach(e=>e.classList.add('shown'));
+      document.querySelectorAll('section').forEach(sec=>{
+        const items=[...sec.querySelectorAll('.reveal')];
+        items.forEach(i=>{i.style.opacity='0';i.style.transform='translateY(16px)';});
+        inView(sec,()=>{animate(items,{opacity:[0,1],y:[16,0]},{duration:.55,delay:stagger(.06),easing:[.22,1,.36,1]});},{margin:'-10% 0px'});
+      });
+      // страховка: всё, что через 4 с осталось скрытым, показать принудительно
+      setTimeout(()=>els.forEach(e=>{if(getComputedStyle(e).opacity==='0'){e.style.opacity='';e.style.transform='';}}),4000);
+    }catch(err){
+      // CDN недоступен: нативный IntersectionObserver, тайм-аут 3 с остаётся страховкой
+      if('IntersectionObserver' in window){
+        const io=new IntersectionObserver(en=>en.forEach(x=>{if(x.isIntersecting){x.target.classList.add('shown');io.unobserve(x.target);}}),{rootMargin:'0px 0px -8% 0px'});
+        els.forEach(e=>io.observe(e));
+      } else showAll();
+    }
+  }
+</script>
+</body>
+</html>
