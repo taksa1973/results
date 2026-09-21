@@ -55,11 +55,12 @@ test('миграция 003 приводит старую базу к новой 
   const migrated = new DatabaseSync(':memory:');
   migrated.exec(oldSchema);
   migrated.exec(fs.readFileSync(path.join(root, 'migrations', '003_time_kpi.sql'), 'utf8'));
+  migrated.exec(fs.readFileSync(path.join(root, 'migrations', '004_month_scores.sql'), 'utf8'));
 
   const clean = new DatabaseSync(':memory:');
   clean.exec(fs.readFileSync(path.join(root, 'schema.sql'), 'utf8'));
 
-  for (const t of ['users', 'tasks', 'sla', 'bonus_matrix', 'reviews', 'quarter_results']) {
+  for (const t of ['users', 'tasks', 'sla', 'bonus_matrix', 'reviews', 'quarter_results', 'month_scores']) {
     assert.deepEqual(columnsOf(migrated, t), columnsOf(clean, t), `таблица ${t}`);
   }
   const cnt = (db, sql) => db.prepare(sql).get().n;
@@ -69,6 +70,9 @@ test('миграция 003 приводит старую базу к новой 
   assert.equal(cnt(clean, 'SELECT count(*) AS n FROM sla'), 6);
   assert.equal(
     migrated.prepare("SELECT value FROM settings WHERE key = 'overplan_percent'").get().value, '120'
+  );
+  assert.equal(
+    migrated.prepare("SELECT value FROM settings WHERE key = 'lead_kpi_max'").get().value, '50000'
   );
 });
 
@@ -112,6 +116,9 @@ async function freshEnv() {
   task('ksu', 2, 1, 3);          // t2s2 = 1, t2f2 = 3
   task('ksu', 3, 2, null, { status: 'in_progress' });  // t2s3 = 2, t2f3 нет
   task('ksu', 1, 0.5, 1, { is_zaeb: 1 });               // заёб — не считается
+  // руководитель сам закрыл две простых задачи ровно в план
+  task('lead', 1, 2, 4);
+  task('lead', 1, 2, 4);
 
   const env = { DB: new D1Like(sqlite), TG_SECRET: 'x', HOOK_SECRET: 'x' };
   const call = async (who, method, p, body) => {
@@ -126,49 +133,108 @@ async function freshEnv() {
   return { sqlite, env, call };
 }
 
-test('доска: KPI руководителя — результат отдела, люди — срезы', async () => {
+test('KPI руководителя за месяц: среднее оценок отдела вместе с ним', async () => {
   const { call } = await freshEnv();
   await call('lead', 'POST', '/kpi/sla', {
     quarter: '2026-Q3',
     values: { t2s1: 2, t2s2: 4, t2s3: 8, t2f1: 4, t2f2: 16, t2f3: 40 },
   });
 
-  const { status, body } = await call('chief', 'GET', '/kpi/board?quarter=2026-Q3');
+  const { status, body } = await call('chief', 'GET', '/kpi/board?period=2026-08');
   assert.equal(status, 200);
-  assert.deepEqual(body.months, ['2026-07', '2026-08', '2026-09']);
+  assert.equal(body.period, '2026-08');
+  assert.equal(body.quarter, '2026-Q3');
+  assert.equal(body.lead.max, 50000);
 
-  // руководитель: грейд 4, оклад 100 000 → квартал 300 000
-  assert.equal(body.lead.name, 'Ярослав');
-  assert.equal(body.lead.grade, 4);
-  assert.equal(body.lead.salaryQuarter, 300000);
-  assert.ok(body.lead.quarter.markAuto, 'система предложила оценку');
-  assert.ok(body.lead.bonus.percent > 0, 'премия по матрице для грейда 4');
+  // руководитель: две задачи ровно в план → 100 % → 10
+  assert.equal(body.lead.own.auto, 10);
+  assert.equal(body.lead.own.score, 10);
 
-  // его метрики — по всем задачам отдела: уровень 2 — Катя 4 ч и Ксюша 1 ч → 2.5
-  const aug = body.lead.months.find((m) => m.period === '2026-08');
-  assert.equal(aug.metrics.t2s2, 2.5);
-  assert.equal(aug.metrics.t2f2, 7.5);
-  assert.equal(aug.count, 5, 'все задачи отдела кроме заёба');
-  assert.equal(aug.tasks.length, 5);
-
-  // срезы по людям — только метрики, без премий и оценок
-  assert.equal(body.people.length, 2);
+  // Катя: t2s1 200, t2f1 133, t2s2 100, t2f2 133 → 141 % → кап 10
   const kate = body.people.find((p) => p.name === 'Екатерина');
-  assert.equal(kate.bonus, undefined);
-  assert.equal(kate.mark, undefined);
-  const kAug = kate.months.find((m) => m.period === '2026-08');
-  assert.equal(kAug.metrics.t2s1, 1);
-  assert.equal(kAug.metrics.t2f2, 12);
-  assert.equal(kAug.percents.t2f2, 133, 'план 16 / факт 12');
+  assert.equal(kate.auto, 10);
+  assert.equal(kate.manual, null);
+  // Ксюша: t2s2 400, t2f2 533→200 кап, t2s3 400→200 → 200 → 10
   const ksu = body.people.find((p) => p.name === 'Ксения');
-  const sAug = ksu.months.find((m) => m.period === '2026-08');
-  assert.equal(sAug.metrics.t2s3, 2, 'взятие в работу засчитано, хотя задача открыта');
-  assert.equal(sAug.metrics.t2f3, null, 'незакрытая задача не портит завершение');
+  assert.equal(ksu.auto, 10);
+
+  assert.equal(body.lead.score, 10);
+  assert.equal(body.lead.bonus, 50000, 'все на десять — максимум');
+  assert.equal(body.lead.counted, 3);
+
+  // срезы для графиков остались
+  assert.ok(Array.isArray(kate.months) && kate.months.length === 3);
+  assert.ok(Array.isArray(body.lead.months) && body.lead.months.length === 3);
+});
+
+test('оценка руками перебивает автоматическую: он на 10, сотрудник на 5 — семь с половиной', async () => {
+  const { call } = await freshEnv();
+  // оставляем в отделе одну Катю: Ксюшу выключаем
+  await call('chief', 'POST', '/admin/users', { id: 'ksu', name: 'Ксения', role: 'assistant', salary: 80000, active: false });
+
+  const denied = await call('kate', 'POST', '/kpi/score', { user_id: 'kate', period: '2026-08', manual: 10 });
+  assert.equal(denied.status, 403, 'себе оценку ассистент не ставит');
+
+  const r = await call('lead', 'POST', '/kpi/score', { user_id: 'kate', period: '2026-08', manual: 5, note: 'много переделок' });
+  assert.equal(r.status, 200);
+  assert.equal(r.body.leadScore, 7.5, '(10 + 5) / 2');
+  assert.equal(r.body.leadBonus, 37500, '50 000 × 7,5 / 10');
+
+  const { body } = await call('lead', 'GET', '/kpi/board?period=2026-08');
+  const kate = body.people.find((p) => p.name === 'Екатерина');
+  assert.equal(kate.manual, 5);
+  assert.equal(kate.auto, 10, 'автоматическая видна рядом');
+  assert.equal(kate.score, 5);
+  assert.equal(kate.note, 'много переделок');
+  assert.equal(body.lead.score, 7.5);
+  assert.equal(body.lead.bonus, 37500);
+
+  // Катя на 6 — как в реальной оценке
+  await call('lead', 'POST', '/kpi/score', { user_id: 'kate', period: '2026-08', manual: 6 });
+  const b2 = await call('lead', 'GET', '/kpi/board?period=2026-08');
+  assert.equal(b2.body.lead.score, 8);
+  assert.equal(b2.body.lead.bonus, 40000);
+
+  // снять ручную — снова автоматическая
+  await call('lead', 'POST', '/kpi/score', { user_id: 'kate', period: '2026-08', manual: null });
+  const b3 = await call('lead', 'GET', '/kpi/board?period=2026-08');
+  assert.equal(b3.body.people.find((p) => p.name === 'Екатерина').score, 10);
+});
+
+test('оценку руководителю ставит только владелец', async () => {
+  const { call } = await freshEnv();
+  const byLead = await call('lead', 'POST', '/kpi/score', { user_id: 'lead', period: '2026-08', manual: 10 });
+  assert.equal(byLead.status, 403);
+
+  const byChief = await call('chief', 'POST', '/kpi/score', { user_id: 'lead', period: '2026-08', manual: 7, note: 'сроки плыли' });
+  assert.equal(byChief.status, 200);
+  const { body } = await call('chief', 'GET', '/kpi/board?period=2026-08');
+  assert.equal(body.lead.own.manual, 7);
+  assert.equal(body.lead.own.score, 7);
+  assert.equal(body.lead.score, 9, '(7 + 10 + 10) / 3');
+  assert.equal(body.lead.bonus, 45000);
+
+  const bad = await call('chief', 'POST', '/kpi/score', { user_id: 'lead', period: '2026-08', manual: 11 });
+  assert.equal(bad.status, 400);
+});
+
+test('месяц без задач и без ручной оценки в среднее не входит', async () => {
+  const { call } = await freshEnv();
+  const { body } = await call('chief', 'GET', '/kpi/board?period=2026-07');
+  assert.equal(body.lead.own.auto, null);
+  assert.equal(body.lead.score, null);
+  assert.equal(body.lead.bonus, 0);
+  assert.equal(body.lead.counted, 0);
+
+  await call('chief', 'POST', '/kpi/score', { user_id: 'lead', period: '2026-07', manual: 8 });
+  const b2 = await call('chief', 'GET', '/kpi/board?period=2026-07');
+  assert.equal(b2.body.lead.score, 8, 'только одна оценка — она и среднее');
+  assert.equal(b2.body.lead.counted, 1);
 });
 
 test('ассистенту доска закрыта, отзыв о руководителе — открыт', async () => {
   const { call } = await freshEnv();
-  const denied = await call('kate', 'GET', '/kpi/board?quarter=2026-Q3');
+  const denied = await call('kate', 'GET', '/kpi/board?period=2026-08');
   assert.equal(denied.status, 403);
 
   const mine = await call('kate', 'GET', '/kpi/my-review?quarter=2026-Q3');
@@ -213,7 +279,7 @@ test('отзывы о руководителе: три источника, ви�
   const again = await call('lead', 'POST', '/kpi/reviews', { quarter: q, text: 'Дополнил', mark: 'plus2' });
   assert.equal(again.body.updated, true);
 
-  const { body } = await call('chief', 'GET', `/kpi/board?quarter=${q}`);
+  const { body } = await call('chief', 'GET', `/kpi/board?period=2026-08`);
   assert.equal(body.lead.reviews.length, 3);
   assert.deepEqual(body.lead.reviews.map((r) => r.kind).sort(), ['chief', 'peer', 'self']);
   assert.equal(body.lead.reviews.find((r) => r.kind === 'self').text, 'Дополнил');
@@ -226,36 +292,23 @@ test('отзывы о руководителе: три источника, ви�
   assert.equal(ok.status, 200);
 });
 
-test('квартал закрывает владелец: премия руководителю по матрице', async () => {
+test('квартал закрывает владелец — аттестация без денег', async () => {
   const { call } = await freshEnv();
   const q = '2026-Q3';
-  await call('lead', 'POST', '/kpi/sla', {
-    quarter: q, values: { t2s1: 2, t2s2: 4, t2s3: 8, t2f1: 4, t2f2: 16, t2f3: 40 },
-  });
-
   const byLead = await call('lead', 'POST', '/kpi/quarter/close', { quarter: q, mark: 'plus4' });
   assert.equal(byLead.status, 403, 'сам себе квартал не закрывает');
 
-  // грейд 4, оклад 100 000 → квартал 300 000; «+++» у грейда 4 = 18 %
   const closed = await call('chief', 'POST', '/kpi/quarter/close', { quarter: q, mark: 'plus3', note: 'хороший квартал' });
   assert.equal(closed.status, 200);
-  assert.equal(closed.body.bonus.percent, 18);
-  assert.equal(closed.body.bonus.sum, 54000);
+  assert.equal(closed.body.bonus, undefined, 'денег за квартал нет — премия месячная');
 
-  const { body } = await call('lead', 'GET', `/kpi/board?quarter=${q}`);
+  const { body } = await call('lead', 'GET', `/kpi/board?period=2026-08`);
   assert.equal(body.lead.result.mark, 'plus3');
-  assert.equal(body.lead.result.bonus_sum, 54000);
-  assert.equal(body.lead.mark, 'plus3', 'после закрытия доска показывает итоговую оценку');
+  assert.equal(body.lead.result.bonus_sum, null);
   assert.ok(body.lead.result.closed_at);
 
-  // грейд 2 премии не даёт вовсе
-  await call('chief', 'POST', '/admin/users', { id: 'lead', name: 'Ярослав', role: 'lead', grade_num: 2, salary: 100000 });
-  const low = await call('chief', 'POST', '/kpi/quarter/close', { quarter: q, mark: 'plus4' });
-  assert.equal(low.body.bonus.percent, 0);
-
-  // переоткрыть — итог исчезает
   await call('chief', 'POST', '/kpi/quarter/reopen', { quarter: q });
-  const after = await call('chief', 'GET', `/kpi/board?quarter=${q}`);
+  const after = await call('chief', 'GET', `/kpi/board?period=2026-08`);
   assert.equal(after.body.lead.result, null);
 });
 
@@ -286,7 +339,7 @@ test('уровень задачи можно поправить руками', a
   assert.equal(row.level, 3);
   assert.equal(row.level_src, 'manual');
 
-  const { body } = await call('lead', 'GET', '/kpi/board?quarter=2026-Q3');
+  const { body } = await call('lead', 'GET', '/kpi/board?period=2026-08');
   const kate = body.people.find((p) => p.name === 'Екатерина');
   const aug = kate.months.find((m) => m.period === '2026-08');
   assert.equal(aug.metrics.t2s3, 1, 'задача ушла на третий уровень');
@@ -340,6 +393,8 @@ test('месячная сводка в личку строится по моде
     assert.equal(sent.length, 1, 'одно сообщение');
     const text = sent[0].text;
     assert.match(text, /Итоги 2026-08/);
+    assert.match(text, /KPI руководителя/);
+    assert.match(text, /из 50.000/);
     assert.match(text, /Отдел/);
     assert.match(text, /Екатерина/);
     assert.match(text, /до старта:/);

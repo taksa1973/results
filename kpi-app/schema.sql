@@ -1,6 +1,7 @@
 -- KPI отдела ассистентов. Cloudflare D1.
 -- Применить: npx wrangler d1 execute kpi --file=schema.sql --remote
 
+DROP TABLE IF EXISTS month_scores;
 DROP TABLE IF EXISTS quarter_results;
 DROP TABLE IF EXISTS reviews;
 DROP TABLE IF EXISTS bonus_matrix;
@@ -144,6 +145,18 @@ CREATE TABLE quarter_results (
   note           TEXT,
   closed_at      TEXT,
   PRIMARY KEY (user_id, quarter)
+);
+
+-- Ежемесячная оценка 0–10 руками. NULL — берётся автоматическая из модели
+-- времени. KPI руководителя — среднее оценок отдела вместе с его собственной.
+CREATE TABLE month_scores (
+  user_id  TEXT NOT NULL REFERENCES users(id),
+  period   TEXT NOT NULL,
+  manual   REAL,
+  note     TEXT,
+  actor    TEXT,
+  at       TEXT,
+  PRIMARY KEY (user_id, period)
 );
 
 -- ── Лог событий: на нём держится вся прозрачность ────────────────────────────
@@ -361,6 +374,8 @@ INSERT INTO settings (key, value) VALUES
 -- ── Стартовые данные модели времени ─────────────────────────────────────────
 -- С какого процента закрытия плана начинается «сверхплан» (оценка ++++).
 INSERT INTO settings (key, value) VALUES ('overplan_percent', '120');
+-- Максимальная месячная премия руководителя отдела, ₽
+INSERT INTO settings (key, value) VALUES ('lead_kpi_max', '50000');
 
 -- Матрица премий. Грейды 1 и 2 премии не дают.
 INSERT INTO bonus_matrix (grade, mark, percent) VALUES

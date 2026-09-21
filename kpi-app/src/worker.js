@@ -479,6 +479,77 @@ async function quarterBonus(db, grade, mark, salaryQuarter) {
   return { percent, sum: Math.round(((salaryQuarter || 0) * percent) / 100) };
 }
 
+// ─────────────────────────────────────────────────────────────────────────────
+// Ежемесячная оценка 0–10 и KPI руководителя отдела.
+//
+// Оценка каждого выводится из модели времени — процент плана за месяц.
+// Руководитель может поправить её руками, и ручная важнее: «Катя — шесть,
+// не больше». KPI руководителя — среднее оценок отдела вместе с его
+// собственной: он на десять, сотрудник на пять — итого семь с половиной.
+// Премия месяца — доля от максимума (50 000 ₽), заёбы и экономия отдельно.
+// ─────────────────────────────────────────────────────────────────────────────
+
+/** Процент плана в оценку: 60 % → 6, 100 % и выше → 10. */
+function scoreFromPercent(percent) {
+  if (percent === null || percent === undefined) return null;
+  return Math.round(Math.min(10, Math.max(0, percent / 10)) * 10) / 10;
+}
+
+/** Оценка человека за месяц: автоматическая, а поставленная руками — важнее. */
+async function monthScore(db, user, period, settings, sla) {
+  const month = await monthMetrics(db, user.id, period, settings, sla);
+  const auto = scoreFromPercent(month.avgPercent);
+  const row = await db
+    .prepare('SELECT manual, note, actor, at FROM month_scores WHERE user_id = ? AND period = ?')
+    .bind(user.id, period)
+    .first();
+  const manual = row && row.manual !== null && row.manual !== undefined ? Number(row.manual) : null;
+  return {
+    auto,
+    manual,
+    score: manual ?? auto,
+    note: row?.note || null,
+    actor: row?.actor || null,
+    at: row?.at || null,
+    month,
+  };
+}
+
+/**
+ * KPI руководителя за месяц. Человек без оценки — ни задач, ни ручной —
+ * в среднее не входит: месяц без работы не должен ни тянуть вниз, ни дарить.
+ */
+async function leadKpi(db, lead, period, settings) {
+  const sla = await loadSla(db, quarterOf(period));
+  const { results: people } = await db
+    .prepare("SELECT * FROM users WHERE role = 'assistant' AND active = 1 ORDER BY name")
+    .all();
+
+  const rows = [];
+  for (const p of people) {
+    const sc = await monthScore(db, p, period, settings, sla);
+    rows.push({ id: p.id, name: p.name, ...sc });
+  }
+  const own = await monthScore(db, lead, period, settings, sla);
+
+  const scores = [own.score, ...rows.map((r) => r.score)].filter((v) => v !== null && v !== undefined);
+  const score = scores.length
+    ? Math.round((scores.reduce((a, b) => a + b, 0) / scores.length) * 10) / 10
+    : null;
+  const max = num(settings, 'lead_kpi_max', 50000);
+
+  return {
+    period,
+    own,
+    people: rows,
+    score,
+    counted: scores.length,
+    max,
+    bonus: score === null ? 0 : Math.round((max * score) / 10),
+    sla,
+  };
+}
+
 const round2 = (n) => Math.round(n * 100) / 100;
 const pct = (n) => `${Math.round(n * 1000) / 10} %`;
 
@@ -1140,7 +1211,10 @@ async function handleApi(request, env, url) {
 async function handleKpiApi(request, db, path, url, me, settings) {
   const isBoss = ['lead', 'chief'].includes(me.role);
   const tz = num(settings, 'tz_offset', 3);
-  const quarter = url.searchParams.get('quarter') || quarterOf(currentPeriod(tz));
+  // KPI считается по месяцам; квартал — для отзывов и аттестации
+  const period = url.searchParams.get('period') || currentPeriod(tz);
+  if (!/^\d{4}-\d{2}$/.test(period)) return bad('месяц в виде 2026-09');
+  const quarter = url.searchParams.get('quarter') || quarterOf(period);
   if (!/^\d{4}-Q[1-4]$/.test(quarter)) return bad('квартал в виде 2026-Q3');
 
   // Руководитель отдела — тот, о ком вся модель. Один активный.
@@ -1200,12 +1274,24 @@ async function handleKpiApi(request, db, path, url, me, settings) {
 
   if (!isBoss) return bad('нет доступа', 403);
 
-  // ── Доска: KPI руководителя, срезы по людям, нормы ──────────────────────
+  // ── Доска: KPI руководителя за месяц, оценки людей, срезы ───────────────
   if (path === '/board' && request.method === 'GET') {
-    const sla = await loadSla(db, quarter);
+    const kpi = await leadKpi(db, lead, period, settings);
 
-    // Результат отдела — и есть результат руководителя
+    // Графики и раскрываемые месяцы — по кварталу, в который входит месяц
     const team = await quarterMetrics(db, null, quarter, settings);
+    const { results: assistants } = await db
+      .prepare("SELECT id, name, yougile_id, tg_username FROM users WHERE role = 'assistant' AND active = 1 ORDER BY name")
+      .all();
+    const slices = [];
+    for (const p of assistants) {
+      const q = await quarterMetrics(db, p.id, quarter, settings);
+      slices.push({ id: p.id, name: p.name, quarter: { metrics: q.metrics, percents: q.percents, avgPercent: q.avgPercent }, months: q.months });
+    }
+    const ownQ = await quarterMetrics(db, lead.id, quarter, settings);
+
+    // Аттестация за квартал: отзывы и оценка владельца. Денег здесь нет —
+    // премия месячная.
     const result = await db
       .prepare('SELECT * FROM quarter_results WHERE user_id = ? AND quarter = ?')
       .bind(lead.id, quarter)
@@ -1219,46 +1305,67 @@ async function handleKpiApi(request, db, path, url, me, settings) {
       .bind(lead.id, quarter)
       .all();
 
-    const mark = result?.mark || team.markAuto;
-    const salaryQuarter = (lead.salary || 0) * 3;
-    const bonus = await quarterBonus(db, lead.grade_num, mark, salaryQuarter);
-
-    // Срезы по людям — только метрики: премии по этой модели у них нет
-    const { results: people } = await db
-      .prepare(
-        `SELECT id, name, yougile_id, tg_username FROM users
-         WHERE role = 'assistant' AND active = 1 ORDER BY name`
-      )
-      .all();
-    const rows = [];
-    for (const p of people) {
-      const q = await quarterMetrics(db, p.id, quarter, settings);
-      rows.push({
-        id: p.id, name: p.name,
-        access: { yougile: Boolean(p.yougile_id), telegram: Boolean(p.tg_username) },
-        quarter: { metrics: q.metrics, percents: q.percents, avgPercent: q.avgPercent },
-        months: q.months,
-      });
-    }
+    const strip = (sc) => ({
+      auto: sc.auto, manual: sc.manual, score: sc.score, note: sc.note, actor: sc.actor, at: sc.at,
+      avgPercent: sc.month.avgPercent, tasks: sc.month.count, metrics: sc.month.metrics, percents: sc.month.percents,
+    });
 
     return json({
+      period,
       quarter,
       months: monthsOfQuarter(quarter),
-      sla,
+      sla: kpi.sla,
       overplan: num(settings, 'overplan_percent', 120),
       marks: MARKS.map((m) => ({ id: m, label: MARK_LABEL[m] })),
       lead: {
-        id: lead.id, name: lead.name, grade: lead.grade_num,
-        salary: lead.salary || 0, salaryQuarter,
+        id: lead.id, name: lead.name,
+        own: strip(kpi.own),
+        score: kpi.score, counted: kpi.counted, max: kpi.max, bonus: kpi.bonus,
         quarter: { metrics: team.metrics, percents: team.percents, avgPercent: team.avgPercent, markAuto: team.markAuto },
         months: team.months,
-        mark, bonus,
+        ownQuarter: { metrics: ownQ.metrics, percents: ownQ.percents, avgPercent: ownQ.avgPercent },
+        ownMonths: ownQ.months,
         result: result || null,
         reviews,
       },
-      people: rows,
+      people: kpi.people.map((r) => ({
+        id: r.id, name: r.name, ...strip(r),
+        ...(slices.find((x) => x.id === r.id) || {}),
+      })),
       me: { id: me.id, role: me.role },
     });
+  }
+
+  // ── Оценка руками ──────────────────────────────────────────────────────────
+  // Руководитель отдела ставит ассистентам, владелец — всем, включая
+  // руководителя. Сам себе руководитель оценку не ставит.
+  if (path === '/score' && request.method === 'POST') {
+    const b = await request.json().catch(() => ({}));
+    const p = b.period || period;
+    if (!/^\d{4}-\d{2}$/.test(p)) return bad('месяц в виде 2026-09');
+    const target = await db.prepare('SELECT id, name, role FROM users WHERE id = ? AND active = 1').bind(b.user_id).first();
+    if (!target) return bad('человек не найден', 404);
+    if (target.role === 'chief') return bad('владельцу оценка не ставится');
+    if (target.role === 'lead' && me.role !== 'chief') return bad('оценку руководителю ставит владелец', 403);
+    if (target.role === 'assistant' && !isBoss) return bad('нет доступа', 403);
+
+    const manual = b.manual === null || b.manual === undefined || b.manual === '' ? null : Number(b.manual);
+    if (manual !== null && !(manual >= 0 && manual <= 10)) return bad('оценка от 0 до 10');
+
+    await db
+      .prepare(
+        `INSERT INTO month_scores (user_id, period, manual, note, actor, at) VALUES (?,?,?,?,?,?)
+         ON CONFLICT(user_id, period) DO UPDATE SET
+           manual = excluded.manual, note = excluded.note, actor = excluded.actor, at = excluded.at`
+      )
+      .bind(target.id, p, manual, b.note || null, me.name, nowIso())
+      .run();
+    await logEvent(db, {
+      userId: target.id, type: 'manual', actor: me.name, source: 'manual',
+      note: manual === null ? `оценка за ${p} снята, снова автоматическая` : `оценка за ${p}: ${manual}${b.note ? ` — ${b.note}` : ''}`,
+    });
+    const kpi = await leadKpi(db, lead, p, settings);
+    return json({ ok: true, manual, leadScore: kpi.score, leadBonus: kpi.bonus });
   }
 
   // ── Нормы (SLA) ────────────────────────────────────────────────────────────
@@ -1312,9 +1419,9 @@ async function handleKpiApi(request, db, path, url, me, settings) {
     return json({ ok: true });
   }
 
-  // ── Итог квартала — ставит владелец ────────────────────────────────────────
-  // Смотрит на процент плана и отзывы, выбирает оценку. После закрытия
-  // цифры замораживаются: пересинхронизация задач их не тронет.
+  // ── Итог квартала — аттестация, ставит владелец ────────────────────────────
+  // Оценка −…++++ по проценту плана и отзывам. Денег за ней нет — премия
+  // считается помесячно; это ориентир для пересмотра норм и грейда.
   if (path === '/quarter/close' && request.method === 'POST') {
     if (me.role !== 'chief') return bad('квартал закрывает владелец', 403);
     const b = await request.json().catch(() => ({}));
@@ -1323,9 +1430,6 @@ async function handleKpiApi(request, db, path, url, me, settings) {
     if (!MARKS.includes(b.mark)) return bad('нужна итоговая оценка');
 
     const m = await quarterMetrics(db, null, q, settings);
-    const salaryQuarter = (lead.salary || 0) * 3;
-    const bonus = await quarterBonus(db, lead.grade_num, b.mark, salaryQuarter);
-
     await db
       .prepare(
         `INSERT OR REPLACE INTO quarter_results
@@ -1333,10 +1437,10 @@ async function handleKpiApi(request, db, path, url, me, settings) {
           bonus_percent, bonus_sum, note, closed_at)
          VALUES (?,?,?,?,?,?,?,?,?,?,?)`
       )
-      .bind(lead.id, q, m.avgPercent, b.mark, m.markAuto, lead.grade_num, salaryQuarter,
-            bonus.percent, bonus.sum, b.note || null, nowIso())
+      .bind(lead.id, q, m.avgPercent, b.mark, m.markAuto, lead.grade_num, null, null, null,
+            b.note || null, nowIso())
       .run();
-    return json({ ok: true, mark: b.mark, markAuto: m.markAuto, planPercent: m.avgPercent, bonus });
+    return json({ ok: true, mark: b.mark, markAuto: m.markAuto, planPercent: m.avgPercent });
   }
 
   if (path === '/quarter/reopen' && request.method === 'POST') {
@@ -2909,16 +3013,28 @@ async function sendMonthlyDigest(env, settings) {
     return `  ⚠ слабее всего: ${k.startsWith('t2s') ? 'до старта' : 'до сдачи'}, уровень ${k.slice(3)} — ${v} % плана`;
   };
 
-  // Сначала KPI руководителя — результат отдела целиком
-  const teamMonth = await monthMetrics(db, null, period, settings, sla);
-  const teamQ = await quarterMetrics(db, null, quarter, settings);
+  // Сначала KPI руководителя: оценки каждого и премия месяца
+  const kpi = await leadKpi(db, lead, period, settings);
+  const fmtS = (v) => (v === null || v === undefined ? '—' : String(v));
+  const scoreLine = (name, sc) =>
+    `  ${name}: <b>${fmtS(sc.score)}</b>${sc.manual !== null ? ` (руками${sc.note ? `: ${sc.note}` : ''}, авто ${fmtS(sc.auto)})` : ' (авто)'}`;
   const lines = [
     `<b>Итоги ${period}</b> · квартал ${quarter}`,
     '',
+    `<b>KPI руководителя: ${fmtS(kpi.score)} из 10 → ${kpi.bonus.toLocaleString('ru-RU')} ₽ из ${kpi.max.toLocaleString('ru-RU')}</b>`,
+    scoreLine(lead.name, kpi.own),
+    ...kpi.people.map((r) => scoreLine(r.name, r)),
+    '',
+  ];
+
+  // Потом результат отдела целиком по шести метрикам
+  const teamMonth = await monthMetrics(db, null, period, settings, sla);
+  const teamQ = await quarterMetrics(db, null, quarter, settings);
+  lines.push(
     `<b>Отдел</b> — план за месяц <b>${fmtP(teamMonth.avgPercent)}</b>, задач ${teamMonth.count}`,
     ...six(teamMonth),
-    `  квартал: план ${fmtP(teamQ.avgPercent)}, система предлагает ${teamQ.markAuto ? MARK_LABEL[teamQ.markAuto] : '—'}`,
-  ];
+    `  квартал: план ${fmtP(teamQ.avgPercent)}, система предлагает ${teamQ.markAuto ? MARK_LABEL[teamQ.markAuto] : '—'}`
+  );
   const tw = worstLine(teamMonth);
   if (tw) lines.push(tw);
   lines.push('');
@@ -3019,7 +3135,7 @@ export const __test = {
   quarterOf, monthsOfQuarter, MARKS, MARK_LABEL,
   levelOfTask, taskDurations, timeMetrics, planPercent, autoMark,
   workMinutesBetween, addWorkMinutes, addWorkdays,
-  scoreTask, scoreChat, computeMetrics,
+  scoreTask, scoreChat, computeMetrics, scoreFromPercent,
 };
 
 // Для служебных скриптов на сервере: полная пересинхронизация без ключа доступа.

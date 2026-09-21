@@ -296,7 +296,6 @@ textarea:focus{border-color:var(--accent);outline:none;box-shadow:0 0 0 3px var(
       <span class="brand">KPI отдела</span>
       <span class="who">Вход: <b id="whoName">—</b> · <span id="whoRole"></span></span>
       <select id="periodSel" style="width:auto;min-width:150px"></select>
-      <select id="quarterSel" class="hide" style="width:auto;min-width:150px"></select>
       <button class="btn ghost sm" id="logoutBtn">Выйти</button>
     </div>
     <div class="wrap"><div class="tabs" id="tabs"></div></div>
@@ -310,7 +309,6 @@ const API = '/api';
 let KEY = localStorage.getItem('kpi_key') || '';
 let ME = null;
 let PERIOD = '';
-let QUARTER = '';
 let TAB = 'kpi';
 
 // ── вспомогательное ─────────────────────────────────────────────────────────
@@ -411,21 +409,6 @@ function start(){
   PERIOD = sel.value;
   sel.onchange = () => { PERIOD = sel.value; render(); };
 
-  // кварталы: текущий и семь предыдущих — модель времени сводится поквартально
-  const qs = $('quarterSel');
-  qs.innerHTML = '';
-  const curQ = Math.floor(now.getMonth() / 3) + 1;
-  for (let i = 0; i < 8; i++){
-    let q = curQ - i, y = now.getFullYear();
-    while (q < 1) { q += 4; y -= 1; }
-    const o = document.createElement('option');
-    o.value = `${y}-Q${q}`;
-    o.textContent = `${q}-й квартал ${y}`;
-    qs.appendChild(o);
-  }
-  QUARTER = qs.value;
-  qs.onchange = () => { QUARTER = qs.value; render(); };
-
   // KPI по модели времени — только у руководителя отдела; владелец его
   // оценивает, ассистенты видят свои заёбы и экономию и могут оставить
   // отзыв о руководителе.
@@ -461,11 +444,9 @@ function start(){
 async function render(){
   const v = $('view');
   v.innerHTML = '<p class="muted">Загружаю…</p>';
-  // модель времени живёт по кварталам, остальное — по месяцам
-  $('quarterSel').classList.toggle('hide', TAB !== 'kpi');
-  $('periodSel').classList.toggle('hide', TAB === 'kpi' || TAB === 'admin' || TAB === 'inbox');
+  $('periodSel').classList.toggle('hide', TAB === 'admin' || TAB === 'inbox');
   try {
-    if (TAB === 'kpi')   return renderKpi(await api(`/kpi/board?quarter=${QUARTER}`), v);
+    if (TAB === 'kpi')   return renderKpi(await api(`/kpi/board?period=${PERIOD}`), v);
     if (TAB === 'me')    return await renderProfile(await api(`/me?period=${PERIOD}`), v);
     if (TAB === 'team')  return renderTeam(await api(`/team?period=${PERIOD}`), v);
     if (TAB === 'inbox') return renderInbox(await api('/inbox'), v);
@@ -592,7 +573,11 @@ function monthHtml(m, sla, showWho, people){
 /** Графики и месяцы для выбранного среза — перерисовываются без запроса. */
 function renderKpiSlice(){
   const d = KPI_DATA;
-  const src = KPI_VIEW.who === 'team' ? d.lead : d.people.find((p) => p.id === KPI_VIEW.who);
+  const src = KPI_VIEW.who === 'team'
+    ? { name: 'Весь отдел', months: d.lead.months, quarter: d.lead.quarter }
+    : KPI_VIEW.who === 'lead'
+      ? { name: d.lead.name, months: d.lead.ownMonths, quarter: d.lead.ownQuarter }
+      : d.people.find((p) => p.id === KPI_VIEW.who);
   if (!src) return;
   const months = src.months;
   const keys = KPI_VIEW.level ? KEYS6.filter((k) => +k.slice(3) === KPI_VIEW.level) : KEYS6;
@@ -609,39 +594,71 @@ function renderKpiSlice(){
     </div>`;
   }).join('');
 
-  $('kpiMonths').innerHTML = months.map((m) => monthHtml(m, d.sla, KPI_VIEW.who === 'team', d.people)).join('');
-  $('sliceTitle').textContent = KPI_VIEW.who === 'team' ? 'Весь отдел' : src.name;
+  $('kpiMonths').innerHTML = months.map((m) => monthHtml(m, d.sla, KPI_VIEW.who === 'team', [...d.people, { id: d.lead.id, name: d.lead.name }])).join('');
+  $('sliceTitle').textContent = src.name;
 }
 
+const scoreTxt = (v) => (v === null || v === undefined ? '—' : String(v).replace('.', ','));
+const scoreCls = (v) => (v === null || v === undefined ? 'muted' : v >= 8 ? 'pct-good' : v >= 6 ? 'pct-mid' : 'pct-bad');
+
 /**
- * KPI руководителя отдела. Метрики — по задачам всего отдела, срезы по людям —
- * диагностика узкого места. Оценку ставит владелец, премия — руководителю.
+ * KPI руководителя отдела за месяц. Оценка каждого — из модели времени,
+ * руками её можно поправить. KPI — среднее оценок отдела вместе с самим
+ * руководителем, премия — доля от максимума. Оценивает: руководитель —
+ * ассистентов, владелец — всех.
  */
 async function renderKpi(d, v){
   KPI_DATA = d;
   const chief = ME.role === 'chief';
   const L = d.lead;
-  if (KPI_VIEW.who !== 'team' && !d.people.find((p) => p.id === KPI_VIEW.who)) KPI_VIEW.who = 'team';
+  const validWho = ['team', 'lead', ...d.people.map((p) => p.id)];
+  if (!validWho.includes(KPI_VIEW.who)) KPI_VIEW.who = 'team';
+  const monthTitle = $('periodSel').selectedOptions[0]?.textContent || d.period;
 
-  // ── карточки руководителя
+  // ── карточки месяца
+  const all = [{ name: L.name, score: L.own.score }, ...d.people.map((p) => ({ name: p.name, score: p.score }))]
+    .filter((x) => x.score !== null && x.score !== undefined);
+  const formula = all.length
+    ? `(${all.map((x) => scoreTxt(x.score)).join(' + ')}) / ${all.length} = ${scoreTxt(L.score)}`
+    : 'оценок за месяц нет';
   const head = `<div class="grid g4" style="margin-bottom:22px">
-    <div class="card metric"><div class="lbl">План за квартал</div>
-      <div class="val ${pctClass(L.quarter.avgPercent)}">${L.quarter.avgPercent === null ? '—' : L.quarter.avgPercent + ' %'}</div>
-      <div class="sub">среднее по шести метрикам отдела</div></div>
-    <div class="card metric"><div class="lbl">Оценка</div>
-      <div class="val">${markHtml(L.mark, !L.result)}</div>
-      <div class="sub">${L.result ? 'итоговая, поставил владелец' : `предложение системы · ${MARK_HINT[L.mark] || ''}`}</div></div>
+    <div class="card metric"><div class="lbl">KPI за месяц</div>
+      <div class="val ${scoreCls(L.score)}">${scoreTxt(L.score)}<span style="font-size:16px;color:var(--fg-3);font-weight:600"> / 10</span></div>
+      <div class="sub">${esc(formula)}</div></div>
     <div class="card metric"><div class="lbl">Премия</div>
-      <div class="val">${money(L.bonus.sum)}</div>
-      <div class="sub">${L.bonus.percent} % от ${money(L.salaryQuarter)} · грейд ${L.grade}</div></div>
-    <div class="card metric"><div class="lbl">Квартал</div>
-      <div class="val">${L.result ? '<span class="tag t-green" style="font-size:15px">закрыт</span>' : '<span class="tag t-grey" style="font-size:15px">открыт</span>'}</div>
-      <div class="sub">${L.result ? fmtDate(L.result.closed_at) : 'цифры живые, меняются с задачами'}</div></div>
+      <div class="val">${money(L.bonus)}</div>
+      <div class="sub">из ${money(L.max)} · ${L.score === null ? 'нет оценок' : `${money(L.max)} × ${scoreTxt(L.score)} / 10`}</div></div>
+    <div class="card metric"><div class="lbl">Своя оценка</div>
+      <div class="val ${scoreCls(L.own.score)}">${scoreTxt(L.own.score)}</div>
+      <div class="sub">${L.own.manual !== null ? `руками${L.own.actor ? `, ${esc(L.own.actor)}` : ''} · авто ${scoreTxt(L.own.auto)}` : `авто · план ${L.own.avgPercent ?? '—'} %, задач ${L.own.tasks}`}</div></div>
+    <div class="card metric"><div class="lbl">Аттестация · ${esc(d.quarter)}</div>
+      <div class="val">${markHtml(L.result?.mark || L.quarter.markAuto, !L.result)}</div>
+      <div class="sub">${L.result ? `закрыта ${fmtDate(L.result.closed_at)}` : `предложение по плану отдела ${L.quarter.avgPercent ?? '—'} %`}</div></div>
   </div>`;
+
+  // ── таблица оценок
+  const canScore = (p) => (p.role === 'lead' ? chief : true);
+  const scoreRow = (p) => `
+    <tr data-uid="${esc(p.id)}"${p.role === 'lead' ? ' style="background:var(--surface-2)"' : ''}>
+      <td><strong>${esc(p.name)}</strong>${p.role === 'lead' ? ' <span class="tag t-blue">рук. отдела</span>' : ''}</td>
+      <td class="num">${p.tasks}</td>
+      <td class="num">${pctHtml(p.avgPercent)}</td>
+      <td class="num">${scoreTxt(p.auto)}</td>
+      <td class="num">${canScore(p)
+        ? `<div class="row" style="gap:6px;justify-content:flex-end;flex-wrap:nowrap">
+             <input type="number" min="0" max="10" step="0.5" data-manual="${esc(p.id)}" value="${p.manual ?? ''}" placeholder="авто" style="width:74px;min-height:34px;padding:6px 8px;text-align:right">
+             <input data-note="${esc(p.id)}" value="${esc(p.note || '')}" placeholder="за что" style="width:150px;min-height:34px;padding:6px 8px">
+             <button class="btn sm" data-savescore="${esc(p.id)}">Ок</button>
+           </div>`
+        : `${p.manual !== null ? `<b>${scoreTxt(p.manual)}</b>${p.note ? ` <span class="muted">· ${esc(p.note)}</span>` : ''}` : '<span class="muted">—</span>'}`}</td>
+      <td class="num"><strong class="${scoreCls(p.score)}" style="font-size:17px">${scoreTxt(p.score)}</strong></td>
+    </tr>`;
+  const rows = [scoreRow({ ...L.own, id: L.id, name: L.name, role: 'lead' }), ...d.people.map((p) => scoreRow({ ...p, role: 'assistant' }))].join('');
 
   // ── срезы
   const whoSeg = `<div class="seg" id="segWho">
     <button data-who="team" class="${KPI_VIEW.who === 'team' ? 'on' : ''}">Весь отдел</button>
+    <button data-who="lead" class="${KPI_VIEW.who === 'lead' ? 'on' : ''}">${esc(L.name)}</button>
     ${d.people.map((p) => `<button data-who="${esc(p.id)}" class="${KPI_VIEW.who === p.id ? 'on' : ''}">${esc(p.name)}</button>`).join('')}
   </div>`;
   const lvlSeg = `<div class="seg" id="segLvl">
@@ -649,26 +666,7 @@ async function renderKpi(d, v){
     ${[1, 2, 3].map((l) => `<button data-lvl="${l}" class="${KPI_VIEW.level === l ? 'on' : ''}">Уровень ${l}</button>`).join('')}
   </div>`;
 
-  // ── люди: где узкое место. Только проценты плана, денег здесь нет
-  const cell = (p, k) => `<td class="num">${pctHtml(p.quarter.percents[k])}</td>`;
-  const peopleRows = d.people.map((p) => `
-    <tr class="clickable" data-slice="${esc(p.id)}">
-      <td><strong>${esc(p.name)}</strong></td>
-      <td><span class="access">
-        <i class="${p.access.yougile ? 'on' : ''}" title="YouGile">YG</i>
-        <i class="${p.access.telegram ? 'on' : ''}" title="Telegram">TG</i></span></td>
-      <td class="num"><strong>${pctHtml(p.quarter.avgPercent)}</strong></td>
-      ${cell(p, 't2s1')}${cell(p, 't2s2')}${cell(p, 't2s3')}
-      ${cell(p, 't2f1')}${cell(p, 't2f2')}${cell(p, 't2f3')}
-    </tr>`).join('');
-  const teamRow = `
-    <tr style="border-top:2px solid var(--border)">
-      <td><strong>Весь отдел</strong></td><td></td>
-      <td class="num"><strong>${pctHtml(L.quarter.avgPercent)}</strong></td>
-      ${KEYS6.map((k) => `<td class="num">${pctHtml(L.quarter.percents[k])}</td>`).join('')}
-    </tr>`;
-
-  // ── отзывы и итог
+  // ── квартал: отзывы и аттестация
   const reviews = L.reviews.map((r) => `<div class="review">
     <div class="h"><b>${({ self: 'Самооценка', peer: 'Отзыв ассистента', chief: 'Отзыв владельца' })[r.kind] || r.kind}</b>
       ${r.author ? `· ${esc(r.author)}` : ''} · ${fmtDate(r.created_at)}
@@ -693,27 +691,39 @@ async function renderKpi(d, v){
   </div>`;
 
   const closeBlock = !chief ? '' : (L.result
-    ? `<div class="why">Квартал закрыт ${fmtDate(L.result.closed_at)}: оценка ${markHtml(L.result.mark)},
-        план ${L.result.plan_percent ?? '—'} %, грейд ${L.result.grade}, премия ${L.result.bonus_percent} % от ${money(L.result.salary_quarter)} =
-        <b>${money(L.result.bonus_sum)}</b>${L.result.note ? ` · ${esc(L.result.note)}` : ''}
+    ? `<div class="why">Аттестация закрыта ${fmtDate(L.result.closed_at)}: оценка ${markHtml(L.result.mark)},
+        план отдела ${L.result.plan_percent ?? '—'} %${L.result.note ? ` · ${esc(L.result.note)}` : ''}
         <div style="margin-top:8px"><button class="btn ghost sm" id="reopen">Переоткрыть</button></div></div>`
     : `<div class="card" style="margin-top:12px;padding:16px">
-        <h4 style="margin-bottom:8px">Итог квартала</h4>
-        <p class="muted" style="margin-bottom:10px">Система предлагает ${markHtml(L.quarter.markAuto, true)} по проценту плана
-          ${L.quarter.avgPercent ?? '—'} %. Итоговую оценку ставите вы — с учётом отзывов.
-          Премия: грейд ${L.grade} × оценка → % от квартальной зарплаты ${money(L.salaryQuarter)}.</p>
+        <h4 style="margin-bottom:8px">Аттестация за квартал</h4>
+        <p class="muted" style="margin-bottom:10px">Система предлагает ${markHtml(L.quarter.markAuto, true)} по проценту плана отдела
+          ${L.quarter.avgPercent ?? '—'} %. Итоговую ставите вы — с учётом отзывов. Денег за ней нет, премия считается помесячно;
+          это ориентир для пересмотра норм.</p>
         <div class="row">
           ${markSel('close_mark', L.quarter.markAuto)}
           <input id="close_note" placeholder="комментарий (необязательно)" style="flex:1;min-width:200px">
-          <button class="btn" id="closeQ">Закрыть квартал</button>
+          <button class="btn" id="closeQ">Закрыть аттестацию</button>
         </div>
       </div>`);
 
-  // ── нормы и матрица
+  // ── нормы
+  const quarterOptions = () => {
+    const out = [];
+    const [y0, m0] = d.period.split('-').map(Number);
+    const q0 = Math.floor((m0 - 1) / 3) + 1;
+    for (let i = -4; i <= 2; i++) {
+      let q = q0 + i, y = y0;
+      while (q < 1) { q += 4; y -= 1; }
+      while (q > 4) { q -= 4; y += 1; }
+      const val = `${y}-Q${q}`;
+      out.push(`<option value="${val}"${val === d.quarter ? ' selected' : ''}>${q}-й квартал ${y}</option>`);
+    }
+    return out.join('');
+  };
   const slaBlock = `
     <h2 style="margin:26px 0 6px">Нормы на квартал</h2>
-    <p class="muted" style="margin-bottom:12px">Плановые значения в рабочих часах (день — 8 часов). Действуют с выбранного квартала и дальше,
-      прошлые кварталы считаются по своим нормам.</p>
+    <p class="muted" style="margin-bottom:12px">Плановые значения в рабочих часах (день — 8 часов). Из процента плана выводится автоматическая оценка:
+      60 % — 6, 100 % и выше — 10. Действуют с выбранного квартала и дальше, прошлые кварталы считаются по своим нормам.</p>
     <div class="card">
       <div class="sla-grid">
         <div></div><div class="hd">Уровень 1<br><span style="text-transform:none;font-weight:500">простые</span></div>
@@ -724,49 +734,41 @@ async function renderKpi(d, v){
       </div>
       <div class="row" style="margin-top:14px">
         <span class="muted">Действуют с</span>
-        <select id="slaFrom" style="width:auto">${[...$('quarterSel').options].map((o) =>
-          `<option value="${o.value}"${o.value === d.quarter ? ' selected' : ''}>${o.textContent}</option>`).join('')}</select>
+        <select id="slaFrom" style="width:auto">${quarterOptions()}</select>
         <span class="muted">· сверхплан от</span>
         <input id="overplan" type="number" min="100" max="300" value="${d.overplan}" style="width:90px"><span class="muted">%</span>
-        <button class="btn" id="saveSla">Сохранить нормы</button>
+        <span class="muted">· максимум премии</span>
+        <input id="kpiMax" type="number" min="0" step="1000" value="${L.max}" style="width:110px"><span class="muted">₽</span>
+        <button class="btn" id="saveSla">Сохранить</button>
         <span id="slaMsg" class="muted"></span>
       </div>
-    </div>
-
-    <h2 style="margin:26px 0 6px">Матрица премий</h2>
-    <p class="muted" style="margin-bottom:12px">Процент от квартальной зарплаты по грейду и итоговой оценке. Грейды 1 и 2 премии не дают.
-      Грейд руководителя — в «Люди и настройки».</p>
-    <div class="tbl"><table class="matrix" id="matrixTable">
-      <thead><tr><th>Грейд</th>${d.marks.map((m) => `<th class="num" title="${MARK_HINT[m.id]}">${m.label}</th>`).join('')}<th></th></tr></thead>
-      <tbody id="matrixBody"><tr><td colspan="8" class="muted">Загружаю…</td></tr></tbody>
-    </table></div>`;
+    </div>`;
 
   v.innerHTML = `
     <div class="row" style="margin-bottom:6px">
-      <h1>${chief ? `KPI руководителя · ${esc(L.name)}` : 'Мой KPI'} · ${esc($('quarterSel').selectedOptions[0]?.textContent || d.quarter)}</h1>
+      <h1>${chief ? `KPI руководителя · ${esc(L.name)}` : 'Мой KPI'} · ${esc(monthTitle)}</h1>
     </div>
-    <p class="muted" style="margin-bottom:16px">Две скорости отдела — до старта и до сдачи — по трём уровням сложности, в рабочих часах.
-      Месяц сравнивается с нормой, квартал — среднее трёх месяцев. Оценка и премия — руководителю отдела по итогу квартала.</p>
+    <p class="muted" style="margin-bottom:16px">Оценка каждого 0–10 — из скорости по модели времени, руками её можно поправить.
+      KPI руководителя — среднее оценок отдела вместе с его собственной. Премия — доля от максимума, заёбы и экономия отдельно.</p>
     ${head}
 
+    <h2 style="margin-bottom:6px">Оценки за месяц</h2>
+    <p class="muted" style="margin-bottom:12px">«Авто» — из процента плана. Поле «руками» важнее автоматической; пустое — снова авто.
+      ${chief ? 'Вы ставите всем, включая руководителя.' : 'Оценку вам ставит владелец.'}</p>
+    <div class="tbl" style="margin-bottom:22px"><table id="kpiTable">
+      <thead><tr><th>Кто</th><th class="num">Задач</th><th class="num">План</th><th class="num">Авто</th><th class="num">Руками</th><th class="num">Итог</th></tr></thead>
+      <tbody>${rows}</tbody>
+    </table></div>
+
     <div class="row" style="margin-bottom:12px">
-      <h2>Метрики по месяцам · <span id="sliceTitle"></span></h2><span class="spacer"></span>${whoSeg}${lvlSeg}
+      <h2>Скорость по месяцам · <span id="sliceTitle"></span></h2><span class="spacer"></span>${whoSeg}${lvlSeg}
     </div>
     <div class="charts" id="kpiCharts" style="margin-bottom:22px"></div>
 
-    <h2 style="margin-bottom:10px">Месяцы</h2>
+    <h2 style="margin-bottom:10px">Месяцы квартала</h2>
     <div id="kpiMonths" style="margin-bottom:22px"></div>
 
-    <h2 style="margin-bottom:6px">Где узкое место</h2>
-    <p class="muted" style="margin-bottom:12px">Процент плана по каждому ассистенту — это диагностика, а не премия. Строка кликается и переключает срез выше.</p>
-    <div class="tbl" style="margin-bottom:22px"><table id="kpiTable">
-      <thead><tr><th>Ассистент</th><th>Доступы</th><th class="num">План</th>
-        <th class="num" title="до старта, уровень 1">Ст·1</th><th class="num" title="до старта, уровень 2">Ст·2</th><th class="num" title="до старта, уровень 3">Ст·3</th>
-        <th class="num" title="до сдачи, уровень 1">Сд·1</th><th class="num" title="до сдачи, уровень 2">Сд·2</th><th class="num" title="до сдачи, уровень 3">Сд·3</th></tr></thead>
-      <tbody>${peopleRows || '<tr><td colspan="9" class="muted">Ассистентов нет</td></tr>'}${teamRow}</tbody>
-    </table></div>
-
-    <h2 style="margin-bottom:10px">Отзывы и итог квартала</h2>
+    <h2 style="margin-bottom:10px">Отзывы и аттестация · ${esc(d.quarter)}</h2>
     ${reviews}
     ${reviewForm}
     ${closeBlock}
@@ -775,15 +777,29 @@ async function renderKpi(d, v){
   renderKpiSlice();
 
   // ── обработчики
+  v.querySelectorAll('[data-savescore]').forEach((b) => {
+    b.onclick = async () => {
+      const id = b.dataset.savescore;
+      const raw = v.querySelector(`[data-manual="${CSS.escape(id)}"]`).value;
+      const note = v.querySelector(`[data-note="${CSS.escape(id)}"]`).value;
+      try {
+        await api('/kpi/score', { method: 'POST', body: JSON.stringify({
+          user_id: id, period: d.period, manual: raw === '' ? null : +raw.replace(',', '.'), note,
+        }) });
+        render();
+      } catch (e) { alert(e.message); }
+    };
+  });
+  v.querySelectorAll('[data-manual]').forEach((i) => {
+    i.onkeydown = (e) => { if (e.key === 'Enter') v.querySelector(`[data-savescore="${CSS.escape(i.dataset.manual)}"]`).click(); };
+  });
+
   const pickWho = (who) => {
     KPI_VIEW.who = who;
     v.querySelectorAll('#segWho button').forEach((x) => x.classList.toggle('on', x.dataset.who === who));
     renderKpiSlice();
   };
   v.querySelectorAll('#segWho button').forEach((b) => { b.onclick = () => pickWho(b.dataset.who); });
-  v.querySelectorAll('tr[data-slice]').forEach((tr) => {
-    tr.onclick = () => { pickWho(tr.dataset.slice); $('kpiCharts').scrollIntoView({ behavior: 'smooth', block: 'start' }); };
-  });
   v.querySelectorAll('#segLvl button').forEach((b) => {
     b.onclick = () => {
       KPI_VIEW.level = +b.dataset.lvl;
@@ -810,8 +826,8 @@ async function renderKpi(d, v){
   if ($('closeQ')) {
     $('closeQ').onclick = async () => {
       const mark = $('close_mark').value;
-      if (!mark) return alert('Выберите итоговую оценку');
-      if (!confirm(`Закрыть квартал для «${L.name}» с оценкой ${MARK_TXT[mark]}? Цифры заморозятся.`)) return;
+      if (!mark) return alert('Выберите оценку');
+      if (!confirm(`Закрыть аттестацию за ${d.quarter} с оценкой ${MARK_TXT[mark]}?`)) return;
       try {
         await api('/kpi/quarter/close', { method: 'POST', body: JSON.stringify({ quarter: d.quarter, mark, note: $('close_note').value }) });
         render();
@@ -820,7 +836,7 @@ async function renderKpi(d, v){
   }
   if ($('reopen')) {
     $('reopen').onclick = async () => {
-      if (!confirm('Переоткрыть квартал? Итог будет удалён, цифры снова станут живыми.')) return;
+      if (!confirm('Переоткрыть аттестацию?')) return;
       await api('/kpi/quarter/reopen', { method: 'POST', body: JSON.stringify({ quarter: d.quarter }) });
       render();
     };
@@ -831,34 +847,14 @@ async function renderKpi(d, v){
     KEYS6.forEach((k) => { values[k] = +$('sla_' + k).value; });
     try {
       await api('/kpi/sla', { method: 'POST', body: JSON.stringify({ quarter: $('slaFrom').value, values }) });
-      await api('/admin/settings', { method: 'POST', body: JSON.stringify({ overplan_percent: String(+$('overplan').value || 120) }) });
+      await api('/admin/settings', { method: 'POST', body: JSON.stringify({
+        overplan_percent: String(+$('overplan').value || 120),
+        lead_kpi_max: String(+$('kpiMax').value || 50000),
+      }) });
       $('slaMsg').textContent = 'Сохранено';
       render();
     } catch (e) { $('slaMsg').textContent = e.message; }
   };
-
-  // матрица подгружается отдельно — она нужна редко
-  try {
-    const { matrix } = await api('/kpi/matrix');
-    $('matrixBody').innerHTML = [7, 6, 5, 4, 3, 2, 1].map((g) => `
-      <tr data-grade="${g}"${g === L.grade ? ' style="background:var(--accent-soft)"' : ''}><td><strong>${g}</strong>${g === L.grade ? ' <span class="tag t-blue">текущий</span>' : ''}</td>
-        ${d.marks.map((m) => `<td class="num"><input type="number" min="0" max="100" step="0.5" data-mark="${m.id}" value="${matrix[g]?.[m.id] ?? 0}"></td>`).join('')}
-        <td class="num"><button class="btn ghost sm" data-savegrade="${g}">Сохранить</button></td></tr>`).join('');
-    $('matrixBody').querySelectorAll('[data-savegrade]').forEach((b) => {
-      b.onclick = async () => {
-        const tr = b.closest('tr');
-        const cells = {};
-        tr.querySelectorAll('input[data-mark]').forEach((i) => { cells[i.dataset.mark] = +i.value; });
-        try {
-          await api('/kpi/matrix', { method: 'POST', body: JSON.stringify({ grade: +b.dataset.savegrade, cells }) });
-          b.textContent = 'Сохранено';
-          setTimeout(() => { b.textContent = 'Сохранить'; }, 1500);
-        } catch (e) { alert(e.message); }
-      };
-    });
-  } catch (e) {
-    $('matrixBody').innerHTML = `<tr><td colspan="8" class="err">${esc(e.message)}</td></tr>`;
-  }
 }
 
 /**
@@ -1205,10 +1201,7 @@ async function renderAdmin(v){
     <tr data-id="${esc(u.id)}"${u.active ? '' : ' class="off"'}>
       <td><input class="e" data-f="name" value="${esc(u.name)}" title="${esc(u.name)}"></td>
       <td><select class="e" data-f="role">${roleOpts(u.role)}</select></td>
-      <td>${u.role === 'lead'
-        ? `<select class="e" data-f="grade_num">${[1,2,3,4,5,6,7].map((g) =>
-            `<option value="${g}"${g === (u.grade_num || 3) ? ' selected' : ''}>${g}</option>`).join('')}</select>`
-        : '<span class="muted">—</span>'}</td>
+      <td><span class="muted">—</span></td>
       <td><input class="e" data-f="salary" type="number" value="${u.salary | 0}"></td>
       <td><input class="e id" data-f="yougile_id" value="${esc(u.yougile_id || '')}"
                  placeholder="не задан" title="${esc(u.yougile_id || 'не задан')}"></td>
@@ -1239,13 +1232,13 @@ async function renderAdmin(v){
     <h1 style="margin-bottom:6px">Люди</h1>
     <p class="muted" style="margin-bottom:14px">Любое поле правится прямо здесь. Telegram ID и ID в YouGile
       можно вписать вручную — бот подставит их сам только после первого сообщения в чате.
-      Оклад руководителя отдела нужен для квартальной премии: она считается от трёх окладов.</p>
+      Премия руководителя отдела считается от максимума на вкладке KPI, оклад — справочно.</p>
     <div class="tbl" style="margin-bottom:16px"><table id="peopleTable">
       <colgroup>
         <col class="c-name"><col class="c-role"><col class="c-grade"><col class="c-salary">
         <col class="c-yg"><col class="c-tg"><col class="c-nick"><col class="c-acts">
       </colgroup>
-      <thead><tr><th>Имя</th><th>Роль</th><th>Грейд</th><th>Оклад</th><th>YouGile ID</th><th>Telegram ID</th><th>Ник</th><th></th></tr></thead>
+      <thead><tr><th>Имя</th><th>Роль</th><th></th><th>Оклад</th><th>YouGile ID</th><th>Telegram ID</th><th>Ник</th><th></th></tr></thead>
       <tbody>${rows}</tbody></table></div>
     <div id="keyBox" style="margin-bottom:22px"></div>
 
@@ -1256,9 +1249,8 @@ async function renderAdmin(v){
         <div class="field"><label>Роль</label><select id="n_role">
           <option value="assistant">ассистент</option><option value="lead">руководитель отдела</option>
           <option value="chief">руководитель</option></select></div>
-        <div class="field" id="gradeField"><label>Грейд</label><select id="n_grade">
-          ${[1,2,3,4,5,6,7].map((g) => `<option value="${g}"${g === 3 ? ' selected' : ''}>${g}</option>`).join('')}</select>
-          <div class="muted" style="margin-top:5px">Только у руководителя отдела: от грейда зависит процент квартальной премии</div></div>
+        <div class="field hide" id="gradeField"><label>Грейд</label><select id="n_grade">
+          ${[1,2,3,4,5,6,7].map((g) => `<option value="${g}"${g === 3 ? ' selected' : ''}>${g}</option>`).join('')}</select></div>
         <div class="field"><label>Оклад</label><input id="n_salary" type="number" value="0"></div>
         <div class="field"><label>ID в YouGile</label><input id="n_yg"></div>
         <div class="field"><label>ID в Telegram</label><input id="n_tg"></div>
@@ -1277,9 +1269,9 @@ async function renderAdmin(v){
       </div>
     </div>`;
 
-  // грейд есть только у руководителя отдела — остальным его не показываем
+  // грейд в расчётах не участвует — поле спрятано, но данные в базе остаются
   const syncGradeField = () => {
-    $('gradeField').style.display = $('n_role').value === 'lead' ? '' : 'none';
+    $('gradeField').style.display = 'none';
   };
   $('n_role').onchange = syncGradeField;
   syncGradeField();
