@@ -105,7 +105,7 @@ ul.tick.good li::before{background:var(--green)}
 .chain .node h4{margin-bottom:6px}
 .chain .node p{margin:0; font-size:14.5px; color:var(--ink-2)}
 
-.countries{display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin:8px 0 0}
+.countries{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:16px; margin:8px 0 0}
 @media(max-width:900px){.countries{grid-template-columns:1fr}}
 .country{display:block; background:var(--surface); border:1px solid var(--line); border-radius:var(--r-lg); padding:22px 24px; box-shadow:var(--shadow); border-bottom:1px solid var(--line); transition:transform .22s cubic-bezier(.2,.7,.3,1), box-shadow .22s}
 .country:hover{transform:translateY(-2px); box-shadow:var(--shadow-h); border-bottom-color:var(--line)}
@@ -190,6 +190,10 @@ setTimeout(function(){document.querySelectorAll('.reveal').forEach(function(e){e
       <a class="country" href="paraguay-laboratoriya.html">
         <div class="n">Парагвай</div>
         <div class="d">Самая дешёвая аренда и налог на прибыль 10%, компания за 72 часа. Взамен — самая слабая научная инфраструктура и регулирование, которое сами парагвайские авторы называют незавершённым</div>
+      </a>
+      <a class="country" href="bolivia-laboratoriya.html">
+        <div class="n">Боливия</div>
+        <div class="d">Проверка версии о лаборатории Пэриш — подтверждений нет. Единственная страна, где работа с ГМО в лаборатории прямо требует разрешения: четыре месяца, межведомственный комитет и публикация в прессе</div>
       </a>
     </div>
   </div>
