@@ -641,7 +641,7 @@ async function renderKpi(d, v){
   const scoreRow = (p) => `
     <tr data-uid="${esc(p.id)}"${p.role === 'lead' ? ' style="background:var(--surface-2)"' : ''}>
       <td><strong>${esc(p.name)}</strong>${p.role === 'lead' ? ' <span class="tag t-blue">рук. отдела</span>' : ''}</td>
-      <td class="num">${p.tasks}</td>
+      <td class="num">${p.tasks}<div class="muted" style="font-size:12px">висит ${p.open ?? '—'}</div></td>
       <td class="num">${pctHtml(p.avgPercent)}</td>
       <td class="num">${scoreTxt(p.auto)}</td>
       <td class="num">${canScore(p)
@@ -753,10 +753,11 @@ async function renderKpi(d, v){
     ${head}
 
     <h2 style="margin-bottom:6px">Оценки за месяц</h2>
-    <p class="muted" style="margin-bottom:12px">«Авто» — из процента плана. Поле «руками» важнее автоматической; пустое — снова авто.
+    <p class="muted" style="margin-bottom:12px">Задачи считаются по месяцу постановки; «висит» — сколько открыто на человеке сейчас.
+      «Авто» — из процента плана. Поле «руками» важнее автоматической; пустое — снова авто.
       ${chief ? 'Вы ставите всем, включая руководителя.' : 'Оценку вам ставит владелец.'}</p>
     <div class="tbl" style="margin-bottom:22px"><table id="kpiTable">
-      <thead><tr><th>Кто</th><th class="num">Задач</th><th class="num">План</th><th class="num">Авто</th><th class="num">Руками</th><th class="num">Итог</th></tr></thead>
+      <thead><tr><th>Кто</th><th class="num" title="поставлено в этом месяце · открыто всего">Задач за месяц</th><th class="num">План</th><th class="num">Авто</th><th class="num">Руками</th><th class="num">Итог</th></tr></thead>
       <tbody>${rows}</tbody>
     </table></div>
 
@@ -1134,9 +1135,10 @@ function renderTeam(d, v){
 
   const leadTotal = L.shareZaeb + L.shareSaving;
   const leadRow = L.id ? `
-    <tr style="border-top:2px solid var(--border)">
-      <td><strong>${esc(L.name)}</strong> <span class="tag t-blue">рук. отдела</span></td>
-      <td class="num">—</td><td class="num">—</td>
+    <tr data-person="${esc(L.id)}" style="border-top:2px solid var(--border)">
+      <td class="clickable"><strong>${esc(L.name)}</strong> <span class="tag t-blue">рук. отдела</span></td>
+      <td class="num">${L.tasksClosed ?? '—'} / ${L.tasksOpen ?? '—'}</td>
+      <td class="num">${L.medianReply === null || L.medianReply === undefined ? '—' : fmtSeconds(L.medianReply)}</td>
       <td class="num">${money(L.shareZaeb)}<div class="muted" style="font-size:12px">${Math.round(L.shares.zaeb * 100)} % с заёбов отдела</div></td>
       <td class="num">${money(L.shareSaving)}<div class="muted" style="font-size:12px">${Math.round(L.shares.saving * 100)} % с экономии</div></td>
       <td class="num"><strong>${money(leadTotal)}</strong></td>

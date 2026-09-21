@@ -525,12 +525,20 @@ async function leadKpi(db, lead, period, settings) {
     .prepare("SELECT * FROM users WHERE role = 'assistant' AND active = 1 ORDER BY name")
     .all();
 
+  // Сколько задач висит на человеке прямо сейчас — независимо от месяца.
+  // Без этого «0 задач за месяц» читается как «нечего делать», хотя может
+  // значить обратное: ничего нового не взято, а старое не сдано.
+  const openCount = async (id) => (await db
+    .prepare(`SELECT count(*) AS n FROM tasks WHERE assignee_id = ? AND is_zaeb = 0
+              AND status IN ('open','in_progress','review','blocked','waiting')`)
+    .bind(id).first()).n;
+
   const rows = [];
   for (const p of people) {
     const sc = await monthScore(db, p, period, settings, sla);
-    rows.push({ id: p.id, name: p.name, ...sc });
+    rows.push({ id: p.id, name: p.name, ...sc, open: await openCount(p.id) });
   }
-  const own = await monthScore(db, lead, period, settings, sla);
+  const own = { ...(await monthScore(db, lead, period, settings, sla)), open: await openCount(lead.id) };
 
   const scores = [own.score, ...rows.map((r) => r.score)].filter((v) => v !== null && v !== undefined);
   const score = scores.length
@@ -905,9 +913,11 @@ async function handleApi(request, env, url) {
     const teamZaeb = profiles.reduce((a, p) => a + p.money.zaeb, 0);
     const teamSaving = profiles.reduce((a, p) => a + p.money.savingSum, 0);
 
+    // У руководителя свои задачи тоже есть — считаем их так же
     const leadUser = await db
-      .prepare("SELECT id, name FROM users WHERE role = 'lead' AND active = 1 ORDER BY created_at LIMIT 1")
+      .prepare("SELECT * FROM users WHERE role = 'lead' AND active = 1 ORDER BY created_at LIMIT 1")
       .first();
+    const leadOwn = leadUser ? await buildProfile(db, leadUser, period, settings) : null;
 
     return json({
       period,
@@ -925,6 +935,9 @@ async function handleApi(request, env, url) {
       lead: {
         id: leadUser?.id || null,
         name: leadUser?.name || null,
+        tasksClosed: leadOwn ? leadOwn.tasks.length : null,
+        tasksOpen: leadOwn ? leadOwn.openTasks.length : null,
+        medianReply: leadOwn ? leadOwn.metrics.breakdown.speed.medianReply : null,
         shareZaeb: Math.round(teamZaeb * leadShareZaeb),
         shareSaving: Math.round(teamSaving * leadShareSaving),
         shares: { zaeb: leadShareZaeb, saving: leadShareSaving },
@@ -1307,7 +1320,8 @@ async function handleKpiApi(request, db, path, url, me, settings) {
 
     const strip = (sc) => ({
       auto: sc.auto, manual: sc.manual, score: sc.score, note: sc.note, actor: sc.actor, at: sc.at,
-      avgPercent: sc.month.avgPercent, tasks: sc.month.count, metrics: sc.month.metrics, percents: sc.month.percents,
+      avgPercent: sc.month.avgPercent, tasks: sc.month.count, open: sc.open,
+      metrics: sc.month.metrics, percents: sc.month.percents,
     });
 
     return json({
