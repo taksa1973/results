@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Настройка Pushbullet</title>
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="description" content="Пошаговая инструкция: установить Pushbullet на Android и включить зеркалирование уведомлений выбранных приложений.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script>
+  // Класс ставится синхронно: контент прячется под анимацию только при работающем JS
+  try { if (!matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.classList.add('js-anim'); } catch (e) {}
+</script>
+<style>
+  :root {
+    --page-bg: #F5F5F7;
+    --surface: #FFFFFF;
+    --text-1: #1D1D1F;
+    --text-2: #6E6E73;
+    --text-3: #AEAEB2;
+    --blue: #0071E3;
+    --blue-soft: #E8F1FC;
+    --green: #1F8A4C;
+    --green-soft: #E6F4EC;
+    --red: #C7302B;
+    --red-soft: #FCEBEA;
+    --border: rgba(0,0,0,0.08);
+    --shadow: 0 1px 2px rgba(0,0,0,0.04), 0 8px 24px rgba(0,0,0,0.05);
+    --shadow-hover: 0 2px 4px rgba(0,0,0,0.05), 0 16px 40px rgba(0,0,0,0.09);
+    --radius: 20px;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--page-bg);
+    color: var(--text-1);
+    font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-size: 17px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--blue); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 0 16px 80px; }
+
+  /* Hero */
+  .hero {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 56px 16px 40px;
+  }
+  .hero-inner { max-width: 720px; margin: 0 auto; }
+  .eyebrow {
+    font-size: 12px; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 0.08em; color: var(--text-3); margin: 0 0 14px;
+  }
+  h1 {
+    font-size: clamp(32px, 6vw, 52px);
+    line-height: 1.08; letter-spacing: -0.02em; font-weight: 800;
+    margin: 0 0 16px;
+  }
+  h1 span { color: var(--blue); }
+  .lead { font-size: 19px; color: var(--text-2); margin: 0 0 24px; max-width: 600px; }
+  .pills { display: flex; flex-wrap: wrap; gap: 8px; }
+  .pill {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 8px 14px; border-radius: 999px;
+    background: var(--page-bg); border: 1px solid var(--border);
+    font-size: 14px; font-weight: 500; color: var(--text-1);
+  }
+  .pill svg { width: 16px; height: 16px; color: var(--text-2); }
+
+  /* Account card */
+  .account {
+    margin: 28px 0 0;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 22px 22px 20px;
+  }
+  .account .label { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-3); margin: 0 0 10px; }
+  .email-row {
+    display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+  }
+  .email {
+    font-size: clamp(18px, 4.5vw, 24px); font-weight: 700; letter-spacing: -0.01em;
+    word-break: break-all; user-select: all;
+  }
+  .copy {
+    display: inline-flex; align-items: center; gap: 6px;
+    min-height: 44px; padding: 0 16px; border-radius: 12px;
+    border: 1px solid var(--border); background: var(--page-bg);
+    color: var(--text-1); font: inherit; font-size: 15px; font-weight: 600;
+    cursor: pointer; transition: background 0.2s, transform 0.2s, color 0.2s;
+    touch-action: manipulation;
+  }
+  .copy:hover { background: #EBEBEE; }
+  .copy:focus-visible { outline: 3px solid rgba(0,113,227,0.35); outline-offset: 2px; }
+  .copy svg { width: 18px; height: 18px; }
+  .copy.done { background: var(--green-soft); color: var(--green); border-color: transparent; }
+  .account .note { margin: 14px 0 0; color: var(--text-2); font-size: 15px; }
+  .account .note strong { color: var(--text-1); }
+
+  /* Steps */
+  .section-title {
+    font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em;
+    color: var(--text-3); margin: 44px 0 14px;
+  }
+  .steps { display: grid; gap: 14px; }
+  .step {
+    position: relative;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 22px 22px 20px 22px;
+    transition: box-shadow 0.2s, transform 0.2s, opacity 0.3s;
+  }
+  @media (hover: hover) {
+    .step:hover { transform: translateY(-2px); box-shadow: var(--shadow-hover); }
+  }
+  .step-head { display: flex; align-items: flex-start; gap: 14px; }
+  .num {
+    flex: 0 0 auto; width: 36px; height: 36px; border-radius: 10px;
+    background: var(--text-1); color: #fff;
+    display: grid; place-items: center;
+    font-weight: 700; font-size: 16px; letter-spacing: -0.02em;
+    transition: background 0.25s;
+  }
+  .step h2 {
+    margin: 4px 0 0; font-size: 20px; font-weight: 700; letter-spacing: -0.015em; line-height: 1.25;
+  }
+  .step .body { margin: 12px 0 0 50px; color: var(--text-1); }
+  .step .body p { margin: 0 0 10px; }
+  .step .body p:last-child { margin-bottom: 0; }
+  .step ul { margin: 6px 0 0; padding-left: 20px; }
+  .step li { margin: 6px 0; }
+  .step li::marker { color: var(--text-3); }
+  .ui { font-weight: 600; color: var(--text-1); background: var(--page-bg); padding: 1px 7px; border-radius: 6px; border: 1px solid var(--border); white-space: nowrap; }
+  .hint { color: var(--text-2); font-size: 15px; }
+  .callout {
+    margin: 14px 0 0; padding: 12px 14px; border-radius: 12px;
+    font-size: 15px; display: flex; gap: 10px; align-items: flex-start;
+  }
+  .callout svg { flex: 0 0 auto; width: 18px; height: 18px; margin-top: 2px; }
+  .callout.warn { background: var(--red-soft); color: #7A1E1B; }
+  .callout.warn svg { color: var(--red); }
+  .callout.info { background: var(--blue-soft); color: #0B4A8C; }
+  .callout.info svg { color: var(--blue); }
+
+  /* Done toggle */
+  .done-row { margin: 16px 0 0 50px; }
+  .done-toggle {
+    display: inline-flex; align-items: center; gap: 10px;
+    min-height: 44px; padding: 0 14px 0 10px; border-radius: 12px;
+    border: 1px solid var(--border); background: var(--page-bg);
+    color: var(--text-2); font: inherit; font-size: 15px; font-weight: 500;
+    cursor: pointer; transition: background 0.2s, color 0.2s, transform 0.15s;
+    touch-action: manipulation;
+  }
+  .done-toggle:hover { background: #EBEBEE; }
+  .done-toggle:focus-visible { outline: 3px solid rgba(0,113,227,0.35); outline-offset: 2px; }
+  .done-toggle .box {
+    width: 22px; height: 22px; border-radius: 7px; border: 2px solid var(--text-3);
+    display: grid; place-items: center; transition: background 0.2s, border-color 0.2s;
+  }
+  .done-toggle .box svg { width: 14px; height: 14px; color: #fff; opacity: 0; transition: opacity 0.15s; }
+  .step.is-done .num { background: var(--green); }
+  .step.is-done .done-toggle { color: var(--green); background: var(--green-soft); border-color: transparent; }
+  .step.is-done .done-toggle .box { background: var(--green); border-color: var(--green); }
+  .step.is-done .done-toggle .box svg { opacity: 1; }
+  .step.is-done h2 { color: var(--text-2); }
+
+  /* Progress */
+  .progress {
+    position: sticky; top: 0; z-index: 10;
+    background: rgba(245,245,247,0.86);
+    backdrop-filter: saturate(180%) blur(14px);
+    -webkit-backdrop-filter: saturate(180%) blur(14px);
+    border-bottom: 1px solid var(--border);
+  }
+  .progress-inner {
+    max-width: 720px; margin: 0 auto; padding: 10px 16px;
+    display: flex; align-items: center; gap: 12px; font-size: 14px; color: var(--text-2);
+  }
+  .bar { flex: 1; height: 6px; border-radius: 999px; background: rgba(0,0,0,0.08); overflow: hidden; }
+  .bar i { display: block; height: 100%; width: 0; background: var(--blue); border-radius: 999px; transition: width 0.35s cubic-bezier(.2,.8,.2,1); }
+  .progress b { color: var(--text-1); font-weight: 600; font-variant-numeric: tabular-nums; }
+
+  /* Bento */
+  .bento { display: grid; grid-template-columns: 1fr; gap: 14px; }
+  @media (min-width: 640px) { .bento { grid-template-columns: repeat(3, 1fr); } }
+  .tile {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); box-shadow: var(--shadow); padding: 20px;
+    transition: box-shadow 0.2s, transform 0.2s;
+  }
+  @media (hover: hover) { .tile:hover { transform: translateY(-2px); box-shadow: var(--shadow-hover); } }
+  .tile .icon {
+    width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; margin-bottom: 14px;
+  }
+  .tile .icon svg { width: 20px; height: 20px; }
+  .tile .icon.blue { background: var(--blue-soft); color: var(--blue); }
+  .tile .icon.green { background: var(--green-soft); color: var(--green); }
+  .tile .icon.gray { background: var(--page-bg); color: var(--text-2); }
+  .tile h3 { margin: 0 0 8px; font-size: 17px; font-weight: 700; letter-spacing: -0.01em; }
+  .tile p { margin: 0; color: var(--text-2); font-size: 15px; }
+
+  .footer { margin-top: 44px; color: var(--text-2); font-size: 15px; text-align: center; }
+  .footer strong { color: var(--text-1); }
+
+  /* Reveal: виден по умолчанию, прячется только при JS */
+  .reveal { opacity: 1; }
+  .js-anim .reveal { opacity: 0; transform: translateY(18px); }
+  .js-anim .reveal.shown { opacity: 1; transform: none; transition: opacity 0.55s ease-out, transform 0.55s cubic-bezier(.2,.8,.2,1); }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-inner">
+    <p class="eyebrow">Инструкция · Android</p>
+    <h1>Настройка <span>Pushbullet</span> на телефоне</h1>
+    <p class="lead">Нужно, чтобы уведомления от нескольких рабочих приложений дублировались мне. Ставим одно приложение, входим в общий аккаунт, выбираем приложения. Занимает около пяти минут.</p>
+    <div class="pills">
+      <span class="pill">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        5 минут
+      </span>
+      <span class="pill">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        7 шагов
+      </span>
+      <span class="pill">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+        Только Android
+      </span>
+    </div>
+  </div>
+</header>
+
+<div class="progress" id="progress">
+  <div class="progress-inner">
+    <span>Выполнено <b id="doneCount">0</b> из 7</span>
+    <div class="bar" aria-hidden="true"><i id="barFill"></i></div>
+  </div>
+</div>
+
+<main class="wrap">
+
+  <section class="account reveal" aria-labelledby="acc-label">
+    <p class="label" id="acc-label">Логин Google-аккаунта (Gmail)</p>
+    <div class="email-row">
+      <span class="email" id="email">hotroundrock</span>
+      <button class="copy" id="copyBtn" type="button" aria-label="Скопировать логин">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        <span class="copy-text">Скопировать</span>
+      </button>
+    </div>
+    <p class="note"><strong>Пароль пришлю отдельным сообщением.</strong> Это общий рабочий аккаунт, входить нужно именно в него, а не в свой личный.</p>
+  </section>
+
+  <p class="section-title">Пошагово</p>
+
+  <div class="steps" id="steps">
+
+    <article class="step reveal" data-step="1">
+      <div class="step-head">
+        <div class="num">1</div>
+        <h2>Установить приложение</h2>
+      </div>
+      <div class="body">
+        <p>Откройте <span class="ui">Google Play</span>, найдите <strong>Pushbullet</strong> (разработчик — Pushbullet) и установите. Прямая ссылка: <a href="https://play.google.com/store/apps/details?id=com.pushbullet.android" target="_blank" rel="noopener">Pushbullet в Google Play</a>.</p>
+      </div>
+      <div class="done-row"><button class="done-toggle" type="button" aria-pressed="false"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg></span>Готово</button></div>
+    </article>
+
+    <article class="step reveal" data-step="2">
+      <div class="step-head">
+        <div class="num">2</div>
+        <h2>Войти в общий аккаунт</h2>
+      </div>
+      <div class="body">
+        <ul>
+          <li>Откройте Pushbullet и нажмите <span class="ui">Sign in with Google</span> («Войти через Google»).</li>
+          <li>В списке аккаунтов выберите <span class="ui">Добавить аккаунт</span>.</li>
+          <li>Введите логин <strong>hotroundrock</strong> (почта Gmail) (кнопка «Скопировать» выше) и пароль из моего сообщения.</li>
+        </ul>
+        <div class="callout info">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+          <span>Если Google попросит код подтверждения или спросит «Это вы?» — напишите мне, я сразу пришлю код.</span>
+        </div>
+      </div>
+      <div class="done-row"><button class="done-toggle" type="button" aria-pressed="false"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg></span>Готово</button></div>
+    </article>
+
+    <article class="step reveal" data-step="3">
+      <div class="step-head">
+        <div class="num">3</div>
+        <h2>Разрешить доступ к уведомлениям</h2>
+      </div>
+      <div class="body">
+        <p>Приложение попросит доступ к уведомлениям — нажмите <span class="ui">Enable</span> («Включить»). Откроются настройки телефона: найдите в списке <strong>Pushbullet</strong> и включите переключатель.</p>
+        <div class="callout warn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          <span>Без этого шага ничего не заработает. Если запрос не появился: Настройки телефона → Уведомления → Доступ к уведомлениям → Pushbullet.</span>
+        </div>
+      </div>
+      <div class="done-row"><button class="done-toggle" type="button" aria-pressed="false"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg></span>Готово</button></div>
+    </article>
+
+    <article class="step reveal" data-step="4">
+      <div class="step-head">
+        <div class="num">4</div>
+        <h2>Включить зеркалирование и выбрать приложения</h2>
+      </div>
+      <div class="body">
+        <ul>
+          <li>В приложении нажмите <span class="ui">☰</span> (три полоски слева вверху) → <span class="ui">Notification Mirroring</span> («Зеркалирование уведомлений»).</li>
+          <li>Включите первый переключатель.</li>
+          <li>Нажмите <span class="ui">Choose which apps to enable</span> («Выбрать приложения») → снимите галочки со всех и оставьте <strong>только приложения из моего сообщения</strong>.</li>
+          <li>Вернитесь назад. Пункт <span class="ui">Only on Wi-Fi</span> («Только по Wi-Fi») должен быть <strong>выключен</strong> — иначе с мобильного интернета ничего не придёт.</li>
+        </ul>
+      </div>
+      <div class="done-row"><button class="done-toggle" type="button" aria-pressed="false"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg></span>Готово</button></div>
+    </article>
+
+    <article class="step reveal" data-step="5">
+      <div class="step-head">
+        <div class="num">5</div>
+        <h2>Выключить синхронизацию SMS</h2>
+      </div>
+      <div class="body">
+        <p>В том же меню <span class="ui">☰</span> найдите пункт <span class="ui">SMS</span> («Синхронизация SMS») и убедитесь, что он <strong>выключен</strong>. Ваши сообщения никуда передаваться не будут.</p>
+      </div>
+      <div class="done-row"><button class="done-toggle" type="button" aria-pressed="false"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg></span>Готово</button></div>
+    </article>
+
+    <article class="step reveal" data-step="6">
+      <div class="step-head">
+        <div class="num">6</div>
+        <h2>Не дать телефону усыпить приложение</h2>
+      </div>
+      <div class="body">
+        <p>Настройки телефона → <span class="ui">Приложения</span> → <span class="ui">Pushbullet</span> → <span class="ui">Батарея</span> → выберите <strong>«Без ограничений»</strong> (или «Не оптимизировать»).</p>
+        <p class="hint">На Samsung, Xiaomi, Huawei дополнительно разрешите <strong>автозапуск</strong>, если такой пункт есть. Иначе через день-два уведомления перестанут приходить.</p>
+      </div>
+      <div class="done-row"><button class="done-toggle" type="button" aria-pressed="false"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg></span>Готово</button></div>
+    </article>
+
+    <article class="step reveal" data-step="7">
+      <div class="step-head">
+        <div class="num">7</div>
+        <h2>Проверить</h2>
+      </div>
+      <div class="body">
+        <p>В разделе <span class="ui">Notification Mirroring</span> нажмите <span class="ui">Send a test notification</span> («Отправить тестовое уведомление») и напишите мне — я скажу, дошло ли.</p>
+      </div>
+      <div class="done-row"><button class="done-toggle" type="button" aria-pressed="false"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg></span>Готово</button></div>
+    </article>
+
+  </div>
+
+  <p class="section-title">Что важно знать</p>
+
+  <div class="bento">
+    <div class="tile reveal">
+      <div class="icon blue">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+      </div>
+      <h3>Что я буду видеть</h3>
+      <p>Только уведомления от приложений, выбранных в шаге 4 — такие же, как всплывают у вас на экране.</p>
+    </div>
+    <div class="tile reveal">
+      <div class="icon green">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      </div>
+      <h3>Что не передаётся</h3>
+      <p>SMS, звонки, личные приложения, файлы, буфер обмена — ничего из этого не уходит.</p>
+    </div>
+    <div class="tile reveal">
+      <div class="icon gray">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="1" y="5" width="22" height="14" rx="7"/><circle cx="8" cy="12" r="3"/></svg>
+      </div>
+      <h3>Как отключить</h3>
+      <p>В любой момент: ☰ → Notification Mirroring → первый переключатель выключить. Или просто удалить приложение.</p>
+    </div>
+  </div>
+
+  <p class="footer reveal">Если что-то не получилось на любом шаге — <strong>напишите мне</strong>, разберёмся вместе.</p>
+
+</main>
+
+<script>
+  // Копирование почты
+  (function () {
+    var btn = document.getElementById('copyBtn');
+    var text = document.getElementById('email').textContent.trim();
+    var label = btn.querySelector('.copy-text');
+    var timer;
+    function flash(ok) {
+      btn.classList.toggle('done', ok);
+      label.textContent = ok ? 'Скопировано' : 'Выделите и скопируйте';
+      clearTimeout(timer);
+      timer = setTimeout(function () { btn.classList.remove('done'); label.textContent = 'Скопировать'; }, 2200);
+    }
+    btn.addEventListener('click', function () {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(function () { flash(true); }, function () { fallback(); });
+      } else { fallback(); }
+    });
+    function fallback() {
+      try {
+        var r = document.createRange(); r.selectNodeContents(document.getElementById('email'));
+        var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+        var ok = document.execCommand && document.execCommand('copy');
+        flash(!!ok);
+      } catch (e) { flash(false); }
+    }
+  })();
+
+  // Отметки «Готово» с сохранением на устройстве
+  (function () {
+    var KEY = 'pb-guide-done';
+    var steps = Array.prototype.slice.call(document.querySelectorAll('.step'));
+    var count = document.getElementById('doneCount');
+    var fill = document.getElementById('barFill');
+    var state = {};
+    try { state = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch (e) { state = {}; }
+    function render() {
+      var n = 0;
+      steps.forEach(function (el) {
+        var id = el.getAttribute('data-step');
+        var done = !!state[id];
+        el.classList.toggle('is-done', done);
+        el.querySelector('.done-toggle').setAttribute('aria-pressed', done ? 'true' : 'false');
+        if (done) n++;
+      });
+      count.textContent = n;
+      fill.style.width = (n / steps.length * 100) + '%';
+    }
+    steps.forEach(function (el) {
+      el.querySelector('.done-toggle').addEventListener('click', function () {
+        var id = el.getAttribute('data-step');
+        state[id] = !state[id];
+        try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {}
+        render();
+      });
+    });
+    render();
+  })();
+</script>
+
+<script type="module">
+  // Появление при скролле через motion; fallback на IntersectionObserver; тайм-аут на показ всего
+  const root = document.documentElement;
+  const items = Array.from(document.querySelectorAll('.reveal'));
+  const showAll = () => items.forEach(el => el.classList.add('shown'));
+  if (root.classList.contains('js-anim')) {
+    const failsafe = setTimeout(showAll, 3000);
+    try {
+      const { inView, animate, spring } = await import('https://cdn.jsdelivr.net/npm/motion@11/+esm');
+      clearTimeout(failsafe);
+      items.forEach((el, i) => {
+        inView(el, () => {
+          el.classList.add('shown');
+          animate(el, { opacity: [0, 1], y: [18, 0] }, { duration: 0.55, delay: Math.min(i % 3, 2) * 0.06, easing: spring({ stiffness: 220, damping: 28 }) });
+        }, { margin: '0px 0px -8% 0px' });
+      });
+      document.querySelectorAll('.done-toggle, .copy').forEach(btn => {
+        btn.addEventListener('pointerdown', () => animate(btn, { scale: 0.97 }, { duration: 0.12 }));
+        const up = () => animate(btn, { scale: 1 }, { duration: 0.2 });
+        btn.addEventListener('pointerup', up); btn.addEventListener('pointerleave', up);
+      });
+    } catch (e) {
+      clearTimeout(failsafe);
+      if ('IntersectionObserver' in window) {
+        const io = new IntersectionObserver((entries) => {
+          entries.forEach(en => { if (en.isIntersecting) { en.target.classList.add('shown'); io.unobserve(en.target); } });
+        }, { rootMargin: '0px 0px -8% 0px' });
+        items.forEach(el => io.observe(el));
+      } else { showAll(); }
+    }
+  } else { showAll(); }
+</script>
+</body>
+</html>
