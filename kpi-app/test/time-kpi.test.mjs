@@ -175,3 +175,23 @@ test('срок по приоритету считается рабочими д�
   // суббота, приоритет 3 → пн, вт, ср
   assert.equal(day(addWorkdays('2026-08-15T09:00:00Z', 3)), 'ср');
 });
+
+test('задачи с приоритетом 30 в расчёт не идут', () => {
+  const t = (extra) => ({
+    size: 1, paused_min: 0, status: 'accepted', is_zaeb: 0,
+    created_at: '2026-08-10T07:00:00Z',
+    taken_at: '2026-08-10T09:00:00Z',
+    done_at: '2026-08-10T11:00:00Z',
+    ...extra,
+  });
+  // месячная задача взята через 6 часов — среднее должна не трогать
+  const monthly = t({ priority: 30, taken_at: '2026-08-10T13:00:00Z' });
+  const { metrics, detail } = timeMetrics([t({ priority: 1 }), t({ priority: 7 }), monthly], S);
+  assert.equal(metrics.t2s1, 2);
+  assert.equal(detail.t2s1.count, 2);
+
+  // список исключаемых приоритетов — настройка
+  const { metrics: m2 } = timeMetrics([t({ priority: 1 }), t({ priority: 7, taken_at: '2026-08-10T13:00:00Z' })], { ...S, skip_priority: '7,30' });
+  assert.equal(m2.t2s1, 2, 'семёрка тоже выключена настройкой');
+  assert.deepEqual([...__test.skipPriorities({})], [30], 'по умолчанию — только тридцать');
+});

@@ -307,6 +307,17 @@ function sizeToLevel(size) {
   return s <= 1 ? 1 : s === 2 ? 2 : 3;
 }
 
+/**
+ * Приоритеты, которые в модель времени не входят. По умолчанию — «30»,
+ * задачи на месяц: у них нет ни срочности старта, ни осмысленного времени
+ * сдачи, они только размывают среднее.
+ */
+function skipPriorities(settings = {}) {
+  return new Set(
+    String(settings.skip_priority ?? '30').split(',').map((v) => Number(v.trim())).filter((v) => v > 0)
+  );
+}
+
 /** Уровень сложности задачи: проставленный при синхронизации, иначе по размеру. */
 function levelOfTask(task) {
   if (task.level) return task.level;
@@ -339,12 +350,13 @@ function taskDurations(task, settings) {
 function timeMetrics(tasks, settings) {
   const out = {};
   const detail = {};
+  const skip = skipPriorities(settings);
 
   for (const metric of TIME_METRICS) {
     for (const level of LEVELS) {
       const key = `${metric}${level}`;
       const vals = tasks
-        .filter((t) => levelOfTask(t) === level && !t.is_zaeb && t.status !== 'cancelled')
+        .filter((t) => levelOfTask(t) === level && !t.is_zaeb && t.status !== 'cancelled' && !skip.has(Number(t.priority)))
         .map((t) => taskDurations(t, settings)[metric])
         .filter((v) => v !== null);
 
@@ -397,15 +409,17 @@ async function monthMetrics(db, userId, period, settings, sla) {
     ? { sql: 'assignee_id = ?', args: [userId] }
     : { sql: "assignee_id IN (SELECT id FROM users WHERE role = 'assistant' AND active = 1)", args: [] };
 
+  const skip = [...skipPriorities(settings)];
   const { results: tasks } = await db
     .prepare(
       `SELECT * FROM tasks
        WHERE ${who.sql} AND is_zaeb = 0
          AND status NOT IN ('cancelled','historical')
          AND (created_at >= ? AND created_at < ?)
+         ${skip.length ? `AND (priority IS NULL OR priority NOT IN (${skip.map(() => '?').join(',')}))` : ''}
        ORDER BY created_at`
     )
-    .bind(...who.args, `${period}-01`, `${period}-32`)
+    .bind(...who.args, `${period}-01`, `${period}-32`, ...skip)
     .all();
 
   const { metrics, detail } = timeMetrics(tasks, settings);
@@ -802,8 +816,14 @@ function decorateTask(t) {
   return {
     id: t.id,
     title: t.title,
+    number: t.number,
     url: t.url,
     size: t.size,
+    level: t.level || null,
+    levelSrc: t.level_src || null,
+    priority: t.priority || null,
+    t2sHours: t.t2s_hours ?? null,
+    t2fHours: t.t2f_hours ?? null,
     night: !!t.night,
     status: t.status,
     createdAt: t.created_at,
@@ -3149,7 +3169,7 @@ export const __test = {
   quarterOf, monthsOfQuarter, MARKS, MARK_LABEL,
   levelOfTask, taskDurations, timeMetrics, planPercent, autoMark,
   workMinutesBetween, addWorkMinutes, addWorkdays,
-  scoreTask, scoreChat, computeMetrics, scoreFromPercent,
+  scoreTask, scoreChat, computeMetrics, scoreFromPercent, skipPriorities,
 };
 
 // Для служебных скриптов на сервере: полная пересинхронизация без ключа доступа.
