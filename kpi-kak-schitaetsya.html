@@ -230,7 +230,7 @@ table.matrix td.num{font-weight:600;color:var(--fg)}
     <div class="sec-head reveal">
       <div class="kicker">Что меряется</div>
       <h2>Две скорости у каждой задачи</h2>
-      <p>Обе считаются от момента, когда задача поставлена в YouGile. Обе — в рабочих часах: день с 10 до 18, ночь и выходные не идут в счёт.</p>
+      <p>Обе в рабочих часах: день с 9 до 18, вечера и выходные не идут в счёт. Задача, поставленная в пятницу в 23:00 и взятая в понедельник в 9:13, ждала 13 минут.</p>
     </div>
 
     <div class="grid g2">
@@ -242,9 +242,9 @@ table.matrix td.num{font-weight:600;color:var(--fg)}
       </div>
       <div class="card hoverable reveal">
         <span class="tag t-violet">Time to fill</span>
-        <h3 style="margin-top:12px">Время до сдачи</h3>
-        <p class="fg2">От постановки до момента, когда работа ассистента закончена: карточка ушла на проверку, в «Завершено» или в ожидание внешнего результата.</p>
-        <p class="muted" style="margin:0">Ждать, пока вы примете работу, ассистент не может — поэтому меряется сдача, а не приёмка.</p>
+        <h3 style="margin-top:12px">Время в работе</h3>
+        <p class="fg2">Сколько задача пробыла в «В работе»: от взятия до сдачи — на проверку, в «Завершено» или в ожидание внешнего результата. Таймер идёт только в этой колонке.</p>
+        <p class="muted" style="margin:0">Две метрики независимы: поздно взяли — бьёт по первой, долго делали — по второй. Одно и то же дважды не наказывается.</p>
       </div>
     </div>
 
@@ -253,23 +253,23 @@ table.matrix td.num{font-weight:600;color:var(--fg)}
         <div class="tl-pt"><span class="tl-dot" style="background:var(--fg-3)"></span><b>Поставлена</b><span class="muted">карточка появилась на доске</span></div>
         <div class="tl-seg"><span class="tl-lbl t-blue">до старта</span></div>
         <div class="tl-pt"><span class="tl-dot" style="background:var(--accent)"></span><b>Взята</b><span class="muted">переход в «В работе»</span></div>
-        <div class="tl-seg"><span class="tl-lbl t-violet">до сдачи</span></div>
+        <div class="tl-seg"><span class="tl-lbl t-violet">в работе</span></div>
         <div class="tl-pt"><span class="tl-dot" style="background:var(--violet)"></span><b>Сдана</b><span class="muted">на проверке или завершена</span></div>
       </div>
     </div>
 
     <div class="grid g3" style="margin-top:16px">
       <div class="card reveal">
-        <h4>Вычитается: блокер и ожидание</h4>
-        <p class="muted" style="margin:0">Пока карточка стоит в «Блокер» или «В ожидании», часы не идут. Гаджет едет из США месяц — это не время ассистента.</p>
+        <h4>Таймер стоит: проверка, блокер, ожидание, «на потом», «на контроле»</h4>
+        <p class="muted" style="margin:0">На любом из этих этапов часы не идут. Гаджет едет из США месяц, вы проверяете неделю — это не время ассистента.</p>
       </div>
       <div class="card reveal">
-        <h4>Вычитается: вечера и выходные</h4>
-        <p class="muted" style="margin:0">Задача, поставленная в пятницу в 17:00 и взятая в понедельник в 10:30, заняла полтора часа, а не трое суток.</p>
+        <h4>Вернули в работу — таймер идёт дальше</h4>
+        <p class="muted" style="margin:0">Сделала за два часа, вы вернули, доделала ещё час — в работе три часа, сколько бы ни лежала на проверке. Возвратов может быть сколько угодно, каждый считается.</p>
       </div>
       <div class="card reveal">
-        <h4>Не вычитается: приёмка</h4>
-        <p class="muted" style="margin:0">Если задачу вернули на доработку, часы продолжают идти до повторной сдачи. Сдать пустышку и остановить время нельзя.</p>
+        <h4>Не считаются вовсе: приоритет 30 и задачи мимо «В работе»</h4>
+        <p class="muted" style="margin:0">Задачи «на месяц» в модель не входят. Карточка, закрытая без захода в «В работе», не даёт ни времени до старта, ни времени в работе — доска должна вестись честно.</p>
       </div>
     </div>
   </div>
@@ -332,7 +332,7 @@ table.matrix td.num{font-weight:600;color:var(--fg)}
         <thead><tr><th>Метрика</th><th class="num">Уровень 1<br><span style="text-transform:none;font-weight:500">простые</span></th><th class="num">Уровень 2<br><span style="text-transform:none;font-weight:500">обычные</span></th><th class="num">Уровень 3<br><span style="text-transform:none;font-weight:500">сложные</span></th></tr></thead>
         <tbody>
           <tr><td><strong>Время до старта</strong><br><span class="muted">план, рабочих часов</span></td><td class="num"><strong>2 ч</strong></td><td class="num"><strong>4 ч</strong></td><td class="num"><strong>8 ч</strong><br><span class="muted">день</span></td></tr>
-          <tr><td><strong>Время до сдачи</strong><br><span class="muted">план, рабочих часов</span></td><td class="num"><strong>8 ч</strong><br><span class="muted">день</span></td><td class="num"><strong>24 ч</strong><br><span class="muted">три дня</span></td><td class="num"><strong>80 ч</strong><br><span class="muted">две недели</span></td></tr>
+          <tr><td><strong>Время в работе</strong><br><span class="muted">план, рабочих часов</span></td><td class="num"><strong>8 ч</strong><br><span class="muted">день</span></td><td class="num"><strong>24 ч</strong><br><span class="muted">три дня</span></td><td class="num"><strong>80 ч</strong><br><span class="muted">две недели</span></td></tr>
         </tbody>
       </table>
     </div>
@@ -378,7 +378,7 @@ table.matrix td.num{font-weight:600;color:var(--fg)}
     <div class="grid g3">
       <div class="card hoverable reveal">
         <div class="big" style="color:var(--accent)">60 % → 6</div>
-        <p class="muted" style="margin:8px 0 0">Автоматическая оценка: процент плана за месяц, делённый на десять. 100 % и выше — десять, больше десяти не бывает.</p>
+        <p class="muted" style="margin:8px 0 0">Автоматическая оценка: процент плана за месяц, делённый на десять. 100 % и выше — десять, больше десяти не бывает. Задачи с приоритетом 30 не считаются.</p>
       </div>
       <div class="card hoverable reveal">
         <div class="big" style="color:var(--amber)">руками</div>
@@ -528,7 +528,7 @@ table.matrix td.num{font-weight:600;color:var(--fg)}
       <div class="card reveal">
         <h4>Участвуют частично</h4>
         <ul class="clean">
-          <li>Задача взята, но не сдана: идёт только во «время до старта». Время до сдачи появится, когда сдадут.</li>
+          <li>Задача взята, но не сдана: идёт только во «время до старта». Время в работе появится, когда сдадут.</li>
           <li>Задача ещё не взята: не идёт никуда. Лежать нетронутой она может сколько угодно — но день взятия покажет, сколько лежала.</li>
           <li>Реакция в рабочем чате по-прежнему замеряется и попадает в месячную сводку, но на оценку и премию не влияет.</li>
         </ul>
@@ -544,7 +544,7 @@ table.matrix td.num{font-weight:600;color:var(--fg)}
     <div class="sec-head reveal">
       <div class="kicker">Проверяемость</div>
       <h2>Любую цифру можно раскрыть</h2>
-      <p>В приложении каждый месяц — раскрываемая строка. Внутри — шесть метрик за месяц и список задач: уровень, откуда он взялся, часы до старта и до сдачи.</p>
+      <p>В приложении клик по человеку раскрывает, из чего сложилась его оценка: шесть метрик месяца, поставленные задачи с часами, что висит, что закрыто. Клик по метрике — список задач, из которых она сложилась. У каждой задачи — ссылка в YouGile.</p>
     </div>
 
     <div class="grid g3">

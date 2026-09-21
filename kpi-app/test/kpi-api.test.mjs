@@ -56,6 +56,7 @@ test('миграция 003 приводит старую базу к новой 
   migrated.exec(oldSchema);
   migrated.exec(fs.readFileSync(path.join(root, 'migrations', '003_time_kpi.sql'), 'utf8'));
   migrated.exec(fs.readFileSync(path.join(root, 'migrations', '004_month_scores.sql'), 'utf8'));
+  migrated.exec(fs.readFileSync(path.join(root, 'migrations', '005_task_links.sql'), 'utf8'));
 
   const clean = new DatabaseSync(':memory:');
   clean.exec(fs.readFileSync(path.join(root, 'schema.sql'), 'utf8'));
@@ -81,6 +82,9 @@ async function freshEnv() {
   sqlite.exec(fs.readFileSync(path.join(root, 'schema.sql'), 'utf8'));
   // модель в тестах не нужна
   sqlite.prepare("INSERT OR REPLACE INTO settings (key, value) VALUES ('llm_enabled', '0')").run();
+  // ожидания ниже считались для окна 10–18
+  sqlite.prepare("INSERT OR REPLACE INTO settings (key, value) VALUES ('task_day_start', '10:00')").run();
+  sqlite.prepare("INSERT OR REPLACE INTO settings (key, value) VALUES ('task_day_end', '18:00')").run();
 
   const add = async (id, name, role, gradeNum, salary) => {
     sqlite
@@ -111,9 +115,9 @@ async function freshEnv() {
   // Катя: уровень 1 — быстро, уровень 2 — медленно
   task('kate', 1, 1, 2);
   task('kate', 1, 1, 4);         // t2s1 = 1, t2f1 = 3
-  task('kate', 2, 4, 28);        // t2s2 = 4, t2f2 = 12 (вторник 14:00: 8 в пн + 4 во вт)
+  task('kate', 2, 4, 28);        // t2s2 = 4, t2f2 = 8 (в работе с пн 14:00 до вт 14:00)
   // Ксюша: уровень 2 — быстро, уровень 3 — одна незакрытая
-  task('ksu', 2, 1, 3);          // t2s2 = 1, t2f2 = 3
+  task('ksu', 2, 1, 3);          // t2s2 = 1, t2f2 = 2
   task('ksu', 3, 2, null, { status: 'in_progress' });  // t2s3 = 2, t2f3 нет
   task('ksu', 1, 0.5, 1, { is_zaeb: 1 });               // заёб — не считается
   // руководитель сам закрыл две простых задачи ровно в план
@@ -405,4 +409,82 @@ test('месячная сводка в личку строится по моде
   } finally {
     globalThis.fetch = realFetch;
   }
+});
+
+test('вебхук YouGile принимается с секретом в пути и отвечает сразу', async () => {
+  const { call, env, sqlite } = await freshEnv();
+  env.HOOK_SECRET = 'hooksecret';
+  const send = async (p, body) => worker.fetch(new Request(`http://kpi.local/api${p}`, {
+    method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(body),
+  }), env);
+
+  const wrong = await send('/yougile/nope', { id: 'x' });
+  assert.equal(wrong.status, 403);
+
+  const t = { id: 'hook-1', title: 'Заказать такси', idTaskCommon: 'ID-900', idTaskProject: 'VSE-777',
+    columnId: 'c-open', timestamp: Date.parse('2026-08-10T07:00:00Z'), assigned: [] };
+  const ok = await send('/yougile/hooksecret', { event: 'task-created', payload: t });
+  assert.equal(ok.status, 200);
+  assert.equal((await ok.json()).received, 1);
+  // разбор идёт после ответа — даём ему завершиться
+  await new Promise((r) => setTimeout(r, 50));
+  const row = sqlite.prepare('SELECT number, project_no, url FROM tasks WHERE id = ?').get('hook-1');
+  assert.equal(row.number, 'ID-900');
+  assert.equal(row.project_no, 'VSE-777');
+  assert.equal(row.url, 'https://ru.yougile.com/team/ed881f3af637/#VSE-777', 'ссылка по проектному номеру');
+});
+
+test('таймер стоит на проверке и идёт снова после возврата в работу', async () => {
+  const { env, sqlite } = await freshEnv();
+  env.HOOK_SECRET = 'hooksecret';
+  // колонки из настроек тестовой базы
+  const col = (key) => sqlite.prepare('SELECT value FROM settings WHERE key = ?').get(key).value.split(',')[0];
+  const send = (t) => worker.fetch(new Request('http://kpi.local/api/hook/yougile', {
+    method: 'POST', headers: { 'content-type': 'application/json', 'x-hook-secret': 'hooksecret' },
+    body: JSON.stringify({ payload: t }),
+  }), env);
+
+  const RealDate = Date;
+  const at = async (iso, columnKey, extra = {}) => {
+    const fixed = RealDate.parse(iso);
+    globalThis.Date = class extends RealDate {
+      constructor(...a) { super(...(a.length ? a : [fixed])); }
+      static now() { return fixed; }
+    };
+    try {
+      await send({ id: 'pause-1', title: 'Задача с паузой', idTaskCommon: 'ID-1', columnId: col(columnKey),
+        timestamp: RealDate.parse('2026-08-10T07:00:00Z'), assigned: ['yg-lead'], ...extra });
+      await new Promise((r) => setTimeout(r, 30));
+    } finally { globalThis.Date = RealDate; }
+  };
+  sqlite.prepare("UPDATE users SET yougile_id = 'yg-lead' WHERE id = 'lead'").run();
+
+  await at('2026-08-10T07:00:00Z', 'column_backlog');        // пн 10:00 поставлена
+  await at('2026-08-10T08:00:00Z', 'column_in_progress');    // 11:00 взята
+  await at('2026-08-10T10:00:00Z', 'column_review');         // 13:00 сдана на проверку — таймер стоит
+  await at('2026-08-11T09:00:00Z', 'column_in_progress');    // вт 12:00 вернули в работу (на проверке 5+2=7 ч)
+  await at('2026-08-11T11:00:00Z', 'column_review');         // вт 14:00 сдана снова
+
+  const get = () => sqlite.prepare('SELECT taken_at, work_done_at, paused_min, paused_since, returns, t2s_hours, t2f_hours FROM tasks WHERE id = ?').get('pause-1');
+  let row = get();
+  assert.equal(row.paused_min, 7 * 60, 'семь часов на проверке — не в счёт');
+  assert.equal(row.returns, 1);
+  assert.equal(row.t2s_hours, 1);
+  // в работе: 11:00–13:00 в пн (2 ч) и 12:00–14:00 во вт (2 ч) = 4 ч
+  assert.equal(row.t2f_hours, 4, 'считается только время в «В работе»');
+  assert.ok(row.paused_since, 'сейчас снова на проверке — таймер стоит');
+
+  // второй возврат: на проверке вт 14:00 → ср 10:00 (4 ч), в работе ещё час
+  await at('2026-08-12T07:00:00Z', 'column_in_progress');    // ср 10:00 вернули снова
+  await at('2026-08-12T08:00:00Z', 'column_review');         // ср 11:00 сдана в третий раз
+  row = get();
+  assert.equal(row.returns, 2, 'оба возврата посчитаны');
+  assert.equal(row.paused_min, 11 * 60, 'паузы складываются: 7 + 4');
+  assert.equal(row.t2f_hours, 5, 'таймер продолжил с четырёх часов и дошёл до пяти');
+
+  // приняли — время на последней проверке к работе не относится
+  await at('2026-08-13T07:00:00Z', 'column_done', { completed: true, completedTimestamp: RealDate.parse('2026-08-13T07:00:00Z') });
+  row = get();
+  assert.equal(row.t2f_hours, 5, 'приёмка ничего не добавила');
+  assert.equal(row.paused_since, null);
 });

@@ -72,6 +72,20 @@ function humanMinutes(m) {
   return `${d} д ${h % 24} ч`;
 }
 
+/** Рабочие минуты словами: день здесь — восемь часов, а не двадцать четыре. */
+function humanWorkMinutes(m, settings = {}) {
+  if (m === null || m === undefined) return '—';
+  m = Math.max(0, Math.round(m));
+  if (m < 60) return `${m} мин`;
+  const h = Math.floor(m / 60);
+  const rest = m % 60;
+  const dayH = Math.round(workWindow(settings).dayMin / 60);
+  if (h < dayH) return rest ? `${h} ч ${rest} мин` : `${h} ч`;
+  const d = Math.floor(h / dayH);
+  const hh = h % dayH;
+  return `${d} раб. дн${hh ? ` ${hh} ч` : ''}`;
+}
+
 // ── настройки ────────────────────────────────────────────────────────────────
 
 async function loadSettings(db) {
@@ -129,9 +143,10 @@ function scoreTask(task) {
   // Время в блокере и ожидании не идёт против исполнителя, но у поблажки
   // есть потолок: иначе задачу можно было бы держать в паузе месяцами
   // ради бесконечного сдвига срока.
+  const dayMin = workWindow(task.settings || {}).dayMin;
   const pauseCap = Math.max(
-    (task.priority || 7) * WORK_DAY_MIN,  // столько же рабочих минут, сколько дано на задачу
-    3 * WORK_DAY_MIN                      // но не меньше трёх рабочих дней
+    (task.priority || 7) * dayMin,  // столько же рабочих минут, сколько дано на задачу
+    3 * dayMin                      // но не меньше трёх рабочих дней
   );
   const pauseCredit = Math.min(task.paused_min || 0, pauseCap);
   const effectiveDeadline = task.deadline
@@ -292,10 +307,13 @@ function computeMetrics({ tasks, replies, settings, grade }) {
 // Метрики времени: Time to start и Time to fill по трём уровням сложности
 //
 // Time to start — от постановки задачи до момента, когда её взяли в работу.
-// Time to fill  — от постановки до завершения.
+// Time to fill  — сколько задача была в работе: от переноса в «В работе»
+//                 до сдачи, без блокера и ожидания.
 //
 // Обе в рабочих часах: ночь и выходные не идут в счёт, иначе задача,
 // поставленная в пятницу вечером, показывала бы двое суток простоя.
+// Метрики независимы: поздний старт бьёт только по первой, долгая работа —
+// только по второй. Задача, не побывавшая в «В работе», во вторую не входит.
 // ─────────────────────────────────────────────────────────────────────────────
 
 const LEVELS = [1, 2, 3];
@@ -338,7 +356,7 @@ function taskDurations(task, settings) {
     return Math.max(0, Math.round((mins / 60) * 100) / 100);
   };
 
-  return { t2s: hours(from, toStart, false), t2f: hours(from, toFill, true) };
+  return { t2s: hours(from, toStart, false), t2f: hours(toStart, toFill, true) };
 }
 
 /**
@@ -440,9 +458,9 @@ async function monthMetrics(db, userId, period, settings, sla) {
     tasks: tasks.map((t) => {
       const d = taskDurations(t, settings);
       return {
-        id: t.id, number: t.number, title: t.title, assignee_id: t.assignee_id,
+        id: t.id, number: t.project_no || t.number, title: t.title, url: t.url, assignee_id: t.assignee_id,
         level: levelOfTask(t), level_src: t.level_src || 'default',
-        status: t.status, created_at: t.created_at,
+        status: t.status, created_at: t.created_at, priority: t.priority,
         t2s: d.t2s, t2f: d.t2f,
       };
     }),
@@ -786,10 +804,10 @@ async function buildProfile(db, user, period, settings) {
       total: zaebSum + savingPay,
     },
     awards,
-    tasks: metrics.scored.map(decorateTask),
+    tasks: metrics.scored.map((t) => decorateTask(t, settings)),
     openTasks: tasks
       .filter((t) => !['accepted', 'failed', 'cancelled'].includes(t.status))
-      .map(decorateTask),
+      .map((t) => decorateTask(t, settings)),
   };
 }
 
@@ -806,24 +824,49 @@ function withChatLinks(profile, settings) {
 }
 
 /** Тайминги задачи — то, ради чего лид сюда заходит. */
-function decorateTask(t) {
-  const toTake = minutesBetween(t.created_at, t.taken_at);
-  const toDo = minutesBetween(t.taken_at, t.submitted_at || t.done_at);
-  const total = minutesBetween(t.created_at, t.done_at);
-  const overdue =
-    t.deadline && t.done_at ? minutesBetween(t.deadline, t.done_at) : null;
+function decorateTask(t, settings = {}) {
+  const now = nowIso();
+  // работа закончена — сдана на проверку, отдана в ожидание или принята
+  const doneMark = t.work_done_at || t.submitted_at || t.done_at || null;
+  const closed = ['accepted', 'cancelled', 'historical'].includes(t.status);
+  // Незаконченная задача измеряется до текущего момента: иначе у висящей
+  // месяц задачи «делалась —» и «в срок», хотя срок давно прошёл.
+  // Всё в рабочих минутах, как в модели времени: календарные «18 ч 52 мин»
+  // за вечер и утро выглядели как почти сутки.
+  const wm = (a, b) => (a && b ? workMinutesBetween(a, b, settings) : null);
+  const toTake = wm(t.created_at, t.taken_at);
+  const doEnd = doneMark || (t.taken_at && !closed ? now : null);
+  const toDo = t.taken_at && doEnd ? Math.max(0, wm(t.taken_at, doEnd) - (t.paused_min || 0)) : null;
+  const total = t.done_at ? Math.max(0, wm(t.created_at, t.done_at) - (t.paused_min || 0)) : null;
+  const deadlineRef = doneMark || (closed ? null : now);
+  // просрочка без времени в блокере/ожидании
+  const overdue = t.deadline && deadlineRef
+    ? wm(t.deadline, deadlineRef) - (t.paused_min || 0)
+    : null;
+
+  // то же в рабочих часах — как в модели времени
+  const dur = taskDurations(t, settings);
+  const inWorkH = !doneMark && t.taken_at && !closed
+    ? Math.round((workMinutesBetween(t.taken_at, now, settings) / 60) * 10) / 10
+    : null;
+  const waitingH = !t.taken_at && !closed
+    ? Math.round((workMinutesBetween(t.created_at, now, settings) / 60) * 10) / 10
+    : null;
 
   return {
+    open: !doneMark && !closed,          // работа ещё не сдана
+    waitingHours: waitingH,              // лежит не взятой, рабочих часов
+    inWorkHours: inWorkH,                // в работе, рабочих часов
     id: t.id,
     title: t.title,
-    number: t.number,
+    number: t.project_no || t.number,
     url: t.url,
     size: t.size,
     level: t.level || null,
     levelSrc: t.level_src || null,
     priority: t.priority || null,
-    t2sHours: t.t2s_hours ?? null,
-    t2fHours: t.t2f_hours ?? null,
+    t2sHours: dur.t2s,
+    t2fHours: dur.t2f,
     night: !!t.night,
     status: t.status,
     createdAt: t.created_at,
@@ -840,13 +883,16 @@ function decorateTask(t) {
     flags: t.flags ?? null,
     timing: {
       toTakeMin: toTake,
-      toTakeHuman: humanMinutes(toTake),
+      toTakeHuman: humanWorkMinutes(toTake, settings),
       toDoMin: toDo,
-      toDoHuman: humanMinutes(toDo),
+      toDoHuman: humanWorkMinutes(toDo, settings),
       totalMin: total,
-      totalHuman: humanMinutes(total),
+      totalHuman: humanWorkMinutes(total, settings),
       overdueMin: overdue && overdue > 0 ? overdue : null,
-      overdueHuman: overdue && overdue > 0 ? humanMinutes(overdue) : null,
+      overdueHuman: overdue && overdue > 0 ? humanWorkMinutes(overdue, settings) : null,
+      // срок ещё впереди — сколько рабочих часов осталось
+      leftHuman: !doneMark && !closed && t.deadline && overdue !== null && overdue <= 0
+        ? humanWorkMinutes(wm(now, t.deadline), settings) : null,
     },
   };
 }
@@ -887,9 +933,15 @@ async function handleApi(request, env, url) {
     return json({ ok: true, key });
   }
 
-  // вебхук YouGile — принимается без ключа доступа, поэтому проверяется секрет
+  // вебхук YouGile — принимается без ключа доступа, поэтому проверяется секрет:
+  // в заголовке (свой вызов) или в пути (так зарегистрировано в YouGile,
+  // заголовков он не шлёт)
   if (path === '/hook/yougile' && request.method === 'POST') {
     return handleYougileHook(request, env, settings);
+  }
+  if (path.startsWith('/yougile/') && request.method === 'POST') {
+    if (!env.HOOK_SECRET || path.slice(9) !== env.HOOK_SECRET) return bad('нет доступа', 403);
+    return handleYougileHook(request, env, settings, { trusted: true });
   }
   // готовый замер от внешнего бота
   if (path === '/hook/tg' && request.method === 'POST') {
@@ -1056,7 +1108,7 @@ async function handleApi(request, env, url) {
          WHERE t.status = 'review' ORDER BY t.submitted_at`
       )
       .all();
-    return json({ tasks: results.map((t) => ({ ...decorateTask(t), assignee: t.assignee_name })) });
+    return json({ tasks: results.map((t) => ({ ...decorateTask(t, settings), assignee: t.assignee_name })) });
   }
 
   // приёмка: «принято» или «вернуть» — единственное решение руководителя
@@ -1123,7 +1175,7 @@ async function handleApi(request, env, url) {
       .prepare('SELECT * FROM events WHERE task_id = ? ORDER BY at')
       .bind(taskId)
       .all();
-    return json({ task: decorateTask(task), events: results, score: scoreTask(task) });
+    return json({ task: decorateTask(task, settings), events: results, score: scoreTask(task) });
   }
 
   // ── настройки: доступны руководителю отдела и владельцу ────────────────────
@@ -1518,10 +1570,10 @@ async function logEvent(db, { taskId, userId, type, actor, at, note, source }) {
  * источник таймингов: когда взята в работу, когда ушла на проверку,
  * сколько раз возвращалась.
  */
-async function handleYougileHook(request, env, settings) {
+async function handleYougileHook(request, env, settings, { trusted = false } = {}) {
   const db = env.DB;
   const secret = env.HOOK_SECRET;
-  if (secret && request.headers.get('x-hook-secret') !== secret) return bad('нет доступа', 403);
+  if (!trusted && secret && request.headers.get('x-hook-secret') !== secret) return bad('нет доступа', 403);
 
   const payload = await request.json().catch(() => null);
   if (!payload) return bad('пустое тело');
@@ -1915,7 +1967,7 @@ function stickerValue(task, stickerId, map, fallback) {
  * поэтому задача, поставленная в пятницу вечером, ждёт понедельника,
  * а не оказывается просроченной за выходные.
  */
-function addWorkdays(from, days, tzOffset = 3) {
+function addWorkdays(from, days, tzOffset = 3, settings = {}) {
   // Считаем в местном времени: иначе суббота 01:00 по Москве выглядит
   // как пятница по UTC, и выходной день ошибочно засчитывается рабочим.
   const shift = tzOffset * 3600000;
@@ -1924,7 +1976,7 @@ function addWorkdays(from, days, tzOffset = 3) {
 
   // Поставлена после конца рабочего дня — считается поставленной утром
   // следующего: пятница вечером с приоритетом 3 — это среда, а не вторник.
-  if (d.getUTCHours() >= WORK_TO_H) {
+  if (d.getUTCHours() * 60 + d.getUTCMinutes() >= workWindow(settings).to) {
     d.setUTCDate(d.getUTCDate() + 1);
     d.setUTCHours(0, 0, 0, 0);
   }
@@ -1942,20 +1994,29 @@ function addWorkdays(from, days, tzOffset = 3) {
   return new Date(d.getTime() - shift).toISOString();
 }
 
-// Рабочий день для расчёта сроков: с какого по какой час идут часы.
-const WORK_FROM_H = 10;
-const WORK_TO_H = 18;
-const WORK_DAY_MIN = (WORK_TO_H - WORK_FROM_H) * 60;
+// Рабочий день для расчёта сроков и часов задач. Отдельно от окна ответов
+// в чате (work_start/work_end — там до 22:00): задачи делаются днём.
+// Задача, поставленная в пятницу в 23:00 и взятая в понедельник в 9:13,
+// ждала 13 минут — с начала рабочего дня.
+function workWindow(settings = {}) {
+  const parse = (v, fallback) => {
+    const [h, m] = String(v || fallback).split(':').map(Number);
+    return (h || 0) * 60 + (m || 0);
+  };
+  const from = parse(settings.task_day_start || settings.work_start, '09:00');
+  const to = parse(settings.task_day_end, '18:00');
+  return { from, to: Math.max(from + 60, to), dayMin: Math.max(60, to - from) };
+}
 
 const isWeekendLocal = (ms) => {
   const d = new Date(ms).getUTCDay();
   return d === 0 || d === 6;
 };
 /** Границы рабочего окна для дня, в котором лежит момент. */
-function dayWindow(ms) {
+function dayWindow(ms, win) {
   const d = new Date(ms);
   const base = Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate());
-  return { start: base + WORK_FROM_H * 3600000, end: base + WORK_TO_H * 3600000, base };
+  return { start: base + win.from * 60000, end: base + win.to * 60000, base };
 }
 
 /**
@@ -1967,6 +2028,7 @@ function dayWindow(ms) {
  */
 function workMinutesBetween(fromIso, toIso, settings = {}) {
   const tz = num(settings, 'tz_offset', 3) * 3600000;
+  const win = workWindow(settings);
   let cur = new Date(fromIso).getTime() + tz;
   const to = new Date(toIso).getTime() + tz;
   if (!(to > cur)) return 0;
@@ -1974,13 +2036,13 @@ function workMinutesBetween(fromIso, toIso, settings = {}) {
   let minutes = 0;
   let guard = 0;
   while (cur < to && guard++ < 4000) {
-    const w = dayWindow(cur);
+    const w = dayWindow(cur, win);
     if (!isWeekendLocal(cur)) {
       const from = Math.max(cur, w.start);
       const till = Math.min(to, w.end);
       if (till > from) minutes += Math.round((till - from) / 60000);
     }
-    cur = w.base + 86400000 + WORK_FROM_H * 3600000; // утро следующего дня
+    cur = w.base + 86400000 + win.from * 60000; // утро следующего дня
   }
   return minutes;
 }
@@ -1992,14 +2054,15 @@ function workMinutesBetween(fromIso, toIso, settings = {}) {
  */
 function addWorkMinutes(fromIso, minutes, settings = {}) {
   const tz = num(settings, 'tz_offset', 3) * 3600000;
+  const win = workWindow(settings);
   let cur = new Date(fromIso).getTime() + tz;
   let left = Math.max(0, Math.round(minutes));
   let guard = 0;
 
   while (left > 0 && guard++ < 4000) {
-    const w = dayWindow(cur);
+    const w = dayWindow(cur, win);
     if (isWeekendLocal(cur) || cur >= w.end) {
-      cur = w.base + 86400000 + WORK_FROM_H * 3600000;
+      cur = w.base + 86400000 + win.from * 60000;
       continue;
     }
     const from = Math.max(cur, w.start);
@@ -2009,7 +2072,7 @@ function addWorkMinutes(fromIso, minutes, settings = {}) {
       left = 0;
     } else {
       left -= available;
-      cur = w.base + 86400000 + WORK_FROM_H * 3600000;
+      cur = w.base + 86400000 + win.from * 60000;
     }
   }
   return new Date(cur - tz).toISOString();
@@ -2052,6 +2115,13 @@ async function upsertTaskFromYougile(env, t, settings) {
   const createdAt = existing?.created_at
     || (t.timestamp ? new Date(t.timestamp).toISOString() : now);
 
+  // Ссылка в YouGile строится по проектному номеру (VSE-370), а не по общему
+  // (ID-452): именно его показывает адресная строка трекера.
+  const projectNo = t.idTaskProject || existing?.project_no || null;
+  const url = settings.yougile_team && projectNo
+    ? `https://ru.yougile.com/team/${settings.yougile_team}/#${projectNo}`
+    : existing?.url || null;
+
   // Размер задачи берём со стикера, а не выдумываем
   const size = Number(
     stickerValue(t, settings.sticker_size, stateMap(settings, 'size_states'),
@@ -2091,7 +2161,7 @@ async function upsertTaskFromYougile(env, t, settings) {
   const tz = num(settings, 'tz_offset', 3);
   const deadline = t.deadline?.deadline
     ? new Date(t.deadline.deadline).toISOString()
-    : (priorityDays ? addWorkdays(createdAt, priorityDays, tz) : existing?.deadline || null);
+    : (priorityDays ? addWorkdays(createdAt, priorityDays, tz, settings) : existing?.deadline || null);
 
   let status = existing?.status || 'open';
   let taken = existing?.taken_at || null;
@@ -2104,18 +2174,20 @@ async function upsertTaskFromYougile(env, t, settings) {
   let workDoneKind = existing?.work_done_kind || null;
 
   const stage = stageOfColumn(t.columnId, settings);
+  const completedAt = t.completedTimestamp ? new Date(t.completedTimestamp).toISOString() : null;
 
-  // Выход из паузы — копим её длительность. Считаем в рабочих минутах:
+  // Таймер выполнения идёт только в «В работе». На проверке, в блокере,
+  // в ожидании, «на потом» и «на контроле» он стоит и продолжается, когда
+  // карточка возвращается в работу. Пауза копится в рабочих минутах:
   // календарные дарили бы сутки за каждые выходные, проведённые в блокере.
-  if (pausedSince && stage !== 'blocked' && stage !== 'waiting') {
-    pausedMin += workMinutesBetween(pausedSince, now, settings);
-    pausedSince = null;
-  }
+  const pausedHere = pausedSince ? workMinutesBetween(pausedSince, now, settings) : 0;
 
   if (stage === 'in_progress') {
     if (status === 'review') returns += 1; // вернулась с проверки — признак «без правок» гаснет
     status = 'in_progress';
     taken = taken || now;
+    // вернулась в работу — стоявшее время не в счёт
+    if (pausedSince) { pausedMin += pausedHere; pausedSince = null; }
     // Вернулись к работе — значит она не была закончена. Отметка сдачи
     // аннулируется, часы идут дальше: иначе «сдал пустышку» останавливало бы срок.
     workDoneAt = null;
@@ -2123,37 +2195,50 @@ async function upsertTaskFromYougile(env, t, settings) {
   } else if (stage === 'review') {
     status = 'review';
     submitted = submitted || now;
-    // сдал на проверку — работа с его стороны закончена
+    // сдал на проверку — работа с его стороны закончена, таймер стоит
     if (!workDoneAt) { workDoneAt = now; workDoneKind = 'submitted'; }
+    if (taken) pausedSince = pausedSince || now;
   } else if (stage === 'accepted') {
     status = 'accepted';
-    done = done || now;
+    done = done || completedAt || now;
+    // приняли прямо из паузы, а сдачи не было (блокер → завершена):
+    // стоявшее время не в счёт. Если сдача была раньше — она уже всё зафиксировала.
+    if (pausedSince && !workDoneAt) pausedMin += pausedHere;
+    pausedSince = null;
     if (!workDoneAt) { workDoneAt = done; workDoneKind = 'accepted'; }
   } else if (stage === 'blocked') {
     // Часы на паузе, но работа не сдана: блокером нельзя остановить срок,
     // ничего не сделав.
     status = 'blocked';
-    pausedSince = pausedSince || now;
+    if (taken) pausedSince = pausedSince || now;
   } else if (stage === 'waiting') {
     // Работа ассистента закончена, ждём внешний результат. Часы стоят,
     // и задача засчитывается сданной — по этой дате и меряется срок.
     status = 'waiting';
-    pausedSince = pausedSince || now;
+    if (taken) pausedSince = pausedSince || now;
     if (!workDoneAt) {
       workDoneAt = now;
       workDoneKind = 'handed_off';
     }
   } else if (stage === 'shelved') {
-    // Отложена: в зачёт пойдёт только после того, как будет решена.
+    // «На потом», «На контроле»: отложена, таймер стоит.
     status = 'shelved';
+    if (taken) pausedSince = pausedSince || now;
   } else if (stage === 'cancelled') {
     status = 'cancelled';
+    pausedSince = null;
   }
 
   // YouGile сам отмечает завершённость — это надёжнее, чем угадывать по колонке
   if (t.completed && status !== 'accepted' && status !== 'cancelled') {
     status = 'accepted';
-    done = done || now;
+    done = done || completedAt || now;
+  }
+  // Трекер знает точное время закрытия. Если мы записали более позднее —
+  // заметили с опозданием, синхронизация раз в час — исправляем на реальное.
+  if (completedAt && status === 'accepted' && (!done || done > completedAt)) {
+    done = completedAt;
+    if (workDoneKind === 'accepted' || !workDoneAt) { workDoneAt = completedAt; workDoneKind = 'accepted'; }
   }
 
   // Задача, закрытая до запуска системы, остаётся исторической навсегда:
@@ -2185,13 +2270,13 @@ async function upsertTaskFromYougile(env, t, settings) {
 
     await db
       .prepare(
-        `UPDATE tasks SET title=?, number=?, board_id=?, column_id=?, keywords=?, assignee_id=?,
+        `UPDATE tasks SET title=?, number=?, project_no=?, url=?, board_id=?, column_id=?, keywords=?, assignee_id=?,
          size=?, level=?, level_src=?, priority=?, deadline=?, status=?, taken_at=?,
          submitted_at=?, done_at=?, work_done_at=?, work_done_kind=?, returns=?,
          paused_min=?, paused_since=?, t2s_hours=?, t2f_hours=?,
          period=?, updated_at=? WHERE id=?`
       )
-      .bind(title, t.idTaskCommon || existing.number, t.boardId || existing.board_id,
+      .bind(title, t.idTaskCommon || existing.number, projectNo, url, t.boardId || existing.board_id,
             t.columnId || existing.column_id, keywords,
             user?.id || existing.assignee_id, size, level, levelSrc,
             priorityDays, deadline, status, taken,
@@ -2211,14 +2296,14 @@ async function upsertTaskFromYougile(env, t, settings) {
     }
     await db
       .prepare(
-        `INSERT INTO tasks (id, title, number, board_id, column_id, keywords, assignee_id,
+        `INSERT INTO tasks (id, title, number, project_no, url, board_id, column_id, keywords, assignee_id,
          author_id, size, level, level_src, priority, created_at, deadline, status,
          taken_at, submitted_at, done_at, work_done_at, work_done_kind, returns,
          paused_min, paused_since, t2s_hours, t2f_hours,
          is_initiative, is_zaeb, period)
-         VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`
+         VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`
       )
-      .bind(t.id, title, t.idTaskCommon || null, t.boardId || null, t.columnId || null,
+      .bind(t.id, title, t.idTaskCommon || null, projectNo, url, t.boardId || null, t.columnId || null,
             taskKeywords({ ...t, title }),
             user?.id || null, t.createdBy || null, size, level, levelSrc,
             priorityDays, createdAt, deadline,
@@ -3168,7 +3253,7 @@ export default {
 export const __test = {
   quarterOf, monthsOfQuarter, MARKS, MARK_LABEL,
   levelOfTask, taskDurations, timeMetrics, planPercent, autoMark,
-  workMinutesBetween, addWorkMinutes, addWorkdays,
+  workMinutesBetween, addWorkMinutes, addWorkdays, workWindow,
   scoreTask, scoreChat, computeMetrics, scoreFromPercent, skipPriorities,
 };
 

@@ -13,7 +13,8 @@ const {
   quarterOf, monthsOfQuarter,
 } = __test;
 
-const S = { tz_offset: '3', overplan_percent: '120' };
+// окно 10–18 задано явно: ожидания ниже считались для него
+const S = { tz_offset: '3', overplan_percent: '120', task_day_start: '10:00', task_day_end: '18:00' };
 
 test('месяц сводится в нужный квартал', () => {
   assert.equal(quarterOf('2026-08'), '2026-Q3');
@@ -40,7 +41,7 @@ test('время считается в рабочих часах', () => {
   };
   const d = taskDurations(t, S);
   assert.equal(d.t2s, 2);
-  assert.equal(d.t2f, 10, 'полный рабочий день восемь часов плюс два часа вторника');
+  assert.equal(d.t2f, 8, 'в работе с 12:00 пн до 12:00 вт: шесть часов плюс два');
 });
 
 test('ночь и выходные не идут в счёт', () => {
@@ -71,7 +72,7 @@ test('пауза вычитается только из времени заве�
   };
   const d = taskDurations(t, S);
   assert.equal(d.t2s, 2, 'взять задачу в работу блокер не мешал');
-  assert.equal(d.t2f, 8, 'простой не по вине исполнителя снят');
+  assert.equal(d.t2f, 6, 'восемь часов в работе минус два часа блокера');
 });
 
 test('незавершённая стадия не портит метрику', () => {
@@ -89,7 +90,7 @@ test('время сдачи работы важнее времени приём�
     done_at: '2026-08-12T09:00:00Z',      // приняли только в четверг
     paused_min: 0,
   };
-  assert.equal(taskDurations(t, S).t2f, 4, 'ждать приёмку исполнитель не может');
+  assert.equal(taskDurations(t, S).t2f, 3, 'ждать приёмку исполнитель не может: с 11:00 до 14:00');
 });
 
 test('шесть метрик считаются по своим уровням', () => {
@@ -106,9 +107,9 @@ test('шесть метрик считаются по своим уровням'
 
   const { metrics, detail } = timeMetrics([mk(1, 1, 2), mk(1, 3, 4), mk(2, 2, 5)], S);
   assert.equal(metrics.t2s1, 2, 'среднее из одного и трёх часов');
-  assert.equal(metrics.t2f1, 3);
+  assert.equal(metrics.t2f1, 1, 'в работе по часу каждая');
   assert.equal(metrics.t2s2, 2);
-  assert.equal(metrics.t2f2, 5);
+  assert.equal(metrics.t2f2, 3);
   assert.equal(metrics.t2s3, null, 'без задач третьего уровня метрики нет');
   assert.equal(detail.t2s1.count, 2);
   assert.equal(detail.t2s3.count, 0);
@@ -153,7 +154,7 @@ test('порог сверхплана переносится настройко�
 });
 
 test('срок по приоритету считается рабочими днями', () => {
-  const { addWorkdays } = __test;
+  const addWorkdays = (from, days) => __test.addWorkdays(from, days, 3, S);
   const local = (iso) => new Date(new Date(iso).getTime() + 3 * 3600e3); // МСК
   const day = (iso) => ['вс', 'пн', 'вт', 'ср', 'чт', 'пт', 'сб'][local(iso).getUTCDay()];
 
@@ -194,4 +195,27 @@ test('задачи с приоритетом 30 в расчёт не идут', 
   const { metrics: m2 } = timeMetrics([t({ priority: 1 }), t({ priority: 7, taken_at: '2026-08-10T13:00:00Z' })], { ...S, skip_priority: '7,30' });
   assert.equal(m2.t2s1, 2, 'семёрка тоже выключена настройкой');
   assert.deepEqual([...__test.skipPriorities({})], [30], 'по умолчанию — только тридцать');
+});
+
+test('задача, не побывавшая в работе, во время сдачи не входит', () => {
+  const t = {
+    created_at: '2026-08-04T10:30:00Z',
+    taken_at: null,
+    done_at: '2026-09-15T08:08:00Z',   // закрыта из ожидания, минуя «В работе»
+    paused_min: 6940,
+  };
+  const d = taskDurations(t, S);
+  assert.equal(d.t2s, null);
+  assert.equal(d.t2f, null, 'сколько она была в работе — неизвестно');
+});
+
+test('рабочий день по умолчанию — с 9:00: пятница 23:00 → понедельник 9:13 это 13 минут', () => {
+  const { workMinutesBetween, workWindow } = __test;
+  assert.deepEqual(workWindow({}), { from: 9 * 60, to: 18 * 60, dayMin: 9 * 60 });
+  // пятница 14.08.2026 23:00 МСК = 20:00Z; понедельник 17.08 9:13 МСК = 06:13Z
+  assert.equal(workMinutesBetween('2026-08-14T20:00:00Z', '2026-08-17T06:13:00Z', {}), 13);
+  // окно из настроек чата подхватывается, если своё не задано
+  assert.equal(workMinutesBetween('2026-08-14T20:00:00Z', '2026-08-17T06:13:00Z', { work_start: '08:00' }), 73);
+  // внутри окна — минута в минуту
+  assert.equal(workMinutesBetween('2026-08-17T06:13:00Z', '2026-08-17T07:00:00Z', {}), 47);
 });

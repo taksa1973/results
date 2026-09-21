@@ -40,8 +40,9 @@ CREATE INDEX idx_users_nick ON users(tg_username);
 CREATE TABLE tasks (
   id                TEXT PRIMARY KEY,          -- id задачи в YouGile
   title             TEXT NOT NULL,
-  number            TEXT,                      -- человекочитаемый номер, ID-236
-  url               TEXT,
+  number            TEXT,                      -- общий номер, ID-236
+  project_no        TEXT,                      -- номер в проекте, VSE-370 — он в адресной строке
+  url               TEXT,                      -- ссылка на задачу в YouGile
   board_id          TEXT,
   column_id         TEXT,
   keywords          TEXT,                      -- поисковый индекс: считается один раз
@@ -367,6 +368,11 @@ INSERT INTO settings (key, value) VALUES
 
   -- «Размер задачи» — вес в оценке качества
   ('sticker_size',      '19000680-c793-45ee-9061-4d8251343c4a'),
+  -- команда в YouGile: из неё и номера проекта строится ссылка на задачу
+  ('yougile_team',      'ed881f3af637'),
+  -- рабочий день для часов по задачам (окно чата work_start/work_end — отдельно)
+  ('task_day_start',    '09:00'),
+  ('task_day_end',      '18:00'),
   ('size_states',       '9dd99e96c71c=1,0b2e97716e0e=2,b6e9a764ce20=3,d036c20324cb=5'),
   ('size_default',      '1'),
   ('tg_chat_id',        '');
