@@ -1413,6 +1413,7 @@ async function handleKpiApi(request, db, path, url, me, settings) {
     const strip = (sc) => ({
       auto: sc.auto, manual: sc.manual, score: sc.score, note: sc.note, actor: sc.actor, at: sc.at,
       avgPercent: sc.month.avgPercent, tasks: sc.month.count, open: sc.open,
+      taken: sc.month.taken, done: sc.month.done,
       metrics: sc.month.metrics, percents: sc.month.percents,
     });
 

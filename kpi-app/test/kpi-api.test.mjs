@@ -166,6 +166,13 @@ test('KPI руководителя за месяц: среднее оценок 
   assert.equal(body.lead.bonus, 50000, 'все на десять — максимум');
   assert.equal(body.lead.counted, 3);
 
+  // взято / сдано за месяц — прямо в строке
+  assert.equal(kate.taken, 3);
+  assert.equal(kate.done, 3);
+  assert.equal(body.lead.own.taken, 2);
+  assert.equal(ksu.taken, 2, 'взяла две, одна ещё в работе');
+  assert.equal(ksu.done, 1);
+
   // срезы для графиков остались
   assert.ok(Array.isArray(kate.months) && kate.months.length === 3);
   assert.ok(Array.isArray(body.lead.months) && body.lead.months.length === 3);
