@@ -472,7 +472,7 @@ footer p{margin-bottom:4px}
   <div class="wrap">
     <p class="eyebrow reveal">Если всё-таки пользоваться</p>
     <h2 class="reveal">Как заглушить всё, что можно</h2>
-    <p class="sub reveal">Приложению сеть не нужна ни для чего полезного: модель внутри, обновления можно ставить руками. Три шага закрывают все найденные каналы.</p>
+    <p class="sub reveal">Приложению сеть не нужна ни для чего полезного: модель внутри, обновления можно ставить руками. Три шага закрывают все найденные каналы. Для Mac — <a href="gigatype-mac-offline.html">отдельная инструкция</a>: там другая сборка и другие команды.</p>
     <div class="tips">
       <div class="tip reveal">
         <div class="n">1</div>
@@ -481,6 +481,7 @@ footer p{margin-bottom:4px}
 <pre><code>GIGATYPE_TELEMETRY_ENABLED=0
 GIGATYPE_DISABLE_AUTO_UPDATES=1</code></pre>
         <p>Создать до первого запуска, иначе <code>first_app_opened</code> успеет уйти. После — удалить папку <code>telemetry</code> с очередями и идентификаторами.</p>
+        <p><strong>Важно:</strong> приложение перезаписывает этот файл целиком (<code>environment.js</code>, функция <code>_writeEnvFileAtomic</code>) — оставляет только свой список ключей <code>PERSISTED_KEYS</code>, а наших двух там нет. При первом же сохранении настройки строки исчезнут. Поэтому после записи файл надо закрыть от записи: <code>attrib +R "%APPDATA%\open-whispr\.env"</code>. Тогда перезапись не пройдёт, ошибку приложение проглатывает молча.</p>
       </div>
       <div class="tip reveal">
         <div class="n">2</div>
