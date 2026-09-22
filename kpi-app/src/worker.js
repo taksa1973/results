@@ -309,7 +309,9 @@ function computeMetrics({ tasks, replies, settings, grade }) {
 // Время до принятия — от постановки до переноса в «Принята»: задача прочитана,
 //                     ясна, вопросов нет. Норма — рабочий час.
 // Время до старта   — от принятия до переноса в «В работе». Норма — 12 рабочих
-//                     часов. Если «Принята» пропустили — от постановки.
+//                     часов. Если «Принята» пропустили и сразу в работу —
+//                     принята в момент взятия: до старта ноль, всё ожидание
+//                     идёт в «до принятия».
 // Время в работе    — от «В работе» до сдачи, без блокера, проверки и ожидания.
 //                     Единственная из трёх, что зависит от уровня сложности.
 //
@@ -350,8 +352,9 @@ function levelOfTask(task) {
 /** Часы трёх стадий для одной задачи. null, если стадия ещё не наступила. */
 function taskDurations(task, settings) {
   const from = task.created_at;
-  const acked = task.acked_at || null;
   const toStart = task.taken_at;
+  // сразу в работу — значит принята в этот же момент
+  const acked = task.acked_at || toStart || null;
   const toFill = task.work_done_at || task.done_at;
 
   // Пауза в блокере и ожидании не идёт против исполнителя
@@ -384,7 +387,7 @@ function timeMetrics(tasks, settings, period = null) {
   const out = {};
   const detail = {};
   const skip = skipPriorities(settings);
-  const eventOf = { t2a: (t) => t.acked_at, t2s: (t) => t.taken_at, t2f: (t) => t.work_done_at || t.done_at };
+  const eventOf = { t2a: (t) => t.acked_at || t.taken_at, t2s: (t) => t.taken_at, t2f: (t) => t.work_done_at || t.done_at };
   const live = tasks.filter((t) => !t.is_zaeb && t.status !== 'cancelled' && !skip.has(Number(t.priority)));
 
   for (const key of METRIC_KEYS) {
@@ -453,7 +456,7 @@ async function monthMetrics(db, userId, period, settings, sla) {
       `SELECT * FROM tasks
        WHERE ${who.sql} AND is_zaeb = 0
          AND status NOT IN ('cancelled','historical')
-         AND ((acked_at >= ? AND acked_at < ?)
+         AND ((COALESCE(acked_at, taken_at) >= ? AND COALESCE(acked_at, taken_at) < ?)
            OR (taken_at >= ? AND taken_at < ?)
            OR (COALESCE(work_done_at, done_at) >= ? AND COALESCE(work_done_at, done_at) < ?))
          ${skip.length ? `AND (priority IS NULL OR priority NOT IN (${skip.map(() => '?').join(',')}))` : ''}
@@ -463,7 +466,7 @@ async function monthMetrics(db, userId, period, settings, sla) {
     .all();
 
   const { metrics, detail } = timeMetrics(tasks, settings, period);
-  const ackedHere = tasks.filter((t) => inPeriod(t.acked_at, period)).length;
+  const ackedHere = tasks.filter((t) => inPeriod(t.acked_at || t.taken_at, period)).length;
   const takenHere = tasks.filter((t) => inPeriod(t.taken_at, period)).length;
   const doneHere = tasks.filter((t) => inPeriod(t.work_done_at || t.done_at, period)).length;
   const percents = {};
@@ -486,7 +489,7 @@ async function monthMetrics(db, userId, period, settings, sla) {
     // она принадлежит в этом месяце.
     tasks: tasks.map((t) => {
       const d = taskDurations(t, settings);
-      const inAck = inPeriod(t.acked_at, period);
+      const inAck = inPeriod(t.acked_at || t.taken_at, period);
       const inStart = inPeriod(t.taken_at, period);
       const inFill = inPeriod(t.work_done_at || t.done_at, period);
       return {
@@ -2173,6 +2176,7 @@ function applyStage(st, stage, at, settings) {
     if (st.status === 'review') st.returns += 1; // вернулась с проверки
     st.status = 'in_progress';
     st.taken = st.taken || at;
+    st.acked = st.acked || st.taken; // сразу в работу — принята в момент взятия
     if (st.pausedSince) { st.pausedMin += pausedHere; st.pausedSince = null; }
     // вернулись к работе — значит она не была закончена
     st.workDoneAt = null;

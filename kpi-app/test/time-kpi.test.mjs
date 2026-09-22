@@ -40,7 +40,8 @@ test('время считается в рабочих часах', () => {
     paused_min: 0,
   };
   const d = taskDurations(t, S);
-  assert.equal(d.t2s, 2);
+  assert.equal(d.t2a, 2, 'сразу в работу: ожидание — в «до принятия»');
+  assert.equal(d.t2s, 0);
   assert.equal(d.t2f, 8, 'в работе с 12:00 пн до 12:00 вт: шесть часов плюс два');
 });
 
@@ -50,7 +51,7 @@ test('ночь и выходные не идут в счёт', () => {
     taken_at: '2026-08-11T07:30:00Z',    // вт 10:30, полчаса
     paused_min: 0,
   };
-  assert.equal(taskDurations(night, S).t2s, 1.5);
+  assert.equal(taskDurations(night, S).t2a, 1.5);
 
   const weekend = {
     created_at: '2026-08-14T14:00:00Z',  // пт 17:00
@@ -58,7 +59,7 @@ test('ночь и выходные не идут в счёт', () => {
     paused_min: 0,
   };
   assert.equal(
-    taskDurations(weekend, S).t2s, 1.5,
+    taskDurations(weekend, S).t2a, 1.5,
     'задача, поставленная вечером пятницы, не должна показывать двое суток простоя'
   );
 });
@@ -71,13 +72,14 @@ test('пауза вычитается только из времени заве�
     paused_min: 120,                     // два часа в блокере
   };
   const d = taskDurations(t, S);
-  assert.equal(d.t2s, 2, 'взять задачу в работу блокер не мешал');
+  assert.equal(d.t2a, 2, 'взять задачу в работу блокер не мешал');
   assert.equal(d.t2f, 6, 'восемь часов в работе минус два часа блокера');
 });
 
 test('незавершённая стадия не портит метрику', () => {
   const open = { created_at: '2026-08-10T07:00:00Z', paused_min: 0 };
   const d = taskDurations(open, S);
+  assert.equal(d.t2a, null);
   assert.equal(d.t2s, null);
   assert.equal(d.t2f, null);
 });
@@ -106,8 +108,8 @@ test('шесть метрик считаются по своим уровням'
   });
 
   const { metrics, detail } = timeMetrics([mk(1, 1, 2), mk(1, 3, 4), mk(2, 2, 5)], S);
-  assert.equal(metrics.t2s, 2, 'до старта — без уровня: среднее из 1, 3 и 2');
-  assert.equal(metrics.t2a, null, 'через «Принята» ни одна не прошла');
+  assert.equal(metrics.t2s, 0, 'сразу в работу — на этапе «Принята» ноль');
+  assert.equal(metrics.t2a, 2, 'до принятия — без уровня: среднее из 1, 3 и 2');
   assert.equal(metrics.t2f1, 1, 'в работе по часу каждая');
   assert.equal(metrics.t2f2, 3);
   assert.equal(metrics.t2f3, null, 'без задач третьего уровня метрики нет');
@@ -124,7 +126,7 @@ test('заёбы и отменённые задачи в метрики не и�
     ...extra,
   });
   const { metrics } = timeMetrics([t({}), t({ is_zaeb: 1 }), t({ status: 'cancelled' })], S);
-  assert.equal(metrics.t2s, 2, 'посчитана только одна рабочая задача');
+  assert.equal(metrics.t2a, 2, 'посчитана только одна рабочая задача');
 });
 
 test('процент плана: чем быстрее, тем выше', () => {
@@ -204,8 +206,9 @@ test('таймлайн задачи проигрывается из лога You
   // в работе: ср 14:11–18:00, чт, пт по 8 ч, пн 10:00–11:15 → 21,1 ч; блокер не в счёт
   const d = taskDurations({ created_at: st.assignedAt['yg-kate'], taken_at: st.taken, work_done_at: st.workDoneAt, done_at: st.done, paused_min: st.pausedMin }, S2);
   assert.equal(d.t2f, 21.07);
-  // до старта: назначена 4 авг 17:37 → взята 5 авг 14:11 = 23 мин + 4 ч 11 мин
-  assert.equal(d.t2s, 4.57);
+  // до принятия (сразу в работу): назначена 4 авг 17:37 → взята 5 авг 14:11 = 23 мин + 4 ч 11 мин
+  assert.equal(d.t2a, 4.57);
+  assert.equal(d.t2s, 0);
 });
 
 test('задачи с приоритетом 30 в расчёт не идут', () => {
@@ -219,12 +222,12 @@ test('задачи с приоритетом 30 в расчёт не идут', 
   // месячная задача взята через 6 часов — среднее должна не трогать
   const monthly = t({ priority: 30, taken_at: '2026-08-10T13:00:00Z' });
   const { metrics, detail } = timeMetrics([t({ priority: 1 }), t({ priority: 7 }), monthly], S);
-  assert.equal(metrics.t2s, 2);
-  assert.equal(detail.t2s.count, 2);
+  assert.equal(metrics.t2a, 2);
+  assert.equal(detail.t2a.count, 2);
 
   // список исключаемых приоритетов — настройка
   const { metrics: m2 } = timeMetrics([t({ priority: 1 }), t({ priority: 7, taken_at: '2026-08-10T13:00:00Z' })], { ...S, skip_priority: '7,30' });
-  assert.equal(m2.t2s, 2, 'семёрка тоже выключена настройкой');
+  assert.equal(m2.t2a, 2, 'семёрка тоже выключена настройкой');
   assert.deepEqual([...__test.skipPriorities({})], [30], 'по умолчанию — только тридцать');
 });
 
@@ -258,7 +261,8 @@ test('переоткрытая задача — новый цикл; созда�
   assert.ok(st.pausedSince, 'сейчас в блокере — таймер стоит');
 
   const d = taskDurations({ created_at: st.cycleStart, taken_at: st.taken, work_done_at: st.workDoneAt, done_at: st.done, paused_min: st.pausedMin }, S2);
-  assert.equal(d.t2s, 0, 'до старта — ноль');
+  assert.equal(d.t2a, 0, 'до принятия — ноль: взята через 13 секунд');
+  assert.equal(d.t2s, 0);
   assert.equal(d.t2f, null, 'ещё не сдана');
   // в работе: 15:40–18:00 (2 ч 20) и 16:54–18:00 + 9:00–9:21 (1 ч 27) = 3 ч 47
   const inWork = __test.workMinutesBetween(st.taken, '2026-09-04T06:21:37.133Z', S2) - st.pausedMin;
@@ -280,10 +284,10 @@ test('три стадии: до принятия, от принятия до с�
   assert.equal(d.t2s, 2, 'взята через два часа после принятия');
   assert.equal(d.t2f, 3, 'в работе три часа');
 
-  // «Принята» пропустили — до старта считается от постановки
+  // «Принята» пропустили, сразу в работу — принята в момент взятия
   const d2 = taskDurations({ ...t, acked_at: null }, S9);
-  assert.equal(d2.t2a, null);
-  assert.equal(d2.t2s, 2.22);
+  assert.equal(d2.t2a, 2.22, 'всё ожидание — в «до принятия»');
+  assert.equal(d2.t2s, 0, 'на этапе «Принята» — ноль');
 
   // нормы: принять за час, взять за 12 — проценты без уровня
   const { metrics } = timeMetrics([{ ...t, size: 1, status: 'accepted', is_zaeb: 0 }], S9);

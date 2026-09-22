@@ -469,8 +469,8 @@ async function render(){
 
 // ── Модель времени: Time to start / Time to fill ────────────────────────────
 const TM = {
-  t2a: { name: 'Время до принятия', short: 'До принятия', hint: 'от постановки до переноса в «Принята»: прочитана, ясна, вопросов нет' },
-  t2s: { name: 'Время до старта', short: 'До старта', hint: 'от принятия до взятия в работу' },
+  t2a: { name: 'Время до принятия', short: 'До принятия', hint: 'от постановки до «Принята»: прочитана, ясна, вопросов нет; сразу в работу — принята в момент взятия' },
+  t2s: { name: 'Время до старта', short: 'До старта', hint: 'от принятия до взятия в работу; сразу в работу — ноль' },
   t2f: { name: 'Время в работе',  short: 'В работе',  hint: 'от взятия в работу до сдачи, без блокера и ожидания' },
 };
 const LEVEL_NAME = { 1: 'простые', 2: 'обычные', 3: 'сложные' };
@@ -900,7 +900,7 @@ async function renderKpi(d, v){
       body.innerHTML = `
         <h4 style="margin:10px 0 4px">Из чего оценка за ${esc(monthTitle)}</h4>
         <p class="muted" style="margin-bottom:8px">Среднее по метрикам, где были задачи${live.length ? `: (${live.join(' + ')}) / ${live.length} = <b>${p.avgPercent} %</b> → авто <b>${scoreTxt(p.auto)}</b>` : ' — задач с измеримой стадией нет, авто-оценки нет'}.
-          Процент = норма / факт. Принять — за рабочий час, взять в работу — за 12 рабочих часов от принятия, в работе — по норме уровня. Задачи с приоритетом 30 не считаются.</p>
+          Процент = норма / факт. Принять — за рабочий час, взять в работу — за 12 рабочих часов от принятия, в работе — по норме уровня. Сразу в работу без «Принята» — принята в момент взятия. Задачи с приоритетом 30 не считаются.</p>
         ${sixHtml(p.metrics || {}, p.percents || {}, d.sla, counts)}
         <h4 style="margin:6px 0 8px">Принято, взято или сдано в ${esc(monthTitle)} · ${month ? month.tasks.length : 0}</h4>
         <p class="muted" style="margin-bottom:8px">Серым — часы стадии из другого месяца.</p>
@@ -1144,7 +1144,7 @@ async function openTask(id){
     <div class="why" style="margin-top:14px">
       <b>Тайминги</b><br>
       Поставлена: ${fmtDate(t.createdAt)}<br>
-      Принята: ${t.ackedAt ? `${fmtDate(t.ackedAt)} — через <b>${fmtH(t.t2aHours)}</b>` : '<b>не проходила «Принята»</b>'}<br>
+      Принята: ${t.ackedAt ? `${fmtDate(t.ackedAt)} — через <b>${fmtH(t.t2aHours)}</b>` : t.takenAt ? `сразу в работу — через <b>${fmtH(t.t2aHours)}</b>` : '<b>ещё нет</b>'}<br>
       Взята в работу: ${t.takenAt ? `${fmtDate(t.takenAt)} — через <b>${t.t2sHours !== null && t.t2sHours !== undefined ? fmtH(t.t2sHours) : t.timing.toTakeHuman}</b>${t.ackedAt ? ' после принятия' : ''}` : '<b>не бралась</b> — карточка не была в «В работе»'}<br>
       Сдана: ${fmtDate(t.submittedAt || t.doneAt)}${t.timing.toDoHuman !== '—' ? ` — ${t.open ? 'в работе уже' : 'делалась'} <b>${t.timing.toDoHuman}</b>` : ''}<br>
       Закрыта: ${fmtDate(t.doneAt)}<br>

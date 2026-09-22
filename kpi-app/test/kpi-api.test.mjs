@@ -172,7 +172,7 @@ test('KPI руководителя за месяц: среднее оценок 
   assert.equal(body.lead.counted, 3);
 
   // принято / взято / сдано за месяц — прямо в строке
-  assert.equal(kate.acked, 0, 'через «Принята» не проходили');
+  assert.equal(kate.acked, 3, 'сразу в работу — принята в момент взятия');
   assert.equal(kate.taken, 3);
   assert.equal(kate.done, 3);
   assert.equal(body.lead.own.taken, 2);
@@ -480,11 +480,12 @@ test('таймер стоит на проверке и идёт снова по�
   await at('2026-08-11T09:00:00Z', 'column_in_progress');    // вт 12:00 вернули в работу (на проверке 5+2=7 ч)
   await at('2026-08-11T11:00:00Z', 'column_review');         // вт 14:00 сдана снова
 
-  const get = () => sqlite.prepare('SELECT taken_at, work_done_at, paused_min, paused_since, returns, t2s_hours, t2f_hours FROM tasks WHERE id = ?').get('pause-1');
+  const get = () => sqlite.prepare('SELECT taken_at, work_done_at, paused_min, paused_since, returns, t2a_hours, t2s_hours, t2f_hours FROM tasks WHERE id = ?').get('pause-1');
   let row = get();
   assert.equal(row.paused_min, 7 * 60, 'семь часов на проверке — не в счёт');
   assert.equal(row.returns, 1);
-  assert.equal(row.t2s_hours, 1);
+  assert.equal(row.t2a_hours, 1, 'сразу в работу: час ожидания — в «до принятия»');
+  assert.equal(row.t2s_hours, 0);
   // в работе: 11:00–13:00 в пн (2 ч) и 12:00–14:00 во вт (2 ч) = 4 ч
   assert.equal(row.t2f_hours, 4, 'считается только время в «В работе»');
   assert.ok(row.paused_since, 'сейчас снова на проверке — таймер стоит');
