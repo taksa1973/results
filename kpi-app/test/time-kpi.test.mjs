@@ -106,13 +106,13 @@ test('шесть метрик считаются по своим уровням'
   });
 
   const { metrics, detail } = timeMetrics([mk(1, 1, 2), mk(1, 3, 4), mk(2, 2, 5)], S);
-  assert.equal(metrics.t2s1, 2, 'среднее из одного и трёх часов');
+  assert.equal(metrics.t2s, 2, 'до старта — без уровня: среднее из 1, 3 и 2');
+  assert.equal(metrics.t2a, null, 'через «Принята» ни одна не прошла');
   assert.equal(metrics.t2f1, 1, 'в работе по часу каждая');
-  assert.equal(metrics.t2s2, 2);
   assert.equal(metrics.t2f2, 3);
-  assert.equal(metrics.t2s3, null, 'без задач третьего уровня метрики нет');
-  assert.equal(detail.t2s1.count, 2);
-  assert.equal(detail.t2s3.count, 0);
+  assert.equal(metrics.t2f3, null, 'без задач третьего уровня метрики нет');
+  assert.equal(detail.t2s.count, 3);
+  assert.equal(detail.t2f3.count, 0);
 });
 
 test('заёбы и отменённые задачи в метрики не идут', () => {
@@ -124,7 +124,7 @@ test('заёбы и отменённые задачи в метрики не и�
     ...extra,
   });
   const { metrics } = timeMetrics([t({}), t({ is_zaeb: 1 }), t({ status: 'cancelled' })], S);
-  assert.equal(metrics.t2s1, 2, 'посчитана только одна рабочая задача');
+  assert.equal(metrics.t2s, 2, 'посчитана только одна рабочая задача');
 });
 
 test('процент плана: чем быстрее, тем выше', () => {
@@ -219,12 +219,12 @@ test('задачи с приоритетом 30 в расчёт не идут', 
   // месячная задача взята через 6 часов — среднее должна не трогать
   const monthly = t({ priority: 30, taken_at: '2026-08-10T13:00:00Z' });
   const { metrics, detail } = timeMetrics([t({ priority: 1 }), t({ priority: 7 }), monthly], S);
-  assert.equal(metrics.t2s1, 2);
-  assert.equal(detail.t2s1.count, 2);
+  assert.equal(metrics.t2s, 2);
+  assert.equal(detail.t2s.count, 2);
 
   // список исключаемых приоритетов — настройка
   const { metrics: m2 } = timeMetrics([t({ priority: 1 }), t({ priority: 7, taken_at: '2026-08-10T13:00:00Z' })], { ...S, skip_priority: '7,30' });
-  assert.equal(m2.t2s1, 2, 'семёрка тоже выключена настройкой');
+  assert.equal(m2.t2s, 2, 'семёрка тоже выключена настройкой');
   assert.deepEqual([...__test.skipPriorities({})], [30], 'по умолчанию — только тридцать');
 });
 
@@ -263,4 +263,55 @@ test('переоткрытая задача — новый цикл; созда�
   // в работе: 15:40–18:00 (2 ч 20) и 16:54–18:00 + 9:00–9:21 (1 ч 27) = 3 ч 47
   const inWork = __test.workMinutesBetween(st.taken, '2026-09-04T06:21:37.133Z', S2) - st.pausedMin;
   assert.equal(Math.round(inWork), 227);
+});
+
+test('три стадии: до принятия, от принятия до старта, в работе', () => {
+  const S9 = { tz_offset: '3' };
+  // пятница 14.08 23:00 МСК поставлена, понедельник 9:13 принята, 11:13 взята, 14:13 сдана
+  const t = {
+    created_at: '2026-08-14T20:00:00Z',
+    acked_at: '2026-08-17T06:13:00Z',
+    taken_at: '2026-08-17T08:13:00Z',
+    work_done_at: '2026-08-17T11:13:00Z',
+    paused_min: 0,
+  };
+  const d = taskDurations(t, S9);
+  assert.equal(d.t2a, 0.22, 'принята через 13 минут рабочего времени');
+  assert.equal(d.t2s, 2, 'взята через два часа после принятия');
+  assert.equal(d.t2f, 3, 'в работе три часа');
+
+  // «Принята» пропустили — до старта считается от постановки
+  const d2 = taskDurations({ ...t, acked_at: null }, S9);
+  assert.equal(d2.t2a, null);
+  assert.equal(d2.t2s, 2.22);
+
+  // нормы: принять за час, взять за 12 — проценты без уровня
+  const { metrics } = timeMetrics([{ ...t, size: 1, status: 'accepted', is_zaeb: 0 }], S9);
+  assert.equal(planPercent(metrics.t2a, 1), 200, 'кап');
+  assert.equal(planPercent(metrics.t2s, 12), 200);
+  assert.equal(planPercent(metrics.t2f1, 8), 200);
+});
+
+test('таймлайн: стадия «Принята» из лога, вернули в «Принята» из работы — таймер стоит', () => {
+  const { replayLog } = __test;
+  const S2 = { tz_offset: '3', column_backlog: 'c-new', column_acked: 'c-ack', column_in_progress: 'c-work', column_review: 'c-rev' };
+  const st = replayLog([
+    { at: '2026-08-10T07:00:00Z', kind: 'assigned', user: 'yg-kate' },
+    { at: '2026-08-10T07:30:00Z', kind: 'move', from: 'c-new', to: 'c-ack', by: 'yg-kate' },
+    { at: '2026-08-10T09:00:00Z', kind: 'move', from: 'c-ack', to: 'c-work', by: 'yg-kate' },
+    { at: '2026-08-10T10:00:00Z', kind: 'move', from: 'c-work', to: 'c-ack', by: 'yg-kate' },   // передумала — пауза
+    { at: '2026-08-10T11:00:00Z', kind: 'move', from: 'c-ack', to: 'c-work', by: 'yg-kate' },
+    { at: '2026-08-10T12:00:00Z', kind: 'move', from: 'c-work', to: 'c-rev', by: 'yg-kate' },
+  ], S2);
+  assert.equal(st.acked, '2026-08-10T07:30:00Z');
+  assert.equal(st.taken, '2026-08-10T09:00:00Z');
+  assert.equal(st.pausedMin, 60, 'час в «Принята» после взятия — пауза');
+  assert.equal(st.workDoneAt, '2026-08-10T12:00:00Z');
+
+  // карточка уехала из «Принята», а записи о приёмке нет — принята при постановке
+  const st2 = replayLog([
+    { at: '2026-08-10T07:00:00Z', kind: 'assigned', user: 'yg-kate' },
+    { at: '2026-08-10T09:00:00Z', kind: 'move', from: 'c-ack', to: 'c-work', by: 'yg-kate' },
+  ], S2);
+  assert.equal(st2.acked, '2026-08-10T07:00:00Z');
 });

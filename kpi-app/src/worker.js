@@ -304,20 +304,25 @@ function computeMetrics({ tasks, replies, settings, grade }) {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// Метрики времени: Time to start и Time to fill по трём уровням сложности
+// Метрики времени: три стадии задачи
 //
-// Time to start — от постановки задачи до момента, когда её взяли в работу.
-// Time to fill  — сколько задача была в работе: от переноса в «В работе»
-//                 до сдачи, без блокера и ожидания.
+// Время до принятия — от постановки до переноса в «Принята»: задача прочитана,
+//                     ясна, вопросов нет. Норма — рабочий час.
+// Время до старта   — от принятия до переноса в «В работе». Норма — 12 рабочих
+//                     часов. Если «Принята» пропустили — от постановки.
+// Время в работе    — от «В работе» до сдачи, без блокера, проверки и ожидания.
+//                     Единственная из трёх, что зависит от уровня сложности.
 //
-// Обе в рабочих часах: ночь и выходные не идут в счёт, иначе задача,
+// Всё в рабочих часах: ночь и выходные не идут в счёт, иначе задача,
 // поставленная в пятницу вечером, показывала бы двое суток простоя.
-// Метрики независимы: поздний старт бьёт только по первой, долгая работа —
-// только по второй. Задача, не побывавшая в «В работе», во вторую не входит.
+// Метрики независимы: поздний старт бьёт только по своей.
 // ─────────────────────────────────────────────────────────────────────────────
 
 const LEVELS = [1, 2, 3];
-const TIME_METRICS = ['t2s', 't2f'];
+const TIME_METRICS = ['t2a', 't2s', 't2f'];
+// ключи метрик: до принятия и до старта — без уровня, в работе — по уровням
+const METRIC_KEYS = ['t2a', 't2s', 't2f1', 't2f2', 't2f3'];
+const keyOf = (metric, level) => (metric === 't2f' ? `${metric}${level}` : metric);
 
 /** Размер со стикера в уровень сложности: S → 1, M → 2, L и XL → 3. */
 function sizeToLevel(size) {
@@ -342,9 +347,10 @@ function levelOfTask(task) {
   return sizeToLevel(task.size);
 }
 
-/** Часы обеих стадий для одной задачи. null, если стадия ещё не наступила. */
+/** Часы трёх стадий для одной задачи. null, если стадия ещё не наступила. */
 function taskDurations(task, settings) {
   const from = task.created_at;
+  const acked = task.acked_at || null;
   const toStart = task.taken_at;
   const toFill = task.work_done_at || task.done_at;
 
@@ -356,7 +362,11 @@ function taskDurations(task, settings) {
     return Math.max(0, Math.round((mins / 60) * 100) / 100);
   };
 
-  return { t2s: hours(from, toStart, false), t2f: hours(toStart, toFill, true) };
+  return {
+    t2a: hours(from, acked, false),
+    t2s: hours(acked || from, toStart, false),
+    t2f: hours(toStart, toFill, true),
+  };
 }
 
 /** Попадает ли момент в месяц вида 2026-09. */
@@ -374,22 +384,22 @@ function timeMetrics(tasks, settings, period = null) {
   const out = {};
   const detail = {};
   const skip = skipPriorities(settings);
-  const eventOf = { t2s: (t) => t.taken_at, t2f: (t) => t.work_done_at || t.done_at };
+  const eventOf = { t2a: (t) => t.acked_at, t2s: (t) => t.taken_at, t2f: (t) => t.work_done_at || t.done_at };
+  const live = tasks.filter((t) => !t.is_zaeb && t.status !== 'cancelled' && !skip.has(Number(t.priority)));
 
-  for (const metric of TIME_METRICS) {
-    for (const level of LEVELS) {
-      const key = `${metric}${level}`;
-      const vals = tasks
-        .filter((t) => levelOfTask(t) === level && !t.is_zaeb && t.status !== 'cancelled' && !skip.has(Number(t.priority)))
-        .filter((t) => !period || inPeriod(eventOf[metric](t), period))
-        .map((t) => taskDurations(t, settings)[metric])
-        .filter((v) => v !== null);
+  for (const key of METRIC_KEYS) {
+    const metric = key.slice(0, 3);
+    const level = key.length > 3 ? Number(key.slice(3)) : null;
+    const vals = live
+      .filter((t) => level === null || levelOfTask(t) === level)
+      .filter((t) => !period || inPeriod(eventOf[metric](t), period))
+      .map((t) => taskDurations(t, settings)[metric])
+      .filter((v) => v !== null);
 
-      out[key] = vals.length
-        ? Math.round((vals.reduce((a, b) => a + b, 0) / vals.length) * 100) / 100
-        : null;
-      detail[key] = { count: vals.length, values: vals };
-    }
+    out[key] = vals.length
+      ? Math.round((vals.reduce((a, b) => a + b, 0) / vals.length) * 100) / 100
+      : null;
+    detail[key] = { count: vals.length, values: vals };
   }
   return { metrics: out, detail };
 }
@@ -423,7 +433,7 @@ async function loadSla(db, quarter) {
     .bind(quarter)
     .all();
   const map = {};
-  for (const r of results) map[`${r.metric}${r.level}`] = r.hours; // поздние перекрывают ранние
+  for (const r of results) map[keyOf(r.metric, r.level)] = r.hours; // поздние перекрывают ранние
   return map;
 }
 
@@ -443,15 +453,17 @@ async function monthMetrics(db, userId, period, settings, sla) {
       `SELECT * FROM tasks
        WHERE ${who.sql} AND is_zaeb = 0
          AND status NOT IN ('cancelled','historical')
-         AND ((taken_at >= ? AND taken_at < ?)
+         AND ((acked_at >= ? AND acked_at < ?)
+           OR (taken_at >= ? AND taken_at < ?)
            OR (COALESCE(work_done_at, done_at) >= ? AND COALESCE(work_done_at, done_at) < ?))
          ${skip.length ? `AND (priority IS NULL OR priority NOT IN (${skip.map(() => '?').join(',')}))` : ''}
-       ORDER BY COALESCE(taken_at, created_at)`
+       ORDER BY COALESCE(taken_at, acked_at, created_at)`
     )
-    .bind(...who.args, from, to, from, to, ...skip)
+    .bind(...who.args, from, to, from, to, from, to, ...skip)
     .all();
 
   const { metrics, detail } = timeMetrics(tasks, settings, period);
+  const ackedHere = tasks.filter((t) => inPeriod(t.acked_at, period)).length;
   const takenHere = tasks.filter((t) => inPeriod(t.taken_at, period)).length;
   const doneHere = tasks.filter((t) => inPeriod(t.work_done_at || t.done_at, period)).length;
   const percents = {};
@@ -466,6 +478,7 @@ async function monthMetrics(db, userId, period, settings, sla) {
     percents,
     detail,
     count: tasks.length,
+    acked: ackedHere,
     taken: takenHere,
     done: doneHere,
     // Список задач с часами — для раскрытого месяца: видно, какая именно
@@ -473,15 +486,16 @@ async function monthMetrics(db, userId, period, settings, sla) {
     // она принадлежит в этом месяце.
     tasks: tasks.map((t) => {
       const d = taskDurations(t, settings);
+      const inAck = inPeriod(t.acked_at, period);
       const inStart = inPeriod(t.taken_at, period);
       const inFill = inPeriod(t.work_done_at || t.done_at, period);
       return {
         id: t.id, number: t.project_no || t.number, title: t.title, url: t.url, assignee_id: t.assignee_id,
         level: levelOfTask(t), level_src: t.level_src || 'default',
-        status: t.status, created_at: t.created_at, taken_at: t.taken_at,
+        status: t.status, created_at: t.created_at, acked_at: t.acked_at, taken_at: t.taken_at,
         done_at: t.work_done_at || t.done_at, priority: t.priority,
-        t2s: inStart ? d.t2s : null, t2f: inFill ? d.t2f : null,
-        t2s_all: d.t2s, t2f_all: d.t2f,
+        t2a: inAck ? d.t2a : null, t2s: inStart ? d.t2s : null, t2f: inFill ? d.t2f : null,
+        t2a_all: d.t2a, t2s_all: d.t2s, t2f_all: d.t2f,
       };
     }),
     // Среднее закрытие плана по тем метрикам, где были задачи.
@@ -501,15 +515,12 @@ async function quarterMetrics(db, userId, quarter, settings) {
 
   const metrics = {};
   const percents = {};
-  for (const metric of TIME_METRICS) {
-    for (const level of LEVELS) {
-      const key = `${metric}${level}`;
-      const vals = months.map((m) => m.metrics[key]).filter((v) => v !== null);
-      metrics[key] = vals.length
-        ? Math.round((vals.reduce((a, b) => a + b, 0) / vals.length) * 100) / 100
-        : null;
-      percents[key] = planPercent(metrics[key], sla[key]);
-    }
+  for (const key of METRIC_KEYS) {
+    const vals = months.map((m) => m.metrics[key]).filter((v) => v !== null);
+    metrics[key] = vals.length
+      ? Math.round((vals.reduce((a, b) => a + b, 0) / vals.length) * 100) / 100
+      : null;
+    percents[key] = planPercent(metrics[key], sla[key]);
   }
 
   const live = Object.values(percents).filter((v) => v !== null);
@@ -885,6 +896,8 @@ function decorateTask(t, settings = {}) {
     level: t.level || null,
     levelSrc: t.level_src || null,
     priority: t.priority || null,
+    ackedAt: t.acked_at || null,
+    t2aHours: dur.t2a,
     t2sHours: dur.t2s,
     t2fHours: dur.t2f,
     night: !!t.night,
@@ -970,7 +983,10 @@ async function handleApi(request, env, url) {
   // сам Telegram: путь содержит секрет, поэтому ключ доступа не нужен
   if (path.startsWith('/tg/') && request.method === 'POST') {
     if (path.slice(4) !== (env.TG_SECRET || '')) return bad('нет доступа', 403);
-    return handleTelegramUpdate(request, env, settings);
+    const res = await handleTelegramUpdate(request, env, settings);
+    // Итог в журнал: молчание бота иначе не отличить от недоставки.
+    try { console.log('TG →', JSON.stringify(await res.clone().json())); } catch { /* не JSON */ }
+    return res;
   }
 
   const me = await authenticate(request, db);
@@ -1413,7 +1429,7 @@ async function handleKpiApi(request, db, path, url, me, settings) {
     const strip = (sc) => ({
       auto: sc.auto, manual: sc.manual, score: sc.score, note: sc.note, actor: sc.actor, at: sc.at,
       avgPercent: sc.month.avgPercent, tasks: sc.month.count, open: sc.open,
-      taken: sc.month.taken, done: sc.month.done,
+      acked: sc.month.acked, taken: sc.month.taken, done: sc.month.done,
       metrics: sc.month.metrics, percents: sc.month.percents,
     });
 
@@ -1487,16 +1503,16 @@ async function handleKpiApi(request, db, path, url, me, settings) {
     if (!/^\d{4}-Q[1-4]$/.test(from)) return bad('квартал в виде 2026-Q3');
     const values = b.values || {};
     let saved = 0;
-    for (const metric of TIME_METRICS) {
-      for (const level of LEVELS) {
-        const v = Number(values[`${metric}${level}`]);
-        if (!(v > 0)) continue;
-        await db
-          .prepare('INSERT OR REPLACE INTO sla (metric, level, hours, valid_from, note) VALUES (?,?,?,?,?)')
-          .bind(metric, level, v, from, b.note || null)
-          .run();
-        saved += 1;
-      }
+    for (const key of METRIC_KEYS) {
+      const v = Number(values[key]);
+      if (!(v > 0)) continue;
+      const metric = key.slice(0, 3);
+      const level = key.length > 3 ? Number(key.slice(3)) : 0; // без уровня — ноль
+      await db
+        .prepare('INSERT OR REPLACE INTO sla (metric, level, hours, valid_from, note) VALUES (?,?,?,?,?)')
+        .bind(metric, level, v, from, b.note || null)
+        .run();
+      saved += 1;
     }
     return json({ ok: true, saved, current: await loadSla(db, from) });
   }
@@ -2112,6 +2128,8 @@ const colSet = (settings, key) =>
 function stageOfColumn(columnId, settings) {
   if (!columnId) return null;
   if (colSet(settings, 'column_in_progress').has(columnId)) return 'in_progress';
+  // «Принята» — прочитана, ясна, вопросов нет; работа ещё не началась
+  if (colSet(settings, 'column_acked').has(columnId)) return 'acked';
   if (colSet(settings, 'column_review').has(columnId)) return 'review';
   if (colSet(settings, 'column_done').has(columnId)) return 'accepted';
   // «Блокер» — работа стоит не по вине исполнителя, но и не сдана
@@ -2137,7 +2155,7 @@ function stageOfColumn(columnId, settings) {
 
 function freshTimeline() {
   return {
-    status: 'open', taken: null, submitted: null, done: null,
+    status: 'open', acked: null, taken: null, submitted: null, done: null,
     workDoneAt: null, workDoneKind: null, returns: 0, pausedMin: 0, pausedSince: null,
   };
 }
@@ -2185,6 +2203,10 @@ function applyStage(st, stage, at, settings) {
   } else if (stage === 'cancelled') {
     st.status = 'cancelled';
     st.pausedSince = null;
+  } else if (stage === 'acked') {
+    // принята к исполнению: засекаем один раз, до взятия в работу
+    if (!st.taken) { st.status = 'acked'; st.acked = st.acked || at; }
+    else if (!st.workDoneAt) st.pausedSince = st.pausedSince || at; // вернули из работы в «Принята» — таймер стоит
   } else if (stage === 'open') {
     // вернули в «Добавлена»: как будто и не брали — если ещё не сдана
     if (!st.workDoneAt) { st.status = 'open'; st.pausedSince = null; }
@@ -2238,11 +2260,13 @@ function replayLog(events, settings) {
       const stage = stageOfColumn(e.to, settings);
       // Карточка уезжает из «В работе», а взятия в логе не было — значит,
       // её создали прямо в этой колонке: взята в момент постановки.
-      if (stageOfColumn(e.from, settings) === 'in_progress' && !st.taken) {
+      const fromStage = stageOfColumn(e.from, settings);
+      if (fromStage === 'in_progress' && !st.taken) {
         st.taken = st.cycleStart || firstAt;
         st.status = 'in_progress';
         st.takenBy = st.takenBy || e.by;
       }
+      if (fromStage === 'acked' && !st.acked && !st.taken) st.acked = st.cycleStart || firstAt;
       if (stage === 'in_progress' && !st.taken && e.by) st.takenBy = e.by; // кто взял — тот и делает
       applyStage(st, stage, e.at, settings);
     } else if (e.kind === 'assigned') {
@@ -2286,7 +2310,7 @@ async function upsertTaskFromYougile(env, t, settings, opts = {}) {
     || existing.column_id !== (t.columnId || null)
     || Boolean(t.completed) !== (existing.status === 'accepted' || existing.status === 'historical');
   let st = existing ? {
-    status: existing.status, taken: existing.taken_at, submitted: existing.submitted_at,
+    status: existing.status, acked: existing.acked_at, taken: existing.taken_at, submitted: existing.submitted_at,
     done: existing.done_at, workDoneAt: existing.work_done_at, workDoneKind: existing.work_done_kind,
     returns: existing.returns || 0, pausedMin: existing.paused_min || 0, pausedSince: existing.paused_since,
   } : freshTimeline();
@@ -2380,9 +2404,10 @@ async function upsertTaskFromYougile(env, t, settings, opts = {}) {
     ? new Date(t.deadline.deadline).toISOString()
     : (priorityDays ? deadlineByPriority(createdAt, priorityDays, settings) : existing?.deadline || null);
 
-  let { status, taken, submitted, done, returns, pausedMin, pausedSince, workDoneAt, workDoneKind } = st;
+  let { status, acked, taken, submitted, done, returns, pausedMin, pausedSince, workDoneAt, workDoneKind } = st;
   // взята раньше, чем назначена этому исполнителю (переназначили в ходе работы) —
   // до старта у него ноль, а не отрицательное
+  if (acked && acked < createdAt) acked = createdAt;
   if (taken && taken < createdAt) taken = createdAt;
 
   // YouGile сам отмечает завершённость — это надёжнее, чем угадывать по колонке
@@ -2416,7 +2441,7 @@ async function upsertTaskFromYougile(env, t, settings, opts = {}) {
   // Часы обеих стадий считаем сразу и храним готовыми: иначе каждый отчёт
   // заново разбирал бы рабочий календарь по всем задачам квартала.
   const dur = taskDurations(
-    { created_at: createdAt, taken_at: taken, work_done_at: workDoneAt, done_at: done,
+    { created_at: createdAt, acked_at: acked, taken_at: taken, work_done_at: workDoneAt, done_at: done,
       paused_min: pausedMin },
     settings
   );
@@ -2434,17 +2459,17 @@ async function upsertTaskFromYougile(env, t, settings, opts = {}) {
     await db
       .prepare(
         `UPDATE tasks SET title=?, number=?, project_no=?, url=?, board_id=?, column_id=?, keywords=?, assignee_id=?,
-         size=?, level=?, level_src=?, priority=?, created_at=?, deadline=?, status=?, taken_at=?,
+         size=?, level=?, level_src=?, priority=?, created_at=?, deadline=?, status=?, acked_at=?, taken_at=?,
          submitted_at=?, done_at=?, work_done_at=?, work_done_kind=?, returns=?,
-         paused_min=?, paused_since=?, t2s_hours=?, t2f_hours=?,
+         paused_min=?, paused_since=?, t2a_hours=?, t2s_hours=?, t2f_hours=?,
          period=?, updated_at=? WHERE id=?`
       )
       .bind(title, t.idTaskCommon || existing.number, projectNo, url, t.boardId || existing.board_id,
             t.columnId || existing.column_id, keywords,
             user?.id || (assigned.length ? null : existing.assignee_id), size, level, levelSrc,
-            priorityDays, createdAt, deadline, status, taken,
+            priorityDays, createdAt, deadline, status, acked, taken,
             submitted, done, workDoneAt, workDoneKind,
-            returns, pausedMin, pausedSince, dur.t2s, dur.t2f, period, now, t.id)
+            returns, pausedMin, pausedSince, dur.t2a, dur.t2s, dur.t2f, period, now, t.id)
       .run();
   } else {
     // задачу завёл сам исполнитель — это инициатива
@@ -2460,17 +2485,17 @@ async function upsertTaskFromYougile(env, t, settings, opts = {}) {
       .prepare(
         `INSERT INTO tasks (id, title, number, project_no, url, board_id, column_id, keywords, assignee_id,
          author_id, size, level, level_src, priority, created_at, deadline, status,
-         taken_at, submitted_at, done_at, work_done_at, work_done_kind, returns,
-         paused_min, paused_since, t2s_hours, t2f_hours,
+         acked_at, taken_at, submitted_at, done_at, work_done_at, work_done_kind, returns,
+         paused_min, paused_since, t2a_hours, t2s_hours, t2f_hours,
          is_initiative, is_zaeb, period)
-         VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`
+         VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`
       )
       .bind(t.id, title, t.idTaskCommon || null, projectNo, url, t.boardId || null, t.columnId || null,
             taskKeywords({ ...t, title }),
             user?.id || null, t.createdBy || null, size, level, levelSrc,
             priorityDays, createdAt, deadline,
-            status, taken, submitted, done, workDoneAt, workDoneKind,
-            returns, pausedMin, pausedSince, dur.t2s, dur.t2f, isInitiative,
+            status, acked, taken, submitted, done, workDoneAt, workDoneKind,
+            returns, pausedMin, pausedSince, dur.t2a, dur.t2s, dur.t2f, isInitiative,
             colSet(settings, 'column_zaeb').has(t.columnId || '') ? 1 : 0, period)
       .run();
     await logEvent(db, { taskId: t.id, type: 'created', at: createdAt });
@@ -2562,13 +2587,18 @@ async function handleTelegramUpdate(request, env, settings) {
   if (update?.callback_query) return handleCallback(update.callback_query, env, settings);
 
   const msg = update?.message || update?.edited_message;
-  if (!msg || !msg.from || msg.from.is_bot) return json({ ok: true });
+  if (!msg || !msg.from || msg.from.is_bot) return json({ ok: true, skipped: 'не сообщение' });
+
+  // Кто и откуда написал — в журнал: без этого не понять, почему бот
+  // промолчал (чужой чат, незнакомый отправитель) и дошло ли вообще.
+  console.log(
+    'TG ←', `chat=${msg.chat.id}`, msg.chat.type, JSON.stringify(msg.chat.title || ''),
+    `from=${msg.from.id}`, `@${msg.from.username || '-'}`,
+    JSON.stringify((msg.text || msg.caption || '').slice(0, 60))
+  );
 
   // личка — панель управления составом
   if (msg.chat.type === 'private') return handleBotCommand(msg, env, settings);
-
-  const wanted = settings.tg_chat_id;
-  if (wanted && String(msg.chat.id) !== String(wanted)) return json({ ok: true });
 
   let user = await db
     .prepare('SELECT id, role, name FROM users WHERE tg_user_id = ? AND active = 1')
@@ -2589,6 +2619,45 @@ async function handleTelegramUpdate(request, env, settings) {
     }
   }
   if (!user) return json({ ok: true, skipped: 'неизвестный отправитель' });
+
+  const text = msg.text || '';
+  const isBoss = user.role === 'lead' || user.role === 'chief';
+
+  // Команды принимаются из любой группы, где есть бот: их защищает роль
+  // отправителя, а не id чата. Привязка к рабочему чату нужна только
+  // замеру ответов ниже.
+
+  // Постановка задачи — команда, а не вопрос: таймер ответа не открываем.
+  // Правка сообщения не повторяет команду, иначе задача задвоится.
+  if (/^\/task(?:@\w+)?(?:\s|$)/i.test(text)) {
+    if (update.edited_message) return json({ ok: true, skipped: 'правка команды' });
+    if (!isBoss) {
+      await sendTelegram(env, msg.chat.id, 'Задачи ставит руководитель.', { reply_to: msg.message_id });
+      return json({ ok: true, skipped: 'не руководитель' });
+    }
+    const r = await createTaskFromChat(text, env, settings);
+    await sendTelegram(env, msg.chat.id, r.text, { reply_to: msg.message_id, keyboard: r.keyboard });
+    return json({ ok: r.ok, task: r.id || null });
+  }
+
+  // «/chat» в группе — привязать её как рабочую: id чата руками вводят
+  // с ошибками (без минуса, без «-100»), а бот сам его знает точно.
+  if (/^\/chat(?:@\w+)?$/i.test(text.trim()) && !update.edited_message) {
+    if (!isBoss) return json({ ok: true, skipped: 'не руководитель' });
+    await db
+      .prepare("INSERT INTO settings (key, value) VALUES ('tg_chat_id', ?) ON CONFLICT(key) DO UPDATE SET value = excluded.value")
+      .bind(String(msg.chat.id))
+      .run();
+    await sendTelegram(env, msg.chat.id,
+      `Рабочий чат привязан: <b>${esc(msg.chat.title || msg.chat.id)}</b>. Замер ответов идёт здесь.`,
+      { reply_to: msg.message_id });
+    return json({ ok: true, bound: String(msg.chat.id) });
+  }
+
+  const wanted = settings.tg_chat_id;
+  if (wanted && String(msg.chat.id) !== String(wanted)) {
+    return json({ ok: true, skipped: `чужой чат ${msg.chat.id}, рабочий ${wanted}` });
+  }
 
   const at = new Date(msg.date * 1000).toISOString();
   const tz = num(settings, 'tz_offset', 3);
@@ -2997,6 +3066,155 @@ async function handleReaction(reaction, env, settings) {
   return json({ ok: true, tracked: 'reaction', seconds });
 }
 
+// ── постановка задачи из Telegram ───────────────────────────────────────────
+//
+// Руководитель пишет в рабочий чат:
+//   /task @ник 3 Заказать ракетку
+// и задача появляется в YouGile так же, как если бы он завёл её руками:
+// в колонке «Добавлена», на исполнителе, со стикером «Приоритет». Дальше
+// её ведут обычные механизмы — вебхук, бриф ассистента, дедлайн, замер.
+// Здесь только создание: ни таймлайн, ни уровень не трогаем, чтобы не
+// гонять модель дважды параллельно с вебхуком.
+
+/** Подписи к срочности — те же, что в регламенте (рабочие дни). */
+const PRIORITY_LABEL = { 1: 'в течение дня', 3: '2–3 рабочих дня', 7: 'неделя', 30: 'месяц' };
+
+/**
+ * Разбор строки команды. Срочность — необязательная: без числа ставится
+ * срочность по умолчанию (task_default_priority, обычно 3). Всё после
+ * первой строки уходит в описание карточки.
+ */
+function parseTaskCommand(text) {
+  const src = String(text || '').trim();
+  const m = src.match(/^\/task(?:@\w+)?(?:\s+([\s\S]*))?$/i);
+  if (!m) return null;
+  const rest = (m[1] || '').trim();
+  if (!rest) return { error: 'empty' };
+
+  const nickMatch = rest.match(/^@?([A-Za-z0-9_]{3,32})(?:\s+|$)/);
+  if (!nickMatch) return { error: 'nick' };
+  let tail = rest.slice(nickMatch[0].length).trim();
+
+  let priority = null;
+  const pm = tail.match(/^(\d{1,2})(?:\s+|$)/);
+  if (pm) {
+    priority = Number(pm[1]);
+    tail = tail.slice(pm[0].length).trim();
+  }
+
+  const [first, ...more] = tail.split('\n');
+  const title = (first || '').trim();
+  if (!title) return { error: 'title' };
+  const description = more.join('\n').trim();
+  return { nick: nickMatch[1].toLowerCase(), priority, title, description };
+}
+
+/** HTML для Telegram: название задачи приходит от человека. */
+const esc = (s) => String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+/** «чт 24.09 18:00» по местному времени из настроек. */
+function fmtLocal(iso, settings) {
+  const tz = num(settings, 'tz_offset', 3);
+  const d = new Date(new Date(iso).getTime() + tz * 3600000);
+  const wd = ['вс', 'пн', 'вт', 'ср', 'чт', 'пт', 'сб'][d.getUTCDay()];
+  const p2 = (n) => String(n).padStart(2, '0');
+  return `${wd} ${p2(d.getUTCDate())}.${p2(d.getUTCMonth() + 1)} ${p2(d.getUTCHours())}:${p2(d.getUTCMinutes())}`;
+}
+
+/**
+ * Создание задачи по команде. Отвечает текстом для чата: ошибки формата
+ * и ответы YouGile тоже показываем — иначе руководитель не узнает,
+ * что задача не встала, пока не откроет доску.
+ */
+async function createTaskFromChat(text, env, settings) {
+  const db = env.DB;
+  const usage = 'Формат: <code>/task @ник срочность Название</code>\n' +
+    'Срочность — рабочие дни: 1, 3, 7 или 30; без числа — 3. Вторая строка сообщения уходит в описание.';
+
+  const cmd = parseTaskCommand(text);
+  if (!cmd) return { ok: false, text: usage };
+  if (cmd.error === 'empty' || cmd.error === 'nick') return { ok: false, text: usage };
+  if (cmd.error === 'title') return { ok: false, text: `Нет названия задачи.\n${usage}` };
+
+  const who = await db
+    .prepare('SELECT id, name, yougile_id FROM users WHERE lower(tg_username) = ? AND active = 1')
+    .bind(cmd.nick)
+    .first();
+  if (!who) {
+    const { results } = await db
+      .prepare("SELECT name, tg_username FROM users WHERE active = 1 AND tg_username IS NOT NULL AND tg_username <> '' ORDER BY name")
+      .all();
+    const known = results.map((u) => `@${u.tg_username} — ${esc(u.name)}`).join('\n');
+    return { ok: false, text: `Не знаю ника @${esc(cmd.nick)}.${known ? `\n\nКого знаю:\n${known}` : ''}` };
+  }
+  if (!who.yougile_id) {
+    return { ok: false, text: `У ${esc(who.name)} не указан ID в YouGile — впишите его во вкладке «Люди и настройки».` };
+  }
+
+  // Без числа — срочность по умолчанию: задача без стикера в регламенте
+  // не предусмотрена, а «3» — обычный срок на два-три дня.
+  const byDefault = cmd.priority === null;
+  const priority = byDefault ? num(settings, 'task_default_priority', 3) : cmd.priority;
+
+  // состояние стикера по числу: настройка хранит «id=значение»
+  let stateId = null;
+  for (const [id, val] of stateMap(settings, 'priority_states')) {
+    if (Number(val) === priority) stateId = id;
+  }
+  if (!stateId || !settings.sticker_priority) {
+    const allowed = [...stateMap(settings, 'priority_states').values()].join(', ');
+    return { ok: false, text: `Срочность ${priority} не из списка: ${allowed || '1, 3, 7, 30'}.` };
+  }
+
+  const key = env.YOUGILE_KEY || settings.yougile_key;
+  if (!key) return { ok: false, text: 'Не задан ключ YouGile.' };
+  const base = settings.yougile_base || 'https://yougile.com/api-v2';
+  // Колонка «Добавлена» рабочей доски — первая в списке; вторая осталась
+  // от удалённой доски и нужна только истории.
+  const columnId = settings.task_new_column || [...colSet(settings, 'column_backlog')][0];
+  if (!columnId) return { ok: false, text: 'Не задана колонка «Добавлена» (column_backlog).' };
+
+  const body = {
+    title: cmd.title,
+    columnId,
+    assigned: [who.yougile_id],
+    stickers: { [settings.sticker_priority]: stateId },
+  };
+  if (cmd.description) body.description = cmd.description;
+
+  const headers = { Authorization: `Bearer ${key}`, 'content-type': 'application/json' };
+  const res = await fetch(`${base}/tasks`, { method: 'POST', headers, body: JSON.stringify(body) });
+  const created = await res.json().catch(() => ({}));
+  if (!res.ok || !created.id) {
+    return { ok: false, text: `YouGile ответил ${res.status}: ${esc(created.message || created.error || 'без подробностей')}` };
+  }
+
+  // проектный номер (VSE-370) приходит только в карточке, не в ответе на создание
+  let task = null;
+  try {
+    const r = await fetch(`${base}/tasks/${created.id}`, { headers });
+    if (r.ok) task = await r.json().catch(() => null);
+  } catch { /* ссылка будет без номера */ }
+  const projectNo = task?.idTaskProject || null;
+  const url = settings.yougile_team && projectNo
+    ? `https://ru.yougile.com/team/${settings.yougile_team}/#${projectNo}`
+    : null;
+
+  const due = deadlineByPriority(nowIso(), priority, settings);
+  const lines = [
+    `✅ Задача поставлена${projectNo ? ` — ${esc(projectNo)}` : ''}`,
+    `«${esc(cmd.title)}» → <b>${esc(who.name)}</b>`,
+    `Срочность ${priority}${byDefault ? ' (по умолчанию)' : ''} — ` +
+      `${PRIORITY_LABEL[priority] || `${priority} раб. дн.`}, срок до ${fmtLocal(due, settings)}`,
+  ];
+  return {
+    ok: true,
+    id: created.id,
+    text: lines.join('\n'),
+    keyboard: url ? [[{ text: 'Открыть в YouGile', url }]] : undefined,
+  };
+}
+
 /**
  * Панель управления в личке бота.
  *
@@ -3039,6 +3257,12 @@ async function handleBotCommand(msg, env, settings) {
   }
 
   if (!me) return reply('Вас нет в системе. Обратитесь к руководителю отдела.');
+  if (cmd === '/task') {
+    if (me.role !== 'lead' && me.role !== 'chief') return reply('Задачи ставит руководитель.');
+    const r = await createTaskFromChat(text, env, settings);
+    return sendTelegram(env, from, r.text, { keyboard: r.keyboard }).then(() => json({ ok: r.ok, task: r.id || null }));
+  }
+
   if (me.role !== 'lead' && cmd !== '/help' && cmd !== '/me') {
     return reply('Эта команда доступна только руководителю отдела.');
   }
@@ -3046,6 +3270,7 @@ async function handleBotCommand(msg, env, settings) {
   if (cmd === '/help' || cmd === '/start') {
     return reply(
       '<b>Команды</b>\n' +
+      '/task @ник срочность Название — поставить задачу в YouGile\n' +
       '/assist @ник Имя — добавить ассистента\n' +
       '/chief @ник Имя — добавить руководителя\n' +
       '/team — состав отдела\n' +
@@ -3131,8 +3356,15 @@ async function handleBotCommand(msg, env, settings) {
   }
 
   if (cmd === '/chat') {
-    return reply('Перешлите сюда любое сообщение из рабочего чата или отправьте /chat <id>. ' +
-      'Проще всего: напишите что-нибудь в рабочем чате — бот привяжет его сам, если он там единственный.');
+    const id = (rest[0] || '').trim();
+    if (/^-?\d+$/.test(id)) {
+      await db
+        .prepare("INSERT INTO settings (key, value) VALUES ('tg_chat_id', ?) ON CONFLICT(key) DO UPDATE SET value = excluded.value")
+        .bind(id).run();
+      return reply(`Рабочий чат привязан: <code>${id}</code>.`);
+    }
+    return reply(`Сейчас рабочий чат: <code>${settings.tg_chat_id || 'не задан'}</code>.\n` +
+      'Проще всего отправить /chat прямо в рабочем чате — бот привяжет его сам. Либо /chat &lt;id&gt; здесь.');
   }
 
   if (cmd === '/me') {
@@ -3277,10 +3509,8 @@ async function sendMonthlyDigest(env, settings) {
   const fmtH = (h) => (h === null || h === undefined ? '—' : `${Math.round(h * 10) / 10} ч`);
   const fmtP = (v) => (v === null || v === undefined ? '—' : `${v} %`);
   const six = (m) => [
-    `  до старта:  1 — ${fmtH(m.metrics.t2s1)} (${fmtP(m.percents.t2s1)}) · ` +
-      `2 — ${fmtH(m.metrics.t2s2)} (${fmtP(m.percents.t2s2)}) · ` +
-      `3 — ${fmtH(m.metrics.t2s3)} (${fmtP(m.percents.t2s3)})`,
-    `  до сдачи:   1 — ${fmtH(m.metrics.t2f1)} (${fmtP(m.percents.t2f1)}) · ` +
+    `  до принятия: ${fmtH(m.metrics.t2a)} (${fmtP(m.percents.t2a)}) · до старта: ${fmtH(m.metrics.t2s)} (${fmtP(m.percents.t2s)})`,
+    `  в работе:   1 — ${fmtH(m.metrics.t2f1)} (${fmtP(m.percents.t2f1)}) · ` +
       `2 — ${fmtH(m.metrics.t2f2)} (${fmtP(m.percents.t2f2)}) · ` +
       `3 — ${fmtH(m.metrics.t2f3)} (${fmtP(m.percents.t2f3)})`,
   ];
@@ -3291,7 +3521,8 @@ async function sendMonthlyDigest(env, settings) {
       .sort((a, b) => a[1] - b[1])[0];
     if (!worst || worst[1] >= 100) return null;
     const [k, v] = worst;
-    return `  ⚠ слабее всего: ${k.startsWith('t2s') ? 'до старта' : 'до сдачи'}, уровень ${k.slice(3)} — ${v} % плана`;
+    const name = { t2a: 'до принятия', t2s: 'до старта' }[k] || `в работе, уровень ${k.slice(3)}`;
+    return `  ⚠ слабее всего: ${name} — ${v} % плана`;
   };
 
   // Сначала KPI руководителя: оценки каждого и премия месяца
@@ -3414,9 +3645,9 @@ export default {
 // Открыто для тестов: чистые функции расчёта, без обращений к базе.
 export const __test = {
   quarterOf, monthsOfQuarter, MARKS, MARK_LABEL,
-  levelOfTask, taskDurations, timeMetrics, planPercent, autoMark,
+  levelOfTask, taskDurations, timeMetrics, planPercent, autoMark, METRIC_KEYS,
   workMinutesBetween, addWorkMinutes, addWorkdays, deadlineByPriority, workWindow, applyStage, replayLog, freshTimeline,
-  scoreTask, scoreChat, computeMetrics, scoreFromPercent, skipPriorities,
+  scoreTask, scoreChat, computeMetrics, scoreFromPercent, skipPriorities, parseTaskCommand,
 };
 
 // Для служебных скриптов на сервере: полная пересинхронизация без ключа доступа.

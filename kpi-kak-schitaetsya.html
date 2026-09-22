@@ -203,7 +203,7 @@ table.matrix td.num{font-weight:600;color:var(--fg)}
 <nav class="nav">
   <div class="nav-in">
     <a class="brand" href="#top">KPI руководителя отдела</a>
-    <a href="#dve-skorosti">Две скорости</a>
+    <a href="#dve-skorosti">Три стадии</a>
     <a href="#urovni">Три уровня</a>
     <a href="#shest">Шесть цифр</a>
     <a href="#ocenka">Оценка и премия</a>
@@ -229,16 +229,16 @@ table.matrix td.num{font-weight:600;color:var(--fg)}
   <div class="wrap">
     <div class="sec-head reveal">
       <div class="kicker">Что меряется</div>
-      <h2>Две скорости у каждой задачи</h2>
+      <h2>Три стадии у каждой задачи</h2>
       <p>Обе в рабочих часах по Москве: день с 9 до 18, вечера и выходные не идут в счёт. Задача, поставленная в пятницу в 23:00 и взятая в понедельник в 9:13, ждала 13 минут.</p>
     </div>
 
     <div class="grid g2">
       <div class="card hoverable reveal">
-        <span class="tag t-blue">Time to start</span>
-        <h3 style="margin-top:12px">Время до старта</h3>
-        <p class="fg2">От постановки задачи до момента, когда ассистент перетащил карточку в «В работе». Показывает, как быстро задачу заметили и взяли.</p>
-        <p class="muted" style="margin:0">Простая задача, которая пролежала день нетронутой, — это именно сюда.</p>
+        <span class="tag t-blue">Принята → В работе</span>
+        <h3 style="margin-top:12px">Время до принятия и до старта</h3>
+        <p class="fg2">До принятия — от постановки до переноса в «Принята»: задача прочитана, ясна, вопросов нет. Норма — рабочий час. До старта — от принятия до переноса в «В работе». Норма — 12 рабочих часов.</p>
+        <p class="muted" style="margin:0">Обе не зависят от сложности: принять и начать можно любую задачу.</p>
       </div>
       <div class="card hoverable reveal">
         <span class="tag t-violet">Time to fill</span>
@@ -250,8 +250,8 @@ table.matrix td.num{font-weight:600;color:var(--fg)}
 
     <div class="timeline reveal">
       <div class="tl-row">
-        <div class="tl-pt"><span class="tl-dot" style="background:var(--fg-3)"></span><b>Поставлена</b><span class="muted">карточка появилась на доске</span></div>
-        <div class="tl-seg"><span class="tl-lbl t-blue">до старта</span></div>
+        <div class="tl-pt"><span class="tl-dot" style="background:var(--fg-3)"></span><b>Поставлена</b><span class="muted">назначена исполнителю</span></div>
+        <div class="tl-seg"><span class="tl-lbl t-blue">до принятия · до старта</span></div>
         <div class="tl-pt"><span class="tl-dot" style="background:var(--accent)"></span><b>Взята</b><span class="muted">переход в «В работе»</span></div>
         <div class="tl-seg"><span class="tl-lbl t-violet">в работе</span></div>
         <div class="tl-pt"><span class="tl-dot" style="background:var(--violet)"></span><b>Сдана</b><span class="muted">на проверке или завершена</span></div>
@@ -282,7 +282,7 @@ table.matrix td.num{font-weight:600;color:var(--fg)}
     <div class="sec-head reveal">
       <div class="kicker">Сложность</div>
       <h2>Три уровня задач</h2>
-      <p>Скорость сложной задачи нельзя сравнивать со скоростью простой. Поэтому у каждого уровня свои нормы, а шесть цифр в месяц — это две скорости на три уровня.</p>
+      <p>Скорость сложной задачи нельзя сравнивать со скоростью простой. Поэтому у времени в работе свои нормы на каждый уровень; принятие и старт от уровня не зависят. Итого пять цифр в месяц.</p>
     </div>
 
     <div class="grid g3">
@@ -323,15 +323,16 @@ table.matrix td.num{font-weight:600;color:var(--fg)}
   <div class="wrap">
     <div class="sec-head reveal">
       <div class="kicker">Ежемесячно</div>
-      <h2>Шесть цифр и план к каждой</h2>
-      <p>По каждой из шести метрик считается среднее за месяц по задачам отдела: для времени до старта — взятым в этом месяце, для времени в работе — сданным в нём. Рядом — плановое значение. Процент показывает, насколько факт лучше или хуже плана.</p>
+      <h2>Пять цифр и план к каждой</h2>
+      <p>По каждой метрике считается среднее за месяц по задачам отдела: до принятия — по принятым в этом месяце, до старта — по взятым, в работе — по сданным. Рядом — плановое значение. Процент показывает, насколько факт лучше или хуже плана.</p>
     </div>
 
     <div class="tbl-scroll reveal">
       <table style="min-width:640px">
         <thead><tr><th>Метрика</th><th class="num">Уровень 1<br><span style="text-transform:none;font-weight:500">простые</span></th><th class="num">Уровень 2<br><span style="text-transform:none;font-weight:500">обычные</span></th><th class="num">Уровень 3<br><span style="text-transform:none;font-weight:500">сложные</span></th></tr></thead>
         <tbody>
-          <tr><td><strong>Время до старта</strong><br><span class="muted">план, рабочих часов</span></td><td class="num"><strong>2 ч</strong></td><td class="num"><strong>4 ч</strong></td><td class="num"><strong>8 ч</strong><br><span class="muted">почти день</span></td></tr>
+          <tr><td><strong>Время до принятия</strong><br><span class="muted">план, рабочих часов</span></td><td class="num" colspan="3"><strong>1 ч</strong> <span class="muted">для всех уровней</span></td></tr>
+          <tr><td><strong>Время до старта</strong><br><span class="muted">от принятия, рабочих часов</span></td><td class="num" colspan="3"><strong>12 ч</strong> <span class="muted">для всех уровней</span></td></tr>
           <tr><td><strong>Время в работе</strong><br><span class="muted">план, рабочих часов</span></td><td class="num"><strong>8 ч</strong><br><span class="muted">почти день</span></td><td class="num"><strong>24 ч</strong><br><span class="muted">почти три дня</span></td><td class="num"><strong>80 ч</strong><br><span class="muted">около девяти дней</span></td></tr>
         </tbody>
       </table>

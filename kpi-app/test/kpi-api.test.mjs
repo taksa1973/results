@@ -61,14 +61,19 @@ test('миграция 003 приводит старую базу к новой 
   const clean = new DatabaseSync(':memory:');
   clean.exec(fs.readFileSync(path.join(root, 'schema.sql'), 'utf8'));
 
+  migrated.exec(fs.readFileSync(path.join(root, 'migrations', '006_acked.sql'), 'utf8'));
   for (const t of ['users', 'tasks', 'sla', 'bonus_matrix', 'reviews', 'quarter_results', 'month_scores']) {
     assert.deepEqual(columnsOf(migrated, t), columnsOf(clean, t), `таблица ${t}`);
   }
   const cnt = (db, sql) => db.prepare(sql).get().n;
   assert.equal(cnt(migrated, 'SELECT count(*) AS n FROM bonus_matrix'), 42);
-  assert.equal(cnt(migrated, 'SELECT count(*) AS n FROM sla'), 6);
+  assert.equal(cnt(migrated, 'SELECT count(*) AS n FROM sla'), 5, 'принятие, старт и три уровня работы');
   assert.equal(cnt(clean, 'SELECT count(*) AS n FROM bonus_matrix'), 42);
-  assert.equal(cnt(clean, 'SELECT count(*) AS n FROM sla'), 6);
+  assert.equal(cnt(clean, 'SELECT count(*) AS n FROM sla'), 5);
+  assert.deepEqual(
+    migrated.prepare('SELECT metric, level, hours FROM sla ORDER BY metric, level').all(),
+    clean.prepare('SELECT metric, level, hours FROM sla ORDER BY metric, level').all()
+  );
   assert.equal(
     migrated.prepare("SELECT value FROM settings WHERE key = 'overplan_percent'").get().value, '120'
   );
@@ -141,7 +146,7 @@ test('KPI руководителя за месяц: среднее оценок 
   const { call } = await freshEnv();
   await call('lead', 'POST', '/kpi/sla', {
     quarter: '2026-Q3',
-    values: { t2s1: 2, t2s2: 4, t2s3: 8, t2f1: 4, t2f2: 16, t2f3: 40 },
+    values: { t2a: 1, t2s: 4, t2f1: 4, t2f2: 16, t2f3: 40 },
   });
 
   const { status, body } = await call('chief', 'GET', '/kpi/board?period=2026-08');
@@ -166,7 +171,8 @@ test('KPI руководителя за месяц: среднее оценок 
   assert.equal(body.lead.bonus, 50000, 'все на десять — максимум');
   assert.equal(body.lead.counted, 3);
 
-  // взято / сдано за месяц — прямо в строке
+  // принято / взято / сдано за месяц — прямо в строке
+  assert.equal(kate.acked, 0, 'через «Принята» не проходили');
   assert.equal(kate.taken, 3);
   assert.equal(kate.done, 3);
   assert.equal(body.lead.own.taken, 2);
@@ -263,16 +269,18 @@ test('ассистенту доска закрыта, отзыв о руково
 
 test('нормы нельзя менять ассистенту, и они действуют с нужного квартала', async () => {
   const { call } = await freshEnv();
-  const denied = await call('kate', 'POST', '/kpi/sla', { quarter: '2026-Q3', values: { t2s1: 1 } });
+  const denied = await call('kate', 'POST', '/kpi/sla', { quarter: '2026-Q3', values: { t2s: 1 } });
   assert.equal(denied.status, 403);
 
-  await call('lead', 'POST', '/kpi/sla', { quarter: '2026-Q3', values: { t2s1: 2 } });
-  await call('lead', 'POST', '/kpi/sla', { quarter: '2026-Q4', values: { t2s1: 1 } });
+  await call('lead', 'POST', '/kpi/sla', { quarter: '2026-Q3', values: { t2s: 2 } });
+  await call('lead', 'POST', '/kpi/sla', { quarter: '2026-Q4', values: { t2s: 1, t2f2: 20 } });
 
   const q3 = await call('lead', 'GET', '/kpi/sla?quarter=2026-Q3');
   const q4 = await call('lead', 'GET', '/kpi/sla?quarter=2026-Q4');
-  assert.equal(q3.body.current.t2s1, 2, 'третий квартал считается по старой норме');
-  assert.equal(q4.body.current.t2s1, 1, 'четвёртый — по новой');
+  assert.equal(q3.body.current.t2s, 2, 'третий квартал считается по старой норме');
+  assert.equal(q4.body.current.t2s, 1, 'четвёртый — по новой');
+  assert.equal(q4.body.current.t2f2, 20, 'уровневая норма — со своим ключом');
+  assert.equal(q4.body.current.t2a, 1, 'стартовая норма принятия на месте');
 });
 
 test('отзывы о руководителе: три источника, вид по роли', async () => {
@@ -353,8 +361,8 @@ test('уровень задачи можно поправить руками', a
   const { body } = await call('lead', 'GET', '/kpi/board?period=2026-08');
   const kate = body.people.find((p) => p.name === 'Екатерина');
   const aug = kate.months.find((m) => m.period === '2026-08');
-  assert.equal(aug.metrics.t2s3, 1, 'задача ушла на третий уровень');
-  assert.equal(aug.metrics.t2s1, 1, 'на первом осталась одна');
+  assert.equal(aug.metrics.t2f3, 1, 'задача ушла на третий уровень: час в работе');
+  assert.equal(aug.metrics.t2f1, 3, 'на первом осталась одна: три часа');
 });
 
 test('ассистенту сверх оклада — только заёбы и экономия', async () => {
@@ -408,8 +416,8 @@ test('месячная сводка в личку строится по моде
     assert.match(text, /из 50.000/);
     assert.match(text, /Отдел/);
     assert.match(text, /Екатерина/);
-    assert.match(text, /до старта:/);
-    assert.match(text, /до сдачи:/);
+    assert.match(text, /до принятия:/);
+    assert.match(text, /в работе:/);
     assert.match(text, /квартал: план/);
     assert.match(text, /вкладка «KPI»/);
     assert.equal(sent[0].chat_id, '292525734');
