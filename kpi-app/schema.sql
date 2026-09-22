@@ -72,6 +72,11 @@ CREATE TABLE tasks (
   paused_min        INTEGER NOT NULL DEFAULT 0,
   paused_since      TEXT,
 
+  -- Время на проверке у руководителя. Считается отдельно и в оценку
+  -- исполнителя не идёт: на проверке работает не он.
+  review_min        INTEGER NOT NULL DEFAULT 0,
+  review_since      TEXT,
+
   returns           INTEGER NOT NULL DEFAULT 0,-- сколько раз вернули из «На проверке»
   chief_touched     INTEGER NOT NULL DEFAULT 0,-- руководитель писал в карточке до закрытия
   is_initiative     INTEGER NOT NULL DEFAULT 0,
@@ -375,6 +380,9 @@ INSERT INTO settings (key, value) VALUES
   -- команда в YouGile: из неё и номера проекта строится ссылка на задачу
   ('yougile_team',      'ed881f3af637'),
   -- рабочий день для часов по задачам (окно чата work_start/work_end — отдельно)
+  -- норма проверки: дольше — попадает в утреннее напоминание
+  ('review_norm_hours', '8'),
+  ('review_digest_hour','10'),
   ('task_day_start',    '09:00'),
   ('task_day_end',      '18:00'),
   ('size_states',       '9dd99e96c71c=1,0b2e97716e0e=2,b6e9a764ce20=3,d036c20324cb=5'),

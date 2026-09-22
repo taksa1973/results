@@ -319,3 +319,26 @@ test('таймлайн: стадия «Принята» из лога, верн�
   ], S2);
   assert.equal(st2.acked, '2026-08-10T07:00:00Z');
 });
+
+test('время на проверке копится отдельно и не входит в оценку исполнителя', () => {
+  const { replayLog, taskDurations } = __test;
+  const S2 = { tz_offset: '3', column_in_progress: 'c-work', column_review: 'c-rev', column_done: 'c-done' };
+  const st = replayLog([
+    { at: '2026-08-10T07:00:00Z', kind: 'assigned', user: 'yg-kate' },
+    { at: '2026-08-10T07:00:00Z', kind: 'move', from: 'c-new', to: 'c-work', by: 'yg-kate' },  // пн 10:00 взята
+    { at: '2026-08-10T09:00:00Z', kind: 'move', from: 'c-work', to: 'c-rev', by: 'yg-kate' },  // 12:00 сдана
+    { at: '2026-08-12T09:00:00Z', kind: 'move', from: 'c-rev', to: 'c-work', by: 'yg-lead' },  // ср 12:00 вернули
+    { at: '2026-08-12T10:00:00Z', kind: 'move', from: 'c-work', to: 'c-rev', by: 'yg-kate' },  // 13:00 сдана снова
+    { at: '2026-08-14T07:00:00Z', kind: 'move', from: 'c-rev', to: 'c-done', by: 'yg-lead' }, // пт 10:00 принята
+  ], S2);
+
+  // на проверке: пн 12:00 → ср 12:00 (6 + 9 + 3 = 18 ч) и ср 13:00 → пт 10:00 (5 + 9 + 1 = 15 ч)
+  assert.equal(st.reviewMin, 33 * 60, 'проверка считается отдельно');
+  assert.equal(st.reviewSince, null, 'принята — счётчик закрыт');
+  assert.equal(st.returns, 1);
+
+  // в работе: пн 10:00–12:00 и ср 12:00–13:00 = 3 часа, проверка не в счёт
+  const d = taskDurations({ created_at: '2026-08-10T07:00:00Z', taken_at: st.taken, work_done_at: st.workDoneAt, done_at: st.done, paused_min: st.pausedMin }, S2);
+  assert.equal(d.t2f, 3, 'тридцать два часа проверки в оценку исполнителя не идут');
+  assert.equal(d.t2a, 0);
+});

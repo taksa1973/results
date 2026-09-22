@@ -534,6 +534,61 @@ async function quarterMetrics(db, userId, quarter, settings) {
   return { quarter, months, metrics, percents, sla, avgPercent, markAuto: autoMark(avgPercent, settings) };
 }
 
+/**
+ * Проверка: сколько времени задачи ждут решения руководителя.
+ *
+ * Считается отдельно от оценок и ни на одну из них не влияет: на проверке
+ * работает не исполнитель. Это цифра проверяющего — чтобы было видно,
+ * когда очередь превращается в месяцы.
+ */
+async function reviewStats(db, period, settings) {
+  const now = nowIso();
+  const norm = num(settings, 'review_norm_hours', 8);
+  const hours = (a, b) => (a && b ? Math.round((workMinutesBetween(a, b, settings) / 60) * 10) / 10 : null);
+
+  // что висит прямо сейчас
+  const { results: pending } = await db
+    .prepare(
+      `SELECT t.id, t.project_no, t.number, t.title, t.url, t.level, t.submitted_at, t.review_since,
+              u.name AS assignee
+       FROM tasks t LEFT JOIN users u ON u.id = t.assignee_id
+       WHERE t.status = 'review' AND t.is_zaeb = 0
+       ORDER BY COALESCE(t.review_since, t.submitted_at)`
+    )
+    .all();
+  const waiting = pending.map((t) => ({
+    id: t.id, number: t.project_no || t.number, title: t.title, url: t.url,
+    level: t.level, assignee: t.assignee,
+    since: t.review_since || t.submitted_at,
+    hours: hours(t.review_since || t.submitted_at, now),
+  }));
+
+  // сколько занимала проверка у принятых в этом месяце
+  const { results: donen } = await db
+    .prepare(
+      `SELECT review_min, submitted_at, done_at FROM tasks
+       WHERE status = 'accepted' AND is_zaeb = 0
+         AND done_at >= ? AND done_at < ?`
+    )
+    .bind(`${period}-01`, `${period}-32`)
+    .all();
+  const spent = donen
+    .map((t) => (t.review_min ? Math.round((t.review_min / 60) * 10) / 10 : hours(t.submitted_at, t.done_at)))
+    .filter((v) => v !== null && v > 0);
+  const avg = spent.length ? Math.round((spent.reduce((a, b) => a + b, 0) / spent.length) * 10) / 10 : null;
+  const sorted = [...spent].sort((a, b) => a - b);
+
+  return {
+    norm,
+    pending: waiting,
+    overdue: waiting.filter((t) => t.hours !== null && t.hours > norm).length,
+    checked: spent.length,
+    avg,
+    median: sorted.length ? sorted[Math.floor(sorted.length / 2)] : null,
+    max: sorted.length ? sorted[sorted.length - 1] : null,
+  };
+}
+
 /** Премия за квартал по матрице «грейд × оценка». */
 async function quarterBonus(db, grade, mark, salaryQuarter) {
   if (!mark || !grade) return { percent: 0, sum: 0 };
@@ -900,6 +955,7 @@ function decorateTask(t, settings = {}) {
     levelSrc: t.level_src || null,
     priority: t.priority || null,
     ackedAt: t.acked_at || null,
+    reviewHours: t.review_min ? Math.round((t.review_min / 60) * 10) / 10 : null,
     t2aHours: dur.t2a,
     t2sHours: dur.t2s,
     t2fHours: dur.t2f,
@@ -1454,6 +1510,7 @@ async function handleKpiApi(request, db, path, url, me, settings) {
         result: result || null,
         reviews,
       },
+      review: await reviewStats(db, period, settings),
       people: kpi.people.map((r) => ({
         id: r.id, name: r.name, ...strip(r),
         ...(slices.find((x) => x.id === r.id) || {}),
@@ -2160,6 +2217,9 @@ function freshTimeline() {
   return {
     status: 'open', acked: null, taken: null, submitted: null, done: null,
     workDoneAt: null, workDoneKind: null, returns: 0, pausedMin: 0, pausedSince: null,
+    // время на проверке копится отдельно: это работа проверяющего,
+    // в оценку исполнителя оно не идёт ни при каких условиях
+    reviewMin: 0, reviewSince: null,
   };
 }
 
@@ -2171,6 +2231,12 @@ function freshTimeline() {
  */
 function applyStage(st, stage, at, settings) {
   const pausedHere = st.pausedSince ? workMinutesBetween(st.pausedSince, at, settings) : 0;
+
+  // ушла с проверки — закрываем счётчик проверки
+  if (stage !== 'review' && st.reviewSince) {
+    st.reviewMin = (st.reviewMin || 0) + workMinutesBetween(st.reviewSince, at, settings);
+    st.reviewSince = null;
+  }
 
   if (stage === 'in_progress') {
     if (st.status === 'review') st.returns += 1; // вернулась с проверки
@@ -2184,6 +2250,7 @@ function applyStage(st, stage, at, settings) {
   } else if (stage === 'review') {
     st.status = 'review';
     st.submitted = st.submitted || at;
+    st.reviewSince = st.reviewSince || at;
     if (!st.workDoneAt) { st.workDoneAt = at; st.workDoneKind = 'submitted'; }
     if (st.taken) st.pausedSince = st.pausedSince || at;
   } else if (stage === 'accepted') {
@@ -2317,6 +2384,7 @@ async function upsertTaskFromYougile(env, t, settings, opts = {}) {
     status: existing.status, acked: existing.acked_at, taken: existing.taken_at, submitted: existing.submitted_at,
     done: existing.done_at, workDoneAt: existing.work_done_at, workDoneKind: existing.work_done_kind,
     returns: existing.returns || 0, pausedMin: existing.paused_min || 0, pausedSince: existing.paused_since,
+    reviewMin: existing.review_min || 0, reviewSince: existing.review_since,
   } : freshTimeline();
   let fromLog = false;
   if (moved || opts.rebuild) {
@@ -2408,7 +2476,8 @@ async function upsertTaskFromYougile(env, t, settings, opts = {}) {
     ? new Date(t.deadline.deadline).toISOString()
     : (priorityDays ? deadlineByPriority(createdAt, priorityDays, settings) : existing?.deadline || null);
 
-  let { status, acked, taken, submitted, done, returns, pausedMin, pausedSince, workDoneAt, workDoneKind } = st;
+  let { status, acked, taken, submitted, done, returns, pausedMin, pausedSince, workDoneAt, workDoneKind,
+        reviewMin = 0, reviewSince = null } = st;
   // взята раньше, чем назначена этому исполнителю (переназначили в ходе работы) —
   // до старта у него ноль, а не отрицательное
   if (acked && acked < createdAt) acked = createdAt;
@@ -2465,7 +2534,8 @@ async function upsertTaskFromYougile(env, t, settings, opts = {}) {
         `UPDATE tasks SET title=?, number=?, project_no=?, url=?, board_id=?, column_id=?, keywords=?, assignee_id=?,
          size=?, level=?, level_src=?, priority=?, created_at=?, deadline=?, status=?, acked_at=?, taken_at=?,
          submitted_at=?, done_at=?, work_done_at=?, work_done_kind=?, returns=?,
-         paused_min=?, paused_since=?, t2a_hours=?, t2s_hours=?, t2f_hours=?,
+         paused_min=?, paused_since=?, review_min=?, review_since=?,
+         t2a_hours=?, t2s_hours=?, t2f_hours=?,
          period=?, updated_at=? WHERE id=?`
       )
       .bind(title, t.idTaskCommon || existing.number, projectNo, url, t.boardId || existing.board_id,
@@ -2473,7 +2543,7 @@ async function upsertTaskFromYougile(env, t, settings, opts = {}) {
             user?.id || (assigned.length ? null : existing.assignee_id), size, level, levelSrc,
             priorityDays, createdAt, deadline, status, acked, taken,
             submitted, done, workDoneAt, workDoneKind,
-            returns, pausedMin, pausedSince, dur.t2a, dur.t2s, dur.t2f, period, now, t.id)
+            returns, pausedMin, pausedSince, reviewMin, reviewSince, dur.t2a, dur.t2s, dur.t2f, period, now, t.id)
       .run();
   } else {
     // задачу завёл сам исполнитель — это инициатива
@@ -2490,16 +2560,16 @@ async function upsertTaskFromYougile(env, t, settings, opts = {}) {
         `INSERT INTO tasks (id, title, number, project_no, url, board_id, column_id, keywords, assignee_id,
          author_id, size, level, level_src, priority, created_at, deadline, status,
          acked_at, taken_at, submitted_at, done_at, work_done_at, work_done_kind, returns,
-         paused_min, paused_since, t2a_hours, t2s_hours, t2f_hours,
+         paused_min, paused_since, review_min, review_since, t2a_hours, t2s_hours, t2f_hours,
          is_initiative, is_zaeb, period)
-         VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`
+         VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`
       )
       .bind(t.id, title, t.idTaskCommon || null, projectNo, url, t.boardId || null, t.columnId || null,
             taskKeywords({ ...t, title }),
             user?.id || null, t.createdBy || null, size, level, levelSrc,
             priorityDays, createdAt, deadline,
             status, acked, taken, submitted, done, workDoneAt, workDoneKind,
-            returns, pausedMin, pausedSince, dur.t2a, dur.t2s, dur.t2f, isInitiative,
+            returns, pausedMin, pausedSince, reviewMin, reviewSince, dur.t2a, dur.t2s, dur.t2f, isInitiative,
             colSet(settings, 'column_zaeb').has(t.columnId || '') ? 1 : 0, period)
       .run();
     await logEvent(db, { taskId: t.id, type: 'created', at: createdAt });
@@ -3448,6 +3518,40 @@ async function tgApi(env, method, payload) {
  * сообщению потеряться: половина пропусков случается не из-за лени,
  * а потому что вопрос уехал вверх за десятком других.
  */
+/**
+ * Что залежалось на проверке. Раз в день в личку руководителю: очередь
+ * у проверяющего не видна ни в чьей оценке, поэтому напоминание —
+ * единственный способ о ней помнить.
+ */
+async function sendReviewDigest(env, settings) {
+  const db = env.DB;
+  const tz = num(settings, 'tz_offset', 3);
+  const period = currentPeriod(tz);
+  const rv = await reviewStats(db, period, settings);
+  if (!rv.overdue) return { ok: true, skipped: 'нет просроченных' };
+
+  const lead = await db
+    .prepare("SELECT tg_user_id FROM users WHERE role = 'lead' AND tg_user_id IS NOT NULL AND active = 1")
+    .first();
+  if (!lead) return { ok: false, error: 'у руководителя отдела не указан Telegram' };
+
+  const lines = [
+    `<b>На проверке залежалось: ${rv.overdue}</b> (норма ${rv.norm} раб. ч)`,
+    '',
+    ...rv.pending
+      .filter((t) => t.hours !== null && t.hours > rv.norm)
+      .slice(0, 15)
+      .map((t) => {
+        const name = String(t.title).replace(/\s+/g, ' ').slice(0, 50);
+        return `• ${t.hours} ч · ${t.url ? `<a href="${t.url}">${t.number || name}</a>` : t.number || ''} ${t.number ? name : ''}${t.assignee ? ` · ${t.assignee}` : ''}`;
+      }),
+    '',
+    'Пока задача на проверке, её время не идёт в оценку ассистента.',
+  ];
+  await sendTelegram(env, lead.tg_user_id, lines.join('\n'));
+  return { ok: true, sent: rv.overdue };
+}
+
 async function runEscalation(env, settings) {
   const db = env.DB;
   const after = num(settings, 'escalate_after_min', 30);
@@ -3564,6 +3668,19 @@ async function sendMonthlyDigest(env, settings) {
     lines.push('');
   }
 
+  // проверка — это очередь у руководителя, не у ассистентов
+  const rv = await reviewStats(db, period, settings);
+  lines.push(
+    `<b>Проверка</b> — ждут решения: <b>${rv.pending.length}</b>` +
+      (rv.overdue ? `, дольше нормы (${rv.norm} ч): <b>${rv.overdue}</b>` : ''),
+    `  принято за месяц ${rv.checked}, среднее ожидание ${rv.avg === null ? '—' : `${rv.avg} ч`}` +
+      (rv.max ? `, дольше всех ${rv.max} ч` : '')
+  );
+  for (const t of rv.pending.slice(0, 5)) {
+    lines.push(`    ${t.number || ''} ${String(t.title).replace(/\s+/g, ' ').slice(0, 45)} — ${t.hours} ч${t.assignee ? ` · ${t.assignee}` : ''}`);
+  }
+  lines.push('');
+
   // реакция в чате — по-прежнему считается, но премии не определяет
   for (const p of people) {
     const { tasks, replies } = await fetchUserData(db, p.id, period, p.role);
@@ -3639,6 +3756,12 @@ export default {
     // каждые 15 минут — напоминание о висящих вопросах
     await runEscalation(env, settings);
 
+    // раз в день утром — что залежалось на проверке
+    const tzNow = new Date(Date.now() + num(settings, 'tz_offset', 3) * 3600e3);
+    if (tzNow.getUTCHours() === num(settings, 'review_digest_hour', 10) && tzNow.getUTCMinutes() < 15) {
+      await sendReviewDigest(env, settings);
+    }
+
     // раз в час — подстраховочная синхронизация задач
     if (new Date().getUTCMinutes() < 15) {
       await syncYougile(env, settings);
@@ -3655,4 +3778,4 @@ export const __test = {
 };
 
 // Для служебных скриптов на сервере: полная пересинхронизация без ключа доступа.
-export const __ops = { syncYougile, loadSettings, sendMonthlyDigest };
+export const __ops = { syncYougile, loadSettings, sendMonthlyDigest, sendReviewDigest, reviewStats };

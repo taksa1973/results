@@ -62,6 +62,7 @@ test('миграция 003 приводит старую базу к новой 
   clean.exec(fs.readFileSync(path.join(root, 'schema.sql'), 'utf8'));
 
   migrated.exec(fs.readFileSync(path.join(root, 'migrations', '006_acked.sql'), 'utf8'));
+  migrated.exec(fs.readFileSync(path.join(root, 'migrations', '007_review.sql'), 'utf8'));
   for (const t of ['users', 'tasks', 'sla', 'bonus_matrix', 'reviews', 'quarter_results', 'month_scores']) {
     assert.deepEqual(columnsOf(migrated, t), columnsOf(clean, t), `таблица ${t}`);
   }

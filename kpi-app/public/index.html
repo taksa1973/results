@@ -734,6 +734,37 @@ async function renderKpi(d, v){
     <tr class="detail-row hide" data-detail="${esc(p.id)}"><td colspan="5"><div class="body"></div></td></tr>`;
   const rows = [scoreRow({ ...L.own, id: L.id, name: L.name, role: 'lead' }), ...d.people.map((p) => scoreRow({ ...p, role: 'assistant' }))].join('');
 
+  // ── очередь на проверке: это время руководителя, в оценки оно не идёт
+  const rv = d.review || { pending: [], norm: 8 };
+  const rvRows = rv.pending.map((t) => `
+    <tr class="clickable" data-task="${esc(t.id)}">
+      <td class="num ${t.hours > rv.norm ? 'pct-bad' : ''}"><strong>${fmtH(t.hours)}</strong></td>
+      <td>${t.level ? `<span class="lvl l${t.level}" style="margin-right:6px">${t.level}</span>` : ''}<strong>${esc(t.number || '')}</strong> ${esc(t.title)} ${ygLink(t)}</td>
+      <td>${esc(t.assignee || '—')}</td>
+      <td class="num">${fmtDate(t.since)}</td>
+    </tr>`).join('');
+  const reviewBlock = `
+    <h2 style="margin-bottom:6px">Проверка</h2>
+    <p class="muted" style="margin-bottom:12px">Пока задача на проверке, её время не идёт в оценку ассистента — проверяет ${chief ? 'руководитель' : 'владелец'}.
+      Это очередь проверяющего: норма ${fmtH(rv.norm)}, дольше — в утреннем напоминании.</p>
+    <div class="grid g4" style="margin-bottom:12px">
+      <div class="card metric"><div class="lbl">Ждут решения</div>
+        <div class="val ${rv.pending.length ? '' : 'muted'}">${rv.pending.length}</div>
+        <div class="sub">${rv.overdue ? `<span class="pct-bad">дольше нормы: ${rv.overdue}</span>` : 'все в норме'}</div></div>
+      <div class="card metric"><div class="lbl">Дольше всех</div>
+        <div class="val ${rv.pending.length && rv.pending[0].hours > rv.norm ? 'pct-bad' : ''}">${rv.pending.length ? fmtH(rv.pending[0].hours) : '—'}</div>
+        <div class="sub">${rv.pending.length ? esc(String(rv.pending[0].title).slice(0, 38)) : 'очередь пуста'}</div></div>
+      <div class="card metric"><div class="lbl">Проверено за месяц</div>
+        <div class="val">${rv.checked ?? 0}</div>
+        <div class="sub">принято в ${esc(monthTitle)}</div></div>
+      <div class="card metric"><div class="lbl">Среднее ожидание</div>
+        <div class="val ${rv.avg !== null && rv.avg !== undefined && rv.avg > rv.norm ? 'pct-bad' : ''}">${rv.avg === null || rv.avg === undefined ? '—' : fmtH(rv.avg)}</div>
+        <div class="sub">медиана ${rv.median === null || rv.median === undefined ? '—' : fmtH(rv.median)}${rv.max ? ` · максимум ${fmtH(rv.max)}` : ''}</div></div>
+    </div>
+    ${rv.pending.length ? `<div class="tbl" style="margin-bottom:22px"><table>
+      <thead><tr><th class="num" style="width:110px">Ждёт</th><th>Задача</th><th>Кто сдал</th><th class="num">Сдана</th></tr></thead>
+      <tbody>${rvRows}</tbody></table></div>` : '<p class="muted" style="margin-bottom:22px">Очередь пуста.</p>'}`;
+
   // ── срезы
   const whoSeg = `<div class="seg" id="segWho">
     <button data-who="team" class="${KPI_VIEW.who === 'team' ? 'on' : ''}">Весь отдел</button>
@@ -845,6 +876,8 @@ async function renderKpi(d, v){
       <tbody>${rows}</tbody>
     </table></div>
 
+    ${reviewBlock}
+
     <div class="row" style="margin-bottom:12px">
       <h2>Скорость по месяцам · <span id="sliceTitle"></span></h2><span class="spacer"></span>${whoSeg}${lvlSeg}
     </div>
@@ -863,6 +896,9 @@ async function renderKpi(d, v){
   renderKpiSlice();
 
   // ── обработчики
+  // Очередь на проверке: клик по строке открывает историю задачи
+  v.querySelectorAll('tr[data-task]').forEach((tr) => { tr.onclick = () => openTask(tr.dataset.task); });
+
   // Клик по имени раскрывает, из чего сложилась цифра: шесть метрик месяца,
   // задачи месяца с часами, что висит сейчас и что закрыто.
   const detailFor = (id) => {
@@ -1147,7 +1183,7 @@ async function openTask(id){
       Принята: ${t.ackedAt ? `${fmtDate(t.ackedAt)} — через <b>${fmtH(t.t2aHours)}</b>` : t.takenAt ? `сразу в работу — через <b>${fmtH(t.t2aHours)}</b>` : '<b>ещё нет</b>'}<br>
       Взята в работу: ${t.takenAt ? `${fmtDate(t.takenAt)} — через <b>${t.t2sHours !== null && t.t2sHours !== undefined ? fmtH(t.t2sHours) : t.timing.toTakeHuman}</b>${t.ackedAt ? ' после принятия' : ''}` : '<b>не бралась</b> — карточка не была в «В работе»'}<br>
       Сдана: ${fmtDate(t.submittedAt || t.doneAt)}${t.timing.toDoHuman !== '—' ? ` — ${t.open ? 'в работе уже' : 'делалась'} <b>${t.timing.toDoHuman}</b>` : ''}<br>
-      Закрыта: ${fmtDate(t.doneAt)}<br>
+      Закрыта: ${fmtDate(t.doneAt)}${t.reviewHours ? ` — на проверке <b>${fmtH(t.reviewHours)}</b> <span class="muted">(время руководителя, в оценку не идёт)</span>` : ''}<br>
       Срок: ${fmtDate(t.deadline)}${t.timing.overdueHuman ? ` — <span style="color:var(--red)">просрочка ${t.timing.overdueHuman}</span>` : ''}<br>
       <span class="muted">Время московское. Все интервалы — в рабочих часах (день 9:00–18:00), время на проверке, в блокере и ожидании вычтено${t.priority ? ` · приоритет ${t.priority}` : ''}${t.level ? ` · уровень ${t.level}` : ''}</span>
       ${t.returns ? `<br>Возвратов с проверки: <b>${t.returns}</b>` : ''}
@@ -1386,6 +1422,8 @@ async function renderAdmin(v){
     ['task_day_end', 'Задачи: конец рабочего дня'],
     ['tz_offset', 'Часовой пояс: смещение от UTC (Москва 3, Самара 4)'],
     ['skip_priority', 'Приоритеты вне расчёта (через запятую)'],
+    ['review_norm_hours', 'Проверка: норма, рабочих часов'],
+    ['review_digest_hour', 'Проверка: час утреннего напоминания'],
   ].map(([k, label]) => `<div class="field"><label for="s_${k}">${label}</label>
       <input id="s_${k}" value="${esc(settings[k] || '')}"></div>`).join('');
 
