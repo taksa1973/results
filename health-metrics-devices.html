@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Показатели и устройства</title>
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="description" content="Семь показателей физического состояния и устройства, которыми их измеряют: тип прибора, примеры моделей, фото.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script>
+  // Класс ставится синхронно: только при работающем JS контент прячется под анимацию появления
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document.documentElement.classList.add('js-anim');
+  }
+</script>
+<style>
+  :root{
+    --page-bg:#F5F5F7;
+    --surface:#FFFFFF;
+    --text-1:#1D1D1F;
+    --text-2:#6E6E73;
+    --text-3:#86868B;
+    --blue:#0071E3;
+    --blue-soft:#EAF3FD;
+    --border:rgba(0,0,0,0.08);
+    --shadow:0 1px 2px rgba(0,0,0,0.04),0 8px 24px rgba(0,0,0,0.05);
+    --shadow-hover:0 2px 4px rgba(0,0,0,0.05),0 16px 40px rgba(0,0,0,0.09);
+    --radius:22px;
+    --font:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+  body{
+    font-family:var(--font);
+    background:var(--page-bg);
+    color:var(--text-1);
+    line-height:1.55;
+    font-size:16px;
+    -webkit-font-smoothing:antialiased;
+    touch-action:manipulation;
+  }
+  a{color:var(--blue);text-decoration:none}
+  a:focus-visible,button:focus-visible{outline:3px solid rgba(0,113,227,0.45);outline-offset:3px;border-radius:8px}
+  img{display:block;max-width:100%}
+
+  .container{max-width:1120px;margin:0 auto;padding:0 20px}
+  @media (min-width:768px){.container{padding:0 32px}}
+
+  /* Hero */
+  .hero{background:var(--surface);border-bottom:1px solid var(--border);padding:64px 0 48px}
+  @media (min-width:768px){.hero{padding:88px 0 64px}}
+  .eyebrow{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-3);margin-bottom:16px}
+  h1{
+    font-size:clamp(32px,5vw,56px);
+    font-weight:800;
+    line-height:1.08;
+    letter-spacing:-0.02em;
+    max-width:22ch;
+  }
+  h1 span{color:var(--blue);white-space:nowrap}
+  .lead{margin-top:20px;font-size:18px;color:var(--text-2);max-width:62ch;line-height:1.6}
+  @media (min-width:768px){.lead{font-size:20px}}
+  .pills{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
+  .pill{
+    display:inline-flex;align-items:center;gap:8px;
+    background:var(--page-bg);border:1px solid var(--border);
+    border-radius:999px;padding:8px 14px;font-size:14px;font-weight:500;color:var(--text-2);
+  }
+  .pill b{color:var(--text-1);font-weight:700}
+
+  /* Навигация по показателям */
+  .nav{padding:24px 0 8px}
+  .nav ul{list-style:none;display:flex;flex-wrap:wrap;gap:8px}
+  .nav a{
+    display:inline-flex;align-items:center;gap:8px;
+    min-height:44px;padding:0 16px;
+    background:var(--surface);border:1px solid var(--border);border-radius:999px;
+    color:var(--text-1);font-size:14px;font-weight:500;
+    transition:background .2s,border-color .2s,transform .2s,box-shadow .2s;
+    cursor:pointer;
+  }
+  .nav a svg{width:16px;height:16px;color:var(--blue)}
+  .nav a:hover{border-color:rgba(0,113,227,0.35);box-shadow:var(--shadow);transform:translateY(-1px)}
+  .nav a:active{transform:scale(0.97)}
+
+  /* Карточки */
+  .section{padding:24px 0 8px}
+  .grid{display:grid;grid-template-columns:1fr;gap:20px}
+  @media (min-width:860px){.grid{grid-template-columns:repeat(2,1fr);gap:24px}}
+  .card{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+    overflow:hidden;
+    display:flex;flex-direction:column;
+    scroll-margin-top:24px;
+    transition:box-shadow .2s,transform .2s;
+  }
+  .card:hover{transform:translateY(-2px);box-shadow:var(--shadow-hover)}
+  @media (min-width:860px){
+    .card--wide{grid-column:span 2;flex-direction:row}
+    .card--wide .card__media{flex:0 0 46%;aspect-ratio:auto;border-bottom:none;border-right:1px solid var(--border)}
+    .card--wide .card__body{justify-content:center}
+  }
+  .card__media{
+    background:#FFFFFF;
+    border-bottom:1px solid var(--border);
+    aspect-ratio:16/9;
+    display:flex;align-items:center;justify-content:center;
+    padding:18px;
+    overflow:hidden;
+  }
+  .card__media img{max-height:100%;max-width:100%;width:auto;height:auto;object-fit:contain}
+  .card__media--cover{padding:0}
+  .card__media--cover img{width:100%;height:100%;max-height:none;object-fit:cover}
+  .card__photo-note a{color:var(--text-2);text-decoration:underline;text-decoration-color:rgba(0,0,0,0.2);text-underline-offset:3px}
+  .card__photo-note a:hover{color:var(--blue)}
+  .card__body{padding:22px 22px 24px;display:flex;flex-direction:column;gap:16px;flex:1}
+  @media (min-width:768px){.card__body{padding:26px 26px 28px}}
+  .card__head{display:flex;align-items:center;gap:12px}
+  .card__num{
+    flex:none;width:34px;height:34px;border-radius:9px;
+    background:var(--text-1);color:#fff;
+    display:flex;align-items:center;justify-content:center;
+    font-size:13px;font-weight:700;font-variant-numeric:tabular-nums;
+  }
+  .card__icon{flex:none;width:34px;height:34px;border-radius:9px;background:var(--blue-soft);color:var(--blue);display:flex;align-items:center;justify-content:center}
+  .card__icon svg{width:18px;height:18px}
+  h2{font-size:22px;font-weight:700;letter-spacing:-0.02em;line-height:1.2}
+  @media (min-width:768px){h2{font-size:24px}}
+  .label{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-3);margin-bottom:6px}
+  .card__device{color:var(--text-1);font-size:16px;line-height:1.55}
+  .card__photo-note{color:var(--text-2);font-size:14px;line-height:1.5;margin-top:6px;display:flex;gap:8px;align-items:flex-start}
+  .card__photo-note svg{flex:none;width:15px;height:15px;margin-top:3px;color:var(--text-3)}
+  .chips{display:flex;flex-wrap:wrap;gap:8px}
+  .chip{
+    display:inline-flex;align-items:center;gap:6px;
+    min-height:40px;padding:0 14px;
+    background:var(--blue-soft);color:var(--blue);
+    border-radius:999px;font-size:14px;font-weight:600;
+    transition:background .2s,transform .2s;cursor:pointer;
+  }
+  .chip svg{width:14px;height:14px;opacity:.8}
+  .chip:hover{background:#DCEBFB}
+  .chip:active{transform:scale(0.97)}
+  .chip small{font-weight:500;color:var(--text-2);margin-left:2px}
+
+  /* Сводная таблица */
+  .table-wrap{
+    background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
+    box-shadow:var(--shadow);overflow:hidden;
+  }
+  .table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  table{width:100%;border-collapse:collapse;font-size:15px;min-width:720px}
+  thead th{
+    background:var(--text-1);color:#fff;text-align:left;
+    font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;
+    padding:14px 18px;white-space:nowrap;
+  }
+  tbody td{padding:16px 18px;border-bottom:1px solid var(--border);vertical-align:top;line-height:1.5}
+  tbody tr:last-child td{border-bottom:none}
+  tbody tr:hover td{background:#FAFAFC}
+  td.metric{font-weight:600;white-space:nowrap}
+  td.examples a{white-space:nowrap}
+  td.examples a::after{content:" ↗";font-size:11px;opacity:.7}
+  td.examples span{color:var(--text-2)}
+
+  .section-head{margin:40px 0 18px}
+  .section-head h2{font-size:24px}
+  @media (min-width:768px){.section-head{margin:56px 0 20px}.section-head h2{font-size:28px}}
+  .section-head p{color:var(--text-2);margin-top:6px;max-width:62ch}
+
+  /* Примечания */
+  .notes{display:grid;grid-template-columns:1fr;gap:16px;margin-top:20px}
+  @media (min-width:860px){.notes{grid-template-columns:repeat(3,1fr)}}
+  .note{
+    background:var(--surface);border:1px solid var(--border);border-radius:18px;
+    padding:20px;box-shadow:var(--shadow);font-size:14px;color:var(--text-2);line-height:1.55;
+  }
+  .note b{display:block;color:var(--text-1);font-size:15px;margin-bottom:6px;font-weight:600}
+
+  footer{padding:48px 0 56px;color:var(--text-3);font-size:13px;line-height:1.6}
+  footer p+p{margin-top:6px}
+
+  /* Анимация появления: контент виден по умолчанию, прячется только при работающем JS */
+  .reveal{opacity:1}
+  .js-anim .reveal{opacity:0;transform:translateY(18px);will-change:opacity,transform}
+  .js-anim .reveal.is-in{opacity:1;transform:none;transition:opacity .55s cubic-bezier(.2,.7,.2,1),transform .55s cubic-bezier(.2,.7,.2,1)}
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    .card:hover,.nav a:hover{transform:none}
+    .reveal,.js-anim .reveal{opacity:1;transform:none;transition:none}
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="container">
+    <p class="eyebrow reveal">Показатели → устройства</p>
+    <h1 class="reveal">Чем измерять <span>7 показателей</span> физического состояния</h1>
+    <p class="lead reveal">Для каждого показателя — тип прибора, которым его измеряют, примеры конкретных моделей и фото устройства. Названия моделей ведут на сайты производителей.</p>
+    <div class="pills reveal">
+      <span class="pill"><b>7</b> показателей</span>
+      <span class="pill"><b>7</b> типов устройств</span>
+      <span class="pill"><b>21</b> модель с ссылкой</span>
+    </div>
+  </div>
+</header>
+
+<nav class="nav" aria-label="Переход к показателю">
+  <div class="container">
+    <ul class="reveal">
+      <li><a href="#osanka"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="5" r="2"/><path d="M12 7v9M9 12l3-2 3 2M9 22l3-6 3 6"/></svg>Осанка</a></li>
+      <li><a href="#davlenie"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21C7 17 3 13.5 3 9a4.5 4.5 0 0 1 9-1 4.5 4.5 0 0 1 9 1c0 4.5-4 8-9 12z"/><path d="M3.5 12h4l1.5-3 3 6 1.5-3h7"/></svg>Давление</a></li>
+      <li><a href="#son"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>Сон</a></li>
+      <li><a href="#chss"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>ЧСС покоя</a></li>
+      <li><a href="#balans"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18M3 21h18M6 7l-3 7a3 3 0 0 0 6 0zM18 7l-3 7a3 3 0 0 0 6 0zM5 7h14"/></svg>Баланс</a></li>
+      <li><a href="#moshchnost"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>Мощность мышц</a></li>
+      <li><a href="#sila"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 6.5 17.5 17.5M21 21l-1.5-1.5M3 3l1.5 1.5M18 22l4-4M2 6l4-4M3 10l7-7M14 21l7-7"/></svg>Сила</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main class="section">
+  <div class="container">
+    <div class="grid">
+
+      <!-- 1. Осанка -->
+      <article class="card reveal" id="osanka">
+        <div class="card__media card__media--cover">
+          <img src="health-metrics-devices/posture-upright-go-2.webp" alt="Датчик-корректор осанки Upright GO 2 в руках, рядом шнурок для ношения" width="555" height="555" loading="eager">
+        </div>
+        <div class="card__body">
+          <div class="card__head">
+            <span class="card__num">01</span>
+            <span class="card__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2"/><path d="M12 7v9M9 12l3-2 3 2M9 22l3-6 3 6"/></svg></span>
+            <h2>Осанка</h2>
+          </div>
+          <div>
+            <p class="label">Устройство</p>
+            <p class="card__device">Сканер осанки (редко) или приложение + камера; носимый корректор осанки.</p>
+            <p class="card__photo-note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="12" cy="12" r="3"/></svg><span>На фото: носимый датчик-корректор осанки (вибрация при сутулости) — Upright GO 2. Фото: <a href="https://get.uprightpose.com/products/upright-go2" target="_blank" rel="noopener">сайт Upright</a>.</span></p>
+          </div>
+          <div>
+            <p class="label">Примеры устройств</p>
+            <div class="chips">
+              <a class="chip" href="https://www.uprightpose.com/" target="_blank" rel="noopener">Upright GO 2<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
+              <a class="chip" href="https://www.postureanalysis.com/" target="_blank" rel="noopener">PostureScreen<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
+              <a class="chip" href="https://www.apple.com/iphone/" target="_blank" rel="noopener">Камеры с LiDAR <small>(iPhone Pro)</small><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- 2. Артериальное давление -->
+      <article class="card reveal" id="davlenie">
+        <div class="card__media">
+          <img src="health-metrics-devices/bp-omron-m7.webp" alt="Автоматический плечевой тонометр Omron M7 Intelli IT с манжетой" width="1200" height="630" loading="eager">
+        </div>
+        <div class="card__body">
+          <div class="card__head">
+            <span class="card__num">02</span>
+            <span class="card__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21C7 17 3 13.5 3 9a4.5 4.5 0 0 1 9-1 4.5 4.5 0 0 1 9 1c0 4.5-4 8-9 12z"/><path d="M3.5 12h4l1.5-3 3 6 1.5-3h7"/></svg></span>
+            <h2>Артериальное давление</h2>
+          </div>
+          <div>
+            <p class="label">Устройство</p>
+            <p class="card__device">Автоматический тонометр на плечо.</p>
+            <p class="card__photo-note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="12" cy="12" r="3"/></svg><span>На фото: плечевой автоматический тонометр Omron M7 Intelli IT с манжетой. Фото: <a href="https://www.omron-healthcare.co.uk/products/m7-intelli-it-afib" target="_blank" rel="noopener">сайт Omron</a>.</span></p>
+          </div>
+          <div>
+            <p class="label">Примеры устройств</p>
+            <div class="chips">
+              <a class="chip" href="https://www.omron-healthcare.com/" target="_blank" rel="noopener">Omron M3 / M6 / M7<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
+              <a class="chip" href="https://www.beurer.com/" target="_blank" rel="noopener">Beurer BM<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
+              <a class="chip" href="https://www.microlife.com/consumer-products/blood-pressure" target="_blank" rel="noopener">Microlife<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- 3. Сон -->
+      <article class="card reveal" id="son">
+        <div class="card__media card__media--cover">
+          <img src="health-metrics-devices/sleep-oura-ring.webp" alt="Смарт-кольцо Oura Ring 4 в серебристом исполнении крупным планом" width="1200" height="675" loading="lazy">
+        </div>
+        <div class="card__body">
+          <div class="card__head">
+            <span class="card__num">03</span>
+            <span class="card__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></span>
+            <h2>Сон</h2>
+          </div>
+          <div>
+            <p class="label">Устройство</p>
+            <p class="card__device">Спортивные часы / кольцо или матрасный датчик.</p>
+            <p class="card__photo-note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="12" cy="12" r="3"/></svg><span>На фото: смарт-кольцо для трекинга сна — Oura Ring 4. Фото: <a href="https://ouraring.com/store/rings/oura-ring-4" target="_blank" rel="noopener">сайт Oura</a>.</span></p>
+          </div>
+          <div>
+            <p class="label">Примеры устройств</p>
+            <div class="chips">
+              <a class="chip" href="https://ouraring.com/" target="_blank" rel="noopener">Oura Ring<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
+              <a class="chip" href="https://www.garmin.com/en-US/c/wearables-smartwatches/" target="_blank" rel="noopener">Garmin<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
+              <a class="chip" href="https://www.apple.com/watch/" target="_blank" rel="noopener">Apple Watch<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
+              <a class="chip" href="https://www.withings.com/en-us/products/sleep" target="_blank" rel="noopener">Withings Sleep<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- 4. ЧСС покоя -->
+      <article class="card reveal" id="chss">
+        <div class="card__media">
+          <img src="health-metrics-devices/hr-polar-h10.webp" alt="Нагрудный датчик частоты сердечных сокращений Polar H10 с красным ремнём" width="1200" height="1200" loading="lazy">
+        </div>
+        <div class="card__body">
+          <div class="card__head">
+            <span class="card__num">04</span>
+            <span class="card__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></span>
+            <h2>ЧСС покоя</h2>
+          </div>
+          <div>
+            <p class="label">Устройство</p>
+            <p class="card__device">Спортивные часы или нагрудный датчик.</p>
+            <p class="card__photo-note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="12" cy="12" r="3"/></svg><span>На фото: нагрудный датчик частоты сердечных сокращений Polar H10. Фото: <a href="https://www.polar.com/en/sensors/h10-heart-rate-sensor" target="_blank" rel="noopener">сайт Polar</a>.</span></p>
+          </div>
+          <div>
+            <p class="label">Примеры устройств</p>
+            <div class="chips">
+              <a class="chip" href="https://www.polar.com/en/sensors/h10-heart-rate-sensor" target="_blank" rel="noopener">Polar H10<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
+              <a class="chip" href="https://www.garmin.com/en-US/c/wearables-smartwatches/" target="_blank" rel="noopener">Garmin<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
+              <a class="chip" href="https://www.apple.com/watch/" target="_blank" rel="noopener">Apple Watch<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
+              <a class="chip" href="https://www.coros.com/" target="_blank" rel="noopener">Coros<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- 5. Баланс -->
+      <article class="card reveal" id="balans">
+        <div class="card__media card__media--cover">
+          <img src="health-metrics-devices/balance-wii-board.webp" alt="Баланс-борд Nintendo Wii Balance Board на деревянном полу" width="1200" height="675" loading="lazy">
+        </div>
+        <div class="card__body">
+          <div class="card__head">
+            <span class="card__num">05</span>
+            <span class="card__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M3 21h18M6 7l-3 7a3 3 0 0 0 6 0zM18 7l-3 7a3 3 0 0 0 6 0zM5 7h14"/></svg></span>
+            <h2>Баланс</h2>
+          </div>
+          <div>
+            <p class="label">Устройство</p>
+            <p class="card__device">Балансировочная платформа (стабилометр) или баланс-борд с датчиками.</p>
+            <p class="card__photo-note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="12" cy="12" r="3"/></svg><span>На фото: баланс-борд с датчиками давления (используется с внешним ПО) — Nintendo Wii Balance Board. Фото: <a href="https://commons.wikimedia.org/wiki/File:Wii_Balance_Board.JPG" target="_blank" rel="noopener">Wikimedia Commons</a>, автор Dddeco, CC BY 2.5.</span></p>
+          </div>
+          <div>
+            <p class="label">Примеры устройств</p>
+            <div class="chips">
+              <a class="chip" href="https://www.nintendo.com/en-gb/" target="_blank" rel="noopener">Nintendo Wii Balance Board <small>(с ПО)</small><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
+              <a class="chip" href="https://balancetrackingsystems.com/btracks-balance-plate" target="_blank" rel="noopener">BTrackS<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
+              <a class="chip" href="https://www.biodex.com/" target="_blank" rel="noopener">Biodex <small>(дорого)</small><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- 6. Мощность мышц -->
+      <article class="card reveal" id="moshchnost">
+        <div class="card__media">
+          <img src="health-metrics-devices/power-vitruve-encoder.webp" alt="Линейный энкодер Vitruve Encoder — чёрный корпус с карабином и дисплеем" width="1200" height="1200" loading="lazy">
+        </div>
+        <div class="card__body">
+          <div class="card__head">
+            <span class="card__num">06</span>
+            <span class="card__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg></span>
+            <h2>Мощность мышц</h2>
+          </div>
+          <div>
+            <p class="label">Устройство</p>
+            <p class="card__device">Линейный энкодер или силовая платформа.</p>
+            <p class="card__photo-note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="12" cy="12" r="3"/></svg><span>На фото: линейный энкодер для тренировок по скорости движения штанги — Vitruve Encoder. Фото: <a href="https://shop.vitruve.fit/" target="_blank" rel="noopener">магазин Vitruve</a>.</span></p>
+          </div>
+          <div>
+            <p class="label">Примеры устройств</p>
+            <div class="chips">
+              <a class="chip" href="https://vitruve.fit/" target="_blank" rel="noopener">Vitruve<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
+              <a class="chip" href="https://gymaware.com/" target="_blank" rel="noopener">GymAware<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
+              <a class="chip" href="https://www.outputsports.com/" target="_blank" rel="noopener">Output Sports<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- 7. Сила -->
+      <article class="card card--wide reveal" id="sila">
+        <div class="card__media">
+          <img src="health-metrics-devices/strength-jamar-dynamometer.webp" alt="Гидравлический кистевой динамометр Jamar со стрелочной шкалой" width="1200" height="1200" loading="lazy">
+        </div>
+        <div class="card__body">
+          <div class="card__head">
+            <span class="card__num">07</span>
+            <span class="card__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 6.5 17.5 17.5M21 21l-1.5-1.5M3 3l1.5 1.5M18 22l4-4M2 6l4-4M3 10l7-7M14 21l7-7"/></svg></span>
+            <h2>Сила</h2>
+          </div>
+          <div>
+            <p class="label">Устройство</p>
+            <p class="card__device">Ручной динамометр и силовые датчики.</p>
+            <p class="card__photo-note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="12" cy="12" r="3"/></svg><span>На фото: гидравлический кистевой динамометр со стрелочной шкалой — Jamar. Фото: <a href="https://www.performancehealth.com/jamar-hydraulic-hand-dynamometer" target="_blank" rel="noopener">сайт Performance Health</a>.</span></p>
+          </div>
+          <div>
+            <p class="label">Примеры устройств</p>
+            <div class="chips">
+              <a class="chip" href="https://www.performancehealth.com/jamar-hydraulic-hand-dynamometer" target="_blank" rel="noopener">Jamar Dynamometer<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
+              <a class="chip" href="https://www.camryscalestore.com/" target="_blank" rel="noopener">Camry<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
+              <a class="chip" href="https://www.takei-si.co.jp/" target="_blank" rel="noopener">Takei<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
+            </div>
+          </div>
+        </div>
+      </article>
+
+    </div>
+
+    <!-- Сводная таблица -->
+    <div class="section-head reveal">
+      <h2>Сводная таблица</h2>
+      <p>Те же данные одним списком — удобно для быстрого сравнения и копирования.</p>
+    </div>
+    <div class="table-wrap reveal">
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Показатель</th>
+              <th scope="col">Устройство</th>
+              <th scope="col">Примеры устройств</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="metric">Осанка</td>
+              <td>Сканер осанки (редко) или приложение + камера; носимый корректор осанки</td>
+              <td class="examples"><a href="https://www.uprightpose.com/" target="_blank" rel="noopener">Upright GO 2</a>, <a href="https://www.postureanalysis.com/" target="_blank" rel="noopener">PostureScreen</a>, <a href="https://www.apple.com/iphone/" target="_blank" rel="noopener">камеры с LiDAR</a> <span>(iPhone Pro)</span></td>
+            </tr>
+            <tr>
+              <td class="metric">Артериальное давление</td>
+              <td>Автоматический тонометр на плечо</td>
+              <td class="examples"><a href="https://www.omron-healthcare.com/" target="_blank" rel="noopener">Omron M3/M6/M7</a>, <a href="https://www.beurer.com/" target="_blank" rel="noopener">Beurer BM</a>, <a href="https://www.microlife.com/consumer-products/blood-pressure" target="_blank" rel="noopener">Microlife</a></td>
+            </tr>
+            <tr>
+              <td class="metric">Сон</td>
+              <td>Спортивные часы / кольцо или матрасный датчик</td>
+              <td class="examples"><a href="https://ouraring.com/" target="_blank" rel="noopener">Oura Ring</a>, <a href="https://www.garmin.com/en-US/c/wearables-smartwatches/" target="_blank" rel="noopener">Garmin</a>, <a href="https://www.apple.com/watch/" target="_blank" rel="noopener">Apple Watch</a>, <a href="https://www.withings.com/en-us/products/sleep" target="_blank" rel="noopener">Withings Sleep</a></td>
+            </tr>
+            <tr>
+              <td class="metric">ЧСС покоя</td>
+              <td>Спортивные часы или нагрудный датчик</td>
+              <td class="examples"><a href="https://www.polar.com/en/sensors/h10-heart-rate-sensor" target="_blank" rel="noopener">Polar H10</a>, <a href="https://www.garmin.com/en-US/c/wearables-smartwatches/" target="_blank" rel="noopener">Garmin</a>, <a href="https://www.apple.com/watch/" target="_blank" rel="noopener">Apple Watch</a>, <a href="https://www.coros.com/" target="_blank" rel="noopener">Coros</a></td>
+            </tr>
+            <tr>
+              <td class="metric">Баланс</td>
+              <td>Балансировочная платформа (стабилометр) или баланс-борд с датчиками</td>
+              <td class="examples"><a href="https://www.nintendo.com/en-gb/" target="_blank" rel="noopener">Nintendo Wii Balance Board</a> <span>(с ПО)</span>, <a href="https://balancetrackingsystems.com/btracks-balance-plate" target="_blank" rel="noopener">BTrackS</a>, <a href="https://www.biodex.com/" target="_blank" rel="noopener">Biodex</a> <span>(дорого)</span></td>
+            </tr>
+            <tr>
+              <td class="metric">Мощность мышц</td>
+              <td>Линейный энкодер или силовая платформа</td>
+              <td class="examples"><a href="https://vitruve.fit/" target="_blank" rel="noopener">Vitruve</a>, <a href="https://gymaware.com/" target="_blank" rel="noopener">GymAware</a>, <a href="https://www.outputsports.com/" target="_blank" rel="noopener">Output Sports</a></td>
+            </tr>
+            <tr>
+              <td class="metric">Сила</td>
+              <td>Ручной динамометр и силовые датчики</td>
+              <td class="examples"><a href="https://www.performancehealth.com/jamar-hydraulic-hand-dynamometer" target="_blank" rel="noopener">Jamar Dynamometer</a>, <a href="https://www.camryscalestore.com/" target="_blank" rel="noopener">Camry</a>, <a href="https://www.takei-si.co.jp/" target="_blank" rel="noopener">Takei</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Примечания -->
+    <div class="section-head reveal">
+      <h2>Примечания</h2>
+    </div>
+    <div class="notes">
+      <div class="note reveal"><b>Откуда данные</b>Показатели, типы устройств и примеры моделей взяты из исходной таблицы без изменений формулировок. Пометки «редко», «с ПО», «дорого» — из неё же.</div>
+      <div class="note reveal"><b>Ссылки и фото</b>Каждое название модели — ссылка на сайт производителя (или на его фирменный магазин, как у Camry). Фото устройств взяты с сайтов производителей; для Wii Balance Board — с Wikimedia Commons (CC BY 2.5). Проверено 22.09.2026.</div>
+      <div class="note reveal"><b>Что не входит</b>Цены и магазины на странице не указаны — в исходной таблице их нет. Wii Balance Board у Nintendo отдельной страницы продукта нет, ссылка ведёт на сайт компании.</div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="container">
+    <p>Страница собрана 22 сентября 2026 г. по данным исходной таблицы. Фото устройств — с сайтов производителей, источник указан под каждой карточкой.</p>
+    <p>Логотипы и названия моделей принадлежат их правообладателям.</p>
+  </div>
+</footer>
+
+<script type="module">
+  // Framer Motion (vanilla `motion`) — появление секций при скролле и stagger карточек.
+  // Если CDN недоступен — ниже нативный fallback; в любом случае через 3 с всё показывается принудительно.
+  const root = document.documentElement;
+  if (root.classList.contains('js-anim')) {
+    const items = Array.from(document.querySelectorAll('.reveal'));
+    const show = (el) => el.classList.add('is-in');
+    let done = false;
+    const showAll = () => { if (done) return; done = true; items.forEach(show); };
+    const failsafe = setTimeout(showAll, 3000);
+
+    try {
+      const { animate, inView, stagger } = await import('https://cdn.jsdelivr.net/npm/motion@11/+esm');
+      // Hero и навигация — сразу, каскадом
+      const heroEls = items.filter(el => el.closest('.hero, .nav'));
+      heroEls.forEach(show);
+      animate(heroEls, { opacity: [0, 1], y: [18, 0] }, { duration: 0.6, delay: stagger(0.08), easing: [0.2, 0.7, 0.2, 1] });
+      // Остальное — при попадании во viewport
+      items.filter(el => !heroEls.includes(el)).forEach(el => {
+        inView(el, () => {
+          show(el);
+          animate(el, { opacity: [0, 1], y: [18, 0] }, { duration: 0.55, easing: [0.2, 0.7, 0.2, 1] });
+        }, { margin: '0px 0px -8% 0px' });
+      });
+      // Микроанимация нажатия на чипы и кнопки навигации
+      document.querySelectorAll('.chip, .nav a').forEach(el => {
+        el.addEventListener('pointerdown', () => animate(el, { scale: 0.97 }, { duration: 0.12 }));
+        el.addEventListener('pointerup', () => animate(el, { scale: 1 }, { duration: 0.18 }));
+        el.addEventListener('pointerleave', () => animate(el, { scale: 1 }, { duration: 0.18 }));
+      });
+    } catch (e) {
+      // CDN не загрузился — нативное появление без библиотеки
+      if ('IntersectionObserver' in window) {
+        const io = new IntersectionObserver((entries) => {
+          entries.forEach(en => { if (en.isIntersecting) { show(en.target); io.unobserve(en.target); } });
+        }, { rootMargin: '0px 0px -8% 0px' });
+        items.forEach(el => io.observe(el));
+      } else {
+        showAll();
+      }
+    }
+  }
+</script>
+</body>
+</html>
