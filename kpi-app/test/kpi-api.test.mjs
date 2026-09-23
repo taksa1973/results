@@ -88,6 +88,8 @@ async function freshEnv() {
   sqlite.exec(fs.readFileSync(path.join(root, 'schema.sql'), 'utf8'));
   // модель в тестах не нужна
   sqlite.prepare("INSERT OR REPLACE INTO settings (key, value) VALUES ('llm_enabled', '0')").run();
+  // в тестах колонки свои — фильтр по доске отключаем, он проверяется отдельно
+  sqlite.prepare("INSERT OR REPLACE INTO settings (key, value) VALUES ('board_columns', '')").run();
   // ожидания ниже считались для окна 10–18
   sqlite.prepare("INSERT OR REPLACE INTO settings (key, value) VALUES ('task_day_start', '10:00')").run();
   sqlite.prepare("INSERT OR REPLACE INTO settings (key, value) VALUES ('task_day_end', '18:00')").run();
@@ -505,4 +507,29 @@ test('таймер стоит на проверке и идёт снова по�
   row = get();
   assert.equal(row.t2f_hours, 6, 'приёмка ничего не добавила');
   assert.equal(row.paused_since, null);
+});
+
+test('задачи с чужой доски не попадают в расчёт и удаляются', async () => {
+  const { env, sqlite } = await freshEnv();
+  env.HOOK_SECRET = 'hooksecret';
+  // доска отдела — две колонки, всё остальное чужое
+  sqlite.prepare("INSERT OR REPLACE INTO settings (key, value) VALUES ('board_columns', 'c-our-new,c-our-work')").run();
+  const send = (t) => worker.fetch(new Request('http://kpi.local/api/hook/yougile', {
+    method: 'POST', headers: { 'content-type': 'application/json', 'x-hook-secret': 'hooksecret' },
+    body: JSON.stringify({ payload: t }),
+  }), env);
+
+  const base = { idTaskCommon: 'ID-1', timestamp: Date.parse('2026-08-10T07:00:00Z'), assigned: [] };
+  await send({ ...base, id: 'ours', title: 'Наша задача', columnId: 'c-our-work' });
+  await send({ ...base, id: 'alien', title: 'Задача с чужой доски', columnId: 'c-other-board' });
+  await new Promise((r) => setTimeout(r, 60));
+
+  assert.ok(sqlite.prepare('SELECT 1 FROM tasks WHERE id = ?').get('ours'), 'своя задача сохранена');
+  assert.equal(sqlite.prepare('SELECT 1 FROM tasks WHERE id = ?').get('alien'), undefined, 'чужая не сохранена');
+
+  // уже лежавшая в базе чужая задача удаляется при синхронизации
+  sqlite.prepare("INSERT INTO tasks (id, title, column_id, status) VALUES ('old-alien', 'Старая чужая', 'c-other-board', 'review')").run();
+  await send({ ...base, id: 'old-alien', title: 'Старая чужая', columnId: 'c-other-board' });
+  await new Promise((r) => setTimeout(r, 60));
+  assert.equal(sqlite.prepare('SELECT 1 FROM tasks WHERE id = ?').get('old-alien'), undefined, 'вычищена из базы');
 });

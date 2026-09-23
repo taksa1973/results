@@ -129,13 +129,16 @@ test('заёбы и отменённые задачи в метрики не и�
   assert.equal(metrics.t2s, 2, 'посчитана только одна рабочая задача');
 });
 
-test('процент плана: чем быстрее, тем выше', () => {
-  assert.equal(planPercent(8, 8), 100, 'ровно в план');
-  assert.equal(planPercent(4, 8), 200, 'вдвое быстрее');
+test('процент нормы: обгон ограничен потолком', () => {
+  assert.equal(planPercent(8, 8), 100, 'ровно в норму');
+  assert.equal(planPercent(4, 8), 120, 'вдвое быстрее — но потолок 120');
   assert.equal(planPercent(16, 8), 50, 'вдвое дольше');
-  assert.equal(planPercent(0.1, 8), 200, 'выше двухсот процент не поднимается');
+  assert.equal(planPercent(0.1, 8), 120, 'мгновенно — тот же потолок');
   assert.equal(planPercent(null, 8), null, 'без факта процента нет');
-  assert.equal(planPercent(5, null), null, 'без плана процента нет');
+  assert.equal(planPercent(5, null), null, 'без нормы процента нет');
+  // потолок настраивается: он и держит баланс между обгоном и провалом
+  assert.equal(planPercent(4, 8, { percent_cap: '100' }), 100);
+  assert.equal(planPercent(4, 8, { percent_cap: '200' }), 200);
 });
 
 test('оценка предлагается по проценту плана', () => {
@@ -341,7 +344,7 @@ test('время на проверке копится отдельно и не �
 test('итог взвешен: решение важнее всего, принятие в KPI не входит', () => {
   const { weightedPercent, metricWeights, qualityPercent } = __test;
   const S0 = {};
-  assert.deepEqual(metricWeights(S0), { work: 40, done: 30, t2s: 20, quality: 10 });
+  assert.deepEqual(metricWeights(S0), { work: 50, done: 20, t2s: 20, quality: 10 });
 
   // качество по возвратам
   assert.equal(qualityPercent(0), 100);
@@ -350,24 +353,24 @@ test('итог взвешен: решение важнее всего, прин�
   assert.equal(qualityPercent(3), 50);
   assert.equal(qualityPercent(6), 0);
 
-  // принял и взял мгновенно, но сдал одну из десяти и решал вдвое дольше нормы
+  // взял мгновенно (потолок 120), но сдал одну из десяти и решал вдвое дольше нормы
   const fast = weightedPercent(
-    { done: 10, quality: 100 }, { t2a: 200, t2s: 200, t2f1: 50 }, { t2f1: { count: 5 } }, S0
+    { done: 10, quality: 100 }, { t2a: 120, t2s: 120, t2f1: 50 }, { t2f1: { count: 5 } }, S0
   );
-  // (40×50 + 30×10 + 20×200 + 10×100) / 100 = 73
-  assert.equal(fast, 73);
+  // (2500 + 200 + 2400 + 1000) / 100 = 61
+  assert.equal(fast, 61);
 
   // всё сдал, уложился, без возвратов
   const solid = weightedPercent(
     { done: 100, quality: 100 }, { t2a: 50, t2s: 80, t2f1: 110 }, { t2f1: { count: 5 } }, S0
   );
-  // (4400 + 3000 + 1600 + 1000) / 100 = 100
-  assert.equal(solid, 100);
-  assert.ok(solid > fast);
+  // (5500 + 2000 + 1600 + 1000) / 100 = 101
+  assert.equal(solid, 101);
+  assert.ok(solid > fast, 'обгон по взятию больше не перекрывает провал по решению');
 
   // время до принятия в расчёт не входит вовсе
   const withAck = weightedPercent(
-    { done: 100, quality: 100 }, { t2a: 200, t2s: 80, t2f1: 110 }, { t2f1: { count: 5 } }, S0
+    { done: 100, quality: 100 }, { t2a: 120, t2s: 80, t2f1: 110 }, { t2f1: { count: 5 } }, S0
   );
   assert.equal(withAck, solid, 'сколько бы ни было «до принятия», итог тот же');
 

@@ -333,7 +333,7 @@ const keyOf = (metric, level) => (metric === 't2f' ? `${metric}${level}` : metri
  * затем скорость взятия в работу и качество сдачи.
  */
 function metricWeights(settings = {}) {
-  const def = { work: 40, done: 30, t2s: 20, quality: 10 };
+  const def = { work: 50, done: 20, t2s: 20, quality: 10 };
   const raw = String(settings.metric_weights || '').trim();
   if (!raw) return def;
   const out = { ...def };
@@ -360,6 +360,15 @@ function qualityPercent(returns) {
 function sizeToLevel(size) {
   const s = Number(size) || 1;
   return s <= 1 ? 1 : s === 2 ? 2 : 3;
+}
+
+/**
+ * Колонки доски отдела. Задача из колонки не этого списка — с чужой доски:
+ * YouGile отдаёт задачи всей команды, а boardId в списке задач не приходит,
+ * поэтому доска узнаётся по колонке.
+ */
+function boardColumns(settings = {}) {
+  return new Set(String(settings.board_columns || '').split(',').map((v) => v.trim()).filter(Boolean));
 }
 
 /**
@@ -469,12 +478,13 @@ function timeMetrics(tasks, settings, period = null, opts = {}) {
     : null;
   detail.t2a = { count: ackVals.length, values: ackVals };
 
-  // Выполнение: из того, что человек взял в работу, сколько довёл до сдачи.
-  // Считается по месяцу: взял пять, сдал две — сорок процентов.
-  const takenN = live.filter((t) => !period || inPeriod(t.taken_at, period)).length;
-  const doneN = live.filter((t) => !period || inPeriod(t.work_done_at || t.done_at, period)).length;
-  out.done = takenN || doneN ? Math.min(200, takenN ? Math.round((doneN / takenN) * 100) : 200) : null;
-  detail.done = { taken: takenN, done: doneN };
+  // Выполнение: из задач, взятых в работу в этом месяце, сколько уже сдано.
+  // Считается по одной и той же когорте — иначе «взял одну, сдал три старых»
+  // давало двести процентов и перекрывало любой провал по срокам.
+  const cohort = live.filter((t) => !period || inPeriod(t.taken_at, period));
+  const cohortDone = cohort.filter((t) => t.work_done_at || t.done_at).length;
+  out.done = cohort.length ? Math.round((cohortDone / cohort.length) * 100) : null;
+  detail.done = { taken: cohort.length, done: cohortDone, closedInMonth: live.filter((t) => !period || inPeriod(t.work_done_at || t.done_at, period)).length };
 
   // Качество сдачи: сколько раз задачу возвращали с проверки.
   // Считается по сданным в этом месяце.
@@ -519,10 +529,21 @@ function weightedPercent(metrics, percents, detail, settings) {
  * Процент закрытия плана. Для времени меньше — лучше, поэтому берётся
  * отношение плана к факту: уложился вдвое быстрее — двести процентов.
  */
-function planPercent(fact, plan) {
+/**
+ * Процент закрытия нормы. Потолок низкий (по умолчанию 120 %) и это принципиально:
+ * при потолке 200 % одна мгновенно взятая задача давала столько «сверху»,
+ * что перекрывала решение в 3 % от нормы — и человек с зависшими задачами
+ * выходил на 104 %. Обогнать норму вдвое не должно компенсировать провал.
+ */
+function percentCap(settings = {}) {
+  return num(settings, 'percent_cap', 120);
+}
+
+function planPercent(fact, plan, settings = {}) {
   if (fact === null || fact === undefined || !plan) return null;
-  if (fact <= 0) return 200; // мгновенно — считаем верхней границей, а не бесконечностью
-  return Math.round(Math.min(200, (plan / fact) * 100));
+  const cap = percentCap(settings);
+  if (fact <= 0) return cap;
+  return Math.round(Math.min(cap, (plan / fact) * 100));
 }
 
 /** Оценка, которую система предлагает по проценту закрытия плана. */
@@ -578,11 +599,11 @@ async function monthMetrics(db, userId, period, settings, sla) {
   const takenHere = tasks.filter((t) => inPeriod(t.taken_at, period)).length;
   const doneHere = tasks.filter((t) => inPeriod(t.work_done_at || t.done_at, period)).length;
   const percents = {};
-  for (const key of METRIC_KEYS) percents[key] = planPercent(metrics[key], sla[key]);
+  for (const key of METRIC_KEYS) percents[key] = planPercent(metrics[key], sla[key], settings);
   // выполнение и качество уже в процентах, норм у них нет
   percents.done = metrics.done;
   percents.quality = metrics.quality;
-  percents.t2a = planPercent(metrics.t2a, sla.t2a); // справочно
+  percents.t2a = planPercent(metrics.t2a, sla.t2a, settings); // справочно
 
   return {
     period,
@@ -633,7 +654,7 @@ async function quarterMetrics(db, userId, quarter, settings) {
     metrics[key] = vals.length
       ? Math.round((vals.reduce((a, b) => a + b, 0) / vals.length) * 100) / 100
       : null;
-    percents[key] = planPercent(metrics[key], sla[key]);
+    percents[key] = planPercent(metrics[key], sla[key], settings);
     detail[key] = { count: months.reduce((a, m) => a + (m.detail?.[key]?.count || 0), 0) };
   }
   // справочное время до принятия
@@ -641,12 +662,12 @@ async function quarterMetrics(db, userId, quarter, settings) {
   metrics.t2a = ackVals.length
     ? Math.round((ackVals.reduce((a, b) => a + b, 0) / ackVals.length) * 100) / 100
     : null;
-  percents.t2a = planPercent(metrics.t2a, sla.t2a);
+  percents.t2a = planPercent(metrics.t2a, sla.t2a, settings);
 
   // выполнение за квартал — по сумме задач, а не среднее средних
   const takenQ = months.reduce((a, m) => a + (m.detail?.done?.taken || 0), 0);
   const doneQ = months.reduce((a, m) => a + (m.detail?.done?.done || 0), 0);
-  metrics.done = takenQ || doneQ ? Math.min(200, takenQ ? Math.round((doneQ / takenQ) * 100) : 200) : null;
+  metrics.done = takenQ ? Math.round((doneQ / takenQ) * 100) : null;
   percents.done = metrics.done;
   detail.done = { taken: takenQ, done: doneQ };
 
@@ -1640,6 +1661,7 @@ async function handleKpiApi(request, db, path, url, me, settings) {
       months: monthsOfQuarter(quarter),
       sla: kpi.sla,
       overplan: num(settings, 'overplan_percent', 120),
+      percentCap: percentCap(settings),
       marks: MARKS.map((m) => ({ id: m, label: MARK_LABEL[m] })),
       lead: {
         id: lead.id, name: lead.name,
@@ -2523,6 +2545,13 @@ function replayLog(events, settings) {
 
 async function upsertTaskFromYougile(env, t, settings, opts = {}) {
   const db = env.DB;
+  // Только доска отдела: на других досках свои процессы и свои правила,
+  // их карточки в KPI попадать не должны.
+  const ours = boardColumns(settings);
+  if (ours.size && t.columnId && !ours.has(t.columnId)) {
+    await db.prepare('DELETE FROM tasks WHERE id = ?').bind(t.id).run();
+    return;
+  }
   const existing = await db.prepare('SELECT * FROM tasks WHERE id = ?').bind(t.id).first();
   const now = nowIso();
   const assigned = Array.isArray(t.assigned) ? t.assigned : t.assigned ? [t.assigned] : [];
@@ -3985,9 +4014,11 @@ export const __test = {
   levelOfTask, taskDurations, timeMetrics, planPercent, autoMark, METRIC_KEYS,
   weightedPercent, metricWeights, qualityPercent,
   workMinutesBetween, addWorkMinutes, addWorkdays, deadlineByPriority, workWindow, applyStage, replayLog, freshTimeline,
+  percentCap, boardColumns,
   scoreTask, scoreChat, computeMetrics, scoreFromPercent, skipPriorities, parseTaskCommand,
   needsReply, detectTask, findTaskCandidates,
 };
 
 // Для служебных скриптов на сервере: полная пересинхронизация без ключа доступа.
-export const __ops = { syncYougile, loadSettings, sendMonthlyDigest, sendReviewDigest, reviewStats };
+export const __ops = { syncYougile, loadSettings, sendMonthlyDigest, sendReviewDigest, reviewStats,
+  monthMetricsFor: async (db, userId, period, settings) => monthMetrics(db, userId, period, settings, await loadSla(db, quarterOf(period))) };
