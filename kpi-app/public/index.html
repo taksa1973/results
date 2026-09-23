@@ -474,7 +474,7 @@ async function render(){
 
 // ── Модель времени: Time to start / Time to fill ────────────────────────────
 const TM = {
-  done: { name: 'Выполнение', short: 'Выполнение', hint: 'сколько задач из взятых в работу доведено до сдачи' },
+  done: { name: 'Выполнение', short: 'Выполнение', hint: 'из задач, бывших в работе в этом месяце, сколько доведено до «Завершена»' },
   quality: { name: 'Качество сдачи', short: 'Качество', hint: 'возвраты с проверки: первый почти бесплатно, дальше дороже' },
   t2a: { name: 'Время до принятия', short: 'До принятия', hint: 'от постановки до «Принята» — справочно, в KPI не входит' },
   t2s: { name: 'Время до старта', short: 'До старта', hint: 'от постановки до взятия в работу' },
@@ -574,7 +574,7 @@ function sixHtml(metrics, percents, sla, counts, weights){
     if (k === 'done' || k === 'quality') {
       const dn = counts && (k === 'done' ? counts.doneDetail : counts.qualityDetail);
       const sub = k === 'done'
-        ? (dn ? `сдано ${dn.done} из взятых в этом месяце ${dn.taken}` : 'из взятых в работу')
+        ? (dn ? `завершено ${dn.done} из ${dn.taken} в работе за месяц${dn.handed > dn.done ? ` · сдано на проверку ${dn.handed}` : ''}` : 'доведено до «Завершена»')
         : (dn ? (dn.returns ? `возвратов ${dn.returns} по ${dn.returned} задачам из ${dn.count}` : `без возвратов, задач ${dn.count}`) : 'возвраты с проверки');
       return `<div class="m" title="${TM[k].hint}"${k === 'done' ? ' style="border-color:var(--accent)"' : ''}>
         <div class="k">${TM[k].short}${wLbl}</div>
@@ -618,9 +618,9 @@ function monthHtml(m, sla, showWho, people){
   return `<details class="month">
     <summary>${monthName(m.period)}
       <span class="sum-metrics">
-        <span>принято <b>${m.acked ?? '—'}</b></span>
         <span>взято <b>${m.taken ?? m.count}</b></span>
         <span>сдано <b>${m.done ?? '—'}</b></span>
+        <span>завершено <b>${m.completed ?? '—'}</b></span>
         <span>нормы <b>${m.avgPercent === null ? '—' : m.avgPercent + ' %'}</b></span>
       </span></summary>
     <div class="body">
@@ -756,7 +756,7 @@ async function renderKpi(d, v){
     <tr data-uid="${esc(p.id)}" data-open="${esc(p.id)}" class="clickable" title="Показать, из чего сложилась цифра"${p.role === 'lead' ? ' style="background:var(--surface-2)"' : ''}>
       <td><strong>${esc(p.name)}</strong>${p.role === 'lead' ? ' <span class="tag t-blue">рук. отдела</span>' : ''}
         <span class="muted" style="font-size:12px;margin-left:6px">▸ подробно</span></td>
-      <td class="num">${p.acked ?? 0} / ${p.taken ?? 0} / ${p.done ?? 0}<div class="muted" style="font-size:12px">висит ${p.open ?? '—'}</div></td>
+      <td class="num">${p.taken ?? 0} / ${p.done ?? 0} / <strong>${p.completed ?? 0}</strong><div class="muted" style="font-size:12px">висит ${p.open ?? '—'}</div></td>
       <td class="num">${pctHtml(p.avgPercent)}<div class="muted" style="font-size:12px">выполнение ${p.metrics?.done === null || p.metrics?.done === undefined ? '—' : p.metrics.done + ' %'}${p.metrics?.quality !== null && p.metrics?.quality !== undefined && p.metrics.quality < 100 ? ` · качество ${p.metrics.quality} %` : ''}</div></td>
       <td class="num">${scoreTxt(p.auto)}</td>
       <td class="num">${canScore(p)
@@ -898,11 +898,11 @@ async function renderKpi(d, v){
     ${head}
 
     <h2 style="margin-bottom:6px">Оценки за месяц</h2>
-    <p class="muted" style="margin-bottom:12px">Принято — сколько задач человек перенёс в «Принята» в этом месяце, взято — сколько взял в работу, сдано — сколько сдал; «висит» — открыто на нём сейчас.
+    <p class="muted" style="margin-bottom:12px">Взято — сколько задач человек взял в работу в этом месяце, сдано — сколько отправил на проверку, завершено — сколько дошло до «Завершена»; «висит» — открыто на нём сейчас.
       Выполнение норм — насколько его скорость укладывается в план (100 % и выше — в норме). Оценка по скорости считается из этого; итоговую можно поменять прямо в поле — сохранится сама, пустое поле вернёт автоматическую.
       ${chief ? 'Вы ставите всем, включая руководителя.' : 'Оценку вам ставит владелец.'} Клик по строке — из чего сложились цифры.</p>
     <div class="tbl" style="margin-bottom:22px"><table id="kpiTable">
-      <thead><tr><th>Сотрудник</th><th class="num">Принято / взято / сдано<br>за месяц</th><th class="num">Выполнение<br>и скорость</th><th class="num">Оценка<br>по скорости</th><th class="num">Итоговая оценка<br><span style="text-transform:none;letter-spacing:0;font-weight:500">можно поправить</span></th></tr></thead>
+      <thead><tr><th>Сотрудник</th><th class="num">Взято / сдано / завершено<br>за месяц</th><th class="num">Выполнение<br>и скорость</th><th class="num">Оценка<br>по скорости</th><th class="num">Итоговая оценка<br><span style="text-transform:none;letter-spacing:0;font-weight:500">можно поправить</span></th></tr></thead>
       <tbody>${rows}</tbody>
     </table></div>
 
@@ -978,7 +978,7 @@ async function renderKpi(d, v){
         <p class="muted" style="margin-bottom:8px">Итог <b>${p.avgPercent ?? '—'} %</b> → авто <b>${scoreTxt(p.auto)}</b>.
           Направления взвешены: решение ${w.work ?? 50}, выполнение ${w.done ?? 20}, до старта ${w.t2s ?? 20}, качество сдачи ${w.quality ?? 10}. Обгон нормы засчитывается не выше ${d.percentCap ?? 120} %.
           Время до принятия показывается справочно и в расчёт не входит — перенос карточки в «Принята» цифру не поднимает.
-          Выполнение${dn ? ` — сдано ${dn.done} из взятых ${dn.taken}` : ''}: только доведённая до сдачи задача считается сделанной.
+          Выполнение${dn ? ` — завершено ${dn.done} из ${dn.taken} задач, бывших в работе за месяц (взятых в нём или завершённых, даже если взяты раньше)` : ''}: выполненной считается только задача в колонке «Завершена», сдача на проверку — ещё не результат.
           Задача, взятая в работу и висящая дольше нормы, попадает в «решение» уже сейчас, по текущему времени.
           Процент по времени = норма / факт, время на паузах вычтено. Задачи с приоритетом 30 не считаются.</p>
         ${sixHtml(p.metrics || {}, p.percents || {}, d.sla, counts, p.weights || d.lead.weights)}

@@ -478,13 +478,26 @@ function timeMetrics(tasks, settings, period = null, opts = {}) {
     : null;
   detail.t2a = { count: ackVals.length, values: ackVals };
 
-  // Выполнение: из задач, взятых в работу в этом месяце, сколько уже сдано.
-  // Считается по одной и той же когорте — иначе «взял одну, сдал три старых»
-  // давало двести процентов и перекрывало любой провал по срокам.
-  const cohort = live.filter((t) => !period || inPeriod(t.taken_at, period));
-  const cohortDone = cohort.filter((t) => t.work_done_at || t.done_at).length;
+  // Выполнение: из задач, которые были в работе в этом месяце, сколько
+  // доведено до «Завершена». Сдача на проверку — ещё не результат: пока
+  // задачу не приняли, она не выполнена.
+  //
+  // В знаменателе и взятые в этом месяце, и завершённые в нём (даже если
+  // взяты раньше) — иначе человек, который весь месяц разгребал старое,
+  // получал ноль. Завершённая задача попадает и в числитель, и в знаменатель,
+  // поэтому больше ста процентов не выходит и накрутить нельзя.
+  const isDone = (t) => t.status === 'accepted' && t.done_at;
+  const completedHere = (t) => isDone(t) && inPeriod(t.done_at, period);
+  const cohort = period
+    ? live.filter((t) => inPeriod(t.taken_at, period) || completedHere(t))
+    : live;
+  const cohortDone = cohort.filter((t) => (period ? completedHere(t) : isDone(t))).length;
   out.done = cohort.length ? Math.round((cohortDone / cohort.length) * 100) : null;
-  detail.done = { taken: cohort.length, done: cohortDone, closedInMonth: live.filter((t) => !period || inPeriod(t.work_done_at || t.done_at, period)).length };
+  detail.done = {
+    taken: cohort.length,
+    done: cohortDone,
+    handed: cohort.filter((t) => (period ? inPeriod(t.work_done_at || t.done_at, period) : t.work_done_at || t.done_at)).length,
+  };
 
   // Качество сдачи: сколько раз задачу возвращали с проверки.
   // Считается по сданным в этом месяце.
@@ -598,6 +611,8 @@ async function monthMetrics(db, userId, period, settings, sla) {
   const ackedHere = tasks.filter((t) => inPeriod(t.acked_at || t.taken_at, period)).length;
   const takenHere = tasks.filter((t) => inPeriod(t.taken_at, period)).length;
   const doneHere = tasks.filter((t) => inPeriod(t.work_done_at || t.done_at, period)).length;
+  // «Завершена» — это выполнено; сдача на проверку считается отдельно
+  const completedHere = tasks.filter((t) => t.status === 'accepted' && inPeriod(t.done_at, period)).length;
   const percents = {};
   for (const key of METRIC_KEYS) percents[key] = planPercent(metrics[key], sla[key], settings);
   // выполнение и качество уже в процентах, норм у них нет
@@ -615,6 +630,7 @@ async function monthMetrics(db, userId, period, settings, sla) {
     acked: ackedHere,
     taken: takenHere,
     done: doneHere,
+    completed: completedHere,
     // Список задач с часами — для раскрытого месяца: видно, какая именно
     // задача тянет среднее вверх. У каждой помечено, какой из двух метрик
     // она принадлежит в этом месяце.
@@ -1666,7 +1682,7 @@ async function handleKpiApi(request, db, path, url, me, settings) {
     const strip = (sc) => ({
       auto: sc.auto, manual: sc.manual, score: sc.score, note: sc.note, actor: sc.actor, at: sc.at,
       avgPercent: sc.month.avgPercent, tasks: sc.month.count, open: sc.open,
-      acked: sc.month.acked, taken: sc.month.taken, done: sc.month.done,
+      acked: sc.month.acked, taken: sc.month.taken, done: sc.month.done, completed: sc.month.completed,
       metrics: sc.month.metrics, percents: sc.month.percents, detail: sc.month.detail,
       weights: sc.month.weights,
     });
@@ -3869,7 +3885,7 @@ async function sendMonthlyDigest(env, settings) {
   const fmtH = (h) => (h === null || h === undefined ? '—' : `${Math.round(h * 10) / 10} ч`);
   const fmtP = (v) => (v === null || v === undefined ? '—' : `${v} %`);
   const six = (m) => [
-    `  выполнение: <b>${fmtP(m.metrics.done)}</b> — сдано ${m.detail?.done?.done ?? 0} из взятых ${m.detail?.done?.taken ?? 0}`,
+    `  выполнение: <b>${fmtP(m.metrics.done)}</b> — завершено ${m.detail?.done?.done ?? 0} из ${m.detail?.done?.taken ?? 0} в работе`,
     `  качество: <b>${fmtP(m.metrics.quality)}</b> — возвратов ${m.detail?.quality?.returns ?? 0} по ${m.detail?.quality?.returned ?? 0} задачам`,
     `  до старта: ${fmtH(m.metrics.t2s)} (${fmtP(m.percents.t2s)}) · до принятия: ${fmtH(m.metrics.t2a)} <i>справочно</i>`,
     `  решение:   1 — ${fmtH(m.metrics.t2f1)} (${fmtP(m.percents.t2f1)}) · ` +

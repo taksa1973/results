@@ -409,9 +409,16 @@ test('взятая и зависшая дольше нормы задача по
   assert.equal(r3.metrics.t2f1, null);
 
   // сданная задача считается как раньше
-  const done = mk({ status: 'accepted', work_done_at: '2026-09-21T10:00:00Z', returns: 2 });
+  const done = mk({ status: 'accepted', work_done_at: '2026-09-21T10:00:00Z', done_at: '2026-09-21T11:00:00Z', returns: 2 });
   const r4 = timeMetrics([done], S2, '2026-09', { sla, now });
-  assert.equal(r4.metrics.t2f1, 4);
+  assert.equal(r4.metrics.t2f1, 4, 'решение меряется по сдаче, а не по приёмке');
   assert.equal(r4.metrics.quality, 70, 'два возврата с проверки');
+  assert.equal(r4.metrics.done, 100, 'дошла до «Завершена»');
+
+  // сдана на проверку, но ещё не принята — не выполнена
+  const handed = mk({ status: 'review', work_done_at: '2026-09-21T10:00:00Z' });
+  const r5 = timeMetrics([handed], S2, '2026-09', { sla, now });
+  assert.equal(r5.metrics.done, 0, 'сдача на проверку — ещё не результат');
+  assert.equal(r5.detail.done.handed, 1, 'но видно, что сдана');
   assert.equal(r4.metrics.done, 100, 'взял одну, сдал одну');
 });
