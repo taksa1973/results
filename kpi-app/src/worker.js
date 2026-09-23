@@ -326,6 +326,23 @@ const TIME_METRICS = ['t2a', 't2s', 't2f'];
 const METRIC_KEYS = ['t2a', 't2s', 't2f1', 't2f2', 't2f3'];
 const keyOf = (metric, level) => (metric === 't2f' ? `${metric}${level}` : metric);
 
+/**
+ * Веса в итоговом проценте. Главное — довести задачу до конца, потом скорость
+ * работы, и только в конце — скорость принятия: перетащить карточку в
+ * «Принята» легко, и без весов этим можно было накрутить весь KPI.
+ */
+function metricWeights(settings = {}) {
+  const def = { done: 40, work: 35, t2s: 15, t2a: 10 };
+  const raw = String(settings.metric_weights || '').trim();
+  if (!raw) return def;
+  const out = { ...def };
+  for (const pair of raw.split(',')) {
+    const [k, v] = pair.split(':').map((x) => String(x).trim());
+    if (k in out && Number(v) >= 0) out[k] = Number(v);
+  }
+  return out;
+}
+
 /** Размер со стикера в уровень сложности: S → 1, M → 2, L и XL → 3. */
 function sizeToLevel(size) {
   const s = Number(size) || 1;
@@ -383,28 +400,84 @@ const inPeriod = (iso, period) => Boolean(iso) && String(iso).slice(0, 7) === pe
  * работа над августовской задачей считается в сентябре. Без периода
  * (в тестах) берётся всё подряд.
  */
-function timeMetrics(tasks, settings, period = null) {
+function timeMetrics(tasks, settings, period = null, opts = {}) {
   const out = {};
   const detail = {};
   const skip = skipPriorities(settings);
+  const sla = opts.sla || {};
+  const now = opts.now || nowIso();
+  // зависшие считаем только в текущем месяце: задача висит «сейчас»,
+  // приписывать это прошлым месяцам нечестно
+  const withHanging = opts.hanging !== false && (!period || period === currentPeriod(num(settings, 'tz_offset', 3)));
   const eventOf = { t2a: (t) => t.acked_at || t.taken_at, t2s: (t) => t.taken_at, t2f: (t) => t.work_done_at || t.done_at };
   const live = tasks.filter((t) => !t.is_zaeb && t.status !== 'cancelled' && !skip.has(Number(t.priority)));
+
+  /**
+   * Взята, но не сдана. Пока задача укладывается в норму — молчим, она ещё
+   * делается. Как только переросла норму, идёт в метрику по текущему времени:
+   * иначе «принял и держу месяц» выглядит идеально, потому что в среднее
+   * попадают только сданные.
+   */
+  const hangingHours = (t) => {
+    if (!withHanging || !t.taken_at || t.work_done_at || t.done_at) return null;
+    if (['cancelled', 'historical', 'shelved'].includes(t.status)) return null;
+    const h = taskDurations({ ...t, work_done_at: now }, settings).t2f;
+    const norm = sla[`t2f${levelOfTask(t)}`];
+    return norm && h !== null && h > norm ? h : null;
+  };
 
   for (const key of METRIC_KEYS) {
     const metric = key.slice(0, 3);
     const level = key.length > 3 ? Number(key.slice(3)) : null;
-    const vals = live
-      .filter((t) => level === null || levelOfTask(t) === level)
+    const pool = live.filter((t) => level === null || levelOfTask(t) === level);
+    const vals = pool
       .filter((t) => !period || inPeriod(eventOf[metric](t), period))
       .map((t) => taskDurations(t, settings)[metric])
       .filter((v) => v !== null);
 
-    out[key] = vals.length
-      ? Math.round((vals.reduce((a, b) => a + b, 0) / vals.length) * 100) / 100
+    // к сданным добавляем зависших дольше нормы — они тянут метрику сейчас
+    const hanging = metric === 't2f' ? pool.map(hangingHours).filter((v) => v !== null) : [];
+    const all = vals.concat(hanging);
+
+    out[key] = all.length
+      ? Math.round((all.reduce((a, b) => a + b, 0) / all.length) * 100) / 100
       : null;
-    detail[key] = { count: vals.length, values: vals };
+    detail[key] = { count: all.length, values: all, hanging: hanging.length };
   }
+
+  // Выполнение: из того, что человек взял в работу, сколько довёл до сдачи.
+  // Считается по месяцу: взял пять, сдал две — сорок процентов.
+  const takenN = live.filter((t) => !period || inPeriod(t.taken_at, period)).length;
+  const doneN = live.filter((t) => !period || inPeriod(t.work_done_at || t.done_at, period)).length;
+  out.done = takenN || doneN ? Math.min(200, takenN ? Math.round((doneN / takenN) * 100) : 200) : null;
+  detail.done = { taken: takenN, done: doneN };
+
   return { metrics: out, detail };
+}
+
+/**
+ * Итоговый процент месяца: взвешенная сумма четырёх направлений.
+ * «В работе» по уровням сводится в одно число взвешенно по числу задач —
+ * иначе уровень с одной задачей весил бы столько же, сколько с двадцатью.
+ */
+function weightedPercent(metrics, percents, detail, settings) {
+  const w = metricWeights(settings);
+  const parts = [];
+
+  const workKeys = ['t2f1', 't2f2', 't2f3'].filter((k) => percents[k] !== null && percents[k] !== undefined);
+  if (workKeys.length) {
+    const wn = workKeys.reduce((a, k) => a + (detail?.[k]?.count || 1), 0);
+    const workPct = workKeys.reduce((a, k) => a + percents[k] * (detail?.[k]?.count || 1), 0) / wn;
+    parts.push({ w: w.work, v: workPct });
+  }
+  for (const [key, weight] of [['done', w.done], ['t2s', w.t2s], ['t2a', w.t2a]]) {
+    const v = key === 'done' ? metrics.done : percents[key];
+    if (v !== null && v !== undefined) parts.push({ w: weight, v });
+  }
+
+  const sum = parts.reduce((a, p) => a + p.w, 0);
+  if (!sum) return null;
+  return Math.round(parts.reduce((a, p) => a + p.w * p.v, 0) / sum);
 }
 
 /**
@@ -465,21 +538,20 @@ async function monthMetrics(db, userId, period, settings, sla) {
     .bind(...who.args, from, to, from, to, from, to, ...skip)
     .all();
 
-  const { metrics, detail } = timeMetrics(tasks, settings, period);
+  const { metrics, detail } = timeMetrics(tasks, settings, period, { sla });
   const ackedHere = tasks.filter((t) => inPeriod(t.acked_at || t.taken_at, period)).length;
   const takenHere = tasks.filter((t) => inPeriod(t.taken_at, period)).length;
   const doneHere = tasks.filter((t) => inPeriod(t.work_done_at || t.done_at, period)).length;
   const percents = {};
-  for (const key of Object.keys(metrics)) {
-    percents[key] = planPercent(metrics[key], sla[key]);
-  }
+  for (const key of METRIC_KEYS) percents[key] = planPercent(metrics[key], sla[key]);
+  percents.done = metrics.done; // выполнение уже в процентах, нормы у него нет
 
-  const live = Object.values(percents).filter((v) => v !== null);
   return {
     period,
     metrics,
     percents,
     detail,
+    weights: metricWeights(settings),
     count: tasks.length,
     acked: ackedHere,
     taken: takenHere,
@@ -501,10 +573,9 @@ async function monthMetrics(db, userId, period, settings, sla) {
         t2a_all: d.t2a, t2s_all: d.t2s, t2f_all: d.t2f,
       };
     }),
-    // Среднее закрытие плана по тем метрикам, где были задачи.
-    // Метрика без задач в среднее не входит: месяц без сложных задач
-    // не должен ни портить результат, ни улучшать его.
-    avgPercent: live.length ? Math.round(live.reduce((a, b) => a + b, 0) / live.length) : null,
+    // Итог месяца: выполнение важнее скорости работы, скорость работы —
+    // важнее скорости принятия. Направление без задач в расчёт не входит.
+    avgPercent: weightedPercent(metrics, percents, detail, settings),
   };
 }
 
@@ -518,20 +589,25 @@ async function quarterMetrics(db, userId, quarter, settings) {
 
   const metrics = {};
   const percents = {};
+  const detail = {};
   for (const key of METRIC_KEYS) {
     const vals = months.map((m) => m.metrics[key]).filter((v) => v !== null);
     metrics[key] = vals.length
       ? Math.round((vals.reduce((a, b) => a + b, 0) / vals.length) * 100) / 100
       : null;
     percents[key] = planPercent(metrics[key], sla[key]);
+    detail[key] = { count: months.reduce((a, m) => a + (m.detail?.[key]?.count || 0), 0) };
   }
+  // выполнение за квартал — по сумме задач, а не среднее средних
+  const takenQ = months.reduce((a, m) => a + (m.detail?.done?.taken || 0), 0);
+  const doneQ = months.reduce((a, m) => a + (m.detail?.done?.done || 0), 0);
+  metrics.done = takenQ || doneQ ? Math.min(200, takenQ ? Math.round((doneQ / takenQ) * 100) : 200) : null;
+  percents.done = metrics.done;
+  detail.done = { taken: takenQ, done: doneQ };
 
-  const live = Object.values(percents).filter((v) => v !== null);
-  const avgPercent = live.length
-    ? Math.round(live.reduce((a, b) => a + b, 0) / live.length)
-    : null;
+  const avgPercent = weightedPercent(metrics, percents, detail, settings);
 
-  return { quarter, months, metrics, percents, sla, avgPercent, markAuto: autoMark(avgPercent, settings) };
+  return { quarter, months, metrics, percents, detail, sla, avgPercent, weights: metricWeights(settings), markAuto: autoMark(avgPercent, settings) };
 }
 
 /**
@@ -767,6 +843,15 @@ function scoreChat(replies, settings) {
 function needsReply(msg, settings) {
   const text = (msg.text || msg.caption || '').trim();
   if (!text) return false;                       // стикер, картинка, голосовое без подписи
+
+  // Постановка задачи — команда, а не вопрос: «#Задача: закинуть список девайсов».
+  // Таймер ответа тут не нужен, и задачу по смыслу искать нельзя — иначе новая
+  // задача цепляется к случайной старой и бот дёргает не того человека.
+  const tags = (settings.task_tags || '#задача,#задачи,#task')
+    .split(',').map((t) => t.trim().toLowerCase()).filter(Boolean);
+  const head = text.toLowerCase();
+  if (tags.some((t) => head.startsWith(t))) return false;
+
   if (text.includes('?')) return true;           // прямой вопрос — всегда
 
   const lower = text.toLowerCase();
@@ -1489,7 +1574,8 @@ async function handleKpiApi(request, db, path, url, me, settings) {
       auto: sc.auto, manual: sc.manual, score: sc.score, note: sc.note, actor: sc.actor, at: sc.at,
       avgPercent: sc.month.avgPercent, tasks: sc.month.count, open: sc.open,
       acked: sc.month.acked, taken: sc.month.taken, done: sc.month.done,
-      metrics: sc.month.metrics, percents: sc.month.percents,
+      metrics: sc.month.metrics, percents: sc.month.percents, detail: sc.month.detail,
+      weights: sc.month.weights,
     });
 
     return json({
@@ -2020,20 +2106,46 @@ async function detectTask(db, text, settings) {
   const candidates = await findTaskCandidates(db, text);
   if (!candidates.length) return { task: null, how: 'ничего не нашлось' };
 
+  // Совпадение значимо, если пересеклись хотя бы два слова — либо одно, но
+  // редкое (большой вес в заголовке). Одно частое слово вроде «список» или
+  // «сделать» есть в десятках задач: его веса (~2) хватало, чтобы увести
+  // вопрос в первую попавшуюся задачу. Лучше не привязать вовсе, чем наугад.
+  const minHits = num(settings, 'match_min_hits', 2);
+  const soloScore = num(settings, 'match_solo_score', 8);
+  const weak = (c) => !c || (c.hits < minHits && c.score < soloScore);
+  const why = (c) => `слов ${c.hits}, вес ${round2(c.score)}`;
+
+  if (weak(candidates[0])) {
+    return { task: null, how: `слабое совпадение (${why(candidates[0])})`, candidates };
+  }
+
   const confidence = candidateConfidence(candidates);
   const threshold = num(settings, 'llm_confidence', 1.35);
 
   if (confidence >= threshold) {
     return { task: candidates[0], how: `по словам, отрыв ×${round2(confidence)}`, candidates };
   }
+  // Кандидат один и он уже прошёл проверку значимости — сравнивать не с чем,
+  // звать модель незачем. (Для одиночки confidence максимум 1, порог 1.35
+  // недостижим, поэтому без этой ветки он не привязывался бы никогда.)
+  if (candidates.length === 1) {
+    return { task: candidates[0], how: `единственный кандидат (${why(candidates[0])})`, candidates };
+  }
   if (settings.llm_enabled === '0') {
-    return { task: candidates[0], how: 'по словам, кандидаты равны', candidates };
+    return { task: null, how: 'кандидаты равны, модель выключена — не привязываем', candidates };
   }
 
+  // Модель отвечает «0», когда ни одна задача не подходит, и null — когда не
+  // ответила. В обоих случаях подставлять первого кандидата нельзя: именно так
+  // вопрос про деньги уезжал в задачу про инженеров.
   const picked = await pickTaskWithModel(candidates, text, settings);
-  return picked
-    ? { task: picked, how: 'выбрала модель из равных кандидатов', candidates }
-    : { task: candidates[0], how: 'по словам, модель не ответила', candidates };
+  if (!picked) return { task: null, how: 'модель не выбрала задачу — не привязываем', candidates };
+  // Модель может ткнуть в кандидата, у которого с вопросом почти нет общих слов.
+  // Её выбор проверяем тем же правилом, что и лидера по словам.
+  if (weak(picked)) {
+    return { task: null, how: `модель выбрала слабого кандидата (${why(picked)})`, candidates };
+  }
+  return { task: picked, how: 'выбрала модель из равных кандидатов', candidates };
 }
 
 /**
@@ -2782,7 +2894,12 @@ async function handleTelegramUpdate(request, env, settings) {
     // Задачу по смыслу ищем, только если адресата не назвали. Если человека
     // тегнули явно — вопрос его, и никого другого он не касается,
     // даже когда текст похож на чужую задачу.
-    if (!mention.raw) {
+    if (!mention.raw && msg.reply_to_message) {
+      // Ответ в треде — это продолжение диалога с конкретным человеком,
+      // а не новый вопрос по задаче. Искать задачу по смыслу тут нельзя:
+      // реплика «в районе 36 долларов» уезжала в случайную задачу.
+      matchHow = 'ответ в треде — задачу по смыслу не ищем';
+    } else if (!mention.raw) {
       const found = await detectTask(db, msg.text || msg.caption || '', settings);
       matchHow = found.how;
       if (found.task?.assignee_id) {
@@ -2828,7 +2945,9 @@ async function handleTelegramUpdate(request, env, settings) {
 
     // Бот подсказывает в чат, кого ждут: сообщение руководителя без адресата
     // иначе висит, пока каждый думает, что спросили не у него.
-    if (matchedTask && mentionId) {
+    // mentionId !== user.id — не дёргаем автора сообщения: он не спрашивает сам себя
+    // (на этом бот тегал Yaro в ответ на его же реплику).
+    if (matchedTask && mentionId && mentionId !== user.id) {
       const who = await db
         .prepare('SELECT name, tg_username FROM users WHERE id = ?')
         .bind(mentionId)
@@ -3158,7 +3277,7 @@ const PRIORITY_LABEL = { 1: 'в течение дня', 3: '2–3 рабочих
  * срочность по умолчанию (task_default_priority, обычно 3). Всё после
  * первой строки уходит в описание карточки.
  */
-function parseTaskCommand(text) {
+function parseTaskCommand(text, { fullTitle = true } = {}) {
   const src = String(text || '').trim();
   const m = src.match(/^\/task(?:@\w+)?(?:\s+([\s\S]*))?$/i);
   if (!m) return null;
@@ -3176,6 +3295,17 @@ function parseTaskCommand(text) {
     tail = tail.slice(pm[0].length).trim();
   }
 
+  // По умолчанию задача уходит в название целиком — как её написал руководитель.
+  // Он пишет её одним сообщением и хочет видеть в карточке весь текст, а не
+  // первую строку. Разнесение на название и описание включается настройкой
+  // task_full_title = 0.
+  if (fullTitle) {
+    // переносы строк становятся пробелами: название — одна строка целиком
+    const title = tail.replace(/\s+/g, ' ').trim();
+    if (!title) return { error: 'title' };
+    return { nick: nickMatch[1].toLowerCase(), priority, title, description: '' };
+  }
+
   const [first, ...more] = tail.split('\n');
   const title = (first || '').trim();
   if (!title) return { error: 'title' };
@@ -3185,6 +3315,20 @@ function parseTaskCommand(text) {
 
 /** HTML для Telegram: название задачи приходит от человека. */
 const esc = (s) => String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+/**
+ * Описание для YouGile: там оно хранится как HTML. Обычный текст с переносами
+ * слипается в одну строку, и кажется, что хвост задачи потерялся — поэтому
+ * каждую строку оборачиваем в абзац, а ссылки делаем кликабельными.
+ */
+function htmlFromText(text) {
+  const linkify = (s) =>
+    s.replace(/(https?:\/\/[^\s<]+)/g, (u) => `<a target="_blank" rel="noopener noreferrer" href="${u}">${u}</a>`);
+  return String(text || '')
+    .split('\n')
+    .map((line) => (line.trim() ? `<p>${linkify(esc(line.trim()))}</p>` : '<p></p>'))
+    .join('');
+}
 
 /** «чт 24.09 18:00» по местному времени из настроек. */
 function fmtLocal(iso, settings) {
@@ -3203,9 +3347,9 @@ function fmtLocal(iso, settings) {
 async function createTaskFromChat(text, env, settings) {
   const db = env.DB;
   const usage = 'Формат: <code>/task @ник срочность Название</code>\n' +
-    'Срочность — рабочие дни: 1, 3, 7 или 30; без числа — 3. Вторая строка сообщения уходит в описание.';
+    'Срочность — рабочие дни: 1, 3, 7 или 30; без числа — 3. Текст задачи уходит в название целиком, переносы строк — пробелами.';
 
-  const cmd = parseTaskCommand(text);
+  const cmd = parseTaskCommand(text, { fullTitle: settings.task_full_title !== '0' });
   if (!cmd) return { ok: false, text: usage };
   if (cmd.error === 'empty' || cmd.error === 'nick') return { ok: false, text: usage };
   if (cmd.error === 'title') return { ok: false, text: `Нет названия задачи.\n${usage}` };
@@ -3254,7 +3398,7 @@ async function createTaskFromChat(text, env, settings) {
     assigned: [who.yougile_id],
     stickers: { [settings.sticker_priority]: stateId },
   };
-  if (cmd.description) body.description = cmd.description;
+  if (cmd.description) body.description = htmlFromText(cmd.description);
 
   const headers = { Authorization: `Bearer ${key}`, 'content-type': 'application/json' };
   const res = await fetch(`${base}/tasks`, { method: 'POST', headers, body: JSON.stringify(body) });
@@ -3281,6 +3425,13 @@ async function createTaskFromChat(text, env, settings) {
     `Срочность ${priority}${byDefault ? ' (по умолчанию)' : ''} — ` +
       `${PRIORITY_LABEL[priority] || `${priority} раб. дн.`}, срок до ${fmtLocal(due, settings)}`,
   ];
+  // Показываем, что хвост сообщения не потерялся, а ушёл в описание: иначе
+  // руководитель видит короткое название и дописывает всё заново руками.
+  if (cmd.description) {
+    const rows = cmd.description.split('\n').filter((l) => l.trim());
+    const cut = rows[0].length > 70;
+    lines.push(`📝 В описание: ${rows.length} стр. — «${esc(rows[0].slice(0, 70))}${cut || rows.length > 1 ? '…' : ''}»`);
+  }
   return {
     ok: true,
     id: created.id,
@@ -3617,6 +3768,7 @@ async function sendMonthlyDigest(env, settings) {
   const fmtH = (h) => (h === null || h === undefined ? '—' : `${Math.round(h * 10) / 10} ч`);
   const fmtP = (v) => (v === null || v === undefined ? '—' : `${v} %`);
   const six = (m) => [
+    `  выполнение: <b>${fmtP(m.metrics.done)}</b> — сдано ${m.detail?.done?.done ?? 0} из взятых ${m.detail?.done?.taken ?? 0}`,
     `  до принятия: ${fmtH(m.metrics.t2a)} (${fmtP(m.percents.t2a)}) · до старта: ${fmtH(m.metrics.t2s)} (${fmtP(m.percents.t2s)})`,
     `  в работе:   1 — ${fmtH(m.metrics.t2f1)} (${fmtP(m.percents.t2f1)}) · ` +
       `2 — ${fmtH(m.metrics.t2f2)} (${fmtP(m.percents.t2f2)}) · ` +
@@ -3773,8 +3925,10 @@ export default {
 export const __test = {
   quarterOf, monthsOfQuarter, MARKS, MARK_LABEL,
   levelOfTask, taskDurations, timeMetrics, planPercent, autoMark, METRIC_KEYS,
+  weightedPercent, metricWeights,
   workMinutesBetween, addWorkMinutes, addWorkdays, deadlineByPriority, workWindow, applyStage, replayLog, freshTimeline,
   scoreTask, scoreChat, computeMetrics, scoreFromPercent, skipPriorities, parseTaskCommand,
+  needsReply, detectTask, findTaskCandidates,
 };
 
 // Для служебных скриптов на сервере: полная пересинхронизация без ключа доступа.

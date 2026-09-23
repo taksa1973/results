@@ -381,6 +381,8 @@ INSERT INTO settings (key, value) VALUES
   ('yougile_team',      'ed881f3af637'),
   -- рабочий день для часов по задачам (окно чата work_start/work_end — отдельно)
   -- норма проверки: дольше — попадает в утреннее напоминание
+  -- веса направлений в итоговом проценте: выполнение важнее скорости принятия
+  ('metric_weights',    'done:40,work:35,t2s:15,t2a:10'),
   ('review_norm_hours', '8'),
   ('review_digest_hour','10'),
   ('task_day_start',    '09:00'),

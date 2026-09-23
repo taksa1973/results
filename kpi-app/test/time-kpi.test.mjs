@@ -342,3 +342,65 @@ test('время на проверке копится отдельно и не �
   assert.equal(d.t2f, 3, 'тридцать два часа проверки в оценку исполнителя не идут');
   assert.equal(d.t2a, 0);
 });
+
+test('быстрое принятие не вытягивает KPI: выполнение весит больше', () => {
+  const { weightedPercent, metricWeights } = __test;
+  const S0 = {};
+  assert.deepEqual(metricWeights(S0), { done: 40, work: 35, t2s: 15, t2a: 10 });
+
+  // принял мгновенно и взял мгновенно, но из десяти задач сдал одну
+  // и делает вдвое дольше нормы
+  const fast = weightedPercent(
+    { done: 10 }, { t2a: 200, t2s: 200, t2f1: 50, done: 10 }, { t2f1: { count: 5 } }, S0
+  );
+  // (400 + 1750 + 3000 + 2000) / 100 = 71,5 → 72
+  assert.equal(fast, 72);
+
+  // никого не обгонял по принятию, но всё сдал и уложился в норму
+  const solid = weightedPercent(
+    { done: 100 }, { t2a: 50, t2s: 80, t2f1: 110, done: 100 }, { t2f1: { count: 5 } }, S0
+  );
+  // (4000 + 3850 + 1200 + 500) / 100 = 95,5 → 96
+  assert.equal(solid, 96);
+  assert.ok(solid > fast, 'кто доводит задачи — выше того, кто быстро принимает');
+
+  // веса настраиваются
+  const onlyDone = weightedPercent(
+    { done: 10 }, { t2a: 200, t2s: 200, t2f1: 50, done: 10 }, { t2f1: { count: 5 } },
+    { metric_weights: 'done:100,work:0,t2s:0,t2a:0' }
+  );
+  assert.equal(onlyDone, 10);
+});
+
+test('взятая и зависшая дольше нормы задача портит метрику сразу', () => {
+  const now = '2026-09-23T07:00:00Z'; // ср 10:00 МСК
+  const S2 = { tz_offset: '3' };
+  const sla = { t2f1: 8, t2f2: 24, t2f3: 80 };
+  const mk = (extra) => ({
+    size: 1, level: 1, status: 'in_progress', is_zaeb: 0, paused_min: 0,
+    created_at: '2026-09-21T06:00:00Z', acked_at: '2026-09-21T06:00:00Z',
+    taken_at: '2026-09-21T06:00:00Z', ...extra,
+  });
+
+  // взял в понедельник 9:00 и держит до среды 10:00 — это 19 раб. ч при норме 8
+  const hanging = mk({});
+  const { metrics, detail } = timeMetrics([hanging], S2, '2026-09', { sla, now });
+  assert.equal(metrics.t2f1, 19, 'считается по текущему моменту');
+  assert.equal(detail.t2f1.hanging, 1);
+  assert.equal(metrics.done, 0, 'взял одну, сдал ноль');
+
+  // та же задача, но взята час назад — в норме, метрику не трогает
+  const fresh = mk({ taken_at: '2026-09-23T06:00:00Z' });
+  const r2 = timeMetrics([fresh], S2, '2026-09', { sla, now });
+  assert.equal(r2.metrics.t2f1, null, 'пока в норме — не мешаем работать');
+
+  // в прошлых месяцах зависшие не учитываются: они висят «сейчас»
+  const r3 = timeMetrics([hanging], S2, '2026-08', { sla, now });
+  assert.equal(r3.metrics.t2f1, null);
+
+  // сданная задача считается как раньше
+  const done = mk({ status: 'accepted', work_done_at: '2026-09-21T10:00:00Z' });
+  const r4 = timeMetrics([done], S2, '2026-09', { sla, now });
+  assert.equal(r4.metrics.t2f1, 4);
+  assert.equal(r4.metrics.done, 100, 'взял одну, сдал одну');
+});

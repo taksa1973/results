@@ -39,8 +39,12 @@ test('разбор команды: ник, срочность, название,
   assert.deepEqual(parseTaskCommand('/task@Hotassist_bot xenyav Купить билет'), {
     nick: 'xenyav', priority: null, title: 'Купить билет', description: '',
   });
-  // вторая строка — описание
+  // задача уходит в название целиком, переносы строк — пробелами
   assert.deepEqual(parseTaskCommand('/task @Xenyav 7 Заказать ракетку\nМодель Head Speed, ручка 3'), {
+    nick: 'xenyav', priority: 7, title: 'Заказать ракетку Модель Head Speed, ручка 3', description: '',
+  });
+  // старое разнесение остаётся за настройкой task_full_title = 0
+  assert.deepEqual(parseTaskCommand('/task @Xenyav 7 Заказать ракетку\nМодель Head Speed, ручка 3', { fullTitle: false }), {
     nick: 'xenyav', priority: 7, title: 'Заказать ракетку', description: 'Модель Head Speed, ручка 3',
   });
   assert.deepEqual(parseTaskCommand('/task'), { error: 'empty' });
@@ -132,13 +136,13 @@ test('руководитель ставит задачу в чате: колон
   assert.equal(sqlite.prepare('SELECT count(*) AS n FROM chat_replies').get().n, 0);
 });
 
-test('без срочности ставится 3 по умолчанию, описание уходит в карточку', async () => {
+test('без срочности ставится 3 по умолчанию, задача уходит в название целиком', async () => {
   const { calls, send, msg } = await freshEnv();
   const { body } = await send(msg('1', '/task xenyav Заказать ракетку\nHead Speed, ручка 3'));
   assert.equal(body.ok, true);
   const create = calls.find((c) => c.method === 'POST' && c.url.endsWith('/api-v2/tasks'));
-  assert.equal(create.body.title, 'Заказать ракетку');
-  assert.equal(create.body.description, 'Head Speed, ручка 3');
+  assert.equal(create.body.title, 'Заказать ракетку Head Speed, ручка 3', 'перенос строки стал пробелом');
+  assert.equal(create.body.description, undefined, 'описание не заполняем — вся задача в названии');
   assert.deepEqual(create.body.stickers, { '0681807e-900b-47b6-8880-624802294bb0': 'e0051cdabb08' });
   assert.match(calls.find((c) => c.url.includes('sendMessage')).body.text, /Срочность 3 \(по умолчанию\)/);
 });
@@ -178,6 +182,35 @@ test('срочность по умолчанию берётся из настр�
   const create = calls.find((c) => c.method === 'POST' && c.url.endsWith('/api-v2/tasks'));
   assert.deepEqual(create.body.stickers, { '0681807e-900b-47b6-8880-624802294bb0': 'e6257641af72' });
   assert.match(calls.find((c) => c.url.includes('sendMessage')).body.text, /Срочность 7 \(по умолчанию\) — неделя/);
+});
+
+test('многострочная задача целиком уходит в название, переносы — пробелами', async () => {
+  const { calls, send, msg } = await freshEnv();
+  // реальный случай: руководитель пишет задачу одним сообщением в несколько строк
+  const text = '/task @xenyav 3 Подобрать рестораны рядом с местом жительства в Алматы\n' +
+    'Собрать их в коллекцию мест на гугл картах, скинуть коллекцию ссылкой сюда\n' +
+    'В описаниях мест подписать что за кухня';
+  await send(msg('1', text));
+
+  const create = calls.find((c) => c.method === 'POST' && c.url.endsWith('/api-v2/tasks'));
+  assert.equal(
+    create.body.title,
+    'Подобрать рестораны рядом с местом жительства в Алматы ' +
+    'Собрать их в коллекцию мест на гугл картах, скинуть коллекцию ссылкой сюда ' +
+    'В описаниях мест подписать что за кухня',
+    'весь текст задачи в названии, одной строкой'
+  );
+  assert.equal(create.body.description, undefined, 'описание не заполняем');
+});
+
+test('настройкой можно вернуть разнесение: название + описание с кликабельной ссылкой', async () => {
+  const { calls, send, msg, sqlite } = await freshEnv();
+  sqlite.prepare("INSERT OR REPLACE INTO settings (key, value) VALUES ('task_full_title', '0')").run();
+  await send(msg('1', '/task @xenyav 3 Проверить прайс\nсмотри https://example.com/prices там всё'));
+  const create = calls.find((c) => c.method === 'POST' && c.url.endsWith('/api-v2/tasks'));
+  assert.equal(create.body.title, 'Проверить прайс');
+  assert.match(create.body.description, /<a target="_blank" rel="noopener noreferrer" href="https:\/\/example\.com\/prices">/);
+  assert.match(calls.find((c) => c.url.includes('sendMessage')).body.text, /В описание: 1 стр/);
 });
 
 test('ошибки: чужая срочность, неизвестный ник, нет ID YouGile, не руководитель', async () => {
