@@ -395,7 +395,7 @@ test('взятая и зависшая дольше нормы задача по
   const hanging = mk({});
   const { metrics, detail } = timeMetrics([hanging], S2, '2026-09', { sla, now });
   assert.equal(metrics.t2f1, 19, 'считается по текущему моменту');
-  assert.equal(metrics.quality, null, 'ничего не сдано — качество не считается');
+  assert.equal(metrics.quality, 100, 'возвратов не было — качество полное, даже пока не сдано');
   assert.equal(detail.t2f1.hanging, 1);
   assert.equal(metrics.done, 0, 'взял одну, сдал ноль');
 
@@ -420,5 +420,15 @@ test('взятая и зависшая дольше нормы задача по
   const r5 = timeMetrics([handed], S2, '2026-09', { sla, now });
   assert.equal(r5.metrics.done, 0, 'сдача на проверку — ещё не результат');
   assert.equal(r5.detail.done.handed, 1, 'но видно, что сдана');
+
+  // закрыл больше, чем взял: разгрёб хвосты прошлого месяца — это плюс
+  const old1 = mk({ status: 'accepted', taken_at: '2026-08-20T06:00:00Z', created_at: '2026-08-20T06:00:00Z',
+    work_done_at: '2026-09-02T10:00:00Z', done_at: '2026-09-02T11:00:00Z' });
+  const old2 = { ...old1, taken_at: '2026-08-21T06:00:00Z', done_at: '2026-09-03T11:00:00Z' };
+  const nowTask = mk({ status: 'accepted', work_done_at: '2026-09-21T10:00:00Z', done_at: '2026-09-21T11:00:00Z' });
+  const r6 = timeMetrics([old1, old2, nowTask], S2, '2026-09', { sla, now });
+  assert.equal(r6.detail.done.taken, 1, 'в сентябре взята одна');
+  assert.equal(r6.detail.done.done, 3, 'а завершено три');
+  assert.equal(r6.metrics.done, 120, 'триста процентов срезаются потолком');
   assert.equal(r4.metrics.done, 100, 'взял одну, сдал одну');
 });

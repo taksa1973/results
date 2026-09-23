@@ -478,36 +478,36 @@ function timeMetrics(tasks, settings, period = null, opts = {}) {
     : null;
   detail.t2a = { count: ackVals.length, values: ackVals };
 
-  // Выполнение: из задач, которые были в работе в этом месяце, сколько
-  // доведено до «Завершена». Сдача на проверку — ещё не результат: пока
-  // задачу не приняли, она не выполнена.
-  //
-  // В знаменателе и взятые в этом месяце, и завершённые в нём (даже если
-  // взяты раньше) — иначе человек, который весь месяц разгребал старое,
-  // получал ноль. Завершённая задача попадает и в числитель, и в знаменатель,
-  // поэтому больше ста процентов не выходит и накрутить нельзя.
+  // Выполнение: сколько задач доведено до «Завершена» против того, сколько
+  // пришло в работу. Больше ста процентов — нормально и хорошо: значит
+  // человек разгрёб и хвосты прошлого месяца. Потолок — общий percentCap.
+  // Сдача на проверку результатом не считается: пока не приняли, не сделано.
   const isDone = (t) => t.status === 'accepted' && t.done_at;
-  const completedHere = (t) => isDone(t) && inPeriod(t.done_at, period);
-  const cohort = period
-    ? live.filter((t) => inPeriod(t.taken_at, period) || completedHere(t))
-    : live;
-  const cohortDone = cohort.filter((t) => (period ? completedHere(t) : isDone(t))).length;
-  out.done = cohort.length ? Math.round((cohortDone / cohort.length) * 100) : null;
+  const completedHere = (t) => (period ? isDone(t) && inPeriod(t.done_at, period) : isDone(t));
+  const startedHere = (t) => !period || inPeriod(t.taken_at, period);
+  const cohort = live.filter(startedHere);
+  const completed = live.filter(completedHere);
+  out.done = cohort.length
+    ? Math.min(percentCap(settings), Math.round((completed.length / cohort.length) * 100))
+    : (completed.length ? percentCap(settings) : null);
   detail.done = {
     taken: cohort.length,
-    done: cohortDone,
-    handed: cohort.filter((t) => (period ? inPeriod(t.work_done_at || t.done_at, period) : t.work_done_at || t.done_at)).length,
+    done: completed.length,
+    handed: live.filter((t) => (period ? inPeriod(t.work_done_at || t.done_at, period) : t.work_done_at || t.done_at)).length,
   };
 
-  // Качество сдачи: сколько раз задачу возвращали с проверки.
-  // Считается по сданным в этом месяце.
-  const handed = live.filter((t) => !period || inPeriod(t.work_done_at || t.done_at, period));
-  const qVals = handed.map((t) => qualityPercent(t.returns));
+  // Качество сдачи: сколько раз задачу возвращали с проверки. Считается по
+  // всем задачам, которые были в работе в этом месяце, — закрытая с первого
+  // раза задача решена и вопросов по ней нет, это сто процентов.
+  const inWorkHere = live.filter((t) => t.taken_at && (
+    !period || inPeriod(t.taken_at, period) || inPeriod(t.work_done_at || t.done_at, period) || inPeriod(t.done_at, period)
+  ));
+  const qVals = inWorkHere.map((t) => qualityPercent(t.returns));
   out.quality = qVals.length ? Math.round(qVals.reduce((a, b) => a + b, 0) / qVals.length) : null;
   detail.quality = {
     count: qVals.length,
-    returned: handed.filter((t) => (t.returns || 0) > 0).length,
-    returns: handed.reduce((a, t) => a + (t.returns || 0), 0),
+    returned: inWorkHere.filter((t) => (t.returns || 0) > 0).length,
+    returns: inWorkHere.reduce((a, t) => a + (t.returns || 0), 0),
   };
 
   return { metrics: out, detail };
@@ -600,11 +600,12 @@ async function monthMetrics(db, userId, period, settings, sla) {
          AND status NOT IN ('cancelled','historical')
          AND ((COALESCE(acked_at, taken_at) >= ? AND COALESCE(acked_at, taken_at) < ?)
            OR (taken_at >= ? AND taken_at < ?)
-           OR (COALESCE(work_done_at, done_at) >= ? AND COALESCE(work_done_at, done_at) < ?))
+           OR (COALESCE(work_done_at, done_at) >= ? AND COALESCE(work_done_at, done_at) < ?)
+           OR (done_at >= ? AND done_at < ?))
          ${skip.length ? `AND (priority IS NULL OR priority NOT IN (${skip.map(() => '?').join(',')}))` : ''}
        ORDER BY COALESCE(taken_at, acked_at, created_at)`
     )
-    .bind(...who.args, from, to, from, to, from, to, ...skip)
+    .bind(...who.args, from, to, from, to, from, to, from, to, ...skip)
     .all();
 
   const { metrics, detail } = timeMetrics(tasks, settings, period, { sla });
@@ -683,7 +684,7 @@ async function quarterMetrics(db, userId, quarter, settings) {
   // выполнение за квартал — по сумме задач, а не среднее средних
   const takenQ = months.reduce((a, m) => a + (m.detail?.done?.taken || 0), 0);
   const doneQ = months.reduce((a, m) => a + (m.detail?.done?.done || 0), 0);
-  metrics.done = takenQ ? Math.round((doneQ / takenQ) * 100) : null;
+  metrics.done = takenQ ? Math.min(percentCap(settings), Math.round((doneQ / takenQ) * 100)) : (doneQ ? percentCap(settings) : null);
   percents.done = metrics.done;
   detail.done = { taken: takenQ, done: doneQ };
 
