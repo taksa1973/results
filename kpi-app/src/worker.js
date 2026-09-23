@@ -1362,10 +1362,26 @@ async function handleApi(request, env, url) {
       .prepare(
         `SELECT t.*, u.name AS assignee_name FROM tasks t
          LEFT JOIN users u ON u.id = t.assignee_id
-         WHERE t.status = 'review' ORDER BY t.submitted_at`
+         WHERE t.status = 'review' ORDER BY COALESCE(t.review_since, t.submitted_at)`
       )
       .all();
-    return json({ tasks: results.map((t) => ({ ...decorateTask(t, settings), assignee: t.assignee_name })) });
+    // Сколько каждая ждёт решения — очередь проверяющего целиком здесь,
+    // на вкладке KPI от неё остаётся только сводка.
+    const now = nowIso();
+    const norm = num(settings, 'review_norm_hours', 8);
+    const tasks = results.map((t) => {
+      const since = t.review_since || t.submitted_at;
+      const h = since ? Math.round((workMinutesBetween(since, now, settings) / 60) * 10) / 10 : null;
+      return { ...decorateTask(t, settings), assignee: t.assignee_name, waitingSince: since, waitingHours: h };
+    });
+    const waits = tasks.map((t) => t.waitingHours).filter((v) => v !== null).sort((a, b) => b - a);
+    return json({
+      tasks,
+      norm,
+      overdue: waits.filter((v) => v > norm).length,
+      max: waits[0] ?? null,
+      median: waits.length ? waits[Math.floor(waits.length / 2)] : null,
+    });
   }
 
   // приёмка: «принято» или «вернуть» — единственное решение руководителя

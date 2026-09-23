@@ -274,6 +274,11 @@ textarea:focus{border-color:var(--accent);outline:none;box-shadow:0 0 0 3px var(
 tr.detail-row>td{background:var(--surface-2);padding:4px 16px 18px}
 tr.detail-row .tbl{background:var(--surface)}
 .score-in:disabled{opacity:.5}
+/* приёмка: длинное название переносится, ссылка остаётся в строке текста */
+#inboxTable td{vertical-align:middle}
+#inboxTable .t-cell{max-width:640px;line-height:1.45}
+#inboxTable .metric .val,#inboxTable+.muted{font-size:inherit}
+.grid.g4 .metric .val.small{font-size:22px}
 .matrix{min-width:0;table-layout:fixed}
 .matrix input{padding:6px 8px;min-height:34px;font-size:14px;text-align:right}
 .sla-grid{display:grid;grid-template-columns:auto repeat(3,1fr);gap:8px 12px;align-items:center;max-width:620px}
@@ -766,13 +771,6 @@ async function renderKpi(d, v){
 
   // ── очередь на проверке: это время руководителя, в оценки оно не идёт
   const rv = d.review || { pending: [], norm: 8 };
-  const rvRows = rv.pending.map((t) => `
-    <tr class="clickable" data-task="${esc(t.id)}">
-      <td class="num ${t.hours > rv.norm ? 'pct-bad' : ''}"><strong>${fmtH(t.hours)}</strong></td>
-      <td>${t.level ? `<span class="lvl l${t.level}" style="margin-right:6px">${t.level}</span>` : ''}<strong>${esc(t.number || '')}</strong> ${esc(t.title)} ${ygLink(t)}</td>
-      <td>${esc(t.assignee || '—')}</td>
-      <td class="num">${fmtDate(t.since)}</td>
-    </tr>`).join('');
   const reviewBlock = `
     <h2 style="margin-bottom:6px">Проверка</h2>
     <p class="muted" style="margin-bottom:12px">Пока задача на проверке, её время не идёт в оценку ассистента — проверяет ${chief ? 'руководитель' : 'владелец'}.
@@ -782,18 +780,18 @@ async function renderKpi(d, v){
         <div class="val ${rv.pending.length ? '' : 'muted'}">${rv.pending.length}</div>
         <div class="sub">${rv.overdue ? `<span class="pct-bad">дольше нормы: ${rv.overdue}</span>` : 'все в норме'}</div></div>
       <div class="card metric"><div class="lbl">Дольше всех</div>
-        <div class="val ${rv.pending.length && rv.pending[0].hours > rv.norm ? 'pct-bad' : ''}">${rv.pending.length ? fmtH(rv.pending[0].hours) : '—'}</div>
+        <div class="val small ${rv.pending.length && rv.pending[0].hours > rv.norm ? 'pct-bad' : ''}">${rv.pending.length ? fmtH(rv.pending[0].hours) : '—'}</div>
         <div class="sub">${rv.pending.length ? esc(String(rv.pending[0].title).slice(0, 38)) : 'очередь пуста'}</div></div>
       <div class="card metric"><div class="lbl">Проверено за месяц</div>
         <div class="val">${rv.checked ?? 0}</div>
         <div class="sub">принято в ${esc(monthTitle)}</div></div>
       <div class="card metric"><div class="lbl">Среднее ожидание</div>
-        <div class="val ${rv.avg !== null && rv.avg !== undefined && rv.avg > rv.norm ? 'pct-bad' : ''}">${rv.avg === null || rv.avg === undefined ? '—' : fmtH(rv.avg)}</div>
+        <div class="val small ${rv.avg !== null && rv.avg !== undefined && rv.avg > rv.norm ? 'pct-bad' : ''}">${rv.avg === null || rv.avg === undefined ? '—' : fmtH(rv.avg)}</div>
         <div class="sub">медиана ${rv.median === null || rv.median === undefined ? '—' : fmtH(rv.median)}${rv.max ? ` · максимум ${fmtH(rv.max)}` : ''}</div></div>
     </div>
-    ${rv.pending.length ? `<div class="tbl" style="margin-bottom:22px"><table>
-      <thead><tr><th class="num" style="width:110px">Ждёт</th><th>Задача</th><th>Кто сдал</th><th class="num">Сдана</th></tr></thead>
-      <tbody>${rvRows}</tbody></table></div>` : '<p class="muted" style="margin-bottom:22px">Очередь пуста.</p>'}`;
+    <p class="muted" style="margin-bottom:22px">${rv.pending.length
+      ? `Список очереди — на вкладке <a href="#" id="toInbox">Приёмка</a>: там видно, сколько каждая ждёт, и кнопки «принято» / «вернуть».`
+      : 'Очередь пуста.'}</p>`;
 
   // ── срезы
   const whoSeg = `<div class="seg" id="segWho">
@@ -930,6 +928,13 @@ async function renderKpi(d, v){
   // ── обработчики
   // Очередь на проверке: клик по строке открывает историю задачи
   v.querySelectorAll('tr[data-task]').forEach((tr) => { tr.onclick = () => openTask(tr.dataset.task); });
+  if ($('toInbox')) {
+    $('toInbox').onclick = (e) => {
+      e.preventDefault();
+      const tab = [...$('tabs').children].find((b) => b.textContent === 'Приёмка');
+      if (tab) tab.click();
+    };
+  }
 
   // Клик по имени раскрывает, из чего сложилась цифра: шесть метрик месяца,
   // задачи месяца с часами, что висит сейчас и что закрыто.
@@ -1412,9 +1417,59 @@ function renderInbox(d, v){
     v.innerHTML = '<div class="card"><h2>Приёмка пуста</h2><p class="muted">Ничего не ждёт решения.</p></div>';
     return;
   }
+  const norm = d.norm ?? 8;
+  const rows = d.tasks.map((t) => `
+    <tr class="clickable" data-task="${esc(t.id)}">
+      <td class="num ${t.waitingHours !== null && t.waitingHours > norm ? 'pct-bad' : ''}" style="white-space:nowrap">
+        <strong>${fmtH(t.waitingHours)}</strong>
+        <div class="muted" style="font-size:12px">${fmtDate(t.waitingSince)}</div></td>
+      <td class="t-cell">${t.level ? `<span class="lvl l${t.level}" style="margin-right:6px">${t.level}</span>` : ''}<strong>${esc(t.number || '')}</strong>
+        ${esc(String(t.title).replace(/\s+/g, ' ').slice(0, 160))}${String(t.title).length > 160 ? '…' : ''} ${ygLink(t)}</td>
+      <td style="white-space:nowrap">${esc(t.assignee || '—')}</td>
+      <td class="num acts" style="white-space:nowrap">
+        <button class="btn sm" data-accept="${esc(t.id)}">Принято</button>
+        <button class="btn ghost sm danger" data-return="${esc(t.id)}">Вернуть</button></td>
+    </tr>`).join('');
+
   v.innerHTML = `<h1 style="margin-bottom:6px">Приёмка</h1>
-    <p class="muted" style="margin-bottom:16px">${d.tasks.length} задач ждут ответа. Кнопки «принято» и «вернуть» — единственное решение, которое требуется.</p>
-    ${taskTable(d.tasks)}`;
+    <p class="muted" style="margin-bottom:16px">${d.tasks.length} задач ждут решения. Пока задача здесь, её время не идёт в оценку ассистента —
+      это очередь проверяющего. Норма ${fmtH(norm)}, дольше — в утреннем напоминании.</p>
+
+    <div class="grid g4" style="margin-bottom:16px">
+      <div class="card metric"><div class="lbl">Ждут решения</div><div class="val">${d.tasks.length}</div>
+        <div class="sub">${d.overdue ? `<span class="pct-bad">дольше нормы: ${d.overdue}</span>` : 'все в норме'}</div></div>
+      <div class="card metric"><div class="lbl">Дольше всех</div><div class="val small ${d.max > norm ? 'pct-bad' : ''}">${fmtH(d.max)}</div>
+        <div class="sub">первая в списке</div></div>
+      <div class="card metric"><div class="lbl">Медиана ожидания</div><div class="val small ${d.median > norm ? 'pct-bad' : ''}">${fmtH(d.median)}</div>
+        <div class="sub">половина ждёт дольше</div></div>
+      <div class="card metric"><div class="lbl">Норма</div><div class="val">${fmtH(norm)}</div>
+        <div class="sub">меняется в настройках</div></div>
+    </div>
+
+    <div class="tbl"><table id="inboxTable">
+      <thead><tr><th class="num" style="width:120px">Ждёт</th><th>Задача</th><th>Кто сдал</th><th class="num" style="width:190px"></th></tr></thead>
+      <tbody>${rows}</tbody></table></div>
+    <p class="muted" style="margin-top:8px">Клик по строке — история задачи и тайминги. «Принято» закрывает задачу, «Вернуть» отправляет на доработку и снимает баллы за качество.</p>`;
+
+  v.querySelectorAll('tr[data-task]').forEach((tr) => {
+    tr.onclick = (e) => { if (!e.target.closest('button, a')) openTask(tr.dataset.task); };
+  });
+  v.querySelectorAll('[data-accept]').forEach((b) => {
+    b.onclick = async () => {
+      b.disabled = true;
+      try { await api(`/task/${b.dataset.accept}/accept`, { method: 'POST', body: '{}' }); render(); }
+      catch (e) { b.disabled = false; alert(e.message); }
+    };
+  });
+  v.querySelectorAll('[data-return]').forEach((b) => {
+    b.onclick = async () => {
+      const note = prompt('Что не так? Текст уйдёт в историю задачи');
+      if (note === null) return;
+      b.disabled = true;
+      try { await api(`/task/${b.dataset.return}/return`, { method: 'POST', body: JSON.stringify({ note }) }); render(); }
+      catch (e) { b.disabled = false; alert(e.message); }
+    };
+  });
 }
 
 async function renderAdmin(v){
