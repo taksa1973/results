@@ -306,14 +306,14 @@ function computeMetrics({ tasks, replies, settings, grade }) {
 // ─────────────────────────────────────────────────────────────────────────────
 // Метрики времени: три стадии задачи
 //
-// Время до принятия — от постановки до переноса в «Принята»: задача прочитана,
-//                     ясна, вопросов нет. Норма — рабочий час.
-// Время до старта   — от принятия до переноса в «В работе». Норма — 12 рабочих
-//                     часов. Если «Принята» пропустили и сразу в работу —
-//                     принята в момент взятия: до старта ноль, всё ожидание
-//                     идёт в «до принятия».
-// Время в работе    — от «В работе» до сдачи, без блокера, проверки и ожидания.
-//                     Единственная из трёх, что зависит от уровня сложности.
+// Время до старта   — от постановки («Добавлена») до переноса в «В работе».
+//                     Норма — 12 рабочих часов. «Принята» его не
+//                     останавливает: принять — ещё не значит начать.
+// Время решения     — от постановки до сдачи, без блокера, ожидания, проверки,
+//                     «на потом» и «на контроле». Зависит от уровня сложности.
+// Время до принятия — от постановки до «Принята». Считается и показывается,
+//                     но в KPI не входит: иначе быстрый перенос карточки
+//                     завышал бы результат, ничего не решая.
 //
 // Всё в рабочих часах: ночь и выходные не идут в счёт, иначе задача,
 // поставленная в пятницу вечером, показывала бы двое суток простоя.
@@ -321,18 +321,19 @@ function computeMetrics({ tasks, replies, settings, grade }) {
 // ─────────────────────────────────────────────────────────────────────────────
 
 const LEVELS = [1, 2, 3];
-const TIME_METRICS = ['t2a', 't2s', 't2f'];
-// ключи метрик: до принятия и до старта — без уровня, в работе — по уровням
-const METRIC_KEYS = ['t2a', 't2s', 't2f1', 't2f2', 't2f3'];
+const TIME_METRICS = ['t2s', 't2f'];
+// Ключи метрик: до старта — без уровня, время решения — по уровням.
+// Время до принятия (t2a) считается и показывается, но в KPI не входит:
+// «Принята» нужна для скорости работы, а не для цифр.
+const METRIC_KEYS = ['t2s', 't2f1', 't2f2', 't2f3'];
 const keyOf = (metric, level) => (metric === 't2f' ? `${metric}${level}` : metric);
 
 /**
- * Веса в итоговом проценте. Главное — довести задачу до конца, потом скорость
- * работы, и только в конце — скорость принятия: перетащить карточку в
- * «Принята» легко, и без весов этим можно было накрутить весь KPI.
+ * Веса в итоговом проценте: решение задачи важнее всего, затем выполнение,
+ * затем скорость взятия в работу и качество сдачи.
  */
 function metricWeights(settings = {}) {
-  const def = { done: 40, work: 35, t2s: 15, t2a: 10 };
+  const def = { work: 40, done: 30, t2s: 20, quality: 10 };
   const raw = String(settings.metric_weights || '').trim();
   if (!raw) return def;
   const out = { ...def };
@@ -341,6 +342,18 @@ function metricWeights(settings = {}) {
     if (k in out && Number(v) >= 0) out[k] = Number(v);
   }
   return out;
+}
+
+/**
+ * Качество сдачи по возвратам с проверки. Первый возврат почти бесплатный —
+ * уточнить данные нормально; дальше цена растёт: кружить по одной задаче
+ * раз за разом — это переделки.
+ *   0 → 100 %   1 → 90 %   2 → 70 %   3 → 50 %   4 → 30 %   5 → 10 %   6+ → 0
+ */
+function qualityPercent(returns) {
+  const n = Math.max(0, Number(returns) || 0);
+  if (n === 0) return 100;
+  return Math.max(0, 100 - 10 - (n - 1) * 20);
 }
 
 /** Размер со стикера в уровень сложности: S → 1, M → 2, L и XL → 3. */
@@ -374,7 +387,8 @@ function taskDurations(task, settings) {
   const acked = task.acked_at || toStart || null;
   const toFill = task.work_done_at || task.done_at;
 
-  // Пауза в блокере и ожидании не идёт против исполнителя
+  // Время на паузах не идёт против исполнителя: пока задача в блокере,
+  // ожидании, на проверке, «на потом» или «на контроле», дедлайн стоит.
   const pause = task.paused_min || 0;
   const hours = (a, b, subtractPause) => {
     if (!a || !b) return null;
@@ -384,8 +398,8 @@ function taskDurations(task, settings) {
 
   return {
     t2a: hours(from, acked, false),
-    t2s: hours(acked || from, toStart, false),
-    t2f: hours(toStart, toFill, true),
+    t2s: hours(from, toStart, false),
+    t2f: hours(from, toFill, true),
   };
 }
 
@@ -409,7 +423,7 @@ function timeMetrics(tasks, settings, period = null, opts = {}) {
   // зависшие считаем только в текущем месяце: задача висит «сейчас»,
   // приписывать это прошлым месяцам нечестно
   const withHanging = opts.hanging !== false && (!period || period === currentPeriod(num(settings, 'tz_offset', 3)));
-  const eventOf = { t2a: (t) => t.acked_at || t.taken_at, t2s: (t) => t.taken_at, t2f: (t) => t.work_done_at || t.done_at };
+  const eventOf = { t2s: (t) => t.taken_at, t2f: (t) => t.work_done_at || t.done_at };
   const live = tasks.filter((t) => !t.is_zaeb && t.status !== 'cancelled' && !skip.has(Number(t.priority)));
 
   /**
@@ -445,12 +459,33 @@ function timeMetrics(tasks, settings, period = null, opts = {}) {
     detail[key] = { count: all.length, values: all, hanging: hanging.length };
   }
 
+  // Время до принятия — справочная цифра, в KPI не входит
+  const ackVals = live
+    .filter((t) => !period || inPeriod(t.acked_at || t.taken_at, period))
+    .map((t) => taskDurations(t, settings).t2a)
+    .filter((v) => v !== null);
+  out.t2a = ackVals.length
+    ? Math.round((ackVals.reduce((a, b) => a + b, 0) / ackVals.length) * 100) / 100
+    : null;
+  detail.t2a = { count: ackVals.length, values: ackVals };
+
   // Выполнение: из того, что человек взял в работу, сколько довёл до сдачи.
   // Считается по месяцу: взял пять, сдал две — сорок процентов.
   const takenN = live.filter((t) => !period || inPeriod(t.taken_at, period)).length;
   const doneN = live.filter((t) => !period || inPeriod(t.work_done_at || t.done_at, period)).length;
   out.done = takenN || doneN ? Math.min(200, takenN ? Math.round((doneN / takenN) * 100) : 200) : null;
   detail.done = { taken: takenN, done: doneN };
+
+  // Качество сдачи: сколько раз задачу возвращали с проверки.
+  // Считается по сданным в этом месяце.
+  const handed = live.filter((t) => !period || inPeriod(t.work_done_at || t.done_at, period));
+  const qVals = handed.map((t) => qualityPercent(t.returns));
+  out.quality = qVals.length ? Math.round(qVals.reduce((a, b) => a + b, 0) / qVals.length) : null;
+  detail.quality = {
+    count: qVals.length,
+    returned: handed.filter((t) => (t.returns || 0) > 0).length,
+    returns: handed.reduce((a, t) => a + (t.returns || 0), 0),
+  };
 
   return { metrics: out, detail };
 }
@@ -470,8 +505,8 @@ function weightedPercent(metrics, percents, detail, settings) {
     const workPct = workKeys.reduce((a, k) => a + percents[k] * (detail?.[k]?.count || 1), 0) / wn;
     parts.push({ w: w.work, v: workPct });
   }
-  for (const [key, weight] of [['done', w.done], ['t2s', w.t2s], ['t2a', w.t2a]]) {
-    const v = key === 'done' ? metrics.done : percents[key];
+  for (const [key, weight] of [['done', w.done], ['t2s', w.t2s], ['quality', w.quality]]) {
+    const v = key === 't2s' ? percents.t2s : metrics[key];
     if (v !== null && v !== undefined) parts.push({ w: weight, v });
   }
 
@@ -544,7 +579,10 @@ async function monthMetrics(db, userId, period, settings, sla) {
   const doneHere = tasks.filter((t) => inPeriod(t.work_done_at || t.done_at, period)).length;
   const percents = {};
   for (const key of METRIC_KEYS) percents[key] = planPercent(metrics[key], sla[key]);
-  percents.done = metrics.done; // выполнение уже в процентах, нормы у него нет
+  // выполнение и качество уже в процентах, норм у них нет
+  percents.done = metrics.done;
+  percents.quality = metrics.quality;
+  percents.t2a = planPercent(metrics.t2a, sla.t2a); // справочно
 
   return {
     period,
@@ -598,12 +636,30 @@ async function quarterMetrics(db, userId, quarter, settings) {
     percents[key] = planPercent(metrics[key], sla[key]);
     detail[key] = { count: months.reduce((a, m) => a + (m.detail?.[key]?.count || 0), 0) };
   }
+  // справочное время до принятия
+  const ackVals = months.map((m) => m.metrics.t2a).filter((v) => v !== null && v !== undefined);
+  metrics.t2a = ackVals.length
+    ? Math.round((ackVals.reduce((a, b) => a + b, 0) / ackVals.length) * 100) / 100
+    : null;
+  percents.t2a = planPercent(metrics.t2a, sla.t2a);
+
   // выполнение за квартал — по сумме задач, а не среднее средних
   const takenQ = months.reduce((a, m) => a + (m.detail?.done?.taken || 0), 0);
   const doneQ = months.reduce((a, m) => a + (m.detail?.done?.done || 0), 0);
   metrics.done = takenQ || doneQ ? Math.min(200, takenQ ? Math.round((doneQ / takenQ) * 100) : 200) : null;
   percents.done = metrics.done;
   detail.done = { taken: takenQ, done: doneQ };
+
+  // качество за квартал — по всем сданным задачам квартала
+  const qCount = months.reduce((a, m) => a + (m.detail?.quality?.count || 0), 0);
+  const qSum = months.reduce((a, m) => a + (m.metrics.quality ?? 0) * (m.detail?.quality?.count || 0), 0);
+  metrics.quality = qCount ? Math.round(qSum / qCount) : null;
+  percents.quality = metrics.quality;
+  detail.quality = {
+    count: qCount,
+    returned: months.reduce((a, m) => a + (m.detail?.quality?.returned || 0), 0),
+    returns: months.reduce((a, m) => a + (m.detail?.quality?.returns || 0), 0),
+  };
 
   const avgPercent = weightedPercent(metrics, percents, detail, settings);
 
@@ -3769,19 +3825,21 @@ async function sendMonthlyDigest(env, settings) {
   const fmtP = (v) => (v === null || v === undefined ? '—' : `${v} %`);
   const six = (m) => [
     `  выполнение: <b>${fmtP(m.metrics.done)}</b> — сдано ${m.detail?.done?.done ?? 0} из взятых ${m.detail?.done?.taken ?? 0}`,
-    `  до принятия: ${fmtH(m.metrics.t2a)} (${fmtP(m.percents.t2a)}) · до старта: ${fmtH(m.metrics.t2s)} (${fmtP(m.percents.t2s)})`,
-    `  в работе:   1 — ${fmtH(m.metrics.t2f1)} (${fmtP(m.percents.t2f1)}) · ` +
+    `  качество: <b>${fmtP(m.metrics.quality)}</b> — возвратов ${m.detail?.quality?.returns ?? 0} по ${m.detail?.quality?.returned ?? 0} задачам`,
+    `  до старта: ${fmtH(m.metrics.t2s)} (${fmtP(m.percents.t2s)}) · до принятия: ${fmtH(m.metrics.t2a)} <i>справочно</i>`,
+    `  решение:   1 — ${fmtH(m.metrics.t2f1)} (${fmtP(m.percents.t2f1)}) · ` +
       `2 — ${fmtH(m.metrics.t2f2)} (${fmtP(m.percents.t2f2)}) · ` +
       `3 — ${fmtH(m.metrics.t2f3)} (${fmtP(m.percents.t2f3)})`,
   ];
   // где узкое место: метрика с худшим процентом
   const worstLine = (m) => {
     const worst = Object.entries(m.percents)
+      .filter(([k]) => METRIC_KEYS.includes(k))
       .filter(([, v]) => v !== null)
       .sort((a, b) => a[1] - b[1])[0];
     if (!worst || worst[1] >= 100) return null;
     const [k, v] = worst;
-    const name = { t2a: 'до принятия', t2s: 'до старта' }[k] || `в работе, уровень ${k.slice(3)}`;
+    const name = { t2s: 'до старта' }[k] || `решение, уровень ${k.slice(3)}`;
     return `  ⚠ слабее всего: ${name} — ${v} % плана`;
   };
 
@@ -3925,7 +3983,7 @@ export default {
 export const __test = {
   quarterOf, monthsOfQuarter, MARKS, MARK_LABEL,
   levelOfTask, taskDurations, timeMetrics, planPercent, autoMark, METRIC_KEYS,
-  weightedPercent, metricWeights,
+  weightedPercent, metricWeights, qualityPercent,
   workMinutesBetween, addWorkMinutes, addWorkdays, deadlineByPriority, workWindow, applyStage, replayLog, freshTimeline,
   scoreTask, scoreChat, computeMetrics, scoreFromPercent, skipPriorities, parseTaskCommand,
   needsReply, detectTask, findTaskCandidates,

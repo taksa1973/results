@@ -470,20 +470,21 @@ async function render(){
 // ── Модель времени: Time to start / Time to fill ────────────────────────────
 const TM = {
   done: { name: 'Выполнение', short: 'Выполнение', hint: 'сколько задач из взятых в работу доведено до сдачи' },
-  t2a: { name: 'Время до принятия', short: 'До принятия', hint: 'от постановки до «Принята»: прочитана, ясна, вопросов нет; сразу в работу — принята в момент взятия' },
-  t2s: { name: 'Время до старта', short: 'До старта', hint: 'от принятия до взятия в работу; сразу в работу — ноль' },
-  t2f: { name: 'Время в работе',  short: 'В работе',  hint: 'от взятия в работу до сдачи, без блокера и ожидания' },
+  quality: { name: 'Качество сдачи', short: 'Качество', hint: 'возвраты с проверки: первый почти бесплатно, дальше дороже' },
+  t2a: { name: 'Время до принятия', short: 'До принятия', hint: 'от постановки до «Принята» — справочно, в KPI не входит' },
+  t2s: { name: 'Время до старта', short: 'До старта', hint: 'от постановки до взятия в работу' },
+  t2f: { name: 'Время решения',  short: 'Решение',  hint: 'от постановки до сдачи, без блокера, ожидания, проверки и «на потом»' },
 };
 const LEVEL_NAME = { 1: 'простые', 2: 'обычные', 3: 'сложные' };
 // до принятия и до старта — без уровня, в работе — по уровням
-const KEYS6 = ['done', 't2a', 't2s', 't2f1', 't2f2', 't2f3'];
+const KEYS6 = ['done', 'quality', 't2s', 't2f1', 't2f2', 't2f3'];
 const keyMetric = (k) => k.slice(0, 3);
 const keyLevel = (k) => (k.length > 3 ? +k.slice(3) : null);
 const keyTitle = (k) => (keyLevel(k) ? `${TM[keyMetric(k)].name} · уровень ${keyLevel(k)}` : TM[keyMetric(k)].name);
 const STAGE_EMPTY = { t2a: 'не принята', t2s: 'не взята', t2f: 'не сдана' };
 const STAGE_PAST = { t2a: 'принята', t2s: 'взята', t2f: 'сдана' };
 // доля веса направления в итоговом проценте
-const weightOf = (k, w) => (!w ? null : k === 'done' ? w.done : k.startsWith('t2f') ? w.work : w[k]);
+const weightOf = (k, w) => (!w ? null : k.startsWith('t2f') ? w.work : w[k] ?? null);
 const MARK_TXT = { minus: '−', plusminus: '+−', plus: '+', plus2: '++', plus3: '+++', plus4: '++++' };
 const MARK_HINT = {
   minus: 'план сорван', plusminus: 'ниже плана', plus: 'в плане',
@@ -565,12 +566,15 @@ function sixHtml(metrics, percents, sla, counts, weights){
     const n = counts ? counts[k] : null;
     const w = weightOf(k, weights);
     const wLbl = w ? ` <span class="muted" title="вес в итоговом проценте">· вес ${w}${k.startsWith('t2f') ? ' на все уровни' : ''}</span>` : '';
-    if (k === 'done') {
-      const dn = counts && counts.doneDetail;
-      return `<div class="m" title="${TM.done.hint}" style="border-color:var(--accent)">
-        <div class="k">${TM.done.short}${wLbl}</div>
-        <div class="v ${pctClass(metrics.done)}">${metrics.done === null || metrics.done === undefined ? '—' : metrics.done + ' %'}</div>
-        <div class="p"><span class="muted">${dn ? `сдано ${dn.done} из взятых ${dn.taken}` : 'из взятых в работу'}</span></div>
+    if (k === 'done' || k === 'quality') {
+      const dn = counts && (k === 'done' ? counts.doneDetail : counts.qualityDetail);
+      const sub = k === 'done'
+        ? (dn ? `сдано ${dn.done} из взятых ${dn.taken}` : 'из взятых в работу')
+        : (dn ? (dn.returns ? `возвратов ${dn.returns} по ${dn.returned} задачам из ${dn.count}` : `без возвратов, задач ${dn.count}`) : 'возвраты с проверки');
+      return `<div class="m" title="${TM[k].hint}"${k === 'done' ? ' style="border-color:var(--accent)"' : ''}>
+        <div class="k">${TM[k].short}${wLbl}</div>
+        <div class="v ${pctClass(metrics[k])}">${metrics[k] === null || metrics[k] === undefined ? '—' : metrics[k] + ' %'}</div>
+        <div class="p"><span class="muted">${sub}</span></div>
       </div>`;
     }
     return `<div class="m" title="${TM[m].hint}">
@@ -595,6 +599,7 @@ function monthHtml(m, sla, showWho, people){
   const counts = {};
   KEYS6.forEach((k) => { counts[k] = m.detail?.[k]?.count ?? 0; });
   counts.doneDetail = m.detail?.done;
+  counts.qualityDetail = m.detail?.quality;
   const rows = m.tasks.map((t) => `
     <tr>
       <td><span class="lvl l${t.level}">${t.level}</span><span class="src" title="откуда уровень">${
@@ -617,7 +622,7 @@ function monthHtml(m, sla, showWho, people){
       ${sixHtml(m.metrics, m.percents, sla, counts, m.weights)}
       ${m.tasks.length ? `<div class="tbl"><table style="min-width:0">
         <thead><tr><th style="width:90px">Уровень</th><th>Задача</th>${showWho ? '<th>Кто</th>' : ''}
-          <th class="num">До принятия</th><th class="num">До старта</th><th class="num">В работе</th></tr></thead>
+          <th class="num" title="справочно, в KPI не входит">Принята через</th><th class="num">До старта</th><th class="num">Решение</th></tr></thead>
         <tbody>${rows}</tbody></table></div>` : '<p class="muted">В этом месяце задач не ставилось.</p>'}
     </div>
   </details>`;
@@ -639,12 +644,12 @@ function renderKpiSlice(){
   $('kpiCharts').innerHTML = keys.map((k) => {
     const m = keyMetric(k), l = keyLevel(k);
     const facts = months.map((x) => x.metrics[k]);
-    if (k === 'done') {
-      const w = weightOf('done', d.lead.weights);
-      return `<div class="card chart" style="border-color:var(--accent)">
-        <div class="lbl">${TM.done.name}${w ? ` · вес ${w}` : ''}</div>
-        <div class="val ${pctClass(qm.done)}">${qm.done === null || qm.done === undefined ? '—' : qm.done + ' %'}</div>
-        <div class="sub">${TM.done.hint} · за квартал</div>
+    if (k === 'done' || k === 'quality') {
+      const w = weightOf(k, d.lead.weights);
+      return `<div class="card chart"${k === 'done' ? ' style="border-color:var(--accent)"' : ''}>
+        <div class="lbl">${TM[k].name}${w ? ` · вес ${w}` : ''}</div>
+        <div class="val ${pctClass(qm[k])}">${qm[k] === null || qm[k] === undefined ? '—' : qm[k] + ' %'}</div>
+        <div class="sub">${TM[k].hint} · за квартал</div>
         ${chartSvg(months.map((x) => x.period), facts, 100, months.map(() => 'нет задач'), '%')}
       </div>`;
     }
@@ -679,7 +684,7 @@ function renderKpiSlice(){
       </div>
       <p class="muted" style="margin-bottom:10px">${l ? LEVEL_NAME[l] + ' задачи' : 'Задачи'}, вошедшие в эту метрику за квартал, от самых долгих. Норма — ${fmtH(d.sla[k])}. Клик по задаче — её история.</p>
       ${rows.length ? `<div class="tbl"><table style="min-width:0">
-        <thead><tr><th>Месяц</th><th>Задача</th>${KPI_VIEW.who === 'team' ? '<th>Кто</th>' : ''}<th>Статус</th><th class="num">До принятия</th><th class="num">До старта</th><th class="num">В работе</th></tr></thead>
+        <thead><tr><th>Месяц</th><th>Задача</th>${KPI_VIEW.who === 'team' ? '<th>Кто</th>' : ''}<th>Статус</th><th class="num" title="справочно">Принята через</th><th class="num">До старта</th><th class="num">Решение</th></tr></thead>
         <tbody>${rows.map((t) => `<tr class="clickable" data-task="${esc(t.id)}">
           <td>${monthShort(t.period)}</td>
           <td><strong>${esc(t.number || '')}</strong> ${esc(t.title)} ${ygLink(t)}<span class="src">${({ sticker: 'стикер', model: 'модель', manual: 'руками', default: 'по размеру' })[t.level_src] || ''}</span></td>
@@ -747,7 +752,7 @@ async function renderKpi(d, v){
       <td><strong>${esc(p.name)}</strong>${p.role === 'lead' ? ' <span class="tag t-blue">рук. отдела</span>' : ''}
         <span class="muted" style="font-size:12px;margin-left:6px">▸ подробно</span></td>
       <td class="num">${p.acked ?? 0} / ${p.taken ?? 0} / ${p.done ?? 0}<div class="muted" style="font-size:12px">висит ${p.open ?? '—'}</div></td>
-      <td class="num">${pctHtml(p.avgPercent)}<div class="muted" style="font-size:12px">выполнение ${p.metrics?.done === null || p.metrics?.done === undefined ? '—' : p.metrics.done + ' %'}</div></td>
+      <td class="num">${pctHtml(p.avgPercent)}<div class="muted" style="font-size:12px">выполнение ${p.metrics?.done === null || p.metrics?.done === undefined ? '—' : p.metrics.done + ' %'}${p.metrics?.quality !== null && p.metrics?.quality !== undefined && p.metrics.quality < 100 ? ` · качество ${p.metrics.quality} %` : ''}</div></td>
       <td class="num">${scoreTxt(p.auto)}</td>
       <td class="num">${canScore(p)
         ? `<input type="number" min="0" max="10" step="0.5" inputmode="decimal" class="score-in ${scoreCls(p.score)}"
@@ -864,10 +869,10 @@ async function renderKpi(d, v){
         <div></div><div class="hd">Уровень 1<br><span style="text-transform:none;font-weight:500">простые</span></div>
         <div class="hd">Уровень 2<br><span style="text-transform:none;font-weight:500">обычные</span></div>
         <div class="hd">Уровень 3<br><span style="text-transform:none;font-weight:500">сложные</span></div>
-        <div class="rl">${TM.t2a.name}<div class="muted" style="font-size:12px;font-weight:500">для всех уровней</div></div>
-        <input id="sla_t2a" type="number" step="0.25" min="0.25" value="${d.sla.t2a ?? ''}"><div class="muted" style="grid-column:span 2;font-size:12.5px">рабочих часов от постановки до «Принята»</div>
+        <div class="rl">${TM.t2a.name}<div class="muted" style="font-size:12px;font-weight:500">справочно</div></div>
+        <input id="sla_t2a" type="number" step="0.25" min="0.25" value="${d.sla.t2a ?? ''}"><div class="muted" style="grid-column:span 2;font-size:12.5px">рабочих часов от постановки до «Принята» — в KPI не входит</div>
         <div class="rl">${TM.t2s.name}<div class="muted" style="font-size:12px;font-weight:500">для всех уровней</div></div>
-        <input id="sla_t2s" type="number" step="0.5" min="0.5" value="${d.sla.t2s ?? ''}"><div class="muted" style="grid-column:span 2;font-size:12.5px">рабочих часов от «Принята» до «В работе»</div>
+        <input id="sla_t2s" type="number" step="0.5" min="0.5" value="${d.sla.t2s ?? ''}"><div class="muted" style="grid-column:span 2;font-size:12.5px">рабочих часов от постановки до «В работе»</div>
         <div class="rl">${TM.t2f.name}</div>
         ${[1, 2, 3].map((l) => `<input id="sla_t2f${l}" type="number" step="0.5" min="0.5" value="${d.sla['t2f' + l] ?? ''}">`).join('')}
       </div>
@@ -887,8 +892,9 @@ async function renderKpi(d, v){
     <div class="row" style="margin-bottom:6px">
       <h1>${chief ? `KPI руководителя · ${esc(L.name)}` : 'Мой KPI'} · ${esc(monthTitle)}</h1>
     </div>
-    <p class="muted" style="margin-bottom:16px">Главное — выполнение: сколько из взятых задач доведено до сдачи. Дальше — сколько задача была в работе, как быстро её взяли и как быстро приняли.
-      Направления взвешены (40 / 35 / 15 / 10), поэтому быстро перетащить карточку в «Принята» KPI не вытянет. Оценка каждого 0–10 — из итогового процента, руками её можно поправить.
+    <p class="muted" style="margin-bottom:16px">Время идёт от постановки задачи в «Добавлена» и останавливается на паузах: блокер, ожидание, проверка, «на потом», «на контроле».
+      В KPI входят решение задачи (вес 40), выполнение — сколько из взятых доведено до сдачи (30), время до старта (20) и качество сдачи по возвратам с проверки (10).
+      Перенос в «Принята» ускоряет работу, но в KPI не входит и цифры не поднимает. Оценка каждого 0–10 — из итогового процента, руками её можно поправить.
       KPI руководителя — среднее оценок отдела вместе с его собственной. Премия — доля от максимума, заёбы и экономия отдельно.</p>
     ${head}
 
@@ -958,21 +964,22 @@ async function renderKpi(d, v){
       const counts = {};
       KEYS6.forEach((k) => { counts[k] = month?.detail?.[k]?.count ?? 0; });
       counts.doneDetail = month?.detail?.done;
+      counts.qualityDetail = month?.detail?.quality;
       const w = p.weights || d.lead.weights || {};
       const dn = month?.detail?.done;
       body.innerHTML = `
         <h4 style="margin:10px 0 4px">Из чего оценка за ${esc(monthTitle)}</h4>
         <p class="muted" style="margin-bottom:8px">Итог <b>${p.avgPercent ?? '—'} %</b> → авто <b>${scoreTxt(p.auto)}</b>.
-          Направления взвешены: выполнение ${w.done ?? 40}, время в работе ${w.work ?? 35}, до старта ${w.t2s ?? 15}, до принятия ${w.t2a ?? 10}.
-          Быстро принять — самый лёгкий способ поднять цифру, поэтому он весит меньше всех.
+          Направления взвешены: решение ${w.work ?? 40}, выполнение ${w.done ?? 30}, до старта ${w.t2s ?? 20}, качество сдачи ${w.quality ?? 10}.
+          Время до принятия показывается справочно и в расчёт не входит — перенос карточки в «Принята» цифру не поднимает.
           Выполнение${dn ? ` — сдано ${dn.done} из взятых ${dn.taken}` : ''}: только доведённая до сдачи задача считается сделанной.
-          Задача, взятая в работу и висящая дольше нормы, попадает в «время в работе» уже сейчас, по текущему времени.
-          Процент по времени = норма / факт. Задачи с приоритетом 30 не считаются.</p>
+          Задача, взятая в работу и висящая дольше нормы, попадает в «решение» уже сейчас, по текущему времени.
+          Процент по времени = норма / факт, время на паузах вычтено. Задачи с приоритетом 30 не считаются.</p>
         ${sixHtml(p.metrics || {}, p.percents || {}, d.sla, counts, p.weights || d.lead.weights)}
         <h4 style="margin:6px 0 8px">Принято, взято или сдано в ${esc(monthTitle)} · ${month ? month.tasks.length : 0}</h4>
         <p class="muted" style="margin-bottom:8px">Серым — часы стадии из другого месяца.</p>
         ${month && month.tasks.length ? `<div class="tbl" style="margin-bottom:14px"><table style="min-width:0">
-          <thead><tr><th style="width:90px">Уровень</th><th>Задача</th><th>Статус</th><th class="num">До принятия</th><th class="num">До старта</th><th class="num">В работе</th></tr></thead>
+          <thead><tr><th style="width:90px">Уровень</th><th>Задача</th><th>Статус</th><th class="num" title="справочно">Принята через</th><th class="num">До старта</th><th class="num">Решение</th></tr></thead>
           <tbody>${monthTaskRows(month.tasks)}</tbody></table></div>` : '<p class="muted">В этом месяце ничего не принято, не взято и не сдано.</p>'}
         <div id="person_more_${esc(id)}"><p class="muted">Загружаю, что висит и что закрыто…</p></div>`;
       body.querySelectorAll('tr[data-task]').forEach((tr) => { tr.onclick = () => openTask(tr.dataset.task); });
@@ -1453,7 +1460,7 @@ async function renderAdmin(v){
     ['task_day_end', 'Задачи: конец рабочего дня'],
     ['tz_offset', 'Часовой пояс: смещение от UTC (Москва 3, Самара 4)'],
     ['skip_priority', 'Приоритеты вне расчёта (через запятую)'],
-    ['metric_weights', 'Веса направлений (выполнение, работа, старт, принятие)'],
+    ['metric_weights', 'Веса направлений (решение, выполнение, старт, качество)'],
     ['review_norm_hours', 'Проверка: норма, рабочих часов'],
     ['review_digest_hour', 'Проверка: час утреннего напоминания'],
   ].map(([k, label]) => `<div class="field"><label for="s_${k}">${label}</label>

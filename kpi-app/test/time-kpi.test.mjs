@@ -40,9 +40,9 @@ test('время считается в рабочих часах', () => {
     paused_min: 0,
   };
   const d = taskDurations(t, S);
-  assert.equal(d.t2a, 2, 'сразу в работу: ожидание — в «до принятия»');
-  assert.equal(d.t2s, 0);
-  assert.equal(d.t2f, 8, 'в работе с 12:00 пн до 12:00 вт: шесть часов плюс два');
+  assert.equal(d.t2s, 2, 'от постановки до взятия в работу');
+  assert.equal(d.t2f, 10, 'от постановки до сдачи: восемь часов понедельника плюс два вторника');
+  assert.equal(d.t2a, 2, 'сразу в работу — принята в момент взятия');
 });
 
 test('ночь и выходные не идут в счёт', () => {
@@ -72,8 +72,8 @@ test('пауза вычитается только из времени заве�
     paused_min: 120,                     // два часа в блокере
   };
   const d = taskDurations(t, S);
-  assert.equal(d.t2a, 2, 'взять задачу в работу блокер не мешал');
-  assert.equal(d.t2f, 6, 'восемь часов в работе минус два часа блокера');
+  assert.equal(d.t2s, 2, 'взять задачу в работу блокер не мешал');
+  assert.equal(d.t2f, 8, 'десять часов от постановки минус два часа блокера');
 });
 
 test('незавершённая стадия не портит метрику', () => {
@@ -92,7 +92,7 @@ test('время сдачи работы важнее времени приём�
     done_at: '2026-08-12T09:00:00Z',      // приняли только в четверг
     paused_min: 0,
   };
-  assert.equal(taskDurations(t, S).t2f, 3, 'ждать приёмку исполнитель не может: с 11:00 до 14:00');
+  assert.equal(taskDurations(t, S).t2f, 4, 'от постановки до сдачи: с 10:00 до 14:00');
 });
 
 test('шесть метрик считаются по своим уровням', () => {
@@ -108,13 +108,13 @@ test('шесть метрик считаются по своим уровням'
   });
 
   const { metrics, detail } = timeMetrics([mk(1, 1, 2), mk(1, 3, 4), mk(2, 2, 5)], S);
-  assert.equal(metrics.t2s, 0, 'сразу в работу — на этапе «Принята» ноль');
-  assert.equal(metrics.t2a, 2, 'до принятия — без уровня: среднее из 1, 3 и 2');
-  assert.equal(metrics.t2f1, 1, 'в работе по часу каждая');
-  assert.equal(metrics.t2f2, 3);
+  assert.equal(metrics.t2s, 2, 'до старта от постановки: среднее из 1, 3 и 2');
+  assert.equal(metrics.t2f1, 3, 'решение от постановки: 2 и 4 часа');
+  assert.equal(metrics.t2f2, 5);
   assert.equal(metrics.t2f3, null, 'без задач третьего уровня метрики нет');
   assert.equal(detail.t2s.count, 3);
   assert.equal(detail.t2f3.count, 0);
+  assert.equal(metrics.quality, 100, 'возвратов не было');
 });
 
 test('заёбы и отменённые задачи в метрики не идут', () => {
@@ -126,7 +126,7 @@ test('заёбы и отменённые задачи в метрики не и�
     ...extra,
   });
   const { metrics } = timeMetrics([t({}), t({ is_zaeb: 1 }), t({ status: 'cancelled' })], S);
-  assert.equal(metrics.t2a, 2, 'посчитана только одна рабочая задача');
+  assert.equal(metrics.t2s, 2, 'посчитана только одна рабочая задача');
 });
 
 test('процент плана: чем быстрее, тем выше', () => {
@@ -203,12 +203,11 @@ test('таймлайн задачи проигрывается из лога You
   assert.equal(st.assignedAt['yg-kate'], '2026-08-04T14:37:28.304Z', 'поставлена Кате, когда назначили');
   assert.ok(st.pausedMin > 0, 'месяц в блокере — пауза');
 
-  // в работе: ср 14:11–18:00, чт, пт по 8 ч, пн 10:00–11:15 → 21,1 ч; блокер не в счёт
+  // решение от постановки: 4,57 ч до взятия плюс 21,07 ч работы; блокер не в счёт
   const d = taskDurations({ created_at: st.assignedAt['yg-kate'], taken_at: st.taken, work_done_at: st.workDoneAt, done_at: st.done, paused_min: st.pausedMin }, S2);
-  assert.equal(d.t2f, 21.07);
-  // до принятия (сразу в работу): назначена 4 авг 17:37 → взята 5 авг 14:11 = 23 мин + 4 ч 11 мин
-  assert.equal(d.t2a, 4.57);
-  assert.equal(d.t2s, 0);
+  assert.equal(d.t2f, 25.63);
+  // до старта: назначена 4 авг 17:37 → взята 5 авг 14:11 = 23 мин + 4 ч 11 мин
+  assert.equal(d.t2s, 4.57);
 });
 
 test('задачи с приоритетом 30 в расчёт не идут', () => {
@@ -222,12 +221,12 @@ test('задачи с приоритетом 30 в расчёт не идут', 
   // месячная задача взята через 6 часов — среднее должна не трогать
   const monthly = t({ priority: 30, taken_at: '2026-08-10T13:00:00Z' });
   const { metrics, detail } = timeMetrics([t({ priority: 1 }), t({ priority: 7 }), monthly], S);
-  assert.equal(metrics.t2a, 2);
-  assert.equal(detail.t2a.count, 2);
+  assert.equal(metrics.t2s, 2);
+  assert.equal(detail.t2s.count, 2);
 
   // список исключаемых приоритетов — настройка
   const { metrics: m2 } = timeMetrics([t({ priority: 1 }), t({ priority: 7, taken_at: '2026-08-10T13:00:00Z' })], { ...S, skip_priority: '7,30' });
-  assert.equal(m2.t2a, 2, 'семёрка тоже выключена настройкой');
+  assert.equal(m2.t2s, 2, 'семёрка тоже выключена настройкой');
   assert.deepEqual([...__test.skipPriorities({})], [30], 'по умолчанию — только тридцать');
 });
 
@@ -261,15 +260,14 @@ test('переоткрытая задача — новый цикл; созда�
   assert.ok(st.pausedSince, 'сейчас в блокере — таймер стоит');
 
   const d = taskDurations({ created_at: st.cycleStart, taken_at: st.taken, work_done_at: st.workDoneAt, done_at: st.done, paused_min: st.pausedMin }, S2);
-  assert.equal(d.t2a, 0, 'до принятия — ноль: взята через 13 секунд');
-  assert.equal(d.t2s, 0);
+  assert.equal(d.t2s, 0, 'до старта — ноль: взята через 13 секунд');
   assert.equal(d.t2f, null, 'ещё не сдана');
   // в работе: 15:40–18:00 (2 ч 20) и 16:54–18:00 + 9:00–9:21 (1 ч 27) = 3 ч 47
   const inWork = __test.workMinutesBetween(st.taken, '2026-09-04T06:21:37.133Z', S2) - st.pausedMin;
   assert.equal(Math.round(inWork), 227);
 });
 
-test('три стадии: до принятия, от принятия до старта, в работе', () => {
+test('всё считается от постановки, «Принята» не останавливает счётчик', () => {
   const S9 = { tz_offset: '3' };
   // пятница 14.08 23:00 МСК поставлена, понедельник 9:13 принята, 11:13 взята, 14:13 сдана
   const t = {
@@ -280,20 +278,17 @@ test('три стадии: до принятия, от принятия до с�
     paused_min: 0,
   };
   const d = taskDurations(t, S9);
-  assert.equal(d.t2a, 0.22, 'принята через 13 минут рабочего времени');
-  assert.equal(d.t2s, 2, 'взята через два часа после принятия');
-  assert.equal(d.t2f, 3, 'в работе три часа');
+  assert.equal(d.t2a, 0.22, 'принята через 13 минут рабочего времени — справочно');
+  assert.equal(d.t2s, 2.22, 'до старта считается от постановки, а не от принятия');
+  assert.equal(d.t2f, 5.22, 'решение — от постановки до сдачи');
 
-  // «Принята» пропустили, сразу в работу — принята в момент взятия
+  // «Принята» пропустили — обе метрики те же
   const d2 = taskDurations({ ...t, acked_at: null }, S9);
-  assert.equal(d2.t2a, 2.22, 'всё ожидание — в «до принятия»');
-  assert.equal(d2.t2s, 0, 'на этапе «Принята» — ноль');
+  assert.equal(d2.t2s, 2.22, 'перенос в «Принята» ничего не меняет');
+  assert.equal(d2.t2f, 5.22);
 
-  // нормы: принять за час, взять за 12 — проценты без уровня
-  const { metrics } = timeMetrics([{ ...t, size: 1, status: 'accepted', is_zaeb: 0 }], S9);
-  assert.equal(planPercent(metrics.t2a, 1), 200, 'кап');
-  assert.equal(planPercent(metrics.t2s, 12), 200);
-  assert.equal(planPercent(metrics.t2f1, 8), 200);
+  // в KPI время до принятия не входит
+  assert.deepEqual(__test.METRIC_KEYS, ['t2s', 't2f1', 't2f2', 't2f3']);
 });
 
 test('таймлайн: стадия «Принята» из лога, вернули в «Принята» из работы — таймер стоит', () => {
@@ -334,42 +329,53 @@ test('время на проверке копится отдельно и не �
 
   // на проверке: пн 12:00 → ср 12:00 (6 + 9 + 3 = 18 ч) и ср 13:00 → пт 10:00 (5 + 9 + 1 = 15 ч)
   assert.equal(st.reviewMin, 33 * 60, 'проверка считается отдельно');
+  assert.equal(__test.qualityPercent(st.returns), 90, 'один возврат — минус десять процентов');
   assert.equal(st.reviewSince, null, 'принята — счётчик закрыт');
   assert.equal(st.returns, 1);
 
   // в работе: пн 10:00–12:00 и ср 12:00–13:00 = 3 часа, проверка не в счёт
   const d = taskDurations({ created_at: '2026-08-10T07:00:00Z', taken_at: st.taken, work_done_at: st.workDoneAt, done_at: st.done, paused_min: st.pausedMin }, S2);
-  assert.equal(d.t2f, 3, 'тридцать два часа проверки в оценку исполнителя не идут');
-  assert.equal(d.t2a, 0);
+  assert.equal(d.t2f, 3, 'тридцать три часа проверки в оценку исполнителя не идут');
 });
 
-test('быстрое принятие не вытягивает KPI: выполнение весит больше', () => {
-  const { weightedPercent, metricWeights } = __test;
+test('итог взвешен: решение важнее всего, принятие в KPI не входит', () => {
+  const { weightedPercent, metricWeights, qualityPercent } = __test;
   const S0 = {};
-  assert.deepEqual(metricWeights(S0), { done: 40, work: 35, t2s: 15, t2a: 10 });
+  assert.deepEqual(metricWeights(S0), { work: 40, done: 30, t2s: 20, quality: 10 });
 
-  // принял мгновенно и взял мгновенно, но из десяти задач сдал одну
-  // и делает вдвое дольше нормы
+  // качество по возвратам
+  assert.equal(qualityPercent(0), 100);
+  assert.equal(qualityPercent(1), 90, 'первый возврат — уточнение, почти бесплатно');
+  assert.equal(qualityPercent(2), 70);
+  assert.equal(qualityPercent(3), 50);
+  assert.equal(qualityPercent(6), 0);
+
+  // принял и взял мгновенно, но сдал одну из десяти и решал вдвое дольше нормы
   const fast = weightedPercent(
-    { done: 10 }, { t2a: 200, t2s: 200, t2f1: 50, done: 10 }, { t2f1: { count: 5 } }, S0
+    { done: 10, quality: 100 }, { t2a: 200, t2s: 200, t2f1: 50 }, { t2f1: { count: 5 } }, S0
   );
-  // (400 + 1750 + 3000 + 2000) / 100 = 71,5 → 72
-  assert.equal(fast, 72);
+  // (40×50 + 30×10 + 20×200 + 10×100) / 100 = 73
+  assert.equal(fast, 73);
 
-  // никого не обгонял по принятию, но всё сдал и уложился в норму
+  // всё сдал, уложился, без возвратов
   const solid = weightedPercent(
-    { done: 100 }, { t2a: 50, t2s: 80, t2f1: 110, done: 100 }, { t2f1: { count: 5 } }, S0
+    { done: 100, quality: 100 }, { t2a: 50, t2s: 80, t2f1: 110 }, { t2f1: { count: 5 } }, S0
   );
-  // (4000 + 3850 + 1200 + 500) / 100 = 95,5 → 96
-  assert.equal(solid, 96);
-  assert.ok(solid > fast, 'кто доводит задачи — выше того, кто быстро принимает');
+  // (4400 + 3000 + 1600 + 1000) / 100 = 100
+  assert.equal(solid, 100);
+  assert.ok(solid > fast);
 
-  // веса настраиваются
-  const onlyDone = weightedPercent(
-    { done: 10 }, { t2a: 200, t2s: 200, t2f1: 50, done: 10 }, { t2f1: { count: 5 } },
-    { metric_weights: 'done:100,work:0,t2s:0,t2a:0' }
+  // время до принятия в расчёт не входит вовсе
+  const withAck = weightedPercent(
+    { done: 100, quality: 100 }, { t2a: 200, t2s: 80, t2f1: 110 }, { t2f1: { count: 5 } }, S0
   );
-  assert.equal(onlyDone, 10);
+  assert.equal(withAck, solid, 'сколько бы ни было «до принятия», итог тот же');
+
+  // возвраты бьют по итогу
+  const returned = weightedPercent(
+    { done: 100, quality: qualityPercent(3) }, { t2s: 80, t2f1: 110 }, { t2f1: { count: 5 } }, S0
+  );
+  assert.ok(returned < solid, 'три возврата снимают проценты');
 });
 
 test('взятая и зависшая дольше нормы задача портит метрику сразу', () => {
@@ -386,11 +392,12 @@ test('взятая и зависшая дольше нормы задача по
   const hanging = mk({});
   const { metrics, detail } = timeMetrics([hanging], S2, '2026-09', { sla, now });
   assert.equal(metrics.t2f1, 19, 'считается по текущему моменту');
+  assert.equal(metrics.quality, null, 'ничего не сдано — качество не считается');
   assert.equal(detail.t2f1.hanging, 1);
   assert.equal(metrics.done, 0, 'взял одну, сдал ноль');
 
-  // та же задача, но взята час назад — в норме, метрику не трогает
-  const fresh = mk({ taken_at: '2026-09-23T06:00:00Z' });
+  // поставлена час назад и уже в работе — в норме, метрику не трогает
+  const fresh = mk({ created_at: '2026-09-23T06:00:00Z', acked_at: '2026-09-23T06:00:00Z', taken_at: '2026-09-23T06:30:00Z' });
   const r2 = timeMetrics([fresh], S2, '2026-09', { sla, now });
   assert.equal(r2.metrics.t2f1, null, 'пока в норме — не мешаем работать');
 
@@ -399,8 +406,9 @@ test('взятая и зависшая дольше нормы задача по
   assert.equal(r3.metrics.t2f1, null);
 
   // сданная задача считается как раньше
-  const done = mk({ status: 'accepted', work_done_at: '2026-09-21T10:00:00Z' });
+  const done = mk({ status: 'accepted', work_done_at: '2026-09-21T10:00:00Z', returns: 2 });
   const r4 = timeMetrics([done], S2, '2026-09', { sla, now });
   assert.equal(r4.metrics.t2f1, 4);
+  assert.equal(r4.metrics.quality, 70, 'два возврата с проверки');
   assert.equal(r4.metrics.done, 100, 'взял одну, сдал одну');
 });

@@ -362,8 +362,8 @@ test('уровень задачи можно поправить руками', a
   const { body } = await call('lead', 'GET', '/kpi/board?period=2026-08');
   const kate = body.people.find((p) => p.name === 'Екатерина');
   const aug = kate.months.find((m) => m.period === '2026-08');
-  assert.equal(aug.metrics.t2f3, 1, 'задача ушла на третий уровень: час в работе');
-  assert.equal(aug.metrics.t2f1, 3, 'на первом осталась одна: три часа');
+  assert.equal(aug.metrics.t2f3, 2, 'задача ушла на третий уровень: два часа от постановки');
+  assert.equal(aug.metrics.t2f1, 4, 'на первом осталась одна: четыре часа');
 });
 
 test('ассистенту сверх оклада — только заёбы и экономия', async () => {
@@ -417,8 +417,9 @@ test('месячная сводка в личку строится по моде
     assert.match(text, /из 50.000/);
     assert.match(text, /Отдел/);
     assert.match(text, /Екатерина/);
-    assert.match(text, /до принятия:/);
-    assert.match(text, /в работе:/);
+    assert.match(text, /выполнение:/);
+    assert.match(text, /качество:/);
+    assert.match(text, /решение:/);
     assert.match(text, /квартал: план/);
     assert.match(text, /вкладка «KPI»/);
     assert.equal(sent[0].chat_id, '292525734');
@@ -485,10 +486,10 @@ test('таймер стоит на проверке и идёт снова по�
   let row = get();
   assert.equal(row.paused_min, 7 * 60, 'семь часов на проверке — не в счёт');
   assert.equal(row.returns, 1);
-  assert.equal(row.t2a_hours, 1, 'сразу в работу: час ожидания — в «до принятия»');
-  assert.equal(row.t2s_hours, 0);
-  // в работе: 11:00–13:00 в пн (2 ч) и 12:00–14:00 во вт (2 ч) = 4 ч
-  assert.equal(row.t2f_hours, 4, 'считается только время в «В работе»');
+  assert.equal(row.t2a_hours, 1, 'принята через час — справочно');
+  assert.equal(row.t2s_hours, 1, 'до старта — от постановки');
+  // решение от постановки 10:00 пн: час до старта плюс 2 ч работы в пн и 2 ч во вт
+  assert.equal(row.t2f_hours, 5, 'время на проверке вычтено');
   assert.ok(row.paused_since, 'сейчас снова на проверке — таймер стоит');
 
   // второй возврат: на проверке вт 14:00 → ср 10:00 (4 ч), в работе ещё час
@@ -497,11 +498,11 @@ test('таймер стоит на проверке и идёт снова по�
   row = get();
   assert.equal(row.returns, 2, 'оба возврата посчитаны');
   assert.equal(row.paused_min, 11 * 60, 'паузы складываются: 7 + 4');
-  assert.equal(row.t2f_hours, 5, 'таймер продолжил с четырёх часов и дошёл до пяти');
+  assert.equal(row.t2f_hours, 6, 'таймер продолжил и дошёл до шести часов');
 
   // приняли — время на последней проверке к работе не относится
   await at('2026-08-13T07:00:00Z', 'column_done', { completed: true, completedTimestamp: RealDate.parse('2026-08-13T07:00:00Z') });
   row = get();
-  assert.equal(row.t2f_hours, 5, 'приёмка ничего не добавила');
+  assert.equal(row.t2f_hours, 6, 'приёмка ничего не добавила');
   assert.equal(row.paused_since, null);
 });
