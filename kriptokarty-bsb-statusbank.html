@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>CryptoCourse и Crypto Статус — разбор</title>
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Крипто-карты БСБ Банка и СтатусБанка: оформление, все тарифы по официальным перечням плат, сравнение и расчёты. Сентябрь 2026.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🪙</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F5F5F7;
+    --card:#FFFFFF;
+    --ink:#1D1D1F;
+    --muted:#6E6E73;
+    --line:#E3E3E6;
+    --blue:#0071E3;
+    --green:#1D8348;
+    --green-bg:#E8F5EC;
+    --red:#C0392B;
+    --red-bg:#FDEDEB;
+    --amber:#8A5A00;
+    --amber-bg:#FFF4E0;
+    --radius:20px;
+    --shadow:0 1px 2px rgba(0,0,0,.04), 0 8px 24px rgba(0,0,0,.06);
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0;background:var(--bg);color:var(--ink);
+    font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+    font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1080px;margin:0 auto;padding:0 16px}
+  a{color:var(--blue);text-decoration:none}
+  a:hover{text-decoration:underline}
+  a:focus-visible{outline:2px solid var(--blue);outline-offset:2px;border-radius:4px}
+
+  header.hero{padding:60px 0 28px}
+  .badge{
+    display:inline-flex;align-items:center;gap:8px;background:#fff;
+    border:1px solid var(--line);border-radius:999px;padding:6px 14px;
+    font-size:13px;font-weight:500;color:var(--muted);
+  }
+  .dot{width:7px;height:7px;border-radius:50%;background:var(--green)}
+  h1{font-size:clamp(29px,5vw,44px);line-height:1.13;letter-spacing:-.02em;font-weight:700;margin:20px 0 14px;max-width:22ch}
+  .lead{font-size:clamp(17px,2.2vw,20px);color:var(--muted);max-width:66ch;margin:0}
+  .backlink{margin-top:18px;font-size:15.5px}
+
+  section{padding:34px 0}
+  h2{font-size:clamp(23px,3.2vw,30px);line-height:1.2;letter-spacing:-.015em;font-weight:600;margin:0 0 6px}
+  .sub{color:var(--muted);margin:0 0 22px;max-width:72ch}
+  h3{font-size:19px;font-weight:600;margin:0 0 8px;letter-spacing:-.01em}
+  h4{font-size:16px;font-weight:600;margin:20px 0 8px}
+
+  .bento{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
+  .card{
+    background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    padding:24px;box-shadow:var(--shadow);transition:transform .2s ease, box-shadow .2s ease;
+  }
+  .card:hover{transform:translateY(-2px);box-shadow:0 2px 4px rgba(0,0,0,.05),0 14px 34px rgba(0,0,0,.09)}
+  .card p{margin:0;color:var(--muted);font-size:15.5px}
+  .card p + p{margin-top:10px}
+
+  .tag{display:inline-block;font-size:12px;font-weight:600;letter-spacing:.02em;padding:4px 10px;border-radius:999px;margin-bottom:12px}
+  .tag.ok{background:var(--green-bg);color:var(--green)}
+  .tag.no{background:var(--red-bg);color:var(--red)}
+  .tag.mid{background:var(--amber-bg);color:var(--amber)}
+
+  .track{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:26px;box-shadow:var(--shadow);margin-bottom:16px}
+  .track-head{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin-bottom:4px}
+  .track-head h3{font-size:22px;margin:0}
+  .track-head .tag{margin-bottom:0}
+  .track > p.note{color:var(--muted);font-size:15.5px;margin:6px 0 16px;max-width:74ch}
+
+  .tbl{width:100%;border-collapse:collapse;font-size:15.5px}
+  .tbl th{
+    text-align:left;font-weight:600;font-size:13px;letter-spacing:.03em;text-transform:uppercase;
+    color:var(--muted);border-bottom:1px solid var(--line);padding:0 12px 10px 0;
+  }
+  .tbl td{padding:13px 12px 13px 0;border-bottom:1px solid var(--line);vertical-align:top}
+  .tbl tr:last-child td{border-bottom:none}
+  .tbl td:first-child{font-weight:600}
+  .tbl td .sm{display:block;color:var(--muted);font-size:14px;font-weight:400;margin-top:3px}
+  .num{font-variant-numeric:tabular-nums}
+  .scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  @media (max-width:760px){
+    .tbl, .tbl tbody, .tbl tr, .tbl td{display:block;width:100%}
+    .tbl thead{display:none}
+    .tbl tr{border-bottom:1px solid var(--line);padding:16px 0}
+    .tbl tr:last-child{border-bottom:none}
+    .tbl td{border:none;padding:3px 0}
+    .tbl td:first-child{font-size:17px;margin-bottom:8px}
+    .tbl td[data-l]::before{content:attr(data-l) ": ";color:var(--muted);font-size:14px}
+  }
+
+  ul.clean{margin:0;padding-left:20px;color:var(--muted);font-size:15.5px}
+  ul.clean li{margin-bottom:10px}
+  ul.clean li:last-child{margin-bottom:0}
+  ul.clean strong{color:var(--ink);font-weight:600}
+  ol.steps{margin:0;padding-left:22px;color:var(--muted);font-size:15.5px}
+  ol.steps li{margin-bottom:10px}
+  ol.steps li:last-child{margin-bottom:0}
+  ol.steps strong{color:var(--ink);font-weight:600}
+
+  .callout{background:#FBFBFD;border:1px solid var(--line);border-left:3px solid var(--blue);border-radius:14px;padding:18px 20px;margin-top:18px}
+  .callout.warn{border-left-color:var(--amber)}
+  .callout.stop{border-left-color:var(--red)}
+  .callout p{margin:0;font-size:15.5px;color:var(--muted)}
+  .callout p + p{margin-top:10px}
+  .callout strong{color:var(--ink)}
+  .red{color:var(--red);font-weight:600}
+
+  .calc{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+  .calc .card p.total{color:var(--ink);font-weight:600;margin-top:12px;font-size:16px}
+  .calc ul{margin:10px 0 0;padding-left:18px;font-size:15px;color:var(--muted)}
+  .calc li{margin-bottom:6px}
+
+  .src{font-size:14.5px;color:var(--muted)}
+  .src ol{padding-left:22px;margin:0}
+  .src li{margin-bottom:9px}
+  .src li:last-child{margin-bottom:0}
+
+  footer{padding:36px 0 64px;color:var(--muted);font-size:14px;border-top:1px solid var(--line);margin-top:28px}
+  footer p{margin:0;max-width:78ch}
+
+  .reveal{will-change:transform,opacity}
+  html.js-anim .reveal{opacity:0}
+  @media (prefers-reduced-motion: reduce){
+    html.js-anim .reveal{opacity:1 !important;transform:none !important}
+    .card:hover{transform:none}
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+<header class="hero reveal">
+  <span class="badge"><span class="dot"></span>Тарифы сверены с перечнями плат банков, 26 сентября 2026</span>
+  <h1>CryptoCourse и Crypto Статус: две крипто-карты, которые открываются из Беларуси</h1>
+  <p class="lead">Разбор двух продуктов, оставшихся у белоруса без ВНЖ: Visa «CryptoCourse» от БСБ Банка и Mastercard в рамках пакета «Crypto Статус» от СтатусБанка. Оба банка в санкционных списках ЕС не значатся, у обоих один крипто-партнёр — <a href="https://whitebird.io/" target="_blank" rel="noopener">Whitebird</a>. Все цифры ниже взяты из официальных перечней плат, а не из обзоров.</p>
+  <p class="backlink">← <a href="neobanki-belarus-2026.html">Общий разбор: необанки и карты для граждан Беларуси</a></p>
+</header>
+
+<section>
+  <h2 class="reveal">Коротко</h2>
+  <p class="sub reveal">Главное различие между картами лежит не в крипте, а в тарифах на обычные банковские операции.</p>
+  <div class="bento">
+    <div class="card reveal">
+      <span class="tag ok">CryptoCourse</span>
+      <h3>Дешевле в обслуживании</h3>
+      <p>Visa от <a href="https://www.bsb.by/" target="_blank" rel="noopener">БСБ Банка</a>. Выпуск и обслуживание бесплатны, пополнение карты бесплатно, продажа крипты зачисляется на карту без отдельной комиссии. Но оформляется <strong>только гражданам Беларуси</strong>: в тарифе для нерезидентов стоит «не применяется».</p>
+    </div>
+    <div class="card reveal">
+      <span class="tag mid">Crypto Статус</span>
+      <h3>Открыта нерезидентам</h3>
+      <p>Mastercard от <a href="https://stbank.by/" target="_blank" rel="noopener">СтатусБанка</a>. Резиденту выпуск бесплатный, нерезиденту — 200 BYN. Зато в перечне плат есть строка, которой нет у БСБ: <strong>0,6 % за зачисление денег</strong> на счёт с этой картой.</p>
+    </div>
+    <div class="card reveal">
+      <span class="tag mid">Общее</span>
+      <h3>Один партнёр и одна механика</h3>
+      <p>Крипта на карте не лежит. Обмен проводит Whitebird — резидент ПВТ, верификация проходит на его платформе, банк даёт счёт и карту. Обе карты выпускаются онлайн, без визита в отделение.</p>
+    </div>
+    <div class="card reveal">
+      <span class="tag no">Общий риск</span>
+      <h3>Европа — не их территория</h3>
+      <p>Оба банка вне санкционных списков ЕС, поэтому формально карты в Европе работают. Но платежи с «белорусским компонентом» там регулярно отбиваются на стороне эквайера, так что рассчитывать на них в поездке по ЕС нельзя.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2 class="reveal">Сравнение по пунктам</h2>
+  <p class="sub reveal">Данные из перечня плат БСБ Банка на 25 февраля 2026 года и перечня плат СтатусБанка, действующего с 9 октября 2026 года.</p>
+  <div class="track reveal">
+    <div class="scroll">
+      <table class="tbl">
+        <thead><tr><th>Параметр</th><th>Visa «CryptoCourse», БСБ Банк</th><th>«Crypto Статус», СтатусБанк</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>Кому доступна</td>
+            <td data-l="CryptoCourse">Только гражданам Беларуси. Для нерезидентов в тарифе — «не применяется»</td>
+            <td data-l="Crypto Статус">Резидентам и нерезидентам</td>
+          </tr>
+          <tr>
+            <td>Выпуск</td>
+            <td data-l="CryptoCourse">Бесплатно, вместе с доставкой</td>
+            <td data-l="Crypto Статус">Резиденту бесплатно. Нерезиденту 200 BYN за карту в BYN (списывается с первого поступления), валютная карта — бесплатно</td>
+          </tr>
+          <tr>
+            <td>Обслуживание</td>
+            <td data-l="CryptoCourse">Бесплатно на весь срок действия. Перевыпуск по окончании срока и при компрометации — бесплатно</td>
+            <td data-l="Crypto Статус">Ежемесячная плата не взимается: продукт «Crypto Статус» прямо исключён из платы 5 BYN за карты, выпущенные удалённо</td>
+          </tr>
+          <tr>
+            <td>Зачисление денег на счёт</td>
+            <td data-l="CryptoCourse">Пополнение карты в мобильном банке, интернет-банке, приложении CryptoCourse и через сторонние p2p-сервисы — бесплатно</td>
+            <td data-l="Crypto Статус"><span class="red">0,6 % от суммы</span> за зачисление на счёт с картой «Crypto Статус». Поступления через систему мгновенных платежей — без платы</td>
+          </tr>
+          <tr>
+            <td>Снятие в своих устройствах</td>
+            <td data-l="CryptoCourse">Бесплатно в банкоматах и терминалах БСБ Банка. Выдача по расходному ордеру в кассах банка — бесплатно</td>
+            <td data-l="Crypto Статус">Бесплатно в пунктах выдачи наличных СтатусБанка</td>
+          </tr>
+          <tr>
+            <td>Снятие у партнёров</td>
+            <td data-l="CryptoCourse">0,5 % в банкоматах банков-партнёров. Партнёр в тарифе указан один — Альфа Банк</td>
+            <td data-l="Crypto Статус">Бесплатно в банкоматах Белгазпромбанка и Белагропромбанка</td>
+          </tr>
+          <tr>
+            <td>Снятие в чужих банкоматах</td>
+            <td data-l="CryptoCourse">2 % (минимум 2 BYN) по карте в BYN, 2,5 % по картам в USD и EUR. Столько же — за пределами Беларуси</td>
+            <td data-l="Crypto Статус">3 % от суммы, минимум 4 BYN</td>
+          </tr>
+          <tr>
+            <td>Переводы</td>
+            <td data-l="CryptoCourse">На карты БСБ Банка внутри приложения — бесплатно. На карты других банков Беларуси — 0,5 % + 1,5 %. На карты иностранных банков — 0,5 % + 1,45 %</td>
+            <td data-l="Crypto Статус">Через интернет-банк — бесплатно. В устройствах и сервисах других банков — 2 % от суммы, минимум 2 BYN</td>
+          </tr>
+          <tr>
+            <td>Комиссии за крипту</td>
+            <td data-l="CryptoCourse">Покупка активов с карты в приложении и вывод средств от продажи на карту — без отдельной комиссии, стоимость заложена в курс</td>
+            <td data-l="Crypto Статус">1,5 % при продаже криптоактивов и 2,5 % при покупке</td>
+          </tr>
+          <tr>
+            <td>Валюты и срок</td>
+            <td data-l="CryptoCourse">BYN, USD, EUR. Срок действия 3 года</td>
+            <td data-l="Crypto Статус">BYN, USD, RUB. Срок до 5 лет, на остаток 0,01 %</td>
+          </tr>
+          <tr>
+            <td>Уведомления</td>
+            <td data-l="CryptoCourse">Push и e-mail бесплатно. SMS об операциях за границей на белорусские номера бесплатно. SMS и Viber с 4-го месяца — 1,89 BYN в месяц, на иностранные номера — 20 BYN</td>
+            <td data-l="Crypto Статус">SMS на номера Беларуси — 3,99 BYN в месяц, первый месяц бесплатно; на иные номера — 49 BYN. Запрос баланса в устройствах банка 2 BYN, в чужих — 3 BYN</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2 class="reveal">Visa «CryptoCourse» — как оформить</h2>
+  <div class="track reveal">
+    <div class="track-head"><h3>Порядок действий</h3><span class="tag ok">онлайн, без отделения</span></div>
+    <p class="note">Карта выпускается через партнёрское приложение, а не через мобильный банк БСБ. Банк называет её одной из первых криптокарт в Восточной Европе.</p>
+    <ol class="steps">
+      <li><strong>Скачать приложение CryptoCourse</strong> и зарегистрироваться. Сервис совместный: банк даёт счёт и карту, биржевую часть обеспечивает Whitebird.</li>
+      <li><strong>Пройти онлайн-идентификацию</strong> — по паспорту гражданина Беларуси, без визита в банк.</li>
+      <li><strong>Получить виртуальную карту.</strong> Она выпускается сразу при регистрации в одной из валют: BYN, USD или EUR.</li>
+      <li><strong>При желании выпустить пластик</strong> к счёту виртуальной карты — после подтверждения аккаунта. Выпуск, доставка и обслуживание бесплатны, срок действия 3 года.</li>
+    </ol>
+    <h4>На что обратить внимание в тарифе</h4>
+    <ul class="clean">
+      <li><strong>Пополнение ЕРИП не работает.</strong> В строке про АИС «Расчет» для колонки CryptoCourse стоит «не применяется» — пополнять нужно переводом, в приложении или в кассе банка.</li>
+      <li><strong>Снятие наличных в кассе банка стало бесплатным.</strong> В версии тарифа от апреля 2025 года за выдачу по расходному ордеру брали фиксированно 5, 50 или 100 BYN в зависимости от суммы; в действующей версии — бесплатно.</li>
+      <li><strong>Банкоматы Альфа Банка — не бесплатны.</strong> По остальным картам БСБ снятие у партнёров бесплатное, а по CryptoCourse — 0,5 %.</li>
+      <li><strong>Переводы с карты дороже обычных.</strong> К стандартной комиссии добавляется 0,5 %: на карты банков Беларуси выходит 0,5 % + 1,5 %, на иностранные — 0,5 % + 1,45 %.</li>
+      <li><strong>Спорные операции.</strong> Необоснованное опротестование платежа стоит 37 BYN на первом этапе и 47 BYN на следующем, дальше — 47 BYN плюс 10 % от оспариваемой суммы.</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <h2 class="reveal">«Crypto Статус» — как оформить</h2>
+  <div class="track reveal">
+    <div class="track-head"><h3>Порядок действий</h3><span class="tag ok">онлайн через whitebird.io</span></div>
+    <p class="note">Здесь связка с Whitebird закреплена прямо в тарифе банка: выпуск идёт через сайт партнёра, а клиенты проходят идентификацию «на платформе whitebird.io» — это отдельная категория клиентов в перечне плат.</p>
+    <ol class="steps">
+      <li><strong>Зарегистрироваться на <a href="https://whitebird.io/" target="_blank" rel="noopener">whitebird.io</a></strong> и пройти верификацию: удостоверение личности, селфи, телефон.</li>
+      <li><strong>В личном кабинете выпустить карту.</strong> Банк открывает текущий счёт и выпускает цифровую карту — мгновенно, в BYN, USD или RUB.</li>
+      <li><strong>Нерезиденту</strong> плата 200 BYN за карту в белорусских рублях спишется с первого поступления денег на счёт; карта в иностранной валюте выпускается без платы.</li>
+      <li><strong>Пластик</strong> — это дополнительная карта к основной: 100 BYN за Mastercard World или Visa Gold. Доставка по Беларуси и России.</li>
+    </ol>
+    <h4>На что обратить внимание в тарифе</h4>
+    <ul class="clean">
+      <li><strong>Лимит снятия:</strong> 1000 $ в эквиваленте в сутки по картам в BYN и USD, 2000 $ — по карте в RUB.</li>
+      <li><strong>Пополнение наличными рублями через кассу дорогое:</strong> 5 % от суммы для резидента и 15 % для нерезидента. Наличные в BYN в кассу — бесплатно.</li>
+      <li><strong>Перевод за пределы Беларуси в российских рублях</strong> — 3 % от суммы.</li>
+      <li><strong>Повторная выдача ПИН-кода по SMS</strong> — 3,5 BYN за запрос; информация о балансе через службу поддержки — 3 BYN за запрос.</li>
+      <li><strong>Категория карты.</strong> На странице продукта указаны Mastercard Standard и Visa Classic, в перечне плат продукт описан как Mastercard World. Категорию стоит уточнить при выпуске — от неё зависят лимиты и привилегии платёжной системы.</li>
+    </ul>
+    <div class="callout stop">
+      <p><strong>Ключевой пункт, который легко пропустить.</strong> В разделе о зачислениях есть отдельная строка: 0,6 % от суммы — за зачисление денег на текущий счёт, к которому выпущена карта «Crypto Статус». В том же пункте указана ставка 0,1 % за зачисление со счёта юридического лица — резидента ПВТ, открытого в СтатусБанке, а Whitebird как раз резидент ПВТ. Зачисления через систему мгновенных платежей идут без платы.</p>
+      <p>Какая из ставок применится именно к выводу денег от продажи крипты, зависит от того, с какого счёта уходит перевод, и по тексту перечня это однозначно не определяется. Перед первым крупным выводом стоит запросить письменное подтверждение в поддержке банка или Whitebird: на сумме 10 000 $ разница между 0,1 % и 0,6 % — это 50 $.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2 class="reveal">Сколько стоит вывести 1000 $ и снять наличными</h2>
+  <p class="sub reveal">Расчёт по действующим тарифам, без учёта курсовой разницы при обмене крипты. Наличные снимаем в банкомате своего банка.</p>
+  <div class="calc">
+    <div class="card reveal">
+      <span class="tag ok">CryptoCourse</span>
+      <h3>Около 0 $ комиссий</h3>
+      <ul>
+        <li>Продажа крипты и вывод на карту — без отдельной комиссии</li>
+        <li>Зачисление на счёт — бесплатно</li>
+        <li>Снятие в банкомате БСБ Банка — бесплатно</li>
+      </ul>
+      <p class="total">Итого: только спред в курсе обмена.</p>
+    </div>
+    <div class="card reveal">
+      <span class="tag mid">Crypto Статус</span>
+      <h3>от 16 до 21 $</h3>
+      <ul>
+        <li>Продажа криптоактивов — 1,5 %, это 15 $</li>
+        <li>Зачисление на счёт — 0,1 % или 0,6 %, то есть от 1 до 6 $</li>
+        <li>Снятие в пункте выдачи банка или в банкомате Белгазпромбанка — бесплатно</li>
+      </ul>
+      <p class="total">Итого: 16–21 $ плюс курс.</p>
+    </div>
+    <div class="card reveal">
+      <span class="tag no">Если банкомат чужой</span>
+      <h3>Разница растёт</h3>
+      <ul>
+        <li>CryptoCourse: 2,5 % по валютной карте — плюс 25 $</li>
+        <li>Crypto Статус: 3 % — плюс 30 $</li>
+        <li>Плюс возможная комиссия банка-владельца банкомата</li>
+      </ul>
+      <p class="total">Снимать выгодно только в своей сети.</p>
+    </div>
+  </div>
+  <div class="callout warn">
+    <p><strong>Про курс.</strong> У CryptoCourse отсутствие процента за операцию не значит, что обмен бесплатный: наценка сидит в курсе покупки и продажи. Прежде чем выбирать карту по строке «без комиссии», сравните курс в приложении с курсом на Whitebird в тот же момент — разница в курсе легко перекрывает 1,5 %.</p>
+  </div>
+</section>
+
+<section>
+  <h2 class="reveal">Что выбрать под задачу</h2>
+  <div class="bento">
+    <div class="card reveal">
+      <span class="tag ok">Повседневные траты в Беларуси</span>
+      <p><strong>CryptoCourse.</strong> Бесплатное обслуживание, бесплатное пополнение, бесплатное снятие в своей сети и в кассе. Единственное неудобство — ЕРИП не поддерживается.</p>
+    </div>
+    <div class="card reveal">
+      <span class="tag mid">Вы нерезидент Беларуси</span>
+      <p><strong>Только Crypto Статус.</strong> CryptoCourse нерезиденту не выпускают. Учтите 200 BYN за карту в BYN и 15 % за внесение наличных рублей через кассу.</p>
+    </div>
+    <div class="card reveal">
+      <span class="tag mid">Много переводов на чужие карты</span>
+      <p><strong>Crypto Статус.</strong> 2 % в сервисах других банков против 0,5 % + 1,5 % у CryptoCourse, а через интернет-банк переводы бесплатны.</p>
+    </div>
+    <div class="card reveal">
+      <span class="tag ok">Крупные суммы от продажи крипты</span>
+      <p><strong>CryptoCourse.</strong> У СтатусБанка на каждом зачислении возникает процент, и на больших суммах он не ограничен максимумом — в отличие от обычных зачислений, где стоит лимит 220 BYN.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2 class="reveal">Оговорки, которые важнее тарифов</h2>
+  <div class="card reveal">
+    <ul class="clean">
+      <li><strong>Криптовалюта в Беларуси не платёжное средство.</strong> Владеть, обменивать и получать доход законно, доход физлица от операций подоходным налогом не облагается, но платить криптой за товары и услуги, выдавать её в зарплату и менять на иное имущество запрещено. Карта — это именно способ превратить актив в обычные деньги.</li>
+      <li><strong>Оба банка вне санкционных списков ЕС</strong> — в 19-м пакете из белорусских банков назывались Альфа-Банк, Сбер Банк и Банк ВТБ (Беларусь). Но отсутствие банка в списке не гарантирует приём карты в Европе: операции с «белорусским компонентом» блокируют сами европейские банки и сервисы.</li>
+      <li><strong>Тарифы меняются каждый месяц.</strong> Перечень плат СтатусБанка за 2026 год обновлялся как минимум в июле, сентябре и октябре, у БСБ — в январе, феврале и марте. Перед оформлением откройте PDF по ссылкам ниже и сверьте строку, которая для вас критична.</li>
+      <li><strong>Верификация идёт у партнёра.</strong> Для обеих карт KYC проходит Whitebird или приложение CryptoCourse, то есть данные вы отдаёте не только банку. Без верификации ни обмен, ни вывод недоступны.</li>
+      <li><strong>Whitebird превращается в криптобанк.</strong> После Указа № 19 от 16 января 2026 года компания начала трансформацию в первый криптобанк страны. Это значит, что условия обеих карт в течение 2026 года, скорее всего, будут переписаны.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="src">
+  <h2 class="reveal" style="color:var(--ink)">Источники</h2>
+  <div class="card reveal">
+    <ol>
+      <li>БСБ Банк, тарифы на 25.02.2026: <a href="https://box.bsb.by/media/virtualnye-karty-7.pdf" target="_blank" rel="noopener">раздел 7 «Виртуальные карты» (PDF)</a> — колонка Visa CryptoCourse Digital; <a href="https://box.bsb.by/media/bankovskie-platyozhnye-karty.pdf" target="_blank" rel="noopener">раздел 5 «Международные дебетовые карточки» (PDF)</a> — колонка Visa «CryptoCourse»; предыдущая редакция для сравнения — <a href="https://box.bsb.by/media/debetovye-bankovskie-platyozhnye-kartochki-1.pdf" target="_blank" rel="noopener">тарифы на 14.04.2025 (PDF)</a></li>
+      <li>СтатусБанк: <a href="https://stbank.by/upload/iblock/c22/n6wl2iktttjyjk1kkxh2iixlpc25y5oh/Platy-dlya-fiz-lits-s-09.10.26.pdf" target="_blank" rel="noopener">платы для физических лиц с 09.10.2026 (PDF)</a>, страница тарифов — <a href="https://stbank.by/about-the-bank/general-information/tariff/" target="_blank" rel="noopener">stbank.by</a></li>
+      <li>Страница продукта «Crypto Статус» — <a href="https://stbank.by/private-client/payment-cards/virtualnye-kartochki/statuskarta-kripto/" target="_blank" rel="noopener">СтатусБанк</a>; условия снятия наличных — <a href="https://stbank.by/private-client/uslugi-i-servisy-dlya-derzhateley-kartochek/snyatie-nalichnykh/" target="_blank" rel="noopener">stbank.by</a></li>
+      <li>Запуск CryptoCourse и условия карты — <a href="https://primepress.by/news/finansi/bsb_bank_zapustil_novuyu_kartu_visa_dlya_sdelok_s_kriptovalyutoy-48377/" target="_blank" rel="noopener">PrimePress</a>, <a href="https://www.bsb.by/novosti-bsb-banka/cryptocourse-v-obnovlyonnom-formate-teper-s-podderzhkoj-usdt-i-novym-pulom-aktivov" target="_blank" rel="noopener">новости БСБ Банка</a>, курсы приложения — <a href="https://banki24.by/kurs/cryptocourse" target="_blank" rel="noopener">banki24.by</a></li>
+      <li>Whitebird как оператор криптоплатформы и резидент ПВТ, трансформация в криптобанк — <a href="https://forklog.com/exclusive/whitebird-kak-rabotaet-universalnaya-kriptoplatforma-dlya-polzovatelej-iz-sng" target="_blank" rel="noopener">ForkLog</a>, <a href="https://whitebird.io/" target="_blank" rel="noopener">whitebird.io</a></li>
+      <li>Белорусские банки в 19-м пакете санкций ЕС — <a href="https://myfin.by/article/rynki/es-prinal-19-j-paket-sankcij-protiv-rossii-zatragivaet-li-belarus-41265" target="_blank" rel="noopener">Myfin</a>; какие карты работают за границей — <a href="https://citydog.io/post/karty-zagranicej/" target="_blank" rel="noopener">CityDog</a></li>
+      <li>Налоги и правовой статус крипты в Беларуси — <a href="https://pravo.by/novosti/obshchestvenno-politicheskie-i-v-oblasti-prava/2026/february/92358/" target="_blank" rel="noopener">разъяснения Нацбанка о криптобанках</a>, <a href="https://president.gov.by/ru/documents/ukaz-no-19-ot-16-anvara-2026-g" target="_blank" rel="noopener">Указ № 19</a></li>
+    </ol>
+  </div>
+</section>
+
+<footer>
+  <p>Тарифы сверены 26 сентября 2026 года по официальным перечням плат ЗАО «БСБ Банк» и ОАО «СтатусБанк». Банки меняют условия ежемесячно — перед оформлением проверяйте действующую редакцию документа. Страница закрыта от индексации.</p>
+</footer>
+
+</div>
+
+<script type="module">
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const targets = document.querySelectorAll('.reveal');
+  const show = () => {
+    document.documentElement.classList.remove('js-anim');
+    targets.forEach(el => { el.style.opacity = '1'; el.style.transform = 'none'; });
+  };
+  if (!reduce) {
+    document.documentElement.classList.add('js-anim');
+    const failsafe = setTimeout(show, 2500);
+    try {
+      const { animate, inView, stagger, spring } = await import('https://cdn.jsdelivr.net/npm/motion@11/+esm');
+      clearTimeout(failsafe);
+      targets.forEach(el => {
+        inView(el, (target) => {
+          animate(target, { opacity: [0, 1], y: [18, 0] }, { duration: 0.5, easing: spring({ stiffness: 110, damping: 18 }) });
+          const items = target.querySelectorAll('ul.clean > li, ol.steps > li');
+          if (items.length > 1) {
+            animate(items, { opacity: [0, 1], y: [10, 0] }, { duration: 0.4, delay: stagger(0.04) });
+          }
+        }, { amount: 0.12 });
+      });
+      setTimeout(() => {
+        targets.forEach(el => {
+          const r = el.getBoundingClientRect();
+          if (r.top < window.innerHeight && getComputedStyle(el).opacity === '0') {
+            animate(el, { opacity: [0, 1], y: [18, 0] }, { duration: 0.5 });
+          }
+        });
+      }, 700);
+    } catch (e) {
+      clearTimeout(failsafe);
+      show();
+    }
+  }
+</script>
+</body>
+</html>
