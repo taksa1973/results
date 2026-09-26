@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Необанки и карты для белорусов — 2026</title>
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Что реально доступно гражданам Беларуси вместо Tria: разбор по трём трекам резидентства, сентябрь 2026.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💳</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F5F5F7;
+    --card:#FFFFFF;
+    --ink:#1D1D1F;
+    --muted:#6E6E73;
+    --line:#E3E3E6;
+    --blue:#0071E3;
+    --green:#1D8348;
+    --green-bg:#E8F5EC;
+    --red:#C0392B;
+    --red-bg:#FDEDEB;
+    --amber:#8A5A00;
+    --amber-bg:#FFF4E0;
+    --radius:20px;
+    --shadow:0 1px 2px rgba(0,0,0,.04), 0 8px 24px rgba(0,0,0,.06);
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+    font-size:17px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1080px;margin:0 auto;padding:0 16px}
+  a{color:var(--blue);text-decoration:none}
+  a:hover{text-decoration:underline}
+  a:focus-visible{outline:2px solid var(--blue);outline-offset:2px;border-radius:4px}
+
+  header.hero{padding:64px 0 32px}
+  .badge{
+    display:inline-flex;align-items:center;gap:8px;
+    background:#fff;border:1px solid var(--line);border-radius:999px;
+    padding:6px 14px;font-size:13px;font-weight:500;color:var(--muted);
+  }
+  .dot{width:7px;height:7px;border-radius:50%;background:var(--green)}
+  h1{
+    font-size:clamp(30px,5.2vw,46px);line-height:1.12;letter-spacing:-.02em;
+    font-weight:700;margin:20px 0 14px;max-width:20ch;
+  }
+  .lead{font-size:clamp(17px,2.2vw,20px);color:var(--muted);max-width:66ch;margin:0}
+
+  section{padding:36px 0}
+  h2{
+    font-size:clamp(23px,3.2vw,30px);line-height:1.2;letter-spacing:-.015em;
+    font-weight:600;margin:0 0 6px;
+  }
+  .sub{color:var(--muted);margin:0 0 24px;max-width:70ch}
+  h3{font-size:19px;font-weight:600;margin:0 0 8px;letter-spacing:-.01em}
+
+  .bento{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+  .card{
+    background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    padding:24px;box-shadow:var(--shadow);
+    transition:transform .2s ease, box-shadow .2s ease;
+  }
+  .card:hover{transform:translateY(-2px);box-shadow:0 2px 4px rgba(0,0,0,.05),0 14px 34px rgba(0,0,0,.09)}
+  .card p{margin:0;color:var(--muted);font-size:15.5px}
+  .card p + p{margin-top:10px}
+
+  .tag{
+    display:inline-block;font-size:12px;font-weight:600;letter-spacing:.02em;
+    padding:4px 10px;border-radius:999px;margin-bottom:12px;
+  }
+  .tag.ok{background:var(--green-bg);color:var(--green)}
+  .tag.no{background:var(--red-bg);color:var(--red)}
+  .tag.mid{background:var(--amber-bg);color:var(--amber)}
+
+  .track{
+    background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    padding:26px;box-shadow:var(--shadow);margin-bottom:16px;
+  }
+  .track-head{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin-bottom:4px}
+  .track-head h3{font-size:22px;margin:0}
+  .track-head .tag{margin-bottom:0}
+  .track > p.note{color:var(--muted);font-size:15.5px;margin:6px 0 18px;max-width:72ch}
+
+  .tbl{width:100%;border-collapse:collapse;font-size:15.5px}
+  .tbl th{
+    text-align:left;font-weight:600;font-size:13px;letter-spacing:.03em;text-transform:uppercase;
+    color:var(--muted);border-bottom:1px solid var(--line);padding:0 12px 10px 0;
+  }
+  .tbl td{padding:14px 12px 14px 0;border-bottom:1px solid var(--line);vertical-align:top}
+  .tbl tr:last-child td{border-bottom:none}
+  .tbl td:first-child{font-weight:600}
+  .tbl td .sm{display:block;color:var(--muted);font-size:14px;font-weight:400;margin-top:3px}
+  .scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  @media (max-width:760px){
+    .tbl, .tbl tbody, .tbl tr, .tbl td{display:block;width:100%}
+    .tbl thead{display:none}
+    .tbl tr{border-bottom:1px solid var(--line);padding:16px 0}
+    .tbl tr:last-child{border-bottom:none}
+    .tbl td{border:none;padding:3px 0}
+    .tbl td:first-child{font-size:17px;margin-bottom:8px}
+    .tbl td[data-l]::before{content:attr(data-l) ": ";color:var(--muted);font-size:14px}
+  }
+
+  .timeline{list-style:none;margin:0;padding:0}
+  .timeline li{
+    display:grid;grid-template-columns:140px 1fr;gap:16px;
+    padding:14px 0;border-bottom:1px solid var(--line);
+  }
+  .timeline li:last-child{border-bottom:none}
+  .timeline time{font-weight:600;font-size:15px;font-variant-numeric:tabular-nums;color:var(--ink)}
+  .timeline p{margin:0;color:var(--muted);font-size:15.5px}
+  @media (max-width:560px){.timeline li{grid-template-columns:1fr;gap:4px}}
+
+  ul.clean{margin:0;padding-left:20px;color:var(--muted);font-size:15.5px}
+  ul.clean li{margin-bottom:10px}
+  ul.clean li:last-child{margin-bottom:0}
+  ul.clean strong{color:var(--ink);font-weight:600}
+
+  .callout{
+    background:#FBFBFD;border:1px solid var(--line);border-left:3px solid var(--blue);
+    border-radius:14px;padding:18px 20px;margin-top:18px;
+  }
+  .callout.warn{border-left-color:var(--amber)}
+  .callout p{margin:0;font-size:15.5px;color:var(--muted)}
+  .callout strong{color:var(--ink)}
+  .stop{color:var(--red);font-weight:600}
+
+  .src{font-size:14.5px;color:var(--muted)}
+  .src ol{padding-left:22px;margin:0}
+  .src li{margin-bottom:9px}
+  .src li:last-child{margin-bottom:0}
+
+  footer{padding:36px 0 64px;color:var(--muted);font-size:14px;border-top:1px solid var(--line);margin-top:28px}
+  footer p{margin:0;max-width:78ch}
+
+  .reveal{will-change:transform,opacity}
+  html.js-anim .reveal{opacity:0}
+  @media (prefers-reduced-motion: reduce){
+    html.js-anim .reveal{opacity:1 !important;transform:none !important}
+    .card:hover{transform:none}
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+<header class="hero reveal">
+  <span class="badge"><span class="dot"></span>Проверено 26 сентября 2026</span>
+  <h1>Необанки и карты для граждан Беларуси</h1>
+  <p class="lead">Tria белорусам недоступна: Беларусь прямо указана в её списке запрещённых юрисдикций. Ниже — то, что реально открывается в сентябре 2026, разложенное по единственному критерию, который сейчас решает всё: какой у человека документ о резидентстве.</p>
+</header>
+
+<section>
+  <h2 class="reveal">Коротко</h2>
+  <p class="sub reveal">Четыре вывода, из которых следует остальное.</p>
+  <div class="bento">
+    <div class="card reveal">
+      <span class="tag no">Tria</span>
+      <h3>Беларусь в списке запрета</h3>
+      <p>В <a href="https://docs.tria.so/prohibitions-list" target="_blank" rel="noopener">Prohibitions List</a> сервиса <a href="https://www.tria.so/" target="_blank" rel="noopener">Tria</a> (раздел 4D) Беларусь и Россия перечислены среди юрисдикций, запрещённых из-за риска отмывания. Ни регистрации, ни карты — независимо от того, где человек живёт.</p>
+    </div>
+    <div class="card reveal">
+      <span class="tag mid">Главный фильтр</span>
+      <h3>Решает документ, а не бренд</h3>
+      <p>Для европейских финтехов паспорт Беларуси — стоп-фактор сам по себе. Снимает его только одно: ВНЖ, ПМЖ или гражданство страны ЕЭЗ либо Швейцарии.</p>
+    </div>
+    <div class="card reveal">
+      <span class="tag ok">Что остаётся</span>
+      <h3>Три рабочих трека</h3>
+      <p>С документом ЕЭЗ — обычные необанки. Без него, но с возможностью выехать — банки Кыргызстана, Армении, Казахстана, Узбекистана. Совсем без выезда — крипто-карты белорусских банков в связке с площадками ПВТ.</p>
+    </div>
+    <div class="card reveal">
+      <span class="tag no">Причина</span>
+      <h3>Регламент ЕС 2025/2041</h3>
+      <p>23 октября 2025 года в рамках 19-го пакета ЕС запретил оказывать белорусским гражданам и резидентам услуги с криптоактивами, часть платёжных услуг и обслуживание крипто-кошельков. Отсюда волна блокировок у Wise, Revolut, Paysera и bunq.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2 class="reveal">Как закрывалась дверь</h2>
+  <p class="sub reveal">Хронология нужна, чтобы отличать действующие правила от устаревших советов на форумах.</p>
+  <div class="card reveal">
+    <ul class="timeline">
+      <li>
+        <time>9 марта 2022</time>
+        <p>ЕС запрещает принимать депозиты свыше 100 000 € от граждан и резидентов Беларуси (Решение Совета 2022/332). Ограничение не действует на тех, у кого есть гражданство или резидентство страны ЕЭЗ.</p>
+      </li>
+      <li>
+        <time>27 мая 2022</time>
+        <p><a href="https://wise.com/" target="_blank" rel="noopener">Wise</a> закрывает все счета клиентов из Беларуси и с тех пор новых не открывает: «We're not able to serve customers in Belarus at the moment».</p>
+      </li>
+      <li>
+        <time>24 февраля 2025</time>
+        <p>Запрет на депозиты распространён на компании третьих стран, где белорусским гражданам принадлежит более 50 % (Регламент 2025/392).</p>
+      </li>
+      <li>
+        <time>23 октября 2025</time>
+        <p>19-й пакет. По Беларуси — Регламент Совета 2025/2041: запрет крипто-услуг, части платёжных услуг и обслуживания крипто-кошельков. В тот же день <a href="https://www.bunq.com/" target="_blank" rel="noopener">bunq</a> вводит требование подтвердить ВНЖ или гражданство ЕС, ЕЭЗ, Швейцарии.</p>
+      </li>
+      <li>
+        <time>ноябрь 2025</time>
+        <p><a href="https://www.paysera.com/" target="_blank" rel="noopener">Paysera</a> требует европейский ВНЖ от белорусов и россиян с национальными визами D под угрозой закрытия счёта. Счетам с ВНЖ ЕС блокировка не грозит.</p>
+      </li>
+      <li>
+        <time>9 декабря 2025</time>
+        <p>Мининформ Беларуси ограничивает доступ к сайтам OKX, Bitget, BingX, Bybit, Weex и Gate — формально за нарушения в рекламе. Позже часть площадок из списка убрали.</p>
+      </li>
+      <li>
+        <time>16 января 2026</time>
+        <p>Подписан Указ № 19 «О криптобанках», вступил в силу 25 января: правовая рамка для банков, совмещающих обычные операции с токенами.</p>
+      </li>
+      <li>
+        <time>30 января 2026</time>
+        <p>Дедлайн Wise: карты граждан Беларуси и России без документа ЕЭЗ или Швейцарии отключены навсегда. Отправка, получение, хранение и обмен денег сохраняются.</p>
+      </li>
+      <li>
+        <time>март–апрель 2026</time>
+        <p>Visa и Mastercard Альфа-Банка, Белгазпромбанка и Белагропромбанка перестают приниматься в ЕС, Великобритании и странах ЕАСТ.</p>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <h2 class="reveal">Трек A. Есть ВНЖ, ПМЖ или гражданство ЕЭЗ либо Швейцарии</h2>
+  <p class="sub reveal">Единственный сценарий, в котором доступны настоящие необанки с IBAN. Документ о проживании загружается в приложении — без него аккаунт уходит в ограничения, даже если он открыт несколько лет назад.</p>
+
+  <div class="track reveal">
+    <div class="track-head"><h3>Фиатные необанки</h3><span class="tag ok">работают с документом ЕЭЗ</span></div>
+    <p class="note">Все пять публично подтвердили политику: гражданство Беларуси допустимо, если подтверждено проживание в ЕЭЗ или Швейцарии.</p>
+    <div class="scroll">
+      <table class="tbl">
+        <thead><tr><th>Сервис</th><th>Что даёт</th><th>Условие для паспорта РБ</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><a href="https://www.revolut.com/" target="_blank" rel="noopener">Revolut</a></td>
+            <td data-l="Что даёт">Счёт с IBAN, карта, мультивалюта<span class="sm">Беларуси нет в списке стран регистрации</span></td>
+            <td data-l="Условие">ВНЖ или ПМЖ страны ЕЭЗ. Счета, открытые по визам D и гуманитарным визам, блокировали; часть разблокировали после загрузки ВНЖ</td>
+          </tr>
+          <tr>
+            <td><a href="https://www.bunq.com/" target="_blank" rel="noopener">bunq</a></td>
+            <td data-l="Что даёт">Нидерландский IBAN, карты, подсчёты<span class="sm">Политика опубликована в справке банка</span></td>
+            <td data-l="Условие">Паспорт одной из 31 страны ЕС, ЕЭЗ, Швейцарии, либо ВНЖ на срок не менее 90 дней, либо национальное ID. Требование с 23 октября 2025</td>
+          </tr>
+          <tr>
+            <td><a href="https://www.paysera.com/" target="_blank" rel="noopener">Paysera</a></td>
+            <td data-l="Что даёт">Литовский IBAN, карта, переводы<span class="sm">Популярна у белорусов в Литве и Польше</span></td>
+            <td data-l="Условие">Европейский ВНЖ. Национальная виза D недостаточна — счета таких клиентов заморозили</td>
+          </tr>
+          <tr>
+            <td><a href="https://wise.com/" target="_blank" rel="noopener">Wise</a></td>
+            <td data-l="Что даёт">Счёт в 40+ валютах, локальные реквизиты<span class="sm">Из Беларуси новый счёт открыть нельзя в принципе</span></td>
+            <td data-l="Условие">Только при проживании вне Беларуси. Карта — лишь с паспортом ЕЭЗ, ВНЖ или визой ЕЭЗ и Швейцарии, загруженными до 30 января 2026</td>
+          </tr>
+          <tr>
+            <td><a href="https://n26.com/" target="_blank" rel="noopener">N26</a></td>
+            <td data-l="Что даёт">Немецкий IBAN, карта Mastercard<span class="sm">Работает примерно в двух десятках стран</span></td>
+            <td data-l="Условие">Обязателен адрес проживания в поддерживаемой стране, иначе заявка не проходит</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="track reveal">
+    <div class="track-head"><h3>Крипто-карты — прямые аналоги Tria</h3><span class="tag mid">по адресу ЕЭЗ</span></div>
+    <p class="note">Это та же категория, к которой относится Tria: кошелёк плюс Visa или Mastercard. Все они привязаны к стране проживания, а не только к паспорту, поэтому открываются с адресом ЕЭЗ — и не открываются с белорусским.</p>
+    <div class="scroll">
+      <table class="tbl">
+        <thead><tr><th>Сервис</th><th>География</th><th>Нюанс</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><a href="https://www.bybit.com/" target="_blank" rel="noopener">Bybit Card</a></td>
+            <td data-l="География">30 стран ЕЭЗ, Великобритания, ОАЭ, Турция (виртуальная)</td>
+            <td data-l="Нюанс">В перечне стран, ограниченных для самой биржи Bybit, Беларусь не значится, но карта выпускается только по региональным программам, где Беларуси нет</td>
+          </tr>
+          <tr>
+            <td><a href="https://wirexapp.com/" target="_blank" rel="noopener">Wirex</a></td>
+            <td data-l="География">ЕЭЗ, Великобритания, Швейцария, Черногория, Монако, Андорра, Гибралтар</td>
+            <td data-l="Нюанс">Беларуси в списке поддерживаемых стран нет</td>
+          </tr>
+          <tr>
+            <td><a href="https://www.kast.xyz/" target="_blank" rel="noopener">KAST</a></td>
+            <td data-l="География">заявлено 170+ стран</td>
+            <td data-l="Нюанс">По обзорам Беларусь и Россия входят в restricted-список; официальная страница ограничений закрыта от внешнего просмотра, условия видны только внутри регистрации</td>
+          </tr>
+          <tr>
+            <td><a href="https://www.redotpay.com/" target="_blank" rel="noopener">RedotPay</a></td>
+            <td data-l="География">100+ стран</td>
+            <td data-l="Нюанс">Беларусь прямо в списке 38 неподдерживаемых регионов в справке сервиса: ни KYC, ни карты</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout warn">
+      <p><strong>Практический смысл:</strong> KAST и RedotPay попадают в трек A только при документе и адресе поддерживаемой страны. Белорусский паспорт с белорусским адресом не проходит верификацию ни в одном из четырёх сервисов.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2 class="reveal">Трек B. ВНЖ ЕС нет, но выехать можно</h2>
+  <p class="sub reveal">Счёт в стране, которая не применяет европейские ограничения. Карты Visa и Mastercard этих банков работают за границей. Почти везде нужен личный визит — это и есть плата за доступ.</p>
+
+  <div class="track reveal">
+    <div class="track-head"><h3>Банки СНГ, Кавказа и Центральной Азии</h3><span class="tag ok">паспорт РБ принимается</span></div>
+    <p class="note">Ни одна из этих стран не входит в ЕЭЗ, поэтому Регламент 2025/2041 на них не распространяется. Ограничения здесь внутренние: комплаенс конкретного банка и местные требования к идентификации.</p>
+    <div class="scroll">
+      <table class="tbl">
+        <thead><tr><th>Где</th><th>Банки</th><th>Что нужно</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>Кыргызстан</td>
+            <td data-l="Банки"><a href="https://bakai.kg/" target="_blank" rel="noopener">Bakai Bank</a>, <a href="https://mbank.kg/" target="_blank" rel="noopener">MBank</a><span class="sm">Самый мягкий вход из всех вариантов</span></td>
+            <td data-l="Что нужно">Bakai заявляет открытие счёта нерезиденту без обязательного визита в страну и держит отдельный список документов для иностранцев; MBank официально — только в отделении, на практике допускает доверенность. Карты Visa со сроком до 5 лет, работают за рубежом. Выдача нерезидентам периодически приостанавливается на месяцы</td>
+          </tr>
+          <tr>
+            <td>Армения</td>
+            <td data-l="Банки"><a href="https://ameriabank.am/" target="_blank" rel="noopener">Ameriabank</a>, <a href="https://www.evoca.am/" target="_blank" rel="noopener">Evocabank</a>, <a href="https://idbank.am/" target="_blank" rel="noopener">IDBank</a>, <a href="https://ardshinbank.am/" target="_blank" rel="noopener">Ardshinbank</a></td>
+            <td data-l="Что нужно">Полностью дистанционно в 2026 году не открывает ни один крупный банк: минимум один визит в отделение, онлайн-заявка лишь экономит время в очереди. Карта за 1–7 рабочих дней, Visa или Mastercard с международной оплатой. Могут запросить адрес, подтверждение дохода и происхождение средств</td>
+          </tr>
+          <tr>
+            <td>Казахстан</td>
+            <td data-l="Банки"><a href="https://bankffin.kz/" target="_blank" rel="noopener">Freedom Bank</a></td>
+            <td data-l="Что нужно">Личное присутствие в отделении, ИИН бумажной справкой из ЦОНа (дистанционно ИИН не получить) и местный номер. Гражданам ЕАЭС, включая Беларусь, при пребывании до 90 дней миграционная регистрация не требуется. С 2025 года карты нерезидентам выдают на один год</td>
+          </tr>
+          <tr>
+            <td>Узбекистан</td>
+            <td data-l="Банки"><a href="https://kapitalbank.uz/" target="_blank" rel="noopener">Kapitalbank</a></td>
+            <td data-l="Что нужно">ПИНФЛ в налоговой по месту временной регистрации (1–3 дня), узбекская SIM, депозит около 10 € до закрытия счёта. Открытие по доверенности в 2026 году закрыли. Kapitalbank — фактически единственный банк, выдающий нерезидентам Visa</td>
+          </tr>
+          <tr>
+            <td>Грузия</td>
+            <td data-l="Банки"><a href="https://bankofgeorgia.ge/" target="_blank" rel="noopener">Bank of Georgia</a>, <a href="https://tbcbank.ge/" target="_blank" rel="noopener">TBC Bank</a><span class="sm">Высокий риск отказа</span></td>
+            <td data-l="Что нужно">В 2026 году процедуры подтянули к стандартам FATF: спрашивают источник средств, цель счёта и причину выбора Грузии. Гражданам подсанкционных и высокорисковых юрисдикций крупные банки массово отказывают. Дистанционно — по нотариальной доверенности, 2–4 недели</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2 class="reveal">Трек C. Никуда не выезжая</h2>
+  <p class="sub reveal">Это и есть настоящий ответ на вопрос «необанк для белоруса без ВНЖ»: карта, привязанная к крипто-счёту, выпущенная белорусским банком в связке с площадкой ПВТ и оформляемая онлайн по паспорту.</p>
+
+  <div class="track reveal">
+    <div class="track-head"><h3>Крипто-карты белорусских банков</h3><span class="tag ok">онлайн, паспорт РБ</span></div>
+    <p class="note">Механика у всех одна: банк остаётся посредником между клиентом и крипто-платформой, расчёты идут в фиате. Владеть криптой и обменивать её в Беларуси законно, но платить ею за товары и услуги, выдавать в ней зарплату и менять на иное имущество запрещено.</p>
+    <div class="scroll">
+      <table class="tbl">
+        <thead><tr><th>Карта</th><th>Эмитент и партнёр</th><th>Условия</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>CryptoCourse</td>
+            <td data-l="Эмитент"><a href="https://www.bsb.by/" target="_blank" rel="noopener">БСБ Банк</a> + <a href="https://whitebird.io/" target="_blank" rel="noopener">Whitebird</a><span class="sm">Visa; заявлена как первая криптокарта Восточной Европы</span></td>
+            <td data-l="Условия">BYN, USD или EUR. Доступна только гражданам Беларуси, оформление — онлайн-идентификация в приложении. Выпуск, доставка, обслуживание и перевыпуск бесплатны, срок действия 3 года. Покупка крипты прямо с карты, зачисление выручки от продажи без дополнительной комиссии, снятие в банкоматах по миру</td>
+          </tr>
+          <tr>
+            <td>Crypto Статус</td>
+            <td data-l="Эмитент"><a href="https://stbank.by/private-client/payment-cards/virtualnye-kartochki/statuskarta-kripto/" target="_blank" rel="noopener">СтатусБанк</a> + Whitebird<span class="sm">Mastercard Standard или Visa Classic, виртуальная</span></td>
+            <td data-l="Условия">BYN, USD, RUB. Мгновенный выпуск: резидентам бесплатно, нерезидентам 200 BYN, пластик ещё 100 BYN. Обмен по 1,5 % при продаже крипты и 2,5 % при покупке. Оплата за рубежом онлайн и в офлайне, снятие наличных до 1000 $ в сутки</td>
+          </tr>
+          <tr>
+            <td>Mastercard Smart Crypto</td>
+            <td data-l="Эмитент"><a href="https://www.alfabank.by/partners-project/crypto-card/" target="_blank" rel="noopener">Альфа-Банк</a> (Беларусь) + Whitebird</td>
+            <td data-l="Условия">USD, EUR, BYN, RUB, до четырёх карт на человека. Резидентам бесплатно, нерезидентам 250 BYN разово. Те же 1,5 % и 2,5 % на обмен. <span class="stop">Важно:</span> карты Альфа-Банка с апреля 2026 не принимаются в ЕС, Великобритании и ЕАСТ</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout">
+      <p><strong>Если карта нужна для поездок,</strong> смотрите не на крипто-функцию, а на банк-эмитент. За границей в 2026 году ещё принимают карты Беларусбанка, банка «Решение», РРБ-Банка, БНБ-Банка, МТБанка, Приорбанка и Технобанка. Не работают карты Альфа-Банка, Белгазпромбанка и Белагропромбанка (в ЕС, Великобритании, ЕАСТ), а также «Дабрабыта», Банка развития, БелВЭБа и ТК Банка. «Белкарт» и «Мир» в Европе не принимают нигде.</p>
+    </div>
+  </div>
+
+  <div class="track reveal">
+    <div class="track-head"><h3>Легальный ввод и вывод: площадки ПВТ</h3><span class="tag ok">лицензии Беларуси</span></div>
+    <p class="note">Пять резидентов Парка высоких технологий, через которые вывод крипты на карту в Беларуси законен. KYC обязателен на всех: без верификации нет ни торговли, ни вывода.</p>
+    <ul class="clean">
+      <li><strong><a href="https://whitebird.io/" target="_blank" rel="noopener">Whitebird</a></strong> — оператор криптоплатформы с 7 июля 2020 года, партнёр всех трёх карт выше. В январе 2026-го, после Указа № 19, начал превращение в первый криптобанк страны.</li>
+      <li><strong><a href="https://bynex.io/" target="_blank" rel="noopener">Bynex</a></strong> — комиссии за сделки от 0,025 % до 0,25 %, ниже, чем у большинства международных бирж; работает в связке с <a href="https://bnb.by/o-lichnom/kriptobirzha-bynex/" target="_blank" rel="noopener">БНБ-Банком</a>.</li>
+      <li><strong><a href="https://free2ex.com/" target="_blank" rel="noopener">Free2ex</a></strong> — резидент ПВТ, принимает карты, но комиссии за карточные пополнения выше, чем у конкурентов.</li>
+      <li><strong><a href="https://dzengi.com/" target="_blank" rel="noopener">Dzengi.com</a></strong> и <strong>Tradex</strong> — остальные две площадки легального контура.</li>
+    </ul>
+    <div class="callout">
+      <p><strong>Указ № 19 «О криптобанках»</strong> от 16 января 2026 года (в силе с 25 января) строит над этим контуром банковскую надстройку: двойной надзор Нацбанка и ПВТ, налог на прибыль 9 %, кредиты под залог крипты, стейкинг вместо депозита и карты, привязанные к крипто-счёту. Первые лицензированные криптобанки Нацбанк ожидает во второй половине 2026 года — то есть это ещё не сегодняшний инструмент, а то, что стоит держать в поле зрения. Отдельно указ разрешил самозанятым и ремесленникам рассчитываться криптой по внешнеэкономическим договорам.</p>
+    </div>
+  </div>
+
+  <div class="track reveal">
+    <div class="track-head"><h3>Получать деньги от зарубежных заказчиков</h3><span class="tag mid">с оговорками</span></div>
+    <p class="note">Если задача не «карта», а «принять оплату из-за границы», работают агенты-посредники.</p>
+    <ul class="clean">
+      <li><strong><a href="https://solarstaff.com/" target="_blank" rel="noopener">Solar Staff</a></strong> — с 6 февраля 2026 года исполнители из Беларуси работают при суммах договора до 89 999 BYN для физлиц и самозанятых и до 179 999 BYN для ИП, без регистрации сделки в Нацбанке.</li>
+      <li><strong><a href="https://easystaff.io/" target="_blank" rel="noopener">EasyStaff</a></strong> — литовский сервис, выплаты на карты и кошельки. Работает без лицензии платёжного учреждения, деньги проводит через PayPal, Skrill, карты и крипту: для компаний с аудитом и due diligence это отдельный фактор риска.</li>
+      <li><strong><a href="https://www.payoneer.com/" target="_blank" rel="noopener">Payoneer</a></strong> — <span class="stop">закрыт</span>. С 7 марта 2022 года регистрация из Беларуси и России невозможна, официально сервис гражданам Беларуси не предоставляется. Сайты, обещающие «регистрацию Payoneer в Беларуси», продают обход правил сервиса.</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <h2 class="reveal">Куда не стоит тратить время</h2>
+  <p class="sub reveal">Эти варианты в 2026 году не открываются по белорусскому паспорту без документа другой страны — проверено по справкам самих сервисов.</p>
+  <div class="bento">
+    <div class="card reveal">
+      <span class="tag no">Крипто-карты</span>
+      <p><strong>Tria</strong> — Беларусь в Prohibitions List. <strong>RedotPay</strong> — Беларусь среди 38 неподдерживаемых регионов. <strong>KAST</strong> — по обзорам Беларусь в restricted. <strong>Wirex</strong> — Беларуси нет в списке поддерживаемых стран.</p>
+    </div>
+    <div class="card reveal">
+      <span class="tag no">Фиат без ВНЖ</span>
+      <p><strong>Wise</strong> — новые счета из Беларуси не открывает с 2022 года. <strong>Revolut</strong> — Беларуси нет в списке стран регистрации. <strong>bunq</strong>, <strong>Paysera</strong> и <strong>N26</strong> — только с документом ЕЭЗ или Швейцарии.</p>
+    </div>
+    <div class="card reveal">
+      <span class="tag no">Мимо цели</span>
+      <p><strong>Pyypl</strong> — регистрация только на номер ОАЭ, страны СНГ из списка исключены. <strong>Крипто-карта Cifra</strong> — компания зарегистрирована в Минске, но карта выпускается на системе «Мир» и работает в России: за пределами РФ не пригодится.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2 class="reveal">Что учесть перед выбором</h2>
+  <div class="card reveal">
+    <ul class="clean">
+      <li><strong>Посредники, которые «откроют карту удалённо».</strong> Вокруг банков Кыргызстана и Казахстана выросла индустрия агентов. Юридически это открытие по доверенности или передача документов третьим лицам: банк вправе закрыть такой счёт, и деньги придётся выводить дистанционно. Разница между «банк разрешает» и «посредник обещает» здесь принципиальна.</li>
+      <li><strong>Условия для нерезидентов меняются быстрее всего остального.</strong> Казахстан сократил срок карт нерезидентам до года, Узбекистан закрыл доверенности, Кыргызстан периодически приостанавливает выдачу. То, что работало полгода назад, перед поездкой нужно перепроверять звонком в банк.</li>
+      <li><strong>Порог 100 000 €.</strong> Даже с ВНЖ ЕС держите в голове: запрет ЕС на депозиты свыше этой суммы от граждан Беларуси снимается гражданством или резидентством ЕЭЗ, а не самим фактом наличия счёта.</li>
+      <li><strong>Крипта в Беларуси — не платёжное средство.</strong> Владение, обмен и доход физлица от операций законны и не облагаются подоходным налогом, но оплата товаров и услуг криптой, выплата в ней зарплаты и обмен на иное имущество запрещены.</li>
+      <li><strong>Сроки на подтверждение документов конечны.</strong> Дедлайн Wise 30 января 2026 года уже прошёл: кто не загрузил документ, потерял карту без возможности восстановления. У остальных сервисов окна тоже закрываются — следите за уведомлениями в приложении, а не в почте.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="src">
+  <h2 class="reveal" style="color:var(--ink)">Источники</h2>
+  <div class="card reveal">
+    <ol>
+      <li>Tria — <a href="https://docs.tria.so/prohibitions-list" target="_blank" rel="noopener">Prohibitions List</a>, раздел 4D (Belarus, Russia), и <a href="https://www.tria.so/" target="_blank" rel="noopener">tria.so</a></li>
+      <li>RedotPay — <a href="https://helpcenter.redotpay.com/en/articles/10339263-unsupported-countries-regions" target="_blank" rel="noopener">Unsupported Countries/Regions</a></li>
+      <li>Wise — <a href="https://wise.com/help/articles/3bzQ5PYiMU80HHPMFi0XAo/restrictions-for-customers-based-in-belarus" target="_blank" rel="noopener">Restrictions for customers based in Belarus</a>; о блокировке карт без документа ЕЭЗ — <a href="https://www.pravda.com.ua/eng/news/2025/12/01/8009848/" target="_blank" rel="noopener">Ukrainska Pravda</a> и <a href="https://en.oninvest.com/article/wise-will-close-the-cards-of-russians-and-belarusians-without-residence-permits-in-the-eu" target="_blank" rel="noopener">Oninvest</a></li>
+      <li>bunq — <a href="https://help.bunq.com/articles/update-on-banking-services-for-russia-and-belarus" target="_blank" rel="noopener">Update on banking services for Russia and Belarus</a></li>
+      <li>Revolut — <a href="https://devby.io/news/revolut-zakryvaet-scheta-belarusam-i-rossiyanam-s-rabochimi-vizami-d" target="_blank" rel="noopener">dev.by</a>, <a href="https://citydog.io/post/revolut/" target="_blank" rel="noopener">CityDog</a>, <a href="https://news.zerkalo.io/economics/112435.html" target="_blank" rel="noopener">Зеркало</a></li>
+      <li>Paysera — <a href="https://theins.ru/news/280709" target="_blank" rel="noopener">The Insider</a>, <a href="https://novayagazeta.ee/articles/2025/11/07/paysera-ne-budet-blokirovat-scheta-rossiian-i-belarusov-s-vidami-na-zhitelstvo-v-stranakh-es-news" target="_blank" rel="noopener">Новая газета. Балтия</a></li>
+      <li>Санкции ЕС по Беларуси — депозиты свыше 100 000 € и Регламент Совета 2025/2041 от 23 октября 2025 года: <a href="https://belarus.ahk.de/ru/sankcii/sankcii-v-otnoshenii-respubliki-belarus-vvedennye-evropejskim-soyuzom" target="_blank" rel="noopener">обзор Германо-белорусской ВТП</a>; разбор 19-го пакета — <a href="https://b1.ru/insights/law-messenger/eu-sanctions-28-october-2025/" target="_blank" rel="noopener">Б1</a></li>
+      <li>Указ № 19 «О криптобанках» — <a href="https://president.gov.by/ru/documents/ukaz-no-19-ot-16-anvara-2026-g" target="_blank" rel="noopener">president.gov.by</a>, <a href="https://pravo.by/document/?guid=12551&amp;p0=P32600019" target="_blank" rel="noopener">pravo.by</a>; о будущих услугах криптобанков — <a href="https://pravo.by/novosti/obshchestvenno-politicheskie-i-v-oblasti-prava/2026/february/92358/" target="_blank" rel="noopener">разъяснения Нацбанка</a></li>
+      <li>CryptoCourse — <a href="https://primepress.by/news/finansi/bsb_bank_zapustil_novuyu_kartu_visa_dlya_sdelok_s_kriptovalyutoy-48377/" target="_blank" rel="noopener">PrimePress</a> и <a href="https://www.bsb.by/novosti-bsb-banka/prilozhenie-cryptocourse-v-obnovlyonnom-formate-teper-s-podderzhkoj-usdt" target="_blank" rel="noopener">БСБ Банк</a>; Crypto Статус — <a href="https://stbank.by/private-client/payment-cards/virtualnye-kartochki/statuskarta-kripto/" target="_blank" rel="noopener">СтатусБанк</a>; Альфа — <a href="https://www.alfabank.by/partners-project/crypto-card/" target="_blank" rel="noopener">alfabank.by</a></li>
+      <li>Карты белорусских банков за границей — <a href="https://citydog.io/post/karty-zagranicej/" target="_blank" rel="noopener">CityDog</a></li>
+      <li>Счета нерезидентам — <a href="https://bakai.kg/en/open-account/" target="_blank" rel="noopener">Bakai Bank</a>, <a href="https://support.bankffin.kz/populyarnye-voprosy/ya-nerezident-rk-ya-mogu-poluchat-uslugi-freedom-bank" target="_blank" rel="noopener">Freedom Bank</a>, <a href="https://bankofgeorgia.ge/en/retail/non-resident" target="_blank" rel="noopener">Bank of Georgia</a>, <a href="https://www.repatarmenia.org/ru/article/publications/mozhno-li-otkryt-bankovskuyu-kartu-v-armenii-udalyonno-esli-vy-nerezident" target="_blank" rel="noopener">Repat Armenia об Армении</a>, <a href="https://legal.ge/en/news/why-banks-reject-accounts-georgia-2026-en" target="_blank" rel="noopener">Legal.ge об отказах в Грузии</a></li>
+      <li>Solar Staff — <a href="https://help.solarstaff.com/en/articles/9242740-freelance-and-taxes-belarus" target="_blank" rel="noopener">Freelance and taxes: Belarus</a></li>
+      <li>Блокировка бирж в Беларуси 9 декабря 2025 года — <a href="https://forklog.com/news/v-belarusi-ogranichili-dostup-k-neskolkim-kriptobirzham/" target="_blank" rel="noopener">ForkLog</a>, <a href="https://tech.onliner.by/2025/12/11/v-belarusi-ogranichili-dostup" target="_blank" rel="noopener">Onliner</a></li>
+      <li>Площадки ПВТ и вывод на карту — <a href="https://profinvestment.com/withdraw-crypto-belarus-card/" target="_blank" rel="noopener">Profinvestment</a>, <a href="https://profinvestment.com/cryptocurrency-cards/" target="_blank" rel="noopener">обзор криптокарт</a></li>
+    </ol>
+  </div>
+</section>
+
+<footer>
+  <p>Данные собраны 26 сентября 2026 года по справкам сервисов и первоисточникам по санкциям. Правила для нерезидентов меняются часто: перед подачей заявки перепроверяйте условия у самого банка или сервиса. Страница закрыта от индексации.</p>
+</footer>
+
+</div>
+
+<script type="module">
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const targets = document.querySelectorAll('.reveal');
+  const show = () => {
+    document.documentElement.classList.remove('js-anim');
+    targets.forEach(el => { el.style.opacity = '1'; el.style.transform = 'none'; });
+  };
+  if (!reduce) {
+    document.documentElement.classList.add('js-anim');
+    const failsafe = setTimeout(show, 2500);
+    try {
+      const { animate, inView, stagger, spring } = await import('https://cdn.jsdelivr.net/npm/motion@11/+esm');
+      clearTimeout(failsafe);
+      targets.forEach(el => {
+        inView(el, (target) => {
+          animate(target, { opacity: [0, 1], y: [18, 0] }, { duration: 0.5, easing: spring({ stiffness: 110, damping: 18 }) });
+          const items = target.querySelectorAll('.timeline > li, ul.clean > li');
+          if (items.length > 1) {
+            animate(items, { opacity: [0, 1], y: [10, 0] }, { duration: 0.4, delay: stagger(0.04) });
+          }
+        }, { amount: 0.12 });
+      });
+      setTimeout(() => {
+        targets.forEach(el => {
+          const r = el.getBoundingClientRect();
+          if (r.top < window.innerHeight && getComputedStyle(el).opacity === '0') {
+            animate(el, { opacity: [0, 1], y: [18, 0] }, { duration: 0.5 });
+          }
+        });
+      }, 700);
+    } catch (e) {
+      clearTimeout(failsafe);
+      show();
+    }
+  }
+</script>
+</body>
+</html>
