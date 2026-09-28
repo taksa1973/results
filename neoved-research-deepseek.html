@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>neoved: исследование</title>
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="description" content="Исследование neoved.io через DeepSeek: платежи, крипта, бизнес-карты, AML/KYC, защита средств">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add('js-anim')</script>
+<style>
+:root{--bg:#F5F5F7;--card:#FFFFFF;--text:#1D1D1F;--muted:#6E6E73;--line:#E5E5EA;--accent:#0071E3;--accent-soft:#E8F1FC;--warn:#B25000;--warn-soft:#FFF4E5;}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#000;--card:#1C1C1E;--text:#F5F5F7;--muted:#A1A1A6;--line:#38383A;--accent:#2997FF;--accent-soft:#0A2540;--warn:#FFB340;--warn-soft:#3A2A10;}}
+:root[data-theme="dark"]{--bg:#000;--card:#1C1C1E;--text:#F5F5F7;--muted:#A1A1A6;--line:#38383A;--accent:#2997FF;--accent-soft:#0A2540;--warn:#FFB340;--warn-soft:#3A2A10;}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.65 Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}
+.skip{position:absolute;left:-999px}.skip:focus{left:16px;top:16px;background:var(--card);padding:8px 12px;border-radius:8px;z-index:100}
+.wrap{max-width:1180px;margin:0 auto;padding:0 16px}
+header.hero{padding:64px 0 28px}
+.eyebrow{font-size:13px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--accent)}
+h1{font-size:clamp(32px,6vw,56px);line-height:1.05;letter-spacing:-.025em;margin:10px 0 14px;font-weight:700}
+.lead{font-size:clamp(17px,2.2vw,21px);color:var(--muted);max-width:760px;margin:0}
+.meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:28px 0 8px}
+.tile{background:var(--card);border-radius:18px;padding:16px 18px;transition:transform .25s ease,box-shadow .25s ease}
+.tile:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.06)}
+.tile b{display:block;font-size:22px;letter-spacing:-.01em;font-variant-numeric:tabular-nums}
+.tile span{font-size:13px;color:var(--muted)}
+.layout{display:grid;grid-template-columns:240px minmax(0,1fr);gap:28px;align-items:start;padding:20px 0 64px}
+nav.toc{position:sticky;top:20px;background:var(--card);border-radius:18px;padding:16px 10px}
+nav.toc p{margin:0 10px 8px;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+nav.toc a{display:flex;gap:10px;padding:8px 10px;border-radius:10px;color:var(--text);text-decoration:none;font-size:14px;line-height:1.35;min-height:36px;align-items:center}
+nav.toc a:hover{background:var(--accent-soft)}nav.toc a.on{background:var(--accent-soft);color:var(--accent);font-weight:600}
+nav.toc a i{font-style:normal;color:var(--muted);font-variant-numeric:tabular-nums;font-size:12px}
+main{display:flex;flex-direction:column;gap:16px;min-width:0}
+.card{background:var(--card);border-radius:22px;padding:28px clamp(18px,4vw,40px);scroll-margin-top:16px}
+.card h2{display:flex;align-items:baseline;gap:12px;font-size:clamp(22px,3vw,28px);letter-spacing:-.015em;margin:0 0 14px;line-height:1.2}
+.num{font-size:14px;color:var(--accent);font-weight:600;font-variant-numeric:tabular-nums}
+.card h3{font-size:18px;margin:26px 0 8px;letter-spacing:-.01em}
+.card p,.card li{max-width:72ch}
+.card ul,.card ol{padding-left:22px}.card li{margin:6px 0}
+.card strong{font-weight:600}
+#s10{background:var(--warn-soft)}#s10 .num{color:var(--warn)}
+a.src{display:inline-block;font-size:12px;line-height:1.4;padding:1px 8px;margin:0 2px 2px;border-radius:999px;background:var(--accent-soft);color:var(--accent);text-decoration:none;vertical-align:1px;word-break:break-all}
+a.src:hover{text-decoration:underline}
+a:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.tw{overflow-x:auto;margin:12px 0}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-weight:600;color:var(--muted);font-size:13px}
+.note{font-size:14px;color:var(--muted);background:var(--card);border-radius:18px;padding:18px 22px}
+footer{padding:0 0 48px;color:var(--muted);font-size:13px}
+@media (max-width:900px){.layout{grid-template-columns:1fr}nav.toc{position:static}}
+.js-anim .reveal{opacity:0}
+@media (prefers-reduced-motion:reduce){.js-anim .reveal{opacity:1!important;transform:none!important}}
+</style>
+</head>
+<body>
+<a class="skip" href="#content">К содержанию</a>
+<div class="wrap">
+<header class="hero">
+<div class="eyebrow">Исследование компании · 28.09.2026</div>
+<h1>neoved (neoved.io)</h1>
+<p class="lead">Чем занимается компания и что предлагает бизнесу: международные платежи, криптовалюта, бизнес-карты, AML/KYC и защита средств. Ответ подготовил DeepSeek по материалам официального сайта и сторонних источников.</p>
+<div class="meta">
+<div class="tile reveal"><b>DeepSeek V4 Pro</b><span>модель, которая писала ответ</span></div>
+<div class="tile reveal"><b>30 страниц</b><span>27 с neoved.io и 3 сторонних</span></div>
+<div class="tile reveal"><b>ООО «Нэопэй»</b><span>юрлицо по условиям на сайте</span></div>
+<div class="tile reveal"><b>Агентская модель</b><span>не банк и не НКО, по словам компании</span></div>
+</div>
+</header>
+<div class="layout">
+<nav class="toc" aria-label="Оглавление"><p>Разделы</p><a href="#s1"><i>01</i>Кратко</a><a href="#s2"><i>02</i>Кто такие и чем занимаются</a><a href="#s3"><i>03</i>Международные платежи</a><a href="#s4"><i>04</i>Криптовалюта</a><a href="#s5"><i>05</i>Бизнес-карты</a><a href="#s6"><i>06</i>AML/KYC и комплаенс</a><a href="#s7"><i>07</i>Защита средств</a><a href="#s8"><i>08</i>Сроки, комиссии, ограничения</a><a href="#s9"><i>09</i>Сторонние оценки</a><a href="#s10"><i>10</i>Чего нет в открытых источниках / на что обратить внимание</a></nav>
+<main id="content">
+<section class="card reveal" id="s1"><h2><span class="num">01</span>Кратко</h2>
+<p><strong>neoved</strong> — бренд, под которым работает российское ООО «Нэопэй» (ОГРН 1207700476422, ИНН 9710086922, адрес: 123104, г. Москва, ул. Большая Бронная, д. 23, стр. 1, помещение 1п) <a class="src" href="https://neoved.io/terms" target="_blank" rel="noopener">neoved.io/terms</a>. Компания позиционирует себя как <strong>платёжный агент ВЭД / криптобанковская инфраструктура для малого и среднего бизнеса в России</strong>. Заявленные направления: международные расчёты (фиат и криптовалюта), операции с криптовалютой для юрлиц и ИП, выпуск международных виртуальных бизнес-карт <a class="src" href="https://neoved.io/" target="_blank" rel="noopener">neoved.io</a>. Работает, по собственным заявлениям, с 2024 года; средний объём — «50+ транзакций в месяц», 80% клиентов возвращаются за повторными операциями, «200+ стран» доступны для платежей <a class="src" href="https://neoved.io/keysy-i-otzyvy" target="_blank" rel="noopener">neoved.io/keysy-i-otzyvy</a>. В открытых источниках из предоставленного корпуса нет содержательных независимых оценок, финансовой отчётности или сведений о лицензиях.</p>
+</section><section class="card reveal" id="s2"><h2><span class="num">02</span>Кто такие и чем занимаются</h2>
+<p>Официально заявленная миссия: «сделать международные расчёты и оплаты по банковским картам снова простыми, а криптооперации легальными и безопасными»; компания развивает инфраструктуру, где традиционные финансы и цифровые активы работают как единая экосистема <a class="src" href="https://neoved.io/o-nas" target="_blank" rel="noopener">neoved.io/o-nas</a>. Цель — «соединить классический банковский мир и цифровые активы, создавая безопасные, прозрачные и предсказуемые решения» для глобальной работы бизнеса <a class="src" href="https://neoved.io/o-nas/missiya" target="_blank" rel="noopener">neoved.io/o-nas/missiya</a>.</p>
+<p>На главной странице neoved описывает себя так: «Без головной боли и лишней бюрократии выступаем платежным агентом для малого и среднего бизнеса в России: оплачиваем импортные контракты, сопровождаем получение средств от иностранных контрагентов, проводим легальные операции с цифровыми активами и выпускаем международные бизнес-карты для корпоративных расходов» <a class="src" href="https://neoved.io/" target="_blank" rel="noopener">neoved.io</a>.</p>
+<p>Компания подчёркивает, что действует в агентской модели и <strong>не является банком, НКО или агентом валютного контроля РФ</strong> <a class="src" href="https://neoved.io/keysy-i-otzyvy" target="_blank" rel="noopener">neoved.io/keysy-i-otzyvy</a>. В Условиях использования указано, что услуги включают юридическое и консультационное сопровождение, организацию платежей от имени клиента, ведение переговоров, подготовку документов; компания вправе привлекать субагентов <a class="src" href="https://neoved.io/terms" target="_blank" rel="noopener">neoved.io/terms</a>.</p>
+<p>Заявленный состав команды: эксперты в финтехе, крипто, комплаенсе и ВЭД <a class="src" href="https://neoved.io/o-nas/komanda" target="_blank" rel="noopener">neoved.io/o-nas/komanda</a>. На сайте названы конкретные сотрудники: Андрей Лаптев (менеджер по развитию), Елена Мамутова (HR-директор), Марина Инзелис (финтех-юрист), Ольга Юркина (эксперт по НДС) <a class="src" href="https://neoved.io/" target="_blank" rel="noopener">neoved.io</a>.</p>
+<p>Основные продукты/решения на сайте:</p>
+<ul>
+<li>Международные расчёты (в валюте и в криптовалюте);</li>
+<li>Операции с криптовалютой для юрлиц;</li>
+<li>Международные бизнес-карты (виртуальные);</li>
+<li>On/Off Ramp для финансовых провайдеров;</li>
+<li>Консультации по крипторегулированию;</li>
+<li>Партнёрская программа для агентов <a class="src" href="https://neoved.io/" target="_blank" rel="noopener">neoved.io</a>.</li>
+</ul>
+<p>Целевая аудитория: малый и средний бизнес с чеками от 3000 USD, импортёры/экспортёры, ритейл, IT, медиа, производственные и торговые компании, финансовые компании, юрлица и ИП <a class="src" href="https://neoved.io/" target="_blank" rel="noopener">neoved.io</a>.</p>
+</section><section class="card reveal" id="s3"><h2><span class="num">03</span>Международные платежи</h2>
+<h3>Общая характеристика</h3>
+<p>Раздел «Международные расчёты» описывает любые операции с иностранными контрагентами: оплата поставщику, получение выручки, перевод денег через собственную сеть юридических лиц за границей; neoved берёт на себя подбор маршрута, комплаенс и валютный контроль <a class="src" href="https://neoved.io/mezhdunarodnye-raschety" target="_blank" rel="noopener">neoved.io/mezhdunarodnye-raschety</a>.</p>
+<p>Поддерживаются платежи по SWIFT, SEPA, СПФС и через блокчейн — «официально, по инвойсу, на банковский или криптовалютный счет, с договором и полным пакетом документов» <a class="src" href="https://neoved.io/" target="_blank" rel="noopener">neoved.io</a>.</p>
+<h3>Платежи в валюте</h3>
+<p>Основные валюты и маршруты:</p>
+<ul>
+<li>USD — SWIFT;</li>
+<li>EUR — SWIFT / SEPA;</li>
+<li>CNY — SWIFT / СПФС;</li>
+<li>AED, TRY, INR и другие локальные валюты — SWIFT;</li>
+<li>RUB — СПФС / корреспондентские счета <a class="src" href="https://neoved.io/mezhdunarodnyy-platezh-v-valyute" target="_blank" rel="noopener">neoved.io/mezhdunarodnyy-platezh-v-valyute</a>.</li>
+</ul>
+<p>Полный заявленный список валют: USD, EUR, CNY, RUB, TRY, AED, GBP, JPY, INR, CHF, AUD, CAD, HKD, SGD, THB, VND, KRW, IDR <a class="src" href="https://neoved.io/mezhdunarodnyy-platezh-v-valyute" target="_blank" rel="noopener">neoved.io/mezhdunarodnyy-platezh-v-valyute</a>.</p>
+<p>Этапы проведения платежа в валюте: анализ сделки → расчёт условий → проверка документов → перевод средств клиентом в RUB → проведение платежа через банковскую инфраструктуру → подтверждение исполнения (SWIFT-копия или иной документ) <a class="src" href="https://neoved.io/mezhdunarodnyy-platezh-v-valyute" target="_blank" rel="noopener">neoved.io/mezhdunarodnyy-platezh-v-valyute</a>.</p>
+<h3>Платежи в криптовалюте</h3>
+<p>Для международных платежей в криптовалюте заявлены USDT (сеть TRC-20) и USDC (сеть ERC-20). Оплата инвойсов, контрактов; клиент платит рублями, поставщик получает криптовалюту. Пакет документов: инвойс, акт/отчёт, платёжное поручение, адрес кошелька и хэш транзакции <a class="src" href="https://neoved.io/mezhdunarodnyy-platezh-v-kriptovalyute" target="_blank" rel="noopener">neoved.io/mezhdunarodnyy-platezh-v-kript…</a>.</p>
+<h3>Сценарии и назначения</h3>
+<p>Neoved заявляет, что покрывает основные типы ВЭД-контрактов: импорт, экспорт, репатриация валютной выручки, цифровые товары и сервисы, результаты интеллектуальной деятельности, товары/работы/услуги, предоплаты по импорту, займы и взаиморасчёты <a class="src" href="https://neoved.io/" target="_blank" rel="noopener">neoved.io</a>.</p>
+<p>На странице «Какие назначения покрывает neoved» перечислены категории: потребительские товары, промышленность и строительство, технологии и электроника, сельское хозяйство, люкс и лайфстайл, high-value item (авто, воздушный/водный транспорт, техника), IT и цифровые продукты, профессиональные услуги <a class="src" href="https://neoved.io/naznacheniya-oplaty" target="_blank" rel="noopener">neoved.io/naznacheniya-oplaty</a>.</p>
+<h3>Репатриация и платёжный агент ВЭД</h3>
+<p>Отдельные страницы описывают сопровождение репатриации валютной выручки <a class="src" href="https://neoved.io/repatriatsiya-valyutnoy-vyruchki" target="_blank" rel="noopener">neoved.io/repatriatsiya-valyutnoy-vyruchki</a> и работу как платёжный агент ВЭД для обхода отказов банков: агент получает рубли, конвертирует и направляет платеж нерезиденту, оформляет закрывающие документы <a class="src" href="https://neoved.io/platezhnyy-agent-ved" target="_blank" rel="noopener">neoved.io/platezhnyy-agent-ved</a>.</p>
+</section><section class="card reveal" id="s4"><h2><span class="num">04</span>Криптовалюта</h2>
+<h3>Юридическим лицам и ИП</h3>
+<p>Neoved заявляет о сопровождении легальных операций с цифровыми активами: покупка и продажа криптовалюты, оплата импортных контрактов, получение экспортной выручки, хранение на корпоративных кошельках, обмен на ценные бумаги и цифровые права, получение оплаты от нерезидентов <a class="src" href="https://neoved.io/" target="_blank" rel="noopener">neoved.io</a>.</p>
+<p>Поддерживаемые активы: USDT, USDC, ETH, BTC <a class="src" href="https://neoved.io/" target="_blank" rel="noopener">neoved.io</a>. Для стейблкоинов курс заявлен «по курсу ЦБ России + 1%», для BTC — по данным биржи IMEX, расчёт в день платежа <a class="src" href="https://neoved.io/" target="_blank" rel="noopener">neoved.io</a>.</p>
+<h3>Правовая основа (по заявлениям neoved)</h3>
+<p>Сайт ссылается на:</p>
+<ul>
+<li>259-ФЗ, разрешающий хранение и обращение цифровой валюты;</li>
+<li>судебную практику ВС РФ от 11.10.2023 № 306-ЭС23-10386(3);</li>
+<li>письмо Минфина России от 22.07.2025 № 03-03-06/1/70829 о порядке учёта расходов по операциям с цифровой валютой для налога на прибыль;</li>
+<li>признание криптовалюты имуществом (ст. 128 ГК РФ, ч. 7 ст. 69 Закона об исполнительном производстве) <a class="src" href="https://neoved.io/" target="_blank" rel="noopener">neoved.io</a>.</li>
+</ul>
+<p>Однако в корпусе нет независимого подтверждения корректности этих ссылок; это заявления компании.</p>
+<h3>Процесс покупки криптовалюты</h3>
+<p>Как описывает neoved, сделка проходит через платёжного агента: заявка → проверка компании и сделки → подготовка документов (агентский договор/договор продажи) → перевод рублей на счёт агента → покупка криптоактива → зачисление на указанный кошелёк → выдача документов и хэша транзакции. Срок — от нескольких часов до суток в зависимости от сложности <a class="src" href="https://neoved.io/kupit-kriptovalyutu-yuridicheskomu-litsu" target="_blank" rel="noopener">neoved.io/kupit-kriptovalyutu-yuridiches…</a>.</p>
+<p>Компания утверждает, что закупает криптовалюту на лицензируемых площадках, а адреса проходят AML-проверку; «санкционные риски исключаются» <a class="src" href="https://neoved.io/mezhdunarodnyy-platezh-v-kriptovalyute" target="_blank" rel="noopener">neoved.io/mezhdunarodnyy-platezh-v-kript…</a>.</p>
+<h3>Документы для бухгалтерии</h3>
+<p>По криптооперациям выдаются: договор, инвойс, акт, платёжное поручение, адрес кошелька и хэш транзакции — для корректного отражения в учёте <a class="src" href="https://neoved.io/" target="_blank" rel="noopener">neoved.io</a>.</p>
+</section><section class="card reveal" id="s5"><h2><span class="num">05</span>Бизнес-карты</h2>
+<h3>Продукт</h3>
+<p>Neoved предлагает <strong>виртуальные бизнес-карты зарубежного банка</strong> Visa / Mastercard с моментальным выпуском и пополнением для юрлиц и ИП. Валюта карт — USD и EUR. Банки-эмитенты указаны как «EU, UK, USA, ASIA» без конкретных наименований <a class="src" href="https://neoved.io/" target="_blank" rel="noopener">neoved.io</a>. Карта не именная, доступна только в виртуальном формате <a class="src" href="https://neoved.io/" target="_blank" rel="noopener">neoved.io</a>.</p>
+<h3>Параметры выпуска и обслуживания</h3>
+<ul>
+<li>Европа / США / UK: выпуск — 1 USD, обслуживание — 0 USD, комиссия за транзакцию — 0.25 USD.</li>
+<li>Азия: выпуск — 5 USD, обслуживание — 2.5 USD в месяц.</li>
+<li>Срок действия виртуальной карты — 1 год.</li>
+<li>Выпуск для юрлиц/ИП — до 1 суток с момента пополнения; для физлиц при пополнении в USDT — моментально.</li>
+<li>Карты работают без 3D Secure, не требуют стороннего подтверждения операций.</li>
+<li>Снятие наличных не поддерживается; работа в России не предусмотрена.</li>
+<li>Возможны ограничения по high-risk и adult категориям; ведётся контроль MCC-кодов <a class="src" href="https://neoved.io/" target="_blank" rel="noopener">neoved.io</a>.</li>
+</ul>
+<h3>Пополнение и лимиты</h3>
+<ul>
+<li>Разовое пополнение карты — от 100 000 до 3 000 000 рублей или эквивалент в USDT.</li>
+<li>Лимит разовой операции по списанию — до 50 000 USD.</li>
+<li>Конвертация из рублей в валюту карты — по курсу ЦБ РФ + 1%; USDT (TRON) — 1:1 к доллару США; курс фиксируется в день пополнения.</li>
+<li>Комиссия за пополнение: от 5% при рублёвом пополнении; от 4% при пополнении в криптовалюте.</li>
+<li>Дополнительно может применяться комиссия ~0.4 USD за операцию при высоком проценте отклонённых платежей <a class="src" href="https://neoved.io/" target="_blank" rel="noopener">neoved.io</a>.</li>
+</ul>
+<h3>Назначение</h3>
+<p>Карта подходит для оплаты зарубежных сервисов, SaaS, рекламы, маркетплейсов, хостинга, гостиниц, авиабилетов; поддерживаются Apple Pay / Google Pay (зависит от банка-эмитента, особенно азиатские эмитенты) <a class="src" href="https://neoved.io/" target="_blank" rel="noopener">neoved.io</a>. Для бизнес-карт технически возможна оплата в оффлайн-магазинах, но neoved предупреждает о риске налоговых доначислений; для физлиц с криптопополнением оффлайн-оплата возможна через Apple Pay/Google Pay <a class="src" href="https://neoved.io/" target="_blank" rel="noopener">neoved.io</a>.</p>
+<p>Вывод средств доступен для карт Европы, США и UK; для азиатских карт вывод недоступен <a class="src" href="https://neoved.io/" target="_blank" rel="noopener">neoved.io</a>.</p>
+</section><section class="card reveal" id="s6"><h2><span class="num">06</span>AML/KYC и комплаенс</h2>
+<h3>Подход компании</h3>
+<p>На странице кейсов neoved описывает свой подход так: «Перед проведением операции neoved проверяет клиента, его бенефициаров и контрагента, документы по сделке, назначение и экономический смысл платежа. При повышенном риске можем запросить дополнительные документы, передать операцию на расширенную проверку партнеру или отказаться от ее сопровождения» <a class="src" href="https://neoved.io/keysy-i-otzyvy" target="_blank" rel="noopener">neoved.io/keysy-i-otzyvy</a>.</p>
+<p>Для криптоплатежей заявлен обязательный AML-скрининг: проверка кошелька и адреса получателя по санкционным спискам и базам риска; при высоком риске — дополнительные данные или отказ <a class="src" href="https://neoved.io/mezhdunarodnyy-platezh-v-kriptovalyute" target="_blank" rel="noopener">neoved.io/mezhdunarodnyy-platezh-v-kript…</a>.</p>
+<h3>Ограничения по странам</h3>
+<p>На странице «Ограничения по странам» указано, что neoved соблюдает внутреннюю политику комплаенса и международные нормы AML/CFT. Перечислены страны, с которыми не работает в принципе: Никарагуа, Куба, Венесуэла, Ливия, Украина, Мали, Судан, Южный Судан, ЦАР, Сомали, Эфиопия, Йемен, Ливан, Сирия, Ирак, Иран, Афганистан, Мьянма (Бирма), КНДР, Палестина <a class="src" href="https://neoved.io/countries" target="_blank" rel="noopener">neoved.io/countries</a>. Также указано, что не работают с получателями/отправителями под санкциями OFAC, ЕС, Великобритании <a class="src" href="https://neoved.io/mezhdunarodnyy-platezh-v-valyute" target="_blank" rel="noopener">neoved.io/mezhdunarodnyy-platezh-v-valyute</a>.</p>
+<h3>Недоступные типы платежей</h3>
+<p>Компания отказывается от операций, связанных с:</p>
+<ul>
+<li>продукцией военного или двойного назначения;</li>
+<li>религиозными организациями, фондами, партиями;</li>
+<li>анонимными физлицами, оффшорами, подсанкционными лицами.</li>
+</ul>
+<p>Конкретные товарные группы ТН ВЭД, которые не обслуживаются: группы 84, 85, 90; а также самолёты и авиакомплектующие, оборудование для связи и навигации, радары, CNC-станки, полупроводники, ДНК-секвенсоры, сырьевые товары (золото, алюминий, сталь, нефть, газ), серверы и компьютеры, ртутные батареи и др. <a class="src" href="https://neoved.io/payment-limitations" target="_blank" rel="noopener">neoved.io/payment-limitations</a>.</p>
+<h3>Комплаенс-проверка в блоге</h3>
+<p>В блоге neoved описывает стандартные этапы: первичный скрининг клиента → KYC/EDD → проверка назначения платежа → мониторинг транзакций и ответы на RFI-запросы. Утверждается, что платёжный агент помогает подготовить документы, чтобы снизить риск задержек <a class="src" href="https://neoved.io/blog/komplaens-v-mezhdunarodnyh-raschetah" target="_blank" rel="noopener">neoved.io/blog/komplaens-v-mezhdunarodny…</a>.</p>
+</section><section class="card reveal" id="s7"><h2><span class="num">07</span>Защита средств</h2>
+<h3>Официальные заявления о гарантиях</h3>
+<p>На сайте neoved заявляет о следующих механизмах защиты:</p>
+<ul>
+<li><strong>Эскроу</strong>: «Для максимальной защиты мы используем эскроу: ваши средства поступают в наш банк только после подтверждения выполнения всех условий сделки и соблюдения договоренностей сторонами» <a class="src" href="https://neoved.io/" target="_blank" rel="noopener">neoved.io</a>.</li>
+<li><strong>Собственная сеть юрлиц</strong>: «Управляем всем циклом платежа через собственную сеть международных юрлиц в Индонезии, ОАЭ, Гонконге, Турции и России, исключая посредников и сохраняя полный контроль» <a class="src" href="https://neoved.io/" target="_blank" rel="noopener">neoved.io</a>.</li>
+<li><strong>Лицензированные партнёры</strong>: работа с лицензированными платежными организациями, банками, брокерами; все контрагенты проходят AML-скрининг <a class="src" href="https://neoved.io/" target="_blank" rel="noopener">neoved.io</a>.</li>
+<li><strong>Договор и документы</strong>: каждая операция оформляется договором и комплектом документов (инвойс, акт, платёжка, адрес кошелька и hash) <a class="src" href="https://neoved.io/" target="_blank" rel="noopener">neoved.io</a>.</li>
+<li><strong>Проходимость валютного контроля</strong>: договорные решения «в 99% случаев проходят валютный контроль и банковский комплаенс без замечаний» <a class="src" href="https://neoved.io/" target="_blank" rel="noopener">neoved.io</a>.</li>
+<li><strong>Юридическая защищённость</strong>: привлечение финтех-юриста, эксперта по НДС, ВЭД-специалиста и комплаенс-офицера <a class="src" href="https://neoved.io/" target="_blank" rel="noopener">neoved.io</a>.</li>
+</ul>
+<h3>Что сказано в Условиях</h3>
+<p>В Условиях использования указано, что компания оказывает услуги по сопровождению международных платежей; риски, связанные с поставкой товаров, лежат на клиенте и его контрагентах; компания не несёт ответственности за поставку, налогообложение, таможенные процедуры <a class="src" href="https://neoved.io/terms" target="_blank" rel="noopener">neoved.io/terms</a>. Также компания вправе привлекать субагентов без предварительного согласования с клиентом <a class="src" href="https://neoved.io/terms" target="_blank" rel="noopener">neoved.io/terms</a>.</p>
+<p>В случае возврата платежа по причинам, не зависящим от компании, поручение считается выполненным; клиент может выбрать возврат суммы (за исключением агентского вознаграждения) или повторное исполнение <a class="src" href="https://neoved.io/terms" target="_blank" rel="noopener">neoved.io/terms</a>.</p>
+<h3>Проверка компании</h3>
+<p>На странице «Кейсы и отзывы» neoved предлагает клиентам проверить компанию через:</p>
+<ul>
+<li>запрос образца договора и разбора сделки;</li>
+<li>сверку с клиентами из кейсов;</li>
+<li>проверку регистрации через ЕГРЮЛ/ЕГРИП;</li>
+<li>сервис ФНС «Прозрачный бизнес»;</li>
+<li>проверку директора и подписанта на дисквалификацию <a class="src" href="https://neoved.io/keysy-i-otzyvy" target="_blank" rel="noopener">neoved.io/keysy-i-otzyvy</a>.</li>
+</ul>
+</section><section class="card reveal" id="s8"><h2><span class="num">08</span>Сроки, комиссии, ограничения</h2>
+<h3>Сроки</h3>
+<ul>
+<li>Первый фиатный платёж — до 5 рабочих дней; повторные — до 2 рабочих дней; криптовалютные платежи — до 1 дня <a class="src" href="https://neoved.io/" target="_blank" rel="noopener">neoved.io</a>.</li>
+<li>Повторный платёж в валюте — 2–10 рабочих дней; первичная комплаенс-сделка — «в два раза дольше», т.е. 4–20 рабочих дней <a class="src" href="https://neoved.io/mezhdunarodnyy-platezh-v-valyute" target="_blank" rel="noopener">neoved.io/mezhdunarodnyy-platezh-v-valyute</a>.</li>
+<li>Повторная криптосделка — от 6 до 24 часов; первичная — до 48 часов <a class="src" href="https://neoved.io/mezhdunarodnyy-platezh-v-kriptovalyute" target="_blank" rel="noopener">neoved.io/mezhdunarodnyy-platezh-v-kript…</a>.</li>
+<li>Выпуск виртуальной карты: для юрлиц/ИП — до 1 суток с момента пополнения; для физлиц при криптопополнении — моментально <a class="src" href="https://neoved.io/" target="_blank" rel="noopener">neoved.io</a>.</li>
+</ul>
+<h3>Комиссии (официальные цифры)</h3>
+<ul>
+<li>Международные платежи: комиссия от 0.3% (в общем FAQ); для валютных платежей — от 6% + SWIFT на минимальных чеках (от 300 000 ₽) до 0.5% на крупных (от 30 000 000 ₽) <a class="src" href="https://neoved.io/mezhdunarodnyy-platezh-v-valyute" target="_blank" rel="noopener">neoved.io/mezhdunarodnyy-platezh-v-valyute</a>.</li>
+<li>Криптооперации: комиссия от 0.75% до 3% <a class="src" href="https://neoved.io/" target="_blank" rel="noopener">neoved.io</a>; для криптоплатежей — от 5% (микро, от 300 000 ₽) до 0.3% (от 30 000 000 ₽) <a class="src" href="https://neoved.io/mezhdunarodnyy-platezh-v-kriptovalyute" target="_blank" rel="noopener">neoved.io/mezhdunarodnyy-platezh-v-kript…</a>.</li>
+<li>Карты: выпуск 1 USD (Европа/США/UK) или 5 USD (Азия), обслуживание 0 или 2.5 USD/мес, комиссия за транзакцию 0.25 USD, пополнение от 5% (рубли) или от 4% (крипто) <a class="src" href="https://neoved.io/" target="_blank" rel="noopener">neoved.io</a>.</li>
+<li>Курс конвертации: в среднем ЦБ РФ + 1%; для стейблкоинов — ЦБ РФ + 1%, BTC — по данным биржи IMEX <a class="src" href="https://neoved.io/" target="_blank" rel="noopener">neoved.io</a>.</li>
+</ul>
+<h3>Лимиты</h3>
+<ul>
+<li>Минимальная сумма сделки — 3000 USD (или эквивалент) <a class="src" href="https://neoved.io/" target="_blank" rel="noopener">neoved.io</a>.</li>
+<li>Лимит разового платежа в валюте — до 500 000 USD <a class="src" href="https://neoved.io/mezhdunarodnyy-platezh-v-valyute" target="_blank" rel="noopener">neoved.io/mezhdunarodnyy-platezh-v-valyute</a>.</li>
+<li>Лимит разовой транзакции в криптовалюте — до 1 000 000 USD за один транш <a class="src" href="https://neoved.io/mezhdunarodnyy-platezh-v-kriptovalyute" target="_blank" rel="noopener">neoved.io/mezhdunarodnyy-platezh-v-kript…</a>.</li>
+<li>В общем FAQ главной страницы указан лимит «до 3 000 000 USD» на разовую транзакцию (без уточнения типа операции) <a class="src" href="https://neoved.io/" target="_blank" rel="noopener">neoved.io</a>. Это противоречит лимиту на странице криптоплатежей; вероятно, относится к другой категории или является устаревшей/обобщённой формулировкой.</li>
+<li>Лимит по бизнес-картам: разовое пополнение 100 000–3 000 000 руб или эквивалент; списание до 50 000 USD <a class="src" href="https://neoved.io/" target="_blank" rel="noopener">neoved.io</a>.</li>
+</ul>
+<h3>Географические ограничения</h3>
+<ul>
+<li>Не проводят платежи в страны из списка полного запрета: Никарагуа, Куба, Венесуэла, Ливия, Украина, Мали, Судан, Южный Судан, ЦАР, Сомали, Эфиопия, Йемен, Ливан, Сирия, Ирак, Иран, Афганистан, Мьянма, КНДР, Палестина <a class="src" href="https://neoved.io/countries" target="_blank" rel="noopener">neoved.io/countries</a>.</li>
+<li>Для платежей в криптовалюте заявлено, что географических ограничений по юрисдикции нет, за исключением стран из списка полного запрета <a class="src" href="https://neoved.io/" target="_blank" rel="noopener">neoved.io</a>; на странице ограничений указано, что ограничения отсутствия платёжной инфраструктуры не распространяются на платежи в криптовалюте, но страны полного запрета действуют «вне зависимости от назначения и характера сделки» <a class="src" href="https://neoved.io/countries" target="_blank" rel="noopener">neoved.io/countries</a>.</li>
+<li>Не работают с получателями под санкциями OFAC, ЕС, Великобритании <a class="src" href="https://neoved.io/mezhdunarodnyy-platezh-v-valyute" target="_blank" rel="noopener">neoved.io/mezhdunarodnyy-platezh-v-valyute</a>.</li>
+</ul>
+<h3>Прочие ограничения</h3>
+<ul>
+<li>Карты не предназначены для использования в России, снятие наличных не поддерживается, есть ограничения на переводы на другие карты; карты без 3D Secure <a class="src" href="https://neoved.io/" target="_blank" rel="noopener">neoved.io</a>.</li>
+<li>Недоступные типы платежей и товары перечислены выше <a class="src" href="https://neoved.io/payment-limitations" target="_blank" rel="noopener">neoved.io/payment-limitations</a>.</li>
+</ul>
+</section><section class="card reveal" id="s9"><h2><span class="num">09</span>Сторонние оценки</h2>
+<p>В предоставленном корпусе <strong>содержательных независимых оценок neoved не найдено</strong>.</p>
+<ul>
+<li>На сайте <strong>Coinmania</strong> присутствует страница с URL, содержащим «neoved-io-obman» <a class="src" href="https://coinmania.com/rejting-luchshikh-trejderov/neoved-io-obman/" target="_blank" rel="noopener">coinmania.com/rejting-luchshikh-trejdero…</a>, однако в приведённом фрагменте нет текста статьи или конкретных оценок neoved — только общая структура сайта и комментарии, не относящиеся к neoved. Это может указывать на существование негативной/критической страницы, но подтвердить её содержание на основе корпуса нельзя.</li>
+<li>В рейтинге платёжных агентов на <strong>Altcoinlog</strong> neoved в топ-10 не упоминается <a class="src" href="https://altcoinlog.com/reiting-agentov-mezhdunarodnyh-platezhei/" target="_blank" rel="noopener">altcoinlog.com/reiting-agentov-mezhdunar…</a>. Это не является прямой негативной оценкой, но говорит о том, что в данный сторонний список сервис не включён.</li>
+<li>На портале <strong>PromPortal.su</strong> есть карточка Neoved с контактными данными (адрес: Москва, ул. Брестский бул., д. 8; телефон +7 901 634-66-72) <a class="src" href="https://neoved.promportal.su/" target="_blank" rel="noopener">neoved.promportal.su</a>. Это каталог-визитка, а не независимая оценка.</li>
+</ul>
+<p>Сама компания на своей странице приводит <strong>отзывы клиентов</strong> (директор экспорта сельхозпродукции, финдиректор машиностроения, продюсер медиапроизводства, ВЭД-консультант, операционный директор логистической компании, совладелец интернет-магазина) и кейсы с суммами <a class="src" href="https://neoved.io/keysy-i-otzyvy" target="_blank" rel="noopener">neoved.io/keysy-i-otzyvy</a>. Эти отзывы размещены на официальном сайте и не могут считаться независимыми.</p>
+</section><section class="card reveal" id="s10"><h2><span class="num">10</span>Чего нет в открытых источниках / на что обратить внимание</h2>
+<h3>Отсутствующая информация</h3>
+<ol>
+<li><strong>Лицензии и регуляторный статус финансовой организации.</strong> В Условиях и на странице кейсов указано, что neoved не является банком, НКО или агентом валютного контроля РФ <a class="src" href="https://neoved.io/terms" target="_blank" rel="noopener">neoved.io/terms</a><a class="src" href="https://neoved.io/keysy-i-otzyvy" target="_blank" rel="noopener">neoved.io/keysy-i-otzyvy</a>. Однако нет сведений о наличии лицензий платёжного агента, оператора по приёму платежей, лицензий на криптовалютную деятельность в каких-либо юрисдикциях. Заявления о работе с «лицензированными партнёрами» не подкреплены названиями этих партнёров.</li>
+<li><strong>Конкретные банки-партнёры и банки-эмитенты.</strong> На сайте указаны только регионы «EU, UK, USA, ASIA» без наименований банков-эмитентов карт и корреспондентских банков <a class="src" href="https://neoved.io/" target="_blank" rel="noopener">neoved.io</a>.</li>
+<li><strong>Конкретные платёжные маршруты и банковская инфраструктура.</strong> Упоминается «собственная сеть международных юрлиц в Индонезии, ОАЭ, Гонконге, Турции и России», но названия этих юрлиц и их юрисдикционные документы не раскрыты <a class="src" href="https://neoved.io/" target="_blank" rel="noopener">neoved.io</a>.</li>
+<li><strong>Финансовая отчётность и аудит.</strong> Нет данных о финансовых показателях, объёме оборота, резервах, страховании средств.</li>
+<li><strong>Точные тарифы по всем продуктам.</strong> Хотя на сайте есть калькулятор, полные тарифные сетки в открытом доступе отсутствуют; часть комиссий зависит от суммы и направления.</li>
+<li><strong>Правовая экспертиза заявлений о законности криптоопераций.</strong> Ссылки на 259-ФЗ, письмо Минфина и судебную практику приведены без цитат и разъяснений; их корректность в контексте конкретных схем не подтверждена независимыми источниками в корпусе.</li>
+<li><strong>Доказательства заявленных метрик.</strong> «99% проходимость валютного контроля», «80% возвращающихся клиентов», «50+ транзакций в месяц» — это самооценки компании без внешнего аудита <a class="src" href="https://neoved.io/" target="_blank" rel="noopener">neoved.io</a><a class="src" href="https://neoved.io/keysy-i-otzyvy" target="_blank" rel="noopener">neoved.io/keysy-i-otzyvy</a>.</li>
+<li><strong>Информация о реальных бенефициарах и структуре собственности.</strong> Названы отдельные сотрудники, но не раскрыты владельцы ООО «Нэопэй».</li>
+<li><strong>Независимые отзывы и рейтинги.</strong> Как отмечено в разделе 9, в корпусе нет независимых оценок; сторонние упоминания либо отсутствуют, либо не содержат содержательного анализа.</li>
+</ol>
+<h3>На что обратить внимание (риски и противоречия)</h3>
+<ul>
+<li><p><strong>Противоречия в заявленных лимитах.</strong> На главной странице в FAQ указан лимит «до 3 000 000 USD» на разовую транзакцию без уточнения типа операции <a class="src" href="https://neoved.io/" target="_blank" rel="noopener">neoved.io</a>. При этом на странице криптоплатежей лимит разовой транзакции — до 1 000 000 USD <a class="src" href="https://neoved.io/mezhdunarodnyy-platezh-v-kriptovalyute" target="_blank" rel="noopener">neoved.io/mezhdunarodnyy-platezh-v-kript…</a>, а для валютных платежей лимит — до 500 000 USD <a class="src" href="https://neoved.io/mezhdunarodnyy-platezh-v-valyute" target="_blank" rel="noopener">neoved.io/mezhdunarodnyy-platezh-v-valyute</a>. Разночтения в цифрах могут ввести клиента в заблуждение относительно реальных возможностей.</p>
+</li>
+<li><p><strong>Расхождения в сроках.</strong> На главной странице заявлено: «Вся сделка занимает не более суток» <a class="src" href="https://neoved.io/" target="_blank" rel="noopener">neoved.io</a>. Однако на профильных страницах указаны разные сроки: первый фиатный платёж — до 5 рабочих дней, повторные — до 2 рабочих дней <a class="src" href="https://neoved.io/" target="_blank" rel="noopener">neoved.io</a>; для валютных платежей повторный — 2–10 рабочих дней, а первичная комплаенс-сделка — «в два раза дольше» (4–20 рабочих дней) <a class="src" href="https://neoved.io/mezhdunarodnyy-platezh-v-valyute" target="_blank" rel="noopener">neoved.io/mezhdunarodnyy-platezh-v-valyute</a>. Вероятно, формулировка «не более суток» относится только к операционной части после прохождения комплаенса, но это не очевидно.</p>
+</li>
+<li><p><strong>Неподтверждённые статистические заявления.</strong> Показатели «99% проходимость валютного контроля», «80% клиентов возвращаются», «50+ транзакций в месяц» <a class="src" href="https://neoved.io/" target="_blank" rel="noopener">neoved.io</a><a class="src" href="https://neoved.io/keysy-i-otzyvy" target="_blank" rel="noopener">neoved.io/keysy-i-otzyvy</a> — это самооценка компании. Внешнего аудита или независимых данных, подтверждающих эти цифры, в корпусе нет.</p>
+</li>
+<li><p><strong>Отсутствие сведений о лицензиях и регуляторном статусе.</strong> Neoved прямо заявляет, что «не является банком, НКО или агентом валютного контроля Российской Федерации» <a class="src" href="https://neoved.io/keysy-i-otzyvy" target="_blank" rel="noopener">neoved.io/keysy-i-otzyvy</a>. При этом компания позиционирует себя как платёжный агент ВЭД и инфраструктуру для криптоопераций. В Условиях указано, что услуги включают «организацию платежей от имени Клиента» <a class="src" href="https://neoved.io/terms" target="_blank" rel="noopener">neoved.io/terms</a>, но нет информации о наличии лицензий платёжного агента, оператора по приёму платежей или криптовалютных лицензий. Это создаёт неопределённость относительно правового статуса и надзорного органа.</p>
+</li>
+<li><p><strong>Риск, связанный с субагентами.</strong> По Условиям компания «вправе привлекать субагентов для выполнения Поручения без предварительного согласования с Клиентом» <a class="src" href="https://neoved.io/terms" target="_blank" rel="noopener">neoved.io/terms</a>. Клиент не контролирует цепочку передачи средств, что может увеличивать риски при неисполнении или блокировке на стороне третьего лица.</p>
+</li>
+<li><p><strong>Ограниченная ответственность компании.</strong> В Условиях прописано, что риски, связанные с поставкой товаров, налогообложением и таможенными процедурами, лежат на клиенте и его контрагентах; компания за них не отвечает <a class="src" href="https://neoved.io/terms" target="_blank" rel="noopener">neoved.io/terms</a>. В случае возврата платежа по причинам, не зависящим от компании, поручение считается выполненным, и клиент может вернуть сумму «за исключением агентского вознаграждения» <a class="src" href="https://neoved.io/terms" target="_blank" rel="noopener">neoved.io/terms</a>. Таким образом, при неудачном платеже комиссия может быть удержана.</p>
+</li>
+<li><p><strong>Непрозрачность механизма эскроу.</strong> На сайте заявлено использование эскроу для защиты средств <a class="src" href="https://neoved.io/" target="_blank" rel="noopener">neoved.io</a>, но не раскрыты детали: кто выступает эскроу-агентом, в какой юрисдикции, каковы условия возврата и разрешения споров. Без этой информации сложно оценить реальную степень защиты.</p>
+</li>
+<li><p><strong>Карты без 3D Secure.</strong> Виртуальные карты neoved работают «без 3D Secure и не требуют стороннего подтверждения операций» <a class="src" href="https://neoved.io/" target="_blank" rel="noopener">neoved.io</a>. В блоге самой компании 3D Secure описывается как дополнительный шаг защиты при онлайн-платежах <a class="src" href="https://neoved.io/blog/bezopasnoe-ispolzovanie-bankovskoy-karty" target="_blank" rel="noopener">neoved.io/blog/bezopasnoe-ispolzovanie-b…</a>, но их собственный продукт эту защиту не поддерживает. Для клиента это может означать повышенный риск при компрометации реквизитов.</p>
+</li>
+<li><p><strong>Не раскрыты банки-эмитенты и партнёры.</strong> Указаны только регионы эмитентов («EU, UK, USA, ASIA») <a class="src" href="https://neoved.io/" target="_blank" rel="noopener">neoved.io</a> и «лицензированные платёжные организации с русскоязычным управлением» <a class="src" href="https://neoved.io/" target="_blank" rel="noopener">neoved.io</a>. Отсутствие конкретных названий не позволяет клиенту заранее проверить надёжность банка-эмитента и условия страхования/защиты средств на карте.</p>
+</li>
+<li><p><strong>Сторонние сигналы.</strong> На сайте Coinmania присутствует URL, содержащий «neoved-io-obman» <a class="src" href="https://coinmania.com/rejting-luchshikh-trejderov/neoved-io-obman/" target="_blank" rel="noopener">coinmania.com/rejting-luchshikh-trejdero…</a>, однако в предоставленном фрагменте нет текста статьи, поэтому подтвердить негативное содержание невозможно. В рейтинге платёжных агентов Altcoinlog neoved не включён в топ-10 <a class="src" href="https://altcoinlog.com/reiting-agentov-mezhdunarodnyh-platezhei/" target="_blank" rel="noopener">altcoinlog.com/reiting-agentov-mezhdunar…</a>. Это может быть связано с недостаточной известностью или другими причинами, но является поводом для дополнительной проверки.</p>
+</li>
+<li><p><strong>Различие в адресах.</strong> Юридический адрес ООО «Нэопэй» указан как: 123104, г. Москва, ул. Большая Бронная, д. 23, стр. 1 <a class="src" href="https://neoved.io/terms" target="_blank" rel="noopener">neoved.io/terms</a>. На портале PromPortal.su для Neoved указан адрес: Москва, г. Санкт-Петербург, ул. Брестский бул., д. 8 <a class="src" href="https://neoved.promportal.su/" target="_blank" rel="noopener">neoved.promportal.su</a>. Разные адреса не обязательно свидетельствуют о проблемах, но клиенту стоит уточнить актуальный юридический и фактический адрес перед началом сотрудничества.</p>
+</li>
+<li><p><strong>Ограничения по странам и типам платежей.</strong> Список стран, с которыми не работает neoved, включает Украину, Иран, Сирию и другие <a class="src" href="https://neoved.io/countries" target="_blank" rel="noopener">neoved.io/countries</a>. Кроме того, недоступны платежи по целому ряду товарных групп, включая серверы, компьютеры, медицинское оборудование, сырьевые товары <a class="src" href="https://neoved.io/payment-limitations" target="_blank" rel="noopener">neoved.io/payment-limitations</a>. Это существенно сужает спектр возможных операций для некоторых клиентов.</p>
+</li>
+<li><p><strong>Необходимость самостоятельной проверки.</strong> Сама компания рекомендует клиентам проверять её через ЕГРЮЛ/ЕГРИП, сервис ФНС «Прозрачный бизнес» и проверку директора на дисквалификацию <a class="src" href="https://neoved.io/keysy-i-otzyvy" target="_blank" rel="noopener">neoved.io/keysy-i-otzyvy</a>. Это свидетельствует о том, что ответственность за первичную проверку контрагента лежит на клиенте.</p>
+</li>
+<li><p><strong>Комиссионная нагрузка.</strong> Хотя в общем FAQ упоминается комиссия от 0.3% <a class="src" href="https://neoved.io/" target="_blank" rel="noopener">neoved.io</a>, фактически на странице валютных платежей минимальная комиссия составляет 0.5% (при сделке от 30 млн руб.) и может достигать 6% + SWIFT на малых суммах <a class="src" href="https://neoved.io/mezhdunarodnyy-platezh-v-valyute" target="_blank" rel="noopener">neoved.io/mezhdunarodnyy-platezh-v-valyute</a>. Для криптоплатежей — от 0.3% до 5% в зависимости от суммы <a class="src" href="https://neoved.io/mezhdunarodnyy-platezh-v-kriptovalyute" target="_blank" rel="noopener">neoved.io/mezhdunarodnyy-platezh-v-kript…</a>. Клиенту следует внимательно рассчитывать итоговую стоимость, а не ориентироваться на рекламные «от 0.3%».</p>
+</li>
+</ul>
+<p>Таким образом, несмотря на развёрнутый маркетинг и заявленную экспертизу, neoved остаётся структурой с ограниченной публичной прозрачностью: отсутствуют подтверждённые лицензии, конкретные банки-партнёры и независимые отзывы. Перед началом сотрудничества целесообразно запросить полные юридические документы, реквизиты, порядок работы эскроу и сведения о конечных исполнителях платежей.</p>
+</section>
+<div class="note reveal"><strong>Как получен ответ.</strong> У DeepSeek API нет своего веб-поиска, поэтому поиск сделан заранее: 27 страниц neoved.io (главная, «О нас», FAQ, продукты, страны, ограничения, условия, политика данных, блог о комплаенсе) скачаны 28.09.2026 и вместе с тремя сторонними страницами переданы модели. Модели запрещено писать то, чего нет в источниках, и велено ставить ссылку после каждого факта. Лимиты, комиссии, отсутствие 3D Secure, юрлицо и пункт о субагентах сверены с исходными текстами вручную. Остальное — формулировки модели.</div>
+</main>
+</div>
+<footer>Страница закрыта от индексации. Данные — по состоянию сайта neoved.io на 28.09.2026.</footer>
+</div>
+<script>
+(function(){var links=[].slice.call(document.querySelectorAll('nav.toc a'));var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){links.forEach(function(a){a.classList.toggle('on',a.getAttribute('href')==='#'+e.target.id)})}})},{rootMargin:'-30% 0px -60% 0px'});document.querySelectorAll('main section').forEach(function(s){io.observe(s)});
+var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+function show(el){el.style.transition='opacity .6s ease, transform .6s ease';el.style.opacity=1;el.style.transform='none'}
+window.__fallback=function(){if(window.__motion)return;var o=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){show(e.target);o.unobserve(e.target)}})},{threshold:.05});document.querySelectorAll('.reveal').forEach(function(el){el.style.transform='translateY(16px)';o.observe(el)})};
+setTimeout(function(){if(!window.__motion)window.__fallback()},1200);
+setTimeout(function(){document.querySelectorAll('.reveal').forEach(function(el){if(parseFloat(getComputedStyle(el).opacity)<0.5)show(el)})},3000);
+if(reduce)document.documentElement.classList.remove('js-anim');})();
+</script>
+<script type="module">
+import { animate, inView, stagger } from "https://cdn.jsdelivr.net/npm/motion@11/+esm";
+if(!matchMedia('(prefers-reduced-motion: reduce)').matches){window.__motion=true;
+animate('.meta .tile',{opacity:[0,1],y:[16,0]},{duration:.5,delay:stagger(.06)});
+inView('main .reveal',(el)=>{animate(el,{opacity:[0,1],y:[20,0]},{duration:.55,easing:[.22,1,.36,1]})},{amount:.05});}
+</script>
+</body>
+</html>
