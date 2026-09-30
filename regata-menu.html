@@ -1,0 +1,1207 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Еда на борту — анкета</title>
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="description" content="Короткая анкета о еде для повара.">
+<meta name="theme-color" content="#F5F5F7">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230071E3'/%3E%3Cpath d='M16 5v17M17.5 7.5 25 20h-7.5zM14.5 9 8 20h6.5z' fill='%23fff' stroke='%23fff' stroke-width='1.2' stroke-linejoin='round'/%3E%3Cpath d='M6 23h20l-3 4H9z' fill='%23fff'/%3E%3C/svg%3E">
+<script>document.documentElement.classList.add('js-anim');setTimeout(function(){document.documentElement.classList.add('anim-timeout')},1500);</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --page:#F5F5F7; --surface:rgba(255,255,255,.9); --t1:#1D1D1F; --t2:#5F5F64; --t3:#8E8E93;
+  --blue:#0071E3; --blue-press:#0062C4; --blue-ink:#0058B0; --blue-soft:#EAF3FF; --blue-line:#BFDCFF;
+  --border:rgba(0,0,0,.08); --border-strong:rgba(0,0,0,.16);
+  --danger:#D70015; --danger-soft:#FFF1F2; --ok:#1D8A3D; --warn-soft:#FFF8E6; --warn-ink:#8A5A00;
+  --r-card:22px; --r-ctl:14px;
+  --shadow:0 1px 2px rgba(0,0,0,.04),0 8px 24px rgba(0,0,0,.05);
+  --shadow-lift:0 2px 4px rgba(0,0,0,.05),0 14px 34px rgba(0,0,0,.09);
+  --ease:cubic-bezier(.22,.8,.26,1);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:#EAF3FF;color:var(--t1);font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased}
+button,input,textarea{font:inherit;color:inherit}
+button{cursor:pointer;touch-action:manipulation}
+[hidden]{display:none!important}
+.sr{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+:focus-visible{outline:3px solid rgba(0,113,227,.45);outline-offset:2px}
+
+.wrap{max-width:1120px;margin:0 auto;padding:16px max(16px,env(safe-area-inset-right)) calc(48px + env(safe-area-inset-bottom)) max(16px,env(safe-area-inset-left));display:grid;gap:20px}
+.side{display:grid;gap:18px;align-content:start;min-height:calc(62vh - 16px)}
+.main{display:grid;gap:16px;align-content:start;min-width:0}
+
+/* ---------- вода на весь экран: неподвижный слой под содержимым ---------- */
+.sea{position:fixed;left:0;top:0;width:100%;height:100vh;height:100lvh;z-index:-1;overflow:hidden;pointer-events:none;
+  background:linear-gradient(180deg,#FFFFFF 0%,#F4F9FF 46%,#E6F1FF 100%)}
+.sea::before{content:"";position:absolute;right:9%;top:41vh;width:54px;height:54px;border-radius:50%;background:radial-gradient(circle at 40% 38%,#FFE9A8 0%,#FFD66B 62%,#FFCC4D 100%);box-shadow:0 0 0 14px rgba(255,214,107,.16),0 0 0 30px rgba(255,214,107,.08)}
+.sea canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+html.can-grab body{cursor:grab}
+html.is-grabbing,html.is-grabbing *{cursor:grabbing!important;user-select:none!important;-webkit-user-select:none!important}
+.play{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin:14px 0 0}
+.play-hint{margin:0;font-size:14px;font-weight:500;color:var(--t2)}
+.tilt-btn{min-height:44px;padding:0 16px;border-radius:999px;border:1px solid var(--border-strong);background:rgba(255,255,255,.92);font-size:14px;font-weight:600;color:var(--blue-ink)}
+.tilt-btn:active{transform:scale(.97)}
+
+/* ---------- заголовок ---------- */
+.eyebrow{margin:0 0 8px;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--t2)}
+h1{margin:0;font-size:clamp(30px,6.4vw,50px);line-height:1.06;letter-spacing:-.025em;font-weight:800}
+h1 span{color:var(--blue)}
+.lead{margin:12px 0 0;color:var(--t2);font-size:17px;max-width:46ch}
+.pills{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0 0;padding:0;list-style:none}
+.pills li{padding:6px 12px;border-radius:999px;background:rgba(255,255,255,.82);border:1px solid var(--border);font-size:13px;font-weight:500;color:var(--t2)}
+.js-anim:not(.anim-timeout) .intro-anim{opacity:0}
+
+/* ---------- карточки ---------- */
+.card{background:var(--surface);-webkit-backdrop-filter:blur(16px) saturate(1.25);backdrop-filter:blur(16px) saturate(1.25);border:1px solid rgba(255,255,255,.7);border-radius:var(--r-card);box-shadow:var(--shadow);padding:22px 20px;min-width:0}
+form#form{display:grid;gap:16px}
+.card h2,.q-title{margin:0;padding:0;font-size:20px;line-height:1.25;letter-spacing:-.015em;font-weight:700}
+.q-hint{margin:6px 0 14px;color:var(--t2);font-size:15px}
+.badge{display:inline-block;vertical-align:middle;margin-left:8px;padding:3px 9px;border-radius:999px;font-size:12px;font-weight:600;letter-spacing:0;background:var(--blue-soft);color:var(--blue-ink)}
+.badge.req{background:#FFF1E0;color:#8A4B00}
+.demo-bar{padding:12px 16px;border-radius:16px;background:var(--warn-soft);border:1px solid #F3DFA8;color:var(--warn-ink);font-size:14px;font-weight:500}
+
+/* ---------- поля ---------- */
+label.lbl{display:block;font-size:14px;font-weight:600;margin:0 0 6px}
+.input,.textarea{width:100%;min-height:50px;padding:12px 14px;border-radius:var(--r-ctl);border:1px solid var(--border-strong);background:#fff;font-size:16px;transition:border-color .2s,box-shadow .2s}
+.textarea{min-height:84px;resize:vertical;line-height:1.45}
+.input:focus,.textarea:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 4px rgba(0,113,227,.16)}
+.input::placeholder,.textarea::placeholder{color:#737378}
+.err{margin:10px 0 0;padding:10px 12px;border-radius:12px;background:var(--danger-soft);color:var(--danger);font-size:14px;font-weight:500}
+.note{margin:10px 0 0;color:var(--t2);font-size:14px}
+.warn{margin:12px 0 0;padding:10px 12px;border-radius:12px;background:var(--warn-soft);color:var(--warn-ink);font-size:14px}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;width:100%;min-height:54px;padding:0 22px;border:0;border-radius:16px;background:var(--blue);color:#fff;font-size:17px;font-weight:600;letter-spacing:-.01em;transition:background .2s,transform .15s var(--ease),box-shadow .2s;box-shadow:0 6px 18px rgba(0,113,227,.28)}
+.btn:hover{background:var(--blue-press)}
+.btn:active{transform:scale(.985)}
+.btn[disabled]{opacity:.6;cursor:progress;box-shadow:none}
+.btn.ghost{background:#fff;color:var(--blue-ink);border:1px solid var(--border-strong);box-shadow:none}
+.btn.ghost:hover{background:var(--blue-soft)}
+.spin{width:18px;height:18px;border-radius:50%;border:2.5px solid rgba(255,255,255,.4);border-top-color:#fff;animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+.pw-row{position:relative}
+.pw-row .input{padding-right:54px}
+.pw-eye{position:absolute;right:3px;top:3px;width:44px;height:44px;border:0;background:none;border-radius:12px;color:var(--t2);display:grid;place-items:center}
+.pw-eye:hover{background:var(--page)}
+.gate .btn{margin-top:16px}
+.gate-head{display:flex;gap:14px;align-items:center;margin-bottom:16px}
+.gate-ico{flex:none;width:46px;height:46px;border-radius:14px;background:var(--blue-soft);color:var(--blue);display:grid;place-items:center}
+
+/* ---------- раскрывающийся список ---------- */
+.ms-toggle{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;min-height:52px;padding:0 14px 0 16px;border-radius:var(--r-ctl);border:1px solid var(--border-strong);background:#fff;text-align:left;font-size:16px;font-weight:500;color:var(--t2);transition:border-color .2s,box-shadow .2s,background .2s}
+.ms-toggle:hover{border-color:rgba(0,0,0,.28)}
+.ms.has-value .ms-toggle{color:var(--t1)}
+.ms.open .ms-toggle{border-color:var(--blue);box-shadow:0 0 0 4px rgba(0,113,227,.16)}
+.ms-toggle svg{flex:none;color:var(--t2);transition:transform .28s var(--ease)}
+.ms.open .ms-toggle svg{transform:rotate(180deg)}
+.ms-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.ms-chips:empty{display:none}
+.chip{display:inline-flex;align-items:center;gap:2px;min-height:36px;padding:0 4px 0 13px;border-radius:999px;background:var(--blue-soft);border:1px solid var(--blue-line);color:var(--blue-ink);font-size:14px;font-weight:600}
+.chip button{width:32px;height:32px;margin:0;border:0;border-radius:50%;background:none;color:var(--blue-ink);display:grid;place-items:center;position:relative}
+.chip button::after{content:"";position:absolute;inset:-6px}
+.chip button:hover{background:rgba(0,113,227,.14)}
+.ms-panel{display:grid;grid-template-rows:0fr;transition:grid-template-rows .32s var(--ease)}
+.ms.open .ms-panel{grid-template-rows:1fr}
+.ms-inner{overflow:hidden;min-height:0;visibility:hidden;transition:visibility 0s .32s}
+.ms.open .ms-inner{visibility:visible;transition-delay:0s}
+.ms-body{margin-top:10px;padding:14px;border-radius:18px;background:rgba(245,245,247,.92);border:1px solid var(--border)}
+.ms-group+.ms-group{margin-top:14px}
+.ms-group-title{margin:0 0 8px;font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--t2)}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opt{position:relative;display:inline-flex}
+.opt input{position:absolute;opacity:0;width:100%;height:100%;margin:0;cursor:pointer}
+.opt span{display:inline-flex;align-items:center;min-height:44px;padding:0 14px;border-radius:999px;background:#fff;border:1px solid var(--border-strong);font-size:15px;font-weight:500;transition:background .18s,border-color .18s,color .18s,transform .15s var(--ease);user-select:none;-webkit-user-select:none}
+.opt span::before{content:"";width:0;height:10px;margin-right:0;opacity:0;transition:width .18s var(--ease),margin-right .18s var(--ease),opacity .18s;background:no-repeat center/12px url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 10'%3E%3Cpath d='M1 5.2 4.4 8.5 11 1.5' fill='none' stroke='%23fff' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")}
+.opt input:checked+span{background:var(--blue);border-color:var(--blue);color:#fff}
+.opt input:checked+span::before{width:12px;margin-right:7px;opacity:1}
+.opt input:focus-visible+span{outline:3px solid rgba(0,113,227,.45);outline-offset:2px}
+.opt input:active+span{transform:scale(.96)}
+.opt:hover input:not(:checked)+span{border-color:var(--blue)}
+.own{display:flex;gap:8px;margin-top:14px}
+.own .input{min-height:46px;flex:1;min-width:0}
+.own button,.ms-done{min-height:46px;padding:0 16px;border-radius:var(--r-ctl);border:1px solid var(--border-strong);background:#fff;font-size:15px;font-weight:600;color:var(--blue-ink);white-space:nowrap}
+.own button:hover,.ms-done:hover{background:var(--blue-soft)}
+.ms-done{display:block;width:100%;margin-top:12px;background:var(--t1);color:#fff;border-color:var(--t1)}
+.ms-done:hover{background:#000}
+
+/* ---------- аллергия ---------- */
+.seg{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.seg .opt span{width:100%;justify-content:center;min-height:52px;border-radius:var(--r-ctl);font-size:16px;font-weight:600}
+.fold{display:grid;grid-template-rows:0fr;transition:grid-template-rows .34s var(--ease)}
+.fold.open{grid-template-rows:1fr}
+.fold>div{overflow:hidden;min-height:0;visibility:hidden;transition:visibility 0s .34s}
+.fold.open>div{visibility:visible;transition-delay:0s}
+.fold-body{padding-top:18px}
+.quick{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 12px}
+.sub-q{margin-top:18px}
+
+/* ---------- финал ---------- */
+.submit-card{display:grid;gap:12px}
+.fine{margin:0;color:var(--t2);font-size:13px;text-align:center}
+.done{text-align:center;padding:34px 22px}
+.done-ico{width:68px;height:68px;margin:0 auto 16px;border-radius:50%;background:#E8F7EC;color:var(--ok);display:grid;place-items:center}
+.done h2{font-size:26px;letter-spacing:-.02em}
+.done p{margin:10px auto 20px;color:var(--t2);max-width:40ch}
+.hp{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
+noscript .card{margin:16px}
+
+@media (min-width:980px){
+  .wrap{grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:36px;padding-top:36px;align-items:start}
+  .side{position:sticky;top:36px;min-height:0}
+  .sea::before{right:auto;left:37%;top:40vh;width:64px;height:64px}
+  .card{padding:26px 26px}
+  .card:not(.submit-card):not(.done){transition:box-shadow .2s,transform .2s}
+}
+@media (max-width:420px){
+  .card{padding:20px 16px}
+  .own{flex-wrap:wrap}
+  .own button{flex:1}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms!important;transition-duration:.001ms!important;transition-delay:0s!important}
+  .js-anim .intro-anim{opacity:1!important}
+}
+</style>
+</head>
+<body>
+<noscript><div class="card"><h2>Нужен JavaScript</h2><p class="q-hint">Анкета работает только с включённым JavaScript. Включите его в настройках браузера и обновите страницу.</p></div></noscript>
+
+<div class="sea" id="sea" aria-hidden="true"><canvas id="seaCanvas"></canvas></div>
+
+<div class="wrap">
+  <div class="side">
+    <header class="intro">
+      <p class="eyebrow intro-anim">Камбуз · анкета</p>
+      <h1 class="intro-anim">Что вы <span>любите</span> есть?</h1>
+      <p class="lead intro-anim">Пара минут, и повар будет знать, чем вас порадовать на борту и чего в тарелку не класть.</p>
+      <ul class="pills intro-anim">
+        <li id="pillAnon">Без имён</li>
+        <li>Выбор из списков</li>
+        <li>1–2 минуты</li>
+      </ul>
+      <div class="play intro-anim">
+        <p class="play-hint" id="seaHint">Кораблик живой: его можно таскать и топить.</p>
+        <button type="button" class="tilt-btn" id="tiltBtn" hidden>Включить наклон телефона</button>
+      </div>
+    </header>
+  </div>
+
+  <main class="main" id="main">
+    <div class="demo-bar" id="demoBar" hidden>Демо-режим: показаны все вопросы, включая дополнительные с номерами. Ответы никуда не отправляются.</div>
+
+    <section class="card gate" id="gate" aria-labelledby="gateTitle">
+      <div class="gate-head">
+        <div class="gate-ico" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="3"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></div>
+        <div>
+          <h2 id="gateTitle">Вход по паролю</h2>
+          <p class="q-hint" style="margin:4px 0 0">Пароль прислал организатор.</p>
+        </div>
+      </div>
+      <form id="gateForm" novalidate>
+        <label class="lbl" for="pw">Пароль</label>
+        <div class="pw-row">
+          <input class="input" id="pw" name="password" type="password" autocomplete="current-password" autocapitalize="none" autocorrect="off" spellcheck="false" aria-describedby="pwErr" required>
+          <button type="button" class="pw-eye" id="pwEye" aria-label="Показать пароль" aria-pressed="false"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></button>
+        </div>
+        <p class="err" id="pwErr" role="alert" hidden></p>
+        <button class="btn" type="submit" id="gateBtn"><span>Войти</span></button>
+      </form>
+    </section>
+
+    <form id="form" novalidate hidden>
+      <div class="hp" aria-hidden="true"><label>Не заполняйте это поле <input type="text" name="rm_trap_field" id="trap" tabindex="-1" autocomplete="off"></label></div>
+      <div id="questions" class="main"></div>
+      <section class="card submit-card">
+        <p class="err" id="formErr" role="alert" hidden></p>
+        <button class="btn" type="submit" id="sendBtn"><span>Отправить повару</span></button>
+        <p class="fine">Ответы увидят только организатор и повар.</p>
+      </section>
+    </form>
+
+    <section class="card done" id="done" hidden aria-live="polite">
+      <div class="done-ico" aria-hidden="true"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12.5 10 18 19.5 7"/></svg></div>
+      <h2 tabindex="-1" id="doneTitle">Готово, ответ у повара</h2>
+      <p>Спасибо! Если вкусы изменятся, анкету можно отправить ещё раз. Повар возьмёт последний вариант.</p>
+      <button type="button" class="btn ghost" id="againBtn"><span>Исправить ответ</span></button>
+    </section>
+  </main>
+</div>
+
+<script>
+/* ======================================================================
+   Настройки. Дополнительные вопросы включаются здесь: false → true.
+   ====================================================================== */
+var CONFIG = {
+  api: 'https://regata-menu.strelnikov2302.workers.dev',
+  extras: {
+    name: false,           // 1  Имя или прозвище
+    allergy_level: false,  // 2  Насколько строго с аллергеном
+    diet: false,           // 3  Тип питания
+    breakfast: false,      // 4  Завтрак
+    hot_drinks: false,     // 5  Кофе и чай
+    snacks: false,         // 6  Перекусы на вахте
+    soft_drinks: false,    // 7  Напитки без алкоголя
+    alcohol: false,        // 8  Алкоголь
+    portion: false,        // 9  Размер порции
+    spicy: false,          // 10 Острота
+    seasick: false,        // 11 Укачивание
+    med: false,            // 12 Что учесть по здоровью
+    days: false,           // 13 Дни на борту
+    dinner: false,         // 14 Ужин на стоянке
+    birthday: false,       // 15 День рождения в даты регаты
+    favorite: false,       // 16 Блюдо, которому обрадуетесь
+    comment: false         // 17 Комментарий повару
+  }
+};
+
+/* ======================================================================
+   Вода, кораблик, наклон телефона
+   ====================================================================== */
+var Sea = (function () {
+  var box = document.getElementById('sea');
+  var cv = document.getElementById('seaCanvas');
+  var hintEl = document.getElementById('seaHint');
+  var tiltBtn = document.getElementById('tiltBtn');
+  var ctx = cv.getContext('2d');
+  var mqReduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  var N = 220;                         // столбцы воды вдоль поверхности
+  var h = new Float32Array(N), vel = new Float32Array(N);
+  var W = 1, H = 1, dpr = 1, L = 1, ds = 1, cx = 0, cy = 0, HM = 60;
+  var FILL = 0.44;                     // доля сцены, занятая водой
+  var K = 34, DAMP = 1.7, CW = 300, SP = 0;   // упругость, затухание, скорость волны
+  var G = 1500;                        // «тяжесть», px/с²
+  var DT = 1 / 120;
+
+  var th = 0, thT = 0;                 // куда сейчас направлена тяжесть и куда должна (0 — вниз экрана)
+  var gx = 0, gy = 1, tx = 1, ty = 0;  // единичные векторы: вдоль тяжести и вдоль поверхности
+  var level = 0, sa = 0, sb = 0;       // уровень воды и видимый отрезок поверхности
+  var time = 0, ambK = 1;
+
+  var boat = { x: 0, y: 0, vx: 0, vy: 0, a: 0, w: 0, sub: 0.5, ready: false };
+  var sc = 1, progress = 0, sailing = false, freeUntil = -1;
+  var drag = { on: false, id: -1, ox: 0, oy: 0, tx: 0, ty: 0 };
+  var rings = [], drops = [];
+  var ptr = { x: 0, y: 0, t: 0, ring: 0, has: false };
+  var running = false, visible = true, awakeUntil = 0, last = 0, acc = 0;
+  var rootEl = document.documentElement;
+
+  function clamp(v, a, b) { return v < a ? a : v > b ? b : v; }
+  function wrap(a) { while (a > Math.PI) a -= 2 * Math.PI; while (a < -Math.PI) a += 2 * Math.PI; return a; }
+
+  /* --- геометрия: сколько воды помещается ниже линии уровня --- */
+  function corners() {
+    var c = [[-W / 2, -H / 2], [W / 2, -H / 2], [W / 2, H / 2], [-W / 2, H / 2]], out = [];
+    for (var i = 0; i < 4; i++) out.push([c[i][0] * tx + c[i][1] * ty, c[i][0] * gx + c[i][1] * gy]);
+    return out;
+  }
+  function areaBelow(lv, pts) {
+    var out = [], i, a, b, k;
+    for (i = 0; i < 4; i++) {
+      a = pts[i]; b = pts[(i + 1) % 4];
+      var ain = a[1] >= lv, bin = b[1] >= lv;
+      if (ain) out.push(a);
+      if (ain !== bin) { k = (lv - a[1]) / (b[1] - a[1]); out.push([a[0] + (b[0] - a[0]) * k, lv]); }
+    }
+    var ar = 0;
+    for (i = 0; i < out.length; i++) { a = out[i]; b = out[(i + 1) % out.length]; ar += a[0] * b[1] - b[0] * a[1]; }
+    return Math.abs(ar) / 2;
+  }
+  function computeLevel() {
+    gx = Math.sin(th); gy = Math.cos(th); tx = gy; ty = -gx;
+    var pts = corners(), lo = Infinity, hi = -Infinity, i;
+    for (i = 0; i < 4; i++) { lo = Math.min(lo, pts[i][1]); hi = Math.max(hi, pts[i][1]); }
+    var target = FILL * W * H, a = lo, b = hi, m;
+    for (i = 0; i < 22; i++) { m = (a + b) / 2; if (areaBelow(m, pts) > target) a = m; else b = m; }
+    level = (a + b) / 2;
+    var smin = Infinity, smax = -Infinity;
+    for (i = 0; i < 4; i++) {
+      var p = pts[i], q = pts[(i + 1) % 4];
+      if ((p[1] - level) * (q[1] - level) <= 0 && p[1] !== q[1]) {
+        var s = p[0] + (q[0] - p[0]) * ((level - p[1]) / (q[1] - p[1]));
+        smin = Math.min(smin, s); smax = Math.max(smax, s);
+      }
+    }
+    if (smin === Infinity || smax - smin < 8) { smin = -W / 2; smax = W / 2; }
+    sa = smin; sb = smax;
+  }
+
+  /* --- высота поверхности --- */
+  function hAt(s) {
+    var f = (s + L / 2) / ds;
+    if (f <= 0) return h[0];
+    if (f >= N - 1) return h[N - 1];
+    var i = f | 0, k = f - i;
+    return h[i] * (1 - k) + h[i + 1] * k;
+  }
+  function amb(s, k) {
+    if (!ambK) return 0;
+    return ambK * ((3.4 - k * 0.5) * Math.sin(s * 0.021 + time * (1.45 - k * 0.22) + k * 1.7)
+      + 1.9 * Math.sin(s * 0.047 - time * (2.1 + k * 0.3) + k * 0.9));
+  }
+  function surf(s) { return level - hAt(s) - amb(s, 0); }
+  function push(s, amount, radius) {
+    var i0 = Math.max(0, Math.floor((s - radius + L / 2) / ds)), i1 = Math.min(N - 1, Math.ceil((s + radius + L / 2) / ds));
+    for (var i = i0; i <= i1; i++) {
+      var d = (-L / 2 + i * ds - s) / radius, f = 1 - d * d;
+      if (f > 0) vel[i] += amount * f * f;
+    }
+  }
+  function home() {
+    if (sailing) return sb + 300 * sc;
+    // На широком экране справа стоит анкета — кораблик держится в свободной левой части.
+    var span = (sb - sa) * (W >= 980 ? 0.44 : 1), pad = Math.min(64 * sc, span * 0.16);
+    return sa + pad + (span - 2 * pad) * (0.08 + 0.84 * progress);
+  }
+  function placeBoat(s) {
+    var z = surf(s);
+    boat.x = cx + tx * s + gx * z; boat.y = cy + ty * s + gy * z;
+    boat.vx = boat.vy = boat.w = 0; boat.a = -th; boat.sub = 0.5;
+  }
+
+  function splash(s, speed) {
+    if (mqReduce.matches) return;
+    var n = Math.round(clamp(speed / 55, 3, 14)), zs = surf(s);
+    for (var i = 0; i < n && drops.length < 70; i++) {
+      var up = 130 + Math.random() * clamp(speed * 0.55, 60, 330), side = (Math.random() - 0.5) * 300;
+      var s0 = s + (Math.random() - 0.5) * 50 * sc;
+      drops.push({
+        x: cx + tx * s0 + gx * (zs - 3), y: cy + ty * s0 + gy * (zs - 3),
+        vx: tx * side - gx * up, vy: ty * side - gy * up, age: 0, r: 1.4 + Math.random() * 2.2
+      });
+    }
+  }
+
+  /* --- один шаг физики --- */
+  function step(dt) {
+    time += dt;
+    var i, d = wrap(thT - th);
+    if (Math.abs(d) > 1e-4) {
+      var dth = d * (1 - Math.exp(-dt * 9));
+      th = wrap(th + dth);
+      // Вода не успевает за поворотом: поверхность на миг остаётся на месте, а потом перетекает.
+      var inj = clamp(dth, -0.1, 0.1);
+      for (i = 0; i < N; i++) h[i] = clamp(h[i] - (-L / 2 + i * ds) * inj, -HM, HM);
+      computeLevel();
+    }
+
+    var ia = clamp(Math.floor((sa + L / 2) / ds), 0, N - 1), ib = clamp(Math.ceil((sb + L / 2) / ds), 0, N - 1);
+    for (i = ia; i <= ib; i++) {
+      var l = h[i > ia ? i - 1 : i], r = h[i < ib ? i + 1 : i];
+      vel[i] += (-K * h[i] - DAMP * vel[i] + SP * (l + r - 2 * h[i])) * dt;
+    }
+    for (i = ia; i <= ib; i++) h[i] = clamp(h[i] + vel[i] * dt, -HM, HM);
+    for (i = 0; i < ia; i++) { h[i] = h[ia]; vel[i] = vel[ia]; }
+    for (i = ib + 1; i < N; i++) { h[i] = h[ib]; vel[i] = vel[ib]; }
+
+    /* кораблик */
+    var b = boat, rx = b.x - cx, ry = b.y - cy;
+    var s = rx * tx + ry * ty, z = rx * gx + ry * gy;
+    var zs = surf(s), slope = (surf(s + 7) - surf(s - 7)) / 14;
+    var hullH = 34 * sc, sub = clamp(0.5 + (z - zs) / hullH, 0, 1.3);
+    var vs = b.vx * tx + b.vy * ty, vz = b.vx * gx + b.vy * gy;
+    var free = time < freeUntil;
+
+    if (drag.on) {
+      b.vx += ((drag.tx - b.x) * 260 - b.vx * 28) * dt;
+      b.vy += ((drag.ty - b.y) * 260 - b.vy * 28) * dt;
+    } else {
+      var az = G * (1 - 2 * sub), as = 0;
+      if (sub > 0) {
+        var wet = Math.min(sub, 1), near = clamp(1 - Math.abs(sub - 0.5) * 2, 0, 1);
+        // у поверхности вода гасит качку сильнее, в глубине — слабее, чтобы кораблик бодро всплывал
+        vz *= Math.exp(-dt * (4.2 + 5.5 * near));
+        vs *= Math.exp(-dt * 1.3 * wet);
+        as += G * 0.28 * slope;
+        if (sub < 1.25) as += 2.6 * clamp(home() - s, -280, 280);
+      }
+      if (!free) {
+        var pad = 38 * sc;
+        if (s < sa + pad) as += (sa + pad - s) * 34;
+        if (s > sb - pad) as += (sb - pad - s) * 34;
+      }
+      b.vx = tx * vs + gx * vz + (tx * as + gx * az) * dt;
+      b.vy = ty * vs + gy * vz + (ty * as + gy * az) * dt;
+    }
+    b.x += b.vx * dt; b.y += b.vy * dt;
+    if (!free) {
+      if (b.x < 6) { b.x = 6; if (b.vx < 0) b.vx *= -0.3; }
+      if (b.x > W - 6) { b.x = W - 6; if (b.vx > 0) b.vx *= -0.3; }
+      if (b.y < 6) { b.y = 6; if (b.vy < 0) b.vy *= -0.3; }
+      if (b.y > H - 6) { b.y = H - 6; if (b.vy > 0) b.vy *= -0.3; }
+    }
+
+    var target = -th + Math.atan(slope) * 0.9, kA = 42, cA = 4.4;
+    if (drag.on) { target = -th + clamp(vs * 0.0011, -0.5, 0.5); kA = 60; cA = 9; }
+    else if (sub <= 0) { kA = 7; cA = 1.4; }
+    b.w += (kA * wrap(target - b.a) - cA * b.w) * dt;
+    b.a = wrap(b.a + b.w * dt);
+
+    /* кораблик и вода толкают друг друга */
+    vz = b.vx * gx + b.vy * gy;
+    if ((b.sub <= 0.02 && sub > 0.02 && vz > 90) || (b.sub > 0.02 && sub <= 0.02 && vz < -140)) {
+      push(s, -clamp(vz * 0.36, -210, 210), 52 * sc);
+      splash(s, Math.abs(vz));
+    }
+    if (sub > 0.02 && sub < 1.25) push(s, -vz * 0.3 * dt, 46 * sc);
+    b.sub = sub;
+
+    for (i = rings.length - 1; i >= 0; i--) { rings[i].age += dt; if (rings[i].age > rings[i].life) rings.splice(i, 1); }
+    for (i = drops.length - 1; i >= 0; i--) {
+      var p = drops[i];
+      p.age += dt; p.vx += gx * G * 0.75 * dt; p.vy += gy * G * 0.75 * dt; p.x += p.vx * dt; p.y += p.vy * dt;
+      var ps = (p.x - cx) * tx + (p.y - cy) * ty, pz = (p.x - cx) * gx + (p.y - cy) * gy;
+      if (p.age > 1.6 || (p.age > 0.12 && pz > surf(ps))) { if (p.age <= 1.6) push(ps, -14, 12); drops.splice(i, 1); }
+    }
+  }
+
+  /* --- рисование --- */
+  var bufs = [new Float32Array(2 * N), new Float32Array(2 * N), new Float32Array(2 * N)];
+  function surfacePoints(k, dz, hk) {
+    var pts = bufs[k];
+    for (var i = 0; i < N; i++) {
+      var s = -L / 2 + i * ds, z = level - h[i] * hk - amb(s, k) + dz;
+      pts[2 * i] = cx + tx * s + gx * z; pts[2 * i + 1] = cy + ty * s + gy * z;
+    }
+    return pts;
+  }
+  function waterPath(pts) {
+    var p = new Path2D(), F = L * 1.2, e = 2 * (N - 1);
+    p.moveTo(pts[0], pts[1]);
+    for (var i = 1; i < N; i++) p.lineTo(pts[2 * i], pts[2 * i + 1]);
+    p.lineTo(pts[e] + gx * F, pts[e + 1] + gy * F);
+    p.lineTo(pts[0] + gx * F, pts[1] + gy * F);
+    p.closePath();
+    return p;
+  }
+  function drawBoat() {
+    var b = boat;
+    ctx.save();
+    ctx.translate(b.x, b.y); ctx.rotate(b.a); ctx.scale(sc, sc);
+    ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+    // тень корпуса на воде
+    ctx.fillStyle = 'rgba(0,40,100,0.10)';
+    ctx.beginPath(); ctx.ellipse(2, 12, 46, 5, 0, 0, Math.PI * 2); ctx.fill();
+    // мачта
+    ctx.strokeStyle = '#8E8E93'; ctx.lineWidth = 2.6;
+    ctx.beginPath(); ctx.moveTo(3, -9); ctx.lineTo(3, -95); ctx.stroke();
+    // вымпел
+    var fl = ambK ? Math.sin(time * 6.2) * 2.4 : 0;
+    ctx.fillStyle = '#FF9500';
+    ctx.beginPath(); ctx.moveTo(3, -95); ctx.quadraticCurveTo(-5, -95 + fl, -14, -90 + fl); ctx.lineTo(3, -86); ctx.closePath(); ctx.fill();
+    // грот
+    var g1 = ctx.createLinearGradient(-42, 0, 0, 0); g1.addColorStop(0, '#D6E4F5'); g1.addColorStop(1, '#FBFDFF');
+    ctx.fillStyle = g1; ctx.strokeStyle = 'rgba(0,50,120,0.26)'; ctx.lineWidth = 1.1;
+    ctx.beginPath(); ctx.moveTo(0, -88); ctx.quadraticCurveTo(-13, -52, -43, -19); ctx.lineTo(0, -19); ctx.closePath(); ctx.fill(); ctx.stroke();
+    // стаксель
+    var g2 = ctx.createLinearGradient(6, 0, 46, 0); g2.addColorStop(0, '#FBFDFF'); g2.addColorStop(1, '#E2ECF9');
+    ctx.fillStyle = g2;
+    ctx.beginPath(); ctx.moveTo(6, -82); ctx.quadraticCurveTo(24, -50, 47, -19); ctx.lineTo(6, -19); ctx.closePath(); ctx.fill(); ctx.stroke();
+    // гик
+    ctx.strokeStyle = '#8E8E93'; ctx.lineWidth = 2.2;
+    ctx.beginPath(); ctx.moveTo(3, -15.5); ctx.lineTo(-45, -15.5); ctx.stroke();
+    // корпус
+    ctx.fillStyle = '#12355B';
+    ctx.beginPath(); ctx.moveTo(-49, -9); ctx.lineTo(55, -9); ctx.quadraticCurveTo(47, 8, 30, 13); ctx.lineTo(-35, 13); ctx.quadraticCurveTo(-47, 10, -49, -9); ctx.closePath(); ctx.fill();
+    ctx.strokeStyle = 'rgba(255,255,255,0.92)'; ctx.lineWidth = 2.2;
+    ctx.beginPath(); ctx.moveTo(-46.5, -5.6); ctx.lineTo(51, -5.6); ctx.stroke();
+    ctx.fillStyle = 'rgba(255,255,255,0.85)';
+    for (var i = 0; i < 3; i++) { ctx.beginPath(); ctx.arc(-12 + i * 15, 3, 2.1, 0, Math.PI * 2); ctx.fill(); }
+    ctx.restore();
+  }
+  function draw() {
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.clearRect(0, 0, W, H);
+
+    ctx.fillStyle = 'rgba(122,190,255,0.30)';
+    ctx.fill(waterPath(surfacePoints(2, -13, 0.6)));
+    ctx.fillStyle = 'rgba(90,200,250,0.34)';
+    ctx.fill(waterPath(surfacePoints(1, -6, 0.8)));
+
+    drawBoat();
+
+    var pts = surfacePoints(0, 0, 1), front = waterPath(pts);
+    var far = Math.max(W, H);
+    var gr = ctx.createLinearGradient(cx + gx * (level - 24), cy + gy * (level - 24), cx + gx * (level + far * 0.8), cy + gy * (level + far * 0.8));
+    gr.addColorStop(0, 'rgba(72,160,255,0.60)'); gr.addColorStop(0.45, 'rgba(0,113,227,0.70)'); gr.addColorStop(1, 'rgba(0,70,168,0.82)');
+    ctx.fillStyle = gr; ctx.fill(front);
+
+    ctx.strokeStyle = 'rgba(255,255,255,0.78)'; ctx.lineWidth = 2; ctx.lineJoin = 'round';
+    ctx.beginPath(); ctx.moveTo(pts[0], pts[1]);
+    for (var i = 1; i < N; i++) ctx.lineTo(pts[2 * i], pts[2 * i + 1]);
+    ctx.stroke();
+
+    if (rings.length) {
+      ctx.save(); ctx.clip(front);
+      for (i = 0; i < rings.length; i++) {
+        var r = rings[i], e = r.age / r.life, ez = 1 - (1 - e) * (1 - e);
+        for (var j = 0; j < 2; j++) {
+          var ee = ez - j * 0.22; if (ee <= 0) continue;
+          var rad = (7 + 54 * ee) * r.k;
+          ctx.strokeStyle = 'rgba(255,255,255,' + (0.62 * (1 - e) * (j ? 0.6 : 1)).toFixed(3) + ')';
+          ctx.lineWidth = 1.6;
+          ctx.beginPath(); ctx.ellipse(r.x, r.y, rad, rad * 0.36, -th, 0, Math.PI * 2); ctx.stroke();
+        }
+      }
+      ctx.restore();
+    }
+    if (drops.length) {
+      ctx.fillStyle = 'rgba(64,156,255,0.85)';
+      for (i = 0; i < drops.length; i++) { ctx.beginPath(); ctx.arc(drops[i].x, drops[i].y, drops[i].r, 0, Math.PI * 2); ctx.fill(); }
+    }
+  }
+
+  /* --- цикл --- */
+  function frame(now) {
+    if (!running) return;
+    var dtReal = Math.min(0.05, Math.max(0, (now - last) / 1000)); last = now; acc += dtReal;
+    var n = 0;
+    while (acc >= DT && n < 7) { step(DT); acc -= DT; n++; }
+    if (n === 7) acc = 0;
+    draw();
+    if (!visible || document.hidden || (mqReduce.matches && now > awakeUntil)) { running = false; return; }
+    requestAnimationFrame(frame);
+  }
+  function start() {
+    if (running || !visible || document.hidden) return;
+    running = true; last = performance.now(); requestAnimationFrame(frame);
+  }
+  function wake() { awakeUntil = performance.now() + 5000; start(); }
+
+  function resize() {
+    var r = box.getBoundingClientRect();
+    if (r.width < 2 || r.height < 2) return;
+    W = r.width; H = r.height;
+    // холст на весь экран: плотность пикселей ограничена, чтобы кадр оставался лёгким и на 4K
+    dpr = Math.max(1, Math.min(window.devicePixelRatio || 1, 2, Math.sqrt(3.2e6 / (W * H))));
+    cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
+    cx = W / 2; cy = H / 2;
+    L = Math.hypot(W, H) + 48; ds = L / (N - 1);
+    CW = clamp(L * 0.45, 300, 700);
+    SP = Math.min(CW * CW / (ds * ds), 12000);   // потолок держит расчёт волн устойчивым на любом экране
+    HM = Math.min(W, H) * 0.5;
+    sc = clamp(Math.min(W, H) * 0.30 / 104, 0.8, 1.5);
+    ambK = mqReduce.matches ? 0 : clamp(Math.min(W, H) / 330, 0.9, 1.7);
+    computeLevel();
+    if (!boat.ready) { placeBoat(home()); boat.ready = true; }
+    else { boat.x = clamp(boat.x, 6, W - 6); boat.y = clamp(boat.y, 6, H - 6); }
+    if (running) draw(); else { draw(); wake(); }
+  }
+
+  /* --- указатель: разводы, толчки, перетаскивание --- */
+  function pt(e) { var r = cv.getBoundingClientRect(); return { x: e.clientX - r.left, y: e.clientY - r.top }; }
+  function hitBoat(p) {
+    var dx = p.x - boat.x, dy = p.y - boat.y, c = Math.cos(-boat.a), s = Math.sin(-boat.a);
+    var lx = (dx * c - dy * s) / sc, ly = (dx * s + dy * c) / sc;
+    return lx > -62 && lx < 66 && ly > -104 && ly < 30;
+  }
+  function addRing(x, y, k) { if (rings.length < 26) rings.push({ x: x, y: y, age: 0, life: 1.15, k: k }); }
+  function stir(p, now, strong) {
+    var s = (p.x - cx) * tx + (p.y - cy) * ty, z = (p.x - cx) * gx + (p.y - cy) * gy, zs = surf(s), dp = z - zs;
+    var dist = Math.hypot(p.x - ptr.x, p.y - ptr.y), dtp = Math.max(1, now - ptr.t);
+    var speed = ptr.has ? dist / dtp * 1000 : 0;
+    if (dp > -16) {
+      var near = 1 - clamp(dp, 0, 110) / 110;
+      if (strong) push(s, -170 * near, 40);
+      else if (dist > 0.5) push(s, 80 * clamp(speed / 650, 0.12, 1) * near, 34);
+      if (strong || (now - ptr.ring > 85 && dist > 5)) {
+        var ry = dp < 8 ? cy + ty * s + gy * (zs + 3) : p.y, rx2 = dp < 8 ? cx + tx * s + gx * (zs + 3) : p.x;
+        addRing(rx2, ry, strong ? 1.35 : 0.75 + clamp(speed / 900, 0, 0.5));
+        ptr.ring = now;
+        if (strong && dp < 14) splash(s, 190);
+      }
+    }
+    ptr.x = p.x; ptr.y = p.y; ptr.t = now; ptr.has = true;
+  }
+  // Холст лежит под содержимым, поэтому указатель слушаем на всём окне.
+  function isUi(t) { return !!(t && t.closest && t.closest('.card, button, a, input, textarea, select, label, .demo-bar')); }
+  window.addEventListener('pointerdown', function (e) {
+    if (e.button) return;
+    var p = pt(e); wake();
+    if (isUi(e.target)) return;
+    if (hitBoat(p)) {
+      drag.on = true; drag.id = e.pointerId; drag.ox = boat.x - p.x; drag.oy = boat.y - p.y; drag.tx = boat.x; drag.ty = boat.y;
+      e.preventDefault();
+      try { document.body.setPointerCapture(e.pointerId); } catch (err) {}
+      rootEl.classList.add('is-grabbing');
+    } else {
+      ptr.has = false; stir(p, performance.now(), true);
+    }
+  });
+  window.addEventListener('pointermove', function (e) {
+    var p = pt(e);
+    if (drag.on && e.pointerId === drag.id) {
+      drag.tx = clamp(p.x + drag.ox, 8, W - 8); drag.ty = clamp(p.y + drag.oy, 8, H - 8); wake(); return;
+    }
+    if (e.pointerType === 'mouse') rootEl.classList.toggle('can-grab', !isUi(e.target) && hitBoat(p));
+    wake(); stir(p, performance.now(), false);
+  });
+  function endDrag(e) {
+    if (drag.on && (!e || e.pointerId === undefined || e.pointerId === drag.id)) { drag.on = false; rootEl.classList.remove('is-grabbing'); wake(); }
+  }
+  window.addEventListener('pointerup', endDrag);
+  window.addEventListener('pointercancel', endDrag);
+  window.addEventListener('blur', function () { ptr.has = false; endDrag(); });
+  document.addEventListener('pointerleave', function () { ptr.has = false; });
+  // Палец на кораблике не должен прокручивать страницу; в остальных местах прокрутка обычная.
+  document.addEventListener('touchstart', function (e) {
+    var t = e.touches[0];
+    if (t && e.cancelable && !isUi(e.target) && hitBoat(pt(t))) e.preventDefault();
+  }, { passive: false });
+
+  /* --- наклон телефона --- */
+  var tiltOn = false;
+  function onOrient(e) {
+    if (e.beta == null || e.gamma == null || mqReduce.matches) return;
+    var be = e.beta * Math.PI / 180, ga = e.gamma * Math.PI / 180;
+    var X = Math.cos(be) * Math.sin(ga), Y = -Math.sin(be);   // тяжесть в осях телефона: x вправо, y к верхнему краю
+    var o = (window.screen && screen.orientation && typeof screen.orientation.angle === 'number') ? screen.orientation.angle : (window.orientation || 0);
+    o = ((o % 360) + 360) % 360;
+    var sx, sy;
+    if (o === 90) { sx = -Y; sy = -X; } else if (o === 180) { sx = -X; sy = Y; } else if (o === 270) { sx = Y; sy = X; } else { sx = X; sy = -Y; }
+    if (Math.hypot(sx, sy) < 0.22) return;                    // телефон лежит плашмя — «низ» не определён
+    var a = Math.atan2(sx, sy);
+    if (Math.abs(wrap(a - thT)) > 0.012) { thT = a; if (visible) wake(); }
+  }
+  function enableTilt() {
+    if (tiltOn) return;
+    tiltOn = true; window.addEventListener('deviceorientation', onOrient);
+  }
+  if (typeof window.DeviceOrientationEvent !== 'undefined') {
+    if (typeof DeviceOrientationEvent.requestPermission === 'function') {
+      // iOS: датчики выдаются только по нажатию и с разрешения
+      var coarse = window.matchMedia('(pointer: coarse)').matches;
+      if (coarse && !mqReduce.matches) tiltBtn.hidden = false;
+      tiltBtn.addEventListener('click', function () {
+        DeviceOrientationEvent.requestPermission().then(function (res) {
+          if (res === 'granted') { enableTilt(); hintEl.textContent = 'Наклоните или переверните телефон: вода перельётся.'; }
+          tiltBtn.hidden = true;
+        }).catch(function () { tiltBtn.hidden = true; });
+      });
+    } else {
+      enableTilt();
+      if (window.matchMedia('(pointer: coarse)').matches && !mqReduce.matches) hintEl.textContent = 'Кораблик можно таскать и топить. Наклоните или переверните телефон: вода перельётся.';
+    }
+  }
+
+  document.addEventListener('visibilitychange', function () { if (!document.hidden) wake(); });
+  if ('ResizeObserver' in window) new ResizeObserver(resize).observe(box); else window.addEventListener('resize', resize);
+  if (mqReduce.addEventListener) mqReduce.addEventListener('change', function () { thT = 0; resize(); });
+  resize();
+
+  return {
+    setProgress: function (p) { progress = clamp(p, 0, 1); wake(); },
+    sailAway: function () {
+      if (mqReduce.matches) return;
+      sailing = true; freeUntil = time + 60; wake();
+      setTimeout(function () {
+        sailing = false; placeBoat(sa - 150 * sc); freeUntil = time + 4; wake();
+      }, 2700);
+    },
+    shake: function () {
+      if (mqReduce.matches) return;
+      for (var i = 0; i < N; i++) vel[i] += Math.sin(i * 0.55) * 70;
+      wake();
+    },
+    _debug: function () { return { th: th, thT: thT, level: level, boat: boat, W: W, H: H, sa: sa, sb: sb, hmax: Math.max.apply(null, Array.prototype.map.call(h, Math.abs)) }; },
+    _tilt: function (a) { thT = a; wake(); }
+  };
+})();
+
+/* ======================================================================
+   Анкета
+   ====================================================================== */
+(function () {
+  var params = new URLSearchParams(location.search);
+  var DEMO = params.has('demo');
+  var isLocal = /^(localhost|127\.0\.0\.1)$/.test(location.hostname);
+  var API = ((isLocal && params.get('api')) || CONFIG.api).replace(/\/+$/, '');
+  var DRAFT_KEY = 'regata-menu-draft-v1', SENT_KEY = 'regata-menu-sent-v1', RID_KEY = 'regata-menu-rid-v1', PW_KEY = 'regata-menu-pw';
+
+  var store = {
+    get: function (s, k) { try { return s.getItem(k); } catch (e) { return null; } },
+    set: function (s, k, v) { try { s.setItem(k, v); } catch (e) {} },
+    del: function (s, k) { try { s.removeItem(k); } catch (e) {} }
+  };
+  var LS = window.localStorage, SS = window.sessionStorage;
+
+  var LIKES = [
+    ['Мясо и птица', ['Курица', 'Индейка', 'Говядина', 'Свинина', 'Баранина', 'Котлеты', 'Мясо на гриле']],
+    ['Рыба и морепродукты', ['Белая рыба', 'Красная рыба', 'Тунец', 'Креветки', 'Мидии и кальмары']],
+    ['Гарниры', ['Паста', 'Рис', 'Картошка', 'Гречка', 'Булгур и кускус']],
+    ['Супы', ['Бульон', 'Борщ', 'Крем-суп', 'Уха']],
+    ['Овощи и салаты', ['Свежие овощи', 'Овощи на гриле', 'Зелёные салаты', 'Авокадо']],
+    ['Яйца, сыр, сладкое', ['Яйца и омлет', 'Сыр', 'Творог и йогурт', 'Фрукты', 'Выпечка', 'Шоколад']]
+  ];
+  var DISLIKES = [
+    ['Овощи и грибы', ['Варёный лук', 'Сырой лук', 'Баклажаны', 'Кабачки', 'Брокколи', 'Варёная морковь', 'Свёкла', 'Грибы']],
+    ['Зелень и яркие вкусы', ['Кинза', 'Укроп', 'Чеснок', 'Сельдерей', 'Имбирь', 'Оливки и маслины']],
+    ['Мясное', ['Печень', 'Жирное мясо', 'Сало', 'Колбаса и сосиски']],
+    ['Рыбное', ['Рыба с костями', 'Селёдка', 'Рыбные консервы', 'Морская капуста']],
+    ['Крупы и каши', ['Гречка', 'Перловка', 'Манка', 'Овсянка']],
+    ['Молочное, яйца, соусы', ['Творог', 'Кефир', 'Варёные яйца', 'Майонез']]
+  ];
+  var NEVER = [
+    ['Мясо и птица', ['Любое мясо', 'Свинина', 'Говядина', 'Баранина', 'Птица', 'Субпродукты', 'Колбасы и копчёности']],
+    ['Рыба и морепродукты', ['Любая рыба', 'Морепродукты', 'Сырая рыба', 'Икра']],
+    ['Молочное и яйца', ['Всё молочное', 'Цельное молоко', 'Яйца']],
+    ['Мучное и сладкое', ['Глютен (хлеб, паста)', 'Сахар и сладкое', 'Мёд']],
+    ['Овощи, грибы, орехи', ['Грибы', 'Орехи', 'Бобовые', 'Соя', 'Лук', 'Чеснок']],
+    ['Способ готовки', ['Острое', 'Жареное', 'Алкоголь в блюдах', 'Полуфабрикаты']]
+  ];
+  var ALLERGENS = ['Арахис', 'Орехи', 'Молоко', 'Яйца', 'Рыба', 'Креветки и крабы', 'Мидии и кальмары', 'Пшеница (глютен)', 'Соя', 'Кунжут', 'Мёд', 'Цитрусовые', 'Клубника', 'Горчица'];
+  var flat = function (list) { return [['', list]]; };
+
+  // n — номер дополнительного вопроса (по нему удобно выбирать, что оставить)
+  var QUESTIONS = [
+    { key: 'name', n: 1, type: 'text', title: 'Имя или прозвище', hint: 'Необязательно. Поможет повару понять, чья это тарелка.', ph: 'Например, Саша' },
+    { key: 'likes', type: 'multi', title: 'Нравится кушать', hint: 'Чем вас порадовать. Отметьте в списке и допишите своё.', groups: LIKES },
+    { key: 'dislikes', type: 'multi', title: 'Не нравится', hint: 'Съем, но без радости.', groups: DISLIKES },
+    { key: 'never', type: 'multi', title: 'Вообще не ем', hint: 'Не кладите мне это совсем.', groups: NEVER, exclusive: 'Ем всё' },
+    { key: 'allergy', type: 'allergy', title: 'Есть ли аллергия на продукты?' },
+    { key: 'diet', n: 3, type: 'single', title: 'Тип питания', hint: 'Один вариант, который ближе всего.', groups: flat(['Ем всё', 'Без мяса, рыбу ем', 'Вегетарианство', 'Веганство', 'Халяль', 'Кошер', 'Пост']), own: true },
+    { key: 'breakfast', n: 4, type: 'multi', title: 'Что обычно на завтрак', hint: 'Можно несколько.', groups: flat(['Каша', 'Яичница или омлет', 'Бутерброды', 'Творог и йогурт', 'Мюсли, гранола', 'Блины, сырники', 'Фрукты', 'Только кофе или чай', 'Не завтракаю']) },
+    { key: 'hot_drinks', n: 5, type: 'multi', title: 'Кофе и чай', hint: 'Что пьёте в течение дня.', groups: flat(['Чёрный кофе', 'Кофе с молоком', 'Кофе с растительным молоком', 'Чёрный чай', 'Зелёный чай', 'Травяной чай', 'Какао', 'С сахаром', 'Горячее не пью']) },
+    { key: 'snacks', n: 6, type: 'multi', title: 'Перекусы на вахте', hint: 'То, что удобно есть одной рукой.', groups: flat(['Орехи', 'Сухофрукты', 'Батончики', 'Шоколад', 'Печенье', 'Фрукты', 'Сыр и крекеры', 'Вяленое мясо', 'Чипсы', 'Бутерброды', 'Не перекусываю']) },
+    { key: 'soft_drinks', n: 7, type: 'multi', title: 'Напитки без алкоголя', hint: 'Кроме обычной воды: она будет в любом случае.', groups: flat(['Вода с газом', 'Кола', 'Кола без сахара', 'Сок', 'Лимонад', 'Тоник', 'Изотоник', 'Морс или компот']) },
+    { key: 'alcohol', n: 8, type: 'multi', title: 'Что взять из алкоголя', hint: 'Если не пьёте, так и отметьте.', groups: flat(['Не пью', 'Пиво', 'Безалкогольное пиво', 'Белое вино', 'Красное вино', 'Игристое', 'Ром', 'Виски', 'Джин с тоником']), exclusive: 'Не пью' },
+    { key: 'portion', n: 9, type: 'single', title: 'Размер порции', hint: 'Как едите обычно.', groups: flat(['Небольшая', 'Обычная', 'Большая', 'После гонки ем за двоих']) },
+    { key: 'spicy', n: 10, type: 'single', title: 'Острота', hint: '', groups: flat(['Совсем не острое', 'Чуть-чуть', 'Люблю острое', 'Острый соус отдельно']) },
+    { key: 'seasick', n: 11, type: 'single', title: 'Укачивает ли на воде', hint: 'Повар предусмотрит лёгкую еду на дни с качкой.', groups: flat(['Нет', 'Бывает немного', 'Да, сильно', 'Не знаю, иду впервые']) },
+    { key: 'med', n: 12, type: 'textarea', title: 'Что учесть по здоровью', hint: 'Необязательно. Только то, что влияет на еду: например, нужно есть по часам или нельзя солёное.', ph: '' },
+    { key: 'days', n: 13, type: 'single', title: 'Сколько дней будете на борту', hint: '', groups: flat(['Всю регату', 'Приеду позже', 'Уеду раньше', 'Пока не знаю']) },
+    { key: 'dinner', n: 14, type: 'single', title: 'Ужин на стоянке', hint: 'Когда стоим в марине.', groups: flat(['Лучше на лодке', 'Лучше в ресторане на берегу', 'Как получится']) },
+    { key: 'birthday', n: 15, type: 'single', title: 'День рождения попадает на даты регаты?', hint: 'Если да, напишите дату: повар подготовит десерт.', groups: flat(['Нет', 'Да']), own: true, ownPh: 'Дата, например 14 июня' },
+    { key: 'favorite', n: 16, type: 'text', title: 'Блюдо, которому обрадуетесь', hint: 'Одно-два блюда, например плов или паста с морепродуктами.', ph: '' },
+    { key: 'comment', n: 17, type: 'textarea', title: 'Что ещё стоит знать повару', hint: 'Необязательно. Любое пожелание одной-двумя фразами.', ph: '' }
+  ];
+  var LEVELS = ['Достаточно не класть в мою тарелку', 'Нельзя даже следов и общей посуды', 'Не уверен(а)'];
+
+  var on = function (q) { return !q.n || DEMO || CONFIG.extras[q.key]; };
+  var levelOn = DEMO || CONFIG.extras.allergy_level;
+  var active = QUESTIONS.filter(on);
+
+  /* --- состояние и черновик --- */
+  var state = {};
+  function blank() {
+    state = { allergy: '', allergensChips: [], allergensText: '', allergy_level: '' };
+    QUESTIONS.forEach(function (q) { if (q.type === 'multi') state[q.key] = []; else if (q.type !== 'allergy') state[q.key] = ''; });
+  }
+  blank();
+  if (!DEMO) {
+    try {
+      var saved = JSON.parse(store.get(LS, DRAFT_KEY) || 'null');
+      if (saved && typeof saved === 'object') {
+        Object.keys(state).forEach(function (k) {
+          if (Array.isArray(state[k]) && Array.isArray(saved[k])) state[k] = saved[k].filter(function (x) { return typeof x === 'string'; }).slice(0, 60);
+          else if (typeof state[k] === 'string' && typeof saved[k] === 'string') state[k] = saved[k].slice(0, 1500);
+        });
+      }
+    } catch (e) {}
+  }
+  var saveTimer = 0;
+  function changed() {
+    updateProgress(); updateConflict();
+    if (DEMO) return;
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(function () { store.set(LS, DRAFT_KEY, JSON.stringify(state)); }, 250);
+  }
+  function rid() {
+    var v = store.get(LS, RID_KEY);
+    if (!v || !/^[A-Z0-9]{4}$/.test(v)) {
+      var abc = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789', a = new Uint32Array(4); v = '';
+      if (window.crypto && crypto.getRandomValues) crypto.getRandomValues(a); else for (var i = 0; i < 4; i++) a[i] = Math.floor(Math.random() * 1e9);
+      for (var j = 0; j < 4; j++) v += abc[a[j] % abc.length];
+      store.set(LS, RID_KEY, v);
+    }
+    return v;
+  }
+
+  /* --- мелкие помощники --- */
+  function el(tag, attrs, kids) {
+    var n = document.createElement(tag), k;
+    if (attrs) for (k in attrs) {
+      if (k === 'text') n.textContent = attrs[k];
+      else if (k === 'html') n.innerHTML = attrs[k];
+      else if (k.slice(0, 2) === 'on') n.addEventListener(k.slice(2), attrs[k]);
+      else if (attrs[k] === true) n.setAttribute(k, '');
+      else if (attrs[k] !== false && attrs[k] != null) n.setAttribute(k, attrs[k]);
+    }
+    (kids || []).forEach(function (c) { if (c) n.appendChild(typeof c === 'string' ? document.createTextNode(c) : c); });
+    return n;
+  }
+  var ICON_X = '<svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M2 2l8 8M10 2l-8 8"/></svg>';
+  var ICON_DOWN = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>';
+  var same = function (a, b) { return a.trim().toLowerCase() === b.trim().toLowerCase(); };
+  function pop(node) { if (window.__motion && node) { try { window.__motion.animate(node, { opacity: [0, 1], scale: [0.85, 1] }, { duration: 0.22 }); } catch (e) {} } }
+  function titleNode(q, tag) {
+    var t = el(tag || 'h2', { class: 'q-title', text: q.title });
+    if (q.n && DEMO) t.appendChild(el('span', { class: 'badge', text: 'по выбору · №' + q.n }));
+    return t;
+  }
+
+  /* --- раскрывающийся список (много вариантов или один) --- */
+  var openMs = null;
+  function buildSelect(q, opts) {
+    // opts: { multi, get(), set(v), sub } — sub: список внутри другой карточки
+    var id = 'ms-' + q.key, multi = opts.multi;
+    var known = [];
+    q.groups.forEach(function (g) { known = known.concat(g[1]); });
+    if (q.exclusive) known.unshift(q.exclusive);
+    var root = el('div', { class: 'ms', 'data-key': q.key });
+    var sum = el('span', { class: 'ms-sum' });
+    var toggle = el('button', { type: 'button', class: 'ms-toggle', id: id + '-t', 'aria-expanded': 'false', 'aria-controls': id + '-p', html: ICON_DOWN });
+    toggle.insertBefore(sum, toggle.firstChild);
+    var chips = el('div', { class: 'ms-chips' });
+    var inner = el('div', { class: 'ms-inner', id: id + '-p', role: 'group', 'aria-labelledby': opts.labelId });
+    inner.inert = true;
+    var body = el('div', { class: 'ms-body' });
+    var boxes = {};
+
+    function values() { var v = opts.get(); return multi ? v.slice() : (v ? [v] : []); }
+    function commit(list) { opts.set(multi ? list : (list[0] || '')); render(); changed(); }
+    function toggleValue(val, onFlag) {
+      var list = values().filter(function (x) { return !same(x, val); });
+      if (onFlag) {
+        if (!multi) list = [];
+        else if (q.exclusive && same(val, q.exclusive)) list = [];
+        else if (q.exclusive) list = list.filter(function (x) { return !same(x, q.exclusive); });
+        list.push(val);
+      }
+      // порядок как в списке, своё — в конце
+      list.sort(function (a, b) {
+        var ia = known.indexOf(a), ib = known.indexOf(b);
+        return (ia < 0 ? 999 : ia) - (ib < 0 ? 999 : ib);
+      });
+      commit(list);
+    }
+    function option(val) {
+      var input = el('input', { type: 'checkbox', value: val });
+      input.addEventListener('change', function () {
+        toggleValue(val, input.checked);
+        if (!multi && input.checked) setOpen(false, true);
+      });
+      boxes[val] = input;
+      return el('label', { class: 'opt' }, [input, el('span', { text: val })]);
+    }
+    if (q.exclusive) body.appendChild(el('div', { class: 'ms-group' }, [el('div', { class: 'opts' }, [option(q.exclusive)])]));
+    q.groups.forEach(function (g) {
+      body.appendChild(el('div', { class: 'ms-group' }, [
+        g[0] ? el('p', { class: 'ms-group-title', text: g[0] }) : null,
+        el('div', { class: 'opts' }, g[1].map(option))
+      ]));
+    });
+
+    var ownInput = null;
+    function addOwn() {
+      if (!ownInput) return;
+      var raw = ownInput.value.replace(/\s+/g, ' ').trim().slice(0, 80);
+      if (!raw) return;
+      var parts = multi ? raw.split(/[,;]+/).map(function (x) { return x.trim(); }).filter(Boolean) : [raw];
+      parts.forEach(function (part) {
+        var hit = known.filter(function (k) { return same(k, part); })[0];
+        toggleValue(hit || (part.charAt(0).toUpperCase() + part.slice(1)), true);
+      });
+      ownInput.value = '';
+    }
+    if (multi || q.own) {
+      ownInput = el('input', { class: 'input', type: 'text', maxlength: '80', id: id + '-own', placeholder: q.ownPh || 'Своё', 'aria-label': 'Свой вариант: ' + q.title, enterkeyhint: 'done', autocomplete: 'off' });
+      ownInput.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); addOwn(); } });
+      body.appendChild(el('div', { class: 'own' }, [ownInput, el('button', { type: 'button', text: 'Добавить', onclick: addOwn })]));
+    }
+    body.appendChild(el('button', { type: 'button', class: 'ms-done', text: 'Готово', onclick: function () { setOpen(false, true); } }));
+    inner.appendChild(body);
+
+    function setOpen(flag, focusBack) {
+      if (flag && openMs && openMs !== api) openMs.setOpen(false);
+      if (!flag) addOwn();
+      root.classList.toggle('open', flag);
+      toggle.setAttribute('aria-expanded', String(flag));
+      inner.inert = !flag;
+      openMs = flag ? api : (openMs === api ? null : openMs);
+      if (!flag && focusBack) toggle.focus();
+    }
+    toggle.addEventListener('click', function () { setOpen(!root.classList.contains('open')); });
+    root.addEventListener('keydown', function (e) { if (e.key === 'Escape' && root.classList.contains('open')) { e.stopPropagation(); setOpen(false, true); } });
+
+    function render() {
+      var list = values();
+      Object.keys(boxes).forEach(function (k) { boxes[k].checked = list.some(function (x) { return same(x, k); }); });
+      root.classList.toggle('has-value', list.length > 0);
+      sum.textContent = !list.length ? 'Выберите из списка' : multi ? 'Выбрано: ' + list.length : list[0];
+      var had = {};
+      Array.prototype.forEach.call(chips.children, function (c) { had[c.getAttribute('data-v')] = 1; });
+      chips.textContent = '';
+      list.forEach(function (val) {
+        // в списке с одним ответом чип нужен только своему варианту — иначе его нечем убрать
+        if (!multi && known.some(function (k) { return same(k, val); })) return;
+        var rm = el('button', { type: 'button', 'aria-label': 'Убрать: ' + val, html: ICON_X });
+        rm.addEventListener('click', function () { toggleValue(val, false); toggle.focus(); });
+        var chip = el('span', { class: 'chip', 'data-v': val }, [document.createTextNode(val), rm]);
+        chips.appendChild(chip);
+        if (!had[val]) pop(chip);
+      });
+    }
+    var api = { root: root, setOpen: setOpen, render: render, flush: addOwn };
+    root.appendChild(toggle); root.appendChild(chips);
+    root.appendChild(el('div', { class: 'ms-panel' }, [inner]));
+    render();
+    return api;
+  }
+
+  /* --- карточки вопросов --- */
+  var qBox = document.getElementById('questions');
+  var selects = [], conflictEl = null, allergyErr = null, allergyCard = null, allergyText = null;
+
+  function buildCard(q) {
+    var card, tid = 'qt-' + q.key;
+    if (q.type === 'allergy') return buildAllergy(q);
+    var title = titleNode(q); title.id = tid;
+    card = el('section', { class: 'card q', 'data-key': q.key }, [title]);
+    if (q.hint) card.appendChild(el('p', { class: 'q-hint', text: q.hint })); else title.style.marginBottom = '14px';
+    if (q.type === 'multi' || q.type === 'single') {
+      var s = buildSelect(q, { multi: q.type === 'multi', labelId: tid, get: function () { return state[q.key]; }, set: function (v) { state[q.key] = v; } });
+      selects.push(s); card.appendChild(s.root);
+      if (q.key === 'never') { conflictEl = el('p', { class: 'warn', hidden: true, role: 'status' }); card.appendChild(conflictEl); }
+    } else {
+      var area = q.type === 'textarea';
+      var inp = el(area ? 'textarea' : 'input', { class: area ? 'textarea' : 'input', id: 'f-' + q.key, 'aria-labelledby': tid, maxlength: area ? '1000' : '80', placeholder: q.ph || '', rows: area ? '3' : null, type: area ? null : 'text', autocomplete: 'off' });
+      inp.value = state[q.key];
+      inp.addEventListener('input', function () { state[q.key] = inp.value; changed(); });
+      card.appendChild(inp);
+    }
+    return card;
+  }
+
+  function buildAllergy(q) {
+    var legend = el('h2', { class: 'q-title', id: 'qt-allergy', text: q.title });
+    legend.appendChild(el('span', { class: 'badge req', text: 'обязательно' }));
+    var fold = el('div', { class: 'fold' }), foldIn = el('div'), body = el('div', { class: 'fold-body' });
+    foldIn.inert = true;
+    function radio(val) {
+      var input = el('input', { type: 'radio', name: 'allergy', value: val, required: true });
+      input.checked = state.allergy === val;
+      input.addEventListener('change', function () { state.allergy = val; sync(true); changed(); });
+      return el('label', { class: 'opt' }, [input, el('span', { text: val })]);
+    }
+    var seg = el('div', { class: 'seg', role: 'radiogroup', 'aria-labelledby': 'qt-allergy' }, [radio('Нет'), radio('Есть')]);
+
+    body.appendChild(el('label', { class: 'lbl', for: 'f-allergens', text: 'На что именно?' }));
+    var quick = el('div', { class: 'quick', role: 'group', 'aria-label': 'Частые аллергены' });
+    ALLERGENS.forEach(function (a) {
+      var input = el('input', { type: 'checkbox', value: a });
+      input.checked = state.allergensChips.indexOf(a) >= 0;
+      input.addEventListener('change', function () {
+        state.allergensChips = state.allergensChips.filter(function (x) { return x !== a; });
+        if (input.checked) state.allergensChips.push(a);
+        allergyErr.hidden = true; changed();
+      });
+      quick.appendChild(el('label', { class: 'opt' }, [input, el('span', { text: a })]));
+    });
+    body.appendChild(quick);
+    allergyText = el('textarea', { class: 'textarea', id: 'f-allergens', rows: '2', maxlength: '600', placeholder: 'Впишите своё, если нет среди подсказок' });
+    allergyText.value = state.allergensText;
+    allergyText.addEventListener('input', function () { state.allergensText = allergyText.value; allergyErr.hidden = true; changed(); });
+    body.appendChild(allergyText);
+    body.appendChild(el('p', { class: 'note', text: 'Если аллергия серьёзная, скажите об этом повару ещё и лично.' }));
+
+    if (levelOn) {
+      var sq = { key: 'allergy_level', n: 2, title: 'Насколько строго с аллергеном', groups: flat(LEVELS) };
+      var st = titleNode(sq, 'h3'); st.id = 'qt-allergy_level'; st.style.fontSize = '16px'; st.style.marginBottom = '10px';
+      var sel = buildSelect(sq, { multi: false, labelId: 'qt-allergy_level', get: function () { return state.allergy_level; }, set: function (v) { state.allergy_level = v; } });
+      selects.push(sel);
+      body.appendChild(el('div', { class: 'sub-q' }, [st, sel.root]));
+    }
+    foldIn.appendChild(body); fold.appendChild(foldIn);
+    allergyErr = el('p', { class: 'err', role: 'alert', hidden: true });
+    function sync(byUser) {
+      var yes = state.allergy === 'Есть';
+      fold.classList.toggle('open', yes); foldIn.inert = !yes;
+      allergyErr.hidden = true;
+      if (yes && byUser && window.matchMedia('(hover: hover)').matches) setTimeout(function () { allergyText.focus({ preventScroll: true }); }, 60);
+    }
+    allergyCard = el('section', { class: 'card q', 'data-key': 'allergy' }, [legend, seg, fold, allergyErr]);
+    sync(false);
+    return allergyCard;
+  }
+
+  function allergensValue() {
+    var parts = state.allergensChips.slice(), t = state.allergensText.replace(/\s+/g, ' ').trim();
+    if (t) parts.push(t);
+    return parts.join(', ');
+  }
+  function updateConflict() {
+    if (!conflictEl) return;
+    var both = state.likes.filter(function (x) { return state.never.some(function (y) { return same(x, y); }); });
+    conflictEl.hidden = !both.length;
+    if (both.length) conflictEl.textContent = 'Отмечено и в «Нравится», и в «Вообще не ем»: ' + both.join(', ') + '. Проверьте, так и задумано?';
+  }
+  function updateProgress() {
+    var done = 0;
+    active.forEach(function (q) {
+      if (q.type === 'allergy') { if (state.allergy === 'Нет' || (state.allergy === 'Есть' && allergensValue())) done++; }
+      else if (Array.isArray(state[q.key]) ? state[q.key].length : String(state[q.key]).trim()) done++;
+    });
+    Sea.setProgress(active.length ? done / active.length : 0);
+  }
+
+  function renderForm() {
+    qBox.textContent = ''; selects = [];
+    active.forEach(function (q) { qBox.appendChild(buildCard(q)); });
+    updateConflict(); updateProgress();
+  }
+
+  /* --- экраны --- */
+  var gate = document.getElementById('gate'), form = document.getElementById('form'), done = document.getElementById('done');
+  var pw = document.getElementById('pw'), pwErr = document.getElementById('pwErr'), gateBtn = document.getElementById('gateBtn');
+  var sendBtn = document.getElementById('sendBtn'), formErr = document.getElementById('formErr');
+
+  function reveal(nodes) {
+    if (!window.__motion || !nodes.length || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    try { window.__motion.animate(nodes, { opacity: [0, 1], y: [18, 0] }, { duration: 0.5, delay: window.__motion.stagger(0.06), ease: [0.22, 0.8, 0.26, 1] }); } catch (e) {}
+  }
+  function show(which) {
+    gate.hidden = which !== 'gate'; form.hidden = which !== 'form'; done.hidden = which !== 'done';
+    if (which === 'form') reveal(Array.prototype.slice.call(form.querySelectorAll('.card')));
+    if (which === 'done') reveal([done]);
+    if (which === 'gate') reveal([gate]);
+  }
+  function busy(btn, flag, label) {
+    btn.disabled = flag;
+    btn.innerHTML = flag ? '<span class="spin" aria-hidden="true"></span><span>' + label + '</span>' : '<span>' + label + '</span>';
+  }
+  function request(path, payload) {
+    var ctrl = new AbortController(), timer = setTimeout(function () { ctrl.abort(); }, 20000);
+    return fetch(API + path, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(payload), signal: ctrl.signal })
+      .then(function (res) { return res.json().catch(function () { return {}; }).then(function (data) { return { status: res.status, data: data }; }); })
+      .catch(function () { return { status: 0, data: { message: 'Не получилось связаться с сервером. Проверьте интернет и попробуйте ещё раз.' } }; })
+      .then(function (r) { clearTimeout(timer); return r; });
+  }
+  function showErr(node, text) { node.textContent = text; node.hidden = false; }
+
+  document.getElementById('pwEye').addEventListener('click', function () {
+    var showing = pw.type === 'text';
+    pw.type = showing ? 'password' : 'text';
+    this.setAttribute('aria-pressed', String(!showing));
+    this.setAttribute('aria-label', showing ? 'Показать пароль' : 'Скрыть пароль');
+  });
+  pw.addEventListener('input', function () { pwErr.hidden = true; });
+
+  document.getElementById('gateForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var value = pw.value.trim();
+    if (!value) { showErr(pwErr, 'Введите пароль.'); pw.focus(); return; }
+    busy(gateBtn, true, 'Проверяю…');
+    request('/check', { password: value }).then(function (r) {
+      busy(gateBtn, false, 'Войти');
+      if (r.status === 200 && r.data.ok) {
+        store.set(SS, PW_KEY, value);
+        enter();
+      } else {
+        showErr(pwErr, r.data.message || 'Не получилось проверить пароль. Попробуйте ещё раз.');
+        if (r.status === 401) { Sea.shake(); pw.select(); }
+        pw.focus();
+      }
+    });
+  });
+
+  function enter() {
+    renderForm();
+    if (!DEMO && store.get(LS, SENT_KEY)) { show('done'); return; }
+    show('form');
+  }
+
+  // Enter в текстовом поле не должен отправлять анкету раньше времени
+  form.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter' && e.target.tagName === 'INPUT' && e.target.type === 'text') { e.preventDefault(); e.target.blur(); }
+  });
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    if (sendBtn.disabled) return;
+    formErr.hidden = true;
+    selects.forEach(function (s) { s.flush(); });
+    if (openMs) openMs.setOpen(false);
+
+    if (state.allergy !== 'Нет' && state.allergy !== 'Есть') {
+      showErr(allergyErr, 'Выберите «Нет» или «Есть».');
+      allergyCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      allergyCard.querySelector('input[type=radio]').focus({ preventScroll: true });
+      return;
+    }
+    if (state.allergy === 'Есть' && !allergensValue()) {
+      showErr(allergyErr, 'Отметьте или впишите, на что у вас аллергия.');
+      allergyCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      allergyText.focus({ preventScroll: true });
+      return;
+    }
+
+    var answers = { rid: rid(), allergy: state.allergy };
+    active.forEach(function (q) {
+      if (q.type === 'allergy') return;
+      var v = state[q.key];
+      if (Array.isArray(v) ? v.length : String(v).trim()) answers[q.key] = Array.isArray(v) ? v : String(v).trim();
+    });
+    if (state.allergy === 'Есть') {
+      answers.allergens = allergensValue();
+      if (levelOn && state.allergy_level) answers.allergy_level = state.allergy_level;
+    }
+
+    if (DEMO) { finish(); return; }
+    busy(sendBtn, true, 'Отправляю…');
+    request('/submit', { password: store.get(SS, PW_KEY) || '', answers: answers, website: document.getElementById('trap').value })
+      .then(function (r) {
+        busy(sendBtn, false, 'Отправить повару');
+        if (r.status === 200 && r.data.ok) { store.set(LS, SENT_KEY, '1'); finish(); return; }
+        if (r.status === 401) {
+          store.del(SS, PW_KEY); show('gate');
+          showErr(pwErr, 'Пароль изменился. Введите новый — ваши ответы сохранены.'); pw.value = ''; pw.focus();
+          return;
+        }
+        showErr(formErr, r.data.message || 'Не получилось отправить. Попробуйте ещё раз через минуту.');
+      });
+  });
+
+  function finish() {
+    show('done');
+    Sea.setProgress(1); Sea.sailAway();
+    window.scrollTo({ top: 0, behavior: 'smooth' });   // наверху видно, как кораблик уплывает
+    document.getElementById('doneTitle').focus({ preventScroll: true });
+  }
+  document.getElementById('againBtn').addEventListener('click', function () {
+    store.del(LS, SENT_KEY); show('form'); updateProgress();
+    var first = form.querySelector('.ms-toggle, .input'); if (first) first.focus();
+  });
+
+  /* --- старт --- */
+  if (!DEMO && CONFIG.extras.name) document.getElementById('pillAnon').hidden = true;
+  if (DEMO) { document.getElementById('demoBar').hidden = false; enter(); }
+  else if (store.get(SS, PW_KEY)) enter();
+  else { show('gate'); }
+  window.__revealIntro = function () {
+    var nodes = Array.prototype.slice.call(document.querySelectorAll('.intro-anim'));
+    document.documentElement.classList.add('anim-timeout');
+    reveal(nodes);
+    reveal([].concat(gate.hidden ? [] : [gate], form.hidden ? [] : Array.prototype.slice.call(form.querySelectorAll('.card'))));
+  };
+})();
+</script>
+
+<!-- Анимации интерфейса: Motion (Framer Motion). Если CDN не ответит, страница остаётся полностью рабочей. -->
+<script type="module">
+  try {
+    const m = await import('https://cdn.jsdelivr.net/npm/motion@11/+esm');
+    window.__motion = { animate: m.animate, stagger: m.stagger };
+    window.__revealIntro && window.__revealIntro();
+  } catch (e) {
+    document.documentElement.classList.add('anim-timeout');
+  }
+</script>
+</body>
+</html>
