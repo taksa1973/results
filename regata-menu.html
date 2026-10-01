@@ -108,6 +108,7 @@ label.lbl{display:block;font-size:14px;font-weight:600;margin:0 0 6px}
 .chip button::after{content:"";position:absolute;inset:-6px}
 .chip button:hover{background:rgba(0,113,227,.14)}
 .ms-panel{display:grid;grid-template-rows:0fr;transition:grid-template-rows .32s var(--ease)}
+.ms.snap .ms-panel,.ms.snap .ms-inner{transition:none}
 .ms.open .ms-panel{grid-template-rows:1fr}
 .ms-inner{overflow:hidden;min-height:0;visibility:hidden;transition:visibility 0s .32s}
 .ms.open .ms-inner{visibility:visible;transition-delay:0s}
@@ -136,9 +137,9 @@ label.lbl{display:block;font-size:14px;font-weight:600;margin:0 0 6px}
 .seg .opt span{width:100%;justify-content:center;min-height:52px;border-radius:var(--r-ctl);font-size:16px;font-weight:600}
 .fold{display:grid;grid-template-rows:0fr;transition:grid-template-rows .34s var(--ease)}
 .fold.open{grid-template-rows:1fr}
-.fold>div{overflow:hidden;min-height:0;visibility:hidden;transition:visibility 0s .34s}
+.fold>div{overflow:hidden;min-height:0;margin:0 -6px;padding:0 6px;visibility:hidden;transition:visibility 0s .34s}
 .fold.open>div{visibility:visible;transition-delay:0s}
-.fold-body{padding-top:18px}
+.fold-body{padding-top:18px;padding-bottom:6px}
 .quick{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 12px}
 .sub-q{margin-top:18px}
 
@@ -149,6 +150,7 @@ label.lbl{display:block;font-size:14px;font-weight:600;margin:0 0 6px}
 .done-ico{width:68px;height:68px;margin:0 auto 16px;border-radius:50%;background:#E8F7EC;color:var(--ok);display:grid;place-items:center}
 .done h2{font-size:26px;letter-spacing:-.02em}
 .done p{margin:10px auto 20px;color:var(--t2);max-width:40ch}
+.done-actions{display:grid;gap:10px}
 .hp{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
 noscript .card{margin:16px}
 
@@ -204,10 +206,10 @@ noscript .card{margin:16px}
           <p class="q-hint" style="margin:4px 0 0">Пароль прислал организатор.</p>
         </div>
       </div>
-      <form id="gateForm" novalidate>
+      <form id="gateForm" novalidate onsubmit="return false">
         <label class="lbl" for="pw">Пароль</label>
         <div class="pw-row">
-          <input class="input" id="pw" name="password" type="password" autocomplete="current-password" autocapitalize="none" autocorrect="off" spellcheck="false" aria-describedby="pwErr" required>
+          <input class="input" id="pw" type="password" autocomplete="current-password" autocapitalize="none" autocorrect="off" spellcheck="false" aria-describedby="pwErr" required>
           <button type="button" class="pw-eye" id="pwEye" aria-label="Показать пароль" aria-pressed="false"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></button>
         </div>
         <p class="err" id="pwErr" role="alert" hidden></p>
@@ -215,7 +217,7 @@ noscript .card{margin:16px}
       </form>
     </section>
 
-    <form id="form" novalidate hidden>
+    <form id="form" novalidate hidden onsubmit="return false">
       <div class="hp" aria-hidden="true"><label>Не заполняйте это поле <input type="text" name="rm_trap_field" id="trap" tabindex="-1" autocomplete="off"></label></div>
       <div id="questions" class="main"></div>
       <section class="card submit-card">
@@ -229,7 +231,10 @@ noscript .card{margin:16px}
       <div class="done-ico" aria-hidden="true"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12.5 10 18 19.5 7"/></svg></div>
       <h2 tabindex="-1" id="doneTitle">Готово, ответ у повара</h2>
       <p>Спасибо! Если вкусы изменятся, анкету можно отправить ещё раз. Повар возьмёт последний вариант.</p>
-      <button type="button" class="btn ghost" id="againBtn"><span>Исправить ответ</span></button>
+      <div class="done-actions">
+        <button type="button" class="btn ghost" id="againBtn"><span>Исправить ответ</span></button>
+        <button type="button" class="btn ghost" id="otherBtn"><span>Заполнить за другого человека</span></button>
+      </div>
     </section>
   </main>
 </div>
@@ -725,7 +730,10 @@ var Sea = (function () {
     set: function (s, k, v) { try { s.setItem(k, v); } catch (e) {} },
     del: function (s, k) { try { s.removeItem(k); } catch (e) {} }
   };
-  var LS = window.localStorage, SS = window.sessionStorage;
+  // В части браузеров само обращение к хранилищу бросает ошибку (запрет cookie) — тогда работаем без него.
+  var LS = null, SS = null;
+  try { LS = window.localStorage; SS = window.sessionStorage; } catch (e) {}
+  var pwMem = store.get(SS, PW_KEY) || '', ridMem = '';
 
   var LIKES = [
     ['Мясо и птица', ['Курица', 'Индейка', 'Говядина', 'Свинина', 'Баранина', 'Котлеты', 'Мясо на гриле']],
@@ -797,6 +805,11 @@ var Sea = (function () {
       }
     } catch (e) {}
   }
+  // Подсказка «Орехи» раньше называлась короче. Значения, которых нет среди нынешних подсказок,
+  // убираем: на экране их не видно, а в ответ они бы ушли.
+  state.allergensChips = state.allergensChips
+    .map(function (x) { return x === 'Орехи' ? 'Орехи (миндаль, фундук, грецкие)' : x; })
+    .filter(function (x, i, a) { return ALLERGENS.indexOf(x) >= 0 && a.indexOf(x) === i; });
   var saveTimer = 0;
   function changed() {
     updateProgress(); updateConflict();
@@ -805,13 +818,14 @@ var Sea = (function () {
     saveTimer = setTimeout(function () { store.set(LS, DRAFT_KEY, JSON.stringify(state)); }, 250);
   }
   function rid() {
-    var v = store.get(LS, RID_KEY);
+    var v = store.get(LS, RID_KEY) || ridMem;
     if (!v || !/^[A-Z0-9]{4}$/.test(v)) {
       var abc = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789', a = new Uint32Array(4); v = '';
       if (window.crypto && crypto.getRandomValues) crypto.getRandomValues(a); else for (var i = 0; i < 4; i++) a[i] = Math.floor(Math.random() * 1e9);
       for (var j = 0; j < 4; j++) v += abc[a[j] % abc.length];
       store.set(LS, RID_KEY, v);
     }
+    ridMem = v;
     return v;
   }
 
@@ -847,9 +861,11 @@ var Sea = (function () {
     q.groups.forEach(function (g) { known = known.concat(g[1]); });
     if (q.exclusive) known.unshift(q.exclusive);
     var root = el('div', { class: 'ms', 'data-key': q.key });
-    var sum = el('span', { class: 'ms-sum' });
+    var sum = el('span', { class: 'ms-sum', id: id + '-s' });
     var toggle = el('button', { type: 'button', class: 'ms-toggle', id: id + '-t', 'aria-expanded': 'false', 'aria-controls': id + '-p', html: ICON_DOWN });
     toggle.insertBefore(sum, toggle.firstChild);
+    // кнопка называется «<вопрос> + выбранное», иначе на слух все списки одинаковы
+    if (opts.labelId) toggle.setAttribute('aria-labelledby', opts.labelId + ' ' + id + '-s');
     var chips = el('div', { class: 'ms-chips' });
     var inner = el('div', { class: 'ms-inner', id: id + '-p', role: 'group', 'aria-labelledby': opts.labelId });
     inner.inert = true;
@@ -877,7 +893,7 @@ var Sea = (function () {
       var input = el('input', { type: 'checkbox', value: val });
       input.addEventListener('change', function () {
         toggleValue(val, input.checked);
-        if (!multi && input.checked) setOpen(false, true);
+        if (!multi && input.checked) { if (ownInput) ownInput.value = ''; setOpen(false, true); }
       });
       boxes[val] = input;
       return el('label', { class: 'opt' }, [input, el('span', { text: val })]);
@@ -911,7 +927,16 @@ var Sea = (function () {
     inner.appendChild(body);
 
     function setOpen(flag, focusBack) {
-      if (flag && openMs && openMs !== api) openMs.setOpen(false);
+      if (flag && openMs && openMs !== api) {
+        // Прежний список закрываем мгновенно и возвращаем прокруткой то место, куда нажали:
+        // иначе страница над ним схлопнется, а нажатая кнопка уедет за экран.
+        var prev = openMs, y0 = toggle.getBoundingClientRect().top;
+        prev.root.classList.add('snap');
+        prev.setOpen(false);
+        var dy = toggle.getBoundingClientRect().top - y0;
+        if (dy) window.scrollBy(0, dy);
+        requestAnimationFrame(function () { prev.root.classList.remove('snap'); });
+      }
       if (!flag) addOwn();
       root.classList.toggle('open', flag);
       toggle.setAttribute('aria-expanded', String(flag));
@@ -1004,7 +1029,7 @@ var Sea = (function () {
     body.appendChild(el('p', { class: 'note', text: 'Если аллергия серьёзная, скажите об этом повару ещё и лично.' }));
 
     if (levelOn) {
-      var sq = { key: 'allergy_level', n: 2, title: 'Насколько строго с аллергеном', groups: flat(LEVELS) };
+      var sq = { key: 'allergy_level', n: 1, title: 'Насколько строго с аллергеном', groups: flat(LEVELS) };
       var st = titleNode(sq, 'h3'); st.id = 'qt-allergy_level'; st.style.fontSize = '16px'; st.style.marginBottom = '10px';
       var sel = buildSelect(sq, { multi: false, labelId: 'qt-allergy_level', get: function () { return state.allergy_level; }, set: function (v) { state.allergy_level = v; } });
       selects.push(sel);
@@ -1093,7 +1118,7 @@ var Sea = (function () {
     request('/check', { password: value }).then(function (r) {
       busy(gateBtn, false, 'Войти');
       if (r.status === 200 && r.data.ok) {
-        store.set(SS, PW_KEY, value);
+        pwMem = value; store.set(SS, PW_KEY, value);
         enter();
       } else {
         showErr(pwErr, r.data.message || 'Не получилось проверить пароль. Попробуйте ещё раз.');
@@ -1109,9 +1134,12 @@ var Sea = (function () {
     show('form');
   }
 
-  // Enter в текстовом поле не должен отправлять анкету раньше времени
+  // Enter в поле или на варианте ответа не должен отправлять анкету раньше времени
   form.addEventListener('keydown', function (e) {
-    if (e.key === 'Enter' && e.target.tagName === 'INPUT' && e.target.type === 'text') { e.preventDefault(); e.target.blur(); }
+    if (e.key !== 'Enter' || e.target.tagName !== 'INPUT') return;
+    var t = e.target.type;
+    if (t === 'text') { e.preventDefault(); e.target.blur(); }
+    else if (t === 'checkbox' || t === 'radio') { e.preventDefault(); e.target.click(); }
   });
   form.addEventListener('submit', function (e) {
     e.preventDefault();
@@ -1146,12 +1174,12 @@ var Sea = (function () {
 
     if (DEMO) { finish(); return; }
     busy(sendBtn, true, 'Отправляю…');
-    request('/submit', { password: store.get(SS, PW_KEY) || '', answers: answers, website: document.getElementById('trap').value })
+    request('/submit', { password: pwMem, answers: answers, website: document.getElementById('trap').value })
       .then(function (r) {
         busy(sendBtn, false, 'Отправить повару');
         if (r.status === 200 && r.data.ok) { store.set(LS, SENT_KEY, '1'); finish(); return; }
         if (r.status === 401) {
-          store.del(SS, PW_KEY); show('gate');
+          pwMem = ''; store.del(SS, PW_KEY); show('gate');
           showErr(pwErr, 'Пароль изменился. Введите новый — ваши ответы сохранены.'); pw.value = ''; pw.focus();
           return;
         }
@@ -1169,10 +1197,18 @@ var Sea = (function () {
     store.del(LS, SENT_KEY); show('form'); updateProgress();
     var first = form.querySelector('.ms-toggle, .input'); if (first) first.focus();
   });
+  // С одного телефона анкету заполняет второй человек: чистая форма и новый код анкеты,
+  // иначе его ответ лёг бы поверх ответа первого и тот считался бы устаревшим.
+  document.getElementById('otherBtn').addEventListener('click', function () {
+    clearTimeout(saveTimer);
+    store.del(LS, SENT_KEY); store.del(LS, DRAFT_KEY); store.del(LS, RID_KEY); ridMem = '';
+    blank(); renderForm(); show('form');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
 
   /* --- старт --- */
   if (DEMO) { document.getElementById('demoBar').hidden = false; enter(); }
-  else if (store.get(SS, PW_KEY)) enter();
+  else if (pwMem) enter();
   else { show('gate'); }
   window.__revealIntro = function () {
     var nodes = Array.prototype.slice.call(document.querySelectorAll('.intro-anim'));
