@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Мега в Алматы: куда зайти и стоит ли ехать</title>
+  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+  <meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet">
+  <meta name="description" content="Разбор двух ТРЦ MEGA в Алматы по официальному каталогу арендаторов: магазины техники, спорта, аутдора и хобби, Tax Free, сравнение цен с Бразилией.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script>
+    // Контент прячется под анимацию только при работающем JS; через 3 с показываем всё принудительно.
+    (function () {
+      if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      var root = document.documentElement;
+      root.classList.add('js-anim');
+      window.__animFailsafe = setTimeout(function () { root.classList.remove('js-anim'); }, 3000);
+    })();
+  </script>
+  <style>
+    :root {
+      --page-bg: #F5F5F7;
+      --surface: #FFFFFF;
+      --text-1: #1D1D1F;
+      --text-2: #6E6E73;
+      --text-3: #86868B;
+      --blue: #0071E3;
+      --blue-soft: rgba(0, 113, 227, 0.08);
+      --green: #1D7A3E;
+      --green-soft: rgba(29, 122, 62, 0.09);
+      --red: #B3261E;
+      --red-soft: rgba(179, 38, 30, 0.08);
+      --amber: #8A5A00;
+      --amber-soft: rgba(196, 130, 0, 0.12);
+      --border: rgba(0, 0, 0, 0.08);
+      --shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 8px 24px rgba(0, 0, 0, 0.04);
+      --shadow-hover: 0 2px 4px rgba(0, 0, 0, 0.05), 0 16px 36px rgba(0, 0, 0, 0.08);
+      --radius: 20px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body {
+      margin: 0;
+      background: var(--page-bg);
+      color: var(--text-1);
+      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-size: 16px;
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: var(--blue); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    a:focus-visible, summary:focus-visible { outline: 3px solid rgba(0, 113, 227, 0.45); outline-offset: 2px; border-radius: 6px; }
+    .wrap { max-width: 1120px; margin: 0 auto; padding: 0 20px; }
+
+    /* Hero */
+    .hero { background: var(--surface); border-bottom: 1px solid var(--border); padding: 72px 0 48px; }
+    .eyebrow { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-3); margin: 0 0 12px; }
+    h1 { font-size: clamp(32px, 5vw, 56px); font-weight: 800; line-height: 1.08; letter-spacing: -0.02em; margin: 0 0 20px; max-width: 880px; }
+    h1 span { color: var(--blue); }
+    .lead { font-size: clamp(17px, 2vw, 20px); color: var(--text-2); max-width: 760px; margin: 0 0 28px; }
+    .stats { display: flex; flex-wrap: wrap; gap: 10px; }
+    .stat { background: var(--page-bg); border: 1px solid var(--border); border-radius: 999px; padding: 8px 16px; font-size: 14px; font-weight: 500; }
+    .stat b { font-weight: 700; }
+
+    /* Навигация по разделам */
+    .toc { position: sticky; top: 0; z-index: 20; background: rgba(245, 245, 247, 0.88); backdrop-filter: saturate(180%) blur(16px); -webkit-backdrop-filter: saturate(180%) blur(16px); border-bottom: 1px solid var(--border); }
+    .toc .wrap { display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; padding-top: 6px; padding-bottom: 6px; }
+    .toc .wrap::-webkit-scrollbar { display: none; }
+    .toc a { flex: none; color: var(--text-2); font-size: 14px; font-weight: 500; padding: 10px 14px; border-radius: 999px; min-height: 44px; display: inline-flex; align-items: center; transition: background 0.2s, color 0.2s; }
+    .toc a:hover { background: rgba(0, 0, 0, 0.05); color: var(--text-1); text-decoration: none; }
+
+    /* Секции */
+    .block { padding: 56px 0 8px; scroll-margin-top: 64px; }
+    h2 { font-size: clamp(26px, 3.4vw, 36px); font-weight: 700; letter-spacing: -0.02em; line-height: 1.15; margin: 0 0 10px; }
+    .sub { color: var(--text-2); margin: 0 0 24px; max-width: 760px; }
+    h3 { font-size: 18px; font-weight: 700; letter-spacing: -0.01em; margin: 0 0 6px; line-height: 1.25; }
+
+    .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); padding: 24px; transition: box-shadow 0.2s ease-out, transform 0.2s ease-out; }
+    .card:hover { transform: translateY(-2px); box-shadow: var(--shadow-hover); }
+    .card p { margin: 0; color: var(--text-2); font-size: 15px; }
+    .card p + p { margin-top: 10px; }
+
+    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .bento { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .span-2 { grid-column: span 2; }
+    .span-3 { grid-column: span 3; }
+
+    /* Вердикт */
+    .verdict { background: linear-gradient(180deg, #FFFFFF 0%, #F7FAFF 100%); }
+    .verdict h3 { font-size: 22px; }
+    .verdict p { font-size: 16px; color: var(--text-1); }
+    .tag { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; border-radius: 999px; padding: 5px 12px; margin-bottom: 14px; }
+    .tag-yes { background: var(--green-soft); color: var(--green); }
+    .tag-no { background: var(--red-soft); color: var(--red); }
+    .tag-info { background: var(--blue-soft); color: var(--blue); }
+    .list { margin: 0; padding: 0; list-style: none; }
+    .list li { position: relative; padding-left: 20px; color: var(--text-2); font-size: 15px; }
+    .list li + li { margin-top: 8px; }
+    .list li::before { content: ""; position: absolute; left: 2px; top: 0.62em; width: 6px; height: 6px; border-radius: 50%; background: var(--text-3); }
+    .list b { color: var(--text-1); font-weight: 600; }
+
+    /* Карточки магазинов */
+    .store { display: flex; flex-direction: column; gap: 14px; padding: 20px; }
+    .store-head { display: flex; gap: 14px; align-items: center; }
+    .logo { width: 56px; height: 56px; flex: none; object-fit: contain; background: #fff; border: 1px solid var(--border); border-radius: 14px; padding: 4px; }
+    .pills { display: flex; flex-wrap: wrap; gap: 6px; }
+    .pill { font-size: 12px; font-weight: 600; color: var(--text-2); background: var(--page-bg); border-radius: 999px; padding: 3px 10px; white-space: nowrap; }
+    .pill-blue { color: var(--blue); background: var(--blue-soft); }
+    .pill-warn { color: var(--amber); background: var(--amber-soft); }
+    .store p { flex: 1; }
+    .store-soon .logo { filter: grayscale(1); opacity: 0.7; }
+    .links { display: flex; flex-wrap: wrap; gap: 4px 18px; font-size: 14px; font-weight: 600; }
+    .links a { display: inline-flex; align-items: center; min-height: 32px; }
+
+    /* Таблицы */
+    .table-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; font-size: 15px; min-width: 620px; }
+    thead th { background: var(--text-1); color: #fff; text-align: left; font-weight: 600; font-size: 13px; letter-spacing: 0.02em; padding: 14px 18px; }
+    tbody td, tbody th { padding: 14px 18px; border-bottom: 1px solid var(--border); text-align: left; vertical-align: top; }
+    tbody th { font-weight: 600; color: var(--text-1); width: 26%; }
+    tbody td { color: var(--text-2); }
+    tbody tr:last-child td, tbody tr:last-child th { border-bottom: 0; }
+    td.num { font-variant-numeric: tabular-nums; white-space: nowrap; color: var(--text-1); font-weight: 500; }
+    tr.hl td, tr.hl th { background: #F7FAFF; }
+    .note { font-size: 14px; color: var(--text-2); margin: 16px 0 0; max-width: 860px; }
+    .note b { color: var(--text-1); font-weight: 600; }
+
+    /* Маршрут */
+    .steps { counter-reset: step; display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+    .step { position: relative; }
+    .step::before { counter-increment: step; content: counter(step); display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; border-radius: 8px; background: var(--text-1); color: #fff; font-size: 14px; font-weight: 700; margin-bottom: 14px; }
+
+    /* Источники */
+    .sources { font-size: 14px; color: var(--text-2); }
+    .sources li + li { margin-top: 8px; }
+    footer { padding: 48px 0 64px; color: var(--text-3); font-size: 13px; }
+
+    /* Появление */
+    .js-anim .reveal, .js-anim .stagger > * { opacity: 0; }
+    .reveal.shown, .stagger.shown > * { opacity: 1; }
+
+    @media (max-width: 960px) {
+      .grid, .bento { grid-template-columns: repeat(2, 1fr); }
+      .span-3 { grid-column: span 2; }
+      .steps { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 640px) {
+      .hero { padding: 48px 0 36px; }
+      .grid, .bento, .steps { grid-template-columns: 1fr; }
+      .span-2, .span-3 { grid-column: auto; }
+      .block { padding-top: 44px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .card, .toc a { transition: none; }
+      .card:hover { transform: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="hero">
+    <div class="wrap">
+      <p class="eyebrow">Алматы · разбор по каталогу арендаторов · 1 октября 2026</p>
+      <h1>«Мега» в Алматы: <span>куда зайти</span> и стоит ли ехать</h1>
+      <p class="lead">В городе две «Меги». Ниже — какая из них нужна, какие магазины закрывают интересы «гаджеты, зал, яхтинг, DIY» и где ехать незачем. Списки магазинов взяты из официального каталога mega.kz в день подготовки страницы.</p>
+      <div class="stats">
+        <span class="stat"><b>2</b> ТРЦ MEGA в Алматы</span>
+        <span class="stat"><b>202</b> записи магазинов в MEGA Alma-Ata</span>
+        <span class="stat"><b>83</b> — в MEGA Park</span>
+        <span class="stat">Магазины работают <b>10:00–22:00</b></span>
+      </div>
+    </div>
+  </header>
+
+  <nav class="toc" aria-label="Разделы страницы">
+    <div class="wrap">
+        <a href="#verdict">Вердикт</a>
+        <a href="#which">Какая «Мега»</a>
+        <a href="#tech">Техника и гаджеты</a>
+        <a href="#sport">Спорт и зал</a>
+        <a href="#outdoor">Аутдор и яхтинг</a>
+        <a href="#hobby">Хобби и книги</a>
+        <a href="#fun">Чем заняться, кроме покупок</a>
+        <a href="#useful">Практичное по пути</a>
+        <a href="#prices">Цены</a>
+        <a href="#taxfree">Tax Free</a>
+        <a href="#voltage">127 В</a>
+        <a href="#sources">Источники</a>
+    </div>
+  </nav>
+
+  <main class="wrap">
+
+    <section class="block reveal" id="verdict">
+      <p class="eyebrow">Короткий ответ</p>
+      <h2>Смысл есть, но только в одной из двух</h2>
+      <p class="sub">Ехать стоит в MEGA Alma-Ata на Розыбакиева — там собрано почти всё, что есть в городе по технике и спорту. За яхтенной экипировкой и DIY-электроникой ехать бесполезно.</p>
+      <div class="bento stagger">
+        <article class="card verdict span-3">
+          <span class="tag tag-info">Итог</span>
+          <h3>Да — если цель «посмотреть и потрогать технику и спорт за один заход»</h3>
+          <p>В MEGA Alma-Ata под одной крышей <a href="https://www.technodom.kz/" target="_blank" rel="noopener">Technodom</a> на двух этажах, <a href="https://ispace.kz/" target="_blank" rel="noopener">iSpace</a>, фирменные магазины Xiaomi, Dreame, Dyson и BORK, плюс <a href="https://www.sportmaster.kz/" target="_blank" rel="noopener">Sportmaster</a> и семь спортивных монобрендов. Экономии на технике Apple относительно бразильской розницы проверка цен не показала — подробности в разделе «Цены».</p>
+        </article>
+        <article class="card">
+          <span class="tag tag-yes">Ехать за этим</span>
+          <ul class="list">
+            <li><b>Техника вживую:</b> 17 записей в категории электроники в одном здании.</li>
+            <li><b>Спортивная одежда и обувь:</b> Sportmaster, Nike, adidas, Under Armour, PUMA, New Balance, Li-Ning, ANTA.</li>
+            <li><b>Книги и настолки:</b> Marwin | Меломан, плюс LEGO Store.</li>
+          </ul>
+        </article>
+        <article class="card">
+          <span class="tag tag-no">Не ехать за этим</span>
+          <ul class="list">
+            <li><b>Яхтенная экипировка:</b> Helly Hansen в каталоге с пометкой «Скоро открытие», других профильных нет.</li>
+            <li><b>DIY-электроника:</b> радиодеталей и одноплатников нет вовсе.</li>
+            <li><b>Sulpak, Decathlon, Garmin, Samsung, Sony:</b> таких арендаторов в каталоге нет.</li>
+          </ul>
+        </article>
+        <article class="card">
+          <span class="tag tag-info">Учесть заранее</span>
+          <ul class="list">
+            <li><b>Розетка:</b> в Казахстане 230 В, в Рио 127 В — технику с мотором и нагревом проверять по шильдику.</li>
+            <li><b>Tax Free</b> есть, но правило привязано к проживанию вне ЕАЭС.</li>
+            <li><b>Цены Apple</b> выше, чем у бразильских маркетплейсов.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="block reveal" id="which">
+      <p class="eyebrow">Две «Меги»</p>
+      <h2>Какая из двух</h2>
+      <p class="sub">MEGA Alma-Ata больше MEGA Park в два с лишним раза по числу магазинов, и почти вся специализированная техника — только в ней.</p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th scope="col">Параметр</th><th scope="col">MEGA Alma-Ata</th><th scope="col">MEGA Park</th></tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row">Адрес</th><td>ул. Розыбакиева, 247а</td><td>ул. Макатаева, 127/1</td></tr>
+            <tr><th scope="row">Записей магазинов в каталоге</th><td class="num">202</td><td class="num">83</td></tr>
+            <tr><th scope="row">Кафе и рестораны</th><td class="num">68</td><td class="num">38</td></tr>
+            <tr><th scope="row">Техника и электроника</th><td>Technodom (1 и 2 этаж), iSpace, Xiaomi, Dreame, Dyson, BORK, Haier, Umeko, SmartTech, Instax</td><td>Technodom (цокольный этаж), iSpace, Xiaomi, Dreame</td></tr>
+            <tr><th scope="row">Спорт</th><td>Sportmaster, Nike, adidas, Under Armour, PUMA, New Balance, Li-Ning, ANTA</td><td>Sportmaster, Nike, adidas, Li-Ning, Xtep</td></tr>
+            <tr><th scope="row">Аутдор</th><td>The North Face, Napapijri, Timberland; Helly Hansen — скоро</td><td>нет</td></tr>
+            <tr><th scope="row">Книги и хобби</th><td>Marwin | Меломан, LEGO Store, Artbox</td><td>Marwin, «Детский мир»</td></tr>
+            <tr><th scope="row">Продукты</th><td>galmart (09:00–23:45)</td><td>Magnum Super</td></tr>
+            <tr><th scope="row">Развлечения</th><td>Chaplin Cinemas, Everest Park, VR Zone, колесо обозрения Happy Eye</td><td>Chaplin Cinemas, Kango Fly Cinema, Play Smart</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="note">Цифры — число записей в каталоге <a href="https://mega.kz/" target="_blank" rel="noopener">mega.kz</a> без точек с пометками «Скоро открытие» и «временно закрыто». Сети, занимающие два помещения (H&amp;M, Technodom, LC Waikiki), в каталоге записаны дважды, поэтому реальных брендов немного меньше.</p>
+    </section>
+
+    <section class="block reveal" id="route">
+      <p class="eyebrow">Если времени два часа</p>
+      <h2>Маршрут по MEGA Alma-Ata</h2>
+      <p class="sub">Порядок — по этажам, чтобы не возвращаться.</p>
+      <div class="steps stagger">
+        <article class="card step"><h3>1 этаж: техника</h3><p>iSpace, Xiaomi (Mi) Store, Dreame, Dyson, BORK и первый зал Technodom — все на одном этаже.</p></article>
+        <article class="card step"><h3>1 этаж: спорт</h3><p>Under Armour, PUMA, New Balance, Li-Ning, ANTA — монобренды на том же этаже.</p></article>
+        <article class="card step"><h3>2 этаж</h3><p>Второй зал Technodom, Sportmaster, Nike, adidas, The North Face, Marwin | Меломан.</p></article>
+        <article class="card step"><h3>На выходе</h3><p>Фудкорт на 2 этаже, galmart на 1-м — он работает до 23:45, когда остальное уже закрыто.</p></article>
+      </div>
+    </section>
+
+    <section class="block reveal" id="tech">
+      <p class="eyebrow">MEGA Alma-Ata</p>
+      <h2>Техника и гаджеты</h2>
+      <p class="sub">Самый плотный кластер ТРЦ: 17 записей в категории «Техника и электроника».</p>
+      <div class="grid stagger">
+        <article class="card store">
+          <div class="store-head">
+            <img class="logo" src="https://mega.kz/media/2026/2/16/1771245065.png" alt="Логотип Technodom" width="56" height="56" loading="lazy" decoding="async">
+            <div>
+              <h3>Technodom</h3>
+              <div class="pills"><span class="pill">1 и 2 этаж</span><span class="pill">10:00–22:00</span></div>
+            </div>
+          </div>
+          <p>Сеть электроники и бытовой техники. В каталоге ТРЦ у неё две площади — на 1 и 2 этаже; другие магазины техники занимают по одной.</p>
+          <div class="links"><a href="https://mega.kz/Categories/mca_technodom_1st_fl_50" target="_blank" rel="noopener">На карте ТРЦ</a> <a href="https://www.technodom.kz/" target="_blank" rel="noopener">Сайт магазина</a></div>
+        </article>
+        <article class="card store">
+          <div class="store-head">
+            <img class="logo" src="https://mega.kz/media/2026/3/26/1774526324.png" alt="Логотип iSpace" width="56" height="56" loading="lazy" decoding="async">
+            <div>
+              <h3>iSpace</h3>
+              <div class="pills"><span class="pill">1 этаж</span><span class="pill">10:00–22:00</span><span class="pill pill-blue">Tax Free</span></div>
+            </div>
+          </div>
+          <p>Техника Apple; на ispace.kz магазин назван официальным партнёром Apple в Казахстане. Участник Tax Free.</p>
+          <div class="links"><a href="https://mega.kz/Categories/mca_ispace_101" target="_blank" rel="noopener">На карте ТРЦ</a> <a href="https://ispace.kz/" target="_blank" rel="noopener">Сайт магазина</a></div>
+        </article>
+        <article class="card store">
+          <div class="store-head">
+            <img class="logo" src="https://mega.kz/media/2023/2/13/1676287127.png" alt="Логотип Xiaomi (Mi) Store" width="56" height="56" loading="lazy" decoding="async">
+            <div>
+              <h3>Xiaomi (Mi) Store</h3>
+              <div class="pills"><span class="pill">1 этаж</span><span class="pill">10:00–22:00</span></div>
+            </div>
+          </div>
+          <p>Фирменный магазин Xiaomi: смартфоны, носимые гаджеты, техника для дома.</p>
+          <div class="links"><a href="https://mega.kz/Categories/mca-mi-store-11" target="_blank" rel="noopener">На карте ТРЦ</a> <a href="https://www.mi.com/kz-ru/" target="_blank" rel="noopener">Сайт магазина</a></div>
+        </article>
+        <article class="card store">
+          <div class="store-head">
+            <img class="logo" src="https://mega.kz/media/2025/3/17/1742205449.jpg" alt="Логотип Dreame" width="56" height="56" loading="lazy" decoding="async">
+            <div>
+              <h3>Dreame</h3>
+              <div class="pills"><span class="pill">1 этаж</span><span class="pill">10:00–22:00</span></div>
+            </div>
+          </div>
+          <p>Фирменная точка Dreame: в каталоге ТРЦ — техника и товары для дома.</p>
+          <div class="links"><a href="https://mega.kz/Categories/mca_dreame_34" target="_blank" rel="noopener">На карте ТРЦ</a> <a href="https://dreameshop.kz/" target="_blank" rel="noopener">Сайт магазина</a></div>
+        </article>
+        <article class="card store">
+          <div class="store-head">
+            <img class="logo" src="https://mega.kz/media/2021/10/18/1634567902.jpeg" alt="Логотип Dyson" width="56" height="56" loading="lazy" decoding="async">
+            <div>
+              <h3>Dyson</h3>
+              <div class="pills"><span class="pill">1 этаж</span><span class="pill">10:00–22:00</span></div>
+            </div>
+          </div>
+          <p>Фирменный магазин Dyson. Перед покупкой смотреть вольтаж — см. блок про 127 В ниже.</p>
+          <div class="links"><a href="https://mega.kz/Categories/mca-dyson-263" target="_blank" rel="noopener">На карте ТРЦ</a> <a href="https://shop-dyson.kz/" target="_blank" rel="noopener">Сайт магазина</a></div>
+        </article>
+        <article class="card store">
+          <div class="store-head">
+            <img class="logo" src="https://mega.kz/media/2025/2/25/1740492377.jpg" alt="Логотип BORK" width="56" height="56" loading="lazy" decoding="async">
+            <div>
+              <h3>BORK</h3>
+              <div class="pills"><span class="pill">1 этаж</span><span class="pill">10:00–22:00</span><span class="pill pill-blue">Tax Free</span></div>
+            </div>
+          </div>
+          <p>Бытовая техника BORK. Участник Tax Free.</p>
+          <div class="links"><a href="https://mega.kz/Categories/mca_bork_104" target="_blank" rel="noopener">На карте ТРЦ</a> <a href="https://www.bork.kz/" target="_blank" rel="noopener">Сайт магазина</a></div>
+        </article>
+        <article class="card store">
+          <div class="store-head">
+            <img class="logo" src="https://mega.kz/media/2026/8/1/1785598677.jpg" alt="Логотип Umeko" width="56" height="56" loading="lazy" decoding="async">
+            <div>
+              <h3>Umeko</h3>
+              <div class="pills"><span class="pill">1 этаж</span><span class="pill">10:00–22:00</span></div>
+            </div>
+          </div>
+          <p>Магазин из категории «Техника и электроника».</p>
+          <div class="links"><a href="https://mega.kz/Categories/mca-umeko-226" target="_blank" rel="noopener">На карте ТРЦ</a> <a href="https://umeko.kz/" target="_blank" rel="noopener">Сайт магазина</a></div>
+        </article>
+        <article class="card store">
+          <div class="store-head">
+            <img class="logo" src="https://mega.kz/media/2026/8/26/1787740486.jpg" alt="Логотип SmartTech" width="56" height="56" loading="lazy" decoding="async">
+            <div>
+              <h3>SmartTech</h3>
+              <div class="pills"><span class="pill">1 этаж</span><span class="pill">10:00–22:00</span></div>
+            </div>
+          </div>
+          <p>Техника, мобильные телефоны и аксессуары.</p>
+          <div class="links"><a href="https://mega.kz/Categories/mca-smartrech-234" target="_blank" rel="noopener">На карте ТРЦ</a></div>
+        </article>
+        <article class="card store">
+          <div class="store-head">
+            <img class="logo" src="https://mega.kz/media/2022/5/11/1652284343.png" alt="Логотип Instax Fujifilm" width="56" height="56" loading="lazy" decoding="async">
+            <div>
+              <h3>Instax Fujifilm</h3>
+              <div class="pills"><span class="pill">2 этаж</span><span class="pill">10:00–22:00</span></div>
+            </div>
+          </div>
+          <p>Камеры моментальной печати и расходники к ним.</p>
+          <div class="links"><a href="https://mega.kz/Categories/mca-instax-147" target="_blank" rel="noopener">На карте ТРЦ</a> <a href="https://www.instax.com/" target="_blank" rel="noopener">Сайт магазина</a></div>
+        </article>
+        <article class="card store">
+          <div class="store-head">
+            <img class="logo" src="https://mega.kz/media/2025/8/25/1756117737.png" alt="Логотип WIWU" width="56" height="56" loading="lazy" decoding="async">
+            <div>
+              <h3>WIWU</h3>
+              <div class="pills"><span class="pill">цокольный этаж</span><span class="pill">10:00–22:00</span></div>
+            </div>
+          </div>
+          <p>Точка на цокольном этаже, в каталоге — «Мобильные телефоны» (аксессуары).</p>
+          <div class="links"><a href="https://mega.kz/Categories/mca-wiwu-12" target="_blank" rel="noopener">На карте ТРЦ</a></div>
+        </article>
+      </div>
+    </section>
+    <section class="block reveal" id="sport">
+      <p class="eyebrow">MEGA Alma-Ata</p>
+      <h2>Спорт и зал</h2>
+      <p class="sub">21 запись в категории «Спорт и активный отдых».</p>
+      <div class="grid stagger">
+        <article class="card store">
+          <div class="store-head">
+            <img class="logo" src="https://mega.kz/media/2021/10/8/1633712710_4GXzMoY.jpeg" alt="Логотип Sportmaster" width="56" height="56" loading="lazy" decoding="async">
+            <div>
+              <h3>Sportmaster</h3>
+              <div class="pills"><span class="pill">2 этаж</span><span class="pill">10:00–22:00</span></div>
+            </div>
+          </div>
+          <p>Мультибрендовая спортивная сеть: одежда, обувь, аксессуары, инвентарь. Если времени мало — из спортивных хватит его одного.</p>
+          <div class="links"><a href="https://mega.kz/Categories/mca-sportmaster-90" target="_blank" rel="noopener">На карте ТРЦ</a> <a href="https://www.sportmaster.kz/" target="_blank" rel="noopener">Сайт магазина</a></div>
+        </article>
+        <article class="card store">
+          <div class="store-head">
+            <img class="logo" src="https://mega.kz/media/2022/3/31/1648740560.jpeg" alt="Логотип Nike" width="56" height="56" loading="lazy" decoding="async">
+            <div>
+              <h3>Nike</h3>
+              <div class="pills"><span class="pill">2 этаж</span><span class="pill">10:00–22:00</span></div>
+            </div>
+          </div>
+          <p>Монобренд: одежда и обувь для тренировок.</p>
+          <div class="links"><a href="https://mega.kz/Categories/mca_nike_103" target="_blank" rel="noopener">На карте ТРЦ</a> <a href="https://www.nike.com/" target="_blank" rel="noopener">Сайт магазина</a></div>
+        </article>
+        <article class="card store">
+          <div class="store-head">
+            <img class="logo" src="https://mega.kz/media/2022/4/5/1649151489.png" alt="Логотип adidas" width="56" height="56" loading="lazy" decoding="async">
+            <div>
+              <h3>adidas</h3>
+              <div class="pills"><span class="pill">2 этаж</span><span class="pill">10:00–22:00</span></div>
+            </div>
+          </div>
+          <p>Монобренд: одежда и обувь для тренировок.</p>
+          <div class="links"><a href="https://mega.kz/Categories/msa-adidas-92" target="_blank" rel="noopener">На карте ТРЦ</a> <a href="https://adidas.kz/" target="_blank" rel="noopener">Сайт магазина</a></div>
+        </article>
+        <article class="card store">
+          <div class="store-head">
+            <img class="logo" src="https://mega.kz/media/2025/4/16/1744808080.png" alt="Логотип Under Armour" width="56" height="56" loading="lazy" decoding="async">
+            <div>
+              <h3>Under Armour</h3>
+              <div class="pills"><span class="pill">1 этаж</span><span class="pill">10:00–22:00</span></div>
+            </div>
+          </div>
+          <p>Тренировочная одежда и обувь.</p>
+          <div class="links"><a href="https://mega.kz/Categories/mca-under-armour-124" target="_blank" rel="noopener">На карте ТРЦ</a> <a href="https://www.underarmour.com/" target="_blank" rel="noopener">Сайт магазина</a></div>
+        </article>
+        <article class="card store">
+          <div class="store-head">
+            <img class="logo" src="https://mega.kz/media/2021/10/15/1634268908.jpeg" alt="Логотип PUMA" width="56" height="56" loading="lazy" decoding="async">
+            <div>
+              <h3>PUMA</h3>
+              <div class="pills"><span class="pill">1 этаж</span><span class="pill">10:00–22:00</span></div>
+            </div>
+          </div>
+          <p>Одежда, обувь, аксессуары.</p>
+          <div class="links"><a href="https://mega.kz/Categories/mca-puma-47" target="_blank" rel="noopener">На карте ТРЦ</a> <a href="https://eu.puma.com/" target="_blank" rel="noopener">Сайт магазина</a></div>
+        </article>
+        <article class="card store">
+          <div class="store-head">
+            <img class="logo" src="https://mega.kz/media/2025/9/29/1759145243.png" alt="Логотип New Balance" width="56" height="56" loading="lazy" decoding="async">
+            <div>
+              <h3>New Balance</h3>
+              <div class="pills"><span class="pill">1 этаж</span><span class="pill">10:00–22:00</span></div>
+            </div>
+          </div>
+          <p>В каталоге ТРЦ значится только обувь.</p>
+          <div class="links"><a href="https://mega.kz/Categories/mca-new-balance-45" target="_blank" rel="noopener">На карте ТРЦ</a> <a href="https://www.newbalance.com/" target="_blank" rel="noopener">Сайт магазина</a></div>
+        </article>
+        <article class="card store">
+          <div class="store-head">
+            <img class="logo" src="https://mega.kz/media/2025/8/8/1754664346.png" alt="Логотип Li-Ning" width="56" height="56" loading="lazy" decoding="async">
+            <div>
+              <h3>Li-Ning</h3>
+              <div class="pills"><span class="pill">1 этаж</span><span class="pill">10:00–22:00</span></div>
+            </div>
+          </div>
+          <p>Китайский спортивный бренд: одежда и обувь.</p>
+          <div class="links"><a href="https://mega.kz/Categories/mca-li-ning-40" target="_blank" rel="noopener">На карте ТРЦ</a> <a href="https://www.lining.com/" target="_blank" rel="noopener">Сайт магазина</a></div>
+        </article>
+        <article class="card store">
+          <div class="store-head">
+            <img class="logo" src="https://mega.kz/media/2026/4/6/1775485746.jpg" alt="Логотип ANTA" width="56" height="56" loading="lazy" decoding="async">
+            <div>
+              <h3>ANTA</h3>
+              <div class="pills"><span class="pill">1 этаж</span><span class="pill">10:00–22:00</span></div>
+            </div>
+          </div>
+          <p>Китайский спортивный бренд: одежда.</p>
+          <div class="links"><a href="https://mega.kz/Categories/mca-anta-191" target="_blank" rel="noopener">На карте ТРЦ</a> <a href="https://www.anta.com/" target="_blank" rel="noopener">Сайт магазина</a></div>
+        </article>
+      </div>
+    </section>
+    <section class="block reveal" id="outdoor">
+      <p class="eyebrow">MEGA Alma-Ata</p>
+      <h2>Аутдор и яхтинг</h2>
+      <p class="sub">Специализированного яхтенного магазина в «Меге» нет — только общая аутдор-одежда.</p>
+      <div class="grid stagger">
+        <article class="card store">
+          <div class="store-head">
+            <img class="logo" src="https://mega.kz/media/2021/10/8/1633727874.jpeg" alt="Логотип The North Face" width="56" height="56" loading="lazy" decoding="async">
+            <div>
+              <h3>The North Face</h3>
+              <div class="pills"><span class="pill">2 этаж</span><span class="pill">10:00–22:00</span></div>
+            </div>
+          </div>
+          <p>Куртки и обувь для активного отдыха — из работающих магазинов это ближе всего к экипировке на воду.</p>
+          <div class="links"><a href="https://mega.kz/Categories/mca-tnf-123" target="_blank" rel="noopener">На карте ТРЦ</a> <a href="https://www.thenorthface.com/" target="_blank" rel="noopener">Сайт магазина</a></div>
+        </article>
+        <article class="card store">
+          <div class="store-head">
+            <img class="logo" src="https://mega.kz/media/2021/10/15/1634258363.jpeg" alt="Логотип Napapijri" width="56" height="56" loading="lazy" decoding="async">
+            <div>
+              <h3>Napapijri</h3>
+              <div class="pills"><span class="pill">1 этаж</span><span class="pill">10:00–22:00</span></div>
+            </div>
+          </div>
+          <p>Куртки и повседневная аутдор-одежда.</p>
+          <div class="links"><a href="https://mega.kz/Categories/mca-napapijri-138" target="_blank" rel="noopener">На карте ТРЦ</a> <a href="https://www.napapijri.com/" target="_blank" rel="noopener">Сайт магазина</a></div>
+        </article>
+        <article class="card store">
+          <div class="store-head">
+            <img class="logo" src="https://mega.kz/media/2021/10/14/1634253746.jpeg" alt="Логотип Timberland" width="56" height="56" loading="lazy" decoding="async">
+            <div>
+              <h3>Timberland</h3>
+              <div class="pills"><span class="pill">2 этаж</span><span class="pill">10:00–22:00</span></div>
+            </div>
+          </div>
+          <p>Обувь и одежда.</p>
+          <div class="links"><a href="https://mega.kz/Categories/mca-timberland-131" target="_blank" rel="noopener">На карте ТРЦ</a> <a href="https://www.timberland.com/" target="_blank" rel="noopener">Сайт магазина</a></div>
+        </article>
+        <article class="card store store-soon">
+          <div class="store-head">
+            <img class="logo" src="https://mega.kz/media/2026/6/16/1781604074.jpg" alt="Логотип Helly Hansen" width="56" height="56" loading="lazy" decoding="async">
+            <div>
+              <h3>Helly Hansen</h3>
+              <div class="pills"><span class="pill">1 этаж</span><span class="pill pill-warn">скоро открытие</span></div>
+            </div>
+          </div>
+          <p>Единственный в списке бренд с яхтенной линейкой, но в каталоге ТРЦ он пока с пометкой «Скоро открытие». Проверить перед поездкой.</p>
+          <div class="links"><a href="https://mega.kz/Categories/mca-helly-hansen-57" target="_blank" rel="noopener">На карте ТРЦ</a> <a href="https://www.hellyhansen.com/" target="_blank" rel="noopener">Сайт магазина</a></div>
+        </article>
+      </div>
+    </section>
+    <section class="block reveal" id="hobby">
+      <p class="eyebrow">MEGA Alma-Ata</p>
+      <h2>Хобби и книги</h2>
+      <p class="sub">Радиодеталей, Raspberry Pi и прочей DIY-электроники в «Меге» нет — такой категории в каталоге не существует.</p>
+      <div class="grid stagger">
+        <article class="card store">
+          <div class="store-head">
+            <img class="logo" src="https://mega.kz/media/2025/9/29/1759143935.png" alt="Логотип Marwin | Меломан" width="56" height="56" loading="lazy" decoding="async">
+            <div>
+              <h3>Marwin | Меломан</h3>
+              <div class="pills"><span class="pill">2 этаж</span><span class="pill">10:00–22:00</span></div>
+            </div>
+          </div>
+          <p>Книги, настольные игры, канцелярия, игрушки, мелкая электроника — самый «широкий» магазин для хобби.</p>
+          <div class="links"><a href="https://mega.kz/Categories/mca-marwin-13" target="_blank" rel="noopener">На карте ТРЦ</a> <a href="https://www.meloman.kz/" target="_blank" rel="noopener">Сайт магазина</a></div>
+        </article>
+        <article class="card store">
+          <div class="store-head">
+            <img class="logo" src="https://mega.kz/media/2026/3/30/1774863854.jpg" alt="Логотип LEGO Store" width="56" height="56" loading="lazy" decoding="async">
+            <div>
+              <h3>LEGO Store</h3>
+              <div class="pills"><span class="pill">2 этаж</span><span class="pill">10:00–22:00</span></div>
+            </div>
+          </div>
+          <p>Фирменный магазин LEGO.</p>
+          <div class="links"><a href="https://mega.kz/Categories/mca-lego-store-108" target="_blank" rel="noopener">На карте ТРЦ</a> <a href="https://www.lego.com/" target="_blank" rel="noopener">Сайт магазина</a></div>
+        </article>
+        <article class="card store">
+          <div class="store-head">
+            <img class="logo" src="https://mega.kz/media/2026/9/21/1790007622.jpg" alt="Логотип Artbox" width="56" height="56" loading="lazy" decoding="async">
+            <div>
+              <h3>Artbox</h3>
+              <div class="pills"><span class="pill">1 этаж</span><span class="pill">10:00–22:00</span></div>
+            </div>
+          </div>
+          <p>Категория «Товары для хобби и творчества».</p>
+          <div class="links"><a href="https://mega.kz/Categories/mca-artbox-46" target="_blank" rel="noopener">На карте ТРЦ</a></div>
+        </article>
+      </div>
+    </section>
+    <section class="block reveal" id="fun">
+      <p class="eyebrow">MEGA Alma-Ata</p>
+      <h2>Чем заняться, кроме покупок</h2>
+      <p class="sub">14 записей в категории «Развлечения».</p>
+      <div class="grid stagger">
+        <article class="card store">
+          <div class="store-head">
+            <img class="logo" src="https://mega.kz/media/2023/8/24/1692878643.png" alt="Логотип Everest Park" width="56" height="56" loading="lazy" decoding="async">
+            <div>
+              <h3>Everest Park</h3>
+              <div class="pills"><span class="pill">1 этаж</span><span class="pill">10:00–22:00</span></div>
+            </div>
+          </div>
+          <p>Развлекательный парк на 1 этаже.</p>
+          <div class="links"><a href="https://mega.kz/Categories/mca_everest_park-268" target="_blank" rel="noopener">На карте ТРЦ</a></div>
+        </article>
+        <article class="card store">
+          <div class="store-head">
+            <img class="logo" src="https://mega.kz/media/2026/7/15/1784113007.jpg" alt="Логотип VR Zone" width="56" height="56" loading="lazy" decoding="async">
+            <div>
+              <h3>VR Zone</h3>
+              <div class="pills"><span class="pill">1 этаж</span><span class="pill">10:00–22:00</span></div>
+            </div>
+          </div>
+          <p>Площадка виртуальной реальности.</p>
+          <div class="links"><a href="https://mega.kz/Categories/mca-vr-278" target="_blank" rel="noopener">На карте ТРЦ</a></div>
+        </article>
+        <article class="card store">
+          <div class="store-head">
+            <img class="logo" src="https://mega.kz/media/2025/9/29/1759141814.png" alt="Логотип Chaplin Cinemas" width="56" height="56" loading="lazy" decoding="async">
+            <div>
+              <h3>Chaplin Cinemas</h3>
+              <div class="pills"><span class="pill">2 этаж</span><span class="pill">10:00–00:00</span></div>
+            </div>
+          </div>
+          <p>Кинотеатр, работает дольше ТРЦ — до полуночи.</p>
+          <div class="links"><a href="https://mega.kz/Categories/mca-chaplin-cinemas-14" target="_blank" rel="noopener">На карте ТРЦ</a> <a href="https://chaplin.kz/" target="_blank" rel="noopener">Сайт магазина</a></div>
+        </article>
+        <article class="card store">
+          <div class="store-head">
+            <img class="logo" src="https://mega.kz/media/2025/9/26/1758903121.jpeg" alt="Логотип Колесо обозрения Happy Eye" width="56" height="56" loading="lazy" decoding="async">
+            <div>
+              <h3>Колесо обозрения Happy Eye</h3>
+              <div class="pills"><span class="pill">1 этаж</span><span class="pill">11:00–23:00</span></div>
+            </div>
+          </div>
+          <p>Колесо обозрения при ТРЦ, работает с 11:00 до 23:00.</p>
+          <div class="links"><a href="https://mega.kz/Categories/mca-mega-eye-4" target="_blank" rel="noopener">На карте ТРЦ</a></div>
+        </article>
+      </div>
+    </section>
+    <section class="block reveal" id="useful">
+      <p class="eyebrow">MEGA Alma-Ata</p>
+      <h2>Практичное по пути</h2>
+      <p class="sub">Продукты, аптека, чемодан — если техника не влезает в багаж.</p>
+      <div class="grid stagger">
+        <article class="card store">
+          <div class="store-head">
+            <img class="logo" src="https://mega.kz/media/2021/10/8/1633712725_7zOWlgs.jpeg" alt="Логотип galmart" width="56" height="56" loading="lazy" decoding="async">
+            <div>
+              <h3>galmart</h3>
+              <div class="pills"><span class="pill">1 этаж</span><span class="pill">09:00–23:45</span></div>
+            </div>
+          </div>
+          <p>Супермаркет, открыт дольше остальных — с 09:00 до 23:45.</p>
+          <div class="links"><a href="https://mega.kz/Categories/mca-galmart-199" target="_blank" rel="noopener">На карте ТРЦ</a> <a href="https://galmart.kz/" target="_blank" rel="noopener">Сайт магазина</a></div>
+        </article>
+        <article class="card store">
+          <div class="store-head">
+            <img class="logo" src="https://mega.kz/media/2021/10/8/1633712697_l6S66I5.jpeg" alt="Логотип Аптека Pharmacom" width="56" height="56" loading="lazy" decoding="async">
+            <div>
+              <h3>Аптека Pharmacom</h3>
+              <div class="pills"><span class="pill">1 этаж</span><span class="pill">10:00–22:00</span></div>
+            </div>
+          </div>
+          <p>Аптека на 1 этаже.</p>
+          <div class="links"><a href="https://mega.kz/Categories/mca_pharmacom_9" target="_blank" rel="noopener">На карте ТРЦ</a> <a href="https://pharmacom.kz/" target="_blank" rel="noopener">Сайт магазина</a></div>
+        </article>
+        <article class="card store">
+          <div class="store-head">
+            <img class="logo" src="https://mega.kz/media/2024/12/23/1734950709.jpeg" alt="Логотип Samsonite" width="56" height="56" loading="lazy" decoding="async">
+            <div>
+              <h3>Samsonite</h3>
+              <div class="pills"><span class="pill">2 этаж</span><span class="pill">10:00–22:00</span></div>
+            </div>
+          </div>
+          <p>Чемоданы и сумки.</p>
+          <div class="links"><a href="https://mega.kz/Categories/mca_samsonite-99" target="_blank" rel="noopener">На карте ТРЦ</a> <a href="https://samsonite.kz/" target="_blank" rel="noopener">Сайт магазина</a></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="block reveal" id="prices">
+      <p class="eyebrow">Проверка цен</p>
+      <h2>Дешевле ли техника, чем в Бразилии</h2>
+      <p class="sub">Контрольная позиция — iPhone 17 на 256 ГБ. Пересчёт по курсу Нацбанка Казахстана на 1 октября 2026: 1 USD = 440,86 ₸, 1 BRL = 84,74 ₸.</p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th scope="col">Где</th><th scope="col">Цена на витрине</th><th scope="col">В тенге</th><th scope="col">В реалах</th><th scope="col">В долларах</th></tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row"><a href="https://www.buscape.com.br/celular/celular-apple-iphone-17-256gb" target="_blank" rel="noopener">Минимум по Buscapé</a>, Бразилия</th><td class="num">R$ 5 799</td><td class="num">491 407 ₸</td><td class="num">R$ 5 799</td><td class="num">$1 115</td></tr>
+            <tr><th scope="row"><a href="https://www.amazon.com.br/Apple-iPhone-17-256-GB/dp/B0GQW2J4SK" target="_blank" rel="noopener">Amazon Brasil</a></th><td class="num">R$ 6 332,22</td><td class="num">536 592 ₸</td><td class="num">R$ 6 332</td><td class="num">$1 217</td></tr>
+            <tr class="hl"><th scope="row"><a href="https://www.technodom.kz/p/martfon-gsm-apple-iphone-17-8256gb6348-black-293857" target="_blank" rel="noopener">Technodom</a>, Алматы</th><td class="num">599 990 ₸</td><td class="num">599 990 ₸</td><td class="num">R$ 7 080</td><td class="num">$1 361</td></tr>
+            <tr class="hl"><th scope="row"><a href="https://ispace.kz/product/iphone-17-256-gb-belyi-mg6k4hx-a" target="_blank" rel="noopener">iSpace</a>, Алматы</th><td class="num">639 990 ₸<br>по акции 615 990 ₸</td><td class="num">639 990 ₸</td><td class="num">R$ 7 552</td><td class="num">$1 452</td></tr>
+            <tr><th scope="row"><a href="https://www.apple.com/br/shop/buy-iphone/iphone-17/tela-de-6,3-polegadas-256gb-preto" target="_blank" rel="noopener">Apple Brasil</a>, официальный магазин</th><td class="num">R$ 8 299</td><td class="num">703 257 ₸</td><td class="num">R$ 8 299</td><td class="num">$1 595</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="note"><b>Как считалось.</b> Реалы → тенге: цена × 84,74. Тенге → реалы: цена ÷ 84,74. Тенге → доллары: цена ÷ 440,86. Пример: 599 990 ÷ 84,74 = 7 080 реалов.</p>
+      <p class="note"><b>Вывод.</b> Алматинская цена на 15 % ниже официальной цены Apple в Бразилии, но на 12 % выше, чем на Amazon Brasil. Ехать в «Мегу» ради экономии на Apple смысла нет.</p>
+      <p class="note"><b>Ограничения проверки.</b> Напрямую открылась только страница Apple Brasil — её цена подтверждена. Сайты Technodom и iSpace отвечают автоматическим запросам ошибкой 403, Amazon не отдал блок с ценой: эти четыре цифры взяты из поисковой выдачи и могли устареть. Сравнение сделано по одной позиции и не переносится автоматически на другую технику — конкретную покупку нужно сверять отдельно.</p>
+    </section>
+
+    <section class="block reveal" id="taxfree">
+      <p class="eyebrow">Возврат НДС</p>
+      <h2>Tax Free в «Меге»</h2>
+      <p class="sub">Оператор — <a href="https://www.globalblue.com/" target="_blank" rel="noopener">Global Blue</a>. Условия ниже пересказаны со <a href="https://mega.kz/tax-free" target="_blank" rel="noopener">страницы Tax Free на mega.kz</a>.</p>
+      <div class="bento stagger">
+        <article class="card">
+          <h3>Условия</h3>
+          <ul class="list">
+            <li>Ставка НДС в Казахстане — <b>16 %</b>, возвращают часть налога.</li>
+            <li>Минимальная покупка — <b>78 640 ₸</b> (около 928 реалов или 178 долларов по курсу выше).</li>
+            <li>Товар вывозится в личном багаже неиспользованным.</li>
+            <li>Штамп таможни — в течение 3 месяцев с месяца выдачи формы.</li>
+            <li>Продукты питания не участвуют.</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>Кто участвует из нужного</h3>
+          <ul class="list">
+            <li><b>iSpace</b> и <b>BORK</b> — из техники.</li>
+            <li>Остальные участники — одежда и косметика: ZARA, Massimo Dutti, Bershka, Oysho, Pull&amp;Bear, Stradivarius, ECCO, GANT, GUESS, NEXT, L'Occitane, Kiehl's, Jo Malone, Bobbi Brown, «Золотое Яблоко» и другие.</li>
+            <li>Technodom, Xiaomi, Dyson, Sportmaster в списке участников <b>не значатся</b>.</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>Главная оговорка</h3>
+          <p>Возврат доступен «иностранным гражданам, проживающим за пределами ЕАЭС». В ЕАЭС входят Казахстан, Россия, Беларусь, Кыргызстан и Армения.</p>
+          <p>Как правило применяют к гражданину страны ЕАЭС, который живёт за его пределами, на сайте не сказано. Это нужно уточнить на кассе или у Global Blue до покупки, а не рассчитывать на возврат заранее.</p>
+        </article>
+      </div>
+      <p class="note"><b>Сколько это максимум.</b> НДС внутри цены — 16/116 от суммы. Для iPhone за 639 990 ₸ это 88 274 ₸; на руки возвращают меньше, потому что возвращается только часть налога. Даже при полном возврате вышло бы 551 716 ₸, или 6 511 реалов, — всё ещё дороже Amazon Brasil.</p>
+    </section>
+
+    <section class="block reveal" id="voltage">
+      <p class="eyebrow">Перед покупкой техники</p>
+      <h2>230 В в Казахстане и 127 В в Рио</h2>
+      <p class="sub">По справочнику <a href="https://www.worldstandards.eu/electricity/plug-voltage-by-country/" target="_blank" rel="noopener">WorldStandards</a>: Казахстан — 230 В, 50 Гц, вилки C и F; Бразилия — 127 или 220 В, 60 Гц, вилки C и N.</p>
+      <div class="bento stagger">
+        <article class="card">
+          <span class="tag tag-yes">Обычно можно</span>
+          <p>Устройства с блоком питания, на котором написано <b>100–240 V</b>: телефоны, ноутбуки, планшеты, зарядки, наушники, часы. Понадобится только переходник на вилку.</p>
+        </article>
+        <article class="card">
+          <span class="tag tag-no">Проверять шильдик</span>
+          <p>Всё с мотором или нагревом: фены и стайлеры Dyson, пылесосы Dreame, техника BORK и Haier. Если на шильдике только 220–240 V — от розетки 127 В прибор работать не будет.</p>
+        </article>
+        <article class="card">
+          <span class="tag tag-info">Что делать</span>
+          <p>Попросить продавца показать шильдик или адаптер до оплаты. Надпись «220–240 V» без «100–» означает, что в Рио потребуется повышающий трансформатор.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="block reveal" id="sources">
+      <p class="eyebrow">Откуда данные</p>
+      <h2>Источники и метод</h2>
+      <div class="card">
+        <ul class="list sources">
+          <li><b>Каталог арендаторов.</b> Выгрузка из API официального сайта <a href="https://mega.kz/" target="_blank" rel="noopener">mega.kz</a> (<a href="https://mega.kz/api/categories/company-list/?lang=ru" target="_blank" rel="noopener">/api/categories/company-list/</a>) от 1 октября 2026: 376 записей по MEGA Alma-Ata и 169 по MEGA Park, включая кафе, услуги и банкоматы. Этажи, часы работы, категории и логотипы на карточках — оттуда же.</li>
+          <li><b>Адреса ТРЦ.</b> <a href="https://mega.kz/api/megas/megas-list/?lang=ru" target="_blank" rel="noopener">/api/megas/megas-list/</a> на mega.kz.</li>
+          <li><b>Tax Free.</b> <a href="https://mega.kz/tax-free" target="_blank" rel="noopener">mega.kz/tax-free</a>.</li>
+          <li><b>Курсы валют.</b> <a href="https://nationalbank.kz/rss/rates_all.xml" target="_blank" rel="noopener">Национальный банк Казахстана</a>, официальные курсы на 01.10.2026.</li>
+          <li><b>Цены.</b> <a href="https://www.apple.com/br/shop/buy-iphone/iphone-17/tela-de-6,3-polegadas-256gb-preto" target="_blank" rel="noopener">apple.com/br</a> — проверено открытием страницы; <a href="https://www.technodom.kz/p/martfon-gsm-apple-iphone-17-8256gb6348-black-293857" target="_blank" rel="noopener">technodom.kz</a>, <a href="https://ispace.kz/product/iphone-17-256-gb-belyi-mg6k4hx-a" target="_blank" rel="noopener">ispace.kz</a>, <a href="https://www.amazon.com.br/Apple-iPhone-17-256-GB/dp/B0GQW2J4SK" target="_blank" rel="noopener">amazon.com.br</a>, <a href="https://www.buscape.com.br/celular/celular-apple-iphone-17-256gb" target="_blank" rel="noopener">buscape.com.br</a> — по поисковой выдаче.</li>
+          <li><b>Напряжение и вилки.</b> <a href="https://www.worldstandards.eu/electricity/plug-voltage-by-country/" target="_blank" rel="noopener">worldstandards.eu</a>.</li>
+          <li><b>Чего страница не знает.</b> Ассортимент и наличие конкретных товаров в магазинах не проверялись — только сам факт, что магазин есть в каталоге ТРЦ. Описания к магазинам без собственной страницы основаны на их категории в каталоге.</li>
+        </ul>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="wrap">Подготовлено 1 октября 2026. Каталог арендаторов меняется — перед поездкой за конкретным магазином стоит открыть его карточку на mega.kz.</div>
+  </footer>
+
+  <script type="module">
+    const root = document.documentElement;
+    const animated = root.classList.contains('js-anim');
+    const showAll = () => root.classList.remove('js-anim');
+
+    // Запасной вариант без CDN: нативный IntersectionObserver.
+    const fallback = () => {
+      if (!('IntersectionObserver' in window)) { showAll(); return; }
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('shown'); io.unobserve(e.target); } });
+      }, { rootMargin: '0px 0px -8% 0px' });
+      document.querySelectorAll('.reveal, .stagger').forEach((el) => io.observe(el));
+    };
+
+    if (animated) {
+      try {
+        const { animate, inView, stagger } = await import('https://cdn.jsdelivr.net/npm/motion@11/+esm');
+        clearTimeout(window.__animFailsafe);
+        const ease = [0.22, 1, 0.36, 1];
+        // В motion 11 колбэк получает запись наблюдателя, в более новых версиях — сам элемент.
+        const target = (arg) => (arg && arg.target) || arg;
+        inView('.reveal', (arg) => {
+          const el = target(arg);
+          el.classList.add('shown');
+          animate(el, { opacity: [0, 1], y: [20, 0] }, { duration: 0.55, ease });
+        }, { margin: '0px 0px -8% 0px' });
+        inView('.stagger', (arg) => {
+          const el = target(arg);
+          el.classList.add('shown');
+          animate(Array.from(el.children), { opacity: [0, 1], y: [16, 0] }, { duration: 0.45, ease, delay: stagger(0.04) });
+        }, { margin: '0px 0px -5% 0px' });
+      } catch (err) {
+        clearTimeout(window.__animFailsafe);
+        fallback();
+      }
+    }
+  </script>
+</body>
+</html>
