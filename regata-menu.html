@@ -188,7 +188,7 @@ noscript .card{margin:16px}
         <li>1–2 минуты</li>
       </ul>
       <div class="play intro-anim">
-        <p class="play-hint" id="seaHint">Кораблик живой: его можно таскать и топить.</p>
+        <p class="play-hint" id="seaHint">Кораблик живой: его можно таскать и вести по волнам.</p>
         <button type="button" class="tilt-btn" id="tiltBtn" hidden>Включить наклон телефона</button>
       </div>
     </header>
@@ -197,7 +197,7 @@ noscript .card{margin:16px}
   <main class="main" id="main">
     <div class="demo-bar" id="demoBar" hidden>Демо-режим: показаны все вопросы, включая дополнительные с номерами. Ответы никуда не отправляются.</div>
 
-    <section class="card gate" id="gate" aria-labelledby="gateTitle">
+    <section class="card gate" id="gate" aria-labelledby="gateTitle" hidden>
       <div class="gate-head">
         <div class="gate-ico" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="3"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></div>
         <div>
@@ -244,6 +244,7 @@ noscript .card{margin:16px}
    ====================================================================== */
 var CONFIG = {
   api: 'https://regata-menu.assist-13b1e5.workers.dev',
+  password: false,       // true — перед анкетой спрашивать пароль (тогда и у воркера убрать OPEN_FORM=1)
   extras: {
     allergy_level: true,   // 1 Насколько строго с аллергеном
     hot_drinks: true,      // 2 Кофе и чай
@@ -678,7 +679,7 @@ var Sea = (function () {
       });
     } else {
       enableTilt();
-      if (window.matchMedia('(pointer: coarse)').matches && !mqReduce.matches) hintEl.textContent = 'Кораблик можно таскать и топить. Наклоните или переверните телефон: вода перельётся.';
+      if (window.matchMedia('(pointer: coarse)').matches && !mqReduce.matches) hintEl.textContent = 'Кораблик можно таскать и вести по волнам. Наклоните или переверните телефон: вода перельётся.';
     }
   }
 
@@ -1178,7 +1179,7 @@ var Sea = (function () {
         if (r.status === 200 && r.data.ok) { store.set(LS, SENT_KEY, '1'); finish(); return; }
         if (r.status === 401) {
           pwMem = ''; store.del(SS, PW_KEY); show('gate');
-          showErr(pwErr, 'Пароль изменился. Введите новый — ваши ответы сохранены.'); pw.value = ''; pw.focus();
+          showErr(pwErr, 'Нужен пароль. Введите его — ваши ответы сохранены.'); pw.value = ''; pw.focus();
           return;
         }
         showErr(formErr, r.data.message || 'Не получилось отправить. Попробуйте ещё раз через минуту.');
@@ -1206,7 +1207,7 @@ var Sea = (function () {
 
   /* --- старт --- */
   if (DEMO) { document.getElementById('demoBar').hidden = false; enter(); }
-  else if (pwMem) enter();
+  else if (!CONFIG.password || pwMem) enter();
   else { show('gate'); }
   window.__revealIntro = function () {
     var nodes = Array.prototype.slice.call(document.querySelectorAll('.intro-anim'));
