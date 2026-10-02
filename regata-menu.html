@@ -184,9 +184,8 @@ noscript .card{margin:16px}
       <h1 class="intro-anim">Что вы <span>любите</span> есть?</h1>
       <p class="lead intro-anim">Пара минут, и повар будет знать, чем вас порадовать на борту и чего в тарелку не класть.</p>
       <ul class="pills intro-anim">
-        <li>Без имён</li>
         <li>Выбор из списков</li>
-        <li>2–3 минуты</li>
+        <li>1–2 минуты</li>
       </ul>
       <div class="play intro-anim">
         <p class="play-hint" id="seaHint">Кораблик живой: его можно таскать и топить.</p>
@@ -246,18 +245,10 @@ noscript .card{margin:16px}
 var CONFIG = {
   api: 'https://regata-menu.assist-13b1e5.workers.dev',
   extras: {
-    allergy_level: true,   // 1  Насколько строго с аллергеном
-    diet: true,            // 2  Тип питания
-    breakfast: true,       // 3  Завтрак
-    hot_drinks: true,      // 4  Кофе и чай
-    snacks: true,          // 5  Перекусы
-    soft_drinks: true,     // 6  Напитки
-    portion: true,         // 7  Размер порции
-    spicy: true,           // 8  Острота
-    seasick: true,         // 9  Укачивание
-    med: true,             // 10 Что учесть по здоровью
-    favorite: true,        // 11 Блюдо, которому обрадуетесь
-    comment: true          // 12 Комментарий повару
+    allergy_level: true,   // 1 Насколько строго с аллергеном
+    hot_drinks: true,      // 2 Кофе и чай
+    spicy: true,           // 3 Острота
+    comment: true          // 4 Комментарий повару
   }
 };
 
@@ -765,21 +756,15 @@ var Sea = (function () {
 
   // n — номер дополнительного вопроса (по нему удобно выбирать, что оставить)
   var QUESTIONS = [
+    { key: 'name', type: 'text', required: true, title: 'Имя', hint: 'Чтобы повар понимал, чья это тарелка.', ph: 'Например, Саша', max: 60, auto: 'given-name' },
+    { key: 'diet', type: 'single', title: 'Тип питания', hint: 'Один вариант, который ближе всего.', groups: flat(['Ем всё', 'Без мяса, рыбу ем', 'Вегетарианство (без мяса и рыбы)', 'Веганство (без всего животного)', 'Халяль', 'Кошер', 'Пост']), own: true },
     { key: 'likes', type: 'multi', title: 'Нравится кушать', hint: 'Чем вас порадовать. Отметьте в списке и допишите своё.', groups: LIKES },
     { key: 'dislikes', type: 'multi', title: 'Не нравится', hint: 'Съем, но без радости.', groups: DISLIKES },
     { key: 'never', type: 'multi', title: 'Вообще не ем', hint: 'Не кладите мне это совсем.', groups: NEVER, exclusive: 'Ем всё' },
     { key: 'allergy', type: 'allergy', title: 'Есть ли аллергия на продукты?' },
-    { key: 'diet', n: 2, type: 'single', title: 'Тип питания', hint: 'Один вариант, который ближе всего.', groups: flat(['Ем всё', 'Без мяса, рыбу ем', 'Вегетарианство (без мяса и рыбы)', 'Веганство (без всего животного)', 'Халяль', 'Кошер', 'Пост']), own: true },
-    { key: 'breakfast', n: 3, type: 'multi', title: 'Что обычно на завтрак', hint: 'Можно несколько.', groups: flat(['Каша', 'Яичница или омлет', 'Бутерброды', 'Творог и йогурт', 'Мюсли, гранола', 'Блины, сырники', 'Фрукты', 'Только кофе или чай', 'Не завтракаю']) },
-    { key: 'hot_drinks', n: 4, type: 'multi', title: 'Кофе и чай', hint: 'Что пьёте в течение дня.', groups: flat(['Чёрный кофе', 'Кофе с молоком', 'Кофе с растительным молоком', 'Чёрный чай', 'Зелёный чай', 'Травяной чай', 'Какао', 'С сахаром', 'Горячее не пью']) },
-    { key: 'snacks', n: 5, type: 'multi', title: 'Перекусы', hint: 'То, что удобно есть одной рукой.', groups: flat(['Орехи', 'Сухофрукты', 'Батончики', 'Шоколад', 'Печенье', 'Фрукты', 'Сыр и крекеры', 'Вяленое мясо', 'Чипсы', 'Бутерброды', 'Не перекусываю']) },
-    { key: 'soft_drinks', n: 6, type: 'multi', title: 'Напитки', hint: 'Кроме обычной воды: она будет в любом случае.', groups: flat(['Вода с газом', 'Кола', 'Кола без сахара', 'Сок', 'Лимонад', 'Тоник', 'Изотоник', 'Морс или компот']) },
-    { key: 'portion', n: 7, type: 'single', title: 'Размер порции', hint: 'Как едите обычно.', groups: flat(['Небольшая', 'Обычная', 'Большая', 'После гонки ем за двоих']) },
-    { key: 'spicy', n: 8, type: 'single', title: 'Острота', hint: '', groups: flat(['Совсем не острое', 'Чуть-чуть', 'Люблю острое', 'Острый соус отдельно']) },
-    { key: 'seasick', n: 9, type: 'single', title: 'Укачивает ли на воде', hint: 'Повар предусмотрит лёгкую еду на дни с качкой.', groups: flat(['Нет', 'Бывает немного', 'Да, сильно', 'Не знаю, иду впервые']) },
-    { key: 'med', n: 10, type: 'textarea', title: 'Что учесть по здоровью', hint: 'Необязательно. Только то, что влияет на еду: например, нужно есть по часам или нельзя солёное.', ph: '' },
-    { key: 'favorite', n: 11, type: 'text', title: 'Блюдо, которому обрадуетесь', hint: 'Одно-два блюда, например плов или паста с морепродуктами.', ph: '' },
-    { key: 'comment', n: 12, type: 'textarea', title: 'Что ещё стоит знать повару', hint: 'Необязательно. Любое пожелание одной-двумя фразами.', ph: '' }
+    { key: 'hot_drinks', n: 2, type: 'multi', title: 'Кофе и чай', hint: 'Что пьёте в течение дня.', groups: flat(['Чёрный кофе', 'Кофе с молоком', 'Кофе с растительным молоком', 'Чёрный чай', 'Зелёный чай', 'Травяной чай', 'Какао', 'С сахаром', 'Горячее не пью']) },
+    { key: 'spicy', n: 3, type: 'single', title: 'Острота', hint: '', groups: flat(['Совсем не острое', 'Чуть-чуть', 'Люблю острое', 'Острый соус отдельно']) },
+    { key: 'comment', n: 4, type: 'textarea', title: 'Что ещё стоит знать повару', hint: 'Необязательно. Здоровье, привычки, любое пожелание одной-двумя фразами.', ph: '' }
   ];
   var LEVELS = ['Достаточно не класть в мою тарелку', 'Нельзя даже следов и общей посуды', 'Не уверен(а)'];
 
@@ -974,12 +959,13 @@ var Sea = (function () {
 
   /* --- карточки вопросов --- */
   var qBox = document.getElementById('questions');
-  var selects = [], conflictEl = null, allergyErr = null, allergyCard = null, allergyText = null;
+  var selects = [], conflictEl = null, allergyErr = null, allergyCard = null, allergyText = null, nameInput = null, nameErr = null;
 
   function buildCard(q) {
     var card, tid = 'qt-' + q.key;
     if (q.type === 'allergy') return buildAllergy(q);
     var title = titleNode(q); title.id = tid;
+    if (q.required) title.appendChild(el('span', { class: 'badge req', text: 'обязательно' }));
     card = el('section', { class: 'card q', 'data-key': q.key }, [title]);
     if (q.hint) card.appendChild(el('p', { class: 'q-hint', text: q.hint })); else title.style.marginBottom = '14px';
     if (q.type === 'multi' || q.type === 'single') {
@@ -988,10 +974,16 @@ var Sea = (function () {
       if (q.key === 'never') { conflictEl = el('p', { class: 'warn', hidden: true, role: 'status' }); card.appendChild(conflictEl); }
     } else {
       var area = q.type === 'textarea';
-      var inp = el(area ? 'textarea' : 'input', { class: area ? 'textarea' : 'input', id: 'f-' + q.key, 'aria-labelledby': tid, maxlength: area ? '1000' : '80', placeholder: q.ph || '', rows: area ? '3' : null, type: area ? null : 'text', autocomplete: 'off' });
+      var inp = el(area ? 'textarea' : 'input', { class: area ? 'textarea' : 'input', id: 'f-' + q.key, 'aria-labelledby': tid, maxlength: area ? '1000' : String(q.max || 80), placeholder: q.ph || '', rows: area ? '3' : null, type: area ? null : 'text', autocomplete: q.auto || 'off', autocapitalize: q.key === 'name' ? 'words' : null, enterkeyhint: area ? null : 'done' });
       inp.value = state[q.key];
-      inp.addEventListener('input', function () { state[q.key] = inp.value; changed(); });
       card.appendChild(inp);
+      if (q.key === 'name') {
+        nameInput = inp;
+        nameErr = el('p', { class: 'err', role: 'alert', hidden: true });
+        inp.setAttribute('aria-required', 'true');
+        card.appendChild(nameErr);
+      }
+      inp.addEventListener('input', function () { state[q.key] = inp.value; if (q.key === 'name') nameErr.hidden = true; changed(); });
     }
     return card;
   }
@@ -1148,6 +1140,12 @@ var Sea = (function () {
     selects.forEach(function (s) { s.flush(); });
     if (openMs) openMs.setOpen(false);
 
+    if (nameInput && !state.name.replace(/\s+/g, ' ').trim()) {
+      showErr(nameErr, 'Впишите имя: так повар поймёт, чья это тарелка.');
+      nameInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      nameInput.focus({ preventScroll: true });
+      return;
+    }
     if (state.allergy !== 'Нет' && state.allergy !== 'Есть') {
       showErr(allergyErr, 'Выберите «Нет» или «Есть».');
       allergyCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
