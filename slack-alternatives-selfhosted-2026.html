@@ -694,7 +694,7 @@ curl https://get.once.com/campfire | sh</pre>
         inView(sec,()=>{animate(items,{opacity:[0,1],y:[16,0]},{duration:.55,delay:stagger(.06),ease:[.22,1,.36,1]});},{margin:'-10% 0px'});
       });
       // страховка: всё, что через 4 с осталось скрытым, показать принудительно
-      setTimeout(()=>els.forEach(e=>{if(parseFloat(getComputedStyle(e).opacity)<1){e.style.opacity='';e.style.transform='';}}),4000);
+      setTimeout(()=>els.forEach(e=>{try{e.getAnimations().forEach(a=>a.finish());}catch(_){} if(parseFloat(getComputedStyle(e).opacity)<1){e.style.opacity='';e.style.transform='';}}),4000);
     }catch(err){
       // CDN недоступен: нативный IntersectionObserver, тайм-аут 3 с остаётся страховкой
       if('IntersectionObserver' in window){
