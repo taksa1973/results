@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>1С:Бухгалтерия на своём сервере без интернета — установка, лицензии, подводные камни</title>
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="description" content="Как поставить 1С:Бухгалтерию 8 на свой сервер (Windows или Linux) и работать без доступа в интернет: редакции и цены, программные лицензии и их офлайн-активация, файловый и клиент-серверный варианты, обновления с флешки, подводные камни.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add('js-anim');</script>
+<style>
+:root{
+  --page-bg:#F5F5F7;--surface:#FFFFFF;--text-1:#1D1D1F;--text-2:#6E6E73;--text-3:#AEAEB2;
+  --blue:#0071E3;--blue-soft:#E8F1FD;--green:#1D9E57;--green-soft:#E6F6EC;--red:#D0302E;--red-soft:#FCEBEA;
+  --amber:#B4700A;--amber-soft:#FFF4E0;--border:rgba(0,0,0,0.08);
+  --radius:20px;--shadow:0 1px 2px rgba(0,0,0,0.04),0 8px 24px rgba(0,0,0,0.05);
+  --shadow-hover:0 2px 4px rgba(0,0,0,0.05),0 16px 40px rgba(0,0,0,0.09);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--page-bg);color:var(--text-1);font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:var(--blue);text-decoration:none}
+a:hover{text-decoration:underline}
+a:focus-visible,button:focus-visible{outline:3px solid var(--blue);outline-offset:2px;border-radius:6px}
+.skip{position:absolute;left:-999px;top:8px;background:#fff;padding:8px 12px;border-radius:8px;z-index:100}
+.skip:focus{left:16px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 16px}
+@media(min-width:768px){.wrap{padding:0 32px}}
+
+/* nav */
+.nav{position:sticky;top:0;z-index:50;background:rgba(245,245,247,0.82);backdrop-filter:saturate(180%) blur(16px);-webkit-backdrop-filter:saturate(180%) blur(16px);border-bottom:1px solid var(--border)}
+.nav .wrap{display:flex;align-items:center;gap:16px;height:52px;overflow-x:auto;scrollbar-width:none}
+.nav .wrap::-webkit-scrollbar{display:none}
+.nav .brand{font-weight:700;font-size:14px;letter-spacing:-0.01em;white-space:nowrap;color:var(--text-1)}
+.nav .links{display:flex;gap:4px;margin-left:auto}
+.nav .links a{font-size:13px;color:var(--text-2);padding:8px 10px;border-radius:999px;white-space:nowrap;min-height:44px;display:inline-flex;align-items:center;transition:background .2s,color .2s}
+.nav .links a:hover{background:rgba(0,0,0,0.05);color:var(--text-1);text-decoration:none}
+
+/* hero */
+.hero{background:var(--surface);border-bottom:1px solid var(--border);padding:72px 0 56px}
+.eyebrow{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--text-3);font-weight:600;margin:0 0 14px}
+h1{font-size:clamp(32px,5vw,56px);line-height:1.08;letter-spacing:-0.02em;font-weight:800;margin:0 0 20px;max-width:900px}
+h1 span{color:var(--blue)}
+.lead{font-size:clamp(17px,2vw,20px);color:var(--text-2);max-width:760px;margin:0 0 28px}
+.pills{display:flex;flex-wrap:wrap;gap:10px}
+.pill{background:var(--page-bg);border:1px solid var(--border);border-radius:999px;padding:10px 16px;font-size:14px;display:inline-flex;align-items:center;gap:8px;min-height:44px}
+.pill b{font-weight:700;font-variant-numeric:tabular-nums}
+.pill svg{width:16px;height:16px;color:var(--blue);flex:none}
+
+/* sections */
+section{padding:64px 0 8px}
+h2{font-size:clamp(26px,3.4vw,38px);letter-spacing:-0.02em;line-height:1.1;font-weight:800;margin:0 0 10px}
+h3{font-size:19px;letter-spacing:-0.01em;font-weight:700;margin:0 0 8px}
+.sub{color:var(--text-2);font-size:17px;max-width:760px;margin:0 0 28px}
+p{margin:0 0 12px}
+.muted{color:var(--text-2)}
+small,.small{font-size:13px;color:var(--text-2)}
+
+/* cards & grid */
+.grid{display:grid;grid-template-columns:1fr;gap:16px;margin-bottom:24px}
+@media(min-width:768px){.grid{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:1024px){.grid{grid-template-columns:repeat(3,1fr)}.grid.cols2{grid-template-columns:repeat(2,1fr)}.span2{grid-column:span 2}}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:24px;transition:box-shadow .2s,transform .2s}
+.card:hover{transform:translateY(-2px);box-shadow:var(--shadow-hover)}
+.card .ic{width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:14px;background:var(--blue-soft);color:var(--blue)}
+.card .ic.green{background:var(--green-soft);color:var(--green)}
+.card .ic.red{background:var(--red-soft);color:var(--red)}
+.card .ic.amber{background:var(--amber-soft);color:var(--amber)}
+.card .ic svg{width:20px;height:20px}
+.card ul{padding-left:18px;margin:8px 0 0}
+.card li{margin:0 0 6px;color:var(--text-2)}
+.card li b{color:var(--text-1);font-weight:600}
+.highlight{background:linear-gradient(180deg,#FFFFFF 0%,#F3F8FF 100%);border-color:rgba(0,113,227,0.18)}
+.tag{display:inline-block;font-size:12px;font-weight:600;padding:4px 10px;border-radius:999px;background:var(--blue-soft);color:var(--blue);margin-bottom:10px;letter-spacing:.01em}
+.tag.green{background:var(--green-soft);color:var(--green)}
+.tag.red{background:var(--red-soft);color:var(--red)}
+.tag.amber{background:var(--amber-soft);color:var(--amber)}
+.price{font-size:30px;font-weight:800;letter-spacing:-0.02em;font-variant-numeric:tabular-nums;margin:4px 0 2px}
+.price small{font-size:14px;font-weight:500;color:var(--text-2)}
+
+/* table */
+.tbl{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;margin-bottom:24px}
+.tbl .scroll{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:15px;min-width:640px}
+thead th{background:var(--text-1);color:#fff;text-align:left;padding:14px 16px;font-weight:600;font-size:13px;letter-spacing:.02em;text-transform:uppercase}
+tbody td{padding:14px 16px;border-bottom:1px solid var(--border);vertical-align:top}
+tbody tr:last-child td{border-bottom:none}
+tbody td:first-child{font-weight:600}
+td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+.ok{color:var(--green);font-weight:600}.no{color:var(--red);font-weight:600}.warn{color:var(--amber);font-weight:600}
+.tbl .note{padding:12px 16px;font-size:13px;color:var(--text-2);border-top:1px solid var(--border);background:#FAFAFC}
+
+/* timeline */
+.timeline{position:relative;padding-left:36px;margin:8px 0 24px}
+.timeline::before{content:"";position:absolute;left:11px;top:6px;bottom:6px;width:2px;background:var(--border)}
+.step{position:relative;margin-bottom:22px}
+.step::before{content:"";position:absolute;left:-36px;top:4px;width:24px;height:24px;border-radius:50%;background:var(--blue);border:4px solid var(--page-bg);box-shadow:0 0 0 1px var(--border)}
+.step.green::before{background:var(--green)}
+.step h4{margin:0 0 6px;font-size:17px;font-weight:700;letter-spacing:-0.01em}
+.step p{color:var(--text-2);margin:0 0 8px}
+pre{background:#1D1D1F;color:#F5F5F7;border-radius:14px;padding:16px 18px;overflow-x:auto;font-size:13.5px;line-height:1.55;margin:10px 0 12px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+pre .c{color:#9A9AA0}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.92em;background:rgba(0,0,0,0.05);padding:2px 6px;border-radius:6px}
+pre code{background:none;padding:0;font-size:inherit}
+
+/* tips */
+.tips{display:grid;grid-template-columns:1fr;gap:16px;margin-bottom:24px}
+@media(min-width:768px){.tips{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:1024px){.tips{grid-template-columns:repeat(3,1fr)}}
+.tip{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:22px;transition:box-shadow .2s,transform .2s}
+.tip:hover{transform:translateY(-2px);box-shadow:var(--shadow-hover)}
+.tip .n{width:32px;height:32px;border-radius:8px;background:var(--text-1);color:#fff;font-weight:700;display:flex;align-items:center;justify-content:center;font-size:14px;margin-bottom:12px}
+.tip h3{font-size:17px}
+.tip p{color:var(--text-2);font-size:15px;margin:0}
+.tip p b{color:var(--text-1);font-weight:600}
+
+/* two-col lists */
+.two{display:grid;grid-template-columns:1fr;gap:16px;margin-bottom:24px}
+@media(min-width:768px){.two{grid-template-columns:1fr 1fr}}
+.list{list-style:none;padding:0;margin:0}
+.list li{display:flex;gap:10px;align-items:flex-start;padding:9px 0;border-bottom:1px solid var(--border);color:var(--text-2);font-size:15px}
+.list li:last-child{border-bottom:none}
+.list li b{color:var(--text-1);font-weight:600}
+.list svg{width:18px;height:18px;flex:none;margin-top:3px}
+.list.ok svg{color:var(--green)}.list.no svg{color:var(--red)}
+
+/* checklist */
+.check{list-style:none;padding:0;margin:0 0 24px;display:grid;gap:10px}
+.check li{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:14px 16px;display:flex;gap:12px;align-items:flex-start;font-size:15px}
+.check li svg{width:20px;height:20px;color:var(--blue);flex:none;margin-top:1px}
+
+/* sources */
+.sources ol{padding-left:20px;margin:0;columns:1;font-size:14px;color:var(--text-2)}
+@media(min-width:900px){.sources ol{columns:2;column-gap:32px}}
+.sources li{margin:0 0 8px;break-inside:avoid}
+footer{padding:40px 0 60px;color:var(--text-3);font-size:13px;text-align:center}
+
+/* reveal */
+.reveal{opacity:1}
+.js-anim .reveal{opacity:0;transform:translateY(18px)}
+.js-anim .reveal.shown{opacity:1;transform:none;transition:opacity .55s cubic-bezier(.22,1,.36,1),transform .55s cubic-bezier(.22,1,.36,1)}
+@media (prefers-reduced-motion:reduce){.js-anim .reveal{opacity:1;transform:none;transition:none}.card:hover,.tip:hover{transform:none}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">К содержанию</a>
+<nav class="nav" aria-label="Разделы">
+  <div class="wrap">
+    <span class="brand">1С self-hosted</span>
+    <div class="links">
+      <a href="#itog">Итог</a>
+      <a href="#versii">Редакции и цены</a>
+      <a href="#licenzii">Лицензии</a>
+      <a href="#arhitektura">Архитектура</a>
+      <a href="#ustanovka">Установка</a>
+      <a href="#offline">Без интернета</a>
+      <a href="#kamni">Подводные камни</a>
+      <a href="#checklist">Чек-лист</a>
+      <a href="#istochniki">Источники</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="eyebrow">Исследование · 6 октября 2026</p>
+    <h1>1С:Бухгалтерия на своём сервере: <span>как поставить и жить без интернета</span></h1>
+    <p class="lead">Коробочная «1С:Бухгалтерия 8» штатно работает в изолированной сети: учёт, документы, зарплата и регламентированные отчёты не требуют соединения. Интернет нужен только для покупки, активации лицензии (есть обходы через файл и телефон), обновлений (ставятся с флешки) и онлайн-сервисов вроде отправки отчётности.</p>
+    <div class="pills">
+      <span class="pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>Базовая <b>4 900 ₽</b> · ПРОФ <b>23 000 ₽</b></span>
+      <span class="pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>Платформа <b>8.3.27</b> · Windows / Linux</span>
+      <span class="pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l22 22M16.72 11.06A10.94 10.94 0 0 1 19 12.55M5 12.55a10.94 10.94 0 0 1 5.17-2.39M10.71 5.05A16 16 0 0 1 22.58 9M1.42 9a15.91 15.91 0 0 1 4.7-2.88M8.53 16.11a6 6 0 0 1 6.95 0M12 20h.01"/></svg>Офлайн: <b>учёт, отчёты, обновления файлом</b></span>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- ИТОГ -->
+<section id="itog">
+  <div class="wrap">
+    <p class="eyebrow reveal">Коротко</p>
+    <h2 class="reveal">Что выбрать под задачу</h2>
+    <p class="sub reveal">Три рабочих сценария для своего сервера. Цены — рекомендованные розничные с прайса «1С» (электронная поставка, без НДС) на дату исследования.</p>
+    <div class="grid">
+      <article class="card reveal">
+        <span class="tag green">1 бухгалтер</span>
+        <h3>Базовая версия, файловая база, Windows</h3>
+        <p class="price">4 900 ₽ <small>разово</small></p>
+        <ul>
+          <li><b>Обновления бесплатно</b> и без договора сопровождения: достаточно регистрации на портале 1С.</li>
+          <li><b>Один пользователь</b> в базе, одна организация на базу, нельзя менять конфигурацию, нет клиент-серверного режима.</li>
+          <li><b>Один пин-код на 3 активации.</b> Переезд на другой ПК или замена материнки съедает попытку.</li>
+        </ul>
+      </article>
+      <article class="card reveal highlight">
+        <span class="tag">2–5 пользователей</span>
+        <h3>ПРОФ, файловая база в локальной сети</h3>
+        <p class="price">23 000 ₽ <small>+ 9 400 ₽ за каждое доп. место</small></p>
+        <ul>
+          <li><b>Сопровождение 1С:КП обязательно</b> для обновлений: 3 месяца в подарок, дальше от 57 000 ₽/год (ПРОФ) или 24 168 ₽/год (Базовый).</li>
+          <li><b>Файл базы на сервере по SMB</b> работает, но каждый клиент гоняет данные по сети: SSD, гигабит и исключения антивируса обязательны.</li>
+          <li><b>Лимит внутреннего файла</b> 6 ГБ на таблицу (базы, созданные на 8.3.8+); типовая бухгалтерия до него доходит годами.</li>
+        </ul>
+      </article>
+      <article class="card reveal">
+        <span class="tag amber">5–20 пользователей</span>
+        <h3>ПРОФ + сервер 1С + PostgreSQL на Linux</h3>
+        <p class="price">от 21 300 ₽ <small>Сервер МИНИ · 126 800 ₽ полный сервер x86-64</small></p>
+        <ul>
+          <li><b>Лицензия на сервер</b> покупается отдельно от клиентских. МИНИ: не более 5 сеансов + 1 Конфигуратор, один рабочий сервер в кластере.</li>
+          <li><b>PostgreSQL только в сборке с патчем 1С</b> (или Postgres Pro 1C). Ванильный PostgreSQL не создаст базу: нет расширений mchar, fulleq, fasttrun.</li>
+          <li><b>Серверную лицензию по телефону не активируют:</b> только интернет или файл запроса по e-mail.</li>
+        </ul>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- РЕДАКЦИИ И ЦЕНЫ -->
+<section id="versii">
+  <div class="wrap">
+    <p class="eyebrow reveal">Продукт</p>
+    <h2 class="reveal">Редакции «1С:Бухгалтерии 8» и прайс</h2>
+    <p class="sub reveal">Прайс-лист фирмы «1С» (v8.1c.ru/price) и страница цен «1С:Бухгалтерии 8». Электронная поставка — это дистрибутив в ZIP, регистрационный номер и пин-код в личном кабинете портала; коробка отличается только носителем и ценой Базовой (8 000 ₽).</p>
+    <div class="tbl reveal">
+      <div class="scroll">
+      <table>
+        <thead><tr><th>Позиция</th><th>Цена</th><th>Для чего</th><th>Ограничения / условия</th></tr></thead>
+        <tbody>
+          <tr><td>1С:Бухгалтерия 8. Базовая</td><td class="num">4 900 ₽</td><td>Один бухгалтер, одно юрлицо на базу</td><td>1 пользователь одновременно, без клиент-сервера, без изменения конфигурации, без РИБ. <span class="ok">Обновления бесплатны</span></td></tr>
+          <tr><td>1С:Бухгалтерия 8 ПРОФ</td><td class="num">23 000 ₽</td><td>Несколько пользователей и организаций в одной базе</td><td>Включает 1 рабочее место. Обновления — только при действующем договоре 1С:КП (3 месяца льготно)</td></tr>
+          <tr><td>1С:Бухгалтерия 8 КОРП</td><td class="num">59 000 ₽</td><td>Обособленные подразделения, холдинги</td><td>Те же условия сопровождения, что у ПРОФ</td></tr>
+          <tr><td>Клиентская лицензия на 1 место</td><td class="num">9 400 ₽</td><td>Каждый дополнительный пользователь ПРОФ/КОРП</td><td>Программная (пин-код) или USB-ключ. Пакеты: 5 мест — 31 800 ₽, 10 — 60 900 ₽, 20 — 114 300 ₽, 50 — 274 300 ₽</td></tr>
+          <tr><td>Сервер МИНИ на 5 подключений</td><td class="num">21 300 ₽</td><td>Клиент-серверный режим для маленького офиса</td><td>≤ 5 сеансов «Предприятия» + 1 сеанс Конфигуратора, один сервер в кластере, только 8.3</td></tr>
+          <tr><td>Лицензия на сервер ПРОФ (x86-64)</td><td class="num">126 800 ₽</td><td>Полноценный кластер без лимита сеансов</td><td>Клиентские лицензии нужны отдельно. Сервер КОРП — 314 900 ₽</td></tr>
+          <tr><td>1С:КП ПРОФ, 12 месяцев</td><td class="num">57 000 ₽</td><td>Сопровождение + обновления ПРОФ/КОРП</td><td>Льготная цена при непрерывном продлении; рекомендованная — 68 400 ₽; для новых покупателей схема «8+4» — 38 000 ₽</td></tr>
+          <tr><td>1С:КП Базовый, 12 месяцев</td><td class="num">24 168 ₽</td><td>Минимальный тариф только ради обновлений</td><td>Льготная; рекомендованная — 29 004 ₽. Цены 2026 года по данным партнёров «1С»</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <div class="note">«1С:ИТС» с 2022 года продаётся под названием «1С:Комплект поддержки (1С:КП)»; партнёры используют оба названия. Цены на КП взяты с сайтов партнёров (assistant1c.com, itsvsem.ru), официальный прайс КП доступен только после входа на портал.</div>
+    </div>
+
+    <div class="grid cols2">
+      <article class="card reveal">
+        <div class="ic green"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></div>
+        <h3>Где и как купить</h3>
+        <ul>
+          <li>Только через партнёров-франчайзи (<a href="https://solutions.1c.ru/catalog/buhv8/buy" target="_blank" rel="noopener">список на solutions.1c.ru</a>): <a href="https://rarus.ru/1c8/1c-buh-8-baz-elektronnaya-postavka/" target="_blank" rel="noopener">1С-Рарус</a>, <a href="https://www.1cbit.ru/1csoft/1c-bukhgalteriya-8-prof/" target="_blank" rel="noopener">Первый БИТ</a>, <a href="https://itsvsem.ru/product/1s-buhgalterija-8-bazovaja-versija/" target="_blank" rel="noopener">ИТС Всем</a> и сотни других. Цена у всех одинаковая, различается сервис.</li>
+          <li>Электронную поставку партнёры обещают «в любой точке мира за 2 рабочих часа»: ссылка на дистрибутив и пин-код приходят в личный кабинет на <a href="https://portal.1c.ru" target="_blank" rel="noopener">portal.1c.ru</a>.</li>
+          <li><b>Не проверено:</b> оформление на иностранное юрлицо или оплата из-за рубежа. Эту часть нужно уточнять у конкретного партнёра до оплаты.</li>
+        </ul>
+      </article>
+      <article class="card reveal">
+        <div class="ic amber"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
+        <h3>Учебная версия: только пощупать</h3>
+        <ul>
+          <li><a href="https://v8.1c.ru/podderzhka-i-obuchenie/uchebnye-versii/distributiv-1s-predpriyatie-8-3-versiya-dlya-obucheniya-programmirovaniyu/" target="_blank" rel="noopener">Бесплатная учебная платформа</a> подходит, чтобы посмотреть интерфейс и потренировать установку.</li>
+          <li>Лицензия прямо запрещает вести на ней реальный учёт. Лимиты: 2 000 записей в основных таблицах, 1 000 строк в табличных частях, один сеанс, нет клиент-сервера и COM-соединений, печать только из Конфигуратора.</li>
+        </ul>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ЛИЦЕНЗИИ -->
+<section id="licenzii">
+  <div class="wrap">
+    <p class="eyebrow reveal">Самое важное для офлайна</p>
+    <h2 class="reveal">Лицензии: как активировать без сети и что их ломает</h2>
+    <p class="sub reveal">Основная поставка и каждое клиентское место защищены либо программной лицензией (пин-код → файл .lic, привязанный к железу), либо аппаратным USB-ключом. Для изолированного сервера оба варианта рабочие, но ведут себя по-разному.</p>
+
+    <div class="grid">
+      <article class="card reveal span2">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+        <h3>Три способа получить программную лицензию</h3>
+        <div class="two" style="margin-top:12px;margin-bottom:0">
+          <div>
+            <p><b>1. Через интернет</b> — автоматически из диалога «Получение лицензии». На изолированном сервере недоступно.</p>
+            <p><b>2. Через файл запроса (основной офлайн-способ).</b> В диалоге выбираете «Через файл», программа сохраняет текстовый файл запроса. Его переносят на любой ПК с интернетом и загружают на <a href="https://portal.1c.ru/support/license/license-from-file/" target="_blank" rel="noopener">portal.1c.ru → «Получение лицензии из файла»</a> либо отправляют письмом на <a href="mailto:lic@1c.ru">lic@1c.ru</a> с темой «Получение лицензии». В ответ приходит файл лицензии, который переносят обратно и указывают в том же диалоге. Так активируют и клиентские, и серверные, и Базовые лицензии.</p>
+          </div>
+          <div>
+            <p><b>3. По телефону.</b> Оператору Центра лицензирования диктуют 48 цифр кода запроса, в ответ получают 120 цифр (8 строк по 15) и вводят вручную. Работает <b>только для однопользовательских клиентских лицензий</b>; серверные, многопользовательские и КОРП-лицензии по телефону не выдают. Телефон Центра лицензирования: +7 (495) 688-99-12, часы 9:00–18:00 мск.</p>
+            <p>Файл лицензии хранится на Windows в <code>%ProgramData%\1C\licenses</code>, на Linux в <code>/var/1C/licenses</code>. Его резервная копия бесполезна на другом железе, но спасает при переустановке ОС без замены компонентов.</p>
+          </div>
+        </div>
+      </article>
+      <article class="card reveal">
+        <div class="ic red"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0zM12 9v4M12 17h.01"/></svg></div>
+        <h3>К чему привязан файл .lic</h3>
+        <ul>
+          <li>Сетевое имя компьютера, объём ОЗУ, модель материнской платы, тип и версия BIOS, список дисков, список сетевых адаптеров и их MAC, список процессоров.</li>
+          <li>На Windows дополнительно: наименование, серийный номер, версия и дата установки ОС. Переустановка Windows = новая активация.</li>
+          <li>Не учитываются USB-накопители, RAS/WAN и Bluetooth-адаптеры. Платформа реагирует на удаление и замену компонентов, добавление допустимо.</li>
+        </ul>
+      </article>
+    </div>
+
+    <div class="grid">
+      <article class="card reveal">
+        <div class="ic amber"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/></svg></div>
+        <h3>Пин-коды и повторные активации</h3>
+        <ul>
+          <li><b>ПРОФ и клиентские лицензии:</b> в комплекте основной и резервные пин-коды (по данным партнёров — 3 на одно рабочее место). Кончились — бесплатный запрос на <a href="mailto:lic@1c.ru">lic@1c.ru</a> с регномером и причиной, ответ 2–3 рабочих дня.</li>
+          <li><b>Базовая:</b> один пин-код, который можно использовать только 3 раза. Дополнительные пин-коды для Базовых не выдают; если железо не менялось, Центр лицензирования может дать ещё одну попытку.</li>
+          <li>Если параметры владельца при повторной активации отличаются от первоначальных, система откажет: храните данные, введённые при первой активации.</li>
+        </ul>
+      </article>
+      <article class="card reveal">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><path d="M6 6h.01M6 18h.01"/></svg></div>
+        <h3>Виртуальные машины</h3>
+        <ul>
+          <li>Лицензия берёт параметры виртуальной машины. Миграция между нодами с разным железом меняет сразу несколько параметров и ломает лицензию.</li>
+          <li>При активации отключите динамическое выделение памяти и зафиксируйте объём ОЗУ, MAC-адрес и имя хоста.</li>
+          <li>Снапшот ВМ с лицензией валиден, пока ВМ остаётся на том же хосте с теми же виртуальными устройствами.</li>
+        </ul>
+      </article>
+      <article class="card reveal">
+        <div class="ic green"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+        <h3>USB-ключ как страховка</h3>
+        <ul>
+          <li>Аппаратная лицензия (USB-ключ HASP) не привязана к материнке и ОС: переставили ключ — работает. Для сервера без интернета и с планами на апгрейд это проще программной.</li>
+          <li>Минусы: ключ дороже электронной поставки, его можно потерять, на Linux и в ВМ нужен проброс USB и драйвер ключа.</li>
+          <li>Серверная лицензия тоже бывает в виде USB-ключа.</li>
+        </ul>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- АРХИТЕКТУРА -->
+<section id="arhitektura">
+  <div class="wrap">
+    <p class="eyebrow reveal">Два режима работы</p>
+    <h2 class="reveal">Файловая база или клиент-сервер</h2>
+    <p class="sub reveal">Файловый вариант, по словам самой «1С», «рассчитан на персональную работу одного пользователя или работу небольшого количества пользователей в локальной сети». Всё остальное — кластер серверов 1С плюс СУБД.</p>
+    <div class="tbl reveal">
+      <div class="scroll">
+      <table>
+        <thead><tr><th>Критерий</th><th>Файловый вариант</th><th>Клиент-серверный вариант</th></tr></thead>
+        <tbody>
+          <tr><td>Что нужно купить</td><td>Основная поставка + клиентские места</td><td>То же + лицензия на сервер (МИНИ 21 300 ₽ или ПРОФ 126 800 ₽)</td></tr>
+          <tr><td>Где лежат данные</td><td>Один файл <code>1Cv8.1CD</code> в папке; клиенты открывают его напрямую (локально или по SMB)</td><td>PostgreSQL / MS SQL / Postgres Pro; клиенты ходят через сервер 1С (порты 1540, 1541, 1560–1591 по умолчанию)</td></tr>
+          <tr><td>Пользователей</td><td>1–5 комфортно; дальше растут блокировки</td><td>Десятки и сотни; МИНИ ограничен 5 сеансами</td></tr>
+          <tr><td>Лимит объёма</td><td>Внутренний файл (таблица) ≤ 4 ГБ при странице 4 КБ (старые базы), ≤ 6 ГБ для баз на 8.3.8–8.3.27, 16 ГБ в 8.5</td><td>Ограничен только СУБД и диском</td></tr>
+          <tr><td>Надёжность</td><td>Сбой клиента или сети может повредить файл; нужен <code>chdbfl</code> и регулярные копии</td><td>Запись на сервере не зависит от клиентов</td></tr>
+          <tr><td>ОС сервера</td><td>Любая Windows/Linux с общей папкой; для веб-доступа ещё Apache + модуль</td><td>Windows 7–11 / Server 2012–2022; Debian 10–12, Ubuntu 20.04–24.04, Astra SE 1.6–1.8, RHEL/Oracle Linux 8–9, Альт, РЕД ОС, Mint</td></tr>
+          <tr><td>Резервная копия</td><td>Копия файла при закрытой базе или выгрузка .dt</td><td><code>pg_dump</code> / бэкап MS SQL + выгрузка .dt по желанию</td></tr>
+          <tr><td>Веб-клиент</td><td>Есть, но «1С» называет такой режим «скорее тестовым»: запросы идут в одну очередь</td><td>Полноценный: тонкий клиент, веб-клиент, мобильные</td></tr>
+          <tr><td>Минимум железа по «1С»</td><td>Celeron 2,7 ГГц, 4 ГБ ОЗУ, от 1 ГБ на диске</td><td>Сервер x86-64, от 2 ГБ ОЗУ (реком. 4+), 40 ГБ диск; практика партнёров для 5–20 человек — 6+ ядер, 32 ГБ, NVMe</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <div class="note">Поддерживаемые СУБД для 8.3: PostgreSQL с патчем 1С 14.23 / 15.18 / 16.14 / 17.10 / 18.4, Postgres Pro (включая редакции 1C), MS SQL Server 2016–2022, IBM Db2 11.1, Oracle 12.2–19c. Веб-серверы: Apache 2.4 и IIS.</div>
+    </div>
+  </div>
+</section>
+
+<!-- УСТАНОВКА -->
+<section id="ustanovka">
+  <div class="wrap">
+    <p class="eyebrow reveal">Пошагово</p>
+    <h2 class="reveal">Установка на изолированный сервер</h2>
+    <p class="sub reveal">Всё скачивается на компьютере с интернетом, переносится на флешке. Для доступа к <a href="https://releases.1c.ru" target="_blank" rel="noopener">releases.1c.ru</a> нужен логин портала: Базовой хватает регистрации продукта, для ПРОФ/КОРП дистрибутивы и обновления отдаются только при действующем 1С:КП.</p>
+
+    <div class="grid cols2">
+      <article class="card reveal">
+        <span class="tag green">Путь A</span>
+        <h3>Файловая база на Windows (Базовая или ПРОФ до 5 человек)</h3>
+        <div class="timeline">
+          <div class="step"><h4>1. Скачать два архива</h4><p>На releases.1c.ru: «Технологическая платформа 8.3» (ветка 8.3.27, сборка «для Windows»), и «Бухгалтерия предприятия, редакция 3.0» — полный дистрибутив <code>Accounting_3_0_XXX_setup1c.zip</code> (для Базовой — <code>AccountingBase_…</code>). Сразу же скачайте текущие дистрибутивы обновлений, чтобы не ехать за ними снова.</p></div>
+          <div class="step"><h4>2. Поставить платформу</h4><p>Запустить <code>setup.exe</code> платформы, выбрать «1С:Предприятие» (толстый + тонкий клиент). Серверные компоненты для файлового варианта не нужны.</p></div>
+          <div class="step"><h4>3. Установить шаблон конфигурации</h4><p>Распаковать архив конфигурации, запустить <code>setup.exe</code> — шаблон ляжет в <code>%APPDATA%\1C\1cv8\tmplts\1c\Accounting\&lt;версия&gt;</code>.</p></div>
+          <div class="step"><h4>4. Создать базу из шаблона</h4><p>В окне запуска «Добавить → Создание новой информационной базы → из шаблона». Или из командной строки:</p>
+<pre><code>"C:\Program Files\1cv8\8.3.27.XXXX\bin\1cv8.exe" CREATEINFOBASE File="D:\Bases\Buh"; ^
+  /UseTemplate "%APPDATA%\1C\1cv8\tmplts\1c\Accounting\3_0_203_18\1cv8.cf" /AddInList "Бухгалтерия"</code></pre></div>
+          <div class="step"><h4>5. Активировать лицензию файлом</h4><p>При первом запуске откроется диалог лицензии. Регистрационный номер, пин-код, данные владельца → «Через файл». Файл запроса на флешку → portal.1c.ru или lic@1c.ru → файл лицензии обратно.</p></div>
+          <div class="step green"><h4>6. Выключить интернет-сервисы и настроить копии</h4><p>Администрирование → Настройки программы → Интернет-поддержка и сервисы → «Доступ к интернет-сервисам» (есть с релиза 3.0.173). Затем «Резервное копирование» по расписанию в папку на другом диске.</p></div>
+        </div>
+      </article>
+
+      <article class="card reveal">
+        <span class="tag amber">Путь B</span>
+        <h3>Сервер 1С + PostgreSQL на Debian/Ubuntu (ПРОФ, 5–20 человек)</h3>
+        <div class="timeline">
+          <div class="step"><h4>1. Скачать</h4><p>«Технологическая платформа 8.3 → Сервер для DEB-based Linux» (единый дистрибутив <code>setup-full-8.3.27.XXXX-x86_64.run</code> в tar.gz), «PostgreSQL с патчем 1С» (DEB-пакеты, с того же releases.1c.ru) либо <a href="https://postgrespro.ru/products/postgrespro/1c" target="_blank" rel="noopener">Postgres Pro 1C</a>, и дистрибутив конфигурации.</p></div>
+          <div class="step"><h4>2. Подготовить ОС</h4>
+<pre><code><span class="c"># шрифты MS Core Fonts обязательны: без них кривые формы и интерфейс</span>
+sudo apt update &amp;&amp; sudo apt install -y ttf-mscorefonts-installer fontconfig imagemagick unixodbc locales
+sudo locale-gen ru_RU.UTF-8
+<span class="c"># ttf-mscorefonts-installer тянет шрифты из интернета — на изолированном сервере положите .ttf в /usr/share/fonts вручную и выполните fc-cache -f</span></code></pre></div>
+          <div class="step"><h4>3. Поставить сервер 1С</h4>
+<pre><code>tar -xzf server64_8_3_27_XXXX.tar.gz
+sudo ./setup-full-8.3.27.XXXX-x86_64.run --mode unattended --enable-components server,ws,server_admin
+sudo systemctl link /opt/1cv8/x86_64/8.3.27.XXXX/srv1cv8-8.3.27.XXXX@.service
+sudo systemctl enable --now srv1cv8-8.3.27.XXXX@default</code></pre><p>Компонент <code>ws</code> — модуль для Apache, <code>server_admin</code> — утилиты ras/rac для администрирования кластера без Windows-консоли.</p></div>
+          <div class="step"><h4>4. Поставить PostgreSQL из сборки 1С</h4>
+<pre><code>sudo dpkg -i postgresql-*.deb   <span class="c"># пакеты из архива сборки 1С, все сразу</span>
+sudo systemctl enable --now postgresql
+sudo -u postgres psql -c "ALTER USER postgres PASSWORD 'сложный_пароль';"</code></pre><p>В <code>postgresql.conf</code> по рекомендациям партнёров и Postgres Pro: <code>shared_buffers</code> = 25 % ОЗУ, <code>effective_cache_size</code> = 50–75 % ОЗУ, <code>max_connections</code> = 500–1000, <code>temp_buffers</code> = 256MB, <code>work_mem</code> = ОЗУ/32–64, параллелизм запросов выключить.</p></div>
+          <div class="step"><h4>5. Создать базу и загрузить конфигурацию</h4><p>С любого ПК в сети тонким/толстым клиентом: «Добавить → Создание новой базы → На сервере 1С:Предприятия» (<code>Srvr=имя_сервера; Ref=buh</code>, СУБД PostgreSQL, пользователь postgres). Шаблон конфигурации ставится на этот клиентский ПК, база создаётся из него.</p></div>
+          <div class="step"><h4>6. Активировать серверную и клиентские лицензии</h4><p>Серверная — из консоли кластера или при первом подключении клиента, только «Через интернет» или «Через файл» (по телефону нельзя). Клиентские лицензии лучше тоже класть на сервер: тогда их раздаёт кластер и на рабочих местах активировать ничего не нужно.</p></div>
+          <div class="step green"><h4>7. Опционально: веб-доступ</h4>
+<pre><code>sudo apt install -y apache2
+sudo /opt/1cv8/x86_64/8.3.27.XXXX/webinst -publish -apache24 -wsdir buh -dir /var/www/buh \
+  -connstr "Srvr=localhost;Ref=buh;" -confpath /etc/apache2/apache2.conf
+sudo systemctl restart apache2   <span class="c"># http://сервер/buh</span></code></pre><p>Наружу такую публикацию выпускать только через HTTPS с валидным сертификатом и дополнительной аутентификацией веб-сервера или VPN.</p></div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- БЕЗ ИНТЕРНЕТА -->
+<section id="offline">
+  <div class="wrap">
+    <p class="eyebrow reveal">Изолированная сеть</p>
+    <h2 class="reveal">Что работает без интернета, а что нет</h2>
+    <p class="sub reveal">Все онлайн-функции в типовой конфигурации идут через «Интернет-поддержку пользователей» (логин портала 1С). Без неё программа просто не подключает сервисы, учёт от этого не страдает. С релиза 3.0.173 есть отдельный выключатель «Доступ к интернет-сервисам», сделанный именно для коробок без сети, чтобы программа не пыталась тянуть курсы валют и классификаторы.</p>
+    <div class="two">
+      <div class="card reveal">
+        <h3 style="color:var(--green)">Работает полностью офлайн</h3>
+        <ul class="list ok">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><span><b>Весь учёт:</b> документы, проводки, ОСВ, закрытие месяца, НДС, налог на прибыль, УСН.</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><span><b>Зарплата и кадры</b> в объёме Бухгалтерии 3.0, печатные формы, отчёты по сотрудникам.</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><span><b>Регламентированная отчётность:</b> формы заполняются и проверяются локально, выгружаются в XML («Отчёты → Регламентированные отчёты → Выгрузить»). Отправить файл можно с любого другого ПК через кабинет ФНС или оператора ЭДО.</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><span><b>Банк через файлы:</b> выгрузка платёжек и загрузка выписок в формате <code>1CClientBankExchange</code> (текстовый <code>kl_to_1c.txt</code>) — тот же обмен, что и до появления DirectBank.</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><span><b>Загрузка классификаторов и курсов валют вручную</b> из файлов, которые принесли на флешке.</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><span><b>Обновление конфигурации и платформы</b> из файлов (см. ниже).</span></li>
+        </ul>
+      </div>
+      <div class="card reveal">
+        <h3 style="color:var(--red)">Отваливается без сети</h3>
+        <ul class="list no">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg><span><b>1С-Отчётность:</b> отправка в ФНС/СФР/Росстат, требования и ответы, МЧД. Нужен интернет на рабочем месте с сертификатом (на Linux — КриптоПро CSP ГОСТ 2012).</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg><span><b>1С:Контрагент, 1СПАРК Риски, 1С-ЭДО, DirectBank</b> — автозаполнение по ИНН, проверка контрагентов, электронные документы, прямой обмен с банком.</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg><span><b>Автоматические обновления, курсы валют, классификаторы, адресный справочник</b> через интернет-поддержку.</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg><span><b>Облачный архив, 1С:Кабинет сотрудника, 1С:Линк, онлайн-справка.</b></span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg><span><b>Автоматическая активация лицензии</b> — только через файл или телефон.</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="grid cols2">
+      <article class="card reveal">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-6.22-8.56"/><path d="M21 3v6h-6"/></svg></div>
+        <h3>Обновления с флешки</h3>
+        <ul>
+          <li><b>Ритм релизов Бухгалтерии 3.0 в 2026 году:</b> май — 1, июнь — 2, июль — 4 (3.0.201.16, 3.0.201.24, 3.0.202.14, 3.0.203.18). Формы деклараций меняются каждый квартал, поэтому обновляться придётся минимум раз в квартал перед отчётностью.</li>
+          <li><b>Цепочка:</b> обновление ставится не с любой версии. В каждом дистрибутиве есть <code>UpdInfo.txt</code> со строкой <code>FromVersions=</code> — по ней собирают последовательность релизов, которую надо скачать целиком.</li>
+          <li><b>Порядок:</b> выгрузка .dt → Конфигуратор → «Конфигурация → Поддержка → Обновить конфигурацию → Выбор файла обновления» (<code>.cfu</code>) → «Обновить конфигурацию базы данных» → первый запуск в «Предприятии» завершает обработчики обновления.</li>
+          <li><b>Платформа</b> обновляется тем же дистрибутивом, что и при установке; в описании релиза конфигурации указана минимальная версия платформы.</li>
+        </ul>
+      </article>
+      <article class="card reveal">
+        <div class="ic amber"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8v4l3 3M3.05 11a9 9 0 1 1 .5 4"/><path d="M3 4v5h5"/></svg></div>
+        <h3>Схема «полуофлайн», которая реально используется</h3>
+        <ul>
+          <li>Сервер с базой стоит в изолированном сегменте, у него нет шлюза в интернет. Только локальная сеть.</li>
+          <li>Одно рабочее место бухгалтера имеет выход в интернет, на нём стоит сертификат ЭП. Оно подключается к базе по локальной сети, и с него же отправляется 1С-Отчётность: сам сервер в интернет не выходит.</li>
+          <li>Обновления и файлы лицензий админ носит через этот же ПК. Полностью воздушный зазор нужен редко и стоит дороже в рутине.</li>
+        </ul>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ПОДВОДНЫЕ КАМНИ -->
+<section id="kamni">
+  <div class="wrap">
+    <p class="eyebrow reveal">Опыт эксплуатации</p>
+    <h2 class="reveal">Подводные камни</h2>
+    <p class="sub reveal">Собрано из документации «1С», статей партнёров и профильных блогов администраторов (interface31.ru, infostart.ru, online-ufa.ru). Каждый пункт — реальный повод для простоя.</p>
+    <div class="tips">
+      <article class="tip reveal"><div class="n">1</div><h3>Антивирус режет файловую базу вдвое</h3><p>Замер на платформе 8.3.20: Microsoft Defender <b>снижает производительность файлового режима примерно в два раза</b>. Исключение только папки с базой почти не помогает; нужно исключить каталог <code>bin</code> платформы целиком (все процессы из него) и файлы <code>*.1CD</code>, <code>*.dt</code>, <code>*.cf</code>, <code>*.cfu</code>, кэш в AppData.</p></article>
+      <article class="tip reveal"><div class="n">2</div><h3>Файл базы по сети</h3><p>Файловая база на SMB-шаре работает ровно до первого обрыва сети или спящего ноутбука с открытой базой: «Ошибка совместного доступа к файлу», повреждение таблиц. Лечение — <code>chdbfl.exe</code>, затем «Тестирование и исправление» в Конфигураторе. Гигабит, SSD на сервере и ни одной Wi-Fi-рабочей станции.</p></article>
+      <article class="tip reveal"><div class="n">3</div><h3>Лицензия слетает от апгрейда</h3><p>Замена материнской платы, сетевой карты, переустановка Windows и даже переименование компьютера приводят к «Задана неправильная привязка лицензии». У Базовой — всего 3 активации на пин-код. Планируйте железо сервера на годы вперёд или берите USB-ключ.</p></article>
+      <article class="tip reveal"><div class="n">4</div><h3>Ванильный PostgreSQL не подойдёт</h3><p>Платформа при создании базы подключает расширения <b>mchar, fulleq, fasttrun</b> из патча 1С. В дистрибутивном PostgreSQL их нет, база не создастся. Брать только сборку с releases.1c.ru или Postgres Pro 1C, и версии ровно из списка совместимости.</p></article>
+      <article class="tip reveal"><div class="n">5</div><h3>Сервер МИНИ — это 5 сеансов, не 5 человек</h3><p>Лимит считается по сеансам «Предприятия»: открытое второе окно, фоновая обработка или зависший сеанс занимают место. Шестое подключение не пустят. Апгрейд до полного сервера возможен с зачётом стоимости.</p></article>
+      <article class="tip reveal"><div class="n">6</div><h3>Шрифты и локаль на Linux</h3><p>Без MS Core Fonts формы печатаются криво, а интерфейс «плывёт». Лицензия Microsoft запрещает класть их в дистрибутивы, поэтому на изолированный сервер шрифты несут вручную. Для диаграмм и PDF нужны ImageMagick и FreeType, для XLS — libgsf. Локаль ru_RU.UTF-8 обязательна.</p></article>
+      <article class="tip reveal"><div class="n">7</div><h3>Linux ≠ Windows для интеграций</h3><p>COM-объекты — технология Windows: обработки, которые дёргают Excel/Word через COM, на Linux-сервере не заработают. Штатные экспорт в XLSX/PDF и печать работают. 1С-Отчётность на Linux поддерживается, но требует КриптоПро CSP и локали ru_RU.CP1251.</p></article>
+      <article class="tip reveal"><div class="n">8</div><h3>Обновления ПРОФ без КП не скачать</h3><p>Через 3 льготных месяца доступ к релизам на releases.1c.ru для ПРОФ закрывается. Без обновлений первая же новая форма декларации сдаётся вручную. Либо платите 1С:КП Базовый (24 168 ₽/год), либо честно берите Базовую версию, если хватает одного пользователя.</p></article>
+      <article class="tip reveal"><div class="n">9</div><h3>Цепочка релизов и пропущенные обновления</h3><p>Отстали на полгода — придётся ставить 5–10 обновлений подряд, каждое с обработчиками по базе. На файловой базе 3–5 ГБ это часы. Делайте .dt перед каждым шагом: откат из «середины» цепочки иначе невозможен.</p></article>
+      <article class="tip reveal"><div class="n">10</div><h3>Лимит 4/6 ГБ на таблицу</h3><p>«Превышен максимально допустимый размер внутреннего файла» — база созданная до 8.3.8 держит страницу 4 КБ и лимит 4 ГБ на таблицу даже после обновления платформы. Лечится выгрузкой/загрузкой .dt на новой платформе или утилитой <code>cnvdbfl</code> с размером страницы 8–16 КБ.</p></article>
+      <article class="tip reveal"><div class="n">11</div><h3>Веб-публикация в интернет</h3><p>Опубликованный Apache без TLS и с пользователем «Администратор» без пароля — классика взломов 1С. Если доступ снаружи нужен, то HTTPS с валидным сертификатом, базовая аутентификация веб-сервера или VPN, сложные пароли всем пользователям базы.</p></article>
+      <article class="tip reveal"><div class="n">12</div><h3>Резервные копии не равны выгрузке .dt</h3><p>Для восстановления лучше хранить копию <code>1Cv8.1CD</code> (или <code>pg_dump</code>), а .dt — для переноса и проверки. .dt из повреждённой базы часто не загружается. Копию файловой базы снимают при закрытых сеансах, иначе она неконсистентна.</p></article>
+    </div>
+  </div>
+</section>
+
+<!-- ЧЕК-ЛИСТ -->
+<section id="checklist">
+  <div class="wrap">
+    <p class="eyebrow reveal">Перед запуском</p>
+    <h2 class="reveal">Чек-лист на изолированный сервер</h2>
+    <p class="sub reveal">Что должно лежать на флешке и быть сделано до того, как сервер отключат от интернета.</p>
+    <ul class="check reveal">
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M8 12l3 3 5-6"/></svg><span>Дистрибутивы платформы (сервер + клиент под нужные ОС), конфигурации, PostgreSQL от 1С, Apache-модуль; плюс цепочка обновлений на ближайший квартал.</span></li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M8 12l3 3 5-6"/></svg><span>Регистрационные номера и пин-коды всех лицензий (основная поставка, клиентские, серверная), записанные данные владельца для повторных активаций.</span></li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M8 12l3 3 5-6"/></svg><span>Железо сервера зафиксировано: имя хоста, MAC, объём ОЗУ, диски. Для ВМ — выключена динамическая память, ВМ закреплена за хостом.</span></li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M8 12l3 3 5-6"/></svg><span>Шрифты MS Core Fonts (.ttf), ImageMagick, FreeType, libgsf, unixODBC — для Linux-сервера вместе с их зависимостями из локального зеркала apt.</span></li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M8 12l3 3 5-6"/></svg><span>Исключения антивируса на каталог платформы и файлы базы; расписание резервного копирования на отдельный диск/NAS и проверка восстановления из копии.</span></li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M8 12l3 3 5-6"/></svg><span>В базе выключен «Доступ к интернет-сервисам», установлены пароли всем пользователям, у «Администратора» пароль не пустой.</span></li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M8 12l3 3 5-6"/></svg><span>Решено, как сдаётся отчётность: выгрузка XML + отправка с внешнего ПК, либо одно рабочее место с интернетом и сертификатом для 1С-Отчётности.</span></li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M8 12l3 3 5-6"/></svg><span>Для ПРОФ — договор 1С:КП оформлен или осознанно отложен с датой, когда закончится льготный период.</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ИСТОЧНИКИ -->
+<section id="istochniki" class="sources">
+  <div class="wrap">
+    <p class="eyebrow reveal">Проверяемость</p>
+    <h2 class="reveal">Источники</h2>
+    <p class="sub reveal">Все цифры и утверждения выше взяты из этих страниц (проверены 6 октября 2026).</p>
+    <div class="card reveal">
+      <ol>
+        <li><a href="https://v8.1c.ru/price/" target="_blank" rel="noopener">Прайс-лист «1С» — цены на 1С:Бухгалтерию, клиентские и серверные лицензии (v8.1c.ru/price)</a></li>
+        <li><a href="https://v8.1c.ru/buhv8/cena-1s-buhgalterii-8/" target="_blank" rel="noopener">Цена и приобретение «1С:Бухгалтерия 8» (v8.1c.ru)</a></li>
+        <li><a href="https://v8.1c.ru/buhv8/vyberite-svoyu-1s-bukhgalteriyu-8/" target="_blank" rel="noopener">Версии «1С:Бухгалтерии 8» и ограничения Базовой (v8.1c.ru)</a></li>
+        <li><a href="https://assistant1c.com/blog/news/ceny-1c-kp-its/" target="_blank" rel="noopener">Цены на 1С:КП / ИТС в 2026 году (assistant1c.com)</a>; <a href="https://itsvsem.ru/1c-kp/1c-kp-prof/" target="_blank" rel="noopener">1С:КП ПРОФ (itsvsem.ru)</a></li>
+        <li><a href="https://www.online-ufa.ru/content/articles/activation-license-1c-no-internet/" target="_blank" rel="noopener">Активация программных лицензий ПРОФ/КОРП без интернета (online-ufa.ru)</a></li>
+        <li><a href="https://www.online-ufa.ru/content/articles/activation-license-basic-1c-no-internet/" target="_blank" rel="noopener">Активация лицензий Базовых версий без интернета (online-ufa.ru)</a></li>
+        <li><a href="https://www.online-ufa.ru/content/articles/activation-license-server-1c/" target="_blank" rel="noopener">Активация лицензии на сервер 1С:Предприятие 8.3 (online-ufa.ru)</a></li>
+        <li><a href="https://www.online-ufa.ru/content/articles/activation-license-1c/" target="_blank" rel="noopener">Порядок получения программных лицензий ПРОФ, пути к файлам лицензий (online-ufa.ru)</a></li>
+        <li><a href="https://www.online-ufa.ru/content/articles/kak-vosstanovit-litsenziyu-1c-prof/" target="_blank" rel="noopener">Восстановление лицензии после изменения параметров компьютера (online-ufa.ru)</a></li>
+        <li><a href="https://www.online-ufa.ru/content/articles/get-pin-1c/" target="_blank" rel="noopener">Получение дополнительного пин-кода через lic@1c.ru (online-ufa.ru)</a></li>
+        <li><a href="https://ruvds.com/ru/helpcenter/osobennosti-programmnogo-licenzirovaniya-1c-predpriyatie/" target="_blank" rel="noopener">Особенности программного лицензирования: ключевые параметры, ВМ (ruvds.com)</a></li>
+        <li><a href="https://interface31.ru/tech_it/2015/08/osobennosti-primeneniya-programmnyh-licenziy-1spredpriyatie.html" target="_blank" rel="noopener">Особенности применения программных лицензий, миграция ВМ (interface31.ru)</a></li>
+        <li><a href="https://infostart.ru/1c/articles/808181/" target="_blank" rel="noopener">О лицензиях 1С: пин-коды, активация по телефону (infostart.ru)</a></li>
+        <li><a href="https://forum.infostart.ru/forum86/topic254220/" target="_blank" rel="noopener">Базовая версия: 3 активации на пин-код (forum.infostart.ru)</a></li>
+        <li><a href="https://portal.1c.ru/support/license/license-owner" target="_blank" rel="noopener">Контакты Центра лицензирования: lic@1c.ru, +7 (495) 688-99-12 (portal.1c.ru)</a></li>
+        <li><a href="https://www.online-ufa.ru/content/articles/maximum-file-size-1cd/" target="_blank" rel="noopener">Лимит внутреннего файла 1Cv8.1CD: 4 / 6 / 16 ГБ (online-ufa.ru)</a></li>
+        <li><a href="https://v8.1c.ru/platforma/faylovyy-variant-raboty/" target="_blank" rel="noopener">Файловый вариант работы (v8.1c.ru)</a>; <a href="https://v8.1c.ru/overview/Term_000000033.htm" target="_blank" rel="noopener">Клиент-серверный вариант (v8.1c.ru)</a></li>
+        <li><a href="https://v8.1c.ru/tekhnologii/systemnye-trebovaniya-1s-predpriyatiya-8/operatsionnye-sistemy/" target="_blank" rel="noopener">Поддерживаемые ОС (v8.1c.ru)</a>; <a href="https://v8.1c.ru/tekhnologii/systemnye-trebovaniya-1s-predpriyatiya-8/subd/" target="_blank" rel="noopener">СУБД (v8.1c.ru)</a>; <a href="https://v8.1c.ru/tekhnologii/systemnye-trebovaniya-1s-predpriyatiya-8/apparatnye-trebovaniya/" target="_blank" rel="noopener">Аппаратные требования (v8.1c.ru)</a></li>
+        <li><a href="https://interface31.ru/post/edinyy-distributiv-1c-dlya-linux-server/" target="_blank" rel="noopener">Единый дистрибутив 1С для Linux: установка сервера, systemd (interface31.ru)</a></li>
+        <li><a href="https://infostart.ru/journal/news/mir-1s/kak-postavit-1s-predpriyatie-8-3-20-na-os-linux-probuem-novuyu-programmu-ustanovki_1493833/" target="_blank" rel="noopener">Единый установщик setup-full*.run, режим unattended (infostart.ru)</a></li>
+        <li><a href="https://yellow-erp.com/help/1cv8/FeatureLinuxWork/?lang=ru" target="_blank" rel="noopener">Особенности работы в Linux: шрифты, ImageMagick, FreeType, libgsf (документация 1С, зеркало)</a></li>
+        <li><a href="https://docs.selectel.ru/en/managed-databases/postgresql-for-1c/extensions-1c/" target="_blank" rel="noopener">Расширения mchar, fulleq, fasttrun для PostgreSQL 1С (selectel.ru)</a>; <a href="https://infostart.ru/1c/articles/2501686/" target="_blank" rel="noopener">Сборка PostgreSQL 17 с патчами 1С (infostart.ru)</a></li>
+        <li><a href="https://habr.com/ru/articles/727250/" target="_blank" rel="noopener">Параметры postgresql.conf для 1С (habr.com)</a>; <a href="https://www.1cbit.ru/blog/nastroyka-postgresql-dlya-1s/" target="_blank" rel="noopener">Настройка PostgreSQL для 1С (1cbit.ru)</a></li>
+        <li><a href="https://serveradmin.ru/publikacziya-baz-1s-na-veb-severe-apache-v-debian/" target="_blank" rel="noopener">Публикация баз на Apache через webinst (serveradmin.ru)</a>; <a href="https://interface31.ru/tech_it/2022/09/zashhishhaem-veb-publikaciyu-1spredpriyatie-pri-pomoshhi-ssl-i-autentifikacii-po-parolyu.html" target="_blank" rel="noopener">Защита веб-публикации SSL и паролем (interface31.ru)</a></li>
+        <li><a href="https://www.1cbit.ru/mini-server-1s/" target="_blank" rel="noopener">Сервер МИНИ: 5 сеансов + Конфигуратор, один сервер в кластере (1cbit.ru)</a></li>
+        <li><a href="https://buh.ru/news/samoe-novoe-v-1s-bukhgalterii-8-otklyuchenie-dostupa-k-internet-servisam.html" target="_blank" rel="noopener">Отключение доступа к интернет-сервисам с релиза 3.0.173 (buh.ru)</a></li>
+        <li><a href="https://www.online-ufa.ru/content/articles/internet-support-1c/" target="_blank" rel="noopener">Интернет-поддержка: что через неё работает и как подключить (online-ufa.ru)</a></li>
+        <li><a href="https://efsol.ru/manuals/xml-report-export-1c-reporting/" target="_blank" rel="noopener">Выгрузка регламентированного отчёта в XML (efsol.ru)</a>; <a href="https://its.1c.ru/db/content/metod8dev/src/developers/dataexchange/bankexchange/clibnkdexchange/i8103262.htm" target="_blank" rel="noopener">Формат 1CClientBankExchange (its.1c.ru)</a></li>
+        <li><a href="https://its.1c.ru/db/content/elreps/src/1_7_%D0%BD%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B0_linux.htm" target="_blank" rel="noopener">Настройка 1С-Отчётности на Linux: КриптоПро CSP, локаль CP1251 (its.1c.ru)</a></li>
+        <li><a href="https://www.online-ufa.ru/content/articles/set-update-1c-not-internet/" target="_blank" rel="noopener">Цепочка обновлений без интернета: UpdInfo.txt, FromVersions (online-ufa.ru)</a></li>
+        <li><a href="https://rial-soft.ru/baza/obnovlenie/gde-skachat-obnovlenie-1c/" target="_blank" rel="noopener">Доступ к releases.1c.ru: Базовая без ИТС, ПРОФ только с договором (rial-soft.ru)</a></li>
+        <li><a href="https://buhexpert8.ru/1s-buhgalteriya/izmeneniya/obzory-relizov-1s-bp/obzor-relizov-1s-buhgalteriya-za-iyun-2026-goda-3-0-199-13.html" target="_blank" rel="noopener">Релизы Бухгалтерии 3.0 за май–июль 2026 (buhexpert8.ru)</a>; <a href="https://buh.ru/news/vypushchena-versiya-3-0-203-18-konfiguratsii-bukhgalteriya-predpriyatiya-prof-korp-i-bazovaya-.html" target="_blank" rel="noopener">Версия 3.0.203.18 от 31.07.2026 (buh.ru)</a></li>
+        <li><a href="https://interface31.ru/tech_it/2021/12/pochemu-tormozit-1s-faylovyy-rezhim-i-microsoft-defender.html" target="_blank" rel="noopener">Microsoft Defender и файловый режим: падение производительности вдвое (interface31.ru)</a></li>
+        <li><a href="https://1c-md.com/administrirovanie/testirovanie-i-isprav-bazy/" target="_blank" rel="noopener">chdbfl и «Тестирование и исправление» (1c-md.com)</a>; <a href="https://otr-soft.ru/faq-common/voprosy-po-platforme-i-konfiguratsii/arhivnaya-kopiya-bazy/" target="_blank" rel="noopener">Копия 1CD против выгрузки .dt (otr-soft.ru)</a></li>
+        <li><a href="https://gist.github.com/IslamA/cfad6ac95a0c87e9727b24c71897babe" target="_blank" rel="noopener">Ограничения учебной версии платформы 8.3 (gist)</a></li>
+        <li><a href="https://infostart.ru/journal/news/mir-1s/vyshla-novaya-versiya-tekhnologicheskoy-platformy-1s-predpriyatie-8-3-27_2363428/" target="_blank" rel="noopener">Платформа 8.3.27: выпуск и статус рекомендуемой (infostart.ru)</a></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+</main>
+<footer>
+  <div class="wrap">Исследование подготовлено 6 октября 2026. Цены — рекомендованные розничные без НДС, уточняйте у партнёра перед покупкой.</div>
+</footer>
+
+<script type="module">
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const els = Array.from(document.querySelectorAll('.reveal'));
+  const showAll = () => els.forEach(el => el.classList.add('shown'));
+  if (prefersReduced) { showAll(); }
+  else {
+    const target = (arg) => (arg && arg.target) || arg;
+    let done = false;
+    const nativeFallback = () => {
+      if (!('IntersectionObserver' in window)) { showAll(); return; }
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('shown'); io.unobserve(e.target); } });
+      }, { rootMargin: '0px 0px -8% 0px' });
+      els.forEach(el => io.observe(el));
+    };
+    try {
+      const { animate, inView } = await import('https://cdn.jsdelivr.net/npm/motion@11/+esm');
+      done = true;
+      inView('.reveal', (arg) => {
+        const el = target(arg);
+        el.classList.add('shown');
+        animate(el, { opacity: [0, 1], y: [18, 0] }, { duration: 0.55, ease: [0.22, 1, 0.36, 1] });
+      }, { margin: '0px 0px -8% 0px' });
+      document.querySelectorAll('.card, .tip').forEach(c => {
+        c.addEventListener('pointerdown', () => animate(c, { scale: 0.985 }, { duration: 0.12 }));
+        c.addEventListener('pointerup', () => animate(c, { scale: 1 }, { duration: 0.2 }));
+        c.addEventListener('pointerleave', () => animate(c, { scale: 1 }, { duration: 0.2 }));
+      });
+    } catch (e) { nativeFallback(); }
+    setTimeout(() => { els.forEach(el => { if (!el.classList.contains('shown')) el.classList.add('shown'); }); }, 3000);
+  }
+</script>
+<noscript><style>.reveal{opacity:1!important;transform:none!important}</style></noscript>
+</body>
+</html>
