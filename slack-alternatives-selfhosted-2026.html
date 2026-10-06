@@ -6,7 +6,7 @@
 <title>Аналоги Slack с мини-приложениями — self-hosted, октябрь 2026</title>
 <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
 <meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet">
-<meta name="description" content="Сравнение 10 self-hosted альтернатив Slack с платформами приложений: Mattermost, Element/Matrix, Zulip, Rocket.Chat, Nextcloud Talk, Campfire, Stoat, Twake, Wire, Threema OnPrem. Лицензии, лимиты бесплатных версий, E2EE, CVE 2025–2026, push-уведомления. Проверено 06.10.2026.">
+<meta name="description" content="Сравнение 10 self-hosted альтернатив Slack с платформами приложений: Mattermost, Element/Matrix, Zulip, Rocket.Chat, Nextcloud Talk, Campfire, Stoat, Twake, Wire, Threema OnPrem. Лицензии, лимиты бесплатных версий, E2EE, CVE 2025–2026, push-уведомления, словарь терминов. Проверено 06.10.2026.">
 <script>document.documentElement.classList.add('js-anim');</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -50,14 +50,13 @@ h2{font-size:clamp(24px,3vw,34px);letter-spacing:-.02em;font-weight:700;margin:0
 .card p{margin:0 0 10px;color:var(--text-2);font-size:15px}
 .card p:last-child{margin-bottom:0}
 .card ul{margin:0 0 10px;padding-left:18px;color:var(--text-2);font-size:15px}
-.card li{margin:0 0 6px} .card li b{color:var(--text-1);font-weight:600}
+.card li{margin:0 0 8px} .card li b{color:var(--text-1);font-weight:600}
 .meta{font-size:13px;color:var(--text-3);margin:0 0 12px;line-height:1.5}
 .tag{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;border-radius:6px;padding:4px 9px;margin:0 6px 8px 0;border:1px solid transparent;line-height:1.2}
 .tag.ok{background:var(--ok-bg);color:var(--ok-text);border-color:var(--ok-border)}
 .tag.warn{background:var(--warn-bg);color:var(--warn-text);border-color:var(--warn-border)}
 .tag.no{background:var(--no-bg);color:var(--no-text);border-color:var(--no-border)}
 .tag.neutral{background:var(--page-bg);color:var(--text-2);border-color:var(--border)}
-.tag svg{width:12px;height:12px;flex:none}
 .grades{display:grid;grid-template-columns:1fr 1fr;gap:6px 16px;margin:0 0 14px;font-size:13px;color:var(--text-2)}
 .grade{display:flex;align-items:center;justify-content:space-between;gap:10px}
 .dots{display:inline-flex;gap:3px}
@@ -73,7 +72,7 @@ h2{font-size:clamp(24px,3vw,34px);letter-spacing:-.02em;font-weight:700;margin:0
 .rec h3 a{color:var(--text-1)} .rec h3 a:hover{color:var(--blue)}
 .rec p{margin:0 0 10px;color:var(--text-2);font-size:15px}
 .rec ul{margin:0;padding-left:18px;color:var(--text-2);font-size:15px}
-.rec li{margin:0 0 6px} .rec li b{color:var(--text-1);font-weight:600}
+.rec li{margin:0 0 8px} .rec li b{color:var(--text-1);font-weight:600}
 .levels{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
 .level{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:22px 24px;box-shadow:var(--shadow)}
 .level .n{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:9px;background:var(--text-1);color:#fff;font-weight:700;font-size:14px;margin-bottom:12px}
@@ -109,6 +108,9 @@ pre .c{color:#A1A1A6}
 .dropped{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
 .drop{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:16px 18px;font-size:14.5px;color:var(--text-2);box-shadow:var(--shadow)}
 .drop b{color:var(--text-1)}
+.gloss{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.term{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:16px 18px;font-size:14.5px;color:var(--text-2);box-shadow:var(--shadow)}
+.term b{color:var(--text-1);display:block;margin-bottom:3px}
 .sources{columns:2;column-gap:32px;font-size:13.5px;margin:0;padding-left:18px}
 .sources li{break-inside:avoid;margin:0 0 6px;color:var(--text-2)}
 .sources li a{word-break:break-word}
@@ -121,7 +123,7 @@ footer{padding:40px 0 60px;color:var(--text-3);font-size:13px;line-height:1.6}
 .js-anim .reveal.shown{opacity:1;transform:none;transition:opacity .5s ease-out,transform .5s ease-out}
 @media (prefers-reduced-motion:reduce){.js-anim .reveal{opacity:1;transform:none;transition:none} .card,.rec,.toc a{transition:none}}
 @media (max-width:1024px){.bento,.levels,.tips{grid-template-columns:repeat(2,1fr)} .card.span2{grid-column:span 2} .sources{columns:1}}
-@media (max-width:700px){.hero{padding:44px 0 28px} .bento,.recs,.levels,.tips,.recipes,.dropped{grid-template-columns:1fr} .card.span2{grid-column:auto} .grades{grid-template-columns:1fr} .tablewrap{border-radius:14px}}
+@media (max-width:700px){.hero{padding:44px 0 28px} .bento,.recs,.levels,.tips,.recipes,.dropped,.gloss{grid-template-columns:1fr} .card.span2{grid-column:auto} .grades{grid-template-columns:1fr} .tablewrap{border-radius:14px}}
 </style>
 </head>
 <body>
@@ -130,7 +132,7 @@ footer{padding:40px 0 60px;color:var(--text-3);font-size:13px;line-height:1.6}
   <div class="wrap">
     <p class="eyebrow">Ресерч · проверено 6 октября 2026</p>
     <h1>Аналоги Slack с мини-приложениями: <span>self-hosted, безопасные и без лишней боли</span></h1>
-    <p class="lead">Десять систем, которые реально поднимаются на своём сервере, разобраны по четырём критериям: платформа приложений внутри чата, безопасность, простота развёртывания и честность бесплатной версии. Все факты — из официальной документации, релиз-нот и баз уязвимостей, с датами и ссылками.</p>
+    <p class="lead">Десять систем, которые реально поднимаются на своём сервере, разобраны по четырём критериям: платформа приложений внутри чата, безопасность, простота развёртывания и честность бесплатной версии. Все факты — из официальной документации, релиз-нот и баз уязвимостей, с датами и ссылками. Технические термины расшифрованы в скобках по ходу текста, а внизу есть <a href="#glossary">словарь</a>.</p>
     <div class="pills">
       <span class="pill"><b>10</b> систем</span>
       <span class="pill"><b>4</b> критерия</span>
@@ -145,6 +147,7 @@ footer{padding:40px 0 60px;color:var(--text-3);font-size:13px;line-height:1.6}
       <a href="#gotchas">Подводные камни</a>
       <a href="#install">Поставить за вечер</a>
       <a href="#dropped">Отсеяны</a>
+      <a href="#glossary">Словарь</a>
       <a href="#sources">Источники</a>
     </nav>
   </div>
@@ -160,37 +163,37 @@ footer{padding:40px 0 60px;color:var(--text-3);font-size:13px;line-height:1.6}
       <article class="rec reveal">
         <p class="kicker">Баланс · ближе всех к Slack</p>
         <h3><a href="https://mattermost.com" target="_blank" rel="noopener">Mattermost</a></h3>
-        <p>Самая зрелая платформа плагинов среди self-hosted: правая панель, модальные формы, кастомные типы сообщений, слэш-команды, маркетплейс. Ставится одним docker compose на 2 ГБ RAM.</p>
+        <p>Самая зрелая платформа плагинов (плагин — дополнение, которое встраивается в чат и добавляет кнопки, панели, формы) среди self-hosted систем. Умеет показывать правую панель с интерфейсом приложения, модальные формы (всплывающие окна с полями для ввода), свои типы сообщений, слэш-команды (команды через «/», как /remind в Slack) и маркетплейс готовых дополнений. Ставится одним docker compose (один файл с описанием и одна команда — всё поднимается само) на 2 ГБ оперативной памяти.</p>
         <ul>
-          <li><b>Берите Team Edition</b> (MIT) до 250 пользователей без SSO, либо Entry — бесплатный режим Enterprise со всеми функциями, но с потолком истории в 10 000 сообщений.</li>
-          <li><b>Минус:</b> нет E2EE и push в проде только через платный HPNS или свою сборку приложений.</li>
+          <li><b>Берите Team Edition</b> — полностью открытую версию под лицензией MIT (пользуйтесь как хотите, никаких обязательств) до 250 пользователей, но без SSO (единого входа через корпоративный аккаунт Google, Microsoft и т. п.). Либо Entry — бесплатный режим платной версии со всеми функциями, который показывает только последние 10 000 сообщений (старые остаются в базе, но их не видно и не найти поиском).</li>
+          <li><b>Минус:</b> нет E2EE (сквозного шифрования: когда прочитать сообщение может только получатель, а сервер хранит нечитаемый набор байт; здесь сервер видит текст), и push-уведомления на телефоны (всплывающие оповещения, когда приложение закрыто) в рабочем режиме — только за деньги или со своей сборкой мобильных приложений.</li>
         </ul>
       </article>
       <article class="rec reveal">
         <p class="kicker">Безопасность · виджеты как мини-аппы</p>
         <h3><a href="https://element.io/en/server-suite/community" target="_blank" rel="noopener">Element + Matrix (ESS Community)</a></h3>
-        <p>E2EE включено по умолчанию, виджеты — это любой веб-URL в iframe внутри комнаты, что ближе всего к Telegram Mini Apps. Мосты в Telegram, WhatsApp, Slack и Discord через mautrix.</p>
+        <p>E2EE включено по умолчанию (сквозное шифрование: текст шифруется на устройстве отправителя и расшифровывается только у получателей, сервер и его администратор переписку не читают). Виджеты — это любая веб-страница, встроенная прямо в комнату чата, то есть ближайший аналог мини-приложений Telegram. Мосты (боты-переводчики между мессенджерами) соединяют с Telegram, WhatsApp, Slack и Discord через проект mautrix.</p>
         <ul>
-          <li><b>Плюс:</b> всё под AGPLv3, без лимитов по пользователям; push через шлюз matrix.org бесплатно.</li>
-          <li><b>Минус:</b> официальная установка — Kubernetes (k3s) + Helm, а не compose; E2EE ломает серверный поиск.</li>
+          <li><b>Плюс:</b> всё под AGPLv3 (свободная лицензия: пользуйтесь и меняйте бесплатно; единственное условие — если переделаете код и будете предоставлять его как сервис другим, изменения надо опубликовать; для своей команды обязательств нет), без лимитов по пользователям (нет счётчиков вроде «до 50 человек» или «10 000 сообщений»); push на телефон идёт через шлюз matrix.org (сервер-посредник, который передаёт уведомления Apple и Google) бесплатно и с любого вашего сервера.</li>
+          <li><b>Минус:</b> официальная установка — Kubernetes (система для управления множеством контейнеров, обычно для крупной инфраструктуры; k3s — её облегчённая версия для одной машины) плюс Helm (установщик пакетов для Kubernetes), а не простой docker compose. E2EE ломает серверный поиск: сервер не может искать по тексту, которого не видит, поэтому поиск по зашифрованным комнатам работает только в десктопном Element по сообщениям, скачанным на этот компьютер, а в браузере и на телефоне — нет.</li>
         </ul>
       </article>
       <article class="rec reveal">
         <p class="kicker">Проще всего · честно бесплатно</p>
         <h3><a href="https://zulip.com" target="_blank" rel="noopener">Zulip</a></h3>
-        <p>Apache 2.0, все функции сервера бесплатны (SAML, LDAP, SCIM настраиваете сами). Один установочный скрипт, 130+ интеграций и Slack-совместимые вебхуки. Быстрые и прозрачные security-релизы.</p>
+        <p>Лицензия Apache 2.0 (свободная, без обязательств, как MIT), все функции сервера бесплатны — включая SAML, LDAP и SCIM (способы подключить корпоративный вход и автоматически подтягивать список сотрудников из Active Directory, Google Workspace или Okta; настраиваете сами). Один установочный скрипт, 130+ интеграций (готовых подключений: GitHub, Jira, системы мониторинга, календари) и Slack-совместимые вебхуки (вебхук — адрес, на который внешний сервис присылает сообщение; здесь формат тот же, что у Slack, старые интеграции переезжают без переделки). Быстрые и прозрачные security-релизы (обновления, закрывающие уязвимости, с подробным описанием).</p>
         <ul>
-          <li><b>Минус:</b> встроенного веб-UI и модалок нет, только боты и вебхуки; мобильные push бесплатны лишь до 10 пользователей.</li>
-          <li><b>Нюанс:</b> модель «канал + тема» требует привычки, хотя с 11.0 темы можно отключить.</li>
+          <li><b>Минус:</b> встроенного веб-интерфейса и модалок нет (приложение не может нарисовать форму или окно внутри чата), только боты и вебхуки; мобильные push бесплатны лишь до 10 пользователей.</li>
+          <li><b>Нюанс:</b> модель «канал + тема» (внутри канала у каждого обсуждения есть заголовок, как на форуме) требует привычки, хотя с версии 11.0 темы можно отключить.</li>
         </ul>
       </article>
       <article class="rec reveal">
         <p class="kicker">Антирекомендация на 2026 год</p>
         <h3><a href="https://www.rocket.chat" target="_blank" rel="noopener">Rocket.Chat</a></h3>
-        <p>Платформа приложений отличная (TypeScript-приложения, модалки, contextual bar, маркетплейс), но год выдался плохим: критический обход аутентификации, когда любой пароль подходил к любому аккаунту, плюс ещё четыре серьёзных CVE за полгода.</p>
+        <p>Платформа приложений отличная: приложения на TypeScript (язык программирования для веб-интерфейсов) умеют показывать модальные окна, боковую панель и кнопки, есть маркетплейс. Но год выдался плохим: критический обход аутентификации (ошибка в одном слове кода, из-за которой проверка пароля всегда отвечала «верно» — зайти можно было в любой аккаунт с любым паролем), плюс ещё четыре серьёзных CVE (CVE — официальный номер уязвимости в международной базе) за полгода.</p>
         <ul>
-          <li><b>Заморочки:</b> обязательная регистрация workspace в облаке Rocket.Chat, иначе нет push и маркетплейса; в Community только 5 включённых приложений и ни одного приватного.</li>
-          <li><b>Инфраструктура:</b> MongoDB 8 с реплика-сетом из трёх членов, план Pro снят с продажи 29.04.2026.</li>
+          <li><b>Заморочки:</b> обязательная регистрация workspace (вашего экземпляра чата) в облаке Rocket.Chat, иначе не работают push и маркетплейс; в Community (открытой бесплатной версии) только 5 включённых приложений и ни одного своего.</li>
+          <li><b>Инфраструктура:</b> база данных MongoDB 8 с реплика-сетом из трёх копий (три экземпляра базы, которые дублируют друг друга ради надёжности — три процесса вместо одного); план Pro снят с продажи 29.04.2026.</li>
         </ul>
       </article>
     </div>
@@ -200,25 +203,25 @@ footer{padding:40px 0 60px;color:var(--text-3);font-size:13px;line-height:1.6}
 <section id="levels">
   <div class="wrap">
     <h2 class="reveal">Что считать «мини-аппками» в чате</h2>
-    <p class="sub-h reveal">У Slack это <a href="https://api.slack.com/block-kit" target="_blank" rel="noopener">Block Kit</a>: модальные окна, интерактивные сообщения, вкладка приложения. У Telegram — <a href="https://core.telegram.org/bots/webapps" target="_blank" rel="noopener">Mini Apps</a>: полноценная веб-страница внутри чата. Среди self-hosted систем встречаются три уровня.</p>
+    <p class="sub-h reveal">У Slack это <a href="https://api.slack.com/block-kit" target="_blank" rel="noopener">Block Kit</a>: модальные окна, интерактивные сообщения с кнопками, вкладка приложения. У Telegram — <a href="https://core.telegram.org/bots/webapps" target="_blank" rel="noopener">Mini Apps</a>: полноценная веб-страница, открытая внутри чата. Среди self-hosted систем встречаются три уровня.</p>
     <div class="levels">
       <article class="level reveal">
         <span class="n">A</span>
         <h3>Веб-приложение внутри комнаты</h3>
-        <p>Произвольный URL открывается в sandbox-iframe прямо в чате и общается с клиентом через postMessage. Самый близкий аналог Telegram Mini Apps.</p>
-        <p class="who"><b>Есть:</b> Matrix-виджеты в Element (<a href="https://github.com/matrix-org/matrix-widget-api" target="_blank" rel="noopener">matrix-widget-api</a>). Корневые компоненты webapp-плагинов Mattermost — частично.</p>
+        <p>Произвольный адрес открывается в sandbox-iframe (изолированное окно внутри страницы, как встроенное видео с YouTube) прямо в чате и общается с клиентом через postMessage (безопасный канал обмена сообщениями между окном и страницей). Самый близкий аналог Telegram Mini Apps.</p>
+        <p class="who"><b>Есть:</b> Matrix-виджеты в Element (<a href="https://github.com/matrix-org/matrix-widget-api" target="_blank" rel="noopener">matrix-widget-api</a>). Корневые компоненты webapp-плагинов Mattermost (плагин может нарисовать целый свой экран) — частично.</p>
       </article>
       <article class="level reveal">
         <span class="n">B</span>
         <h3>Модалки, панели и формы от приложений</h3>
-        <p>Приложение рисует UI из блоков, которые рендерит сам клиент: диалоги, боковые панели, кнопки в сообщениях, слэш-команды. Это модель Slack Block Kit.</p>
-        <p class="who"><b>Есть:</b> Mattermost (плагины, interactive dialogs), Rocket.Chat (Apps-Engine, UI Kit: modal, contextual bar, action buttons).</p>
+        <p>Приложение описывает интерфейс из готовых блоков (кнопки, поля ввода, списки), а рисует их сам чат-клиент: всплывающие диалоги, боковые панели, кнопки в сообщениях, слэш-команды. Это модель Slack Block Kit.</p>
+        <p class="who"><b>Есть:</b> Mattermost (плагины, interactive dialogs — всплывающие формы), Rocket.Chat (Apps-Engine, UI Kit: модальное окно, боковая панель, кнопки действий).</p>
       </article>
       <article class="level reveal">
         <span class="n">C</span>
         <h3>Только боты и вебхуки</h3>
-        <p>Интеграция присылает текст, реакции, вложения и реагирует на команды, но интерфейса внутри чата не создаёт.</p>
-        <p class="who"><b>Есть:</b> Zulip (130+ интеграций, interactive bots), Nextcloud Talk (боты: текст и реакции), Campfire (HTTP-боты), Stoat (Bot API).</p>
+        <p>Интеграция присылает текст, реакции и вложения, отвечает на команды, но интерфейса внутри чата не создаёт. Бот — это программа, которая выступает участником чата; вебхук — адрес, на который внешний сервис шлёт уведомления.</p>
+        <p class="who"><b>Есть:</b> Zulip (130+ интеграций, интерактивные боты), Nextcloud Talk (боты: текст и реакции), Campfire (боты по HTTP), Stoat (Bot API).</p>
       </article>
     </div>
   </div>
@@ -227,7 +230,7 @@ footer{padding:40px 0 60px;color:var(--text-3);font-size:13px;line-height:1.6}
 <section id="table">
   <div class="wrap">
     <h2 class="reveal">Сводная таблица</h2>
-    <p class="sub-h reveal">Три верхние строки — финалисты. Колонка «Итог» — наша оценка по запросу «аналог Slack с мини-приложениями, безопасный, self-hosted, без геморроя». Таблица прокручивается по горизонтали.</p>
+    <p class="sub-h reveal">Три верхние строки — финалисты. Колонка «Итог» — наша оценка по запросу «аналог Slack с мини-приложениями, безопасный, self-hosted, без геморроя». Таблица прокручивается по горизонтали; термины подробно расшифрованы в карточках ниже и в <a href="#glossary">словаре</a>.</p>
     <div class="tablewrap reveal">
       <table>
         <colgroup><col class="c-name"><col class="c-lic"><col class="c-apps"><col class="c-sec"><col class="c-dep"><col class="c-push"><col class="c-res"></colgroup>
@@ -236,82 +239,82 @@ footer{padding:40px 0 60px;color:var(--text-3);font-size:13px;line-height:1.6}
             <th>Система<span class="hs">версия на 06.10.2026</span></th>
             <th>Лицензия и бесплатный предел</th>
             <th>Мини-аппки<span class="hs">уровень A / B / C</span></th>
-            <th>Безопасность<span class="hs">E2EE · CVE 2025–2026</span></th>
+            <th>Безопасность<span class="hs">E2EE · уязвимости 2025–2026</span></th>
             <th>Развёртывание<span class="hs">минимум на старт</span></th>
-            <th>Push на своём сервере</th>
+            <th>Push на своём сервере<span class="hs">уведомления на телефон</span></th>
             <th>Итог</th>
           </tr>
         </thead>
         <tbody>
           <tr class="top">
             <td class="name"><a href="https://mattermost.com" target="_blank" rel="noopener">Mattermost</a><span class="sub">v11.x · v12 в октябре 2026</span></td>
-            <td>Проект — AGPLv3. <b>Team Edition</b> (MIT): до 250 пользователей, без SSO. <b>Entry</b> (бесплатный режим Enterprise): все функции, но история 10 000 сообщений, 10 000 push/мес, звонки 40 мин. Professional/Enterprise — платно.</td>
-            <td><b>B (+частично A).</b> Плагины Go + React: правая панель, header, кастомные посты, корневые компоненты; interactive dialogs; слэш-команды; маркетплейс. Apps Framework удалён в v11.</td>
-            <td>E2EE нет (официально: TLS + дисковое шифрование). 2026: DoS по WebSocket, обход прав Playbooks, кража SSO-кода через мобильное приложение. Патчи ежемесячно, ESR.</td>
-            <td>Официальный docker compose, PostgreSQL. 1 vCPU / 2 ГБ RAM.</td>
-            <td>Бесплатный TPNS «не для прода»; HPNS — по подписке; иначе своя сборка приложений.</td>
-            <td class="res"><b>Лучший баланс.</b> Slack-подобный UX и сильная платформа плагинов; следить за лимитами бесплатных редакций.</td>
+            <td>Проект — AGPLv3 (свободная, с условием открывать изменения при оказании сервиса). <b>Team Edition</b> (MIT, без условий): до 250 пользователей, без SSO (единого входа). <b>Entry</b> (бесплатный режим платной версии): все функции, но история 10 000 сообщений, 10 000 push/мес, звонки 40 мин. Professional/Enterprise — платно.</td>
+            <td><b>B (+частично A).</b> Плагины: правая панель, шапка канала, свои типы сообщений, целые экраны; всплывающие формы (interactive dialogs); слэш-команды; маркетплейс. Старый Apps Framework удалён в v11.</td>
+            <td>E2EE нет (сервер видит текст; шифруется только канал связи и диск). 2026: уязвимости — «уронить» сервер без входа, обход прав в Playbooks, кража кода входа через мобильное приложение. Исправления ежемесячно.</td>
+            <td>Официальный docker compose (один файл, одна команда), база PostgreSQL. 1 ядро / 2 ГБ RAM.</td>
+            <td>Бесплатный тестовый шлюз TPNS «не для прода»; надёжный HPNS — по подписке; иначе своя сборка приложений.</td>
+            <td class="res"><b>Лучший баланс.</b> Slack-подобный интерфейс и сильная платформа плагинов; следить за лимитами бесплатных редакций.</td>
           </tr>
           <tr class="top">
             <td class="name"><a href="https://element.io" target="_blank" rel="noopener">Element + Matrix</a><span class="sub">ESS Community · Synapse 1.15x</span></td>
             <td>AGPLv3 (Synapse с ноября 2023). ESS Community бесплатна, позиционируется для некоммерческих команд до 100 пользователей, но жёсткого лимита нет. ESS Pro — от 100 мест, цена по запросу.</td>
-            <td><b>A.</b> Виджеты-iframe в комнате, Hookshot (GitHub/GitLab/Jira/RSS), боты, мосты mautrix в Telegram/WhatsApp/Slack/Discord, Element Call.</td>
-            <td>E2EE по умолчанию (Olm/Megolm), кросс-подпись устройств. CVE Synapse 2025–26 — DoS и деградация федерации, одна эксплуатировалась в дикой природе; обходов аутентификации нет.</td>
-            <td>k3s + Helm (ESS) или matrix-docker-ansible-deploy. Synapse 2 CPU / 2 ГБ + PostgreSQL 1 CPU / 4 ГБ при закрытой федерации.</td>
+            <td><b>A.</b> Виджеты — веб-страницы внутри комнаты; Hookshot (бот для вебхуков GitHub/GitLab/Jira/RSS); боты; мосты mautrix в Telegram/WhatsApp/Slack/Discord; Element Call (видеозвонки).</td>
+            <td>E2EE по умолчанию (сервер переписку не читает), проверка устройств. Уязвимости Synapse 2025–26 — только «уронить» или замедлить сервер, одна использовалась в реальных атаках; обходов входа нет.</td>
+            <td>k3s + Helm (облегчённый Kubernetes и его установщик) или matrix-docker-ansible-deploy (скрипт, который ставит всё в Docker). Synapse 2 ядра / 2 ГБ + база 1 ядро / 4 ГБ при закрытой федерации (без связи с чужими серверами).</td>
             <td>Шлюз matrix.org по умолчанию, бесплатно; свой Sygnal — только со своей сборкой приложений.</td>
             <td class="res"><b>Максимум безопасности.</b> Самые «настоящие» мини-аппы, но установка тяжелее остальных.</td>
           </tr>
           <tr class="top">
             <td class="name"><a href="https://zulip.com" target="_blank" rel="noopener">Zulip</a><span class="sub">12.3 · 21.09.2026</span></td>
-            <td>Apache 2.0, все функции сервера бесплатны. Платят только за push-сервис (свыше 10 пользователей: $3,50/польз./мес) и поддержку. Некоммерческим — бесплатный Community-план.</td>
-            <td><b>C.</b> 130+ интеграций, Slack-совместимые вебхуки, interactive bots (Python), REST API, Zapier/IFTTT. Встроенного UI нет.</td>
-            <td>E2EE чата нет, TLS обязателен; с 12.0 push шифруются end-to-end. Security-релизы быстрые и подробные (12.3 закрыла подделку отправителя в групповых ЛС).</td>
-            <td>Один скрипт на Ubuntu/Debian ставит nginx, PostgreSQL, Redis, RabbitMQ. 2 ГБ RAM + 2 ГБ swap. Docker-образ переработан в 12.0.</td>
+            <td>Apache 2.0 (свободная, без условий), все функции сервера бесплатны. Платят только за push-сервис (свыше 10 пользователей: $3,50/польз./мес) и поддержку. Некоммерческим — бесплатный Community-план.</td>
+            <td><b>C.</b> 130+ интеграций, Slack-совместимые вебхуки, интерактивные боты (Python), REST API (программный интерфейс), Zapier/IFTTT (конструкторы автоматизаций). Встроенного интерфейса нет.</td>
+            <td>E2EE чата нет, шифрование канала обязательно; с 12.0 уведомления шифруются end-to-end. Security-релизы быстрые и подробные (12.3 закрыла подделку отправителя в групповых личных сообщениях).</td>
+            <td>Один скрипт на Ubuntu/Debian ставит nginx, PostgreSQL, Redis, RabbitMQ (веб-сервер, базу и служебные компоненты). 2 ГБ RAM + 2 ГБ swap. Docker-образ переработан в 12.0.</td>
             <td>Через push-сервис Zulip: бесплатно до 10 пользователей, дальше платно.</td>
             <td class="res"><b>Проще всего.</b> Идеален, если «мини-аппки» = интеграции и боты, а не формы в чате.</td>
           </tr>
           <tr>
             <td class="name"><a href="https://www.rocket.chat" target="_blank" rel="noopener">Rocket.Chat</a><span class="sub">8.9.0 LTS · 7.10 EOL 30.09.2026</span></td>
-            <td>Community — MIT, папка ee/ — source-available. <b>Starter</b>: бесплатно до 50 пользователей, нужна регистрация в облаке. <b>Community</b>: до 100 одновременных, 10 000 push/мес, 5 включённых приложений, приватных — 0. Pro снят с продажи 29.04.2026.</td>
-            <td><b>B.</b> Apps-Engine: TypeScript-приложения внутри сервера, UI Kit (модалки, contextual bar, блоки, кнопки), слэш-команды, маркетплейс.</td>
-            <td>E2EE для приватных комнат и ЛС: поиск не работает, файлы не шифруются, боты не видят. 2026: вход под любым пользователем с любым паролем (CVE-2026-28514), NoSQL-инъекция, захват аккаунта через OAuth, CVSS 9.3 в июне.</td>
-            <td>docker compose; MongoDB 8.0 обязателен для 8.x, рекомендован реплика-сет из 3 членов. 2 vCPU / 4 ГБ + MongoDB 2 vCPU / 4 ГБ.</td>
+            <td>Community — MIT, папка ee/ — source-available (код виден, но без лицензии пользоваться нельзя). <b>Starter</b>: бесплатно до 50 пользователей, нужна регистрация в облаке. <b>Community</b>: до 100 одновременных, 10 000 push/мес, 5 включённых приложений, своих — 0. Pro снят с продажи 29.04.2026.</td>
+            <td><b>B.</b> Apps-Engine: приложения на TypeScript внутри сервера, UI Kit (модалки, боковая панель, блоки, кнопки), слэш-команды, маркетплейс.</td>
+            <td>E2EE для приватных комнат и личных сообщений: поиск не работает, файлы не шифруются, боты не видят. 2026: вход под любым пользователем с любым паролем (CVE-2026-28514), инъекция в поле логина, захват аккаунта через OAuth, уязвимость 9,3 из 10 в июне.</td>
+            <td>docker compose; MongoDB 8.0 обязательна для 8.x, рекомендован реплика-сет из 3 копий базы. 2 ядра / 4 ГБ + MongoDB 2 ядра / 4 ГБ.</td>
             <td>Через шлюз Rocket.Chat; в Community 10 000/мес. Без регистрации workspace — push и маркетплейса нет.</td>
             <td class="res"><b>Мощно, но с заморочками.</b> Лучшая платформа форм после Mattermost, худший security-год.</td>
           </tr>
           <tr>
             <td class="name"><a href="https://nextcloud.com/talk/" target="_blank" rel="noopener">Nextcloud Talk</a><span class="sub">Hub 26 Summer · 2026</span></td>
-            <td>AGPLv3, бесплатно в составе Nextcloud. Enterprise-подписка — опционально.</td>
-            <td><b>C.</b> Боты только через occ: текст, markdown, реакции; кнопок и форм нет. Интеграции с Files, Deck, Calendar внутри Nextcloud.</td>
-            <td>Чат не E2EE; звонки E2EE только без HPB. Без HPB звонки до 3–5 участников.</td>
-            <td>Nextcloud AIO (docker). Для звонков 30+ человек нужен High Performance Backend (signaling + SFU).</td>
-            <td>Только через проприетарный прокси push-notifications.nextcloud.com; свой поднять нельзя. UnifiedPush — для Android.</td>
+            <td>AGPLv3, бесплатно в составе Nextcloud (облачного офиса с файлами, календарём и т. п.). Enterprise-подписка — опционально.</td>
+            <td><b>C.</b> Боты только через консоль: текст, разметка, реакции; кнопок и форм нет. Интеграции с Files, Deck, Calendar внутри Nextcloud.</td>
+            <td>Чат не E2EE; звонки E2EE только без HPB (отдельного сервера для звонков). Без HPB звонки до 3–5 участников.</td>
+            <td>Nextcloud AIO (готовая сборка в Docker). Для звонков от 30 человек нужен High Performance Backend.</td>
+            <td>Только через закрытый прокси push-notifications.nextcloud.com; свой поднять нельзя. UnifiedPush (открытый способ доставки) — для Android.</td>
             <td class="res"><b>Если уже есть Nextcloud.</b> Как самостоятельная замена Slack с приложениями — слабо.</td>
           </tr>
           <tr>
             <td class="name"><a href="https://once.com/campfire" target="_blank" rel="noopener">Campfire</a><span class="sub">37signals · ONCE</span></td>
             <td>MIT, полностью бесплатен (раньше $299 разово).</td>
-            <td><b>C.</b> Боты через простой HTTP API, @упоминания, поиск. Платформы приложений и тредов в списке функций нет.</td>
-            <td>Классическая Rails-модель: TLS, без E2EE. Отдельной базы CVE нет.</td>
-            <td>Одна команда curl | sh. 2 ГБ / 1 CPU на 250 одновременных пользователей. Работает в изолированной сети.</td>
+            <td><b>C.</b> Боты через простой HTTP API (адрес, куда чат шлёт сообщения и откуда принимает ответы), @упоминания, поиск. Платформы приложений и тредов в списке функций нет.</td>
+            <td>Шифруется только канал связи (https), без E2EE. Отдельной базы уязвимостей нет.</td>
+            <td>Одна команда curl | sh (скачать и запустить установщик). 2 ГБ / 1 ядро на 250 одновременных пользователей. Работает в сети без интернета.</td>
             <td>Push заявлен («badges и push-уведомления»).</td>
             <td class="res"><b>Минимализм.</b> Чат без претензий на платформу; импорта из Slack нет.</td>
           </tr>
           <tr>
             <td class="name"><a href="https://stoat.chat" target="_blank" rel="noopener">Stoat</a><span class="sub">ex-Revolt · с 01.10.2025</span></td>
-            <td>AGPLv3, бесплатен. Переименован после cease-and-desist; код, лицензия и команда те же.</td>
+            <td>AGPLv3, бесплатен. Переименован после cease-and-desist (юридического требования сменить название); код, лицензия и команда те же.</td>
             <td><b>C.</b> Публичный API и боты «первого класса». Discord-подобные «серверы», не Slack-каналы.</td>
-            <td>E2EE нет (в планах для ЛС). В 2026 не выдержал наплыва пользователей с Discord.</td>
-            <td>docker compose из репозитория self-hosted. Rust + MongoDB.</td>
+            <td>E2EE нет (в планах только для личных сообщений). В 2026 не выдержал наплыва пользователей с Discord.</td>
+            <td>docker compose из репозитория self-hosted. Rust + MongoDB (язык сервера и база данных).</td>
             <td>Android в сторе с 2025, iOS в разработке.</td>
             <td class="res"><b>Для сообществ, не для работы.</b> Нет iOS и E2EE.</td>
           </tr>
           <tr>
             <td class="name"><a href="https://github.com/linagora/twake-on-matrix" target="_blank" rel="noopener">Twake Chat</a><span class="sub">Linagora · 2.25.2 от 06.10.2026</span></td>
             <td>AGPL-3.0, бесплатен. Платная поддержка Linagora.</td>
-            <td><b>C.</b> Flutter-клиент Matrix: наследует боты и мосты экосистемы, собственных виджетов не добавляет.</td>
+            <td><b>C.</b> Flutter-клиент Matrix (приложение на кроссплатформенном движке Google): наследует боты и мосты экосистемы, собственных виджетов не добавляет.</td>
             <td>E2EE Matrix.</td>
-            <td>Synapse + ToM-server + identity + LDAP: много компонентов, готового compose «для всех» нет.</td>
+            <td>Synapse + ToM-server (собственная надстройка Linagora) + служба identity + LDAP: много компонентов, готового compose «для всех» нет.</td>
             <td>Как у Matrix.</td>
             <td class="res"><b>Только если нужен именно этот клиент.</b> Иначе Element проще.</td>
           </tr>
@@ -319,14 +322,14 @@ footer{padding:40px 0 60px;color:var(--text-3);font-size:13px;line-height:1.6}
             <td class="name"><a href="https://wire.com" target="_blank" rel="noopener">Wire</a><span class="sub">wire-server</span></td>
             <td>AGPL (wire-server). Self-host открыт, поддерживаемый on-prem — отдельный контракт, цена по запросу. Облако €7,45–8,94/польз./мес.</td>
             <td><b>—.</b> Платформы приложений нет.</td>
-            <td>E2EE на MLS (IETF-стандарт) — самое современное групповое шифрование из списка.</td>
-            <td>Kubernetes + Cassandra, по обзорам около 16 ВМ на 3 хостах. Самый тяжёлый.</td>
+            <td>E2EE на MLS (новейший стандарт группового шифрования от IETF, организации интернет-стандартов) — самое современное из списка.</td>
+            <td>Kubernetes + Cassandra (распределённая база, требующая отдельного ухода), по обзорам около 16 виртуальных машин на 3 хостах. Самый тяжёлый.</td>
             <td>Свой стек.</td>
             <td class="res"><b>Не для малой команды.</b> Шифрование уровня спецслужб, DevOps-нагрузка такого же уровня.</td>
           </tr>
           <tr>
             <td class="name"><a href="https://threema.com/en/faq/onprem-comparison" target="_blank" rel="noopener">Threema OnPrem</a><span class="sub">Швейцария</span></td>
-            <td>Проприетарный. Цена по запросу; по сторонним оценкам — установка около CHF 3 800 плюс около CHF 11,90/польз./год, минимум порядка 150 пользователей.</td>
+            <td>Проприетарный (закрытый, платный). Цена по запросу; по сторонним оценкам — установка около CHF 3 800 плюс около CHF 11,90/польз./год, минимум порядка 150 пользователей.</td>
             <td><b>—.</b> Мессенджер, не рабочее пространство: без тредов и платформы приложений.</td>
             <td>E2EE везде, швейцарская юрисдикция.</td>
             <td>Серверы ставит вендор по контракту.</td>
@@ -342,7 +345,7 @@ footer{padding:40px 0 60px;color:var(--text-3);font-size:13px;line-height:1.6}
 <section id="cards">
   <div class="wrap">
     <h2 class="reveal">Разбор по системам</h2>
-    <p class="sub-h reveal">Оценки в кружках — наша субъективная шкала от 1 до 5 по каждому критерию запроса. Факты под ними — из официальных источников, список внизу страницы.</p>
+    <p class="sub-h reveal">Оценки в кружках — наша субъективная шкала от 1 до 5 по каждому критерию запроса. Факты под ними — из официальных источников, список внизу страницы. Термины расшифрованы в скобках при первом упоминании в каждой карточке.</p>
     <div class="bento">
 
       <article class="card span2 reveal">
@@ -355,14 +358,14 @@ footer{padding:40px 0 60px;color:var(--text-3);font-size:13px;line-height:1.6}
           <div class="grade"><span>Честность бесплатного</span><span class="dots" aria-label="3 из 5"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></span></div>
         </div>
         <div>
-          <span class="tag ok">Плагины + interactive dialogs</span><span class="tag ok">docker compose</span><span class="tag warn">Нет E2EE</span><span class="tag warn">Entry: 10 000 сообщений</span><span class="tag no">Apps Framework удалён в v11</span>
+          <span class="tag ok">Плагины + всплывающие формы</span><span class="tag ok">docker compose</span><span class="tag warn">Нет E2EE</span><span class="tag warn">Entry: 10 000 сообщений</span><span class="tag no">Apps Framework удалён в v11</span>
         </div>
         <ul>
-          <li><b>Платформа.</b> Плагины состоят из Go-сервера и React-webapp: добавляют элементы в channel header, боковые панели и главное меню, рендерят собственные типы постов и «корневые компоненты» для целых экранов, расширяют REST API. Interactive dialogs — модальные формы до 5 элементов, с v11.10 диалоги можно стекать до трёх. Плюс слэш-команды, вебхуки, OAuth2-приложения и маркетплейс (Jira, GitHub, GitLab, Zoom, Calls, Playbooks, Agents).</li>
-          <li><b>Редакции после v11.</b> Team Edition остаётся: MIT, до 250 активированных пользователей, SSO (включая GitLab) убрано. Entry — бесплатный режим Enterprise Edition «со всеми функциями Enterprise Advanced», но история ограничена 10 000 сообщений (старые остаются в БД, но не видны и не ищутся), без compliance и HA. Лимиты на push, звонки, Boards, Playbooks и AI помечены «вступят в силу в будущем релизе».</li>
-          <li><b>Безопасность.</b> E2EE официально не поддерживается: только TLS в транзите и дисковое шифрование, в БД сообщения открыты ради поиска и compliance. Есть сторонний плагин E2EE от Quarkslab. Bugcrowd, ежемесячные релизы, ESR. 2026: DoS через WebSocket без аутентификации (CVE-2026-5740), обход прав в Playbooks (CVE-2026-6343), кража SSO-кода через мобильное приложение (CVE-2026-22880); 2025 — критичные дыры в Boards.</li>
-          <li><b>Push.</b> Бесплатный TPNS не имеет SLA и «не рекомендуется в проде»; HPNS — только по подписке. Альтернатива — свой push-proxy и своя сборка мобильных приложений.</li>
-          <li><b>Цены.</b> Официальная страница цен отдаёт цифры только скриптом; по сторонним обзорам Professional стоит около $10 за пользователя в месяц при годовой оплате. Профессиональная редакция рассчитана на команды до 250 человек и включает SAML/LDAP/OIDC и гостевой доступ.</li>
+          <li><b>Платформа.</b> Плагины состоят из серверной части на Go (язык программирования, на котором написан сам Mattermost) и части интерфейса на React (библиотека для веб-интерфейсов): добавляют элементы в шапку канала, боковые панели и главное меню, рисуют собственные типы сообщений (например, карточку задачи или опрос вместо обычного текста) и «корневые компоненты» для целых экранов, расширяют REST API (программный интерфейс, через который внешние системы общаются с сервером). Interactive dialogs — всплывающие формы до 5 полей; с v11.10 диалоги можно открывать один поверх другого, до трёх штук. Плюс слэш-команды (команды через «/»), вебхуки (адреса для входящих сообщений от внешних сервисов), OAuth2-приложения (внешние сервисы, которым пользователь разрешает действовать от своего имени) и маркетплейс: Jira, GitHub, GitLab, Zoom, звонки, Playbooks (пошаговые сценарии для инцидентов и релизов), Agents (ИИ-помощники).</li>
+          <li><b>Редакции после v11.</b> Team Edition остаётся: лицензия MIT (полностью свободная), до 250 активированных пользователей, SSO (единый вход через корпоративный аккаунт, включая GitLab) убрано. Entry — бесплатный режим платной Enterprise Edition «со всеми функциями Enterprise Advanced», но история ограничена 10 000 сообщений (старые остаются в базе, но не видны и не ищутся), без compliance (экспорта переписки для проверяющих, юридического удержания, правил хранения) и HA (high availability: запуск нескольких копий сервера, чтобы он не падал при сбое одной). Лимиты на push, звонки, Boards (доски задач), Playbooks и ИИ помечены «вступят в силу в будущем релизе».</li>
+          <li><b>Безопасность.</b> E2EE (сквозное шифрование, при котором сервер не видит текст) официально не поддерживается: есть только TLS в транзите (шифрование канала между приложением и сервером, как https у сайтов) и дисковое шифрование; в базе данных сообщения лежат открытым текстом, чтобы работали поиск и compliance. Есть сторонний плагин E2EE от Quarkslab. Bugcrowd (программа вознаграждений за найденные уязвимости), ежемесячные релизы, ESR (extended support release — версия с длительной поддержкой, куда месяцами приходят только исправления). 2026: DoS через WebSocket без аутентификации (DoS — атака, которая «роняет» сервер; здесь любой без входа мог отправить особое сообщение и остановить его, CVE-2026-5740), обход прав в Playbooks (CVE-2026-6343), кража кода входа через мобильное приложение при подключении к подставному серверу (CVE-2026-22880); 2025 — критичные дыры в Boards.</li>
+          <li><b>Push.</b> Push-уведомления (всплывающие оповещения на телефоне, когда приложение закрыто) ваш сервер не может отправить напрямую: Apple и Google принимают их только от того, кто опубликовал приложение в сторе. Поэтому они идут через сервер Mattermost: бесплатный TPNS — «тестовый», без гарантий и «не рекомендуется в проде»; HPNS — надёжный, но только по подписке. Альтернатива — свой push-сервер и своя сборка мобильных приложений под своим именем в сторах.</li>
+          <li><b>Цены.</b> Официальная страница цен отдаёт цифры только скриптом; по сторонним обзорам Professional стоит около $10 за пользователя в месяц при годовой оплате. Профессиональная редакция рассчитана на команды до 250 человек и включает SAML/LDAP/OIDC (три стандарта корпоративного входа) и гостевой доступ.</li>
         </ul>
         <p class="verdict"><b>Вердикт:</b> самый «слаковый» из всех, с лучшей платформой форм и панелей. Для небольшой команды без SSO — Team Edition; если нужны Playbooks, Boards и аудит — Entry, но следите за потолком истории.</p>
       </article>
@@ -376,13 +379,14 @@ footer{padding:40px 0 60px;color:var(--text-3);font-size:13px;line-height:1.6}
           <div class="grade"><span>Без заморочек</span><span class="dots" aria-label="2 из 5"><i class="on"></i><i class="on"></i><i></i><i></i><i></i></span></div>
           <div class="grade"><span>Честность бесплатного</span><span class="dots" aria-label="5 из 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></div>
         </div>
-        <div><span class="tag ok">E2EE по умолчанию</span><span class="tag ok">Виджеты-iframe</span><span class="tag ok">Мосты в Telegram/Slack</span><span class="tag warn">k3s + Helm</span></div>
+        <div><span class="tag ok">E2EE по умолчанию</span><span class="tag ok">Виджеты — страницы в чате</span><span class="tag ok">Мосты в Telegram/Slack</span><span class="tag warn">k3s + Helm</span></div>
         <ul>
-          <li><b>Виджеты.</b> Любой URL добавляется в комнату как state-event и открывается в sandbox-iframe; общение с клиентом идёт через postMessage, виджет сам на homeserver не ходит, поэтому шифрование комнаты ему не мешает.</li>
-          <li><b>Комплект ESS Community.</b> Synapse, Matrix Authentication Service, Element Web, Element Admin, Element Call, Hookshot, PostgreSQL, HAProxy. Минимум 2 CPU и 2 ГБ, установка — k3s на одной машине плюс Helm. Альтернатива для compose-людей — matrix-docker-ansible-deploy.</li>
-          <li><b>Цена E2EE.</b> Серверный поиск по зашифрованным комнатам не работает, ботам нужны ключи. Федерацию можно закрыть, тогда ресурсы минимальны.</li>
-          <li><b>Клиенты.</b> Element Classic убирают из сторов 31.12.2026, с 15.11.2026 он покажет баннер о переходе на Element X.</li>
-          <li><b>Лёгкий сервер.</b> conduwuit архивирован 29.05.2026; официальный преемник — Tuwunel на Rust, работает в проде в Швейцарии.</li>
+          <li><b>Что это вообще.</b> Matrix — открытый протокол общения (как электронная почта: много независимых серверов, которые умеют переписываться друг с другом). Synapse — программа-сервер этого протокола, Element — самый популярный клиент (приложение для пользователей). ESS Community — готовый набор «всё в одном» от разработчиков Element.</li>
+          <li><b>Виджеты.</b> Любой адрес добавляется в комнату как запись в её настройках и открывается в sandbox-iframe (изолированном окне внутри страницы, как встроенное видео); с клиентом он общается через postMessage (безопасный канал сообщений между окном и страницей), на сервер сам не ходит, поэтому шифрование комнаты ему не мешает.</li>
+          <li><b>Комплект ESS Community.</b> Synapse (сервер), Matrix Authentication Service (служба входа: пароли, SSO), Element Web (веб-клиент), Element Admin (панель администратора), Element Call (видеозвонки), Hookshot (бот для вебхуков: GitHub, GitLab, Jira, RSS), PostgreSQL (база данных), HAProxy (входной балансировщик, принимает соединения). Минимум 2 ядра и 2 ГБ, установка — k3s (облегчённый Kubernetes для одной машины; Kubernetes — система управления контейнерами) плюс Helm (установщик пакетов для Kubernetes). Альтернатива для тех, кто привык к docker compose, — matrix-docker-ansible-deploy (скрипт на Ansible, который сам ставит весь стек в Docker).</li>
+          <li><b>Цена E2EE.</b> Серверный поиск по зашифрованным комнатам не работает (сервер не видит текст): искать можно только в десктопном Element по сообщениям, скачанным на этот компьютер; в браузерной и мобильной версиях поиска по таким комнатам нет. Ботам нужны ключи шифрования (бот должен «войти» как полноценное устройство). Федерацию (обмен сообщениями с чужими Matrix-серверами) можно закрыть, тогда ресурсы минимальны.</li>
+          <li><b>Клиенты.</b> Element Classic (старое мобильное приложение) убирают из сторов 31.12.2026, с 15.11.2026 оно покажет баннер о переходе на Element X (новое приложение на новом движке).</li>
+          <li><b>Лёгкий сервер.</b> conduwuit (альтернативный сервер Matrix на Rust, экономнее Synapse) архивирован 29.05.2026; официальный преемник — Tuwunel, работает в проде в Швейцарии.</li>
         </ul>
         <p class="verdict"><b>Вердикт:</b> если «секьюрно» — главное слово в запросе, это ответ. Платите за него Kubernetes-ом.</p>
       </article>
@@ -398,10 +402,10 @@ footer{padding:40px 0 60px;color:var(--text-3);font-size:13px;line-height:1.6}
         </div>
         <div><span class="tag ok">Все функции бесплатно</span><span class="tag ok">Один скрипт</span><span class="tag warn">Push &gt;10 чел. платно</span><span class="tag warn">Нет форм в чате</span></div>
         <ul>
-          <li><b>Интеграции.</b> 130+ нативных, Slack-совместимые вебхуки (переносятся без переписывания), interactive bots на Python, REST API, Zapier и IFTTT. Импорт из Slack, Mattermost, Rocket.Chat; с 12.0 — бета-импорт из Microsoft Teams.</li>
-          <li><b>Платные планы — только сервисы.</b> Basic $3,50 за пользователя в месяц даёт push; Business ($6,67 годовой / $8 помесячно, от 25 мест) добавляет поддержку. SAML, LDAP и SCIM работают и без оплаты.</li>
-          <li><b>Безопасность.</b> E2EE чата нет; TLS обязателен для всех клиентов; push с 12.0 шифруются end-to-end. Релиз 12.3 закрыл критичную подделку отправителя в групповых ЛС через недокументированный API, с подробным разбором.</li>
-          <li><b>Установка.</b> Ubuntu 22.04/24.04/26.04 или Debian 12/13, 2 ГБ RAM и 10 ГБ диска; скрипт сам ставит nginx, PostgreSQL, Redis, RabbitMQ и memcached. Docker-образ переработан в 12.0 (Compose и Helm).</li>
+          <li><b>Интеграции.</b> 130+ готовых подключений к внешним сервисам, Slack-совместимые вебхуки (принимают сообщения в формате Slack — старые интеграции переезжают без переделки), интерактивные боты на Python (программы, которые отвечают на сообщения и команды), REST API (программный интерфейс), Zapier и IFTTT (конструкторы автоматизаций без кода). Импорт из Slack, Mattermost, Rocket.Chat; с 12.0 — бета-импорт из Microsoft Teams.</li>
+          <li><b>Платные планы — только сервисы.</b> Basic $3,50 за пользователя в месяц даёт push; Business ($6,67 при годовой оплате / $8 помесячно, от 25 мест) добавляет поддержку. SAML, LDAP и SCIM (корпоративный вход и синхронизация списка сотрудников из Active Directory, Google Workspace, Okta) работают и без оплаты.</li>
+          <li><b>Безопасность.</b> E2EE чата нет (сервер видит текст, как в Slack); TLS (шифрование канала, как https) обязателен для всех клиентов; push с 12.0 шифруются end-to-end (Apple, Google и сервис Zulip не видят содержимое уведомления). Релиз 12.3 закрыл критичную подделку отправителя в групповых личных сообщениях через недокументированный API (любой участник мог отправить сообщение «от имени» другого), с подробным разбором.</li>
+          <li><b>Установка.</b> Ubuntu 22.04/24.04/26.04 или Debian 12/13, 2 ГБ RAM и 10 ГБ диска; скрипт сам ставит nginx (веб-сервер), PostgreSQL (базу), Redis, RabbitMQ и memcached (служебные компоненты для очередей и кэша). Docker-образ переработан в 12.0 (Compose и Helm).</li>
         </ul>
         <p class="verdict"><b>Вердикт:</b> самый спокойный выбор. Нет модалок и виджетов, зато нет и сюрпризов с лицензиями.</p>
       </article>
@@ -417,10 +421,10 @@ footer{padding:40px 0 60px;color:var(--text-3);font-size:13px;line-height:1.6}
         </div>
         <div><span class="tag ok">Apps-Engine + UI Kit</span><span class="tag warn">Регистрация в облаке</span><span class="tag no">CVE: любой пароль подходит</span><span class="tag warn">MongoDB 8 + реплика-сет</span></div>
         <ul>
-          <li><b>Платформа.</b> Apps-Engine исполняет TypeScript-приложения внутри сервера; UI Kit даёт модалки, contextual bar, блоки и кнопки; слэш-команды, HTTP-запросы, события. Распространение — маркетплейс или приватная загрузка.</li>
-          <li><b>Лимиты бесплатных планов.</b> Starter: до 50 пользователей, премиум-функции, безлимитный push, но workspace нужно зарегистрировать в облаке (есть офлайн-регистрация токеном). Community: до 100 одновременных, 10 000 push/мес, можно включить 5 публичных приложений и ни одного приватного. Если пропустить регистрацию переменной окружения — ни push, ни маркетплейса.</li>
-          <li><b>Безопасность 2026.</b> CVE-2026-28514: из-за пропущенного await сервис аккаунтов принимал любой пароль за верный; рядом — NoSQL-инъекция (CVE-2026-30833), захват аккаунта через OAuth (CVE-2026-29198), критичная CVSS 9.3 в июне (CVE-2026-48616) и ошибка проверки Apple Sign-In (CVE-2026-55759). E2EE для приватных комнат есть, но поиск, файлы и боты с ней не работают.</li>
-          <li><b>Инфраструктура.</b> Для 8.x обязательна MongoDB 8.0, апгрейд БД — до обновления сервера; рекомендован реплика-сет из 3 членов; 2 vCPU и 4 ГБ на сервер плюс столько же на MongoDB. Pro снят с продажи 29.04.2026, остались Commercial, Government и Defense по запросу.</li>
+          <li><b>Платформа.</b> Apps-Engine исполняет приложения на TypeScript внутри самого сервера (приложение загружается в чат и живёт там, отдельный сервер для него не нужен); UI Kit даёт модалки (всплывающие окна), contextual bar (выезжающую боковую панель), блоки и кнопки; есть слэш-команды, запросы наружу по HTTP и подписка на события. Распространение — маркетплейс или загрузка своего приложения.</li>
+          <li><b>Лимиты бесплатных планов.</b> Starter: до 50 пользователей, премиум-функции, безлимитный push, но workspace (ваш экземпляр чата) нужно зарегистрировать в облаке Rocket.Chat — сервер привязывается к аккаунту на их сайте (для сетей без интернета есть офлайн-регистрация токеном). Community: до 100 одновременных, 10 000 push/мес, можно включить 5 публичных приложений и ни одного своего. Если пропустить регистрацию настройкой при запуске — ни push, ни маркетплейса.</li>
+          <li><b>Безопасность 2026.</b> CVE-2026-28514: из-за пропущенного слова await в коде сервис аккаунтов принимал любой пароль за верный; рядом — NoSQL-инъекция (подстановка команд базы данных в поле логина, CVE-2026-30833), захват аккаунта через OAuth (вход через внешний сервис, CVE-2026-29198), критичная уязвимость с оценкой CVSS 9,3 из 10 в июне (CVE-2026-48616) и ошибка проверки Apple Sign-In (CVE-2026-55759). E2EE для приватных комнат есть, но поиск, файлы и боты с ней не работают.</li>
+          <li><b>Инфраструктура.</b> Для 8.x обязательна MongoDB 8.0 (база данных другого типа, чем PostgreSQL), и обновлять её надо до обновления сервера; рекомендован реплика-сет из 3 членов (три копии базы, дублирующие друг друга); 2 ядра и 4 ГБ на сервер плюс столько же на MongoDB. Pro снят с продажи 29.04.2026, остались Commercial, Government и Defense по запросу.</li>
         </ul>
         <p class="verdict"><b>Вердикт:</b> по платформе — конкурент Mattermost, по «без заморочек» и безопасности в 2026 году — нет.</p>
       </article>
@@ -436,9 +440,10 @@ footer{padding:40px 0 60px;color:var(--text-3);font-size:13px;line-height:1.6}
         </div>
         <div><span class="tag ok">Бесплатно целиком</span><span class="tag warn">Боты: только текст и реакции</span><span class="tag warn">HPB для звонков</span><span class="tag no">Push-прокси закрытый</span></div>
         <ul>
-          <li><b>Боты.</b> Устанавливаются только через occ из командной строки, получают сообщения, реакции и события входа/выхода, отвечают markdown-сообщениями и реакциями; подпись HMAC-SHA256. Кнопок, форм и встроенного UI нет.</li>
-          <li><b>Звонки.</b> Без High Performance Backend — peer-to-peer и E2EE, но практический предел 3–5 участников. HPB (signaling, SFU) тянет 30–50+ активных, но это отдельная инсталляция.</li>
-          <li><b>Push.</b> Сервер обязан достигать push-notifications.nextcloud.com; прокси закрытый, свой поднять нельзя. Для Android есть UnifiedPush.</li>
+          <li><b>Что это.</b> Talk — чат и звонки внутри Nextcloud (self-hosted «облачного офиса» с файлами, календарём, задачами). Отдельно от Nextcloud не ставится.</li>
+          <li><b>Боты.</b> Устанавливаются только через occ (консольную утилиту Nextcloud) из командной строки, получают сообщения, реакции и события входа/выхода, отвечают текстом с разметкой и реакциями; подпись HMAC-SHA256 (проверка, что запрос действительно пришёл от вашего сервера). Кнопок, форм и встроенного интерфейса нет.</li>
+          <li><b>Звонки.</b> Без High Performance Backend (отдельного сервера для звонков) — peer-to-peer (участники соединяются напрямую друг с другом) и E2EE, но практический предел 3–5 участников. HPB (signaling — координатор соединений, SFU — ретранслятор видеопотоков) тянет 30–50+ активных, но это отдельная установка.</li>
+          <li><b>Push.</b> Сервер обязан достигать push-notifications.nextcloud.com; прокси закрытый, свой поднять нельзя. Для Android есть UnifiedPush (открытый способ доставки уведомлений без Google).</li>
           <li><b>Новое в 2026.</b> Hub 26 Summer добавил каналы, объявления и «классифицированные» беседы с запретом пересылки и публичных ссылок.</li>
         </ul>
         <p class="verdict"><b>Вердикт:</b> отличный бонус к уже стоящему Nextcloud, но не самостоятельный аналог Slack с приложениями.</p>
@@ -455,9 +460,9 @@ footer{padding:40px 0 60px;color:var(--text-3);font-size:13px;line-height:1.6}
         </div>
         <div><span class="tag ok">Одна команда</span><span class="tag ok">MIT</span><span class="tag warn">Только HTTP-боты</span><span class="tag warn">Импорта из Slack нет</span></div>
         <ul>
-          <li><b>Что есть.</b> Комнаты (приватные и общие), личные сообщения, поиск с сохранением запросов, @упоминания, push, тёмная тема, боты по простому HTTP API.</li>
-          <li><b>Ресурсы.</b> 2 ГБ и 1 CPU на 250 одновременных пользователей; работает в сети без интернета.</li>
-          <li><b>Чего нет.</b> Платформы приложений и тредов в описании нет; переезд со Slack — «с чистого листа».</li>
+          <li><b>Что есть.</b> Комнаты (приватные и общие), личные сообщения, поиск с сохранением запросов, @упоминания, push, тёмная тема, боты по простому HTTP API (адрес, на который чат шлёт сообщения и откуда принимает ответы).</li>
+          <li><b>Ресурсы.</b> 2 ГБ и 1 ядро на 250 одновременных пользователей; работает в сети без интернета.</li>
+          <li><b>Чего нет.</b> Платформы приложений и тредов (ответов «веткой» под сообщением) в описании нет; переезд со Slack — «с чистого листа».</li>
         </ul>
         <p class="verdict"><b>Вердикт:</b> чат «как в 2008-м», только на вашем сервере. Для команды до десятка человек этого может хватить.</p>
       </article>
@@ -473,8 +478,8 @@ footer{padding:40px 0 60px;color:var(--text-3);font-size:13px;line-height:1.6}
         </div>
         <div><span class="tag ok">docker compose</span><span class="tag ok">Публичный API, боты</span><span class="tag no">Нет E2EE</span><span class="tag no">Нет iOS</span></div>
         <ul>
-          <li><b>Контекст.</b> Переименование из-за претензии по товарному знаку; репозитории переехали в stoatchat, конфиги по-прежнему называются Revolt.</li>
-          <li><b>Ограничения.</b> E2EE нет и в ближайших планах только для ЛС; в 2026 году сервис не справился с притоком пользователей после смены политики Discord. Модель — Discord-«серверы», а не рабочие каналы.</li>
+          <li><b>Контекст.</b> Переименование из-за претензии по товарному знаку (cease-and-desist — юридическое требование прекратить использование названия); репозитории переехали в stoatchat, конфиги по-прежнему называются Revolt. Сервер написан на Rust (быстрый язык системного программирования), данные — в MongoDB.</li>
+          <li><b>Ограничения.</b> E2EE нет и в ближайших планах только для личных сообщений; в 2026 году сервис не справился с притоком пользователей после смены политики Discord. Модель — Discord-«серверы» (сообщества с каналами), а не рабочие пространства.</li>
         </ul>
         <p class="verdict"><b>Вердикт:</b> хорош как self-hosted Discord для сообщества, под рабочий Slack не подходит.</p>
       </article>
@@ -483,10 +488,10 @@ footer{padding:40px 0 60px;color:var(--text-3);font-size:13px;line-height:1.6}
         <h3>Остальные: <a href="https://github.com/linagora/twake-on-matrix" target="_blank" rel="noopener">Twake Chat</a>, <a href="https://github.com/orgs/tchapgouv/repositories" target="_blank" rel="noopener">Tchap</a>, <a href="https://wire.com" target="_blank" rel="noopener">Wire</a>, <a href="https://threema.com/en/faq/onprem-comparison" target="_blank" rel="noopener">Threema OnPrem</a></h3>
         <p class="meta">Проверены и отложены: либо слишком тяжёлые, либо не являются рабочим пространством</p>
         <ul>
-          <li><b>Twake Chat</b> (Linagora, AGPL-3.0, 2.25.2 от 06.10.2026) — Flutter-клиент Matrix со своим ToM-сервером; self-host означает Synapse + ToM + identity + LDAP. Проще взять Element.</li>
-          <li><b>Tchap</b> — мессенджер французского госсектора на Matrix, 92 открытых репозитория, веб-клиент — мягкий форк Element Web. Код открыт, но это дистрибутив под конкретного заказчика, а не продукт для сторонних команд.</li>
-          <li><b>Wire</b> — AGPL, шифрование MLS, но прод-установка через wire-server-deploy это Kubernetes и кластер Cassandra, по обзорам около 16 виртуальных машин. Поддерживаемый on-prem — по контракту.</li>
-          <li><b>Threema OnPrem</b> — проприетарный швейцарский мессенджер с E2EE; цена по запросу, сторонние оценки — установка около CHF 3 800 и около CHF 11,90 за пользователя в год при минимуме порядка 150 человек. Тредов и приложений нет.</li>
+          <li><b>Twake Chat</b> (Linagora, AGPL-3.0, 2.25.2 от 06.10.2026) — клиент Matrix на Flutter (кроссплатформенный движок Google) со своим ToM-сервером (надстройкой над Matrix); self-host означает Synapse + ToM + служба identity + LDAP (каталог пользователей). Проще взять Element.</li>
+          <li><b>Tchap</b> — мессенджер французского госсектора на Matrix, 92 открытых репозитория, веб-клиент — мягкий форк Element Web (копия с небольшими изменениями). Код открыт, но это сборка под конкретного заказчика, а не продукт для сторонних команд.</li>
+          <li><b>Wire</b> — AGPL, шифрование MLS (новейший стандарт группового шифрования от IETF, организации интернет-стандартов), но боевая установка через wire-server-deploy — это Kubernetes и кластер Cassandra (распределённая база данных, требующая отдельного ухода), по обзорам около 16 виртуальных машин. Поддерживаемый on-prem — по контракту.</li>
+          <li><b>Threema OnPrem</b> — проприетарный (закрытый, платный) швейцарский мессенджер с E2EE; цена по запросу, сторонние оценки — установка около CHF 3 800 и около CHF 11,90 за пользователя в год при минимуме порядка 150 человек. Тредов и приложений нет.</li>
         </ul>
         <p class="verdict"><b>Вердикт:</b> ни один не закрывает запрос целиком.</p>
       </article>
@@ -500,12 +505,12 @@ footer{padding:40px 0 60px;color:var(--text-3);font-size:13px;line-height:1.6}
     <h2 class="reveal">Подводные камни, о которых молчат лендинги</h2>
     <p class="sub-h reveal">Шесть вещей, которые всплывают через месяц после установки.</p>
     <div class="tips">
-      <div class="tip reveal"><span class="n">1</span><b>Push-уведомления — главная ловушка self-host</b>Приложения в сторах подписаны ключом вендора, поэтому push почти всегда идёт через его шлюз: у Mattermost бесплатный только тестовый, у Rocket.Chat лимит 10 000 в месяц в Community, у Zulip бесплатно до 10 пользователей, у Nextcloud прокси закрытый. Честнее всех Matrix: шлюз matrix.org бесплатен для любого homeserver.</div>
-      <div class="tip reveal"><span class="n">2</span><b>Бесплатные редакции переписывают</b>Mattermost в v11 ввёл потолок истории в Entry и урезал Team Edition до 250 пользователей без SSO. Rocket.Chat в 6.5–7.0 перевёл приватные приложения в премиум и ввёл регистрацию workspace. Фиксируйте версию и читайте форум перед мажорным обновлением.</div>
-      <div class="tip reveal"><span class="n">3</span><b>E2EE ломает поиск и ботов</b>В Element и Rocket.Chat зашифрованные комнаты не индексируются сервером, а ботам нужны ключи. Для рабочего чата с интеграциями чаще выбирают шифрование «до сервера» плюс дисковое, как у Mattermost и Zulip, и честно это понимают.</div>
+      <div class="tip reveal"><span class="n">1</span><b>Push-уведомления — главная ловушка self-host</b>Apple и Google принимают уведомления только от того, кто опубликовал приложение в сторе, поэтому ваш сервер шлёт их через шлюз вендора (его сервер-посредник): у Mattermost бесплатный только тестовый, у Rocket.Chat лимит 10 000 в месяц в Community, у Zulip бесплатно до 10 пользователей, у Nextcloud прокси закрытый. Честнее всех Matrix: шлюз matrix.org бесплатен для любого сервера.</div>
+      <div class="tip reveal"><span class="n">2</span><b>Бесплатные редакции переписывают</b>Mattermost в v11 ввёл потолок истории в Entry и урезал Team Edition до 250 пользователей без SSO. Rocket.Chat в 6.5–7.0 перевёл свои приложения в премиум и ввёл регистрацию workspace. Фиксируйте версию (не ставьте «latest» автоматически) и читайте форум перед мажорным обновлением.</div>
+      <div class="tip reveal"><span class="n">3</span><b>E2EE ломает поиск и ботов</b>Сквозное шифрование означает, что сервер хранит нечитаемые байты. В Element и Rocket.Chat такие комнаты не индексируются сервером (он не может построить поисковый указатель по тексту, которого не видит), а ботам нужны ключи. Для рабочего чата с интеграциями чаще выбирают шифрование только «до сервера» плюс шифрование диска, как у Mattermost и Zulip, и честно это понимают.</div>
       <div class="tip reveal"><span class="n">4</span><b>Переходы мобильных клиентов</b>Element Classic уходит из сторов 31.12.2026, вместо него Element X. Zulip с июня 2025 перешёл на Flutter-приложение. У Stoat iOS ещё в разработке. Проверяйте, что нужные функции уже есть в новом клиенте.</div>
-      <div class="tip reveal"><span class="n">5</span><b>AGPL и MIT — не одно и то же</b>Synapse, Mattermost (проект), Stoat, Twake и Wire — под AGPLv3: модификации при предоставлении сервиса нужно открывать. Team Edition Mattermost, Community Rocket.Chat и Campfire — MIT, Zulip — Apache 2.0.</div>
-      <div class="tip reveal"><span class="n">6</span><b>База данных — часть выбора</b>Mattermost и Zulip живут на PostgreSQL, Synapse тоже. Rocket.Chat и Stoat требуют MongoDB, причём Rocket.Chat 8.x — именно 8.0 с реплика-сетом. Один бэкап-скрипт на всё не получится.</div>
+      <div class="tip reveal"><span class="n">5</span><b>AGPL и MIT — не одно и то же</b>AGPLv3 — свободная лицензия с условием: если вы меняете код и предоставляете его как сервис другим, изменения нужно опубликовать; для своей команды без модификаций обязательств нет. Под ней — Synapse, проект Mattermost, Stoat, Twake и Wire. MIT и Apache 2.0 — свободные лицензии без таких условий: Team Edition Mattermost, Community Rocket.Chat и Campfire — MIT, Zulip — Apache 2.0.</div>
+      <div class="tip reveal"><span class="n">6</span><b>База данных — часть выбора</b>Mattermost, Zulip и Synapse живут на PostgreSQL (классическая база с таблицами). Rocket.Chat и Stoat требуют MongoDB (документная база другого типа), причём Rocket.Chat 8.x — именно 8.0 с реплика-сетом (тремя копиями). Один бэкап-скрипт на всё не получится.</div>
     </div>
   </div>
 </section>
@@ -513,11 +518,11 @@ footer{padding:40px 0 60px;color:var(--text-3);font-size:13px;line-height:1.6}
 <section id="install">
   <div class="wrap">
     <h2 class="reveal">Поставить за вечер</h2>
-    <p class="sub-h reveal">Минимальные пути для финалистов по официальным инструкциям. Домены, TLS и бэкапы — по ссылкам из каждой карточки.</p>
+    <p class="sub-h reveal">Минимальные пути для финалистов по официальным инструкциям. Домены, сертификаты и бэкапы — по ссылкам из каждой карточки.</p>
     <div class="recipes">
       <article class="recipe reveal">
         <h3><a href="https://docs.mattermost.com/deployment-guide/server/deploy-containers" target="_blank" rel="noopener">Mattermost</a> · docker compose</h3>
-        <p>Официальный репозиторий <a href="https://github.com/mattermost/docker" target="_blank" rel="noopener">mattermost/docker</a>: клонировать, заполнить .env (домен, версия), поднять с nginx или без. Минимум 2 ГБ RAM на хост.</p>
+        <p>Официальный репозиторий <a href="https://github.com/mattermost/docker" target="_blank" rel="noopener">mattermost/docker</a>: скачать, заполнить файл .env (настройки: домен, версия), поднять с nginx (веб-сервером, который принимает https и передаёт запросы приложению) или без. Минимум 2 ГБ RAM на хост.</p>
 <pre><span class="c"># по гайду Deploy Mattermost via Docker</span>
 git clone https://github.com/mattermost/docker
 cd docker &amp;&amp; cp env.example .env
@@ -529,7 +534,7 @@ sudo docker compose -f docker-compose.yml -f docker-compose.nginx.yml up -d</pre
       </article>
       <article class="recipe reveal">
         <h3><a href="https://zulip.readthedocs.io/en/stable/production/install.html" target="_blank" rel="noopener">Zulip</a> · один скрипт</h3>
-        <p>Чистый Ubuntu 24.04 или Debian 12 с 2 ГБ RAM. Скрипт сам ставит nginx, PostgreSQL, Redis, RabbitMQ и выпускает сертификат Let's Encrypt.</p>
+        <p>Чистый Ubuntu 24.04 или Debian 12 с 2 ГБ RAM. Скрипт сам ставит nginx, PostgreSQL, Redis, RabbitMQ и выпускает сертификат Let's Encrypt (бесплатный сертификат для https).</p>
 <pre><span class="c"># по гайду Production installation</span>
 cd $(mktemp -d)
 curl -fLO https://download.zulip.com/server/zulip-server-latest.tar.gz
@@ -540,13 +545,13 @@ tar -xf zulip-server-latest.tar.gz
       </article>
       <article class="recipe reveal">
         <h3><a href="https://github.com/element-hq/ess-helm" target="_blank" rel="noopener">Element Server Suite Community</a> · k3s + Helm</h3>
-        <p>Шесть шагов из README: DNS, k3s на одной машине, TLS, установка чарта, первый пользователь, проверка. Минимум 2 CPU и 2 ГБ.</p>
+        <p>Шесть шагов из README: DNS (записи домена), k3s на одной машине, TLS (сертификат https), установка чарта (пакета Helm), первый пользователь, проверка. Минимум 2 ядра и 2 ГБ.</p>
 <pre><span class="c"># по README ess-helm (Quick setup)</span>
 curl -sfL https://get.k3s.io | sh -
 <span class="c"># затем: helm upgrade --install ess oci://ghcr.io/element-hq/ess-helm/matrix-stack \</span>
 <span class="c">#   -f hostnames.yaml -f tls.yaml --namespace ess --create-namespace</span>
 <span class="c"># точные значения и файлы — в README репозитория</span></pre>
-        <p>Если Kubernetes не хочется — <a href="https://github.com/spantaleev/matrix-docker-ansible-deploy" target="_blank" rel="noopener">matrix-docker-ansible-deploy</a> ставит тот же стек через Ansible и Docker.</p>
+        <p>Если Kubernetes не хочется — <a href="https://github.com/spantaleev/matrix-docker-ansible-deploy" target="_blank" rel="noopener">matrix-docker-ansible-deploy</a> ставит тот же стек через Ansible (инструмент автоматической настройки серверов) и Docker.</p>
       </article>
       <article class="recipe reveal">
         <h3><a href="https://once.com/campfire" target="_blank" rel="noopener">Campfire</a> · одна команда</h3>
@@ -564,12 +569,47 @@ curl https://get.once.com/campfire | sh</pre>
     <h2 class="reveal">Отсеяны и почему</h2>
     <p class="sub-h reveal">Популярные «альтернативы Slack», которые не проходят по условию self-host или не подходят под рабочее пространство.</p>
     <div class="dropped">
-      <div class="drop reveal"><b>Pumble, Zoho Cliq, Ryver</b> — облачные сервисы; официального on-premise предложения не найдено. Zoho предлагает on-prem только для Analytics и Creator.</div>
+      <div class="drop reveal"><b>Pumble, Zoho Cliq, Ryver</b> — облачные сервисы (работают только на серверах вендора); официального on-premise предложения (установки на свой сервер) не найдено. Zoho предлагает on-prem только для Analytics и Creator.</div>
       <div class="drop reveal"><b>Chanty, Flock</b> — self-host упоминается лишь в сторонних сравнениях с противоречивыми цифрами; на официальных сайтах подтверждения нет. Не считаем.</div>
-      <div class="drop reveal"><b>Spacebar</b> (ex-Fosscord) — Discord-совместимый сервер, активно развивается (коммиты сентября 2026), но это реплика Discord для сообществ, а не рабочий чат с платформой приложений.</div>
-      <div class="drop reveal"><b>Tinode</b> — Go-сервер мессенджера, релизы в 2026 году есть, но авторы сами называют его beta-quality; это конструктор мессенджера, а не готовая замена Slack.</div>
-      <div class="drop reveal"><b>SimpleX Chat</b> — защищённый мессенджер с self-hosted релеями, но без каналов-рабочих пространств и платформы приложений в смысле Slack.</div>
-      <div class="drop reveal"><b>Mattermost Apps Framework</b> — упомянут отдельно, потому что по нему ещё много статей: объявлен deprecated в v10, перестал работать в v11. Новые интеграции — только плагины, вебхуки и слэш-команды.</div>
+      <div class="drop reveal"><b>Spacebar</b> (ex-Fosscord) — Discord-совместимый сервер (к нему подходят клиенты и боты Discord), активно развивается (коммиты сентября 2026), но это реплика Discord для сообществ, а не рабочий чат с платформой приложений.</div>
+      <div class="drop reveal"><b>Tinode</b> — сервер мессенджера на Go, релизы в 2026 году есть, но авторы сами называют его beta-quality; это конструктор мессенджера для разработчиков, а не готовая замена Slack.</div>
+      <div class="drop reveal"><b>SimpleX Chat</b> — защищённый мессенджер с self-hosted релеями (серверами-посредниками), но без рабочих пространств с каналами и платформы приложений в смысле Slack.</div>
+      <div class="drop reveal"><b>Mattermost Apps Framework</b> — упомянут отдельно, потому что по нему ещё много статей: объявлен устаревшим в v10, перестал работать в v11. Новые интеграции — только плагины, вебхуки и слэш-команды.</div>
+    </div>
+  </div>
+</section>
+
+<section id="glossary">
+  <div class="wrap">
+    <h2 class="reveal">Словарь</h2>
+    <p class="sub-h reveal">Термины со страницы простым языком, по алфавиту латиницей, потом кириллицей.</p>
+    <div class="gloss">
+      <div class="term reveal"><b>AGPLv3, MIT, Apache 2.0, source-available</b>Лицензии на код. MIT и Apache 2.0 — свободные без условий: ставьте, меняйте, продавайте. AGPLv3 — свободная с условием: если изменили код и предоставляете его как сервис другим, изменения надо опубликовать; для своей команды без модификаций ничего делать не нужно. Source-available — код виден, но пользоваться им без платной лицензии нельзя.</div>
+      <div class="term reveal"><b>Ansible</b>Инструмент автоматической настройки серверов: вы описываете «что должно стоять», он сам всё ставит и настраивает по SSH.</div>
+      <div class="term reveal"><b>CVE и CVSS</b>CVE — официальный номер уязвимости в международной базе (например, CVE-2026-28514). CVSS — оценка её опасности от 0 до 10; 9 и выше — критическая.</div>
+      <div class="term reveal"><b>Docker, docker compose</b>Docker запускает программы в контейнерах — изолированных «коробках» со всем нужным внутри. docker compose — файл, где описано несколько контейнеров сразу (чат, база, веб-сервер), и одна команда, которая всё это поднимает.</div>
+      <div class="term reveal"><b>DoS</b>Denial of Service — атака, цель которой не украсть данные, а «уронить» или замедлить сервер, чтобы им не могли пользоваться другие.</div>
+      <div class="term reveal"><b>E2EE</b>End-to-end encryption, сквозное шифрование: сообщение шифруется на устройстве отправителя и расшифровывается только у получателей. Сервер и его администратор видят лишь нечитаемые байты. Обратная сторона: сервер не может искать по тексту, а ботам нужны ключи.</div>
+      <div class="term reveal"><b>Federation (федерация)</b>Умение сервера переписываться с чужими серверами того же протокола, как почта между доменами. В Matrix есть, её можно выключить и жить «закрытым» сервером.</div>
+      <div class="term reveal"><b>HA, compliance</b>HA (high availability) — запуск нескольких копий сервера, чтобы при сбое одной остальные продолжали работать. Compliance — функции для проверяющих: экспорт переписки, юридическое удержание, правила хранения.</div>
+      <div class="term reveal"><b>HPB, SFU, signaling</b>У Nextcloud Talk: High Performance Backend — отдельный сервер для звонков. Signaling координирует соединения, SFU принимает видеопоток от каждого участника и раздаёт остальным, иначе каждый шлёт видео каждому и всё встаёт после 4–5 человек.</div>
+      <div class="term reveal"><b>iframe, sandbox, postMessage</b>iframe — окно одной веб-страницы внутри другой (так встраивают видео YouTube). Sandbox — режим, в котором это окно изолировано и не может лезть в основную страницу. postMessage — безопасный способ обмена сообщениями между ними.</div>
+      <div class="term reveal"><b>Kubernetes, k3s, Helm</b>Kubernetes — система управления множеством контейнеров на многих машинах, стандарт для крупной инфраструктуры. k3s — его облегчённая версия, которая ставится на одну машину одной командой. Helm — установщик пакетов (чартов) для Kubernetes.</div>
+      <div class="term reveal"><b>LTS, ESR, EOL</b>LTS и ESR — версии с длительной поддержкой: месяцами получают только исправления, без новых функций. EOL — дата, после которой версия больше не обновляется, в том числе по безопасности.</div>
+      <div class="term reveal"><b>MLS, Olm, Megolm</b>Протоколы шифрования. Olm и Megolm — то, чем шифрует Matrix (личные и групповые чаты). MLS — новый стандарт группового шифрования от IETF (организации интернет-стандартов), на нём работает Wire.</div>
+      <div class="term reveal"><b>OAuth, OIDC</b>Способ дать внешнему сервису доступ к вашему аккаунту без передачи пароля («войти через Google»). OIDC (OpenID Connect) — надстройка над OAuth именно для входа.</div>
+      <div class="term reveal"><b>PostgreSQL, MongoDB, реплика-сет</b>Базы данных. PostgreSQL — классическая с таблицами, MongoDB — документная (хранит записи как JSON). Реплика-сет — несколько копий MongoDB, дублирующих друг друга ради надёжности; Rocket.Chat рекомендует три.</div>
+      <div class="term reveal"><b>Push-уведомления и шлюз</b>Оповещения на телефоне, когда приложение закрыто. Apple и Google принимают их только от издателя приложения, поэтому ваш сервер отдаёт их на шлюз вендора (сервер-посредник), а тот — в Apple/Google. У каждого вендора свои лимиты и цены на этот шлюз.</div>
+      <div class="term reveal"><b>REST API, вебхук, слэш-команда</b>REST API — программный интерфейс, через который другие программы читают и пишут в чат по HTTP. Вебхук — адрес, на который внешний сервис присылает уведомление (например, GitHub о новом коммите). Слэш-команда — команда через «/» в поле ввода, как /remind в Slack.</div>
+      <div class="term reveal"><b>Self-hosted, on-premise</b>Программа работает на вашем сервере (своём железе или арендованной виртуалке), а не в облаке вендора. Данные остаются у вас, обновления и бэкапы — тоже на вас.</div>
+      <div class="term reveal"><b>SSO, SAML, LDAP, SCIM</b>SSO — единый вход через корпоративный аккаунт (Google Workspace, Microsoft, Okta). SAML и OIDC — стандарты такого входа. LDAP/Active Directory — каталог сотрудников, из которого можно брать пользователей. SCIM — автоматическая синхронизация этого списка (уволили — доступ исчез).</div>
+      <div class="term reveal"><b>TLS</b>Шифрование канала между приложением и сервером, то же, что https у сайтов. Защищает от прослушки по дороге, но сервер текст видит.</div>
+      <div class="term reveal"><b>UnifiedPush</b>Открытый стандарт доставки push-уведомлений на Android без Google: вы ставите приложение-распределитель (ntfy, NextPush) и свой сервер.</div>
+      <div class="term reveal"><b>Workspace, Team Edition, Entry, Community, Starter</b>Workspace — ваш экземпляр чата. Остальное — названия редакций у вендоров: у Mattermost Team Edition (открытая) и Entry (бесплатный режим платной), у Rocket.Chat Community (открытая) и Starter (бесплатный план с регистрацией).</div>
+      <div class="term reveal"><b>Бот, мост</b>Бот — программа, которая участвует в чате как пользователь: отвечает, присылает отчёты. Мост (bridge) — бот-переводчик между мессенджерами: сообщение из Telegram появляется в Matrix и наоборот.</div>
+      <div class="term reveal"><b>Виджет, модалка, contextual bar</b>Виджет — веб-страница, встроенная в комнату чата. Модалка — всплывающее окно с полями и кнопками поверх чата. Contextual bar — боковая панель, которая выезжает справа с информацией или формой.</div>
+      <div class="term reveal"><b>Плагин, Apps-Engine, маркетплейс</b>Плагин/приложение — дополнение, которое встраивается в чат и добавляет функции. Apps-Engine — механизм Rocket.Chat для запуска таких приложений внутри сервера. Маркетплейс — каталог готовых дополнений с установкой в один клик.</div>
+      <div class="term reveal"><b>Инъекция (SQL/NoSQL)</b>Атака, при которой в поле ввода (логин, поиск) подставляют команды для базы данных, и сервер их выполняет. Позволяет обойти вход или вытащить чужие данные.</div>
     </div>
   </div>
 </section>
@@ -597,6 +637,7 @@ curl https://get.once.com/campfire | sh</pre>
       <li><a href="https://matrix.org/blog/2017/08/23/introducing-matrix-widgets/" target="_blank" rel="noopener">Introducing Matrix Widgets</a>; <a href="https://github.com/matrix-org/matrix-widget-api" target="_blank" rel="noopener">matrix-widget-api</a></li>
       <li><a href="https://docs.element.io/latest/element-server-suite-classic/requirements-and-recommendations/" target="_blank" rel="noopener">Requirements and Recommendations</a> — таблица размеров Synapse/PostgreSQL</li>
       <li><a href="https://docs.element.io/latest/element-server-suite-pro/migration/classic-to-pro-mobile-apps-faq/" target="_blank" rel="noopener">Element Classic to Element Pro FAQ</a> — сансет 31.12.2026</li>
+      <li><a href="https://github.com/element-hq/element-web/issues/16091" target="_blank" rel="noopener">Поиск по зашифрованным комнатам только в Element Desktop</a> — issue #16091</li>
       <li><a href="https://docs.element.io/latest/element-server-suite-classic/advanced-configuration/notifications-mdm-push-gateway/" target="_blank" rel="noopener">Notifications, MDM &amp; Push Gateway</a>; <a href="https://github.com/matrix-org/sygnal" target="_blank" rel="noopener">Sygnal</a></li>
       <li><a href="https://github.com/advisories/GHSA-v56r-hwv5-mxg6" target="_blank" rel="noopener">CVE-2025-30355</a>, <a href="https://github.com/advisories/GHSA-6qf2-7x63-mm6v" target="_blank" rel="noopener">CVE-2026-45076</a>, <a href="https://github.com/advisories/GHSA-8q93-326v-3m7g" target="_blank" rel="noopener">CVE-2026-45078</a></li>
       <li><a href="https://github.com/matrix-construct/tuwunel" target="_blank" rel="noopener">Tuwunel</a>; <a href="https://github.com/spantaleev/matrix-docker-ansible-deploy" target="_blank" rel="noopener">matrix-docker-ansible-deploy</a>; <a href="https://github.com/mautrix" target="_blank" rel="noopener">mautrix</a></li>
