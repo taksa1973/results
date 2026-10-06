@@ -64,7 +64,8 @@ small,.small{font-size:13px;color:var(--text-2)}
 .grid{display:grid;grid-template-columns:1fr;gap:16px;margin-bottom:24px}
 @media(min-width:768px){.grid{grid-template-columns:repeat(2,1fr)}}
 @media(min-width:1024px){.grid{grid-template-columns:repeat(3,1fr)}.grid.cols2{grid-template-columns:repeat(2,1fr)}.span2{grid-column:span 2}}
-.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:24px;transition:box-shadow .2s,transform .2s}
+.grid>*,.two>*,.tips>*{min-width:0}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:24px;transition:box-shadow .2s,transform .2s;overflow:hidden}
 .card:hover{transform:translateY(-2px);box-shadow:var(--shadow-hover)}
 .card .ic{width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:14px;background:var(--blue-soft);color:var(--blue)}
 .card .ic.green{background:var(--green-soft);color:var(--green)}
