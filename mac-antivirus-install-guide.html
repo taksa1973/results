@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Установка защиты на Mac: Objective-See и Bitdefender</title>
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="description" content="Пошаговая установка бесплатного набора Objective-See одной командой в Терминале и Bitdefender Antivirus for Mac с настройками приватности. Проверено 6 октября 2026.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script>
+  if (!window.matchMedia || !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document.documentElement.classList.add('js-anim');
+  }
+</script>
+<style>
+  :root{
+    --page-bg:#F5F5F7; --surface:#FFFFFF; --text-1:#1D1D1F; --text-2:#6E6E73; --text-3:#AEAEB2;
+    --blue:#0071E3; --border:rgba(0,0,0,0.08); --green:#1E8E3E; --orange:#C2410C;
+    --green-bg:#E8F5EC; --orange-bg:#FFF1E6; --blue-bg:#EAF3FD;
+    --shadow:0 1px 2px rgba(0,0,0,0.04), 0 8px 24px rgba(0,0,0,0.05);
+    --shadow-hover:0 2px 6px rgba(0,0,0,0.06), 0 16px 40px rgba(0,0,0,0.10);
+    --radius:20px; --mono:"SF Mono",Menlo,Consolas,"Liberation Mono",monospace;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--page-bg);color:var(--text-1);font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  a{color:var(--blue);text-decoration:none}
+  a:hover{text-decoration:underline}
+  a:focus-visible,button:focus-visible{outline:3px solid var(--blue);outline-offset:3px;border-radius:6px}
+  .wrap{max-width:1100px;margin:0 auto;padding:0 20px}
+  .eyebrow{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--text-3);font-weight:600;margin:0 0 12px}
+  h1,h2,h3,h4{letter-spacing:-0.02em;margin:0}
+  h1{font-size:clamp(32px,5vw,56px);font-weight:800;line-height:1.08}
+  h1 span{color:var(--blue)}
+  h2{font-size:clamp(24px,3.2vw,36px);font-weight:700;line-height:1.15}
+  h3{font-size:19px;font-weight:600;line-height:1.3}
+  h4{font-size:16px;font-weight:600}
+  p{margin:0}
+  .lead{font-size:clamp(17px,1.6vw,20px);color:var(--text-2);max-width:760px;margin-top:18px}
+  .hero{background:var(--surface);border-bottom:1px solid var(--border);padding:72px 0 56px}
+  .pills{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
+  .pill{background:var(--page-bg);border:1px solid var(--border);border-radius:999px;padding:8px 14px;font-size:14px;font-weight:500;display:inline-flex;align-items:center;gap:8px}
+  .pill svg{width:16px;height:16px;flex:none}
+  .pill b{font-weight:700}
+  section{padding:56px 0}
+  .sec-head{margin-bottom:28px;max-width:760px}
+  .sec-head p{color:var(--text-2);margin-top:10px}
+  .reveal{opacity:1}
+  .js-anim .reveal{opacity:0}
+  .js-anim .reveal.shown{opacity:1}
+  .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:26px;transition:box-shadow .2s,transform .2s}
+  .card:hover{transform:translateY(-2px);box-shadow:var(--shadow-hover)}
+  .card p{color:var(--text-2);margin-top:10px;font-size:15px}
+  .card ul,.card ol{margin:12px 0 0;padding-left:20px;color:var(--text-2);font-size:15px}
+  .card li{margin:6px 0}
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+  .part{display:inline-flex;align-items:center;gap:10px;font-size:13px;font-weight:600;border-radius:999px;padding:6px 12px 6px 6px;margin-bottom:18px;background:var(--blue-bg);color:var(--blue)}
+  .part i{width:22px;height:22px;border-radius:50%;background:var(--blue);color:#fff;display:inline-flex;align-items:center;justify-content:center;font-style:normal;font-size:12px}
+  .part.free{background:var(--green-bg);color:var(--green)} .part.free i{background:var(--green)}
+  /* steps */
+  .steps{display:grid;gap:18px}
+  .step{display:grid;grid-template-columns:52px 1fr;gap:18px}
+  .step .n{width:40px;height:40px;border-radius:12px;background:var(--text-1);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:16px;margin-top:22px}
+  .step .card{min-width:0}
+  .path{display:inline-block;background:var(--page-bg);border:1px solid var(--border);border-radius:8px;padding:2px 8px;font-size:14px;color:var(--text-1);font-weight:500;white-space:nowrap}
+  .ui{font-weight:600;color:var(--text-1)}
+  /* code */
+  .code{position:relative;margin-top:16px;background:#1D1D1F;color:#F5F5F7;border-radius:14px;padding:18px 18px 18px;font-family:var(--mono);font-size:13.5px;line-height:1.6;overflow-x:auto;white-space:pre-wrap;word-break:break-all}
+  .code.small{font-size:13px}
+  .copy{position:absolute;top:10px;right:10px;background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.18);border-radius:9px;padding:7px 12px;font:600 13px Inter,sans-serif;cursor:pointer;min-height:36px;transition:background .2s}
+  .copy:hover{background:rgba(255,255,255,.22)}
+  .copy.done{background:var(--green);border-color:var(--green)}
+  .code-wrap{position:relative}
+  .code-wrap .code{padding-top:48px}
+  .callout{border-radius:14px;padding:14px 16px;font-size:14.5px;margin-top:14px;display:flex;gap:10px;align-items:flex-start}
+  .callout svg{width:18px;height:18px;flex:none;margin-top:2px;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+  .callout.info{background:var(--blue-bg);color:#0A4A8A} .callout.info svg{stroke:var(--blue)}
+  .callout.warn{background:var(--orange-bg);color:#7A2E0E} .callout.warn svg{stroke:var(--orange)}
+  .callout.ok{background:var(--green-bg);color:#135C2A} .callout.ok svg{stroke:var(--green)}
+  .callout b{font-weight:600}
+  .what{margin-top:14px;display:grid;gap:8px;font-size:14.5px;color:var(--text-2)}
+  .what div{display:flex;gap:9px}
+  .what svg{width:16px;height:16px;flex:none;margin-top:3px;stroke:var(--green);stroke-width:2.2;fill:none;stroke-linecap:round;stroke-linejoin:round}
+  .logo-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+  .tool{display:inline-flex;align-items:center;gap:8px;background:var(--page-bg);border:1px solid var(--border);border-radius:999px;padding:6px 12px 6px 6px;font-size:13.5px;font-weight:500;color:var(--text-1)}
+  .tool img{width:24px;height:24px;border-radius:6px}
+  .btn{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 18px;border-radius:12px;font-weight:600;font-size:15px;transition:background .2s,transform .15s;cursor:pointer}
+  .btn:hover{text-decoration:none}
+  .btn:active{transform:scale(.98)}
+  .btn-primary{background:var(--blue);color:#fff}
+  .btn-primary:hover{background:#0062c4}
+  .btn-ghost{background:var(--page-bg);border:1px solid var(--border);color:var(--text-1)}
+  .btn-ghost:hover{background:#ECECEF}
+  .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+  .sources{columns:2;column-gap:32px;font-size:14px;color:var(--text-2)}
+  .sources li{break-inside:avoid;margin-bottom:8px}
+  footer{padding:40px 0 60px;color:var(--text-3);font-size:13px;border-top:1px solid var(--border)}
+  @media (max-width: 980px){ .grid3{grid-template-columns:repeat(2,1fr)} }
+  @media (max-width: 640px){
+    .hero{padding:52px 0 40px} section{padding:44px 0}
+    .grid3,.grid2{grid-template-columns:1fr}
+    .step{grid-template-columns:1fr} .step .n{margin-top:0}
+    .sources{columns:1} .card{padding:22px}
+    .code{font-size:12.5px}
+  }
+  @media (prefers-reduced-motion: reduce){ *{transition:none!important;animation:none!important} }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="eyebrow">Инструкция · проверено 6 октября 2026</p>
+    <h1>Ставим приватную защиту на Mac: <span>одна команда</span> и десять шагов</h1>
+    <p class="lead">Часть 1 — бесплатный набор Objective-See (LuLu, KnockKnock, BlockBlock, OverSight) одной командой в Терминале через Homebrew. Часть 2 — Bitdefender Antivirus for Mac: покупка или пробный период, установка, разрешения macOS и отключение всего, что собирает лишнее. Продолжение <a href="https://taksa1973.github.io/results/mac-antivirus-privacy-2026.html">подбора приватных антивирусов</a>.</p>
+    <div class="pills">
+      <span class="pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 17l6-5-6-5M12 19h8"/></svg><b>1</b>&nbsp;команда для части 1</span>
+      <span class="pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>~15 минут на обе части</span>
+      <span class="pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/></svg>без конфликтов между частями</span>
+      <span class="pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg>версии и пути из официальных источников</span>
+    </div>
+  </div>
+</header>
+
+<!-- ПОДГОТОВКА -->
+<section id="prep">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="eyebrow">Перед началом</p>
+      <h2>Три вещи, которые нужны</h2>
+    </div>
+    <div class="grid3">
+      <article class="card reveal">
+        <h3>Терминал вместо cmd</h3>
+        <p>На Mac командная строка называется Терминал. Откройте его через <span class="path">⌘ Cmd + Пробел</span>, наберите «Терминал» и нажмите Enter. Или: <span class="path">Программы → Утилиты → Терминал</span>.</p>
+      </article>
+      <article class="card reveal">
+        <h3>Пароль администратора</h3>
+        <p>Установщик Homebrew и два инструмента Objective-See попросят пароль вашей учётной записи Mac (при вводе в Терминале символы не отображаются — это нормально). Учётная запись должна быть администраторской.</p>
+      </article>
+      <article class="card reveal">
+        <h3>macOS 15 или новее</h3>
+        <p>Homebrew официально поддерживает macOS Sequoia (15) и новее; на 11–14 обычно работает, но без гарантий. Сами инструменты Objective-See идут с macOS 10.15 (OverSight — с 12). Bitdefender — с macOS 11.3.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ЧАСТЬ 1 -->
+<section id="part1" style="background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="part free"><i>1</i>Часть 1 · бесплатно и с открытым кодом</div>
+      <h2>Objective-See одной командой</h2>
+      <p>Команда ставит пакетный менеджер Homebrew (если его ещё нет), прописывает его в оболочку, скачивает четыре инструмента с официальных релизов на GitHub и открывает LuLu. Все четыре пакета есть в Homebrew: <a href="https://formulae.brew.sh/cask/lulu" target="_blank" rel="noopener">lulu</a> 4.5.1, <a href="https://formulae.brew.sh/cask/knockknock" target="_blank" rel="noopener">knockknock</a> 4.1.0, <a href="https://formulae.brew.sh/cask/blockblock" target="_blank" rel="noopener">blockblock</a> 2.5.2, <a href="https://formulae.brew.sh/cask/oversight" target="_blank" rel="noopener">oversight</a> 2.4.0 (версии на 6 октября 2026).</p>
+      <div class="logo-row">
+        <span class="tool"><img src="https://www.google.com/s2/favicons?domain=objective-see.org&sz=64" alt="" loading="lazy">LuLu — фаервол</span>
+        <span class="tool"><img src="https://www.google.com/s2/favicons?domain=objective-see.org&sz=64" alt="" loading="lazy">KnockKnock — автозагрузка</span>
+        <span class="tool"><img src="https://www.google.com/s2/favicons?domain=objective-see.org&sz=64" alt="" loading="lazy">BlockBlock — закрепления</span>
+        <span class="tool"><img src="https://www.google.com/s2/favicons?domain=objective-see.org&sz=64" alt="" loading="lazy">OverSight — камера и микрофон</span>
+        <span class="tool"><img src="https://www.google.com/s2/favicons?domain=brew.sh&sz=64" alt="" loading="lazy">Homebrew — установщик</span>
+      </div>
+    </div>
+
+    <div class="steps">
+      <div class="step reveal">
+        <div class="n">1</div>
+        <article class="card">
+          <h3>Вставьте в Терминал одну строку и нажмите Enter</h3>
+          <div class="code-wrap">
+            <button class="copy" type="button" data-copy="cmd1" aria-label="Скопировать команду">Скопировать</button>
+            <pre class="code" id="cmd1">command -v brew >/dev/null || /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"; eval "$(/opt/homebrew/bin/brew shellenv 2>/dev/null || /usr/local/bin/brew shellenv)"; grep -qs 'brew shellenv' ~/.zprofile || printf '\neval "$(%s shellenv)"\n' "$(command -v brew)" >> ~/.zprofile; brew install --cask lulu knockknock blockblock oversight && open -a LuLu</pre>
+          </div>
+          <div class="what">
+            <div><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg><span>Проверяет, есть ли Homebrew. Если нет — запускает официальный установщик с <a href="https://brew.sh/" target="_blank" rel="noopener">brew.sh</a>: он покажет, что сделает, попросит нажать Enter и ввести пароль Mac.</span></div>
+            <div><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg><span>Подключает brew в текущую сессию и дописывает строку в <span class="path">~/.zprofile</span>, чтобы команда brew работала и в новых окнах (Apple Silicon — /opt/homebrew, Intel — /usr/local).</span></div>
+            <div><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg><span>Ставит четыре пакета. LuLu и KnockKnock просто копируются в Программы; BlockBlock и OverSight ставятся своими установщиками через sudo — пароль спросят ещё раз.</span></div>
+            <div><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg><span>Открывает LuLu — дальше macOS сама покажет окна разрешений из шага 2.</span></div>
+          </div>
+          <div class="callout info"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg><span><b>Если Homebrew уже стоит</b>, первая часть пропустится, и команда сразу перейдёт к установке пакетов. Если Терминал напишет «Command not found: brew» после установки — закройте окно Терминала, откройте заново и повторите только хвост: <code>brew install --cask lulu knockknock blockblock oversight &amp;&amp; open -a LuLu</code>.</span></div>
+        </article>
+      </div>
+
+      <div class="step reveal">
+        <div class="n">2</div>
+        <article class="card">
+          <h3>LuLu: разрешите сетевое расширение</h3>
+          <p>При первом запуске LuLu просит одобрить своё системное расширение. Порядок с <a href="https://objective-see.org/products/lulu.html" target="_blank" rel="noopener">страницы LuLu</a>:</p>
+          <ol>
+            <li>В окне LuLu нажмите <span class="ui">Open System Settings</span> (Открыть Системные настройки).</li>
+            <li>В открывшемся разделе переключите LuLu в положение <span class="ui">Вкл</span>. Если его не видно — откройте <span class="path">Основные → Объекты входа и расширения → Сетевые расширения</span>.</li>
+            <li>Введите пароль, чтобы подтвердить расширение.</li>
+            <li>На запрос «LuLu хочет фильтровать сетевой контент» нажмите <span class="ui">Разрешить</span>.</li>
+          </ol>
+          <p>Оставьте стандартные настройки: «разрешать программам Apple и предустановленным без вопросов». Первые дни LuLu будет спрашивать про каждое новое приложение — отвечайте <span class="ui">Allow</span> тем, что знаете, и <span class="ui">Block</span> незнакомому. Потом он затихнет.</p>
+        </article>
+      </div>
+
+      <div class="step reveal">
+        <div class="n">3</div>
+        <article class="card">
+          <h3>BlockBlock: дайте полный доступ к диску</h3>
+          <p>BlockBlock следит за автозагрузкой через Endpoint Security, поэтому ему нужен полный доступ к диску (<a href="https://objective-see.org/products/blockblock.html" target="_blank" rel="noopener">документация</a>). Он уже запущен установщиком и висит в строке меню.</p>
+          <ol>
+            <li>Откройте <span class="path">Системные настройки → Конфиденциальность и безопасность → Полный доступ к диску</span>.</li>
+            <li>Включите переключатель напротив <span class="ui">BlockBlock</span>.</li>
+            <li>Если BlockBlock в списке нет — нажмите «+» и добавьте файл <span class="path">/Library/Objective-See/BlockBlock/BlockBlock.app</span> (в диалоге открытия нажмите <span class="path">⌘ Cmd + Shift + G</span> и вставьте путь).</li>
+          </ol>
+          <p>Дополнительные защиты (проверка нотаризации, блокировка скриптов, Paste Protection против команд «вставь в Терминал») предлагаются при установке; Paste Protection попросит ещё и доступ в разделе «Универсальный доступ». Для стилеров 2026 года это как раз полезно.</p>
+        </article>
+      </div>
+
+      <div class="step reveal">
+        <div class="n">4</div>
+        <article class="card">
+          <h3>OverSight: разрешите уведомления</h3>
+          <p>OverSight сообщает, какой процесс включил камеру или микрофон, поэтому без уведомлений он бесполезен (<a href="https://objective-see.org/products/oversight.html" target="_blank" rel="noopener">документация</a>).</p>
+          <ol>
+            <li>На системный запрос «OverSight хочет присылать уведомления» нажмите <span class="ui">Разрешить</span>.</li>
+            <li>Откройте <span class="path">Системные настройки → Уведомления → OverSight</span> и выберите стиль <span class="ui">Предупреждения</span> (Alerts), чтобы баннер не исчезал сам.</li>
+          </ol>
+          <p>Автозапуск при входе уже включён по умолчанию. В уведомлении можно разрешить доступ один раз, навсегда или заблокировать процесс.</p>
+        </article>
+      </div>
+
+      <div class="step reveal">
+        <div class="n">5</div>
+        <article class="card">
+          <h3>KnockKnock: первая проверка автозагрузки</h3>
+          <p>KnockKnock — сканер по запросу, в фоне не висит. Запустите его второй командой:</p>
+          <div class="code-wrap">
+            <button class="copy" type="button" data-copy="cmd2" aria-label="Скопировать команду">Скопировать</button>
+            <pre class="code small" id="cmd2">open -a KnockKnock</pre>
+          </div>
+          <ol>
+            <li>На первый запрос дайте полный доступ к диску (<span class="path">Конфиденциальность и безопасность → Полный доступ к диску → KnockKnock</span>).</li>
+            <li>Нажмите <span class="ui">Start Scan</span>. Слева — категории закреплений (агенты, демоны, расширения браузера, задания), справа — найденное с подписью разработчика.</li>
+            <li>Красные и неподписанные пункты от неизвестных разработчиков — повод разобраться. Кнопка справа ведёт на отчёт VirusTotal.</li>
+          </ol>
+          <div class="callout warn"><svg viewBox="0 0 24 24"><path d="M12 9v4M12 17h.01"/><path d="M10.3 3.9L2.4 18a2 2 0 0 0 1.7 3h15.8a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg><span><b>Про приватность:</b> проверка через VirusTotal отправляет туда хэши найденных файлов (не сами файлы). Если не хотите и этого — в меню KnockKnock выберите <span class="ui">Settings → Disable VirusTotal integration</span>. Там же есть <span class="ui">Start at Login</span>, чтобы сканировать при каждом входе.</span></div>
+        </article>
+      </div>
+
+      <div class="step reveal">
+        <div class="n">✓</div>
+        <article class="card">
+          <h3>Проверка, что всё встало</h3>
+          <div class="code-wrap">
+            <button class="copy" type="button" data-copy="cmd3" aria-label="Скопировать команду">Скопировать</button>
+            <pre class="code small" id="cmd3">brew list --cask; ls /Applications | grep -E 'LuLu|KnockKnock|OverSight'; ls /Library/Objective-See</pre>
+          </div>
+          <p>Ожидаемо: в списке casks четыре пакета, в Программах LuLu, KnockKnock и OverSight, в /Library/Objective-See папка BlockBlock. В строке меню — три значка: LuLu, BlockBlock, OverSight.</p>
+          <div class="grid2" style="margin-top:16px">
+            <div class="callout ok" style="margin:0"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg><span><b>Обновлять:</b> <code>brew upgrade --cask lulu knockknock blockblock oversight</code></span></div>
+            <div class="callout ok" style="margin:0"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg><span><b>Удалить:</b> в меню каждого инструмента есть пункт Uninstall; или <code>brew uninstall --cask lulu knockknock blockblock oversight</code></span></div>
+          </div>
+        </article>
+      </div>
+    </div>
+
+    <div class="card reveal" style="margin-top:28px">
+      <h3>Без Homebrew: вручную за 5 минут</h3>
+      <p>Если ставить пакетный менеджер не хочется — скачайте с официальных страниц. LuLu приходит в .dmg: откройте образ и перетащите LuLu.app в Программы, запустите из Программ. Остальные три — в .zip: распакуйте и запустите <span class="ui">… Installer.app</span>, нажмите <span class="ui">Install</span>. Дальше шаги 2–5 те же.</p>
+      <div class="actions">
+        <a class="btn btn-primary" href="https://objective-see.org/products/lulu.html" target="_blank" rel="noopener">LuLu</a>
+        <a class="btn btn-ghost" href="https://objective-see.org/products/knockknock.html" target="_blank" rel="noopener">KnockKnock</a>
+        <a class="btn btn-ghost" href="https://objective-see.org/products/blockblock.html" target="_blank" rel="noopener">BlockBlock</a>
+        <a class="btn btn-ghost" href="https://objective-see.org/products/oversight.html" target="_blank" rel="noopener">OverSight</a>
+        <a class="btn btn-ghost" href="https://github.com/objective-see" target="_blank" rel="noopener">Исходный код</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ЧАСТЬ 2 -->
+<section id="part2">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="part"><i>2</i>Часть 2 · платный сканер</div>
+      <h2>Bitdefender Antivirus for Mac</h2>
+      <p>Установщик скачивается только из личного кабинета Bitdefender Central, поэтому аккаунт обязателен. Для него подойдёт отдельный адрес-псевдоним. Шаги по официальной инструкции <a href="https://www.bitdefender.com/consumer/support/answer/3478/" target="_blank" rel="noopener">«How to install and set up Bitdefender Antivirus for Mac»</a> и статье о <a href="https://www.bitdefender.com/consumer/support/answer/14812/" target="_blank" rel="noopener">полном доступе к диску</a>.</p>
+      <div class="logo-row">
+        <span class="tool"><img src="https://www.google.com/s2/favicons?domain=bitdefender.com&sz=64" alt="" loading="lazy">Bitdefender Antivirus for Mac · macOS 11.3+</span>
+        <span class="tool">$24,99 первый год · R$ 49,99 в Бразилии · пробный период 30 дней без карты</span>
+      </div>
+    </div>
+
+    <div class="steps">
+      <div class="step reveal">
+        <div class="n">1</div>
+        <article class="card">
+          <h3>Купите подписку или включите пробный период</h3>
+          <p>Цена за 1 Mac на год: <a href="https://www.bitdefender.com/pt-br/consumer/antivirus-for-mac" target="_blank" rel="noopener">бразильский магазин</a> — R$ 49,99 первый год (далее R$ 109,99), <a href="https://www.bitdefender.com/en-us/consumer/antivirus-for-mac" target="_blank" rel="noopener">американский</a> — $24,99 первый год. Там же кнопка пробной версии на 30 дней без карты. Берите именно «Antivirus for Mac», а не Total Security: у него нет лишних модулей для Windows.</p>
+          <div class="actions">
+            <a class="btn btn-primary" href="https://www.bitdefender.com/pt-br/consumer/antivirus-for-mac" target="_blank" rel="noopener">Купить в R$</a>
+            <a class="btn btn-ghost" href="https://www.bitdefender.com/en-us/consumer/antivirus-for-mac" target="_blank" rel="noopener">Купить в $ / пробный период</a>
+          </div>
+        </article>
+      </div>
+
+      <div class="step reveal">
+        <div class="n">2</div>
+        <article class="card">
+          <h3>Создайте аккаунт Bitdefender Central и скачайте установщик</h3>
+          <ol>
+            <li>Откройте <a href="https://central.bitdefender.com" target="_blank" rel="noopener">central.bitdefender.com</a> и войдите (или зарегистрируйтесь — подписка привяжется к этому аккаунту).</li>
+            <li>На главной нажмите <span class="ui">Install Bitdefender Products</span>.</li>
+            <li>В панели Security нажмите <span class="ui">Install</span>, затем <span class="ui">Download</span> — на Mac сохранится файл вида <span class="path">bitdefender_….dmg</span>.</li>
+          </ol>
+        </article>
+      </div>
+
+      <div class="step reveal">
+        <div class="n">3</div>
+        <article class="card">
+          <h3>Запустите установщик</h3>
+          <ol>
+            <li>Дважды щёлкните скачанный файл и запустите установку.</li>
+            <li>На запросах нажимайте <span class="ui">Allow</span> и <span class="ui">Continue</span>, примите соглашение.</li>
+            <li>Нажмите <span class="ui">Install</span>, введите пароль администратора и подтвердите <span class="ui">Install Software</span>.</li>
+            <li>Установщик сам докачает компоненты и завершит установку. Если спросит про Bitdefender VPN или расширение браузера — откажитесь: для антивируса они не нужны, а трафика добавляют.</li>
+          </ol>
+        </article>
+      </div>
+
+      <div class="step reveal">
+        <div class="n">4</div>
+        <article class="card">
+          <h3>Разрешения macOS (Sequoia 15 и Tahoe 26)</h3>
+          <p>Без них антивирус не видит защищённые папки и не запускает мониторинг в реальном времени. Названия пунктов — из официальной статьи Bitdefender.</p>
+          <ol>
+            <li><span class="path">Системные настройки → Основные → Объекты входа и расширения</span> → раздел <span class="ui">Расширения Endpoint Security</span> → включите <span class="ui">Bitdefender Agent</span>, введите пароль.</li>
+            <li><span class="path">Системные настройки → Конфиденциальность и безопасность → Полный доступ к диску</span> → включите три пункта: <span class="ui">Antivirus for Mac</span>, <span class="ui">Bitdefender</span>, <span class="ui">Core Security</span>.</li>
+            <li>На запрос «Quit &amp; Reopen» согласитесь — приложение перезапустится с правами.</li>
+          </ol>
+          <div class="callout info"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg><span>На macOS Ventura (13) и Sonoma (14) первого пункта нет — только три переключателя полного доступа к диску.</span></div>
+        </article>
+      </div>
+
+      <div class="step reveal">
+        <div class="n">5</div>
+        <article class="card">
+          <h3>Отключите рекламу и лишний сбор</h3>
+          <ol>
+            <li>В приложении: <span class="path">Preferences (Settings) → вкладка Other</span> → выключите <span class="ui">Special offers</span> (<a href="https://www.bitdefender.com/consumer/support/answer/25974/" target="_blank" rel="noopener">статья Bitdefender</a>).</li>
+            <li>В кабинете: <a href="https://central.bitdefender.com" target="_blank" rel="noopener">Central</a> → имя пользователя справа вверху → <span class="ui">Bitdefender Account</span> → вкладка <span class="ui">Data &amp; Privacy</span> → <span class="ui">Privacy preferences</span> → снимите обе галочки рассылок.</li>
+            <li>Системные уведомления: <span class="path">Системные настройки → Уведомления → Antivirus for Mac</span> — оставьте только то, что нужно (<a href="https://www.bitdefender.com/consumer/support/answer/9735/" target="_blank" rel="noopener">статья Bitdefender</a>).</li>
+            <li>Не ставьте Bitdefender VPN и расширение TrafficLight, если они не нужны: это отдельные каналы данных.</li>
+          </ol>
+        </article>
+      </div>
+
+      <div class="step reveal">
+        <div class="n">6</div>
+        <article class="card">
+          <h3>Первая проверка и дружба с LuLu</h3>
+          <ol>
+            <li>Откройте Bitdefender и запустите полную проверку системы (System Scan). Первая займёт дольше, потом сканируются только изменения.</li>
+            <li>Если установлена часть 1, LuLu спросит про соединения процессов Bitdefender с доменами bitdefender.com и bitdefender.net — это облачная проверка сигнатур, нажмите <span class="ui">Allow</span>. Заодно вы увидите весь список адресов, куда ходит антивирус.</li>
+            <li>Включите <span class="ui">Safe Files</span> и <span class="ui">Time Machine Protection</span> в разделе защиты — это защита папок и резервных копий от шифровальщиков.</li>
+          </ol>
+          <div class="callout ok"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg><span><b>Конфликтов нет.</b> У Bitdefender Antivirus for Mac нет собственного фаервола, поэтому LuLu его дополняет, а не дублирует. BlockBlock и OverSight следят за другим: закреплениями и камерой.</span></div>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ИСТОЧНИКИ -->
+<section id="sources" style="background:var(--surface);border-top:1px solid var(--border)">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="eyebrow">Проверяемость</p>
+      <h2>Источники</h2>
+    </div>
+    <ol class="sources reveal">
+      <li><a href="https://brew.sh/" target="_blank" rel="noopener">Homebrew: официальная команда установки</a></li>
+      <li><a href="https://docs.brew.sh/Installation" target="_blank" rel="noopener">Homebrew: требования (macOS 15+), префиксы /opt/homebrew и /usr/local, shellenv</a></li>
+      <li><a href="https://formulae.brew.sh/cask/lulu" target="_blank" rel="noopener">Homebrew cask lulu 4.5.1</a>, <a href="https://formulae.brew.sh/cask/knockknock" target="_blank" rel="noopener">knockknock 4.1.0</a>, <a href="https://formulae.brew.sh/cask/blockblock" target="_blank" rel="noopener">blockblock 2.5.2</a>, <a href="https://formulae.brew.sh/cask/oversight" target="_blank" rel="noopener">oversight 2.4.0</a></li>
+      <li><a href="https://objective-see.org/products/lulu.html" target="_blank" rel="noopener">Objective-See: LuLu — установка и одобрение расширения</a></li>
+      <li><a href="https://objective-see.org/products/blockblock.html" target="_blank" rel="noopener">Objective-See: BlockBlock — полный доступ к диску, путь к приложению</a></li>
+      <li><a href="https://objective-see.org/products/oversight.html" target="_blank" rel="noopener">Objective-See: OverSight — уведомления, автозапуск</a></li>
+      <li><a href="https://objective-see.org/products/knockknock.html" target="_blank" rel="noopener">Objective-See: KnockKnock — сканирование, отключение VirusTotal</a></li>
+      <li><a href="https://www.bitdefender.com/consumer/support/answer/3478/" target="_blank" rel="noopener">Bitdefender: установка Antivirus for Mac через Central</a></li>
+      <li><a href="https://www.bitdefender.com/consumer/support/answer/14812/" target="_blank" rel="noopener">Bitdefender: полный доступ к диску и Bitdefender Agent на Sequoia/Tahoe</a></li>
+      <li><a href="https://www.bitdefender.com/consumer/support/answer/25974/" target="_blank" rel="noopener">Bitdefender: отключение Special offers и рассылок</a></li>
+      <li><a href="https://www.bitdefender.com/consumer/support/answer/9735/" target="_blank" rel="noopener">Bitdefender: управление уведомлениями на Mac</a></li>
+      <li><a href="https://www.bitdefender.com/en-us/consumer/antivirus-for-mac" target="_blank" rel="noopener">Bitdefender: страница продукта, цена, пробный период, системные требования</a></li>
+    </ol>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p>Версии пакетов, пути и названия пунктов меню проверены 6 октября 2026 по официальным источникам. Названия разделов Системных настроек даны для русской локализации macOS; в английской это General → Login Items &amp; Extensions и Privacy &amp; Security → Full Disk Access. Страница не индексируется поисковиками.</p>
+  </div>
+</footer>
+
+<script>
+  // Кнопки копирования
+  document.querySelectorAll('.copy').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var el = document.getElementById(btn.getAttribute('data-copy'));
+      var text = el ? el.textContent : '';
+      function done(ok) {
+        btn.textContent = ok ? 'Скопировано' : 'Выделите и ⌘C';
+        btn.classList.toggle('done', ok);
+        setTimeout(function () { btn.textContent = 'Скопировать'; btn.classList.remove('done'); }, 2200);
+      }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(function () { done(true); }, function () { done(false); });
+      } else {
+        try {
+          var r = document.createRange(); r.selectNodeContents(el);
+          var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+          done(document.execCommand('copy'));
+        } catch (e) { done(false); }
+      }
+    });
+  });
+  // Нативный fallback появления, если motion не загрузится
+  (function () {
+    if (!document.documentElement.classList.contains('js-anim')) return;
+    window.__revealNative = function () {
+      var els = document.querySelectorAll('.reveal:not(.shown)');
+      if (!('IntersectionObserver' in window)) { els.forEach(function (e) { e.classList.add('shown'); }); return; }
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('shown'); io.unobserve(en.target); } });
+      }, { rootMargin: '0px 0px -8% 0px' });
+      els.forEach(function (e) { io.observe(e); });
+    };
+    setTimeout(function () {
+      document.querySelectorAll('.reveal:not(.shown)').forEach(function (e) { e.classList.add('shown'); });
+    }, 3000);
+  })();
+</script>
+<script type="module">
+  try {
+    const { animate, inView, stagger } = await import("https://cdn.jsdelivr.net/npm/motion@11/+esm");
+    const target = (arg) => (arg && arg.target) || arg;
+    if (document.documentElement.classList.contains('js-anim')) {
+      animate('.hero h1, .hero .lead, .hero .pills', { opacity: [0, 1], y: [16, 0] }, { duration: 0.6, delay: stagger(0.08), ease: [0.22, 1, 0.36, 1] });
+      inView('.reveal', (arg) => {
+        const el = target(arg);
+        el.classList.add('shown');
+        animate(el, { opacity: [0, 1], y: [20, 0] }, { duration: 0.55, ease: [0.22, 1, 0.36, 1] });
+      }, { margin: '0px 0px -8% 0px' });
+      document.querySelectorAll('.btn, .copy').forEach((b) => {
+        b.addEventListener('pointerdown', () => animate(b, { scale: 0.97 }, { duration: 0.12 }));
+        b.addEventListener('pointerup', () => animate(b, { scale: 1 }, { duration: 0.2 }));
+        b.addEventListener('pointerleave', () => animate(b, { scale: 1 }, { duration: 0.2 }));
+      });
+    }
+  } catch (e) {
+    if (window.__revealNative) window.__revealNative();
+  }
+</script>
+</body>
+</html>
