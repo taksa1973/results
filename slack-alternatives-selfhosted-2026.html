@@ -105,6 +105,9 @@ tr.top td.name{background:#FBFBFD}
 .recipe p{margin:0 0 12px;color:var(--text-2);font-size:14.5px}
 pre{margin:0 0 12px;background:#1D1D1F;color:#F5F5F7;border-radius:14px;padding:14px 16px;font-size:12.5px;line-height:1.55;overflow:auto;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
 pre .c{color:#A1A1A6}
+.lark-table table{min-width:1180px} .lark-table col.l-name{width:150px} .lark-table col.l-web{width:300px} .lark-table col.l-mob{width:300px} .lark-table col.l-how{width:auto} .lark-table col.l-dev{width:150px}
+.verdict-row{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:16px}
+@media (max-width:1024px){.verdict-row{grid-template-columns:1fr}}
 .dropped{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
 .drop{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:16px 18px;font-size:14.5px;color:var(--text-2);box-shadow:var(--shadow)}
 .drop b{color:var(--text-1)}
@@ -132,16 +135,17 @@ footer{padding:40px 0 60px;color:var(--text-3);font-size:13px;line-height:1.6}
   <div class="wrap">
     <p class="eyebrow">Ресерч · проверено 6 октября 2026</p>
     <h1>Аналоги Slack с мини-приложениями: <span>self-hosted, безопасные и без лишней боли</span></h1>
-    <p class="lead">Десять систем, которые реально поднимаются на своём сервере, разобраны по четырём критериям: платформа приложений внутри чата, безопасность, простота развёртывания и честность бесплатной версии. Все факты — из официальной документации, релиз-нот и баз уязвимостей, с датами и ссылками. Технические термины расшифрованы в скобках по ходу текста, а внизу есть <a href="#glossary">словарь</a>.</p>
+    <p class="lead">Десять систем, которые реально поднимаются на своём сервере, разобраны по четырём критериям: платформа приложений внутри чата, безопасность, простота развёртывания и честность бесплатной версии. Все факты — из официальной документации, релиз-нот и баз уязвимостей, с датами и ссылками. Отдельный раздел — <a href="#inapp">какие системы открывают веб-приложение прямо внутри клиента, как Lark</a>, на компьютере и на телефоне. Технические термины расшифрованы в скобках по ходу текста, а внизу есть <a href="#glossary">словарь</a>.</p>
     <div class="pills">
       <span class="pill"><b>10</b> систем</span>
       <span class="pill"><b>4</b> критерия</span>
-      <span class="pill"><b>50+</b> источников</span>
+      <span class="pill"><b>60+</b> источников</span>
       <span class="pill">Лимиты и цены на <b>06.10.2026</b></span>
     </div>
     <nav class="toc" aria-label="Разделы">
       <a href="#verdict">Вердикт</a>
       <a href="#levels">Что такое «мини-аппки»</a>
+      <a href="#inapp">Внутри клиента, как в Lark</a>
       <a href="#table">Сводная таблица</a>
       <a href="#cards">Разбор по системам</a>
       <a href="#gotchas">Подводные камни</a>
@@ -167,6 +171,7 @@ footer{padding:40px 0 60px;color:var(--text-3);font-size:13px;line-height:1.6}
         <ul>
           <li><b>Берите Team Edition</b> — полностью открытую версию под лицензией MIT (пользуйтесь как хотите, никаких обязательств) до 250 пользователей, но без SSO (единого входа через корпоративный аккаунт Google, Microsoft и т. п.). Либо Entry — бесплатный режим платной версии со всеми функциями, который показывает только последние 10 000 сообщений (старые остаются в базе, но их не видно и не найти поиском).</li>
           <li><b>Минус:</b> нет E2EE (сквозного шифрования: когда прочитать сообщение может только получатель, а сервер хранит нечитаемый набор байт; здесь сервер видит текст), и push-уведомления на телефоны (всплывающие оповещения, когда приложение закрыто) в рабочем режиме — только за деньги или со своей сборкой мобильных приложений.</li>
+          <li><b>Про «как в Lark»:</b> панели и встроенные веб-страницы от плагинов работают только на компьютере и в браузере; в мобильном приложении остаются лишь всплывающие формы, кнопки и команды.</li>
         </ul>
       </article>
       <article class="rec reveal">
@@ -176,6 +181,7 @@ footer{padding:40px 0 60px;color:var(--text-3);font-size:13px;line-height:1.6}
         <ul>
           <li><b>Плюс:</b> всё под AGPLv3 (свободная лицензия: пользуйтесь и меняйте бесплатно; единственное условие — если переделаете код и будете предоставлять его как сервис другим, изменения надо опубликовать; для своей команды обязательств нет), без лимитов по пользователям (нет счётчиков вроде «до 50 человек» или «10 000 сообщений»); push на телефон идёт через шлюз matrix.org (сервер-посредник, который передаёт уведомления Apple и Google) бесплатно и с любого вашего сервера.</li>
           <li><b>Минус:</b> официальная установка — Kubernetes (система для управления множеством контейнеров, обычно для крупной инфраструктуры; k3s — её облегчённая версия для одной машины) плюс Helm (установщик пакетов для Kubernetes), а не простой docker compose. E2EE ломает серверный поиск: сервер не может искать по тексту, которого не видит, поэтому поиск по зашифрованным комнатам работает только в десктопном Element по сообщениям, скачанным на этот компьютер, а в браузере и на телефоне — нет.</li>
+          <li><b>Про «как в Lark»:</b> на компьютере виджеты открываются прямо в комнате без всякой разработки; на телефоне в новом Element X виджетов пока нет (статус на октябрь 2025, запрос открыт), а старый Element Classic с их поддержкой уходит из сторов 31.12.2026.</li>
         </ul>
       </article>
       <article class="rec reveal">
@@ -209,7 +215,7 @@ footer{padding:40px 0 60px;color:var(--text-3);font-size:13px;line-height:1.6}
         <span class="n">A</span>
         <h3>Веб-приложение внутри комнаты</h3>
         <p>Произвольный адрес открывается в sandbox-iframe (изолированное окно внутри страницы, как встроенное видео с YouTube) прямо в чате и общается с клиентом через postMessage (безопасный канал обмена сообщениями между окном и страницей). Самый близкий аналог Telegram Mini Apps.</p>
-        <p class="who"><b>Есть:</b> Matrix-виджеты в Element (<a href="https://github.com/matrix-org/matrix-widget-api" target="_blank" rel="noopener">matrix-widget-api</a>). Корневые компоненты webapp-плагинов Mattermost (плагин может нарисовать целый свой экран) — частично.</p>
+        <p class="who"><b>Есть:</b> Matrix-виджеты в Element (<a href="https://github.com/matrix-org/matrix-widget-api" target="_blank" rel="noopener">matrix-widget-api</a>) — на компьютере; в мобильном Element X пока нет. Корневые компоненты webapp-плагинов Mattermost (плагин может нарисовать целый свой экран) — частично и тоже только на компьютере.</p>
       </article>
       <article class="level reveal">
         <span class="n">B</span>
@@ -223,6 +229,77 @@ footer{padding:40px 0 60px;color:var(--text-3);font-size:13px;line-height:1.6}
         <p>Интеграция присылает текст, реакции и вложения, отвечает на команды, но интерфейса внутри чата не создаёт. Бот — это программа, которая выступает участником чата; вебхук — адрес, на который внешний сервис шлёт уведомления.</p>
         <p class="who"><b>Есть:</b> Zulip (130+ интеграций, интерактивные боты), Nextcloud Talk (боты: текст и реакции), Campfire (боты по HTTP), Stoat (Bot API).</p>
       </article>
+    </div>
+  </div>
+</section>
+
+<section id="inapp">
+  <div class="wrap">
+    <h2 class="reveal">Открывать мини-аппки прямо в клиенте, как в Lark</h2>
+    <p class="sub-h reveal">Уточнённый критерий: веб-приложение должно открываться внутри мессенджера — на компьютере и на телефоне, без перехода в браузер. Ниже — что умеет каждая система именно в этом смысле, отдельно для веб/десктопа и для мобильного приложения.</p>
+    <div class="note reveal"><b>Как это устроено в Lark (точка отсчёта).</b> На <a href="https://open.larksuite.com/" target="_blank" rel="noopener">Lark Open Platform</a> четыре типа приложений: бот, веб-приложение, гаджет (мини-программа) и блок рабочего места. С версии клиента 3.41 ссылка-AppLink открывает любую страницу <a href="https://open.larksuite.com/document/common-capabilities/applink-protocol/supported-protocol/open-the-web-view-in-feishu-to-access-the-specified-url" target="_blank" rel="noopener">прямо в боковой панели чата, в отдельном окне Lark или во вкладке навигации</a>, а не во внешнем браузере; гаджеты Lark сворачивает в пользу веб-приложений. Поставить Lark на свой сервер нельзя: <a href="https://www.feishu.cn/hc/zh-CN/articles/255316448091" target="_blank" rel="noopener">private deployment есть только у китайского Feishu</a> для бизнес- и энтерпрайз-планов по договору, международный Lark работает лишь в облаке.</div>
+    <div class="tablewrap lark-table reveal">
+      <table>
+        <colgroup><col class="l-name"><col class="l-web"><col class="l-mob"><col class="l-how"><col class="l-dev"></colgroup>
+        <thead>
+          <tr>
+            <th>Система</th>
+            <th>Веб и десктоп<span class="hs">открыть веб-приложение внутри клиента</span></th>
+            <th>Телефон<span class="hs">то же в мобильном приложении</span></th>
+            <th>Как это делается</th>
+            <th>Нужна ли разработка</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="top">
+            <td class="name"><a href="https://element.io" target="_blank" rel="noopener">Element + Matrix</a></td>
+            <td><b>Да, полноценно.</b> Виджет — любой адрес, добавленный в комнату: открывается в правой панели или разворачивается на всю область комнаты. Встроенный пункт «Custom Widget» или команда /addwidget.</td>
+            <td><b>Нет в Element X.</b> В официальном статусе функций на октябрь 2025: «No Integrations / Widgets / Matrix apps»; запрос на виджеты открыт с 25.01.2026 без ответа. Старый Element Classic открывал виджеты в WebView (встроенном окне браузера), но его убирают из сторов 31.12.2026.</td>
+            <td>Добавить URL страницы в комнату. Если приложению нужны данные комнаты (кто в ней, что написали) — подключить matrix-widget-api, библиотеку для общения виджета с клиентом.</td>
+            <td><b>Нет</b> для простого встраивания; <b>немного</b>, если нужен доступ к данным чата.</td>
+          </tr>
+          <tr class="top">
+            <td class="name"><a href="https://mattermost.com" target="_blank" rel="noopener">Mattermost</a></td>
+            <td><b>Да, через плагин.</b> Плагин регистрирует правую панель (registerRightHandSidebarComponent), целый экран или «продукт» с иконкой в переключателе слева (registerProduct) — так сделаны Boards и Playbooks. Внутри можно показать iframe вашего веб-приложения.</td>
+            <td><b>Нет.</b> Официально: «невозможно настроить мобильный интерфейс так же, как веб». На телефоне от плагинов работают только слэш-команды, всплывающие формы (interactive dialogs) и кнопки в сообщениях.</td>
+            <td>Написать минимальный плагин-обёртку (Go + React), который рисует iframe с вашим адресом. Готовой кнопки «добавить URL» нет.</td>
+            <td><b>Да, небольшая.</b></td>
+          </tr>
+          <tr>
+            <td class="name"><a href="https://www.rocket.chat" target="_blank" rel="noopener">Rocket.Chat</a></td>
+            <td><b>Частично, с риском.</b> В Apps-Engine есть «внешние компоненты» (External Components): приложение указывает url и место — MODAL (окно) или CONTEXTUAL_BAR (боковая панель), клиент грузит страницу в iframe. Интерфейс есть в текущем коде, но появился как экспериментальный «Game Center» в 2019 и в современной документации по UI Kit не описан.</td>
+            <td><b>Только блоки.</b> Модалки и боковая панель из UI Kit работают в мобильном «без дополнительного кода», но это формы из готовых блоков, а не веб-страница. Про внешние компоненты на телефоне документация молчит.</td>
+            <td>Приложение на TypeScript для Apps-Engine, загружается в сервер.</td>
+            <td><b>Да.</b></td>
+          </tr>
+          <tr>
+            <td class="name"><a href="https://zulip.com" target="_blank" rel="noopener">Zulip</a></td>
+            <td><b>Нет.</b> Ссылки открываются в браузере. Внутри чата — только сообщения, кнопки и боты.</td>
+            <td><b>Нет.</b></td>
+            <td>—</td>
+            <td>—</td>
+          </tr>
+          <tr>
+            <td class="name"><a href="https://nextcloud.com/talk/" target="_blank" rel="noopener">Nextcloud Talk</a></td>
+            <td><b>Не в чате, а рядом.</b> Приложение «External sites» встраивает любой сайт как пункт меню Nextcloud (iframe), можно показывать его только в Android/iOS-приложениях или только в браузере. Но это общая оболочка Nextcloud, а не окно внутри Talk.</td>
+            <td><b>Нет в приложении Talk.</b> Пункты External sites появляются в основном приложении Nextcloud, не в Talk.</td>
+            <td>Добавить URL в настройках администратора.</td>
+            <td><b>Нет</b>, но сайт должен разрешать встраивание.</td>
+          </tr>
+          <tr>
+            <td class="name">Campfire, Stoat, Twake, Wire, Threema</td>
+            <td><b>Нет.</b> Ни у одного нет механизма встраивания сторонних веб-страниц в клиент.</td>
+            <td><b>Нет.</b></td>
+            <td>—</td>
+            <td>—</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="verdict-row">
+      <div class="tip reveal"><span class="n">1</span><b>На компьютере Lark-эффект достижим</b>Element даёт его без единой строчки кода: добавили адрес — приложение открылось в комнате. Mattermost — через небольшой плагин-обёртку, зато получается «продукт» с собственной иконкой слева, как Boards. Rocket.Chat — технически можно, но на недокументированном механизме.</div>
+      <div class="tip reveal"><span class="n">2</span><b>На телефоне — пока ни у кого</b>Честный итог на октябрь 2026: ни одна self-hosted система не открывает произвольное веб-приложение внутри мобильного чата так, как Lark. Element X виджетов ещё не получил, Mattermost и Rocket.Chat на телефоне ограничены формами из блоков. Это главное отличие от Lark, и обойти его нечем, кроме ожидания или своего клиента.</div>
+      <div class="tip reveal"><span class="n">3</span><b>Практический путь</b>Если мобильный сценарий критичен: Mattermost или Rocket.Chat — переводить важные действия в формы из блоков (они работают на телефоне), а полный веб-интерфейс открывать ссылкой во встроенном браузере. Если важнее компьютер и безопасность — Element: виджеты сразу, а на телефоне следить за запросом на виджеты в Element X. Для любых iframe-вариантов ваше приложение должно разрешать встраивание (не ставить заголовок X-Frame-Options: DENY).</div>
     </div>
   </div>
 </section>
@@ -607,6 +684,7 @@ curl https://get.once.com/campfire | sh</pre>
       <div class="term reveal"><b>UnifiedPush</b>Открытый стандарт доставки push-уведомлений на Android без Google: вы ставите приложение-распределитель (ntfy, NextPush) и свой сервер.</div>
       <div class="term reveal"><b>Workspace, Team Edition, Entry, Community, Starter</b>Workspace — ваш экземпляр чата. Остальное — названия редакций у вендоров: у Mattermost Team Edition (открытая) и Entry (бесплатный режим платной), у Rocket.Chat Community (открытая) и Starter (бесплатный план с регистрацией).</div>
       <div class="term reveal"><b>Бот, мост</b>Бот — программа, которая участвует в чате как пользователь: отвечает, присылает отчёты. Мост (bridge) — бот-переводчик между мессенджерами: сообщение из Telegram появляется в Matrix и наоборот.</div>
+      <div class="term reveal"><b>WebView, X-Frame-Options</b>WebView — встроенное окно браузера внутри мобильного приложения, в котором открывается веб-страница без перехода в Safari или Chrome; так работают мини-приложения Telegram и Lark. X-Frame-Options и Content-Security-Policy — заголовки, которыми сайт запрещает показывать себя внутри чужой страницы (iframe); для встраивания своего приложения в чат их надо не ставить или разрешить нужный домен.</div>
       <div class="term reveal"><b>Виджет, модалка, contextual bar</b>Виджет — веб-страница, встроенная в комнату чата. Модалка — всплывающее окно с полями и кнопками поверх чата. Contextual bar — боковая панель, которая выезжает справа с информацией или формой.</div>
       <div class="term reveal"><b>Плагин, Apps-Engine, маркетплейс</b>Плагин/приложение — дополнение, которое встраивается в чат и добавляет функции. Apps-Engine — механизм Rocket.Chat для запуска таких приложений внутри сервера. Маркетплейс — каталог готовых дополнений с установкой в один клик.</div>
       <div class="term reveal"><b>Инъекция (SQL/NoSQL)</b>Атака, при которой в поле ввода (логин, поиск) подставляют команды для базы данных, и сервер их выполняет. Позволяет обойти вход или вытащить чужие данные.</div>
@@ -641,6 +719,13 @@ curl https://get.once.com/campfire | sh</pre>
       <li><a href="https://docs.element.io/latest/element-server-suite-classic/advanced-configuration/notifications-mdm-push-gateway/" target="_blank" rel="noopener">Notifications, MDM &amp; Push Gateway</a>; <a href="https://github.com/matrix-org/sygnal" target="_blank" rel="noopener">Sygnal</a></li>
       <li><a href="https://github.com/advisories/GHSA-v56r-hwv5-mxg6" target="_blank" rel="noopener">CVE-2025-30355</a>, <a href="https://github.com/advisories/GHSA-6qf2-7x63-mm6v" target="_blank" rel="noopener">CVE-2026-45076</a>, <a href="https://github.com/advisories/GHSA-8q93-326v-3m7g" target="_blank" rel="noopener">CVE-2026-45078</a></li>
       <li><a href="https://github.com/matrix-construct/tuwunel" target="_blank" rel="noopener">Tuwunel</a>; <a href="https://github.com/spantaleev/matrix-docker-ansible-deploy" target="_blank" rel="noopener">matrix-docker-ansible-deploy</a>; <a href="https://github.com/mautrix" target="_blank" rel="noopener">mautrix</a></li>
+      <h4>Внутри клиента, как в Lark</h4>
+      <li><a href="https://github.com/element-hq/element-meta/issues/1915" target="_blank" rel="noopener">Element X Current Features Status</a> — «No Integrations / Widgets / Matrix apps», статус на 25.10.0; <a href="https://github.com/element-hq/element-meta/issues/3099" target="_blank" rel="noopener">Widget support in Element X</a> — запрос от 25.01.2026; <a href="https://github.com/element-hq/element-x-android/issues/7099" target="_blank" rel="noopener">Custom Widget Support</a></li>
+      <li><a href="https://github.com/element-hq/element-android/issues/7996" target="_blank" rel="noopener">Custom widget does not work in Element Android 1.5.20</a></li>
+      <li><a href="https://docs.mattermost.com/developers/integrate/plugins/components/mobile" target="_blank" rel="noopener">Mattermost: Mobile plugins</a> — «It isn't possible to customize the mobile user experience in the same way the webapp can be extended»; <a href="https://docs.mattermost.com/developers/integrate/reference/webapp" target="_blank" rel="noopener">Web app plugin SDK reference</a> — registerProduct, registerRightHandSidebarComponent</li>
+      <li><a href="https://github.com/RocketChat/Rocket.Chat/blob/develop/packages/apps-engine/src/definition/externalComponent/IExternalComponent.ts" target="_blank" rel="noopener">Rocket.Chat IExternalComponent</a> — url, location MODAL / CONTEXTUAL_BAR; <a href="https://github.com/RocketChat/Rocket.Chat/pull/15123" target="_blank" rel="noopener">PR #15123: Experimental Game Center (externalComponents)</a>; <a href="https://developer.rocket.chat/docs/surfaces" target="_blank" rel="noopener">UI Surfaces</a> — «responsive to mobile devices, without additional coding»</li>
+      <li><a href="https://docs.nextcloud.com/server/latest/admin_manual/configuration_server/external_sites.html" target="_blank" rel="noopener">Nextcloud External sites</a> — iframe, ограничения X-Frame-Options, выбор устройств</li>
+      <li><a href="https://open.larksuite.com/document/common-capabilities/applink-protocol/supported-protocol/open-the-web-view-in-feishu-to-access-the-specified-url" target="_blank" rel="noopener">Lark AppLink: открыть страницу в клиенте</a> (sidebar / window / appCenter, с 3.41.0); <a href="https://open.larksuite.com/document/ugTN1YjL4UTN24CO1UjN/uIDO1YjLygTN24iM4UjN" target="_blank" rel="noopener">Lark Gadget</a> — переход на веб-приложения; <a href="https://www.feishu.cn/hc/zh-CN/articles/255316448091" target="_blank" rel="noopener">Feishu: функции бизнес- и энтерпрайз-версий</a> — private deployment</li>
       <h4>Zulip</h4>
       <li><a href="https://zulip.com/plans/" target="_blank" rel="noopener">Plans and pricing</a>; <a href="https://zulip.com/help/self-hosted-billing" target="_blank" rel="noopener">Self-hosted billing</a> — push до 10 пользователей, Basic $3,50</li>
       <li><a href="https://zulip.com/integrations/" target="_blank" rel="noopener">Integrations</a> — «over 130 native integrations»</li>
