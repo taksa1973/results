@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ботокс в лоб: подводные камни по науке</title>
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="description" content="Проверка тезиса «ботокс в лоб минусов не имеет» по инструкции FDA, рандомизированным исследованиям, обзорам осложнений и долгосрочным наблюдениям до 26 лет.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add('js-anim');</script>
+<style>
+:root{
+  --page-bg:#F5F5F7; --surface:#FFFFFF; --text-1:#1D1D1F; --text-2:#6E6E73; --text-3:#AEAEB2;
+  --blue:#0071E3; --border:rgba(0,0,0,0.08);
+  --ok:#1D7A3F; --ok-bg:#E8F5EC; --mid:#9A5B00; --mid-bg:#FFF3DF; --low:#5B5B60; --low-bg:#EFEFF2; --bad:#B42318; --bad-bg:#FDECEA;
+  --shadow:0 1px 2px rgba(0,0,0,0.04),0 8px 24px rgba(0,0,0,0.05);
+  --shadow-hover:0 2px 4px rgba(0,0,0,0.05),0 16px 40px rgba(0,0,0,0.09);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--page-bg);color:var(--text-1);font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:var(--blue);text-decoration:none}
+a:hover{text-decoration:underline}
+a:focus-visible,button:focus-visible{outline:3px solid var(--blue);outline-offset:2px;border-radius:6px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+.eyebrow{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--text-3);font-weight:600;margin:0 0 10px}
+h1,h2,h3{letter-spacing:-0.02em;margin:0}
+h1{font-size:clamp(32px,5vw,56px);font-weight:800;line-height:1.08}
+h1 span{color:var(--blue)}
+h2{font-size:clamp(24px,3vw,34px);font-weight:700;line-height:1.15}
+h3{font-size:18px;font-weight:600;line-height:1.3}
+p{margin:0}
+.lead{font-size:18px;color:var(--text-2);max-width:760px;margin-top:18px}
+hero,.hero{display:block}
+.hero{background:var(--surface);border-bottom:1px solid var(--border);padding:72px 0 56px}
+.pills{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
+.pill{display:inline-flex;align-items:center;gap:8px;background:var(--page-bg);border:1px solid var(--border);border-radius:999px;padding:8px 14px;font-size:14px;font-weight:500;color:var(--text-1)}
+.pill svg{width:16px;height:16px;color:var(--blue);flex:none}
+.quote{margin-top:26px;border-left:3px solid var(--blue);padding:4px 0 4px 18px;color:var(--text-2);font-size:16px;max-width:760px}
+.quote b{color:var(--text-1);font-weight:600}
+section{padding:56px 0}
+.sec-head{margin-bottom:28px;max-width:760px}
+.sec-head p{color:var(--text-2);margin-top:10px}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-auto-flow:dense;gap:18px}
+.grid-2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.card{min-width:0;background:var(--surface);border:1px solid var(--border);border-radius:22px;padding:26px;box-shadow:var(--shadow);transition:box-shadow .2s,transform .2s;display:flex;flex-direction:column;gap:12px}
+.card:hover{transform:translateY(-2px);box-shadow:var(--shadow-hover)}
+.span2{grid-column:span 2}
+.badge{display:inline-flex;flex-wrap:wrap;align-items:center;gap:6px;border-radius:999px;padding:4px 10px;font-size:12px;font-weight:600;letter-spacing:.01em;align-self:flex-start;max-width:100%}
+.badge svg{width:12px;height:12px}
+.b-ok{background:var(--ok-bg);color:var(--ok)}
+.b-mid{background:var(--mid-bg);color:var(--mid)}
+.b-low{background:var(--low-bg);color:var(--low)}
+.b-bad{background:var(--bad-bg);color:var(--bad)}
+.card p{color:var(--text-2);font-size:15px}
+.card p b{color:var(--text-1);font-weight:600}
+.card .ic{width:40px;height:40px;border-radius:12px;background:var(--page-bg);display:grid;place-items:center;color:var(--text-1)}
+.card .ic svg{width:20px;height:20px}
+.verdict{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.verdict .card{gap:10px}
+.claim{font-size:17px;font-weight:600;color:var(--text-1)}
+.src{font-size:12px;color:var(--text-3)}
+.src a{color:var(--text-2)}
+.kv{display:flex;flex-wrap:wrap;gap:8px}
+.kv span{background:var(--page-bg);border:1px solid var(--border);border-radius:10px;padding:6px 10px;font-size:13px;color:var(--text-1)}
+.kv span i{font-style:normal;color:var(--text-3);margin-right:4px}
+table{width:100%;border-collapse:separate;border-spacing:0;background:var(--surface);border:1px solid var(--border);border-radius:18px;overflow:hidden;box-shadow:var(--shadow)}
+thead th{background:var(--text-1);color:#fff;font-weight:600;font-size:13px;text-align:left;padding:14px 16px;letter-spacing:.01em}
+tbody td{padding:14px 16px;border-bottom:1px solid var(--border);font-size:15px;vertical-align:top}
+tbody tr:last-child td{border-bottom:none}
+td.num{font-variant-numeric:tabular-nums;white-space:nowrap;font-weight:600}
+td .muted{color:var(--text-2);font-size:13px;display:block;margin-top:2px}
+.table-wrap{overflow-x:auto;border-radius:18px}
+.timeline{position:relative;padding-left:28px}
+.timeline::before{content:"";position:absolute;left:8px;top:6px;bottom:6px;width:2px;background:var(--border)}
+.tl{position:relative;padding:0 0 26px}
+.tl:last-child{padding-bottom:0}
+.tl::before{content:"";position:absolute;left:-26px;top:6px;width:14px;height:14px;border-radius:50%;background:var(--blue);border:3px solid var(--page-bg);box-shadow:0 0 0 1px var(--border)}
+.tl .year{font-size:12px;font-weight:700;color:var(--blue);letter-spacing:.06em;text-transform:uppercase}
+.tl h3{margin-top:4px}
+.tl p{color:var(--text-2);font-size:15px;margin-top:6px}
+.tips{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.tip{min-width:0;background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:22px;box-shadow:var(--shadow);transition:box-shadow .2s,transform .2s}
+.tip:hover{transform:translateY(-2px);box-shadow:var(--shadow-hover)}
+.tip .n{width:32px;height:32px;border-radius:8px;background:var(--text-1);color:#fff;display:grid;place-items:center;font-weight:700;font-size:14px;margin-bottom:12px}
+.tip h3{font-size:16px}
+.tip p{color:var(--text-2);font-size:14px;margin-top:6px}
+.open{background:linear-gradient(180deg,#FFFFFF 0%,#F9F9FB 100%)}
+.sources ol{margin:0;padding-left:22px;columns:2;column-gap:36px;font-size:13.5px;color:var(--text-2)}
+.sources li{break-inside:avoid;margin-bottom:10px;line-height:1.45}
+.sources li a{color:var(--text-1)}
+.note{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:20px 24px;color:var(--text-2);font-size:14px}
+footer{padding:36px 0 56px;color:var(--text-3);font-size:13px}
+.reveal{opacity:1;will-change:opacity,transform}
+.js-anim .reveal{opacity:0;transform:translateY(16px);transition:opacity .55s cubic-bezier(.22,1,.36,1),transform .55s cubic-bezier(.22,1,.36,1)}
+.js-anim .reveal.shown{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){
+  .js-anim .reveal{opacity:1;transform:none;transition:none}
+  .card,.tip{transition:none}
+  html{scroll-behavior:auto}
+}
+@media (max-width:980px){
+  .grid,.tips{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .sources ol{columns:1}
+}
+@media (max-width:680px){
+  .hero{padding:52px 0 40px}
+  section{padding:44px 0}
+  .grid,.grid-2,.verdict,.tips{grid-template-columns:1fr}
+  .span2{grid-column:auto}
+  .card{padding:22px}
+  .wrap{padding:0 16px}
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="eyebrow">Научная проверка · 6 октября 2026</p>
+    <h1>Ботокс в лоб: <span>подводные камни</span>, проверенные по источникам</h1>
+    <p class="lead">Проверяли тезис целиком: «минусов нет, кожа перестаёт травмироваться при мимике, делаешь раз в полгода, захотел — прекратил». Каждая часть сопоставлена с инструкцией FDA, рандомизированными исследованиями, обзорами осложнений и наблюдениями до 26 лет.</p>
+    <div class="quote"><b>Короткий итог.</b> Ботокс в лоб — одно из самых безопасных эстетических вмешательств, долгосрочного вреда при косметических дозах за десятилетия не выявлено. Но «минусов нет» — неточно: есть частые временные побочные эффекты (опущение брови и века, головная боль), доказанное влияние на мимику и восприятие эмоций, редкие тяжёлые реакции при подделках и ряд вопросов, по которым длинных исследований просто мало.</div>
+    <div class="pills">
+      <span class="pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>37 источников</span>
+      <span class="pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Инструкция FDA, редакция 10/2024</span>
+      <span class="pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Наблюдения до 26 лет</span>
+      <span class="pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Уровень доказательности у каждого пункта</span>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="eyebrow">Разбор тезиса</p>
+      <h2>Четыре утверждения — четыре вердикта</h2>
+      <p>Статус: «подтверждено», «частично» или «неточно». Под каждым — конкретные цифры и ссылки на источники в конце страницы.</p>
+    </div>
+    <div class="verdict">
+      <article class="card reveal">
+        <span class="badge b-bad"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>Неточно</span>
+        <p class="claim">«Ботокс в лоб минусов не имеет»</p>
+        <p>В двух двойных слепых исследованиях (665 пациентов, лоб + межбровье) головная боль была у <b>9%</b> против 5% на плацебо, опущение брови — у <b>2%</b>, опущение верхнего века — у <b>2%</b> против 0% [1]. Это временные эффекты, но это минусы. Серьёзные осложнения при косметических дозах крайне редки [1][31], а за 15–26 лет наблюдений долгосрочного вреда не выявлено [23]. Оговорка: строгих исследований с наблюдением дольше 6 месяцев мало, многие спонсированы производителями [16].</p>
+      </article>
+      <article class="card reveal">
+        <span class="badge b-ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Подтверждено</span>
+        <p class="claim">«Кожа перестаёт травмироваться при мимике»</p>
+        <p>Для динамических и «отпечатанных» морщин — да. У однояйцевых близнецов, одна из которых колола лоб и межбровье 13 лет, а потом 19 лет, линии в покое не появились, у сестры с 2–3 процедурами за те же годы — появились [21][22]. На срок действия растёт пластичность и упругость кожи [19], до 6 месяцев улучшаются поры и текстура [20]. <b>Но</b> на само старение кожи это не влияет: в 15-летней компьютерной модели к 15-му году толщина дермы, плотность коллагена и провисание одинаковы при любой частоте инъекций (модель, уровень доказательности IV) [24].</p>
+      </article>
+      <article class="card reveal">
+        <span class="badge b-mid"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/></svg>Частично</span>
+        <p class="claim">«Просто каждые полгода делаешь»</p>
+        <p>По инструкции эффект держится <b>около 3–4 месяцев</b> [1]. В обзоре 35 исследований у женщин — 3–5 месяцев, у мужчин — 4–6, к 6 месяцам большинство возвращается к исходному состоянию [37]. При интервале в полгода лоб 1–3 месяца в году мимирует в полную силу — защита не непрерывная. Обратная сторона плюс: редкие инъекции — минимальный риск выработки антител, а частые (реже 3 месяцев между процедурами) — главный фактор риска потери эффекта [26].</p>
+      </article>
+      <article class="card reveal">
+        <span class="badge b-ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Подтверждено</span>
+        <p class="claim">«Если хочешь — просто прекращаешь, и всё»</p>
+        <p>Атрофия мышцы после повторных инъекций описана как <b>обратимая и временная</b> [15]. На модели у мышей нервно-мышечные контакты восстанавливаются полностью: сначала работают новые отростки нерва, потом возвращаются исходные окончания, а отростки исчезают [17]. «Эффекта отдачи» (морщины хуже, чем до курса) в литературе не описано; у близнецов, наоборот, остаточное улучшение сохранялось через 7 месяцев после последней процедуры [21]. Нюанс: отдельные изменения мышцы фиксировались до 4 лет после курса — это про длительность эффекта, не про вред [16].</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="eyebrow">Подводные камни</p>
+      <h2>Что реально может пойти не так</h2>
+      <p>Отсортировано по практической значимости именно для лба. Метка показывает, насколько сильны данные: рандомизированные исследования и обзоры, малые выборки, или только животные и модели.</p>
+    </div>
+    <div class="grid">
+
+      <article class="card reveal span2">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg></div>
+        <span class="badge b-ok">Доказательность высокая · РКИ + обзоры</span>
+        <h3>Опущение бровей и «тяжёлый» взгляд — главный риск именно для лба</h3>
+        <p>Лобная мышца — <b>единственная</b>, которая поднимает брови. Если расслабить её, а мышцы-депрессоры межбровья оставить в силе, бровь опускается, глаза кажутся меньше, лицо — усталым [2][3]. В РКИ опущение брови было у 2% [1], в обзоре — от менее 1% до 5%; в серии из 25 пациентов, которым кололи только лоб, у 22 бровь опустилась в среднем на 2,3 мм [2]. У мужчин брови изначально посажены ниже, поэтому консенсус-протоколы для мужчин отдельные [3]. Даже инъекции только в межбровье меняют положение брови: 20–40 ед. поднимали латеральную часть, 10 ед. давали лёгкий птоз [4]; за 10 лет повторных процедур в межбровье брови в среднем поднимаются [5].</p>
+        <div class="kv"><span><i>Как долго</i>пока действует токсин, недели–месяцы</span><span><i>Профилактика</i>лоб колоть вместе с межбровьем — так требует инструкция FDA [1]; точки не ниже 2–3 см над глазничным краем [2]</span></div>
+      </article>
+
+      <article class="card reveal">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/></svg></div>
+        <span class="badge b-ok">Доказательность высокая</span>
+        <h3>Птоз верхнего века</h3>
+        <p>Токсин мигрирует в мышцу, поднимающую веко. На лбу с межбровьем — <b>2% против 0%</b> на плацебо, при обработке только межбровья — 3% [1]. Проявляется до 7–10 дня, держится 2–4 недели и дольше [2]. У людей с избытком кожи век лобная мышца незаметно компенсирует — её расслабление выявляет скрытый птоз [2]. Капли апраклонидин 0,5% поднимают веко на 1–2 мм на время ожидания [2].</p>
+      </article>
+
+      <article class="card reveal">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M14 7h7v7"/></svg></div>
+        <span class="badge b-mid">Доказательность средняя · обзоры</span>
+        <h3>«Бровь Спока» и асимметрия</h3>
+        <p>Центр лобной мышцы расслаблен, а боковые пучки тянут хвост брови вверх — получается «удивлённая» бровь. Обзор называет асимметрию «довольно частым» эффектом; причины — точки инъекций, неравные дозы на две стороны и анатомия [2]. Исправляется несколькими единицами в активный участок [2]. Фото исходной асимметрии до процедуры снимает большую часть споров.</p>
+      </article>
+
+      <article class="card reveal">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
+        <span class="badge b-ok">Доказательность высокая · РКИ</span>
+        <h3>Головная боль и «гриппозные» сутки</h3>
+        <p>Головная боль — самый частый эффект на лбу: <b>9%</b> против 5% на плацебо [1]. У части пациентов — преходящая головная боль с ломотой в теле на 24–72 часа [2]. Синяки в точках укола — обычное дело, особенно у висков [2]. Отдельно в РКИ по лбу отмечено «стягивание кожи» у 2% [1].</p>
+      </article>
+
+      <article class="card reveal span2">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 15s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg></div>
+        <span class="badge b-mid">Доказательность средняя · малые выборки, в основном межбровье</span>
+        <h3>Мимика, эмоции и то, как вас читают другие</h3>
+        <p>Лоб отвечает за поднятие бровей — сигналы удивления, страха, печали и «вспышку бровями» в общении [13]. Эксперименты с парализованными мимическими мышцами показывают реальные, но небольшие и обратимые эффекты: после ботокса в межбровье медленнее читаются фразы про злость и грусть [6]; эмоциональные переживания в целом слабее, чем у контрольной группы с филлером [7]; хуже распознаются эмоции на чужих лицах — тоже против контроля с филлером [8]; реакция миндалины на злые лица снижается и <b>возвращается к норме</b>, когда токсин перестаёт действовать (дизайн A-B-A, маленькая выборка, без плацебо) [9][10]. В группе из 24 пациенток против 12 контрольных снизилось распознавание эмоций, а обработка «гусиных лапок» ассоциировалась с ростом баллов депрессии [11]; парализованное межбровье мешало научиться быстрее замечать злость [12].</p>
+        <p>Обратная сторона: ботокс в <b>межбровье</b> (не в лоб) в пяти РКИ уменьшал симптомы депрессии, размер эффекта d = 0,98 [14]. Вывод: эффект на эмоции существует, он скромный и уходит вместе с действием токсина. Важен, если работа завязана на выразительности лица.</p>
+      </article>
+
+      <article class="card reveal">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4v16"/><path d="M18 4v16"/><path d="M6 12h12"/></svg></div>
+        <span class="badge b-mid">Доказательность средняя · обзоры</span>
+        <h3>Атрофия лобной мышцы</h3>
+        <p>Повторная химическая денервация уменьшает объём мышцы. Обзор хирургов: атрофия после ботулотоксина «обратима и временна», а повторные курсы удлиняют действие и позволяют колоть реже [15]. Другой обзор 22 публикаций: изменения состава и функции мышцы сохраняются месяцами и годами, данных мало [16]. Когортных УЗИ-исследований лобной мышцы у многолетних пациентов <b>не найдено</b>; разговоры о «плоском блестящем лбу» остаются на уровне наблюдений врачей.</p>
+      </article>
+
+      <article class="card reveal">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7z"/></svg></div>
+        <span class="badge b-low">Доказательность низкая · 1 клинический случай</span>
+        <h3>Атрофия подкожного жира лба</h3>
+        <p>Единичный случай 2025 года: после инъекции в лоб локально истончился жир (0,8 мм против 2,0 мм на здоровой стороне) при утолщении дермы. Авторы считают механизмом диффузию токсина к нервам жировой ткани; предрасполагает тонкий слой жира [18]. Описано как редкость при косметических дозах.</p>
+      </article>
+
+      <article class="card reveal">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
+        <span class="badge b-mid">Доказательность средняя · обзоры + регистрационные данные</span>
+        <h3>Антитела и потеря эффекта</h3>
+        <p>В регистрационных исследованиях ни у одного из 916 пациентов не появилось нейтрализующих антител [1]. По всем показаниям частота низкая, но растёт с суммарной дозой и числом циклов [25]. Триггеры вторичной нечувствительности в эстетике: интервалы <b>короче 3 месяцев</b>, «добивки» в первые 3 недели, высокие дозы и комплексообразующие белки в препарате; у инкоботулотоксина (Xeomin) и даксиботулотоксина антител не зафиксировано [26][27]. Среди опытных пациентов 6% попадают в профиль высокого риска — те, кто колет много и часто [28]. Интервал в полгода — паттерн низкого риска.</p>
+      </article>
+
+      <article class="card reveal">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a4 4 0 0 1 4 4v1a4 4 0 0 1 3 4v1a4 4 0 0 1-1 8h-1"/><path d="M12 2a4 4 0 0 0-4 4v1a4 4 0 0 0-3 4v1a4 4 0 0 0 1 8h1"/><path d="M12 2v20"/></svg></div>
+        <span class="badge b-low">Доказательность низкая · животные, механизм</span>
+        <h3>Действие на мозг: ретроградный транспорт</h3>
+        <p>У грызунов активный токсин перемещается по аксонам в центральную нервную систему и действует на следующие синапсы [30]; в обзоре 2018 года это считают частью лечебного действия при дистониях, у людей после лечебных доз описаны изменения спинальных рефлексов [29]. Вреда при косметических дозах не показано, долгих исследований нет. Это открытый вопрос, а не доказанный риск.</p>
+      </article>
+
+      <article class="card reveal">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+        <span class="badge b-ok">Доказательность высокая · предупреждение FDA</span>
+        <h3>Распространение токсина и подделки</h3>
+        <p>На упаковке — предупреждение в рамке: эффект может распространиться за пределы зоны укола, нарушения глотания и дыхания бывали смертельными. Но при косметических дозах, включая 40 ед. на лоб и межбровье, <b>подтверждённых серьёзных случаев не зарегистрировано</b>; риск связан с лечебными дозами и детьми со спастичностью [1]. Реальная опасность — поддельный препарат или нелицензированный «инъектор»: в 2024 году CDC расследовал 22 случая ботулизмоподобных реакций в 11 штатах, 11 человек госпитализированы [33].</p>
+      </article>
+
+      <article class="card reveal">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></div>
+        <span class="badge b-low">Доказательность низкая для лба · данные только по жевательным мышцам</span>
+        <h3>Кости</h3>
+        <p>Страх «ботокс разрушает кость» идёт от исследований жевательной мышцы: у крыс минус 20% альвеолярной и минус 35% кости мыщелка [34]; у людей за 12 месяцев РКИ плотность нижней челюсти не менялась [35], но у женщин после менопаузы ухудшалось качество кортикальной кости в месте прикрепления [36]. Лобная мышца крепится к коже и апоневрозу, кость не нагружает — исследований по ней нет, и механизм переноса сомнителен.</p>
+      </article>
+
+      <article class="card reveal">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg></div>
+        <span class="badge b-ok">Доказательность высокая · инструкция</span>
+        <h3>Когда нельзя или с осторожностью</h3>
+        <p>Противопоказания: аллергия на любой ботулотоксин и инфекция в месте укола. Осторожно при нервно-мышечных болезнях (миастения, БАС, синдром Ламберта–Итона) — риск генерализованной слабости. Аминогликозиды и миорелаксанты усиливают действие [1]. Беременность: исследований на людях нет, у животных нарушения развития плода при дозах от 4-кратных человеческих [1]; по базе производителя за 24 года пороки у 2,7% — на уровне фона [32]. Практический вывод врачей — не колоть.</p>
+      </article>
+
+      <article class="card reveal">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
+        <span class="badge b-mid">Доказательность средняя · описания случаев</span>
+        <h3>Редкие тяжёлые реакции</h3>
+        <p>Систематический обзор серьёзных событий: анафилаксия, генерализованная слабость, выраженный двусторонний птоз, псевдоаневризма ветви височной артерии, некротизирующий фасциит, гранулёмы. Чаще при лечебных дозах, но описаны и после косметических [31]. Крапивница и анафилаксия — редкость, гранулёма в точке укола разрешилась за 6 недель [2].</p>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="eyebrow">Цифры</p>
+      <h2>Частота побочных эффектов в контролируемых исследованиях</h2>
+      <p>Данные из инструкции FDA по онаботулотоксину A (Botox Cosmetic), двойные слепые плацебо-контролируемые исследования, 90 дней наблюдения [1]. Дополнено обзором осложнений [2].</p>
+    </div>
+    <div class="table-wrap reveal">
+      <table>
+        <thead><tr><th>Эффект</th><th>Зона</th><th>Ботокс</th><th>Плацебо</th><th>Комментарий</th></tr></thead>
+        <tbody>
+          <tr><td>Головная боль</td><td>Лоб + межбровье, N=665 / 315</td><td class="num">9%</td><td class="num">5%</td><td>Проходит за 1–3 суток<span class="muted">[1][2]</span></td></tr>
+          <tr><td>Опущение брови</td><td>Лоб + межбровье</td><td class="num">2%</td><td class="num">0%</td><td>В обзоре — от &lt;1% до 5%; выше при обработке только лба<span class="muted">[1][2]</span></td></tr>
+          <tr><td>Опущение верхнего века</td><td>Лоб + межбровье</td><td class="num">2%</td><td class="num">0%</td><td>2–4 недели и дольше<span class="muted">[1][2]</span></td></tr>
+          <tr><td>Стягивание кожи</td><td>Лоб + межбровье</td><td class="num">2%</td><td class="num">0%</td><td>Субъективное ощущение<span class="muted">[1]</span></td></tr>
+          <tr><td>Опущение верхнего века</td><td>Только межбровье, 20 ед.</td><td class="num">3%</td><td class="num">0%</td><td>Самый частый эффект для этой зоны<span class="muted">[1]</span></td></tr>
+          <tr><td>Отёк век</td><td>«Гусиные лапки», N=526 / 530</td><td class="num">1%</td><td class="num">0%</td><td>Для сравнения<span class="muted">[1]</span></td></tr>
+          <tr><td>Любые побочные эффекты</td><td>Верхняя треть лица, 845 пациентов, абоботулотоксин</td><td class="num">2,6%</td><td class="num">—</td><td>Ретроспектива; чаще всего синяки у висков<span class="muted">[2]</span></td></tr>
+          <tr><td>Нейтрализующие антитела</td><td>916 пациентов, регистрационные исследования</td><td class="num">0%</td><td class="num">—</td><td>Связывающие антитела у 1,5%, нейтрализующих — ни у кого<span class="muted">[1]</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="grid-2">
+      <div class="reveal">
+        <div class="sec-head">
+          <p class="eyebrow">Долгий горизонт</p>
+          <h2>Что известно о годах и десятилетиях</h2>
+          <p>Хронология ключевых работ: от механизма восстановления нерва до когорты с 26-летним наблюдением.</p>
+        </div>
+        <div class="timeline">
+          <div class="tl"><div class="year">1999</div><h3>Нервные окончания восстанавливаются полностью</h3><p>На мышах: после блокады сначала работают новые отростки нерва, потом возвращаются исходные окончания, отростки исчезают [17].</p></div>
+          <div class="tl"><div class="year">2006 · 2015</div><h3>Близнецы: 13 и 19 лет</h3><p>Регулярно леченная сестра — без линий в покое на лбу и межбровье, кожа ровнее, поры мельче; неленченные зоны старели одинаково; побочных эффектов за 13 лет не было [21][22].</p></div>
+          <div class="tl"><div class="year">2016</div><h3>Атрофия мышцы обратима</h3><p>Обзор случаев нежелательной атрофии (включая «песочные часы» на лбу после лечения мигрени): временно, обратимо, действие с повторами удлиняется [15].</p></div>
+          <div class="tl"><div class="year">2022</div><h3>Честная оговорка о данных</h3><p>Из 22 публикаций мало кто наблюдал дольше 6 месяцев, многие спонсированы индустрией; стойкие изменения фиксировались до 4 лет. Данных для выводов о долгосрочном влиянии «недостаточно» [16].</p></div>
+          <div class="tl"><div class="year">2025</div><h3>50 пациентов, в среднем 15 лет, 1 098 циклов</h3><p>Наблюдение 8–26 лет, суммарно 332–3 684 ед. на человека. Ни одного случая потери эффекта или укорочения действия; 94% считают, что выглядят минимум на 2 года моложе [23].</p></div>
+          <div class="tl"><div class="year">2026</div><h3>Компьютерная модель на 15 лет</h3><p>Морщины мельче первые 5 лет, затем глубина сходится к одной величине при любой частоте; дерма и коллаген убывают одинаково. Модель, а не пациенты — авторы сами требуют проверки на людях [24].</p></div>
+        </div>
+      </div>
+      <div class="reveal">
+        <div class="sec-head">
+          <p class="eyebrow">Открытые вопросы</p>
+          <h2>Чего наука пока не знает</h2>
+          <p>Отсутствие доказательств вреда — не то же самое, что доказательство безопасности. Вот где именно пробелы.</p>
+        </div>
+        <div class="card" style="gap:16px">
+          <div><h3>Лобная мышца через 10–20 лет</h3><p>Нет когортных УЗИ или МРТ-исследований толщины лобной мышцы и кожи над ней у многолетних косметических пациентов. Есть обзоры и единичные случаи [15][16][18].</p></div>
+          <div><h3>Психология именно лба</h3><p>Почти все эксперименты сделаны на межбровье. Для лобной мышцы (удивление, страх, печаль) систематических данных «мало» — так пишут сами авторы обзора 2025 года [13].</p></div>
+          <div><h3>Центральные эффекты у людей</h3><p>Ретроградный транспорт доказан на животных; что он значит при 20–40 ед. раз в полгода у человека — не изучено [29][30].</p></div>
+          <div><h3>Кожа в долгую</h3><p>Близнецы говорят «лучше», модель 2026 года — «через 15 лет без разницы». Проспективных исследований кожи на годы нет [21][22][24].</p></div>
+          <div class="note">Общий знаменатель: за 20+ лет массового применения тяжёлых отложенных последствий косметических доз не выявлено. Но большинство исследований короткие и часто спонсированы производителями [16].</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="eyebrow">Практика</p>
+      <h2>Как свести подводные камни к минимуму</h2>
+      <p>Каждый пункт выводится из источников выше, а не из рекламы клиник.</p>
+    </div>
+    <div class="tips">
+      <div class="tip reveal"><div class="n">1</div><h3>Лоб — только вместе с межбровьем</h3><p>Так требует инструкция FDA, именно чтобы бровь не упала [1]. Обработка одного лба — классическая причина «тяжёлых век» [2][3].</p></div>
+      <div class="tip reveal"><div class="n">2</div><h3>Мужской протокол</h3><p>Брови у мужчин ниже, мышца сильнее: иные точки и дозы, нижнюю треть лба трогать минимально. Консенсус описывает отдельные схемы для мужчин по тонусу мышцы [3].</p></div>
+      <div class="tip reveal"><div class="n">3</div><h3>Точки не ниже 2–3 см над глазницей</h3><p>Сохраняет нижние волокна мышцы, которые держат бровь [2].</p></div>
+      <div class="tip reveal"><div class="n">4</div><h3>Не чаще раза в 3 месяца, без «добивок»</h3><p>Интервалы короче 3 месяцев и повторные уколы в первые 3 недели — главные триггеры антител [26]. Полгода — отличный интервал.</p></div>
+      <div class="tip reveal"><div class="n">5</div><h3>Зарегистрированный препарат, лицензированный врач</h3><p>Все серьёзные случаи 2024 года в США — подделки, спа и «инъекторы» без лицензии [33]. Препарат без комплексообразующих белков снижает риск антител [26][27].</p></div>
+      <div class="tip reveal"><div class="n">6</div><h3>Фото до процедуры</h3><p>Исходная асимметрия бровей — норма; без фото её потом припишут уколам [2].</p></div>
+      <div class="tip reveal"><div class="n">7</div><h3>Обсудить мимику заранее</h3><p>Решить, нужна ли способность поднимать брови (удивление, «вспышка бровями») — для публичной работы это аргумент за меньшую дозу [13].</p></div>
+      <div class="tip reveal"><div class="n">8</div><h3>Стоп-лист</h3><p>Беременность и кормление, нервно-мышечные болезни, курс аминогликозидов, инфекция в зоне укола [1][32].</p></div>
+      <div class="tip reveal"><div class="n">9</div><h3>Если упало веко</h3><p>Капли апраклонидин 0,5% поднимают веко на 1–2 мм, пока токсин не ослабнет; «бровь Спока» исправляется парой единиц в активный пучок [2].</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="sources">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="eyebrow">Источники</p>
+      <h2>37 работ, на которые опирается разбор</h2>
+      <p>Инструкция регулятора, рецензируемые статьи и официальное сообщение CDC. Номера совпадают со ссылками в тексте.</p>
+    </div>
+    <div class="reveal">
+    <ol>
+      <li><a href="https://www.rxabbvie.com/pdf/botox-cosmetic_pi.pdf">BOTOX Cosmetic (onabotulinumtoxinA) Prescribing Information</a>, AbbVie/FDA, ред. 10/2024: дозы, таблица 7 побочных эффектов для лба, иммуногенность, предупреждение в рамке.</li>
+      <li><a href="https://doi.org/10.1111/jocd.14160">Kroumpouzos G. и др. Complications of Botulinum toxin A: An update review.</a> J Cosmet Dermatol, 2021.</li>
+      <li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC5655032/">Anido J. и др. Tailored botulinum toxin type A injections… consensus panel recommendations for treating the forehead.</a> Clin Cosmet Investig Dermatol, 2017.</li>
+      <li><a href="https://pubmed.ncbi.nlm.nih.gov/17241411/">Carruthers A., Carruthers J. Eyebrow height after botulinum toxin type A to the glabella.</a> Dermatol Surg, 2007.</li>
+      <li><a href="https://pubmed.ncbi.nlm.nih.gov/31517662/">Hexsel D. и др. Long-Term Cumulative Effects of Repeated Botulinum Toxin Type A Injections on Brow Position.</a> Dermatol Surg, 2020.</li>
+      <li><a href="https://pubmed.ncbi.nlm.nih.gov/20548056/">Havas D.A. и др. Cosmetic use of botulinum toxin-A affects processing of emotional language.</a> Psychol Sci, 2010.</li>
+      <li><a href="https://pubmed.ncbi.nlm.nih.gov/20515231/">Davis J.I. и др. The effects of BOTOX injections on emotional experience.</a> Emotion, 2010.</li>
+      <li><a href="https://journals.sagepub.com/doi/abs/10.1177/1948550611406138">Neal D.T., Chartrand T.L. Embodied Emotion Perception.</a> Soc Psychol Personal Sci, 2011.</li>
+      <li><a href="https://pubmed.ncbi.nlm.nih.gov/18562330/">Hennenlotter A. и др. The link between facial feedback and neural activity within central circuitries of emotion.</a> Cereb Cortex, 2009.</li>
+      <li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC4332022/">Kim M.J. и др. Botulinum toxin-induced facial muscle paralysis affects amygdala responses… A-B-A design.</a> Biol Mood Anxiety Disord, 2014.</li>
+      <li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC6170457/">Lewis M.B. The interactions between botulinum-toxin-based facial treatments and embodied emotions.</a> Sci Rep, 2018.</li>
+      <li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC6692314/">Bulnes L.C. и др. The effects of Botulinum toxin on the detection of gradual changes in facial emotion.</a> Sci Rep, 2019.</li>
+      <li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12539761/">Hopf A.G.M. и др. A Psychological Guide to Upper Face Botulinum Toxin Injections.</a> J Cosmet Dermatol, 2025.</li>
+      <li><a href="https://pubmed.ncbi.nlm.nih.gov/33578275/">Schulze J. и др. Botulinum toxin for the management of depression: updated review and meta-analysis.</a> J Psychiatr Res, 2021.</li>
+      <li><a href="https://pubmed.ncbi.nlm.nih.gov/26780946/">Durand P.D. и др. Botulinum Toxin and Muscle Atrophy: A Wanted or Unwanted Effect.</a> Aesthet Surg J, 2016.</li>
+      <li><a href="https://pubmed.ncbi.nlm.nih.gov/34611099/">Crook J.L. и др. Long-term Effects of Repeated Botulinum Toxin Injection in Cosmetic Therapeutics.</a> Ann Plast Surg, 2022.</li>
+      <li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC15919/">de Paiva A. и др. Functional repair of motor endplates after botulinum neurotoxin type A poisoning.</a> PNAS, 1999.</li>
+      <li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11938406/">Xu W. и др. A Case of Forehead Subcutaneous Fat Atrophy Following Botulinum Toxin Injection.</a> J Cosmet Dermatol, 2025.</li>
+      <li><a href="https://pubmed.ncbi.nlm.nih.gov/25996589/">Bonaparte J.P., Ellis D. Alterations in the Elasticity, Pliability, and Viscoelastic Properties of Facial Skin After Injection of Onabotulinum Toxin A.</a> JAMA Facial Plast Surg, 2015.</li>
+      <li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC10155803/">Sun Y. и др. Unparallel improvement patterns of dynamic wrinkles and skin quality after botulinum toxin type A treatment on the upper face.</a> Skin Res Technol, 2023.</li>
+      <li><a href="https://pubmed.ncbi.nlm.nih.gov/17116793/">Binder W.J. Long-term effects of botulinum toxin type A (Botox) on facial lines: a comparison in identical twins.</a> Arch Facial Plast Surg, 2006.</li>
+      <li><a href="https://pubmed.ncbi.nlm.nih.gov/25548847/">Rivkin A., Binder W.J. Long-term effects of onabotulinumtoxinA on facial lines: a 19-year experience of identical twins.</a> Dermatol Surg, 2015.</li>
+      <li><a href="https://pubmed.ncbi.nlm.nih.gov/40497579/">Trindade de Almeida A.R. и др. Long-Term Consecutive OnabotulinumtoxinA Injections for Facial Aesthetic Treatment: A Real-World Study.</a> Dermatol Surg, 2025.</li>
+      <li><a href="https://pubmed.ncbi.nlm.nih.gov/41345304/">Rahman E. и др. A 15-Year Computational Twin Modeling Study of Botulinum Toxin A Frequency and Age-Related Facial Aging.</a> Aesthetic Plast Surg, 2026.</li>
+      <li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11508269/">Lee K.W.A. и др. Immunogenicity of Botulinum Toxin Type A in Different Clinical and Cosmetic Treatment, a Literature Review.</a> Life, 2024.</li>
+      <li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12045523/">Kroumpouzos G., Silikovich F. Exploring Nonresponse to Botulinum Toxin in Aesthetics: Narrative Review.</a> JMIR Dermatol, 2025.</li>
+      <li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC9015201/">Park J.Y. и др. Immunogenicity Associated with Aesthetic Botulinumtoxin A: A Survey of Asia-Pacific Physicians.</a> Plast Reconstr Surg Glob Open, 2022.</li>
+      <li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11845912/">Tseng F.W. и др. Identifying Different Immunoresistance Risk Profiles Among Experienced Aesthetic BoNT-A Recipients.</a> J Cosmet Dermatol, 2025.</li>
+      <li><a href="https://pubmed.ncbi.nlm.nih.gov/29111119/">Caleo M., Restani L. Direct central nervous system effects of botulinum neurotoxin.</a> Toxicon, 2018.</li>
+      <li><a href="https://www.researchgate.net/publication/5467997_Long-Distance_Retrograde_Effects_of_Botulinum_Neurotoxin_A">Antonucci F. и др. Long-Distance Retrograde Effects of Botulinum Neurotoxin A.</a> J Neurosci, 2008.</li>
+      <li><a href="https://pubmed.ncbi.nlm.nih.gov/25613637/">Yiannakopoulou E. Serious and long-term adverse events associated with the therapeutic and cosmetic use of botulinum toxin.</a> Pharmacology, 2015.</li>
+      <li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC5063122/">Brin M.F. и др. Pregnancy outcomes following exposure to onabotulinumtoxinA.</a> Pharmacoepidemiol Drug Saf, 2016.</li>
+      <li><a href="https://www.cdc.gov/media/releases/2024/s0416-Counterfeit-Botox.html">CDC. CDC Investigating Harmful Reactions to Counterfeit Botox.</a> Пресс-релиз, 16 апреля 2024.</li>
+      <li><a href="https://pubmed.ncbi.nlm.nih.gov/25857689/">Kün-Darbois J.-D. и др. Botulinum toxin in masticatory muscles of the adult rat induces bone loss at the condyle and alveolar regions.</a> Bone, 2015.</li>
+      <li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12706864/">Kostenuik P. и др. Longitudinal CT Indicates No Negative Impact of OnabotulinumtoxinA on Mandibular Bone Density… 12-Month RCT.</a> Aesthet Surg J, 2025.</li>
+      <li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC7046747/">Hong S.W., Kang J.H. Decreased mandibular cortical bone quality after botulinum toxin injections in masticatory muscles in female adults.</a> Sci Rep, 2020.</li>
+      <li><a href="https://pubmed.ncbi.nlm.nih.gov/20369902/">Flynn T.C. Botulinum toxin: examining duration of effect in facial aesthetic applications.</a> Am J Clin Dermatol, 2010.</li>
+    </ol>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>Информационный разбор научной литературы, не замена консультации врача. Проценты приведены из указанных источников без пересчёта; где данные получены на животных или в компьютерной модели, это отмечено в тексте. Составлено 6 октября 2026.</p>
+  </div>
+</footer>
+
+<script type="module">
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const els = Array.from(document.querySelectorAll('.reveal'));
+const showAll = () => els.forEach(e => e.classList.add('shown'));
+if (reduce) {
+  showAll();
+} else {
+  setTimeout(showAll, 3000);
+  const target = (a) => (a && a.target) || a;
+  try {
+    const { animate, inView } = await import('https://cdn.jsdelivr.net/npm/motion@11/+esm');
+    inView('.reveal', (arg) => {
+      const el = target(arg);
+      if (el.classList.contains('shown')) return;
+      el.classList.add('shown');
+      animate(el, { opacity: [0, 1], y: [16, 0] }, { duration: 0.55, ease: [0.22, 1, 0.36, 1] });
+    }, { margin: '0px 0px -8% 0px' });
+    document.querySelectorAll('.card, .tip').forEach((c) => {
+      c.addEventListener('pointerdown', () => animate(c, { scale: 0.985 }, { duration: 0.12 }));
+      c.addEventListener('pointerup', () => animate(c, { scale: 1 }, { duration: 0.18 }));
+      c.addEventListener('pointerleave', () => animate(c, { scale: 1 }, { duration: 0.18 }));
+    });
+  } catch (e) {
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((en) => { if (en.isIntersecting) { en.target.classList.add('shown'); io.unobserve(en.target); } });
+      }, { rootMargin: '0px 0px -8% 0px' });
+      els.forEach((e) => io.observe(e));
+    } else {
+      showAll();
+    }
+  }
+}
+</script>
+</body>
+</html>
