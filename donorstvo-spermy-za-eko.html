@@ -91,6 +91,18 @@ td b{font-weight:600}
 .script .col{padding:20px 22px;font-size:14.5px;line-height:1.6;white-space:pre-wrap;color:var(--text-1)}
 .script .col:first-child{border-right:1px solid var(--border);background:#FAFAFC}
 .script .lbl{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--text-3);font-weight:700;margin-bottom:10px}
+.timeline{position:relative;padding-left:28px}
+.timeline::before{content:"";position:absolute;left:8px;top:6px;bottom:6px;width:2px;background:var(--border)}
+.tl{position:relative;padding:0 0 24px}
+.tl:last-child{padding-bottom:0}
+.tl::before{content:"";position:absolute;left:-26px;top:6px;width:14px;height:14px;border-radius:50%;background:var(--blue);border:3px solid var(--page-bg);box-shadow:0 0 0 1px var(--border)}
+.tl .year{font-size:12px;font-weight:700;color:var(--blue);letter-spacing:.06em;text-transform:uppercase}
+.tl h3{margin-top:4px;font-size:17px}
+.tl p{color:var(--text-2);font-size:15px;margin-top:6px}
+.tl p b{color:var(--text-1);font-weight:600}
+.durov{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:18px;align-items:start}
+.durov .card{gap:10px}
+@media (max-width:980px){.durov{grid-template-columns:1fr}}
 .note{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:20px 24px;color:var(--text-2);font-size:14px}
 .note b{color:var(--text-1);font-weight:600}
 .warn{border-left:4px solid var(--mid)}
@@ -133,10 +145,11 @@ footer{padding:36px 0 56px;color:var(--text-3);font-size:13px}
     <p class="lead">Проверили идею «я становлюсь донором спермы, клиника закрывает нам цикл ЭКО» по первоисточникам: резолюция CFM и нормы ANVISA в Бразилии, правила HFEA и страницы шести британских клиник, прайсы банков спермы, цены ЭКО в Рио, Москве и Мехико. В конце — куда писать в Рио, кому именно звонить и готовые тексты на португальском.</p>
     <div class="quote"><b>Короткий итог.</b> Готовый продукт «семя за бесплатный цикл» существует только в Великобритании (sperm sharing) — там это легально и описано на сайтах клиник, но донор перестаёт быть анонимным для ребёнка с его 18 лет, а программа требует 5–12 недель на месте. В Бразилии такой схемы нет: закон запрещает «коммерческий характер» донорства, а разделение затрат прописано только для яйцеклеток. Зато банки спермы уже дают донорам натуральные бонусы (бесплатный андрологический чекап, хранение, транспорт), местных доноров остро не хватает, а импортная доза стоит около R$ 4&nbsp;500 — это и есть база для переговоров о скидке или покрытии цикла. Переговорщик в Бразилии — не «замдиректора больницы», а связка банк спермы + клиника ЭКО, и решает в ней diretor técnico.</div>
     <div class="pills">
-      <span class="pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>56 источников</span>
+      <span class="pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>71 источников</span>
       <span class="pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>CFM 2.320/2022 · ANVISA RDC 771/2022 · HFEA</span>
       <span class="pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Рио: 1 банк спермы + 5 клиник с контактами</span>
       <span class="pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>6 британских программ sperm sharing</span>
+      <span class="pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Кейс Дурова: хронология 2009–2026</span>
     </div>
   </div>
 </header>
@@ -331,7 +344,7 @@ footer{padding:36px 0 56px;color:var(--text-3);font-size:13px}
         <tr><td>Цикл FIV/ICSI в Бразилии, диапазон 2026</td><td class="num">R$ 30&nbsp;000–83&nbsp;000</td><td>Fertilidade.org, 26 сентября 2026: лекарства R$ 8–22 тыс., лаборатория FIV/ICSI R$ 10–20 тыс., пункция R$ 3–8 тыс.<sup><a href="#s24">24</a></sup></td></tr>
         <tr><td>Себестоимость FIV/ICSI для SUS</td><td class="num">R$ 18&nbsp;828</td><td>IFF/Fiocruz, расчёт сети репродукции штата Рио<sup><a href="#s47">47</a></sup></td></tr>
         <tr><td>Цикл ЭКО в Москве</td><td class="num">90–200 тыс. ₽ база · 200–400 тыс. ₽ с ИКСИ и лекарствами</td><td>Прайсы АльтраВита, Клиника Фомина, 2026<sup><a href="#s52">52</a></sup></td></tr>
-        <tr><td>Цикл FIV в Мехико · Боготе</td><td class="num">≈ MXN 140&nbsp;000 (US$ 6,5–7,5 тыс.) · COP 25&nbsp;048 000</td><td>Avida Fertility 2025; Eugin Bogotá прайс<sup><a href="#s53">53</a></sup></td></tr>
+        <tr><td>Цикл FIV в Мехико · Боготе</td><td class="num">≈ MXN 140&nbsp;000 (US$ 6,5–7,5 тыс.) · COP 25&nbsp;048&nbsp;000</td><td>Avida Fertility 2025; Eugin Bogotá прайс<sup><a href="#s53">53</a></sup></td></tr>
       </tbody>
     </table>
     </div>
@@ -445,7 +458,7 @@ footer{padding:36px 0 56px;color:var(--text-3);font-size:13px}
       <article class="card reveal">
         <span class="badge b-low">Россия · требования к донору</span>
         <p class="claim">Репробанк берёт только москвичей 18–35 лет</p>
-        <p>Требования Репробанка: возраст 18–35, гражданство РФ или ВНЖ и проживание в Москве или Московской области, справки из ПНД и НД по месту регистрации, полноэкзомное секвенирование за счёт банка.<sup><a href="#s40">40</a></sup> Для человека, живущего в Рио, это полгода-год в Москве ради 5&nbsp;000 ₽ за образец — как заработок бессмысленно. Единственный смысл российского трека — ЭКО по ОМС, см. ниже.</p>
+        <p>Требования Репробанка: возраст 18–35, гражданство РФ или ВНЖ и проживание в Москве или Московской области, справки из ПНД и НД по месту регистрации, полноэкзомное секвенирование за счёт банка.<sup><a href="#s40">40</a></sup> Для человека, живущего в Рио, это полгода-год в Москве ради 5&nbsp;000 ₽ за образец — как заработок бессмысленно. Единственный смысл российского трека — ЭКО по ОМС, см. ниже. Как устроена схема Дурова в этой же АльтраВите — <a href="#durov">отдельный разбор</a>.</p>
       </article>
       <article class="card reveal">
         <span class="badge b-mid">Россия · ЭКО по ОМС</span>
@@ -456,7 +469,74 @@ footer{padding:36px 0 56px;color:var(--text-3);font-size:13px}
   </div>
 </section>
 
-<section id="sus">
+<section id="durov">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="eyebrow">Кейс · Павел Дуров</p>
+      <h2>Как сделал Дуров: та же связка «донор + клиника», но деньги идут в обратную сторону</h2>
+      <p>Самый известный пример «донор спермы как маркетинг клиники». Важно понять механику: Дуров не получал ЭКО за семя — он сам оплачивает ЭКО женщинам, которые выбирают его материал, а клиника получает поток пациенток и прессу. Хронология по первоисточникам.</p>
+    </div>
+    <div class="durov">
+      <div class="card reveal">
+        <div class="timeline">
+          <div class="tl">
+            <div class="year">≈ 2009</div>
+            <h3>Друг попросил — клиника сказала «гражданский долг»</h3>
+            <p>По словам Дурова, 15 лет назад друг с женой не могли завести ребёнка и попросили его сдать сперму. Руководитель клиники сообщил о дефиците «высококачественного донорского материала» и назвал донорство его гражданским долгом — так он стал регулярным анонимным донором московской клиники ЭКО.<sup><a href="#s57">57</a>,<a href="#s65">65</a></sup></p>
+          </div>
+          <div class="tl">
+            <div class="year">29–30 июля 2024</div>
+            <h3>Пост в Telegram: «более 100 детей в 12 странах»</h3>
+            <p>«Благодаря моему донорству более сотни пар в 12 странах смогли завести детей… по крайней мере в одной клинике ЭКО моя замороженная сперма всё ещё доступна». Обещал открыть свой ДНК-код, чтобы дети могли найти друг друга, и «дестигматизировать донорство спермы».<sup><a href="#s57">57</a></sup></p>
+          </div>
+          <div class="tl">
+            <div class="year">31 июля 2024</div>
+            <h3>Анонимность продержалась два дня</h3>
+            <p>«Фонтанка» нашла в московской клинике анкету донора № 6: 176 см, брюнет, карие глаза, программист и предприниматель, отличник, девять языков, Весы, в графе ценностей — свобода. Клиника подтвердила, что биоматериал донора № 6 есть только у неё; <b>одна доза — 35 тысяч рублей</b>.<sup><a href="#s58">58</a></sup></p>
+          </div>
+          <div class="tl">
+            <div class="year">15 ноября 2024</div>
+            <h3>АльтраВита запускает «Бесплатное ЭКО с донорской спермой Павла Дурова»</h3>
+            <p>Официальный текст клиники: участницы — женщины не старше 37 лет с удовлетворительным здоровьем по заключению репродуктолога; «Павел Дуров компенсирует нашей клинике все расходы, связанные с программами ЭКО»; количество мест ограничено; запись по телефону +7 (499) 444-15-02.<sup><a href="#s59">59</a>,<a href="#s60">60</a></sup></p>
+          </div>
+          <div class="tl">
+            <div class="year">Июнь 2025</div>
+            <h3>Интервью Le Point: наследство поровну всем</h3>
+            <p>Шесть официальных детей от трёх партнёрш плюс более ста — от донорства; состояние (≈ $13,9 млрд по Bloomberg) делится поровну, доступ через 30 лет: «я не делаю между ними различий — все они мои дети».<sup><a href="#s65">65</a></sup></p>
+          </div>
+          <div class="tl">
+            <div class="year">23–24 декабря 2025</div>
+            <h3>Вторая волна: «Дуров оплатит ЭКО женщинам до 37»</h3>
+            <p>«Коммерсантъ», РИА Новости, News.ru: сотрудница клиники подтверждает — «да, сперма действительно Павла Дурова», программу финансирует он лично. News.ru со слов бывшей сотрудницы добавляет условие «только незамужние» — другими источниками не подтверждено. Адвокат называет схему «юридической бомбой будущего» из-за споров о наследстве.<sup><a href="#s61">61</a>,<a href="#s62">62</a>,<a href="#s63">63</a>,<a href="#s64">64</a>,<a href="#s71">71</a></sup></p>
+          </div>
+          <div class="tl">
+            <div class="year">30 июля — 11 августа 2026</div>
+            <h3>Перечень Росфинмониторинга — и условия меняются за 12 дней</h3>
+            <p>29 июля ФСБ предъявляет обвинение в содействии терроризму, 30 июля Дурова вносят в перечень; клиника ставит пометку у его имени, директор допускает расторжение договора, но «работаем в обычном режиме». 31 июля страница программы пропадает — «просто обновляют». 11 августа пометка «бесплатно» снята: процедура и биоматериал теперь платные, возрастные рамки убраны.<sup><a href="#s66">66</a>,<a href="#s67">67</a>,<a href="#s68">68</a>,<a href="#s69">69</a></sup></p>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:18px">
+        <article class="card reveal">
+          <span class="badge b-ok">Что переносится на ваш план</span>
+          <p><b>Дефицит — реальный рычаг.</b> Фраза главы клиники про нехватку «высококачественного материала» — тот же аргумент, что и в Бразилии, где 71 % доз импортируют. Хорошая спермограмма делает вас нужным, а не просящим.</p>
+          <p><b>Экономика клиники прозрачна.</b> Та же АльтраВита платит обычным донорам 18–34 лет до 5&nbsp;000 ₽ за сдачу, а дозу Дурова продавала за 35&nbsp;000 ₽ — семикратная разница между тем, что получает донор, и тем, что получает клиника.<sup><a href="#s58">58</a>,<a href="#s70">70</a></sup> В Бразилии то же соотношение: доза R$ 1&nbsp;500–3&nbsp;400 при нулевой оплате донору.</p>
+          <p><b>Материал работает годами.</b> Дуров давно перестал сдавать, а клиника продавала его образцы 15 лет спустя. Ваши 10–20 сдач — долгий актив банка, и просить за него разовый цикл не наглость.</p>
+          <p><b>Клиника пошла на нестандартную сделку.</b> Персональная программа с именем донора, отдельная страница, компенсация расходов третьим лицом — всё это оформили за три с половиной месяца после поста. Значит, индивидуальные конструкции в этой отрасли возможны, вопрос в интересе клиники.</p>
+        </article>
+        <article class="card reveal">
+          <span class="badge b-bad">Чего повторить нельзя</span>
+          <p><b>Направление денег.</b> Дуров платит клинике, а не наоборот: это донорское финансирование лечения реципиенток, легальное именно потому, что донор ничего не получает. Ваша схема — зеркальная, и под запрет «caráter comercial» попадает именно она.</p>
+          <p><b>Масштаб.</b> Сто детей от одного донора возможны в России и невозможны в Бразилии: CFM IV.6 — не более двух рождений разного пола на миллион жителей региона.</p>
+          <p><b>Анонимность.</b> Журналисты вычислили донора № 6 за два дня по анкете: рост, профессия, языки, знак зодиака. Бразильские банки показывают реципиентам похожие таблицы (BSRJ: группа крови, глаза, волосы, рост, хобби). Если анонимность для вас важна — свободные поля анкеты заполнять общо.</p>
+          <p><b>Хрупкость договорённостей.</b> Когда у донора изменился статус, клиника переписала условия за 12 дней. Любой «бонус донору» в Бразилии держится на доброй воле diretor técnico — поэтому письменный termo обязателен.</p>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="sus" class="open">
   <div class="wrap">
     <div class="sec-head reveal">
       <p class="eyebrow">Бесплатно и дёшево · Бразилия</p>
@@ -543,7 +623,7 @@ footer{padding:36px 0 56px;color:var(--text-3);font-size:13px}
   </div>
 </section>
 
-<section id="teksty">
+<section id="teksty" class="open">
   <div class="wrap">
     <div class="sec-head reveal">
       <p class="eyebrow">Готовые тексты</p>
@@ -654,7 +734,7 @@ Atenciosamente,
   <div class="wrap">
     <div class="sec-head reveal">
       <p class="eyebrow">Источники</p>
-      <h2>56 ссылок, по которым всё можно проверить</h2>
+      <h2>71 ссылок, по которым всё можно проверить</h2>
     </div>
     <ol class="reveal">
       <li id="s1"><a href="https://sistemas.cfm.org.br/normas/arquivos/resolucoes/BR/2022/2320_2022.pdf" target="_blank" rel="noopener">Resolução CFM nº 2.320/2022 — официальный PDF CFM</a></li>
@@ -713,6 +793,21 @@ Atenciosamente,
       <li id="s54"><a href="https://www.noticiasgobierno.com/donar-esperma-en-mexico-cuanto-pagan-y-que-requisitos-piden/" target="_blank" rel="noopener">Noticias Gobierno — Donar esperma en México: cuánto pagan</a></li>
       <li id="s55"><a href="https://www.semearfertilidade.com/semear" target="_blank" rel="noopener">SEMEAR — Quem somos</a></li>
       <li id="s56"><a href="https://ipgo.com.br/banco-de-semen-internacional/" target="_blank" rel="noopener">IPGO — Banco de sêmen internacional</a></li>
+      <li id="s57"><a href="https://www.kommersant.ru/doc/6863871" target="_blank" rel="noopener">Коммерсантъ — Павел Дуров рассказал, что у него более 100 биологических детей (30.07.2024)</a></li>
+      <li id="s58"><a href="https://www.fontanka.ru/2024/07/31/73899899/" target="_blank" rel="noopener">Фонтанка — В Москве нашли анкету донора спермы. Данные указывают на Павла Дурова (31.07.2024)</a></li>
+      <li id="s59"><a href="https://vk.ru/@altravitaonline-besplatnoe-eko-s-donorskoi-spermoi-pavla-durova" target="_blank" rel="noopener">АльтраВита (VK) — Бесплатное ЭКО с донорской спермой Павла Дурова (15.11.2024)</a></li>
+      <li id="s60"><a href="https://altravita-ivf.ru/eko-ot-pavla-durova.html" target="_blank" rel="noopener">АльтраВита — страница программы (с августа 2026 условия менялись, страница периодически недоступна)</a></li>
+      <li id="s61"><a href="https://www.kommersant.ru/doc/8315321" target="_blank" rel="noopener">Коммерсантъ — Дуров оплатит ЭКО женщинам, решившим использовать его донорскую сперму (23.12.2025)</a></li>
+      <li id="s62"><a href="https://ria.ru/20251224/durov-2064220664.html" target="_blank" rel="noopener">РИА Новости — В московской клинике рассказали о возможности ЭКО со спермой Павла Дурова (24.12.2025)</a></li>
+      <li id="s63"><a href="https://news.ru/moskva/v-moskovskoj-klinike-rasskazali-ob-eko-so-spermoj-pavla-durova" target="_blank" rel="noopener">News.ru — В московской клинике рассказали об ЭКО со спермой Павла Дурова (24.12.2025)</a></li>
+      <li id="s64"><a href="https://postnews.ru/a/55558" target="_blank" rel="noopener">Postnews — Как родить от Дурова: всё о программе, мнение юриста</a></li>
+      <li id="s65"><a href="https://english.dhanamonline.com/amp/story/news/telegram-founder-durov-to-leave-wealth-to-over-100-children-most-conceived-via-sperm-donation-9001278" target="_blank" rel="noopener">Dhanam — пересказ интервью Le Point: наследство 100+ детям (21.06.2025)</a></li>
+      <li id="s66"><a href="https://meduza.io/news/2026/07/30/klinika-predlagayuschaya-eko-so-spermoy-pavla-durova-dobavila-k-ego-imeni-pometku-o-vnesenii-v-spisok-terroristov" target="_blank" rel="noopener">Meduza — Клиника добавила к имени Дурова пометку о внесении в список террористов (30.07.2026)</a></li>
+      <li id="s67"><a href="https://www.5-tv.ru/news/5080514/biomaterial-pavla-durova-ostaetsa-dostupnym-dla-eko-aii/" target="_blank" rel="noopener">Пятый канал — Сперма Павла Дурова остаётся доступной для ЭКО (30.07.2026)</a></li>
+      <li id="s68"><a href="https://iz.ru/2141941/v-klinike-altravita-obiasnili-ischeznovenie-stranitcy-programmy-s-durovym-izi" target="_blank" rel="noopener">Известия — В клинике «АльтраВита» объяснили исчезновение страницы программы с Дуровым (31.07.2026)</a></li>
+      <li id="s69"><a href="https://moika78.ru/news/2026-08-11/1341592-klinika-altavita-ubrala-pometku-o-besplatnom-eko-spermoj-durova/" target="_blank" rel="noopener">Мойка78 — Клиника убрала пометку о бесплатном ЭКО спермой Дурова (11.08.2026)</a></li>
+      <li id="s70"><a href="https://altravita-ivf.ru/donorstvo-spermy/207-kak-stat-donorom-spermy.html" target="_blank" rel="noopener">АльтраВита — Как стать донором спермы: 18–34 года, до 5&nbsp;000 ₽ за сдачу (данные из поискового сниппета, сайт недоступен из Бразилии)</a></li>
+      <li id="s71"><a href="https://www.ridus.ru/pavel-durov-finansiruet-besplatnoe-eko-v-klinike--altravita--756850.html" target="_blank" rel="noopener">Ридус — Павел Дуров финансирует бесплатное ЭКО в клинике «АльтраВита» (24.12.2025)</a></li>
     </ol>
   </div>
 </section>
