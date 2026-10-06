@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Насадки-фильтры на кран и душ для Белграда</title>
+  <title>Насадки-фильтры на кран для Белграда</title>
   <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
   <meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet">
-  <meta name="description" content="Подбор фильтров-насадок на два крана и на душ для квартиры в Белграде: формфактор без отдельного носика, цены и сроки на Wildberries и Ozon на 6 октября 2026.">
+  <meta name="description" content="Подбор фильтров-насадок на два крана для квартиры в Белграде: формфактор без отдельного носика, наличие и сроки на Ozon Казахстан для пункта выдачи в Алматы на 6 октября 2026.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -32,6 +32,8 @@
       --green-soft: rgba(29, 122, 62, 0.09);
       --amber: #8A5A00;
       --amber-soft: rgba(196, 130, 0, 0.12);
+      --red: #B3261E;
+      --red-soft: rgba(179, 38, 30, 0.08);
       --border: rgba(0, 0, 0, 0.08);
       --shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 8px 24px rgba(0, 0, 0, 0.04);
       --shadow-hover: 0 2px 4px rgba(0, 0, 0, 0.05), 0 16px 36px rgba(0, 0, 0, 0.08);
@@ -75,7 +77,6 @@
     h2 { font-size: clamp(26px, 3.4vw, 36px); font-weight: 700; letter-spacing: -0.02em; line-height: 1.15; margin: 0 0 10px; }
     .sub { color: var(--text-2); margin: 0 0 24px; max-width: 780px; }
     h3 { font-size: 18px; font-weight: 700; letter-spacing: -0.01em; margin: 0 0 6px; line-height: 1.25; }
-    h4 { font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-3); margin: 32px 0 14px; }
 
     .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); padding: 24px; transition: box-shadow 0.2s ease-out, transform 0.2s ease-out; }
     .card:hover { transform: translateY(-2px); box-shadow: var(--shadow-hover); }
@@ -93,6 +94,7 @@
     .tag-yes { background: var(--green-soft); color: var(--green); }
     .tag-info { background: var(--blue-soft); color: var(--blue); }
     .tag-warn { background: var(--amber-soft); color: var(--amber); }
+    .tag-no { background: var(--red-soft); color: var(--red); }
     .list { margin: 0; padding: 0; list-style: none; }
     .list li { position: relative; padding-left: 20px; color: var(--text-2); font-size: 15px; }
     .list li + li { margin-top: 8px; }
@@ -101,7 +103,6 @@
 
     /* Карточки товаров */
     .products { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; align-items: stretch; }
-    .products-2 { grid-template-columns: repeat(2, 1fr); }
     .product { display: flex; flex-direction: column; padding: 0; overflow: hidden; }
     .product-photo { position: relative; background: #fff; border-bottom: 1px solid var(--border); aspect-ratio: 1 / 1; overflow: hidden; }
     .product-photo img { position: absolute; top: 16px; left: 16px; width: calc(100% - 32px); height: calc(100% - 32px); object-fit: contain; display: block; }
@@ -112,6 +113,7 @@
     .pill-blue { color: var(--blue); background: var(--blue-soft); }
     .pill-warn { color: var(--amber); background: var(--amber-soft); }
     .pill-green { color: var(--green); background: var(--green-soft); }
+    .pill-red { color: var(--red); background: var(--red-soft); }
     .offers { list-style: none; margin: auto 0 0; padding: 14px 0 0; border-top: 1px solid var(--border); display: grid; gap: 10px; }
     .offer { display: grid; grid-template-columns: 1fr auto; gap: 2px 12px; align-items: baseline; }
     .offer a { font-weight: 600; font-size: 15px; min-height: 28px; display: inline-flex; align-items: center; }
@@ -121,16 +123,17 @@
 
     /* Таблицы */
     .table-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); overflow-x: auto; }
-    .table-wrap + .table-wrap { margin-top: 16px; }
-    table { width: 100%; border-collapse: collapse; font-size: 15px; min-width: 720px; }
-    caption { text-align: left; font-weight: 700; font-size: 16px; padding: 16px 18px 10px; color: var(--text-1); }
+    table { width: 100%; border-collapse: collapse; font-size: 15px; min-width: 760px; }
     thead th { background: var(--text-1); color: #fff; text-align: left; font-weight: 600; font-size: 13px; letter-spacing: 0.02em; padding: 14px 18px; }
     tbody td, tbody th { padding: 14px 18px; border-bottom: 1px solid var(--border); text-align: left; vertical-align: top; }
-    tbody th { font-weight: 600; color: var(--text-1); width: 22%; }
+    tbody th { font-weight: 600; color: var(--text-1); width: 30%; }
     tbody td { color: var(--text-2); }
     tbody tr:last-child td, tbody tr:last-child th { border-bottom: 0; }
-    td.hl, th.hl { background: #F7FAFF; }
+    tr.hl td, tr.hl th { background: #F7FAFF; }
     td b { color: var(--text-1); font-weight: 600; }
+    td.num { font-variant-numeric: tabular-nums; white-space: nowrap; }
+    .ok { color: var(--green); font-weight: 600; }
+    .late { color: var(--red); font-weight: 600; }
     .note { font-size: 14px; color: var(--text-2); margin: 16px 0 0; max-width: 860px; }
     .note b { color: var(--text-1); font-weight: 600; }
 
@@ -170,14 +173,13 @@
 
   <header class="hero">
     <div class="wrap">
-      <p class="eyebrow">Подбор · цены проверены 6 октября 2026 · только Wildberries и Ozon</p>
-      <h1>Насадки-фильтры на два крана и душ: <span>что заказать к 16 октября</span></h1>
-      <p class="lead">Формфактор один для всего: фильтр накручивается на излив или на душевой шланг, лишних носиков и шлангов нет. На краны — Гейзер Евро, на душ — Prio Новая Вода T5. Оба в наличии на Wildberries и Ozon с доставкой на этой неделе.</p>
+      <p class="eyebrow">Подбор · Ozon Казахстан · пункт выдачи № 497-980, Алматы · проверено 6 октября 2026</p>
+      <h1>Насадки-фильтры на два крана: <span>что реально доедет до 16 октября</span></h1>
+      <p class="lead">Формфактор один: переключатель вместо аэратора и картридж рядом с изливом, никаких отдельных носиков. Наличие и сроки проверены для вашего пункта выдачи на проспекте Сакена Сейфуллина, 580. Из брендовых насадок в срок укладывается только одна карточка Гейзер Евро, и в ней ровно две штуки.</p>
       <div class="stats">
-        <span class="stat">Гейзер Евро: <b>2 220 ₽</b> на WB</span>
-        <span class="stat">Prio T5 на душ: <b>4 214 ₽</b> на Ozon</span>
-        <span class="stat">Комплект на 2 крана и душ: <b>≈ 8 700 ₽</b></span>
-        <span class="stat">Белград: <b>15–20 °dH</b>, вода хлорируется</span>
+        <span class="stat">Гейзер Евро 61005: <b>17 418 ₸</b>, доставка <b>13 октября</b></span>
+        <span class="stat">В наличии у продавца: <b>2 шт.</b> — ровно на два крана</span>
+        <span class="stat">Остальные бренды: <b>16–17 октября</b>, поздно</span>
       </div>
     </div>
   </header>
@@ -185,11 +187,10 @@
   <nav class="toc" aria-label="Разделы страницы">
     <div class="wrap">
       <a href="#verdict">Что брать</a>
-      <a href="#products">Товары и цены</a>
-      <a href="#compare">Сравнение</a>
+      <a href="#products">Товары и сроки</a>
+      <a href="#compare">Все варианты</a>
       <a href="#taps">Ваши краны</a>
       <a href="#water">Вода в Белграде</a>
-      <a href="#plan">План заказа</a>
       <a href="#allergy">Про аллергию</a>
       <a href="#unknown">Что не проверено</a>
       <a href="#sources">Источники</a>
@@ -200,40 +201,35 @@
 
     <section class="block reveal" id="verdict">
       <h2>Что брать</h2>
-      <p class="sub">Три насадки: по одной на каждый кран и одна на душ. Всё накручивается на штатную резьбу и снимается без следов.</p>
+      <p class="sub">Две одинаковые насадки Гейзер Евро, по одной на кран. Заказывать одной корзиной у одного продавца.</p>
       <div class="bento">
         <div class="card verdict span-2">
-          <span class="tag tag-yes">Основной набор</span>
-          <h3>2 × Гейзер Евро на краны + Prio Новая Вода T5 на душ</h3>
+          <span class="tag tag-yes">Заказ</span>
+          <h3>2 × Гейзер Евро 61005 у продавца ГЕЙЗЕР96 — 34 836 ₸</h3>
           <ul class="list">
-            <li><b>Гейзер Евро</b> ставится вместо аэратора: на изливе остаётся переключатель, рядом с ним стоит цилиндр с картриджем «Арагон». Производитель прямо пишет, что насадка подходит только кранам с аэратором, а у вас он есть на обоих. Ресурс 3000 л, вода до 40 °C.</li>
-            <li><b>Prio Новая Вода T5</b> вкручивается между смесителем и душевым шлангом или перед лейкой. Внутри 100 % KDF-55: по данным производителя удаляет до 99 % свободного хлора в начале ресурса и до 95 % в конце, работает с горячей водой до 65 °C, ресурс 40 000 л.</li>
-            <li><b>Сумма на Wildberries и Ozon:</b> 2 × 2 220 ₽ + 4 214 ₽ = 8 654 ₽ без учёта доставки.</li>
+            <li><b>Сроки:</b> в пункт выдачи № 497-980 — 13 октября, курьером в тот же день за +1 500 ₸. Отправка со склада продавца в Свердловской области.</li>
+            <li><b>Наличие:</b> карточка показывает «В наличии — осталось 2 штуки». Если одну купят раньше, второй у этого продавца не будет; остальные продавцы везут 16 октября.</li>
+            <li><b>Цена выше, чем у других:</b> у продавца с пометкой «Бренд проверен» тот же фильтр стоит 12 847 ₸, но доставка 16 октября. Переплата за срок — 4 571 ₸ за штуку.</li>
+            <li><b>Что это:</b> переключатель накручивается вместо аэратора, цилиндр с картриджем «Арагон» стоит рядом с изливом. Ресурс 3000 л, вода до 40 °C, 0,5 л/мин в режиме фильтрации. Производитель пишет, что насадка подходит только кранам с аэратором — у вас он есть на обоих.</li>
           </ul>
         </div>
         <div class="card">
-          <span class="tag tag-info">Сроки</span>
-          <h3>На этой неделе</h3>
-          <p>Для адресов по умолчанию на сайтах (Москва на WB, Тольятти на Ozon) Гейзер Евро обещают 7 октября, Prio T5 — 7 октября на WB и 9 октября на Ozon. Для вашего города дату покажет приложение после выбора пункта выдачи.</p>
+          <span class="tag tag-warn">Если двух штук уже нет</span>
+          <h3>Запасной путь</h3>
+          <p>На складе Ozon в срок лежат только безымянные насадки за 3 298 ₸ (8 октября) и 2 966 ₸ (10 октября). У них нет производителя и подтверждённых характеристик, это не «прям хороший» вариант, но единственный, который доедет быстро.</p>
         </div>
         <div class="card span-3">
-          <span class="tag tag-warn">Что эти насадки не делают</span>
-          <h3>Жёсткость они не снижают</h3>
-          <ul class="list">
-            <li>И угольные картриджи, и KDF убирают хлор, часть органики и тяжёлых металлов. Соли кальция и магния через них проходят. Гейзер обещает лишь «уменьшает образование накипи».</li>
-            <li>Если реакция именно на жёсткость, насадки её не решат: для этого нужен ионообменный умягчитель на вводе или фильтр с умягчающим картриджем, а это уже не насадка.</li>
-            <li>Гейзер Евро даёт 0,5 л/мин в режиме фильтрации. Для умывания хватает, для набора кастрюли долго — переключатель пропускает обычную воду без фильтра.</li>
-          </ul>
+          <span class="tag tag-warn">Что насадка не делает</span>
+          <h3>Жёсткость она не снижает</h3>
+          <p>Картридж «Арагон» по описанию производителя убирает хлор, железо, тяжёлые металлы, органику и микроорганизмы. Соли кальция и магния через него проходят; Гейзер обещает лишь «уменьшает образование накипи». Если реакция на жёсткость, нужен умягчитель на вводе, а это уже не насадка. Вода до 40 °C: для умывания прохладной водой хватает.</p>
         </div>
       </div>
     </section>
 
     <section class="block reveal" id="products">
-      <h2>Товары и цены</h2>
-      <p class="sub">Цены сняты со страниц магазинов 6 октября 2026 года. Цены Wildberries указаны с WB Кошельком. Kaspi из подбора убран.</p>
-
-      <h4>На кран</h4>
-      <div class="products products-2 stagger">
+      <h2>Товары и сроки</h2>
+      <p class="sub">Сроки сняты 6 октября 2026 на ozon.kz с выбранным пунктом выдачи № 497-980. Цены в тенге, как показывает сайт для Казахстана.</p>
+      <div class="products stagger">
 
         <article class="card product">
           <div class="product-photo">
@@ -242,23 +238,22 @@
           <div class="product-body">
             <h3>Гейзер Евро, арт. 61005</h3>
             <div class="pills">
-              <span class="pill pill-blue">На оба крана</span>
+              <span class="pill pill-green">Успевает</span>
               <span class="pill">3000 л</span>
               <span class="pill pill-warn">0,5 л/мин</span>
               <span class="pill">4–40 °C</span>
-              <span class="pill">0,22 кг</span>
             </div>
-            <p>Переключатель накручивается вместо аэратора, цилиндр с картриджем стоит рядом с изливом. Картридж «Арагон» по описанию производителя удаляет хлор, железо, тяжёлые металлы, органику и микроорганизмы. В комплекте переходник 22 мм и ключ для аэратора. На фото производителя насадка стоит рядом с таким же высоким изливом, как у вас на кухне; поместится ли цилиндр рядом с рычагом низкого крана в ванной, без примерки сказать нельзя.</p>
+            <p>В комплекте переходник 22 мм и ключ для аэратора. На фото производителя насадка стоит рядом с таким же высоким изливом, как у вас на кухне; поместится ли цилиндр рядом с рычагом низкого крана в ванной, без примерки сказать нельзя.</p>
             <ul class="offers">
               <li class="offer">
-                <a href="https://www.wildberries.ru/catalog/171586872/detail.aspx" target="_blank" rel="noopener">Wildberries, арт. 171586872</a>
-                <span class="price">2 220 ₽</span>
-                <small>Без WB Кошелька 2 266 ₽. Пометка «Оригинал», оценка 4,9 при 42 отзывах. 5 октября обещали доставку послезавтра, то есть 7 октября.</small>
+                <a href="https://ozon.kz/product/filtr-nasadka-na-kran-geyzer-evro-61005-797661470/" target="_blank" rel="noopener">Ozon, продавец ГЕЙЗЕР96</a>
+                <span class="price">17 418 ₸</span>
+                <small><b>13 октября</b>, осталось 2 шт. Продавец с оценкой 4,8 и 8,8 тыс. заказов, без пометки «Бренд проверен». Карточка 4,7 при 33 отзывах.</small>
               </li>
               <li class="offer">
-                <a href="https://www.ozon.ru/product/filtr-nasadka-na-kran-geyzer-evro-165457469/" target="_blank" rel="noopener">Ozon</a>
-                <span class="price">2 297 ₽</span>
-                <small>Бренд проверен, оценка 4,6 при 40 отзывах, доставка 11 октября.</small>
+                <a href="https://ozon.kz/product/filtr-nasadka-na-kran-geyzer-evro-165457469/" target="_blank" rel="noopener">Ozon, бренд проверен</a>
+                <span class="price">12 847 ₸</span>
+                <small>16 октября — поздно. 255 шт., оценка 4,6 при 40 отзывах. Ещё две карточки за 12 711 и 14 896 ₸ тоже на 16 октября.</small>
               </li>
             </ul>
             <p class="checked">Фото: карточка производителя на Wildberries.</p>
@@ -270,110 +265,52 @@
             <img src="img/belgrade-filter/xiaomi-mijia.webp" alt="Белая насадка Xiaomi Mijia на изливе кухонного крана, корпус висит горизонтально сбоку" width="900" height="1200" loading="lazy">
           </div>
           <div class="product-body">
-            <h3>Xiaomi Mijia MJLTJSQDB01</h3>
+            <h3>Xiaomi Mijia, две модели</h3>
             <div class="pills">
-              <span class="pill">Альтернатива для кухни</span>
-              <span class="pill">4 картриджа в коробке</span>
-              <span class="pill pill-warn">Старая модель</span>
+              <span class="pill pill-red">17 октября — поздно</span>
+              <span class="pill">4 картриджа</span>
             </div>
-            <p>Та же схема: переключатель на изливе, корпус рядом. По карточке Wildberries резьба M24 внутренняя, три режима. Официальных характеристик именно этой модели у Xiaomi я не нашёл; на mi.com описана новая версия MJLTISQDB03: 145,7 × 66 × 67 мм, 440 г, 4–50 °C, пять ступеней с керамикой и кокосовым углём от хлора, 3,4 л/мин, адаптеры M20, M22 и M24 в комплекте. Насколько старая модель совпадает с новой, подтвердить нечем.</p>
+            <p>Та же схема: переключатель на изливе, корпус рядом. На ozon.kz две карточки, обе едут 17 октября. Официальные характеристики есть только у новой MJLTISQDB03 на mi.com: 145,7 × 66 × 67 мм, 440 г, 4–50 °C, керамика и кокосовый уголь, 3,4 л/мин, адаптеры M20, M22 и M24. Что внутри MUL11 и MJLTJSQDB01, Xiaomi на глобальном сайте не описывает.</p>
             <ul class="offers">
               <li class="offer">
-                <a href="https://www.wildberries.ru/catalog/557340023/detail.aspx" target="_blank" rel="noopener">Wildberries, арт. 557340023</a>
-                <span class="price">4 689 ₽</span>
-                <small>Без WB Кошелька 4 785 ₽. Пометка «Оригинал», 2 оценки, доставка 9 октября. На Ozon не нашёл.</small>
+                <a href="https://ozon.kz/product/ochistitel-vody-nasadka-na-kran-xiaomi-mijia-faucet-water-purifier-mul11-718857367/" target="_blank" rel="noopener">Ozon, MUL11</a>
+                <span class="price">21 406 ₸</span>
+                <small>17 октября, 31 шт., оценка 5,0 при 4 отзывах.</small>
+              </li>
+              <li class="offer">
+                <a href="https://ozon.kz/product/filtr-nasadka-na-kran-dlya-ochistki-vody-xiaomi-mijia-faucet-water-purifier-2-mjltjsqdb01-2942616168/" target="_blank" rel="noopener">Ozon, MJLTJSQDB01</a>
+                <span class="price">29 726 ₸</span>
+                <small>17 октября, осталось 3 шт.</small>
               </li>
             </ul>
             <p class="checked">Фото: карточка товара на Wildberries.</p>
           </div>
         </article>
 
-      </div>
-
-      <h4>На душ</h4>
-      <div class="products stagger">
-
         <article class="card product">
           <div class="product-photo">
-            <img src="img/belgrade-filter/prio-t5-official.jpg" alt="Фильтр для душа Prio Новая Вода T5: хромированный цилиндр с резьбой 1/2 дюйма сверху и снизу" width="800" height="800" loading="lazy">
+            <img src="img/belgrade-filter/blue-aqua.webp" alt="Безымянная насадка-фильтр на кран с прозрачным корпусом и сменными картриджами" width="1200" height="750" loading="lazy">
           </div>
           <div class="product-body">
-            <h3>Prio Новая Вода T5</h3>
+            <h3>Безымянная насадка со склада Ozon</h3>
             <div class="pills">
-              <span class="pill pill-blue">Основной вариант</span>
-              <span class="pill">40 000 л</span>
-              <span class="pill pill-green">KDF-55</span>
-              <span class="pill">До 65 °C</span>
-              <span class="pill">11 л/мин</span>
+              <span class="pill pill-green">8 октября</span>
+              <span class="pill pill-warn">Производитель не указан</span>
             </div>
-            <p>Картридж K910 из 100 % KDF-55 плюс механическая очистка 5 мкм: хлор, хлорорганика, тяжёлые металлы, мышьяк, ржавчина и песок. Резьба ½″, в комплекте хромированный удлинитель-переходник. Вес около 450 г. Ресурс производитель оценивает в 6 месяцев обычного использования.</p>
+            <p>Прозрачный корпус с картриджем из гранул, 3 ступени по описанию продавца, переходники на 22 и 24 мм в комплекте. Эффекты в карточке заявлены широко — от «удаления бактерий» до «защиты от накипи», подтверждения от производителя нет, потому что производителя нет. 20 914 отзывов, оценка 4,8. Это вариант на случай, если две штуки Гейзера исчезнут.</p>
             <ul class="offers">
               <li class="offer">
-                <a href="https://www.ozon.ru/product/filtr-dlya-dusha-ot-hlora-rzhavchiny-tyazhelyh-metallov-i-bakteriy-100-kdf55-prio-t5-t5-367479575/" target="_blank" rel="noopener">Ozon, Prio Новая вода</a>
-                <span class="price">4 214 ₽</span>
-                <small>Бренд проверен, доставка 9 октября.</small>
+                <a href="https://ozon.kz/product/filtr-na-kran-dlya-vody-so-smennymi-kartridzhami-2274095612/" target="_blank" rel="noopener">Ozon, Blue Aqua</a>
+                <span class="price">3 298 ₸</span>
+                <small>Послезавтра, 8 октября, со склада Ozon.</small>
               </li>
               <li class="offer">
-                <a href="https://www.wildberries.ru/catalog/237142846/detail.aspx" target="_blank" rel="noopener">Wildberries, арт. 237142846</a>
-                <span class="price">4 199 ₽</span>
-                <small>Без WB Кошелька 4 285 ₽. Продавец ХОЛОДИЛЬНИК.ру, доставка завтра, 7 октября. Отзывов нет; у продавца Prio тот же фильтр 5 115 ₽ (арт. 304845111).</small>
+                <a href="https://ozon.kz/product/filtr-na-kran-dlya-vody-aerator-dlya-smesitelya-2555163431/" target="_blank" rel="noopener">Ozon, Freee Bird</a>
+                <span class="price">2 966 ₸</span>
+                <small>10 октября. 6 230 отзывов, оценка 4,8. В свежем отзыве покупательница пишет, что к её крану насадка не подошла.</small>
               </li>
             </ul>
-            <p class="checked">Фото: сайт производителя filter.ru.</p>
-          </div>
-        </article>
-
-        <article class="card product">
-          <div class="product-photo">
-            <img src="img/belgrade-filter/barrier-beauty.webp" alt="Фильтр для душа Барьер Бьюти: хромированный корпус с резьбой, надпись «защита от хлора, 3 месяца ресурс»" width="900" height="1200" loading="lazy">
-          </div>
-          <div class="product-body">
-            <h3>Барьер Бьюти, Н601Р10</h3>
-            <div class="pills">
-              <span class="pill">Бюджетный вариант</span>
-              <span class="pill">5000 л</span>
-              <span class="pill">10 л/мин</span>
-              <span class="pill pill-warn">До 50 °C</span>
-            </div>
-            <p>Ставится между смесителем и шлангом, картридж быстросъёмный, вес 0,21 кг. Производитель заявляет защиту от хлора; состав картриджа и процент удаления на сайте не указаны. Ресурса 5000 л хватает примерно на 3 месяца по упаковке. В 8 раз меньше ресурс и в 4 раза ниже цена, чем у Prio.</p>
-            <ul class="offers">
-              <li class="offer">
-                <a href="https://www.wildberries.ru/catalog/14819757/detail.aspx" target="_blank" rel="noopener">Wildberries, арт. 14819757</a>
-                <span class="price">1 010 ₽</span>
-                <small>Без WB Кошелька 1 031 ₽. Пометка «Оригинал», оценка 4,9 при 1 129 отзывах, склад WB, доставка 8 октября.</small>
-              </li>
-              <li class="offer">
-                <a href="https://www.ozon.ru/product/filtr-dlya-dusha-dlya-leyki-barer-byuti-zashchita-ot-hlora-zashchishchaet-kozhu-ot-suhosti-ne-1843852412/" target="_blank" rel="noopener">Ozon</a>
-                <span class="price">1 108 ₽</span>
-                <small>Бренд проверен, доставка завтра, 7 октября.</small>
-              </li>
-            </ul>
-            <p class="checked">Фото: карточка бренда на Wildberries.</p>
-          </div>
-        </article>
-
-        <article class="card product">
-          <div class="product-photo">
-            <img src="img/belgrade-filter/philips-awp1775.webp" alt="Фильтр для душа Philips AWP1775: белый цилиндрический корпус с резьбовыми патрубками" width="800" height="800" loading="lazy">
-          </div>
-          <div class="product-body">
-            <h3>Philips AWP1775</h3>
-            <div class="pills">
-              <span class="pill">Если сроки позволят</span>
-              <span class="pill">50 000 л</span>
-              <span class="pill pill-green">KDF</span>
-              <span class="pill">5–60 °C</span>
-              <span class="pill">8 л/мин</span>
-            </div>
-            <p>По листовке Philips: фильтр из KDF с сертификатом NSF, удаляет остаточный хлор, ржавчину и осадок, корпус из материала, не нагревающегося от горячей воды, картридж одноразовый целиком (AWP175). На Wildberries самого фильтра нет, только картриджи.</p>
-            <ul class="offers">
-              <li class="offer">
-                <a href="https://www.ozon.ru/product/dushevoy-filtr-bezopasnyy-dlya-kozhi-i-volos-awp1775ch-hromirovannyy-5505096451/" target="_blank" rel="noopener">Ozon</a>
-                <span class="price">4 712 ₽</span>
-                <small>Без пометки «Бренд проверен», осталось 2 шт., доставка 14 октября. К 16-му впритык, для другого города может быть позже.</small>
-              </li>
-            </ul>
-            <p class="checked">Фото: philips.co.uk. Характеристики: листовка Philips AWP1775/10.</p>
+            <p class="checked">Фото: карточка товара на Ozon.</p>
           </div>
         </article>
 
@@ -381,53 +318,33 @@
     </section>
 
     <section class="block reveal" id="compare">
-      <h2>Сравнение</h2>
-      <p class="sub">По данным производителей; где данных нет, так и написано.</p>
+      <h2>Все варианты, которые нашлись на ozon.kz</h2>
+      <p class="sub">Только насадки на кран. Срок — для пункта выдачи № 497-980 на 6 октября.</p>
       <div class="table-wrap">
         <table>
-          <caption>Насадки на кран</caption>
           <thead>
             <tr>
-              <th scope="col">Параметр</th>
-              <th scope="col">Гейзер Евро</th>
-              <th scope="col">Xiaomi Mijia MJLTJSQDB01</th>
+              <th scope="col">Товар</th>
+              <th scope="col">Цена</th>
+              <th scope="col">Доставка в ПВЗ</th>
+              <th scope="col">Примечание</th>
             </tr>
           </thead>
           <tbody>
-            <tr><th scope="row">Фильтрующий материал</th><td class="hl">Арагон, фирменный материал Гейзера</td><td>По новой модели: сталь, керамика, кокосовый уголь, нетканое полотно</td></tr>
-            <tr><th scope="row">Хлор</th><td class="hl">Удаляет</td><td>Удаляет (кокосовый уголь)</td></tr>
-            <tr><th scope="row">Соли жёсткости</th><td class="hl">Нет, заявлено «уменьшает накипь»</td><td>Нет</td></tr>
-            <tr><th scope="row">Ресурс</th><td class="hl">3000 л</td><td>Картридж на 3–6 месяцев, 4 шт. в комплекте (по новой модели)</td></tr>
-            <tr><th scope="row">Скорость</th><td class="hl">0,5 л/мин</td><td>3,4 л/мин у новой модели; по старой данные продавцов: 1,2 л/мин</td></tr>
-            <tr><th scope="row">Температура</th><td class="hl">4–40 °C</td><td>4–50 °C у новой модели</td></tr>
-            <tr><th scope="row">Крепление</th><td class="hl">Краны с аэратором, переходник 22 мм</td><td>M24 внутренняя по карточке WB; у новой модели адаптеры M20, M22, M24</td></tr>
-            <tr><th scope="row">Цена</th><td class="hl"><b>2 220 ₽</b> WB / 2 297 ₽ Ozon</td><td>4 689 ₽ WB</td></tr>
+            <tr class="hl"><th scope="row">Гейзер Евро 61005, продавец ГЕЙЗЕР96</th><td class="num">17 418 ₸</td><td class="ok">13 октября</td><td>Осталось 2 шт.</td></tr>
+            <tr><th scope="row">Гейзер Евро, бренд проверен</th><td class="num">12 847 ₸</td><td class="late">16 октября</td><td>255 шт.</td></tr>
+            <tr><th scope="row">Гейзер Евро, ещё две карточки</th><td class="num">12 711 / 14 896 ₸</td><td class="late">16 октября</td><td></td></tr>
+            <tr><th scope="row">Xiaomi Mijia MUL11</th><td class="num">21 406 ₸</td><td class="late">17 октября</td><td>Характеристик от Xiaomi нет</td></tr>
+            <tr><th scope="row">Xiaomi Mijia MJLTJSQDB01</th><td class="num">29 726 ₸</td><td class="late">17 октября</td><td>Осталось 3 шт.</td></tr>
+            <tr><th scope="row">Philips AWP3637/93</th><td class="num">19 809 ₸</td><td class="late">16 октября</td><td>Модели нет на сайтах Philips, данные только продавца</td></tr>
+            <tr><th scope="row">Philips AWP3608</th><td class="num">от 6 293 ₸</td><td class="late">22 октября — 1 ноября</td><td></td></tr>
+            <tr><th scope="row">Brita, насадки и картриджи</th><td class="num">от 14 864 ₸</td><td class="late">20–31 октября</td><td></td></tr>
+            <tr><th scope="row">Безымянная, Blue Aqua</th><td class="num">3 298 ₸</td><td class="ok">8 октября</td><td>Склад Ozon</td></tr>
+            <tr><th scope="row">Безымянная, Freee Bird</th><td class="num">2 966 ₸</td><td class="ok">10 октября</td><td>Склад Ozon</td></tr>
           </tbody>
         </table>
       </div>
-      <div class="table-wrap">
-        <table>
-          <caption>Насадки на душ</caption>
-          <thead>
-            <tr>
-              <th scope="col">Параметр</th>
-              <th scope="col">Prio Новая Вода T5</th>
-              <th scope="col">Барьер Бьюти</th>
-              <th scope="col">Philips AWP1775</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr><th scope="row">Фильтрующий материал</th><td class="hl">100 % KDF-55 + механика 5 мкм</td><td>Не указан</td><td>KDF, сертификат NSF</td></tr>
-            <tr><th scope="row">Хлор</th><td class="hl"><b>До 99 %</b> в начале, до 95 % в конце ресурса</td><td>«Защита от хлора», процент не указан</td><td>«Удаляет остаточный хлор», процент в листовке не указан</td></tr>
-            <tr><th scope="row">Ресурс</th><td class="hl">40 000 л, около 6 месяцев</td><td>5000 л, около 3 месяцев</td><td>50 000 л</td></tr>
-            <tr><th scope="row">Поток</th><td class="hl">До 11 л/мин</td><td>10 л/мин</td><td>8 л/мин</td></tr>
-            <tr><th scope="row">Температура</th><td class="hl">5–65 °C</td><td>До 50 °C</td><td>5–60 °C</td></tr>
-            <tr><th scope="row">Крепление</th><td class="hl">½″, удлинитель-переходник в комплекте</td><td>Между смесителем и шлангом</td><td>В листовке не указано</td></tr>
-            <tr><th scope="row">Цена и срок</th><td class="hl"><b>4 214 ₽</b> Ozon, 9 октября · 4 199 ₽ WB, 7 октября</td><td>1 010 ₽ WB, 8 октября · 1 108 ₽ Ozon, 7 октября</td><td>4 712 ₽ Ozon, 14 октября</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <p class="note"><b>Почему не Аквафор Модерн из первой версии подбора.</b> У него корпус стоит рядом с раковиной и очищенная вода идёт через собственный носик — это другой формфактор, который вы исключили. Зато он единственный из рассмотренных умел убирать жёсткость (модулями B200 для жёсткой воды). Среди насадок без носика такого нет.</p>
+      <p class="note"><b>Аквафор на ozon.kz</b> насадок в формфакторе «переключатель + картридж на изливе» не продаёт: по запросу выпадают только безымянные товары. Модерн с отдельным носиком вы исключили.</p>
     </section>
 
     <section class="block reveal" id="taps">
@@ -443,7 +360,7 @@
         <div class="card">
           <span class="tag tag-info">Кухня, фото 3</span>
           <h3>Высокий излив</h3>
-          <p>Излив дугой, аэратор на конце. Сюда встаёт любая насадка из подборки: место вокруг излива свободное.</p>
+          <p>Излив дугой, аэратор на конце. Сюда насадка встаёт свободно, как на фото производителя.</p>
         </div>
         <div class="card">
           <span class="tag tag-warn">Нужно проверить</span>
@@ -454,7 +371,7 @@
       <div class="steps stagger" style="margin-top:16px">
         <div class="card step">
           <h3>Выкрутить аэратор</h3>
-          <p>Наконечник с сеточкой на конце излива. У Гейзера в комплекте есть ключ для него.</p>
+          <p>Наконечник с сеточкой на конце излива. В комплекте есть ключ для него.</p>
         </div>
         <div class="card step">
           <h3>Посмотреть, где резьба</h3>
@@ -465,8 +382,8 @@
           <p>Напрямую или через переходник из комплекта. Цилиндр с картриджем вставляется в переключатель сбоку.</p>
         </div>
         <div class="card step">
-          <h3>Душ: между смесителем и шлангом</h3>
-          <p>Отвернуть шланг от смесителя, вкрутить фильтр, вернуть шланг. У Prio в комплекте хромированный удлинитель-переходник.</p>
+          <h3>Повторить на втором кране</h3>
+          <p>Вторая насадка ставится так же. Переключатель в положении «без фильтра» пропускает обычную воду с полным напором.</p>
         </div>
       </div>
       <p class="note">Если резьба окажется другого диаметра, понадобится переходник под конкретный размер. Пришлите замер, и я подберу.</p>
@@ -494,32 +411,9 @@
       </div>
     </section>
 
-    <section class="block reveal" id="plan">
-      <h2>План заказа</h2>
-      <p class="sub">Kaspi исключён по вашему условию. Город доставки вы не называли, поэтому даты ниже — для адресов по умолчанию на сайтах.</p>
-      <div class="bento stagger">
-        <div class="card">
-          <span class="tag tag-yes">Корзина Wildberries</span>
-          <h3>2 × Гейзер Евро + Prio T5</h3>
-          <p>Арт. 171586872 дважды и арт. 237142846. Итого 8 639 ₽ с WB Кошельком. Обе позиции 5–6 октября обещали на 7 октября для Москвы.</p>
-        </div>
-        <div class="card">
-          <span class="tag tag-info">Корзина Ozon</span>
-          <h3>То же самое</h3>
-          <p>Гейзер Евро 2 297 ₽ (11 октября) и Prio T5 4 214 ₽ от продавца с пометкой «Бренд проверен» (9 октября). Итого 8 808 ₽. Для Prio Ozon надёжнее: на WB дешёвая карточка без отзывов у стороннего продавца.</p>
-        </div>
-        <div class="card">
-          <span class="tag tag-warn">Если дата съедет</span>
-          <h3>Запасные позиции</h3>
-          <p>Барьер Бьюти на душ лежит на складе WB (8 октября) и у Ozon (7 октября). Philips AWP1775 только к 14 октября. Напрямую в Сербию площадки не возят; посредник Instant Logistic обещает 6–12 дней с даты выезда.</p>
-        </div>
-      </div>
-      <p class="note"><b>Оплатить заказ за вас я не могу:</b> нужен ваш аккаунт и карта. Скажите город и площадку, соберу корзину в вашем залогиненном браузере.</p>
-    </section>
-
     <section class="block reveal" id="allergy">
       <h2>Про аллергию</h2>
-      <p class="sub">Что именно в воде вызывает реакцию, неизвестно. Насадки меняют один параметр — хлор, и это стоит учитывать при оценке результата.</p>
+      <p class="sub">Что именно в воде вызывает реакцию, неизвестно. Насадка меняет один параметр — хлор, и это стоит учитывать при оценке результата.</p>
       <div class="bento stagger">
         <div class="card">
           <h3>Жёсткость и кожа: данные слабые</h3>
@@ -527,12 +421,12 @@
           <p>Это исследование про экзему у детей, а не про ваш случай, но оно показывает, что умягчение само по себе результат не гарантирует.</p>
         </div>
         <div class="card">
-          <h3>Хлор: насадки закрывают именно его</h3>
-          <p>KDF в душевом фильтре работает и в горячей воде, поэтому душ и умывание тёплой водой через него покрыты. Гейзер на кране ограничен 40 °C.</p>
+          <h3>Хлор: насадка закрывает именно его</h3>
+          <p>Через фильтр идёт вода до 40 °C и 0,5 л/мин — для умывания и питья. Душ и ванна остаются без фильтра, вы это решение приняли.</p>
         </div>
         <div class="card">
           <h3>Как понять, помог ли фильтр</h3>
-          <p>Менять что-то одно. Если одновременно поставить фильтры и сменить средства для умывания, будет непонятно, что сработало.</p>
+          <p>Менять что-то одно. Если одновременно поставить насадки и сменить средства для умывания, будет непонятно, что сработало.</p>
         </div>
       </div>
     </section>
@@ -541,12 +435,11 @@
       <h2>Что не проверено</h2>
       <div class="card">
         <ul class="list">
-          <li><b>Город доставки.</b> Даты на странице — для Москвы (WB) и Тольятти (Ozon), которые сайты подставили сами.</li>
-          <li><b>Размер резьбы на обоих кранах.</b> По фотографиям он не определяется.</li>
-          <li><b>Зазор для цилиндра Гейзера на низком кране в ванной.</b> Только примеркой.</li>
-          <li><b>Xiaomi MJLTJSQDB01.</b> Официальная страница есть только у новой модели MJLTISQDB03; характеристики старой взяты из карточки Wildberries.</li>
+          <li><b>Дата вашего вылета.</b> Расчёт исходит из того, что 13 октября вы ещё в Алматы.</li>
+          <li><b>Остаток у ГЕЙЗЕР96.</b> «2 штуки» — на момент проверки 6 октября; к моменту заказа может быть меньше.</li>
+          <li><b>Размер резьбы на обоих кранах</b> и <b>зазор для цилиндра на низком кране в ванной.</b> Только замером и примеркой.</li>
           <li><b>Температура и вес Гейзер Евро.</b> Из описания shop.geizer.com в поисковой выдаче: сам сайт с моего адреса не открылся.</li>
-          <li><b>Модель фильтра «Чистая вода».</b> По запросу с таким названием на Wildberries нашлись только товары других марок и безымянные.</li>
+          <li><b>Wildberries для Алматы</b> не проверялся: вы прислали пункт выдачи Ozon.</li>
           <li><b>Остаточный хлор в Белграде в цифрах.</b> В найденных публикациях водоканала значения нет.</li>
         </ul>
       </div>
@@ -557,17 +450,12 @@
       <div class="card">
         <ul class="list sources">
           <li>Гейзер Евро: производительность и ресурс — <a href="https://catalog.onliner.by/waterfilter/geizer/g61005" target="_blank" rel="noopener">Onliner</a>; описание производителя — <a href="https://shop.geizer.com/catalog/nasadki_na_kran_1/geyzer_evro/" target="_blank" rel="noopener">shop.geizer.com</a>; комплектация — карточка на <a href="https://www.wildberries.ru/catalog/171586872/detail.aspx" target="_blank" rel="noopener">Wildberries</a>.</li>
-          <li>Prio Новая Вода T5 — <a href="https://www.filter.ru/filtry-dlya-dusha/133-filtr-dlya-dusha-t5.html" target="_blank" rel="noopener">сайт производителя filter.ru</a>; дубль характеристик — <a href="https://www.vseinstrumenti.ru/product/filtr-dlya-dusha-prio-novaya-voda-t5-819183/" target="_blank" rel="noopener">ВсеИнструменты</a>.</li>
-          <li>Барьер Бьюти — <a href="https://www.barrier.ru/product/protochnye-filtry/shower/filtr-dlya-dusha-comfort/" target="_blank" rel="noopener">barrier.ru</a>.</li>
-          <li>Philips AWP1775/10 — <a href="https://www.documents.philips.com/assets/20221003/270f42965d2c4a5ebeb4af2300f8a993.pdf" target="_blank" rel="noopener">листовка Philips (PDF)</a>.</li>
           <li>Xiaomi Faucet Water Purifier MJLTISQDB03 — <a href="https://www.mi.com/global/product/xiaomi-faucet-water-purifier/specs/" target="_blank" rel="noopener">mi.com</a>.</li>
-          <li>Аквафор Модерн (первая версия подбора): <a href="https://cdn2.static1-sima-land.com/files/instruction/MODERN_07_08_2020_OPTD_54437.pdf" target="_blank" rel="noopener">инструкция (PDF)</a>.</li>
           <li>Заявление белградского водоканала о жёсткости воды, 18.08.2025 — <a href="https://www.kurir.rs/vesti/beograd/9752819/beogradski-vodovod-o-kvalitetu-vode-za-pice" target="_blank" rel="noopener">Kurir</a>.</li>
           <li>О хлорировании воды в Белграде, 21.04.2020 — <a href="https://www.danas.rs/vesti/beograd/radojicic-beogradjani-piju-cistu-i-kvalitetnu-vodu/" target="_blank" rel="noopener">Danas</a>.</li>
           <li>Жёсткость по районам Белграда (сайт продавца фильтров) — <a href="https://aquafiltersrbija.rs/o-vodi/kvalitet-vode-za-pice-u-beogradu/" target="_blank" rel="noopener">Aquafilter Srbija</a>.</li>
           <li>Thomas KS и соавт. A Randomised Controlled Trial of Ion-Exchange Water Softeners for the Treatment of Eczema in Children. PLOS Medicine, 2011 — <a href="https://journals.plos.org/plosmedicine/article?id=10.1371/journal.pmed.1000395" target="_blank" rel="noopener">статья</a>.</li>
-          <li>Доставка с Ozon и Wildberries в Сербию — <a href="https://instantlogistic.rs/marketplace" target="_blank" rel="noopener">Instant Logistic</a>.</li>
-          <li>Цены и сроки: страницы товаров на <a href="https://www.ozon.ru/" target="_blank" rel="noopener">Ozon</a> и <a href="https://www.wildberries.ru/" target="_blank" rel="noopener">Wildberries</a>, открыты 5–6 октября 2026 года.</li>
+          <li>Цены, наличие и сроки: страницы товаров на <a href="https://ozon.kz/" target="_blank" rel="noopener">ozon.kz</a> с выбранным пунктом выдачи № 497-980, открыты 6 октября 2026 года.</li>
         </ul>
       </div>
     </section>
@@ -575,7 +463,7 @@
   </main>
 
   <footer>
-    <div class="wrap">Подготовлено 6 октября 2026. Цены и сроки на маркетплейсах меняются ежедневно — перед оплатой сверьте их на странице товара.</div>
+    <div class="wrap">Подготовлено 6 октября 2026. Остатки и сроки на Ozon меняются в течение дня — перед оплатой сверьте их на странице товара.</div>
   </footer>
 
   <script type="module">
