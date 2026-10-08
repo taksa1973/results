@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Уругвай и Парагвай: рынок труда, комьюнити и аренда под лабораторию</title>
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="description" content="Зарплаты научного и ненаучного персонала в Уругвае и Парагвае с пересчётом в доллары, научные и биотех-комьюнити обеих стран, ставки аренды в Монтевидео и статус научного парка Пандо.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F5F5F7; --surface:#FFFFFF; --ink:#1D1D1F; --ink-2:#424245; --ink-3:#6E6E73;
+  --line:#E3E3E6; --blue:#0071E3; --blue-ink:#0058B0;
+  --green:#1E8E3E; --amber:#B26A00; --red:#C4291E; --violet:#5E5CE6;
+  --r-lg:22px; --r-md:16px;
+  --shadow:0 1px 2px rgba(0,0,0,.04), 0 8px 24px rgba(0,0,0,.06);
+  --shadow-h:0 2px 6px rgba(0,0,0,.06), 0 16px 40px rgba(0,0,0,.10);
+  --maxw:1120px;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%; scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{
+  margin:0; background:var(--bg); color:var(--ink);
+  font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+  font-size:17px; line-height:1.62; -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:var(--maxw); margin:0 auto; padding:0 24px}
+a{color:var(--blue-ink); text-decoration:none; border-bottom:1px solid rgba(0,113,227,.28)}
+a:hover{border-bottom-color:var(--blue)}
+a:focus-visible,button:focus-visible{outline:3px solid var(--blue); outline-offset:3px; border-radius:6px}
+h1,h2,h3,h4{letter-spacing:-.022em; line-height:1.16; margin:0}
+h1{font-size:clamp(34px,5.4vw,58px); font-weight:700}
+h2{font-size:clamp(26px,3.4vw,38px); font-weight:700}
+h3{font-size:clamp(19px,2.1vw,23px); font-weight:600; margin-bottom:10px}
+h4{font-size:17px; font-weight:600; margin-bottom:8px}
+p{margin:0 0 16px}
+small{font-size:13.5px; color:var(--ink-3)}
+.mono{font-variant-numeric:tabular-nums}
+
+.topbar{position:sticky; top:0; z-index:100; background:rgba(245,245,247,.82); backdrop-filter:saturate(180%) blur(20px); border-bottom:1px solid var(--line)}
+.topbar .wrap{display:flex; align-items:center; gap:20px; height:52px; justify-content:space-between}
+.brand{font-weight:600; font-size:15px; letter-spacing:-.01em; white-space:nowrap}
+.topnav{display:flex; gap:18px; overflow-x:auto; scrollbar-width:none}
+.topnav::-webkit-scrollbar{display:none}
+.topnav a{font-size:14px; color:var(--ink-2); border:0; white-space:nowrap; padding:6px 0}
+.topnav a:hover{color:var(--blue-ink)}
+
+.hero{padding:72px 0 24px}
+.eyebrow{display:inline-flex; align-items:center; gap:8px; font-size:13px; font-weight:600; letter-spacing:.02em; text-transform:uppercase; color:var(--blue-ink); background:rgba(0,113,227,.09); padding:7px 13px; border-radius:100px; margin-bottom:22px}
+.lede{font-size:clamp(18px,2.2vw,21px); color:var(--ink-2); max-width:820px; margin-top:22px}
+
+.bento{display:grid; grid-template-columns:repeat(12,1fr); gap:18px; margin:32px 0}
+.card{background:var(--surface); border:1px solid var(--line); border-radius:var(--r-lg); padding:26px; box-shadow:var(--shadow); transition:transform .22s cubic-bezier(.2,.7,.3,1), box-shadow .22s}
+.card.hoverable:hover{transform:translateY(-2px); box-shadow:var(--shadow-h)}
+.c12{grid-column:span 12} .c8{grid-column:span 8} .c6{grid-column:span 6} .c4{grid-column:span 4}
+@media(max-width:900px){.c8,.c6,.c4{grid-column:span 12}}
+.kicker{font-size:12.5px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-3); margin-bottom:10px}
+.big{font-size:clamp(28px,4vw,42px); font-weight:700; letter-spacing:-.03em; line-height:1.05}
+
+section{padding:44px 0; scroll-margin-top:68px}
+.section-head{max-width:820px; margin-bottom:26px}
+.section-head p{color:var(--ink-2); margin-top:14px}
+.num{display:inline-flex; align-items:center; justify-content:center; width:32px; height:32px; border-radius:10px; background:var(--ink); color:#fff; font-size:16px; font-weight:600; margin-right:12px; vertical-align:2px}
+
+.badge{display:inline-flex; align-items:center; gap:6px; font-size:12.5px; font-weight:600; padding:5px 11px; border-radius:100px; border:1px solid transparent; white-space:nowrap}
+.b-green{background:rgba(30,142,62,.10); color:var(--green); border-color:rgba(30,142,62,.2)}
+.b-amber{background:rgba(178,106,0,.10); color:var(--amber); border-color:rgba(178,106,0,.2)}
+.b-red{background:rgba(196,41,30,.09); color:var(--red); border-color:rgba(196,41,30,.2)}
+.b-blue{background:rgba(0,113,227,.09); color:var(--blue-ink); border-color:rgba(0,113,227,.2)}
+.b-violet{background:rgba(94,92,230,.10); color:var(--violet); border-color:rgba(94,92,230,.22)}
+.b-gray{background:#F0F0F2; color:var(--ink-3); border-color:var(--line)}
+
+.tablewrap{overflow-x:auto; border:1px solid var(--line); border-radius:var(--r-lg); background:var(--surface); box-shadow:var(--shadow); -webkit-overflow-scrolling:touch; margin-bottom:18px}
+table{border-collapse:collapse; width:100%; min-width:820px; font-size:15px}
+th,td{padding:14px 16px; text-align:left; vertical-align:top; border-bottom:1px solid var(--line)}
+th{font-size:12.5px; font-weight:600; letter-spacing:.05em; text-transform:uppercase; color:var(--ink-3); background:#FAFAFB}
+tbody tr:last-child td{border-bottom:0}
+tbody tr:hover{background:#FBFBFD}
+td strong{font-weight:600}
+td.win{background:rgba(30,142,62,.06)}
+td .mono{font-variant-numeric:tabular-nums}
+
+ul.tick{list-style:none; padding:0; margin:0 0 8px; display:grid; gap:10px}
+ul.tick li{position:relative; padding-left:26px; color:var(--ink-2)}
+ul.tick li::before{content:""; position:absolute; left:2px; top:9px; width:8px; height:8px; border-radius:50%; background:var(--blue)}
+ul.tick.warn li::before{background:var(--amber)}
+ul.tick.bad li::before{background:var(--red)}
+ul.tick.good li::before{background:var(--green)}
+
+ol.steps{counter-reset:s; list-style:none; padding:0; margin:0; display:grid; gap:14px}
+ol.steps li{counter-increment:s; background:var(--surface); border:1px solid var(--line); border-radius:var(--r-md); padding:20px 22px 20px 62px; position:relative; box-shadow:var(--shadow)}
+ol.steps li::before{content:counter(s); position:absolute; left:20px; top:19px; width:28px; height:28px; border-radius:9px; background:var(--blue); color:#fff; font-size:14px; font-weight:600; display:flex; align-items:center; justify-content:center}
+
+.note{background:#FFF9EC; border:1px solid #F2E2BC; border-radius:var(--r-md); padding:18px 20px; font-size:15.5px; color:#5A4300}
+.note.blue{background:#EFF6FF; border-color:#CFE3FB; color:#0B3E75}
+.note.red{background:#FDF1F0; border-color:#F5D2CF; color:#7A1C15}
+.note.green{background:#F0F8F2; border-color:#CDE7D5; color:#14532B}
+.note.violet{background:#F4F4FE; border-color:#DAD9FA; color:#2E2C8A}
+.note p:last-child{margin-bottom:0}
+
+.dl{display:grid; gap:0; border:1px solid var(--line); border-radius:var(--r-md); overflow:hidden; background:var(--surface)}
+.dl .row{display:grid; grid-template-columns:minmax(150px,240px) 1fr; border-bottom:1px solid var(--line)}
+.dl .row:last-child{border-bottom:0}
+.dl .row > div{padding:12px 16px}
+.dl .row .t{font-weight:600; background:#FAFAFB; font-size:14.5px}
+.dl .row .d{font-size:14.5px; color:var(--ink-2)}
+@media(max-width:700px){.dl .row{grid-template-columns:1fr} .dl .row .t{border-bottom:1px solid var(--line)}}
+
+.bars{display:grid; gap:14px; margin-top:4px}
+.bar{display:grid; grid-template-columns:minmax(130px,190px) 1fr auto; gap:14px; align-items:center}
+.bar .lab{font-size:14.5px; color:var(--ink-2)}
+.bar .track{height:12px; background:#EDEDF0; border-radius:100px; overflow:hidden; position:relative}
+.bar .fill{height:100%; border-radius:100px; background:linear-gradient(90deg, #7FB3F0, var(--blue))}
+.bar .val{font-size:14.5px; font-weight:600; font-variant-numeric:tabular-nums; white-space:nowrap}
+@media(max-width:700px){.bar{grid-template-columns:1fr auto; gap:6px} .bar .track{grid-column:1 / -1; order:3}}
+
+.srcgrid{display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:12px}
+.src{background:var(--surface); border:1px solid var(--line); border-radius:var(--r-md); padding:14px 16px; font-size:14.5px}
+.src a{border:0; font-weight:500}
+.src small{display:block; margin-top:4px; line-height:1.45}
+
+footer{padding:44px 0 64px; border-top:1px solid var(--line); margin-top:40px; color:var(--ink-3); font-size:14px}
+.reveal{opacity:1}
+.js .reveal{opacity:0; transform:translateY(18px)}
+@media (prefers-reduced-motion:reduce){.js .reveal{opacity:1 !important; transform:none !important}}
+</style>
+</head>
+<body>
+<script>
+document.documentElement.classList.add('js');
+setTimeout(function(){document.querySelectorAll('.reveal').forEach(function(e){e.style.opacity=1;e.style.transform='none';});},2200);
+</script>
+
+<div class="topbar">
+  <div class="wrap">
+    <span class="brand">Люди, среда, аренда</span>
+    <nav class="topnav" aria-label="Разделы">
+      <a href="#verdict">Итог</a>
+      <a href="#salary">Зарплаты</a>
+      <a href="#community">Комьюнити</a>
+      <a href="#rent">Аренда</a>
+      <a href="#ask">Что запросить</a>
+      <a href="laboratoriya-sozvon.html">К созвону</a>
+    </nav>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="eyebrow reveal">Дополнение к разбору · 8 октября 2026</span>
+    <h1 class="reveal">Люди, среда и метры:<br>Уругвай против Парагвая</h1>
+    <p class="lede reveal">Три вопроса, которые оставались открытыми: сколько стоит персонал — научный и обычный, есть ли вокруг профессиональная среда, и почём метр в Уругвае. Ответ по зарплатам оказался неожиданным: ставки в двух странах почти одинаковые. Разница не в цене людей, а в том, есть ли они вообще.</p>
+    <p class="lede reveal" style="font-size:16px; margin-top:14px">Основные материалы: <a href="laboratoriya-sozvon.html">выжимка к созвону</a> · <a href="uruguay-laboratoriya.html">Уругвай</a> · <a href="paraguay-laboratoriya.html">Парагвай</a></p>
+  </div>
+</header>
+
+<section id="verdict">
+  <div class="wrap">
+    <div class="bento">
+      <div class="card c4 hoverable reveal">
+        <div class="kicker">Лаборант, в месяц</div>
+        <div class="big">$550–1 100</div>
+        <p style="margin-top:12px; color:var(--ink-2)">Вилка практически совпадает в обеих странах. Экономия на персонале как аргумент за Парагвай <strong>не подтвердилась</strong>: разница в пределах погрешности пересчёта валют.</p>
+        <span class="badge b-gray">Ничья</span>
+      </div>
+      <div class="card c4 hoverable reveal">
+        <div class="kicker">Биотех-компаний</div>
+        <div class="big">62 : 0</div>
+        <p style="margin-top:12px; color:var(--ink-2)">В Уругвае национальный опрос насчитал <strong>62 действующие биотех-компании</strong> и 539 рабочих мест в секторе. По Парагваю сопоставимой цифры не существует — там экосистему только пытаются собрать заново.</p>
+        <span class="badge b-green">Уругвай</span>
+      </div>
+      <div class="card c4 hoverable reveal">
+        <div class="kicker">Докторов наук в стартапах</div>
+        <div class="big">31%</div>
+        <p style="margin-top:12px; color:var(--ink-2)">Доля сотрудников со степенью PhD в уругвайских биотех-стартапах. Ещё 62% — с университетским образованием. Это и есть тот пул, из которого нанимают.</p>
+        <span class="badge b-green">Уругвай</span>
+      </div>
+
+      <div class="card c12 reveal">
+        <div class="kicker">Главный вывод</div>
+        <p style="font-size:19px; margin-bottom:14px"><strong>Платить придётся примерно одинаково — но в Уругвае есть кому платить.</strong> Это переворачивает последний экономический аргумент в пользу Парагвая: дешёвая аренда там компенсируется тем, что каждого специалиста нужно будет либо завозить, либо учить с нуля.</p>
+        <p style="margin-bottom:0; color:var(--ink-2)">Отдельно подтвердилось то, что было догадкой: научный парк в Пандо <strong>действительно сдаёт оборудованные лаборатории</strong> — в его здании Ceibo их четыре, и там же сидит бизнес-инкубатор. Ставок парк не публикует, это первый запрос, который надо отправить.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="salary">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <h2><span class="num">1</span>Рынок труда: сколько стоят люди</h2>
+      <p>Все суммы пересчитаны в доллары по курсам на начало октября 2026: уругвайский песо — около 39,5 за доллар, гуарани — <a href="https://www.bcp.gov.py/webapps/web/cotizacion/referencial-fluctuante-interbancario" target="_blank" rel="noopener">5 847,83 за доллар</a> по данным центрального банка на 6 октября.</p>
+    </div>
+
+    <h3 class="reveal" style="margin-bottom:16px">Уругвай</h3>
+    <div class="tablewrap reveal">
+      <table>
+        <thead><tr><th style="width:30%">Позиция</th><th style="width:24%">В песо</th><th style="width:20%">В долларах</th><th>Источник и оговорки</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>Минимальная зарплата</strong><br><small>с 1 января 2026</small></td>
+            <td class="mono">$U 24 572</td>
+            <td class="mono"><strong>≈$620</strong></td>
+            <td>Установлена национально; рост на 7,54% к предыдущему году</td>
+          </tr>
+          <tr>
+            <td><strong>Средний доход на человека</strong><br><small>4 квартал 2025</small></td>
+            <td class="mono">$U 33 108</td>
+            <td class="mono"><strong>≈$838</strong></td>
+            <td>Данные национального института статистики — ориентир для понимания уровня жизни, не зарплата</td>
+          </tr>
+          <tr>
+            <td><strong>Лаборант</strong><br><small>оценка один</small></td>
+            <td class="mono">$U 42 450</td>
+            <td class="mono"><strong>≈$1 075</strong></td>
+            <td><a href="https://uy.computrabajo.com/salarios/laboratorioa" target="_blank" rel="noopener">Computrabajo</a>, средняя по вакансиям</td>
+          </tr>
+          <tr>
+            <td><strong>Лаборант</strong><br><small>оценка два</small></td>
+            <td class="mono">$U 22 180<br><small>диапазон 15 000–33 200</small></td>
+            <td class="mono"><strong>≈$561</strong><br><small>$380–840</small></td>
+            <td>Вторая выборка того же портала даёт заметно ниже. <strong>Расхождение между оценками почти двукратное</strong> — честнее говорить о вилке $550–1 100, чем о средней</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="reveal" style="margin:28px 0 16px">Парагвай</h3>
+    <div class="tablewrap reveal">
+      <table>
+        <thead><tr><th style="width:30%">Позиция</th><th style="width:26%">В гуарани, в месяц</th><th style="width:20%">В долларах</th><th>Комментарий</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>Техник медицинской лаборатории</strong><br><small>старт</small></td>
+            <td class="mono">Gs. 3 228 837 — 5 896 638</td>
+            <td class="mono"><strong>$552–1 008</strong></td>
+            <td>Данные <a href="https://tusalario.org/paraguay/carrera/paraguay-trabajo-y-salario/paraguay-tecnicos-de-laboratorios-medicos-o-patologicos" target="_blank" rel="noopener">Tusalario</a> при рабочей неделе 48 часов</td>
+          </tr>
+          <tr>
+            <td><strong>Он же после пяти лет</strong></td>
+            <td class="mono">Gs. 3 759 271 — 7 083 283</td>
+            <td class="mono"><strong>$643–1 211</strong></td>
+            <td>Рост за пять лет службы — примерно 20%</td>
+          </tr>
+          <tr>
+            <td><strong>Техник биологических наук</strong><br><small>старт</small></td>
+            <td class="mono">Gs. 3 746 612 — 6 263 155</td>
+            <td class="mono"><strong>$641–1 071</strong></td>
+            <td>Ближайшая к нашему профилю позиция</td>
+          </tr>
+          <tr>
+            <td><strong>Биологи и смежные специальности</strong></td>
+            <td class="mono">Gs. 3 728 755 — 11 313 334</td>
+            <td class="mono"><strong>$638–1 935</strong></td>
+            <td>Верхняя граница — для опытных специалистов с управленческой нагрузкой</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="bento">
+      <div class="card c12 reveal">
+        <h3>Сравнение вилок, в долларах в месяц</h3>
+        <div class="bars" style="margin-top:14px">
+          <div class="bar">
+            <span class="lab">Уругвай, лаборант</span>
+            <span class="track"><span class="fill" style="width:55%"></span></span>
+            <span class="val">$550–1 100</span>
+          </div>
+          <div class="bar">
+            <span class="lab">Парагвай, техник лаборатории</span>
+            <span class="track"><span class="fill" style="width:50%"></span></span>
+            <span class="val">$552–1 008</span>
+          </div>
+          <div class="bar">
+            <span class="lab">Парагвай, биолог</span>
+            <span class="track"><span class="fill" style="width:97%"></span></span>
+            <span class="val">$638–1 935</span>
+          </div>
+          <div class="bar">
+            <span class="lab">Уругвай, минималка</span>
+            <span class="track"><span class="fill" style="width:31%"></span></span>
+            <span class="val">≈$620</span>
+          </div>
+        </div>
+        <p style="margin:18px 0 0; color:var(--ink-2)"><strong>Что это значит.</strong> Технический персонал стоит одинаково — в обеих странах порядка $550–1 100 за специалиста начального и среднего уровня. Парагвайская верхняя планка выше для опытных биологов, но это отражает дефицит, а не щедрость рынка. <strong>Экономия на зарплатах как довод за Парагвай не работает.</strong></p>
+      </div>
+
+      <div class="card c12 reveal">
+        <div class="note">
+          <p style="margin-bottom:0"><strong>Честная оговорка по данным.</strong> Это зарплатные порталы и статистика, а не выборка реальных офферов. По Уругваю два источника расходятся почти вдвое, поэтому корректнее держать в голове вилку, а не среднюю. Отдельно предупреждаю: в поисковой выдаче по запросу про зарплаты уругвайских исследователей всплывает шкала категорий «Investigador Superior / Principal / Independiente» с суммами около 180–300 тысяч — <strong>это аргентинская шкала CONICET, а не уругвайская</strong>, и к Уругваю она отношения не имеет. В таблицу я её не включил именно поэтому.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="community">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <h2><span class="num">2</span>Комьюнити: есть ли с кем работать</h2>
+      <p>Здесь разрыв между странами максимальный из всего, что мы сравнивали.</p>
+    </div>
+
+    <div class="bento">
+      <div class="card c6 reveal">
+        <div class="kicker">Уругвай</div>
+        <h3>Сложившийся сектор</h3>
+        <p style="color:var(--ink-2)">Национальный опрос, на который ссылается государственное агентство <a href="https://www.uruguayxxi.gub.uy/es/noticias/articulo/biotecnologia-en-uruguay-un-ecosistema-en-expansion-que-gana-atractivo-para-invertir/" target="_blank" rel="noopener">Uruguay XXI</a>, даёт конкретные цифры:</p>
+        <div class="dl">
+          <div class="row"><div class="t">Компаний</div><div class="d"><strong>62 действующие</strong> биотех-компании, из них 62% — стартапы</div></div>
+          <div class="row"><div class="t">Динамика</div><div class="d">С 2014 по 2025 год основано <strong>45 новых компаний</strong>, 84% из них стартапы</div></div>
+          <div class="row"><div class="t">Занятость</div><div class="d"><strong>539 рабочих мест</strong> в секторе. 44% сотрудников с высшим образованием, 11% с докторской степенью; в стартапах — 62% и <strong>31%</strong> соответственно</div></div>
+          <div class="row"><div class="t">География</div><div class="d"><strong>85% компаний</strong> — в Монтевидео и департаменте Канелонес. Пандо находится именно в Канелонес</div></div>
+          <div class="row"><div class="t">Направления</div><div class="d">Здоровье человека — 22 компании, здоровье животных — 14, агробиотех — 12, пищевая — 7, промышленная — 5, экология и энергия — 2</div></div>
+        </div>
+      </div>
+
+      <div class="card c6 reveal">
+        <div class="kicker">Уругвай</div>
+        <h3>Куда можно прийти</h3>
+        <ul class="tick good">
+          <li><strong><a href="https://labplus.uy/ourinstitute/" target="_blank" rel="noopener">LAB+ Company Builder</a></strong> — совместная инициатива Института Пастера и Ficus Advisory для стартапов в науках о жизни. Объявлен уже второй международный приём заявок от учёных с оригинальными проектами. Это прямой вход для иностранца.</li>
+          <li><strong>CIE BIO</strong> — альянс Центра исследований и инноваций в биотехнологии, технологического университета UTEC и центра инноваций университета ORT.</li>
+          <li><strong>Sprint Uy</strong> — программа погружения от национального агентства исследований и инноваций ANII и Uruguay XXI. Третий выпуск прошёл 5–9 октября 2026 года, участвовали девять стартапов из Аргентины, Бразилии и Испании.</li>
+          <li><strong><a href="https://www.gub.uy/ministerio-industria-energia-mineria/politicas-y-gestion/nucleo-productivo-biotecnologia" target="_blank" rel="noopener">Núcleo Productivo de Biotecnología</a></strong> при министерстве промышленности — отраслевая площадка для диалога бизнеса и государства.</li>
+          <li><strong>Инкубатор Khem</strong> — работает прямо на территории научного парка в Пандо.</li>
+        </ul>
+      </div>
+
+      <div class="card c6 reveal">
+        <div class="kicker">Парагвай</div>
+        <h3>Сеть, которую перезапускают</h3>
+        <p style="color:var(--ink-2)">Формулировка профильной прессы говорит сама за себя: научное сообщество <em>«стремится реактивировать экосистему биотехнологических исследований»</em>. Это не растущий сектор, а попытка собрать его заново.</p>
+        <ul class="tick warn">
+          <li><strong>RedBioPy</strong> — третья встреча прошла в 2026 году в пространстве American Space при CONACYT в Асунсьоне; часть региональной сети RedBio.</li>
+          <li><strong>PROCIENCIA</strong> — программа национального совета по науке CONACYT, через которую финансируются исследования в здравоохранении, биотехнологии и экологии.</li>
+          <li><strong>CEMIT-UNA</strong> — мультидисциплинарный центр технологических исследований Национального университета Асунсьона, работает над связкой науки и производства.</li>
+          <li>В ноябре 2025 Парагвай стал <a href="https://www.conacyt.gov.py/paraguay-convierte-miembro-pleno-centro-latinoamericano-biotecnologia" target="_blank" rel="noopener">полным членом Латиноамериканского центра биотехнологии</a>; более 150 парагвайцев прошли специализированные курсы.</li>
+        </ul>
+        <p style="margin-bottom:0"><small>Цифр по количеству компаний, рабочих мест или доле специалистов со степенью по Парагваю в открытых источниках нет — их, судя по всему, просто не собирают.</small></p>
+      </div>
+
+      <div class="card c6 reveal">
+        <h3>Что из этого следует практически</h3>
+        <ul class="tick">
+          <li><strong>Наём.</strong> В Уругвае 539 человек уже работают в отрасли, и почти треть сотрудников стартапов имеет докторскую степень. В Парагвае такого пула нет — специалиста придётся либо релоцировать, либо растить.</li>
+          <li><strong>Подрядчики.</strong> Сертификация боксов, лабораторная вентиляция, обслуживание морозильников — всё это существует там, где есть 62 компании-заказчика. Там, где их нет, инженера возят из соседней страны.</li>
+          <li><strong>Академический статус.</strong> LAB+ и CIE BIO дают не просто контакты, а настоящую аффилиацию с научной средой — ту самую, которая подтверждает некоммерческий характер работы перед депозитариями.</li>
+          <li><strong>Соседство.</strong> 85% сектора сидит в Монтевидео и Канелонес — то есть ровно там, где научный парк Пандо.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="rent">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <h2><span class="num">3</span>Аренда в Уругвае: что удалось узнать</h2>
+      <p>Это был открытый вопрос с самого начала — научный парк ставок не публикует. Публичные ориентиры по рынку нашлись, по самому парку — подтвердился состав, но не цена.</p>
+    </div>
+
+    <div class="tablewrap reveal">
+      <table>
+        <thead><tr><th style="width:32%">Сегмент</th><th style="width:22%">Ставка за м² в месяц</th><th>Комментарий</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>Офисы Монтевидео, средняя по рынку</strong></td>
+            <td class="mono"><strong>$17,9</strong></td>
+            <td>Montevideo при этом <a href="https://www.plazamayor.com.uy/alquiler-de-oficinas-en-montevideo-2/" target="_blank" rel="noopener">лидирует по офисным ставкам в Латинской Америке</a> — это не дешёвый рынок</td>
+          </tr>
+          <tr>
+            <td><strong>Офисы класса A</strong></td>
+            <td class="mono"><strong>$34,4</strong></td>
+            <td>Премиальный сегмент. Для лаборатории не нужен</td>
+          </tr>
+          <tr>
+            <td><strong>Недорогие варианты</strong></td>
+            <td class="mono"><strong>от $6</strong></td>
+            <td>Например, 400 м² в районе Las Canteras. Это уже сопоставимо с панамским складом и парагвайской свободной зоной</td>
+          </tr>
+          <tr>
+            <td><strong>Научный парк Пандо</strong></td>
+            <td class="mono"><span class="badge b-amber">Не публикуется</span></td>
+            <td>Подтверждено повторно: ни на сайте парка, ни у агентства по инвестициям ставок нет. Только запрос</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="bento">
+      <div class="card c8 reveal">
+        <h3>Что точно есть в парке Пандо</h3>
+        <p style="color:var(--ink-2)">Состав подтвердился и оказался лучше, чем предполагалось. Парк занимает <strong>7,5 гектара</strong> в департаменте Канелонес, в зоне промышленного роста с хорошей транспортной связностью.</p>
+        <div class="dl">
+          <div class="row"><div class="t">Здание Ceibo</div><div class="d"><strong>Четыре полностью оборудованные лаборатории</strong> для исследований и разработки плюс офисы для административных подразделений компаний</div></div>
+          <div class="row"><div class="t">Кто ещё на территории</div><div class="d">Институт Технологического полюса Пандо факультета химии, бизнес-инкубатор Khem, научные компании</div></div>
+          <div class="row"><div class="t">Что предлагают</div><div class="d">Аренда современных помещений, спроектированных под лаборатории разработки и пилотные установки; проектирование и управление R&amp;D-проектами; разработка продуктов и улучшение процессов</div></div>
+          <div class="row"><div class="t">Softlanding</div><div class="d">Отдельная услуга мягкой посадки для компаний, заходящих в страну — ровно наш случай</div></div>
+          <div class="row"><div class="t">Крупный сосед</div><div class="d">Biogénesis Bagó, региональный лидер в здоровье животных, подписал соглашение об установке лаборатории на территории парка</div></div>
+          <div class="row"><div class="t">Контакты</div><div class="d">Camino Saravia s/n, Pando C.P. 91000, Canelones · <span class="mono">(+598) 2292 0984</span> · <a href="https://pctp.org.uy/en/contact/" target="_blank" rel="noopener">info@pctp.org.uy</a></div></div>
+        </div>
+      </div>
+      <div class="card c4 reveal">
+        <h3>Как читать отсутствие цены</h3>
+        <p style="color:var(--ink-2)">Парк не публикует ставки не из скрытности, а потому что продаёт не метры, а пакет: помещение плюс сопровождение проекта плюс доступ к среде. Цена собирается под задачу.</p>
+        <p style="color:var(--ink-2); margin-bottom:0">Практически это значит, что <strong>торг уместен</strong>, а разговор надо начинать не с «сколько стоит метр», а с описания проекта — под некоммерческую исследовательскую организацию условия могут отличаться от коммерческих.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="ask">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <h2><span class="num">4</span>Что запросить прямо сейчас</h2>
+      <p>Три письма, которые закрывают оставшиеся пробелы. Все адреса проверены.</p>
+    </div>
+    <ol class="steps reveal">
+      <li><strong>Научный парк Пандо — ставка и доступность.</strong> На <a href="https://pctp.org.uy/en/contact/" target="_blank" rel="noopener">info@pctp.org.uy</a>: есть ли свободные лабораторные помещения в здании Ceibo, какая ставка за квадратный метр, что входит в пакет Softlanding, какие условия для некоммерческой исследовательской организации. Там работают на испанском и английском.</li>
+      <li><strong>LAB+ Company Builder — условия участия.</strong> Инициатива Института Пастера объявляла второй международный приём заявок. Вопрос: открыт ли приём сейчас, что даёт участие по инфраструктуре и даёт ли оно научную аффилиацию. Это потенциально решает вопрос академического статуса без отдельной процедуры.</li>
+      <li><strong>Зарплатный ориентир от местных.</strong> Расхождение между источниками почти двукратное, поэтому реальную вилку даст только разговор с кем-то из сектора — например, через инкубатор Khem на территории того же парка.</li>
+    </ol>
+  </div>
+</section>
+
+<section id="sources">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <h2>Источники</h2>
+    </div>
+    <div class="srcgrid reveal">
+      <div class="src"><a href="https://www.uruguayxxi.gub.uy/es/noticias/articulo/biotecnologia-en-uruguay-un-ecosistema-en-expansion-que-gana-atractivo-para-invertir/" target="_blank" rel="noopener">Uruguay XXI — биотех-экосистема</a><small>62 компании, 539 рабочих мест, доли специалистов с образованием и степенью, распределение по направлениям и географии</small></div>
+      <div class="src"><a href="https://uy.computrabajo.com/salarios/laboratorioa" target="_blank" rel="noopener">Computrabajo — зарплаты лаборантов в Уругвае</a><small>Средние по вакансиям; расхождение между выборками почти двукратное</small></div>
+      <div class="src"><a href="https://tusalario.org/paraguay/carrera/paraguay-trabajo-y-salario/paraguay-tecnicos-de-laboratorios-medicos-o-patologicos" target="_blank" rel="noopener">Tusalario Paraguay — техники лабораторий</a><small>Вилки в гуарани на старте и после пяти лет, рабочая неделя 48 часов</small></div>
+      <div class="src"><a href="https://tusalario.org/paraguay/carrera/paraguay-trabajo-y-salario/paraguay-tecnicos-en-ciencias-biologicas-excepto-medicos" target="_blank" rel="noopener">Tusalario Paraguay — техники биологических наук</a><small>Ближайшая к профилю позиция</small></div>
+      <div class="src"><a href="https://www.bcp.gov.py/webapps/web/cotizacion/referencial-fluctuante-interbancario" target="_blank" rel="noopener">Центральный банк Парагвая — курс</a><small>5 847,83 гуарани за доллар на 6 октября 2026</small></div>
+      <div class="src"><a href="https://www.plazamayor.com.uy/alquiler-de-oficinas-en-montevideo-2/" target="_blank" rel="noopener">Рынок офисов Монтевидео</a><small>Средняя ставка $17,9 за м², класс A — $34,4; город лидирует по ставкам в регионе</small></div>
+      <div class="src"><a href="https://www.uruguayxxi.gub.uy/es/directorio-servicio/parque-cientifico-tecnologico-de-pando/" target="_blank" rel="noopener">Научный парк Пандо в каталоге Uruguay XXI</a><small>7,5 га, здание Ceibo с четырьмя оборудованными лабораториями, инкубатор Khem, услуги и контакты</small></div>
+      <div class="src"><a href="https://pctp.org.uy/en/about/" target="_blank" rel="noopener">Сайт парка Пандо</a><small>Аренда помещений под лаборатории и пилотные установки, Softlanding, управление R&amp;D-проектами</small></div>
+      <div class="src"><a href="https://labplus.uy/ourinstitute/" target="_blank" rel="noopener">LAB+ Company Builder</a><small>Институт Пастера и Ficus Advisory, международный приём заявок от учёных</small></div>
+      <div class="src"><a href="https://infonegocios.com.py/amp/default/biotecnologia-en-auge-paraguay-vuelve-a-activar-su-red-cientifica-con-el-congreso-redbiopy" target="_blank" rel="noopener">RedBioPy — перезапуск сети в Парагвае</a><small>Третья встреча в American Space при CONACYT, Асунсьон</small></div>
+      <div class="src"><a href="https://www.conacyt.gov.py/paraguay-convierte-miembro-pleno-centro-latinoamericano-biotecnologia" target="_blank" rel="noopener">CONACYT — членство в Латиноамериканском центре биотехнологии</a><small>Ноябрь 2025, более 150 обученных специалистов</small></div>
+      <div class="src"><a href="https://www.polotecnologico.fq.edu.uy/" target="_blank" rel="noopener">Технологический полюс Пандо</a><small>Соглашение с Biogénesis Bagó об установке лаборатории на территории</small></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p style="margin-bottom:8px">Дополнение к разбору, 8 октября 2026 года. Основные материалы: <a href="laboratoriya-sozvon.html">выжимка к созвону</a>, <a href="wet-lab-obshee.html">общая часть</a>, <a href="uruguay-laboratoriya.html">Уругвай</a>, <a href="paraguay-laboratoriya.html">Парагвай</a>.</p>
+    <p style="margin:0"><small>Суммы в долларах пересчитаны по курсам начала октября 2026 и будут смещаться вместе с курсом. Зарплатные данные взяты с профильных порталов и из государственной статистики — это не выборка реальных предложений о работе.</small></p>
+  </div>
+</footer>
+
+<script type="module">
+  try {
+    const { animate, inView, stagger } = await import("https://cdn.jsdelivr.net/npm/motion@11/+esm");
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const els = document.querySelectorAll(".reveal");
+    if (reduced) {
+      els.forEach(e => { e.style.opacity = 1; e.style.transform = "none"; });
+    } else {
+      els.forEach(el => {
+        inView(el, () => {
+          animate(el, { opacity: [0, 1], transform: ["translateY(18px)", "translateY(0px)"] },
+                  { duration: 0.5, easing: [0.2, 0.7, 0.3, 1] });
+        }, { margin: "-8% 0px -8% 0px" });
+      });
+      const cards = document.querySelectorAll(".bento .card");
+      if (cards.length) {
+        inView(".bento", () => {
+          animate(cards, { opacity: [null, 1] }, { delay: stagger(0.04), duration: 0.35 });
+        }, { margin: "-10% 0px" });
+      }
+      const fills = document.querySelectorAll(".bar .fill");
+      if (fills.length) {
+        inView(".bars", () => {
+          fills.forEach(f => {
+            const w = f.style.width;
+            animate(f, { width: ["0%", w] }, { duration: 0.7, easing: [0.2, 0.7, 0.3, 1] });
+          });
+        }, { margin: "-10% 0px" });
+      }
+    }
+  } catch (e) {
+    document.querySelectorAll(".reveal").forEach(el => { el.style.opacity = 1; el.style.transform = "none"; });
+  }
+</script>
+</body>
+</html>
