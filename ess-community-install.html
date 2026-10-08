@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ESS Community на своём сервере — одна команда или по шагам</title>
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="description" content="Полная инструкция по установке Element Server Suite Community (Matrix: Synapse, Element Web, Element Call, MAS) на один сервер через k3s и Helm. Вариант 1 — скрипт в одну команду, вариант 2 — пошагово по официальному README. Проверено 08.10.2026.">
+<script>document.documentElement.classList.add('js-anim');</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --page-bg:#F5F5F7; --surface:#FFFFFF; --text-1:#1D1D1F; --text-2:#6E6E73; --text-3:#AEAEB2;
+  --blue:#0071E3; --border:rgba(0,0,0,0.08);
+  --ok-bg:#E6F6EA; --ok-text:#1B7F3B; --ok-border:#BFE6C9;
+  --warn-bg:#FFF4E0; --warn-text:#9A5B00; --warn-border:#F3D9A4;
+  --no-bg:#FDECEC; --no-text:#A52828; --no-border:#F2C2C2;
+  --shadow:0 1px 2px rgba(0,0,0,0.04),0 8px 24px rgba(0,0,0,0.05);
+  --shadow-hover:0 2px 4px rgba(0,0,0,0.05),0 16px 40px rgba(0,0,0,0.09);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{margin:0;background:var(--page-bg);color:var(--text-1);font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;font-size:16px;line-height:1.55;font-feature-settings:"tnum" 1,"cv11" 1}
+a{color:var(--blue);text-decoration:none} a:hover{text-decoration:underline}
+a:focus-visible,button:focus-visible{outline:3px solid rgba(0,113,227,.45);outline-offset:2px;border-radius:6px}
+.wrap{max-width:1140px;margin:0 auto;padding:0 16px}
+.hero{background:var(--surface);border-bottom:1px solid var(--border);padding:64px 0 40px}
+.eyebrow{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--text-3);font-weight:600;margin:0 0 14px}
+h1{font-size:clamp(32px,5vw,56px);line-height:1.08;letter-spacing:-.02em;font-weight:800;margin:0 0 18px;max-width:940px}
+h1 span{color:var(--blue)}
+.lead{font-size:18px;color:var(--text-2);max-width:780px;margin:0 0 24px}
+.pills{display:flex;flex-wrap:wrap;gap:8px}
+.pill{background:var(--page-bg);border:1px solid var(--border);border-radius:999px;padding:8px 14px;font-size:14px;font-weight:500;color:var(--text-1)}
+.pill b{font-weight:700}
+.toc{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+.toc a{display:inline-flex;align-items:center;min-height:40px;padding:0 14px;border-radius:999px;border:1px solid var(--border);background:var(--surface);font-size:14px;font-weight:500;color:var(--text-1);transition:border-color .15s,transform .15s}
+.toc a:hover{text-decoration:none;border-color:rgba(0,0,0,.25);transform:translateY(-1px)}
+section{padding:44px 0 8px}
+h2{font-size:clamp(24px,3vw,34px);letter-spacing:-.02em;font-weight:700;margin:0 0 8px}
+h3{font-size:19px;letter-spacing:-.01em;margin:0 0 8px}
+.sub-h{color:var(--text-2);margin:0 0 24px;max-width:780px}
+.bento{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:22px 24px;box-shadow:var(--shadow);transition:box-shadow .2s,transform .2s}
+.card:hover{transform:translateY(-2px);box-shadow:var(--shadow-hover)}
+.card.span2{grid-column:span 2}
+.card.span3{grid-column:span 3}
+.card p{margin:0 0 10px;color:var(--text-2);font-size:15px}
+.card p:last-child{margin-bottom:0}
+.card ul,.card ol{margin:0 0 10px;padding-left:18px;color:var(--text-2);font-size:15px}
+.card li{margin:0 0 7px} .card li b{color:var(--text-1);font-weight:600}
+.tag{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;border-radius:6px;padding:4px 9px;margin:0 6px 8px 0;border:1px solid transparent;line-height:1.2}
+.tag.ok{background:var(--ok-bg);color:var(--ok-text);border-color:var(--ok-border)}
+.tag.warn{background:var(--warn-bg);color:var(--warn-text);border-color:var(--warn-border)}
+.tag.no{background:var(--no-bg);color:var(--no-text);border-color:var(--no-border)}
+.tablewrap{background:var(--surface);border:1px solid var(--border);border-radius:20px;box-shadow:var(--shadow);overflow:auto;-webkit-overflow-scrolling:touch}
+table{border-collapse:separate;border-spacing:0;width:100%;font-size:14px}
+thead th{background:var(--text-1);color:#fff;text-align:left;font-weight:600;padding:12px 14px;font-size:13px;vertical-align:top}
+tbody td{padding:11px 14px;border-bottom:1px solid var(--border);vertical-align:top;color:var(--text-2);font-size:14px;line-height:1.45}
+tbody tr:last-child td{border-bottom:0}
+td b,td code{color:var(--text-1)}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.92em;background:rgba(0,0,0,.05);padding:2px 6px;border-radius:6px}
+pre{margin:0 0 12px;background:#1D1D1F;color:#F5F5F7;border-radius:14px;padding:14px 16px;font-size:12.5px;line-height:1.55;overflow:auto;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+pre code{background:none;padding:0;color:inherit;font-size:inherit}
+pre .c{color:#A1A1A6}
+.steps{display:flex;flex-direction:column;gap:14px}
+.step{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:20px 24px;box-shadow:var(--shadow);display:grid;grid-template-columns:44px 1fr;gap:14px}
+.step .n{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:10px;background:var(--text-1);color:#fff;font-weight:700;font-size:15px}
+.step h3{margin:4px 0 6px}
+.step p{margin:0 0 10px;color:var(--text-2);font-size:15px}
+.step p:last-child{margin-bottom:0}
+.step ul{margin:0 0 10px;padding-left:18px;color:var(--text-2);font-size:15px}
+.step li{margin:0 0 6px}
+.why{font-size:14px;color:var(--text-2);border-left:3px solid var(--border);padding-left:12px;margin:0 0 10px}
+.why b{color:var(--text-1)}
+.cta{display:inline-flex;align-items:center;gap:8px;min-height:46px;padding:0 20px;border-radius:12px;background:var(--blue);color:#fff;font-weight:600;font-size:15px;margin:4px 10px 10px 0;transition:transform .15s,box-shadow .15s}
+.cta:hover{text-decoration:none;transform:translateY(-1px);box-shadow:0 8px 20px rgba(0,113,227,.25)}
+.cta.secondary{background:var(--surface);color:var(--text-1);border:1px solid var(--border)}
+.note{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:16px 20px;font-size:14.5px;color:var(--text-2);margin:0 0 16px}
+.note b{color:var(--text-1)}
+.note.warn{border-color:var(--warn-border);background:var(--warn-bg);color:var(--warn-text)} .note.warn b{color:var(--warn-text)}
+.tips{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.tip{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:20px 22px;box-shadow:var(--shadow);font-size:15px;color:var(--text-2)}
+.tip b{color:var(--text-1);display:block;margin-bottom:4px}
+.tip pre{margin-top:8px}
+.sources{columns:2;column-gap:32px;font-size:13.5px;margin:0;padding-left:18px}
+.sources li{break-inside:avoid;margin:0 0 6px;color:var(--text-2)}
+footer{padding:40px 0 60px;color:var(--text-3);font-size:13px;line-height:1.6}
+.reveal{opacity:1;transform:none}
+.js-anim .reveal{opacity:0;transform:translateY(16px)}
+.js-anim .reveal.shown{opacity:1;transform:none;transition:opacity .5s ease-out,transform .5s ease-out}
+@media (prefers-reduced-motion:reduce){.js-anim .reveal{opacity:1;transform:none;transition:none} .card,.toc a,.cta{transition:none}}
+@media (max-width:1024px){.bento,.tips{grid-template-columns:repeat(2,1fr)} .card.span2,.card.span3{grid-column:span 2} .sources{columns:1}}
+@media (max-width:700px){.hero{padding:44px 0 28px} .bento,.tips{grid-template-columns:1fr} .card.span2,.card.span3{grid-column:auto} .step{grid-template-columns:1fr} .tablewrap{border-radius:14px}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="eyebrow">Инструкция · проверено 8 октября 2026</p>
+    <h1>Element Server Suite Community на своём сервере: <span>одна команда или по шагам</span></h1>
+    <p class="lead">Два способа поднять полный Matrix-стек от Element (сервер Synapse, вход MAS, веб-клиент, админка, звонки Element Call, бот Hookshot) на одном Linux-сервере. Вариант 1 — скрипт, который делает всё сам. Вариант 2 — те же действия руками по официальному README репозитория <a href="https://github.com/element-hq/ess-helm" target="_blank" rel="noopener">element-hq/ess-helm</a>, с объяснением каждого шага.</p>
+    <div class="pills">
+      <span class="pill"><b>2</b> ядра · <b>2</b> ГБ RAM минимум</span>
+      <span class="pill"><b>6</b> DNS-записей</span>
+      <span class="pill"><b>4</b> порта</span>
+      <span class="pill">Установка <b>10–20 минут</b></span>
+    </div>
+    <nav class="toc" aria-label="Разделы">
+      <a href="#what">Что получится</a>
+      <a href="#prep">Перед установкой</a>
+      <a href="#one">Вариант 1 · одна команда</a>
+      <a href="#manual">Вариант 2 · по шагам</a>
+      <a href="#after">После установки</a>
+      <a href="#proxy">Если 80/443 заняты</a>
+      <a href="#trouble">Если что-то пошло не так</a>
+      <a href="#sources">Источники</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<section id="what">
+  <div class="wrap">
+    <h2 class="reveal">Что получится</h2>
+    <p class="sub-h reveal">ESS Community — официальная бесплатная сборка Matrix от Element под лицензией AGPLv3, рассчитанная на команды примерно до 100 человек. Устанавливается в Kubernetes (k3s — облегчённая версия для одной машины) через Helm (установщик пакетов для Kubernetes).</p>
+    <div class="bento">
+      <article class="card reveal"><h3>Сервер и вход</h3><ul><li><b>Synapse</b> — сам сервер Matrix, хранит комнаты и сообщения.</li><li><b>Matrix Authentication Service (MAS)</b> — управляет пользователями и входом (пароли, в перспективе SSO).</li><li><b>PostgreSQL</b> — база данных, ставится чартом автоматически (для долгой жизни README советует внешнюю).</li></ul></article>
+      <article class="card reveal"><h3>Клиенты</h3><ul><li><b>Element Web</b> — веб-клиент по адресу chat.ваш-домен.</li><li><b>Element Admin</b> — консоль администратора по адресу admin.ваш-домен.</li><li><b>Element X</b> на телефоне подключается к вашему серверу по имени домена.</li></ul></article>
+      <article class="card reveal"><h3>Звонки и интеграции</h3><ul><li><b>Matrix RTC Backend</b> — бэкенд Element Call (видеозвонки из Element Web и Element X).</li><li><b>Hookshot</b> — бот для вебхуков GitHub, GitLab, Jira, RSS.</li><li><b>HAProxy и .well-known</b> — маршрутизация и «визитка» сервера для федерации и клиентов.</li></ul></article>
+    </div>
+  </div>
+</section>
+
+<section id="prep">
+  <div class="wrap">
+    <h2 class="reveal">Перед установкой</h2>
+    <p class="sub-h reveal">Три вещи, без которых не взлетит ни один из вариантов: подходящий сервер, шесть DNS-записей и открытые порты.</p>
+    <div class="bento">
+      <article class="card reveal">
+        <h3>Сервер</h3>
+        <ul>
+          <li><b>ОС:</b> чистый Ubuntu 22.04/24.04 или Debian 12 с systemd (стандарт для любого VPS). Подойдёт и другой Linux из списка k3s.</li>
+          <li><b>Ресурсы:</b> минимум 2 ядра и 2 ГБ памяти по README; на практике для спокойной работы со звонками лучше 4 ГБ и SSD от 20 ГБ (образы занимают около 2 ГБ, дальше растут медиа и база).</li>
+          <li><b>Сеть:</b> публичный IPv4-адрес; порты 80 и 443 свободны (нет nginx/apache/caddy). Если заняты — см. <a href="#proxy">раздел про reverse proxy</a>.</li>
+          <li><b>Доступ:</b> root или пользователь с sudo.</li>
+        </ul>
+      </article>
+      <article class="card reveal">
+        <h3>DNS: шесть записей на IP сервера</h3>
+        <p>Имя сервера нельзя поменять потом без сброса базы, выбирайте сразу. Все шесть — записи A (или CNAME) на один и тот же IP.</p>
+        <div class="tablewrap"><table>
+          <thead><tr><th>Имя</th><th>Зачем</th></tr></thead>
+          <tbody>
+            <tr><td><code>example.com</code></td><td>Имя сервера (server name): часть Matrix ID вида @user:example.com и адрес «визитки» .well-known</td></tr>
+            <tr><td><code>matrix.example.com</code></td><td>Synapse — сюда ходят клиенты и другие серверы</td></tr>
+            <tr><td><code>account.example.com</code></td><td>Matrix Authentication Service — страница входа</td></tr>
+            <tr><td><code>mrtc.example.com</code></td><td>Matrix RTC — бэкенд звонков</td></tr>
+            <tr><td><code>chat.example.com</code></td><td>Element Web</td></tr>
+            <tr><td><code>admin.example.com</code></td><td>Element Admin</td></tr>
+          </tbody>
+        </table></div>
+      </article>
+      <article class="card reveal">
+        <h3>Порты</h3>
+        <div class="tablewrap"><table>
+          <thead><tr><th>Порт</th><th>Для чего</th></tr></thead>
+          <tbody>
+            <tr><td><b>80/tcp</b></td><td>HTTP, перенаправляет на HTTPS; нужен Let's Encrypt для проверки домена</td></tr>
+            <tr><td><b>443/tcp</b></td><td>HTTPS для всех сервисов</td></tr>
+            <tr><td><b>30001/tcp</b></td><td>WebRTC-соединения звонков (Matrix RTC)</td></tr>
+            <tr><td><b>30002/udp</b></td><td>Мультиплексированные WebRTC-соединения звонков</td></tr>
+          </tbody>
+        </table></div>
+        <p style="margin-top:10px">Если на сервере включён ufw или firewalld, k3s рекомендует также открыть 6443/tcp и доверять внутренним сетям 10.42.0.0/16 (поды) и 10.43.0.0/16 (сервисы). Скрипт из варианта 1 делает это сам. Порты в панели хостера (облачный файрвол) открывайте руками.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="one">
+  <div class="wrap">
+    <h2 class="reveal">Вариант 1 — одна команда</h2>
+    <p class="sub-h reveal">Скрипт <code>install-ess.sh</code> повторяет все шаги README в нужном порядке, проверяет сервер и DNS, ставит k3s, Helm и cert-manager, разворачивает чарт и создаёт первого пользователя. Повторный запуск безопасен: уже установленное пропускается, чарт обновляется до последней версии.</p>
+    <div class="note warn reveal"><b>Честно о проверке.</b> Скрипт прошёл shellcheck без замечаний и был запущен целиком в WSL Ubuntu 24.04 на этой машине в режиме без TLS: k3s, Helm, чарт 26.9.4 и первый пользователь поднялись, приложения отвечают — подробности в блоке <a href="#tested">«Что проверено»</a>. Ветка с Let's Encrypt на реальном домене не прогонялась — она повторяет команды README буква в букву, но первый запуск на боевом сервере делайте, глядя в вывод.</div>
+    <div class="card span3 reveal" style="margin-bottom:16px">
+      <h3>Запуск</h3>
+      <p>На чистом сервере от root (или через sudo). Переменные задаются перед командой; без них скрипт спросит домен, e-mail и имя пользователя сам.</p>
+<pre><code><span class="c"># 1) скачать и посмотреть, что внутри (скрипт открытый, 300 строк с комментариями)</span>
+curl -fsSL https://taksa1973.github.io/results/ess/install-ess.sh -o install-ess.sh
+less install-ess.sh
+
+<span class="c"># 2) запустить: домен, e-mail для Let's Encrypt, имя первого пользователя</span>
+sudo ESS_DOMAIN=example.com ESS_LE_EMAIL=admin@example.com ESS_ADMIN_USER=admin bash install-ess.sh</code></pre>
+      <p>Если хочется совсем в одну строку (скрипт сам задаст вопросы в терминале):</p>
+<pre><code>curl -fsSL https://taksa1973.github.io/results/ess/install-ess.sh | sudo bash</code></pre>
+      <a class="cta" href="https://taksa1973.github.io/results/ess/install-ess.sh" target="_blank" rel="noopener">Открыть install-ess.sh</a>
+      <a class="cta secondary" href="https://github.com/taksa1973/results/blob/master/ess/install-ess.sh" target="_blank" rel="noopener">Код на GitHub</a>
+    </div>
+    <div class="bento">
+      <article class="card reveal">
+        <h3>Что делает по порядку</h3>
+        <ol>
+          <li>Проверяет root, systemd, curl; считает ядра и память; смотрит, свободны ли 80/443.</li>
+          <li>Проверяет, что все шесть DNS-имён указывают на публичный IP сервера (иначе Let's Encrypt не выдаст сертификаты).</li>
+          <li>Если включён ufw/firewalld — открывает 80, 443, 30001/tcp, 30002/udp, 6443 и внутренние сети k3s.</li>
+          <li>Ставит k3s, ждёт готовности узла, кладёт kubeconfig в ~/.kube/config (и пользователю из sudo).</li>
+          <li>Пишет настройку Traefik из README (доверять заголовкам подов, разрешать %2F и %23 в адресах).</li>
+          <li>Ставит Helm, создаёт namespace ess и каталог ~/ess-config-values.</li>
+          <li>Ставит cert-manager v1.17.0 и ClusterIssuer letsencrypt-prod, скачивает tls.yaml.</li>
+          <li>Генерирует hostnames.yaml и выполняет helm upgrade --install с ожиданием до 30 минут.</li>
+          <li>Создаёт пользователя через mas-cli manage register-user --yes --admin и печатает адреса, логин и пароль.</li>
+        </ol>
+      </article>
+      <article class="card reveal">
+        <h3>Переменные</h3>
+        <div class="tablewrap"><table>
+          <thead><tr><th>Переменная</th><th>Значение</th></tr></thead>
+          <tbody>
+            <tr><td><code>ESS_DOMAIN</code></td><td>имя сервера, обязательна</td></tr>
+            <tr><td><code>ESS_LE_EMAIL</code></td><td>e-mail для Let's Encrypt</td></tr>
+            <tr><td><code>ESS_ADMIN_USER</code></td><td>первый пользователь, по умолчанию admin</td></tr>
+            <tr><td><code>ESS_ADMIN_PASSWORD</code></td><td>пароль; пусто — сгенерирует и покажет</td></tr>
+            <tr><td><code>ESS_HOST_CHAT</code> и др.</td><td>свои имена вместо chat./matrix./account./mrtc./admin.</td></tr>
+            <tr><td><code>ESS_TLS=none</code></td><td>без сертификатов, за своим reverse proxy</td></tr>
+            <tr><td><code>ESS_CHART_VERSION</code></td><td>закрепить версию чарта</td></tr>
+            <tr><td><code>ESS_SKIP_DNS_CHECK=1</code></td><td>не проверять DNS</td></tr>
+            <tr><td><code>ESS_NONINTERACTIVE=1</code></td><td>не задавать вопросов</td></tr>
+          </tbody>
+        </table></div>
+      </article>
+      <article class="card reveal">
+        <h3>Ограничения</h3>
+        <ul>
+          <li><b>Только чистый сервер</b> с systemd: в контейнере или на машине с уже занятыми 80/443 скрипт остановится (ESS_FORCE=1 — продолжить на свой страх).</li>
+          <li><b>Пароль первого пользователя</b> передаётся в mas-cli аргументом — на долю секунды виден в списке процессов внутри пода. Для домашнего сервера некритично, для параноидального режима создавайте пользователя интерактивно (шаг 10 варианта 2).</li>
+          <li><b>Версии:</b> k3s и Helm берутся последние стабильные, cert-manager закреплён на v1.17.0 как в README (меняется переменной CERT_MANAGER_VERSION).</li>
+          <li><b>Внешняя база PostgreSQL</b> и SMTP для регистрации скриптом не настраиваются — это раздел advanced.md, см. «После установки».</li>
+        </ul>
+      </article>
+    </div>
+    <div class="card span3 reveal" id="tested" style="margin-top:16px">
+      <h3>Что проверено</h3>
+      <p>Прогон 08.10.2026 в WSL2 Ubuntu 24.04 на этой машине (systemd, 12 ядер, 8 ГБ), режим <code>ESS_TLS=none</code>, домен ess.test через /etc/hosts.</p>
+      <ul>
+        <li><b>Полный запуск завершился с кодом 0:</b> k3s v1.36.5+k3s1 → Helm v3.22.0 → namespace → чарт matrix-stack 26.9.4 (helm upgrade --install --wait отработал примерно за 2,5 минуты после скачивания образов) → служба входа готова → пользователь @admin:ess.test создан через mas-cli.</li>
+        <li><b>13 подов в Running/Completed:</b> Synapse v1.162.0, Matrix Authentication Service 1.26.0, Element Web, Element Admin, HAProxy, PostgreSQL, Valkey, Matrix RTC (SFU и authorisation service), служебные job-ы.</li>
+        <li><b>Приложения отвечают</b> (проверено через kubectl port-forward): Element Web 200, Element Admin 200, <code>/.well-known/matrix/client</code> отдаёт JSON с base_url и rtc_foci, Synapse <code>/_matrix/client/versions</code> 200, RTC authorisation <code>/healthz</code> 200.</li>
+        <li><b>Повторный запуск</b> того же скрипта: 40 секунд, helm revision 2, на существующего пользователя — предупреждение, код выхода 0.</li>
+        <li><b>Две ошибки найдены и исправлены по ходу:</b> kubeconfig писался раньше, чем k3s создавал /etc/rancher/k3s/k3s.yaml; и порядок команд из README (export KUBECONFIG до config view) на k3s 1.36 даёт пустой файл — скрипт и шаг 2 варианта 2 читают конфиг явно через --kubeconfig.</li>
+        <li><b>Не проверено:</b> ветка Let's Encrypt (cert-manager + ClusterIssuer) на реальном домене — у WSL нет публичного IP; доступ снаружи через Traefik по 80/443 — в WSL сетевой стек k3s нестабилен (svclb и SFU перезапускались, Traefik отдавал 503), это ограничение WSL, а не чарта. На реальном VPS первыми проверьте именно их: <code>kubectl get certificate -n ess</code> и открытие chat.домен в браузере.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="manual">
+  <div class="wrap">
+    <h2 class="reveal">Вариант 2 — руками по шагам</h2>
+    <p class="sub-h reveal">Те же действия, что делает скрипт, но по одной команде с объяснением. Команды взяты из README ess-helm без изменений; выполняйте от root или через sudo.</p>
+    <div class="steps">
+      <div class="step reveal"><span class="n">1</span><div>
+        <h3>Поставить k3s</h3>
+        <p class="why"><b>Что это.</b> k3s — Kubernetes «в одном файле», ставится одной командой и сразу запускает службу. Вместе с ним приходит Traefik (входной веб-сервер, который принимает 80/443 и раздаёт запросы сервисам).</p>
+<pre><code>curl -sfL https://get.k3s.io | sh -</code></pre>
+        <p>Проверка: <code>sudo k3s kubectl get nodes</code> должен показать узел в состоянии Ready (обычно через 30–60 секунд).</p>
+      </div></div>
+
+      <div class="step reveal"><span class="n">2</span><div>
+        <h3>Дать себе доступ к кластеру (kubeconfig)</h3>
+        <p class="why"><b>Что это.</b> kubeconfig — файл с адресом кластера и ключами. Без него kubectl и helm не знают, куда подключаться.</p>
+<pre><code>mkdir -p ~/.kube
+sudo k3s kubectl --kubeconfig /etc/rancher/k3s/k3s.yaml config view --raw > ~/.kube/config
+chmod 600 ~/.kube/config
+chown "$USER:$USER" ~/.kube/config
+export KUBECONFIG=~/.kube/config
+echo 'export KUBECONFIG=~/.kube/config' >> ~/.bashrc</code></pre>
+        <p class="why"><b>Отличие от README.</b> В README сначала делается export KUBECONFIG на ещё не существующий ~/.kube/config, а потом <code>k3s kubectl config view --raw</code>. На k3s v1.36.5 (проверено 08.10.2026 в WSL) такой порядок даёт пустой файл: kubectl читает «конфиг» из указанного пустого пути и ничего не находит. Поэтому здесь источник указан явно через --kubeconfig, а export сделан после записи. Проверка: <code>kubectl get nodes</code> показывает узел Ready.</p>
+      </div></div>
+
+      <div class="step reveal"><span class="n">3</span><div>
+        <h3>Настроить Traefik</h3>
+        <p class="why"><b>Зачем.</b> Два момента из README: Traefik должен доверять заголовкам X-Forwarded-* из внутренней сети подов (иначе Synapse не узнает реальные IP и схему), и разрешать закодированные символы %2F и %23 в адресах — их используют Matrix-клиенты. k3s подхватывает файл из этого каталога автоматически.</p>
+<pre><code>sudo tee /var/lib/rancher/k3s/server/manifests/traefik-config.yaml &gt;/dev/null &lt;&lt;'EOF'
+apiVersion: helm.cattle.io/v1
+kind: HelmChartConfig
+metadata:
+  name: traefik
+  namespace: kube-system
+spec:
+  valuesContent: |-
+    ports:
+      web:
+        forwardedHeaders:
+          trustedIPs:
+            - "10.42.0.0/16"
+            - "2001:db8:42::/56"
+        http:
+          encodedCharacters:
+            allowEncodedHash: true
+            allowEncodedSlash: true
+      websecure:
+        forwardedHeaders:
+          trustedIPs:
+            - "10.42.0.0/16"
+            - "2001:db8:42::/56"
+        http:
+          encodedCharacters:
+            allowEncodedHash: true
+            allowEncodedSlash: true
+EOF</code></pre>
+      </div></div>
+
+      <div class="step reveal"><span class="n">4</span><div>
+        <h3>Поставить Helm</h3>
+        <p class="why"><b>Что это.</b> Helm — менеджер пакетов для Kubernetes. ESS Community распространяется как Helm-чарт (пакет с шаблонами всех компонентов).</p>
+<pre><code>curl -fsSL https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash</code></pre>
+      </div></div>
+
+      <div class="step reveal"><span class="n">5</span><div>
+        <h3>Создать namespace и каталог настроек</h3>
+        <p class="why"><b>Что это.</b> Namespace — «папка» внутри кластера, куда попадут все компоненты ESS. Каталог ~/ess-config-values — ваши файлы настроек (values), которые передаются Helm при установке и каждом обновлении. Берегите его: без него обновить установку с теми же параметрами будет нечем.</p>
+<pre><code>kubectl create namespace ess
+mkdir ~/ess-config-values</code></pre>
+      </div></div>
+
+      <div class="step reveal"><span class="n">6</span><div>
+        <h3>Поставить cert-manager (сертификаты Let's Encrypt)</h3>
+        <p class="why"><b>Что это.</b> cert-manager — компонент Kubernetes, который сам запрашивает и продлевает сертификаты. ClusterIssuer — запись «у кого запрашивать»: Let's Encrypt, проверка через HTTP на порту 80 силами Traefik. Версия v1.17.0 — та, что указана в README.</p>
+<pre><code>helm repo add jetstack https://charts.jetstack.io --force-update
+helm install cert-manager jetstack/cert-manager \
+  --namespace cert-manager --create-namespace \
+  --version v1.17.0 --set crds.enabled=true
+
+kubectl apply -f - &lt;&lt;EOF
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-prod
+spec:
+  acme:
+    server: https://acme-v02.api.letsencrypt.org/directory
+    privateKeySecretRef:
+      name: letsencrypt-prod-private-key
+    solvers:
+      - http01:
+          ingress:
+            class: traefik
+EOF
+
+curl -L https://raw.githubusercontent.com/element-hq/ess-helm/main/charts/matrix-stack/ci/fragments/quick-setup-letsencrypt.yaml \
+  -o ~/ess-config-values/tls.yaml</code></pre>
+        <p>Файл tls.yaml содержит одну настройку: <code>certManager.clusterIssuer: letsencrypt-prod</code>. Если у вас уже есть wildcard-сертификат, вместо этого шага импортируйте его: <code>kubectl create secret tls ess-certificate -n ess --cert=... --key=...</code> и возьмите фрагмент quick-setup-wildcard-cert.yaml.</p>
+      </div></div>
+
+      <div class="step reveal"><span class="n">7</span><div>
+        <h3>Записать имена хостов</h3>
+        <p class="why"><b>Что это.</b> hostnames.yaml — главный файл настроек: имя сервера и адреса пяти сервисов. Скачайте шаблон и замените your.tld на свой домен (или впишите файл руками, структура ниже).</p>
+<pre><code>curl -L https://raw.githubusercontent.com/element-hq/ess-helm/refs/heads/main/charts/matrix-stack/ci/fragments/quick-setup-hostnames.yaml \
+  -o ~/ess-config-values/hostnames.yaml
+sed -i 's/your\.tld/example.com/g' ~/ess-config-values/hostnames.yaml
+cat ~/ess-config-values/hostnames.yaml</code></pre>
+<pre><code><span class="c"># что должно получиться</span>
+serverName: example.com
+synapse:
+  ingress:
+    host: matrix.example.com
+matrixAuthenticationService:
+  ingress:
+    host: account.example.com
+matrixRTC:
+  ingress:
+    host: mrtc.example.com
+elementWeb:
+  ingress:
+    host: chat.example.com
+elementAdmin:
+  ingress:
+    host: admin.example.com</code></pre>
+      </div></div>
+
+      <div class="step reveal"><span class="n">8</span><div>
+        <h3>Установить ESS Community</h3>
+        <p class="why"><b>Что происходит.</b> Helm скачивает чарт из реестра GitHub (oci://), подставляет ваши values и создаёт все компоненты. Флаг --wait держит команду, пока всё не поднимется; образы качаются 5–15 минут в зависимости от канала.</p>
+<pre><code>helm upgrade --install --namespace "ess" ess \
+  oci://ghcr.io/element-hq/ess-helm/matrix-stack \
+  -f ~/ess-config-values/hostnames.yaml \
+  -f ~/ess-config-values/tls.yaml \
+  --wait</code></pre>
+        <p>База PostgreSQL по умолчанию ставится чартом сама. Для внешней базы добавьте <code>-f ~/ess-config-values/postgresql.yaml</code> по фрагменту quick-setup-postgresql.yaml (хост, порт, пользователь, пароль и имя базы отдельно для Synapse и для MAS).</p>
+      </div></div>
+
+      <div class="step reveal"><span class="n">9</span><div>
+        <h3>Проверить, что всё поднялось</h3>
+<pre><code>kubectl get pods -n ess
+kubectl get certificate -n ess        <span class="c"># READY должно стать True через 1–3 минуты</span></code></pre>
+        <p>Все поды должны быть Running, сертификаты — Ready. Если сертификат висит в False, см. <a href="#trouble">раздел про проблемы</a>.</p>
+      </div></div>
+
+      <div class="step reveal"><span class="n">10</span><div>
+        <h3>Создать первого пользователя</h3>
+        <p class="why"><b>Почему руками.</b> Регистрация по умолчанию выключена. Пользователей создаёт mas-cli внутри пода службы входа; команда интерактивная — спросит имя, предложит задать пароль.</p>
+<pre><code>kubectl exec -n ess -it deploy/ess-matrix-authentication-service -- mas-cli manage register-user</code></pre>
+        <p>Неинтерактивный вариант (например, для скриптов): <code>mas-cli manage register-user --yes --admin --password 'пароль' --email you@example.com alice</code>. Флаг --admin даёт права администратора.</p>
+      </div></div>
+
+      <div class="step reveal"><span class="n">11</span><div>
+        <h3>Войти и проверить</h3>
+        <ul>
+          <li>Откройте https://chat.example.com и войдите созданным пользователем.</li>
+          <li>Проверьте федерацию: <a href="https://federationtester.matrix.org/" target="_blank" rel="noopener">federationtester.matrix.org</a>, введите example.com.</li>
+          <li>На телефоне в Element X: «Войти», сервер example.com, логин и пароль.</li>
+          <li>Для наблюдения за кластером README советует <a href="https://k9scli.io/" target="_blank" rel="noopener">k9s</a> (консоль) или <a href="https://k8slens.dev/" target="_blank" rel="noopener">Lens</a>.</li>
+        </ul>
+      </div></div>
+    </div>
+  </div>
+</section>
+
+<section id="after">
+  <div class="wrap">
+    <h2 class="reveal">После установки</h2>
+    <div class="tips">
+      <div class="tip reveal"><b>Добавить людей</b>Либо mas-cli из шага 10 на каждого, либо включить саморегистрацию: для неё MAS нужен SMTP (почтовый сервер для писем подтверждения) — настраивается через дополнительные values по разделу «Configuring Matrix Authentication Service» в <a href="https://github.com/element-hq/ess-helm/blob/main/docs/advanced.md" target="_blank" rel="noopener">advanced.md</a>.</div>
+      <div class="tip reveal"><b>Обновление</b>Повторите команду установки из шага 8 (или запустите скрипт ещё раз): Helm подтянет новую версию чарта с теми же values. Перед этим README просит посмотреть CHANGELOG на ломающие изменения.<pre><code>helm upgrade --install --namespace ess ess \
+  oci://ghcr.io/element-hq/ess-helm/matrix-stack \
+  -f ~/ess-config-values/hostnames.yaml \
+  -f ~/ess-config-values/tls.yaml --wait</code></pre></div>
+      <div class="tip reveal"><b>Бэкап</b>По <a href="https://github.com/element-hq/ess-helm/blob/main/docs/maintenance.md" target="_blank" rel="noopener">maintenance.md</a>: остановить Synapse и MAS, снять дамп PostgreSQL (pg_dumpall для встроенной базы), сохранить values, сгенерированные секреты и маркеры, скопировать том с медиа.<pre><code>kubectl scale sts -l "app.kubernetes.io/component=matrix-server" -n ess --replicas=0
+kubectl scale deploy -l "app.kubernetes.io/component=matrix-authentication" -n ess --replicas=0
+kubectl get secrets -l "app.kubernetes.io/managed-by=matrix-tools-init-secrets" -n ess -o yaml &gt; ess-secrets.yaml
+kubectl get configmap -l "app.kubernetes.io/managed-by=matrix-tools-deployment-markers" -n ess -o yaml &gt; ess-markers.yaml</code></pre></div>
+      <div class="tip reveal"><b>Внешняя база</b>README прямо рекомендует для долгой жизни PostgreSQL из пакетов дистрибутива, а не встроенный. Переезд описан в advanced.md («Using a dedicated PostgreSQL database»); для новой установки проще сразу передать postgresql.yaml.</div>
+      <div class="tip reveal"><b>Удалить</b>Данные (тома PVC и сгенерированные секреты) при helm uninstall специально не удаляются, чтобы не потерять ключи подписи сервера.<pre><code>helm uninstall ess -n ess
+kubectl delete namespace ess
+helm uninstall cert-manager -n cert-manager
+/usr/local/bin/k3s-uninstall.sh
+rm -rf ~/ess-config-values ~/.kube /usr/local/bin/helm</code></pre></div>
+      <div class="tip reveal"><b>Поддержка</b>Element не оказывает поддержку ESS Community; вопросы — в комнату <a href="https://matrix.to/#/#ess-community:element.io" target="_blank" rel="noopener">#ess-community:element.io</a> и в <a href="https://github.com/element-hq/ess-helm/issues" target="_blank" rel="noopener">issue tracker</a>. Платная ESS Pro — от 100 пользователей.</div>
+    </div>
+  </div>
+</section>
+
+<section id="proxy">
+  <div class="wrap">
+    <h2 class="reveal">Если 80/443 уже заняты: за своим reverse proxy</h2>
+    <p class="sub-h reveal">Вариант из README для сервера, где уже живёт nginx или Caddy. Сертификаты выпускает ваш прокси, ESS отвечает по HTTP на внутреннем порту.</p>
+    <div class="card span3 reveal">
+      <ol>
+        <li>Вместо файла Traefik из шага 3 положите вариант с портами 8080/8443 и внешним IP Traefik (его показывает <code>kubectl get svc/traefik -n kube-system</code>):
+<pre><code>apiVersion: helm.cattle.io/v1
+kind: HelmChartConfig
+metadata:
+  name: traefik
+  namespace: kube-system
+spec:
+  valuesContent: |-
+    ports:
+      web:
+        exposedPort: 8080
+      websecure:
+        exposedPort: 8443
+    service:
+      spec:
+        externalIPs:
+        - &lt;EXTERNAL-IP из вывода kubectl get svc/traefik&gt;</code></pre></li>
+        <li>Вместо tls.yaml с Let's Encrypt возьмите фрагмент без TLS (в скрипте это <code>ESS_TLS=none</code>):
+<pre><code>curl -L https://raw.githubusercontent.com/element-hq/ess-helm/refs/heads/main/charts/matrix-stack/ci/fragments/quick-setup-external-cert.yaml \
+  -o ~/ess-config-values/tls.yaml      <span class="c"># содержимое: ingress.tlsEnabled: false</span></code></pre></li>
+        <li>Направьте все шесть имён с вашего прокси на внешний IP Traefik, порт 8080. Пример из README для Caddy (он сам выпустит сертификаты):
+<pre><code>example.com matrix.example.com account.example.com mrtc.example.com chat.example.com admin.example.com {
+  reverse_proxy http://127.0.0.1:8080
+}</code></pre>
+Для nginx в README есть полный пример с заголовками Host, X-Forwarded-For, Upgrade и <code>client_max_body_size 50M</code>.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section id="trouble">
+  <div class="wrap">
+    <h2 class="reveal">Если что-то пошло не так</h2>
+    <div class="tips">
+      <div class="tip reveal"><b>Поды не поднимаются</b><pre><code>kubectl get pods -n ess
+kubectl describe pod &lt;имя&gt; -n ess
+kubectl logs &lt;имя&gt; -n ess --tail=100</code></pre>Pending с PVC — нет места или не работает local-path storage k3s; ImagePullBackOff — сервер не достаёт до ghcr.io; CrashLoopBackOff — смотрите логи.</div>
+      <div class="tip reveal"><b>Сертификат не выдаётся</b><pre><code>kubectl get certificate -n ess
+kubectl get challenge -n ess
+kubectl describe challenge -n ess</code></pre>В 9 случаях из 10 — DNS ещё не указывает на сервер или порт 80 закрыт снаружи. Let's Encrypt проверяет домен запросом на http://имя/.well-known/acme-challenge/.</div>
+      <div class="tip reveal"><b>Звонки: MISSING_MATRIX_RTC_FOCUS</b>Из troubleshooting.md: проверьте, что <code>https://example.com/.well-known/matrix/client</code> отдаёт JSON с блоком rtc_foci, а <code>https://mrtc.example.com/sfu/get</code> открывается. Убедитесь, что 30001/tcp и 30002/udp открыты снаружи: <code>nc -vnz IP 30001</code>, <code>nc -vnzu IP 30002</code>.</div>
+      <div class="tip reveal"><b>Федерация не работает</b>Проверьте <code>https://example.com/.well-known/matrix/server</code> и <a href="https://federationtester.matrix.org/" target="_blank" rel="noopener">federationtester</a>. Имя сервера (example.com) обязано отдавать well-known — именно поэтому оно тоже должно указывать на этот сервер.</div>
+      <div class="tip reveal"><b>SFU в CrashLoopBackOff</b>Бэкенд звонков не достучался до STUN-сервера (определяет свой внешний IP). По troubleshooting.md — задать другие STUN-серверы или указать IP вручную в values. На сервере только с IPv4 помогает <code>networking.ipFamily: ipv4</code>.</div>
+      <div class="tip reveal"><b>Всё сломалось, начать заново</b>Команды удаления из раздела «После установки», затем повторить установку. Сгенерированные секреты остаются в namespace: если хотите действительно чистый старт, удалите namespace целиком.</div>
+    </div>
+  </div>
+</section>
+
+<section id="sources">
+  <div class="wrap">
+    <h2 class="reveal">Источники</h2>
+    <div class="note reveal"><b>Как проверяли.</b> Все команды варианта 2 и все действия скрипта взяты из README репозитория ess-helm (ветка main на 08.10.2026) и его docs/, фрагменты values скачаны оттуда же. Требования к портам и файрволу — из README и документации k3s. Флаги mas-cli — из справочника Matrix Authentication Service.</div>
+    <ol class="sources reveal">
+      <li><a href="https://github.com/element-hq/ess-helm" target="_blank" rel="noopener">element-hq/ess-helm README</a> — Quick setup: DNS, порты, k3s, Traefik, Helm, cert-manager, установка, первый пользователь, reverse proxy, удаление</li>
+      <li><a href="https://github.com/element-hq/ess-helm/blob/main/charts/matrix-stack/ci/fragments/quick-setup-hostnames.yaml" target="_blank" rel="noopener">quick-setup-hostnames.yaml</a>, <a href="https://github.com/element-hq/ess-helm/blob/main/charts/matrix-stack/ci/fragments/quick-setup-letsencrypt.yaml" target="_blank" rel="noopener">quick-setup-letsencrypt.yaml</a>, <a href="https://github.com/element-hq/ess-helm/blob/main/charts/matrix-stack/ci/fragments/quick-setup-external-cert.yaml" target="_blank" rel="noopener">quick-setup-external-cert.yaml</a>, <a href="https://github.com/element-hq/ess-helm/blob/main/charts/matrix-stack/ci/fragments/quick-setup-postgresql.yaml" target="_blank" rel="noopener">quick-setup-postgresql.yaml</a></li>
+      <li><a href="https://github.com/element-hq/ess-helm/blob/main/docs/maintenance.md" target="_blank" rel="noopener">docs/maintenance.md</a> — обновление, бэкап, восстановление; <a href="https://github.com/element-hq/ess-helm/blob/main/docs/troubleshooting.md" target="_blank" rel="noopener">docs/troubleshooting.md</a>; <a href="https://github.com/element-hq/ess-helm/blob/main/docs/advanced.md" target="_blank" rel="noopener">docs/advanced.md</a></li>
+      <li><a href="https://element.io/en/server-suite/community" target="_blank" rel="noopener">Element Server Suite Community</a> — позиционирование, до 100 пользователей, AGPLv3</li>
+      <li><a href="https://docs.k3s.io/installation/requirements" target="_blank" rel="noopener">k3s: Requirements</a> — ОС, 2 CPU / 2 ГБ, файрвол (6443, 10.42.0.0/16, 10.43.0.0/16); <a href="https://docs.k3s.io/quick-start" target="_blank" rel="noopener">k3s: Quick-Start</a></li>
+      <li><a href="https://cert-manager.io/docs/installation/helm/" target="_blank" rel="noopener">cert-manager: Helm installation</a>; <a href="https://helm.sh/docs/intro/install/" target="_blank" rel="noopener">Helm: Install</a></li>
+      <li><a href="https://element-hq.github.io/matrix-authentication-service/reference/cli/manage.html" target="_blank" rel="noopener">mas-cli manage register-user</a> — флаги --yes, --admin, --password, --email</li>
+      <li><a href="https://federationtester.matrix.org/" target="_blank" rel="noopener">Matrix Federation Tester</a>; <a href="https://taksa1973.github.io/results/slack-alternatives-selfhosted-2026.html" target="_blank" rel="noopener">Сравнение self-hosted аналогов Slack</a> — откуда взялся выбор ESS</li>
+    </ol>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    Страница собрана 8 октября 2026 по README ess-helm на эту дату. Чарт обновляется часто: перед установкой сверьте шаги с README, а скрипт читайте перед запуском — это ваш сервер.
+  </div>
+</footer>
+
+<script type="module">
+  const els=[...document.querySelectorAll('.reveal')];
+  const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const showAll=()=>els.forEach(e=>e.classList.add('shown'));
+  if(reduced){showAll();} else {
+    let done=false;
+    const t=setTimeout(()=>{if(!done)showAll();},3000);
+    try{
+      const {animate,inView,stagger}=await import('https://cdn.jsdelivr.net/npm/motion@11/+esm');
+      done=true; clearTimeout(t);
+      els.forEach(e=>e.classList.add('shown'));
+      document.querySelectorAll('section, header.hero').forEach(sec=>{
+        const items=[...sec.querySelectorAll('.reveal')];
+        if(!items.length) return;
+        items.forEach(i=>{i.style.opacity='0';i.style.transform='translateY(16px)';});
+        inView(sec,()=>{animate(items,{opacity:[0,1],y:[16,0]},{duration:.55,delay:stagger(.06),ease:[.22,1,.36,1]});},{margin:'-10% 0px'});
+      });
+      setTimeout(()=>els.forEach(e=>{try{e.getAnimations().forEach(a=>a.finish());}catch(_){} if(parseFloat(getComputedStyle(e).opacity)<1){e.style.opacity='';e.style.transform='';}}),4000);
+    }catch(err){
+      if('IntersectionObserver' in window){
+        const io=new IntersectionObserver(en=>en.forEach(x=>{if(x.isIntersecting){x.target.classList.add('shown');io.unobserve(x.target);}}),{rootMargin:'0px 0px -8% 0px'});
+        els.forEach(e=>io.observe(e));
+      } else showAll();
+    }
+  }
+</script>
+</body>
+</html>
