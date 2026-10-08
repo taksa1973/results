@@ -39,21 +39,22 @@ h3{font-size:clamp(18px,2vw,22px); font-weight:600; margin-bottom:10px}
 p{margin:0 0 16px}
 small{font-size:13.5px; color:var(--ink-3)}
 
-/* ——— УДАЛИТЬ ПЕРЕД ПУБЛИКАЦИЕЙ НА СВОЁМ ДОМЕНЕ ——— */
-.tpl{background:#2E2C8A; color:#fff; font-size:14px; padding:12px 0}
-.tpl .wrap{display:flex; gap:14px; align-items:flex-start; justify-content:space-between; flex-wrap:wrap}
-.tpl a{color:#fff; border-bottom-color:rgba(255,255,255,.5)}
-.tpl b{font-weight:600}
-/* ——— конец служебной плашки ——— */
-
 .topbar{position:sticky; top:0; z-index:100; background:rgba(245,245,247,.82); backdrop-filter:saturate(180%) blur(20px); border-bottom:1px solid var(--line)}
-.topbar .wrap{display:flex; align-items:center; gap:24px; height:60px; justify-content:space-between}
+.topbar .wrap{display:flex; align-items:center; gap:20px; height:60px; justify-content:space-between}
 .brand{font-weight:700; font-size:16px; letter-spacing:-.02em; white-space:nowrap; display:flex; align-items:center; gap:10px}
 .brand .mark{width:26px; height:26px; flex:none}
+.navside{display:flex; align-items:center; gap:18px; min-width:0}
 .topnav{display:flex; gap:22px; overflow-x:auto; scrollbar-width:none}
 .topnav::-webkit-scrollbar{display:none}
 .topnav a{font-size:14.5px; color:var(--ink-2); border:0; white-space:nowrap; padding:6px 0}
 .topnav a:hover{color:var(--blue-ink)}
+
+.lang{display:inline-flex; background:#EDEDF0; border-radius:100px; padding:3px; flex:none}
+.lang button{appearance:none; border:0; background:none; cursor:pointer; font:inherit; font-size:13.5px; font-weight:600;
+  color:var(--ink-3); padding:6px 13px; border-radius:100px; min-height:34px; transition:background .18s, color .18s}
+.lang button:hover{color:var(--ink)}
+.lang button[aria-pressed="true"]{background:var(--surface); color:var(--ink); box-shadow:0 1px 3px rgba(0,0,0,.10)}
+@media(max-width:900px){.topnav{display:none}}
 
 .hero{padding:96px 0 40px}
 .eyebrow{display:inline-flex; align-items:center; gap:8px; font-size:13px; font-weight:600; letter-spacing:.04em; text-transform:uppercase; color:var(--blue-ink); background:rgba(0,113,227,.09); padding:7px 14px; border-radius:100px; margin-bottom:26px}
@@ -125,20 +126,24 @@ setTimeout(function(){document.querySelectorAll('.reveal').forEach(function(e){e
 </script>
 
 <!-- ============================================================
-     СЛУЖЕБНАЯ ПЛАШКА — УДАЛИТЬ целиком перед публикацией.
-     Что заменить по всему файлу:
-       1. ORGANISATION NAME  → настоящее название
-       2. hello@example.org  → рабочая почта на домене
-       3. Montevideo, Uruguay → фактический адрес
-       4. Имена и роли в секции Team
-       5. Убрать мета-теги noindex в <head>, когда сайт переедет на свой домен
+     ШАБЛОН. Что заменить перед публикацией на своём домене:
+
+       1. ORGANISATION NAME   → настоящее название. Встречается в <title>,
+                                шапке, секции About и футере; в словаре I18N
+                                ниже — тоже (ключи about.p1, footer.a)
+       2. hello@example.org   → рабочая почта на домене
+       3. Montevideo, Uruguay → фактический адрес (ключ contact.addr)
+       4. Секция Team         → настоящие имена и роли (ключи team.p1n и далее);
+                                буквы в кружках — инициалы, правятся в разметке
+       5. <head>              → убрать два мета-тега noindex, иначе сайт
+                                не попадёт в поиск
+       6. Цифры в блоке статистики — проверить на момент публикации
+
+     ДВА ЯЗЫКА. Весь текст страницы лежит в объекте I18N внизу файла:
+     en — английская версия, ru — русская. Чтобы поправить формулировку,
+     меняйте значение по ключу, а не разметку. Язык по умолчанию —
+     английский; выбор пользователя запоминается в localStorage.
      ============================================================ -->
-<div class="tpl">
-  <div class="wrap">
-    <span><b>Шаблон.</b> Замените ORGANISATION NAME, адрес почты и секцию Team. Инструкция — в комментарии к этому блоку.</span>
-    <span>Сейчас страница закрыта от поисковиков тегом noindex — снять при переезде на свой домен.</span>
-  </div>
-</div>
 
 <div class="topbar">
   <div class="wrap">
@@ -149,25 +154,32 @@ setTimeout(function(){document.querySelectorAll('.reveal').forEach(function(e){e
       </svg>
       ORGANISATION NAME
     </span>
-    <nav class="topnav" aria-label="Sections">
-      <a href="#about">About</a>
-      <a href="#research">Research</a>
-      <a href="#approach">Approach</a>
-      <a href="#facilities">Facilities</a>
-      <a href="#team">Team</a>
-      <a href="#contact">Contact</a>
-    </nav>
+    <span class="navside">
+      <nav class="topnav" aria-label="Sections">
+        <a href="#about" data-i18n="nav.about">About</a>
+        <a href="#research" data-i18n="nav.research">Research</a>
+        <a href="#approach" data-i18n="nav.approach">Approach</a>
+        <a href="#facilities" data-i18n="nav.facilities">Facilities</a>
+        <a href="#team" data-i18n="nav.team">Team</a>
+        <a href="#contact" data-i18n="nav.contact">Contact</a>
+      </nav>
+      <span class="lang" role="group" aria-label="Language">
+        <button type="button" data-lang="en" aria-pressed="true">EN</button>
+        <button type="button" data-lang="es" aria-pressed="false">ES</button>
+        <button type="button" data-lang="ru" aria-pressed="false">RU</button>
+      </span>
+    </span>
   </div>
 </div>
 
 <header class="hero">
   <div class="wrap">
-    <span class="eyebrow reveal">Independent non-profit research organisation</span>
-    <h1 class="reveal">Understanding how<br>ageing works — and<br>what slows it down.</h1>
-    <p class="lede reveal">We study the biology of ageing in model organisms and human cell cultures. Our work is experimental, reproducible, and built around controlled comparisons rather than single observations.</p>
+    <span class="eyebrow reveal" data-i18n="hero.eyebrow">Independent non-profit research organisation</span>
+    <h1 class="reveal" data-i18n="hero.h1">Understanding how<br>ageing works — and<br>what slows it down.</h1>
+    <p class="lede reveal" data-i18n="hero.lede">We study the biology of ageing in model organisms and human cell cultures.</p>
     <div class="cta reveal">
-      <a class="btn btn-p" href="#research">Our research</a>
-      <a class="btn btn-s" href="#contact">Get in touch</a>
+      <a class="btn btn-p" href="#research" data-i18n="hero.cta1">Our research</a>
+      <a class="btn btn-s" href="#contact" data-i18n="hero.cta2">Get in touch</a>
     </div>
   </div>
 </header>
@@ -175,34 +187,25 @@ setTimeout(function(){document.querySelectorAll('.reveal').forEach(function(e){e
 <section id="about">
   <div class="wrap">
     <div class="stat reveal">
-      <div class="s">
-        <div class="n">3</div>
-        <div class="c">Experimental systems in parallel: nematodes, human fibroblasts and vector-delivered constructs</div>
-      </div>
-      <div class="s">
-        <div class="n">100%</div>
-        <div class="c">Of results reported with controls, replicate counts and raw measurement data</div>
-      </div>
-      <div class="s">
-        <div class="n">Non-profit</div>
-        <div class="c">No therapies, no treatments and nothing for sale. Research output only</div>
-      </div>
+      <div class="s"><div class="n" data-i18n="stat.n1">3</div><div class="c" data-i18n="stat.c1">Experimental systems in parallel</div></div>
+      <div class="s"><div class="n" data-i18n="stat.n2">100%</div><div class="c" data-i18n="stat.c2">Results reported with controls</div></div>
+      <div class="s"><div class="n" data-i18n="stat.n3">Non-profit</div><div class="c" data-i18n="stat.c3">Research output only</div></div>
     </div>
 
     <div class="grid">
       <div class="card c8 reveal">
-        <h2>What we do</h2>
-        <p style="color:var(--ink-2); margin-top:16px">ORGANISATION NAME is an independent research organisation working on the cellular and organismal biology of ageing. We run controlled lifespan and healthspan experiments in <em>Caenorhabditis elegans</em>, maintain human fibroblast cultures, and use lentiviral delivery to study how specific genetic interventions change cellular behaviour over time.</p>
-        <p style="color:var(--ink-2); margin-bottom:0">We are deliberately small and deliberately slow. The field has no shortage of striking single-subject claims; what it lacks is boring, repeatable measurement. That is the part we are interested in.</p>
+        <h2 data-i18n="about.h2">What we do</h2>
+        <p style="color:var(--ink-2); margin-top:16px" data-i18n="about.p1">ORGANISATION NAME is an independent research organisation.</p>
+        <p style="color:var(--ink-2); margin-bottom:0" data-i18n="about.p2">We are deliberately small and deliberately slow.</p>
       </div>
       <div class="card c4 reveal">
-        <div class="kicker">Position</div>
-        <h3>What we are not</h3>
+        <div class="kicker" data-i18n="about.kicker">Position</div>
+        <h3 data-i18n="about.h3">What we are not</h3>
         <ul class="tick">
-          <li>We do not offer treatments or therapies</li>
-          <li>We do not accept patients</li>
-          <li>We do not sell biological products</li>
-          <li>We do not publish results before they replicate</li>
+          <li data-i18n="about.l1">We do not offer treatments</li>
+          <li data-i18n="about.l2">We do not accept patients</li>
+          <li data-i18n="about.l3">We do not sell biological products</li>
+          <li data-i18n="about.l4">We do not publish before replication</li>
         </ul>
       </div>
     </div>
@@ -212,8 +215,8 @@ setTimeout(function(){document.querySelectorAll('.reveal').forEach(function(e){e
 <section id="research">
   <div class="wrap">
     <div class="section-head reveal">
-      <h2>Research directions</h2>
-      <p>Three systems, chosen because together they cover the range from whole-organism lifespan to single-cell mechanism — and because each one validates the others.</p>
+      <h2 data-i18n="res.h2">Research directions</h2>
+      <p data-i18n="res.sub">Three systems that together cover organism and mechanism.</p>
     </div>
     <div class="grid">
       <div class="card c4 hoverable reveal">
@@ -222,8 +225,8 @@ setTimeout(function(){document.querySelectorAll('.reveal').forEach(function(e){e
             <path d="M3 12c3 0 3-5 6-5s3 5 6 5 3-5 6-5"/><path d="M3 18c3 0 3-5 6-5s3 5 6 5 3-5 6-5"/>
           </svg>
         </div>
-        <h3>Lifespan in nematodes</h3>
-        <p style="color:var(--ink-2); margin-bottom:0"><em>C. elegans</em> lives two to three weeks and produces hundreds of offspring, which makes it the only practical system for running full survival curves with proper statistics. We use it as the primary screen: an intervention that does nothing here rarely earns a place in the cell work.</p>
+        <h3 data-i18n="res.h31">Lifespan in nematodes</h3>
+        <p style="color:var(--ink-2); margin-bottom:0" data-i18n="res.p1">C. elegans as the primary screen.</p>
       </div>
       <div class="card c4 hoverable reveal">
         <div class="ico" aria-hidden="true">
@@ -231,8 +234,8 @@ setTimeout(function(){document.querySelectorAll('.reveal').forEach(function(e){e
             <circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3"/>
           </svg>
         </div>
-        <h3>Human cell cultures</h3>
-        <p style="color:var(--ink-2); margin-bottom:0">Primary and immortalised fibroblast lines let us watch replicative senescence directly: proliferation rate, morphology, and the point at which a population stops dividing. Cell work answers the question that organism work cannot — what exactly changed inside.</p>
+        <h3 data-i18n="res.h32">Human cell cultures</h3>
+        <p style="color:var(--ink-2); margin-bottom:0" data-i18n="res.p2">Fibroblast lines and replicative senescence.</p>
       </div>
       <div class="card c4 hoverable reveal">
         <div class="ico v" aria-hidden="true">
@@ -240,8 +243,8 @@ setTimeout(function(){document.querySelectorAll('.reveal').forEach(function(e){e
             <path d="M5 4c0 6 14 10 14 16"/><path d="M19 4c0 6-14 10-14 16"/><path d="M7 8h10M7 16h10"/>
           </svg>
         </div>
-        <h3>Vector-delivered constructs</h3>
-        <p style="color:var(--ink-2); margin-bottom:0">Third-generation lentiviral vectors give controlled, stable expression of single genes in culture. This is a laboratory tool for mechanism studies — it is not, and is not intended to be, a clinical intervention.</p>
+        <h3 data-i18n="res.h33">Vector-delivered constructs</h3>
+        <p style="color:var(--ink-2); margin-bottom:0" data-i18n="res.p3">Third-generation lentiviral vectors as a laboratory tool.</p>
       </div>
     </div>
   </div>
@@ -250,25 +253,25 @@ setTimeout(function(){document.querySelectorAll('.reveal').forEach(function(e){e
 <section id="approach">
   <div class="wrap">
     <div class="section-head reveal">
-      <h2>How we work</h2>
-      <p>Ageing research has a credibility problem, and most of it traces back to method rather than ambition. These are the rules we hold ourselves to.</p>
+      <h2 data-i18n="app.h2">How we work</h2>
+      <p data-i18n="app.sub">Rules we hold ourselves to.</p>
     </div>
     <div class="grid">
       <div class="card c6 reveal">
-        <h3>Controls before claims</h3>
-        <p style="color:var(--ink-2); margin-bottom:0">Every reported effect comes with a control group, a stated sample size and the measurement noise of the method used. An effect smaller than the error bar of its own assay is not an effect — it is a measurement.</p>
+        <h3 data-i18n="app.h31">Controls before claims</h3>
+        <p style="color:var(--ink-2); margin-bottom:0" data-i18n="app.p1">Every effect comes with a control group.</p>
       </div>
       <div class="card c6 reveal">
-        <h3>Replication before publication</h3>
-        <p style="color:var(--ink-2); margin-bottom:0">Nothing leaves the lab on a single run. Survival experiments are repeated across independent cohorts; culture experiments across independent passages.</p>
+        <h3 data-i18n="app.h32">Replication before publication</h3>
+        <p style="color:var(--ink-2); margin-bottom:0" data-i18n="app.p2">Nothing leaves the lab on a single run.</p>
       </div>
       <div class="card c6 reveal">
-        <h3>Raw data stays available</h3>
-        <p style="color:var(--ink-2); margin-bottom:0">Survival tables, passage counts and imaging data are kept in a form that can be re-analysed by someone else. A result that cannot be recalculated from raw numbers is an opinion.</p>
+        <h3 data-i18n="app.h33">Raw data stays available</h3>
+        <p style="color:var(--ink-2); margin-bottom:0" data-i18n="app.p3">Results must be recalculable from raw numbers.</p>
       </div>
       <div class="card c6 reveal">
-        <h3>Negative results count</h3>
-        <p style="color:var(--ink-2); margin-bottom:0">Interventions that fail are recorded with the same care as those that work. In a field this noisy, a well-documented null result is often worth more than a positive one.</p>
+        <h3 data-i18n="app.h34">Negative results count</h3>
+        <p style="color:var(--ink-2); margin-bottom:0" data-i18n="app.p4">Failed interventions are recorded with the same care.</p>
       </div>
     </div>
   </div>
@@ -277,32 +280,32 @@ setTimeout(function(){document.querySelectorAll('.reveal').forEach(function(e){e
 <section id="facilities">
   <div class="wrap">
     <div class="section-head reveal">
-      <h2>Facilities</h2>
-      <p>A working wet lab built around cell culture and nematode maintenance, operating at biosafety level 2.</p>
+      <h2 data-i18n="fac.h2">Facilities</h2>
+      <p data-i18n="fac.sub">A working wet lab operating at biosafety level 2.</p>
     </div>
     <div class="grid">
       <div class="card c6 reveal">
-        <h3>Cell culture</h3>
+        <h3 data-i18n="fac.h31">Cell culture</h3>
         <ul class="tick">
-          <li>Class II biosafety cabinet</li>
-          <li>CO₂ incubators with independent backup</li>
-          <li>Refrigerated centrifuge, −80 °C and liquid nitrogen storage</li>
-          <li>Inverted microscope with fluorescence</li>
-          <li>Type I water purification and autoclave</li>
+          <li data-i18n="fac.a1">Class II biosafety cabinet</li>
+          <li data-i18n="fac.a2">CO₂ incubators with backup</li>
+          <li data-i18n="fac.a3">Refrigerated centrifuge, −80 °C and LN2</li>
+          <li data-i18n="fac.a4">Inverted microscope with fluorescence</li>
+          <li data-i18n="fac.a5">Type I water and autoclave</li>
         </ul>
       </div>
       <div class="card c6 reveal">
-        <h3>Nematode work</h3>
+        <h3 data-i18n="fac.h32">Nematode work</h3>
         <ul class="tick">
-          <li>Dedicated 20 °C incubator</li>
-          <li>Stereomicroscope station for scoring and transfer</li>
-          <li>NGM plate preparation with <em>E. coli</em> OP50 lawns</li>
-          <li>Strains obtained under standard repository terms</li>
+          <li data-i18n="fac.b1">Dedicated 20 °C incubator</li>
+          <li data-i18n="fac.b2">Stereomicroscope station</li>
+          <li data-i18n="fac.b3">NGM plates with OP50 lawns</li>
+          <li data-i18n="fac.b4">Strains under repository terms</li>
         </ul>
       </div>
       <div class="card c12 reveal">
         <div class="note blue">
-          <p style="margin-bottom:0"><strong>Biosafety and compliance.</strong> All vector work is carried out under BSL-2 containment with documented standard operating procedures, written spill and decontamination protocols, and a waste disposal contract with a licensed operator. Equipment is certified on an annual schedule.</p>
+          <p style="margin-bottom:0" data-i18n="fac.note">Biosafety and compliance statement.</p>
         </div>
       </div>
     </div>
@@ -312,27 +315,27 @@ setTimeout(function(){document.querySelectorAll('.reveal').forEach(function(e){e
 <section id="team">
   <div class="wrap">
     <div class="section-head reveal">
-      <h2>Team</h2>
-      <p>Replace these cards with real people — name, role and one line on what they actually do.</p>
+      <h2 data-i18n="team.h2">Team</h2>
+      <p data-i18n="team.sub">Replace these cards with real people.</p>
     </div>
     <div class="team reveal">
       <div class="person">
         <div class="av" aria-hidden="true">A</div>
-        <div class="nm">Full Name</div>
-        <div class="rl">Founder, Research Lead</div>
-        <p>One sentence on background and what this person is responsible for day to day.</p>
+        <div class="nm" data-i18n="team.p1n">Full Name</div>
+        <div class="rl" data-i18n="team.p1r">Founder, Research Lead</div>
+        <p data-i18n="team.p1d">One sentence on background.</p>
       </div>
       <div class="person">
         <div class="av" aria-hidden="true">B</div>
-        <div class="nm">Full Name</div>
-        <div class="rl">Laboratory Scientist</div>
-        <p>Cell culture, vector preparation and maintenance of the nematode colonies.</p>
+        <div class="nm" data-i18n="team.p2n">Full Name</div>
+        <div class="rl" data-i18n="team.p2r">Laboratory Scientist</div>
+        <p data-i18n="team.p2d">Cell culture and colony maintenance.</p>
       </div>
       <div class="person">
         <div class="av" aria-hidden="true">C</div>
-        <div class="nm">Full Name</div>
-        <div class="rl">Scientific Advisor</div>
-        <p>External advisor — affiliation and area of expertise go here.</p>
+        <div class="nm" data-i18n="team.p3n">Full Name</div>
+        <div class="rl" data-i18n="team.p3r">Scientific Advisor</div>
+        <p data-i18n="team.p3d">Affiliation and area of expertise.</p>
       </div>
     </div>
   </div>
@@ -341,23 +344,282 @@ setTimeout(function(){document.querySelectorAll('.reveal').forEach(function(e){e
 <section id="contact">
   <div class="wrap">
     <div class="contact reveal">
-      <div class="kicker">Contact</div>
-      <h2>Collaborations and enquiries</h2>
-      <p style="color:var(--ink-2); max-width:560px; margin:16px auto 0">We are open to collaboration with research groups, shared use of analytical platforms, and enquiries from scientists interested in the work.</p>
+      <div class="kicker" data-i18n="contact.kicker">Contact</div>
+      <h2 data-i18n="contact.h2">Collaborations and enquiries</h2>
+      <p style="color:var(--ink-2); max-width:560px; margin:16px auto 0" data-i18n="contact.p">We are open to collaboration.</p>
       <a class="mail" href="mailto:hello@example.org">hello@example.org</a>
-      <p style="color:var(--ink-3); margin-bottom:0"><small>Montevideo, Uruguay</small></p>
+      <p style="color:var(--ink-3); margin-bottom:0"><small data-i18n="contact.addr">Montevideo, Uruguay</small></p>
     </div>
   </div>
 </section>
 
 <footer>
   <div class="wrap">
-    <span>© <span id="yr">2026</span> ORGANISATION NAME. Independent non-profit research organisation.</span>
-    <span><small>This site describes research activity only. It does not offer medical services, treatments or products.</small></span>
+    <span data-i18n="footer.a">© <span id="yr">2026</span> ORGANISATION NAME.</span>
+    <span><small data-i18n="footer.b">This site describes research activity only.</small></span>
   </div>
 </footer>
 
-<script>document.getElementById('yr').textContent = new Date().getFullYear();</script>
+<script>
+(function () {
+  var I18N = {
+    en: {
+      "doc.title": "Organisation Name — Independent Research in Biology of Ageing",
+      "nav.about": "About", "nav.research": "Research", "nav.approach": "Approach",
+      "nav.facilities": "Facilities", "nav.team": "Team", "nav.contact": "Contact",
+
+      "hero.eyebrow": "Independent non-profit research organisation",
+      "hero.h1": "Understanding how<br>ageing works — and<br>what slows it down.",
+      "hero.lede": "We study the biology of ageing in model organisms and human cell cultures. Our work is experimental, reproducible, and built around controlled comparisons rather than single observations.",
+      "hero.cta1": "Our research", "hero.cta2": "Get in touch",
+
+      "stat.n1": "3", "stat.c1": "Experimental systems in parallel: nematodes, human fibroblasts and vector-delivered constructs",
+      "stat.n2": "100%", "stat.c2": "Of results reported with controls, replicate counts and raw measurement data",
+      "stat.n3": "Non-profit", "stat.c3": "No therapies, no treatments and nothing for sale. Research output only",
+
+      "about.h2": "What we do",
+      "about.p1": "ORGANISATION NAME is an independent research organisation working on the cellular and organismal biology of ageing. We run controlled lifespan and healthspan experiments in <em>Caenorhabditis elegans</em>, maintain human fibroblast cultures, and use lentiviral delivery to study how specific genetic interventions change cellular behaviour over time.",
+      "about.p2": "We are deliberately small and deliberately slow. The field has no shortage of striking single-subject claims; what it lacks is boring, repeatable measurement. That is the part we are interested in.",
+      "about.kicker": "Position", "about.h3": "What we are not",
+      "about.l1": "We do not offer treatments or therapies",
+      "about.l2": "We do not accept patients",
+      "about.l3": "We do not sell biological products",
+      "about.l4": "We do not publish results before they replicate",
+
+      "res.h2": "Research directions",
+      "res.sub": "Three systems, chosen because together they cover the range from whole-organism lifespan to single-cell mechanism — and because each one validates the others.",
+      "res.h31": "Lifespan in nematodes",
+      "res.p1": "<em>C. elegans</em> lives two to three weeks and produces hundreds of offspring, which makes it the only practical system for running full survival curves with proper statistics. We use it as the primary screen: an intervention that does nothing here rarely earns a place in the cell work.",
+      "res.h32": "Human cell cultures",
+      "res.p2": "Primary and immortalised fibroblast lines let us watch replicative senescence directly: proliferation rate, morphology, and the point at which a population stops dividing. Cell work answers the question that organism work cannot — what exactly changed inside.",
+      "res.h33": "Vector-delivered constructs",
+      "res.p3": "Third-generation lentiviral vectors give controlled, stable expression of single genes in culture. This is a laboratory tool for mechanism studies — it is not, and is not intended to be, a clinical intervention.",
+
+      "app.h2": "How we work",
+      "app.sub": "Ageing research has a credibility problem, and most of it traces back to method rather than ambition. These are the rules we hold ourselves to.",
+      "app.h31": "Controls before claims",
+      "app.p1": "Every reported effect comes with a control group, a stated sample size and the measurement noise of the method used. An effect smaller than the error bar of its own assay is not an effect — it is a measurement.",
+      "app.h32": "Replication before publication",
+      "app.p2": "Nothing leaves the lab on a single run. Survival experiments are repeated across independent cohorts; culture experiments across independent passages.",
+      "app.h33": "Raw data stays available",
+      "app.p3": "Survival tables, passage counts and imaging data are kept in a form that can be re-analysed by someone else. A result that cannot be recalculated from raw numbers is an opinion.",
+      "app.h34": "Negative results count",
+      "app.p4": "Interventions that fail are recorded with the same care as those that work. In a field this noisy, a well-documented null result is often worth more than a positive one.",
+
+      "fac.h2": "Facilities",
+      "fac.sub": "A working wet lab built around cell culture and nematode maintenance, operating at biosafety level 2.",
+      "fac.h31": "Cell culture",
+      "fac.a1": "Class II biosafety cabinet",
+      "fac.a2": "CO₂ incubators with independent backup",
+      "fac.a3": "Refrigerated centrifuge, −80 °C and liquid nitrogen storage",
+      "fac.a4": "Inverted microscope with fluorescence",
+      "fac.a5": "Type I water purification and autoclave",
+      "fac.h32": "Nematode work",
+      "fac.b1": "Dedicated 20 °C incubator",
+      "fac.b2": "Stereomicroscope station for scoring and transfer",
+      "fac.b3": "NGM plate preparation with <em>E. coli</em> OP50 lawns",
+      "fac.b4": "Strains obtained under standard repository terms",
+      "fac.note": "<strong>Biosafety and compliance.</strong> All vector work is carried out under BSL-2 containment with documented standard operating procedures, written spill and decontamination protocols, and a waste disposal contract with a licensed operator. Equipment is certified on an annual schedule.",
+
+      "team.h2": "Team",
+      "team.sub": "Replace these cards with real people — name, role and one line on what they actually do.",
+      "team.p1n": "Full Name", "team.p1r": "Founder, Research Lead",
+      "team.p1d": "One sentence on background and what this person is responsible for day to day.",
+      "team.p2n": "Full Name", "team.p2r": "Laboratory Scientist",
+      "team.p2d": "Cell culture, vector preparation and maintenance of the nematode colonies.",
+      "team.p3n": "Full Name", "team.p3r": "Scientific Advisor",
+      "team.p3d": "External advisor — affiliation and area of expertise go here.",
+
+      "contact.kicker": "Contact", "contact.h2": "Collaborations and enquiries",
+      "contact.p": "We are open to collaboration with research groups, shared use of analytical platforms, and enquiries from scientists interested in the work.",
+      "contact.addr": "Montevideo, Uruguay",
+      "footer.a": "© <span id=\"yr\"></span> ORGANISATION NAME. Independent non-profit research organisation.",
+      "footer.b": "This site describes research activity only. It does not offer medical services, treatments or products."
+    },
+    es: {
+      "doc.title": "Nombre de la Organización — Investigación independiente en biología del envejecimiento",
+      "nav.about": "Quiénes somos", "nav.research": "Investigación", "nav.approach": "Enfoque",
+      "nav.facilities": "Laboratorio", "nav.team": "Equipo", "nav.contact": "Contacto",
+
+      "hero.eyebrow": "Organización de investigación independiente sin fines de lucro",
+      "hero.h1": "Cómo funciona<br>el envejecimiento —<br>y qué lo desacelera.",
+      "hero.lede": "Estudiamos la biología del envejecimiento en organismos modelo y cultivos de células humanas. Nuestro trabajo es experimental, reproducible y se basa en comparaciones controladas, no en observaciones aisladas.",
+      "hero.cta1": "Nuestra investigación", "hero.cta2": "Contactarnos",
+
+      "stat.n1": "3", "stat.c1": "Sistemas experimentales en paralelo: nematodos, fibroblastos humanos y construcciones entregadas por vector",
+      "stat.n2": "100%", "stat.c2": "De los resultados se informan con grupos de control, número de réplicas y datos brutos de medición",
+      "stat.n3": "Sin fines de lucro", "stat.c3": "Sin terapias, sin tratamientos y sin nada a la venta. Solo resultados de investigación",
+
+      "about.h2": "Qué hacemos",
+      "about.p1": "ORGANISATION NAME es una organización de investigación independiente dedicada a la biología celular y organísmica del envejecimiento. Realizamos experimentos controlados de longevidad y calidad de vida en <em>Caenorhabditis elegans</em>, mantenemos cultivos de fibroblastos humanos y empleamos vectores lentivirales para estudiar cómo intervenciones genéticas concretas modifican el comportamiento celular con el tiempo.",
+      "about.p2": "Somos deliberadamente pequeños y deliberadamente lentos. Al campo no le faltan afirmaciones llamativas basadas en un único sujeto; lo que le falta son mediciones aburridas y repetibles. Esa es justamente la parte que nos interesa.",
+      "about.kicker": "Posición", "about.h3": "Qué no hacemos",
+      "about.l1": "No ofrecemos tratamientos ni terapias",
+      "about.l2": "No recibimos pacientes",
+      "about.l3": "No comercializamos productos biológicos",
+      "about.l4": "No publicamos resultados antes de replicarlos",
+
+      "res.h2": "Líneas de investigación",
+      "res.sub": "Tres sistemas elegidos porque en conjunto cubren el rango que va de la longevidad del organismo completo al mecanismo en una sola célula — y porque cada uno valida a los demás.",
+      "res.h31": "Longevidad en nematodos",
+      "res.p1": "<em>C. elegans</em> vive de dos a tres semanas y produce cientos de descendientes, lo que la convierte en el único sistema práctico para construir curvas de supervivencia completas con estadística adecuada. La usamos como tamizaje primario: una intervención que aquí no hace nada rara vez merece un lugar en el trabajo con células.",
+      "res.h32": "Cultivos de células humanas",
+      "res.p2": "Las líneas de fibroblastos primarios e inmortalizados permiten observar la senescencia replicativa de forma directa: velocidad de proliferación, morfología y el punto en que la población deja de dividirse. El trabajo celular responde a la pregunta que el trabajo con el organismo no puede: qué cambió exactamente por dentro.",
+      "res.h33": "Construcciones entregadas por vector",
+      "res.p3": "Los vectores lentivirales de tercera generación permiten una expresión estable y controlada de genes individuales en cultivo. Es una herramienta de laboratorio para estudiar mecanismos: no es, ni pretende ser, una intervención clínica.",
+
+      "app.h2": "Cómo trabajamos",
+      "app.sub": "La investigación sobre el envejecimiento tiene un problema de credibilidad, y en gran medida se origina en el método, no en la ambición. Estas son las reglas que nos imponemos.",
+      "app.h31": "Controles antes que afirmaciones",
+      "app.p1": "Todo efecto que informamos viene con grupo de control, tamaño de muestra declarado y el ruido de medición del método empleado. Un efecto menor que la barra de error de su propio ensayo no es un efecto: es una medición.",
+      "app.h32": "Replicación antes que publicación",
+      "app.p2": "Nada sale del laboratorio con una sola corrida. Los experimentos de supervivencia se repiten en cohortes independientes; los de cultivo, en pasajes independientes.",
+      "app.h33": "Los datos brutos quedan disponibles",
+      "app.p3": "Las tablas de supervivencia, los recuentos de pasajes y los datos de imagen se conservan en un formato que otra persona pueda reanalizar. Un resultado que no puede recalcularse a partir de los números brutos es una opinión.",
+      "app.h34": "Los resultados negativos cuentan",
+      "app.p4": "Las intervenciones que fallan se registran con el mismo cuidado que las que funcionan. En un campo tan ruidoso, un resultado nulo bien documentado suele valer más que uno positivo.",
+
+      "fac.h2": "Laboratorio",
+      "fac.sub": "Un laboratorio húmedo en funcionamiento, construido en torno al cultivo celular y al mantenimiento de nematodos, con nivel de bioseguridad 2.",
+      "fac.h31": "Cultivo celular",
+      "fac.a1": "Cabina de bioseguridad Clase II",
+      "fac.a2": "Incubadoras de CO₂ con respaldo independiente",
+      "fac.a3": "Centrífuga refrigerada, almacenamiento a −80 °C y en nitrógeno líquido",
+      "fac.a4": "Microscopio invertido con fluorescencia",
+      "fac.a5": "Purificación de agua tipo I y autoclave",
+      "fac.h32": "Trabajo con nematodos",
+      "fac.b1": "Incubadora dedicada a 20 °C",
+      "fac.b2": "Estación con estereomicroscopio para conteo y transferencia",
+      "fac.b3": "Preparación de placas NGM con césped de <em>E. coli</em> OP50",
+      "fac.b4": "Cepas obtenidas bajo los términos estándar del repositorio",
+      "fac.note": "<strong>Bioseguridad y cumplimiento.</strong> Todo el trabajo con vectores se realiza en contención BSL-2, con procedimientos operativos estándar documentados, protocolos escritos de derrames y descontaminación, y contrato de disposición de residuos con un operador habilitado. El equipamiento se certifica con periodicidad anual.",
+
+      "team.h2": "Equipo",
+      "team.sub": "Reemplace estas tarjetas por personas reales: nombre, rol y una línea sobre lo que hacen efectivamente.",
+      "team.p1n": "Nombre Completo", "team.p1r": "Fundador, Director de Investigación",
+      "team.p1d": "Una frase sobre su trayectoria y de qué se ocupa en el día a día.",
+      "team.p2n": "Nombre Completo", "team.p2r": "Científico de laboratorio",
+      "team.p2d": "Cultivo celular, preparación de vectores y mantenimiento de las colonias de nematodos.",
+      "team.p3n": "Nombre Completo", "team.p3r": "Asesor científico",
+      "team.p3d": "Asesor externo: aquí van la afiliación y el área de especialidad.",
+
+      "contact.kicker": "Contacto", "contact.h2": "Colaboraciones y consultas",
+      "contact.p": "Estamos abiertos a colaborar con grupos de investigación, al uso compartido de plataformas analíticas y a consultas de científicos interesados en este trabajo.",
+      "contact.addr": "Montevideo, Uruguay",
+      "footer.a": "© <span id=\"yr\"></span> ORGANISATION NAME. Organización de investigación independiente sin fines de lucro.",
+      "footer.b": "Este sitio describe únicamente actividad de investigación. No ofrece servicios médicos, tratamientos ni productos."
+    },
+    ru: {
+      "doc.title": "Название организации — независимые исследования биологии старения",
+      "nav.about": "О нас", "nav.research": "Исследования", "nav.approach": "Подход",
+      "nav.facilities": "Лаборатория", "nav.team": "Команда", "nav.contact": "Контакты",
+
+      "hero.eyebrow": "Независимая некоммерческая исследовательская организация",
+      "hero.h1": "Как устроено старение —<br>и что его замедляет.",
+      "hero.lede": "Мы изучаем биологию старения на модельных организмах и культурах человеческих клеток. Наша работа экспериментальная, воспроизводимая и построена на контролируемых сравнениях, а не на единичных наблюдениях.",
+      "hero.cta1": "Наши исследования", "hero.cta2": "Связаться",
+
+      "stat.n1": "3", "stat.c1": "Экспериментальные системы параллельно: нематоды, человеческие фибробласты и конструкции, доставленные вектором",
+      "stat.n2": "100%", "stat.c2": "Результатов публикуется с контрольными группами, числом повторов и исходными данными измерений",
+      "stat.n3": "НКО", "stat.c3": "Ни терапий, ни лечения, ничего на продажу. Только результаты исследований",
+
+      "about.h2": "Чем мы занимаемся",
+      "about.p1": "ORGANISATION NAME — независимая исследовательская организация, работающая над клеточной и организменной биологией старения. Мы ставим контролируемые эксперименты по продолжительности и качеству жизни на <em>Caenorhabditis elegans</em>, ведём культуры человеческих фибробластов и используем лентивирусную доставку, чтобы изучать, как конкретные генетические вмешательства меняют поведение клеток со временем.",
+      "about.p2": "Мы сознательно небольшие и сознательно медленные. В этой области нет недостатка в ярких заявлениях, основанных на одном испытуемом; чего ей не хватает — так это скучных воспроизводимых измерений. Именно эта часть нам и интересна.",
+      "about.kicker": "Позиция", "about.h3": "Чем мы не занимаемся",
+      "about.l1": "Не предлагаем лечение и терапии",
+      "about.l2": "Не принимаем пациентов",
+      "about.l3": "Не продаём биологические продукты",
+      "about.l4": "Не публикуем результаты до их воспроизведения",
+
+      "res.h2": "Направления исследований",
+      "res.sub": "Три системы, выбранные потому, что вместе они покрывают диапазон от продолжительности жизни целого организма до механизма в отдельной клетке — и потому, что каждая проверяет остальные.",
+      "res.h31": "Продолжительность жизни нематод",
+      "res.p1": "<em>C. elegans</em> живёт две-три недели и даёт сотни потомков, что делает её единственной практичной системой для построения полных кривых выживания с нормальной статистикой. Мы используем её как первичный скрининг: вмешательство, которое здесь ничего не даёт, редко заслуживает места в работе с клетками.",
+      "res.h32": "Культуры человеческих клеток",
+      "res.p2": "Первичные и иммортализованные линии фибробластов позволяют наблюдать репликативное старение напрямую: скорость пролиферации, морфологию и момент, когда популяция перестаёт делиться. Работа с клетками отвечает на вопрос, недоступный работе с организмом, — что именно изменилось внутри.",
+      "res.h33": "Конструкции, доставленные вектором",
+      "res.p3": "Лентивирусные векторы третьего поколения дают контролируемую стабильную экспрессию отдельных генов в культуре. Это лабораторный инструмент для изучения механизмов — не клиническое вмешательство и не задумывается таковым.",
+
+      "app.h2": "Как мы работаем",
+      "app.sub": "У исследований старения есть проблема с доверием, и она в основном про метод, а не про амбиции. Вот правила, которых мы придерживаемся.",
+      "app.h31": "Сначала контроль, потом выводы",
+      "app.p1": "Каждый заявленный эффект сопровождается контрольной группой, указанным размером выборки и уровнем шума использованного метода. Эффект меньше погрешности собственного измерения — это не эффект, а измерение.",
+      "app.h32": "Сначала воспроизведение, потом публикация",
+      "app.p2": "Ничто не выходит из лаборатории по результатам одного запуска. Эксперименты по выживанию повторяются на независимых когортах, культуральные — на независимых пассажах.",
+      "app.h33": "Исходные данные остаются доступными",
+      "app.p3": "Таблицы выживания, счётчики пассажей и данные визуализации хранятся в виде, пригодном для повторного анализа кем-то другим. Результат, который нельзя пересчитать из исходных чисел, — это мнение.",
+      "app.h34": "Отрицательные результаты важны",
+      "app.p4": "Вмешательства, которые не сработали, фиксируются с той же тщательностью, что и сработавшие. В настолько шумной области хорошо задокументированный нулевой результат часто ценнее положительного.",
+
+      "fac.h2": "Лаборатория",
+      "fac.sub": "Работающая мокрая лаборатория для клеточных культур и содержания нематод, уровень биобезопасности BSL-2.",
+      "fac.h31": "Клеточные культуры",
+      "fac.a1": "Шкаф биобезопасности II класса",
+      "fac.a2": "CO₂-инкубаторы с независимым резервированием",
+      "fac.a3": "Центрифуга с охлаждением, хранение при −80 °C и в жидком азоте",
+      "fac.a4": "Инвертированный микроскоп с флуоресценцией",
+      "fac.a5": "Очистка воды типа I и автоклав",
+      "fac.h32": "Работа с нематодами",
+      "fac.b1": "Отдельный инкубатор на 20 °C",
+      "fac.b2": "Станция со стереомикроскопом для подсчёта и переноса",
+      "fac.b3": "Подготовка чашек NGM с газоном <em>E. coli</em> OP50",
+      "fac.b4": "Штаммы получены на стандартных условиях депозитария",
+      "fac.note": "<strong>Биобезопасность и соответствие нормам.</strong> Все работы с векторами ведутся в условиях BSL-2 с задокументированными стандартными операционными процедурами, письменными протоколами на случай пролива и обеззараживания и договором на утилизацию отходов с лицензированным оператором. Оборудование сертифицируется ежегодно.",
+
+      "team.h2": "Команда",
+      "team.sub": "Замените эти карточки реальными людьми — имя, роль и одна строка о том, чем человек занимается.",
+      "team.p1n": "Имя Фамилия", "team.p1r": "Основатель, научный руководитель",
+      "team.p1d": "Одно предложение о бэкграунде и о том, за что человек отвечает в ежедневной работе.",
+      "team.p2n": "Имя Фамилия", "team.p2r": "Научный сотрудник лаборатории",
+      "team.p2d": "Клеточные культуры, подготовка векторов и содержание колоний нематод.",
+      "team.p3n": "Имя Фамилия", "team.p3r": "Научный консультант",
+      "team.p3d": "Внешний консультант — здесь аффилиация и область экспертизы.",
+
+      "contact.kicker": "Контакты", "contact.h2": "Сотрудничество и запросы",
+      "contact.p": "Мы открыты к сотрудничеству с исследовательскими группами, совместному использованию аналитических платформ и к запросам от учёных, которым интересна эта работа.",
+      "contact.addr": "Монтевидео, Уругвай",
+      "footer.a": "© <span id=\"yr\"></span> ORGANISATION NAME. Независимая некоммерческая исследовательская организация.",
+      "footer.b": "Этот сайт описывает только исследовательскую деятельность. Он не предлагает медицинских услуг, лечения или продуктов."
+    }
+  };
+
+  var btns = document.querySelectorAll('.lang button');
+
+  function apply(lang) {
+    var dict = I18N[lang] || I18N.en;
+    document.documentElement.lang = lang;
+    if (dict['doc.title']) document.title = dict['doc.title'];
+
+    document.querySelectorAll('[data-i18n]').forEach(function (el) {
+      var v = dict[el.dataset.i18n];
+      if (typeof v === 'string') el.innerHTML = v;
+    });
+
+    var yr = document.getElementById('yr');
+    if (yr) yr.textContent = new Date().getFullYear();
+
+    btns.forEach(function (b) {
+      b.setAttribute('aria-pressed', String(b.dataset.lang === lang));
+    });
+
+    try { localStorage.setItem('lab-lang', lang); } catch (e) {}
+  }
+
+  btns.forEach(function (b) {
+    b.addEventListener('click', function () { apply(b.dataset.lang); });
+  });
+
+  var saved = null;
+  try { saved = localStorage.getItem('lab-lang'); } catch (e) {}
+  if (!saved) {
+    var nav = (navigator.language || '').toLowerCase();
+    saved = nav.indexOf('ru') === 0 ? 'ru' : (nav.indexOf('es') === 0 ? 'es' : 'en');
+  }
+  if (!I18N[saved]) saved = 'en';
+  apply(saved);
+})();
+</script>
 
 <script type="module">
   try {
