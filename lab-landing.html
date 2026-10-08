@@ -49,12 +49,18 @@ small{font-size:13.5px; color:var(--ink-3)}
 .topnav a{font-size:14.5px; color:var(--ink-2); border:0; white-space:nowrap; padding:6px 0}
 .topnav a:hover{color:var(--blue-ink)}
 
-.lang{display:inline-flex; background:#EDEDF0; border-radius:100px; padding:3px; flex:none}
-.lang button{appearance:none; border:0; background:none; cursor:pointer; font:inherit; font-size:13.5px; font-weight:600;
-  color:var(--ink-3); padding:6px 13px; border-radius:100px; min-height:34px; transition:background .18s, color .18s}
-.lang button:hover{color:var(--ink)}
+.lang{display:inline-flex; gap:2px; background:#EDEDF0; border-radius:100px; padding:3px; flex:none}
+.lang button{appearance:none; border:0; background:none; cursor:pointer; font:inherit; font-size:13px; font-weight:600;
+  color:var(--ink-3); padding:5px 11px; border-radius:100px; min-height:38px; display:inline-flex; align-items:center; gap:7px;
+  transition:background .18s, color .18s}
+.lang button:hover{color:var(--ink); background:rgba(255,255,255,.6)}
 .lang button[aria-pressed="true"]{background:var(--surface); color:var(--ink); box-shadow:0 1px 3px rgba(0,0,0,.10)}
+.lang .fl{width:21px; height:14px; border-radius:3px; flex:none; display:block;
+  box-shadow:0 0 0 1px rgba(0,0,0,.09) inset; transition:transform .18s cubic-bezier(.2,.7,.3,1)}
+.lang button:hover .fl{transform:scale(1.06)}
+.lang button[aria-pressed="false"] .fl{opacity:.72}
 @media(max-width:900px){.topnav{display:none}}
+@media(max-width:420px){.lang .cd{display:none} .lang button{padding:5px 9px}}
 
 .hero{padding:96px 0 40px}
 .eyebrow{display:inline-flex; align-items:center; gap:8px; font-size:13px; font-weight:600; letter-spacing:.04em; text-transform:uppercase; color:var(--blue-ink); background:rgba(0,113,227,.09); padding:7px 14px; border-radius:100px; margin-bottom:26px}
@@ -163,10 +169,32 @@ setTimeout(function(){document.querySelectorAll('.reveal').forEach(function(e){e
         <a href="#team" data-i18n="nav.team">Team</a>
         <a href="#contact" data-i18n="nav.contact">Contact</a>
       </nav>
-      <span class="lang" role="group" aria-label="Language">
-        <button type="button" data-lang="en" aria-pressed="true">EN</button>
-        <button type="button" data-lang="es" aria-pressed="false">ES</button>
-        <button type="button" data-lang="ru" aria-pressed="false">RU</button>
+      <span class="lang" role="group" aria-label="Language / Idioma / Язык">
+        <button type="button" data-lang="en" aria-pressed="true" aria-label="English">
+          <svg class="fl" viewBox="0 0 24 16" aria-hidden="true">
+            <rect width="24" height="16" fill="#012169"/>
+            <path d="M0 0l24 16M24 0L0 16" stroke="#fff" stroke-width="3.4"/>
+            <path d="M0 0l24 16M24 0L0 16" stroke="#C8102E" stroke-width="2"/>
+            <path d="M12 0v16M0 8h24" stroke="#fff" stroke-width="5.4"/>
+            <path d="M12 0v16M0 8h24" stroke="#C8102E" stroke-width="3.2"/>
+          </svg>
+          <span class="cd">EN</span>
+        </button>
+        <button type="button" data-lang="es" aria-pressed="false" aria-label="Español">
+          <svg class="fl" viewBox="0 0 24 16" aria-hidden="true">
+            <rect width="24" height="16" fill="#AA151B"/>
+            <rect y="4" width="24" height="8" fill="#F1BF00"/>
+          </svg>
+          <span class="cd">ES</span>
+        </button>
+        <button type="button" data-lang="ru" aria-pressed="false" aria-label="Русский">
+          <svg class="fl" viewBox="0 0 24 16" aria-hidden="true">
+            <rect width="24" height="16" fill="#fff"/>
+            <rect y="5.33" width="24" height="5.34" fill="#0039A6"/>
+            <rect y="10.67" width="24" height="5.33" fill="#D52B1E"/>
+          </svg>
+          <span class="cd">RU</span>
+        </button>
       </span>
     </span>
   </div>
