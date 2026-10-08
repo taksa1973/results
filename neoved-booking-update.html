@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Запись на встречу: обновление</title>
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="description" content="Попап записи на онлайн-встречу neoved: визуал по макету, новые правила записи, скриншоты состояний на десктопе и телефоне, шрифт в письмах, поддоменная почта.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F5F5F7; --surface:#FFFFFF; --surface-2:#FAFAFC; --line:#E5E5EA;
+  --ink:#1D1D1F; --muted:#6E6E73; --blue:#0071E3; --red:#EE0000; --green:#1E8E3E;
+  --radius:20px; --shadow:0 1px 2px rgba(0,0,0,.04),0 10px 30px rgba(0,0,0,.05);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1180px;margin:0 auto;padding:40px 16px 80px}
+h1{font-size:clamp(30px,5vw,48px);line-height:1.1;font-weight:700;letter-spacing:-.02em;margin:0 0 12px}
+h2{font-size:clamp(23px,3.2vw,32px);line-height:1.2;font-weight:600;letter-spacing:-.01em;margin:56px 0 18px}
+h3{font-size:19px;font-weight:600;margin:0 0 8px}
+p{margin:0 0 12px}
+.lead{font-size:19px;color:var(--muted);max-width:760px;margin:0 0 26px}
+.eyebrow{font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:0 0 8px}
+code{font-family:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;font-size:.86em;background:#EFEFF2;padding:.15em .42em;border-radius:6px;overflow-wrap:anywhere}
+pre{margin:10px 0 0;padding:14px 16px;background:#1D1D1F;color:#F5F5F7;border-radius:14px;overflow:auto;font-size:14px;line-height:1.5}
+pre code{background:none;padding:0;color:inherit;white-space:pre}
+a{color:var(--blue);text-decoration:none}
+a:hover{text-decoration:underline}
+a:focus-visible,button:focus-visible{outline:3px solid #B9D7FF;outline-offset:2px;border-radius:6px}
+.bento{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.card{min-width:0;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:22px 22px 20px;box-shadow:var(--shadow);transition:transform .2s ease,box-shadow .2s ease}
+.card:hover{transform:translateY(-2px);box-shadow:0 2px 4px rgba(0,0,0,.04),0 16px 40px rgba(0,0,0,.08)}
+.card p{color:var(--muted);font-size:15.5px;margin:0}
+.card .num{display:inline-grid;place-items:center;width:34px;height:34px;border-radius:50%;background:#EAF3FF;color:var(--blue);font-weight:700;font-size:15px;margin-bottom:12px}
+.tag{display:inline-block;font-size:12.5px;font-weight:600;padding:3px 10px;border-radius:999px;background:#EAF3FF;color:var(--blue);margin-left:8px;vertical-align:middle}
+.tag.red{background:#FDECEC;color:var(--red)}
+.tag.green{background:#E8F5EC;color:var(--green)}
+.tag.gray{background:#EFEFF2;color:var(--muted)}
+.state{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:22px;margin:0 0 18px}
+.state .head{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 14px;margin-bottom:6px}
+.state .head p{color:var(--muted);font-size:15.5px;margin:0;flex:1 1 320px}
+.shots{display:grid;grid-template-columns:1.25fr .85fr;gap:16px;align-items:start;margin-top:14px}
+.shot{position:relative;background:var(--surface-2);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.shot img{display:block;width:100%;height:auto}
+.shot .lbl{position:absolute;left:10px;top:10px;font-size:12px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;background:rgba(29,29,31,.78);color:#fff;padding:4px 9px;border-radius:999px;backdrop-filter:blur(6px)}
+.shot.wide{grid-column:1/-1}
+table{width:100%;border-collapse:collapse;background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden;font-size:15px}
+th,td{padding:11px 14px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
+th{font-size:12.5px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);background:var(--surface-2)}
+tr:last-child td{border-bottom:0}
+td code{white-space:normal;word-break:break-all}
+.tbl{overflow-x:auto;border-radius:14px;box-shadow:var(--shadow)}
+.note{background:#FFF8E6;border:1px solid #F3E2A9;border-radius:14px;padding:14px 18px;font-size:15.5px;margin:14px 0}
+.ok{color:var(--green);font-weight:600}
+.no{color:var(--red);font-weight:600}
+ol.steps{padding-left:22px;margin:0}
+ol.steps li{margin:0 0 10px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.two>*,.bento>*,.state{min-width:0}
+.reveal{opacity:1}
+.motion .reveal{opacity:0}
+.motion.settled .reveal{opacity:1;transition:opacity .3s}
+footer{margin-top:60px;color:var(--muted);font-size:14px}
+@media (max-width:900px){.bento{grid-template-columns:1fr 1fr}.two{grid-template-columns:1fr}}
+@media (max-width:640px){
+  .wrap{padding:28px 16px 60px}
+  .bento{grid-template-columns:1fr}
+  .shots{grid-template-columns:1fr}
+  .state{padding:16px}
+  h2{margin-top:44px}
+}
+@media (prefers-reduced-motion:reduce){.motion .reveal{opacity:1}html{scroll-behavior:auto}.card{transition:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="reveal">
+    <p class="eyebrow">neoved.io · попап записи на онлайн-встречу · 8 октября 2026</p>
+    <h1>Запись на встречу: обновление по замечаниям</h1>
+    <p class="lead">Визуал подогнан под макет и попап калькулятора, правила записи расширены до любой даты, ниже — скриншоты всех состояний на десктопе и телефоне, ответ про шрифт в письмах и записи для поддоменной почты.</p>
+    <p>Тестовая страница: <a href="https://hooks.neoved.io/amo/amo-booking/test" target="_blank" rel="noopener">hooks.neoved.io/amo/amo-booking/test</a> <span class="tag gray">новая версия появится там после выкладки, см. «Что осталось»</span></p>
+  </header>
+
+  <h2 class="reveal">Что изменилось</h2>
+  <div class="bento">
+    <div class="card reveal"><span class="num">1</span><h3>Визуал по макету и калькулятору</h3><p>Затемнение #000 на 55 %, крестик в углу окна как в калькуляторе, фон карточки и скругления из макета (40 / 30), обводки #E5E5E5, заголовок 40 и 25 с межбуквенным −2 %, поля 15 px и текст 12 px на телефоне, стрелки и логотипы Zoom / Meet из макета. Активное поле и ссылки без чёрной обводки.</p></div>
+    <div class="card reveal"><span class="num">2</span><h3>Любая дата, включая сегодня</h3><p>Кроме субботы и воскресенья. Не позже чем за 60 минут до встречи: в 11:00 по Москве ближайший слот — 12:00. Горизонт — полгода, переключатели месяца листают календарь до конца горизонта.</p></div>
+    <div class="card reveal"><span class="num">3</span><h3>Формат UTC+03:00</h3><p>Везде: в поле, в списке и группах поясов, в карточке сделки («Таймзона»), в письмах. Отрицательные — с типографским минусом: UTC−07:00.</p></div>
+    <div class="card reveal"><span class="num">4</span><h3>Список поясов</h3><p>При раскрытии выбранный пояс стоит первой строкой, строка поиска — над ним. Неразрывные пробелы в текстах попапа, ошибок, письма и страницы отмены.</p></div>
+    <div class="card reveal"><span class="num">5</span><h3>Остаток календаря под кнопкой</h3><p>Убрана плавная прокрутка, которая шла в фоне после выбора даты, и анимация появления перенесена с окна на карточку. В Chromium воспроизвести не удалось ни до, ни после; после правки на всех проверках лишних блоков в разметке нет.</p></div>
+    <div class="card reveal"><span class="num">6</span><h3>Письма</h3><p>Шрифт Onest подключён с нашего сервера, напоминание «через час» не уходит, если записались меньше чем за полтора часа. Отправитель пока director@neoved.io — поддомен подключим после записей в DNS (ниже).</p></div>
+  </div>
+
+  <h2 class="reveal" id="screens">Состояния попапа</h2>
+  <p class="lead reveal">Снято на локальном стенде с подменой сервера: десктоп 1440 px (Москва), телефон 390 px (Сан-Паулу, чтобы был виден отрицательный пояс). Записи, созданные для скриншотов, в amoCRM не попали.</p>
+
+  <section class="state reveal">
+    <div class="head"><h3>1. Попап открыт</h3><p>Пояс подставлен сам из браузера. Крестик — в правом верхнем углу окна, как в калькуляторе.</p></div>
+    <div class="shots">
+      <figure class="shot wide"><span class="lbl">Десктоп</span><img src="img/neoved-booking/desktop-1-empty.webp" width="1200" height="750" alt="Попап записи на десктопе сразу после открытия" loading="lazy"></figure>
+      <figure class="shot"><span class="lbl">Телефон</span><img src="img/neoved-booking/mobile-1-empty.webp" width="780" height="1688" alt="Попап записи на телефоне сразу после открытия" loading="lazy"></figure>
+    </div>
+  </section>
+
+  <section class="state reveal">
+    <div class="head"><h3>2. Ошибка: пустые поля <span class="tag red">ошибка</span></h3><p>Нажали «Записаться на встречу», ничего не заполнив: красный контур и «Обязательное поле». Пояс заполнен сам, поэтому не подсвечен.</p></div>
+    <div class="shots">
+      <figure class="shot"><span class="lbl">Десктоп</span><img src="img/neoved-booking/desktop-2-required.webp" width="1080" height="1582" alt="Ошибка обязательных полей на десктопе" loading="lazy"></figure>
+      <figure class="shot"><span class="lbl">Телефон</span><img src="img/neoved-booking/mobile-2-required.webp" width="780" height="1688" alt="Ошибка обязательных полей на телефоне" loading="lazy"></figure>
+    </div>
+  </section>
+
+  <section class="state reveal">
+    <div class="head"><h3>3. Формат встречи</h3><p>Логотипы Zoom и Google Meet из макета. После выбора в поле остаются значок и название.</p></div>
+    <div class="shots">
+      <figure class="shot"><span class="lbl">Десктоп</span><img src="img/neoved-booking/desktop-3-format.webp" width="1080" height="1582" alt="Список форматов встречи на десктопе" loading="lazy"></figure>
+      <figure class="shot"><span class="lbl">Телефон</span><img src="img/neoved-booking/mobile-3-format.webp" width="780" height="1688" alt="Список форматов встречи на телефоне" loading="lazy"></figure>
+    </div>
+  </section>
+
+  <section class="state reveal">
+    <div class="head"><h3>4. Календарь</h3><p>Сегодняшний день в круге, суббота и воскресенье серые, стрелки месяца работают до конца горизонта (полгода). В день съёмки рабочие часы уже прошли, поэтому 8 октября недоступно.</p></div>
+    <div class="shots">
+      <figure class="shot"><span class="lbl">Десктоп</span><img src="img/neoved-booking/desktop-4-calendar.webp" width="1080" height="1582" alt="Календарь на десктопе" loading="lazy"></figure>
+      <figure class="shot"><span class="lbl">Телефон</span><img src="img/neoved-booking/mobile-4-calendar.webp" width="780" height="1688" alt="Календарь на телефоне" loading="lazy"></figure>
+    </div>
+  </section>
+
+  <section class="state reveal">
+    <div class="head"><h3>5. После выбора даты</h3><p>Календарь закрылся, в поле — дата. Это тот момент, где раньше оставался кусок календаря под кнопкой.</p></div>
+    <div class="shots">
+      <figure class="shot"><span class="lbl">Десктоп</span><img src="img/neoved-booking/desktop-4b-after-date.webp" width="1080" height="1582" alt="Попап после выбора даты на десктопе" loading="lazy"></figure>
+      <figure class="shot"><span class="lbl">Телефон</span><img src="img/neoved-booking/mobile-4b-after-date.webp" width="780" height="1688" alt="Попап после выбора даты на телефоне" loading="lazy"></figure>
+    </div>
+  </section>
+
+  <section class="state reveal">
+    <div class="head"><h3>6. Часовой пояс</h3><p>Выбранный пояс — первой строкой, над ним поиск. Группы по смещению на дату встречи, подписи в формате UTC+03:00.</p></div>
+    <div class="shots">
+      <figure class="shot"><span class="lbl">Десктоп</span><img src="img/neoved-booking/desktop-5-tz.webp" width="1080" height="1582" alt="Список часовых поясов на десктопе" loading="lazy"></figure>
+      <figure class="shot"><span class="lbl">Телефон</span><img src="img/neoved-booking/mobile-5-tz.webp" width="780" height="1688" alt="Список часовых поясов на телефоне" loading="lazy"></figure>
+    </div>
+  </section>
+
+  <section class="state reveal">
+    <div class="head"><h3>7. Время</h3><p>Время в поясе клиента; формат и пояс уже выбраны выше, в строках их нет.</p></div>
+    <div class="shots">
+      <figure class="shot"><span class="lbl">Десктоп</span><img src="img/neoved-booking/desktop-6-time.webp" width="1080" height="1582" alt="Список времени на десктопе" loading="lazy"></figure>
+      <figure class="shot"><span class="lbl">Телефон</span><img src="img/neoved-booking/mobile-6-time.webp" width="780" height="1688" alt="Список времени на телефоне" loading="lazy"></figure>
+    </div>
+  </section>
+
+  <section class="state reveal">
+    <div class="head"><h3>8. Форма заполнена</h3><p>Все шесть полей заполнены, под кнопкой оба согласия.</p></div>
+    <div class="shots">
+      <figure class="shot"><span class="lbl">Десктоп</span><img src="img/neoved-booking/desktop-7-filled.webp" width="1080" height="1582" alt="Заполненная форма на десктопе" loading="lazy"></figure>
+      <figure class="shot"><span class="lbl">Телефон</span><img src="img/neoved-booking/mobile-7-filled.webp" width="780" height="1688" alt="Заполненная форма на телефоне" loading="lazy"></figure>
+    </div>
+  </section>
+
+  <section class="state reveal">
+    <div class="head"><h3>9. Ошибка: время занято <span class="tag red">ошибка</span></h3><p>Пока форма была открыта, этот слот забрал другой клиент. Сообщение из ТЗ, список времени раскрыт, занятый слот помечен красным и недоступен.</p></div>
+    <div class="shots">
+      <figure class="shot"><span class="lbl">Десктоп</span><img src="img/neoved-booking/desktop-8-taken.webp" width="1080" height="1582" alt="Ошибка «Это время уже занято» на десктопе" loading="lazy"></figure>
+      <figure class="shot"><span class="lbl">Телефон</span><img src="img/neoved-booking/mobile-8-taken.webp" width="780" height="1688" alt="Ошибка «Это время уже занято» на телефоне" loading="lazy"></figure>
+    </div>
+  </section>
+
+  <section class="state reveal">
+    <div class="head"><h3>10. Ошибка: не удалось завершить запись <span class="tag red">ошибка</span></h3><p>Сервер не ответил или ответил сбоем (на съёмке — подставной ответ 500). Общее сообщение из ТЗ, можно повторить или выбрать другое время.</p></div>
+    <div class="shots">
+      <figure class="shot"><span class="lbl">Десктоп</span><img src="img/neoved-booking/desktop-9-failed.webp" width="1080" height="1582" alt="Ошибка «Не удалось завершить запись» на десктопе" loading="lazy"></figure>
+      <figure class="shot"><span class="lbl">Телефон</span><img src="img/neoved-booking/mobile-9-failed.webp" width="780" height="1688" alt="Ошибка «Не удалось завершить запись» на телефоне" loading="lazy"></figure>
+    </div>
+  </section>
+
+  <section class="state reveal">
+    <div class="head"><h3>11. Успешная запись <span class="tag green">успех</span></h3><p>Содержимое заменяется подтверждением с галочкой, попап закрывается сам через 2 секунды.</p></div>
+    <div class="shots">
+      <figure class="shot"><span class="lbl">Десктоп</span><img src="img/neoved-booking/desktop-10-done.webp" width="1080" height="1582" alt="Экран успешной записи на десктопе" loading="lazy"></figure>
+      <figure class="shot"><span class="lbl">Телефон</span><img src="img/neoved-booking/mobile-10-done.webp" width="780" height="1688" alt="Экран успешной записи на телефоне" loading="lazy"></figure>
+    </div>
+  </section>
+
+  <h2 class="reveal" id="font">Шрифт Onest в письмах</h2>
+  <div class="two">
+    <div class="card reveal">
+      <h3>Что сделано</h3>
+      <p>Onest подключён в письмо правилом <code>@font-face</code> с файлами woff2 на нашем сервере (как на странице отмены). Ссылки на Google Fonts в письме больше нет. Запасной стек: <code>'Onest', 'Helvetica Neue', Arial, sans-serif</code>.</p>
+    </div>
+    <div class="card reveal">
+      <h3>Где его увидят</h3>
+      <p>Веб-шрифты в письмах грузят только некоторые клиенты (по таблице поддержки <a href="https://www.caniemail.com/features/css-at-font-face/" target="_blank" rel="noopener">caniemail.com</a>): <span class="ok">да</span> — Apple Mail на Mac, Почта на iPhone и iPad, Samsung Email, Thunderbird; <span class="no">нет</span> — Gmail (сайт и приложения), Outlook (все версии), Yahoo, Mail.ru. Там письмо откроется запасным шрифтом, вёрстка от этого не меняется.</p>
+    </div>
+  </div>
+  <div class="tbl reveal" style="margin-top:16px">
+    <table>
+      <thead><tr><th>Какие шрифты можно использовать в письме</th><th>Где работают</th></tr></thead>
+      <tbody>
+        <tr><td>Любой свой шрифт через <code>@font-face</code> (Onest, Inter, Manrope и т. п.) с файлами woff2 на своём сервере или с Google Fonts</td><td>Apple Mail, Почта iOS/iPadOS, Samsung Email, Thunderbird</td></tr>
+        <tr><td>Системные «безопасные» шрифты: Arial, Helvetica, Verdana, Tahoma, Trebuchet MS, Georgia, Times New Roman, Courier New</td><td>Везде</td></tr>
+        <tr><td>Системный шрифт устройства через <code>-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto</code></td><td>Везде, но вид зависит от устройства (San Francisco на Apple, Segoe на Windows, Roboto на Android)</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="reveal" style="margin-top:12px;color:var(--muted);font-size:15.5px">Иначе никак: Gmail и Outlook вырезают загрузку шрифтов из писем на своей стороне, это не обходится вёрсткой. Если нужен одинаковый вид везде — только картинкой, а это плохо для доставляемости и для чтения.</p>
+
+  <h2 class="reveal" id="dns">Поддоменная почта: что вписать в DNS</h2>
+  <p class="lead reveal">Предлагаю поддомен <code>notify.neoved.io</code> и адрес отправителя <code>meetings@notify.neoved.io</code>. Он сейчас пустой в DNS, у него будут свои SPF, DKIM и DMARC, и репутация основного домена с ним не связана напрямую. Если в Zoho уже заведён <code>mail.neoved.io</code> (в DNS у него есть MX и DKIM), можно взять его — тогда шаги 1–2 пропускаются.</p>
+  <div class="note reveal">Коды проверки домена и DKIM-ключ выдаёт сама панель Zoho на шагах 1 и 2 — их нельзя придумать заранее. Остальные записи ниже можно вносить сразу. Имя записи в разных панелях вводится по-разному: либо только <code>notify</code>, либо полностью <code>notify.neoved.io</code>.</div>
+  <ol class="steps reveal">
+    <li><strong>Zoho Mail → Admin Console → Domains → Add domain</strong>: добавить <code>notify.neoved.io</code>. Zoho покажет запись для проверки — TXT вида <code>zoho-verification=zb….zmverify.zoho.in</code> на имени <code>notify</code> (или CNAME-вариант). Внести, нажать «Verify».</li>
+    <li>Там же для этого домена открыть <strong>DKIM</strong>, добавить селектор (например <code>zmail</code>) и скопировать TXT-запись: имя <code>zmail._domainkey.notify</code>, значение <code>v=DKIM1; k=rsa; p=…</code>. Внести, нажать «Verify».</li>
+    <li>Внести MX, SPF и DMARC из таблицы ниже.</li>
+    <li><strong>Users → director@neoved.io → Mail accounts / Email aliases</strong>: добавить алиас <code>meetings@notify.neoved.io</code>. Отдельный пользователь не нужен — алиас бесплатный, ответы клиентов будут падать во «Входящие» director@.</li>
+    <li>Сказать мне — я поменяю адрес отправителя в настройках воркера (<code>MAIL_FROM</code>) и выложу, после чего проверю заголовки первого письма (SPF, DKIM, DMARC = pass).</li>
+  </ol>
+  <div class="tbl reveal" style="margin-top:16px">
+    <table>
+      <thead><tr><th>Тип</th><th>Имя (хост)</th><th>Значение</th><th>Приоритет</th></tr></thead>
+      <tbody>
+        <tr><td>TXT</td><td><code>notify</code></td><td><code>zoho-verification=…</code> — выдаст Zoho (шаг 1)</td><td>—</td></tr>
+        <tr><td>MX</td><td><code>notify</code></td><td><code>mx.zoho.in</code></td><td>10</td></tr>
+        <tr><td>MX</td><td><code>notify</code></td><td><code>mx2.zoho.in</code></td><td>20</td></tr>
+        <tr><td>MX</td><td><code>notify</code></td><td><code>mx3.zoho.in</code></td><td>50</td></tr>
+        <tr><td>TXT</td><td><code>notify</code></td><td><code>v=spf1 include:zohomail.in -all</code></td><td>—</td></tr>
+        <tr><td>TXT</td><td><code>zmail._domainkey.notify</code></td><td><code>v=DKIM1; k=rsa; p=…</code> — выдаст Zoho (шаг 2; имя селектора — какое зададите)</td><td>—</td></tr>
+        <tr><td>TXT</td><td><code>_dmarc.notify</code></td><td><code>v=DMARC1; p=quarantine; rua=mailto:director@neoved.io; pct=100</code></td><td>—</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="two" style="margin-top:16px">
+    <div class="card reveal">
+      <h3>Зачем каждая запись</h3>
+      <p>MX — чтобы ответы и отчёты о недоставке на meetings@ принимал Zoho. SPF с <code>-all</code> — с поддомена шлёт только Zoho, всё остальное отбрасывать. DKIM — подпись писем ключом поддомена. DMARC с <code>p=quarantine</code> — подделки от имени поддомена уходят в спам, отчёты приходят на director@ (один организационный домен, отдельное разрешение не нужно).</p>
+    </div>
+    <div class="card reveal">
+      <h3>Что это даёт основному домену</h3>
+      <p>Письма попапа подписываются и проверяются по <code>notify.neoved.io</code>, жалобы и ошибки доставки копятся на нём, а не на <code>neoved.io</code>. Полной изоляции нет: Gmail смотрит и на организационный домен, но это сервисные письма людям, которые сами записались, так что риск низкий. Основной домен лучше позже перевести с <code>p=none</code> на <code>p=quarantine</code> — отдельная задача.</p>
+    </div>
+  </div>
+
+  <h2 class="reveal" id="rest">Что осталось</h2>
+  <div class="bento">
+    <div class="card reveal"><h3>Выкладка на сервер <span class="tag red">нужна команда</span></h3><p>Код собран и проверен (131 проверка воркера, 56 проверок попапа в браузере), но запуск выкладки на сервер neoved в этой сессии заблокирован. Команда та же, что и раньше, запускается из папки <code>amo-booking-worker</code>: <code>python deploy_vps.py</code> с пассфразой ключа в переменной <code>SSH_PASSPHRASE</code>. После выкладки прогоню проверку на бою без создания записей.</p></div>
+    <div class="card reveal"><h3>Поддомен для писем <span class="tag">ждёт DNS</span></h3><p>Записи из таблицы выше, алиас в Zoho, затем смена отправителя в воркере.</p></div>
+    <div class="card reveal"><h3>Страница согласия на рассылку <span class="tag gray">с 01.10</span></h3><p>Ссылка «Согласие на получение рекламной рассылки» пока ведёт на /personal: отдельной страницы на сайте нет. Нужен адрес.</p></div>
+  </div>
+
+  <footer>Страница закрыта от поисковиков и нужна только для проверки. Скриншоты сняты на локальном стенде 8 октября 2026, записи с него в amoCRM не попадают.</footer>
+</div>
+
+<script type="module">
+  try {
+    const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!reduce) {
+      const { animate, inView, spring } = await import('https://cdn.jsdelivr.net/npm/motion@11/+esm');
+      const root = document.documentElement;
+      root.classList.add('motion');
+      // Предохранитель: что бы ни случилось с наблюдателем, через 2 секунды всё видно.
+      const settle = setTimeout(() => root.classList.add('settled'), 2000);
+      inView('.reveal', (entry) => {
+        const el = entry && entry.target ? entry.target : entry;
+        animate(el, { opacity: [0, 1], transform: ['translateY(18px)', 'translateY(0px)'] }, { type: spring, stiffness: 120, damping: 18 });
+        return () => {};
+      }, { margin: '0px 0px -10% 0px' });
+      window.addEventListener('load', () => setTimeout(() => { clearTimeout(settle); root.classList.add('settled'); }, 1500), { once: true });
+    }
+  } catch (e) {
+    document.documentElement.classList.remove('motion');
+  }
+</script>
+</body>
+</html>
