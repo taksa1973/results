@@ -34,7 +34,7 @@ h2{font-size:clamp(24px,3vw,34px);font-weight:700;line-height:1.15}
 h3{font-size:18px;font-weight:600;line-height:1.3}
 p{margin:0}
 .lead{font-size:18px;color:var(--text-2);max-width:760px;margin-top:18px}
-.hero{display:block;background:var(--surface);border-bottom:1px solid var(--border);padding:72px 0 56px}
+.hero{display:block;background:var(--surface);border-bottom:1px solid var(--border);padding:56px 0 48px}
 .pills{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
 .pill{display:inline-flex;align-items:center;gap:8px;background:var(--page-bg);border:1px solid var(--border);border-radius:999px;padding:8px 14px;font-size:14px;font-weight:500;color:var(--text-1)}
 .pill svg{width:16px;height:16px;color:var(--blue);flex:none}
@@ -65,7 +65,7 @@ section{padding:56px 0}
 .kv span{background:var(--page-bg);border:1px solid var(--border);border-radius:10px;padding:6px 10px;font-size:13px;color:var(--text-1)}
 .kv span i{font-style:normal;color:var(--text-3);margin-right:4px}
 table{width:100%;border-collapse:separate;border-spacing:0;background:var(--surface);border:1px solid var(--border);border-radius:18px;overflow:hidden;box-shadow:var(--shadow)}
-thead th{background:var(--text-1);color:#fff;font-weight:600;font-size:13px;text-align:left;padding:14px 16px;letter-spacing:.01em}
+thead th{background:#F5F5F7;color:var(--text-2);font-weight:600;font-size:12.5px;text-align:left;padding:13px 16px;letter-spacing:.04em;text-transform:uppercase;border-bottom:1px solid var(--border)}
 tbody td{padding:14px 16px;border-bottom:1px solid var(--border);font-size:14.5px;vertical-align:top}
 tbody tr:last-child td{border-bottom:none}
 td.num{font-variant-numeric:tabular-nums;white-space:nowrap;font-weight:600}
@@ -134,9 +134,52 @@ footer{padding:36px 0 56px;color:var(--text-3);font-size:13px}
   .script .body{grid-template-columns:1fr}
   .script .col:first-child{border-right:none;border-bottom:1px solid var(--border)}
 }
+
+/* NAV (серия: тёмная тема) */
+nav.topnav{position:sticky;top:0;z-index:100}
+.topnav-inner{max-width:1080px;margin:0 auto;padding:0 16px;display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
+.topnav-inner::-webkit-scrollbar{display:none}
+.topnav a{flex:0 0 auto;padding:14px 12px;font-size:14px;font-weight:500;color:var(--x-ink-2);white-space:nowrap;border-bottom:2px solid transparent;transition:color .2s ease,border-color .2s ease,background .2s ease}
+.topnav a:hover{color:#fff;text-decoration:none;border-bottom-color:var(--x-line-2)}
+.topnav a.is-active{color:#fff;border-bottom-color:var(--x-red-text)}
+/* STATS */
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:30px}
+.stat{background:var(--x-paper);border:1px solid var(--x-line);border-radius:16px;padding:18px 20px;min-width:0}
+.stat .n{font-size:clamp(26px,3vw,34px);font-weight:800;letter-spacing:-0.02em;line-height:1.05;color:#fff;font-variant-numeric:tabular-nums}
+.stat .n span{color:var(--x-red-text)}
+.stat .l{font-size:13.5px;color:var(--x-ink-2);margin-top:8px;line-height:1.4}
+.hero .link-note{margin-top:22px;font-size:14px;color:var(--x-ink-2)}
+.verdict-box{background:var(--x-paper);border:1px solid var(--x-line);border-left:4px solid var(--x-red-text);border-radius:16px;padding:22px 26px;font-size:16.5px;line-height:1.6;color:var(--x-ink);max-width:900px;margin-bottom:28px}
+.verdict-box b{font-weight:700;color:#fff}
+tbody tr:hover td{background:rgba(255,255,255,.04)}
+@media (max-width:980px){.stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:480px){.stats{grid-template-columns:1fr}}
+
+/* NAV (светлая страница) */
+nav.topnav{background:rgba(245,245,247,.86);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);border-bottom:1px solid var(--border)}
+.topnav a{color:var(--text-2)}
+.topnav a:hover{color:var(--text-1);border-bottom-color:#D2D2D7}
+.topnav a.is-active{color:var(--text-1);border-bottom-color:var(--blue)}
+tbody tr:hover td{background:#FAFAFC}
 </style>
 </head>
 <body>
+
+<nav class="topnav">
+  <div class="topnav-inner">
+    <a href="#glavnoe">Главное</a>
+    <a href="#pravo">Право</a>
+    <a href="#kuda">Куда идти</a>
+    <a href="#ekonomika">Экономика</a>
+    <a href="#uk">Британия</a>
+    <a href="#strany">Карта стран</a>
+    <a href="#durov">Дуров</a>
+    <a href="#sus">SUS и ОМС</a>
+    <a href="#plan">План</a>
+    <a href="#teksty">Тексты</a>
+    <a href="#istochniki">Источники</a>
+  </div>
+</nav>
 
 <header class="hero">
   <div class="wrap">
@@ -972,6 +1015,20 @@ if (reduce) {
     }
   }
 }
+</script>
+
+<script>
+(function(){
+  var links=[].slice.call(document.querySelectorAll('.topnav a[href^="#"]'));
+  var map=links.map(function(a){return {a:a, el:document.getElementById(a.getAttribute('href').slice(1))};}).filter(function(x){return x.el;});
+  function upd(){
+    var y=window.scrollY+120, cur=null;
+    map.forEach(function(x){ if(x.el.offsetTop<=y) cur=x; });
+    map.forEach(function(x){ x.a.classList.toggle('is-active', x===cur); });
+    if(cur){ var r=cur.a.getBoundingClientRect(), p=cur.a.parentNode; if(r.left<0||r.right>p.clientWidth){ p.scrollTo({left:cur.a.offsetLeft-16,behavior:'smooth'}); } }
+  }
+  window.addEventListener('scroll',upd,{passive:true}); window.addEventListener('load',upd);
+})();
 </script>
 </body>
 </html>
