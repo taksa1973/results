@@ -13,11 +13,11 @@
 <script>document.documentElement.classList.add('js-anim');</script>
 <style>
 :root{
-  --page-bg:#FAFAFA; --surface:#FFFFFF; --text-1:#0A0A0A; --text-2:#52525B; --text-3:#71717A;
-  --blue:#7F1D1D; --border:rgba(0,0,0,0.10);
-  --ok:#0A0A0A; --ok-bg:#EDEDEF; --mid:#7F1D1D; --mid-bg:#F7EDED; --low:#3F3F46; --low-bg:#F4F4F5; --bad:#FFFFFF; --bad-bg:#7F1D1D;
-  --shadow:0 1px 2px rgba(0,0,0,.04),0 6px 20px rgba(0,0,0,.05);
-  --shadow-hover:0 2px 4px rgba(0,0,0,.06),0 14px 36px rgba(0,0,0,.09);
+  --page-bg:#000000; --surface:#121212; --text-1:#F5F5F5; --text-2:#C4C4C8; --text-3:#8E8E93;
+  --blue:#E05252; --border:rgba(255,255,255,0.12);
+  --ok:#FFFFFF; --ok-bg:#2A2A2A; --mid:#E05252; --mid-bg:#241010; --low:#A1A1A6; --low-bg:#1A1A1A; --bad:#FFFFFF; --bad-bg:#9B1C1C;
+  --shadow:none;
+  --shadow-hover:0 0 0 1px rgba(255,255,255,.18);
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -136,41 +136,45 @@ footer{padding:36px 0 56px;color:var(--text-3);font-size:13px}
   .script .col:first-child{border-right:none;border-bottom:1px solid var(--border)}
 }
 
-/* ===== Единый стиль серии: чёрный, белый, тёмно-красный акцент ===== */
-:root{color-scheme:light;
-  --x-ink:#0A0A0A;--x-ink-2:#3F3F46;--x-ink-3:#71717A;--x-paper:#FFFFFF;--x-bg:#FAFAFA;--x-soft:#F4F4F5;--x-line:#E4E4E7;--x-line-2:#D4D4D8;
-  --x-red:#7F1D1D;--x-red-deep:#5F1414;--x-red-soft:#F7EDED;--x-red-line:#E8CFCF;}
+/* ===== Единый стиль серии: чёрный фон, белый текст, красный акцент ===== */
+:root{color-scheme:dark;
+  --x-ink:#F5F5F5;--x-ink-2:#C4C4C8;--x-ink-3:#8E8E93;--x-bg:#000000;--x-paper:#121212;--x-soft:#1A1A1A;--x-line:#262626;--x-line-2:#3A3A3A;
+  --x-red:#9B1C1C;--x-red-hover:#B42323;--x-red-text:#E05252;--x-red-soft:#241010;--x-red-line:#4D1B1B;}
 ::selection{background:var(--x-red);color:#fff}
-body{background:var(--x-bg);color:var(--x-ink)}
+html,body{background:var(--x-bg);color:var(--x-ink)}
+h1,h2,h3,h4{color:#fff}
 h1{font-weight:800;letter-spacing:-.03em}
-h1 span{color:var(--x-red)}
-a{color:var(--x-red)}
-a:hover{color:var(--x-red-deep)}
-a:focus-visible,button:focus-visible,summary:focus-visible,select:focus-visible,input:focus-visible{outline-color:var(--x-red)}
-.hero{background:var(--x-paper);border-bottom:1px solid var(--x-line)}
-.eyebrow{color:var(--x-red);background:none;padding:0;border-radius:0;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
-thead th{background:var(--x-ink);color:#fff;border-bottom-color:var(--x-ink)}
-/* навигация — чёрная полоса */
-.toc,nav.topnav,.topbar{background:rgba(10,10,10,.94);border-bottom:1px solid #000;-webkit-backdrop-filter:saturate(140%) blur(16px);backdrop-filter:saturate(140%) blur(16px)}
-.toc a,.topnav a{color:#D4D4D8}
+h1 span{color:var(--x-red-text)}
+a{color:var(--x-red-text)}
+a:hover{color:#fff}
+a:focus-visible,button:focus-visible,summary:focus-visible,select:focus-visible,input:focus-visible{outline-color:var(--x-red-text)}
+.hero{background:var(--x-bg);border-bottom:1px solid var(--x-line)}
+.eyebrow{color:var(--x-red-text);background:none;padding:0;border-radius:0;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
+thead th{background:#1F1F1F;color:#fff;border-bottom:1px solid var(--x-line-2)}
+/* навигация */
+.toc,nav.topnav,.topbar{background:rgba(0,0,0,.88);border-bottom:1px solid var(--x-line);-webkit-backdrop-filter:saturate(140%) blur(16px);backdrop-filter:saturate(140%) blur(16px)}
+.topbar .topnav{background:none;border:0;-webkit-backdrop-filter:none;backdrop-filter:none}
+.toc a,.topnav a{color:var(--x-ink-2)}
 .toc a:hover,.topnav a:hover{color:#fff;background:rgba(255,255,255,.08);text-decoration:none}
+.topbar .topnav a:hover{background:none}
 .toc a:focus-visible,.topnav a:focus-visible{outline-color:#fff}
 .brand{color:#fff}
-/* нумераторы шагов — чёрные */
-.steps li::before,ol.steps li::before,.step::before{background:var(--x-ink);color:#fff}
-/* статусы: серый → чёрный → бледно-красный → тёмно-красный */
-.chip-ok,.chip-green,.b-ok,.b-green{background:#EDEDEF;color:var(--x-ink);border-color:var(--x-line-2)}
-.chip-warn,.chip-amber,.b-mid,.b-amber{background:var(--x-red-soft);color:var(--x-red);border-color:var(--x-red-line)}
-.chip-bad,.chip-red,.b-bad,.b-red{background:var(--x-red);color:#fff;border-color:var(--x-red)}
-.chip-cat,.chip-blue,.b-blue,.b-violet{background:var(--x-paper);color:var(--x-ink-2);border-color:var(--x-line-2);box-shadow:inset 0 0 0 1px var(--x-line-2)}
-.chip-mute,.b-low,.b-gray{background:var(--x-soft);color:var(--x-ink-2);border-color:var(--x-line)}
+/* нумераторы шагов — белые с чёрной цифрой */
+.steps li::before,ol.steps li::before,.step::before{background:#fff;color:#000}
+/* статусы: серый → белый контур → красный текст → красная заливка */
+.chip-ok,.chip-green,.b-ok,.b-green{background:#2A2A2A;color:#fff;border-color:#5A5A5F;box-shadow:inset 0 0 0 1px #5A5A5F}
+.chip-warn,.chip-amber,.b-mid,.b-amber{background:var(--x-red-soft);color:var(--x-red-text);border-color:var(--x-red-line);box-shadow:inset 0 0 0 1px var(--x-red-line)}
+.chip-bad,.chip-red,.b-bad,.b-red{background:var(--x-red);color:#fff;border-color:var(--x-red);box-shadow:none}
+.chip-cat,.chip-blue,.b-blue,.b-violet{background:transparent;color:var(--x-ink-2);border-color:var(--x-line-2);box-shadow:inset 0 0 0 1px var(--x-line-2)}
+.chip-mute,.b-low,.b-gray{background:var(--x-soft);color:#A1A1A6;border-color:var(--x-line);box-shadow:none}
+.b-green,.b-amber,.b-blue,.b-violet{box-shadow:none}
 /* — поправки страницы — */
 .card{border-radius:16px}
 .step,.script,.note,table,.table-wrap{border-radius:14px}
-.quote{border-left-color:var(--x-red)}
+.quote{border-left-color:var(--x-red-text)}
 .script .col:first-child{background:var(--x-soft)}
-.open{background:var(--x-paper);border-top:1px solid var(--x-line);border-bottom:1px solid var(--x-line)}
-.warn{border-left-color:var(--x-red)}
+.open{background:#0A0A0A;border-top:1px solid var(--x-line);border-bottom:1px solid var(--x-line)}
+.warn{border-left-color:var(--x-red-text)}
 .card .ic{background:var(--x-soft)}
 </style>
 </head>
