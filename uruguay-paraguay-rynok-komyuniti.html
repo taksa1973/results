@@ -12,12 +12,12 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#F5F5F7; --surface:#FFFFFF; --ink:#1D1D1F; --ink-2:#424245; --ink-3:#6E6E73;
-  --line:#E3E3E6; --blue:#0071E3; --blue-ink:#0058B0;
-  --green:#1E8E3E; --amber:#B26A00; --red:#C4291E; --violet:#5E5CE6;
-  --r-lg:22px; --r-md:16px;
-  --shadow:0 1px 2px rgba(0,0,0,.04), 0 8px 24px rgba(0,0,0,.06);
-  --shadow-h:0 2px 6px rgba(0,0,0,.06), 0 16px 40px rgba(0,0,0,.10);
+  --bg:#FAFAFA; --surface:#FFFFFF; --ink:#0A0A0A; --ink-2:#3F3F46; --ink-3:#71717A;
+  --line:#E4E4E7; --blue:#7F1D1D; --blue-ink:#7F1D1D;
+  --green:#0A0A0A; --amber:#A1A1AA; --red:#7F1D1D; --violet:#3F3F46;
+  --r-lg:16px; --r-md:12px;
+  --shadow:0 1px 2px rgba(0,0,0,.04),0 6px 20px rgba(0,0,0,.05);
+  --shadow-h:0 2px 4px rgba(0,0,0,.06),0 14px 36px rgba(0,0,0,.09);
   --maxw:1120px;
 }
 *{box-sizing:border-box}
@@ -29,7 +29,7 @@ body{
   font-size:17px; line-height:1.62; -webkit-font-smoothing:antialiased;
 }
 .wrap{max-width:var(--maxw); margin:0 auto; padding:0 24px}
-a{color:var(--blue-ink); text-decoration:none; border-bottom:1px solid rgba(0,113,227,.28)}
+a{color:var(--blue-ink); text-decoration:none; border-bottom:1px solid rgba(127,29,29,.28)}
 a:hover{border-bottom-color:var(--blue)}
 a:focus-visible,button:focus-visible{outline:3px solid var(--blue); outline-offset:3px; border-radius:6px}
 h1,h2,h3,h4{letter-spacing:-.022em; line-height:1.16; margin:0}
@@ -41,7 +41,7 @@ p{margin:0 0 16px}
 small{font-size:13.5px; color:var(--ink-3)}
 .mono{font-variant-numeric:tabular-nums}
 
-.topbar{position:sticky; top:0; z-index:100; background:rgba(245,245,247,.82); backdrop-filter:saturate(180%) blur(20px); border-bottom:1px solid var(--line)}
+.topbar{position:sticky; top:0; z-index:100; background:rgba(10,10,10,.94); backdrop-filter:saturate(180%) blur(20px); border-bottom:1px solid var(--line)}
 .topbar .wrap{display:flex; align-items:center; gap:20px; height:52px; justify-content:space-between}
 .brand{font-weight:600; font-size:15px; letter-spacing:-.01em; white-space:nowrap}
 .topnav{display:flex; gap:18px; overflow-x:auto; scrollbar-width:none}
@@ -50,7 +50,7 @@ small{font-size:13.5px; color:var(--ink-3)}
 .topnav a:hover{color:var(--blue-ink)}
 
 .hero{padding:72px 0 24px}
-.eyebrow{display:inline-flex; align-items:center; gap:8px; font-size:13px; font-weight:600; letter-spacing:.02em; text-transform:uppercase; color:var(--blue-ink); background:rgba(0,113,227,.09); padding:7px 13px; border-radius:100px; margin-bottom:22px}
+.eyebrow{display:inline-flex; align-items:center; gap:8px; font-size:13px; font-weight:600; letter-spacing:.02em; text-transform:uppercase; color:var(--blue-ink); background:rgba(127,29,29,.07); padding:7px 13px; border-radius:100px; margin-bottom:22px}
 .lede{font-size:clamp(18px,2.2vw,21px); color:var(--ink-2); max-width:820px; margin-top:22px}
 
 .bento{display:grid; grid-template-columns:repeat(12,1fr); gap:18px; margin:32px 0}
@@ -70,16 +70,16 @@ section{padding:44px 0; scroll-margin-top:68px}
 .b-green{background:rgba(30,142,62,.10); color:var(--green); border-color:rgba(30,142,62,.2)}
 .b-amber{background:rgba(178,106,0,.10); color:var(--amber); border-color:rgba(178,106,0,.2)}
 .b-red{background:rgba(196,41,30,.09); color:var(--red); border-color:rgba(196,41,30,.2)}
-.b-blue{background:rgba(0,113,227,.09); color:var(--blue-ink); border-color:rgba(0,113,227,.2)}
+.b-blue{background:rgba(127,29,29,.07); color:var(--blue-ink); border-color:rgba(127,29,29,.2)}
 .b-violet{background:rgba(94,92,230,.10); color:var(--violet); border-color:rgba(94,92,230,.22)}
-.b-gray{background:#F0F0F2; color:var(--ink-3); border-color:var(--line)}
+.b-gray{background:#F4F4F5; color:var(--ink-3); border-color:var(--line)}
 
 .tablewrap{overflow-x:auto; border:1px solid var(--line); border-radius:var(--r-lg); background:var(--surface); box-shadow:var(--shadow); -webkit-overflow-scrolling:touch; margin-bottom:18px}
 table{border-collapse:collapse; width:100%; min-width:820px; font-size:15px}
 th,td{padding:14px 16px; text-align:left; vertical-align:top; border-bottom:1px solid var(--line)}
-th{font-size:12.5px; font-weight:600; letter-spacing:.05em; text-transform:uppercase; color:var(--ink-3); background:#FAFAFB}
+th{font-size:12.5px; font-weight:600; letter-spacing:.05em; text-transform:uppercase; color:var(--ink-3); background:#F4F4F5}
 tbody tr:last-child td{border-bottom:0}
-tbody tr:hover{background:#FBFBFD}
+tbody tr:hover{background:#FAFAFA}
 td strong{font-weight:600}
 td.win{background:rgba(30,142,62,.06)}
 td .mono{font-variant-numeric:tabular-nums}
@@ -106,15 +106,15 @@ ol.steps li::before{content:counter(s); position:absolute; left:20px; top:19px; 
 .dl .row{display:grid; grid-template-columns:minmax(150px,240px) 1fr; border-bottom:1px solid var(--line)}
 .dl .row:last-child{border-bottom:0}
 .dl .row > div{padding:12px 16px}
-.dl .row .t{font-weight:600; background:#FAFAFB; font-size:14.5px}
+.dl .row .t{font-weight:600; background:#F4F4F5; font-size:14.5px}
 .dl .row .d{font-size:14.5px; color:var(--ink-2)}
 @media(max-width:700px){.dl .row{grid-template-columns:1fr} .dl .row .t{border-bottom:1px solid var(--line)}}
 
 .bars{display:grid; gap:14px; margin-top:4px}
 .bar{display:grid; grid-template-columns:minmax(130px,190px) 1fr auto; gap:14px; align-items:center}
 .bar .lab{font-size:14.5px; color:var(--ink-2)}
-.bar .track{height:12px; background:#EDEDF0; border-radius:100px; overflow:hidden; position:relative}
-.bar .fill{height:100%; border-radius:100px; background:linear-gradient(90deg, #7FB3F0, var(--blue))}
+.bar .track{height:12px; background:#EDEDEF; border-radius:100px; overflow:hidden; position:relative}
+.bar .fill{height:100%; border-radius:100px; background:var(--blue)}
 .bar .val{font-size:14.5px; font-weight:600; font-variant-numeric:tabular-nums; white-space:nowrap}
 @media(max-width:700px){.bar{grid-template-columns:1fr auto; gap:6px} .bar .track{grid-column:1 / -1; order:3}}
 
@@ -127,6 +127,52 @@ footer{padding:44px 0 64px; border-top:1px solid var(--line); margin-top:40px; c
 .reveal{opacity:1}
 .js .reveal{opacity:0; transform:translateY(18px)}
 @media (prefers-reduced-motion:reduce){.js .reveal{opacity:1 !important; transform:none !important}}
+
+/* ===== Единый стиль серии: чёрный, белый, тёмно-красный акцент ===== */
+:root{color-scheme:light;
+  --x-ink:#0A0A0A;--x-ink-2:#3F3F46;--x-ink-3:#71717A;--x-paper:#FFFFFF;--x-bg:#FAFAFA;--x-soft:#F4F4F5;--x-line:#E4E4E7;--x-line-2:#D4D4D8;
+  --x-red:#7F1D1D;--x-red-deep:#5F1414;--x-red-soft:#F7EDED;--x-red-line:#E8CFCF;}
+::selection{background:var(--x-red);color:#fff}
+body{background:var(--x-bg);color:var(--x-ink)}
+h1{font-weight:800;letter-spacing:-.03em}
+h1 span{color:var(--x-red)}
+a{color:var(--x-red)}
+a:hover{color:var(--x-red-deep)}
+a:focus-visible,button:focus-visible,summary:focus-visible,select:focus-visible,input:focus-visible{outline-color:var(--x-red)}
+.hero{background:var(--x-paper);border-bottom:1px solid var(--x-line)}
+.eyebrow{color:var(--x-red);background:none;padding:0;border-radius:0;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
+thead th{background:var(--x-ink);color:#fff;border-bottom-color:var(--x-ink)}
+/* навигация — чёрная полоса */
+.toc,nav.topnav,.topbar{background:rgba(10,10,10,.94);border-bottom:1px solid #000;-webkit-backdrop-filter:saturate(140%) blur(16px);backdrop-filter:saturate(140%) blur(16px)}
+.toc a,.topnav a{color:#D4D4D8}
+.toc a:hover,.topnav a:hover{color:#fff;background:rgba(255,255,255,.08);text-decoration:none}
+.toc a:focus-visible,.topnav a:focus-visible{outline-color:#fff}
+.brand{color:#fff}
+/* нумераторы шагов — чёрные */
+.steps li::before,ol.steps li::before,.step::before{background:var(--x-ink);color:#fff}
+/* статусы: серый → чёрный → бледно-красный → тёмно-красный */
+.chip-ok,.chip-green,.b-ok,.b-green{background:#EDEDEF;color:var(--x-ink);border-color:var(--x-line-2)}
+.chip-warn,.chip-amber,.b-mid,.b-amber{background:var(--x-red-soft);color:var(--x-red);border-color:var(--x-red-line)}
+.chip-bad,.chip-red,.b-bad,.b-red{background:var(--x-red);color:#fff;border-color:var(--x-red)}
+.chip-cat,.chip-blue,.b-blue,.b-violet{background:var(--x-paper);color:var(--x-ink-2);border-color:var(--x-line-2);box-shadow:inset 0 0 0 1px var(--x-line-2)}
+.chip-mute,.b-low,.b-gray{background:var(--x-soft);color:var(--x-ink-2);border-color:var(--x-line)}
+/* — поправки страницы — */
+a{border-bottom-color:rgba(127,29,29,.28)}
+a:hover{border-bottom-color:var(--x-red)}
+.hero{padding-bottom:44px}
+th{background:var(--x-soft)}
+thead th{background:var(--x-ink);color:#fff;font-weight:600}
+tbody tr:hover{background:#FAFAFA}
+td.win{background:#EFEFF1;box-shadow:inset 3px 0 0 var(--x-ink)}
+.note{background:var(--x-red-soft);border-color:var(--x-red-line);color:#3B0D0D}
+.note.blue,.note.green,.note.violet{background:var(--x-soft);border-color:var(--x-line);color:var(--x-ink-2)}
+.note.red{background:var(--x-red-soft);border-color:var(--x-red);color:#3B0D0D}
+.dl .row .t{background:var(--x-soft)}
+.bar .track{background:#EDEDEF}
+.bar .fill{background:var(--x-red)}
+.src a{color:var(--x-red)}
+.topbar .topnav{background:none;border:0;-webkit-backdrop-filter:none;backdrop-filter:none}
+.topbar .topnav a:hover{background:none}
 </style>
 </head>
 <body>
@@ -153,7 +199,7 @@ setTimeout(function(){document.querySelectorAll('.reveal').forEach(function(e){e
 
 <header class="hero">
   <div class="wrap">
-    <span class="eyebrow reveal">Дополнение к разбору · 8 октября 2026</span>
+    <span class="eyebrow reveal">Дополнение к разбору</span>
     <h1 class="reveal">Люди, среда и метры:<br>Уругвай против Парагвая</h1>
     <p class="lede reveal">Три вопроса, которые оставались открытыми: сколько стоит персонал — научный и обычный, есть ли вокруг профессиональная среда, и почём метр в Уругвае. Ответ по зарплатам оказался неожиданным: ставки в двух странах почти одинаковые. Разница не в цене людей, а в том, есть ли они вообще.</p>
     <p class="lede reveal" style="font-size:16px; margin-top:14px">Основные материалы: <a href="laboratoriya-sozvon.html">выжимка к созвону</a> · <a href="uruguay-laboratoriya.html">Уругвай</a> · <a href="paraguay-laboratoriya.html">Парагвай</a></p>
@@ -195,7 +241,7 @@ setTimeout(function(){document.querySelectorAll('.reveal').forEach(function(e){e
   <div class="wrap">
     <div class="section-head reveal">
       <h2><span class="num">1</span>Рынок труда: сколько стоят люди</h2>
-      <p>Все суммы пересчитаны в доллары по курсам на начало октября 2026: уругвайский песо — около 39,5 за доллар, гуарани — <a href="https://www.bcp.gov.py/webapps/web/cotizacion/referencial-fluctuante-interbancario" target="_blank" rel="noopener">5 847,83 за доллар</a> по данным центрального банка на 6 октября.</p>
+      <p>Все суммы пересчитаны в доллары по курсам: уругвайский песо — около 39,5 за доллар, гуарани — <a href="https://www.bcp.gov.py/webapps/web/cotizacion/referencial-fluctuante-interbancario" target="_blank" rel="noopener">5 847,83 за доллар</a> по данным центрального банка.</p>
     </div>
 
     <h3 class="reveal" style="margin-bottom:16px">Уругвай</h3>
@@ -654,7 +700,7 @@ setTimeout(function(){document.querySelectorAll('.reveal').forEach(function(e){e
       <div class="src"><a href="https://uy.computrabajo.com/salarios/laboratorioa" target="_blank" rel="noopener">Computrabajo — зарплаты лаборантов в Уругвае</a><small>Средние по вакансиям; расхождение между выборками почти двукратное</small></div>
       <div class="src"><a href="https://tusalario.org/paraguay/carrera/paraguay-trabajo-y-salario/paraguay-tecnicos-de-laboratorios-medicos-o-patologicos" target="_blank" rel="noopener">Tusalario Paraguay — техники лабораторий</a><small>Вилки в гуарани на старте и после пяти лет, рабочая неделя 48 часов</small></div>
       <div class="src"><a href="https://tusalario.org/paraguay/carrera/paraguay-trabajo-y-salario/paraguay-tecnicos-en-ciencias-biologicas-excepto-medicos" target="_blank" rel="noopener">Tusalario Paraguay — техники биологических наук</a><small>Ближайшая к профилю позиция</small></div>
-      <div class="src"><a href="https://www.bcp.gov.py/webapps/web/cotizacion/referencial-fluctuante-interbancario" target="_blank" rel="noopener">Центральный банк Парагвая — курс</a><small>5 847,83 гуарани за доллар на 6 октября 2026</small></div>
+      <div class="src"><a href="https://www.bcp.gov.py/webapps/web/cotizacion/referencial-fluctuante-interbancario" target="_blank" rel="noopener">Центральный банк Парагвая — курс</a><small>5 847,83 гуарани за доллар</small></div>
       <div class="src"><a href="https://www.plazamayor.com.uy/alquiler-de-oficinas-en-montevideo-2/" target="_blank" rel="noopener">Рынок офисов Монтевидео</a><small>Средняя ставка $17,9 за м², класс A — $34,4; город лидирует по ставкам в регионе</small></div>
       <div class="src"><a href="https://www.uruguayxxi.gub.uy/es/directorio-servicio/parque-cientifico-tecnologico-de-pando/" target="_blank" rel="noopener">Научный парк Пандо в каталоге Uruguay XXI</a><small>7,5 га, здание Ceibo с четырьмя оборудованными лабораториями, инкубатор Khem, услуги и контакты</small></div>
       <div class="src"><a href="https://pctp.org.uy/en/about/" target="_blank" rel="noopener">Сайт парка Пандо</a><small>Аренда помещений под лаборатории и пилотные установки, Softlanding, управление R&amp;D-проектами</small></div>
@@ -668,7 +714,7 @@ setTimeout(function(){document.querySelectorAll('.reveal').forEach(function(e){e
 
 <footer>
   <div class="wrap">
-    <p style="margin-bottom:8px">Дополнение к разбору, 8 октября 2026 года. Основные материалы: <a href="laboratoriya-sozvon.html">выжимка к созвону</a>, <a href="wet-lab-obshee.html">общая часть</a>, <a href="uruguay-laboratoriya.html">Уругвай</a>, <a href="paraguay-laboratoriya.html">Парагвай</a>.</p>
+    <p style="margin-bottom:8px">Дополнение к разбору. Основные материалы: <a href="laboratoriya-sozvon.html">выжимка к созвону</a>, <a href="wet-lab-obshee.html">общая часть</a>, <a href="uruguay-laboratoriya.html">Уругвай</a>, <a href="paraguay-laboratoriya.html">Парагвай</a>.</p>
     <p style="margin:0"><small>Суммы в долларах пересчитаны по курсам начала октября 2026 и будут смещаться вместе с курсом. Зарплатные данные взяты с профильных порталов и из государственной статистики — это не выборка реальных предложений о работе.</small></p>
   </div>
 </footer>

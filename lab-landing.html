@@ -12,12 +12,12 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#F5F5F7; --surface:#FFFFFF; --ink:#1D1D1F; --ink-2:#424245; --ink-3:#6E6E73;
-  --line:#E3E3E6; --blue:#0071E3; --blue-ink:#0058B0;
-  --green:#1E8E3E; --amber:#B26A00; --violet:#5E5CE6;
-  --r-lg:22px; --r-md:16px;
-  --shadow:0 1px 2px rgba(0,0,0,.04), 0 8px 24px rgba(0,0,0,.06);
-  --shadow-h:0 2px 6px rgba(0,0,0,.06), 0 16px 40px rgba(0,0,0,.10);
+  --bg:#FAFAFA; --surface:#FFFFFF; --ink:#0A0A0A; --ink-2:#3F3F46; --ink-3:#71717A;
+  --line:#E4E4E7; --blue:#7F1D1D; --blue-ink:#7F1D1D;
+  --green:#0A0A0A; --amber:#7F1D1D; --violet:#3F3F46;
+  --r-lg:16px; --r-md:12px;
+  --shadow:0 1px 2px rgba(0,0,0,.04),0 6px 20px rgba(0,0,0,.05);
+  --shadow-h:0 2px 4px rgba(0,0,0,.06),0 14px 36px rgba(0,0,0,.09);
   --maxw:1080px;
 }
 *{box-sizing:border-box}
@@ -29,7 +29,7 @@ body{
   font-size:17px; line-height:1.62; -webkit-font-smoothing:antialiased;
 }
 .wrap{max-width:var(--maxw); margin:0 auto; padding:0 24px}
-a{color:var(--blue-ink); text-decoration:none; border-bottom:1px solid rgba(0,113,227,.28)}
+a{color:var(--blue-ink); text-decoration:none; border-bottom:1px solid rgba(127,29,29,.28)}
 a:hover{border-bottom-color:var(--blue)}
 a:focus-visible,button:focus-visible{outline:3px solid var(--blue); outline-offset:3px; border-radius:6px}
 h1,h2,h3,h4{letter-spacing:-.022em; line-height:1.14; margin:0}
@@ -39,7 +39,7 @@ h3{font-size:clamp(18px,2vw,22px); font-weight:600; margin-bottom:10px}
 p{margin:0 0 16px}
 small{font-size:13.5px; color:var(--ink-3)}
 
-.topbar{position:sticky; top:0; z-index:100; background:rgba(245,245,247,.82); backdrop-filter:saturate(180%) blur(20px); border-bottom:1px solid var(--line)}
+.topbar{position:sticky; top:0; z-index:100; background:rgba(10,10,10,.94); backdrop-filter:saturate(180%) blur(20px); border-bottom:1px solid var(--line)}
 .topbar .wrap{display:flex; align-items:center; gap:20px; height:60px; justify-content:space-between}
 .brand{font-weight:700; font-size:16px; letter-spacing:-.02em; white-space:nowrap; display:flex; align-items:center; gap:10px}
 .brand .mark{width:26px; height:26px; flex:none}
@@ -49,7 +49,7 @@ small{font-size:13.5px; color:var(--ink-3)}
 .topnav a{font-size:14.5px; color:var(--ink-2); border:0; white-space:nowrap; padding:6px 0}
 .topnav a:hover{color:var(--blue-ink)}
 
-.lang{display:inline-flex; gap:2px; background:#EDEDF0; border-radius:100px; padding:3px; flex:none}
+.lang{display:inline-flex; gap:2px; background:#EDEDEF; border-radius:100px; padding:3px; flex:none}
 .lang button{appearance:none; border:0; background:none; cursor:pointer; font:inherit; font-size:13px; font-weight:600;
   color:var(--ink-3); padding:5px 11px; border-radius:100px; min-height:38px; display:inline-flex; align-items:center; gap:7px;
   transition:background .18s, color .18s}
@@ -63,13 +63,13 @@ small{font-size:13.5px; color:var(--ink-3)}
 @media(max-width:420px){.lang .cd{display:none} .lang button{padding:5px 9px}}
 
 .hero{padding:96px 0 40px}
-.eyebrow{display:inline-flex; align-items:center; gap:8px; font-size:13px; font-weight:600; letter-spacing:.04em; text-transform:uppercase; color:var(--blue-ink); background:rgba(0,113,227,.09); padding:7px 14px; border-radius:100px; margin-bottom:26px}
+.eyebrow{display:inline-flex; align-items:center; gap:8px; font-size:13px; font-weight:600; letter-spacing:.04em; text-transform:uppercase; color:var(--blue-ink); background:rgba(127,29,29,.07); padding:7px 14px; border-radius:100px; margin-bottom:26px}
 .lede{font-size:clamp(19px,2.3vw,23px); color:var(--ink-2); max-width:720px; margin-top:26px}
 .cta{display:flex; gap:12px; flex-wrap:wrap; margin-top:32px}
 .btn{display:inline-flex; align-items:center; justify-content:center; min-height:48px; padding:0 26px; border-radius:100px;
   font-size:16px; font-weight:600; border:1px solid transparent; cursor:pointer; transition:transform .18s cubic-bezier(.2,.7,.3,1), background .18s, box-shadow .18s}
 .btn-p{background:var(--blue); color:#fff; border-color:var(--blue)}
-.btn-p:hover{background:var(--blue-ink); transform:translateY(-1px); box-shadow:0 6px 18px rgba(0,113,227,.28)}
+.btn-p:hover{background:var(--blue-ink); transform:translateY(-1px); box-shadow:0 6px 18px rgba(127,29,29,.28)}
 .btn-s{background:var(--surface); color:var(--ink); border-color:var(--line)}
 .btn-s:hover{transform:translateY(-1px); box-shadow:var(--shadow-h)}
 
@@ -86,7 +86,7 @@ section{padding:56px 0; scroll-margin-top:76px}
 .kicker{font-size:12.5px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-3); margin-bottom:12px}
 
 .ico{width:40px; height:40px; border-radius:12px; display:flex; align-items:center; justify-content:center; margin-bottom:16px;
-  background:rgba(0,113,227,.09); color:var(--blue-ink)}
+  background:rgba(127,29,29,.07); color:var(--blue-ink)}
 .ico svg{width:22px; height:22px; stroke-width:1.6}
 .ico.v{background:rgba(94,92,230,.10); color:var(--violet)}
 .ico.g{background:rgba(30,142,62,.10); color:var(--green)}
@@ -104,7 +104,7 @@ ul.tick li::before{content:""; position:absolute; left:3px; top:9px; width:8px; 
 .team{display:grid; grid-template-columns:repeat(3,1fr); gap:18px}
 @media(max-width:860px){.team{grid-template-columns:1fr}}
 .person{background:var(--surface); border:1px solid var(--line); border-radius:var(--r-lg); padding:26px; box-shadow:var(--shadow); text-align:left}
-.person .av{width:60px; height:60px; border-radius:50%; background:linear-gradient(135deg,#E8EEF8,#DADBF8); margin-bottom:16px;
+.person .av{width:60px; height:60px; border-radius:50%; background:#0A0A0A; margin-bottom:16px;
   display:flex; align-items:center; justify-content:center; color:var(--violet); font-weight:600; font-size:19px}
 .person .nm{font-weight:600; font-size:17px}
 .person .rl{color:var(--ink-3); font-size:14.5px; margin-top:2px}
@@ -123,6 +123,54 @@ footer .wrap{display:flex; gap:18px; justify-content:space-between; flex-wrap:wr
 .reveal{opacity:1}
 .js .reveal{opacity:0; transform:translateY(20px)}
 @media (prefers-reduced-motion:reduce){.js .reveal{opacity:1 !important; transform:none !important}}
+
+/* ===== Единый стиль серии: чёрный, белый, тёмно-красный акцент ===== */
+:root{color-scheme:light;
+  --x-ink:#0A0A0A;--x-ink-2:#3F3F46;--x-ink-3:#71717A;--x-paper:#FFFFFF;--x-bg:#FAFAFA;--x-soft:#F4F4F5;--x-line:#E4E4E7;--x-line-2:#D4D4D8;
+  --x-red:#7F1D1D;--x-red-deep:#5F1414;--x-red-soft:#F7EDED;--x-red-line:#E8CFCF;}
+::selection{background:var(--x-red);color:#fff}
+body{background:var(--x-bg);color:var(--x-ink)}
+h1{font-weight:800;letter-spacing:-.03em}
+h1 span{color:var(--x-red)}
+a{color:var(--x-red)}
+a:hover{color:var(--x-red-deep)}
+a:focus-visible,button:focus-visible,summary:focus-visible,select:focus-visible,input:focus-visible{outline-color:var(--x-red)}
+.hero{background:var(--x-paper);border-bottom:1px solid var(--x-line)}
+.eyebrow{color:var(--x-red);background:none;padding:0;border-radius:0;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
+thead th{background:var(--x-ink);color:#fff;border-bottom-color:var(--x-ink)}
+/* навигация — чёрная полоса */
+.toc,nav.topnav,.topbar{background:rgba(10,10,10,.94);border-bottom:1px solid #000;-webkit-backdrop-filter:saturate(140%) blur(16px);backdrop-filter:saturate(140%) blur(16px)}
+.toc a,.topnav a{color:#D4D4D8}
+.toc a:hover,.topnav a:hover{color:#fff;background:rgba(255,255,255,.08);text-decoration:none}
+.toc a:focus-visible,.topnav a:focus-visible{outline-color:#fff}
+.brand{color:#fff}
+/* нумераторы шагов — чёрные */
+.steps li::before,ol.steps li::before,.step::before{background:var(--x-ink);color:#fff}
+/* статусы: серый → чёрный → бледно-красный → тёмно-красный */
+.chip-ok,.chip-green,.b-ok,.b-green{background:#EDEDEF;color:var(--x-ink);border-color:var(--x-line-2)}
+.chip-warn,.chip-amber,.b-mid,.b-amber{background:var(--x-red-soft);color:var(--x-red);border-color:var(--x-red-line)}
+.chip-bad,.chip-red,.b-bad,.b-red{background:var(--x-red);color:#fff;border-color:var(--x-red)}
+.chip-cat,.chip-blue,.b-blue,.b-violet{background:var(--x-paper);color:var(--x-ink-2);border-color:var(--x-line-2);box-shadow:inset 0 0 0 1px var(--x-line-2)}
+.chip-mute,.b-low,.b-gray{background:var(--x-soft);color:var(--x-ink-2);border-color:var(--x-line)}
+/* — поправки страницы — */
+a{border-bottom-color:rgba(127,29,29,.28)}
+a:hover{border-bottom-color:var(--x-red)}
+.btn-p{background:var(--x-ink);border-color:var(--x-ink);color:#fff}
+.btn-p:hover{background:var(--x-red);border-color:var(--x-red);color:#fff;box-shadow:0 6px 18px rgba(0,0,0,.18)}
+.btn-s{color:var(--x-ink)}
+.ico{background:var(--x-red-soft);color:var(--x-red)}
+.ico.v,.ico.g{background:var(--x-soft);color:var(--x-ink)}
+.person .av{background:var(--x-ink);color:#fff}
+.note{background:var(--x-red-soft);border-color:var(--x-red-line);color:#3B0D0D}
+.note.blue{background:var(--x-soft);border-color:var(--x-line);color:var(--x-ink-2)}
+.lang{background:rgba(255,255,255,.08)}
+.lang button{color:#A1A1AA}
+.lang button:hover{color:#fff;background:rgba(255,255,255,.10)}
+.lang button[aria-pressed="true"]{background:#fff;color:var(--x-ink)}
+.lang button:focus-visible{outline-color:#fff}
+.hero{padding-bottom:56px}
+.topbar .topnav{background:none;border:0;-webkit-backdrop-filter:none;backdrop-filter:none}
+.topbar .topnav a:hover{background:none}
 </style>
 </head>
 <body>

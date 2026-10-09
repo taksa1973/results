@@ -13,11 +13,11 @@
 <script>document.documentElement.classList.add('js-anim');</script>
 <style>
 :root{
-  --page-bg:#F5F5F7; --surface:#FFFFFF; --text-1:#1D1D1F; --text-2:#6E6E73; --text-3:#AEAEB2;
-  --blue:#0071E3; --border:rgba(0,0,0,0.08);
-  --ok:#1D7A3F; --ok-bg:#E8F5EC; --mid:#9A5B00; --mid-bg:#FFF3DF; --low:#5B5B60; --low-bg:#EFEFF2; --bad:#B42318; --bad-bg:#FDECEA;
-  --shadow:0 1px 2px rgba(0,0,0,0.04),0 8px 24px rgba(0,0,0,0.05);
-  --shadow-hover:0 2px 4px rgba(0,0,0,0.05),0 16px 40px rgba(0,0,0,0.09);
+  --page-bg:#FAFAFA; --surface:#FFFFFF; --text-1:#0A0A0A; --text-2:#52525B; --text-3:#71717A;
+  --blue:#7F1D1D; --border:rgba(0,0,0,0.10);
+  --ok:#0A0A0A; --ok-bg:#EDEDEF; --mid:#7F1D1D; --mid-bg:#F7EDED; --low:#3F3F46; --low-bg:#F4F4F5; --bad:#FFFFFF; --bad-bg:#7F1D1D;
+  --shadow:0 1px 2px rgba(0,0,0,.04),0 6px 20px rgba(0,0,0,.05);
+  --shadow-hover:0 2px 4px rgba(0,0,0,.06),0 14px 36px rgba(0,0,0,.09);
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -90,7 +90,7 @@ td b{font-weight:600}
 .script .head h3{font-size:16px}
 .script .body{display:grid;grid-template-columns:1fr 1fr}
 .script .col{padding:20px 22px;font-size:14.5px;line-height:1.6;white-space:pre-wrap;color:var(--text-1)}
-.script .col:first-child{border-right:1px solid var(--border);background:#FAFAFC}
+.script .col:first-child{border-right:1px solid var(--border);background:#F4F4F5}
 .script .lbl{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--text-3);font-weight:700;margin-bottom:10px}
 .timeline{position:relative;padding-left:28px}
 .timeline::before{content:"";position:absolute;left:8px;top:6px;bottom:6px;width:2px;background:var(--border)}
@@ -107,7 +107,7 @@ td b{font-weight:600}
 .note{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:20px 24px;color:var(--text-2);font-size:14px}
 .note b{color:var(--text-1);font-weight:600}
 .warn{border-left:4px solid var(--mid)}
-.open{background:linear-gradient(180deg,#FFFFFF 0%,#F9F9FB 100%)}
+.open{background:#FFFFFF}
 .sources ol{margin:0;padding-left:22px;columns:2;column-gap:36px;font-size:13.5px;color:var(--text-2)}
 .sources li{break-inside:avoid;margin-bottom:10px;line-height:1.45}
 .sources li a{color:var(--text-1);word-break:break-word}
@@ -135,13 +135,50 @@ footer{padding:36px 0 56px;color:var(--text-3);font-size:13px}
   .script .body{grid-template-columns:1fr}
   .script .col:first-child{border-right:none;border-bottom:1px solid var(--border)}
 }
+
+/* ===== Единый стиль серии: чёрный, белый, тёмно-красный акцент ===== */
+:root{color-scheme:light;
+  --x-ink:#0A0A0A;--x-ink-2:#3F3F46;--x-ink-3:#71717A;--x-paper:#FFFFFF;--x-bg:#FAFAFA;--x-soft:#F4F4F5;--x-line:#E4E4E7;--x-line-2:#D4D4D8;
+  --x-red:#7F1D1D;--x-red-deep:#5F1414;--x-red-soft:#F7EDED;--x-red-line:#E8CFCF;}
+::selection{background:var(--x-red);color:#fff}
+body{background:var(--x-bg);color:var(--x-ink)}
+h1{font-weight:800;letter-spacing:-.03em}
+h1 span{color:var(--x-red)}
+a{color:var(--x-red)}
+a:hover{color:var(--x-red-deep)}
+a:focus-visible,button:focus-visible,summary:focus-visible,select:focus-visible,input:focus-visible{outline-color:var(--x-red)}
+.hero{background:var(--x-paper);border-bottom:1px solid var(--x-line)}
+.eyebrow{color:var(--x-red);background:none;padding:0;border-radius:0;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
+thead th{background:var(--x-ink);color:#fff;border-bottom-color:var(--x-ink)}
+/* навигация — чёрная полоса */
+.toc,nav.topnav,.topbar{background:rgba(10,10,10,.94);border-bottom:1px solid #000;-webkit-backdrop-filter:saturate(140%) blur(16px);backdrop-filter:saturate(140%) blur(16px)}
+.toc a,.topnav a{color:#D4D4D8}
+.toc a:hover,.topnav a:hover{color:#fff;background:rgba(255,255,255,.08);text-decoration:none}
+.toc a:focus-visible,.topnav a:focus-visible{outline-color:#fff}
+.brand{color:#fff}
+/* нумераторы шагов — чёрные */
+.steps li::before,ol.steps li::before,.step::before{background:var(--x-ink);color:#fff}
+/* статусы: серый → чёрный → бледно-красный → тёмно-красный */
+.chip-ok,.chip-green,.b-ok,.b-green{background:#EDEDEF;color:var(--x-ink);border-color:var(--x-line-2)}
+.chip-warn,.chip-amber,.b-mid,.b-amber{background:var(--x-red-soft);color:var(--x-red);border-color:var(--x-red-line)}
+.chip-bad,.chip-red,.b-bad,.b-red{background:var(--x-red);color:#fff;border-color:var(--x-red)}
+.chip-cat,.chip-blue,.b-blue,.b-violet{background:var(--x-paper);color:var(--x-ink-2);border-color:var(--x-line-2);box-shadow:inset 0 0 0 1px var(--x-line-2)}
+.chip-mute,.b-low,.b-gray{background:var(--x-soft);color:var(--x-ink-2);border-color:var(--x-line)}
+/* — поправки страницы — */
+.card{border-radius:16px}
+.step,.script,.note,table,.table-wrap{border-radius:14px}
+.quote{border-left-color:var(--x-red)}
+.script .col:first-child{background:var(--x-soft)}
+.open{background:var(--x-paper);border-top:1px solid var(--x-line);border-bottom:1px solid var(--x-line)}
+.warn{border-left-color:var(--x-red)}
+.card .ic{background:var(--x-soft)}
 </style>
 </head>
 <body>
 
 <header class="hero">
   <div class="wrap">
-    <p class="eyebrow">Исследование · 8 октября 2026</p>
+    <p class="eyebrow">Исследование</p>
     <h1>Донор, который платит: <span>где можно спонсировать ЭКО</span> со своим материалом и сколько детей это даст</h1>
     <p class="lead">Цель переформулирована: вы сдаёте семя, оплачиваете циклы женщинам, которые выберут ваш образец, и получаете много биологических детей, которых не знаете. Это схема Дурова. Разобрали по первоисточникам три вещи, которые её ограничивают: лимит детей на одного донора в каждой стране, возрастной потолок для донора и право реципиентки выбрать именно ваш образец. Затем посчитали цену одного ребёнка и собрали план переговоров.</p>
     <div class="quote"><b>Короткий итог.</b> Без законодательного лимита на число детей от одного донора живут Россия, США, Мексика, Грузия, Аргентина и Украина; в России и Казахстане донором можно стать только до 35 лет, в Бразилии и Великобритании до 45, в США для направленного донора возрастного закона нет. Спонсорство «именно моего образца» работает только там, где реципиентка выбирает донора по каталогу: Россия, Казахстан, США, Великобритания, Бразилия, Грузия, Аргентина, Мексика; в Испании, Франции, Чехии и Греции донора подбирает клиника, и привязать бесплатный цикл к вам нельзя. Самый дешёвый ребёнок получается через внутриматочную инсеминацию в Грузии, Казахстане, Аргентине и Бразилии, самый дорогой через ЭКО в США. Дуров получил больше ста детей за пятнадцать лет вообще без спонсорства, просто стоя в каталоге банка в стране без лимита; деньги лишь убирают у женщин барьер цены. <b>Цель в 100 детей</b> при ваших условиях (Россия только через пересылку материала, приоритет вне Европы и США) собирается из четырёх стран без законодательного лимита — Грузия, Мексика, Аргентина плюс дом в Бразилии с региональным потолком — и стоит от $0,3 млн через инсеминацию до $1–1,5 млн через ЭКО, при сроке 3–6 лет. <b>Ваши вводные получены:</b> до 35 лет, 100 детей, несколько стран. С таким возрастом открыты все рынки, поэтому порядок задаёт не право, а календарь: первыми идут страны, где окно донора закрывается раньше всего — Казахстан (до 35) и мексиканские банки (до 32), остальные якоря возрастом не ограничены.</div>
@@ -792,7 +829,7 @@ Atentamente, [Nombre], [teléfono], [e-mail]</div>
 </main>
 
 <footer>
-  <div class="wrap">Собрано 8 октября 2026 по открытым источникам, план на 100 детей добавлен в тот же день. Лимиты, возрастные пороги и цены меняются — перед контактом с клиникой перепроверяйте на сайтах. Страница не заменяет консультацию юриста по семейному и медицинскому праву страны клиники.</div>
+  <div class="wrap">Собрано по открытым источникам. Лимиты, возрастные пороги и цены меняются — перед контактом с клиникой перепроверяйте на сайтах. Страница не заменяет консультацию юриста по семейному и медицинскому праву страны клиники.</div>
 </footer>
 
 
