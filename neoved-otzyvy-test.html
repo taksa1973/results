@@ -948,7 +948,9 @@ alt='' imgfield='tn_img_1788879745416000004'
      и подписью «Личные данные скрываем…». Заголовок и подпись на странице уже есть.
      Картинки лежат по адресу IMG-префикса ниже — при переносе заменить префикс целиком. -->
 <style>
-.nvr{--nvr-ink:#110000;--nvr-red:#EE0000;--nvr-card:#EEEEEE;--nvr-line:#E5E5E5;--nvr-gap:20px;--nvr-w:373.33px;--nvr-pad:max(20px,calc((100% - 1160px) / 2));position:relative;padding:0 0 34px;font-family:'Onest',Arial,sans-serif;color:var(--nvr-ink);-webkit-font-smoothing:antialiased}
+.nvr{--nvr-ink:#110000;--nvr-red:#EE0000;--nvr-card:#EEEEEE;--nvr-line:#E5E5E5;--nvr-gap:20px;--nvr-w:373.33px;--nvr-box:1160px;--nvr-pad:max(20px,calc((100% - var(--nvr-box)) / 2));position:relative;container-type:inline-size;padding:0 0 34px;font-family:'Onest',Arial,sans-serif;color:var(--nvr-ink);-webkit-font-smoothing:antialiased}
+/* отступ ленты считаем от ширины самого блока (cqw): проценты у отступа, у распорки в конце и у стрелок берутся от разных родителей */
+@supports (width:1cqw){.nvr{--nvr-pad:max(20px,calc((100cqw - var(--nvr-box)) / 2))}}
 .nvr *,.nvr *::before,.nvr *::after{box-sizing:border-box}
 .nvr__track{display:flex;gap:var(--nvr-gap);margin:0;padding:8px 0 16px var(--nvr-pad);list-style:none;overflow-x:auto;overflow-y:hidden;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;scroll-padding-left:var(--nvr-pad);scrollbar-width:none;-webkit-overflow-scrolling:touch}
 .nvr__track::-webkit-scrollbar{display:none}
@@ -970,7 +972,14 @@ alt='' imgfield='tn_img_1788879745416000004'
 .nvr__nav:focus-visible{outline:3px solid var(--nvr-red);outline-offset:3px}
 .nvr__nav:disabled{opacity:0;pointer-events:none}
 .nvr__dots{display:none}
-@media (max-width:1199px){.nvr{--nvr-w:310px;--nvr-pad:max(20px,calc((100% - 640px) / 2))}.nvr__card{gap:10px;padding:12px}.nvr__tag{padding:5px 10px;border-radius:14px;font-size:13px;line-height:16px;letter-spacing:-.2px}}
+@media (hover:hover) and (pointer:fine){.nvr__track{cursor:grab}.nvr-lb__img{cursor:grab}}
+.nvr.is-settling .nvr__track{scroll-snap-type:none}
+.nvr.is-dragging .nvr__track,.nvr.is-dragging .nvr__shot{cursor:grabbing;-webkit-user-select:none;user-select:none}
+.nvr.is-dragging .nvr__card{transform:none;box-shadow:none}
+.nvr.is-dragging .nvr__zoom{opacity:0}
+.nvr__shot img,.nvr-lb__img{-webkit-user-drag:none;-webkit-user-select:none;user-select:none}
+.nvr-lb.is-dragging,.nvr-lb.is-dragging *{cursor:grabbing}
+@media (max-width:1199px){.nvr{--nvr-w:310px;--nvr-box:640px}.nvr__card{gap:10px;padding:12px}.nvr__tag{padding:5px 10px;border-radius:14px;font-size:13px;line-height:16px;letter-spacing:-.2px}}
 @media (max-width:639px){
 .nvr{--nvr-gap:12px;--nvr-pad:20px;--nvr-w:min(340px,calc((100vw - 32px) / 1.125));padding-bottom:16px}
 .nvr__card{gap:10px;padding:12px;border-radius:25px}
@@ -1015,31 +1024,31 @@ alt='' imgfield='tn_img_1788879745416000004'
     <li class="nvr__item">
       <figure class="nvr__card">
         <figcaption class="nvr__head"><span class="nvr__tag">Международный платеж в USDC (ERC-20)</span></figcaption>
-        <button class="nvr__shot" type="button" data-full="https://taksa1973.github.io/results/img/neoved-otzyvy/otzyv-1.webp" aria-label="Открыть скриншот крупно: международный платеж в USDC (ERC-20)"><img src="https://taksa1973.github.io/results/img/neoved-otzyvy/otzyv-1-720.webp" srcset="https://taksa1973.github.io/results/img/neoved-otzyvy/otzyv-1-720.webp 720w, https://taksa1973.github.io/results/img/neoved-otzyvy/otzyv-1.webp 1080w" sizes="(max-width: 639px) 300px, (max-width: 1199px) 280px, 343px" width="1080" height="2424" loading="lazy" decoding="async" alt="Переписка в Telegram: клиент благодарит за международный платеж в USDC и обещает рекомендовать neoved друзьям"><span class="nvr__zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 14 14" fill="none"><path d="M8.5 1.5h4v4M5.5 12.5h-4v-4M12.5 1.5 8 6M1.5 12.5 6 8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
+        <button class="nvr__shot" type="button" data-full="https://taksa1973.github.io/results/img/neoved-otzyvy/otzyv-1.webp" aria-label="Открыть скриншот крупно: международный платеж в USDC (ERC-20)"><img src="https://taksa1973.github.io/results/img/neoved-otzyvy/otzyv-1-720.webp" srcset="https://taksa1973.github.io/results/img/neoved-otzyvy/otzyv-1-720.webp 720w, https://taksa1973.github.io/results/img/neoved-otzyvy/otzyv-1.webp 1080w" sizes="(max-width: 639px) 300px, (max-width: 1199px) 280px, 343px" width="1080" height="2424" loading="lazy" decoding="async" draggable="false" alt="Переписка в Telegram: клиент благодарит за международный платеж в USDC и обещает рекомендовать neoved друзьям"><span class="nvr__zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 14 14" fill="none"><path d="M8.5 1.5h4v4M5.5 12.5h-4v-4M12.5 1.5 8 6M1.5 12.5 6 8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
       </figure>
     </li>
     <li class="nvr__item">
       <figure class="nvr__card">
         <figcaption class="nvr__head"><span class="nvr__tag">Международный платеж в EUR</span></figcaption>
-        <button class="nvr__shot" type="button" data-full="https://taksa1973.github.io/results/img/neoved-otzyvy/otzyv-2.webp" aria-label="Открыть скриншот крупно: международный платеж в EUR"><img src="https://taksa1973.github.io/results/img/neoved-otzyvy/otzyv-2-720.webp" srcset="https://taksa1973.github.io/results/img/neoved-otzyvy/otzyv-2-720.webp 720w, https://taksa1973.github.io/results/img/neoved-otzyvy/otzyv-2.webp 1080w" sizes="(max-width: 639px) 300px, (max-width: 1199px) 280px, 343px" width="1080" height="2424" loading="lazy" decoding="async" alt="Групповой чат в Telegram: вуз подтвердил получение оплаты в EUR, клиент пишет «Спасибо огромное за помощь! Вы крутые!»"><span class="nvr__zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 14 14" fill="none"><path d="M8.5 1.5h4v4M5.5 12.5h-4v-4M12.5 1.5 8 6M1.5 12.5 6 8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
+        <button class="nvr__shot" type="button" data-full="https://taksa1973.github.io/results/img/neoved-otzyvy/otzyv-2.webp" aria-label="Открыть скриншот крупно: международный платеж в EUR"><img src="https://taksa1973.github.io/results/img/neoved-otzyvy/otzyv-2-720.webp" srcset="https://taksa1973.github.io/results/img/neoved-otzyvy/otzyv-2-720.webp 720w, https://taksa1973.github.io/results/img/neoved-otzyvy/otzyv-2.webp 1080w" sizes="(max-width: 639px) 300px, (max-width: 1199px) 280px, 343px" width="1080" height="2424" loading="lazy" decoding="async" draggable="false" alt="Групповой чат в Telegram: вуз подтвердил получение оплаты в EUR, клиент пишет «Спасибо огромное за помощь! Вы крутые!»"><span class="nvr__zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 14 14" fill="none"><path d="M8.5 1.5h4v4M5.5 12.5h-4v-4M12.5 1.5 8 6M1.5 12.5 6 8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
       </figure>
     </li>
     <li class="nvr__item">
       <figure class="nvr__card">
         <figcaption class="nvr__head"><span class="nvr__tag">Международный платеж в USDT (TRC-20)</span></figcaption>
-        <button class="nvr__shot" type="button" data-full="https://taksa1973.github.io/results/img/neoved-otzyvy/otzyv-3.webp" aria-label="Открыть скриншот крупно: международный платеж в USDT (TRC-20)"><img src="https://taksa1973.github.io/results/img/neoved-otzyvy/otzyv-3-720.webp" srcset="https://taksa1973.github.io/results/img/neoved-otzyvy/otzyv-3-720.webp 720w, https://taksa1973.github.io/results/img/neoved-otzyvy/otzyv-3.webp 1080w" sizes="(max-width: 639px) 300px, (max-width: 1199px) 280px, 343px" width="1080" height="2424" loading="lazy" decoding="async" alt="Переписка в Telegram: поручение исполнено, клиент отвечает «Урааа» и «Спасибо»"><span class="nvr__zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 14 14" fill="none"><path d="M8.5 1.5h4v4M5.5 12.5h-4v-4M12.5 1.5 8 6M1.5 12.5 6 8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
+        <button class="nvr__shot" type="button" data-full="https://taksa1973.github.io/results/img/neoved-otzyvy/otzyv-3.webp" aria-label="Открыть скриншот крупно: международный платеж в USDT (TRC-20)"><img src="https://taksa1973.github.io/results/img/neoved-otzyvy/otzyv-3-720.webp" srcset="https://taksa1973.github.io/results/img/neoved-otzyvy/otzyv-3-720.webp 720w, https://taksa1973.github.io/results/img/neoved-otzyvy/otzyv-3.webp 1080w" sizes="(max-width: 639px) 300px, (max-width: 1199px) 280px, 343px" width="1080" height="2424" loading="lazy" decoding="async" draggable="false" alt="Переписка в Telegram: поручение исполнено, клиент отвечает «Урааа» и «Спасибо»"><span class="nvr__zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 14 14" fill="none"><path d="M8.5 1.5h4v4M5.5 12.5h-4v-4M12.5 1.5 8 6M1.5 12.5 6 8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
       </figure>
     </li>
     <li class="nvr__item">
       <figure class="nvr__card">
         <figcaption class="nvr__head"><span class="nvr__tag">Покупка криптовалюты USDT</span></figcaption>
-        <button class="nvr__shot" type="button" data-full="https://taksa1973.github.io/results/img/neoved-otzyvy/otzyv-4.webp" aria-label="Открыть скриншот крупно: покупка криптовалюты USDT"><img src="https://taksa1973.github.io/results/img/neoved-otzyvy/otzyv-4-720.webp" srcset="https://taksa1973.github.io/results/img/neoved-otzyvy/otzyv-4-720.webp 720w, https://taksa1973.github.io/results/img/neoved-otzyvy/otzyv-4.webp 1080w" sizes="(max-width: 639px) 300px, (max-width: 1199px) 280px, 343px" width="1080" height="2424" loading="lazy" decoding="async" alt="Переписка в Telegram: закрывающие документы подготовлены, клиент пишет «Спасибо большое!»"><span class="nvr__zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 14 14" fill="none"><path d="M8.5 1.5h4v4M5.5 12.5h-4v-4M12.5 1.5 8 6M1.5 12.5 6 8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
+        <button class="nvr__shot" type="button" data-full="https://taksa1973.github.io/results/img/neoved-otzyvy/otzyv-4.webp" aria-label="Открыть скриншот крупно: покупка криптовалюты USDT"><img src="https://taksa1973.github.io/results/img/neoved-otzyvy/otzyv-4-720.webp" srcset="https://taksa1973.github.io/results/img/neoved-otzyvy/otzyv-4-720.webp 720w, https://taksa1973.github.io/results/img/neoved-otzyvy/otzyv-4.webp 1080w" sizes="(max-width: 639px) 300px, (max-width: 1199px) 280px, 343px" width="1080" height="2424" loading="lazy" decoding="async" draggable="false" alt="Переписка в Telegram: закрывающие документы подготовлены, клиент пишет «Спасибо большое!»"><span class="nvr__zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 14 14" fill="none"><path d="M8.5 1.5h4v4M5.5 12.5h-4v-4M12.5 1.5 8 6M1.5 12.5 6 8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
       </figure>
     </li>
     <li class="nvr__item">
       <figure class="nvr__card">
         <figcaption class="nvr__head"><span class="nvr__tag">Международный платеж в CNY</span></figcaption>
-        <button class="nvr__shot" type="button" data-full="https://taksa1973.github.io/results/img/neoved-otzyvy/otzyv-5.webp" aria-label="Открыть скриншот крупно: международный платеж в CNY"><img src="https://taksa1973.github.io/results/img/neoved-otzyvy/otzyv-5-720.webp" srcset="https://taksa1973.github.io/results/img/neoved-otzyvy/otzyv-5-720.webp 720w, https://taksa1973.github.io/results/img/neoved-otzyvy/otzyv-5.webp 1080w" sizes="(max-width: 639px) 300px, (max-width: 1199px) 280px, 343px" width="1080" height="2424" loading="lazy" decoding="async" alt="Групповой чат в WhatsApp: клиент сообщает, что оплата в CNY поступила, и поздравляет с Новым годом"><span class="nvr__zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 14 14" fill="none"><path d="M8.5 1.5h4v4M5.5 12.5h-4v-4M12.5 1.5 8 6M1.5 12.5 6 8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
+        <button class="nvr__shot" type="button" data-full="https://taksa1973.github.io/results/img/neoved-otzyvy/otzyv-5.webp" aria-label="Открыть скриншот крупно: международный платеж в CNY"><img src="https://taksa1973.github.io/results/img/neoved-otzyvy/otzyv-5-720.webp" srcset="https://taksa1973.github.io/results/img/neoved-otzyvy/otzyv-5-720.webp 720w, https://taksa1973.github.io/results/img/neoved-otzyvy/otzyv-5.webp 1080w" sizes="(max-width: 639px) 300px, (max-width: 1199px) 280px, 343px" width="1080" height="2424" loading="lazy" decoding="async" draggable="false" alt="Групповой чат в WhatsApp: клиент сообщает, что оплата в CNY поступила, и поздравляет с Новым годом"><span class="nvr__zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 14 14" fill="none"><path d="M8.5 1.5h4v4M5.5 12.5h-4v-4M12.5 1.5 8 6M1.5 12.5 6 8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
       </figure>
     </li>
   </ul>
@@ -1089,6 +1098,65 @@ alt='' imgfield='tn_img_1788879745416000004'
   navNext.addEventListener('click', function () { track.scrollBy({ left: step(), behavior: reduce ? 'auto' : 'smooth' }); });
   sync();
 
+  // Перетаскивание мышью: схватить ленту и тянуть, после отпускания — докатить до ближайшей карточки
+  // с учётом скорости броска. Палец и перо прокручивают ленту нативно, их не трогаем.
+  var drag = null, suppressClick = false;
+  function settle(target) {
+    var done = false;
+    var finish = function () {
+      if (done) return;
+      done = true;
+      track.removeEventListener('scrollend', finish);
+      root.classList.remove('is-settling');
+    };
+    track.addEventListener('scrollend', finish);
+    setTimeout(finish, 700);
+    track.scrollTo({ left: target, behavior: reduce ? 'auto' : 'smooth' });
+    if (reduce) finish();
+  }
+  track.addEventListener('dragstart', function (e) { e.preventDefault(); });
+  track.addEventListener('pointerdown', function (e) {
+    if (e.pointerType !== 'mouse' || e.button !== 0) return;
+    drag = { x: e.clientX, left: track.scrollLeft, lastX: e.clientX, lastT: e.timeStamp, v: 0, moved: false };
+  });
+  window.addEventListener('pointermove', function (e) {
+    if (!drag) return;
+    var dx = e.clientX - drag.x;
+    if (!drag.moved) {
+      if (Math.abs(dx) < 6) return; // меньше — это клик, а не перетаскивание
+      drag.moved = true;
+      root.classList.add('is-dragging', 'is-settling');
+    }
+    e.preventDefault();
+    track.scrollLeft = drag.left - dx;
+    var dt = e.timeStamp - drag.lastT;
+    if (dt > 0) {
+      drag.v = 0.8 * ((e.clientX - drag.lastX) / dt) + 0.2 * drag.v;
+      drag.lastX = e.clientX;
+      drag.lastT = e.timeStamp;
+    }
+  });
+  function endDrag(e) {
+    if (!drag) return;
+    var d = drag;
+    drag = null;
+    if (!d.moved) return;
+    root.classList.remove('is-dragging');
+    suppressClick = true; // отпускание над карточкой не должно открывать lightbox
+    setTimeout(function () { suppressClick = false; }, 0);
+    var st = step(), max = track.scrollWidth - track.clientWidth;
+    var pos = track.scrollLeft / st;
+    var still = e.timeStamp - d.lastT > 90; // мышь остановилась перед отпусканием — без инерции
+    // Бросок — на одну карточку в его сторону; медленное перетаскивание — к ближайшей.
+    var idx = !still && Math.abs(d.v) > 0.3 ? (d.v < 0 ? Math.ceil(pos) : Math.floor(pos)) : Math.round(pos);
+    settle(Math.max(0, Math.min(max, idx * st)));
+  }
+  window.addEventListener('pointerup', endDrag);
+  window.addEventListener('pointercancel', endDrag);
+  root.addEventListener('click', function (e) {
+    if (suppressClick) { e.preventDefault(); e.stopPropagation(); suppressClick = false; }
+  }, true);
+
   slides.forEach(function (s, i) {
     s.link.addEventListener('click', function () { open(i, s.link); });
   });
@@ -1126,28 +1194,59 @@ alt='' imgfield='tn_img_1788879745416000004'
     lbPrev.addEventListener('click', function () { go(-1); });
     lbNext.addEventListener('click', function () { go(1); });
     // Закрытие кликом за пределами изображения (фон, полоса сверху, поля вокруг картинки).
-    var swiped = false;
+    var dragged = false;
     lb.addEventListener('click', function (e) {
-      if (swiped) { swiped = false; return; }
+      if (dragged) { dragged = false; return; }
       if (e.target === lb || e.target === lbStage || e.target.classList.contains('nvr-lb__bar')) close();
     });
-    // Свайп влево/вправо — листать; щипок оставляем браузеру (pinch-zoom), чтобы можно было рассмотреть текст.
-    var sx = 0, sy = 0, pointers = 0;
-    lbStage.addEventListener('pointerdown', function (e) { pointers++; sx = e.clientX; sy = e.clientY; });
-    lbStage.addEventListener('pointercancel', function () { pointers = Math.max(0, pointers - 1); });
-    lbStage.addEventListener('pointerup', function (e) {
-      var multi = pointers > 1;
-      pointers = Math.max(0, pointers - 1);
-      if (multi) return;
-      var dx = e.clientX - sx, dy = e.clientY - sy;
-      if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.5) { swiped = true; go(dx < 0 ? 1 : -1); }
+    // Перетаскивание мышью или пальцем: картинка едет за рукой; дальше 60 px — листает, иначе возвращается.
+    // Два пальца — щипок, его оставляем браузеру (pinch-zoom), чтобы можно было рассмотреть текст.
+    var sw = null, touching = {};
+    function springBack() {
+      lbImg.style.transition = 'transform .22s cubic-bezier(.22,1,.36,1)';
+      lbImg.style.transform = '';
+    }
+    lbStage.addEventListener('pointerdown', function (e) {
+      touching[e.pointerId] = true;
+      dragged = false;
+      if (Object.keys(touching).length > 1) { if (sw && sw.on) springBack(); sw = null; lb.classList.remove('is-dragging'); return; }
+      if (e.pointerType === 'mouse' && e.button !== 0) return;
+      sw = { x: e.clientX, y: e.clientY, id: e.pointerId, dx: 0, on: false };
     });
+    window.addEventListener('pointermove', function (e) {
+      if (!sw || e.pointerId !== sw.id) return;
+      var dx = e.clientX - sw.x, dy = e.clientY - sw.y;
+      if (!sw.on) {
+        if (Math.abs(dx) < 8 || Math.abs(dx) < Math.abs(dy)) return;
+        sw.on = true;
+        dragged = true;
+        lb.classList.add('is-dragging');
+      }
+      e.preventDefault();
+      sw.dx = dx;
+      lbImg.style.transition = 'none';
+      lbImg.style.transform = 'translateX(' + dx + 'px)';
+    });
+    function endSwipe(e) {
+      delete touching[e.pointerId];
+      if (!sw || e.pointerId !== sw.id) return;
+      var s = sw;
+      sw = null;
+      lb.classList.remove('is-dragging');
+      if (!s.on) return;
+      if (e.type === 'pointerup' && Math.abs(s.dx) > 60) go(s.dx < 0 ? 1 : -1);
+      else springBack();
+    }
+    window.addEventListener('pointerup', endSwipe);
+    window.addEventListener('pointercancel', endSwipe);
   }
 
   function preload(i) { var im = new Image(); im.src = slides[(i + slides.length) % slides.length].full; }
 
   function render(dir) {
     var s = slides[cur], want = cur;
+    lbImg.style.transition = '';
+    lbImg.style.transform = '';
     // Сразу показать миниатюру из карточки (она уже в кэше), полную версию подменить, когда догрузится.
     var thumb = s.img.complete && s.img.naturalWidth ? s.img.currentSrc || s.img.src : '';
     if (thumb && thumb !== s.full) {
