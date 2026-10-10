@@ -1,0 +1,299 @@
+<!-- neoved · «Отзывы без редакции»: горизонтальная галерея скриншотов + lightbox.
+     Вставляется в Tilda блоком T123 «HTML-код» между заголовком «Отзывы без редакции»
+     и подписью «Личные данные скрываем…». Заголовок и подпись на странице уже есть.
+     Картинки лежат по адресу IMG-префикса ниже — при переносе заменить префикс целиком. -->
+<style>
+.nvr{--nvr-ink:#110000;--nvr-red:#EE0000;--nvr-card:#EEEEEE;--nvr-line:#E5E5E5;--nvr-gap:20px;--nvr-w:373.33px;--nvr-pad:max(20px,calc((100% - 1160px) / 2));position:relative;padding:0 0 34px;font-family:'Onest',Arial,sans-serif;color:var(--nvr-ink);-webkit-font-smoothing:antialiased}
+.nvr *,.nvr *::before,.nvr *::after{box-sizing:border-box}
+.nvr__track{display:flex;gap:var(--nvr-gap);margin:0;padding:8px 0 16px var(--nvr-pad);list-style:none;overflow-x:auto;overflow-y:hidden;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;scroll-padding-left:var(--nvr-pad);scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.nvr__track::-webkit-scrollbar{display:none}
+.nvr__track::after{content:'';flex:0 0 max(1px,calc(var(--nvr-pad) - var(--nvr-gap)))}
+.nvr__item{flex:0 0 var(--nvr-w);margin:0;padding:0;scroll-snap-align:start}
+.nvr__card{display:flex;flex-direction:column;gap:12px;height:100%;margin:0;padding:15px;border-radius:30px;background:var(--nvr-card);transition:transform .25s cubic-bezier(.22,1,.36,1),box-shadow .25s ease}
+.nvr__head{display:flex;min-height:30px}
+.nvr__tag{display:inline-block;padding:5px 14px;border:1px solid #EDDEDE;border-radius:15px;background:#FFF0F0;color:var(--nvr-red);font-size:15px;line-height:18px;font-weight:500}
+.nvr__zoom{position:absolute;top:12px;right:12px;display:grid;place-items:center;width:40px;height:40px;border-radius:50%;background:#fff;color:var(--nvr-ink);box-shadow:0 6px 18px -8px rgba(17,0,0,.45);opacity:0;transform:scale(.85);transition:opacity .2s ease,transform .2s ease,background .2s ease,color .2s ease;pointer-events:none}
+.nvr__shot{position:relative;display:block;width:100%;margin:0;padding:0;border:0;border-radius:18px;background:none;font:inherit;color:inherit;line-height:0;text-align:left;cursor:zoom-in;-webkit-tap-highlight-color:transparent;-webkit-appearance:none;appearance:none;outline:none}
+.nvr__shot img{display:block;width:100%;height:auto;aspect-ratio:1080/2424;border-radius:18px;background:#DADADA}
+.nvr__shot:focus-visible{outline:3px solid var(--nvr-red);outline-offset:3px}
+@media (hover:hover){.nvr__card:hover{transform:translateY(-4px);box-shadow:0 22px 44px -26px rgba(17,0,0,.45)}.nvr__card:hover .nvr__zoom{opacity:1;transform:none;background:var(--nvr-red);color:#fff}}
+.nvr__shot:focus-visible .nvr__zoom{opacity:1;transform:none}
+.nvr__nav{position:absolute;top:50%;z-index:3;display:grid;place-items:center;width:52px;height:52px;margin:-34px 0 0;padding:0;border:1px solid var(--nvr-line);border-radius:50%;background:#fff;color:var(--nvr-ink);cursor:pointer;box-shadow:0 10px 26px -12px rgba(17,0,0,.35);transition:opacity .2s ease,background .2s ease,color .2s ease,border-color .2s ease}
+.nvr__nav--prev{left:calc(var(--nvr-pad) - 26px)}
+.nvr__nav--next{right:calc(var(--nvr-pad) - 26px)}
+.nvr__nav:hover{background:var(--nvr-red);border-color:var(--nvr-red);color:#fff}
+.nvr__nav:focus-visible{outline:3px solid var(--nvr-red);outline-offset:3px}
+.nvr__nav:disabled{opacity:0;pointer-events:none}
+.nvr__dots{display:none}
+@media (max-width:1199px){.nvr{--nvr-w:310px;--nvr-pad:max(20px,calc((100% - 640px) / 2))}.nvr__card{gap:10px;padding:12px}.nvr__tag{padding:5px 10px;border-radius:14px;font-size:13px;line-height:16px;letter-spacing:-.2px}}
+@media (max-width:639px){
+.nvr{--nvr-gap:12px;--nvr-pad:20px;--nvr-w:min(340px,calc((100vw - 32px) / 1.125));padding-bottom:16px}
+.nvr__card{gap:10px;padding:12px;border-radius:25px}
+.nvr__head{min-height:28px}
+.nvr__shot,.nvr__shot img{border-radius:14px}
+.nvr__nav{display:none}
+.nvr__dots{display:flex;justify-content:center;gap:8px;margin-top:2px}
+.nvr__dots i{width:8px;height:8px;border-radius:50%;background:#D9D9D9;transition:background .2s ease}
+.nvr__dots i.is-on{background:var(--nvr-red)}
+}
+@media (max-width:379px){.nvr__tag{font-size:12px;line-height:15px}}
+.nvr-lb{position:fixed;inset:0;z-index:2147483000;display:flex;flex-direction:column;background:rgba(12,10,10,.92);font-family:'Onest',Arial,sans-serif;color:#fff;-webkit-font-smoothing:antialiased}
+.nvr-lb[hidden]{display:none}
+.nvr-lb *,.nvr-lb *::before,.nvr-lb *::after{box-sizing:border-box}
+.nvr-lb__bar{flex:none;display:flex;align-items:center;gap:14px;min-height:72px;padding:14px 16px 10px 24px}
+.nvr-lb__tag{min-width:0;padding:5px 14px;border-radius:15px;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.08);font-size:15px;line-height:18px;font-weight:500}
+.nvr-lb__count{flex:none;font-size:15px;line-height:18px;color:rgba(255,255,255,.62);font-variant-numeric:tabular-nums;white-space:nowrap}
+.nvr-lb__btn{display:grid;place-items:center;width:52px;height:52px;margin:0;padding:0;border:0;border-radius:50%;background:rgba(255,255,255,.12);color:#fff;cursor:pointer;transition:background .2s ease,color .2s ease}
+.nvr-lb__btn:hover{background:var(--nvr-red,#EE0000)}
+.nvr-lb__btn:focus-visible{outline:3px solid #fff;outline-offset:3px}
+.nvr-lb__close{flex:none;margin-left:auto;width:44px;height:44px}
+.nvr-lb__prev,.nvr-lb__next{position:absolute;top:50%;margin-top:-26px;background:#fff;color:#110000}
+.nvr-lb__prev:hover,.nvr-lb__next:hover{background:#EE0000;color:#fff}
+.nvr-lb__prev{left:24px}
+.nvr-lb__next{right:24px}
+.nvr-lb__stage{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;padding:0 100px 24px;touch-action:pan-y pinch-zoom}
+.nvr-lb__img{display:block;width:auto;height:auto;max-width:100%;max-height:calc(100vh - 96px);max-height:calc(100dvh - 96px);border-radius:16px;box-shadow:0 30px 80px -24px rgba(0,0,0,.7);background:#2a2626;-webkit-user-drag:none;user-select:none}
+@media (max-width:639px){
+.nvr-lb__bar{min-height:60px;gap:10px;padding:8px 8px 8px 12px}
+.nvr-lb__tag{padding:4px 11px;font-size:13px;line-height:16px}
+.nvr-lb__count{font-size:13px}
+.nvr-lb__stage{padding:0 12px 88px}
+.nvr-lb__img{max-height:calc(100vh - 156px);max-height:calc(100dvh - 156px);border-radius:12px}
+.nvr-lb__prev,.nvr-lb__next{top:auto;bottom:max(16px,env(safe-area-inset-bottom));margin:0}
+.nvr-lb__prev{left:calc(50% - 64px)}
+.nvr-lb__next{right:calc(50% - 64px)}
+}
+</style>
+
+<div class="nvr" id="nvr" data-nvr>
+  <ul class="nvr__track" aria-label="Скриншоты сообщений клиентов">
+    <li class="nvr__item">
+      <figure class="nvr__card">
+        <figcaption class="nvr__head"><span class="nvr__tag">Международный платеж в USDC (ERC-20)</span></figcaption>
+        <button class="nvr__shot" type="button" data-full="https://taksa1973.github.io/results/img/neoved-otzyvy/otzyv-1.webp" aria-label="Открыть скриншот крупно: международный платеж в USDC (ERC-20)"><img src="https://taksa1973.github.io/results/img/neoved-otzyvy/otzyv-1-720.webp" srcset="https://taksa1973.github.io/results/img/neoved-otzyvy/otzyv-1-720.webp 720w, https://taksa1973.github.io/results/img/neoved-otzyvy/otzyv-1.webp 1080w" sizes="(max-width: 639px) 300px, (max-width: 1199px) 280px, 343px" width="1080" height="2424" loading="lazy" decoding="async" alt="Переписка в Telegram: клиент благодарит за международный платеж в USDC и обещает рекомендовать neoved друзьям"><span class="nvr__zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 14 14" fill="none"><path d="M8.5 1.5h4v4M5.5 12.5h-4v-4M12.5 1.5 8 6M1.5 12.5 6 8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
+      </figure>
+    </li>
+    <li class="nvr__item">
+      <figure class="nvr__card">
+        <figcaption class="nvr__head"><span class="nvr__tag">Международный платеж в EUR</span></figcaption>
+        <button class="nvr__shot" type="button" data-full="https://taksa1973.github.io/results/img/neoved-otzyvy/otzyv-2.webp" aria-label="Открыть скриншот крупно: международный платеж в EUR"><img src="https://taksa1973.github.io/results/img/neoved-otzyvy/otzyv-2-720.webp" srcset="https://taksa1973.github.io/results/img/neoved-otzyvy/otzyv-2-720.webp 720w, https://taksa1973.github.io/results/img/neoved-otzyvy/otzyv-2.webp 1080w" sizes="(max-width: 639px) 300px, (max-width: 1199px) 280px, 343px" width="1080" height="2424" loading="lazy" decoding="async" alt="Групповой чат в Telegram: вуз подтвердил получение оплаты в EUR, клиент пишет «Спасибо огромное за помощь! Вы крутые!»"><span class="nvr__zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 14 14" fill="none"><path d="M8.5 1.5h4v4M5.5 12.5h-4v-4M12.5 1.5 8 6M1.5 12.5 6 8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
+      </figure>
+    </li>
+    <li class="nvr__item">
+      <figure class="nvr__card">
+        <figcaption class="nvr__head"><span class="nvr__tag">Международный платеж в USDT (TRC-20)</span></figcaption>
+        <button class="nvr__shot" type="button" data-full="https://taksa1973.github.io/results/img/neoved-otzyvy/otzyv-3.webp" aria-label="Открыть скриншот крупно: международный платеж в USDT (TRC-20)"><img src="https://taksa1973.github.io/results/img/neoved-otzyvy/otzyv-3-720.webp" srcset="https://taksa1973.github.io/results/img/neoved-otzyvy/otzyv-3-720.webp 720w, https://taksa1973.github.io/results/img/neoved-otzyvy/otzyv-3.webp 1080w" sizes="(max-width: 639px) 300px, (max-width: 1199px) 280px, 343px" width="1080" height="2424" loading="lazy" decoding="async" alt="Переписка в Telegram: поручение исполнено, клиент отвечает «Урааа» и «Спасибо»"><span class="nvr__zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 14 14" fill="none"><path d="M8.5 1.5h4v4M5.5 12.5h-4v-4M12.5 1.5 8 6M1.5 12.5 6 8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
+      </figure>
+    </li>
+    <li class="nvr__item">
+      <figure class="nvr__card">
+        <figcaption class="nvr__head"><span class="nvr__tag">Покупка криптовалюты USDT</span></figcaption>
+        <button class="nvr__shot" type="button" data-full="https://taksa1973.github.io/results/img/neoved-otzyvy/otzyv-4.webp" aria-label="Открыть скриншот крупно: покупка криптовалюты USDT"><img src="https://taksa1973.github.io/results/img/neoved-otzyvy/otzyv-4-720.webp" srcset="https://taksa1973.github.io/results/img/neoved-otzyvy/otzyv-4-720.webp 720w, https://taksa1973.github.io/results/img/neoved-otzyvy/otzyv-4.webp 1080w" sizes="(max-width: 639px) 300px, (max-width: 1199px) 280px, 343px" width="1080" height="2424" loading="lazy" decoding="async" alt="Переписка в Telegram: закрывающие документы подготовлены, клиент пишет «Спасибо большое!»"><span class="nvr__zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 14 14" fill="none"><path d="M8.5 1.5h4v4M5.5 12.5h-4v-4M12.5 1.5 8 6M1.5 12.5 6 8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
+      </figure>
+    </li>
+    <li class="nvr__item">
+      <figure class="nvr__card">
+        <figcaption class="nvr__head"><span class="nvr__tag">Международный платеж в CNY</span></figcaption>
+        <button class="nvr__shot" type="button" data-full="https://taksa1973.github.io/results/img/neoved-otzyvy/otzyv-5.webp" aria-label="Открыть скриншот крупно: международный платеж в CNY"><img src="https://taksa1973.github.io/results/img/neoved-otzyvy/otzyv-5-720.webp" srcset="https://taksa1973.github.io/results/img/neoved-otzyvy/otzyv-5-720.webp 720w, https://taksa1973.github.io/results/img/neoved-otzyvy/otzyv-5.webp 1080w" sizes="(max-width: 639px) 300px, (max-width: 1199px) 280px, 343px" width="1080" height="2424" loading="lazy" decoding="async" alt="Групповой чат в WhatsApp: клиент сообщает, что оплата в CNY поступила, и поздравляет с Новым годом"><span class="nvr__zoom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 14 14" fill="none"><path d="M8.5 1.5h4v4M5.5 12.5h-4v-4M12.5 1.5 8 6M1.5 12.5 6 8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
+      </figure>
+    </li>
+  </ul>
+  <button class="nvr__nav nvr__nav--prev" type="button" aria-label="Предыдущие скриншоты" disabled><svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M12.5 4.5 7 10l5.5 5.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+  <button class="nvr__nav nvr__nav--next" type="button" aria-label="Следующие скриншоты"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M7.5 4.5 13 10l-5.5 5.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+  <div class="nvr__dots" aria-hidden="true"><i class="is-on"></i><i></i><i></i><i></i><i></i></div>
+</div>
+
+<script>
+(function () {
+  var root = document.getElementById('nvr');
+  if (!root || root.__nvr) return;
+  root.__nvr = true;
+
+  var track = root.querySelector('.nvr__track');
+  var items = [].slice.call(root.querySelectorAll('.nvr__item'));
+  var navPrev = root.querySelector('.nvr__nav--prev');
+  var navNext = root.querySelector('.nvr__nav--next');
+  var dots = [].slice.call(root.querySelectorAll('.nvr__dots i'));
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var M = null; // motion — грузится с CDN; без него всё работает, просто без анимаций
+
+  var slides = items.map(function (it) {
+    var a = it.querySelector('.nvr__shot');
+    var img = a.querySelector('img');
+    return { full: a.getAttribute('data-full'), alt: img.getAttribute('alt'), tag: it.querySelector('.nvr__tag').textContent, link: a };
+  });
+
+  // ---- лента ----
+  function step() {
+    var gap = parseFloat(getComputedStyle(track).columnGap) || 20;
+    return items[0].getBoundingClientRect().width + gap;
+  }
+  var ticking = false;
+  function sync() {
+    ticking = false;
+    var max = track.scrollWidth - track.clientWidth;
+    navPrev.disabled = track.scrollLeft <= 4;
+    navNext.disabled = track.scrollLeft >= max - 4;
+    var on = Math.min(items.length - 1, Math.round(track.scrollLeft / step()));
+    if (track.scrollLeft >= max - 4) on = items.length - 1;
+    dots.forEach(function (d, i) { d.classList.toggle('is-on', i === on); });
+  }
+  track.addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(sync); } }, { passive: true });
+  window.addEventListener('resize', sync);
+  navPrev.addEventListener('click', function () { track.scrollBy({ left: -step(), behavior: reduce ? 'auto' : 'smooth' }); });
+  navNext.addEventListener('click', function () { track.scrollBy({ left: step(), behavior: reduce ? 'auto' : 'smooth' }); });
+  sync();
+
+  slides.forEach(function (s, i) {
+    s.link.addEventListener('click', function () { open(i, s.link); });
+  });
+
+  // ---- lightbox ----
+  var lb, lbImg, lbTag, lbCount, lbClose, lbPrev, lbNext, lbStage, cur = 0, opener = null, isOpen = false;
+  var saved = {};
+  var ICON_X = '<svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M3 3l12 12M15 3 3 15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
+  var ICON_L = '<svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M12.5 4.5 7 10l5.5 5.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  var ICON_R = '<svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M7.5 4.5 13 10l-5.5 5.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
+  function build() {
+    lb = document.createElement('div');
+    lb.className = 'nvr-lb';
+    lb.hidden = true;
+    lb.setAttribute('role', 'dialog');
+    lb.setAttribute('aria-modal', 'true');
+    lb.setAttribute('aria-label', 'Скриншот сообщения клиента');
+    lb.innerHTML =
+      '<div class="nvr-lb__bar"><span class="nvr-lb__tag"></span><span class="nvr-lb__count" aria-live="polite"></span>' +
+      '<button class="nvr-lb__btn nvr-lb__close" type="button" aria-label="Закрыть">' + ICON_X + '</button></div>' +
+      '<div class="nvr-lb__stage"><img class="nvr-lb__img" alt="" draggable="false"></div>' +
+      '<button class="nvr-lb__btn nvr-lb__prev" type="button" aria-label="Предыдущий скриншот">' + ICON_L + '</button>' +
+      '<button class="nvr-lb__btn nvr-lb__next" type="button" aria-label="Следующий скриншот">' + ICON_R + '</button>';
+    document.body.appendChild(lb);
+    lbImg = lb.querySelector('.nvr-lb__img');
+    lbTag = lb.querySelector('.nvr-lb__tag');
+    lbCount = lb.querySelector('.nvr-lb__count');
+    lbClose = lb.querySelector('.nvr-lb__close');
+    lbPrev = lb.querySelector('.nvr-lb__prev');
+    lbNext = lb.querySelector('.nvr-lb__next');
+    lbStage = lb.querySelector('.nvr-lb__stage');
+
+    lbClose.addEventListener('click', close);
+    lbPrev.addEventListener('click', function () { go(-1); });
+    lbNext.addEventListener('click', function () { go(1); });
+    // Закрытие кликом за пределами изображения (фон, полоса сверху, поля вокруг картинки).
+    var swiped = false;
+    lb.addEventListener('click', function (e) {
+      if (swiped) { swiped = false; return; }
+      if (e.target === lb || e.target === lbStage || e.target.classList.contains('nvr-lb__bar')) close();
+    });
+    // Свайп влево/вправо — листать; щипок оставляем браузеру (pinch-zoom), чтобы можно было рассмотреть текст.
+    var sx = 0, sy = 0, pointers = 0;
+    lbStage.addEventListener('pointerdown', function (e) { pointers++; sx = e.clientX; sy = e.clientY; });
+    lbStage.addEventListener('pointercancel', function () { pointers = Math.max(0, pointers - 1); });
+    lbStage.addEventListener('pointerup', function (e) {
+      var multi = pointers > 1;
+      pointers = Math.max(0, pointers - 1);
+      if (multi) return;
+      var dx = e.clientX - sx, dy = e.clientY - sy;
+      if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.5) { swiped = true; go(dx < 0 ? 1 : -1); }
+    });
+  }
+
+  function preload(i) { var im = new Image(); im.src = slides[(i + slides.length) % slides.length].full; }
+
+  function render(dir) {
+    var s = slides[cur];
+    lbImg.src = s.full;
+    lbImg.alt = s.alt;
+    lbTag.textContent = s.tag;
+    lbCount.textContent = (cur + 1) + ' / ' + slides.length;
+    preload(cur + 1);
+    preload(cur - 1);
+    if (M && dir) M.animate(lbImg, { opacity: [0, 1], x: [dir * 32, 0] }, { duration: 0.28, ease: [0.22, 1, 0.36, 1] });
+  }
+
+  function go(dir) {
+    cur = (cur + dir + slides.length) % slides.length;
+    render(dir);
+  }
+
+  function onKey(e) {
+    if (e.key === 'Escape') { e.preventDefault(); close(); }
+    else if (e.key === 'ArrowLeft') { e.preventDefault(); go(-1); }
+    else if (e.key === 'ArrowRight') { e.preventDefault(); go(1); }
+    else if (e.key === 'Tab') {
+      var f = [lbClose, lbPrev, lbNext];
+      var i = f.indexOf(document.activeElement);
+      e.preventDefault();
+      f[(i + (e.shiftKey ? -1 : 1) + f.length) % f.length].focus();
+    }
+  }
+
+  function lockScroll() {
+    var de = document.documentElement, b = document.body;
+    var sbw = window.innerWidth - de.clientWidth;
+    saved = { o: de.style.overflow, p: b.style.paddingRight };
+    de.style.overflow = 'hidden';
+    if (sbw > 0) b.style.paddingRight = sbw + 'px';
+  }
+  function unlockScroll() {
+    document.documentElement.style.overflow = saved.o || '';
+    document.body.style.paddingRight = saved.p || '';
+  }
+
+  function open(i, from) {
+    if (!lb) build();
+    if (isOpen) return;
+    isOpen = true;
+    opener = from || null;
+    cur = i;
+    render(0);
+    lockScroll();
+    lb.hidden = false;
+    document.addEventListener('keydown', onKey, true);
+    lbClose.focus({ preventScroll: true });
+    if (M) {
+      M.animate(lb, { opacity: [0, 1] }, { duration: 0.2, ease: 'easeOut' });
+      M.animate(lbImg, { opacity: [0, 1], scale: [0.96, 1] }, { duration: 0.3, ease: [0.22, 1, 0.36, 1] });
+    }
+  }
+
+  function close() {
+    if (!isOpen) return;
+    isOpen = false;
+    document.removeEventListener('keydown', onKey, true);
+    var done = function () {
+      lb.hidden = true;
+      lb.style.opacity = '';
+      unlockScroll();
+      // вернуть ленту к последнему просмотренному скриншоту и фокус на него
+      var link = slides[cur].link;
+      var it = items[cur];
+      var tr = track.getBoundingClientRect(), r = it.getBoundingClientRect();
+      if (r.left < tr.left || r.right > tr.right) track.scrollLeft += r.left - tr.left - (parseFloat(getComputedStyle(track).paddingLeft) || 0);
+      (link || opener) && (link || opener).focus({ preventScroll: true });
+    };
+    if (M) { M.animate(lb, { opacity: [1, 0] }, { duration: 0.16, ease: 'easeIn' }); setTimeout(done, 170); }
+    else done();
+  }
+
+  // ---- анимации (motion, тот же движок, что Framer Motion). Контент виден и без них. ----
+  function reveal() {
+    var cards = items.map(function (it) { return it.firstElementChild; });
+    var clear = function () { cards.forEach(function (c) { c.style.opacity = ''; c.style.transform = ''; }); };
+    M.inView(root, function () {
+      var a = M.animate(cards, { opacity: [0, 1], y: [28, 0] }, { delay: M.stagger(0.07), duration: 0.55, ease: [0.22, 1, 0.36, 1] });
+      // убрать инлайн-transform после анимации, иначе он перебьёт CSS-эффект наведения
+      if (a && a.finished) a.finished.then(clear, clear);
+      setTimeout(clear, 1600);
+    }, { amount: 0.2 });
+  }
+  if (!reduce) {
+    try {
+      new Function('u', 'return import(u)')('https://cdn.jsdelivr.net/npm/motion@11/+esm')
+        .then(function (m) { M = m; reveal(); })
+        .catch(function () {});
+    } catch (e) {}
+  }
+})();
+</script>
