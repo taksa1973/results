@@ -1065,7 +1065,7 @@ alt='' imgfield='tn_img_1788879745416000004'
   var slides = items.map(function (it) {
     var a = it.querySelector('.nvr__shot');
     var img = a.querySelector('img');
-    return { full: a.getAttribute('data-full'), alt: img.getAttribute('alt'), tag: it.querySelector('.nvr__tag').textContent, link: a };
+    return { full: a.getAttribute('data-full'), img: img, alt: img.getAttribute('alt'), tag: it.querySelector('.nvr__tag').textContent, link: a };
   });
 
   // ---- лента ----
@@ -1110,7 +1110,7 @@ alt='' imgfield='tn_img_1788879745416000004'
     lb.innerHTML =
       '<div class="nvr-lb__bar"><span class="nvr-lb__tag"></span><span class="nvr-lb__count" aria-live="polite"></span>' +
       '<button class="nvr-lb__btn nvr-lb__close" type="button" aria-label="Закрыть">' + ICON_X + '</button></div>' +
-      '<div class="nvr-lb__stage"><img class="nvr-lb__img" alt="" draggable="false"></div>' +
+      '<div class="nvr-lb__stage"><img class="nvr-lb__img" width="1080" height="2424" alt="" draggable="false"></div>' +
       '<button class="nvr-lb__btn nvr-lb__prev" type="button" aria-label="Предыдущий скриншот">' + ICON_L + '</button>' +
       '<button class="nvr-lb__btn nvr-lb__next" type="button" aria-label="Следующий скриншот">' + ICON_R + '</button>';
     document.body.appendChild(lb);
@@ -1147,8 +1147,17 @@ alt='' imgfield='tn_img_1788879745416000004'
   function preload(i) { var im = new Image(); im.src = slides[(i + slides.length) % slides.length].full; }
 
   function render(dir) {
-    var s = slides[cur];
-    lbImg.src = s.full;
+    var s = slides[cur], want = cur;
+    // Сразу показать миниатюру из карточки (она уже в кэше), полную версию подменить, когда догрузится.
+    var thumb = s.img.complete && s.img.naturalWidth ? s.img.currentSrc || s.img.src : '';
+    if (thumb && thumb !== s.full) {
+      lbImg.src = thumb;
+      var big = new Image();
+      big.onload = function () { if (isOpen && cur === want) lbImg.src = s.full; };
+      big.src = s.full;
+    } else {
+      lbImg.src = s.full;
+    }
     lbImg.alt = s.alt;
     lbTag.textContent = s.tag;
     lbCount.textContent = (cur + 1) + ' / ' + slides.length;
