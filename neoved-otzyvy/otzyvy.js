@@ -1,0 +1,324 @@
+/* neoved · «Отзывы клиентов»: галерея скриншотов + lightbox.
+   Подключение одной строкой там, где должна стоять галерея (в Tilda — блок T123 «HTML-код»):
+   <script src="https://taksa1973.github.io/results/neoved-otzyvy/otzyvy.js" defer></script>
+   Файл собран из neoved-otzyvy/block.html скриптом build-embed.py — правки вносить в block.html. */
+(function () {
+  var me = document.currentScript;
+  if (document.getElementById('nvr')) return; // галерея уже есть на странице
+  var style = document.createElement('style');
+  style.textContent = ".nvr{--nvr-ink:#110000;--nvr-red:#EE0000;--nvr-gap:20px;--nvr-w:373.33px;--nvr-box:1160px;--nvr-room:14px;--nvr-pad:max(20px,calc((100% - var(--nvr-box)) / 2));position:relative;z-index:5;container-type:inline-size;margin:0;padding:0;font-family:'Onest',Arial,sans-serif;color:var(--nvr-ink);-webkit-font-smoothing:antialiased}\n/* отступ ленты считаем от ширины самого блока (cqw): проценты у отступа и у распорки в конце берутся от разных родителей */\n@supports (width:1cqw){.nvr{--nvr-pad:max(20px,calc((100cqw - var(--nvr-box)) / 2))}}\n.nvr *,.nvr *::before,.nvr *::after{box-sizing:border-box}\n/* заголовок — как у разделов сайта («Наши партнеры», «Команда»): Onest 500, 60/60, −2 px; под ним 40 px, как блок-отступ Tilda */\n.nvr__title{margin:0 0 40px;padding:0 20px;font-family:'Onest',Arial,sans-serif;font-size:60px;line-height:60px;font-weight:500;letter-spacing:-2px;color:var(--nvr-ink);text-align:center}\n/* запас сверху/снизу внутри ленты — только под увеличение при наведении; снаружи он погашен отрицательным полем, блок без отступов.\n   Увеличенная карточка заходит на соседний блок Tilda (у подложки его отступа z-index:1, рисуется поверх) — поэтому у .nvr z-index:5, ниже закреплённого меню сайта (100) */\n.nvr__track{display:flex;gap:var(--nvr-gap);margin:calc(var(--nvr-room) * -1) 0;padding:var(--nvr-room) 0 var(--nvr-room) var(--nvr-pad);list-style:none;overflow-x:auto;overflow-y:hidden;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;scroll-padding-left:var(--nvr-pad);scrollbar-width:none;-webkit-overflow-scrolling:touch}\n.nvr__track::-webkit-scrollbar{display:none}\n.nvr__track::after{content:'';flex:0 0 max(1px,calc(var(--nvr-pad) - var(--nvr-gap)))}\n.nvr__item{flex:0 0 var(--nvr-w);margin:0;padding:0;scroll-snap-align:start}\n.nvr__card{display:flex;flex-direction:column;align-items:center;gap:12px;margin:0;padding:0;transition:transform .3s cubic-bezier(.22,1,.36,1)}\n.nvr__head{display:flex;justify-content:center;width:100%;min-height:30px}\n.nvr__tag{display:inline-block;padding:5px 14px;border:1px solid #EDDEDE;border-radius:15px;background:#FFF0F0;color:var(--nvr-red);font-size:15px;line-height:18px;font-weight:500;text-align:center}\n.nvr__shot{position:relative;display:block;width:100%;margin:0;padding:0;border:0;border-radius:25px;background:none;font:inherit;color:inherit;line-height:0;cursor:zoom-in;-webkit-tap-highlight-color:transparent;-webkit-appearance:none;appearance:none;outline:none}\n.nvr__shot img{display:block;width:100%;height:auto;aspect-ratio:1080/2424;border-radius:25px;background:#1D2733}\n.nvr__shot:focus-visible{outline:2px solid #C9C9C9;outline-offset:3px}\n/* при наведении — белый круг с нашими красными стрелками, без тени и обводки */\n.nvr__zoom{position:absolute;top:14px;right:14px;display:grid;place-items:center;width:44px;height:44px;border-radius:50%;background:#fff;color:var(--nvr-red);opacity:0;transform:scale(.8);transition:opacity .2s ease,transform .2s ease;pointer-events:none}\n@media (hover:hover){.nvr__card:hover{transform:scale(1.025)}.nvr__card:hover .nvr__zoom{opacity:1;transform:none}}\n.nvr__shot:focus-visible .nvr__zoom{opacity:1;transform:none}\n.nvr__dots{display:none}\n@media (hover:hover) and (pointer:fine){.nvr__track{cursor:grab}.nvr-lb__img{cursor:grab}}\n.nvr.is-settling .nvr__track{scroll-snap-type:none}\n.nvr.is-dragging .nvr__track,.nvr.is-dragging .nvr__shot{cursor:grabbing;-webkit-user-select:none;user-select:none}\n.nvr.is-dragging .nvr__card{transform:none}\n.nvr.is-dragging .nvr__zoom{opacity:0}\n.nvr__shot img,.nvr-lb__img{-webkit-user-drag:none;-webkit-user-select:none;user-select:none}\n.nvr-lb.is-dragging,.nvr-lb.is-dragging *{cursor:grabbing}\n@media (max-width:1199px){.nvr{--nvr-w:310px;--nvr-box:640px}.nvr__card{gap:10px}.nvr__tag{padding:5px 12px;border-radius:14px;font-size:13px;line-height:16px;letter-spacing:-.2px}}\n@media (max-width:639px){\n.nvr__title{margin-bottom:20px;font-size:25px;line-height:25px;letter-spacing:-.5px}\n.nvr{--nvr-gap:12px;--nvr-pad:20px;--nvr-room:0px;--nvr-w:min(400px,calc((100vw - 32px) / 1.125))}\n.nvr__head{min-height:28px}\n.nvr__tag{padding:5px 10px}\n.nvr__dots{display:flex;justify-content:center;gap:8px;margin-top:14px;line-height:0}\n.nvr__dots i{width:8px;height:8px;border-radius:50%;background:#D9D9D9;transition:background .2s ease}\n.nvr__dots i.is-on{background:var(--nvr-red)}\n}\n@media (max-width:379px){.nvr__tag{font-size:12px;line-height:15px}}\n/* lightbox: затемнение 70 %; крестик и стрелки — наши, как в попапе записи: острые, без кругов и обводок */\n.nvr-lb{position:fixed;inset:0;z-index:2147483000;display:flex;flex-direction:column;background:rgba(0,0,0,.7);font-family:'Onest',Arial,sans-serif;color:#fff;-webkit-font-smoothing:antialiased}\n.nvr-lb[hidden]{display:none}\n.nvr-lb *,.nvr-lb *::before,.nvr-lb *::after{box-sizing:border-box}\n.nvr-lb__bar{position:absolute;top:43px;left:38px;right:96px;display:flex;align-items:center;gap:14px;pointer-events:none}\n.nvr-lb__tag{min-width:0;padding:5px 14px;border-radius:15px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.1);font-size:15px;line-height:18px;font-weight:500}\n.nvr-lb__count{flex:none;font-size:15px;line-height:18px;color:rgba(255,255,255,.7);font-variant-numeric:tabular-nums;white-space:nowrap}\n.nvr-lb__btn{position:fixed;display:grid;place-items:center;width:40px;height:40px;margin:0;padding:0;border:0;border-radius:50%;background:transparent;cursor:pointer;outline:none;transition:opacity .2s ease}\n.nvr-lb__btn:hover{opacity:.75}\n.nvr-lb__btn:focus-visible{outline:2px solid #C9C9C9;outline-offset:2px}\n.nvr-lb__close{top:38px;right:38px;color:#999999}\n.nvr-lb__prev,.nvr-lb__next{top:50%;margin-top:-20px;color:#fff}\n.nvr-lb__prev{left:38px}\n.nvr-lb__next{right:38px}\n.nvr-lb__stage{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;padding:96px 110px 24px;touch-action:pan-y pinch-zoom}\n.nvr-lb__img{display:block;width:auto;height:auto;max-width:100%;max-height:calc(100vh - 120px);max-height:calc(100dvh - 120px);border-radius:16px;-webkit-user-drag:none;user-select:none}\n@media (max-width:639px){\n.nvr-lb__bar{top:13px;left:12px;right:56px;gap:10px}\n.nvr-lb__tag{padding:4px 11px;font-size:13px;line-height:16px}\n.nvr-lb__count{font-size:13px}\n.nvr-lb__close{top:8px;right:8px}\n.nvr-lb__stage{padding:60px 12px 76px}\n.nvr-lb__img{max-height:calc(100vh - 136px);max-height:calc(100dvh - 136px);border-radius:12px}\n.nvr-lb__prev,.nvr-lb__next{top:auto;bottom:max(18px,env(safe-area-inset-bottom));margin:0}\n.nvr-lb__prev{left:calc(50% - 64px)}\n.nvr-lb__next{right:calc(50% - 64px)}\n}";
+  document.head.appendChild(style);
+  var box = document.createElement('div');
+  box.innerHTML = "<div class=\"nvr\" id=\"nvr\" data-nvr>\n  <h2 class=\"nvr__title\" id=\"nvr-title\">Отзывы клиентов</h2>\n  <ul class=\"nvr__track\" aria-labelledby=\"nvr-title\">\n    <li class=\"nvr__item\">\n      <figure class=\"nvr__card\">\n        <figcaption class=\"nvr__head\"><span class=\"nvr__tag\">Международный платеж в USDC (ERC-20)</span></figcaption>\n        <button class=\"nvr__shot\" type=\"button\" data-full=\"https://taksa1973.github.io/results/img/neoved-otzyvy/otzyv-1-1080.webp?v=2\" aria-label=\"Открыть скриншот крупно: международный платеж в USDC (ERC-20)\"><img src=\"https://taksa1973.github.io/results/img/neoved-otzyvy/otzyv-1-720.webp?v=2\" srcset=\"https://taksa1973.github.io/results/img/neoved-otzyvy/otzyv-1-480.webp?v=2 480w, https://taksa1973.github.io/results/img/neoved-otzyvy/otzyv-1-720.webp?v=2 720w\" sizes=\"(max-width: 639px) calc((100vw - 32px) / 1.125), (max-width: 1199px) 310px, 373px\" width=\"1080\" height=\"2424\" loading=\"eager\" fetchpriority=\"low\" decoding=\"async\" draggable=\"false\" alt=\"Переписка в Telegram: клиент благодарит за международный платеж в USDC и обещает рекомендовать neoved друзьям\"><span class=\"nvr__zoom\" aria-hidden=\"true\"><svg width=\"18\" height=\"18\" viewBox=\"0 0 18 18\" fill=\"none\"><path d=\"M11 1.9h5.1V7M16.1 1.9 10.6 7.4M7 16.1H1.9V11M1.9 16.1l5.5-5.5\" stroke=\"currentColor\" stroke-width=\"1.8\"/></svg></span></button>\n      </figure>\n    </li>\n    <li class=\"nvr__item\">\n      <figure class=\"nvr__card\">\n        <figcaption class=\"nvr__head\"><span class=\"nvr__tag\">Международный платеж в EUR</span></figcaption>\n        <button class=\"nvr__shot\" type=\"button\" data-full=\"https://taksa1973.github.io/results/img/neoved-otzyvy/otzyv-2-1080.webp?v=2\" aria-label=\"Открыть скриншот крупно: международный платеж в EUR\"><img src=\"https://taksa1973.github.io/results/img/neoved-otzyvy/otzyv-2-720.webp?v=2\" srcset=\"https://taksa1973.github.io/results/img/neoved-otzyvy/otzyv-2-480.webp?v=2 480w, https://taksa1973.github.io/results/img/neoved-otzyvy/otzyv-2-720.webp?v=2 720w\" sizes=\"(max-width: 639px) calc((100vw - 32px) / 1.125), (max-width: 1199px) 310px, 373px\" width=\"1080\" height=\"2424\" loading=\"eager\" fetchpriority=\"low\" decoding=\"async\" draggable=\"false\" alt=\"Групповой чат в Telegram: вуз подтвердил получение оплаты в EUR, клиент пишет «Спасибо огромное за помощь! Вы крутые!»\"><span class=\"nvr__zoom\" aria-hidden=\"true\"><svg width=\"18\" height=\"18\" viewBox=\"0 0 18 18\" fill=\"none\"><path d=\"M11 1.9h5.1V7M16.1 1.9 10.6 7.4M7 16.1H1.9V11M1.9 16.1l5.5-5.5\" stroke=\"currentColor\" stroke-width=\"1.8\"/></svg></span></button>\n      </figure>\n    </li>\n    <li class=\"nvr__item\">\n      <figure class=\"nvr__card\">\n        <figcaption class=\"nvr__head\"><span class=\"nvr__tag\">Международный платеж в USDT (TRC-20)</span></figcaption>\n        <button class=\"nvr__shot\" type=\"button\" data-full=\"https://taksa1973.github.io/results/img/neoved-otzyvy/otzyv-3-1080.webp?v=2\" aria-label=\"Открыть скриншот крупно: международный платеж в USDT (TRC-20)\"><img src=\"https://taksa1973.github.io/results/img/neoved-otzyvy/otzyv-3-720.webp?v=2\" srcset=\"https://taksa1973.github.io/results/img/neoved-otzyvy/otzyv-3-480.webp?v=2 480w, https://taksa1973.github.io/results/img/neoved-otzyvy/otzyv-3-720.webp?v=2 720w\" sizes=\"(max-width: 639px) calc((100vw - 32px) / 1.125), (max-width: 1199px) 310px, 373px\" width=\"1080\" height=\"2424\" loading=\"eager\" fetchpriority=\"low\" decoding=\"async\" draggable=\"false\" alt=\"Переписка в Telegram: поручение исполнено, клиент отвечает «Урааа» и «Спасибо»\"><span class=\"nvr__zoom\" aria-hidden=\"true\"><svg width=\"18\" height=\"18\" viewBox=\"0 0 18 18\" fill=\"none\"><path d=\"M11 1.9h5.1V7M16.1 1.9 10.6 7.4M7 16.1H1.9V11M1.9 16.1l5.5-5.5\" stroke=\"currentColor\" stroke-width=\"1.8\"/></svg></span></button>\n      </figure>\n    </li>\n    <li class=\"nvr__item\">\n      <figure class=\"nvr__card\">\n        <figcaption class=\"nvr__head\"><span class=\"nvr__tag\">Покупка криптовалюты USDT</span></figcaption>\n        <button class=\"nvr__shot\" type=\"button\" data-full=\"https://taksa1973.github.io/results/img/neoved-otzyvy/otzyv-4-1080.webp?v=2\" aria-label=\"Открыть скриншот крупно: покупка криптовалюты USDT\"><img src=\"https://taksa1973.github.io/results/img/neoved-otzyvy/otzyv-4-720.webp?v=2\" srcset=\"https://taksa1973.github.io/results/img/neoved-otzyvy/otzyv-4-480.webp?v=2 480w, https://taksa1973.github.io/results/img/neoved-otzyvy/otzyv-4-720.webp?v=2 720w\" sizes=\"(max-width: 639px) calc((100vw - 32px) / 1.125), (max-width: 1199px) 310px, 373px\" width=\"1080\" height=\"2424\" loading=\"eager\" fetchpriority=\"low\" decoding=\"async\" draggable=\"false\" alt=\"Переписка в Telegram: закрывающие документы подготовлены, клиент пишет «Спасибо большое!»\"><span class=\"nvr__zoom\" aria-hidden=\"true\"><svg width=\"18\" height=\"18\" viewBox=\"0 0 18 18\" fill=\"none\"><path d=\"M11 1.9h5.1V7M16.1 1.9 10.6 7.4M7 16.1H1.9V11M1.9 16.1l5.5-5.5\" stroke=\"currentColor\" stroke-width=\"1.8\"/></svg></span></button>\n      </figure>\n    </li>\n    <li class=\"nvr__item\">\n      <figure class=\"nvr__card\">\n        <figcaption class=\"nvr__head\"><span class=\"nvr__tag\">Международный платеж в CNY</span></figcaption>\n        <button class=\"nvr__shot\" type=\"button\" data-full=\"https://taksa1973.github.io/results/img/neoved-otzyvy/otzyv-5-1080.webp?v=2\" aria-label=\"Открыть скриншот крупно: международный платеж в CNY\"><img src=\"https://taksa1973.github.io/results/img/neoved-otzyvy/otzyv-5-720.webp?v=2\" srcset=\"https://taksa1973.github.io/results/img/neoved-otzyvy/otzyv-5-480.webp?v=2 480w, https://taksa1973.github.io/results/img/neoved-otzyvy/otzyv-5-720.webp?v=2 720w\" sizes=\"(max-width: 639px) calc((100vw - 32px) / 1.125), (max-width: 1199px) 310px, 373px\" width=\"1080\" height=\"2424\" loading=\"eager\" fetchpriority=\"low\" decoding=\"async\" draggable=\"false\" alt=\"Групповой чат в WhatsApp: клиент сообщает, что оплата в CNY поступила, и поздравляет с Новым годом\"><span class=\"nvr__zoom\" aria-hidden=\"true\"><svg width=\"18\" height=\"18\" viewBox=\"0 0 18 18\" fill=\"none\"><path d=\"M11 1.9h5.1V7M16.1 1.9 10.6 7.4M7 16.1H1.9V11M1.9 16.1l5.5-5.5\" stroke=\"currentColor\" stroke-width=\"1.8\"/></svg></span></button>\n      </figure>\n    </li>\n  </ul>\n  <div class=\"nvr__dots\" aria-hidden=\"true\"><i class=\"is-on\"></i><i></i><i></i><i></i><i></i></div>\n</div>";
+  var gallery = box.firstElementChild;
+  if (me && me.parentNode) me.parentNode.insertBefore(gallery, me); else document.body.appendChild(gallery);
+})();
+(function () {
+  var root = document.getElementById('nvr');
+  if (!root || root.__nvr) return;
+  root.__nvr = true;
+
+  var track = root.querySelector('.nvr__track');
+  var items = [].slice.call(root.querySelectorAll('.nvr__item'));
+  var dots = [].slice.call(root.querySelectorAll('.nvr__dots i'));
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var M = null; // motion — грузится с CDN; без него всё работает, просто без анимаций
+
+  var slides = items.map(function (it) {
+    var a = it.querySelector('.nvr__shot');
+    var img = a.querySelector('img');
+    return { full: a.getAttribute('data-full'), img: img, alt: img.getAttribute('alt'), tag: it.querySelector('.nvr__tag').textContent, link: a };
+  });
+
+  // ---- лента ----
+  function step() {
+    var gap = parseFloat(getComputedStyle(track).columnGap) || 20;
+    return items[0].getBoundingClientRect().width + gap;
+  }
+  var ticking = false;
+  function sync() {
+    ticking = false;
+    var max = track.scrollWidth - track.clientWidth;
+    var on = Math.min(items.length - 1, Math.round(track.scrollLeft / step()));
+    if (track.scrollLeft >= max - 4) on = items.length - 1;
+    dots.forEach(function (d, i) { d.classList.toggle('is-on', i === on); });
+  }
+  track.addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(sync); } }, { passive: true });
+  window.addEventListener('resize', sync);
+  sync();
+
+  // Перетаскивание мышью: схватить ленту и тянуть, после отпускания — докатить до ближайшей карточки
+  // с учётом скорости броска. Палец и перо прокручивают ленту нативно, их не трогаем.
+  var drag = null, suppressClick = false;
+  function settle(target) {
+    var done = false;
+    var finish = function () {
+      if (done) return;
+      done = true;
+      track.removeEventListener('scrollend', finish);
+      root.classList.remove('is-settling');
+    };
+    track.addEventListener('scrollend', finish);
+    setTimeout(finish, 700);
+    track.scrollTo({ left: target, behavior: reduce ? 'auto' : 'smooth' });
+    if (reduce) finish();
+  }
+  track.addEventListener('dragstart', function (e) { e.preventDefault(); });
+  track.addEventListener('pointerdown', function (e) {
+    if (e.pointerType !== 'mouse' || e.button !== 0) return;
+    drag = { x: e.clientX, left: track.scrollLeft, lastX: e.clientX, lastT: e.timeStamp, v: 0, moved: false };
+  });
+  window.addEventListener('pointermove', function (e) {
+    if (!drag) return;
+    var dx = e.clientX - drag.x;
+    if (!drag.moved) {
+      if (Math.abs(dx) < 6) return; // меньше — это клик, а не перетаскивание
+      drag.moved = true;
+      root.classList.add('is-dragging', 'is-settling');
+    }
+    e.preventDefault();
+    track.scrollLeft = drag.left - dx;
+    var dt = e.timeStamp - drag.lastT;
+    if (dt > 0) {
+      drag.v = 0.8 * ((e.clientX - drag.lastX) / dt) + 0.2 * drag.v;
+      drag.lastX = e.clientX;
+      drag.lastT = e.timeStamp;
+    }
+  });
+  function endDrag(e) {
+    if (!drag) return;
+    var d = drag;
+    drag = null;
+    if (!d.moved) return;
+    root.classList.remove('is-dragging');
+    suppressClick = true; // отпускание над карточкой не должно открывать lightbox
+    setTimeout(function () { suppressClick = false; }, 0);
+    var st = step(), max = track.scrollWidth - track.clientWidth;
+    var pos = track.scrollLeft / st;
+    var still = e.timeStamp - d.lastT > 90; // мышь остановилась перед отпусканием — без инерции
+    // Бросок — на одну карточку в его сторону; медленное перетаскивание — к ближайшей.
+    var idx = !still && Math.abs(d.v) > 0.3 ? (d.v < 0 ? Math.ceil(pos) : Math.floor(pos)) : Math.round(pos);
+    settle(Math.max(0, Math.min(max, idx * st)));
+  }
+  window.addEventListener('pointerup', endDrag);
+  window.addEventListener('pointercancel', endDrag);
+  root.addEventListener('click', function (e) {
+    if (suppressClick) { e.preventDefault(); e.stopPropagation(); suppressClick = false; }
+  }, true);
+
+  slides.forEach(function (s, i) {
+    s.link.addEventListener('click', function () { open(i, s.link); });
+  });
+
+  // Скорость: превью (до 720 px, 45–110 КБ) грузятся сразу с низким приоритетом — к моменту, когда до галереи
+  // долистают, они уже готовы. Полные версии для lightbox подтягиваются в фоне, когда галерея на экране.
+  var fullDone = false;
+  function prefetchFull() {
+    if (fullDone) return;
+    fullDone = true;
+    var run = function () { slides.forEach(function (s) { var im = new Image(); im.decoding = 'async'; im.src = s.full; }); };
+    if (window.requestIdleCallback) requestIdleCallback(run, { timeout: 1500 }); else setTimeout(run, 300);
+  }
+  if ('IntersectionObserver' in window) {
+    var ioSeen = new IntersectionObserver(function (es) {
+      if (es.some(function (e) { return e.isIntersecting; })) { ioSeen.disconnect(); prefetchFull(); }
+    }, { rootMargin: '600px 0px' });
+    ioSeen.observe(root);
+  } else {
+    prefetchFull();
+  }
+  slides.forEach(function (s) {
+    // намерение открыть — сразу тянем полную версию этой карточки
+    var pre = function () { var im = new Image(); im.src = s.full; };
+    s.link.addEventListener('pointerenter', pre, { once: true });
+    s.link.addEventListener('focus', pre, { once: true });
+  });
+
+  // ---- lightbox ----
+  var lb, lbImg, lbTag, lbCount, lbClose, lbPrev, lbNext, lbStage, cur = 0, opener = null, isOpen = false;
+  var saved = {};
+  var ICON_X = '<svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" fill="currentColor"><path d="M0 1.4355L14.5645 16L16 14.5645L1.4355 0Z"/><path d="M16 1.4355L1.4355 16L0 14.5645L14.5645 0Z"/></svg>';
+  var ICON_L = '<svg viewBox="0 0 14 26" width="14" height="26" aria-hidden="true"><path d="M13 1L1 13l12 12" fill="none" stroke="currentColor" stroke-width="2"/></svg>';
+  var ICON_R = '<svg viewBox="0 0 14 26" width="14" height="26" aria-hidden="true"><path d="M1 1l12 12L1 25" fill="none" stroke="currentColor" stroke-width="2"/></svg>';
+
+  function build() {
+    lb = document.createElement('div');
+    lb.className = 'nvr-lb';
+    lb.hidden = true;
+    lb.setAttribute('role', 'dialog');
+    lb.setAttribute('aria-modal', 'true');
+    lb.setAttribute('aria-label', 'Скриншот сообщения клиента');
+    lb.innerHTML =
+      '<div class="nvr-lb__bar"><span class="nvr-lb__tag"></span><span class="nvr-lb__count" aria-live="polite"></span></div>' +
+      '<button class="nvr-lb__btn nvr-lb__close" type="button" aria-label="Закрыть">' + ICON_X + '</button>' +
+      '<div class="nvr-lb__stage"><img class="nvr-lb__img" width="1080" height="2424" alt="" draggable="false"></div>' +
+      '<button class="nvr-lb__btn nvr-lb__prev" type="button" aria-label="Предыдущий скриншот">' + ICON_L + '</button>' +
+      '<button class="nvr-lb__btn nvr-lb__next" type="button" aria-label="Следующий скриншот">' + ICON_R + '</button>';
+    document.body.appendChild(lb);
+    lbImg = lb.querySelector('.nvr-lb__img');
+    lbTag = lb.querySelector('.nvr-lb__tag');
+    lbCount = lb.querySelector('.nvr-lb__count');
+    lbClose = lb.querySelector('.nvr-lb__close');
+    lbPrev = lb.querySelector('.nvr-lb__prev');
+    lbNext = lb.querySelector('.nvr-lb__next');
+    lbStage = lb.querySelector('.nvr-lb__stage');
+
+    lbClose.addEventListener('click', close);
+    lbPrev.addEventListener('click', function () { go(-1); });
+    lbNext.addEventListener('click', function () { go(1); });
+    // Закрытие кликом за пределами изображения (фон, полоса сверху, поля вокруг картинки).
+    var dragged = false;
+    lb.addEventListener('click', function (e) {
+      if (dragged) { dragged = false; return; }
+      if (e.target === lb || e.target === lbStage) close();
+    });
+    // Перетаскивание мышью или пальцем: картинка едет за рукой; дальше 60 px — листает, иначе возвращается.
+    // Два пальца — щипок, его оставляем браузеру (pinch-zoom), чтобы можно было рассмотреть текст.
+    var sw = null, touching = {};
+    function springBack() {
+      lbImg.style.transition = 'transform .22s cubic-bezier(.22,1,.36,1)';
+      lbImg.style.transform = '';
+    }
+    lbStage.addEventListener('pointerdown', function (e) {
+      touching[e.pointerId] = true;
+      dragged = false;
+      if (Object.keys(touching).length > 1) { if (sw && sw.on) springBack(); sw = null; lb.classList.remove('is-dragging'); return; }
+      if (e.pointerType === 'mouse' && e.button !== 0) return;
+      sw = { x: e.clientX, y: e.clientY, id: e.pointerId, dx: 0, on: false };
+    });
+    window.addEventListener('pointermove', function (e) {
+      if (!sw || e.pointerId !== sw.id) return;
+      var dx = e.clientX - sw.x, dy = e.clientY - sw.y;
+      if (!sw.on) {
+        if (Math.abs(dx) < 8 || Math.abs(dx) < Math.abs(dy)) return;
+        sw.on = true;
+        dragged = true;
+        lb.classList.add('is-dragging');
+      }
+      e.preventDefault();
+      sw.dx = dx;
+      lbImg.style.transition = 'none';
+      lbImg.style.transform = 'translateX(' + dx + 'px)';
+    });
+    function endSwipe(e) {
+      delete touching[e.pointerId];
+      if (!sw || e.pointerId !== sw.id) return;
+      var s = sw;
+      sw = null;
+      lb.classList.remove('is-dragging');
+      if (!s.on) return;
+      if (e.type === 'pointerup' && Math.abs(s.dx) > 60) go(s.dx < 0 ? 1 : -1);
+      else springBack();
+    }
+    window.addEventListener('pointerup', endSwipe);
+    window.addEventListener('pointercancel', endSwipe);
+  }
+
+  function preload(i) { var im = new Image(); im.src = slides[(i + slides.length) % slides.length].full; }
+
+  function render(dir) {
+    var s = slides[cur], want = cur;
+    lbImg.style.transition = '';
+    lbImg.style.transform = '';
+    // Сразу показать миниатюру из карточки (она уже в кэше), полную версию подменить, когда догрузится.
+    var thumb = s.img.complete && s.img.naturalWidth ? s.img.currentSrc || s.img.src : '';
+    if (thumb && thumb !== s.full) {
+      lbImg.src = thumb;
+      var big = new Image();
+      big.onload = function () { if (isOpen && cur === want) lbImg.src = s.full; };
+      big.src = s.full;
+    } else {
+      lbImg.src = s.full;
+    }
+    lbImg.alt = s.alt;
+    lbTag.textContent = s.tag;
+    lbCount.textContent = (cur + 1) + ' / ' + slides.length;
+    preload(cur + 1);
+    preload(cur - 1);
+    if (M && dir) M.animate(lbImg, { opacity: [0, 1], x: [dir * 32, 0] }, { duration: 0.28, ease: [0.22, 1, 0.36, 1] });
+  }
+
+  function go(dir) {
+    cur = (cur + dir + slides.length) % slides.length;
+    render(dir);
+  }
+
+  function onKey(e) {
+    if (e.key === 'Escape') { e.preventDefault(); close(); }
+    else if (e.key === 'ArrowLeft') { e.preventDefault(); go(-1); }
+    else if (e.key === 'ArrowRight') { e.preventDefault(); go(1); }
+    else if (e.key === 'Tab') {
+      var f = [lbClose, lbPrev, lbNext];
+      var i = f.indexOf(document.activeElement);
+      e.preventDefault();
+      f[(i + (e.shiftKey ? -1 : 1) + f.length) % f.length].focus();
+    }
+  }
+
+  function lockScroll() {
+    var de = document.documentElement, b = document.body;
+    var sbw = window.innerWidth - de.clientWidth;
+    saved = { o: de.style.overflow, p: b.style.paddingRight };
+    de.style.overflow = 'hidden';
+    if (sbw > 0) b.style.paddingRight = sbw + 'px';
+  }
+  function unlockScroll() {
+    document.documentElement.style.overflow = saved.o || '';
+    document.body.style.paddingRight = saved.p || '';
+  }
+
+  function open(i, from) {
+    if (!lb) build();
+    if (isOpen) return;
+    isOpen = true;
+    opener = from || null;
+    cur = i;
+    render(0);
+    lockScroll();
+    lb.hidden = false;
+    document.addEventListener('keydown', onKey, true);
+    lbClose.focus({ preventScroll: true });
+    if (M) {
+      M.animate(lb, { opacity: [0, 1] }, { duration: 0.2, ease: 'easeOut' });
+      M.animate(lbImg, { opacity: [0, 1], scale: [0.96, 1] }, { duration: 0.3, ease: [0.22, 1, 0.36, 1] });
+    }
+  }
+
+  function close() {
+    if (!isOpen) return;
+    isOpen = false;
+    document.removeEventListener('keydown', onKey, true);
+    var done = function () {
+      lb.hidden = true;
+      lb.style.opacity = '';
+      unlockScroll();
+      // вернуть ленту к последнему просмотренному скриншоту и фокус на него
+      var link = slides[cur].link;
+      var it = items[cur];
+      var tr = track.getBoundingClientRect(), r = it.getBoundingClientRect();
+      if (r.left < tr.left || r.right > tr.right) track.scrollLeft += r.left - tr.left - (parseFloat(getComputedStyle(track).paddingLeft) || 0);
+      (link || opener) && (link || opener).focus({ preventScroll: true });
+    };
+    if (M) { M.animate(lb, { opacity: [1, 0] }, { duration: 0.16, ease: 'easeIn' }); setTimeout(done, 170); }
+    else done();
+  }
+
+  // ---- анимации (motion, тот же движок, что Framer Motion). Контент виден и без них. ----
+  function reveal() {
+    var cards = items.map(function (it) { return it.firstElementChild; });
+    var clear = function () { cards.forEach(function (c) { c.style.opacity = ''; c.style.transform = ''; }); };
+    M.inView(root, function () {
+      var a = M.animate(cards, { opacity: [0, 1], y: [28, 0] }, { delay: M.stagger(0.07), duration: 0.55, ease: [0.22, 1, 0.36, 1] });
+      // убрать инлайн-transform после анимации, иначе он перебьёт CSS-эффект наведения
+      if (a && a.finished) a.finished.then(clear, clear);
+      setTimeout(clear, 1600);
+    }, { amount: 0.2 });
+  }
+  if (!reduce) {
+    try {
+      new Function('u', 'return import(u)')('https://cdn.jsdelivr.net/npm/motion@11/+esm')
+        .then(function (m) { M = m; reveal(); })
+        .catch(function () {});
+    } catch (e) {}
+  }
+})();

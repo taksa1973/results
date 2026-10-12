@@ -4,7 +4,11 @@
 import re
 import sys
 import urllib.request
+from importlib import import_module
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+embed = import_module('build-embed')
 
 ROOT = Path(__file__).resolve().parent.parent
 SRC_URL = 'https://neoved.io/'
@@ -22,7 +26,7 @@ def fetch():
 
 def main():
     html = fetch()
-    block = (ROOT / 'neoved-otzyvy' / 'block.html').read_text(encoding='utf-8')
+    embed.build()  # otzyvy.js из block.html — на тестовой странице стоит та же одна строка, что и на сайте
 
     # 1. Аналитика сайта не должна считать визиты тестовой копии.
     n0 = len(html)
@@ -48,8 +52,10 @@ def main():
     s = html.rindex(f'<div id="{SPACER_REC}"', 0, p)
     e = html.index('<div id="rec', s + 10)
     spacer = html[s:e]
-    rec = ('<div id="rec-nvr-otzyvy" class="r t-rec" data-record-type="131" data-test-insert="otzyvy-klientov">\n'
-           + block + '\n</div>\n')
+    # Ровно как Tilda оборачивает блок T123 «HTML-код», внутри — одна строка подключения.
+    rec = ('<div id="rec-nvr-otzyvy" class="r t-rec" data-record-type="131" data-test-insert="otzyvy-klientov">'
+           ' <!-- T123 --> <div class="t123"> <div class="t-container_100 t123__centeredContainer"> <div class="t-width t-width_100 ">'
+           ' <!-- nominify begin --> ' + embed.EMBED_LINE + ' <!-- nominify end --> </div> </div> </div> </div>\n')
     html = html[:s] + spacer + rec + html[s:]
 
     # 5. По ссылке с #otzyvy — сразу к новому разделу: как только появился текст, и ещё раз после полной загрузки
