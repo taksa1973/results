@@ -49,9 +49,14 @@ def main():
            + block + '\n</div>\n')
     html = html[:c] + rec + html[c:]
 
-    # 5. По ссылке с #otzyvy — сразу к новому блоку (якоря Tilda обрабатывает сама, поэтому прокрутка своим скриптом).
+    # 5. По ссылке с #otzyvy — сразу к новому блоку: как только появился текст, и ещё раз после полной загрузки
+    #    (Zero-блоки Tilda достраиваются скриптом и сдвигают высоты), если человек сам ещё не листал.
     jump = '''<script>
-if(location.hash==='#otzyvy'){window.addEventListener('load',function(){setTimeout(function(){var el=document.getElementById('__TITLE_REC__');if(el)window.scrollTo(0,el.getBoundingClientRect().top+window.pageYOffset-20);},400);});}
+if(location.hash==='#otzyvy'){(function(){var moved=false,jumping=false;
+function jump(){var el=document.getElementById('__TITLE_REC__');if(!el||moved)return;jumping=true;window.scrollTo(0,el.getBoundingClientRect().top+window.pageYOffset-20);setTimeout(function(){jumping=false;},50);}
+['wheel','touchstart','keydown'].forEach(function(t){window.addEventListener(t,function(){moved=true;},{passive:true,once:true});});
+document.addEventListener('DOMContentLoaded',function(){setTimeout(jump,300);setTimeout(jump,1200);});
+window.addEventListener('load',function(){setTimeout(jump,300);});})();}
 </script>
 '''.replace('__TITLE_REC__', TITLE_REC)
     html = html.replace('</body>', jump + '</body>', 1)

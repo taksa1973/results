@@ -1780,6 +1780,10 @@ elem.style.setProperty('--x', `${ x }px`);
   }, 250);
 })();
 </script> <!-- nominify end --> </div> </div> </div> </div> </div> <!--/allrecords--> <!-- Stat --> <!-- Yandex.Metrika counter 100267256 -->   <!-- /Yandex.Metrika counter -->  <script>
-if(location.hash==='#otzyvy'){window.addEventListener('load',function(){setTimeout(function(){var el=document.getElementById('rec4646825601');if(el)window.scrollTo(0,el.getBoundingClientRect().top+window.pageYOffset-20);},400);});}
+if(location.hash==='#otzyvy'){(function(){var moved=false,jumping=false;
+function jump(){var el=document.getElementById('rec4646825601');if(!el||moved)return;jumping=true;window.scrollTo(0,el.getBoundingClientRect().top+window.pageYOffset-20);setTimeout(function(){jumping=false;},50);}
+['wheel','touchstart','keydown'].forEach(function(t){window.addEventListener(t,function(){moved=true;},{passive:true,once:true});});
+document.addEventListener('DOMContentLoaded',function(){setTimeout(jump,300);setTimeout(jump,1200);});
+window.addEventListener('load',function(){setTimeout(jump,300);});})();}
 </script>
 </body> </html>
