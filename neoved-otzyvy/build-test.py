@@ -47,17 +47,19 @@ def main():
                                 '<meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet">', html, count=1)
     assert k == 1 and 'noindex' in html, 'нет тега noindex'
 
-    # 4. Раздел «Отзывы клиентов»: отступ между разделами (копия блока сайта) + заголовок и галерея.
+    # 4. Галерея «Отзывы клиентов»: отступ между разделами (копия блока сайта) + блок с одной строкой.
     #    Встаёт перед отступом, который стоит над «Наши партнеры».
-    p = html.index(f'<div id="{PARTNERS_REC}"')
-    s = html.rindex(f'<div id="{SPACER_REC}"', 0, p)
-    e = html.index('<div id="rec', s + 10)
-    spacer = html[s:e]
-    # Ровно как Tilda оборачивает блок T123 «HTML-код», внутри — одна строка подключения.
-    rec = ('<div id="rec-nvr-otzyvy" class="r t-rec" data-record-type="131" data-test-insert="otzyvy-klientov">'
-           ' <!-- T123 --> <div class="t123"> <div class="t-container_100 t123__centeredContainer"> <div class="t-width t-width_100 ">'
-           ' <!-- nominify begin --> ' + embed.EMBED_LINE + ' <!-- nominify end --> </div> </div> </div> </div>\n')
-    html = html[:s] + spacer + rec + html[s:]
+    # Если строка галереи уже стоит на сайте — тест повторяет боевую страницу как есть, вторую копию не вставляем.
+    if 'neoved-otzyvy/otzyvy.js' not in html:
+        p = html.index(f'<div id="{PARTNERS_REC}"')
+        s = html.rindex(f'<div id="{SPACER_REC}"', 0, p)
+        e = html.index('<div id="rec', s + 10)
+        spacer = html[s:e]
+        # Ровно как Tilda оборачивает блок T123 «HTML-код», внутри — одна строка подключения.
+        rec = ('<div id="rec-nvr-otzyvy" class="r t-rec" data-record-type="131" data-test-insert="otzyvy-klientov">'
+               ' <!-- T123 --> <div class="t123"> <div class="t-container_100 t123__centeredContainer"> <div class="t-width t-width_100 ">'
+               ' <!-- nominify begin --> ' + embed.EMBED_LINE + ' <!-- nominify end --> </div> </div> </div> </div>\n')
+        html = html[:s] + spacer + rec + html[s:]
 
     # 5. По ссылке с #otzyvy — сразу к новому разделу: как только появился текст, и ещё раз после полной загрузки
     #    (Zero-блоки Tilda достраиваются скриптом и сдвигают высоты), если человек сам ещё не листал.

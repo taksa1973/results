@@ -1,6 +1,5 @@
-<!-- neoved · «Отзывы клиентов»: заголовок + горизонтальная галерея скриншотов + lightbox.
-     Блок T123 «HTML-код» в Tilda. На главной ставится после раздела «На чем основано доверие клиентов?»,
-     перед отступом над «Наши партнеры»; сверху нужен такой же отступ, как между разделами (120/60).
+<!-- neoved · «Отзывы клиентов»: горизонтальная галерея скриншотов + lightbox, без заголовка
+     (заголовок на сайте отдельным блоком). Подключается одной строкой в блоке T123 «HTML-код».
      Своих отступов сверху и снизу у блока нет.
      Скриншоты без затирания: в ленте — уменьшенные копии под размер карточки, в lightbox — 1080×2424; адрес картинок — префикс https://hooks.neoved.io/amo/neoved-otzyvy/img/ -->
 <style>
@@ -8,8 +7,6 @@
 /* отступ ленты считаем от ширины самого блока (cqw): проценты у отступа и у распорки в конце берутся от разных родителей */
 @supports (width:1cqw){.nvr{--nvr-pad:max(20px,calc((100cqw - var(--nvr-box)) / 2))}}
 .nvr *,.nvr *::before,.nvr *::after{box-sizing:border-box}
-/* заголовок — как у разделов сайта («Наши партнеры», «Команда»): Onest 500, 60/60, −2 px; под ним 40 px, как блок-отступ Tilda */
-.nvr__title{margin:0 0 40px;padding:0 20px;font-family:'Onest',Arial,sans-serif;font-size:60px;line-height:60px;font-weight:500;letter-spacing:-2px;color:var(--nvr-ink);text-align:center}
 /* запас сверху/снизу внутри ленты — только под увеличение при наведении; снаружи он погашен отрицательным полем, блок без отступов.
    Увеличенная карточка заходит на соседний блок Tilda (у подложки его отступа z-index:1, рисуется поверх) — поэтому у .nvr z-index:5, ниже закреплённого меню сайта (100) */
 .nvr__track{display:flex;gap:var(--nvr-gap);margin:calc(var(--nvr-room) * -1) 0;padding:var(--nvr-room) 0 var(--nvr-room) var(--nvr-pad);list-style:none;overflow-x:auto;overflow-y:hidden;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;scroll-padding-left:var(--nvr-pad);scrollbar-width:none;-webkit-overflow-scrolling:touch}
@@ -36,7 +33,6 @@
 .nvr-lb.is-dragging,.nvr-lb.is-dragging *{cursor:grabbing}
 @media (max-width:1199px){.nvr{--nvr-w:310px;--nvr-box:640px}.nvr__card{gap:10px}.nvr__tag{padding:5px 12px;border-radius:14px;font-size:13px;line-height:16px;letter-spacing:-.2px}}
 @media (max-width:639px){
-.nvr__title{margin-bottom:20px;font-size:25px;line-height:25px;letter-spacing:-.5px}
 .nvr{--nvr-gap:12px;--nvr-pad:20px;--nvr-room:0px;--nvr-w:min(400px,calc((100vw - 32px) / 1.125))}
 .nvr__head{min-height:28px}
 .nvr__tag{padding:5px 10px}
@@ -75,8 +71,7 @@
 </style>
 
 <div class="nvr" id="nvr" data-nvr>
-  <h2 class="nvr__title" id="nvr-title">Отзывы клиентов</h2>
-  <ul class="nvr__track" aria-labelledby="nvr-title">
+  <ul class="nvr__track" aria-label="Отзывы клиентов: скриншоты сообщений">
     <li class="nvr__item">
       <figure class="nvr__card">
         <figcaption class="nvr__head"><span class="nvr__tag">Международный платеж в USDC (ERC-20)</span></figcaption>
