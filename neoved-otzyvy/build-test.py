@@ -1,5 +1,5 @@
-# Собирает тестовую страницу: свежая копия https://neoved.io/keysy-i-otzyvy
-# + блок «Отзывы без редакции» (block.html) между заголовком и подписью блока.
+# Собирает тестовую страницу: свежая копия главной https://neoved.io/
+# + раздел «Отзывы клиентов» (block.html) после «На чем основано доверие клиентов?», перед «Наши партнеры».
 # Запуск из корня репозитория: python neoved-otzyvy/build-test.py
 import re
 import sys
@@ -7,10 +7,10 @@ import urllib.request
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-SRC_URL = 'https://neoved.io/keysy-i-otzyvy'
+SRC_URL = 'https://neoved.io/'
 OUT = ROOT / 'neoved-otzyvy-test.html'
-TITLE_REC = 'rec4646825601'     # Zero-блок «Отзывы без редакции» + дескриптор
-CAPTION_REC = 'rec4652418501'   # Zero-блок «Личные данные скрываем…»
+PARTNERS_REC = 'rec1591802201'  # Zero-блок «Наши партнеры»
+SPACER_REC = 'rec1190539581'    # блок-отступ между разделами сайта (120 px, на телефоне 60)
 UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0 Safari/537.36'
 
 
@@ -36,29 +36,32 @@ def main():
 
     # 3. Закрыть от индексации + пометить вкладку.
     html = re.sub(r'<meta name="robots"[^>]*>\s*', '', html)
-    html = html.replace('<title>Кейсы и отзывы neoved</title>',
-                        '<title>Тест · Кейсы и отзывы neoved</title>\n'
-                        '<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">\n'
-                        '<meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet">', 1)
-    assert 'noindex' in html, 'нет тега noindex'
+    html, k = re.subn(r'<title>([^<]*)</title>',
+                      lambda m: f'<title>Тест · {m.group(1)}</title>\n'
+                                '<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">\n'
+                                '<meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet">', html, count=1)
+    assert k == 1 and 'noindex' in html, 'нет тега noindex'
 
-    # 4. Вставить галерею: после отступа под заголовком, прямо перед подписью.
-    t = html.index(f'<div id="{TITLE_REC}"')
-    c = html.index(f'<div id="{CAPTION_REC}"', t)
-    rec = ('<div id="rec-nvr-otzyvy" class="r t-rec" data-record-type="131" data-test-insert="otzyvy-bez-redaktsii">\n'
+    # 4. Раздел «Отзывы клиентов»: отступ между разделами (копия блока сайта) + заголовок и галерея.
+    #    Встаёт перед отступом, который стоит над «Наши партнеры».
+    p = html.index(f'<div id="{PARTNERS_REC}"')
+    s = html.rindex(f'<div id="{SPACER_REC}"', 0, p)
+    e = html.index('<div id="rec', s + 10)
+    spacer = html[s:e]
+    rec = ('<div id="rec-nvr-otzyvy" class="r t-rec" data-record-type="131" data-test-insert="otzyvy-klientov">\n'
            + block + '\n</div>\n')
-    html = html[:c] + rec + html[c:]
+    html = html[:s] + spacer + rec + html[s:]
 
-    # 5. По ссылке с #otzyvy — сразу к новому блоку: как только появился текст, и ещё раз после полной загрузки
+    # 5. По ссылке с #otzyvy — сразу к новому разделу: как только появился текст, и ещё раз после полной загрузки
     #    (Zero-блоки Tilda достраиваются скриптом и сдвигают высоты), если человек сам ещё не листал.
     jump = '''<script>
-if(location.hash==='#otzyvy'){(function(){var moved=false,jumping=false;
-function jump(){var el=document.getElementById('__TITLE_REC__');if(!el||moved)return;jumping=true;window.scrollTo(0,el.getBoundingClientRect().top+window.pageYOffset-20);setTimeout(function(){jumping=false;},50);}
+if(location.hash==='#otzyvy'){(function(){var moved=false;
+function jump(){var el=document.getElementById('nvr');if(!el||moved)return;window.scrollTo(0,el.getBoundingClientRect().top+window.pageYOffset-100);}
 ['wheel','touchstart','keydown'].forEach(function(t){window.addEventListener(t,function(){moved=true;},{passive:true,once:true});});
 document.addEventListener('DOMContentLoaded',function(){setTimeout(jump,300);setTimeout(jump,1200);});
 window.addEventListener('load',function(){setTimeout(jump,300);});})();}
 </script>
-'''.replace('__TITLE_REC__', TITLE_REC)
+'''
     html = html.replace('</body>', jump + '</body>', 1)
 
     OUT.write_text(html, encoding='utf-8')
