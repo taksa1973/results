@@ -1216,13 +1216,14 @@ if (window.location.pathname !== '/') {
      Своих отступов сверху и снизу у блока нет.
      Скриншоты без затирания: в ленте — уменьшенные копии под размер карточки, в lightbox — 1080×2424; адрес картинок — префикс https://taksa1973.github.io/results/img/neoved-otzyvy/ -->
 <style>
-.nvr{--nvr-ink:#110000;--nvr-red:#EE0000;--nvr-gap:20px;--nvr-w:373.33px;--nvr-box:1160px;--nvr-room:14px;--nvr-pad:max(20px,calc((100% - var(--nvr-box)) / 2));position:relative;container-type:inline-size;margin:0;padding:0;font-family:'Onest',Arial,sans-serif;color:var(--nvr-ink);-webkit-font-smoothing:antialiased}
+.nvr{--nvr-ink:#110000;--nvr-red:#EE0000;--nvr-gap:20px;--nvr-w:373.33px;--nvr-box:1160px;--nvr-room:14px;--nvr-pad:max(20px,calc((100% - var(--nvr-box)) / 2));position:relative;z-index:5;container-type:inline-size;margin:0;padding:0;font-family:'Onest',Arial,sans-serif;color:var(--nvr-ink);-webkit-font-smoothing:antialiased}
 /* отступ ленты считаем от ширины самого блока (cqw): проценты у отступа и у распорки в конце берутся от разных родителей */
 @supports (width:1cqw){.nvr{--nvr-pad:max(20px,calc((100cqw - var(--nvr-box)) / 2))}}
 .nvr *,.nvr *::before,.nvr *::after{box-sizing:border-box}
 /* заголовок — как у разделов сайта («Наши партнеры», «Команда»): Onest 500, 60/60, −2 px; под ним 40 px, как блок-отступ Tilda */
 .nvr__title{margin:0 0 40px;padding:0 20px;font-family:'Onest',Arial,sans-serif;font-size:60px;line-height:60px;font-weight:500;letter-spacing:-2px;color:var(--nvr-ink);text-align:center}
-/* запас сверху/снизу внутри ленты — только под увеличение при наведении; снаружи он погашен отрицательным полем, блок без отступов */
+/* запас сверху/снизу внутри ленты — только под увеличение при наведении; снаружи он погашен отрицательным полем, блок без отступов.
+   Увеличенная карточка заходит на соседний блок Tilda (у подложки его отступа z-index:1, рисуется поверх) — поэтому у .nvr z-index:5, ниже закреплённого меню сайта (100) */
 .nvr__track{display:flex;gap:var(--nvr-gap);margin:calc(var(--nvr-room) * -1) 0;padding:var(--nvr-room) 0 var(--nvr-room) var(--nvr-pad);list-style:none;overflow-x:auto;overflow-y:hidden;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;scroll-padding-left:var(--nvr-pad);scrollbar-width:none;-webkit-overflow-scrolling:touch}
 .nvr__track::-webkit-scrollbar{display:none}
 .nvr__track::after{content:'';flex:0 0 max(1px,calc(var(--nvr-pad) - var(--nvr-gap)))}
