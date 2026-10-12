@@ -7,6 +7,7 @@ import urllib.request
 from importlib import import_module
 from pathlib import Path
 
+sys.dont_write_bytecode = True  # без __pycache__ рядом с кодом
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 embed = import_module('build-embed')
 
