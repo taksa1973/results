@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Сервер Project Zomboid с модами — где держать и как поднять</title>
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="description" content="Выделенный сервер Project Zomboid (Build 42) с набором модов на 10–15 игроков: какая ветка, сколько памяти, где держать с низким пингом из России и без переплаты, пошаговая установка на Linux.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add('js-anim');</script>
+<style>
+:root{color-scheme:dark;
+  --x-ink:#F5F5F5;--x-ink-2:#C4C4C8;--x-ink-3:#8E8E93;--x-bg:#000000;--x-paper:#121212;--x-soft:#1A1A1A;--x-line:#262626;--x-line-2:#3A3A3A;
+  --x-red:#9B1C1C;--x-red-hover:#B42323;--x-red-text:#E05252;--x-red-soft:#241010;--x-red-line:#4D1B1B;
+  --x-code:#0B0B0B;--radius:18px;
+  --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--x-bg);color:var(--x-ink);font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+::selection{background:var(--x-red);color:#fff}
+h1,h2,h3,h4{color:#fff;line-height:1.2;margin:0}
+p{margin:0 0 12px}
+a{color:var(--x-red-text);text-decoration:none;border-bottom:1px solid rgba(224,82,82,.35);transition:color .2s,border-color .2s}
+a:hover{color:#fff;border-bottom-color:#fff}
+a:focus-visible,button:focus-visible,input:focus-visible,label:focus-within{outline:2px solid var(--x-red-text);outline-offset:3px;border-radius:6px}
+code{font-family:var(--mono);font-size:.88em;background:var(--x-soft);border:1px solid var(--x-line);border-radius:6px;padding:1px 6px;color:#fff;word-break:break-word}
+.skip{position:absolute;left:-999px;top:8px;background:#fff;color:#000;padding:8px 12px;border-radius:8px;z-index:100;border:0}
+.skip:focus{left:16px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 16px}
+@media(min-width:768px){.wrap{padding:0 32px}}
+.tnum{font-variant-numeric:tabular-nums}
+
+/* навигация */
+.topbar{position:sticky;top:0;z-index:50;background:rgba(0,0,0,.88);border-bottom:1px solid var(--x-line);-webkit-backdrop-filter:saturate(140%) blur(16px);backdrop-filter:saturate(140%) blur(16px)}
+.topbar .wrap{display:flex;align-items:center;gap:16px;height:56px}
+.brand{font-weight:700;font-size:14px;color:#fff;white-space:nowrap;border:0}
+.brand:hover{border:0}
+nav.topnav{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;margin-left:auto;mask-image:linear-gradient(90deg,transparent 0,#000 12px,#000 calc(100% - 24px),transparent 100%);-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 12px,#000 calc(100% - 24px),transparent 100%);padding:0 12px}
+nav.topnav::-webkit-scrollbar{display:none}
+nav.topnav a{font-size:13px;color:var(--x-ink-2);padding:0 12px;border-radius:999px;white-space:nowrap;min-height:40px;display:inline-flex;align-items:center;border:0;transition:background .2s,color .2s}
+nav.topnav a:hover{color:#fff;background:rgba(255,255,255,.08)}
+nav.topnav a.active{color:#fff;background:var(--x-red)}
+
+/* шапка */
+.hero{padding:56px 0 44px;border-bottom:1px solid var(--x-line)}
+.eyebrow{color:var(--x-red-text);font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:14px}
+.hero h1{font-size:clamp(32px,6vw,58px);font-weight:800;letter-spacing:-.03em;max-width:900px}
+.hero h1 span{color:var(--x-red-text)}
+.lead{font-size:clamp(17px,2.2vw,20px);color:var(--x-ink-2);max-width:760px;margin:18px 0 20px;line-height:1.55}
+.pills{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:28px}
+.pill{font-size:13px;font-weight:500;color:var(--x-ink-2);border:1px solid var(--x-line-2);border-radius:999px;padding:6px 12px}
+.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+@media(min-width:900px){.stats{grid-template-columns:repeat(4,1fr)}}
+.stat{background:var(--x-paper);border:1px solid var(--x-line);border-radius:var(--radius);padding:18px}
+.stat b{display:block;font-size:clamp(26px,4vw,36px);font-weight:800;letter-spacing:-.02em;color:#fff;font-variant-numeric:tabular-nums;line-height:1.1}
+.stat span{display:block;margin-top:8px;font-size:13px;color:var(--x-ink-2);line-height:1.45}
+
+/* секции */
+section{padding:56px 0;border-bottom:1px solid var(--x-line)}
+.sec-head{display:flex;align-items:flex-start;gap:14px;margin-bottom:22px}
+.num{flex:none;width:34px;height:34px;border-radius:9px;background:#fff;color:#000;font-weight:800;font-size:15px;display:inline-flex;align-items:center;justify-content:center;font-variant-numeric:tabular-nums;margin-top:2px}
+.sec-head h2{font-size:clamp(24px,3.4vw,34px);font-weight:800;letter-spacing:-.02em}
+.sec-head p{color:var(--x-ink-2);margin:8px 0 0;max-width:760px}
+h3{font-size:19px;font-weight:700;margin:0 0 10px}
+.muted{color:var(--x-ink-3)}
+
+/* карточки */
+.bento{display:grid;grid-template-columns:1fr;gap:14px}
+@media(min-width:900px){.bento{grid-template-columns:repeat(6,1fr)}.span-6{grid-column:span 6}.span-4{grid-column:span 4}.span-3{grid-column:span 3}.span-2{grid-column:span 2}}
+.bento>*{min-width:0}
+.card{background:var(--x-paper);border:1px solid var(--x-line);border-radius:var(--radius);padding:22px;transition:transform .2s ease,box-shadow .2s ease}
+.card:hover{transform:translateY(-2px);box-shadow:0 0 0 1px rgba(255,255,255,.18)}
+.card.hl{border-color:#5A5A5F;background:#151515}
+.card ul{margin:10px 0 0;padding-left:20px}
+.card li{margin:6px 0;color:var(--x-ink-2)}
+.card li b{color:#fff}
+.price{font-size:30px;font-weight:800;color:#fff;letter-spacing:-.02em;font-variant-numeric:tabular-nums;margin:6px 0 2px}
+.price small{font-size:15px;font-weight:500;color:var(--x-ink-3)}
+.spec{font-size:14px;color:var(--x-ink-2);margin-bottom:10px}
+
+/* статусы */
+.chip{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;border-radius:999px;padding:4px 10px;white-space:nowrap;line-height:1.3}
+.chip-ok{background:#2A2A2A;color:#fff;box-shadow:inset 0 0 0 1px #5A5A5F}
+.chip-mute{background:var(--x-soft);color:#A1A1A6}
+.chip-warn{background:var(--x-red-soft);color:var(--x-red-text);box-shadow:inset 0 0 0 1px var(--x-red-line)}
+.chip-bad{background:var(--x-red);color:#fff}
+
+/* заметки */
+.note{background:var(--x-soft);border:1px solid var(--x-line);border-radius:14px;padding:14px 16px;color:var(--x-ink-2);font-size:15px;margin:14px 0}
+.note b{color:#fff}
+.note.red{background:var(--x-red-soft);border-color:var(--x-red-line);color:#F2D6D6}
+
+/* таблицы */
+.tbl{width:100%;border-collapse:separate;border-spacing:0;font-size:14px;border:1px solid var(--x-line);border-radius:14px;overflow:hidden}
+.tbl th,.tbl td{text-align:left;padding:12px 14px;vertical-align:top;border-bottom:1px solid var(--x-line)}
+.tbl thead th{background:#1F1F1F;color:#fff;font-weight:600;font-size:13px}
+.tbl tbody tr:last-child td{border-bottom:0}
+.tbl tbody tr{transition:background .15s}
+.tbl tbody tr:hover{background:#161616}
+.tbl td.r,.tbl th.r{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.tbl td b{color:#fff}
+.tbl .sub{display:block;color:var(--x-ink-3);font-size:13px;margin-top:2px}
+tr.win td{background:#151515}
+tr.win td:first-child{box-shadow:inset 3px 0 0 #fff}
+@media(max-width:760px){
+  .tbl.stack,.tbl.stack tbody,.tbl.stack tr,.tbl.stack td{display:block;width:100%}
+  .tbl.stack thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+  .tbl.stack{border:0;border-radius:0}
+  .tbl.stack tr{background:var(--x-paper);border:1px solid var(--x-line);border-radius:14px;margin-bottom:12px;padding:6px 0}
+  .tbl.stack tr.win{border-color:#5A5A5F}
+  .tbl.stack tr.win td{background:none}
+  .tbl.stack tr.win td:first-child{box-shadow:none}
+  .tbl.stack td{border:0;padding:6px 16px 6px 112px;position:relative;white-space:normal}
+  .tbl.stack td::before{content:attr(data-label);position:absolute;left:16px;top:8px;width:88px;color:var(--x-ink-3);font-size:12px;font-weight:600;line-height:1.35}
+  .tbl.stack td.r{text-align:left}
+  .tbl.stack td .chip{margin-bottom:2px}
+  .tbl.stack td:first-child{padding:12px 16px 6px}
+  .tbl.stack td:first-child::before{display:none}
+}
+
+/* пинг */
+.bars{display:grid;gap:10px;margin-top:6px}
+.bar{display:grid;grid-template-columns:140px 1fr 70px;align-items:center;gap:12px;font-size:14px}
+.bar .t{color:var(--x-ink-2)}
+.bar .track{height:12px;background:#1F1F1F;border-radius:999px;overflow:hidden}
+.bar .fill{display:block;height:100%;background:var(--x-red-text);border-radius:999px;transform-origin:left center}
+.bar .fill.near{background:#fff}
+.bar .v{text-align:right;color:#fff;font-weight:600;font-variant-numeric:tabular-nums}
+@media(max-width:520px){.bar{grid-template-columns:100px 1fr 56px;font-size:13px}}
+
+/* шаги */
+ol.steps{list-style:none;counter-reset:s;margin:0;padding:0;display:grid;grid-template-columns:minmax(0,1fr);gap:16px}
+ol.steps>li{min-width:0;counter-increment:s;position:relative;padding:20px 20px 20px 64px;background:var(--x-paper);border:1px solid var(--x-line);border-radius:var(--radius)}
+ol.steps>li::before{content:counter(s);position:absolute;left:18px;top:18px;width:30px;height:30px;border-radius:8px;background:#fff;color:#000;font-weight:800;font-size:14px;display:flex;align-items:center;justify-content:center;font-variant-numeric:tabular-nums}
+ol.steps>li h3{font-size:17px;margin-bottom:6px}
+ol.steps>li p{color:var(--x-ink-2)}
+.who{font-size:12px;font-weight:600;color:var(--x-ink-3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px}
+@media(max-width:520px){ol.steps>li{padding:56px 16px 16px}ol.steps>li::before{left:16px;top:16px}}
+
+/* код */
+.code{position:relative;margin:12px 0 4px;background:var(--x-code);border:1px solid var(--x-line-2);border-radius:12px}
+.code{min-width:0;max-width:100%}
+.code pre{margin:0;padding:16px 16px 16px;overflow-x:auto;font-family:var(--mono);font-size:13.5px;line-height:1.65;color:#EDEDED;tab-size:2}
+.code pre code{background:none;border:0;border-radius:0;padding:0;font-size:inherit;color:inherit;word-break:normal;white-space:pre}
+.code .lbl{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:6px 6px 6px 14px;border-bottom:1px solid var(--x-line);font-size:12px;color:var(--x-ink-3);font-family:var(--mono)}
+.copy{font:600 12px Inter,sans-serif;color:#fff;background:#1F1F1F;border:1px solid var(--x-line-2);border-radius:8px;min-height:36px;min-width:44px;padding:0 12px;cursor:pointer;transition:background .2s,border-color .2s}
+.copy:hover{background:var(--x-red);border-color:var(--x-red)}
+.copy.done{background:#2A2A2A;border-color:#5A5A5F}
+.code .c{color:#8E8E93}
+.code .k{color:var(--x-red-text)}
+
+/* проблемы */
+.qa{display:grid;gap:10px}
+.qa details{background:var(--x-paper);border:1px solid var(--x-line);border-radius:14px;padding:0 18px}
+.qa summary{cursor:pointer;list-style:none;padding:16px 0;font-weight:600;color:#fff;display:flex;gap:12px;align-items:flex-start;min-height:44px}
+.qa summary::-webkit-details-marker{display:none}
+.qa summary::before{content:"+";color:var(--x-red-text);font-weight:800;width:14px;flex:none;transition:transform .2s}
+.qa details[open] summary::before{transform:rotate(45deg)}
+.qa details>div{padding:0 0 16px 26px;color:var(--x-ink-2)}
+
+/* чек-лист */
+.check{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.check label{display:flex;gap:12px;align-items:flex-start;background:var(--x-paper);border:1px solid var(--x-line);border-radius:12px;padding:12px 14px;cursor:pointer;min-height:44px;transition:border-color .2s,background .2s}
+.check label:hover{border-color:var(--x-line-2)}
+.check input{appearance:none;-webkit-appearance:none;flex:none;width:20px;height:20px;margin-top:2px;border:2px solid #5A5A5F;border-radius:6px;background:transparent;cursor:pointer;display:grid;place-content:center;transition:background .15s,border-color .15s}
+.check input::after{content:"";width:10px;height:6px;border-left:2px solid #000;border-bottom:2px solid #000;transform:rotate(-45deg) translate(1px,-1px);opacity:0}
+.check input:checked{background:#fff;border-color:#fff}
+.check input:checked::after{opacity:1}
+.check input:checked+span{color:var(--x-ink-3);text-decoration:line-through;text-decoration-color:#5A5A5F}
+.progress{display:flex;align-items:center;gap:12px;margin:0 0 14px;font-size:14px;color:var(--x-ink-2)}
+.progress .track{flex:1;height:8px;background:#1F1F1F;border-radius:999px;overflow:hidden}
+.progress .fill{display:block;height:100%;width:0;background:var(--x-red-text);transition:width .3s ease}
+
+/* источники */
+.src{columns:1;column-gap:32px;padding-left:20px;margin:0;color:var(--x-ink-2);font-size:14px}
+@media(min-width:900px){.src{columns:2}}
+.src li{margin:0 0 8px;break-inside:avoid}
+footer{padding:32px 0 48px;color:var(--x-ink-3);font-size:13px}
+
+/* анимации: контент виден по умолчанию */
+.reveal{opacity:1}
+.js-anim .reveal{opacity:0;transform:translateY(18px)}
+.js-anim .reveal.shown{opacity:1;transform:none;transition:opacity .55s cubic-bezier(.22,1,.36,1),transform .55s cubic-bezier(.22,1,.36,1)}
+@media (prefers-reduced-motion:reduce){.js-anim .reveal{opacity:1;transform:none;transition:none}.card:hover{transform:none}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">К содержанию</a>
+
+<div class="topbar">
+  <div class="wrap">
+    <a class="brand" href="#top">PZ-сервер</a>
+    <nav class="topnav" aria-label="Разделы">
+      <a href="#answer">Итог</a>
+      <a href="#branch">B42 или B41</a>
+      <a href="#specs">Железо</a>
+      <a href="#where">Где держать</a>
+      <a href="#ping">Пинг</a>
+      <a href="#setup">Установка</a>
+      <a href="#mods">Моды</a>
+      <a href="#ops">Обслуживание</a>
+      <a href="#trouble">Проблемы</a>
+      <a href="#checklist">Чек-лист</a>
+      <a href="#sources">Источники</a>
+    </nav>
+  </div>
+</div>
+
+<header class="hero" id="top">
+  <div class="wrap">
+    <div class="eyebrow">Гайд · Project Zomboid · 10–15 игроков</div>
+    <h1>Свой сервер Project Zomboid <span>с модами</span> — где держать и как поднять</h1>
+    <p class="lead">Сервер должен стоять в Москве, на процессоре с быстрым ядром и с 12 ГБ памяти. Ниже: какую ветку игры выбрать под моды, у кого брать, чтобы не переплачивать, и как поставить всё самому по шагам.</p>
+    <div class="pills">
+      <span class="pill">Build 42.21 (стабильная)</span>
+      <span class="pill">Дата-центр в Москве</span>
+      <span class="pill">VPS или панель</span>
+    </div>
+    <div class="stats">
+      <div class="stat reveal"><b>42.21</b><span>текущая стабильная версия; мультиплеер B42 в основной ветке с 29 июля 2026</span></div>
+      <div class="stat reveal"><b>12 ГБ</b><span>памяти на сервер для 10–20 игроков с нормальным списком модов</span></div>
+      <div class="stat reveal"><b>2 200 ₽</b><span>в месяц: VPS в Москве на Ryzen 9 9950X с 12 ГБ DDR5</span></div>
+      <div class="stat reveal"><b>9–13 мс</b><span>пинг из Москвы до Петербурга и Казани; до Франкфурта ~49 мс</span></div>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- 1. Итог -->
+<section id="answer">
+  <div class="wrap">
+    <div class="sec-head reveal"><span class="num">1</span><div><h2>Итог: что брать</h2><p>Для Project Zomboid важны три вещи: быстрое ядро процессора, достаточно памяти под моды и близость к игрокам. Самый выгодный вариант — обычный VPS в Москве на свежем Ryzen.</p></div></div>
+    <div class="bento">
+      <article class="card hl span-4 reveal">
+        <span class="chip chip-ok">Рекомендую</span>
+        <h3 style="margin-top:12px">VPS в Москве на Ryzen 9 9950X — <a href="https://ark-hoster.ru/vpsgame/" target="_blank" rel="noopener">ARK-HOSTER</a></h3>
+        <div class="price tnum">2 200 ₽ <small>/ мес</small></div>
+        <div class="spec">2 ядра Ryzen 9 9950X до 5,7 ГГц · 12 ГБ DDR5 · 100 ГБ NVMe · Москва (Tech.ru, ММТС-9)</div>
+        <ul>
+          <li><b>Почему он.</b> У этого процессора одно из самых быстрых ядер на рынке, а сервер Zomboid упирается именно в одно ядро. 12 ГБ — норма для 10–20 игроков с модами.</li>
+          <li><b>Если моды тяжёлые</b> (большие карты, десятки модов на технику и предметы) — тариф на 3 ядра и 16 ГБ DDR5 за <b>3 050 ₽</b>.</li>
+          <li><b>Оплата:</b> Visa, Mastercard, «Мир», СБП. Бесплатный тест на 24–72 часа — можно проверить пинг у всех игроков до оплаты.</li>
+          <li><b>Проверить на тесте:</b> выделены ли ядра под вас или делятся с соседями — на сайте это не указано. Если под нагрузкой сервер лагает при свободной памяти, причина скорее всего в этом.</li>
+          <li><b>Минус:</b> панели нет, ставить самому по SSH. Инструкция — в разделе <a href="#setup">«Установка»</a>.</li>
+        </ul>
+      </article>
+      <article class="card span-2 reveal">
+        <span class="chip chip-mute">Без консоли</span>
+        <h3 style="margin-top:12px">Игровой хостинг с панелью</h3>
+        <p class="spec">Мод добавляется кнопкой, сервер перезапускается из браузера.</p>
+        <ul>
+          <li><a href="https://masspas.com/hosting-pz" target="_blank" rel="noopener">MASSPAS</a>, Москва: i9-9900K, 9 ГБ — от <b>1 590 ₽</b>, на Ryzen 9 9950X — от <b>2 600 ₽</b>. Build 42 поддерживается, память можно докупить.</li>
+          <li><a href="https://ark-hoster.ru/projectzomboid/" target="_blank" rel="noopener">ARK-HOSTER</a> GROW: 16 ГБ сразу и ежедневные бэкапы — <b>2 420 ₽</b>.</li>
+        </ul>
+      </article>
+      <article class="card span-3 reveal">
+        <span class="chip chip-bad">Не брать</span>
+        <h3 style="margin-top:12px">Где переплатите или будет лагать</h3>
+        <ul>
+          <li><b>Тарифы на Xeon E5</b> — старые серверные процессоры с медленным ядром. Памяти много, а сервер всё равно будет тормозить.</li>
+          <li><b>Тарифы на 6–9 ГБ</b> без докупки памяти — для 15 игроков с модами мало.</li>
+          <li><b>«Hi-CPU» у облачных провайдеров</b> — тот же Ryzen 9950X с 16 ГБ в Москве у <a href="https://appletec.ru/vds-ryzen9-9950x/" target="_blank" rel="noopener">AppleTec</a> стоит 4 290 ₽, на 1 240 ₽ дороже.</li>
+        </ul>
+      </article>
+      <article class="card span-3 reveal">
+        <span class="chip chip-warn">Осторожно</span>
+        <h3 style="margin-top:12px">Дата-центры за границей</h3>
+        <ul>
+          <li>Германия и Нидерланды дают <b>~49 мс</b> из Москвы против 9–13 мс внутри страны.</li>
+          <li>Сети иностранных хостеров в России периодически блокируют. В декабре 2024 «Ростелеком» перестал пропускать соединения к части серверов в сети Hetzner. В апреле 2025 Роскомнадзор пригрозил ограничить работу 12 зарубежных хостеров, среди них Hetzner, AWS и DigitalOcean.</li>
+          <li>Вариант за 0 ₽ — сервер на ПК одного из игроков: нужны белый IP, открытые порты UDP 16261–16262 и компьютер, включённый всё время игры.</li>
+        </ul>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- 2. Ветка -->
+<section id="branch">
+  <div class="wrap">
+    <div class="sec-head reveal"><span class="num">2</span><div><h2>Build 42 или Build 41: решают моды</h2><p>Сервер и все игроки должны быть на одной ветке, и каждый мод из набора должен её поддерживать. Моды под B41 на сервере B42 не работают, и наоборот.</p></div></div>
+    <div class="reveal">
+      <table class="tbl stack">
+        <thead><tr><th></th><th>Build 42 — основная ветка</th><th>Build 41 — ветка <code>legacy41</code></th></tr></thead>
+        <tbody>
+          <tr><td data-label=""><b>Статус</b></td><td data-label="B42">Стабильная. 42.20 вышла с мультиплеером 29 июля 2026, 42.21 — 28 сентября 2026. Патчи выходят часто.</td><td data-label="B41">Старая ветка, обновлений нет. Ставится через бета-ветку <code>legacy41</code>.</td></tr>
+          <tr><td data-label=""><b>Моды</b></td><td data-label="B42">Только помеченные в Workshop как Build 42. Часть старых модов ещё не перенесена.</td><td data-label="B41">Огромная библиотека за годы, всё «классическое» есть.</td></tr>
+          <tr><td data-label=""><b>Строка модов</b></td><td data-label="B42"><code>Mods=\ModA;\ModB</code> — с обратным слешем перед каждым ID</td><td data-label="B41"><code>Mods=ModA;ModB</code> — без слеша</td></tr>
+          <tr><td data-label=""><b>Установка сервера</b></td><td data-label="B42"><code>app_update 380870 validate</code></td><td data-label="B41"><code>app_update 380870 -beta legacy41 validate</code></td></tr>
+          <tr><td data-label=""><b>Игрокам</b></td><td data-label="B42">Ничего, ветка по умолчанию</td><td data-label="B41">Steam → Project Zomboid → Свойства → Бета-версии → <code>legacy41</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="note reveal"><b>Как решить.</b> Откройте каждый мод из набора в Workshop и посмотрите теги справа (Build 41 / Build 42). Если хотя бы один обязательный мод есть только под B41 — весь сервер ставится на <code>legacy41</code>. Если все моды поддерживают B42 — берите B42.</div>
+  </div>
+</section>
+
+<!-- 3. Железо -->
+<section id="specs">
+  <div class="wrap">
+    <div class="sec-head reveal"><span class="num">3</span><div><h2>Сколько железа на 10–15 человек</h2><p>Память определяет число игроков и модов, частота ядра — будут ли лаги при скоплении зомби. Ядер много не нужно: хватает 2–4 быстрых.</p></div></div>
+    <div class="bento">
+      <div class="span-4 reveal">
+        <table class="tbl stack">
+          <thead><tr><th>Сценарий</th><th class="r">Память Java (‑Xmx)</th><th class="r">RAM сервера</th></tr></thead>
+          <tbody>
+            <tr><td data-label="">До ~10 игроков, лёгкие моды</td><td class="r" data-label="‑Xmx">6 ГБ</td><td class="r" data-label="RAM">10 ГБ</td></tr>
+            <tr class="win"><td data-label=""><b>10–20 игроков, обычный набор модов</b><span class="sub">ваш случай</span></td><td class="r" data-label="‑Xmx"><b>8–9 ГБ</b></td><td class="r" data-label="RAM"><b>12 ГБ</b></td></tr>
+            <tr><td data-label="">20+ игроков или тяжёлые моды и карты</td><td class="r" data-label="‑Xmx">12–13 ГБ</td><td class="r" data-label="RAM">16 ГБ</td></tr>
+          </tbody>
+        </table>
+        <p class="muted" style="font-size:13px;margin-top:8px">По расчёту <a href="https://connecthosting.net/blog/how-much-ram-project-zomboid-b42-server" target="_blank" rel="noopener">ConnectHosting для B42</a>: примерно 3 ГБ RAM должны оставаться вне памяти Java — для системы и самой игры.</p>
+      </div>
+      <div class="card span-2 reveal">
+        <h3>Процессор и диск</h3>
+        <ul>
+          <li><b>Процессор:</b> главное — производительность одного ядра. Ryzen 9 7950X/9950X или Core i9 — хорошо, Xeon E5 — плохо.</li>
+          <li><b>Диск:</b> NVMe. Мир постоянно пишется на диск, на медленном диске он долго грузится и сохраняется.</li>
+          <li><b>Объём:</b> игра, моды и бэкапы мира. Тарифы ниже дают от 60 до 150 ГБ — хватит.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 4. Где держать -->
+<section id="where">
+  <div class="wrap">
+    <div class="sec-head reveal"><span class="num">4</span><div><h2>Где держать: сравнение</h2><p>Цены за месяц — как указаны на сайтах хостеров. Перед заказом сверьте тариф: у хостингов с панелью итог зависит от выбранных опций.</p></div></div>
+    <div class="reveal">
+      <table class="tbl stack">
+        <thead><tr><th>Вариант</th><th>Где</th><th>Процессор</th><th>RAM / диск</th><th class="r">₽/мес</th><th>Вердикт</th></tr></thead>
+        <tbody>
+          <tr class="win">
+            <td data-label=""><b><a href="https://ark-hoster.ru/vpsgame/" target="_blank" rel="noopener">ARK-HOSTER</a> VPS</b><span class="sub">root-доступ, без панели</span></td>
+            <td data-label="Где">Москва</td>
+            <td data-label="Процессор">Ryzen 9 9950X до 5,7 ГГц · 2 ядра</td>
+            <td data-label="RAM / диск">12 ГБ DDR5 / 100 ГБ NVMe</td>
+            <td class="r" data-label="₽/мес"><b>2 200</b></td>
+            <td data-label="Вердикт"><span class="chip chip-ok">Рекомендую</span><span class="sub">Лучшее железо за эти деньги; «Мир», СБП; тест 24–72 ч</span></td>
+          </tr>
+          <tr>
+            <td data-label=""><b><a href="https://ark-hoster.ru/vpsgame/" target="_blank" rel="noopener">ARK-HOSTER</a> VPS</b><span class="sub">старший тариф</span></td>
+            <td data-label="Где">Москва</td>
+            <td data-label="Процессор">Ryzen 9 9950X · 3 ядра</td>
+            <td data-label="RAM / диск">16 ГБ DDR5 / 150 ГБ NVMe</td>
+            <td class="r" data-label="₽/мес">3 050</td>
+            <td data-label="Вердикт"><span class="chip chip-ok">Под тяжёлые моды</span><span class="sub">Если в наборе большие карты</span></td>
+          </tr>
+          <tr>
+            <td data-label=""><b><a href="https://masspas.com/hosting-pz" target="_blank" rel="noopener">MASSPAS</a> «Оптимальный»</b><span class="sub">панель, Workshop</span></td>
+            <td data-label="Где">Москва</td>
+            <td data-label="Процессор">i9-9900K до 5,1 ГГц · 2 ядра</td>
+            <td data-label="RAM / диск">9 ГБ / 30 ГБ SSD</td>
+            <td class="r" data-label="₽/мес">от 1 590</td>
+            <td data-label="Вердикт"><span class="chip chip-mute">Панель</span><span class="sub">B42 заявлена; на 15 человек память лучше докупить (цена за ГБ на сайте не указана)</span></td>
+          </tr>
+          <tr>
+            <td data-label=""><b><a href="https://masspas.com/hosting-pz" target="_blank" rel="noopener">MASSPAS</a> «Премиум»</b><span class="sub">панель, Workshop</span></td>
+            <td data-label="Где">Москва</td>
+            <td data-label="Процессор">Ryzen 9 9950X до 5,7 ГГц · 2 ядра</td>
+            <td data-label="RAM / диск">9 ГБ / 30 ГБ SSD</td>
+            <td class="r" data-label="₽/мес">от 2 600</td>
+            <td data-label="Вердикт"><span class="chip chip-mute">Панель</span><span class="sub">Быстрый CPU, но память тоже придётся докупать</span></td>
+          </tr>
+          <tr>
+            <td data-label=""><b><a href="https://ark-hoster.ru/projectzomboid/" target="_blank" rel="noopener">ARK-HOSTER</a> GROW</b><span class="sub">игровой, панель</span></td>
+            <td data-label="Где">Москва / Новосибирск</td>
+            <td data-label="Процессор">Intel i5 / Ryzen 7 · 2 ядра</td>
+            <td data-label="RAM / диск">16 ГБ DDR4 / 60 ГБ NVMe</td>
+            <td class="r" data-label="₽/мес">2 420</td>
+            <td data-label="Вердикт"><span class="chip chip-mute">Панель</span><span class="sub">16 ГБ сразу, бэкапы ежедневно; точная модель CPU не указана</span></td>
+          </tr>
+          <tr>
+            <td data-label=""><b><a href="https://servarium.ru/projectzomboid" target="_blank" rel="noopener">Servarium</a></b><span class="sub">игровой, панель</span></td>
+            <td data-label="Где">Россия</td>
+            <td data-label="Процессор">Ryzen 5 5600 · 2 ядра</td>
+            <td data-label="RAM / диск">6 ГБ / 20 ГБ NVMe</td>
+            <td class="r" data-label="₽/мес">1 681<span class="sub">первые 30 дней — 790</span></td>
+            <td data-label="Вердикт"><span class="chip chip-warn">Мало памяти</span><span class="sub">Есть выбор B42.21 / B41, но 6 ГБ на 15 игроков с модами не хватит — нужен апгрейд</span></td>
+          </tr>
+          <tr>
+            <td data-label=""><b><a href="https://pterohost.ru/project-zomboid" target="_blank" rel="noopener">Pterohost</a> «Commander»</b><span class="sub">игровой, панель</span></td>
+            <td data-label="Где">Германия</td>
+            <td data-label="Процессор">i9-9900K · 5 ядер</td>
+            <td data-label="RAM / диск">12 ГБ / 100 ГБ NVMe</td>
+            <td class="r" data-label="₽/мес">1 349</td>
+            <td data-label="Вердикт"><span class="chip chip-warn">Далеко</span><span class="sub">Дёшево, но ~49 мс вместо 9–13 мс и риск блокировок иностранных сетей</span></td>
+          </tr>
+          <tr>
+            <td data-label=""><b><a href="https://ark-hoster.ru/projectzomboid/" target="_blank" rel="noopener">ARK-HOSTER</a> START</b><span class="sub">игровой, панель</span></td>
+            <td data-label="Где">Москва / Новосибирск</td>
+            <td data-label="Процессор">Xeon E5 v4 · 2 ядра</td>
+            <td data-label="RAM / диск">12 ГБ DDR4 / 40 ГБ NVMe</td>
+            <td class="r" data-label="₽/мес">1 980</td>
+            <td data-label="Вердикт"><span class="chip chip-bad">Не брать</span><span class="sub">Поколение Xeon 2016 года, ядро медленное. За 220 ₽ больше будет Ryzen 9950X</span></td>
+          </tr>
+          <tr>
+            <td data-label=""><b><a href="https://appletec.ru/vds-ryzen9-9950x/" target="_blank" rel="noopener">AppleTec</a> 9950r16</b><span class="sub">VPS</span></td>
+            <td data-label="Где">Москва</td>
+            <td data-label="Процессор">Ryzen 9 9950X · 9 ядер</td>
+            <td data-label="RAM / диск">16 ГБ / 60 ГБ NVMe</td>
+            <td class="r" data-label="₽/мес">4 290</td>
+            <td data-label="Вердикт"><span class="chip chip-bad">Переплата</span><span class="sub">Тот же процессор, 16 ГБ — на 1 240 ₽ дороже ARK-HOSTER; 9 ядер серверу не нужны</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="note reveal"><b>Сначала тест.</b> У ARK-HOSTER бесплатный тестовый сервер на 24–72 часа, у Servarium первые 5 дней — 99 ₽. Поднимите сервер, попросите всех зайти и проверьте пинг в игре. Только после этого платите за месяц.</div>
+  </div>
+</section>
+
+<!-- 5. Пинг -->
+<section id="ping">
+  <div class="wrap">
+    <div class="sec-head reveal"><span class="num">5</span><div><h2>Пинг: почему Москва</h2><p>Средний пинг между дата-центрами из Москвы по данным <a href="https://wondernetwork.com/pings/Moscow" target="_blank" rel="noopener">WonderNetwork</a>. У игрока к этому добавится задержка его провайдера и Wi-Fi.</p></div></div>
+    <div class="card reveal">
+      <div class="bars" role="list" aria-label="Пинг из Москвы, миллисекунды">
+        <div class="bar" role="listitem"><span class="t">Санкт-Петербург</span><span class="track"><span class="fill near" style="width:13.5%"></span></span><span class="v">9 мс</span></div>
+        <div class="bar" role="listitem"><span class="t">Казань</span><span class="track"><span class="fill near" style="width:19.2%"></span></span><span class="v">13 мс</span></div>
+        <div class="bar" role="listitem"><span class="t">Хельсинки</span><span class="track"><span class="fill" style="width:59.6%"></span></span><span class="v">40 мс</span></div>
+        <div class="bar" role="listitem"><span class="t">Новосибирск</span><span class="track"><span class="fill" style="width:65.3%"></span></span><span class="v">44 мс</span></div>
+        <div class="bar" role="listitem"><span class="t">Амстердам</span><span class="track"><span class="fill" style="width:73.2%"></span></span><span class="v">49 мс</span></div>
+        <div class="bar" role="listitem"><span class="t">Франкфурт</span><span class="track"><span class="fill" style="width:73.3%"></span></span><span class="v">49 мс</span></div>
+        <div class="bar" role="listitem"><span class="t">Варшава</span><span class="track"><span class="fill" style="width:92%"></span></span><span class="v">61 мс</span></div>
+        <div class="bar" role="listitem"><span class="t">Стокгольм</span><span class="track"><span class="fill" style="width:100%"></span></span><span class="v">67 мс</span></div>
+      </div>
+      <p class="muted" style="font-size:13px;margin:14px 0 0">Белым — внутри европейской части России, красным — всё, что дальше. Шкала: 67 мс = 100%.</p>
+    </div>
+    <div class="note reveal"><b>Если половина игроков в Сибири или на Урале.</b> У ARK-HOSTER есть площадка в Новосибирске. Сервер в Москве даст сибирякам около 44 мс — играть можно. Если в Новосибирске большинство, перенесите сервер туда.</div>
+  </div>
+</section>
+
+<!-- 6. Установка -->
+<section id="setup">
+  <div class="wrap">
+    <div class="sec-head reveal"><span class="num">6</span><div><h2>Установка на Linux VPS по шагам</h2><p>Шаги по <a href="https://pzwiki.net/wiki/Dedicated_server" target="_blank" rel="noopener">официальной вики</a>, для Ubuntu 22.04 или 24.04. Подключение по SSH из Windows: <code>ssh root@IP_сервера</code> в «Терминале» или в <a href="https://www.putty.org/" target="_blank" rel="noopener">PuTTY</a>. Файлы удобно править через <a href="https://winscp.net/" target="_blank" rel="noopener">WinSCP</a>.</p></div></div>
+    <ol class="steps">
+      <li class="reveal">
+        <div class="who">под root</div>
+        <h3>Поставить SteamCMD и tmux</h3>
+        <p><a href="https://developer.valvesoftware.com/wiki/SteamCMD" target="_blank" rel="noopener">SteamCMD</a> скачивает сервер из Steam, <a href="https://github.com/tmux/tmux/wiki" target="_blank" rel="noopener">tmux</a> держит консоль открытой после отключения SSH. При установке SteamCMD согласитесь с лицензией (I AGREE).</p>
+        <div class="code"><div class="lbl"><span>bash</span><button class="copy" type="button">Копировать</button></div><pre><code>sudo apt update &amp;&amp; sudo apt install -y software-properties-common
+sudo add-apt-repository multiverse -y
+sudo dpkg --add-architecture i386
+sudo apt update
+sudo apt install -y steamcmd tmux</code></pre></div>
+      </li>
+      <li class="reveal">
+        <div class="who">под root</div>
+        <h3>Открыть порты</h3>
+        <p>Нужны два UDP-порта: 16261 (вход и список серверов) и 16262 (данные после входа). SSH разрешаем первым, иначе фаервол отрежет вас от сервера.</p>
+        <div class="code"><div class="lbl"><span>bash</span><button class="copy" type="button">Копировать</button></div><pre><code>sudo ufw allow OpenSSH
+sudo ufw allow 16261/udp
+sudo ufw allow 16262/udp
+sudo ufw enable</code></pre></div>
+      </li>
+      <li class="reveal">
+        <div class="who">под root</div>
+        <h3>Создать пользователя для сервера</h3>
+        <p>Запускать сервер от root нельзя. Создаём <code>pzuser</code> и папку <code>/opt/pzserver</code>, затем переключаемся на него.</p>
+        <div class="code"><div class="lbl"><span>bash</span><button class="copy" type="button">Копировать</button></div><pre><code>sudo adduser pzuser
+sudo mkdir -p /opt/pzserver
+sudo chown pzuser:pzuser /opt/pzserver
+sudo -u pzuser -i</code></pre></div>
+      </li>
+      <li class="reveal">
+        <div class="who">под pzuser</div>
+        <h3>Скачать сервер</h3>
+        <p>Скрипт обновления пригодится и дальше: этой же командой сервер обновляется после патчей. Для B41 замените строку <code>app_update</code> на <code>app_update 380870 -beta legacy41 validate</code>.</p>
+        <div class="code"><div class="lbl"><span>bash</span><button class="copy" type="button">Копировать</button></div><pre><code>cat &gt; $HOME/update_zomboid.txt &lt;&lt;'EOL'
+@ShutdownOnFailedCommand 1
+@NoPromptForPassword 1
+force_install_dir /opt/pzserver/
+login anonymous
+app_update 380870 validate
+quit
+EOL
+/usr/games/steamcmd +runscript $HOME/update_zomboid.txt</code></pre></div>
+      </li>
+      <li class="reveal">
+        <div class="who">под pzuser</div>
+        <h3>Выделить память</h3>
+        <p>На Linux память Java задаётся в <code>ProjectZomboid64.json</code>. Для VPS на 12 ГБ ставим <code>-Xmx8g</code>, для 16 ГБ — <code>-Xmx12g</code>. Первая команда показывает, где и какие значения стоят сейчас, вторая меняет их.</p>
+        <div class="code"><div class="lbl"><span>bash</span><button class="copy" type="button">Копировать</button></div><pre><code>grep -n -o -- '-Xm[sx][0-9]*[A-Za-z]' /opt/pzserver/ProjectZomboid64.json /opt/pzserver/start-server.sh
+sed -i -e 's/-Xmx[0-9]*[A-Za-z]/-Xmx8g/' -e 's/-Xms[0-9]*[A-Za-z]/-Xms4g/' /opt/pzserver/ProjectZomboid64.json</code></pre></div>
+        <p class="muted" style="font-size:14px;margin-top:10px">Если <code>-Xmx</code> нашёлся только в <code>start-server.sh</code>, во второй команде замените путь на этот файл.</p>
+      </li>
+      <li class="reveal">
+        <div class="who">под pzuser</div>
+        <h3>Первый запуск</h3>
+        <p>Сервер дважды попросит пароль администратора и создаст мир с настройками по умолчанию. Дождитесь сообщения об успешном старте, введите <code>quit</code>, а после остановки — <code>exit</code>, чтобы закрыть tmux.</p>
+        <div class="code"><div class="lbl"><span>bash</span><button class="copy" type="button">Копировать</button></div><pre><code>cd /opt/pzserver
+tmux new -s pz
+bash start-server.sh</code></pre></div>
+        <p class="muted" style="font-size:14px;margin-top:10px">Появятся файлы <code>~/Zomboid/Server/servertest.ini</code> (настройки сервера и моды), <code>servertest_SandboxVars.lua</code> (правила мира) и мир в <code>~/Zomboid/Saves/Multiplayer/servertest</code>.</p>
+      </li>
+      <li class="reveal">
+        <div class="who">под pzuser</div>
+        <h3>Настроить servertest.ini</h3>
+        <p>Откройте <code>nano ~/Zomboid/Server/servertest.ini</code> и поменяйте эти строки (остальные оставьте). Моды — в <a href="#mods">следующем разделе</a>.</p>
+        <div class="code"><div class="lbl"><span>servertest.ini</span><button class="copy" type="button">Копировать</button></div><pre><code>PublicName=Наш сервер
+<span class="c"># false — сервера нет в общем списке, вход по IP</span>
+Public=false
+<span class="c"># пароль на вход для своих</span>
+Password=придумайте_пароль
+<span class="c"># админы в лимит не входят</span>
+MaxPlayers=16
+<span class="c"># время стоит, пока никого нет</span>
+PauseEmpty=true
+<span class="c"># сохранять загруженные куски карты каждые 15 минут</span>
+SaveWorldEveryMinutes=15
+<span class="c"># встроенные бэкапы при старте и при смене версии игры</span>
+BackupsOnStart=true
+BackupsOnVersionChange=true
+BackupsCount=5</code></pre></div>
+        <p class="muted" style="font-size:14px;margin-top:10px">Строки с <code>#</code> — пояснения, в файл их не вставляйте. Правила мира (зомби, лут, скорость времени) проще настроить в игре: Host → Manage Settings, затем скопировать <code>servertest_SandboxVars.lua</code> на сервер.</p>
+      </li>
+      <li class="reveal">
+        <div class="who">под root (выйти из pzuser: exit)</div>
+        <h3>Автозапуск через systemd</h3>
+        <p>Конфигурация по образцу из вики: команды серверу идут через файл-канал, при остановке он сначала сохраняет мир (<code>save</code>), потом выключается (<code>quit</code>).</p>
+        <div class="code"><div class="lbl"><span>bash</span><button class="copy" type="button">Копировать</button></div><pre><code>cat &gt;/etc/systemd/system/zomboid.service &lt;&lt;'EOL'
+[Unit]
+Description=Project Zomboid Server
+After=network.target zomboid.socket
+Requires=zomboid.socket
+
+[Service]
+Type=simple
+User=pzuser
+WorkingDirectory=/opt/pzserver/
+ExecStart=/bin/sh -c "exec /opt/pzserver/start-server.sh &lt;/opt/pzserver/zomboid.control"
+ExecStop=/bin/sh -c "[ -n \"$$MAINPID\" ] || exit 0; echo save &gt; /opt/pzserver/zomboid.control; sleep 15; echo quit &gt; /opt/pzserver/zomboid.control"
+Sockets=zomboid.socket
+KillSignal=SIGCONT
+TimeoutStopSec=120
+Restart=always
+RestartSec=30
+
+[Install]
+WantedBy=multi-user.target
+EOL
+
+cat &gt;/etc/systemd/system/zomboid.socket &lt;&lt;'EOL'
+[Socket]
+ListenFIFO=/opt/pzserver/zomboid.control
+FileDescriptorName=control
+SocketMode=0660
+SocketUser=pzuser
+EOL
+
+systemctl daemon-reload
+systemctl enable zomboid
+systemctl start zomboid</code></pre></div>
+        <div class="note"><b>Отличие от вики.</b> В исходной версии канал удаляется вместе с сервером. Если сервер выключится сам (мод автообновления или падение), команда остановки пишет <code>save</code>/<code>quit</code> в пустоту: на месте канала появляется обычный файл, и следующий запуск ломается. Здесь канал живёт постоянно, команда остановки срабатывает, только если процесс жив, а <code>Restart=always</code> поднимает сервер через 30 секунд после падения. Проверено на макете в Ubuntu под systemd: самовыключение, падение, рестарт и остановка.</div>
+        <p class="muted" style="font-size:14px;margin-top:10px">Лог: <code>journalctl -u zomboid -f</code>. Команда серверу: <code>echo "save" &gt; /opt/pzserver/zomboid.control</code>. Перезапуск: <code>systemctl restart zomboid</code>, остановка: <code>systemctl stop zomboid</code>.</p>
+      </li>
+      <li class="reveal">
+        <div class="who">игрокам</div>
+        <h3>Подключиться</h3>
+        <p>В игре: Join → Favorites → Add («Присоединиться» → «Избранное» → «Добавить»). Указать IP сервера, порт <code>16261</code>, пароль сервера, любое имя и пароль аккаунта — аккаунт создастся при первом входе. Моды скачаются автоматически.</p>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- 7. Моды -->
+<section id="mods">
+  <div class="wrap">
+    <div class="sec-head reveal"><span class="num">7</span><div><h2>Подключить свой набор модов</h2><p>В <code>servertest.ini</code> моды задаются тремя строками. <code>WorkshopItems</code> говорит Steam, что скачать, <code>Mods</code> — что включить в игре, <code>Map</code> — какие карты загрузить. Чтобы мод работал, нужны первые две строки.</p></div></div>
+    <div class="bento">
+      <div class="span-3 reveal">
+        <ol class="steps">
+          <li><h3>Соберите коллекцию</h3><p>В Steam Workshop создайте коллекцию и добавьте в неё все моды набора. Её же раздайте игрокам, чтобы подписались заранее.</p></li>
+          <li><h3>Вытащите ID</h3><p>Вставьте ссылку на коллекцию в <a href="https://pzidgrabber.com" target="_blank" rel="noopener">PZ ID Grabber</a> (его советует вики) или в <a href="https://winternode.com/tools/project-zomboid/mod-id-grabber" target="_blank" rel="noopener">Mod ID Grabber от WinterNode</a> — получите готовые строки.</p></li>
+          <li><h3>Проверьте варианты</h3><p>В одном элементе Workshop может быть несколько Mod ID: основной и варианты. Включайте только нужные, иначе моды могут конфликтовать.</p></li>
+          <li><h3>Вставьте и перезапустите</h3><p>Остановите сервер, впишите строки, запустите снова. Сервер скачает моды при старте.</p></li>
+        </ol>
+      </div>
+      <div class="span-3 reveal">
+        <div class="code" style="margin-top:0"><div class="lbl"><span>servertest.ini · Build 42</span><button class="copy" type="button">Копировать</button></div><pre><code><span class="c"># числа из ссылок Workshop (?id=…), через ;</span>
+WorkshopItems=1111111111;2222222222;3333333333
+<span class="c"># ID модов из описания, в B42 — с \ перед каждым</span>
+Mods=\ModLibrary;\ModA;\ModB;\MapMod
+<span class="c"># папки карт-модов, ванильная карта — последней</span>
+Map=MapModFolder;Muldraugh, KY</code></pre></div>
+        <div class="note"><b>Слеш в B42.</b> Если в строке <code>Mods=</code> нет <code>\</code> перед ID, мод на B42 не загрузится, а сервер не выдаст ошибку. Это самая частая причина, почему моды не работают. В B41 слеш не нужен.</div>
+        <div class="note"><b>Порядок.</b> Библиотеки и моды, от которых зависят другие («Requires …» в описании), ставьте в <code>Mods=</code> раньше зависимых.</div>
+        <div class="note red"><b>Память.</b> Каждая карта-мод и крупный набор предметов добавляют нагрузку. Если в наборе 2+ большие карты, сразу берите 16 ГБ.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 8. Обслуживание -->
+<section id="ops">
+  <div class="wrap">
+    <div class="sec-head reveal"><span class="num">8</span><div><h2>Обслуживание: обновления модов и бэкапы</h2><p>Сервер проверяет и скачивает моды только при запуске, а у игроков Steam обновляет их сразу. После обновления любого мода игроков перестаёт пускать с ошибкой «Workshop item version is different», пока сервер не перезапустят.</p></div></div>
+    <div class="bento">
+      <div class="span-4 reveal">
+        <div class="code" style="margin-top:0"><div class="lbl"><span>/usr/local/bin/pz-nightly.sh · под root</span><button class="copy" type="button">Копировать</button></div><pre><code>cat &gt;/usr/local/bin/pz-nightly.sh &lt;&lt;'EOL'
+#!/bin/sh
+<span class="c"># предупредить игроков за 5 минут, если сервер запущен</span>
+if systemctl is-active --quiet zomboid; then
+  echo 'servermsg "Restart in 5 min"' &gt; /opt/pzserver/zomboid.control
+  sleep 300
+fi
+<span class="c"># сохранить мир и остановить</span>
+systemctl stop zomboid
+<span class="c"># архив мира, хранить 7 дней</span>
+tar -czf /root/pz-$(date +%F).tar.gz -C /home/pzuser --exclude=Zomboid/Logs Zomboid
+find /root -maxdepth 1 -name 'pz-*.tar.gz' -mtime +7 -delete
+<span class="c"># обновить игру (моды обновятся при старте)</span>
+sudo -H -u pzuser /usr/games/steamcmd +runscript /home/pzuser/update_zomboid.txt
+systemctl start zomboid
+EOL
+chmod +x /usr/local/bin/pz-nightly.sh
+echo '0 5 * * * root /usr/local/bin/pz-nightly.sh' &gt; /etc/cron.d/pz-nightly</code></pre></div>
+        <p class="muted" style="font-size:14px;margin-top:10px">Рестарт каждый день в 05:00 по часам сервера (узнать их — команда <code>date</code>). Не хотите, чтобы игра обновлялась сама, — уберите строку со <code>steamcmd</code> и обновляйте руками после того, как убедитесь, что патч не ломает моды.</p>
+      </div>
+      <div class="span-2 reveal" style="display:grid;gap:14px;align-content:start">
+        <div class="card">
+          <h3>Мод обновился днём</h3>
+          <p style="color:var(--x-ink-2)">Перезапустите вручную: <code>systemctl restart zomboid</code>. Чтобы это происходило само, есть мод <a href="https://steamcommunity.com/workshop/browse/?appid=108600&amp;searchtext=Udderly+Up+To+Date" target="_blank" rel="noopener">Udderly Up To Date</a>: он выключает сервер при обновлении мода, а <code>Restart=always</code> из шага 8 запускает его обратно со свежими модами. Перед установкой проверьте на странице мода, что он поддерживает вашу ветку.</p>
+        </div>
+        <div class="card">
+          <h3>Бэкапы — не только на сервере</h3>
+          <p style="color:var(--x-ink-2)">Архивы в <code>/root</code> пропадут вместе с VPS. Раз в неделю скачивайте свежий <code>pz-*.tar.gz</code> через WinSCP. Перед крупными патчами делайте копию обязательно: обновления B42 иногда ломали сохранения.</p>
+        </div>
+        <div class="card">
+          <h3>Полезные команды</h3>
+          <p style="color:var(--x-ink-2)">В консоли или в игре со слешем: <code>save</code>, <code>quit</code>, <code>reloadoptions</code> — применить правки <code>servertest.ini</code> без рестарта, <code>help</code> — список всех команд.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 9. Проблемы -->
+<section id="trouble">
+  <div class="wrap">
+    <div class="sec-head reveal"><span class="num">9</span><div><h2>Если что-то не работает</h2></div></div>
+    <div class="qa reveal">
+      <details><summary>Сервер виден, но при входе бесконечная загрузка или тайм-аут</summary><div>Закрыт порт <b>16262/UDP</b>: вход проходит через 16261, а данные идут по 16262. Проверьте <code>ufw status</code> и фаервол в панели хостера, если он там есть.</div></details>
+      <details><summary>«Workshop item version is different» / «File doesn't match the one on the server»</summary><div>Мод обновился у игроков, а сервер работает на старой версии. Перезапустите сервер — при старте он скачает свежие версии.</div></details>
+      <details><summary>Моды не загружаются, ошибок нет</summary><div>На B42 — нет обратного слеша перед ID в <code>Mods=</code>. Ещё бывает, что в <code>Mods=</code> вписано название мода из Workshop, а не его ID. ID берите из описания мода или из папки <code>mods/</code> внутри него.</div></details>
+      <details><summary>Сервер не стартует, ошибки памяти</summary><div>Значение <code>-Xmx</code> или <code>-Xms</code> больше, чем есть на VPS. Посмотрите <code>free -h</code> и выставьте <code>-Xmx</code> примерно на 3 ГБ меньше общего объёма.</div></details>
+      <details><summary>Часть игроков кикает с ошибкой контрольной суммы</summary><div>Вики предупреждает о баге: <code>DoLuaChecksum=true</code> на Linux-серверах иногда даёт ложные срабатывания. Если версии модов у всех совпадают, а кикает всё равно, поставьте <code>DoLuaChecksum=false</code>. Это ослабляет защиту от подмены файлов, так что делайте это только на закрытом сервере с паролем.</div></details>
+      <details><summary>После перехода с B41 на B42: «Assertion Failed: Illegal termination of worker thread»</summary><div>По вики: проверьте, что в <code>steam_appid.txt</code> в папке сервера одна строка <code>108600</code>. Если не помогло, сделайте копию папки <code>~/Zomboid</code> и удалите её — сервер создаст новую при запуске.</div></details>
+      <details><summary>У игрока персонаж застрял в пустоте</summary><div>Игрок заходит со старым профилем. Пусть сменит имя аккаунта в окне сервера (например, <code>player</code> → <code>player_1</code>), сохранит и зайдёт заново.</div></details>
+    </div>
+  </div>
+</section>
+
+<!-- 10. Чек-лист -->
+<section id="checklist">
+  <div class="wrap">
+    <div class="sec-head reveal"><span class="num">10</span><div><h2>Чек-лист запуска</h2><p>Отметки сохраняются в этом браузере.</p></div></div>
+    <div class="progress reveal"><span class="track"><span class="fill" id="prog"></span></span><span id="progtxt" class="tnum">0 из 0</span></div>
+    <ul class="check reveal" id="checks">
+      <li><label><input type="checkbox" data-k="1"><span>Проверил теги всех модов в Workshop и выбрал ветку: B42 или <code>legacy41</code></span></label></li>
+      <li><label><input type="checkbox" data-k="2"><span>Выбрал объём памяти: 12 ГБ для обычного набора, 16 ГБ, если есть большие карты</span></label></li>
+      <li><label><input type="checkbox" data-k="3"><span>Взял тестовый сервер в Москве и проверил пинг у всех игроков</span></label></li>
+      <li><label><input type="checkbox" data-k="4"><span>Поставил SteamCMD, открыл 16261/UDP и 16262/UDP, SSH не отрезал</span></label></li>
+      <li><label><input type="checkbox" data-k="5"><span>Выставил <code>-Xmx</code> на ~3 ГБ меньше RAM</span></label></li>
+      <li><label><input type="checkbox" data-k="6"><span>Первый запуск, пароль админа задан</span></label></li>
+      <li><label><input type="checkbox" data-k="7"><span>В <code>servertest.ini</code> заданы пароль, <code>Public=false</code>, <code>MaxPlayers</code></span></label></li>
+      <li><label><input type="checkbox" data-k="8"><span>Вписаны <code>WorkshopItems</code>, <code>Mods</code> (в B42 — со слешем) и <code>Map</code></span></label></li>
+      <li><label><input type="checkbox" data-k="9"><span>Включён автозапуск через systemd</span></label></li>
+      <li><label><input type="checkbox" data-k="10"><span>Настроен ночной рестарт с бэкапом</span></label></li>
+      <li><label><input type="checkbox" data-k="11"><span>Игрокам разосланы коллекция модов, IP, порт и пароль</span></label></li>
+    </ul>
+  </div>
+</section>
+
+<!-- 11. Источники -->
+<section id="sources">
+  <div class="wrap">
+    <div class="sec-head reveal"><span class="num">11</span><div><h2>Источники</h2></div></div>
+    <ol class="src reveal">
+      <li><a href="https://pzwiki.net/wiki/Dedicated_server" target="_blank" rel="noopener">PZwiki — Dedicated server</a>: SteamCMD, app 380870, ветка legacy41, порты, systemd, моды</li>
+      <li><a href="https://pzwiki.net/wiki/Server_settings" target="_blank" rel="noopener">PZwiki — Server settings</a>: параметры servertest.ini, бэкапы, DoLuaChecksum</li>
+      <li><a href="https://pzwiki.net/wiki/Startup_parameters" target="_blank" rel="noopener">PZwiki — Startup parameters</a>: -Xmx / -Xms</li>
+      <li><a href="https://github.com/Bobagi/Project-Zomboid-Ubuntu-Server" target="_blank" rel="noopener">Project-Zomboid-Ubuntu-Server (GitHub)</a>: память Linux-сервера в ProjectZomboid64.json</li>
+      <li><a href="https://shockbyte.com/blog/project-zomboid-build-42-multiplayer" target="_blank" rel="noopener">Shockbyte — Build 42 multiplayer</a>: 42.13 unstable 11.12.2025, 42.20 stable 29.07.2026</li>
+      <li><a href="https://respawnhost.com/en/news/project-zomboid-build-42-21-stable-zombie-fixes/" target="_blank" rel="noopener">RespawnHost — Build 42.21 hits Stable</a>: стабильная ветка 28.09.2026</li>
+      <li><a href="https://supercraft.host/wiki/project-zomboid/pz_b42_mp_patch_stability_guide/" target="_blank" rel="noopener">Supercraft — B42 MP stability guide</a>: legacy41, риски патчей для сохранений</li>
+      <li><a href="https://winternode.com/help/games/project-zomboid/setup/adding-mods-to-your-project-zomboid-server" target="_blank" rel="noopener">WinterNode</a>, <a href="https://cftools.com/help/game-titles/project-zomboid-build-42-mods" target="_blank" rel="noopener">CFTools</a>, <a href="https://gamezservers.com/guides/how-to-add-mods-to-a-project-zomboid-server" target="_blank" rel="noopener">GameZServers</a>: формат <code>Mods=\ID</code> в B42</li>
+      <li><a href="https://connecthosting.net/blog/how-much-ram-project-zomboid-b42-server" target="_blank" rel="noopener">ConnectHosting — RAM для B42</a>: 12 ГБ на 10–20 игроков, ~3 ГБ вне Java</li>
+      <li><a href="https://dathost.net/blog/project-zomboid-dedicated-server-requirements" target="_blank" rel="noopener">DatHost — требования к серверу</a>: зависимость от одного ядра, NVMe</li>
+      <li><a href="https://www.gameserverkings.com/knowledge-base/project-zomboid/file-doesnt-match-the-one-on-the-server/" target="_blank" rel="noopener">GameServerKings</a> и <a href="https://supercraft.host/wiki/project-zomboid/workshop_item_version_is_different/" target="_blank" rel="noopener">Supercraft</a>: моды обновляются только при старте сервера</li>
+      <li><a href="https://wondernetwork.com/pings/Moscow" target="_blank" rel="noopener">WonderNetwork — пинг из Москвы</a></li>
+      <li><a href="https://www.anti-malware.ru/news/2025-04-07-121598/45715" target="_blank" rel="noopener">Anti-Malware, 07.04.2025</a>: Роскомнадзор и 12 зарубежных хостеров</li>
+      <li><a href="https://itzine.ru/news/tech/rostelekom-blokiruet-dostup-k-hetzner-ogranicheniya-na-dostup-k-zarubezhnym-hostingam.html" target="_blank" rel="noopener">ITZine, 16.12.2024</a>: «Ростелеком» и сети Hetzner</li>
+      <li>Тарифы: <a href="https://ark-hoster.ru/vpsgame/" target="_blank" rel="noopener">ARK-HOSTER VPS</a>, <a href="https://ark-hoster.ru/projectzomboid/" target="_blank" rel="noopener">ARK-HOSTER PZ</a>, <a href="https://masspas.com/hosting-pz" target="_blank" rel="noopener">MASSPAS</a>, <a href="https://servarium.ru/projectzomboid" target="_blank" rel="noopener">Servarium</a>, <a href="https://pterohost.ru/project-zomboid" target="_blank" rel="noopener">Pterohost</a>, <a href="https://appletec.ru/vds-ryzen9-9950x/" target="_blank" rel="noopener">AppleTec</a></li>
+    </ol>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">Цены — с сайтов хостеров, перед заказом сверьте тариф. Команды — по официальной вики Project Zomboid, для Ubuntu.</div>
+</footer>
+
+<script>
+/* копирование кода */
+(function(){
+  var live=document.createElement('div');live.setAttribute('aria-live','polite');live.style.cssText='position:absolute;left:-9999px';document.body.appendChild(live);
+  document.querySelectorAll('.code .copy').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var code=btn.closest('.code').querySelector('pre code').cloneNode(true);
+      code.querySelectorAll('.c').forEach(function(c){ var n=c.nextSibling; if(n&&n.nodeType===3) n.textContent=n.textContent.replace(/^\n/,''); c.remove(); });
+      var text=code.textContent.replace(/\n{3,}/g,'\n\n');
+      var ok=function(){btn.textContent='Скопировано';btn.classList.add('done');live.textContent='Код скопирован';setTimeout(function(){btn.textContent='Копировать';btn.classList.remove('done');},1800);};
+      var fallback=function(){var t=document.createElement('textarea');t.value=text;t.style.cssText='position:fixed;opacity:0';document.body.appendChild(t);t.select();try{document.execCommand('copy');ok();}catch(e){}t.remove();};
+      if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(text).then(ok,fallback);}else{fallback();}
+    });
+  });
+})();
+/* активный пункт навигации */
+(function(){
+  var links=Array.prototype.slice.call(document.querySelectorAll('nav.topnav a'));
+  if(!('IntersectionObserver' in window)) return;
+  var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a;});
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){links.forEach(function(l){l.classList.remove('active');});var a=map[e.target.id];if(a){a.classList.add('active');var nav=a.parentNode;var x=a.offsetLeft-nav.clientWidth/2+a.clientWidth/2;nav.scrollTo({left:x,behavior:'smooth'});}}});},{rootMargin:'-45% 0px -50% 0px'});
+  Object.keys(map).forEach(function(id){var s=document.getElementById(id);if(s)io.observe(s);});
+})();
+/* чек-лист */
+(function(){
+  var boxes=document.querySelectorAll('#checks input'),key='pz-server-checklist',st={};
+  try{st=JSON.parse(localStorage.getItem(key)||'{}')||{};}catch(e){st={};}
+  var upd=function(){var n=0;boxes.forEach(function(b){if(b.checked)n++;});document.getElementById('prog').style.width=(n/boxes.length*100)+'%';document.getElementById('progtxt').textContent=n+' из '+boxes.length;};
+  boxes.forEach(function(b){b.checked=!!st[b.dataset.k];b.addEventListener('change',function(){st[b.dataset.k]=b.checked;try{localStorage.setItem(key,JSON.stringify(st));}catch(e){}upd();});});
+  upd();
+})();
+</script>
+<script type="module">
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const els = Array.from(document.querySelectorAll('.reveal'));
+  const showAll = () => els.forEach(el => el.classList.add('shown'));
+  if (prefersReduced) { showAll(); }
+  else {
+    const target = (arg) => (arg && arg.target) || arg;
+    const nativeFallback = () => {
+      if (!('IntersectionObserver' in window)) { showAll(); return; }
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('shown'); io.unobserve(e.target); } });
+      }, { rootMargin: '0px 0px -8% 0px' });
+      els.forEach(el => io.observe(el));
+    };
+    try {
+      const { animate, inView, stagger } = await import('https://cdn.jsdelivr.net/npm/motion@11/+esm');
+      inView('.reveal', (arg) => {
+        const el = target(arg);
+        el.classList.add('shown');
+        animate(el, { opacity: [0, 1], y: [18, 0] }, { duration: 0.55, ease: [0.22, 1, 0.36, 1] });
+      }, { margin: '0px 0px -8% 0px' });
+      inView('#ping .bars', (arg) => {
+        const box = target(arg);
+        animate(box.querySelectorAll('.fill'), { scaleX: [0, 1] }, { duration: 0.7, delay: stagger(0.06), ease: [0.22, 1, 0.36, 1] });
+      });
+      document.querySelectorAll('.card, .copy').forEach(c => {
+        c.addEventListener('pointerdown', () => animate(c, { scale: 0.985 }, { duration: 0.12 }));
+        c.addEventListener('pointerup', () => animate(c, { scale: 1 }, { duration: 0.2 }));
+        c.addEventListener('pointerleave', () => animate(c, { scale: 1 }, { duration: 0.2 }));
+      });
+    } catch (e) { nativeFallback(); }
+    setTimeout(() => { els.forEach(el => { if (!el.classList.contains('shown')) el.classList.add('shown'); }); }, 3000);
+  }
+</script>
+<noscript><style>.reveal{opacity:1!important;transform:none!important}</style></noscript>
+</body>
+</html>
