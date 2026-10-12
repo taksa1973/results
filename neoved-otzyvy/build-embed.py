@@ -1,13 +1,13 @@
 # Собирает otzyvy.js из block.html: стили + разметка + скрипт в одном файле, который вставляет галерею
 # прямо на место своей строки. В Tilda тогда нужна одна строка:
-#   <script src="https://taksa1973.github.io/results/neoved-otzyvy/otzyvy.js" defer></script>
+#   <script src="https://hooks.neoved.io/amo/neoved-otzyvy/otzyvy.js" defer></script>
 # Запуск из корня репозитория: python neoved-otzyvy/build-embed.py
 import json
 import re
 from pathlib import Path
 
 DIR = Path(__file__).resolve().parent
-EMBED_URL = 'https://taksa1973.github.io/results/neoved-otzyvy/otzyvy.js'
+EMBED_URL = 'https://hooks.neoved.io/amo/neoved-otzyvy/otzyvy.js'
 EMBED_LINE = f'<script src="{EMBED_URL}" defer></script>'
 
 
