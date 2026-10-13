@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Лаборатория как источник ML-датасета — к созвону</title>
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="description" content="Переформулировка проекта: лаборатория собирает датасет поведения живых систем для обучения world model. Помещение до 50 м², площадки по населённости, домен и названия.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#000000; --surface:#0C0C0D; --surface-2:#141416;
+  --ink:#F5F5F5; --ink-2:#A8A8AC; --ink-3:#6E6E73;
+  --line:#232326; --line-2:#2E2E33;
+  --red:#9B1C1C; --red-ink:#E05252; --red-soft:rgba(155,28,28,.14);
+  --r-lg:20px; --r-md:14px;
+  --shadow:0 1px 2px rgba(0,0,0,.5), 0 8px 28px rgba(0,0,0,.45);
+  --maxw:1120px;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%; scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{
+  margin:0; background:var(--bg); color:var(--ink);
+  font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+  font-size:17px; line-height:1.62; -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:var(--maxw); margin:0 auto; padding:0 24px}
+a{color:var(--red-ink); text-decoration:none; border-bottom:1px solid rgba(224,82,82,.3)}
+a:hover{border-bottom-color:var(--red-ink)}
+a:focus-visible,button:focus-visible{outline:2px solid var(--red-ink); outline-offset:3px; border-radius:6px}
+h1,h2,h3,h4{letter-spacing:-.022em; line-height:1.14; margin:0}
+h1{font-size:clamp(34px,5.4vw,58px); font-weight:700}
+h2{font-size:clamp(25px,3.3vw,38px); font-weight:700}
+h3{font-size:clamp(18px,2vw,22px); font-weight:600; margin-bottom:10px}
+p{margin:0 0 16px}
+small{font-size:13.5px; color:var(--ink-3)}
+.mono{font-variant-numeric:tabular-nums}
+
+.topbar{position:sticky; top:0; z-index:100; background:rgba(0,0,0,.82); backdrop-filter:saturate(180%) blur(20px); border-bottom:1px solid var(--line)}
+.topbar .wrap{display:flex; align-items:center; gap:20px; height:54px; justify-content:space-between}
+.brand{font-weight:600; font-size:15px; white-space:nowrap; color:var(--ink)}
+.topnav{display:flex; gap:18px; overflow-x:auto; scrollbar-width:none}
+.topnav::-webkit-scrollbar{display:none}
+.topnav a{font-size:14px; color:var(--ink-2); border:0; white-space:nowrap; padding:6px 0}
+.topnav a:hover{color:var(--red-ink)}
+
+.hero{padding:76px 0 24px}
+.eyebrow{display:inline-flex; align-items:center; gap:8px; font-size:12.5px; font-weight:600; letter-spacing:.06em; text-transform:uppercase;
+  color:var(--red-ink); background:var(--red-soft); border:1px solid rgba(224,82,82,.22); padding:7px 14px; border-radius:100px; margin-bottom:24px}
+.lede{font-size:clamp(18px,2.2vw,21px); color:var(--ink-2); max-width:820px; margin-top:24px}
+
+.bento{display:grid; grid-template-columns:repeat(12,1fr); gap:16px; margin:30px 0}
+.card{background:var(--surface); border:1px solid var(--line); border-radius:var(--r-lg); padding:26px; box-shadow:var(--shadow);
+  transition:transform .22s cubic-bezier(.2,.7,.3,1), border-color .22s}
+.card.hoverable:hover{transform:translateY(-2px); border-color:var(--line-2)}
+.c12{grid-column:span 12} .c8{grid-column:span 8} .c6{grid-column:span 6} .c4{grid-column:span 4}
+@media(max-width:900px){.c8,.c6,.c4{grid-column:span 12}}
+.kicker{font-size:12px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-3); margin-bottom:10px}
+.big{font-size:clamp(28px,4vw,42px); font-weight:700; letter-spacing:-.03em; line-height:1.05}
+.big.r{color:var(--red-ink)}
+
+section{padding:46px 0; scroll-margin-top:70px}
+.section-head{max-width:820px; margin-bottom:26px}
+.section-head p{color:var(--ink-2); margin-top:14px}
+.num{display:inline-flex; align-items:center; justify-content:center; width:34px; height:34px; border-radius:10px;
+  background:var(--red); color:#fff; font-size:16px; font-weight:700; margin-right:12px; vertical-align:2px}
+
+.badge{display:inline-flex; align-items:center; gap:6px; font-size:12px; font-weight:600; padding:5px 11px; border-radius:100px; border:1px solid transparent; white-space:nowrap}
+.b-red{background:var(--red-soft); color:var(--red-ink); border-color:rgba(224,82,82,.25)}
+.b-white{background:rgba(245,245,245,.08); color:var(--ink); border-color:rgba(245,245,245,.16)}
+.b-gray{background:rgba(245,245,245,.04); color:var(--ink-3); border-color:var(--line-2)}
+
+.tablewrap{overflow-x:auto; border:1px solid var(--line); border-radius:var(--r-lg); background:var(--surface); margin-bottom:18px}
+table{border-collapse:collapse; width:100%; min-width:820px; font-size:15px}
+th,td{padding:14px 16px; text-align:left; vertical-align:top; border-bottom:1px solid var(--line)}
+th{font-size:12px; font-weight:600; letter-spacing:.05em; text-transform:uppercase; color:var(--ink-3); background:var(--surface-2)}
+tbody tr:last-child td{border-bottom:0}
+tbody tr:hover{background:rgba(245,245,245,.02)}
+td strong{font-weight:600; color:var(--ink)}
+td{color:var(--ink-2)}
+td.win{background:var(--red-soft)}
+
+ul.tick{list-style:none; padding:0; margin:0; display:grid; gap:11px}
+ul.tick li{position:relative; padding-left:26px; color:var(--ink-2)}
+ul.tick li::before{content:""; position:absolute; left:2px; top:9px; width:7px; height:7px; border-radius:50%; background:var(--red-ink)}
+ul.tick.w li::before{background:var(--ink-3)}
+
+ol.steps{counter-reset:s; list-style:none; padding:0; margin:0; display:grid; gap:12px}
+ol.steps li{counter-increment:s; background:var(--surface); border:1px solid var(--line); border-radius:var(--r-md); padding:18px 20px 18px 58px; position:relative; color:var(--ink-2)}
+ol.steps li::before{content:counter(s); position:absolute; left:18px; top:17px; width:26px; height:26px; border-radius:8px; background:var(--red); color:#fff; font-size:13px; font-weight:700; display:flex; align-items:center; justify-content:center}
+ol.steps li strong{color:var(--ink)}
+
+.note{background:var(--surface-2); border:1px solid var(--line-2); border-left:3px solid var(--ink-3); border-radius:var(--r-md); padding:18px 20px; font-size:15.5px; color:var(--ink-2)}
+.note.r{border-left-color:var(--red); background:rgba(155,28,28,.08); border-color:rgba(155,28,28,.3)}
+.note p:last-child{margin-bottom:0}
+.note strong{color:var(--ink)}
+
+.dl{display:grid; border:1px solid var(--line); border-radius:var(--r-md); overflow:hidden; background:var(--surface)}
+.dl .row{display:grid; grid-template-columns:minmax(150px,240px) 1fr; border-bottom:1px solid var(--line)}
+.dl .row:last-child{border-bottom:0}
+.dl .row > div{padding:12px 16px}
+.dl .row .t{font-weight:600; background:var(--surface-2); font-size:14.5px; color:var(--ink)}
+.dl .row .d{font-size:14.5px; color:var(--ink-2)}
+@media(max-width:700px){.dl .row{grid-template-columns:1fr} .dl .row .t{border-bottom:1px solid var(--line)}}
+
+.names{display:grid; grid-template-columns:repeat(2,1fr); gap:12px}
+@media(max-width:800px){.names{grid-template-columns:1fr}}
+.nm{display:grid; grid-template-columns:38px 1fr; gap:14px; align-items:start; background:var(--surface); border:1px solid var(--line);
+  border-radius:var(--r-md); padding:16px 18px; transition:border-color .2s, transform .2s cubic-bezier(.2,.7,.3,1)}
+.nm:hover{border-color:var(--red); transform:translateY(-1px)}
+.nm .i{width:34px; height:34px; border-radius:9px; background:var(--red-soft); color:var(--red-ink); font-weight:700; font-size:15px;
+  display:flex; align-items:center; justify-content:center; border:1px solid rgba(224,82,82,.25)}
+.nm .t{font-weight:600; font-size:17px; color:var(--ink)}
+.nm .d{font-size:14px; color:var(--ink-2); margin-top:3px}
+.nm .dom{font-size:13px; color:var(--red-ink); margin-top:7px; font-variant-numeric:tabular-nums}
+
+footer{padding:40px 0 60px; border-top:1px solid var(--line); margin-top:40px; color:var(--ink-3); font-size:14px}
+.reveal{opacity:1}
+.js .reveal{opacity:0; transform:translateY(18px)}
+@media (prefers-reduced-motion:reduce){.js .reveal{opacity:1 !important; transform:none !important}}
+</style>
+</head>
+<body>
+<script>
+document.documentElement.classList.add('js');
+setTimeout(function(){document.querySelectorAll('.reveal').forEach(function(e){e.style.opacity=1;e.style.transform='none';});},2200);
+</script>
+
+<div class="topbar">
+  <div class="wrap">
+    <span class="brand">ML-датасет</span>
+    <nav class="topnav" aria-label="Разделы">
+      <a href="#idea">Суть</a>
+      <a href="#space">50 метров</a>
+      <a href="#people">Где люди</a>
+      <a href="#domain">Домен</a>
+      <a href="#names">Названия</a>
+      <a href="#ask">Что решаем</a>
+    </nav>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="eyebrow reveal">К созвону</span>
+    <h1 class="reveal">Лаборатория как<br>источник датасета</h1>
+    <p class="lede reveal">Проект переформулирован: мы не изучаем старение, а <strong>собираем данные о поведении живых систем для обучения модели мира</strong>. Меняется всё — от позиционирования и размера помещения до того, кто является потребителем результата. Ниже то, что нужно решить на созвоне.</p>
+  </div>
+</header>
+
+<section id="idea">
+  <div class="wrap">
+    <div class="bento">
+      <div class="card c12 reveal">
+        <div class="kicker">Что поменялось в постановке</div>
+        <p style="font-size:19px; margin-bottom:14px"><strong>Раньше выходом проекта была гипотеза о старении. Теперь выход — размеченный датасет поведения живого организма.</strong> Это не косметическая правка формулировки: меняется заказчик результата, меняется регуляторный профиль и резко падают требования к площади.</p>
+        <p style="margin-bottom:0; color:var(--ink-2)">Нематода — организм на 959 соматических клеток с полностью описанной нервной системой из 302 нейронов и известной схемой связей. Это редкий случай, когда у модели мира есть <strong>полная истинная разметка</strong>: известно, что внутри, и можно снимать, как это ведёт себя снаружи.</p>
+      </div>
+
+      <div class="card c4 hoverable reveal">
+        <div class="kicker">Что снимаем</div>
+        <div class="big r">Траектории</div>
+        <p style="margin-top:12px; color:var(--ink-2)">Движение, повороты, реакция на стимул, кормление, сон, старение особи — всё это непрерывный временной ряд с одной камеры над чашкой. Тысячи особей параллельно, недели записи.</p>
+      </div>
+      <div class="card c4 hoverable reveal">
+        <div class="kicker">Зачем это ИИ</div>
+        <div class="big r">Grounding</div>
+        <p style="margin-top:12px; color:var(--ink-2)">Модели мира учатся предсказывать последствия действий. Живой организм даёт то, чего не даёт симуляция: настоящий шум, настоящую вариативность и настоящие границы предсказуемости.</p>
+      </div>
+      <div class="card c4 hoverable reveal">
+        <div class="kicker">Что регулятору</div>
+        <div class="big r">Ничего</div>
+        <p style="margin-top:12px; color:var(--ink-2)">Беспозвоночные выведены из-под законов о лабораторных животных. Нет пациентов, нет человеческого материала, нет терапии — весь тяжёлый регуляторный контур отпадает целиком.</p>
+      </div>
+
+      <div class="card c6 reveal">
+        <h3>Что это даёт в разговоре</h3>
+        <ul class="tick">
+          <li><strong>Понятный продукт.</strong> Датасет — это актив с описуемым объёмом, лицензией и покупателем. «Исследование старения» таким активом не является.</li>
+          <li><strong>Нет медицинского риска.</strong> Проект нельзя спутать с клиникой, а значит, снимается вся линия вопросов про лицензии и пациентов.</li>
+          <li><strong>Дешёвый вход.</strong> Камера, инкубатор и чашки вместо вивария и чистых комнат.</li>
+          <li><strong>Прямой выход на рынок ИИ</strong>, а не на медицинский, где цикл продажи измеряется годами.</li>
+        </ul>
+      </div>
+      <div class="card c6 reveal">
+        <h3>Что честно сказать про риски</h3>
+        <ul class="tick w">
+          <li><strong>Датасет должен быть кому-то нужен.</strong> Это главный вопрос, и он не технический, а рыночный: до вложений стоит получить подтверждение интереса хотя бы от одной группы.</li>
+          <li><strong>Конкуренция с открытыми данными.</strong> По нематодам уже существуют открытые базы — наше преимущество должно быть в объёме, разметке или условиях эксперимента, а не в самом факте съёмки.</li>
+          <li><strong>Воспроизводимость.</strong> Датасет без описания условий получения не стоит ничего; протокол придётся вести строже, чем в обычной лаборатории.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="space">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <h2><span class="num">1</span>Помещение: укладываемся в 50 м²</h2>
+      <p>Ограничение в пятьдесят метров меняет расклад полностью — и в основном в нашу пользу.</p>
+    </div>
+
+    <div class="tablewrap reveal">
+      <table>
+        <thead><tr><th style="width:30%">Вариант</th><th style="width:22%">Цена за 50 м²</th><th>Комментарий</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="win"><strong>Промышленное на Ruta 101</strong><br><small>район Пандо, Канелонес</small></td>
+            <td class="mono"><strong>$175 – 350</strong>/мес</td>
+            <td>По ставкам района $3,5–7 за м². Высокие потолки, возможность поставить вытяжку и стоки. <strong>Лучший вариант под лабораторию</strong></td>
+          </tr>
+          <tr>
+            <td><strong>Помещение в Канелонес</strong><br><small>пример: Шангрила, 60 м²</small></td>
+            <td class="mono"><strong>около $300</strong>/мес</td>
+            <td>Реальное объявление: 60 м² за $300, это $5 за метр. Формат «консульторий» — ближе к медицинскому, чем к складу</td>
+          </tr>
+          <tr>
+            <td><strong>Офис 50 м² в Монтевидео</strong></td>
+            <td class="mono"><strong>около $630</strong>/мес</td>
+            <td>Объявление в Парке Батлье. Под лабораторию не подходит: нет вытяжки, нет подходящих стоков, арендодатель не разрешит переделку</td>
+          </tr>
+          <tr>
+            <td><strong>Коворкинг</strong></td>
+            <td class="mono"><strong>$255 – 385</strong><br><small>за человека</small></td>
+            <td>Выделенные столы от $100. <span class="badge b-red">Не подходит</span> мокрые работы в коворкинге не ведут</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="bento">
+      <div class="card c6 reveal">
+        <h3>Что помещается в 50 м²</h3>
+        <ul class="tick">
+          <li>Станция съёмки: камеры над чашками, подсветка, термостатируемый бокс</li>
+          <li>Инкубатор на 20 °C и запасной</li>
+          <li>Стереомикроскоп для пересева и контроля</li>
+          <li>Ламинарный бокс для подготовки сред</li>
+          <li>Автоклав настольный, холодильник, морозильник</li>
+          <li>Стол для подготовки чашек NGM, мойка</li>
+          <li>Рабочее место на двоих и шкаф для расходников</li>
+        </ul>
+      </div>
+      <div class="card c6 reveal">
+        <h3>Что не помещается — и это важно</h3>
+        <ul class="tick w">
+          <li><strong>Виварий для мышей и кроликов.</strong> Нормы требуют отдельных зон: карантин, содержание, процедурная, мойка, хранение кормов и подстилки. На пятидесяти метрах этого не разместить даже формально.</li>
+          <li><strong>Работа с человеческими клетками в полном объёме</strong> — нужна отдельная культуральная комната с контролем доступа.</li>
+        </ul>
+        <p style="margin:14px 0 0"><span class="badge b-red">Вывод для созвона</span> ограничение в 50 м² фактически фиксирует проект на этапе беспозвоночных. Это <strong>не проблема, а решение</strong>: именно на этом этапе нет ни одного разрешения и ни одного регуляторного барьера. Но проговорить, что мыши в этот метраж не входят, нужно сразу.</p>
+      </div>
+
+      <div class="card c12 reveal">
+        <div class="note r">
+          <p style="margin-bottom:0"><strong>Главное следствие.</strong> При аренде в $200–350 в месяц помещение перестаёт быть статьёй, вокруг которой строится решение. Годовая аренда — около <strong>$2 500–4 000</strong>, то есть меньше, чем один средний прибор. Значит, выбирать площадку надо не по ставке, а по двум другим вещам: разрешит ли арендодатель поставить вытяжку и слив, и сколько вокруг людей, из которых можно нанимать.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="people">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <h2><span class="num">2</span>Где больше людей вокруг</h2>
+      <p>Вы просили сравнить площадки по населённости — чтобы проще было искать сотрудников. Разброс оказался очень большим.</p>
+    </div>
+
+    <div class="tablewrap reveal">
+      <table>
+        <thead><tr><th style="width:24%">Площадка</th><th style="width:20%">Компаний</th><th style="width:20%">Людей</th><th>Что это значит для найма</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="win"><strong>Zonamerica</strong><br><small>Ruta 8, км 17,5, Монтевидео</small></td>
+            <td class="mono"><strong>более 500</strong><br><small>в 14 отраслях</small></td>
+            <td class="mono"><strong>более 7 000</strong></td>
+            <td><span class="badge b-red">Максимум людей</span> крупнейшая концентрация в стране. Но профиль — услуги, финансы, логистика и дистрибуция фармы. Лаборанты там есть у резидентов, а не на рынке</td>
+          </tr>
+          <tr>
+            <td><strong>Parque de las Ciencias</strong><br><small>Ruta 101, км 23,5, Канелонес</small></td>
+            <td class="mono"><strong>более 100</strong></td>
+            <td class="mono">тысячи<br><small>точной цифры нет</small></td>
+            <td><span class="badge b-white">Профильные люди</span> меньше народу, но это фарма: Megalabs с собственным R&amp;D-центром, Eriochem, Fotmer. Там работают именно те, кто умеет культуру и стерильную технику</td>
+          </tr>
+          <tr>
+            <td><strong>Научный парк Пандо</strong><br><small>Camino Saravia, Пандо</small></td>
+            <td class="mono">десятки</td>
+            <td class="mono"><span class="badge b-gray">нет данных</span></td>
+            <td>Самый маленький, но рядом Технологический полюс факультета химии и инкубатор Khem — то есть студенты и выпускники химфака под рукой</td>
+          </tr>
+          <tr>
+            <td><strong>Сектор биотеха в целом</strong><br><small>вся страна</small></td>
+            <td class="mono"><strong>62 компании</strong></td>
+            <td class="mono"><strong>539 человек</strong></td>
+            <td>Это весь кадровый пул отрасли. <strong>85% компаний — в Монтевидео и Канелонес</strong>, то есть все три площадки лежат внутри этого ареала</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="bento">
+      <div class="card c8 reveal">
+        <h3>Как это читать</h3>
+        <p style="color:var(--ink-2)">Семь тысяч человек в Zonamerica — это не семь тысяч кандидатов. Для нашей задачи нужен лаборант, умеющий стерильную технику и аккуратную рутину, и таких людей концентрирует <strong>Parque de las Ciencias</strong>, где сидит фарма с производством.</p>
+        <p style="color:var(--ink-2); margin-bottom:0">При этом весь отраслевой пул страны — <strong>539 человек</strong>. Это маленький рынок, где все друг друга знают, и поэтому найм пойдёт не через объявление, а через знакомство: инкубатор Khem, химфак, Институт Пастера.</p>
+      </div>
+      <div class="card c4 reveal">
+        <h3>Рекомендация</h3>
+        <p style="color:var(--ink-2)">Для съёмки червей не нужен опытный клеточный биолог. Нужен <strong>аккуратный человек с биологическим образованием</strong>, который будет вести чашки по протоколу.</p>
+        <p style="margin-bottom:0; color:var(--ink-2)">Такого проще найти среди выпускников химфака в Пандо, чем переманивать из фармы — и стоить он будет ближе к нижней границе вилки $550–1 100.</p>
+      </div>
+
+      <div class="card c12 reveal">
+        <div class="note">
+          <p style="margin-bottom:0"><strong>Оговорка по цифрам.</strong> По Zonamerica источники расходятся: сама компания заявляет более 500 компаний и свыше 7 000 сотрудников, более ранняя публикация называла около 10 000 человек в 350 компаниях. Порядок величины — тысячи людей — подтверждается в обоих случаях, но точную цифру на сегодня дать нельзя. По научному парку в Пандо данных о численности нет вообще.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="domain">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <h2><span class="num">3</span>Домен и почта</h2>
+      <p>Регистрируем на Namecheap, аккаунт hotroundrock. Домен нужен не для красоты: без институционального адреса депозитарии не выдают академический аккаунт.</p>
+    </div>
+    <div class="bento">
+      <div class="card c6 reveal">
+        <h3>Порядок действий</h3>
+        <ol class="steps">
+          <li><strong>Выбрать название</strong> из списка ниже — все домены проверены на занятость прямо сейчас</li>
+          <li><strong>Зарегистрировать домен</strong> на <a href="https://www.namecheap.com/" target="_blank" rel="noopener">Namecheap</a> под аккаунтом hotroundrock. Ориентир по цене: <strong>$10–15 в год</strong> за .com и .org; защита данных владельца у Namecheap включена бесплатно</li>
+          <li><strong>Подключить почту.</strong> Бесплатный вариант — <a href="https://www.zoho.com/mail/" target="_blank" rel="noopener">Zoho Mail</a>: полноценные ящики на своём домене, до пяти пользователей</li>
+          <li><strong>Разместить сайт.</strong> Пока — GitHub Pages, бесплатно; при переезде на домен снять мета-теги noindex</li>
+        </ol>
+      </div>
+      <div class="card c6 reveal">
+        <h3>Зачем это нужно именно сейчас</h3>
+        <ul class="tick">
+          <li><strong>Академические аккаунты.</strong> Депозитарий штаммов, ATCC и Addgene привязывают статус к организации и её адресу. С почтой на бесплатном домене статус не дают</li>
+          <li><strong>Заявки в парк.</strong> Разговор с научным парком и зоной франка начинается с описания проекта — сайт здесь работает как визитка организации</li>
+          <li><strong>Потребители датасета.</strong> ИИ-группы и компании проверяют, кто вы, ровно одним способом: открывают сайт</li>
+        </ul>
+        <p style="margin-bottom:0"><span class="badge b-white">Важно</span> имя лучше выбрать такое, которое не придётся менять при расширении темы — поэтому в списке нет слов «worm» и «nematode»</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="names">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <h2><span class="num">4</span>Десять названий на выбор</h2>
+      <p>Все домены проверены на занятость через реестр прямо сейчас — в списке только свободные. Назовите номер, и я сразу соберу лендинг под это имя.</p>
+    </div>
+    <div class="names reveal">
+      <div class="nm"><span class="i">1</span><span><span class="t">Terrarium Research</span><span class="d">Террариум — замкнутый мир под постоянным наблюдением. Прямая метафора того, чем мы занимаемся: снимаем поведение живой системы в контролируемой среде</span><span class="dom">terrariumresearch.com · terrariumresearch.org — оба свободны</span></span></div>
+      <div class="nm"><span class="i">2</span><span><span class="t">Kinesis Research</span><span class="d">Кинезис — направленное движение организма в ответ на стимул. Научный термин, прямо описывающий предмет съёмки</span><span class="dom">kinesisresearch.com — свободен</span></span></div>
+      <div class="nm"><span class="i">3</span><span><span class="t">Motility Data</span><span class="d">Подвижность — стандартный измеряемый параметр в работе с нематодами. Название сразу говорит, что продукт — данные</span><span class="dom">motilitydata.com — свободен</span></span></div>
+      <div class="nm"><span class="i">4</span><span><span class="t">Corpus Vivum</span><span class="d">Живой корпус: по-латыни и «тело», и «корпус данных» одновременно. Редкий случай, когда каламбур работает в обе стороны</span><span class="dom">corpusvivum.org — свободен</span></span></div>
+      <div class="nm"><span class="i">5</span><span><span class="t">Phenomena Labs</span><span class="d">Феномены — наблюдаемые явления в противоположность теории. Нейтральное имя, не ограничивающее тематику</span><span class="dom">phenomenalabs.org — свободен</span></span></div>
+      <div class="nm"><span class="i">6</span><span><span class="t">Groundwork Research</span><span class="d">Отсылка к grounding — привязке модели к реальному миру, ключевому понятию в обучении моделей мира. И одновременно «фундамент» в обычном смысле</span><span class="dom">groundworkresearch.org — свободен</span></span></div>
+      <div class="nm"><span class="i">7</span><span><span class="t">Priors Research</span><span class="d">Априорные представления — то, что модель знает о мире до наблюдения. Название, понятное профильной аудитории с полуслова</span><span class="dom">priorsresearch.com — свободен</span></span></div>
+      <div class="nm"><span class="i">8</span><span><span class="t">Substrate Research</span><span class="d">Субстрат — и питательная среда в чашке, и основа, на которой строится модель. Второй удачный двойной смысл в списке</span><span class="dom">substrateresearch.org — свободен (.com занят)</span></span></div>
+      <div class="nm"><span class="i">9</span><span><span class="t">Sensorium Labs</span><span class="d">Сенсориум — совокупность восприятия организма. Описывает именно то, что мы записываем: как существо воспринимает мир и отвечает ему</span><span class="dom">sensoriumlabs.org — свободен (.com занят)</span></span></div>
+      <div class="nm"><span class="i">10</span><span><span class="t">Mundi Labs</span><span class="d">Mundus — мир по-латыни. Самое прямое попадание в world model, если хочется, чтобы связь читалась сразу</span><span class="dom">mundilabs.org — свободен (.com занят)</span></span></div>
+    </div>
+    <div class="bento">
+      <div class="card c12 reveal">
+        <div class="note">
+          <p style="margin-bottom:0"><strong>Мой выбор, если спросите.</strong> Первый или шестой. <strong>Terrarium Research</strong> — потому что название объясняет суть проекта без единого термина и годится и для червей, и для клеток, и для чего угодно дальше. <strong>Groundwork Research</strong> — если важнее, чтобы профильная аудитория в ИИ считывала отсылку к grounding. У обоих свободны домены, у первого — сразу в двух зонах.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="ask">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <h2><span class="num">5</span>Что решаем на созвоне</h2>
+    </div>
+    <ol class="steps reveal">
+      <li><strong>Подтверждаем переформулировку.</strong> Проект — сбор датасета для моделей мира, а не исследование старения. От этого зависит всё остальное, включая название и сайт</li>
+      <li><strong>Фиксируем масштаб.</strong> 50 м² означает работу на беспозвоночных без выхода на позвоночных. Если мыши нужны в горизонте года — метраж придётся пересматривать, и тогда возвращается весь регуляторный контур с виварием и этическим комитетом</li>
+      <li><strong>Выбираем название</strong> из десяти и регистрируем домен на Namecheap</li>
+      <li><strong>Решаем по площадке.</strong> Промышленное помещение на Ruta 101 за $175–350 в месяц против площадки в парке с людьми и инфраструктурой, но без опубликованной цены. Запрос в парк отправляем в любом случае</li>
+      <li><strong>Проверяем спрос до вложений.</strong> Самый дешёвый и самый важный шаг: показать описание датасета двум-трём группам, работающим над моделями мира, и получить ответ, нужны ли им такие данные</li>
+    </ol>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p style="margin-bottom:8px">Связанные материалы: <a href="laboratoriya-sozvon.html">полная выжимка по юрисдикциям</a> · <a href="uruguay-paraguay-rynok-komyuniti.html">рынок труда, площадки и нормы</a> · <a href="wet-lab-obshee.html">общая часть</a></p>
+    <p style="margin:0"><small>Суммы в долларах США. Ставки аренды взяты из действующих объявлений и меняются. Доступность доменов проверена по реестру на момент подготовки страницы — перед регистрацией стоит проверить ещё раз.</small></p>
+  </div>
+</footer>
+
+<script type="module">
+  try {
+    const { animate, inView, stagger } = await import("https://cdn.jsdelivr.net/npm/motion@11/+esm");
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const els = document.querySelectorAll(".reveal");
+    if (reduced) {
+      els.forEach(e => { e.style.opacity = 1; e.style.transform = "none"; });
+    } else {
+      els.forEach(el => {
+        inView(el, (entry) => {
+          const node = entry && entry.target ? entry.target : el;
+          animate(node, { opacity: [0, 1], transform: ["translateY(18px)", "translateY(0px)"] },
+                  { duration: 0.5, easing: [0.2, 0.7, 0.3, 1] });
+        }, { margin: "-8% 0px -8% 0px" });
+      });
+      const cards = document.querySelectorAll(".bento .card, .nm");
+      if (cards.length) {
+        inView(".bento", () => {
+          animate(cards, { opacity: [null, 1] }, { delay: stagger(0.04), duration: 0.35 });
+        }, { margin: "-10% 0px" });
+      }
+    }
+  } catch (e) {
+    document.querySelectorAll(".reveal").forEach(el => { el.style.opacity = 1; el.style.transform = "none"; });
+  }
+</script>
+</body>
+</html>
