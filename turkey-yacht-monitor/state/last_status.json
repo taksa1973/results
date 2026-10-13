@@ -1,5 +1,5 @@
 {
-  "ts": "2026-10-12T14:43:33.108429+00:00",
+  "ts": "2026-10-13T13:47:38.690975+00:00",
   "findings": {},
   "errors": {
     "Navigare Yachting Turkey": "http_403",
@@ -7,7 +7,7 @@
     "Irmak Yachting (fleet)": "http_522",
     "Rotaneta Gocek catamaran": "http_502",
     "Rotaneta home": "http_502",
-    "Boataround Turkey": "http_403",
+    "Boataround Turkey": "http_405",
     "Yacht-Rent Turkey": "http_403",
     "Gulet Escapes (UK)": "http_403",
     "GuletYacht.net": "http_403"
