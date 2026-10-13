@@ -93,6 +93,14 @@ section{padding:64px 0;border-bottom:1px solid var(--x-line)}
 .wc .opt,.wc .note{font-size:14.5px;color:var(--x-ink-2);line-height:1.5}
 .wc .opt b{color:var(--x-hi);font-weight:600}
 .wc .note{border-top:1px solid var(--x-line);padding-top:12px;margin-top:auto}
+.how{background:var(--x-soft);border-radius:12px;padding:12px 14px 13px}
+.how-k{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--x-red-text);margin-bottom:9px}
+.how ol{list-style:none;counter-reset:h;margin:0;padding:0;display:grid;gap:8px}
+.how li{counter-increment:h;position:relative;padding-left:30px;font-size:14.5px;line-height:1.45;color:var(--x-ink)}
+.how li::before{content:counter(h);position:absolute;left:0;top:0;width:21px;height:21px;border-radius:6px;background:#fff;color:#000;font-weight:800;font-size:12px;display:grid;place-items:center}
+.how li b{color:var(--x-hi)}
+.how small{display:block;color:var(--x-ink-3);font-size:12.5px;line-height:1.35;margin-top:1px}
+.how .kbd{font-size:13px;padding:1px 8px;margin-right:2px}
 .src{font-size:12.5px;color:var(--x-ink-3);border-bottom-color:rgba(142,142,147,.35)}
 .empty{display:none;color:var(--x-ink-3);padding:24px 0}
 
@@ -236,6 +244,7 @@ footer{padding:36px 0 56px;color:var(--x-ink-3);font-size:14px}
   .topbar,.filters,.actions,.no-print{display:none!important}
   .has-print #chto,.has-print #ruchka,.has-print #knopki,.has-print #sredstva,.has-print #uhod,.has-print #yarlyki,.has-print #pasport,.has-print #istochniki,.has-print .lede,.has-print footer{display:none!important}
   .has-print .print-only{display:block}
+  .how{display:none}
   .print-only h2{font-size:20px;margin:6px 0 10px}
   .print-only h3{font-size:14px;margin:0 0 6px}
   .ptab{width:100%;border-collapse:collapse;font-size:11px;line-height:1.35}
@@ -374,7 +383,7 @@ footer{padding:36px 0 56px;color:var(--x-ink-3);font-size:14px}
   <div class="wrap">
     <div class="sec-head reveal">
       <h2><span class="num">1</span>Что как стирать</h2>
-      <p>Выбери вещь и смотри программу, температуру и отжим. Главное правило: температура не выше, чем на ярлыке. Если в загрузке вещи с разными ярлыками, ставь по самому нежному.</p>
+      <p>Найди вещь: в карточке написано, куда повернуть ручку и какие кнопки нажать по порядку. Главное правило: температура не выше, чем на ярлыке. Если в загрузке вещи с разными ярлыками, ставь по самому нежному.</p>
     </div>
 
     <div class="filters" role="group" aria-label="Фильтр по типу белья">
@@ -388,11 +397,12 @@ footer{padding:36px 0 56px;color:var(--x-ink-3);font-size:14px}
       <button type="button" data-f="service" aria-pressed="false">Освежить, отжать</button>
     </div>
 
-    <div class="wgrid reveal-group" id="wgrid">
+    <div class="wgrid" id="wgrid">
 
       <article class="wc" data-cat="bed">
         <header><h3>Постельное бельё</h3><small>хлопок, бязь, сатин, поплин, лён</small></header>
         <div class="prog">Хлопок</div>
+        <div class="how"><div class="how-k">Как включить</div><ol><li>Ручку на <b>«Хлопок»</b> <small>справа, 2-я сверху</small></li><li><span class="kbd">Темп.</span> жми, пока не будет <b>60</b> <small>цветное или ярлык 40° — 40</small></li><li><span class="kbd">Отжим</span> жми, пока не будет <b>1200</b></li><li><span class="kbd">Пар</span> нажми один раз <small>по желанию, меньше складок</small></li><li>Средство в отсек II, потом <span class="kbd">Старт/Пауза</span></li></ol></div>
         <div class="params"><div><span>Темп.</span><b>60&nbsp;°C</b></div><div><span>Отжим</span><b>1200</b></div><div><span>Не больше</span><b>6&nbsp;кг</b></div></div>
         <p class="opt"><b>Можно добавить:</b> «Пар», чтобы было меньше складок.</p>
         <p class="note">Цветное постельное или ярлык до 40° стирай при 40&nbsp;°C. Persil: 40&nbsp;°C для простыней нормально, 60&nbsp;°C лучше убивает микробы. Пододеяльник и наволочки застегни, барабан не трамбуй. <a class="src" href="#s-persil">Persil</a></p>
@@ -401,6 +411,7 @@ footer{padding:36px 0 56px;color:var(--x-ink-3);font-size:14px}
       <article class="wc" data-cat="bed">
         <header><h3>Полотенца</h3><small>банные, махровые</small></header>
         <div class="prog">Хлопок</div>
+        <div class="how"><div class="how-k">Как включить</div><ol><li>Ручку на <b>«Хлопок»</b> <small>справа, 2-я сверху</small></li><li><span class="kbd">Темп.</span> жми, пока не будет <b>60</b></li><li><span class="kbd">Отжим</span> жми, пока не будет <b>1200</b></li><li><span class="kbd">Опции</span> жми, пока не загорится <b>«Доп. полоскание»</b></li><li>Средство в отсек II, потом <span class="kbd">Старт/Пауза</span></li></ol></div>
         <div class="params"><div><span>Темп.</span><b>60&nbsp;°C</b></div><div><span>Отжим</span><b>1200</b></div><div><span>Не больше</span><b>6&nbsp;кг</b></div></div>
         <p class="opt"><b>Можно добавить:</b> «Доп. полоскание».</p>
         <p class="note">Без кондиционера: со временем он снижает впитываемость. Одно большое полотенце не стирай в одиночку, иначе барабан разбалансируется и машина плохо отожмёт. <a class="src" href="#s-wgh">whitegoodshelp</a> · <a class="src" href="#s-manual">инструкция</a></p>
@@ -409,6 +420,7 @@ footer{padding:36px 0 56px;color:var(--x-ink-3);font-size:14px}
       <article class="wc" data-cat="bed">
         <header><h3>Кухонные полотенца, тряпки</h3><small>хлопок, сильно грязное</small></header>
         <div class="prog">Хлопок</div>
+        <div class="how"><div class="how-k">Как включить</div><ol><li>Ручку на <b>«Хлопок»</b> <small>справа, 2-я сверху</small></li><li><span class="kbd">Темп.</span> жми, пока не будет <b>60</b> <small>или 90, если ярлык разрешает</small></li><li><span class="kbd">Отжим</span> жми, пока не будет <b>1200</b></li><li><span class="kbd">Опции</span> жми, пока не загорится <b>«Предв. стирка»</b> <small>по желанию, тогда средство и в отсек I</small></li><li>Средство в отсек II, потом <span class="kbd">Старт/Пауза</span></li></ol></div>
         <div class="params"><div><span>Темп.</span><b>60–90&nbsp;°C</b></div><div><span>Отжим</span><b>1200</b></div><div><span>Не больше</span><b>6&nbsp;кг</b></div></div>
         <p class="opt"><b>Можно добавить:</b> «Предв. стирка», тогда средство ещё и в отсек&nbsp;I.</p>
         <p class="note">90&nbsp;°C, только если ярлык разрешает кипячение. Отдельно от одежды.</p>
@@ -417,6 +429,7 @@ footer{padding:36px 0 56px;color:var(--x-ink-3);font-size:14px}
       <article class="wc" data-cat="bed kids">
         <header><h3>Постельное для аллергиков</h3><small>от пыльцы и клещей</small></header>
         <div class="prog">Гипоаллергенная</div>
+        <div class="how"><div class="how-k">Как включить</div><ol><li>Ручку на <b>«Гипоаллергенная»</b> <small>слева, самая верхняя</small></li><li>Температуру не трогать <small>60 и пар включаются сами</small></li><li><span class="kbd">Отжим</span> жми, пока не будет <b>1200</b></li><li>Средство в отсек II, потом <span class="kbd">Старт/Пауза</span></li></ol></div>
         <div class="params"><div><span>Темп.</span><b>60&nbsp;°C</b></div><div><span>Отжим</span><b>1200</b></div><div><span>Не больше</span><b>2&nbsp;кг</b></div></div>
         <p class="opt"><b>Само:</b> пар включён и не отключается. Температура фиксированная.</p>
         <p class="note">Лимит всего 2&nbsp;кг, большой комплект стирай в два захода. Ткань должна выдерживать 60&nbsp;°C. <a class="src" href="#s-manual">инструкция</a></p>
@@ -425,6 +438,7 @@ footer{padding:36px 0 56px;color:var(--x-ink-3);font-size:14px}
       <article class="wc" data-cat="daily">
         <header><h3>Повседневное, слегка ношеное</h3><small>футболки, рубашки, домашнее из хлопка</small></header>
         <div class="prog">Эко 40–60</div>
+        <div class="how"><div class="how-k">Как включить</div><ol><li>Ручку на <b>«ЭКО 40-60 °C»</b> <small>справа, самая верхняя</small></li><li>Больше ничего не менять <small>температуру машина выберет сама</small></li><li>Средство в отсек II, потом <span class="kbd">Старт/Пауза</span></li></ol></div>
         <div class="params"><div><span>Темп.</span><b>сама</b></div><div><span>Отжим</span><b>1200</b></div><div><span>Не больше</span><b>6&nbsp;кг</b></div></div>
         <p class="opt"><b>Нюанс:</b> температура и опции не меняются, только отжим.</p>
         <p class="note">Самая экономная программа для несильно грязного хлопка. Ещё вариант: «20&nbsp;°C» (тоже до 6&nbsp;кг), прохладная вода и минимум электричества. Persil для просто ношеных вещей советует 30&nbsp;°C и ниже. <a class="src" href="#s-persil">Persil</a></p>
@@ -433,6 +447,7 @@ footer{padding:36px 0 56px;color:var(--x-ink-3);font-size:14px}
       <article class="wc" data-cat="color">
         <header><h3>Белое</h3><small>хлопок и лён: футболки, рубашки, бельё</small></header>
         <div class="prog">Хлопок</div>
+        <div class="how"><div class="how-k">Как включить</div><ol><li>Ручку на <b>«Хлопок»</b> <small>справа, 2-я сверху</small></li><li><span class="kbd">Темп.</span> жми, пока не будет <b>60</b> <small>если не сильно грязное — 40</small></li><li><span class="kbd">Отжим</span> жми, пока не будет <b>1200</b></li><li><span class="kbd">Опции</span> жми, пока не загорится <b>«Предв. стирка»</b> <small>только если сильно грязное, средство и в отсек I</small></li><li>Средство в отсек II, потом <span class="kbd">Старт/Пауза</span></li></ol></div>
         <div class="params"><div><span>Темп.</span><b>40–60&nbsp;°C</b></div><div><span>Отжим</span><b>1200</b></div><div><span>Не больше</span><b>6&nbsp;кг</b></div></div>
         <p class="opt"><b>Если сильно грязное:</b> 60&nbsp;°C + «Предв. стирка».</p>
         <p class="note">Только отдельно от цветного. Отбеливатель реже: это щёлочь, она портит ткань. Пятна на воротниках и манжетах лучше заранее застирать. <a class="src" href="#s-manual">инструкция</a></p>
@@ -441,6 +456,7 @@ footer{padding:36px 0 56px;color:var(--x-ink-3);font-size:14px}
       <article class="wc" data-cat="color">
         <header><h3>Цветное</h3><small>хлопок и смесовые ткани</small></header>
         <div class="prog">Хлопок <i>или</i> Смешанные ткани</div>
+        <div class="how"><div class="how-k">Как включить</div><ol><li>Ручку на <b>«Хлопок»</b> <small>справа, 2-я сверху; смесовые ткани — «Смешанные ткани», справа 4-я</small></li><li><span class="kbd">Темп.</span> жми, пока не будет <b>30</b> <small>или 40</small></li><li><span class="kbd">Отжим</span> жми, пока не будет <b>1200</b></li><li>Средство в отсек II, потом <span class="kbd">Старт/Пауза</span></li></ol></div>
         <div class="params"><div><span>Темп.</span><b>30–40&nbsp;°C</b></div><div><span>Отжим</span><b>1200</b></div><div><span>Не больше</span><b>6 / 3&nbsp;кг</b></div></div>
         <p class="opt"><b>Средство:</b> для цветного.</p>
         <p class="note">30&nbsp;°C лучше бережёт цвет. Новые цветные вещи первый раз стирай отдельно, они могут линять. Проверить: потереть вещь белым полотенцем, смоченным жидким средством. <a class="src" href="#s-persil">Persil</a> · <a class="src" href="#s-manual">инструкция</a></p>
@@ -449,6 +465,7 @@ footer{padding:36px 0 56px;color:var(--x-ink-3);font-size:14px}
       <article class="wc" data-cat="color">
         <header><h3>Тёмное и чёрное</h3><small>по ткани: хлопок или синтетика</small></header>
         <div class="prog">Хлопок <i>или</i> Синтетика</div>
+        <div class="how"><div class="how-k">Как включить</div><ol><li>Ручку на <b>«Хлопок»</b> <small>справа, 2-я сверху; синтетика — «Синтетика», справа 3-я</small></li><li><span class="kbd">Темп.</span> жми, пока не будет <b>30</b></li><li><span class="kbd">Отжим</span> жми, пока не будет <b>1200</b></li><li>Жидкое средство в отсек II, потом <span class="kbd">Старт/Пауза</span></li></ol></div>
         <div class="params"><div><span>Темп.</span><b>30&nbsp;°C</b></div><div><span>Отжим</span><b>1200</b></div><div><span>Не больше</span><b>6 / 3&nbsp;кг</b></div></div>
         <p class="opt"><b>Средство:</b> жидкое.</p>
         <p class="note">Бесфосфатный порошок может оставить на чёрном белые разводы, поэтому жидкое средство. Холодная стирка меньше вымывает цвет. <a class="src" href="#s-manual">инструкция</a> · <a class="src" href="#s-persil">Persil</a></p>
@@ -457,6 +474,7 @@ footer{padding:36px 0 56px;color:var(--x-ink-3);font-size:14px}
       <article class="wc" data-cat="daily color">
         <header><h3>Джинсы</h3><small>деним</small></header>
         <div class="prog">Деликатная стирка / шёлк</div>
+        <div class="how"><div class="how-k">Как включить</div><ol><li>Выверни наизнанку, застегни молнию</li><li>Ручку на <b>«Деликатная стирка / шелк»</b> <small>слева, 5-я сверху</small></li><li><span class="kbd">Темп.</span> жми, пока не будет <b>«--»</b> <small>холодная вода</small></li><li><span class="kbd">Отжим</span> жми, пока не будет <b>600</b></li><li>Средство в отсек II, потом <span class="kbd">Старт/Пауза</span></li></ol></div>
         <div class="params"><div><span>Темп.</span><b>«--» холодная</b></div><div><span>Отжим</span><b>600</b></div><div><span>Не больше</span><b>2&nbsp;кг</b></div></div>
         <p class="opt"><b>Перед стиркой:</b> вывернуть наизнанку, застегнуть молнию.</p>
         <p class="note">Так советует Levi's: холодная вода, бережный режим, сушить на воздухе. Новые тёмные джинсы первый раз отдельно от светлого. Лучше несколько пар вместе: одни джинсы инструкция прямо называет причиной дисбаланса. <a class="src" href="#s-levis">Levi's</a> · <a class="src" href="#s-manual">инструкция</a></p>
@@ -465,6 +483,7 @@ footer{padding:36px 0 56px;color:var(--x-ink-3);font-size:14px}
       <article class="wc" data-cat="daily">
         <header><h3>Рубашки, блузки, платья</h3><small>синтетика, вискоза, смесовые</small></header>
         <div class="prog">Синтетика</div>
+        <div class="how"><div class="how-k">Как включить</div><ol><li>Ручку на <b>«Синтетика»</b> <small>справа, 3-я сверху</small></li><li><span class="kbd">Темп.</span> жми, пока не будет <b>30</b> <small>или 40</small></li><li><span class="kbd">Отжим</span> убавь ниже <b>1200</b> <small>меньше складок</small></li><li><span class="kbd">Пар</span> нажми один раз <small>по желанию</small></li><li>Средство в отсек II, потом <span class="kbd">Старт/Пауза</span></li></ol></div>
         <div class="params"><div><span>Темп.</span><b>30–40&nbsp;°C</b></div><div><span>Отжим</span><b>ниже</b></div><div><span>Не больше</span><b>3&nbsp;кг</b></div></div>
         <p class="opt"><b>Можно добавить:</b> «Пар», чтобы было меньше складок.</p>
         <p class="note">Чтобы меньше мялось, убавь отжим кнопкой «Отжим» (максимум у программы 1200) и вынимай сразу после конца. <a class="src" href="#s-manual">инструкция</a></p>
@@ -473,6 +492,7 @@ footer{padding:36px 0 56px;color:var(--x-ink-3);font-size:14px}
       <article class="wc" data-cat="daily">
         <header><h3>Хлопок и синтетика вместе</h3><small>смешанная загрузка</small></header>
         <div class="prog">Смешанные ткани</div>
+        <div class="how"><div class="how-k">Как включить</div><ol><li>Ручку на <b>«Смешанные ткани»</b> <small>справа, 4-я сверху</small></li><li><span class="kbd">Темп.</span> жми, пока не будет <b>30</b> <small>или 40</small></li><li><span class="kbd">Отжим</span> жми, пока не будет <b>1200</b></li><li>Средство в отсек II, потом <span class="kbd">Старт/Пауза</span></li></ol></div>
         <div class="params"><div><span>Темп.</span><b>30–40&nbsp;°C</b></div><div><span>Отжим</span><b>1200</b></div><div><span>Не больше</span><b>3&nbsp;кг</b></div></div>
         <p class="opt"><b>Пар:</b> на этой программе недоступен.</p>
         <p class="note">Программа как раз для того, чтобы стирать хлопковые и синтетические вещи вместе. Температура по самому нежному ярлыку. <a class="src" href="#s-manual">инструкция</a></p>
@@ -481,6 +501,7 @@ footer{padding:36px 0 56px;color:var(--x-ink-3);font-size:14px}
       <article class="wc" data-cat="daily kids">
         <header><h3>Нижнее бельё, носки</h3><small>хлопок</small></header>
         <div class="prog">Детские вещи</div>
+        <div class="how"><div class="how-k">Как включить</div><ol><li>Носки и мелочь в сетчатый мешок</li><li>Ручку на <b>«Детские вещи»</b> <small>слева, 2-я сверху</small></li><li><span class="kbd">Темп.</span> жми, пока не будет <b>60</b> <small>или 40</small></li><li><span class="kbd">Отжим</span> жми, пока не будет <b>1200</b></li><li>Средство в отсек II, потом <span class="kbd">Старт/Пауза</span></li></ol></div>
         <div class="params"><div><span>Темп.</span><b>40–60&nbsp;°C</b></div><div><span>Отжим</span><b>1200</b></div><div><span>Не больше</span><b>2&nbsp;кг</b></div></div>
         <p class="opt"><b>Само:</b> пар всегда включён.</p>
         <p class="note">Инструкция советует эту программу и для нижнего белья: хорошо полощет и обрабатывает паром. Носки и мелочь в сетчатый мешок. Если белья больше 2&nbsp;кг, ставь «Хлопок» на 40–60&nbsp;°C. <a class="src" href="#s-manual">инструкция</a></p>
@@ -489,6 +510,7 @@ footer{padding:36px 0 56px;color:var(--x-ink-3);font-size:14px}
       <article class="wc" data-cat="daily">
         <header><h3>Спортивная форма</h3><small>синтетика, трикотаж</small></header>
         <div class="prog">Спортивные вещи</div>
+        <div class="how"><div class="how-k">Как включить</div><ol><li>Ручку на <b>«Спортивные вещи»</b> <small>слева, 3-я сверху</small></li><li><span class="kbd">Темп.</span> жми, пока не будет <b>30</b> <small>или 40</small></li><li><span class="kbd">Отжим</span> жми, пока не будет <b>1000</b></li><li>Средство в отсек II, потом <span class="kbd">Старт/Пауза</span></li></ol></div>
         <div class="params"><div><span>Темп.</span><b>30–40&nbsp;°C</b></div><div><span>Отжим</span><b>1000</b></div><div><span>Не больше</span><b>2&nbsp;кг</b></div></div>
         <p class="opt"><b>Можно добавить:</b> «Предв. стирка», «Доп. полоскание» или «Интенсивная».</p>
         <p class="note">Максимум у программы 40&nbsp;°C и 1000 оборотов. Пара здесь нет. <a class="src" href="#s-manual">инструкция</a></p>
@@ -497,6 +519,7 @@ footer{padding:36px 0 56px;color:var(--x-ink-3);font-size:14px}
       <article class="wc" data-cat="daily">
         <header><h3>Сильно грязное</h3><small>рабочая одежда, вещи после дачи или похода</small></header>
         <div class="prog">Хлопок + «Предв. стирка»</div>
+        <div class="how"><div class="how-k">Как включить</div><ol><li>Ручку на <b>«Хлопок»</b> <small>справа, 2-я сверху</small></li><li><span class="kbd">Темп.</span> жми, пока не будет <b>60</b> <small>или 40 по ярлыку</small></li><li><span class="kbd">Отжим</span> жми, пока не будет <b>1200</b></li><li><span class="kbd">Опции</span> жми, пока не загорится <b>«Предв. стирка»</b> <small>средство и в отсек I, и в II</small></li><li>Средство в отсек II, потом <span class="kbd">Старт/Пауза</span></li></ol></div>
         <div class="params"><div><span>Темп.</span><b>40–60&nbsp;°C</b></div><div><span>Отжим</span><b>1200</b></div><div><span>Не больше</span><b>6&nbsp;кг</b></div></div>
         <p class="opt"><b>Если вещей мало (до 2&nbsp;кг):</b> «Интенсивная 49'», до 40&nbsp;°C.</p>
         <p class="note">При предварительной стирке средство кладут в оба отсека, I и II. Сильные пятна заранее обработай пятновыводителем. <a class="src" href="#s-manual">инструкция</a></p>
@@ -505,6 +528,7 @@ footer{padding:36px 0 56px;color:var(--x-ink-3);font-size:14px}
       <article class="wc" data-cat="delicate">
         <header><h3>Шерсть: свитеры, кардиганы</h3><small>только если ярлык разрешает машинную стирку</small></header>
         <div class="prog">Деликатная стирка / шёлк</div>
+        <div class="how"><div class="how-k">Как включить</div><ol><li>Выверни наизнанку или положи в мешок</li><li>Ручку на <b>«Деликатная стирка / шелк»</b> <small>слева, 5-я сверху</small></li><li><span class="kbd">Темп.</span> жми, пока не будет <b>«--»</b> <small>холодная вода</small></li><li>Средство для шерсти в отсек II, потом <span class="kbd">Старт/Пауза</span></li></ol></div>
         <div class="params"><div><span>Темп.</span><b>«--» холодная</b></div><div><span>Отжим</span><b>600</b></div><div><span>Не больше</span><b>2&nbsp;кг</b></div></div>
         <p class="opt"><b>Средство:</b> для шерсти. Вещь наизнанку или в мешок.</p>
         <p class="note">Отдельной программы для шерсти у машины нет. На этот случай Woolmark советует холодную воду или деликатный режим, а сушить свитер разложенным, в тени. <a class="src" href="#s-woolmark">Woolmark</a></p>
@@ -513,6 +537,7 @@ footer{padding:36px 0 56px;color:var(--x-ink-3);font-size:14px}
       <article class="wc" data-cat="delicate">
         <header><h3>Шёлк, кружево, бюстгальтеры</h3><small>тонкие ткани</small></header>
         <div class="prog">Деликатная стирка / шёлк</div>
+        <div class="how"><div class="how-k">Как включить</div><ol><li>Бюстгальтеры застегни и положи в наволочку или мешок</li><li>Ручку на <b>«Деликатная стирка / шелк»</b> <small>слева, 5-я сверху</small></li><li><span class="kbd">Темп.</span> жми, пока не будет <b>«--»</b> <small>или 30</small></li><li>Средство в отсек II, потом <span class="kbd">Старт/Пауза</span></li></ol></div>
         <div class="params"><div><span>Темп.</span><b>«--»–30&nbsp;°C</b></div><div><span>Отжим</span><b>600</b></div><div><span>Не больше</span><b>2&nbsp;кг</b></div></div>
         <p class="opt"><b>Без кондиционера:</b> инструкция не советует его на этой программе.</p>
         <p class="note">Бюстгальтеры застегни и положи в наволочку или мешок, чтобы косточки не порвали ткань и не повредили барабан. Кружево в сетчатый мешок. <a class="src" href="#s-manual">инструкция</a></p>
@@ -521,6 +546,7 @@ footer{padding:36px 0 56px;color:var(--x-ink-3);font-size:14px}
       <article class="wc" data-cat="delicate">
         <header><h3>Шторы и тюль</h3><small>лёгкие ткани</small></header>
         <div class="prog">Деликатная стирка / шёлк</div>
+        <div class="how"><div class="how-k">Как включить</div><ol><li>Сними крючки, тюль в сетчатый мешок</li><li>Ручку на <b>«Деликатная стирка / шелк»</b> <small>слева, 5-я сверху</small></li><li><span class="kbd">Темп.</span> жми, пока не будет <b>«--»</b> <small>или 30</small></li><li>Средство в отсек II, потом <span class="kbd">Старт/Пауза</span></li></ol></div>
         <div class="params"><div><span>Темп.</span><b>«--»–30&nbsp;°C</b></div><div><span>Отжим</span><b>600</b></div><div><span>Не больше</span><b>2&nbsp;кг</b></div></div>
         <p class="opt"><b>Перед стиркой:</b> снять все крючки.</p>
         <p class="note">Кружевной тюль в сетчатый мешок. Новые шторы из шерсти или шёлка инструкция велит стирать только бережным режимом. <a class="src" href="#s-manual">инструкция</a></p>
@@ -529,6 +555,7 @@ footer{padding:36px 0 56px;color:var(--x-ink-3);font-size:14px}
       <article class="wc" data-cat="bulky">
         <header><h3>Пуховик, куртка на синтепоне</h3><small>если ярлык разрешает машинную стирку</small></header>
         <div class="prog">Пуховые вещи</div>
+        <div class="how"><div class="how-k">Как включить</div><ol><li>Ручку на <b>«Пуховые вещи»</b> <small>слева, 4-я сверху</small></li><li><span class="kbd">Темп.</span> жми, пока не будет <b>«--»</b> <small>холодная вода</small></li><li><span class="kbd">Опции</span> жми, пока не загорится <b>«Доп. полоскание»</b></li><li>Средство для пуха в отсек II, потом <span class="kbd">Старт/Пауза</span></li></ol></div>
         <div class="params"><div><span>Темп.</span><b>«--» холодная</b></div><div><span>Отжим</span><b>600</b></div><div><span>Не больше</span><b>2&nbsp;кг</b></div></div>
         <p class="opt"><b>Добавить:</b> «Доп. полоскание».</p>
         <p class="note">Средство специальное, для пуха: обычный порошок и кондиционер портят пух и смывают водоотталкивающую пропитку. Полоскать несколько раз, чтобы средство вымылось полностью. <a class="src" href="#s-mw">Mountain Warehouse</a></p>
@@ -537,6 +564,7 @@ footer{padding:36px 0 56px;color:var(--x-ink-3);font-size:14px}
       <article class="wc" data-cat="bulky bed">
         <header><h3>Подушки, одеяла, покрывала</h3><small>с пухом или синтетическим наполнителем</small></header>
         <div class="prog">Пуховые вещи</div>
+        <div class="how"><div class="how-k">Как включить</div><ol><li>Ручку на <b>«Пуховые вещи»</b> <small>слева, 4-я сверху</small></li><li><span class="kbd">Темп.</span> жми до значения с ярлыка <small>не выше 40</small></li><li><span class="kbd">Опции</span> жми, пока не загорится <b>«Доп. полоскание»</b></li><li>Средство в отсек II, потом <span class="kbd">Старт/Пауза</span></li></ol></div>
         <div class="params"><div><span>Темп.</span><b>до 40&nbsp;°C</b></div><div><span>Отжим</span><b>600</b></div><div><span>Не больше</span><b>2&nbsp;кг</b></div></div>
         <p class="opt"><b>Добавить:</b> «Доп. полоскание».</p>
         <p class="note">Инструкция прямо называет эту программу для подушек, матрасов и покрывал. Вещь должна свободно лежать в барабане. Температура по ярлыку. <a class="src" href="#s-manual">инструкция</a></p>
@@ -545,6 +573,7 @@ footer{padding:36px 0 56px;color:var(--x-ink-3);font-size:14px}
       <article class="wc" data-cat="kids">
         <header><h3>Детские вещи, пелёнки</h3><small>отдельно от взрослых</small></header>
         <div class="prog">Детские вещи</div>
+        <div class="how"><div class="how-k">Как включить</div><ol><li>Ручку на <b>«Детские вещи»</b> <small>слева, 2-я сверху</small></li><li><span class="kbd">Темп.</span> жми, пока не будет <b>60</b> <small>или 40</small></li><li><span class="kbd">Опции</span> жми, пока не загорится <b>«Доп. полоскание»</b></li><li>Средство в отсек II, потом <span class="kbd">Старт/Пауза</span></li></ol></div>
         <div class="params"><div><span>Темп.</span><b>40–60&nbsp;°C</b></div><div><span>Отжим</span><b>1200</b></div><div><span>Не больше</span><b>2&nbsp;кг</b></div></div>
         <p class="opt"><b>Добавить:</b> «Доп. полоскание». Пар включён всегда.</p>
         <p class="note">90&nbsp;°C тоже есть, если позволяет ярлык. Без кондиционера. Детское стирают отдельно от взрослого и полощут дольше. <a class="src" href="#s-manual">инструкция</a></p>
@@ -553,6 +582,7 @@ footer{padding:36px 0 56px;color:var(--x-ink-3);font-size:14px}
       <article class="wc" data-cat="service">
         <header><h3>Освежить пару вещей</h3><small>чуть ношеное, мало</small></header>
         <div class="prog">Быстрая 15'</div>
+        <div class="how"><div class="how-k">Как включить</div><ol><li>Ручку на <b>«Быстрая 15'»</b> <small>справа, 6-я сверху</small></li><li><span class="kbd">Темп.</span> жми, пока не будет <b>«--»</b> <small>или 30</small></li><li>Полдозы средства в отсек II, потом <span class="kbd">Старт/Пауза</span></li></ol></div>
         <div class="params"><div><span>Темп.</span><b>«--»–40&nbsp;°C</b></div><div><span>Отжим</span><b>800</b></div><div><span>Не больше</span><b>1&nbsp;кг</b></div></div>
         <p class="opt"><b>Средство:</b> примерно половина дозы.</p>
         <p class="note">Всего 1&nbsp;кг. Если менять температуру или отжим, программа станет длиннее 15 минут. <a class="src" href="#s-manual">инструкция</a></p>
@@ -561,6 +591,7 @@ footer{padding:36px 0 56px;color:var(--x-ink-3);font-size:14px}
       <article class="wc" data-cat="service">
         <header><h3>Только прополоскать или отжать</h3><small>после ручной стирки, если плохо отжало</small></header>
         <div class="prog">Полоскание и отжим <i>/</i> Отжим</div>
+        <div class="how"><div class="how-k">Как включить</div><ol><li>Ручку на <b>«Полоскание и отжим»</b> <small>справа, самая нижняя; только отжать — «Отжим», внизу под ручкой</small></li><li><span class="kbd">Отжим</span> жми, пока не будет <b>1200</b> <small>для деликатного меньше</small></li><li><span class="kbd">Старт/Пауза</span> <small>средства не класть</small></li></ol></div>
         <div class="params"><div><span>Темп.</span><b>—</b></div><div><span>Отжим</span><b>до 1200</b></div><div><span>Не больше</span><b>6&nbsp;кг</b></div></div>
         <p class="opt"><b>Средства:</b> не класть.</p>
         <p class="note">Для деликатных вещей убавь отжим. Если «Отжим» поставить на паузу, после продолжения он начнётся заново. <a class="src" href="#s-manual">инструкция</a></p>
