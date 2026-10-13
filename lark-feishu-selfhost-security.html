@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lark и Feishu: self-host и самый защищённый тариф</title>
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="description" content="Можно ли поставить Lark или Feishu на свой сервер, что есть в тарифах по безопасности, какая конфигурация максимально защищённая (Enterprise + BYOS + BYOK + Multi-Geo) и чем это отличается от настоящего self-host.">
+<script>document.documentElement.classList.add('js-anim');</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ===== Единый стиль серии: чёрный фон, белый текст, красный акцент ===== */
+:root{color-scheme:dark;
+  --x-ink:#F5F5F5;--x-ink-2:#C4C4C8;--x-ink-3:#8E8E93;--x-bg:#000000;--x-paper:#121212;--x-soft:#1A1A1A;--x-line:#262626;--x-line-2:#3A3A3A;
+  --x-red:#9B1C1C;--x-red-hover:#B42323;--x-red-text:#E05252;--x-red-soft:#241010;--x-red-line:#4D1B1B;}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{margin:0;background:var(--x-bg);color:var(--x-ink);font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;font-size:16px;line-height:1.55;font-feature-settings:"tnum" 1,"cv11" 1}
+::selection{background:var(--x-red);color:#fff}
+a{color:var(--x-red-text);text-decoration:none;border-bottom:1px solid rgba(224,82,82,.35)} a:hover{color:#fff;border-bottom-color:#fff}
+a:focus-visible,button:focus-visible{outline:3px solid var(--x-red-text);outline-offset:2px;border-radius:6px}
+.wrap{max-width:1180px;margin:0 auto;padding:0 16px}
+h1,h2,h3,h4{color:#fff}
+/* навигация */
+.topbar{position:sticky;top:0;z-index:50;background:rgba(0,0,0,.88);border-bottom:1px solid var(--x-line);-webkit-backdrop-filter:saturate(140%) blur(16px);backdrop-filter:saturate(140%) blur(16px)}
+.topbar .wrap{display:flex;align-items:center;gap:18px;min-height:52px}
+.brand{color:#fff;font-weight:700;font-size:14px;white-space:nowrap;border:0}
+nav.topnav{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+nav.topnav::-webkit-scrollbar{display:none}
+nav.topnav a{color:var(--x-ink-2);font-size:13.5px;font-weight:500;padding:8px 11px;border-radius:8px;white-space:nowrap;border:0;min-height:40px;display:inline-flex;align-items:center}
+nav.topnav a:hover{color:#fff;background:rgba(255,255,255,.08)}
+nav.topnav a.active{color:#fff;background:rgba(224,82,82,.18);box-shadow:inset 0 0 0 1px var(--x-red-line)}
+/* шапка */
+.hero{background:var(--x-bg);border-bottom:1px solid var(--x-line);padding:56px 0 40px}
+.eyebrow{color:var(--x-red-text);font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin:0 0 14px}
+h1{font-size:clamp(32px,5vw,56px);line-height:1.06;letter-spacing:-.03em;font-weight:800;margin:0 0 18px;max-width:980px}
+h1 span{color:var(--x-red-text)}
+.lede{font-size:18px;color:var(--x-ink-2);max-width:820px;margin:0 0 26px}
+.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.tile{background:var(--x-paper);border:1px solid var(--x-line);border-radius:16px;padding:16px 18px}
+.tile .v{font-size:30px;font-weight:800;letter-spacing:-.02em;color:#fff;line-height:1.1}
+.tile .l{font-size:13px;color:var(--x-ink-3);margin-top:6px;line-height:1.4}
+/* секции */
+section{padding:46px 0 6px}
+.section-head{margin:0 0 20px;max-width:860px}
+.section-head h2{font-size:clamp(24px,3vw,34px);letter-spacing:-.02em;font-weight:700;margin:0 0 8px;display:flex;align-items:center;gap:12px}
+.num{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:9px;background:#fff;color:#000;font-size:15px;font-weight:800;flex:none}
+.section-head p{color:var(--x-ink-2);margin:0}
+.bento{display:grid;grid-template-columns:repeat(12,1fr);gap:14px}
+.card{background:var(--x-paper);border:1px solid var(--x-line);border-radius:18px;padding:20px 22px;transition:transform .2s,box-shadow .2s}
+.card.hoverable:hover{transform:translateY(-2px);box-shadow:0 0 0 1px rgba(255,255,255,.18)}
+.c12{grid-column:span 12}.c8{grid-column:span 8}.c6{grid-column:span 6}.c4{grid-column:span 4}
+.kicker{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--x-ink-3);margin:0 0 10px}
+.card h3{font-size:18px;margin:0 0 8px;letter-spacing:-.01em}
+.card p{margin:0 0 10px;color:var(--x-ink-2);font-size:15px}
+.card p:last-child{margin-bottom:0}
+.card ul,.card ol{margin:0 0 8px;padding-left:18px;color:var(--x-ink-2);font-size:15px}
+.card li{margin:0 0 7px} .card li strong,.card p strong{color:#fff;font-weight:600}
+.big{font-size:30px;font-weight:800;letter-spacing:-.02em;color:#fff;line-height:1.1;margin:2px 0 6px}
+.badge{display:inline-flex;align-items:center;font-size:12px;font-weight:600;border-radius:6px;padding:4px 9px;margin:4px 6px 0 0;line-height:1.2;border:1px solid transparent}
+.b-ok{background:#2A2A2A;color:#fff;border-color:#5A5A5F}
+.b-mid{background:var(--x-red-soft);color:var(--x-red-text);border-color:var(--x-red-line)}
+.b-bad{background:var(--x-red);color:#fff;border-color:var(--x-red)}
+.b-gray{background:var(--x-soft);color:#A1A1A6;border-color:var(--x-line)}
+.note{background:var(--x-red-soft);border:1px solid var(--x-red-line);border-radius:14px;padding:14px 18px;color:#F2D6D6;font-size:14.5px;margin:0 0 14px}
+.note.gray{background:var(--x-soft);border-color:var(--x-line);color:var(--x-ink-2)}
+.note strong{color:#fff}
+/* таблицы */
+.tablewrap{background:var(--x-paper);border:1px solid var(--x-line);border-radius:18px;overflow:auto;-webkit-overflow-scrolling:touch}
+table{border-collapse:separate;border-spacing:0;width:100%;font-size:14px;min-width:860px}
+thead th{background:#1F1F1F;color:#fff;text-align:left;font-weight:600;padding:12px 14px;font-size:13px;vertical-align:top;border-bottom:1px solid var(--x-line-2);position:sticky;top:0}
+tbody td{padding:11px 14px;border-bottom:1px solid var(--x-line);vertical-align:top;color:var(--x-ink-2);font-size:14px;line-height:1.45}
+tbody tr:last-child td{border-bottom:0}
+tbody tr:hover td{background:#161616}
+td strong{color:#fff;font-weight:600}
+td.win{background:#1C1C1C;box-shadow:inset 3px 0 0 #fff}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.92em;background:#1F1F1F;padding:2px 6px;border-radius:6px;color:#fff}
+.steps{counter-reset:s;display:flex;flex-direction:column;gap:10px;margin:0;padding:0;list-style:none}
+.steps li{position:relative;background:var(--x-paper);border:1px solid var(--x-line);border-radius:14px;padding:14px 16px 14px 60px;color:var(--x-ink-2);font-size:15px}
+.steps li::before{counter-increment:s;content:counter(s);position:absolute;left:16px;top:14px;width:30px;height:30px;border-radius:8px;background:#fff;color:#000;font-weight:800;display:flex;align-items:center;justify-content:center;font-size:14px}
+.steps li strong{color:#fff}
+.src{columns:2;column-gap:32px;font-size:13.5px;margin:0;padding-left:18px}
+.src li{break-inside:avoid;margin:0 0 6px;color:var(--x-ink-2)}
+.src h4{column-span:all;font-size:14px;margin:12px 0 6px;color:#fff}
+footer{padding:36px 0 60px;color:var(--x-ink-3);font-size:13px;line-height:1.6}
+.reveal{opacity:1;transform:none}
+.js-anim .reveal{opacity:0;transform:translateY(14px)}
+.js-anim .reveal.shown{opacity:1;transform:none;transition:opacity .5s ease-out,transform .5s ease-out}
+@media (prefers-reduced-motion:reduce){.js-anim .reveal{opacity:1;transform:none;transition:none} .card{transition:none}}
+@media (max-width:1024px){.tiles{grid-template-columns:repeat(2,1fr)} .c4{grid-column:span 6} .c8{grid-column:span 12} .src{columns:1}}
+@media (max-width:700px){.hero{padding:40px 0 28px} .tiles{grid-template-columns:1fr 1fr} .c4,.c6{grid-column:span 12} .topbar .wrap{gap:10px} .brand{display:none}}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <span class="brand">Lark / Feishu</span>
+    <nav class="topnav" aria-label="Разделы">
+      <a href="#answer">Ответ</a>
+      <a href="#lark">Тарифы Lark</a>
+      <a href="#max">Максимум защиты</a>
+      <a href="#feishu">Feishu</a>
+      <a href="#private">Приватное развёртывание</a>
+      <a href="#compare">Против self-host</a>
+      <a href="#verdict">Что выбрать</a>
+      <a href="#sources">Источники</a>
+    </nav>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="eyebrow reveal">Lark и Feishu · проверка по документации</p>
+    <h1 class="reveal">Поставить у себя нельзя. <span>Максимум защиты</span> — Enterprise плюс своё хранилище, свои ключи и выбор региона</h1>
+    <p class="lede reveal">Lark (международная версия, Сингапур) и Feishu (китайская, ByteDance) продаются только как облако: в белых книгах обе компании называют себя SaaS-провайдерами, а в каталоге тарифов и справке нет ни одной опции установки на свой сервер. Зато есть набор платных «приватизирующих» надстроек, которые закрывают большую часть того, зачем обычно хотят self-host. Ниже — что именно, на каких тарифах, сколько стоит публично и где остаётся доверие вендору.</p>
+    <div class="tiles">
+      <div class="tile reveal"><div class="v">0</div><div class="l">вариантов self-host у Lark и Feishu в официальном каталоге</div></div>
+      <div class="tile reveal"><div class="v">3</div><div class="l">региона серверов Lark: США, Сингапур, Япония (политика конфиденциальности)</div></div>
+      <div class="tile reveal"><div class="v">4</div><div class="l">платные надстройки защиты: своё хранилище, свои ключи, Multi-Geo, доверенные стороны</div></div>
+      <div class="tile reveal"><div class="v">$12</div><div class="l">Lark Pro за пользователя в месяц при годовой оплате; Enterprise — по запросу</div></div>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<section id="answer">
+  <div class="wrap">
+    <div class="bento">
+      <div class="card c12 reveal">
+        <div class="kicker">Ответ на вопрос</div>
+        <p style="font-size:20px;margin-bottom:14px"><strong>Self-host варианта нет ни у Lark, ни у Feishu.</strong> Всё, что они предлагают для «максимальной безопасности», работает поверх их облака: данные можно положить в своё хранилище (BYOS), шифровать своими ключами (BYOK), закрепить регион (Multi-Geo), включить DLP, водяные знаки, аудит и сетевые ограничения. Но обработка остаётся на серверах вендора, сквозного шифрования сообщений нет, а ключи в рабочем режиме используют их же сервисы.</p>
+        <p>Самая защищённая публично описанная конфигурация Lark — тариф <strong>Enterprise</strong> плюс четыре платные надстройки: <strong>Bring Your Own Storage</strong> (чаты, документы, картинки и файлы лежат в вашем объектном хранилище — стороннее облако, приватное облако или локальный сервер), <strong>BYOK Advanced</strong> (свой мастер-ключ с ротацией и отдельными ключами на сервисы), <strong>Multi-Geo</strong> (регион хранения для сотрудников разных стран) и организационный SSO через ваш провайдер идентичности. У Feishu то же самое называется 数据私有化 (данные в указанной вами среде), 自主密钥 (свои ключи, в том числе китайский стандарт SM4) и 数据驻留 (регион), и доступно с коммерческих версий.</p>
+        <p>Полноценные приватные инсталляции Feishu существуют только как индивидуальные проекты для гигантов (Xiaomi, China Resources, Haier и другие): деловая пресса описывала их как команды в сотни человек на год и убыточные сделки. В прайсе такого пункта нет, а справка Feishu под «приватизацией» понимает именно хранение данных у клиента и локальный прокси для интеграций. Если нужна полная изоляция, остаётся настоящий self-host — <a href="slack-alternatives-selfhosted-2026.html">Element/Matrix или Mattermost</a>, а <a href="ess-community-install.html">инструкция по ESS Community</a> уже готова.</p>
+      </div>
+      <div class="card c4 hoverable reveal">
+        <div class="kicker">Где лежат данные</div>
+        <div class="big">AWS</div>
+        <p>Lark перенёс инфраструктуру на AWS; серверы в США, Сингапуре и Японии. Регион организации выбирается страной при создании и потом не меняется.</p>
+        <span class="badge b-mid">Создавайте организацию из нужной страны</span>
+      </div>
+      <div class="card c4 hoverable reveal">
+        <div class="kicker">Шифрование</div>
+        <div class="big">AES-256</div>
+        <p>В передаче HTTPS с 2048-битным RSA, на дисках AES-256 ключами арендатора в KMS с аппаратным HSM. Видео — DTLS «до сервера». Сквозного шифрования сообщений нет.</p>
+        <span class="badge b-bad">Нет E2EE</span>
+      </div>
+      <div class="card c4 hoverable reveal">
+        <div class="kicker">Сертификаты</div>
+        <div class="big">SOC 2 · ISO</div>
+        <p>Lark: ISO 27001, 27017, 27018, 27701, SOC 2 Type II, SOC 3, DPF, CBPR, DPTM, проверка GDPR через TrustArc. Feishu: 等保三级, те же ISO, SOC 1/2/3.</p>
+        <span class="badge b-ok">Аудиты есть</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="lark">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <h2><span class="num">1</span>Lark: тарифы и что в них по безопасности</h2>
+      <p>Четыре плана. Basic продаётся только в части стран (не в материковом Китае, Гонконге, Макао, Японии и Корее). Цены в долларах без налогов, при годовой оплате.</p>
+    </div>
+    <div class="tablewrap reveal">
+      <table>
+        <thead><tr><th style="width:22%">Что</th><th>Starter</th><th>Basic</th><th>Pro</th><th>Enterprise</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Цена</strong></td><td>$0</td><td>покупается отдельно</td><td>$12 / пользователь / месяц</td><td>по запросу, «персональная демонстрация и цена»</td></tr>
+          <tr><td><strong>Пользователи</strong></td><td>до 20</td><td>до 500</td><td>до 500</td><td>без лимита</td></tr>
+          <tr><td><strong>Хранилище</strong></td><td>100 ГБ</td><td>5 ТБ</td><td>15 ТБ</td><td>15 ТБ + 30 ГБ на место</td></tr>
+          <tr><td><strong>История сообщений</strong></td><td>18 месяцев</td><td>—</td><td>навсегда</td><td>навсегда</td></tr>
+          <tr><td><strong>SSO приложений</strong> (вход в сторонние сервисы через Lark)</td><td>нет</td><td>—</td><td>20</td><td>500</td></tr>
+          <tr><td><strong>Организационный SSO</strong> (вход в Lark через ваш IdP: Okta, Entra ID, Google)</td><td>нет</td><td>нет</td><td>нет</td><td class="win">да, SAML 2.0</td></tr>
+          <tr><td><strong>Водяные знаки</strong></td><td>нет</td><td>—</td><td>глобальные</td><td class="win">по оргструктуре, невидимые, свой текст и стиль</td></tr>
+          <tr><td><strong>Расширенная безопасность и комплаенс</strong> (DLP, метки секретности, обнаружение данных, аудит прав и активности, хранение данных, сетевое ограждение по IP, шифрование файлов на телефоне, защита от скриншотов и вставки)</td><td>нет</td><td>—</td><td>базовые контроли</td><td class="win">полный набор («Advanced security &amp; compliance controls»)</td></tr>
+          <tr><td><strong>Своё хранилище (BYOS)</strong></td><td colspan="4">доступно на любом плане, оплачивается отдельно</td></tr>
+          <tr><td><strong>Свои ключи (BYOK / BYOK Advanced)</strong></td><td colspan="4">оплачивается отдельно; цена не публикуется</td></tr>
+          <tr><td><strong>Multi-Geo</strong> (регион данных на уровне сотрудника)</td><td colspan="4">оплачивается отдельно; регион организации фиксирован</td></tr>
+          <tr><td><strong>Доверенные стороны Lark ↔ Feishu</strong></td><td colspan="4">оплачивается отдельно</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="bento" style="margin-top:14px">
+      <div class="card c6 reveal">
+        <h3>Что такое BYOS простыми словами</h3>
+        <p>Основные данные, которые порождает работа в Lark (переписка, документы, картинки, файлы), шифруются и складываются не в хранилище Lark, а в ваш бакет объектного хранилища: любой сторонний облачный провайдер, приватное облако или локальное хранилище. Вы заводите два бакета (тестовый и боевой), указываете провайдера, регион, ключи доступа и пропускную способность, Lark подключается через фиксированные прокси-IP, которые надо разрешить в файрволе. Есть необязательный «запасной режим»: если ваше хранилище недоступно, данные временно складываются у Lark, чтобы не падали загрузки. Для максимальной приватности его выключают и принимают риск простоя.</p>
+      </div>
+      <div class="card c6 reveal">
+        <h3>Что такое BYOK и где его предел</h3>
+        <p>Стандартно данные каждого арендатора шифруются собственным мастер-ключом, который генерирует и хранит KMS Lark (корневой ключ в аппаратном HSM, доступ к HSM требует нескольких ключей у разных ролей). С BYOK вы загружаете свой мастер-ключ в зашифрованном виде, можете ротировать, просматривать и удалять его, переводить старые данные со стандартного ключа на свой. BYOK Advanced добавляет отдельные ключи на разные сервисы. Предел честно виден из схемы: ключ расшифровывается в изолированном KMS Lark и используется их сервисами, иначе сервер не смог бы показать вам документ. Это не сквозное шифрование, а контроль над ключом и возможность «отозвать» данные, удалив его.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="max">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <h2><span class="num">2</span>Максимально защищённая конфигурация Lark</h2>
+      <p>Что включить, если остаётесь в Lark и хотите выжать всё, что вендор даёт. Порядок важен: регион и хранилище решаются до запуска, остальное — настройки админ-консоли.</p>
+    </div>
+    <ol class="steps reveal">
+      <li><strong>Создайте организацию из правильной страны.</strong> Страна при регистрации навсегда определяет регион хранения (США, Сингапур или Япония); сменить потом нельзя. Для европейских компаний Lark сам рекомендует Японию из-за соглашения о передаче данных между ЕС и Японией.</li>
+      <li><strong>Купите Enterprise.</strong> Только он даёт вход через ваш провайдер идентичности (SAML 2.0), полный набор контролей DLP, меток, аудита, хранения и сетевого ограждения, невидимые водяные знаки по оргструктуре и неограниченное число пользователей.</li>
+      <li><strong>Подключите Bring Your Own Storage</strong> в Security &amp; Compliance → Data Security: свой бакет в своём облаке или на своём сервере, прокси-IP Lark в белом списке, запасной режим выключен, если приватность важнее доступности.</li>
+      <li><strong>Включите BYOK Advanced:</strong> свой мастер-ключ, отдельные ключи на сервисы, регулярная ротация, журнал управления ключами. Удаление ключа делает данные у вендора нечитаемыми.</li>
+      <li><strong>Multi-Geo</strong>, если сотрудники в разных юрисдикциях: данные каждого хранятся в его регионе, при этом организация остаётся в одном.</li>
+      <li><strong>Закрутите доступ:</strong> двухфакторная проверка для всех, срок жизни сессий, сетевое ограждение (только с IP офиса и VPN), запрет входа в чужие арендаторы с доверенных устройств, шифрование файлов на мобильных, защита от скриншотов, записи экрана и вставки.</li>
+      <li><strong>Данные:</strong> метки секретности с автоматической разметкой, DLP-политики, ограниченный режим в группах, правила хранения и удаления, аудит прав по документам и вики, активность участников, журналы администраторов и OpenAPI.</li>
+      <li><strong>Примите то, что остаётся у вендора:</strong> обработка на его серверах, метаданные (кто, когда, с кем), ключи в его KMS во время работы, отсутствие сквозного шифрования, юрисдикция Сингапура у оператора и выбранного региона у данных. Если этот список неприемлем, Lark не подходит, нужен self-host.</li>
+    </ol>
+  </div>
+</section>
+
+<section id="feishu">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <h2><span class="num">3</span>Feishu: версии и «приватизация данных»</h2>
+      <p>Китайский Feishu и международный Lark — один продукт, но разные компании, разные аккаунты, разные серверы: данные Feishu лежат в дата-центрах в Хэбэе и Шаньси, подпадают под законы КНР, а пользователи Lark и Feishu видят друг друга только через платную «доверенную сторону». Все версии оплачиваются за год.</p>
+    </div>
+    <div class="tablewrap reveal">
+      <table>
+        <thead><tr><th style="width:22%">Версия</th><th>Цена</th><th>Лимиты</th><th>Безопасность</th></tr></thead>
+        <tbody>
+          <tr><td><strong>免费版</strong> (бесплатная)</td><td>¥0</td><td>до 100 пользователей</td><td>базовая</td></tr>
+          <tr><td><strong>商业标准版</strong> (коммерческая стандартная)</td><td>¥50 / чел. / мес</td><td>до 500, 1 500 ГБ, встречи 24 ч на 50 участников, история навсегда</td><td>доступны платные 数据私有化 и 自主密钥, локальный прокси, SSO через свой IdP</td></tr>
+          <tr><td><strong>商业专业版</strong> (профессиональная)</td><td>¥80 / чел. / мес</td><td>до 500, 5 ТБ, встречи на 100</td><td>то же</td></tr>
+          <tr><td><strong>商业旗舰版</strong> (флагманская)</td><td>¥120 / чел. / мес</td><td>до 500, 15 ТБ, встречи на 500</td><td class="win">плюс SSO, расширенная безопасность аккаунта, расширенные водяные знаки</td></tr>
+          <tr><td><strong>企业旗舰版</strong> (корпоративная)</td><td>по запросу</td><td>без лимита по размеру</td><td class="win">«корпоративные возможности безопасности и соответствия», тонкое управление сложной структурой, брендирование</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="bento" style="margin-top:14px">
+      <div class="card c4 hoverable reveal">
+        <div class="kicker">数据私有化</div>
+        <h3>Данные в вашей среде</h3>
+        <p>Переписка, облачные документы, картинки и файлы хранятся «в указанной предприятием среде: стороннее публичное облако, приватное облако или локальное хранилище». Покупается отдельно, доступно коммерческим и корпоративной версиям; есть самостоятельное подключение, панель трафика, оповещения о заполнении и тот же запасной режим на случай отказа вашего хранилища.</p>
+        <span class="badge b-ok">Аналог BYOS</span>
+      </div>
+      <div class="card c4 hoverable reveal">
+        <div class="kicker">自主密钥</div>
+        <h3>Свои ключи, в том числе SM4</h3>
+        <p>Базовая и расширенная версии плюс интеграция со сторонними продуктами управления ключами. Белая книга прямо говорит: клиент выбирает алгоритм (AES-256 или национальный SM4) и сам управляет ротацией. Только коммерческие и корпоративная версии.</p>
+        <span class="badge b-ok">Аналог BYOK</span>
+      </div>
+      <div class="card c4 hoverable reveal">
+        <div class="kicker">本地代理</div>
+        <h3>Локальный прокси — не приватное развёртывание</h3>
+        <p>Единственное место в справке, где слова «приватное развёртывание» стоят рядом с Feishu, описывает ваши внутренние системы (OA, базы данных) за файрволом: Feishu даёт агента-прокси на одном сервере, чтобы интеграционная платформа дотягивалась до них. Сам Feishu при этом остаётся в облаке.</p>
+        <span class="badge b-mid">Легко перепутать</span>
+      </div>
+    </div>
+    <div class="note gray reveal" style="margin-top:14px"><strong>Сертификаты и инфраструктура Feishu.</strong> Защита информации уровня 3 (等保三级), ISO 27001, 27017, 27018, 27701, 22301, SOC 1/2/3, «Доверенное облако», CMMI 5; дата-центры в Ланфане и Хуайлае (Хэбэй) и Линцю (Шаньси) по договорам колокации. Полный набор прав по версиям открывается после 飞书认证 — проверки юрлица, доступной только организациям материкового Китая.</div>
+  </div>
+</section>
+
+<section id="private">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <h2><span class="num">4</span>Приватное развёртывание Feishu: что правда</h2>
+      <p>В сети много текстов про «飞书私有化部署». Разделяем официальный продукт и индивидуальные проекты.</p>
+    </div>
+    <div class="bento">
+      <div class="card c6 reveal">
+        <h3>Что есть официально</h3>
+        <ul>
+          <li><strong>数据私有化</strong> — хранение данных в вашей среде при облачной обработке (см. выше).</li>
+          <li><strong>本地代理</strong> — прокси для интеграции с внутренними системами.</li>
+          <li><strong>数据驻留</strong> — регион хранения для сотрудников.</li>
+          <li>Ни на странице цен, ни на странице сравнения версий, ни в справочном центре слов «私有化部署» применительно к самому Feishu нет.</li>
+        </ul>
+      </div>
+      <div class="card c6 reveal">
+        <h3>Что было в реальности</h3>
+        <ul>
+          <li>Деловое издание «21 世纪经济报道» в разборе письма руководства Feishu о сокращениях (март 2024) писало, что крупнейшие клиенты — Xiaomi, China Resources, Huazhu, New Hope, Haier — «без исключения приватные развёртывания» с командами внедрения в сотни человек и циклами больше года, и называло эти сделки убыточными.</li>
+          <li>Тогда же Feishu объявил о сокращении около 20% из примерно 5 000 сотрудников, позднее от компании отделили HR-направление, а в 2026 году ByteDance реорганизовал её структуру.</li>
+          <li>Вывод: приватная инсталляция Feishu — штучный контракт для корпорации из первой сотни, а не тариф, который можно купить. Для компании в десятки или сотни человек этого пути нет.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="compare">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <h2><span class="num">5</span>Lark/Feishu с надстройками против настоящего self-host</h2>
+      <p>По пунктам, ради которых обычно и спрашивают про self-host. В последней колонке — Element Server Suite Community или Mattermost на своём сервере из <a href="slack-alternatives-selfhosted-2026.html">предыдущего сравнения</a>.</p>
+    </div>
+    <div class="tablewrap reveal">
+      <table>
+        <thead><tr><th style="width:20%">Критерий</th><th>Lark Enterprise + BYOS + BYOK + Multi-Geo</th><th>Feishu 企业旗舰版 + 数据私有化 + 自主密钥</th><th>Self-host (ESS Community / Mattermost)</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Где лежат данные</strong></td><td>контент в вашем хранилище, метаданные и индексы у Lark (США / Сингапур / Япония)</td><td>контент в вашей среде, остальное в дата-центрах КНР</td><td class="win">всё на вашем сервере</td></tr>
+          <tr><td><strong>Кто может прочитать</strong></td><td>вендор при работе сервисов (ключ используется в его KMS)</td><td>то же, плюс обязанности по законам КНР</td><td class="win">только вы; в Matrix — только участники комнаты (сквозное шифрование)</td></tr>
+          <tr><td><strong>Сквозное шифрование чатов</strong></td><td>нет</td><td>нет</td><td class="win">Element: да по умолчанию; Mattermost: нет</td></tr>
+          <tr><td><strong>Юрисдикция оператора</strong></td><td>Сингапур (Lark Technologies Pte. Ltd.)</td><td>КНР (北京飞书科技)</td><td class="win">ваша</td></tr>
+          <tr><td><strong>Мини-приложения внутри клиента</strong></td><td class="win">да, на компьютере и телефоне (веб-приложение в боковой панели или окне)</td><td class="win">да</td><td>на компьютере — Element (виджеты) и Mattermost (плагины); на телефоне — ни у кого</td></tr>
+          <tr><td><strong>Цена</strong></td><td>Enterprise по запросу + четыре платные надстройки без публичной цены</td><td>от ¥120 за человека в месяц + надстройки по запросу</td><td class="win">лицензии бесплатны; сервер и своё время</td></tr>
+          <tr><td><strong>Усилия на запуск</strong></td><td class="win">часы: регистрация, настройка консоли, подключение бакета</td><td class="win">то же, плюс 飞书认证 для полного набора прав</td><td>вечер–день: <a href="ess-community-install.html">скрипт или 11 шагов</a>, потом обновления и бэкапы на вас</td></tr>
+          <tr><td><strong>Сертификаты и аудит</strong></td><td class="win">ISO 27001/27017/27018/27701, SOC 2 Type II, SOC 3</td><td class="win">等保三级, ISO, SOC 1/2/3</td><td>ESS Community без сертификаций (они в платной ESS Pro); отвечаете вы</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section id="verdict">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <h2><span class="num">6</span>Что выбрать</h2>
+    </div>
+    <div class="bento">
+      <div class="card c4 hoverable reveal">
+        <div class="kicker">Сценарий А</div>
+        <h3>Нужен именно Lark и доверие вендору допустимо</h3>
+        <p>Берите Enterprise, создайте организацию из страны нужного региона, подключите BYOS с выключенным запасным режимом, BYOK Advanced и организационный SSO. Это потолок того, что Lark даёт; дальше уровень защиты не растёт ни за какие деньги.</p>
+        <span class="badge b-ok">Самый удобный</span>
+      </div>
+      <div class="card c4 hoverable reveal">
+        <div class="kicker">Сценарий Б</div>
+        <h3>Нужна полная изоляция или сквозное шифрование</h3>
+        <p>Lark и Feishu выпадают сразу. Element Server Suite Community даёт сквозное шифрование и всё на своём сервере, Mattermost — максимально «слаковый» интерфейс с плагинами. Цена — свои руки на обновления и бэкапы.</p>
+        <span class="badge b-mid">Единственный настоящий self-host</span>
+      </div>
+      <div class="card c4 hoverable reveal">
+        <div class="kicker">Сценарий В</div>
+        <h3>Работа с китайским рынком</h3>
+        <p>Feishu с 数据私有化 и 自主密钥 на SM4 закрывает требования китайских контрагентов, но данные и оператор остаются под юрисдикцией КНР, а полный набор прав требует регистрации местного юрлица. С международным Lark он связывается только через платную доверенную сторону.</p>
+        <span class="badge b-gray">Ниша</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="sources">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <h2><span class="num">7</span>Источники</h2>
+      <p>Тарифы, лимиты и описания функций — из официальных страниц и справочных центров Lark и Feishu, белых книг по безопасности и политики конфиденциальности. Про приватные развёртывания Feishu — деловая пресса, помечено отдельно.</p>
+    </div>
+    <ol class="src reveal">
+      <h4>Lark</h4>
+      <li><a href="https://www.larksuite.com/en_us/plans" target="_blank" rel="noopener">Lark plans</a> — Starter / Basic / Pro / Enterprise, $12, лимиты, блок Security &amp; compliance, «Advanced security &amp; compliance controls» в Enterprise</li>
+      <li><a href="https://www.larksuite.com/hc/en-US/articles/497171699982-overview-of-lark-plans" target="_blank" rel="noopener">Overview of Lark plans</a>; <a href="https://www.larksuite.com/hc/en-US/articles/230210240259-introduction-to-lark-pro-and-enterprise-features" target="_blank" rel="noopener">Introduction to Lark Pro and Enterprise features</a> — SSO приложений 20/500, организационный SSO только Enterprise, водяные знаки</li>
+      <li><a href="https://www.larksuite.com/hc/en-US/articles/820012051228-admin-overview-of-lark-compliance-features" target="_blank" rel="noopener">Overview of Lark Compliance features</a> — DLP, метки, аудит, доверенные стороны и Multi-Geo «оплачиваются отдельно», регион организации не меняется</li>
+      <li><a href="https://www.larksuite.com/hc/en-US/articles/628231132577-introduction-to-data-residency" target="_blank" rel="noopener">Introduction to data residency</a> — Multi-Geo, рекомендация Японии для ЕЭЗ</li>
+      <li><a href="https://www.larksuite.com/hc/en-US/articles/202092192253" target="_blank" rel="noopener">Activate Bring Your Own Storage (BYOS)</a> — доступно на всех планах за отдельную плату, бакеты, прокси-IP; <a href="https://www.larksuite.com/hc/en-US/articles/022839663121-admin-enable-fallback-for-bring-your-own-storage" target="_blank" rel="noopener">Enable fallback for BYOS</a> — «стороннее облако, приватное облако или локальное хранилище»</li>
+      <li><a href="https://www.larksuite.com/hc/en-US/articles/033683440349-admin-lark-byok-solution" target="_blank" rel="noopener">Lark BYOK Solution</a>; <a href="https://www.larksuite.com/hc/en-US/articles/265797292853-admin-use-byok-advanced" target="_blank" rel="noopener">Use BYOK Advanced</a> — отдельная оплата, ключи на сервисы, ротация</li>
+      <li><a href="https://www.larksuite.com/en_us/trust" target="_blank" rel="noopener">Lark Trust Center</a>; <a href="https://www.larksuite.com/en_us/trust/security" target="_blank" rel="noopener">Lark Security</a> — сертификаты, KMS и BYOK; <a href="https://sf16-sg.larksuitecdn.com/obj/suite-public-file-sg/lark-privacy-security/Lark_Security_White_Paper.pdf" target="_blank" rel="noopener">Lark Security White Paper</a> — «As a SaaS service provider», HTTPS/RSA-2048, AES-256, KMS с HSM, DTLS для видео, DPF, DPTM</li>
+      <li><a href="https://www.larksuite.com/en_us/privacy" target="_blank" rel="noopener">Lark Privacy Policy</a> — «We maintain servers located in US, Singapore and Japan»; <a href="https://press.aboutamazon.com/2023/11/lark-goes-all-in-on-aws" target="_blank" rel="noopener">Lark Goes All-In on AWS</a> (пресс-релиз Amazon, ноябрь 2023)</li>
+      <li><a href="https://www.larksuite.com/hc/en-US/articles/094640828332-supported-countries-and-regions-of-the-lark-basic-plan" target="_blank" rel="noopener">Supported countries and regions of the Lark Basic plan</a></li>
+      <li><a href="https://open.larksuite.com/document/common-capabilities/applink-protocol/supported-protocol/open-the-web-view-in-feishu-to-access-the-specified-url" target="_blank" rel="noopener">Lark AppLink: открыть веб-страницу внутри клиента</a> — к строке про мини-приложения</li>
+      <h4>Feishu</h4>
+      <li><a href="https://www.feishu.cn/price-list" target="_blank" rel="noopener">飞书定价｜版本对比</a>; <a href="https://www.feishu.cn/service" target="_blank" rel="noopener">版本对比</a> — ¥0 / ¥50 / ¥80 / ¥120, 企业旗舰版 по запросу, годовая оплата</li>
+      <li><a href="https://www.feishu.cn/hc/zh-CN/articles/360049067600" target="_blank" rel="noopener">飞书定价版本介绍</a>; <a href="https://www.feishu.cn/hc/zh-CN/articles/255316448091" target="_blank" rel="noopener">飞书商业版和企业版功能介绍</a> — 自主密钥, 自定义身份源, 本地代理 только для коммерческих и корпоративной версий</li>
+      <li><a href="https://www.feishu.cn/hc/zh-CN/articles/561220753549" target="_blank" rel="noopener">管理员为数据私有化启用兜底配置</a> — определение 数据私有化, «需另外购买», версии; <a href="https://www.feishu.cn/hc/zh-CN/articles/654915868933" target="_blank" rel="noopener">数据私有化存储空间的查看和告警机制</a>; <a href="https://www.feishu.cn/hc/zh-CN/articles/609351385607" target="_blank" rel="noopener">数据私有化流量看板</a>; <a href="https://www.feishu.cn/hc/zh-CN/articles/859950755172" target="_blank" rel="noopener">使用本地代理</a></li>
+      <li><a href="https://www.feishu.cn/feishu-security-and-compliance-whitepaper" target="_blank" rel="noopener">飞书安全白皮书</a> — «作为SaaS服务提供商», 等保三级, ISO, SOC 1/2/3, дата-центры 廊坊 / 怀来 / 灵丘, 自主密钥 с SM4</li>
+      <li><a href="https://www.21jingji.com/article/20240329/herald/6aaf44776659b28136a2a338fb9808d8.html" target="_blank" rel="noopener">21 世纪经济报道: 飞书的全员信，回避了核心问题</a> (29.03.2024, деловая пресса) — крупные клиенты «без исключения приватные развёртывания», команды в сотни человек, оценка «убыточные»; <a href="https://www.nbd.com.cn/articles/2024-03-27/3297799.html" target="_blank" rel="noopener">每日经济新闻: 飞书裁员或20%</a> (27.03.2024)</li>
+      <h4>Для сравнения</h4>
+      <li><a href="slack-alternatives-selfhosted-2026.html" target="_blank" rel="noopener">Аналоги Slack self-hosted</a>; <a href="ess-community-install.html" target="_blank" rel="noopener">Установка ESS Community</a></li>
+    </ol>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">Цены и состав тарифов меняются; перед покупкой сверяйтесь с официальными страницами по ссылкам. Оценки «что остаётся у вендора» выведены из описаний архитектуры в белых книгах, а не из независимого аудита.</div>
+</footer>
+
+<script type="module">
+  const els=[...document.querySelectorAll('.reveal')];
+  const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const showAll=()=>els.forEach(e=>e.classList.add('shown'));
+  if(reduced){showAll();} else {
+    let done=false;
+    const t=setTimeout(()=>{if(!done)showAll();},3000);
+    try{
+      const {animate,inView,stagger}=await import('https://cdn.jsdelivr.net/npm/motion@11/+esm');
+      done=true; clearTimeout(t);
+      els.forEach(e=>e.classList.add('shown'));
+      document.querySelectorAll('section, header.hero').forEach(sec=>{
+        const items=[...sec.querySelectorAll('.reveal')];
+        if(!items.length) return;
+        items.forEach(i=>{i.style.opacity='0';i.style.transform='translateY(14px)';});
+        inView(sec,()=>{animate(items,{opacity:[0,1],y:[14,0]},{duration:.5,delay:stagger(.06),ease:[.22,1,.36,1]});},{margin:'-10% 0px'});
+      });
+      setTimeout(()=>els.forEach(e=>{try{e.getAnimations().forEach(a=>a.finish());}catch(_){} if(parseFloat(getComputedStyle(e).opacity)<1){e.style.opacity='';e.style.transform='';}}),4000);
+    }catch(err){
+      if('IntersectionObserver' in window){
+        const io=new IntersectionObserver(en=>en.forEach(x=>{if(x.isIntersecting){x.target.classList.add('shown');io.unobserve(x.target);}}),{rootMargin:'0px 0px -8% 0px'});
+        els.forEach(e=>io.observe(e));
+      } else showAll();
+    }
+  }
+  // подсветка активного пункта навигации
+  const links=[...document.querySelectorAll('nav.topnav a')];
+  const secs=links.map(a=>document.querySelector(a.getAttribute('href'))).filter(Boolean);
+  if('IntersectionObserver' in window){
+    const io2=new IntersectionObserver(en=>{en.forEach(x=>{if(x.isIntersecting){links.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+x.target.id));}});},{rootMargin:'-40% 0px -55% 0px'});
+    secs.forEach(s=>io2.observe(s));
+  }
+</script>
+</body>
+</html>
