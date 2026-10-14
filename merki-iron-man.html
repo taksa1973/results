@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="ru" class="no-js">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Мерки для одежды · HUD</title>
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="description" content="Интерактивная схема мерок тела для заказа одежды онлайн: торс, брюки, стопа. Сантиметры и дюймы, сканирование, копирование списка.">
+<script>document.documentElement.classList.remove('no-js');document.documentElement.classList.add('js-anim');if(/noanim/.test(location.search))document.documentElement.classList.add('no-anim');</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;500;600;700;800&family=Orbitron:wght@500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  color-scheme:dark;
+  --bg:#06070B; --bg2:#0B0D13; --panel:#0F1219; --panel2:#141824;
+  --line:#1E2433; --line2:#2C3448;
+  --text:#F2F4F8; --text2:#B4BAC8; --muted:#8A91A3;
+  --gold:#E8B531; --gold-2:#F6D269; --gold-dim:rgba(232,181,49,.4); --gold-bg:rgba(232,181,49,.08);
+  --red:#D7263D; --red-2:#FF5A6A; --red-deep:#8C1322; --red-bg:rgba(215,38,61,.12);
+  --arc:#7FE7FF; --arc-2:#C9F6FF; --arc-dim:rgba(127,231,255,.4); --arc-bg:rgba(127,231,255,.08);
+  --font:"Exo 2",Inter,system-ui,-apple-system,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --disp:"Orbitron","Exo 2",sans-serif;
+  --r:6px;
+  --c-top:var(--gold); --c-pants:var(--red-2); --c-foot:var(--arc);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--bg); color:var(--text); font-family:var(--font); font-size:16px; line-height:1.55;
+  -webkit-font-smoothing:antialiased; overflow-x:hidden;
+  background-image:
+    radial-gradient(1100px 600px at 70% -10%, rgba(215,38,61,.14), transparent 60%),
+    radial-gradient(800px 500px at 10% 10%, rgba(127,231,255,.08), transparent 60%),
+    linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+  background-size:auto,auto,40px 40px,40px 40px;
+  background-attachment:fixed;
+}
+a{color:var(--arc)}
+a:hover{color:var(--arc-2)}
+:focus-visible{outline:2px solid var(--arc); outline-offset:3px; border-radius:4px}
+.wrap{max-width:1120px; margin:0 auto; padding:0 16px}
+.visually-hidden{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* ---------- Навигация ---------- */
+.topnav{position:sticky; top:0; z-index:100; background:rgba(6,7,11,.88); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); border-bottom:1px solid var(--line)}
+.topnav-inner{max-width:1120px; margin:0 auto; padding:10px 16px; display:flex; align-items:center; gap:14px; flex-wrap:wrap}
+.brand{display:flex; align-items:center; gap:10px; font-family:var(--disp); font-weight:700; font-size:13px; letter-spacing:.14em; color:var(--gold); text-decoration:none; white-space:nowrap}
+.brand .dot{width:10px;height:10px;border-radius:50%;background:var(--arc);box-shadow:0 0 10px var(--arc),0 0 22px var(--arc-dim)}
+.navlinks{display:flex; gap:4px; overflow-x:auto; scrollbar-width:none; flex:1; min-width:0}
+.navlinks::-webkit-scrollbar{display:none}
+.navlinks a{color:var(--text2); text-decoration:none; font-size:14px; font-weight:600; letter-spacing:.04em; padding:8px 12px; border-radius:var(--r); white-space:nowrap; min-height:40px; display:inline-flex; align-items:center; transition:color .2s,background .2s}
+.navlinks a:hover{color:var(--text); background:rgba(255,255,255,.06)}
+.navlinks a.active{color:var(--gold); background:var(--gold-bg); box-shadow:inset 0 -2px 0 var(--gold)}
+.navctl{display:flex; align-items:center; gap:8px; margin-left:auto}
+.seg{display:inline-flex; border:1px solid var(--line2); border-radius:var(--r); overflow:hidden; background:var(--panel)}
+.seg button{appearance:none; border:0; background:transparent; color:var(--text2); font-family:var(--mono); font-size:13px; font-weight:500; padding:0 14px; min-height:40px; min-width:52px; cursor:pointer; transition:background .2s,color .2s}
+.seg button[aria-pressed="true"]{background:var(--arc); color:#04141A}
+.seg button:not([aria-pressed="true"]):hover{background:rgba(255,255,255,.06); color:var(--text)}
+.btn{appearance:none; display:inline-flex; align-items:center; gap:8px; border:1px solid var(--line2); background:var(--panel); color:var(--text); font-family:var(--font); font-weight:600; font-size:14px; letter-spacing:.03em; padding:0 14px; min-height:40px; border-radius:var(--r); cursor:pointer; text-decoration:none; transition:background .2s,border-color .2s,transform .15s,box-shadow .2s}
+.btn:hover{border-color:var(--gold-dim); background:var(--panel2); box-shadow:0 0 0 1px var(--gold-bg),0 0 18px rgba(232,181,49,.12)}
+.btn:active{transform:scale(.97)}
+.btn svg{width:16px;height:16px;flex:none}
+.btn.primary{background:var(--red); border-color:var(--red); color:#fff}
+.btn.primary:hover{background:#E63B50; border-color:#E63B50; box-shadow:0 0 22px rgba(215,38,61,.35)}
+.btn[disabled]{opacity:.45; cursor:not-allowed}
+
+/* ---------- HUD-панели ---------- */
+.hud{position:relative; background:linear-gradient(180deg, rgba(20,24,36,.9), rgba(12,14,22,.92)); border:1px solid var(--line2); border-radius:var(--r); padding:22px}
+.hud::before{content:""; position:absolute; inset:-1px; pointer-events:none; border-radius:var(--r);
+  --c:var(--gold);
+  background:
+    linear-gradient(var(--c),var(--c)) top left/16px 2px no-repeat,
+    linear-gradient(var(--c),var(--c)) top left/2px 16px no-repeat,
+    linear-gradient(var(--c),var(--c)) top right/16px 2px no-repeat,
+    linear-gradient(var(--c),var(--c)) top right/2px 16px no-repeat,
+    linear-gradient(var(--c),var(--c)) bottom left/16px 2px no-repeat,
+    linear-gradient(var(--c),var(--c)) bottom left/2px 16px no-repeat,
+    linear-gradient(var(--c),var(--c)) bottom right/16px 2px no-repeat,
+    linear-gradient(var(--c),var(--c)) bottom right/2px 16px no-repeat;
+}
+.hud.red::before{--c:var(--red-2)}
+.hud.arc::before{--c:var(--arc)}
+.hud-head{display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:14px; flex-wrap:wrap}
+.hud-title{display:flex; align-items:center; gap:10px; margin:0; font-family:var(--disp); font-size:15px; font-weight:700; letter-spacing:.12em; text-transform:uppercase}
+.hud-title .sw{width:12px;height:12px;border-radius:2px;flex:none;transform:rotate(45deg)}
+.sw.top{background:var(--c-top); box-shadow:0 0 10px var(--gold-dim)}
+.sw.pants{background:var(--c-pants); box-shadow:0 0 10px rgba(255,90,106,.5)}
+.sw.foot{background:var(--c-foot); box-shadow:0 0 10px var(--arc-dim)}
+.hud-tag{font-family:var(--mono); font-size:12px; color:var(--muted); letter-spacing:.08em; text-transform:uppercase}
+.eyebrow{font-family:var(--mono); font-size:12px; letter-spacing:.18em; text-transform:uppercase; color:var(--gold); margin:0 0 12px; display:flex; align-items:center; gap:10px}
+.eyebrow::before{content:""; width:28px; height:1px; background:var(--gold)}
+
+/* ---------- Hero ---------- */
+.hero{padding:56px 0 36px; display:grid; grid-template-columns:1.25fr .75fr; gap:32px; align-items:center}
+.hero h1{font-family:var(--disp); font-weight:900; font-size:clamp(30px,5.2vw,56px); line-height:1.02; letter-spacing:.02em; margin:0 0 14px; text-transform:uppercase}
+.hero h1 span{color:var(--red-2); text-shadow:0 0 24px rgba(255,90,106,.35)}
+.lead{color:var(--text2); font-size:17px; max-width:56ch; margin:0 0 22px}
+.tiles{display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin:0 0 22px}
+.tile{padding:14px 16px; border:1px solid var(--line2); border-radius:var(--r); background:rgba(15,18,25,.8); position:relative; overflow:hidden}
+.tile::after{content:""; position:absolute; left:0; top:0; bottom:0; width:3px; background:var(--gold)}
+.tile.red::after{background:var(--red-2)} .tile.arc::after{background:var(--arc)}
+.tile b{display:block; font-family:var(--disp); font-size:28px; font-weight:700; line-height:1.1; color:var(--text); font-variant-numeric:tabular-nums}
+.tile small{display:block; font-size:12.5px; color:var(--muted); letter-spacing:.06em; text-transform:uppercase; margin-top:4px}
+.boot{list-style:none; margin:0; padding:14px 16px; border:1px solid var(--line); border-radius:var(--r); background:rgba(6,7,11,.6); font-family:var(--mono); font-size:13px; color:var(--text2); line-height:1.8; min-height:92px}
+.boot li::before{content:"> "; color:var(--arc)}
+.boot .ok{color:var(--gold)}
+.boot .cur{display:inline-block; width:8px; height:14px; background:var(--arc); vertical-align:-2px; margin-left:2px; animation:blink 1s steps(2) infinite}
+@keyframes blink{50%{opacity:0}}
+.hero-actions{display:flex; gap:10px; flex-wrap:wrap; margin-top:18px}
+
+.reactor-wrap{display:flex; justify-content:center; align-items:center}
+.reactor{appearance:none; background:none; border:0; padding:0; cursor:pointer; width:min(320px,70vw); aspect-ratio:1; position:relative; border-radius:50%; transition:transform .25s}
+.reactor:hover{transform:scale(1.03)}
+.reactor:active{transform:scale(.98)}
+.reactor svg{width:100%; height:100%; display:block; filter:drop-shadow(0 0 24px rgba(127,231,255,.35))}
+.reactor .coils{transform-origin:100px 100px; animation:spin 24s linear infinite}
+.reactor .ring-dash{transform-origin:100px 100px; animation:spin 60s linear infinite reverse}
+.reactor .core{animation:corepulse 2.6s ease-in-out infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes corepulse{0%,100%{opacity:.85}50%{opacity:1}}
+.reactor .cta{position:absolute; left:50%; bottom:-6px; transform:translateX(-50%); font-family:var(--mono); font-size:12px; letter-spacing:.16em; text-transform:uppercase; color:var(--arc); white-space:nowrap; background:rgba(6,7,11,.8); padding:4px 10px; border:1px solid var(--arc-dim); border-radius:var(--r)}
+
+/* ---------- Секции ---------- */
+section.block{padding:28px 0}
+.section-head{display:flex; align-items:baseline; gap:14px; margin-bottom:16px; flex-wrap:wrap}
+.section-head h2{margin:0; font-family:var(--disp); font-size:clamp(20px,2.6vw,28px); font-weight:700; letter-spacing:.06em; text-transform:uppercase}
+.section-head .num{font-family:var(--mono); color:var(--muted); font-size:13px; letter-spacing:.12em}
+
+/* ---------- Схема ---------- */
+.figure-grid{display:grid; grid-template-columns:minmax(0,1fr) 320px; gap:18px; align-items:start}
+.figure{padding:14px 10px 10px; overflow:hidden}
+.figure::after{content:""; position:absolute; inset:0; pointer-events:none; border-radius:var(--r);
+  background:repeating-linear-gradient(0deg, rgba(255,255,255,.028) 0 1px, transparent 1px 3px); mix-blend-mode:screen}
+.fig-toolbar{display:flex; align-items:center; gap:10px; flex-wrap:wrap; padding:0 8px 10px}
+.chips{display:inline-flex; gap:6px; flex-wrap:wrap}
+.chip{appearance:none; border:1px solid var(--line2); background:transparent; color:var(--text2); font-family:var(--mono); font-size:12.5px; letter-spacing:.06em; text-transform:uppercase; padding:0 12px; min-height:36px; border-radius:999px; cursor:pointer; display:inline-flex; align-items:center; gap:8px; transition:all .2s}
+.chip i{width:8px;height:8px;border-radius:50%;flex:none}
+.chip:hover{color:var(--text); border-color:var(--text2)}
+.chip[aria-pressed="true"]{color:var(--text); border-color:var(--gold); background:var(--gold-bg)}
+.scanbar{margin-left:auto; display:flex; align-items:center; gap:10px; font-family:var(--mono); font-size:12.5px; color:var(--muted); letter-spacing:.08em}
+.scanbar .pct{color:var(--arc); min-width:5ch; text-align:right; font-variant-numeric:tabular-nums}
+.scanbar .bar{width:110px; height:4px; background:var(--line); border-radius:2px; overflow:hidden}
+.scanbar .bar i{display:block; height:100%; width:0; background:var(--arc); box-shadow:0 0 8px var(--arc); transition:width .12s linear}
+
+svg#body{width:100%; height:auto; display:block; touch-action:manipulation}
+#body .fig image{transition:opacity .6s ease}
+#body .img-suit{opacity:0}
+#body.suit .img-suit{opacity:1}
+#body.suit .img-body{opacity:0}
+#body .scan{opacity:0; pointer-events:none}
+#body .scan.on{opacity:1}
+#body .mk{cursor:pointer; outline:none; transition:opacity .35s}
+.js-anim #body .mk:not(.lit){opacity:.28}
+#body .mk .m{fill:none; stroke-width:2.2; stroke:var(--zc); filter:url(#softglow); transition:stroke-width .2s}
+#body .mk .m.dash{stroke-dasharray:5 4}
+#body .mk .ld{fill:none; stroke:var(--zc); stroke-opacity:.55; stroke-width:1; stroke-dasharray:2 3}
+#body .mk .node{fill:var(--bg); stroke:var(--zc); stroke-width:2; transition:r .2s,transform .2s; transform-box:fill-box; transform-origin:center}
+#body .mk .num{font-family:var(--disp); font-size:11px; font-weight:700; fill:var(--zc); text-anchor:middle; dominant-baseline:central; pointer-events:none; display:none}
+#body .mk .lname{font-family:var(--font); font-size:14px; font-weight:500; fill:var(--text2); letter-spacing:.02em}
+#body .mk .lval{font-family:var(--disp); font-size:20px; font-weight:700; fill:var(--zc); font-variant-numeric:tabular-nums}
+#body .mk .hit,#body .mk .hitn{fill:transparent; stroke:none}
+#body .mk.top{--zc:var(--c-top)} #body .mk.pants{--zc:var(--c-pants)}
+#body .mk:hover,#body .mk.hover,#body .mk.active,#body .mk:focus-visible{opacity:1}
+#body .mk:hover .m,#body .mk.hover .m,#body .mk.active .m,#body .mk:focus-visible .m{stroke-width:3.2}
+#body .mk:hover .node,#body .mk.hover .node,#body .mk.active .node,#body .mk:focus-visible .node{fill:var(--zc); transform:scale(1.35)}
+#body .mk:hover .lname,#body .mk.hover .lname,#body .mk.active .lname{fill:var(--text)}
+#body .mk.active .lval{filter:url(#softglow)}
+#body .mk:focus-visible .node{stroke:var(--arc-2)}
+#body[data-zone="top"] .mk.pants,#body[data-zone="pants"] .mk.top{opacity:.08; pointer-events:none}
+#body .ticks{stroke:var(--zc)}
+.suit-btn{min-height:36px; padding:0 12px; font-size:13px}
+.suit-btn[aria-pressed="true"]{border-color:var(--red-2); color:var(--red-2); background:var(--red-bg)}
+.suit-btn[aria-pressed="true"]:hover{box-shadow:0 0 0 1px var(--red-bg),0 0 18px rgba(215,38,61,.2)}
+#body.compact .lbl,#body.compact .hit{display:none}
+#body.compact .num{display:block}
+#body.compact .node{r:14; fill:var(--bg)}
+#body.compact .mk:hover .node,#body.compact .mk.active .node{transform:none; fill:var(--zc)}
+#body.compact .mk:hover .num,#body.compact .mk.active .num{fill:var(--bg)}
+#body.compact .ld{display:none}
+.legend{display:flex; gap:16px; justify-content:center; flex-wrap:wrap; font-size:13px; color:var(--muted); padding:8px 8px 2px; font-family:var(--mono); letter-spacing:.04em}
+.legend span{display:inline-flex; align-items:center; gap:7px}
+.legend i{width:14px; height:3px; border-radius:2px; display:inline-block}
+.legend i.top{background:var(--c-top)} .legend i.pants{background:var(--c-pants)} .legend i.foot{background:var(--c-foot)}
+
+/* Readout */
+.readout{position:sticky; top:72px}
+.ro-head{display:flex; justify-content:space-between; gap:10px; align-items:center; font-family:var(--mono); font-size:12px; letter-spacing:.1em; text-transform:uppercase; color:var(--muted)}
+.ro-head .zone{color:var(--zc,var(--gold))}
+.ro-name{font-size:20px; font-weight:700; margin:10px 0 2px; line-height:1.25}
+.ro-en{font-family:var(--mono); font-size:13px; color:var(--muted)}
+.ro-val{display:flex; align-items:baseline; gap:8px; margin:14px 0 2px}
+.ro-val b{font-family:var(--disp); font-size:48px; font-weight:700; line-height:1; color:var(--zc,var(--gold)); font-variant-numeric:tabular-nums; text-shadow:0 0 22px color-mix(in srgb, var(--zc,var(--gold)) 45%, transparent)}
+.ro-val .u{font-family:var(--mono); font-size:16px; color:var(--text2)}
+.ro-alt{font-family:var(--mono); font-size:14px; color:var(--muted)}
+.ro-note{margin-top:14px; padding-top:12px; border-top:1px dashed var(--line2); font-size:14px; color:var(--text2); min-height:48px}
+.ro-nav{display:flex; gap:8px; margin-top:14px}
+.ro-nav .btn{flex:1; justify-content:center}
+.ro-empty{color:var(--text2); font-size:14.5px}
+.ro-empty b{display:block; font-family:var(--disp); font-size:14px; letter-spacing:.1em; color:var(--arc); margin-bottom:8px; text-transform:uppercase}
+.ro-idx{display:flex; flex-wrap:wrap; gap:6px; margin-top:12px}
+.ro-idx button{appearance:none; width:34px; height:34px; border-radius:50%; border:1px solid var(--line2); background:transparent; color:var(--text2); font-family:var(--disp); font-size:11px; font-weight:700; cursor:pointer; transition:all .2s}
+.ro-idx button:hover{border-color:var(--gold); color:var(--gold)}
+.ro-idx button.active{background:var(--gold); color:#1a1300; border-color:var(--gold)}
+.ro-idx button.pants:hover{border-color:var(--red-2); color:var(--red-2)}
+.ro-idx button.pants.active{background:var(--red-2); border-color:var(--red-2); color:#2a0509}
+.ro-idx button.foot:hover{border-color:var(--arc); color:var(--arc)}
+.ro-idx button.foot.active{background:var(--arc); border-color:var(--arc); color:#04141A}
+
+/* ---------- Таблицы ---------- */
+.grid2{display:grid; grid-template-columns:1fr 1fr; gap:18px}
+table{width:100%; border-collapse:collapse; font-size:15px}
+td{padding:11px 4px; border-bottom:1px solid var(--line); vertical-align:top}
+tr:last-child td{border-bottom:none}
+tr.row{cursor:pointer; transition:background .2s}
+tr.row:hover td,tr.row.hover td{background:rgba(255,255,255,.04)}
+tr.row.active td{background:var(--gold-bg)}
+.hud.red tr.row.active td{background:var(--red-bg)}
+.hud.arc tr.row.active td{background:var(--arc-bg)}
+td.idx{width:34px; font-family:var(--disp); font-size:11px; font-weight:700; color:var(--muted); padding-top:14px}
+td.v{text-align:right; font-family:var(--disp); font-weight:700; font-size:18px; white-space:nowrap; padding-left:12px; font-variant-numeric:tabular-nums; color:var(--gold)}
+.hud.red td.v{color:var(--red-2)} .hud.arc td.v{color:var(--arc)}
+td.v small{font-family:var(--mono); font-weight:400; font-size:12px; color:var(--muted); margin-left:4px}
+.en{display:block; font-family:var(--mono); font-size:12px; color:var(--muted); letter-spacing:.03em}
+tr.sub td:first-child{padding-left:14px; color:var(--text2)}
+tr.sub td:first-child::before{content:"└ "; color:var(--muted)}
+tr.group td{padding-bottom:4px; color:var(--text)}
+.xref{font-family:var(--mono); font-size:12px; color:var(--muted)}
+
+/* Стопа */
+.feet{display:grid; grid-template-columns:minmax(300px,440px) 1fr; gap:26px; align-items:center}
+svg#foot{width:100%; height:auto; display:block}
+#foot .silhouette{fill:url(#footFill); stroke:var(--arc); stroke-opacity:.85; stroke-width:4; stroke-linejoin:round; filter:url(#softglow2)}
+#foot .inner{fill:none; stroke:rgba(127,231,255,.45); stroke-width:3; stroke-linecap:round}
+#foot .mk{--zc:var(--c-foot); cursor:pointer; outline:none}
+#foot .mk .m{fill:none; stroke:var(--zc); stroke-width:5; filter:url(#softglow2); transition:stroke-width .2s}
+#foot .mk .ld{fill:none; stroke:var(--zc); stroke-opacity:.6; stroke-width:2.5; stroke-dasharray:5 7}
+#foot .mk .node{fill:var(--bg); stroke:var(--zc); stroke-width:4; transition:transform .2s; transform-box:fill-box; transform-origin:center}
+#foot .mk .lname{font-family:var(--font); font-size:32px; font-weight:500; fill:var(--text2); letter-spacing:.02em}
+#foot .mk .lval{font-family:var(--disp); font-size:46px; font-weight:700; fill:var(--zc)}
+#foot .mk:hover .m,#foot .mk.hover .m,#foot .mk.active .m,#foot .mk:focus-visible .m{stroke-width:7.5}
+#foot .mk:hover .node,#foot .mk.hover .node,#foot .mk.active .node,#foot .mk:focus-visible .node{fill:var(--zc); transform:scale(1.35)}
+#foot .mk:hover .lname,#foot .mk.active .lname{fill:var(--text)}
+#foot .mk .hit{fill:transparent}
+
+/* Советы */
+.tips{display:grid; grid-template-columns:1fr 1fr; gap:18px}
+.tip{display:grid; grid-template-columns:44px 1fr; gap:14px; align-items:start}
+.tip .n{width:44px; height:44px; border:1px solid var(--gold); color:var(--gold); font-family:var(--disp); font-weight:700; display:flex; align-items:center; justify-content:center; border-radius:4px; transform:rotate(45deg); font-size:14px}
+.tip .n span{transform:rotate(-45deg)}
+.tip p{margin:0; color:var(--text2); font-size:15px}
+.tip p b{color:var(--text)}
+
+footer{padding:36px 0 48px; color:var(--muted); font-size:13px; font-family:var(--mono); border-top:1px solid var(--line); margin-top:24px}
+footer p{margin:6px 0}
+
+/* Toast */
+.toast{position:fixed; left:50%; bottom:24px; transform:translate(-50%,20px); opacity:0; pointer-events:none; z-index:200; background:var(--panel2); border:1px solid var(--arc-dim); color:var(--text); font-family:var(--mono); font-size:13px; letter-spacing:.06em; padding:12px 18px; border-radius:var(--r); box-shadow:0 0 24px rgba(127,231,255,.2); transition:opacity .25s,transform .25s}
+.toast.show{opacity:1; transform:translate(-50%,0)}
+
+/* Reveal — контент виден по умолчанию, прячем только при живом JS */
+.reveal{opacity:1}
+.js-anim .reveal{opacity:0}
+.js-anim .reveal.shown{opacity:1}
+.js-anim.no-anim .reveal{opacity:1}
+
+@media (max-width:980px){
+  .hero{grid-template-columns:1fr; gap:20px}
+  .reactor-wrap{order:-1}
+  .reactor{width:min(220px,60vw)}
+  .figure-grid{grid-template-columns:1fr}
+  .readout{position:static}
+}
+@media (max-width:720px){
+  .hero{padding:32px 0 20px}
+  .tiles{grid-template-columns:1fr 1fr 1fr; gap:8px}
+  .tile{padding:12px}
+  .tile b{font-size:22px}
+  .grid2,.tips{grid-template-columns:1fr}
+  .feet{grid-template-columns:1fr; gap:14px}
+  svg#foot{max-width:420px; margin:0 auto}
+  .hud{padding:16px}
+  .navctl{margin-left:0; width:100%; justify-content:space-between}
+  .ro-val b{font-size:40px}
+}
+@media (max-width:420px){
+  .tiles{grid-template-columns:1fr 1fr}
+  .tiles .tile:last-child{grid-column:1/-1}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .reactor .coils,.reactor .ring-dash{animation:none}
+  .reactor .core{animation:none}
+  .boot .cur{animation:none}
+  *{transition-duration:.01ms!important}
+}
+</style>
+</head>
+<body>
+
+<nav class="topnav" aria-label="Разделы">
+  <div class="topnav-inner">
+    <a class="brand" href="#top"><span class="dot" aria-hidden="true"></span>MARK · МЕРКИ</a>
+    <div class="navlinks">
+      <a href="#skhema">Схема</a>
+      <a href="#tors">Торс</a>
+      <a href="#bryuki">Брюки</a>
+      <a href="#stopa">Стопа</a>
+      <a href="#sovety">Советы</a>
+    </div>
+    <div class="navctl">
+      <div class="seg" role="group" aria-label="Единицы измерения">
+        <button type="button" data-unit="cm" aria-pressed="true">см</button>
+        <button type="button" data-unit="in" aria-pressed="false">in</button>
+      </div>
+      <button type="button" class="btn" id="copyBtn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        Скопировать мерки
+      </button>
+    </div>
+  </div>
+</nav>
+
+<main class="wrap" id="top">
+
+  <section class="hero">
+    <div>
+      <p class="eyebrow">Протокол подгонки · биометрический профиль</p>
+      <h1>Мерки <span>для одежды</span></h1>
+      <p class="lead">Интерактивная схема тела для заказа одежды онлайн. Наведите на точку или запустите сканирование: каждая мерка подсветится на силуэте и покажет значение в сантиметрах и дюймах. Костюм можно надеть или снять.</p>
+      <div class="tiles">
+        <div class="tile reveal"><b>15</b><small>параметров тела</small></div>
+        <div class="tile red reveal"><b>3</b><small>зоны: торс · брюки · стопа</small></div>
+        <div class="tile arc reveal"><b>см / in</b><small>переключение единиц</small></div>
+      </div>
+      <ul class="boot" id="boot" aria-label="Статус системы">
+        <li data-line="инициализация протокола подгонки … <span class='ok'>ok</span>">инициализация протокола подгонки … <span class="ok">ok</span></li>
+        <li data-line="загрузка биометрии … <span class='ok'>15 параметров</span>">загрузка биометрии … <span class="ok">15 параметров</span></li>
+        <li data-line="единицы: сантиметры · body measurements, не garment">единицы: сантиметры · body measurements, не garment</li>
+      </ul>
+      <div class="hero-actions">
+        <button type="button" class="btn primary" id="scanBtnHero">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><path d="M3 12h18"/></svg>
+          Запустить сканирование
+        </button>
+        <a class="btn" href="#tors">К таблицам</a>
+      </div>
+    </div>
+    <div class="reactor-wrap">
+      <button type="button" class="reactor" id="reactorBtn" aria-label="Запустить сканирование мерок">
+        <svg viewBox="0 0 200 200" aria-hidden="true">
+          <defs>
+            <radialGradient id="rcore" cx="50%" cy="50%" r="50%">
+              <stop offset="0" stop-color="#ffffff"/>
+              <stop offset=".3" stop-color="#C9F6FF"/>
+              <stop offset=".62" stop-color="#7FE7FF" stop-opacity=".9"/>
+              <stop offset="1" stop-color="#7FE7FF" stop-opacity="0"/>
+            </radialGradient>
+          </defs>
+          <circle class="ring-dash" cx="100" cy="100" r="94" fill="none" stroke="#E8B531" stroke-opacity=".55" stroke-width="1.5" stroke-dasharray="4 9"/>
+          <circle cx="100" cy="100" r="84" fill="none" stroke="#7FE7FF" stroke-opacity=".55" stroke-width="2"/>
+          <circle cx="100" cy="100" r="76" fill="#0B0D13" stroke="#2C3448" stroke-width="1"/>
+          <g class="coils" fill="#7FE7FF">
+            <rect x="96" y="26" width="8" height="24" rx="2"/>
+            <rect x="96" y="26" width="8" height="24" rx="2" transform="rotate(36 100 100)"/>
+            <rect x="96" y="26" width="8" height="24" rx="2" transform="rotate(72 100 100)"/>
+            <rect x="96" y="26" width="8" height="24" rx="2" transform="rotate(108 100 100)"/>
+            <rect x="96" y="26" width="8" height="24" rx="2" transform="rotate(144 100 100)"/>
+            <rect x="96" y="26" width="8" height="24" rx="2" transform="rotate(180 100 100)"/>
+            <rect x="96" y="26" width="8" height="24" rx="2" transform="rotate(216 100 100)"/>
+            <rect x="96" y="26" width="8" height="24" rx="2" transform="rotate(252 100 100)"/>
+            <rect x="96" y="26" width="8" height="24" rx="2" transform="rotate(288 100 100)"/>
+            <rect x="96" y="26" width="8" height="24" rx="2" transform="rotate(324 100 100)"/>
+          </g>
+          <circle cx="100" cy="100" r="58" fill="none" stroke="#7FE7FF" stroke-opacity=".35" stroke-width="6"/>
+          <circle cx="100" cy="100" r="50" fill="none" stroke="#E8B531" stroke-opacity=".6" stroke-width="1.5"/>
+          <circle class="core" cx="100" cy="100" r="44" fill="url(#rcore)"/>
+          <polygon points="100,70 126,114 74,114" fill="none" stroke="#ffffff" stroke-opacity=".7" stroke-width="2"/>
+        </svg>
+        <span class="cta">Сканировать</span>
+      </button>
+    </div>
+  </section>
+
+  <!-- ===== СХЕМА ===== -->
+  <section class="block" id="skhema">
+    <div class="section-head"><span class="num">01</span><h2>Схема тела</h2></div>
+    <div class="figure-grid">
+      <div class="hud figure reveal">
+        <div class="fig-toolbar">
+          <div class="chips" role="group" aria-label="Фильтр зон">
+            <button type="button" class="chip" data-zone="all" aria-pressed="true">Все</button>
+            <button type="button" class="chip" data-zone="top" aria-pressed="false"><i style="background:var(--c-top)"></i>Торс</button>
+            <button type="button" class="chip" data-zone="pants" aria-pressed="false"><i style="background:var(--c-pants)"></i>Брюки</button>
+          </div>
+          <button type="button" class="btn suit-btn" id="suitBtn" aria-pressed="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2l7 3.5v6.5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V5.5z"/><path d="M8.5 11.5h7"/><path d="M9 15h6"/></svg>
+            <span id="suitLbl">Снять костюм</span>
+          </button>
+          <div class="scanbar" aria-live="off">
+            <button type="button" class="btn" id="scanBtn" style="min-height:36px;padding:0 12px;font-size:13px">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a9 9 0 1 1-3-6.7"/><path d="M21 3v6h-6"/></svg>
+              Скан
+            </button>
+            <span class="bar"><i id="scanFill"></i></span>
+            <span class="pct" id="scanPct">0%</span>
+          </div>
+        </div>
+
+        <svg id="body" viewBox="-150 0 700 890" role="group" aria-label="Фигура Железного человека с отмеченными мерками" data-zone="all">
+          <defs>
+            <linearGradient id="scanGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#7FE7FF" stop-opacity="0"/><stop offset="1" stop-color="#7FE7FF" stop-opacity=".55"/>
+            </linearGradient>
+            <filter id="softglow" filterUnits="userSpaceOnUse" x="-170" y="-20" width="740" height="930">
+              <feGaussianBlur stdDeviation="1.6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+            <marker id="tk-top" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M5 0 L5 10" stroke="#E8B531" stroke-width="2"/></marker>
+            <marker id="tk-pants" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M5 0 L5 10" stroke="#FF5A6A" stroke-width="2"/></marker>
+            <mask id="figMask" maskUnits="userSpaceOnUse" x="-150" y="0" width="700" height="890">
+              <image href="img/merki/ironman-holo.webp" x="0" y="0" width="360" height="890"/>
+            </mask>
+          </defs>
+
+          <!-- Фигура: голограмма и костюм (переключаются кнопкой) -->
+          <g class="fig">
+            <image class="img-body" href="img/merki/ironman-body.webp" x="0" y="0" width="360" height="890"/>
+            <image class="img-suit" href="img/merki/ironman-holo.webp" x="0" y="0" width="360" height="890"/>
+          </g>
+          <!-- Луч сканера -->
+          <g class="scan" id="scanWrap" mask="url(#figMask)">
+            <g id="scan">
+              <rect x="-150" y="-80" width="700" height="80" fill="url(#scanGrad)"/>
+              <rect x="-150" y="-1.5" width="700" height="3" fill="#C9F6FF" filter="url(#softglow)"/>
+            </g>
+          </g>
+
+          <!-- ===== МЕРКИ: ТОРС ===== -->
+          <g class="mk top" data-id="neck" tabindex="0" role="button" aria-label="Обхват шеи">
+            <rect class="hit" x="-150" y="99" width="132" height="50"/><rect class="hitn" x="-34" y="101" width="48" height="48"/>
+            <ellipse class="m" cx="187" cy="125" rx="34" ry="7"/>
+            <path class="ld" d="M153,125 H-10"/>
+            <circle class="node" cx="-10" cy="125" r="5"/><text class="num" x="-10" y="125">1</text>
+            <text class="lbl" x="-18" y="119" text-anchor="end"><tspan class="lname">Шея</tspan><tspan class="lval" x="-18" dy="21" data-cm="40">40</tspan></text>
+          </g>
+          <g class="mk top" data-id="shoulders" tabindex="0" role="button" aria-label="Ширина плеч">
+            <rect class="hit" x="398" y="114" width="142" height="50"/><rect class="hitn" x="376" y="116" width="48" height="48"/>
+            <path class="m" d="M84,155 H292" marker-start="url(#tk-top)" marker-end="url(#tk-top)"/>
+            <path class="ld" d="M292,155 C330,155 360,140 400,140"/>
+            <circle class="node" cx="400" cy="140" r="5"/><text class="num" x="400" y="140">2</text>
+            <text class="lbl" x="408" y="134"><tspan class="lname">Ширина плеч</tspan><tspan class="lval" x="408" dy="21" data-cm="44-45">44–45</tspan></text>
+          </g>
+          <g class="mk top" data-id="chest" tabindex="0" role="button" aria-label="Обхват груди">
+            <rect class="hit" x="-150" y="184" width="132" height="50"/><rect class="hitn" x="-34" y="186" width="48" height="48"/>
+            <ellipse class="m" cx="187" cy="212" rx="68" ry="9"/>
+            <path class="ld" d="M119,212 H-10"/>
+            <circle class="node" cx="-10" cy="212" r="5"/><text class="num" x="-10" y="212">3</text>
+            <text class="lbl" x="-18" y="206" text-anchor="end"><tspan class="lname">Грудь</tspan><tspan class="lval" x="-18" dy="21" data-cm="100.5">100,5</tspan></text>
+          </g>
+          <g class="mk top" data-id="bicep" tabindex="0" role="button" aria-label="Обхват плеча, бицепс">
+            <rect class="hit" x="398" y="219" width="142" height="50"/><rect class="hitn" x="376" y="221" width="48" height="48"/>
+            <ellipse class="m" cx="280" cy="245" rx="17" ry="5"/>
+            <path class="ld" d="M297,245 H400"/>
+            <circle class="node" cx="400" cy="245" r="5"/><text class="num" x="400" y="245">4</text>
+            <text class="lbl" x="408" y="239"><tspan class="lname">Бицепс</tspan><tspan class="lval" x="408" dy="21" data-cm="33.5">33,5</tspan></text>
+          </g>
+          <g class="mk top" data-id="waist" tabindex="0" role="button" aria-label="Обхват талии">
+            <rect class="hit" x="-150" y="299" width="132" height="50"/><rect class="hitn" x="-34" y="301" width="48" height="48"/>
+            <ellipse class="m" cx="187" cy="325" rx="49" ry="8"/>
+            <path class="ld" d="M138,325 H-10"/>
+            <circle class="node" cx="-10" cy="325" r="5"/><text class="num" x="-10" y="325">5</text>
+            <text class="lbl" x="-18" y="319" text-anchor="end"><tspan class="lname">Талия</tspan><tspan class="lval" x="-18" dy="21" data-cm="78">78</tspan></text>
+          </g>
+          <g class="mk top" data-id="sleeve" tabindex="0" role="button" aria-label="Длина рукава">
+            <rect class="hit" x="-150" y="354" width="132" height="50"/><rect class="hitn" x="-34" y="356" width="48" height="48"/>
+            <path class="m dash" d="M94,143 C76,185 70,255 64,305 C58,335 42,360 32,383" marker-start="url(#tk-top)" marker-end="url(#tk-top)"/>
+            <path class="ld" d="M34,380 H-10"/>
+            <circle class="node" cx="-10" cy="380" r="5"/><text class="num" x="-10" y="380">6</text>
+            <text class="lbl" x="-18" y="374" text-anchor="end"><tspan class="lname">Длина рукава</tspan><tspan class="lval" x="-18" dy="21" data-cm="59">59</tspan></text>
+          </g>
+          <g class="mk top" data-id="hip" tabindex="0" role="button" aria-label="Обхват бёдер">
+            <rect class="hit" x="-150" y="414" width="132" height="50"/><rect class="hitn" x="-34" y="416" width="48" height="48"/>
+            <ellipse class="m" cx="187" cy="415" rx="71" ry="9"/>
+            <path class="ld" d="M116,415 C70,415 60,440 -10,440"/>
+            <circle class="node" cx="-10" cy="440" r="5"/><text class="num" x="-10" y="440">7</text>
+            <text class="lbl" x="-18" y="434" text-anchor="end"><tspan class="lname">Бёдра</tspan><tspan class="lval" x="-18" dy="21" data-cm="96.5">96,5</tspan></text>
+          </g>
+          <g class="mk top" data-id="back1" tabindex="0" role="button" aria-label="Длина верхней одежды до конца ягодиц">
+            <rect class="hit" x="398" y="407" width="142" height="44"/><rect class="hitn" x="376" y="421" width="48" height="48"/>
+            <path class="m" d="M352,130 V445" marker-start="url(#tk-top)" marker-end="url(#tk-top)"/>
+            <path class="ld" d="M240,130 H366"/><path class="ld" d="M326,445 H400"/>
+            <circle class="node" cx="400" cy="445" r="5"/><text class="num" x="400" y="445">8</text>
+            <text class="lbl" x="408" y="427"><tspan class="lname">Спина до ягодиц</tspan><tspan class="lval" x="408" dy="21" data-cm="72">72</tspan></text>
+          </g>
+          <g class="mk top" data-id="back2" tabindex="0" role="button" aria-label="Длина верхней одежды до колен">
+            <rect class="hit" x="398" y="557" width="142" height="50"/><rect class="hitn" x="376" y="571" width="48" height="48"/>
+            <path class="m" d="M366,130 V595" marker-start="url(#tk-top)" marker-end="url(#tk-top)"/>
+            <path class="ld" d="M276,595 H400"/>
+            <circle class="node" cx="400" cy="595" r="5"/><text class="num" x="400" y="595">9</text>
+            <text class="lbl" x="408" y="577"><tspan class="lname">Спина до колен</tspan><tspan class="lval" x="408" dy="21" data-cm="99">99</tspan></text>
+          </g>
+
+          <!-- ===== МЕРКИ: БРЮКИ ===== -->
+          <g class="mk pants" data-id="pwaist" tabindex="0" role="button" aria-label="Обхват талии для брюк">
+            <rect class="hit" x="398" y="334" width="142" height="50"/><rect class="hitn" x="376" y="336" width="48" height="48"/>
+            <ellipse class="m dash" cx="187" cy="360" rx="57" ry="8"/>
+            <path class="ld" d="M244,360 H400"/>
+            <circle class="node" cx="400" cy="360" r="5"/><text class="num" x="400" y="360">10</text>
+            <text class="lbl" x="408" y="354"><tspan class="lname">Талия брюк</tspan><tspan class="lval" x="408" dy="21" data-cm="84">84</tspan></text>
+          </g>
+          <g class="mk pants" data-id="thigh" tabindex="0" role="button" aria-label="Обхват бедра одной ноги">
+            <rect class="hit" x="398" y="469" width="142" height="44"/><rect class="hitn" x="376" y="471" width="48" height="48"/>
+            <ellipse class="m" cx="239" cy="495" rx="34" ry="6"/>
+            <path class="ld" d="M273,495 H400"/>
+            <circle class="node" cx="400" cy="495" r="5"/><text class="num" x="400" y="495">11</text>
+            <text class="lbl" x="408" y="489"><tspan class="lname">Бедро ноги</tspan><tspan class="lval" x="408" dy="21" data-cm="56">56</tspan></text>
+          </g>
+          <g class="mk pants" data-id="plen" tabindex="0" role="button" aria-label="Длина брюк">
+            <rect class="hit" x="-150" y="534" width="132" height="50"/><rect class="hitn" x="-34" y="536" width="48" height="48"/>
+            <path class="m" d="M20,360 V874" marker-start="url(#tk-pants)" marker-end="url(#tk-pants)"/>
+            <path class="ld" d="M20,360 H130"/><path class="ld" d="M20,874 H42"/><path class="ld" d="M-10,560 H20"/>
+            <circle class="node" cx="-10" cy="560" r="5"/><text class="num" x="-10" y="560">12</text>
+            <text class="lbl" x="-18" y="554" text-anchor="end"><tspan class="lname">Длина брюк</tspan><tspan class="lval" x="-18" dy="21" data-cm="96">96</tspan></text>
+          </g>
+          <g class="mk pants" data-id="calf" tabindex="0" role="button" aria-label="Икры">
+            <rect class="hit" x="-150" y="659" width="132" height="50"/><rect class="hitn" x="-34" y="661" width="48" height="48"/>
+            <ellipse class="m" cx="106" cy="685" rx="24" ry="5"/>
+            <path class="ld" d="M82,685 H-10"/>
+            <circle class="node" cx="-10" cy="685" r="5"/><text class="num" x="-10" y="685">13</text>
+            <text class="lbl" x="-18" y="679" text-anchor="end"><tspan class="lname">Икры</tspan><tspan class="lval" x="-18" dy="21" data-cm="37.5">37,5</tspan></text>
+          </g>
+        </svg>
+        <div class="legend">
+          <span><i class="top"></i>Торс / верх</span>
+          <span><i class="pants"></i>Брюки</span>
+          <span><i class="foot"></i>Стопа</span>
+        </div>
+      </div>
+
+      <aside class="hud arc readout reveal" id="readout" aria-live="polite">
+        <div class="ro-empty" id="roEmpty">
+          <b>Ожидание выбора</b>
+          Наведите на точку на схеме, нажмите номер ниже или запустите сканирование. Таблицы ниже тоже подсвечивают точки.
+        </div>
+        <div id="roBody" hidden>
+          <div class="ro-head"><span class="zone" id="roZone">Торс · 01</span><span id="roEn">neck</span></div>
+          <div class="ro-name" id="roName">Обхват шеи</div>
+          <div class="ro-val"><b id="roNum">40</b><span class="u" id="roUnit">см</span></div>
+          <div class="ro-alt" id="roAlt">15,7 in</div>
+          <div class="ro-note" id="roNote"></div>
+          <div class="ro-nav">
+            <button type="button" class="btn" id="roPrev" aria-label="Предыдущая мерка">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>Назад
+            </button>
+            <button type="button" class="btn" id="roNext" aria-label="Следующая мерка">
+              Далее<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
+            </button>
+          </div>
+        </div>
+        <div class="ro-idx" id="roIdx" aria-label="Быстрый выбор мерки"></div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ===== ТОРС ===== -->
+  <section class="block" id="tors">
+    <div class="section-head"><span class="num">02</span><h2>Торс и брюки</h2></div>
+    <div class="grid2">
+      <div class="hud reveal">
+        <div class="hud-head"><h3 class="hud-title"><span class="sw top"></span>Торс</h3><span class="hud-tag">верхняя одежда · 9 мерок</span></div>
+        <table>
+          <tbody>
+            <tr class="row" data-id="neck"><td class="idx">01</td><td>Обхват шеи<span class="en">neck</span></td><td class="v" data-cm="40">40</td></tr>
+            <tr class="row" data-id="chest"><td class="idx">03</td><td>Обхват груди<span class="en">chest</span></td><td class="v" data-cm="100.5">100,5</td></tr>
+            <tr class="row" data-id="waist"><td class="idx">05</td><td>Обхват талии<span class="en">waist</span></td><td class="v" data-cm="78">78</td></tr>
+            <tr class="row" data-id="hip"><td class="idx">07</td><td>Обхват бёдер<span class="en">hip (seat)</span></td><td class="v" data-cm="96.5">96,5</td></tr>
+            <tr class="row" data-id="shoulders"><td class="idx">02</td><td>Ширина плеч<span class="en">shoulders</span></td><td class="v" data-cm="44-45">44–45</td></tr>
+            <tr class="row" data-id="bicep"><td class="idx">04</td><td>Обхват плеча, бицепс<span class="en">bicep</span></td><td class="v" data-cm="33.5">33,5</td></tr>
+            <tr class="row" data-id="sleeve"><td class="idx">06</td><td>Длина рукава<span class="en">sleeve length</span></td><td class="v" data-cm="59">59</td></tr>
+            <tr class="group"><td class="idx"></td><td colspan="2">Длина верхней одежды<span class="en">back length</span></td></tr>
+            <tr class="row sub" data-id="back1"><td class="idx">08</td><td>до конца ягодиц</td><td class="v" data-cm="72">72</td></tr>
+            <tr class="row sub" data-id="back2"><td class="idx">09</td><td>до колен</td><td class="v" data-cm="99">99</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="hud red reveal" id="bryuki">
+        <div class="hud-head"><h3 class="hud-title"><span class="sw pants"></span>Брюки</h3><span class="hud-tag">низ · 5 мерок</span></div>
+        <table>
+          <tbody>
+            <tr class="row" data-id="pwaist"><td class="idx">10</td><td>Обхват талии для брюк<span class="en">pant waist</span></td><td class="v" data-cm="84">84</td></tr>
+            <tr class="row" data-id="hip"><td class="idx">07</td><td>Обхват бёдер<span class="en">hip</span><span class="xref">та же мерка, что в торсе</span></td><td class="v" data-cm="96.5">96,5</td></tr>
+            <tr class="row" data-id="thigh"><td class="idx">11</td><td>Обхват бедра одной ноги<span class="en">thigh</span></td><td class="v" data-cm="56">56</td></tr>
+            <tr class="row" data-id="calf"><td class="idx">13</td><td>Икры<span class="en">calf</span></td><td class="v" data-cm="37.5">37,5</td></tr>
+            <tr class="row" data-id="plen"><td class="idx">12</td><td>Длина брюк<span class="en">pant length</span></td><td class="v" data-cm="96">96</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== СТОПА ===== -->
+  <section class="block" id="stopa">
+    <div class="section-head"><span class="num">03</span><h2>Стопа</h2></div>
+    <div class="hud arc reveal">
+      <div class="hud-head"><h3 class="hud-title"><span class="sw foot"></span>Стопа</h3><span class="hud-tag">обувь · 2 мерки</span></div>
+      <div class="feet">
+        <svg id="foot" viewBox="-200 -30 790 860" role="group" aria-label="Схема стопы: длина и ширина">
+          <defs>
+            <linearGradient id="footFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1F2B3F" stop-opacity=".9"/><stop offset="1" stop-color="#0E131C" stop-opacity=".9"/></linearGradient>
+            <filter id="softglow2" filterUnits="userSpaceOnUse" x="-220" y="-50" width="840" height="900"><feGaussianBlur stdDeviation="2.2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+            <marker id="tk-foot" viewBox="0 0 10 10" refX="5" refY="5" markerUnits="userSpaceOnUse" markerWidth="22" markerHeight="22" orient="auto"><path d="M5 0 L5 10" stroke="#7FE7FF" stroke-width="2"/></marker>
+          </defs>
+          <!-- подошва левой стопы: контур по образцу -->
+          <g class="silhouette">
+            <path d="M95,235 C82,165 95,55 135,22 C165,-2 212,8 216,62 C218,86 212,110 206,126 C212,92 252,84 258,136 C268,106 302,106 305,170 C318,140 342,152 340,206 C352,182 376,190 372,250 C386,330 372,420 356,520 C342,610 336,700 300,762 C270,798 170,800 130,762 C96,722 96,640 100,560 C104,480 112,400 110,330 C106,290 98,262 95,235 Z"/>
+          </g>
+          <g class="inner">
+            <path d="M150,178 C200,232 275,246 342,214"/>
+            <path d="M172,352 C214,344 238,322 246,290"/>
+          </g>
+          <g class="mk" data-id="foot" tabindex="0" role="button" aria-label="Длина стопы">
+            <rect class="hit" x="392" y="-30" width="198" height="860"/>
+            <path class="ld" d="M176,12 H410"/><path class="ld" d="M215,800 H410"/>
+            <path class="m" d="M410,12 V800" marker-start="url(#tk-foot)" marker-end="url(#tk-foot)"/>
+            <circle class="node" cx="410" cy="400" r="11"/>
+            <text class="lbl" x="436" y="388"><tspan class="lname">Длина</tspan><tspan class="lval" x="436" dy="48" data-cm="27">27</tspan></text>
+          </g>
+          <g class="mk" data-id="footw" tabindex="0" role="button" aria-label="Ширина стопы">
+            <rect class="hit" x="-200" y="210" width="290" height="180"/>
+            <path class="ld" d="M84,300 H50"/>
+            <path class="m" d="M84,300 H385" marker-start="url(#tk-foot)" marker-end="url(#tk-foot)"/>
+            <circle class="node" cx="50" cy="300" r="11"/>
+            <text class="lbl" x="26" y="288" text-anchor="end"><tspan class="lname">Ширина</tspan><tspan class="lval" x="26" dy="48" data-cm="11">11</tspan></text>
+          </g>
+        </svg>
+        <table>
+          <tbody>
+            <tr class="row" data-id="foot"><td class="idx">14</td><td>Длина стопы<span class="en">foot length</span></td><td class="v" data-cm="27">27</td></tr>
+            <tr class="row" data-id="footw"><td class="idx">15</td><td>Ширина стопы, если нужно<span class="en">foot width</span></td><td class="v" data-cm="11">11</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== СОВЕТЫ ===== -->
+  <section class="block" id="sovety">
+    <div class="section-head"><span class="num">04</span><h2>Протокол заказа онлайн</h2></div>
+    <div class="tips">
+      <div class="hud reveal tip">
+        <div class="n"><span>1</span></div>
+        <p>Все обхваты — это <b>мерки тела</b>, а не мерки будущей одежды. На сайтах брендов обычно есть две таблицы: <b>body measurements</b> и <b>garment measurements</b>. Сверяться нужно с <b>body measurements</b>.</p>
+      </div>
+      <div class="hud reveal tip">
+        <div class="n"><span>2</span></div>
+        <p>Длина рукава замерена до места, где ориентировочно заканчивается рукав <b>пиджака</b>. Для куртки и пальто она коротковата — заказывать на пару сантиметров длиннее. Рукава рубашки тоже брать длиннее замеренной длины.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>Все значения в сантиметрах; дюймы пересчитаны делением на 2,54 и округлены до десятых.</p>
+    <p>Источник данных: <a href="https://wonderland511.github.io/afd-stay-guide/measurements.html" target="_blank" rel="noopener">wonderland511.github.io/afd-stay-guide/measurements.html</a></p>
+  </footer>
+</main>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function(){
+  'use strict';
+  var DATA = [
+    {id:'neck',      n:1,  zone:'top',   ru:'Обхват шеи',                 en:'neck',          cm:40,      note:'Мерка тела по основанию шеи. На сайтах брендов сравнивать с таблицей body measurements.'},
+    {id:'shoulders', n:2,  zone:'top',   ru:'Ширина плеч',                en:'shoulders',     cm:[44,45], note:'Расстояние между крайними точками плеч по спине. Диапазон указан в исходных данных.'},
+    {id:'chest',     n:3,  zone:'top',   ru:'Обхват груди',               en:'chest',         cm:100.5,   note:'Самая широкая часть груди. Основная мерка для пиджаков, рубашек и курток.'},
+    {id:'bicep',     n:4,  zone:'top',   ru:'Обхват плеча, бицепс',       en:'bicep',         cm:33.5,    note:'Обхват руки в самом широком месте. Важен для узких рукавов.'},
+    {id:'waist',     n:5,  zone:'top',   ru:'Обхват талии',               en:'waist',         cm:78,      note:'Талия для верхней одежды. Для брюк используется отдельная мерка — № 10.'},
+    {id:'sleeve',    n:6,  zone:'top',   ru:'Длина рукава',               en:'sleeve length', cm:59,      note:'До места, где заканчивается рукав пиджака. Для куртки и пальто брать на пару сантиметров длиннее, рукав рубашки — тоже длиннее.'},
+    {id:'hip',       n:7,  zone:'top',   ru:'Обхват бёдер',               en:'hip (seat)',    cm:96.5,    note:'Общая мерка для верхней одежды и брюк. В обеих таблицах одно значение.'},
+    {id:'back1',     n:8,  zone:'top',   ru:'Длина верхней одежды до конца ягодиц', en:'back length', cm:72, note:'Длина по спине от основания шеи. Ориентир для пиджаков и коротких курток.'},
+    {id:'back2',     n:9,  zone:'top',   ru:'Длина верхней одежды до колен', en:'back length (knee)', cm:99, note:'Длина по спине от основания шеи. Ориентир для пальто и длинных курток.'},
+    {id:'pwaist',    n:10, zone:'pants', ru:'Обхват талии для брюк',      en:'pant waist',    cm:84,      note:'Там, где сидит пояс брюк. Больше «верхней» талии (№ 5) — это нормально.'},
+    {id:'thigh',     n:11, zone:'pants', ru:'Обхват бедра одной ноги',    en:'thigh',         cm:56,      note:'Обхват одного бедра в верхней части. Критичен для зауженных брюк.'},
+    {id:'plen',      n:12, zone:'pants', ru:'Длина брюк',                 en:'pant length',   cm:96,      note:'От пояса до низа штанины по боку.'},
+    {id:'calf',      n:13, zone:'pants', ru:'Икры',                       en:'calf',          cm:37.5,    note:'Обхват икры в самом широком месте. Нужен для узких брюк и высокой обуви.'},
+    {id:'foot',      n:14, zone:'foot',  ru:'Длина стопы',                en:'foot length',   cm:27,      note:'От пятки до кончика самого длинного пальца. Основа для подбора размера обуви.'},
+    {id:'footw',     n:15, zone:'foot',  ru:'Ширина стопы',               en:'foot width',    cm:11,      note:'В самом широком месте. Нужна, если бренд предлагает полноту (width).'}
+  ];
+  var ZONE_RU = {top:'Торс', pants:'Брюки', foot:'Стопа'};
+  var ZONE_C = {top:'var(--c-top)', pants:'var(--c-pants)', foot:'var(--c-foot)'};
+  var byId = {}; DATA.forEach(function(d){ byId[d.id] = d; });
+
+  var html = document.documentElement;
+  var reduced = (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) || /noanim/.test(location.search);
+  var unit = 'cm';
+  try { if (localStorage.getItem('merki-unit') === 'in') unit = 'in'; } catch(e){}
+
+  function $(s, r){ return (r||document).querySelector(s); }
+  function $$(s, r){ return Array.prototype.slice.call((r||document).querySelectorAll(s)); }
+  function ruNum(v, d){ return v.toLocaleString('ru-RU', {minimumFractionDigits:d, maximumFractionDigits:d}); }
+  function decimals(v){ return Number.isInteger(v) ? 0 : 1; }
+  function parseCm(s){ return s.indexOf('-') > -1 ? s.split('-').map(Number) : Number(s); }
+  function fmtOne(x, u){ return u === 'in' ? ruNum(x/2.54, 1) : ruNum(x, decimals(x)); }
+  function fmt(cm, u){ u = u || unit; return Array.isArray(cm) ? fmtOne(cm[0],u) + '–' + fmtOne(cm[1],u) : fmtOne(cm,u); }
+  function unitLabel(u){ return (u||unit) === 'in' ? 'in' : 'см'; }
+
+  /* ---------- Простая анимация чисел (без CDN) ---------- */
+  function tween(from, to, dur, onUpdate, onDone, ease){
+    if (reduced || dur <= 0) { onUpdate(to); if (onDone) onDone(); return; }
+    var t0 = null; ease = ease || function(t){ return 1 - Math.pow(1 - t, 3); };
+    function step(ts){
+      if (t0 === null) t0 = ts;
+      var p = Math.min(1, (ts - t0) / dur);
+      onUpdate(from + (to - from) * ease(p));
+      if (p < 1) requestAnimationFrame(step); else if (onDone) onDone();
+    }
+    requestAnimationFrame(step);
+  }
+  function countTo(el, cm, dur){
+    var u = unit;
+    if (Array.isArray(cm)) { el.textContent = fmt(cm, u); return; }
+    var target = u === 'in' ? cm/2.54 : cm;
+    var d = u === 'in' ? 1 : decimals(cm);
+    tween(0, target, dur || 600, function(v){ el.textContent = ruNum(v, d); }, function(){ el.textContent = fmt(cm, u); });
+  }
+
+  /* ---------- Единицы ---------- */
+  function applyUnit(){
+    $$('[data-cm]').forEach(function(el){ el.textContent = fmt(parseCm(el.dataset.cm)); });
+    $$('.seg button').forEach(function(b){ b.setAttribute('aria-pressed', String(b.dataset.unit === unit)); });
+    if (current) renderReadout(current, false);
+  }
+  $$('.seg button').forEach(function(b){
+    b.addEventListener('click', function(){
+      if (b.dataset.unit === unit) return;
+      unit = b.dataset.unit;
+      try { localStorage.setItem('merki-unit', unit); } catch(e){}
+      applyUnit();
+      toast(unit === 'in' ? 'Единицы: дюймы' : 'Единицы: сантиметры');
+    });
+  });
+
+  /* ---------- Readout ---------- */
+  var current = null;
+  var roEmpty = $('#roEmpty'), roBody = $('#roBody'), readout = $('#readout');
+  var roIdx = $('#roIdx');
+  DATA.forEach(function(d){
+    var b = document.createElement('button');
+    b.type = 'button'; b.className = d.zone; b.textContent = d.n; b.setAttribute('aria-label', d.ru);
+    b.addEventListener('click', function(){ select(d.id, true); });
+    roIdx.appendChild(b);
+  });
+  function renderReadout(id, animate){
+    var d = byId[id]; if (!d) return;
+    roEmpty.hidden = true; roBody.hidden = false;
+    readout.style.setProperty('--zc', ZONE_C[d.zone]);
+    $('#roZone').textContent = ZONE_RU[d.zone] + ' · ' + (d.n < 10 ? '0' + d.n : d.n);
+    $('#roEn').textContent = d.en;
+    $('#roName').textContent = d.ru;
+    $('#roUnit').textContent = unitLabel();
+    var alt = unit === 'in' ? 'cm' : 'in';
+    $('#roAlt').textContent = fmt(d.cm, alt) + ' ' + unitLabel(alt);
+    $('#roNote').textContent = d.note;
+    var num = $('#roNum');
+    if (animate) countTo(num, d.cm, 420); else num.textContent = fmt(d.cm);
+    $$('#roIdx button').forEach(function(b){ b.classList.toggle('active', Number(b.textContent) === d.n); });
+  }
+  function select(id, animate){
+    current = id;
+    $$('.mk, tr.row').forEach(function(el){ el.classList.toggle('active', el.dataset.id === id); });
+    var mk = $('.mk[data-id="' + id + '"]'); if (mk) mk.classList.add('lit');
+    renderReadout(id, animate !== false);
+  }
+  function hover(id, on){
+    $$('.mk[data-id="' + id + '"], tr.row[data-id="' + id + '"]').forEach(function(el){ el.classList.toggle('hover', on); });
+  }
+  function move(delta){
+    var i = current ? DATA.findIndex(function(d){ return d.id === current; }) : -1;
+    i = (i + delta + DATA.length) % DATA.length;
+    select(DATA[i].id, true);
+  }
+  $('#roPrev').addEventListener('click', function(){ move(-1); });
+  $('#roNext').addEventListener('click', function(){ move(1); });
+
+  $$('.mk, tr.row').forEach(function(el){
+    var id = el.dataset.id;
+    el.addEventListener('mouseenter', function(){ hover(id, true); });
+    el.addEventListener('mouseleave', function(){ hover(id, false); });
+    el.addEventListener('focus', function(){ hover(id, true); });
+    el.addEventListener('blur', function(){ hover(id, false); });
+    el.addEventListener('click', function(){ select(id, true); });
+    el.addEventListener('keydown', function(e){
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); select(id, true); }
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { e.preventDefault(); if (!current) current = id; move(1); }
+      if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); if (!current) current = id; move(-1); }
+    });
+  });
+
+  /* ---------- Фильтр зон ---------- */
+  var body = $('#body');
+  $$('.chip').forEach(function(c){
+    c.addEventListener('click', function(){
+      $$('.chip').forEach(function(x){ x.setAttribute('aria-pressed', String(x === c)); });
+      body.dataset.zone = c.dataset.zone;
+    });
+  });
+
+  /* ---------- Костюм: надеть / снять ---------- */
+  var suit = true;
+  try { if (localStorage.getItem('merki-suit') === '0') suit = false; } catch(e){}
+  var suitBtn = $('#suitBtn'), suitLbl = $('#suitLbl');
+  function applySuit(){
+    body.classList.toggle('suit', suit);
+    suitBtn.setAttribute('aria-pressed', String(suit));
+    suitLbl.textContent = suit ? 'Снять костюм' : 'Надеть костюм';
+  }
+  suitBtn.addEventListener('click', function(){
+    suit = !suit;
+    try { localStorage.setItem('merki-suit', suit ? '1' : '0'); } catch(e){}
+    applySuit();
+    toast(suit ? 'Костюм надет' : 'Костюм снят — силуэт тела');
+  });
+  applySuit();
+
+  /* ---------- Компактный режим схемы (телефон) ---------- */
+  var figure = $('.figure');
+  function layout(){
+    var w = figure.clientWidth;
+    var compact = w < 560;
+    body.classList.toggle('compact', compact);
+    body.setAttribute('viewBox', compact ? '-40 0 470 890' : '-150 0 700 890');
+  }
+  if ('ResizeObserver' in window) new ResizeObserver(layout).observe(figure); else window.addEventListener('resize', layout);
+  layout();
+
+  /* ---------- Сканирование ---------- */
+  var scanG = $('#scan'), scanWrap = $('#scanWrap'), scanFill = $('#scanFill'), scanPct = $('#scanPct');
+  var markers = $$('#body .mk');
+  var mkY = {};
+  markers.forEach(function(m){ var node = $('.node', m); mkY[m.dataset.id] = Number(node.getAttribute('cy')); });
+  var scanning = false;
+  function litAll(){
+    $$('.mk').forEach(function(m){ m.classList.add('lit'); });
+    scanFill.style.width = '100%'; scanPct.textContent = '100%';
+  }
+  function runScan(){
+    if (scanning) return;
+    if (reduced) { litAll(); toast('Сканирование завершено · 15 параметров'); return; }
+    scanning = true;
+    $$('#scanBtn, #scanBtnHero, #reactorBtn').forEach(function(b){ b.disabled = true; });
+    markers.forEach(function(m){ m.classList.remove('lit'); });
+    scanWrap.classList.add('on');
+    var done = {};
+    tween(0, 890, 2800, function(y){
+      scanG.setAttribute('transform', 'translate(0 ' + y.toFixed(1) + ')');
+      var p = Math.round(y / 890 * 100);
+      scanFill.style.width = p + '%'; scanPct.textContent = p + '%';
+      markers.forEach(function(m){
+        var id = m.dataset.id;
+        if (!done[id] && mkY[id] <= y) {
+          done[id] = true; m.classList.add('lit');
+          var d = byId[id];
+          $$('[data-id="' + id + '"] [data-cm]').forEach(function(el){ countTo(el, d.cm, 700); });
+        }
+      });
+    }, function(){
+      scanWrap.classList.remove('on');
+      litAll(); scanning = false;
+      $$('#scanBtn, #scanBtnHero, #reactorBtn').forEach(function(b){ b.disabled = false; });
+      $$('#foot .mk [data-cm]').forEach(function(el){ countTo(el, byId[el.closest('.mk').dataset.id].cm, 700); });
+      toast('Сканирование завершено · 15 параметров');
+    }, function(t){ return t; });
+  }
+  function scrollAndScan(){
+    var sk = $('#skhema');
+    var top = sk.getBoundingClientRect().top + window.pageYOffset - 70;
+    window.scrollTo({top: top, behavior: reduced ? 'auto' : 'smooth'});
+    setTimeout(runScan, reduced ? 0 : 450);
+  }
+  $('#scanBtn').addEventListener('click', runScan);
+  $('#scanBtnHero').addEventListener('click', scrollAndScan);
+  $('#reactorBtn').addEventListener('click', scrollAndScan);
+
+  // автозапуск при первом появлении схемы; страховка — по таймеру
+  var autoDone = false;
+  function autoScan(){ if (autoDone) return; autoDone = true; setTimeout(runScan, 350); }
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function(es){ es.forEach(function(e){ if (e.isIntersecting) { autoScan(); io.disconnect(); } }); }, {threshold: .35});
+    io.observe(figure);
+  } else { autoDone = true; litAll(); }
+
+  /* ---------- Копирование ---------- */
+  function buildText(){
+    var u = unitLabel();
+    var L = ['Мерки для одежды (' + u + ')', '', 'ТОРС'];
+    ['neck','chest','waist','hip','shoulders','bicep','sleeve','back1','back2'].forEach(function(id){ var d = byId[id]; L.push(d.ru + ' (' + d.en + '): ' + fmt(d.cm)); });
+    L.push('', 'БРЮКИ');
+    ['pwaist','hip','thigh','calf','plen'].forEach(function(id){ var d = byId[id]; L.push(d.ru + ' (' + d.en + '): ' + fmt(d.cm)); });
+    L.push('', 'СТОПА');
+    ['foot','footw'].forEach(function(id){ var d = byId[id]; L.push(d.ru + ' (' + d.en + '): ' + fmt(d.cm)); });
+    L.push('', 'Все обхваты — мерки тела (body measurements), не одежды.', 'Длина рукава замерена до конца рукава пиджака; для куртки, пальто и рубашки брать длиннее.');
+    return L.join('\n');
+  }
+  function copyText(t){
+    if (navigator.clipboard && window.isSecureContext) return navigator.clipboard.writeText(t);
+    return new Promise(function(res, rej){
+      var ta = document.createElement('textarea'); ta.value = t; ta.setAttribute('readonly',''); ta.style.position = 'fixed'; ta.style.left = '-9999px';
+      document.body.appendChild(ta); ta.select();
+      try { document.execCommand('copy'); res(); } catch(e){ rej(e); } finally { document.body.removeChild(ta); }
+    });
+  }
+  $('#copyBtn').addEventListener('click', function(){
+    copyText(buildText()).then(function(){ toast('Мерки скопированы в буфер обмена'); }, function(){ toast('Не удалось скопировать — выделите таблицу вручную'); });
+  });
+
+  /* ---------- Toast ---------- */
+  var toastEl = $('#toast'), toastT = null;
+  function toast(msg){
+    toastEl.textContent = msg; toastEl.classList.add('show');
+    clearTimeout(toastT); toastT = setTimeout(function(){ toastEl.classList.remove('show'); }, 3200);
+  }
+
+  /* ---------- Печатная машинка в hero ---------- */
+  (function(){
+    if (reduced) return;
+    var items = $$('#boot li');
+    var finals = items.map(function(li){ return li.dataset.line; });
+    var plain = items.map(function(li){ return li.textContent; });
+    items.forEach(function(li){ li.textContent = ''; });
+    var i = 0, guard = setTimeout(function(){ items.forEach(function(li, k){ li.innerHTML = finals[k]; }); }, 6000);
+    function typeLine(){
+      if (i >= items.length) { clearTimeout(guard); return; }
+      var li = items[i], txt = plain[i], j = 0;
+      var cur = document.createElement('span'); cur.className = 'cur'; li.appendChild(cur);
+      var iv = setInterval(function(){
+        j++; li.textContent = txt.slice(0, j); li.appendChild(cur);
+        if (j >= txt.length) { clearInterval(iv); li.innerHTML = finals[i]; i++; setTimeout(typeLine, 220); }
+      }, 16);
+    }
+    setTimeout(typeLine, 300);
+  })();
+
+  /* ---------- Активный пункт навигации ---------- */
+  var links = $$('.navlinks a');
+  var secs = links.map(function(a){ return $(a.getAttribute('href')); }).filter(Boolean);
+  function setActive(){
+    var y = window.pageYOffset + 120, act = null;
+    secs.forEach(function(s){ if (s.offsetTop <= y) act = s; });
+    links.forEach(function(a){ a.classList.toggle('active', !!act && a.getAttribute('href') === '#' + act.id); });
+  }
+  window.addEventListener('scroll', setActive, {passive:true}); setActive();
+
+  applyUnit();
+  window.__merki = {select: select, runScan: runScan};
+})();
+</script>
+
+<script type="module">
+  // Framer Motion (motion@11, vanilla): появление секций при скролле + stagger плиток.
+  // Контент виден по умолчанию; если CDN не загрузился — нативный fallback.
+  const html = document.documentElement;
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches || /noanim/.test(location.search);
+  const target = (arg) => (arg && arg.target) || arg;
+  let ok = false;
+  try {
+    const { animate, inView, stagger } = await import('https://cdn.jsdelivr.net/npm/motion@11/+esm');
+    ok = true;
+    if (reduced) { html.classList.add('no-anim'); }
+    else {
+      const tiles = [...document.querySelectorAll('.tiles .tile')];
+      tiles.forEach(t => t.classList.add('shown'));
+      animate(tiles, { opacity: [0, 1], y: [16, 0] }, { delay: stagger(0.09, { startDelay: 0.1 }), duration: 0.5, ease: [0.22, 1, 0.36, 1] });
+      inView('.reveal:not(.tile)', (arg) => {
+        const el = target(arg);
+        el.classList.add('shown');
+        animate(el, { opacity: [0, 1], y: [22, 0] }, { duration: 0.6, ease: [0.22, 1, 0.36, 1] });
+        const rows = el.querySelectorAll('tr.row');
+        if (rows.length) animate(rows, { opacity: [0, 1], x: [-10, 0] }, { delay: stagger(0.045), duration: 0.4, ease: 'easeOut' });
+      }, { amount: 0.12 });
+      // микроанимация наведения на HUD-панели
+      document.querySelectorAll('.tile').forEach(el => {
+        el.addEventListener('pointerenter', () => animate(el, { y: -3 }, { duration: 0.2 }));
+        el.addEventListener('pointerleave', () => animate(el, { y: 0 }, { duration: 0.25 }));
+      });
+    }
+  } catch (e) { ok = false; }
+  if (!ok) {
+    if ('IntersectionObserver' in window && !reduced) {
+      const io = new IntersectionObserver((es) => es.forEach(en => { if (en.isIntersecting) { en.target.classList.add('shown'); en.target.style.transition = 'opacity .5s'; io.unobserve(en.target); } }), { threshold: 0.1 });
+      document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+    } else html.classList.add('no-anim');
+  }
+  // страховка: ничто не остаётся скрытым
+  setTimeout(() => html.classList.add('no-anim'), ok ? 8000 : 3000);
+</script>
+<script nomodule>document.documentElement.classList.add('no-anim');</script>
+</body>
+</html>
