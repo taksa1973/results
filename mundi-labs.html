@@ -363,7 +363,7 @@ setTimeout(function(){document.querySelectorAll('.reveal').forEach(function(e){e
     <div class="stats reveal">
       <div class="s"><div class="n"><em>302</em></div><div class="c" data-i18n="st.1">Neurons in the organism we record — every connection between them already mapped</div></div>
       <div class="s"><div class="n"><em>959</em></div><div class="c" data-i18n="st.2">Somatic cells, each with a known lineage from the first division onward</div></div>
-      <div class="s"><div class="n"><em>21</em> d</div><div class="c" data-i18n="st.3">Typical lifespan — a full developmental and ageing arc inside one recording</div></div>
+      <div class="s"><div class="n"><em>21</em> d</div><div class="c" data-i18n="st.3">Typical recording window per cohort — three weeks of uninterrupted imaging</div></div>
       <div class="s"><div class="n" data-i18n="st.4n">Open</div><div class="c" data-i18n="st.4">Raw frames and derived tracks released together, so results stay recomputable</div></div>
     </div>
 
@@ -468,7 +468,7 @@ setTimeout(function(){document.querySelectorAll('.reveal').forEach(function(e){e
         <ul>
           <li><span class="mk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l5 5L19 7"/></svg></span><span data-i18n="vs.g1">Every frame carries its strain, temperature, age and handling history</span></li>
           <li><span class="mk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l5 5L19 7"/></svg></span><span data-i18n="vs.g2">Real animals in a fully specified environment — controlled, not scripted</span></li>
-          <li><span class="mk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l5 5L19 7"/></svg></span><span data-i18n="vs.g3">Continuous recording across a whole lifespan, not isolated clips</span></li>
+          <li><span class="mk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l5 5L19 7"/></svg></span><span data-i18n="vs.g3">Continuous recording across weeks, not isolated clips</span></li>
           <li><span class="mk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l5 5L19 7"/></svg></span><span data-i18n="vs.g4">An organism whose complete anatomy is published and independently confirmed</span></li>
           <li><span class="mk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l5 5L19 7"/></svg></span><span data-i18n="vs.g5">Contaminated plates and tracking losses logged, counted and published</span></li>
         </ul>
@@ -506,7 +506,7 @@ setTimeout(function(){document.querySelectorAll('.reveal').forEach(function(e){e
         <div class="spec" style="margin-top:18px">
           <div class="r"><div class="t" data-i18n="sp.1t">Subject</div><div class="d" data-i18n="sp.1d"><em>Caenorhabditis elegans</em>, wild-type and defined mutant strains</div></div>
           <div class="r"><div class="t" data-i18n="sp.2t">Recording</div><div class="d" data-i18n="sp.2d">Top-down time-lapse, fixed field, controlled illumination, 20 °C</div></div>
-          <div class="r"><div class="t" data-i18n="sp.3t">Duration</div><div class="d" data-i18n="sp.3d">Full lifespan — two to three weeks per cohort, continuous</div></div>
+          <div class="r"><div class="t" data-i18n="sp.3t">Duration</div><div class="d" data-i18n="sp.3d">Two to three weeks per cohort, continuous</div></div>
           <div class="r"><div class="t" data-i18n="sp.4t">Scale</div><div class="d" data-i18n="sp.4d">Hundreds of individuals in parallel, cohorts repeated independently</div></div>
           <div class="r"><div class="t" data-i18n="sp.5t">Annotation</div><div class="d" data-i18n="sp.5d">Automated tracking, manual verification on sampled segments</div></div>
           <div class="r"><div class="t" data-i18n="sp.6t">Format</div><div class="d" data-i18n="sp.6d">Open containers, no proprietary readers required</div></div>
@@ -679,7 +679,7 @@ meta   = ds.conditions()     <span class="c"># strain, temp, age</span>
         <p style="color:var(--ink-2); margin-top:20px" data-i18n="mo.p1">For almost every animal, behaviour is a black box: you see the output and guess at the mechanism. For this one, the mechanism is published — every neuron, every connection, every cell division from egg to adult, mapped and independently confirmed.</p>
         <ul class="tick" style="margin-top:24px">
           <li data-i18n="mo.l1"><strong>Ground truth exists.</strong> Predictions from behaviour can be checked against known anatomy rather than against another model</li>
-          <li data-i18n="mo.l2"><strong>Lifespan fits the experiment.</strong> Two to three weeks means a full ageing arc inside a single recording</li>
+          <li data-i18n="mo.l2"><strong>The timescale fits the experiment.</strong> Two to three weeks of continuous imaging cover an individual's entire history</li>
           <li data-i18n="mo.l3"><strong>Statistics are affordable.</strong> Hundreds of individuals per run make effect sizes measurable rather than anecdotal</li>
           <li data-i18n="mo.l4"><strong>No regulatory burden.</strong> Invertebrates sit outside laboratory animal legislation worldwide</li>
         </ul>
@@ -1047,7 +1047,7 @@ meta   = ds.conditions()     <span class="c"># strain, temp, age</span>
       "viz.live":"plate_07 · recording","viz.r1":"tracked","viz.r2":"elapsed","viz.r3":"temp",
       "st.1":"Neurons in the organism we record — every connection between them already mapped",
       "st.2":"Somatic cells, each with a known lineage from the first division onward",
-      "st.3":"Typical lifespan — a full developmental and ageing arc inside one recording",
+      "st.3":"Typical recording window per cohort — three weeks of uninterrupted imaging",
       "st.4n":"Open","st.4":"Raw frames and derived tracks released together, so results stay recomputable",
       "mis.k":"The problem","mis.h2":"Simulations are clean. Life is not.",
       "mis.p1":"World models learn to predict what happens next. Most train on video of human environments or on synthetic physics engines — one is uncontrolled, the other too tidy. Neither shows where prediction actually breaks down.",
@@ -1061,7 +1061,7 @@ meta   = ds.conditions()     <span class="c"># strain, temp, age</span>
       "vs.h2":"What we record instead",
       "vs.g1":"Every frame carries its strain, temperature, age and handling history",
       "vs.g2":"Real animals in a fully specified environment — controlled, not scripted",
-      "vs.g3":"Continuous recording across a whole lifespan, not isolated clips",
+      "vs.g3":"Continuous recording across weeks, not isolated clips",
       "vs.g4":"An organism whose complete anatomy is published and independently confirmed",
       "vs.g5":"Contaminated plates and tracking losses logged, counted and published",
       "cap.1":"plates · ready for imaging","cap.2":"imaging station · fixed optics","cap.3":"manual verification",
@@ -1074,7 +1074,7 @@ meta   = ds.conditions()     <span class="c"># strain, temp, age</span>
       "ds.specTitle":"Technical specification",
       "sp.1t":"Subject","sp.1d":"<em>Caenorhabditis elegans</em>, wild-type and defined mutant strains",
       "sp.2t":"Recording","sp.2d":"Top-down time-lapse, fixed field, controlled illumination, 20 °C",
-      "sp.3t":"Duration","sp.3d":"Full lifespan — two to three weeks per cohort, continuous",
+      "sp.3t":"Duration","sp.3d":"Two to three weeks per cohort, continuous",
       "sp.4t":"Scale","sp.4d":"Hundreds of individuals in parallel, cohorts repeated independently",
       "sp.5t":"Annotation","sp.5d":"Automated tracking, manual verification on sampled segments",
       "sp.6t":"Format","sp.6d":"Open containers, no proprietary readers required",
@@ -1089,7 +1089,7 @@ meta   = ds.conditions()     <span class="c"># strain, temp, age</span>
       "mo.k":"Why this organism","mo.h2":"The only animal with a complete wiring diagram",
       "mo.p1":"For almost every animal, behaviour is a black box: you see the output and guess at the mechanism. For this one, the mechanism is published — every neuron, every connection, every cell division from egg to adult, mapped and independently confirmed.",
       "mo.l1":"<strong>Ground truth exists.</strong> Predictions from behaviour can be checked against known anatomy rather than against another model",
-      "mo.l2":"<strong>Lifespan fits the experiment.</strong> Two to three weeks means a full ageing arc inside a single recording",
+      "mo.l2":"<strong>The timescale fits the experiment.</strong> Two to three weeks of continuous imaging cover an individual's entire history",
       "mo.l3":"<strong>Statistics are affordable.</strong> Hundreds of individuals per run make effect sizes measurable rather than anecdotal",
       "mo.l4":"<strong>No regulatory burden.</strong> Invertebrates sit outside laboratory animal legislation worldwide",
       "lab.k":"Where the data comes from","lab.h2":"The facility",
@@ -1124,7 +1124,7 @@ meta   = ds.conditions()     <span class="c"># strain, temp, age</span>
       "viz.live":"placa_07 · registrando","viz.r1":"seguidos","viz.r2":"transcurrido","viz.r3":"temp",
       "st.1":"Neuronas en el organismo que registramos: cada conexión entre ellas ya está mapeada",
       "st.2":"Células somáticas, cada una con linaje conocido desde la primera división",
-      "st.3":"Vida típica: un arco completo de desarrollo y envejecimiento en un solo registro",
+      "st.3":"Ventana típica de registro por cohorte: tres semanas de imagen ininterrumpida",
       "st.4n":"Abierto","st.4":"Imágenes originales y trayectorias derivadas se publican juntas, para que los resultados sigan siendo recalculables",
       "mis.k":"El problema","mis.h2":"Las simulaciones son limpias. La vida no.",
       "mis.p1":"Los modelos del mundo aprenden a predecir lo que viene después. La mayoría se entrena con video de entornos humanos o con motores de física sintéticos: uno no está controlado, el otro es demasiado prolijo. Ninguno muestra dónde la predicción realmente falla.",
@@ -1138,7 +1138,7 @@ meta   = ds.conditions()     <span class="c"># strain, temp, age</span>
       "vs.h2":"Lo que registramos en cambio",
       "vs.g1":"Cada cuadro lleva su cepa, temperatura, edad e historial de manipulación",
       "vs.g2":"Animales reales en un entorno completamente especificado: controlado, no guionado",
-      "vs.g3":"Registro continuo durante toda la vida, no clips aislados",
+      "vs.g3":"Registro continuo durante semanas, no clips aislados",
       "vs.g4":"Un organismo cuya anatomía completa está publicada y confirmada de forma independiente",
       "vs.g5":"Placas contaminadas y pérdidas de seguimiento registradas, contadas y publicadas",
       "cap.1":"placas · listas para registro","cap.2":"estación de registro · óptica fija","cap.3":"verificación manual",
@@ -1151,7 +1151,7 @@ meta   = ds.conditions()     <span class="c"># strain, temp, age</span>
       "ds.specTitle":"Especificación técnica",
       "sp.1t":"Sujeto","sp.1d":"<em>Caenorhabditis elegans</em>, cepas silvestres y mutantes definidas",
       "sp.2t":"Registro","sp.2d":"Time-lapse cenital, campo fijo, iluminación controlada, 20 °C",
-      "sp.3t":"Duración","sp.3d":"Vida completa: dos a tres semanas por cohorte, en continuo",
+      "sp.3t":"Duración","sp.3d":"Dos a tres semanas por cohorte, en continuo",
       "sp.4t":"Escala","sp.4d":"Cientos de individuos en paralelo, cohortes repetidas de forma independiente",
       "sp.5t":"Anotación","sp.5d":"Seguimiento automático, verificación manual en segmentos muestreados",
       "sp.6t":"Formato","sp.6d":"Contenedores abiertos, sin lectores propietarios",
@@ -1166,7 +1166,7 @@ meta   = ds.conditions()     <span class="c"># strain, temp, age</span>
       "mo.k":"Por qué este organismo","mo.h2":"El único animal con diagrama completo de conexiones",
       "mo.p1":"En casi todos los animales el comportamiento es una caja negra: se ve el resultado y se adivina el mecanismo. En este, el mecanismo está publicado: cada neurona, cada conexión y cada división celular del huevo al adulto, mapeadas y confirmadas de forma independiente.",
       "mo.l1":"<strong>Existe verdad de referencia.</strong> Las predicciones del comportamiento se contrastan con anatomía conocida y no con otro modelo",
-      "mo.l2":"<strong>La vida útil encaja con el experimento.</strong> Dos o tres semanas son un arco completo de envejecimiento en un único registro",
+      "mo.l2":"<strong>La escala temporal encaja con el experimento.</strong> Dos o tres semanas de registro continuo cubren toda la historia de un individuo",
       "mo.l3":"<strong>La estadística es asequible.</strong> Cientos de individuos por corrida hacen medibles los tamaños de efecto",
       "mo.l4":"<strong>Sin carga regulatoria.</strong> Los invertebrados quedan fuera de la legislación sobre animales de laboratorio en todo el mundo",
       "lab.k":"De dónde vienen los datos","lab.h2":"Las instalaciones",
@@ -1201,7 +1201,7 @@ meta   = ds.conditions()     <span class="c"># strain, temp, age</span>
       "viz.live":"placa_07 · gravando","viz.r1":"rastreados","viz.r2":"decorrido","viz.r3":"temp",
       "st.1":"Neurônios no organismo que registramos — cada conexão entre eles já mapeada",
       "st.2":"Células somáticas, cada uma com linhagem conhecida desde a primeira divisão",
-      "st.3":"Vida típica — um arco completo de desenvolvimento e envelhecimento em um só registro",
+      "st.3":"Janela típica de registro por coorte — três semanas de imagem ininterrupta",
       "st.4n":"Aberto","st.4":"Imagens originais e trajetórias derivadas publicadas juntas, para que os resultados continuem recalculáveis",
       "mis.k":"O problema","mis.h2":"Simulações são limpas. A vida não é.",
       "mis.p1":"Modelos de mundo aprendem a prever o que vem a seguir. A maioria treina com vídeo de ambientes humanos ou com motores de física sintéticos — um não é controlado, o outro é arrumado demais. Nenhum mostra onde a previsão de fato falha.",
@@ -1215,7 +1215,7 @@ meta   = ds.conditions()     <span class="c"># strain, temp, age</span>
       "vs.h2":"O que registramos em vez disso",
       "vs.g1":"Cada quadro carrega sua linhagem, temperatura, idade e histórico de manuseio",
       "vs.g2":"Animais reais em um ambiente totalmente especificado — controlado, não roteirizado",
-      "vs.g3":"Registro contínuo por toda a vida, não clipes isolados",
+      "vs.g3":"Registro contínuo por semanas, não clipes isolados",
       "vs.g4":"Um organismo cuja anatomia completa é publicada e confirmada de forma independente",
       "vs.g5":"Placas contaminadas e perdas de rastreamento registradas, contadas e publicadas",
       "cap.1":"placas · prontas para registro","cap.2":"estação de registro · óptica fixa","cap.3":"verificação manual",
@@ -1228,7 +1228,7 @@ meta   = ds.conditions()     <span class="c"># strain, temp, age</span>
       "ds.specTitle":"Especificação técnica",
       "sp.1t":"Sujeito","sp.1d":"<em>Caenorhabditis elegans</em>, linhagens selvagens e mutantes definidas",
       "sp.2t":"Registro","sp.2d":"Time-lapse de cima, campo fixo, iluminação controlada, 20 °C",
-      "sp.3t":"Duração","sp.3d":"Vida completa — duas a três semanas por coorte, em contínuo",
+      "sp.3t":"Duração","sp.3d":"Duas a três semanas por coorte, em contínuo",
       "sp.4t":"Escala","sp.4d":"Centenas de indivíduos em paralelo, coortes repetidas de forma independente",
       "sp.5t":"Anotação","sp.5d":"Rastreamento automático, verificação manual em trechos amostrados",
       "sp.6t":"Formato","sp.6d":"Contêineres abertos, sem leitores proprietários",
@@ -1243,7 +1243,7 @@ meta   = ds.conditions()     <span class="c"># strain, temp, age</span>
       "mo.k":"Por que este organismo","mo.h2":"O único animal com diagrama completo de conexões",
       "mo.p1":"Em quase todo animal o comportamento é uma caixa-preta: vê-se o resultado e adivinha-se o mecanismo. Neste, o mecanismo está publicado — cada neurônio, cada conexão e cada divisão celular do ovo ao adulto, mapeados e confirmados de forma independente.",
       "mo.l1":"<strong>Existe verdade de referência.</strong> Previsões a partir do comportamento podem ser checadas contra anatomia conhecida, não contra outro modelo",
-      "mo.l2":"<strong>A duração de vida cabe no experimento.</strong> Duas a três semanas são um arco completo de envelhecimento em um único registro",
+      "mo.l2":"<strong>A escala de tempo cabe no experimento.</strong> Duas a três semanas de registro contínuo cobrem toda a história de um indivíduo",
       "mo.l3":"<strong>Estatística acessível.</strong> Centenas de indivíduos por rodada tornam os tamanhos de efeito mensuráveis",
       "mo.l4":"<strong>Sem carga regulatória.</strong> Invertebrados estão fora da legislação sobre animais de laboratório no mundo todo",
       "lab.k":"De onde vêm os dados","lab.h2":"A instalação",
