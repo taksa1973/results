@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Проверка возраста под своим брендом</title>
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="description" content="Сервисы проверки возраста с white label: цена проверки по селфи и по документу, минимальный платёж, свой бренд и домен, право перепродажи.">
+<meta name="theme-color" content="#000000">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add('js-anim')</script>
+<style>
+:root{color-scheme:dark;
+  --bg:#000;--paper:#121212;--soft:#1A1A1A;--line:#262626;--line-2:#3A3A3A;
+  --ink:#F5F5F5;--ink-2:#C4C4C8;--ink-3:#8E8E93;
+  --red:#9B1C1C;--red-hover:#B42323;--red-text:#E05252;--red-soft:#241010;--red-line:#4D1B1B;
+  --r:16px;--topbar:60px}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;padding-top:var(--topbar);background:var(--bg);color:var(--ink);font:16px/1.6 Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased;overflow-wrap:anywhere}
+::selection{background:var(--red);color:#fff}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+a{color:var(--red-text);text-decoration:none}
+a:hover{color:#fff}
+a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid #fff;outline-offset:3px;border-radius:6px}
+.skip{position:absolute;left:-999px;top:0}
+.skip:focus{left:16px;top:16px;background:#fff;color:#000;padding:10px 14px;border-radius:10px;z-index:100}
+h1,h2,h3{color:#fff;margin:0}
+h1{font-size:clamp(34px,5.2vw,60px);line-height:1.04;letter-spacing:-.03em;font-weight:800;text-wrap:balance;max-width:16ch}
+h1 span{color:var(--red-text)}
+h2{font-size:clamp(26px,3.2vw,38px);line-height:1.12;letter-spacing:-.02em;font-weight:700;text-wrap:balance}
+h3{font-size:19px;line-height:1.3;letter-spacing:-.01em;font-weight:600}
+.eyebrow{color:var(--red-text);font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin:0 0 10px}
+.sub{color:var(--ink-2);max-width:72ch;margin:10px 0 24px}
+.dim{color:var(--ink-3);font-weight:400}
+
+/* верхняя панель */
+.topbar{position:fixed;top:0;left:0;right:0;height:var(--topbar);z-index:50;background:rgba(0,0,0,.86);-webkit-backdrop-filter:saturate(140%) blur(16px);backdrop-filter:saturate(140%) blur(16px);border-bottom:1px solid var(--line)}
+.topbar .wrap{height:100%;display:flex;align-items:center;gap:20px}
+.brand{display:flex;align-items:center;gap:10px;color:#fff;font-weight:700;font-size:15px;letter-spacing:-.01em;white-space:nowrap;flex:none}
+.brand i{width:10px;height:10px;border-radius:3px;background:var(--red-text);display:inline-block}
+.brand em{font-style:normal;color:var(--ink-3);font-weight:500}
+.topnav{display:flex;gap:4px;margin-left:auto;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.topnav::-webkit-scrollbar{display:none}
+.topnav a{flex:none;color:var(--ink-2);font-size:14px;font-weight:500;padding:9px 12px;border-radius:10px;min-height:40px;display:flex;align-items:center}
+.topnav a:hover{color:#fff;background:rgba(255,255,255,.08)}
+@media (max-width:720px){.brand em{display:none}.topbar .wrap{gap:10px}.topnav a{padding:9px 10px;font-size:13px}}
+
+/* шапка */
+.hero{padding:56px 0 44px;border-bottom:1px solid var(--line)}
+.hero .wrap{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(300px,.75fr);gap:32px 48px;align-items:end}
+.lead{font-size:clamp(17px,1.9vw,20px);color:var(--ink-2);max-width:60ch;margin:18px 0 0}
+.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.stat{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:16px 18px}
+.stat b{display:block;font-size:34px;font-weight:800;letter-spacing:-.03em;line-height:1.05;color:#fff;font-variant-numeric:tabular-nums}
+.stat span{font-size:13px;color:var(--ink-3)}
+@media (max-width:860px){.hero .wrap{grid-template-columns:1fr}.hero{padding:40px 0 32px}}
+
+main section{padding:60px 0 8px;scroll-margin-top:calc(var(--topbar) + 12px)}
+.sh{display:flex;align-items:center;gap:14px;margin-bottom:6px}
+.num{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:7px;background:#fff;color:#000;font-size:13px;font-weight:700;flex:none;counter-increment:n}
+.num::before{content:counter(n,decimal-leading-zero)}
+main{counter-reset:n}
+.gh{display:flex;align-items:center;gap:12px;font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin:28px 0 14px}
+.gh .num{counter-increment:g;width:24px;height:24px;font-size:12px;border-radius:6px;background:var(--soft);color:var(--ink-2);box-shadow:inset 0 0 0 1px var(--line-2)}
+.gh .num::before{content:counter(g)}
+#cards{counter-reset:g}
+
+.card{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:22px 24px;transition:transform .2s ease,box-shadow .2s ease}
+.card:hover{box-shadow:0 0 0 1px rgba(255,255,255,.18);transform:translateY(-2px)}
+@media (prefers-reduced-motion:reduce){.card,.vc{transition:none}.card:hover,.vc:hover{transform:none}}
+
+/* главное — бенто */
+.bento{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.ins .tag{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--red-text);margin:0 0 10px}
+.ins p{margin:0;font-size:15px;line-height:1.55;color:var(--ink-2)}
+.ins p b{color:#fff;font-weight:600}
+.ins.wide{grid-column:span 2}
+@media (max-width:980px){.bento{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:640px){.bento{grid-template-columns:1fr}.ins.wide{grid-column:auto}}
+
+/* фильтры */
+.frow{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 20px}
+.fbtn{font:inherit;font-size:14px;font-weight:500;color:var(--ink-2);background:transparent;border:1px solid var(--line-2);border-radius:999px;padding:9px 14px;min-height:40px;cursor:pointer;touch-action:manipulation;transition:background .15s ease,color .15s ease,border-color .15s ease}
+.fbtn:hover{color:#fff;border-color:#fff}
+.fbtn[aria-pressed="true"]{background:#fff;color:#000;border-color:#fff}
+.fcount{font-size:13px;color:var(--ink-3);margin:-8px 0 14px}
+
+/* таблица */
+.tw{overflow-x:auto;background:var(--paper);border:1px solid var(--line);border-radius:var(--r)}
+table{border-collapse:collapse;width:100%;font-size:15px;min-width:760px}
+thead th{white-space:nowrap;background:#1F1F1F;color:#fff;text-align:left;font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:12px 16px;border-bottom:1px solid var(--line-2)}
+tbody th,tbody td{text-align:left;vertical-align:top;padding:13px 16px;border-top:1px solid var(--line);font-weight:400}
+tbody th{min-width:200px}
+tbody th a{color:#fff;font-weight:600}
+tbody th a:hover{color:var(--red-text)}
+tbody th small{display:block;color:var(--ink-3);font-size:12px;margin-top:2px}
+tbody td:nth-child(2){font-variant-numeric:tabular-nums;color:var(--ink)}
+tbody td:nth-child(3){white-space:nowrap;color:var(--ink-2)}
+tbody td:last-child .chips{flex-wrap:nowrap}
+tr[hidden]{display:none}
+
+/* карточки вендоров */
+.vgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;align-items:start}
+@media (max-width:860px){.vgrid{grid-template-columns:1fr}}
+.vc{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:20px 22px;display:flex;flex-direction:column;gap:12px;transition:box-shadow .2s ease}
+.vc:hover{box-shadow:0 0 0 1px rgba(255,255,255,.18)}
+.vc-top{display:flex;flex-wrap:wrap;align-items:flex-start;justify-content:space-between;gap:8px 14px}
+.vc-top h3 a{color:#fff}
+.vc-top h3 a:hover{color:var(--red-text)}
+.vc-what{margin:0;font-size:14.5px;color:var(--ink-2);line-height:1.5}
+.vc-price{margin:0;display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr) auto;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.vc-price>div{background:var(--soft);padding:10px 12px;min-width:0}
+.vc-price dt{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);margin-bottom:3px}
+.vc-price dd{margin:0;font-size:14px;font-weight:600;color:#fff;line-height:1.35;font-variant-numeric:tabular-nums}
+@media (max-width:560px){.vc-price{grid-template-columns:1fr}}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{display:inline-flex;align-items:center;font-size:12px;font-weight:600;line-height:1.3;padding:4px 10px;border-radius:999px;white-space:nowrap}
+.chip-cat{background:transparent;color:var(--ink-2);box-shadow:inset 0 0 0 1px var(--line-2)}
+.chip-mute{background:var(--soft);color:#A1A1A6}
+.chip-ok{background:#2A2A2A;color:#fff;box-shadow:inset 0 0 0 1px #5A5A5F}
+.chip-warn{background:var(--red-soft);color:var(--red-text);box-shadow:inset 0 0 0 1px var(--red-line)}
+.chip-bad{background:var(--red);color:#fff}
+.vc details{border-top:1px solid var(--line);margin-top:2px}
+summary{cursor:pointer;font-size:14px;font-weight:600;color:var(--red-text);padding:12px 0 4px;min-height:40px;display:flex;align-items:center;list-style:none}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"";width:7px;height:7px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(45deg);margin-left:10px;transition:transform .2s ease}
+details[open] summary::after{transform:rotate(-135deg)}
+summary:hover{color:#fff}
+blockquote{margin:10px 0;padding:10px 14px;border-left:2px solid #fff;background:var(--soft);border-radius:0 10px 10px 0;font-size:13.5px;color:var(--ink-2)}
+.note{margin:10px 0;padding:12px 14px;border-radius:12px;background:var(--soft);font-size:13.5px;color:var(--ink-2);line-height:1.55}
+.note b{display:block;color:#fff;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px}
+.note-red{background:var(--red-soft);box-shadow:inset 0 0 0 1px var(--red-line)}
+.note-red b{color:var(--red-text)}
+.facts{margin:6px 0 0}
+.kv{display:grid;grid-template-columns:150px minmax(0,1fr);gap:4px 14px;padding:9px 0;border-top:1px solid var(--line);font-size:13.5px}
+.kv dt{color:var(--ink-3);font-weight:600}
+.kv dd{margin:0;color:var(--ink-2)}
+@media (max-width:560px){.kv{grid-template-columns:1fr}}
+.pn{font-size:13px;color:var(--ink-3);margin:8px 0 0}
+a.src{display:inline-block;font-size:12px;line-height:1.4;padding:2px 9px;margin:1px 2px 1px 0;border-radius:999px;background:var(--soft);color:var(--red-text);max-width:100%}
+a.src:hover{background:var(--red-soft);color:#fff}
+
+/* шаги и оговорки */
+.steps{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.steps li{display:grid;grid-template-columns:28px minmax(0,1fr);gap:14px;align-items:start;background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:18px 20px;color:var(--ink-2)}
+.steps li b{color:#fff;font-weight:600}
+.steps li .num{counter-increment:s}
+.steps li .num::before{content:counter(s)}
+#steps{counter-reset:s}
+.caveats{background:var(--red-soft);border:1px solid var(--red-line);border-radius:var(--r);padding:20px 24px 20px 40px;margin:0;color:var(--ink-2)}
+.caveats li{margin:6px 0}
+.caveats li::marker{color:var(--red-text)}
+footer{padding:48px 0 60px;color:var(--ink-3);font-size:13px;border-top:1px solid var(--line);margin-top:56px}
+footer a{color:var(--ink-2)}
+.reveal{opacity:1}
+.js-anim .reveal{opacity:0}
+@media (prefers-reduced-motion:reduce){.js-anim .reveal{opacity:1!important;transform:none!important}}
+@media print{.js-anim .reveal{opacity:1!important}.topbar{position:static}body{padding-top:0}}
+
+.gsub{color:var(--ink-3);font-size:14px;margin:-6px 0 14px;max-width:72ch}
+.noprice{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.noprice li{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:16px 18px;color:var(--ink-2);font-size:14.5px}
+.noprice li a b{color:#fff}
+.noprice li a:hover b{color:var(--red-text)}
+@media (max-width:760px){.noprice{grid-template-columns:1fr}}
+tbody td:nth-child(3){white-space:normal}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">К содержанию</a>
+<header class="topbar"><div class="wrap">
+  <a class="brand" href="#top"><i aria-hidden="true"></i>Проверка возраста <em>· white label</em></a>
+  <nav class="topnav" aria-label="Разделы"><a href="#summary">Главное</a><a href="#map">Сравнение</a><a href="#cards">Варианты</a><a href="#noprice">Без цены</a><a href="#steps">Как выбрать</a><a href="#method">Оговорки</a></nav>
+</div></header>
+<section class="hero" id="top"><div class="wrap">
+  <div><p class="eyebrow">KYC и проверка возраста</p><h1>Проверка возраста <span>под своим брендом</span></h1>
+  <p class="lead">Сервисы, которые проверяют возраст пользователя по селфи или документу и дают встроить проверку в свой продукт или перепродавать её под своим брендом. Цены — с первоисточников.</p></div>
+  <div class="stats">
+    <div class="stat"><b>11</b><span>вариантов с ценой</span></div>
+    <div class="stat"><b>$0,10</b><span>самая дешёвая проверка</span></div>
+    <div class="stat"><b>3</b><span>с полным white label</span></div>
+    <div class="stat"><b>3</b><span>способа проверки</span></div>
+  </div>
+</div></section>
+<main id="main" class="wrap">
+  <section id="summary" class="reveal">
+    <div class="sh"><span class="num"></span><h2>Главное</h2></div>
+    <p class="sub">6 выводов. Подробности и источники — в карточках ниже.</p>
+    <div class="bento"><article class="card ins wide"><p class="tag">Дешевле всего</p><p>Оценка по селфи: <b>Didit</b> и <b>Facia</b> — $0,10 за проверку, без минимума в месяц. У Didit сверху ещё 500 бесплатных полных KYC-проверок в месяц.</p></article><article class="card ins"><p class="tag">Под своим брендом</p><p><b>Didit</b>: white label +$0,20 за проверку, свой поддомен, перепродавать проверки своим клиентам разрешено прямо. <b>Ondato</b>: white label — €150 за бренд, проверка возраста от €0,01 до €0,30.</p></article><article class="card ins"><p class="tag">Три способа</p><p><b>По селфи</b> — без документов, за секунды. <b>По документу</b> — дата рождения из паспорта или ID плюс проверка живости. <b>Повторно</b> — пользователь проходит один раз и дальше подтверждает возраст токеном (OnAge у Ondato).</p></article><article class="card ins"><p class="tag">По документу дороже</p><p>От $0,45 (<b>Identomat</b>) до $1,35–1,50 (<b>iDenfy</b>, <b>Stripe Identity</b>, <b>Shufti Pro</b>) за проверку — в 5–15 раз дороже оценки по селфи. Полный white label с документом с самого дешёвого тарифа — у <b>iDenfy</b>, минимум $135 в месяц.</p></article><article class="card ins wide"><p class="tag">Бразилия: ECA Digital</p><p>С 17 марта 2026 года закон 15.211/2025 требует от сервисов, к которым вероятен доступ несовершеннолетних, «mecanismos confiáveis de verificação de idade, sendo expressamente vedada a mera autodeclaração». Регулятор — ANPD, штраф до 10% выручки группы в Бразилии. <a href="https://www.mayerbrown.com/pt/insights/publications/2026/04/enforcement-of-brazils-eca-digital-introduces-new-obligations-for-companies" target="_blank" rel="noopener noreferrer">Источник</a>.</p></article><article class="card ins"><p class="tag">Без публичной цены</p><p><b>Yoti</b> — только по запросу; у <b>Veriff</b> проверки возраста нет в самостоятельных тарифах; <b>Persona</b> закрывает страницу цен; у <b>Sumsub</b> возраст в прайсе не упомянут.</p></article></div>
+  </section>
+  <section id="map" class="reveal">
+    <div class="sh"><span class="num"></span><h2>Сравнение</h2></div>
+    <p class="sub">Цена проверки возраста, минимальный платёж и наличие white label. Кнопки оставляют только выбранную группу — и в таблице, и в карточках.</p>
+    <div class="frow" role="group" aria-label="Группы"><button type="button" class="fbtn" data-g="wl" aria-pressed="false">Полный white label</button><button type="button" class="fbtn" data-g="brand" aria-pressed="false">Частичный брендинг</button><button type="button" class="fbtn" data-g="own" aria-pressed="false">Без white label</button></div>
+    <p class="fcount" id="fcount" aria-live="polite"></p>
+    <div class="tw"><table><thead><tr><th scope="col">Сервис</th><th scope="col">Проверка возраста</th><th scope="col">Минимум в месяц</th><th scope="col">White label</th></tr></thead><tbody><tr data-g="wl"><th scope="row"><a href="#v-didit">Didit</a><small>селфи, документ</small></th><td>$0,10 за проверку по селфи</td><td>нет</td><td><span class="chip chip-ok">white label</span></td></tr><tr data-g="wl"><th scope="row"><a href="#v-ondato">Ondato</a><small>документ, селфи, повторный токен</small></th><td>от €0,01 до €0,30 за проверку</td><td>не опубликован</td><td><span class="chip chip-ok">white label</span></td></tr><tr data-g="wl"><th scope="row"><a href="#v-idenfy">iDenfy</a><small>документ; селфи — только Enterprise</small></th><td>$1,35 — в составе проверки документа</td><td>$135</td><td><span class="chip chip-ok">white label</span></td></tr><tr data-g="wl"><th scope="row"><a href="#v-identomat">Identomat</a><small>документ</small></th><td>$0,45 за проверку документа</td><td>$150 (350 проверок включено)</td><td><span class="chip chip-warn">white label под вопросом</span></td></tr><tr data-g="brand"><th scope="row"><a href="#v-complycube">ComplyCube</a><small>документ, селфи</small></th><td>$0,25 за проверку по селфи</td><td>$99 (зачитывается в проверки)</td><td><span class="chip chip-cat">частичный брендинг</span></td></tr><tr data-g="brand"><th scope="row"><a href="#v-shufti">Shufti Pro</a><small>документ</small></th><td>от $1,50 — в составе проверки документа</td><td>не указан</td><td><span class="chip chip-cat">частичный брендинг</span></td></tr><tr data-g="brand"><th scope="row"><a href="#v-stripe">Stripe Identity</a><small>документ + селфи</small></th><td>$1,50 за проверку</td><td>нет</td><td><span class="chip chip-cat">частичный брендинг</span></td></tr><tr data-g="brand"><th scope="row"><a href="#v-idanalyzer">ID Analyzer</a><small>документ</small></th><td>в составе запроса; сверх квоты $0,08–0,12</td><td>$89 (1 000 запросов)</td><td><span class="chip chip-cat">частичный брендинг</span></td></tr><tr data-g="brand"><th scope="row"><a href="#v-agechecker">AgeChecker.Net</a><small>не описан</small></th><td>$0,50 за принятую проверку</td><td>$25</td><td><span class="chip chip-cat">частичный брендинг</span></td></tr><tr data-g="own"><th scope="row"><a href="#v-facia">Facia</a><small>селфи; документ — отдельно</small></th><td>$0,10 за проверку по селфи</td><td>нет</td><td><span class="chip chip-mute">без white label</span></td></tr><tr data-g="own"><th scope="row"><a href="#v-tokenoftrust">Token of Trust</a><small>документ; селфи и базы — допом</small></th><td>от $0,50 (+$0,15 за селфи-оценку)</td><td>$25</td><td><span class="chip chip-mute">без white label</span></td></tr></tbody></table></div>
+  </section>
+  <section id="cards" class="reveal">
+    <div class="sh"><span class="num"></span><h2>Варианты</h2></div>
+    <p class="sub">В карточке: способ проверки, цена, минимум и white label. Под «Подробнее» — все цены, брендинг, свой домен, что нужно от вас, минусы и источники.</p>
+    <div class="group" data-g="wl"><h3 class="gh"><span class="num"></span>Полный white label</h3><p class="gsub">Можно встроить под своим брендом; у Didit перепродажа своим клиентам разрешена прямо.</p><div class="vgrid"><article class="vc" id="v-didit" data-g="wl">
+<div class="vc-top"><h3><a href="https://didit.me/" target="_blank" rel="noopener noreferrer">Didit</a></h3><div class="chips"><span class="chip chip-cat">селфи, документ</span><span class="chip chip-ok">white label</span></div></div>
+<p class="vc-what">Оценка возраста по одному селфи — «Estimates age from a single selfie in under a second, bundled with Passive Liveness» — и полный KYC по документу. В режиме white label: свой поддомен, логотип, цвета, тексты и письма от вашего домена — «Zero Didit branding visible to your users».</p>
+<dl class="vc-price">
+<div><dt>Проверка возраста</dt><dd>$0,10 за проверку по селфи</dd></div>
+<div><dt>Минимум в месяц</dt><dd>нет</dd></div>
+<div><dt>White label</dt><dd>да, +$0,20 за проверку</dd></div>
+</dl>
+<details><summary>Подробнее</summary><div class="note note-red"><b>Минусы и оговорки</b>Цена white label встречается в двух вариантах: на странице продукта и в прайсе — $0,20 за сессию, в поисковой выдаче со ссылкой на старую страницу документации — $0,30 (сама страница сейчас не открывается). В прайсе сказано, что с 1 ноября 2026 года цены меняются — фиксируйте цену при подключении.</div><dl class="facts"><div class="kv"><dt>Цены</dt><dd>Оценка возраста — $0,10, полный KYC (документ + живость + сверка лица + анализ устройства) — $0,33, только документ — $0,15. 500 полных KYC-проверок в месяц бесплатно. «No minimums · No contracts». White label — +$0,20 за сессию: полный KYC под своим брендом выходит $0,53. Enterprise — годовой контракт с объёмом.</dd></div><div class="kv"><dt>Брендинг и домен</dt><dd>Свой поддомен вида verify.yourbrand.com (корень и www не подходят), две CNAME-записи, TLS выпускается автоматически. Для своего стиля в каждом сценарии включается «Include custom style». От Didit остаётся только обязательная ссылка на его уведомление о конфиденциальности. Перепродажа прямо разрешена: «Same product compliance consultancies and integrators resell to their customers» — один договор, один счёт, 500 бесплатных проверок остаются на вашем счётчике.</dd></div><div class="kv"><dt>Свой домен</dt><dd>да, свой поддомен</dd></div><div class="kv"><dt>Что нужно от вас</dt><dd>Регистрация в консоли без договора. Согласие пользователя на съёмку документа и биометрию — на вас как на контролёре данных.</dd></div></dl><p class="pn srcs"><a class="src" href="https://didit.me/pricing" target="_blank" rel="noopener noreferrer">страница цен</a> <a class="src" href="https://didit.me/pricing" target="_blank" rel="noopener noreferrer">didit.me</a> <a class="src" href="https://didit.me/en/products/white-label" target="_blank" rel="noopener noreferrer">didit.me</a> <a class="src" href="https://docs.didit.me/console/white-label" target="_blank" rel="noopener noreferrer">docs.didit.me</a> <a class="src" href="https://docs.didit.me/console/custom-domain" target="_blank" rel="noopener noreferrer">docs.didit.me</a></p></details>
+</article><article class="vc" id="v-ondato" data-g="wl">
+<div class="vc-top"><h3><a href="https://ondato.com/age-verification/" target="_blank" rel="noopener noreferrer">Ondato</a></h3><div class="chips"><span class="chip chip-cat">документ, селфи, повторный токен</span><span class="chip chip-ok">white label</span></div></div>
+<p class="vc-what">Три способа: по документу с проверкой живости; по селфи без документов — «Our AI-powered facial age estimation solution uses a selfie to estimate age in seconds – no identity documents required»; повторная проверка OnAge — пользователь проходит один раз, дальше подтверждает возраст токеном. Охват — «over 190 countries».</p>
+<dl class="vc-price">
+<div><dt>Проверка возраста</dt><dd>от €0,01 до €0,30 за проверку</dd></div>
+<div><dt>Минимум в месяц</dt><dd>не опубликован</dd></div>
+<div><dt>White label</dt><dd>да, €150 за бренд</dd></div>
+</dl>
+<details><summary>Подробнее</summary><div class="note note-red"><b>Минусы и оговорки</b>Цена по каждому способу не разбита: на странице только диапазон, итог — по объёму и выбранным функциям.</div><dl class="facts"><div class="kv"><dt>Цены</dt><dd>Проверка возраста — «€0,30 - €0,01 per verification» в зависимости от объёма и выбранных способов. Полная проверка личности — €1,40–0,50. Деньги берут только за завершённые проверки. Оплата банковским переводом, картой или криптовалютой.</dd></div><div class="kv"><dt>Брендинг и домен</dt><dd>«Whitelabel — €150 per brand»: «Lets clients fully brand the verification flow with their own logos, fonts, and colors». Про свой домен не сказано.</dd></div><div class="kv"><dt>Свой домен</dt><dd>не указано</dd></div><div class="kv"><dt>Что нужно от вас</dt><dd>Минимальный платёж и срок договора не опубликованы — через «Get personalised offer». Подключение через API, SDK или ссылку без кода.</dd></div></dl><p class="pn srcs"><a class="src" href="https://ondato.com/age-verification-pricing/" target="_blank" rel="noopener noreferrer">страница цен</a> <a class="src" href="https://ondato.com/age-verification-pricing/" target="_blank" rel="noopener noreferrer">ondato.com</a> <a class="src" href="https://ondato.com/age-verification/" target="_blank" rel="noopener noreferrer">ondato.com</a> <a class="src" href="https://ondato.com/pricing/" target="_blank" rel="noopener noreferrer">ondato.com</a></p></details>
+</article><article class="vc" id="v-idenfy" data-g="wl">
+<div class="vc-top"><h3><a href="https://www.idenfy.com/" target="_blank" rel="noopener noreferrer">iDenfy</a></h3><div class="chips"><span class="chip chip-cat">документ; селфи — только Enterprise</span><span class="chip chip-ok">white label</span></div></div>
+<p class="vc-what">KYC по документу с проверкой возраста — «Confirms a user meets the required age for your service or product» — во всех тарифах. Оценка возраста по лицу — только в Enterprise.</p>
+<dl class="vc-price">
+<div><dt>Проверка возраста</dt><dd>$1,35 — в составе проверки документа</dd></div>
+<div><dt>Минимум в месяц</dt><dd>$135</dd></div>
+<div><dt>White label</dt><dd>да, с базового тарифа</dd></div>
+</dl>
+<details><summary>Подробнее</summary><div class="note note-red"><b>Минусы и оговорки</b>Сайт отдаёт 403 автоматическим запросам — цены прочитаны через текстовую копию страницы. Минимум $135 в месяц платится независимо от числа проверок.</div><dl class="facts"><div class="kv"><dt>Цены</dt><dd>Basic — «$1.35 per verification», «$135 min. monthly». Premium — цена индивидуальная. Enterprise — годовой контракт, цена «can decrease to as low as $0.50 per verification». Пробный период — 14 дней и 10 проверок.</dd></div><div class="kv"><dt>Брендинг и домен</dt><dd>На Basic заявлено «Full white-label customization»: логотип, цвета, шрифты. Про свой домен не сказано.</dd></div><div class="kv"><dt>Свой домен</dt><dd>не указано</dd></div><div class="kv"><dt>Что нужно от вас</dt><dd>не опубликовано</dd></div></dl><p class="pn srcs"><a class="src" href="https://www.idenfy.com/pricing/" target="_blank" rel="noopener noreferrer">страница цен</a> <a class="src" href="https://www.idenfy.com/pricing/" target="_blank" rel="noopener noreferrer">idenfy.com</a></p></details>
+</article><article class="vc" id="v-identomat" data-g="wl">
+<div class="vc-top"><h3><a href="https://identomat.com/age-verification" target="_blank" rel="noopener noreferrer">Identomat</a></h3><div class="chips"><span class="chip chip-cat">документ</span><span class="chip chip-warn">white label под вопросом</span></div></div>
+<p class="vc-what">Проверка возраста по документу: дата рождения извлекается и сверяется по зонам и защитным элементам документа, живость — по желанию, ответ — «Pass/Fail» с журналом для аудита. Оценки возраста по лицу нет. Документы «over 165 countries and territories».</p>
+<dl class="vc-price">
+<div><dt>Проверка возраста</dt><dd>$0,45 за проверку документа</dd></div>
+<div><dt>Минимум в месяц</dt><dd>$150 (350 проверок включено)</dd></div>
+<div><dt>White label</dt><dd>противоречиво</dd></div>
+</dl>
+<details><summary>Подробнее</summary><div class="note note-red"><b>Минусы и оговорки</b>Сайт противоречит сам себе: страница продукта обещает white label, прайс — только в тарифе Custom с ценой по запросу. Уточнять до договора.</div><dl class="facts"><div class="kv"><dt>Цены</dt><dd>Essentials — «$0.45», «$150 /mo min», 350 проверок включено. Advanced — «As low as $0.28 / verification», «$525 /mo min», 1 200 проверок. Custom — цена по запросу. «No setup fees», «No lock-ins», цены без НДС.</dd></div><div class="kv"><dt>Брендинг и домен</dt><dd>На странице проверки возраста: «Our solution is white-label, so once integrated you can customize the Age Verification UX/UI». В прайсе «Full white labeling» — только в тарифе Custom.</dd></div><div class="kv"><dt>Свой домен</dt><dd>не указано</dd></div><div class="kv"><dt>Что нужно от вас</dt><dd>не опубликовано</dd></div></dl><p class="pn srcs"><a class="src" href="https://www.identomat.com/pricing" target="_blank" rel="noopener noreferrer">страница цен</a> <a class="src" href="https://identomat.com/age-verification" target="_blank" rel="noopener noreferrer">identomat.com</a> <a class="src" href="https://www.identomat.com/pricing" target="_blank" rel="noopener noreferrer">identomat.com</a></p></details>
+</article></div></div><div class="group" data-g="brand"><h3 class="gh"><span class="num"></span>Частичный брендинг</h3><p class="gsub">Свои цвета, логотип или страница — но полный white label дороже, по запросу или не описан.</p><div class="vgrid"><article class="vc" id="v-complycube" data-g="brand">
+<div class="vc-top"><h3><a href="https://www.complycube.com/en/age-verification/" target="_blank" rel="noopener noreferrer">ComplyCube</a></h3><div class="chips"><span class="chip chip-cat">документ, селфи</span><span class="chip chip-cat">частичный брендинг</span></div></div>
+<p class="vc-what">Проверка документов — «over 10,000 documents from 195 countries» — и оценка возраста по одному селфи с проверкой живости.</p>
+<dl class="vc-price">
+<div><dt>Проверка возраста</dt><dd>$0,25 за проверку по селфи</dd></div>
+<div><dt>Минимум в месяц</dt><dd>$99 (зачитывается в проверки)</dd></div>
+<div><dt>White label</dt><dd>только Enterprise</dd></div>
+</dl>
+<details><summary>Подробнее</summary><div class="note note-red"><b>Минусы и оговорки</b>К какому тарифу относится цена $0,25 за оценку возраста, из страницы цен однозначно не следует — уточнять у продаж.</div><dl class="facts"><div class="kv"><dt>Цены</dt><dd>Starter — $99 в месяц, Core — $299 в месяц; абонплата превращается в кредиты на любые проверки, деньги берут только за успешные. Оценка возраста — $0,25. Проверка документа — $1,05 на Starter и $0,75 на Core, живость и сверка лица — $0,35 и $0,20.</dd></div><div class="kv"><dt>Брендинг и домен</dt><dd>Свой брендинг — в Core и Growth; полный white label — «Unlimited white-labeled workflows» — только в Enterprise с ценой по запросу.</dd></div><div class="kv"><dt>Свой домен</dt><dd>не указано</dd></div><div class="kv"><dt>Что нужно от вас</dt><dd>не опубликовано</dd></div></dl><p class="pn srcs"><a class="src" href="https://www.complycube.com/en/pricing/" target="_blank" rel="noopener noreferrer">страница цен</a> <a class="src" href="https://www.complycube.com/en/pricing/" target="_blank" rel="noopener noreferrer">complycube.com</a> <a class="src" href="https://www.complycube.com/en/age-verification/" target="_blank" rel="noopener noreferrer">complycube.com</a></p></details>
+</article><article class="vc" id="v-shufti" data-g="brand">
+<div class="vc-top"><h3><a href="https://shuftipro.com/" target="_blank" rel="noopener noreferrer">Shufti Pro</a></h3><div class="chips"><span class="chip chip-cat">документ</span><span class="chip chip-cat">частичный брендинг</span></div></div>
+<p class="vc-what">Проверка возраста по документу: «Age Verification determines a user&#x27;s age from the extracted date of birth from ID document».</p>
+<dl class="vc-price">
+<div><dt>Проверка возраста</dt><dd>от $1,50 — в составе проверки документа</dd></div>
+<div><dt>Минимум в месяц</dt><dd>не указан</dd></div>
+<div><dt>White label</dt><dd>брендинг страницы, тариф не указан</dd></div>
+</dl>
+<details><summary>Подробнее</summary><div class="note note-red"><b>Минусы и оговорки</b>Есть только проверка по документу, без оценки по лицу. Страница цен очень длинная — дочитана не полностью.</div><dl class="facts"><div class="kv"><dt>Цены</dt><dd>Free Forever — до 10 проверок в месяц бесплатно. Essentials — «Starting from $1.5 per verification», до 20 000 проверок. Enterprise — цена по запросу. Отдельной цены за проверку возраста нет.</dd></div><div class="kv"><dt>Брендинг и домен</dt><dd>«Brand Personalization: Customize the look and feel of your verification process with iFrame Design to align with your brand» и «Tailored Verification Page … including UI/UX branding». На каком тарифе — не указано; слов white label на странице нет.</dd></div><div class="kv"><dt>Свой домен</dt><dd>не указано</dd></div><div class="kv"><dt>Что нужно от вас</dt><dd>не опубликовано</dd></div></dl><p class="pn srcs"><a class="src" href="https://shuftipro.com/pricing/" target="_blank" rel="noopener noreferrer">страница цен</a> <a class="src" href="https://shuftipro.com/pricing/" target="_blank" rel="noopener noreferrer">shuftipro.com</a></p></details>
+</article><article class="vc" id="v-stripe" data-g="brand">
+<div class="vc-top"><h3><a href="https://stripe.com/identity" target="_blank" rel="noopener noreferrer">Stripe Identity</a></h3><div class="chips"><span class="chip chip-cat">документ + селфи</span><span class="chip chip-cat">частичный брендинг</span></div></div>
+<p class="vc-what">Проверка документа и селфи с извлечением даты рождения: «Validate name, date of birth, and local ID number». Документы «from over 100 countries». Отдельной функции «порог 18+» на странице нет — возраст считается по дате рождения.</p>
+<dl class="vc-price">
+<div><dt>Проверка возраста</dt><dd>$1,50 за проверку</dd></div>
+<div><dt>Минимум в месяц</dt><dd>нет</dd></div>
+<div><dt>White label</dt><dd>свои цвета и настройки бренда</dd></div>
+</dl>
+<details><summary>Подробнее</summary><div class="note note-red"><b>Минусы и оговорки</b>Stripe не работает с пользователями из России и Беларуси — без иностранного юрлица недоступен.</div><dl class="facts"><div class="kv"><dt>Цены</dt><dd>«$1.50 per verification», списание — «Charged when a user completes verification». Поиск по номеру социального страхования (только США) — $0,50.</dd></div><div class="kv"><dt>Брендинг и домен</dt><dd>«Customizable colors and brand settings». Загрузка логотипа и свой домен не упоминаются.</dd></div><div class="kv"><dt>Свой домен</dt><dd>нет</dd></div><div class="kv"><dt>Что нужно от вас</dt><dd>Аккаунт Stripe в поддерживаемой стране.</dd></div></dl><p class="pn srcs"><a class="src" href="https://stripe.com/identity" target="_blank" rel="noopener noreferrer">страница цен</a> <a class="src" href="https://stripe.com/identity" target="_blank" rel="noopener noreferrer">stripe.com</a> <a class="src" href="https://support.stripe.com/questions/sanctions-on-russia-and-belarus" target="_blank" rel="noopener noreferrer">support.stripe.com</a></p></details>
+</article><article class="vc" id="v-idanalyzer" data-g="brand">
+<div class="vc-top"><h3><a href="https://www.idanalyzer.com/" target="_blank" rel="noopener noreferrer">ID Analyzer</a></h3><div class="chips"><span class="chip chip-cat">документ</span><span class="chip chip-cat">частичный брендинг</span></div></div>
+<p class="vc-what">Распознавание и проверка документов, биометрия, живость, AML; возраст определяется по дате рождения из документа — отдельной функции «проверка возраста» в прайсе нет.</p>
+<dl class="vc-price">
+<div><dt>Проверка возраста</dt><dd>в составе запроса; сверх квоты $0,08–0,12</dd></div>
+<div><dt>Минимум в месяц</dt><dd>$89 (1 000 запросов)</dd></div>
+<div><dt>White label</dt><dd>только на тарифе за $880</dd></div>
+</dl>
+<details><summary>Подробнее</summary><div class="note note-red"><b>Минусы и оговорки</b>Только проверка по документу; свой брендинг — лишь на самом дорогом тарифе.</div><dl class="facts"><div class="kv"><dt>Цены</dt><dd>Entry — $89 в месяц за 1 000 запросов, сверх — $0,12; Advanced — $350 (5 000, $0,10 сверх); Business — $880 (15 000, $0,08). 100 тестовых запросов бесплатно, без карты. Без долгосрочных обязательств, годовая оплата — минус 25%.</dd></div><div class="kv"><dt>Брендинг и домен</dt><dd>Свой брендинг страницы проверки DocuPass — только на Business за $880 в месяц.</dd></div><div class="kv"><dt>Свой домен</dt><dd>не указано</dd></div><div class="kv"><dt>Что нужно от вас</dt><dd>Оплата картой или PayPal.</dd></div></dl><p class="pn srcs"><a class="src" href="https://www.idanalyzer.com/pricing.html" target="_blank" rel="noopener noreferrer">страница цен</a> <a class="src" href="https://www.idanalyzer.com/pricing.html" target="_blank" rel="noopener noreferrer">idanalyzer.com</a></p></details>
+</article><article class="vc" id="v-agechecker" data-g="brand">
+<div class="vc-top"><h3><a href="https://agechecker.net/" target="_blank" rel="noopener noreferrer">AgeChecker.Net</a></h3><div class="chips"><span class="chip chip-cat">не описан</span><span class="chip chip-cat">частичный брендинг</span></div></div>
+<p class="vc-what">Проверка возраста покупателей интернет-магазинов с ограничением заказов по странам, штатам, округам и почтовым индексам; бесплатный age gate на главную страницу.</p>
+<dl class="vc-price">
+<div><dt>Проверка возраста</dt><dd>$0,50 за принятую проверку</dd></div>
+<div><dt>Минимум в месяц</dt><dd>$25</dd></div>
+<div><dt>White label</dt><dd>брокерский аккаунт по запросу</dd></div>
+</dl>
+<details><summary>Подробнее</summary><div class="note note-red"><b>Минусы и оговорки</b>Способ проверки на странице цен не описан; сервис ориентирован на США.</div><dl class="facts"><div class="kv"><dt>Цены</dt><dd>$25 в месяц + $0,50 за принятую проверку. Без платы за установку и без договора, отмена в любой момент; за отклонённые и брошенные проверки денег не берут; скидки за объём.</dd></div><div class="kv"><dt>Брендинг и домен</dt><dd>«Interested in managing your own clients? Contact us for a broker account». Условия white label не описаны.</dd></div><div class="kv"><dt>Свой домен</dt><dd>не указано</dd></div><div class="kv"><dt>Что нужно от вас</dt><dd>не опубликовано</dd></div></dl><p class="pn srcs"><a class="src" href="https://agechecker.net/pricing" target="_blank" rel="noopener noreferrer">страница цен</a> <a class="src" href="https://agechecker.net/pricing" target="_blank" rel="noopener noreferrer">agechecker.net</a></p></details>
+</article></div></div><div class="group" data-g="own"><h3 class="gh"><span class="num"></span>Без white label</h3><p class="gsub">Компонент для своего продукта, перепродавать под своим брендом не предполагается.</p><div class="vgrid"><article class="vc" id="v-facia" data-g="own">
+<div class="vc-top"><h3><a href="https://facia.ai/" target="_blank" rel="noopener noreferrer">Facia</a></h3><div class="chips"><span class="chip chip-cat">селфи; документ — отдельно</span><span class="chip chip-mute">без white label</span></div></div>
+<p class="vc-what">Оценка возраста по лицу, проверка живости, сверка лица и проверка документа — каждая операция оплачивается отдельно.</p>
+<dl class="vc-price">
+<div><dt>Проверка возраста</dt><dd>$0,10 за проверку по селфи</dd></div>
+<div><dt>Минимум в месяц</dt><dd>нет</dd></div>
+<div><dt>White label</dt><dd>не упомянут</dd></div>
+</dl>
+<details><summary>Подробнее</summary><div class="note note-red"><b>Минусы и оговорки</b>Для перепродажи под своим брендом условий нет — это компонент для своего продукта.</div><dl class="facts"><div class="kv"><dt>Цены</dt><dd>Pay As You Go, до 1 000 проверок в месяц: оценка возраста — $0,10, быстрая живость — $0,10, подробная — $0,12, сверка лица — $0,15, проверка документа — $0,70. Больше 1 000 в месяц — индивидуальная цена. Старт — 10 бесплатных кредитов без карты.</dd></div><div class="kv"><dt>Брендинг и домен</dt><dd>Про white label и свой брендинг на странице цен не сказано. Установка на своих серверах — только в Enterprise.</dd></div><div class="kv"><dt>Свой домен</dt><dd>—</dd></div><div class="kv"><dt>Что нужно от вас</dt><dd>не опубликовано</dd></div></dl><p class="pn srcs"><a class="src" href="https://facia.ai/pricing/" target="_blank" rel="noopener noreferrer">страница цен</a> <a class="src" href="https://facia.ai/pricing/" target="_blank" rel="noopener noreferrer">facia.ai</a></p></details>
+</article><article class="vc" id="v-tokenoftrust" data-g="own">
+<div class="vc-top"><h3><a href="https://tokenoftrust.com/" target="_blank" rel="noopener noreferrer">Token of Trust</a></h3><div class="chips"><span class="chip chip-cat">документ; селфи и базы — допом</span><span class="chip chip-mute">без white label</span></div></div>
+<p class="vc-what">Проверка возраста для магазинов с товарами 18+/21+: основной способ — государственный документ, дополнительно оценка по лицу, базы данных и SMS. «Available in 238 countries across all plans».</p>
+<dl class="vc-price">
+<div><dt>Проверка возраста</dt><dd>от $0,50 (+$0,15 за селфи-оценку)</dd></div>
+<div><dt>Минимум в месяц</dt><dd>$25</dd></div>
+<div><dt>White label</dt><dd>нет</dd></div>
+</dl>
+<details><summary>Подробнее</summary><div class="note note-red"><b>Минусы и оговорки</b>Инструмент для своего магазина, а не продукт для перепродажи под своим брендом.</div><dl class="facts"><div class="kv"><dt>Цены</dt><dd>Essentials — $25 в месяц + от $0,50 за проверку; Business — $50 + от $0,50; Pro — $125, цена по объёму, API только на Pro. Оценка возраста по лицу — +$0,15 (Business и Pro), проверка по базам США и Канады — +$0,10.</dd></div><div class="kv"><dt>Брендинг и домен</dt><dd>Полного white label нет: брендируется только картинка в письмах — $50 разово на Business и Pro; свой язык — $100 разово.</dd></div><div class="kv"><dt>Свой домен</dt><dd>нет</dd></div><div class="kv"><dt>Что нужно от вас</dt><dd>Подключение через SDK; API — только на Pro.</dd></div></dl><p class="pn srcs"><a class="src" href="https://published.tokenoftrust.com/pricing/" target="_blank" rel="noopener noreferrer">страница цен</a> <a class="src" href="https://published.tokenoftrust.com/pricing/" target="_blank" rel="noopener noreferrer">published.tokenoftrust.com</a></p></details>
+</article></div></div>
+  </section>
+  <section id="noprice" class="reveal">
+    <div class="sh"><span class="num"></span><h2>Известные, но без публичной цены</h2></div>
+    <p class="sub">Крупные сервисы, у которых цену проверки возраста не узнать без запроса.</p>
+    <ul class="noprice"><li><a href="https://www.yoti.com/" target="_blank" rel="noopener noreferrer"><b>Yoti</b></a> — Оценка возраста по лицу и другие способы проверки; цена для бизнеса — только по запросу.</li><li><a href="https://www.veriff.com/pricing" target="_blank" rel="noopener noreferrer"><b>Veriff</b></a> — Проверка личности — от $0,80 при минимуме $49 в месяц, но проверки возраста в самостоятельных тарифах нет; свой брендинг — с Premium, white label — в Enterprise.</li><li><a href="https://withpersona.com/pricing" target="_blank" rel="noopener noreferrer"><b>Persona</b></a> — Страница цен закрыта от автоматических запросов. Сторонние каталоги называют вход от $250 в месяц — первоисточником не подтверждено.</li><li><a href="https://sumsub.com/pricing/" target="_blank" rel="noopener noreferrer"><b>Sumsub</b></a> — Проверка личности — $1,35 при минимуме $149 в месяц; проверка возраста и white label на странице цен не упоминаются.</li></ul>
+  </section>
+  <section id="steps" class="reveal">
+    <div class="sh"><span class="num"></span><h2>Как выбрать</h2></div>
+    <ol class="steps"><li><span class="num"></span><div><b>Решите, что нужно: оценка по селфи или документ.</b> Селфи дешевле в 5–15 раз и не требует паспорта; документ даёт точную дату рождения. Если регулятор требует документ — выбор только среди второй группы.</div></li><li><span class="num"></span><div><b>Продаёте проверку своим клиентам — берите Didit или Ondato.</b> У Didit перепродажа разрешена прямо и бренд Didit скрыт; у Ondato white label стоит €150 за бренд. У остальных право перепродажи нужно уточнять.</div></li><li><span class="num"></span><div><b>Начните с бесплатных лимитов:</b> Didit — 500 KYC-проверок в месяц, Facia — 10 кредитов, Shufti Pro — 10 проверок в месяц, iDenfy — 14 дней и 10 проверок, ID Analyzer — 100 тестовых запросов.</div></li><li><span class="num"></span><div><b>Согласие и хранение биометрии — на вас.</b> Didit прямо пишет, что white label не снимает обязанностей контролёра данных: пользователю нужно сообщить, кто проверяет, и дать ссылку на политику конфиденциальности.</div></li><li><span class="num"></span><div><b>Зафиксируйте цену в договоре.</b> У Didit цена white label встречается в двух вариантах ($0,20 и $0,30), а в прайсе объявлено изменение цен с 1 ноября 2026 года.</div></li></ol>
+  </section>
+  <section id="method" class="reveal">
+    <div class="sh"><span class="num"></span><h2>Оговорки</h2></div>
+    <ul class="caveats"><li>Цены — со страниц вендоров. Сайт iDenfy отдаёт 403 автоматическим запросам и прочитан через текстовую копию; страницу цен Persona прочитать не удалось.</li><li>Точность оценки возраста по лицу вендоры публикуют сами — независимой проверки точности здесь нет.</li><li>Отношение вендоров к клиентам из России почти нигде не опубликовано. Stripe прямо не работает с Россией и Беларусью.</li><li>Цены вендоры меняют без предупреждения — перед решением откройте страницу цен по ссылке в карточке.</li><li>Это обзор рынка, а не юридическое заключение: требования к проверке возраста зависят от страны и вида сервиса.</li></ul>
+  </section>
+</main>
+<footer><div class="wrap"><p>Цены и условия вендоры меняют без уведомления — перед решением сверяйте с первоисточником по ссылке в карточке. Другие white-label варианты — в <a href="https://taksa1973.github.io/results/white-label-final-2026.html">финальной подборке</a>.</p></div></footer>
+<script>
+(function(){
+  var btns=[].slice.call(document.querySelectorAll('.fbtn')),groups=[].slice.call(document.querySelectorAll('.group')),rows=[].slice.call(document.querySelectorAll('#map tbody tr')),count=document.getElementById('fcount'),active={};
+  function apply(){
+    var on=Object.keys(active).filter(function(k){return active[k]});
+    groups.forEach(function(g){g.hidden=on.length>0&&on.indexOf(g.getAttribute('data-g'))<0});
+    var shown=0;rows.forEach(function(r){var ok=!on.length||on.indexOf(r.getAttribute('data-g'))>-1;r.hidden=!ok;if(ok)shown++});
+    if(count)count.textContent='Показано '+shown+' из '+rows.length;
+  }
+  btns.forEach(function(b){b.addEventListener('click',function(){var k=b.getAttribute('data-g');active[k]=!active[k];b.setAttribute('aria-pressed',active[k]?'true':'false');apply()})});
+  document.addEventListener('click',function(ev){var a=ev.target.closest&&ev.target.closest('a[href^="#v-"]');if(!a)return;var t=document.getElementById(a.getAttribute('href').slice(1));if(t&&t.closest('.group')&&t.closest('.group').hidden){active={};btns.forEach(function(b){b.setAttribute('aria-pressed','false')});apply()}});
+  apply();
+})();
+</script>
+<script type="module">
+const items = [...document.querySelectorAll('.reveal')];
+const show = el => { el.style.opacity = 1; el.style.transform = 'none'; };
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const fallback = () => {
+  if (!('IntersectionObserver' in window)) return items.forEach(show);
+  const io = new IntersectionObserver(es => es.forEach(x => { if (x.isIntersecting) { x.target.style.transition = 'opacity .5s ease, transform .5s ease'; show(x.target); io.unobserve(x.target); } }), { rootMargin: '0px 0px -8% 0px' });
+  items.forEach(el => io.observe(el));
+};
+setTimeout(() => {
+  try { document.getAnimations().forEach(a => a.finish()); } catch (e) {}
+  document.querySelectorAll('.reveal, .stat, .ins').forEach(el => { if (parseFloat(getComputedStyle(el).opacity) < 0.99) show(el); });
+}, 3000);
+const wait = new Promise(r => setTimeout(() => r(null), 2500));
+const m = reduce ? null : await Promise.race([import('https://cdn.jsdelivr.net/npm/motion@11/+esm').catch(() => null), wait]);
+if (reduce) { items.forEach(show); }
+else if (!m) { fallback(); }
+else {
+  try {
+    const { animate, inView, stagger } = m;
+    inView('.reveal', x => { const el = x && x.target ? x.target : x; animate(el, { opacity: [0, 1], y: [18, 0] }, { duration: 0.5, easing: [0.22, 1, 0.36, 1] }); }, { margin: '0px 0px -8% 0px' });
+    inView('.bento', x => { const el = x && x.target ? x.target : x; animate(el.querySelectorAll('.ins'), { opacity: [0, 1], y: [12, 0] }, { duration: 0.45, delay: stagger(0.05) }); });
+    animate('.stat', { opacity: [0, 1], y: [10, 0] }, { duration: 0.4, delay: stagger(0.06) });
+  } catch (err) { fallback(); }
+}
+</script>
+</body>
+</html>
