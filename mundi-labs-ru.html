@@ -3,126 +3,254 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Mundi Labs — данные о поведении для моделей мира</title>
+<title>Mundi Labs — данные о поведении для world models</title>
 <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
 <meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet">
-<meta name="description" content="Mundi Labs записывает поведение живых организмов непрерывно и в масштабе и превращает это в структурированные датасеты для обучения моделей мира.">
+<meta name="description" content="Mundi Labs непрерывно записывает поведение живых организмов и превращает его в структурированные датасеты для обучения world models. Русская версия — для внутреннего обсуждения.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Host+Grotesk:wght@400;500;600;700&family=Geist:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#000000; --surface:#0C0C0D; --surface-2:#141416;
-  --ink:#F5F5F5; --ink-2:#A8A8AC; --ink-3:#6E6E73;
-  --line:#232326; --line-2:#2E2E33;
-  --red:#9B1C1C; --red-ink:#E05252; --red-soft:rgba(155,28,28,.14);
-  --r-lg:18px; --r-md:12px;
-  --maxw:1140px;
+  --bg:#050507; --surface:#0C0D11; --surface-2:#131419; --surface-3:#1A1C23;
+  --line:rgba(255,255,255,.08); --line-2:rgba(255,255,255,.16);
+  --ink:#FFFFFF; --ink-2:#ABAEBB; --ink-3:#7E8290;
+  --blue:#0099FF; --blue-dim:rgba(0,153,255,.14); --blue-glow:rgba(0,153,255,.30);
+  --lime:#D5FF45;
+  --display:'Host Grotesk','Geist',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  --text:'Geist','Host Grotesk',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  --mono:'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  --pill:100px; --r-xl:36px; --r-lg:26px; --r-md:18px;
+  --maxw:1200px;
 }
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%; scroll-behavior:smooth}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 body{
   margin:0; background:var(--bg); color:var(--ink);
-  font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
-  font-size:17px; line-height:1.62; -webkit-font-smoothing:antialiased;
+  font-family:var(--text); font-size:17px; line-height:1.6; -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
 }
 .wrap{max-width:var(--maxw); margin:0 auto; padding:0 24px}
-a{color:var(--red-ink); text-decoration:none; border-bottom:1px solid rgba(224,82,82,.3)}
-a:hover{border-bottom-color:var(--red-ink)}
-a:focus-visible,button:focus-visible{outline:2px solid var(--red-ink); outline-offset:3px; border-radius:6px}
-h1,h2,h3,h4{letter-spacing:-.025em; line-height:1.1; margin:0}
-h1{font-size:clamp(36px,6.4vw,70px); font-weight:700}
-h2{font-size:clamp(26px,3.5vw,42px); font-weight:700}
-h3{font-size:clamp(18px,2vw,22px); font-weight:600; margin-bottom:10px}
-p{margin:0 0 16px}
-small{font-size:13.5px; color:var(--ink-3)}
+a{color:var(--blue); text-decoration:none}
+a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid var(--blue); outline-offset:3px; border-radius:8px}
+h1,h2,h3,h4{font-family:var(--display); letter-spacing:-.035em; line-height:1.06; margin:0; font-weight:600}
+h1{font-size:clamp(36px,6.4vw,78px); font-weight:700}
+h2{font-size:clamp(28px,4.1vw,50px); font-weight:600}
+h3{font-size:clamp(18px,2vw,22px); font-weight:600; margin-bottom:10px; letter-spacing:-.02em}
+p{margin:0 0 15px}
 img{max-width:100%; display:block}
+small{font-size:13.5px}
 
-.topbar{position:sticky; top:0; z-index:100; background:rgba(0,0,0,.78); backdrop-filter:saturate(180%) blur(18px); border-bottom:1px solid var(--line)}
-.topbar .wrap{display:flex; align-items:center; gap:20px; height:62px; justify-content:space-between}
-.brand{display:flex; align-items:center; gap:11px; font-weight:700; font-size:17px; letter-spacing:-.03em; color:var(--ink); white-space:nowrap}
-.brand svg{width:26px; height:26px; flex:none; color:var(--red-ink)}
-.navside{display:flex; align-items:center; gap:18px; min-width:0}
-.topnav{display:flex; gap:20px; overflow-x:auto; scrollbar-width:none}
-.topnav::-webkit-scrollbar{display:none}
-.topnav a{font-size:14.5px; color:var(--ink-2); border:0; white-space:nowrap; padding:6px 0}
-.topnav a:hover{color:var(--ink)}
-@media(max-width:980px){.topnav{display:none}}
-.enlink{display:inline-flex; align-items:center; gap:8px; font-size:13px; font-weight:600; color:var(--ink-2);
-  background:var(--surface-2); border:1px solid var(--line); border-radius:100px; padding:8px 14px; min-height:38px; flex:none}
-.enlink:hover{color:var(--ink); border-color:var(--line-2)}
-.enlink .fl{width:20px; height:14px; border-radius:2px; flex:none; box-shadow:0 0 0 1px rgba(255,255,255,.14) inset}
+.mono{font-family:var(--mono); font-variant-numeric:tabular-nums}
+.eyebrow{display:inline-flex; align-items:center; gap:9px; font-family:var(--mono); font-size:11.5px; font-weight:500;
+  letter-spacing:.09em; text-transform:uppercase; color:var(--ink-2);
+  background:var(--surface); border:1px solid var(--line); padding:8px 15px; border-radius:var(--pill)}
+.eyebrow i{width:6px; height:6px; border-radius:50%; background:var(--blue); box-shadow:0 0 10px var(--blue-glow); font-style:normal}
+.eyebrow.lime i{background:var(--lime); box-shadow:0 0 10px rgba(213,255,69,.35)}
 
-.hero{position:relative; min-height:clamp(520px,74vh,720px); display:flex; align-items:flex-end; overflow:hidden; border-bottom:1px solid var(--line)}
-.hero .bg{position:absolute; inset:0; z-index:0}
-.hero .bg img{width:100%; height:100%; object-fit:cover; filter:grayscale(.3) contrast(1.05) brightness(.52)}
-.hero .bg::after{content:""; position:absolute; inset:0;
-  background:linear-gradient(180deg, rgba(0,0,0,.72) 0%, rgba(0,0,0,.35) 42%, rgba(0,0,0,.94) 100%)}
-.hero .wrap{position:relative; z-index:1; padding-top:116px; padding-bottom:62px}
-.eyebrow{display:inline-flex; align-items:center; gap:9px; font-size:12px; font-weight:600; letter-spacing:.1em; text-transform:uppercase;
-  color:var(--ink); background:rgba(155,28,28,.3); border:1px solid rgba(224,82,82,.45); padding:7px 14px; border-radius:100px; margin-bottom:24px; backdrop-filter:blur(6px)}
-.hero h1{max-width:17ch}
-.hero .lede{font-size:clamp(18px,2.1vw,22px); color:#D6D6D9; max-width:660px; margin-top:24px}
-.cta{display:flex; gap:12px; flex-wrap:wrap; margin-top:32px}
-.btn{display:inline-flex; align-items:center; justify-content:center; min-height:50px; padding:0 28px; border-radius:100px;
-  font-size:16px; font-weight:600; border:1px solid transparent; cursor:pointer; transition:transform .18s cubic-bezier(.2,.7,.3,1), background .18s, border-color .18s}
-.btn-p{background:var(--red); color:#fff; border-color:var(--red)}
-.btn-p:hover{background:#B22222; transform:translateY(-1px)}
-.btn-s{background:rgba(245,245,245,.06); color:var(--ink); border-color:rgba(245,245,245,.22); backdrop-filter:blur(6px)}
-.btn-s:hover{background:rgba(245,245,245,.12); transform:translateY(-1px)}
+/* ---------- floating pill nav ---------- */
+.navbar{position:fixed; top:14px; left:50%; transform:translateX(-50%); z-index:200; width:calc(100% - 28px); max-width:1120px}
+.navbar .inner{display:flex; align-items:center; justify-content:space-between; gap:18px;
+  background:rgba(12,13,17,.74); backdrop-filter:saturate(170%) blur(22px); -webkit-backdrop-filter:saturate(170%) blur(22px);
+  border:1px solid var(--line); border-radius:var(--pill); padding:8px 8px 8px 20px;
+  box-shadow:0 10px 40px rgba(0,0,0,.5)}
+.brand{display:flex; align-items:center; gap:10px; font-family:var(--display); font-weight:600; font-size:17px;
+  letter-spacing:-.03em; color:var(--ink); white-space:nowrap}
+.brand svg{width:24px; height:24px; flex:none; color:var(--blue)}
+.navlinks{display:flex; gap:26px; margin-left:auto}
+.navlinks a{font-size:14.5px; color:var(--ink-2); white-space:nowrap; transition:color .18s}
+.navlinks a:hover{color:var(--ink)}
+@media(max-width:1000px){.navlinks{display:none}}
+.navside{display:flex; align-items:center; gap:8px; flex:none}
+.enlink{display:inline-flex; align-items:center; gap:8px; font-family:var(--mono); font-size:11.5px; color:var(--ink-2);
+  background:rgba(255,255,255,.04); border:1px solid var(--line); border-radius:var(--pill); padding:8px 14px; min-height:36px;
+  transition:background .18s, color .18s, border-color .18s}
+.enlink:hover{color:var(--ink); background:rgba(255,255,255,.09); border-color:var(--line-2)}
+.enlink .fl{width:17px; height:11px; border-radius:2px; flex:none}
+@media(max-width:700px){.navbar .inner{padding:7px 7px 7px 16px} .enlink{padding:8px 11px}}
 
-section{padding:70px 0; scroll-margin-top:72px}
-.section-head{max-width:740px; margin-bottom:32px}
-.section-head .k{font-size:12px; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:var(--red-ink); margin-bottom:14px}
-.section-head p{color:var(--ink-2); margin-top:16px; font-size:18px}
+/* ---------- buttons ---------- */
+.btn{display:inline-flex; align-items:center; justify-content:center; gap:9px; min-height:50px; padding:0 26px;
+  border-radius:var(--pill); font-family:var(--display); font-size:15.5px; font-weight:600; letter-spacing:-.01em;
+  border:1px solid transparent; cursor:pointer; white-space:nowrap;
+  transition:transform .2s cubic-bezier(.2,.7,.3,1), background .2s, box-shadow .2s, border-color .2s}
+.btn-p{background:var(--blue); color:#00121F; box-shadow:0 6px 26px rgba(0,153,255,.28)}
+.btn-p:hover{transform:translateY(-2px); box-shadow:0 12px 36px rgba(0,153,255,.42)}
+.btn-s{background:rgba(255,255,255,.05); color:var(--ink); border-color:var(--line-2)}
+.btn-s:hover{background:rgba(255,255,255,.1); transform:translateY(-2px)}
+.btn svg{width:16px; height:16px}
+
+/* ---------- hero ---------- */
+.hero{position:relative; padding:170px 0 0; overflow:hidden}
+.hero::before{content:""; position:absolute; top:-340px; left:50%; transform:translateX(-50%);
+  width:1100px; height:780px; border-radius:50%; pointer-events:none;
+  background:radial-gradient(circle, rgba(0,153,255,.20) 0%, rgba(0,153,255,.07) 38%, transparent 68%); filter:blur(18px)}
+.hero::after{content:""; position:absolute; inset:0; pointer-events:none;
+  background-image:linear-gradient(rgba(255,255,255,.028) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.028) 1px, transparent 1px);
+  background-size:68px 68px; mask-image:radial-gradient(circle at 50% 22%, #000 0%, transparent 72%);
+  -webkit-mask-image:radial-gradient(circle at 50% 22%, #000 0%, transparent 72%)}
+.hero .wrap{position:relative; z-index:2; text-align:center}
+.hero h1{margin-top:26px}
+.hero h1 .hl{color:var(--blue)}
+.hero h1 .ln{display:block}
+.hero .lede{font-size:clamp(17px,1.85vw,20px); color:var(--ink-2); max-width:640px; margin:24px auto 0}
+.cta{display:flex; gap:12px; flex-wrap:wrap; justify-content:center; margin-top:32px}
+.note{display:flex; gap:12px; align-items:flex-start; text-align:left; margin:34px auto 0; padding:16px 20px; max-width:660px;
+  background:var(--surface); border:1px solid var(--line); border-left:2px solid var(--blue); border-radius:0 var(--r-md) var(--r-md) 0}
+.note svg{width:18px; height:18px; flex:none; color:var(--blue); margin-top:3px}
+.note p{margin:0; font-size:14.5px; color:var(--ink-2)}
+.scrollhint{display:inline-flex; align-items:center; gap:9px; margin-top:38px; font-family:var(--mono); font-size:11.5px;
+  letter-spacing:.09em; text-transform:uppercase; color:var(--ink-3)}
+.scrollhint svg{width:14px; height:14px}
+.js .scrollhint svg{animation:bob 1.9s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(4px)}}
+@media (prefers-reduced-motion:reduce){.js .scrollhint svg{animation:none}}
+
+/* tracking viz */
+.viz{margin-top:46px; border:1px solid var(--line); border-radius:var(--r-xl) var(--r-xl) 0 0; border-bottom:0;
+  background:var(--surface); overflow:hidden; box-shadow:0 -20px 80px rgba(0,153,255,.12)}
+.viz .vhead{display:flex; align-items:center; justify-content:space-between; gap:16px; padding:13px 20px;
+  border-bottom:1px solid var(--line); background:rgba(255,255,255,.02); flex-wrap:wrap}
+.viz .vhead .t{font-family:var(--mono); font-size:12px; color:var(--ink-2); display:flex; align-items:center; gap:9px}
+.dot{width:7px; height:7px; border-radius:50%; background:var(--lime); box-shadow:0 0 0 3px rgba(213,255,69,.14)}
+.js .dot{animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+@media (prefers-reduced-motion:reduce){.js .dot{animation:none}}
+.viz .readout{font-family:var(--mono); font-size:12px; color:var(--ink-3); display:flex; gap:20px; flex-wrap:wrap}
+.viz .readout b{color:var(--blue); font-weight:500}
+.viz .plate{position:relative; aspect-ratio:21/9; min-height:240px;
+  background:radial-gradient(ellipse at 50% 50%, #0A121C 0%, #07090F 62%, #050507 100%)}
+.viz svg{position:absolute; inset:0; width:100%; height:100%}
+.grid-l{stroke:rgba(0,153,255,.07); stroke-width:1}
+.track{fill:none; stroke-width:1.7; stroke-linecap:round; stroke-linejoin:round}
+.js .track{stroke-dasharray:var(--len); stroke-dashoffset:var(--len)}
+.head-d{r:3.6; opacity:0}
+.js .head-d{opacity:1}
+
+/* ---------- sections ---------- */
+section{padding:96px 0; position:relative}
+section[id]{scroll-margin-top:96px}
+.section-head{max-width:780px; margin-bottom:44px}
+.section-head.mid{margin-left:auto; margin-right:auto; text-align:center}
+.section-head h2{margin-top:18px}
+.section-head p{color:var(--ink-2); margin-top:18px; font-size:17.5px}
 
 .grid{display:grid; grid-template-columns:repeat(12,1fr); gap:18px}
-.card{background:var(--surface); border:1px solid var(--line); border-radius:var(--r-lg); padding:30px;
-  transition:border-color .22s, transform .22s cubic-bezier(.2,.7,.3,1)}
-.card.hov:hover{border-color:var(--line-2); transform:translateY(-2px)}
-.c12{grid-column:span 12} .c8{grid-column:span 8} .c7{grid-column:span 7} .c6{grid-column:span 6} .c5{grid-column:span 5} .c4{grid-column:span 4}
-@media(max-width:900px){.c8,.c7,.c6,.c5,.c4{grid-column:span 12}}
+.card{position:relative; background:var(--surface); border:1px solid var(--line); border-radius:var(--r-lg); padding:32px;
+  transition:border-color .25s, transform .25s cubic-bezier(.2,.7,.3,1), background .25s}
+.card.hov:hover{border-color:rgba(0,153,255,.38); transform:translateY(-3px); background:var(--surface-2)}
+.c12{grid-column:span 12}.c8{grid-column:span 8}.c7{grid-column:span 7}.c6{grid-column:span 6}.c5{grid-column:span 5}.c4{grid-column:span 4}.c3{grid-column:span 3}
+@media(max-width:920px){.c8,.c7,.c6,.c5,.c4,.c3{grid-column:span 12}}
 
-.stats{display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--line); border:1px solid var(--line); border-radius:var(--r-lg); overflow:hidden}
-@media(max-width:860px){.stats{grid-template-columns:repeat(2,1fr)}}
-.stats .s{background:var(--bg); padding:30px 26px}
-.stats .n{font-size:clamp(30px,4vw,42px); font-weight:700; letter-spacing:-.04em; line-height:1; color:var(--red-ink)}
-.stats .c{color:var(--ink-2); font-size:14.5px; margin-top:12px; line-height:1.5}
+.stats{display:grid; grid-template-columns:repeat(4,1fr); border:1px solid var(--line); border-radius:var(--r-lg);
+  overflow:hidden; background:var(--surface)}
+@media(max-width:880px){.stats{grid-template-columns:repeat(2,1fr)}}
+.stats .s{padding:34px 28px; border-right:1px solid var(--line)}
+.stats .s:last-child{border-right:0}
+@media(max-width:880px){.stats .s:nth-child(2n){border-right:0} .stats .s:nth-child(-n+2){border-bottom:1px solid var(--line)}}
+.stats .n{font-family:var(--display); font-size:clamp(32px,4.2vw,50px); font-weight:700; letter-spacing:-.045em; line-height:1; color:var(--ink)}
+.stats .n em{font-style:normal; color:var(--blue)}
+.stats .c{color:var(--ink-3); font-size:13.5px; margin-top:14px; line-height:1.5}
 
+/* problem vs solution */
+.vs{display:grid; grid-template-columns:1fr 1fr; gap:18px}
+@media(max-width:880px){.vs{grid-template-columns:1fr}}
+.vs .col{border:1px solid var(--line); border-radius:var(--r-lg); padding:30px; background:var(--surface)}
+.vs .col.good{border-color:rgba(0,153,255,.30); background:linear-gradient(180deg, rgba(0,153,255,.07) 0%, var(--surface) 55%)}
+.vs .col h3{margin-bottom:22px}
+.vs ul{list-style:none; padding:0; margin:0; display:grid; gap:14px}
+.vs li{display:flex; gap:13px; align-items:flex-start; color:var(--ink-2); font-size:15.5px; line-height:1.5}
+.vs .mk{width:22px; height:22px; border-radius:50%; flex:none; display:flex; align-items:center; justify-content:center; margin-top:1px}
+.vs .bad .mk{background:rgba(255,255,255,.06); color:var(--ink-3)}
+.vs .good .mk{background:var(--blue-dim); color:var(--blue)}
+.vs .mk svg{width:12px; height:12px; stroke-width:2.4}
+
+/* steps */
+.steps{display:grid; gap:0; border:1px solid var(--line); border-radius:var(--r-lg); overflow:hidden; background:var(--surface)}
+.steps .st{display:grid; grid-template-columns:138px 1fr; gap:26px; padding:32px; border-bottom:1px solid var(--line); align-items:start}
+.steps .st:last-child{border-bottom:0}
+@media(max-width:760px){.steps .st{grid-template-columns:1fr; gap:14px; padding:26px}}
+.steps .num{font-family:var(--mono); font-size:12.5px; color:var(--blue); letter-spacing:.04em;
+  border:1px solid rgba(0,153,255,.3); background:var(--blue-dim); border-radius:var(--pill);
+  padding:7px 0; text-align:center; width:132px}
+.steps .st p{color:var(--ink-2); margin:0; max-width:70ch}
+
+/* photos */
 .shot{border-radius:var(--r-lg); overflow:hidden; border:1px solid var(--line); background:var(--surface-2); position:relative}
-.shot img{width:100%; height:100%; object-fit:cover; filter:grayscale(.25) brightness(.78) contrast(1.06); transition:transform .5s cubic-bezier(.2,.7,.3,1), filter .4s}
-.shot:hover img{transform:scale(1.03); filter:grayscale(0) brightness(.9) contrast(1.02)}
-.shot.tall img{aspect-ratio:3/4}
-.shot.wide img{aspect-ratio:16/9}
-.shot.sq img{aspect-ratio:1/1}
-.shot .cap{position:absolute; left:0; right:0; bottom:0; padding:18px 20px; font-size:13px; color:#D6D6D9;
-  background:linear-gradient(0deg, rgba(0,0,0,.85), rgba(0,0,0,0))}
+.shot img,.shot .art{width:100%; height:100%; object-fit:cover; display:block; filter:saturate(.72) contrast(1.04) brightness(.82);
+  transition:transform .6s cubic-bezier(.2,.7,.3,1), filter .4s}
+.shot:hover img,.shot:hover .art{transform:scale(1.04); filter:saturate(.9) contrast(1.04) brightness(.95)}
+.shot::after{content:""; position:absolute; inset:0; pointer-events:none;
+  background:linear-gradient(180deg, rgba(5,5,7,0) 58%, rgba(5,5,7,.55) 100%)}
+.shot.tall img,.shot.tall .art{aspect-ratio:3/4}
+.shot.wide img,.shot.wide .art{aspect-ratio:16/9}
+.shot.sq img,.shot.sq .art{aspect-ratio:1/1}
+.shot .cap{position:absolute; left:14px; bottom:13px; z-index:2; font-family:var(--mono); font-size:11.5px; color:var(--ink-2);
+  background:rgba(5,5,7,.6); border:1px solid var(--line); border-radius:var(--pill); padding:6px 12px; backdrop-filter:blur(8px)}
 
-.ico{width:38px; height:38px; border-radius:10px; display:flex; align-items:center; justify-content:center; margin-bottom:18px;
-  background:var(--red-soft); color:var(--red-ink); border:1px solid rgba(224,82,82,.22)}
-.ico svg{width:20px; height:20px; stroke-width:1.6}
+.ico{width:42px; height:42px; border-radius:13px; display:flex; align-items:center; justify-content:center; margin-bottom:20px;
+  background:var(--blue-dim); color:var(--blue); border:1px solid rgba(0,153,255,.2)}
+.ico svg{width:20px; height:20px; stroke-width:1.7}
 
 ul.tick{list-style:none; padding:0; margin:0; display:grid; gap:12px}
-ul.tick li{position:relative; padding-left:26px; color:var(--ink-2)}
-ul.tick li::before{content:""; position:absolute; left:2px; top:9px; width:7px; height:7px; border-radius:50%; background:var(--red-ink)}
-ul.tick strong{color:var(--ink)}
+ul.tick li{position:relative; padding-left:26px; color:var(--ink-2); font-size:15.5px}
+ul.tick li::before{content:""; position:absolute; left:3px; top:9px; width:7px; height:7px; border-radius:50%;
+  background:var(--blue); box-shadow:0 0 9px var(--blue-glow)}
+ul.tick strong{color:var(--ink); font-weight:600}
 
-.spec{display:grid; border:1px solid var(--line); border-radius:var(--r-lg); overflow:hidden; background:var(--surface)}
-.spec .r{display:grid; grid-template-columns:minmax(150px,230px) 1fr; border-bottom:1px solid var(--line)}
+.spec{border:1px solid var(--line); border-radius:var(--r-md); overflow:hidden}
+.spec .r{display:grid; grid-template-columns:minmax(150px,210px) 1fr; border-bottom:1px solid var(--line)}
 .spec .r:last-child{border-bottom:0}
-.spec .r > div{padding:15px 20px}
-.spec .t{font-weight:600; background:var(--surface-2); font-size:14.5px; color:var(--ink)}
+.spec .r > div{padding:15px 18px}
+.spec .t{font-family:var(--mono); font-size:11.5px; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-3);
+  background:rgba(255,255,255,.02)}
 .spec .d{font-size:14.5px; color:var(--ink-2)}
 @media(max-width:700px){.spec .r{grid-template-columns:1fr} .spec .t{border-bottom:1px solid var(--line)}}
 
-.band{border-top:1px solid var(--line); border-bottom:1px solid var(--line); background:var(--surface)}
-.contact{text-align:center; padding:82px 0}
-.contact .mail{font-size:clamp(21px,3.2vw,32px); font-weight:600; letter-spacing:-.03em; display:inline-block; margin:14px 0 20px; border:0}
-.contact .mail:hover{color:var(--red-ink)}
+.code{border:1px solid var(--line); border-radius:var(--r-lg); overflow:hidden; background:#07080C}
+.code .chead{display:flex; align-items:center; justify-content:space-between; padding:12px 16px; border-bottom:1px solid var(--line)}
+.code .chead .f{font-family:var(--mono); font-size:12px; color:var(--ink-3)}
+.code .chead .cp{appearance:none; border:1px solid var(--line); background:rgba(255,255,255,.04); color:var(--ink-2);
+  font-family:var(--mono); font-size:11.5px; padding:6px 12px; border-radius:var(--pill); cursor:pointer; min-height:32px;
+  transition:background .18s, color .18s}
+.code .chead .cp:hover{background:rgba(0,153,255,.14); color:var(--blue)}
+.code pre{margin:0; padding:20px; overflow-x:auto; font-family:var(--mono); font-size:12.5px; line-height:1.78; color:#C9D1E0}
+.code .k{color:#5BAEFF}.code .s{color:var(--lime)}.code .c{color:#5A6070}.code .n{color:#FFB86B}
 
-footer{padding:40px 0 64px; color:var(--ink-3); font-size:14px; border-top:1px solid var(--line)}
-footer .wrap{display:flex; gap:20px; justify-content:space-between; flex-wrap:wrap}
+.faq{display:grid; gap:12px; max-width:880px; margin:0 auto}
+.faq details{border:1px solid var(--line); border-radius:var(--r-md); background:var(--surface); overflow:hidden;
+  transition:border-color .22s, background .22s}
+.faq details[open]{border-color:rgba(0,153,255,.3); background:var(--surface-2)}
+.faq summary{list-style:none; cursor:pointer; padding:22px 26px; display:flex; align-items:center; justify-content:space-between;
+  gap:18px; font-family:var(--display); font-size:17px; font-weight:500; letter-spacing:-.015em; color:var(--ink)}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary .pm{width:28px; height:28px; border-radius:50%; flex:none; border:1px solid var(--line);
+  display:flex; align-items:center; justify-content:center; color:var(--ink-2); transition:transform .25s, color .25s, border-color .25s}
+.faq details[open] summary .pm{transform:rotate(45deg); color:var(--blue); border-color:rgba(0,153,255,.4)}
+.faq summary .pm svg{width:13px; height:13px; stroke-width:2}
+.faq .ans{padding:0 26px 24px; color:var(--ink-2); font-size:15.5px; max-width:72ch}
+.faq .ans p{margin:0}
+
+.final{position:relative; overflow:hidden; border:1px solid var(--line); border-radius:var(--r-xl);
+  background:linear-gradient(180deg, rgba(0,153,255,.12) 0%, var(--surface) 60%); padding:72px 32px; text-align:center}
+.final::before{content:""; position:absolute; top:-180px; left:50%; transform:translateX(-50%); width:680px; height:420px;
+  background:radial-gradient(circle, rgba(0,153,255,.3) 0%, transparent 68%); filter:blur(28px); pointer-events:none}
+.final .wrap2{position:relative; z-index:2; max-width:660px; margin:0 auto}
+.final h2{margin-top:20px}
+.final p{color:var(--ink-2); margin-top:18px}
+.final .mail{font-family:var(--mono); font-size:clamp(17px,2.4vw,24px); color:var(--ink); display:inline-block; margin-top:26px;
+  border-bottom:1px solid rgba(255,255,255,.2); padding-bottom:3px; transition:color .2s, border-color .2s}
+.final .mail:hover{color:var(--blue); border-color:var(--blue)}
+
+footer{border-top:1px solid var(--line); padding:56px 0 68px; color:var(--ink-3); font-size:14px}
+footer .fgrid{display:flex; gap:28px; justify-content:space-between; flex-wrap:wrap; align-items:flex-start}
+footer .brand{margin-bottom:12px}
+footer .fnote{max-width:480px; line-height:1.55}
+footer .flinks{display:flex; gap:22px; flex-wrap:wrap}
+footer .flinks a{color:var(--ink-2); font-size:14px}
+footer .flinks a:hover{color:var(--blue)}
+footer .copy{margin-top:34px; padding-top:22px; border-top:1px solid var(--line); display:flex; gap:18px; justify-content:space-between; flex-wrap:wrap}
 
 .reveal{opacity:1}
 .js .reveal{opacity:0; transform:translateY(22px)}
@@ -135,8 +263,15 @@ document.documentElement.classList.add('js');
 setTimeout(function(){document.querySelectorAll('.reveal').forEach(function(e){e.style.opacity=1;e.style.transform='none';});},2200);
 </script>
 
-<div class="topbar">
-  <div class="wrap">
+<!-- =========================================================
+     MUNDI LABS — русская версия, для внутреннего обсуждения.
+     Публичная версия (EN/ES/PT): mundi-labs.html
+     Заменить перед публикацией: hello@mundilabs.org, адрес.
+     Фотографии — Unsplash, свободная лицензия.
+     ========================================================= -->
+
+<div class="navbar">
+  <div class="inner">
     <span class="brand">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
         <circle cx="12" cy="12" r="9"/><path d="M3 12h18"/>
@@ -144,16 +279,15 @@ setTimeout(function(){document.querySelectorAll('.reveal').forEach(function(e){e
       </svg>
       Mundi Labs
     </span>
+    <nav class="navlinks" aria-label="Разделы">
+      <a href="#approach">Задача</a>
+      <a href="#dataset">Датасет</a>
+      <a href="#process">Процесс</a>
+      <a href="#lab">Лаборатория</a>
+      <a href="#faq">Вопросы</a>
+    </nav>
     <span class="navside">
-      <nav class="topnav" aria-label="Разделы">
-        <a href="#mission">Задача</a>
-        <a href="#dataset">Датасет</a>
-        <a href="#model">Организм</a>
-        <a href="#lab">Лаборатория</a>
-        <a href="#standards">Стандарты</a>
-        <a href="#access">Доступ</a>
-      </nav>
-      <a class="enlink" href="mundi-labs.html">
+      <a class="enlink" href="mundi-labs.html" title="Публичная версия сайта">
         <svg class="fl" viewBox="0 0 24 16" aria-hidden="true">
           <rect width="24" height="16" fill="#012169"/>
           <path d="M0 0l24 16M24 0L0 16" stroke="#fff" stroke-width="3.4"/>
@@ -168,93 +302,249 @@ setTimeout(function(){document.querySelectorAll('.reveal').forEach(function(e){e
 </div>
 
 <header class="hero">
-  <div class="bg">
-    <img src="https://images.unsplash.com/photo-1554475901-4538ddfbccc2?w=2000&q=80" alt="Лабораторный стол с микроскопом и образцами">
-  </div>
   <div class="wrap">
-    <span class="eyebrow reveal">Независимая исследовательская организация</span>
-    <h1 class="reveal">Данные о поведении<br>для моделей мира.</h1>
-    <p class="lede reveal">Мы записываем, как ведут себя живые организмы — непрерывно и в масштабе, — и превращаем это в структурированные наборы данных для обучения моделей, предсказывающих физический мир.</p>
+    <span class="eyebrow reveal"><i></i>Независимая исследовательская организация</span>
+    <h1 class="reveal">
+      <span class="ln">Данные о поведении</span>
+      <span class="ln hl">для world models.</span>
+    </h1>
+    <p class="lede reveal">Мы непрерывно и в большом объёме записываем, как ведут себя живые организмы, и превращаем это в структурированные датасеты для обучения моделей, которые предсказывают физический мир.</p>
     <div class="cta reveal">
       <a class="btn btn-p" href="#dataset">Что в датасете</a>
-      <a class="btn btn-s" href="#access">Запросить доступ</a>
+      <a class="btn btn-s" href="#process">Как это устроено</a>
+    </div>
+    <div class="note reveal">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v5h1"/></svg>
+      <p>Русская версия — для внутреннего обсуждения. Публичный сайт работает на английском, испанском и португальском: <a href="mundi-labs.html">mundi-labs.html</a>.</p>
+    </div>
+    <div class="scrollhint reveal">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"/></svg>
+      <span>листайте дальше</span>
+    </div>
+
+    <div class="viz reveal" aria-hidden="true">
+      <div class="vhead">
+        <span class="t"><span class="dot"></span>plate_07 · запись идёт</span>
+        <span class="readout">
+          в кадре <b>128</b>
+          прошло <b id="r-f">00:00</b>
+          темп. <b>20,0 °C</b>
+        </span>
+      </div>
+      <div class="plate">
+        <svg viewBox="0 0 1200 420" preserveAspectRatio="xMidYMid slice">
+          <g id="gridlines"></g>
+          <g id="tracks"></g>
+        </svg>
+      </div>
     </div>
   </div>
 </header>
 
-<section id="mission">
+<section id="approach" style="padding-top:60px">
   <div class="wrap">
     <div class="stats reveal">
-      <div class="s"><div class="n">302</div><div class="c">Нейрона в организме, который мы записываем, — все связи между ними уже картированы</div></div>
-      <div class="s"><div class="n">959</div><div class="c">Соматических клеток, у каждой известна родословная начиная с первого деления</div></div>
-      <div class="s"><div class="n">24/7</div><div class="c">Непрерывная запись на протяжении всей жизни особи, а не отдельные срезы</div></div>
-      <div class="s"><div class="n">Открыто</div><div class="c">Исходные кадры и производные траектории публикуются вместе, чтобы результат оставался пересчитываемым</div></div>
+      <div class="s"><div class="n"><em>302</em></div><div class="c">Нейрона в организме, который мы записываем — каждая связь между ними уже описана</div></div>
+      <div class="s"><div class="n"><em>959</em></div><div class="c">Клеток тела, у каждой известна родословная начиная с первого деления</div></div>
+      <div class="s"><div class="n"><em>21</em> дн.</div><div class="c">Типичная продолжительность жизни — полный цикл развития и старения внутри одной записи</div></div>
+      <div class="s"><div class="n">Открыто</div><div class="c">Исходные кадры и построенные траектории выкладываются вместе, поэтому результат можно пересчитать</div></div>
     </div>
 
-    <div class="grid" style="margin-top:34px">
-      <div class="card c7 reveal">
-        <div class="section-head" style="margin-bottom:0">
-          <div class="k">Задача</div>
-          <h2>Симуляции чистые. Жизнь — нет.</h2>
-        </div>
-        <p style="color:var(--ink-2); margin-top:20px">Модели мира учатся предсказывать, что произойдёт дальше. Большинство из них обучают на видео человеческих сцен либо на синтетических физических движках: первое неконтролируемо, второе слишком аккуратно. Ни то ни другое не показывает, где предсказание ломается на самом деле.</p>
-        <p style="color:var(--ink-2); margin-bottom:0">Живой организм в контролируемой чашке стоит ровно между ними. Среда задана полностью. Поведение — нет. Эта щель и есть сигнал, за которым мы идём.</p>
+    <div class="grid" style="margin-top:80px">
+      <div class="c7 reveal">
+        <span class="eyebrow"><i></i>Задача</span>
+        <h2 style="margin-top:20px">Симуляции чистые. Жизнь — нет.</h2>
+        <p style="color:var(--ink-2); margin-top:22px; font-size:17.5px">World models учатся предсказывать, что произойдёт дальше. Большинство обучают на видео человеческой среды или на синтетических физических движках: первое никто не контролирует, второе слишком аккуратное. Ни то, ни другое не показывает, где предсказание действительно ломается.</p>
+        <p style="color:var(--ink-2); font-size:17.5px; margin-bottom:0">Живой организм в контролируемой чашке стоит ровно между этими двумя вариантами. Среда задана полностью. Поведение — нет. Этот разрыв и есть сигнал, который нам нужен.</p>
       </div>
       <div class="c5 reveal">
         <div class="shot tall">
-          <img src="https://images.unsplash.com/photo-1583911860205-72f8ac8ddcbe?w=1200&q=80" alt="Чашки с культурой, подготовленные к съёмке" loading="lazy">
-          <span class="cap">Чашки, подготовленные к непрерывной съёмке</span>
+          <svg class="art" viewBox="0 0 600 800" role="img" aria-label="Шесть чашек с культурой, вид сверху" preserveAspectRatio="xMidYMid slice">
+    <defs>
+      <linearGradient id="bg1" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#0A121C"/><stop offset="1" stop-color="#06080E"/>
+      </linearGradient>
+      <radialGradient id="pool1" cx="50%" cy="50%">
+        <stop offset="0" stop-color="#0099FF" stop-opacity=".22"/>
+        <stop offset="1" stop-color="#0099FF" stop-opacity="0"/>
+      </radialGradient>
+      <filter id="gl1" x="-50%" y="-50%" width="200%" height="200%">
+        <feGaussianBlur stdDeviation="3" result="b"/>
+        <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+      </filter>
+      <pattern id="grid1" width="40" height="40" patternUnits="userSpaceOnUse">
+        <path d="M40 0H0V40" fill="none" stroke="#0099FF" stroke-opacity=".07" stroke-width="1"/>
+      </pattern>
+    </defs>
+
+      <rect width="600" height="800" fill="url(#bg1)"/>
+      <rect width="600" height="800" fill="url(#grid1)"/>
+  <ellipse cx="300" cy="380" rx="330" ry="400" fill="url(#pool1)"/>
+  <g>
+    <circle cx="168" cy="142" r="92" fill="none" stroke="#1E6FA8" stroke-opacity=".55" stroke-width="1.6"/>
+    <circle cx="168" cy="142" r="82" fill="none" stroke="#1E6FA8" stroke-opacity=".3" stroke-width="1"/>
+    <path transform="translate(152 120)" d="M-28 6 q14 -18 26 -4 q12 14 26 -2 q10 -12 20 2" fill="none" stroke="#1E6FA8" stroke-opacity="0.50" stroke-width="1.4" stroke-linecap="round"/>
+    <path transform="translate(168 142)" d="M-30 -8 q16 16 28 2 q12 -14 24 4 q8 10 18 -4" fill="none" stroke="#1E6FA8" stroke-opacity="0.50" stroke-width="1.4" stroke-linecap="round"/>
+    <path transform="translate(184 164)" d="M-24 12 q10 -20 22 -6 q14 16 28 -4" fill="none" stroke="#1E6FA8" stroke-opacity="0.50" stroke-width="1.4" stroke-linecap="round"/>
+  </g>
+  <text x="76" y="260" fill="#7E8290" font-family="ui-monospace,monospace" font-size="13" letter-spacing="1.5">plate_01</text>
+  <g>
+    <circle cx="432" cy="142" r="92" fill="none" stroke="#1E6FA8" stroke-opacity=".55" stroke-width="1.6"/>
+    <circle cx="432" cy="142" r="82" fill="none" stroke="#1E6FA8" stroke-opacity=".3" stroke-width="1"/>
+    <path transform="translate(416 120)" d="M-28 6 q14 -18 26 -4 q12 14 26 -2 q10 -12 20 2" fill="none" stroke="#1E6FA8" stroke-opacity="0.50" stroke-width="1.4" stroke-linecap="round"/>
+    <path transform="translate(432 142)" d="M-30 -8 q16 16 28 2 q12 -14 24 4 q8 10 18 -4" fill="none" stroke="#1E6FA8" stroke-opacity="0.50" stroke-width="1.4" stroke-linecap="round"/>
+    <path transform="translate(448 164)" d="M-24 12 q10 -20 22 -6 q14 16 28 -4" fill="none" stroke="#1E6FA8" stroke-opacity="0.50" stroke-width="1.4" stroke-linecap="round"/>
+  </g>
+  <text x="340" y="260" fill="#7E8290" font-family="ui-monospace,monospace" font-size="13" letter-spacing="1.5">plate_02</text>
+  <g filter="url(#gl1)">
+    <circle cx="168" cy="370" r="92" fill="none" stroke="#38B0FF" stroke-opacity=".95" stroke-width="1.6"/>
+    <circle cx="168" cy="370" r="82" fill="none" stroke="#38B0FF" stroke-opacity=".3" stroke-width="1"/>
+    <path transform="translate(152 348)" d="M-28 6 q14 -18 26 -4 q12 14 26 -2 q10 -12 20 2" fill="none" stroke="#38B0FF" stroke-opacity="0.85" stroke-width="1.4" stroke-linecap="round"/>
+    <path transform="translate(168 370)" d="M-30 -8 q16 16 28 2 q12 -14 24 4 q8 10 18 -4" fill="none" stroke="#38B0FF" stroke-opacity="0.85" stroke-width="1.4" stroke-linecap="round"/>
+    <path transform="translate(184 392)" d="M-24 12 q10 -20 22 -6 q14 16 28 -4" fill="none" stroke="#38B0FF" stroke-opacity="0.85" stroke-width="1.4" stroke-linecap="round"/>
+  </g>
+  <text x="76" y="488" fill="#7E8290" font-family="ui-monospace,monospace" font-size="13" letter-spacing="1.5">plate_03</text>
+  <text x="204" y="488" fill="#D5FF45" font-family="ui-monospace,monospace" font-size="13" letter-spacing="1.5">REC</text>
+  <g>
+    <circle cx="432" cy="370" r="92" fill="none" stroke="#1E6FA8" stroke-opacity=".55" stroke-width="1.6"/>
+    <circle cx="432" cy="370" r="82" fill="none" stroke="#1E6FA8" stroke-opacity=".3" stroke-width="1"/>
+    <path transform="translate(416 348)" d="M-28 6 q14 -18 26 -4 q12 14 26 -2 q10 -12 20 2" fill="none" stroke="#1E6FA8" stroke-opacity="0.50" stroke-width="1.4" stroke-linecap="round"/>
+    <path transform="translate(432 370)" d="M-30 -8 q16 16 28 2 q12 -14 24 4 q8 10 18 -4" fill="none" stroke="#1E6FA8" stroke-opacity="0.50" stroke-width="1.4" stroke-linecap="round"/>
+    <path transform="translate(448 392)" d="M-24 12 q10 -20 22 -6 q14 16 28 -4" fill="none" stroke="#1E6FA8" stroke-opacity="0.50" stroke-width="1.4" stroke-linecap="round"/>
+  </g>
+  <text x="340" y="488" fill="#7E8290" font-family="ui-monospace,monospace" font-size="13" letter-spacing="1.5">plate_04</text>
+  <g>
+    <circle cx="168" cy="598" r="92" fill="none" stroke="#1E6FA8" stroke-opacity=".55" stroke-width="1.6"/>
+    <circle cx="168" cy="598" r="82" fill="none" stroke="#1E6FA8" stroke-opacity=".3" stroke-width="1"/>
+    <path transform="translate(152 576)" d="M-28 6 q14 -18 26 -4 q12 14 26 -2 q10 -12 20 2" fill="none" stroke="#1E6FA8" stroke-opacity="0.50" stroke-width="1.4" stroke-linecap="round"/>
+    <path transform="translate(168 598)" d="M-30 -8 q16 16 28 2 q12 -14 24 4 q8 10 18 -4" fill="none" stroke="#1E6FA8" stroke-opacity="0.50" stroke-width="1.4" stroke-linecap="round"/>
+    <path transform="translate(184 620)" d="M-24 12 q10 -20 22 -6 q14 16 28 -4" fill="none" stroke="#1E6FA8" stroke-opacity="0.50" stroke-width="1.4" stroke-linecap="round"/>
+  </g>
+  <text x="76" y="716" fill="#7E8290" font-family="ui-monospace,monospace" font-size="13" letter-spacing="1.5">plate_05</text>
+  <g>
+    <circle cx="432" cy="598" r="92" fill="none" stroke="#1E6FA8" stroke-opacity=".55" stroke-width="1.6"/>
+    <circle cx="432" cy="598" r="82" fill="none" stroke="#1E6FA8" stroke-opacity=".3" stroke-width="1"/>
+    <path transform="translate(416 576)" d="M-28 6 q14 -18 26 -4 q12 14 26 -2 q10 -12 20 2" fill="none" stroke="#1E6FA8" stroke-opacity="0.50" stroke-width="1.4" stroke-linecap="round"/>
+    <path transform="translate(432 598)" d="M-30 -8 q16 16 28 2 q12 -14 24 4 q8 10 18 -4" fill="none" stroke="#1E6FA8" stroke-opacity="0.50" stroke-width="1.4" stroke-linecap="round"/>
+    <path transform="translate(448 620)" d="M-24 12 q10 -20 22 -6 q14 16 28 -4" fill="none" stroke="#1E6FA8" stroke-opacity="0.50" stroke-width="1.4" stroke-linecap="round"/>
+  </g>
+  <text x="340" y="716" fill="#7E8290" font-family="ui-monospace,monospace" font-size="13" letter-spacing="1.5">plate_06</text>
+    </svg>
+          <span class="cap">чашки · готовы к съёмке</span>
         </div>
+      </div>
+    </div>
+
+    <div class="vs reveal" style="margin-top:28px">
+      <div class="col bad">
+        <h3>Как обычно выглядят данные для обучения</h3>
+        <ul>
+          <li><span class="mk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></span><span>Собранное видео без записи условий, в которых оно снято</span></li>
+          <li><span class="mk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></span><span>Синтетическая физика, которая никогда не удивляет обучаемую модель</span></li>
+          <li><span class="mk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></span><span>Ролики на секунды, когда интересующее поведение разворачивается днями</span></li>
+          <li><span class="mk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></span><span>Нет эталона — предсказание можно сверить только с другой моделью</span></li>
+          <li><span class="mk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></span><span>Неудачные и выброшенные записи тихо исчезают из выкладки</span></li>
+        </ul>
+      </div>
+      <div class="col good">
+        <h3>Что записываем мы</h3>
+        <ul>
+          <li><span class="mk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l5 5L19 7"/></svg></span><span>Каждый кадр несёт штамм, температуру, возраст и историю обращений</span></li>
+          <li><span class="mk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l5 5L19 7"/></svg></span><span>Живые животные в полностью заданной среде — контролируемой, а не срежиссированной</span></li>
+          <li><span class="mk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l5 5L19 7"/></svg></span><span>Непрерывная запись всей жизни, а не разрозненные фрагменты</span></li>
+          <li><span class="mk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l5 5L19 7"/></svg></span><span>Организм, у которого полная анатомия опубликована и независимо подтверждена</span></li>
+          <li><span class="mk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l5 5L19 7"/></svg></span><span>Загрязнённые чашки и потери трека зафиксированы, посчитаны и опубликованы</span></li>
+        </ul>
       </div>
     </div>
   </div>
 </section>
 
-<section id="dataset" class="band">
+<section id="dataset">
   <div class="wrap">
-    <div class="section-head reveal">
-      <div class="k">Что мы производим</div>
+    <div class="section-head mid reveal">
+      <span class="eyebrow"><i></i>Что мы делаем</span>
       <h2>Датасет</h2>
-      <p>Каждая выгрузка идёт тремя слоями: исходная съёмка, производные траектории и полный экспериментальный контекст, без которого их не воспроизвести.</p>
+      <p>В каждой выкладке три слоя: исходная съёмка, построенные траектории и весь контекст эксперимента, без которого их не воспроизвести.</p>
     </div>
     <div class="grid">
       <div class="card c4 hov reveal">
-        <div class="ico" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="2" y="5" width="20" height="14" rx="2"/><circle cx="12" cy="12" r="3.4"/><path d="M8 5l1.5-2h5L16 5"/>
-          </svg>
-        </div>
+        <div class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><circle cx="12" cy="12" r="3.4"/><path d="M8 5l1.5-2h5L16 5"/></svg></div>
         <h3>Исходная съёмка</h3>
-        <p style="color:var(--ink-2); margin-bottom:0">Таймлапс целых чашек при фиксированной оптике и освещении. Ничего не обрезано и не отфильтровано заранее: кадры, на которых вы обучаете модель, — это те самые кадры, которые мы сняли.</p>
+        <p style="color:var(--ink-2); margin-bottom:0">Таймлапс целых чашек при неизменной оптике и освещении. Ничего не обрезано и не отфильтровано заранее — кадры, на которых вы обучаетесь, это те же кадры, что мы записали.</p>
       </div>
       <div class="card c4 hov reveal">
-        <div class="ico" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M3 17c3-1 4-9 7-9s4 8 7 9"/><circle cx="3" cy="17" r="1.4"/><circle cx="17" cy="17" r="1.4"/><circle cx="10" cy="8" r="1.4"/>
-          </svg>
-        </div>
+        <div class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17c3-1 4-9 7-9s4 8 7 9"/><circle cx="3" cy="17" r="1.4"/><circle cx="17" cy="17" r="1.4"/><circle cx="10" cy="8" r="1.4"/></svg></div>
         <h3>Траектории</h3>
-        <p style="color:var(--ink-2); margin-bottom:0">Треки по каждой особи: положение, поза и скорость во времени, плюс размеченные события — развороты, повороты, питание, покой.</p>
+        <p style="color:var(--ink-2); margin-bottom:0">Трек каждой особи отдельно: положение, поза и скорость во времени, плюс размеченные события — развороты, повороты, питание, покой.</p>
       </div>
       <div class="card c4 hov reveal">
-        <div class="ico" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M4 4h16v16H4z"/><path d="M8 9h8M8 13h8M8 17h5"/>
-          </svg>
-        </div>
-        <h3>Экспериментальный контекст</h3>
-        <p style="color:var(--ink-2); margin-bottom:0">Штамм, возраст, температура, состояние корма, история чашки и журнал обращения — пишутся по каждому прогону, потому что траектория без условий данными не является.</p>
+        <div class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="M8 9h8M8 13h8M8 17h5"/></svg></div>
+        <h3>Контекст эксперимента</h3>
+        <p style="color:var(--ink-2); margin-bottom:0">Штамм, возраст, температура, наличие корма, история чашки и журнал обращений — на каждый запуск, потому что траектория без условий данными не является.</p>
       </div>
 
-      <div class="card c12 reveal">
+      <div class="card c7 reveal">
         <h3>Техническая спецификация</h3>
         <div class="spec" style="margin-top:18px">
-          <div class="r"><div class="t">Объект</div><div class="d"><em>Caenorhabditis elegans</em> — дикий тип и определённые мутантные линии из стандартного депозитария</div></div>
-          <div class="r"><div class="t">Съёмка</div><div class="d">Таймлапс сверху, неподвижное поле зрения, контролируемая подсветка, 20 °C на всём протяжении</div></div>
-          <div class="r"><div class="t">Длительность</div><div class="d">Прогоны на полную продолжительность жизни — две-три недели на когорту, непрерывно</div></div>
-          <div class="r"><div class="t">Масштаб</div><div class="d">Сотни особей параллельно; когорты повторяются независимо для воспроизведения</div></div>
-          <div class="r"><div class="t">Разметка</div><div class="d">Автоматический трекинг с ручной проверкой на выборочных отрезках; доля расхождений публикуется с каждой выгрузкой</div></div>
+          <div class="r"><div class="t">Объект</div><div class="d"><em>Caenorhabditis elegans</em> — дикий тип и описанные мутантные линии</div></div>
+          <div class="r"><div class="t">Съёмка</div><div class="d">Таймлапс сверху, неподвижное поле, контролируемый свет, 20 °C</div></div>
+          <div class="r"><div class="t">Длительность</div><div class="d">Вся жизнь — две-три недели на группу, непрерывно</div></div>
+          <div class="r"><div class="t">Масштаб</div><div class="d">Сотни особей параллельно, группы повторяются независимо</div></div>
+          <div class="r"><div class="t">Разметка</div><div class="d">Автоматический трекинг, ручная проверка на выборочных отрезках</div></div>
           <div class="r"><div class="t">Формат</div><div class="d">Открытые контейнеры, проприетарные ридеры не нужны</div></div>
+        </div>
+      </div>
+      <div class="c5 reveal">
+        <div class="code">
+          <div class="chead">
+            <span class="f">quickstart.py</span>
+            <button class="cp" type="button" id="copyBtn">копировать</button>
+          </div>
+          <pre id="codeBlock"><span class="c"># загрузить группу и её условия</span>
+<span class="k">from</span> mundi <span class="k">import</span> Dataset
+
+ds = Dataset.open(<span class="s">"plate_07"</span>)
+
+tracks = ds.trajectories()   <span class="c"># N × T × 5</span>
+frames = ds.raw()            <span class="c"># исходное видео</span>
+meta   = ds.conditions()     <span class="c"># штамм, темп., возраст</span>
+
+<span class="k">print</span>(tracks.shape)
+<span class="c"># (<span class="n">128</span>, <span class="n">1814400</span>, <span class="n">5</span>)</span></pre>
+        </div>
+        <p style="margin:16px 0 0; color:var(--ink-3)"><small>Интерфейс показан для примера — формат выкладки документируется с каждой версией.</small></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="process">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow"><i></i>Как это устроено</span>
+      <h2>Одна группа, три этапа, между ними ничего не спрятано.</h2>
+    </div>
+    <div class="steps reveal">
+      <div class="st">
+        <span class="num">01 — Запись</span>
+        <div>
+          <h3>Одинаковые условия, которые держат неделями</h3>
+          <p>Сотни животных высаживают по одному протоколу и оставляют жить при неизменной оптике, неизменном свете и 20 °C. Любое вмешательство — кормление, перенос, осмотр — попадает в журнал раньше, чем к чашке подходит рука.</p>
+        </div>
+      </div>
+      <div class="st">
+        <span class="num">02 — Трекинг</span>
+        <div>
+          <h3>Автоматический трекинг с ручной проверкой</h3>
+          <p>Кадры превращаются в траектории по каждой особи: положение, поза, скорость и размеченные события. Выборочные отрезки пересчитывают вручную, а расхождение между ручной и автоматической разметкой публикуют вместе с данными.</p>
+        </div>
+      </div>
+      <div class="st">
+        <span class="num">03 — Выкладка</span>
+        <div>
+          <h3>Исходники и производное — вместе</h3>
+          <p>В выкладке исходные кадры, построенные треки и полный набор условий в открытых форматах. Выброшенные запуски посчитаны в том же документе — датасет сам сообщает свою долю брака, а не прячет её.</p>
         </div>
       </div>
     </div>
@@ -266,60 +556,277 @@ setTimeout(function(){document.querySelectorAll('.reveal').forEach(function(e){e
     <div class="grid">
       <div class="c6 reveal">
         <div class="shot wide">
-          <img src="https://images.unsplash.com/photo-1518152006812-edab29b069ac?w=1400&q=80" alt="Объектив микроскопа над образцом" loading="lazy">
-          <span class="cap">Станция съёмки, фиксированная оптика</span>
+          <svg class="art" viewBox="0 0 960 540" role="img" aria-label="Съёмочная станция над чашкой, вид сбоку" preserveAspectRatio="xMidYMid slice">
+    <defs>
+      <linearGradient id="bg2" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#0A121C"/><stop offset="1" stop-color="#06080E"/>
+      </linearGradient>
+      <radialGradient id="pool2" cx="50%" cy="50%">
+        <stop offset="0" stop-color="#0099FF" stop-opacity=".22"/>
+        <stop offset="1" stop-color="#0099FF" stop-opacity="0"/>
+      </radialGradient>
+      <filter id="gl2" x="-50%" y="-50%" width="200%" height="200%">
+        <feGaussianBlur stdDeviation="3" result="b"/>
+        <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+      </filter>
+      <pattern id="grid2" width="40" height="40" patternUnits="userSpaceOnUse">
+        <path d="M40 0H0V40" fill="none" stroke="#0099FF" stroke-opacity=".07" stroke-width="1"/>
+      </pattern>
+    </defs>
+
+      <rect width="960" height="540" fill="url(#bg2)"/>
+      <rect width="960" height="540" fill="url(#grid2)"/>
+  <ellipse cx="480" cy="430" rx="420" ry="150" fill="url(#pool2)"/>
+  <path d="M430 196 L530 196 L640 410 L320 410 Z" fill="#0099FF" fill-opacity=".10"/>
+  <path d="M452 196 L508 196 L580 410 L380 410 Z" fill="#0099FF" fill-opacity=".10"/>
+  <g fill="none" stroke="#2BA8FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" filter="url(#gl2)">
+    <path d="M212 452 L212 108 M196 452 L228 452 M212 120 L470 120"/>
+    <path d="M196 108 L228 108 L228 120 L196 120 Z"/>
+    <path d="M416 134 L524 134 L524 186 L416 186 Z"/>
+    <path d="M448 186 L492 186 L506 196 L434 196 Z"/>
+    <circle cx="470" cy="160" r="15"/>
+    <path d="M232 412 L828 412"/>
+    <ellipse cx="480" cy="410" rx="112" ry="30"/>
+    <ellipse cx="480" cy="410" rx="92" ry="24" stroke-opacity=".45"/>
+    <path d="M430 408 q18 -12 34 0 q16 12 32 -4 q14 -10 24 4" stroke-width="1.3" stroke-opacity=".8"/>
+  </g>
+  <g stroke="#0099FF" stroke-opacity=".4" stroke-width="1" fill="none">
+    <path d="M596 134 L596 412 M588 134 L604 134 M588 412 L604 412"/>
+  </g>
+  <text x="612" y="278" fill="#7E8290" font-family="ui-monospace,monospace" font-size="14" letter-spacing="1.4">FIXED</text>
+  <text x="612" y="300" fill="#7E8290" font-family="ui-monospace,monospace" font-size="14" letter-spacing="1.4">OPTICS</text>
+  <circle cx="470" cy="160" r="4.5" fill="#D5FF45"/>
+
+    </svg>
+          <span class="cap">съёмочная станция · неподвижная оптика</span>
         </div>
         <div class="shot wide" style="margin-top:18px">
-          <img src="https://images.unsplash.com/photo-1579154204601-01588f351e67?w=1400&q=80" alt="Исследователь проверяет образцы под увеличением" loading="lazy">
-          <span class="cap">Ручная проверка автоматических треков</span>
+          <svg class="art" viewBox="0 0 960 540" role="img" aria-label="Проверка автоматической разметки вручную" preserveAspectRatio="xMidYMid slice">
+    <defs>
+      <linearGradient id="bg3" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#0A121C"/><stop offset="1" stop-color="#06080E"/>
+      </linearGradient>
+      <radialGradient id="pool3" cx="50%" cy="50%">
+        <stop offset="0" stop-color="#0099FF" stop-opacity=".22"/>
+        <stop offset="1" stop-color="#0099FF" stop-opacity="0"/>
+      </radialGradient>
+      <filter id="gl3" x="-50%" y="-50%" width="200%" height="200%">
+        <feGaussianBlur stdDeviation="3" result="b"/>
+        <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+      </filter>
+      <pattern id="grid3" width="40" height="40" patternUnits="userSpaceOnUse">
+        <path d="M40 0H0V40" fill="none" stroke="#0099FF" stroke-opacity=".07" stroke-width="1"/>
+      </pattern>
+    </defs>
+
+      <rect width="960" height="540" fill="url(#bg3)"/>
+      <rect width="960" height="540" fill="url(#grid3)"/>
+  <rect x="56" y="56" width="848" height="428" rx="18" fill="#080A10" stroke="#1B2436" stroke-width="1.5"/>
+  <path d="M56 110 H904" stroke="#1B2436" stroke-width="1.5"/>
+  <circle cx="84" cy="83" r="5" fill="#D5FF45"/>
+  <text x="152" y="89" fill="#7E8290" font-family="ui-monospace,monospace" font-size="14">track_review.json</text>
+  <circle cx="104" cy="83" r="5" fill="#2BA8FF"/>
+  <circle cx="124" cy="83" r="5" fill="#1B2436"/>
+  <g fill="none" stroke-width="1.8" stroke-linecap="round" filter="url(#gl3)">
+    <path d="M150 300 q46 -74 96 -22 q44 50 92 -12 q40 -52 86 10 q36 54 84 -16" stroke="#2BA8FF" stroke-opacity=".9"/>
+    <path d="M150 372 q52 44 104 -4 q48 -44 94 14 q40 50 88 -10" stroke="#1E6FA8" stroke-opacity=".7"/>
+    <path d="M150 220 q44 -34 92 6 q46 38 96 -22 q42 -50 88 8" stroke="#1E6FA8" stroke-opacity=".55"/>
+  </g>
+  <rect x="398" y="246" width="150" height="112" rx="10" fill="#D5FF45" fill-opacity=".05" stroke="#D5FF45" stroke-opacity=".55" stroke-width="1.4" stroke-dasharray="6 5"/>
+  <text x="398" y="236" fill="#D5FF45" font-family="ui-monospace,monospace" font-size="13" letter-spacing="1.3">MANUAL CHECK</text>
+  <path d="M690 110 V484" stroke="#1B2436" stroke-width="1.5"/>
+  <text x="716" y="162" fill="#7E8290" font-family="ui-monospace,monospace" font-size="13">id</text>
+  <text x="878" y="162" fill="#2BA8FF" text-anchor="end" font-family="ui-monospace,monospace" font-size="13">4</text>
+  <path d="M716 174 H878" stroke="#141A24" stroke-width="1"/>
+  <text x="716" y="208" fill="#7E8290" font-family="ui-monospace,monospace" font-size="13">reversals</text>
+  <text x="878" y="208" fill="#2BA8FF" text-anchor="end" font-family="ui-monospace,monospace" font-size="13">12</text>
+  <path d="M716 220 H878" stroke="#141A24" stroke-width="1"/>
+  <text x="716" y="254" fill="#7E8290" font-family="ui-monospace,monospace" font-size="13">turns</text>
+  <text x="878" y="254" fill="#2BA8FF" text-anchor="end" font-family="ui-monospace,monospace" font-size="13">31</text>
+  <path d="M716 266 H878" stroke="#141A24" stroke-width="1"/>
+  <text x="716" y="300" fill="#7E8290" font-family="ui-monospace,monospace" font-size="13">feeding</text>
+  <text x="878" y="300" fill="#2BA8FF" text-anchor="end" font-family="ui-monospace,monospace" font-size="13">68%</text>
+  <path d="M716 312 H878" stroke="#141A24" stroke-width="1"/>
+  <text x="716" y="346" fill="#7E8290" font-family="ui-monospace,monospace" font-size="13">agree</text>
+  <text x="878" y="346" fill="#D5FF45" text-anchor="end" font-family="ui-monospace,monospace" font-size="13">97.4%</text>
+  <path d="M716 358 H878" stroke="#141A24" stroke-width="1"/>
+  <path d="M506 322 L506 352 L514 345 L520 358 L526 355 L520 342 L530 341 Z" fill="#FFFFFF" fill-opacity=".92"/>
+
+    </svg>
+          <span class="cap">ручная проверка</span>
         </div>
       </div>
       <div class="card c6 reveal">
-        <div class="section-head" style="margin-bottom:0">
-          <div class="k">Почему этот организм</div>
-          <h2>Единственное животное с полной схемой связей</h2>
-        </div>
-        <p style="color:var(--ink-2); margin-top:20px">Почти у любого животного поведение — чёрный ящик: видно выход, а механизм приходится угадывать. У этого механизм опубликован. Каждый нейрон, каждая связь и каждое деление клетки от яйца до взрослой особи картированы и подтверждены независимо.</p>
-        <ul class="tick" style="margin-top:22px">
-          <li><strong>Истина известна.</strong> Предсказания, сделанные по поведению, можно сверить с реальной анатомией, а не с другой моделью</li>
-          <li><strong>Срок жизни подходит под эксперимент.</strong> Две-три недели — это полная дуга развития и старения внутри одной записи</li>
-          <li><strong>Статистика по карману.</strong> Сотни особей за прогон делают величину эффекта измеримой, а не анекдотической</li>
-          <li><strong>Нет регуляторной нагрузки.</strong> Беспозвоночные выведены из-под законов о лабораторных животных во всём мире — между гипотезой и записью не стоит ничего</li>
+        <span class="eyebrow"><i></i>Почему этот организм</span>
+        <h2 style="margin-top:20px; font-size:clamp(25px,3.2vw,38px)">Единственное животное с полной схемой связей</h2>
+        <p style="color:var(--ink-2); margin-top:20px">Почти у любого животного поведение — чёрный ящик: виден результат, а механизм приходится угадывать. Здесь механизм опубликован: каждый нейрон, каждая связь, каждое клеточное деление от яйца до взрослой особи — описаны и независимо подтверждены.</p>
+        <ul class="tick" style="margin-top:24px">
+          <li><strong>Есть с чем сверять.</strong> Предсказания по поведению можно проверить против известной анатомии, а не против другой модели</li>
+          <li><strong>Срок жизни подходит под эксперимент.</strong> Две-три недели — это полный цикл старения внутри одной записи</li>
+          <li><strong>Статистика по карману.</strong> Сотни особей за запуск делают размер эффекта измеримым, а не единичным наблюдением</li>
+          <li><strong>Нет регуляторной нагрузки.</strong> Беспозвоночные во всём мире не попадают под законы о лабораторных животных</li>
         </ul>
       </div>
     </div>
   </div>
 </section>
 
-<section id="lab" class="band">
+<section id="lab">
   <div class="wrap">
     <div class="section-head reveal">
-      <div class="k">Откуда берутся данные</div>
+      <span class="eyebrow"><i></i>Откуда берутся данные</span>
       <h2>Лаборатория</h2>
-      <p>Компактная мокрая лаборатория под одну задачу: держать тысячи особей в одинаковых условиях, пока камеры работают без перерыва.</p>
+      <p>Компактная wet lab под одну задачу: держать тысячи животных в одинаковых условиях, пока камеры работают без остановки.</p>
     </div>
     <div class="grid">
-      <div class="c5 reveal"><div class="shot sq"><img src="https://images.unsplash.com/photo-1581093588401-fbb62a02f120?w=1100&q=80" alt="Интерьер лаборатории с приборами" loading="lazy"><span class="cap">Термостатируемая инкубация</span></div></div>
-      <div class="c4 reveal"><div class="shot sq"><img src="https://images.unsplash.com/photo-1567427017947-545c5f8d16ad?w=1100&q=80" alt="Подготовка образцов на рабочем столе" loading="lazy"><span class="cap">Приготовление сред</span></div></div>
-      <div class="reveal" style="grid-column:span 3"><div class="shot sq"><img src="https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?w=1100&q=80" alt="Дозатор и лабораторная посуда" loading="lazy"><span class="cap">Работа с чашками</span></div></div>
+      <div class="c5 reveal"><div class="shot sq"><svg class="art" viewBox="0 0 600 600" role="img" aria-label="Инкубатор с полками чашек при 20 °C" preserveAspectRatio="xMidYMid slice">
+    <defs>
+      <linearGradient id="bg4" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#0A121C"/><stop offset="1" stop-color="#06080E"/>
+      </linearGradient>
+      <radialGradient id="pool4" cx="50%" cy="50%">
+        <stop offset="0" stop-color="#0099FF" stop-opacity=".22"/>
+        <stop offset="1" stop-color="#0099FF" stop-opacity="0"/>
+      </radialGradient>
+      <filter id="gl4" x="-50%" y="-50%" width="200%" height="200%">
+        <feGaussianBlur stdDeviation="3" result="b"/>
+        <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+      </filter>
+      <pattern id="grid4" width="40" height="40" patternUnits="userSpaceOnUse">
+        <path d="M40 0H0V40" fill="none" stroke="#0099FF" stroke-opacity=".07" stroke-width="1"/>
+      </pattern>
+    </defs>
 
-      <div class="card c6 reveal">
+      <rect width="600" height="600" fill="url(#bg4)"/>
+      <rect width="600" height="600" fill="url(#grid4)"/>
+  <ellipse cx="300" cy="300" rx="280" ry="300" fill="url(#pool4)"/>
+  <g fill="none" stroke="#2BA8FF" stroke-width="1.8" stroke-linejoin="round" filter="url(#gl4)">
+    <path d="M128 72 L472 72 L472 512 L128 512 Z"/>
+    <path d="M160 104 L440 104 L440 446 L160 446 Z" stroke-opacity=".5"/>
+    <path d="M148 512 L148 544 M452 512 L452 544" stroke-opacity=".8"/>
+    <path d="M160 162 L440 162" stroke-opacity=".45"/>
+    <ellipse cx="196" cy="151" rx="27" ry="8" stroke-opacity=".75" stroke-width="1.4"/>
+    <ellipse cx="266" cy="151" rx="27" ry="8" stroke-opacity=".75" stroke-width="1.4"/>
+    <ellipse cx="336" cy="151" rx="27" ry="8" stroke-opacity=".75" stroke-width="1.4"/>
+    <ellipse cx="406" cy="151" rx="27" ry="8" stroke-opacity=".75" stroke-width="1.4"/>
+    <path d="M160 246 L440 246" stroke-opacity=".45"/>
+    <ellipse cx="196" cy="235" rx="27" ry="8" stroke-opacity=".75" stroke-width="1.4"/>
+    <ellipse cx="266" cy="235" rx="27" ry="8" stroke-opacity=".75" stroke-width="1.4"/>
+    <ellipse cx="336" cy="235" rx="27" ry="8" stroke-opacity=".75" stroke-width="1.4"/>
+    <ellipse cx="406" cy="235" rx="27" ry="8" stroke-opacity=".75" stroke-width="1.4"/>
+    <path d="M160 330 L440 330" stroke-opacity=".45"/>
+    <ellipse cx="196" cy="319" rx="27" ry="8" stroke-opacity=".75" stroke-width="1.4"/>
+    <ellipse cx="266" cy="319" rx="27" ry="8" stroke-opacity=".75" stroke-width="1.4"/>
+    <ellipse cx="336" cy="319" rx="27" ry="8" stroke-opacity=".75" stroke-width="1.4"/>
+    <ellipse cx="406" cy="319" rx="27" ry="8" stroke-opacity=".75" stroke-width="1.4"/>
+    <path d="M160 414 L440 414" stroke-opacity=".45"/>
+    <ellipse cx="196" cy="403" rx="27" ry="8" stroke-opacity=".75" stroke-width="1.4"/>
+    <ellipse cx="266" cy="403" rx="27" ry="8" stroke-opacity=".75" stroke-width="1.4"/>
+    <ellipse cx="336" cy="403" rx="27" ry="8" stroke-opacity=".75" stroke-width="1.4"/>
+    <ellipse cx="406" cy="403" rx="27" ry="8" stroke-opacity=".75" stroke-width="1.4"/>
+  </g>
+  <rect x="300" y="468" width="140" height="34" rx="8" fill="#07090F" stroke="#1B2436" stroke-width="1.4"/>
+  <text x="370" y="491" fill="#D5FF45" text-anchor="middle" font-family="ui-monospace,monospace" font-size="17" letter-spacing="1.5">20.0 °C</text>
+  <circle cx="178" cy="485" r="6" fill="#D5FF45"/>
+  <text x="198" y="490" fill="#7E8290" font-family="ui-monospace,monospace" font-size="13" letter-spacing="1.3">ON</text>
+
+    </svg><span class="cap">инкубация · 20 °C</span></div></div>
+      <div class="c4 reveal"><div class="shot sq"><svg class="art" viewBox="0 0 600 600" role="img" aria-label="Колба и мензурка с питательной средой" preserveAspectRatio="xMidYMid slice">
+    <defs>
+      <linearGradient id="bg5" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#0A121C"/><stop offset="1" stop-color="#06080E"/>
+      </linearGradient>
+      <radialGradient id="pool5" cx="50%" cy="50%">
+        <stop offset="0" stop-color="#0099FF" stop-opacity=".22"/>
+        <stop offset="1" stop-color="#0099FF" stop-opacity="0"/>
+      </radialGradient>
+      <filter id="gl5" x="-50%" y="-50%" width="200%" height="200%">
+        <feGaussianBlur stdDeviation="3" result="b"/>
+        <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+      </filter>
+      <pattern id="grid5" width="40" height="40" patternUnits="userSpaceOnUse">
+        <path d="M40 0H0V40" fill="none" stroke="#0099FF" stroke-opacity=".07" stroke-width="1"/>
+      </pattern>
+    </defs>
+
+      <rect width="600" height="600" fill="url(#bg5)"/>
+      <rect width="600" height="600" fill="url(#grid5)"/>
+  <ellipse cx="300" cy="360" rx="280" ry="240" fill="url(#pool5)"/>
+  <g fill="none" stroke="#2BA8FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" filter="url(#gl5)">
+    <path d="M248 118 L300 118 L300 232 L372 442 Q378 466 352 466 L196 466 Q170 466 176 442 L248 232 Z"/>
+    <path d="M240 112 L308 112" stroke-width="2.4"/>
+    <path d="M212 376 L336 376" stroke-opacity=".6"/>
+    <path d="M408 258 L492 258 L484 452 Q482 466 468 466 L432 466 Q418 466 416 452 Z"/>
+    <path d="M466 300 L488 300" stroke-opacity=".45" stroke-width="1.3"/>
+    <path d="M466 342 L488 342" stroke-opacity=".45" stroke-width="1.3"/>
+    <path d="M466 384 L488 384" stroke-opacity=".45" stroke-width="1.3"/>
+    <path d="M352 56 L372 56 L372 150 L364 176 L360 176 L352 150 Z"/>
+    <path d="M348 46 L376 46" stroke-width="2.4"/>
+  </g>
+  <path d="M212 378 L336 378 L364 442 Q368 458 350 458 L198 458 Q180 458 184 442 Z" fill="#0099FF" fill-opacity=".17"/>
+  <path d="M417 386 L491 386 L484 452 Q482 464 468 464 L432 464 Q418 464 417 452 Z" fill="#0099FF" fill-opacity=".13"/>
+  <path d="M362 196 q7 11 0 17 q-7 -6 0 -17 Z" fill="#8CD4FF" fill-opacity=".9"/>
+  <text x="176" y="508" fill="#7E8290" font-family="ui-monospace,monospace" font-size="14" letter-spacing="1.4">NGM agar · 55 °C</text>
+
+    </svg><span class="cap">приготовление среды</span></div></div>
+      <div class="c3 reveal"><div class="shot sq"><svg class="art" viewBox="0 0 600 600" role="img" aria-label="Чашка крупным планом с распознанными особями" preserveAspectRatio="xMidYMid slice">
+    <defs>
+      <linearGradient id="bg6" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#0A121C"/><stop offset="1" stop-color="#06080E"/>
+      </linearGradient>
+      <radialGradient id="pool6" cx="50%" cy="50%">
+        <stop offset="0" stop-color="#0099FF" stop-opacity=".22"/>
+        <stop offset="1" stop-color="#0099FF" stop-opacity="0"/>
+      </radialGradient>
+      <filter id="gl6" x="-50%" y="-50%" width="200%" height="200%">
+        <feGaussianBlur stdDeviation="3" result="b"/>
+        <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+      </filter>
+      <pattern id="grid6" width="40" height="40" patternUnits="userSpaceOnUse">
+        <path d="M40 0H0V40" fill="none" stroke="#0099FF" stroke-opacity=".07" stroke-width="1"/>
+      </pattern>
+    </defs>
+
+      <rect width="600" height="600" fill="url(#bg6)"/>
+      <rect width="600" height="600" fill="url(#grid6)"/>
+  <circle cx="300" cy="286" r="290" fill="url(#pool6)"/>
+  <circle cx="300" cy="286" r="222" fill="none" stroke="#2BA8FF" stroke-width="1.8" filter="url(#gl6)"/>
+  <circle cx="300" cy="286" r="206" fill="none" stroke="#2BA8FF" stroke-opacity=".3" stroke-width="1"/>
+  <path d="M300 64 V508 M78 286 H522" stroke="#0099FF" stroke-opacity=".16" stroke-width="1" stroke-dasharray="7 9"/>
+  <path transform="translate(150 170)" d="M0 0 q20 -16 38 0 q18 16 36 -4" fill="none" stroke="#66C4FF" stroke-opacity=".95" stroke-width="2.6" stroke-linecap="round" filter="url(#gl6)"/>
+  <rect x="138" y="146" width="96" height="48" rx="8" fill="none" stroke="#D5FF45" stroke-opacity=".5" stroke-width="1.3" stroke-dasharray="5 4"/>
+  <text x="138" y="138" fill="#D5FF45" font-family="ui-monospace,monospace" font-size="12" letter-spacing="1.2">id_01</text>
+  <path transform="translate(330 168)" d="M0 0 q20 -16 38 0 q18 16 36 -4" fill="none" stroke="#66C4FF" stroke-opacity=".95" stroke-width="2.6" stroke-linecap="round" filter="url(#gl6)"/>
+  <rect x="318" y="144" width="96" height="48" rx="8" fill="none" stroke="#D5FF45" stroke-opacity=".5" stroke-width="1.3" stroke-dasharray="5 4"/>
+  <text x="318" y="136" fill="#D5FF45" font-family="ui-monospace,monospace" font-size="12" letter-spacing="1.2">id_02</text>
+  <path transform="translate(238 398)" d="M0 0 q20 -16 38 0 q18 16 36 -4" fill="none" stroke="#66C4FF" stroke-opacity=".95" stroke-width="2.6" stroke-linecap="round" filter="url(#gl6)"/>
+  <rect x="226" y="374" width="96" height="48" rx="8" fill="none" stroke="#D5FF45" stroke-opacity=".5" stroke-width="1.3" stroke-dasharray="5 4"/>
+  <text x="226" y="366" fill="#D5FF45" font-family="ui-monospace,monospace" font-size="12" letter-spacing="1.2">id_03</text>
+  <path transform="translate(372 300)" d="M0 0 q18 14 34 -2 q16 -14 32 6" fill="none" stroke="#66C4FF" stroke-opacity=".45" stroke-width="2.4" stroke-linecap="round"/>
+  <path transform="translate(150 318)" d="M0 0 q18 14 34 -2 q16 -14 32 6" fill="none" stroke="#66C4FF" stroke-opacity=".45" stroke-width="2.4" stroke-linecap="round"/>
+  <g stroke="#7E8290" stroke-opacity=".7" stroke-width="1.4" fill="none">
+    <path d="M78 548 H198 M78 542 V554 M198 542 V554"/>
+  </g>
+  <text x="210" y="553" fill="#7E8290" font-family="ui-monospace,monospace" font-size="13" letter-spacing="1.3">1 mm</text>
+    </svg><span class="cap">работа с чашками</span></div></div>
+
+      <div class="card c6 hov reveal">
         <h3>Оборудование</h3>
         <ul class="tick">
-          <li>Станции съёмки с фиксированной оптикой и контролируемой подсветкой</li>
-          <li>Выделенные инкубаторы на 20 °C с независимым резервированием</li>
-          <li>Станция со стереомикроскопом для подсчёта и переноса</li>
-          <li>Ламинарный бокс для подготовки сред и чашек</li>
+          <li>Съёмочные станции с неподвижной оптикой и контролируемым освещением</li>
+          <li>Отдельные инкубаторы на 20 °C с независимым резервированием</li>
+          <li>Пост со стереомикроскопом для подсчёта и переноса</li>
+          <li>Ламинарный шкаф для приготовления среды и чашек</li>
           <li>Автоклав, холодильное и криогенное хранение</li>
         </ul>
       </div>
-      <div class="card c6 reveal">
+      <div class="card c6 hov reveal">
         <h3>Условия работы</h3>
         <ul class="tick">
-          <li>Уровень биобезопасности BSL-2 с задокументированными процедурами</li>
-          <li>Отходы вывозит лицензированный оператор по договору</li>
+          <li>Уровень биобезопасности 2 с документированными процедурами</li>
+          <li>Отходы — по договору с лицензированным оператором</li>
           <li>Бесперебойное питание для инкубации и съёмки</li>
-          <li>Каждый прогон в журнале: кто работал с чашками, когда и в каких условиях</li>
+          <li>Каждый запуск в журнале: кто работал с чашками, когда и при каких условиях</li>
         </ul>
       </div>
     </div>
@@ -328,82 +835,199 @@ setTimeout(function(){document.querySelectorAll('.reveal').forEach(function(e){e
 
 <section id="standards">
   <div class="wrap">
-    <div class="section-head reveal">
-      <div class="k">Как мы работаем</div>
-      <h2>Стандарты, которых держимся</h2>
-      <p>Датасет стоит ровно столько, сколько позволяет его самое слабое методическое звено. Вот наши.</p>
+    <div class="section-head mid reveal">
+      <span class="eyebrow"><i></i>Как мы работаем</span>
+      <h2>Стандарты, которые держим на себе</h2>
+      <p>Датасет стоит ровно столько, сколько позволяет самое слабое звено его методики. Вот наши.</p>
     </div>
     <div class="grid">
-      <div class="card c6 hov reveal">
-        <h3>Условия идут вместе с данными</h3>
-        <p style="color:var(--ink-2); margin-bottom:0">Температура, штамм, возраст, состояние кормления и история обращения прикреплены к каждой записи. Траектория, лишённая контекста, несравнима ни с чем — такую мы не отдаём.</p>
-      </div>
-      <div class="card c6 hov reveal">
-        <h3>Воспроизведение до публикации</h3>
-        <p style="color:var(--ink-2); margin-bottom:0">Ничего не публикуется по одной когорте. Прогоны повторяются независимо, а разброс между когортами указывается рядом с результатом, а не прячется в приложении.</p>
-      </div>
-      <div class="card c6 hov reveal">
-        <h3>Сырое остаётся сырым</h3>
-        <p style="color:var(--ink-2); margin-bottom:0">Производные треки удобны, но доказательство — исходные кадры. Публикуется и то и другое, чтобы любой мог заново прогнать обработку и получить другой ответ, если наш был неверным.</p>
-      </div>
-      <div class="card c6 hov reveal">
-        <h3>Неудачи фиксируются</h3>
-        <p style="color:var(--ink-2); margin-bottom:0">Загрязнённые чашки, потери трека и выброшенные прогоны записываются и считаются. Датасет, который показывает только удачные записи, молча завышает собственное качество.</p>
-      </div>
+      <div class="card c6 hov reveal"><h3>Условия идут вместе с данными</h3><p style="color:var(--ink-2); margin-bottom:0">Температура, штамм, возраст, наличие корма и история обращений прикреплены к каждой записи. Траекторию, с которой сняли контекст, не с чем сравнивать — такую мы не отдаём.</p></div>
+      <div class="card c6 hov reveal"><h3>Повтор до выкладки</h3><p style="color:var(--ink-2); margin-bottom:0">Ничего не публикуется по одной группе. Запуски повторяются независимо, а разброс между группами указан рядом с результатом, а не спрятан в приложении.</p></div>
+      <div class="card c6 hov reveal"><h3>Исходники остаются исходниками</h3><p style="color:var(--ink-2); margin-bottom:0">Построенные треки удобны, но доказательство — исходные кадры. Выкладываем и то, и другое, чтобы любой мог прогнать обработку заново и получить другой ответ, если наш был неверным.</p></div>
+      <div class="card c6 hov reveal"><h3>Неудачи записываются</h3><p style="color:var(--ink-2); margin-bottom:0">Загрязнённые чашки, потери трека и выброшенные запуски фиксируются и считаются. Датасет, который сообщает только об удачных записях, молча завышает собственное качество.</p></div>
     </div>
   </div>
 </section>
 
-<section id="access" class="band">
+<section id="faq">
   <div class="wrap">
-    <div class="section-head reveal">
-      <div class="k">Работа с нами</div>
-      <h2>Доступ и сотрудничество</h2>
+    <div class="section-head mid reveal">
+      <span class="eyebrow"><i></i>Вопросы</span>
+      <h2>Ответы до того, как спросят</h2>
     </div>
-    <div class="grid">
-      <div class="card c4 hov reveal">
-        <h3>Исследовательским группам</h3>
-        <p style="color:var(--ink-2); margin-bottom:0">Работаете над моделями мира, обучением представлений или предсказанием поведения? Скажите, какие условия съёмки нужны вашей модели, и мы обсудим, как их поставить.</p>
-      </div>
-      <div class="card c4 hov reveal">
-        <h3>Съёмка под задачу</h3>
-        <p style="color:var(--ink-2); margin-bottom:0">Конкретные штаммы, воздействия, температуры или временные масштабы можно записать под заказ. Сложность редко в камере — она в том, чтобы неделями держать одинаковые условия.</p>
-      </div>
-      <div class="card c4 hov reveal">
-        <h3>Биологам</h3>
-        <p style="color:var(--ink-2); margin-bottom:0">Мы инфраструктура для данных, а не конкурент за вашу научную задачу. Если нужно количественно описать поведение в масштабе — мощности для съёмки есть.</p>
-      </div>
+    <div class="faq reveal">
+      <details>
+        <summary><span>Что именно входит в выкладку?</span><span class="pm" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></summary>
+        <div class="ans"><p>Исходные кадры, траектории по каждой особи, размеченные поведенческие события и файл условий: штамм, возраст, температура, наличие корма и полный журнал обращений. Выброшенные запуски перечислены с причиной, по которой их сняли.</p></div>
+      </details>
+      <details>
+        <summary><span>Почему этот организм, а не кто-то сложнее?</span><span class="pm" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></summary>
+        <div class="ans"><p>Потому что механизм, стоящий за поведением, уже опубликован. Сложность без эталона даёт больше данных и меньше уверенности; здесь предсказание сверяется с известной анатомией, а не с другой моделью.</p></div>
+      </details>
+      <details>
+        <summary><span>Нужно ли разрешение на работу с животными?</span><span class="pm" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></summary>
+        <div class="ans"><p>Нет. Законы о лабораторных животных касаются позвоночных; беспозвоночные такого рода под них не подпадают ни в одной из юрисдикций, где мы работаем. Обычные требования по биобезопасности и обращению с отходами при этом действуют, и мы их выполняем.</p></div>
+      </details>
+      <details>
+        <summary><span>Можно заказать конкретные условия записи?</span><span class="pm" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></summary>
+        <div class="ans"><p>Да — штаммы, воздействия, температуры и масштабы времени настраиваются. Скажите, что должна увидеть ваша модель, и мы прямо ответим, сможем ли удержать такие условия достаточно долго, чтобы на записи имело смысл обучаться.</p></div>
+      </details>
+      <details>
+        <summary><span>Как вы обходитесь с ошибками трекинга?</span><span class="pm" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></summary>
+        <div class="ans"><p>Выборочные отрезки размечают вручную и сравнивают с автоматическим результатом. Доля расхождений идёт вместе с датасетом, поэтому разметку можно взвешивать, а не принимать на веру.</p></div>
+      </details>
+      <details>
+        <summary><span>Кто может получить доступ к данным?</span><span class="pm" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></summary>
+        <div class="ans"><p>Группы, которые занимаются world models, обучением представлений или предсказанием поведения, и биологи, которым нужно количественно описать поведение в больших объёмах. Напишите, что вы строите и что нужно записать.</p></div>
+      </details>
     </div>
   </div>
 </section>
 
-<section class="contact">
+<section id="contact" style="padding-bottom:40px">
   <div class="wrap">
-    <div class="k" style="font-size:12px; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:var(--red-ink)">Контакты</div>
-    <h2 style="margin-top:14px">Написать нам</h2>
-    <p style="color:var(--ink-2); max-width:560px; margin:18px auto 0">По доступу к данным, предложениям о сотрудничестве и вопросам о методике.</p>
-    <a class="mail" href="mailto:hello@mundilabs.org">hello@mundilabs.org</a>
-    <p style="margin:0"><small>Монтевидео, Уругвай</small></p>
+    <div class="final reveal">
+      <div class="wrap2">
+        <span class="eyebrow lime"><i></i>Контакты</span>
+        <h2>Скажите, что нужно записать.</h2>
+        <p>По доступу к датасету, предложениям о сотрудничестве и вопросам по методике — первым отвечает тот, кто сам ведёт чашки, а не отдел продаж.</p>
+        <a class="mail" href="mailto:hello@mundilabs.org">hello@mundilabs.org</a>
+      </div>
+    </div>
   </div>
 </section>
 
 <footer>
   <div class="wrap">
-    <span>© <span id="yr">2026</span> Mundi Labs. Независимая некоммерческая исследовательская организация.</span>
-    <span><small>Русская версия для внутреннего обсуждения. Публичная версия сайта — <a href="mundi-labs.html">на английском, испанском и португальском</a>.</small></span>
+    <div class="fgrid">
+      <div>
+        <span class="brand">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="9"/><path d="M3 12h18"/>
+            <path d="M12 3c2.6 2.8 4 5.8 4 9s-1.4 6.2-4 9c-2.6-2.8-4-5.8-4-9s1.4-6.2 4-9z"/>
+          </svg>
+          Mundi Labs
+        </span>
+        <div class="fnote">Страница описывает только исследовательскую деятельность. Медицинские услуги, лечение и продукты не предлагаются.</div>
+      </div>
+      <div class="flinks">
+        <a href="#approach">Задача</a>
+        <a href="#dataset">Датасет</a>
+        <a href="#process">Процесс</a>
+        <a href="#lab">Лаборатория</a>
+        <a href="#faq">Вопросы</a>
+        <a href="mundi-labs.html">EN · ES · PT</a>
+      </div>
+    </div>
+    <div class="copy">
+      <span>© <span id="yr"></span> Mundi Labs. Независимая некоммерческая исследовательская организация.</span>
+      <span class="mono">Монтевидео, Уругвай</span>
+    </div>
   </div>
 </footer>
 
-<script>document.getElementById('yr').textContent = new Date().getFullYear();</script>
+<script>
+document.getElementById('yr').textContent = new Date().getFullYear();
+
+/* ---------- визуализация трекинга ---------- */
+(function () {
+  var svg = document.getElementById('tracks'), gl = document.getElementById('gridlines');
+  if (!svg) return;
+  var NS = 'http://www.w3.org/2000/svg';
+  var W = 1200, H = 420;
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  for (var x = 0; x <= W; x += 60) {
+    var l = document.createElementNS(NS, 'line');
+    l.setAttribute('x1', x); l.setAttribute('y1', 0); l.setAttribute('x2', x); l.setAttribute('y2', H);
+    l.setAttribute('class', 'grid-l'); gl.appendChild(l);
+  }
+  for (var y = 0; y <= H; y += 60) {
+    var l2 = document.createElementNS(NS, 'line');
+    l2.setAttribute('x1', 0); l2.setAttribute('y1', y); l2.setAttribute('x2', W); l2.setAttribute('y2', y);
+    l2.setAttribute('class', 'grid-l'); gl.appendChild(l2);
+  }
+
+  var COLORS = ['#0099FF', '#38B0FF', '#66C4FF', '#0077CC', '#4DB8FF', '#D5FF45'];
+  var N = 7;
+
+  function makePath() {
+    var x = 80 + Math.random() * (W - 160), y = 60 + Math.random() * (H - 120);
+    var d = 'M' + x.toFixed(1) + ' ' + y.toFixed(1);
+    var ang = Math.random() * Math.PI * 2;
+    for (var i = 0; i < 34; i++) {
+      ang += (Math.random() - 0.5) * 0.9;
+      if (Math.random() < 0.09) ang += Math.PI * (Math.random() > .5 ? .62 : -.62);
+      var step = 18 + Math.random() * 20;
+      var nx = x + Math.cos(ang) * step, ny = y + Math.sin(ang) * step;
+      if (nx < 40 || nx > W - 40) { ang = Math.PI - ang; nx = x + Math.cos(ang) * step; }
+      if (ny < 36 || ny > H - 36) { ang = -ang; ny = y + Math.sin(ang) * step; }
+      var cx = (x + nx) / 2 + (Math.random() - .5) * 10, cy = (y + ny) / 2 + (Math.random() - .5) * 10;
+      d += ' Q' + cx.toFixed(1) + ' ' + cy.toFixed(1) + ' ' + nx.toFixed(1) + ' ' + ny.toFixed(1);
+      x = nx; y = ny;
+    }
+    return d;
+  }
+
+  for (var i = 0; i < N; i++) {
+    var p = document.createElementNS(NS, 'path');
+    p.setAttribute('d', makePath());
+    p.setAttribute('class', 'track');
+    p.setAttribute('stroke', COLORS[i % COLORS.length]);
+    p.setAttribute('opacity', (0.45 + Math.random() * 0.4).toFixed(2));
+    svg.appendChild(p);
+
+    var dot = document.createElementNS(NS, 'circle');
+    dot.setAttribute('class', 'head-d');
+    dot.setAttribute('fill', COLORS[i % COLORS.length]);
+    dot.setAttribute('r', 3.6);
+    svg.appendChild(dot);
+
+    var len = p.getTotalLength();
+    p.style.setProperty('--len', len);
+    if (reduced) { p.style.strokeDasharray = 'none'; p.style.strokeDashoffset = 0; }
+
+    (function (path, marker, length, idx) {
+      var dur = 10000 + Math.random() * 6000, delay = idx * 460;
+      function frame(t) {
+        var e = ((t - delay) % dur) / dur;
+        if (e < 0) { requestAnimationFrame(frame); return; }
+        if (!reduced) path.style.strokeDashoffset = length * (1 - e);
+        var pt = path.getPointAtLength(length * e);
+        marker.setAttribute('cx', pt.x); marker.setAttribute('cy', pt.y);
+        requestAnimationFrame(frame);
+      }
+      requestAnimationFrame(frame);
+    })(p, dot, len, i);
+  }
+
+  var rf = document.getElementById('r-f'), t0 = Date.now();
+  setInterval(function () {
+    var s = Math.floor((Date.now() - t0) / 1000);
+    rf.textContent = String(Math.floor(s / 60)).padStart(2, '0') + ':' + String(s % 60).padStart(2, '0');
+  }, 1000);
+})();
+
+/* ---------- копирование кода ---------- */
+(function () {
+  var btn = document.getElementById('copyBtn'), pre = document.getElementById('codeBlock');
+  if (!btn || !pre) return;
+  btn.addEventListener('click', function () {
+    var text = pre.innerText;
+    var done = function () { btn.textContent = 'скопировано'; setTimeout(function () { btn.textContent = 'копировать'; }, 1400); };
+    if (navigator.clipboard) { navigator.clipboard.writeText(text).then(done, done); }
+    else { var ta = document.createElement('textarea'); ta.value = text; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); } catch (e) {} document.body.removeChild(ta); done(); }
+  });
+})();
+</script>
 
 <script type="module">
   try {
     const { animate, inView, stagger } = await import("https://cdn.jsdelivr.net/npm/motion@11/+esm");
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const els = document.querySelectorAll(".reveal");
-    if (reduced) {
-      els.forEach(e => { e.style.opacity = 1; e.style.transform = "none"; });
-    } else {
+    if (reduced) { els.forEach(e => { e.style.opacity = 1; e.style.transform = "none"; }); }
+    else {
       els.forEach(el => {
         inView(el, (entry) => {
           const node = entry && entry.target ? entry.target : el;
@@ -411,11 +1035,9 @@ setTimeout(function(){document.querySelectorAll('.reveal').forEach(function(e){e
                   { duration: 0.6, easing: [0.2, 0.7, 0.3, 1] });
         }, { margin: "-6% 0px -6% 0px" });
       });
-      const cards = document.querySelectorAll(".grid .card, .stats .s, .shot");
+      const cards = document.querySelectorAll(".grid .card, .stats .s, .shot, .steps .st, .faq details");
       if (cards.length) {
-        inView(".grid", () => {
-          animate(cards, { opacity: [null, 1] }, { delay: stagger(0.05), duration: 0.4 });
-        }, { margin: "-10% 0px" });
+        inView(".grid", () => { animate(cards, { opacity: [null, 1] }, { delay: stagger(0.05), duration: 0.4 }); }, { margin: "-10% 0px" });
       }
     }
   } catch (e) {
