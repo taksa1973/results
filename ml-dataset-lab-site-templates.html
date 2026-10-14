@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Сайт лаборатории ML-датасетов: шаблоны и референсы</title>
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="description" content="Какие сайты делают лаборатории и компании, продающие ML-датасеты, что у них взять, и какие готовые шаблоны (Webflow, Framer, Astro, Jekyll, Figma) подходят под сайт лаборатории с датасетом для моделей мира.">
+<meta name="theme-color" content="#000000">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add('js-anim')</script>
+<style>
+:root{color-scheme:dark;
+  --bg:#000;--paper:#121212;--soft:#1A1A1A;--line:#262626;--line-2:#3A3A3A;
+  --ink:#F5F5F5;--ink-2:#C4C4C8;--ink-3:#8E8E93;
+  --red:#9B1C1C;--red-hover:#B42323;--red-text:#E05252;--red-soft:#241010;--red-line:#4D1B1B;
+  --r:16px;--topbar:60px}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;padding-top:var(--topbar);background:var(--bg);color:var(--ink);font:16px/1.6 Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased;overflow-wrap:anywhere}
+::selection{background:var(--red);color:#fff}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+a{color:var(--red-text);text-decoration:none}
+a:hover{color:#fff}
+a:focus-visible,button:focus-visible{outline:2px solid #fff;outline-offset:3px;border-radius:6px}
+.skip{position:absolute;left:-999px;top:0}
+.skip:focus{left:16px;top:16px;background:#fff;color:#000;padding:10px 14px;border-radius:10px;z-index:100}
+h1,h2,h3{color:#fff;margin:0}
+h1{font-size:clamp(34px,5.2vw,60px);line-height:1.04;letter-spacing:-.03em;font-weight:800;text-wrap:balance;max-width:18ch}
+h1 span{color:var(--red-text)}
+h2{font-size:clamp(26px,3.2vw,38px);line-height:1.12;letter-spacing:-.02em;font-weight:700;text-wrap:balance}
+h3{font-size:19px;line-height:1.3;letter-spacing:-.01em;font-weight:600}
+.eyebrow{color:var(--red-text);font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin:0 0 10px}
+.sub{color:var(--ink-2);max-width:72ch;margin:10px 0 24px}
+.dim{color:var(--ink-3);font-weight:400}
+
+/* верхняя панель */
+.topbar{position:fixed;top:0;left:0;right:0;height:var(--topbar);z-index:50;background:rgba(0,0,0,.86);-webkit-backdrop-filter:saturate(140%) blur(16px);backdrop-filter:saturate(140%) blur(16px);border-bottom:1px solid var(--line)}
+.topbar .wrap{height:100%;display:flex;align-items:center;gap:20px}
+.brand{display:flex;align-items:center;gap:10px;color:#fff;font-weight:700;font-size:15px;letter-spacing:-.01em;white-space:nowrap;flex:none}
+.brand i{width:10px;height:10px;border-radius:3px;background:var(--red-text);display:inline-block}
+.brand em{font-style:normal;color:var(--ink-3);font-weight:500}
+.topnav{display:flex;gap:4px;margin-left:auto;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.topnav::-webkit-scrollbar{display:none}
+.topnav a{flex:none;color:var(--ink-2);font-size:14px;font-weight:500;padding:9px 12px;border-radius:10px;min-height:40px;display:flex;align-items:center;transition:background .15s ease,color .15s ease}
+.topnav a:hover{color:#fff;background:rgba(255,255,255,.08)}
+.topnav a.on{color:#fff;background:rgba(255,255,255,.12)}
+@media (max-width:720px){.brand em{display:none}.topbar .wrap{gap:10px}.topnav a{padding:9px 10px;font-size:13px}}
+
+/* шапка */
+.hero{padding:56px 0 44px;border-bottom:1px solid var(--line)}
+.hero .wrap{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(300px,.75fr);gap:32px 48px;align-items:end}
+.lead{font-size:clamp(17px,1.9vw,20px);color:var(--ink-2);max-width:60ch;margin:18px 0 0}
+.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.stat{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:16px 18px}
+.stat b{display:block;font-size:30px;font-weight:800;letter-spacing:-.03em;line-height:1.05;color:#fff;font-variant-numeric:tabular-nums}
+.stat span{font-size:13px;color:var(--ink-3)}
+@media (max-width:860px){.hero .wrap{grid-template-columns:1fr}.hero{padding:40px 0 32px}}
+
+main section{padding:60px 0 8px;scroll-margin-top:calc(var(--topbar) + 12px)}
+.sh{display:flex;align-items:center;gap:14px;margin-bottom:6px}
+.num{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:7px;background:#fff;color:#000;font-size:13px;font-weight:700;flex:none;counter-increment:n}
+.num::before{content:counter(n,decimal-leading-zero)}
+main{counter-reset:n}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:22px 24px;transition:transform .2s ease,box-shadow .2s ease}
+.card:hover{box-shadow:0 0 0 1px rgba(255,255,255,.18);transform:translateY(-2px)}
+@media (prefers-reduced-motion:reduce){.card,.dev{transition:none}.card:hover,.dev:hover{transform:none}}
+
+/* бенто */
+.bento{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.ins .tag{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--red-text);margin:0 0 10px}
+.ins p{margin:0;font-size:15px;line-height:1.55;color:var(--ink-2)}
+.ins p b{color:#fff;font-weight:600}
+.ins.wide{grid-column:span 2}
+@media (max-width:980px){.bento{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:640px){.bento{grid-template-columns:1fr}.ins.wide{grid-column:auto}}
+
+/* подзаголовки групп */
+.grp{display:flex;align-items:baseline;gap:12px;margin:26px 0 12px}
+.grp h3{font-size:17px}
+.grp span{font-size:13px;color:var(--ink-3)}
+
+/* карточки сайтов и шаблонов */
+.devs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;align-items:start}
+@media (max-width:980px){.devs{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:600px){.devs{grid-template-columns:1fr}}
+.dev{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;display:flex;flex-direction:column;transition:transform .2s ease,box-shadow .2s ease}
+.dev:hover{box-shadow:0 0 0 1px rgba(255,255,255,.18);transform:translateY(-2px)}
+.dev figure{margin:0;background:#1A1A1A;aspect-ratio:16/10;display:block;overflow:hidden;border-bottom:1px solid var(--line);position:relative}
+.dev figure a{display:block;height:100%}
+.dev img{width:100%;height:100%;object-fit:cover;object-position:top;display:block;transition:transform .35s ease}
+.dev figure a:hover img{transform:scale(1.03)}
+.dev figcaption{position:absolute;left:-999px}
+.dev .body{padding:16px 18px 18px;display:flex;flex-direction:column;gap:10px}
+.dev h3 a{color:#fff}
+.dev h3 a:hover{color:var(--red-text)}
+.dev p{margin:0;font-size:14px;color:var(--ink-2);line-height:1.5}
+.dev p b{color:#fff;font-weight:600}
+.dev .take{padding:10px 12px;border-radius:12px;background:var(--soft);font-size:13.5px;color:var(--ink-2);line-height:1.5}
+.dev .take b{display:block;color:var(--red-text);font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin-bottom:4px}
+.dev .links{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:13.5px}
+.dev .links a{color:#fff;font-weight:600}
+.dev .links a:hover{color:var(--red-text)}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{display:inline-flex;align-items:center;font-size:12px;font-weight:600;line-height:1.3;padding:4px 10px;border-radius:999px;white-space:nowrap}
+.chip-cat{background:transparent;color:var(--ink-2);box-shadow:inset 0 0 0 1px var(--line-2)}
+.chip-mute{background:var(--soft);color:#A1A1A6}
+.chip-ok{background:#2A2A2A;color:#fff;box-shadow:inset 0 0 0 1px #5A5A5F}
+.chip-warn{background:var(--red-soft);color:var(--red-text);box-shadow:inset 0 0 0 1px var(--red-line)}
+.chip-bad{background:var(--red);color:#fff}
+
+/* таблица */
+.tw{overflow-x:auto;background:var(--paper);border:1px solid var(--line);border-radius:var(--r)}
+table{border-collapse:collapse;width:100%;font-size:15px;min-width:820px}
+thead th{white-space:nowrap;background:#1F1F1F;color:#fff;text-align:left;font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:12px 16px;border-bottom:1px solid var(--line-2)}
+tbody th,tbody td{text-align:left;vertical-align:top;padding:13px 16px;border-top:1px solid var(--line);font-weight:400}
+tbody th{min-width:200px;color:#fff;font-weight:600}
+tbody th small{display:block;color:var(--ink-3);font-size:12px;margin-top:2px;font-weight:400}
+tbody td{color:var(--ink-2)}
+tbody td a{color:#fff;font-weight:500}
+tbody td a:hover{color:var(--red-text)}
+
+.note{margin:14px 0 0;padding:12px 14px;border-radius:12px;background:var(--soft);font-size:13.5px;color:var(--ink-2);line-height:1.55}
+.note b{display:block;color:#fff;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px}
+.note-red{background:var(--red-soft);box-shadow:inset 0 0 0 1px var(--red-line)}
+.note-red b{color:var(--red-text)}
+.srcs{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.srcs li{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:10px 14px;font-size:13.5px;color:var(--ink-2)}
+.srcs li a{color:#fff;font-weight:600}
+.srcs li a:hover{color:var(--red-text)}
+.srcs li span{display:block;color:var(--ink-3);font-size:12.5px;margin-top:2px}
+@media (max-width:760px){.srcs{grid-template-columns:1fr}}
+.btn{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:10px 18px;border-radius:12px;background:#fff;color:#000;font-weight:600;font-size:14.5px;transition:background .15s ease,color .15s ease}
+.btn:hover{background:var(--red);color:#fff}
+footer{padding:48px 0 60px;color:var(--ink-3);font-size:13px;border-top:1px solid var(--line);margin-top:56px}
+footer a{color:var(--ink-2)}
+.reveal{opacity:1}
+.js-anim .reveal{opacity:0}
+@media (prefers-reduced-motion:reduce){.js-anim .reveal{opacity:1!important;transform:none!important}}
+@media print{.js-anim .reveal{opacity:1!important}.topbar{position:static}body{padding-top:0}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">К содержанию</a>
+<header class="topbar"><div class="wrap">
+  <a class="brand" href="#top"><i aria-hidden="true"></i>Сайт лаборатории датасетов <em>· шаблоны и референсы</em></a>
+  <nav class="topnav" aria-label="Разделы"><a href="#summary">Главное</a><a href="#refs">Референсы</a><a href="#templates">Шаблоны</a><a href="#skeleton">Каркас</a><a href="#sources">Источники</a></nav>
+</div></header>
+
+<section class="hero" id="top"><div class="wrap">
+  <div><p class="eyebrow">Подборка под Mundi Labs</p><h1>Сайт лаборатории, которая делает <span>ML-датасеты</span></h1>
+  <p class="lead">Двенадцать живых сайтов лабораторий и компаний, которые продают или раздают данные для обучения моделей, и тринадцать готовых шаблонов на Webflow, Framer, Astro, Jekyll и Figma. У каждого сайта написано, что именно стоит взять, у каждого шаблона — цена, стек и ссылка на демо. В конце — каркас страницы, собранный из лучших приёмов, с отметкой, что у Mundi Labs уже есть.</p></div>
+  <div class="stats">
+    <div class="stat"><b>12</b><span>живых сайтов: лаборатории и поставщики данных</span></div>
+    <div class="stat"><b>13</b><span>готовых шаблонов с ценой и демо</span></div>
+    <div class="stat"><b>7</b><span>из них бесплатные, включая код с лицензией MIT</span></div>
+    <div class="stat"><b>$19–169</b><span>разовая цена платных шаблонов</span></div>
+  </div>
+</div></section>
+
+<main id="main" class="wrap">
+  <section id="summary" class="reveal">
+    <div class="sh"><span class="num"></span><h2>Главное</h2></div>
+    <p class="sub">Шесть выводов. Карточки сайтов и шаблонов — ниже.</p>
+    <div class="bento">
+      <article class="card ins wide"><p class="tag">Два языка у таких сайтов</p><p><b>«Лаборатория»</b>: General Intuition, Physical Intelligence, Datacurve, World Labs. Текст, публикации, демо исследования, лист ожидания вместо кнопки «купить», почти без цифр. <b>«Поставщик данных»</b>: Claru, Worldmodeldata, Encord, Scale. Мозаика реальных кадров в шапке, счётчики объёма, логотипы партнёров, «Book a call». Mundi Labs по тону ближе к первому типу, но продавать датасет удобнее приёмами второго: ближайший гибрид — Worldmodeldata с навигацией Data → Research → Product → Team.</p></article>
+      <article class="card ins"><p class="tag">Ближайший готовый шаблон</p><p><b>ML-Studio</b> от BRIX Templates: Webflow, 19 страниц, позиционируется как «AI Research Lab» для ML-стартапов и исследовательских институтов, тёмная тема. Разовая цена $169, дальше хостинг по тарифам Webflow.</p></article>
+      <article class="card ins"><p class="tag">Бесплатно и с кодом</p><p><b>Generative AI Company Theme</b> на Astro: Astro 5, Tailwind 4, shadcn/ui, Framer Motion, тёмная тема с переключателем, лицензия MIT. Совпадает с нашим стеком анимаций. Проект молодой, брать как каркас, а не как готовый сайт.</p></article>
+      <article class="card ins"><p class="tag">Академический тон</p><p>Три темы Jekyll для лабораторий на GitHub Pages: <b>Lab Website Template</b> (Greene Lab, автоцитаты по DOI через Manubot), <b>al-folio</b> (16 тысяч звёзд) и <b>Petridish</b>. Все бесплатные, все светлые.</p></article>
+      <article class="card ins"><p class="tag">Без кода и бесплатно</p><p>На Framer бесплатно ремиксуются <b>Message</b> (в описании — «демонстрация AI-исследований, релизы LLM») и <b>Aitch</b>; на Webflow клонируется <b>Supportivus</b>. Платный тёмный Framer-шаблон с красным акцентом, близким к нашей палитре, — <b>Dawning</b>, $129.</p></article>
+      <article class="card ins"><p class="tag">Что уже есть у Mundi Labs</p><p>Лендинг на нашей тёмной серии в трёх языках плюс русская версия. По каркасу ниже не хватает четырёх блоков: публикации и препринты, образец данных или демо, команда с советниками, логотипы партнёров. Шапке нужны реальные кадры съёмки вместо одного текста.</p></article>
+    </div>
+  </section>
+
+  <section id="refs" class="reveal">
+    <div class="sh"><span class="num"></span><h2>Референсы: живые сайты</h2></div>
+    <p class="sub">Скриншоты главных страниц. В блоке «Взять» — конкретный приём, который переносится на сайт лаборатории.</p>
+
+    <div class="grp"><h3>Данные для моделей мира и физического ИИ</h3><span>самая близкая ниша</span></div>
+    <div class="devs">
+      <article class="dev">
+        <figure><a href="https://www.claru.ai/" target="_blank" rel="noopener"><img src="img/ml-lab-templates/claru.jpg" alt="Главная Claru: заголовок Training data for AI на мозаике кадров из реальных сцен" loading="lazy" width="960" height="600"></a><figcaption>Claru</figcaption></figure>
+        <div class="body">
+          <div class="chips"><span class="chip chip-cat">Поставщик данных</span><span class="chip chip-mute">Тёмная</span></div>
+          <h3><a href="https://www.claru.ai/" target="_blank" rel="noopener">Claru</a></h3>
+          <p>Датасеты для робототехники, воплощённого ИИ и моделей мира: эгоцентричное видео, игровые среды, вождение, производство, склады. На главной — счётчики «10 000+ сборщиков, 100+ городов», блок «Built for frontier labs», подпись об инвесторах NVIDIA, Khosla, General Catalyst, Y Combinator. Переключатель языков EN · ES · PT, как у нас.</p>
+          <div class="take"><b>Взять</b>Шапка: одно утверждение поверх мозаики реальных кадров. Финальный призыв «Скажите, что обучаете, мы соберём датасет» вместо прайса.</div>
+        </div>
+      </article>
+      <article class="dev">
+        <figure><a href="https://worldmodeldata.com/" target="_blank" rel="noopener"><img src="img/ml-lab-templates/worldmodeldata.jpg" alt="Главная Worldmodeldata: заголовок The data layer for World Models, моноширинный eyebrow" loading="lazy" width="960" height="600"></a><figcaption>Worldmodeldata</figcaption></figure>
+        <div class="body">
+          <div class="chips"><span class="chip chip-cat">Поставщик данных</span><span class="chip chip-mute">Светлая</span></div>
+          <h3><a href="https://worldmodeldata.com/" target="_blank" rel="noopener">Worldmodeldata</a></h3>
+          <p>Кембридж. Траектории с действиями из видеоигр для моделей мира и физического ИИ: видео, телеметрия, 3D-состояние объектов и ввод игрока, синхронизированные по кадрам. Разделы Data → Research → Product → About → Play Demo → Blog → Team. Доступ и цены — по форме с корпоративного домена. Сид-раунд £7 млн в июле 2026.</p>
+          <div class="take"><b>Взять</b>Структуру навигации целиком. «Шесть слоёв поставки» — тот же приём, что наши три слоя датасета. Интерактивное демо захвата данных прямо на странице.</div>
+        </div>
+      </article>
+      <article class="dev">
+        <figure><a href="https://www.generalintuition.com/" target="_blank" rel="noopener"><img src="img/ml-lab-templates/generalintuition.jpg" alt="Главная General Intuition: тёмный видеофон и текст We are the frontier lab" loading="lazy" width="960" height="600"></a><figcaption>General Intuition</figcaption></figure>
+        <div class="body">
+          <div class="chips"><span class="chip chip-cat">Лаборатория</span><span class="chip chip-mute">Тёмная</span></div>
+          <h3><a href="https://www.generalintuition.com/" target="_blank" rel="noopener">General Intuition</a></h3>
+          <p>«Frontier lab по действиям в пространстве и времени». Модели обучаются на видео геймплея с размеченными действиями. Порядок главной: раунд и инвесторы → Explore the research с демо MIRA, отчётом и кодом → миссия → пресса → направления (action- и world-модели) → Work with us и лист ожидания.</p>
+          <div class="take"><b>Взять</b>Research-first: сначала демо и отчёт, потом всё остальное. Лист ожидания на доступ к данным вместо «купить».</div>
+        </div>
+      </article>
+      <article class="dev">
+        <figure><a href="https://www.pi.website/" target="_blank" rel="noopener"><img src="img/ml-lab-templates/pi.jpg" alt="Главная Physical Intelligence: текстовая страница со списком публикаций" loading="lazy" width="960" height="600"></a><figcaption>Physical Intelligence</figcaption></figure>
+        <div class="body">
+          <div class="chips"><span class="chip chip-cat">Лаборатория</span><span class="chip chip-mute">Светлая</span></div>
+          <h3><a href="https://www.pi.website/" target="_blank" rel="noopener">Physical Intelligence (π)</a></h3>
+          <p>Универсальная модель управления роботами. Главная — почти чистый текст: абзац о миссии, ссылки Research и Join us, лента публикаций π0, π0.5, π0.7 от новых к старым, благодарность инвесторам. Ни одной картинки в шапке.</p>
+          <div class="take"><b>Взять</b>Эталон сдержанности. Если нужен «лабораторный» тон без маркетинга — вот предел, дальше уже слишком пусто.</div>
+        </div>
+      </article>
+      <article class="dev">
+        <figure><a href="https://www.worldlabs.ai/" target="_blank" rel="noopener"><img src="img/ml-lab-templates/worldlabs.jpg" alt="Главная World Labs: заголовок Spatial Intelligence на светлом фоне" loading="lazy" width="960" height="600"></a><figcaption>World Labs</figcaption></figure>
+        <div class="body">
+          <div class="chips"><span class="chip chip-cat">Лаборатория + продукт</span><span class="chip chip-mute">Светлая</span></div>
+          <h3><a href="https://www.worldlabs.ai/" target="_blank" rel="noopener">World Labs</a></h3>
+          <p>Модели мира для «пространственного интеллекта», продукт Marble строит 3D-миры из текста, фото и видео. Главная: описание → возможности Marble → Marble Labs (витрина сообщества, кейсы, обучение) → Research and Insights → призыв и футер с API.</p>
+          <div class="take"><b>Взять</b>Разделение «продукт / лаборатория / исследования» на одной странице. Блок публикаций и подкастов как отдельная секция.</div>
+        </div>
+      </article>
+      <article class="dev">
+        <figure><a href="https://datacurve.ai/" target="_blank" rel="noopener"><img src="img/ml-lab-templates/datacurve.jpg" alt="Главная Datacurve: заголовок Defining intelligence с засечками на светлом фоне" loading="lazy" width="960" height="600"></a><figcaption>Datacurve</figcaption></figure>
+        <div class="body">
+          <div class="chips"><span class="chip chip-cat">Лаборатория</span><span class="chip chip-mute">Светлая</span></div>
+          <h3><a href="https://datacurve.ai/" target="_blank" rel="noopener">Datacurve</a></h3>
+          <p>Сан-Франциско, экспертная разметка и бенчмарки для обучения моделей. Главная минимальна: баннер с анонсом бенчмарка DeepSWE, заголовок «Defining intelligence» с засечками, две кнопки «Get in touch» и «See our research», абзац рассуждения, «Join us», футер.</p>
+          <div class="take"><b>Взять</b>Анонс-баннер над шапкой под новый релиз датасета. Заголовок с засечками как способ выглядеть «лабораторией», а не SaaS.</div>
+        </div>
+      </article>
+    </div>
+
+    <div class="grp"><h3>Инфраструктура данных для ИИ</h3><span>как продают данные корпорациям</span></div>
+    <div class="devs">
+      <article class="dev">
+        <figure><a href="https://www.datologyai.com/" target="_blank" rel="noopener"><img src="img/ml-lab-templates/datology.jpg" alt="Главная Datology: заголовок Data quality is the biggest lever in AI и логотипы клиентов" loading="lazy" width="960" height="600"></a><figcaption>Datology</figcaption></figure>
+        <div class="body">
+          <div class="chips"><span class="chip chip-cat">Поставщик данных</span><span class="chip chip-mute">Светлая</span></div>
+          <h3><a href="https://www.datologyai.com/" target="_blank" rel="noopener">Datology</a></h3>
+          <p>«Рафинерия данных»: не продаёт токены, а улучшает данные клиента в его облаке. Главная: тезис «качество данных — главный рычаг» → логотипы Thomson Reuters, Deepgram, Arcee → конвейер из четырёх этапов → «качество как множитель вычислений» → кейсы с метриками (+5 % на Legal Bench) → три публикации → отзывы.</p>
+          <div class="take"><b>Взять</b>Визуальный конвейер «вход → этапы → результат» для наших трёх слоёв: кадры → траектории → контекст. Кейсы с числами, когда появятся.</div>
+        </div>
+      </article>
+      <article class="dev">
+        <figure><a href="https://encord.com/" target="_blank" rel="noopener"><img src="img/ml-lab-templates/encord.jpg" alt="Главная Encord: заголовок Train and run AI on the right data, иллюстрация мозга" loading="lazy" width="960" height="600"></a><figcaption>Encord</figcaption></figure>
+        <div class="body">
+          <div class="chips"><span class="chip chip-cat">Платформа</span><span class="chip chip-mute">Светлая</span></div>
+          <h3><a href="https://encord.com/" target="_blank" rel="noopener">Encord</a></h3>
+          <p>Инфраструктура данных для физического ИИ и корпоративных команд, мультимодальная разметка. Классический SaaS: навигация Platform / Solutions / Customers / Pricing, две кнопки «Explore product» и «Book a demo», анонс саммита в верхней полосе.</p>
+          <div class="take"><b>Взять</b>Формулу заголовка «обучайте на правильных данных». Антипример: всплывающее окно cookies закрывает шапку на первом экране.</div>
+        </div>
+      </article>
+      <article class="dev">
+        <figure><a href="https://scale.com/" target="_blank" rel="noopener"><img src="img/ml-lab-templates/scale.jpg" alt="Главная Scale AI: заголовок про надёжные ИИ-системы на фоне пейзажа" loading="lazy" width="960" height="600"></a><figcaption>Scale AI</figcaption></figure>
+        <div class="body">
+          <div class="chips"><span class="chip chip-cat">Корпорация</span><span class="chip chip-mute">Тёмная</span></div>
+          <h3><a href="https://scale.com/" target="_blank" rel="noopener">Scale AI</a></h3>
+          <p>Данные для передовых моделей и внедрение ИИ в корпорациях и госсекторе. Главная: Applications → Data с ссылкой на Data Engine → список отраслей → кейсы Mayo Clinic, Meta, BP → бенчмарки и новости → запрос демо.</p>
+          <div class="take"><b>Взять</b>Только раздел Data как пример описания «движка данных». Остальное — корпоративный стиль, лаборатории не подходит.</div>
+        </div>
+      </article>
+    </div>
+
+    <div class="grp"><h3>Открытые датасеты и институты</h3><span>как оформляют сами датасеты</span></div>
+    <div class="devs">
+      <article class="dev">
+        <figure><a href="https://laion.ai/" target="_blank" rel="noopener"><img src="img/ml-lab-templates/laion.jpg" alt="Главная LAION: боковое меню и карточки датасетов LAION-400M, LAION-5B, Clip H/14, LAION-Aesthetics" loading="lazy" width="960" height="600"></a><figcaption>LAION</figcaption></figure>
+        <div class="body">
+          <div class="chips"><span class="chip chip-cat">Открытые данные</span><span class="chip chip-mute">Тёмная</span></div>
+          <h3><a href="https://laion.ai/" target="_blank" rel="noopener">LAION</a></h3>
+          <p>Некоммерческая организация, открытые датасеты и модели. На главной — четыре карточки: LAION-400M, LAION-5B, Clip H/14, LAION-Aesthetics, у каждой размер и одна строка описания. В меню отдельные пункты Dataset Requests и FAQ.</p>
+          <div class="take"><b>Взять</b>Карточку датасета: имя, объём, одна строка, кнопка. Пункт «Запрос датасета» для съёмки под задачу.</div>
+        </div>
+      </article>
+      <article class="dev">
+        <figure><a href="https://allenai.org/" target="_blank" rel="noopener"><img src="img/ml-lab-templates/ai2.jpg" alt="Главная Ai2: заголовок Breakthrough AI to solve the world's biggest problems на цветном фоне" loading="lazy" width="960" height="600"></a><figcaption>Ai2</figcaption></figure>
+        <div class="body">
+          <div class="chips"><span class="chip chip-cat">Институт</span><span class="chip chip-mute">Тёмная</span></div>
+          <h3><a href="https://allenai.org/" target="_blank" rel="noopener">Ai2 (Allen Institute for AI)</a></h3>
+          <p>Открытые модели Olmo, Tülu, Molmo и проекты для науки, экологии и робототехники. В меню Open models есть пункт Open data. На главной — блоки по направлениям, новости, принципы исследований, партнёры, карьера.</p>
+          <div class="take"><b>Взять</b>«Принципы исследований» как отдельную секцию — у нас это «Стандарты, которых держимся». Пункт Open data в навигации.</div>
+        </div>
+      </article>
+      <article class="dev">
+        <figure><a href="https://huggingface.co/datasets" target="_blank" rel="noopener"><img src="img/ml-lab-templates/hf-datasets.jpg" alt="Каталог датасетов Hugging Face: фильтры по модальности, формату, размеру, лицензии и список датасетов" loading="lazy" width="960" height="600"></a><figcaption>Hugging Face Datasets</figcaption></figure>
+        <div class="body">
+          <div class="chips"><span class="chip chip-cat">Каталог</span><span class="chip chip-mute">Светлая</span></div>
+          <h3><a href="https://huggingface.co/datasets" target="_blank" rel="noopener">Hugging Face Datasets</a></h3>
+          <p>Каталог датасетов с фильтрами по модальности, формату, размеру, библиотеке, языку и лицензии. У каждого датасета — карточка README с лицензией, структурой, сплитами и примером загрузки. Это формат, который исследователи ждут по умолчанию.</p>
+          <div class="take"><b>Взять</b>Спецификацию датасета оформить как dataset card и выложить образец на Hugging Face: ссылка с сайта туда весит больше любой кнопки «запросить доступ».</div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section id="templates" class="reveal">
+    <div class="sh"><span class="num"></span><h2>Готовые шаблоны</h2></div>
+    <p class="sub">Цены — разовые, со страниц продавцов. Хостинг у Webflow и Framer оплачивается отдельно по их тарифам; Astro и Jekyll бесплатно живут на GitHub Pages или Cloudflare Pages.</p>
+
+    <div class="grp"><h3>Webflow</h3><span>конструктор, CMS, без кода</span></div>
+    <div class="devs">
+      <article class="dev">
+        <figure><a href="https://mlstudiotemplate.webflow.io/" target="_blank" rel="noopener"><img src="img/ml-lab-templates/tpl-mlstudio.jpg" alt="Демо шаблона ML-Studio: тёмная шапка с заголовком и макетами экранов" loading="lazy" width="960" height="600"></a><figcaption>ML-Studio</figcaption></figure>
+        <div class="body">
+          <div class="chips"><span class="chip chip-cat">Webflow</span><span class="chip chip-warn">$169</span><span class="chip chip-mute">19 страниц</span><span class="chip chip-mute">Тёмная</span></div>
+          <h3><a href="https://brixtemplates.com/templates/ai-research-lab-webflow-template" target="_blank" rel="noopener">ML-Studio — AI Research Lab</a></h3>
+          <p>BRIX Templates. Единственный найденный шаблон, который прямо называет себя «AI Research Lab»: для ML-стартапов, команд data science и исследовательских институтов. Исходник Figma высылают по чеку о покупке.</p>
+          <div class="links"><a href="https://brixtemplates.com/templates/ai-research-lab-webflow-template" target="_blank" rel="noopener">Страница шаблона</a><a href="https://mlstudiotemplate.webflow.io/" target="_blank" rel="noopener">Демо</a></div>
+        </div>
+      </article>
+      <article class="dev">
+        <figure><a href="https://aitemplate.webflow.io/" target="_blank" rel="noopener"><img src="img/ml-lab-templates/tpl-aix.jpg" alt="Демо шаблона AI X+: тёмно-синяя шапка с заголовком AI X+ Webflow Template" loading="lazy" width="960" height="600"></a><figcaption>AI X+</figcaption></figure>
+        <div class="body">
+          <div class="chips"><span class="chip chip-cat">Webflow</span><span class="chip chip-warn">$129</span><span class="chip chip-mute">Тёмная</span></div>
+          <h3><a href="https://webflow.com/templates/html/ai-x-technology-website-template" target="_blank" rel="noopener">AI X+</a></h3>
+          <p>BRIX Templates. В описании — «для технологических стартапов, AI-лабораторий и ML-компаний», чтобы показывать свои модели. Тёмно-синяя палитра, много секций под продукт и тарифы.</p>
+          <div class="links"><a href="https://webflow.com/templates/html/ai-x-technology-website-template" target="_blank" rel="noopener">Страница шаблона</a><a href="https://aitemplate.webflow.io/" target="_blank" rel="noopener">Демо</a></div>
+        </div>
+      </article>
+      <article class="dev">
+        <figure><a href="https://supportivus.webflow.io/" target="_blank" rel="noopener"><img src="img/ml-lab-templates/tpl-supportivus.jpg" alt="Демо шаблона Supportivus: фиолетовая шапка с фотографией оператора поддержки" loading="lazy" width="960" height="600"></a><figcaption>Supportivus</figcaption></figure>
+        <div class="body">
+          <div class="chips"><span class="chip chip-cat">Webflow</span><span class="chip chip-ok">Бесплатно</span><span class="chip chip-mute">Светлая</span></div>
+          <h3><a href="https://webflow.com/made-in-webflow/website/supportivus" target="_blank" rel="noopener">Supportivus</a></h3>
+          <p>Бесплатный клон от Simpli для AI-стартапов: Lottie-анимации, слайдер отзывов на CMS. Тема — поддержка клиентов, под лабораторию придётся переписать всё содержимое, остаётся сетка и механика.</p>
+          <div class="links"><a href="https://webflow.com/made-in-webflow/website/supportivus" target="_blank" rel="noopener">Клонировать</a><a href="https://supportivus.webflow.io/" target="_blank" rel="noopener">Демо</a></div>
+        </div>
+      </article>
+    </div>
+
+    <div class="grp"><h3>Framer</h3><span>конструктор с анимациями, без кода</span></div>
+    <div class="devs">
+      <article class="dev">
+        <figure><a href="https://heymessage.framer.ai/" target="_blank" rel="noopener"><img src="img/ml-lab-templates/tpl-message.jpg" alt="Демо шаблона Message: серые горы в тумане и заголовок Where thoughts become actions" loading="lazy" width="960" height="600"></a><figcaption>Message</figcaption></figure>
+        <div class="body">
+          <div class="chips"><span class="chip chip-cat">Framer</span><span class="chip chip-ok">Бесплатно</span><span class="chip chip-mute">Тёмная</span></div>
+          <h3><a href="https://www.framer.com/marketplace/templates/message/" target="_blank" rel="noopener">Message</a></h3>
+          <p>Кнопка «Remix for Free». В списке назначений — «технологические стартапы, демонстрирующие AI-исследования и релизы LLM». Сдержанная серая палитра и крупный заголовок, ближе всего к лабораторному тону среди бесплатных.</p>
+          <div class="links"><a href="https://www.framer.com/marketplace/templates/message/" target="_blank" rel="noopener">Страница шаблона</a><a href="https://heymessage.framer.ai/" target="_blank" rel="noopener">Демо</a></div>
+        </div>
+      </article>
+      <article class="dev">
+        <figure><a href="https://aitch.framer.website/" target="_blank" rel="noopener"><img src="img/ml-lab-templates/tpl-aitch.jpg" alt="Демо шаблона Aitch: оранжевые световые волны на чёрном и заголовок Proven AI results you can trust" loading="lazy" width="960" height="600"></a><figcaption>Aitch</figcaption></figure>
+        <div class="body">
+          <div class="chips"><span class="chip chip-cat">Framer</span><span class="chip chip-ok">Бесплатно</span><span class="chip chip-mute">Тёмная</span></div>
+          <h3><a href="https://www.framer.com/marketplace/templates/itechai/" target="_blank" rel="noopener">Aitch</a></h3>
+          <p>Бесплатный тёмный шаблон для AI-стартапов и SaaS. Разделы Overview, Product, Features, Pricing, Testimonial, FAQ. Шапка с абстрактной графикой, которую в нашем случае заменят кадры съёмки.</p>
+          <div class="links"><a href="https://www.framer.com/marketplace/templates/itechai/" target="_blank" rel="noopener">Страница шаблона</a><a href="https://aitch.framer.website/" target="_blank" rel="noopener">Демо</a></div>
+        </div>
+      </article>
+      <article class="dev">
+        <figure><a href="https://dawning.framer.website/" target="_blank" rel="noopener"><img src="img/ml-lab-templates/tpl-dawning.jpg" alt="Демо шаблона Dawning: красно-коралловая шапка с заголовком Your team moves fast but your data never keeps up" loading="lazy" width="960" height="600"></a><figcaption>Dawning</figcaption></figure>
+        <div class="body">
+          <div class="chips"><span class="chip chip-cat">Framer</span><span class="chip chip-warn">$129</span><span class="chip chip-mute">15 страниц</span><span class="chip chip-mute">Тёмная + красный</span></div>
+          <h3><a href="https://www.framer.com/marketplace/templates/dawning/" target="_blank" rel="noopener">Dawning</a></h3>
+          <p>Для AI-продуктов и платформ data intelligence. Home, About, Features, Integrations, Blog, Case studies, Careers, Contact, Legal, 404 и CMS-шаблоны. Тёмная тема с коралловым красным — ближе всего к нашей палитре.</p>
+          <div class="links"><a href="https://www.framer.com/marketplace/templates/dawning/" target="_blank" rel="noopener">Страница шаблона</a><a href="https://dawning.framer.website/" target="_blank" rel="noopener">Демо</a></div>
+        </div>
+      </article>
+      <article class="dev">
+        <figure><a href="https://contra.com/products/d9KMspJP-scholar-eye-ai-premium-framer-template-for-airesearch-products" target="_blank" rel="noopener"><img src="img/ml-lab-templates/tpl-scholareye.jpg" alt="Страница шаблона ScholarEye AI на Contra" loading="lazy" width="960" height="600"></a><figcaption>ScholarEye AI</figcaption></figure>
+        <div class="body">
+          <div class="chips"><span class="chip chip-cat">Framer</span><span class="chip chip-warn">$39</span></div>
+          <h3><a href="https://contra.com/products/d9KMspJP-scholar-eye-ai-premium-framer-template-for-airesearch-products" target="_blank" rel="noopener">ScholarEye AI</a></h3>
+          <p>Продаётся на Contra как шаблон «для AI- и research-продуктов»: Home, Features, Pricing, Blog на Framer CMS, Contact, Legal. Отдельной ссылки на живое демо на странице нет, скриншот — страница продавца.</p>
+          <div class="links"><a href="https://contra.com/products/d9KMspJP-scholar-eye-ai-premium-framer-template-for-airesearch-products" target="_blank" rel="noopener">Страница шаблона</a></div>
+        </div>
+      </article>
+    </div>
+
+    <div class="grp"><h3>Код: Astro и HTML</h3><span>наш путь, если делать своими руками</span></div>
+    <div class="devs">
+      <article class="dev">
+        <figure><a href="https://ctrimm.github.io/astro-genai-startup-theme/" target="_blank" rel="noopener"><img src="img/ml-lab-templates/tpl-astro-genai.jpg" alt="Демо темы Generative AI Company: светлая шапка Build the Future with GenAI и счётчики" loading="lazy" width="960" height="600"></a><figcaption>Generative AI Company Theme</figcaption></figure>
+        <div class="body">
+          <div class="chips"><span class="chip chip-cat">Astro</span><span class="chip chip-ok">Бесплатно · MIT</span><span class="chip chip-mute">Тёмная и светлая</span></div>
+          <h3><a href="https://astro.build/themes/details/generative-ai-company-theme/" target="_blank" rel="noopener">Generative AI Company Theme</a></h3>
+          <p>Astro 5, React 19, TypeScript, Tailwind CSS 4, shadcn/ui, Framer Motion, Lucide. Переключатель темы с памятью. Репозиторий ctrimm/astro-genai-startup-theme, 8 звёзд: каркас рабочий, но сообщества вокруг нет.</p>
+          <div class="links"><a href="https://astro.build/themes/details/generative-ai-company-theme/" target="_blank" rel="noopener">Каталог Astro</a><a href="https://github.com/ctrimm/astro-genai-startup-theme" target="_blank" rel="noopener">GitHub</a><a href="https://ctrimm.github.io/astro-genai-startup-theme/" target="_blank" rel="noopener">Демо</a></div>
+        </div>
+      </article>
+      <article class="dev">
+        <figure><a href="https://cruip.com/demos/open-pro/" target="_blank" rel="noopener"><img src="img/ml-lab-templates/tpl-openpro.jpg" alt="Демо шаблона Open PRO: тёмная шапка с заголовком AI-driven tools for product teams" loading="lazy" width="960" height="600"></a><figcaption>Open PRO</figcaption></figure>
+        <div class="body">
+          <div class="chips"><span class="chip chip-cat">HTML · Next.js · Vue</span><span class="chip chip-warn">$49</span><span class="chip chip-mute">Тёмная</span></div>
+          <h3><a href="https://cruip.com/open-pro/" target="_blank" rel="noopener">Open PRO</a></h3>
+          <p>Cruip. Три реализации в одной покупке: HTML на Tailwind 4 с Alpine.js, Next.js 16, Vue 3, плюс Figma. Для SaaS и стартапов; под лабораторию берётся как сетка и компоненты.</p>
+          <div class="links"><a href="https://cruip.com/open-pro/" target="_blank" rel="noopener">Страница шаблона</a><a href="https://cruip.com/demos/open-pro/" target="_blank" rel="noopener">Демо</a></div>
+        </div>
+      </article>
+      <article class="dev">
+        <figure><a href="https://www.webestica.com/premium-figma-templates/eilex-technology-figma-template" target="_blank" rel="noopener"><img src="img/ml-lab-templates/tpl-eilex.jpg" alt="Превью Figma-шаблона Eilex: тёмный лендинг AI-продукта, изображение продавца" loading="lazy" width="500" height="312"></a><figcaption>Eilex</figcaption></figure>
+        <div class="body">
+          <div class="chips"><span class="chip chip-cat">Figma</span><span class="chip chip-warn">$19</span><span class="chip chip-mute">17 страниц</span><span class="chip chip-mute">Тёмная</span></div>
+          <h3><a href="https://www.webestica.com/premium-figma-templates/eilex-technology-figma-template" target="_blank" rel="noopener">Eilex</a></h3>
+          <p>Webestica. Только макет Figma для десктопа, кода нет; версии для Framer и Webflow продаются отдельно. Подходит как источник композиций секций, если верстать самим.</p>
+          <div class="links"><a href="https://www.webestica.com/premium-figma-templates/eilex-technology-figma-template" target="_blank" rel="noopener">Страница шаблона</a></div>
+        </div>
+      </article>
+    </div>
+
+    <div class="grp"><h3>Jekyll: академические лаборатории</h3><span>GitHub Pages, бесплатно</span></div>
+    <div class="devs">
+      <article class="dev">
+        <figure><a href="https://greenelab.github.io/lab-website-template/" target="_blank" rel="noopener"><img src="img/ml-lab-templates/tpl-lwt.jpg" alt="Демо Lab Website Template: тёмно-синяя шапка с логотипом и пунктами Research, Projects, Blog, Team" loading="lazy" width="960" height="600"></a><figcaption>Lab Website Template</figcaption></figure>
+        <div class="body">
+          <div class="chips"><span class="chip chip-cat">Jekyll</span><span class="chip chip-ok">Бесплатно · BSD-3</span><span class="chip chip-mute">Светлая</span></div>
+          <h3><a href="https://github.com/greenelab/lab-website-template" target="_blank" rel="noopener">Lab Website Template</a></h3>
+          <p>Greene Lab, 578 звёзд. Разделы Research, Projects, Blog, Team. Цитаты подтягиваются автоматически по DOI, PubMed и ORCID через Manubot. Самый «научный» вариант: публикации обновляются без ручной вёрстки.</p>
+          <div class="links"><a href="https://github.com/greenelab/lab-website-template" target="_blank" rel="noopener">GitHub</a><a href="https://greenelab.github.io/lab-website-template/" target="_blank" rel="noopener">Демо</a></div>
+        </div>
+      </article>
+      <article class="dev">
+        <figure><a href="https://alshedivat.github.io/al-folio/" target="_blank" rel="noopener"><img src="img/ml-lab-templates/tpl-alfolio.jpg" alt="Демо al-folio: светлая страница с биографией, фото и лентой новостей" loading="lazy" width="960" height="600"></a><figcaption>al-folio</figcaption></figure>
+        <div class="body">
+          <div class="chips"><span class="chip chip-cat">Jekyll</span><span class="chip chip-ok">Бесплатно · MIT</span><span class="chip chip-mute">Светлая и тёмная</span></div>
+          <h3><a href="https://github.com/alshedivat/al-folio" target="_blank" rel="noopener">al-folio</a></h3>
+          <p>16 245 звёзд, самая популярная академическая тема. Публикации из BibTeX, проекты, CV, новости, блог. Рассчитана на персональную страницу учёного, лабораторию тоже тянет.</p>
+          <div class="links"><a href="https://github.com/alshedivat/al-folio" target="_blank" rel="noopener">GitHub</a><a href="https://alshedivat.github.io/al-folio/" target="_blank" rel="noopener">Демо</a></div>
+        </div>
+      </article>
+      <article class="dev">
+        <figure><a href="https://peterdesmet.com/petridish" target="_blank" rel="noopener"><img src="img/ml-lab-templates/tpl-petridish.jpg" alt="Демо Petridish: фотошапка Your research project и инструкция по установке" loading="lazy" width="960" height="600"></a><figcaption>Petridish</figcaption></figure>
+        <div class="body">
+          <div class="chips"><span class="chip chip-cat">Jekyll</span><span class="chip chip-ok">Бесплатно · MIT</span><span class="chip chip-mute">Светлая</span></div>
+          <h3><a href="https://github.com/peterdesmet/petridish" target="_blank" rel="noopener">Petridish</a></h3>
+          <p>Тема для сайтов исследовательских проектов на Bootstrap 5, 59 звёзд. Фотошапка, страницы Home, About, Team, Blog, Documentation. Минимум настроек, за вечер ставится на GitHub Pages.</p>
+          <div class="links"><a href="https://github.com/peterdesmet/petridish" target="_blank" rel="noopener">GitHub</a><a href="https://peterdesmet.com/petridish" target="_blank" rel="noopener">Демо</a></div>
+        </div>
+      </article>
+    </div>
+    <div class="note note-red"><b>Чего не нашлось</b>Готового шаблона именно под «лабораторию, которая продаёт датасет» нет ни в Figma Community, ни на Webflow и Framer: ближайшие — ML-Studio (research lab) и Worldmodeldata как живой образец. Поэтому ниже — каркас, собранный из референсов, его можно наложить на любой шаблон из списка или на наш текущий лендинг.</div>
+  </section>
+
+  <section id="skeleton" class="reveal">
+    <div class="sh"><span class="num"></span><h2>Каркас сайта лаборатории датасетов</h2></div>
+    <p class="sub">Одиннадцать блоков сверху вниз. Третий столбец — что уже есть на лендинге Mundi Labs.</p>
+    <div class="tw"><table>
+      <thead><tr><th>Блок</th><th>Откуда приём</th><th>У Mundi Labs</th></tr></thead>
+      <tbody>
+        <tr><th>1. Шапка: одно утверждение + реальные кадры<small>мозаика или видео из датасета, а не абстракция</small></th><td>Claru, General Intuition</td><td>Текст есть, кадров нет. Добавить мозаику таймлапсов чашек.</td></tr>
+        <tr><th>2. Почему эти данные<small>один тезис против альтернатив</small></th><td>Datology «качество данных — рычаг», General Intuition «миссия»</td><td>Есть: «Симуляции чистые. Жизнь — нет».</td></tr>
+        <tr><th>3. Датасет слоями + спецификация<small>формат, частота, объём, лицензия</small></th><td>Worldmodeldata «шесть слоёв», LAION-карточки, dataset card Hugging Face</td><td>Есть: три слоя и техспецификация.</td></tr>
+        <tr><th>4. Чем объект уникален<small>организм, среда, метод</small></th><td>General Intuition (игровые данные с действиями), Claru (эгоцентричное видео)</td><td>Есть: «Единственное животное с полной схемой связей».</td></tr>
+        <tr><th>5. Инфраструктура<small>лаборатория, оборудование, масштаб</small></th><td>Claru «10 000 сборщиков, 100 городов», Worldmodeldata «петабайты записей»</td><td>Есть: «Лаборатория», оборудование и условия.</td></tr>
+        <tr><th>6. Принципы и стандарты<small>что делаем с неудачными прогонами</small></th><td>Ai2 «принципы исследований»</td><td>Есть: «Стандарты, которых держимся».</td></tr>
+        <tr><th>7. Исследования<small>препринт, технический отчёт, бенчмарк</small></th><td>Physical Intelligence, World Labs, Worldmodeldata Research, Datacurve (баннер бенчмарка)</td><td>Нет. Добавить хотя бы один технический отчёт о датасете.</td></tr>
+        <tr><th>8. Образец данных или демо<small>скачать фрагмент, посмотреть треки в браузере</small></th><td>Worldmodeldata «Play Demo», General Intuition MIRA</td><td>Нет. Сэмпл на Hugging Face и просмотр траекторий на странице.</td></tr>
+        <tr><th>9. Доступ<small>форма запроса, лицензия, съёмка под задачу</small></th><td>Worldmodeldata (запрос с корпоративного домена), Claru «Book a call», LAION «Dataset Requests»</td><td>Частично: три сценария сотрудничества, формы запроса нет.</td></tr>
+        <tr><th>10. Команда и советники</th><td>Worldmodeldata Team, Greene Lab Team</td><td>Нет.</td></tr>
+        <tr><th>11. Партнёры и инвесторы<small>логотипы, когда появятся</small></th><td>Claru «Backed by», Datology «Trusted by», General Intuition</td><td>Нет. Поставить, как только будет первая лаборатория-партнёр.</td></tr>
+      </tbody>
+    </table></div>
+    <div class="note"><b>Как применить</b>Если остаёмся на своём коде: взять текущий mundi-labs.html, добавить блоки 1, 7, 8, 10 и форму в блок 9, остальное уже на месте. Если нужен конструктор с CMS для блога и публикаций: ML-Studio на Webflow или Dawning на Framer, в оба переносится тот же каркас. Если нужен академический вид с автоцитированием: Lab Website Template, бесплатно.</div>
+  </section>
+
+  <section id="sources" class="reveal">
+    <div class="sh"><span class="num"></span><h2>Источники</h2></div>
+    <p class="sub">Все ссылки открываются; описания сайтов и цены взяты с самих страниц.</p>
+    <ul class="srcs">
+      <li><a href="https://www.claru.ai/" target="_blank" rel="noopener">claru.ai</a><span>Training data for physical AI: секции, счётчики, инвесторы</span></li>
+      <li><a href="https://worldmodeldata.com/" target="_blank" rel="noopener">worldmodeldata.com</a><span>Навигация Data / Research / Product / Team, форма запроса доступа</span></li>
+      <li><a href="https://tech.eu/2026/07/06/worldmodeldata-lands-ps7m-to-turn-gaming-data-into-ai-training/" target="_blank" rel="noopener">tech.eu о Worldmodeldata</a><span>Сид-раунд £7 млн, лицензирование игровых данных</span></li>
+      <li><a href="https://www.generalintuition.com/" target="_blank" rel="noopener">generalintuition.com</a><span>Порядок секций, демо MIRA, лист ожидания</span></li>
+      <li><a href="https://www.pi.website/" target="_blank" rel="noopener">pi.website</a><span>Physical Intelligence: текстовая главная, лента публикаций</span></li>
+      <li><a href="https://www.worldlabs.ai/" target="_blank" rel="noopener">worldlabs.ai</a><span>Marble, Marble Labs, Research and Insights</span></li>
+      <li><a href="https://datacurve.ai/" target="_blank" rel="noopener">datacurve.ai</a><span>Минимальная главная, баннер бенчмарка DeepSWE</span></li>
+      <li><a href="https://www.datologyai.com/" target="_blank" rel="noopener">datologyai.com</a><span>Конвейер из четырёх этапов, кейсы с метриками</span></li>
+      <li><a href="https://encord.com/" target="_blank" rel="noopener">encord.com</a><span>SaaS-структура Platform / Solutions / Customers / Pricing</span></li>
+      <li><a href="https://scale.com/" target="_blank" rel="noopener">scale.com</a><span>Раздел Data и Data Engine, кейсы по отраслям</span></li>
+      <li><a href="https://laion.ai/" target="_blank" rel="noopener">laion.ai</a><span>Карточки датасетов, Dataset Requests, FAQ</span></li>
+      <li><a href="https://allenai.org/" target="_blank" rel="noopener">allenai.org</a><span>Open models → Open data, принципы исследований</span></li>
+      <li><a href="https://huggingface.co/datasets" target="_blank" rel="noopener">huggingface.co/datasets</a><span>Фильтры каталога и формат dataset card</span></li>
+      <li><a href="https://brixtemplates.com/templates/ai-research-lab-webflow-template" target="_blank" rel="noopener">BRIX: ML-Studio</a><span>$169, 19 страниц, Figma по чеку</span></li>
+      <li><a href="https://webflow.com/templates/html/ai-x-technology-website-template" target="_blank" rel="noopener">Webflow: AI X+</a><span>$129, для AI-лабораторий и ML-компаний</span></li>
+      <li><a href="https://webflow.com/made-in-webflow/website/supportivus" target="_blank" rel="noopener">Webflow: Supportivus</a><span>Бесплатный клон от Simpli</span></li>
+      <li><a href="https://www.framer.com/marketplace/templates/message/" target="_blank" rel="noopener">Framer: Message</a><span>Remix for Free, назначение «AI-исследования, релизы LLM»</span></li>
+      <li><a href="https://www.framer.com/marketplace/templates/itechai/" target="_blank" rel="noopener">Framer: Aitch</a><span>Бесплатно, тёмная тема</span></li>
+      <li><a href="https://www.framer.com/marketplace/templates/dawning/" target="_blank" rel="noopener">Framer: Dawning</a><span>$129, 15 страниц, тёмная с коралловым красным</span></li>
+      <li><a href="https://contra.com/products/d9KMspJP-scholar-eye-ai-premium-framer-template-for-airesearch-products" target="_blank" rel="noopener">Contra: ScholarEye AI</a><span>$39, Framer, «для AI/research-продуктов»</span></li>
+      <li><a href="https://astro.build/themes/details/generative-ai-company-theme/" target="_blank" rel="noopener">Astro: Generative AI Company Theme</a><span>Бесплатно, стек и демо</span></li>
+      <li><a href="https://cruip.com/open-pro/" target="_blank" rel="noopener">Cruip: Open PRO</a><span>$49, HTML / Next.js / Vue</span></li>
+      <li><a href="https://www.webestica.com/premium-figma-templates/eilex-technology-figma-template" target="_blank" rel="noopener">Webestica: Eilex</a><span>$19, 17 страниц Figma</span></li>
+      <li><a href="https://github.com/greenelab/lab-website-template" target="_blank" rel="noopener">GitHub: Lab Website Template</a><span>BSD-3, Manubot-цитаты, демо</span></li>
+      <li><a href="https://github.com/alshedivat/al-folio" target="_blank" rel="noopener">GitHub: al-folio</a><span>MIT, число звёзд по API GitHub</span></li>
+      <li><a href="https://github.com/peterdesmet/petridish" target="_blank" rel="noopener">GitHub: Petridish</a><span>MIT, Bootstrap 5, демо</span></li>
+    </ul>
+  </section>
+</main>
+
+<footer><div class="wrap">Скриншоты сняты с главных страниц в ширине 1280 px и принадлежат их владельцам. Цены разовые, без хостинга; перед покупкой сверить на странице продавца. Лендинг Mundi Labs: <a href="mundi-labs.html">EN / ES / PT</a> · <a href="mundi-labs-ru.html">русская версия</a>.</div></footer>
+
+<script>
+(() => {
+  const links = [...document.querySelectorAll('.topnav a')];
+  const secs = links.map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+  if (!('IntersectionObserver' in window) || !secs.length) return;
+  const io = new IntersectionObserver(es => {
+    es.forEach(e => { if (e.isIntersecting) { links.forEach(a => a.classList.toggle('on', a.getAttribute('href') === '#' + e.target.id)); } });
+  }, { rootMargin: '-40% 0px -55% 0px' });
+  secs.forEach(s => io.observe(s));
+})();
+</script>
+<script type="module">
+const items = [...document.querySelectorAll('.reveal')];
+const show = el => { el.style.opacity = 1; el.style.transform = 'none'; };
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const fallback = () => {
+  if (!('IntersectionObserver' in window)) return items.forEach(show);
+  const io = new IntersectionObserver(es => es.forEach(x => { if (x.isIntersecting) { x.target.style.transition = 'opacity .5s ease, transform .5s ease'; show(x.target); io.unobserve(x.target); } }), { rootMargin: '0px 0px -8% 0px' });
+  items.forEach(el => io.observe(el));
+};
+setTimeout(() => {
+  try { document.getAnimations().forEach(a => a.finish()); } catch (e) {}
+  document.querySelectorAll('.reveal, .stat, .ins, .dev').forEach(el => { if (parseFloat(getComputedStyle(el).opacity) < 0.99) show(el); });
+}, 3000);
+const wait = new Promise(r => setTimeout(() => r(null), 2500));
+const m = reduce ? null : await Promise.race([import('https://cdn.jsdelivr.net/npm/motion@11/+esm').catch(() => null), wait]);
+if (reduce) { items.forEach(show); }
+else if (!m) { fallback(); }
+else {
+  try {
+    const { animate, inView, stagger } = m;
+    inView('.reveal', x => { const el = x && x.target ? x.target : x; animate(el, { opacity: [0, 1], y: [18, 0] }, { duration: 0.5, ease: [0.22, 1, 0.36, 1] }); }, { margin: '0px 0px -8% 0px' });
+    inView('.bento, .devs', x => { const el = x && x.target ? x.target : x; animate(el.querySelectorAll('.ins, .dev'), { opacity: [0, 1], y: [12, 0] }, { duration: 0.45, delay: stagger(0.05) }); });
+    animate('.stat', { opacity: [0, 1], y: [10, 0] }, { duration: 0.4, delay: stagger(0.06) });
+  } catch (err) { fallback(); }
+}
+</script>
+</body>
+</html>
