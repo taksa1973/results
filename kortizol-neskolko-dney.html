@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Кортизол несколько дней подряд</title>
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="description" content="Как измерить кортизол несколько дней подряд по аналогии с холтером и мониторингом глюкозы: что реально существует, протокол сбора слюны, где сдать в Рио-де-Жанейро и в России, приборы в разработке.">
+<meta name="theme-color" content="#000000">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add('js-anim')</script>
+<style>
+:root{color-scheme:dark;
+  --bg:#000;--paper:#121212;--soft:#1A1A1A;--line:#262626;--line-2:#3A3A3A;
+  --ink:#F5F5F5;--ink-2:#C4C4C8;--ink-3:#8E8E93;
+  --red:#9B1C1C;--red-hover:#B42323;--red-text:#E05252;--red-soft:#241010;--red-line:#4D1B1B;
+  --r:16px;--topbar:60px}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;padding-top:var(--topbar);background:var(--bg);color:var(--ink);font:16px/1.6 Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased;overflow-wrap:anywhere}
+::selection{background:var(--red);color:#fff}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+a{color:var(--red-text);text-decoration:none}
+a:hover{color:#fff}
+a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid #fff;outline-offset:3px;border-radius:6px}
+.skip{position:absolute;left:-999px;top:0}
+.skip:focus{left:16px;top:16px;background:#fff;color:#000;padding:10px 14px;border-radius:10px;z-index:100}
+h1,h2,h3{color:#fff;margin:0}
+h1{font-size:clamp(34px,5.2vw,60px);line-height:1.04;letter-spacing:-.03em;font-weight:800;text-wrap:balance;max-width:16ch}
+h1 span{color:var(--red-text)}
+h2{font-size:clamp(26px,3.2vw,38px);line-height:1.12;letter-spacing:-.02em;font-weight:700;text-wrap:balance}
+h3{font-size:19px;line-height:1.3;letter-spacing:-.01em;font-weight:600}
+.eyebrow{color:var(--red-text);font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin:0 0 10px}
+.sub{color:var(--ink-2);max-width:72ch;margin:10px 0 24px}
+.dim{color:var(--ink-3);font-weight:400}
+
+/* верхняя панель */
+.topbar{position:fixed;top:0;left:0;right:0;height:var(--topbar);z-index:50;background:rgba(0,0,0,.86);-webkit-backdrop-filter:saturate(140%) blur(16px);backdrop-filter:saturate(140%) blur(16px);border-bottom:1px solid var(--line)}
+.topbar .wrap{height:100%;display:flex;align-items:center;gap:20px}
+.brand{display:flex;align-items:center;gap:10px;color:#fff;font-weight:700;font-size:15px;letter-spacing:-.01em;white-space:nowrap;flex:none}
+.brand i{width:10px;height:10px;border-radius:3px;background:var(--red-text);display:inline-block}
+.brand em{font-style:normal;color:var(--ink-3);font-weight:500}
+.topnav{display:flex;gap:4px;margin-left:auto;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.topnav::-webkit-scrollbar{display:none}
+.topnav a{flex:none;color:var(--ink-2);font-size:14px;font-weight:500;padding:9px 12px;border-radius:10px;min-height:40px;display:flex;align-items:center;transition:background .15s ease,color .15s ease}
+.topnav a:hover{color:#fff;background:rgba(255,255,255,.08)}
+.topnav a.on{color:#fff;background:rgba(255,255,255,.12)}
+@media (max-width:720px){.brand em{display:none}.topbar .wrap{gap:10px}.topnav a{padding:9px 10px;font-size:13px}}
+
+/* шапка */
+.hero{padding:56px 0 44px;border-bottom:1px solid var(--line)}
+.hero .wrap{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(300px,.75fr);gap:32px 48px;align-items:end}
+.lead{font-size:clamp(17px,1.9vw,20px);color:var(--ink-2);max-width:60ch;margin:18px 0 0}
+.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.stat{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:16px 18px}
+.stat b{display:block;font-size:30px;font-weight:800;letter-spacing:-.03em;line-height:1.05;color:#fff;font-variant-numeric:tabular-nums}
+.stat span{font-size:13px;color:var(--ink-3)}
+@media (max-width:860px){.hero .wrap{grid-template-columns:1fr}.hero{padding:40px 0 32px}}
+
+main section{padding:60px 0 8px;scroll-margin-top:calc(var(--topbar) + 12px)}
+.sh{display:flex;align-items:center;gap:14px;margin-bottom:6px}
+.num{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:7px;background:#fff;color:#000;font-size:13px;font-weight:700;flex:none;counter-increment:n}
+.num::before{content:counter(n,decimal-leading-zero)}
+main{counter-reset:n}
+
+.card{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:22px 24px;transition:transform .2s ease,box-shadow .2s ease}
+.card:hover{box-shadow:0 0 0 1px rgba(255,255,255,.18);transform:translateY(-2px)}
+@media (prefers-reduced-motion:reduce){.card,.dev,.way{transition:none}.card:hover,.dev:hover,.way:hover{transform:none}}
+
+/* бенто */
+.bento{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.ins .tag{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--red-text);margin:0 0 10px}
+.ins p{margin:0;font-size:15px;line-height:1.55;color:var(--ink-2)}
+.ins p b{color:#fff;font-weight:600}
+.ins.wide{grid-column:span 2}
+@media (max-width:980px){.bento{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:640px){.bento{grid-template-columns:1fr}.ins.wide{grid-column:auto}}
+
+/* способы */
+.ways{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;align-items:start}
+@media (max-width:860px){.ways{grid-template-columns:1fr}}
+.way{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:20px 22px;display:flex;flex-direction:column;gap:12px;transition:box-shadow .2s ease}
+.way:hover{box-shadow:0 0 0 1px rgba(255,255,255,.18)}
+.way-top{display:flex;flex-wrap:wrap;align-items:flex-start;justify-content:space-between;gap:8px 14px}
+.way p{margin:0;font-size:14.5px;color:var(--ink-2);line-height:1.5}
+.way p b{color:#fff;font-weight:600}
+.kvp{margin:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.kvp>div{background:var(--soft);padding:10px 12px;min-width:0}
+.kvp dt{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);margin-bottom:3px}
+.kvp dd{margin:0;font-size:14px;font-weight:600;color:#fff;line-height:1.35;font-variant-numeric:tabular-nums}
+@media (max-width:560px){.kvp{grid-template-columns:1fr}}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{display:inline-flex;align-items:center;font-size:12px;font-weight:600;line-height:1.3;padding:4px 10px;border-radius:999px;white-space:nowrap}
+.chip-cat{background:transparent;color:var(--ink-2);box-shadow:inset 0 0 0 1px var(--line-2)}
+.chip-mute{background:var(--soft);color:#A1A1A6}
+.chip-ok{background:#2A2A2A;color:#fff;box-shadow:inset 0 0 0 1px #5A5A5F}
+.chip-warn{background:var(--red-soft);color:var(--red-text);box-shadow:inset 0 0 0 1px var(--red-line)}
+.chip-bad{background:var(--red);color:#fff}
+
+/* протокол */
+.sched{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin:18px 0 6px}
+.slot{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:14px 14px 12px;position:relative}
+.slot b{display:block;font-size:22px;font-weight:800;letter-spacing:-.02em;color:#fff;font-variant-numeric:tabular-nums;line-height:1.1}
+.slot small{display:block;color:var(--ink-3);font-size:12px;margin-top:6px;line-height:1.4}
+.slot .t{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--red-text);margin-bottom:8px}
+.slot.car{box-shadow:inset 0 0 0 1px var(--red-line);background:var(--red-soft)}
+@media (max-width:860px){.sched{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:520px){.sched{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.steps{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.steps li{display:grid;grid-template-columns:28px minmax(0,1fr);gap:14px;align-items:start;background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:18px 20px;color:var(--ink-2)}
+.steps li b{color:#fff;font-weight:600}
+.steps li .num{counter-increment:s}
+.steps li .num::before{content:counter(s)}
+#protocol{counter-reset:s}
+.twocol{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:12px;align-items:start}
+@media (max-width:860px){.twocol{grid-template-columns:1fr}}
+
+/* таблица */
+.tw{overflow-x:auto;background:var(--paper);border:1px solid var(--line);border-radius:var(--r)}
+table{border-collapse:collapse;width:100%;font-size:15px;min-width:760px}
+thead th{white-space:nowrap;background:#1F1F1F;color:#fff;text-align:left;font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:12px 16px;border-bottom:1px solid var(--line-2)}
+tbody th,tbody td{text-align:left;vertical-align:top;padding:13px 16px;border-top:1px solid var(--line);font-weight:400}
+tbody th{min-width:200px}
+tbody th a{color:#fff;font-weight:600}
+tbody th a:hover{color:var(--red-text)}
+tbody th small{display:block;color:var(--ink-3);font-size:12px;margin-top:2px;font-weight:400}
+tbody td{color:var(--ink-2)}
+tbody td.n{font-variant-numeric:tabular-nums;color:var(--ink);white-space:nowrap}
+.calc{margin:14px 0 0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.calc div{background:var(--soft);border:1px solid var(--line);border-radius:12px;padding:12px 14px;font-size:13.5px;color:var(--ink-2)}
+.calc div b{display:block;color:#fff;font-size:18px;font-weight:700;letter-spacing:-.01em;font-variant-numeric:tabular-nums;margin-bottom:2px}
+@media (max-width:760px){.calc{grid-template-columns:1fr}}
+
+/* устройства */
+.devs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;align-items:start}
+@media (max-width:980px){.devs{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:600px){.devs{grid-template-columns:1fr}}
+.dev{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;display:flex;flex-direction:column;transition:transform .2s ease,box-shadow .2s ease}
+.dev:hover{box-shadow:0 0 0 1px rgba(255,255,255,.18);transform:translateY(-2px)}
+.dev figure{margin:0;background:#1A1A1A;aspect-ratio:16/10;display:flex;align-items:center;justify-content:center;overflow:hidden;border-bottom:1px solid var(--line)}
+.dev img{width:100%;height:100%;object-fit:cover;display:block}
+.dev img.fit{object-fit:contain;padding:14px}
+.dev figcaption{position:absolute;left:-999px}
+.dev .body{padding:16px 18px 18px;display:flex;flex-direction:column;gap:10px}
+.dev h3 a{color:#fff}
+.dev h3 a:hover{color:var(--red-text)}
+.dev p{margin:0;font-size:14px;color:var(--ink-2);line-height:1.5}
+.dev .pr{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:13.5px;color:var(--ink-2)}
+.dev .pr b{color:#fff;font-weight:600}
+.pic-note{font-size:12px;color:var(--ink-3);margin:0}
+
+.note{margin:10px 0;padding:12px 14px;border-radius:12px;background:var(--soft);font-size:13.5px;color:var(--ink-2);line-height:1.55}
+.note b{display:block;color:#fff;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px}
+.note-red{background:var(--red-soft);box-shadow:inset 0 0 0 1px var(--red-line)}
+.note-red b{color:var(--red-text)}
+blockquote{margin:10px 0;padding:10px 14px;border-left:2px solid #fff;background:var(--soft);border-radius:0 10px 10px 0;font-size:13.5px;color:var(--ink-2)}
+.caveats{background:var(--red-soft);border:1px solid var(--red-line);border-radius:var(--r);padding:20px 24px 20px 40px;margin:0;color:var(--ink-2)}
+.caveats li{margin:6px 0}
+.caveats li::marker{color:var(--red-text)}
+.srcs{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.srcs li{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:10px 14px;font-size:13.5px;color:var(--ink-2)}
+.srcs li a{color:#fff;font-weight:600}
+.srcs li a:hover{color:var(--red-text)}
+.srcs li span{display:block;color:var(--ink-3);font-size:12.5px;margin-top:2px}
+@media (max-width:760px){.srcs{grid-template-columns:1fr}}
+.btn{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:10px 18px;border-radius:12px;background:#fff;color:#000;font-weight:600;font-size:14.5px;transition:background .15s ease,color .15s ease}
+.btn:hover{background:var(--red);color:#fff}
+.btn svg{width:16px;height:16px}
+footer{padding:48px 0 60px;color:var(--ink-3);font-size:13px;border-top:1px solid var(--line);margin-top:56px}
+footer a{color:var(--ink-2)}
+.reveal{opacity:1}
+.js-anim .reveal{opacity:0}
+@media (prefers-reduced-motion:reduce){.js-anim .reveal{opacity:1!important;transform:none!important}}
+@media print{.js-anim .reveal{opacity:1!important}.topbar{position:static}body{padding-top:0}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">К содержанию</a>
+<header class="topbar"><div class="wrap">
+  <a class="brand" href="#top"><i aria-hidden="true"></i>Кортизол <em>· несколько дней подряд</em></a>
+  <nav class="topnav" aria-label="Разделы"><a href="#summary">Главное</a><a href="#ways">Способы</a><a href="#protocol">Протокол</a><a href="#rio">Рио</a><a href="#ru">Россия</a><a href="#devices">Приборы</a><a href="#science">Наука</a></nav>
+</div></header>
+
+<section class="hero" id="top"><div class="wrap">
+  <div><p class="eyebrow">Поиск анализа</p><h1>Кортизол <span>несколько дней подряд</span></h1>
+  <p class="lead">Прибора, который пишет кортизол непрерывно, как холтер пишет ЭКГ или сенсор пишет глюкозу, в продаже нет. Ближайшая замена — суточный профиль кортизола в слюне, собранный дома 2–3 дня подряд и измеренный в лаборатории масс-спектрометрией. Ниже — как это устроить, где сдать в Рио и в России и какие приборы на подходе.</p></div>
+  <div class="stats">
+    <div class="stat"><b>0</b><span>приборов непрерывного мониторинга в продаже</span></div>
+    <div class="stat"><b>5 × 3</b><span>проб в день × дней — домашний протокол</span></div>
+    <div class="stat"><b>R$ 50,98</b><span>одна проба слюны в Bronstein, Рио</span></div>
+    <div class="stat"><b>6 125 ₽</b><span>4 порции за день в Инвитро</span></div>
+  </div>
+</div></section>
+
+<main id="main" class="wrap">
+  <section id="summary" class="reveal">
+    <div class="sh"><span class="num"></span><h2>Главное</h2></div>
+    <p class="sub">Шесть выводов. Подробности, цены и источники — ниже.</p>
+    <div class="bento">
+      <article class="card ins wide"><p class="tag">Холтера для кортизола нет</p><p>Три прибора пишут кортизол непрерывно, и ни один не продаётся: <b>U-RHYTHM</b> (Бристоль) — микродиализ под кожей каждые 20 минут до 72 часов, только для исследований; <b>Adaptyx</b> (Стэнфорд) — патч, первые многодневные данные на людях показаны летом, идёт по пути FDA Class II; <b>Corti</b> (EnLiSense) — браслет по поту, на сайте только партнёрства. Ждать по оценке IEEE Spectrum — до конца десятилетия.</p></article>
+      <article class="card ins"><p class="tag">Что делать сейчас</p><p>Собирать слюну дома <b>5 раз в день 3 дня подряд</b> и сдавать в лабораторию с методом ВЭЖХ-МС/МС. Это даёт суточную кривую и разброс между днями — то, ради чего обычно хотят «холтер».</p></article>
+      <article class="card ins"><p class="tag">Рио-де-Жанейро</p><p><b>Bronstein</b> и <b>Sérgio Franco</b> (Dasa) берут слюну на дому, проба от R$ 50,98; <b>Rede D’Or / Richet</b> делают кривую из 3 проб; <b>Vinci Lab</b> присылает набор на 4 пробы почтой за R$ 331 без направления.</p></article>
+      <article class="card ins"><p class="tag">Россия</p><p><b>Инвитро</b>: 4 порции 6 125 ₽, 6 порций 7 200 ₽; <b>Хромолаб</b>: 4 порции 5 510 ₽, 6 порций с реакцией пробуждения 8 550 ₽. Контейнеры дают заранее, слюну собирают дома.</p></article>
+      <article class="card ins"><p class="tag">Домашний гаджет</p><p><b>Hormometer</b> (Eli Health) измеряет кортизол в слюне по фото тест-полоски за 20 минут, 8 тестов — $99. Продаётся и доставляется только в США и Канаду; из других стран сайт показывает лист ожидания.</p></article>
+      <article class="card ins"><p class="tag">Интеграл за 3 месяца</p><p>Кортизол в волосах — средний уровень за 3 месяца, аналог HbA1c для сахара. <b>Cortigenix</b> шлёт набор в 170+ стран за £126,75, в Бразилии коммерческой лаборатории не нашлось.</p></article>
+    </div>
+  </section>
+
+  <section id="ways" class="reveal">
+    <div class="sh"><span class="num"></span><h2>Способы</h2></div>
+    <p class="sub">Пять вариантов от «точка в день» до «средняя за квартал». У каждого — что показывает, сколько стоит, где доступен.</p>
+    <div class="ways">
+      <article class="way" id="w-saliva">
+        <div class="way-top"><h3>Суточный профиль в слюне, 2–3 дня</h3><div class="chips"><span class="chip chip-ok">главный путь</span><span class="chip chip-cat">лаборатория</span></div></div>
+        <p>4–6 проб слюны в день: пробуждение, +30 и +45 минут, после обеда, перед сном. Повтор 2–3 дня подряд даёт и форму кривой, и её устойчивость. Метод выбора — жидкостная хроматография с тандемной масс-спектрометрией (ВЭЖХ-МС/МС / LC-MS/MS): измеряет свободный кортизол без перекрёстных реакций. Слюну собирают в пробирку Salivette, хранят в холодильнике.</p>
+        <dl class="kvp"><div><dt>Что видно</dt><dd>кривая за день + разброс между днями</dd></div><div><dt>Рио</dt><dd>от R$ 50,98 за пробу, выезд на дом</dd></div><div><dt>Россия</dt><dd>5 510–8 550 ₽ за день</dd></div></dl>
+        <p><b>Ограничение:</b> в Dasa пробирки выдают по направлению врача (pedido médico) — нужен эндокринолог или терапевт. Vinci Lab и российские сети направления не требуют.</p>
+      </article>
+      <article class="way" id="w-device">
+        <div class="way-top"><h3>Домашний тест Hormometer</h3><div class="chips"><span class="chip chip-warn">только США и Канада</span><span class="chip chip-cat">гаджет</span></div></div>
+        <p>Полоска 60 секунд во рту, 20 минут ожидания, фото в приложении — результат в нг/мл на кривой суточного ритма. Производитель заявляет точность 97 % относительно лабораторного метода и рекомендует тест через 30 минут после пробуждения и за 1–2 часа до сна; планы на 4, 8 или 12 тестов в месяц. Это wellness-продукт по политике FDA для устройств низкого риска, не медицинский прибор.</p>
+        <dl class="kvp"><div><dt>Цена</dt><dd>$99 за 8 тестов, $199 за 24</dd></div><div><dt>Доставка</dt><dd>США, Канада; остальным — лист ожидания</dd></div><div><dt>Форма</dt><dd>слюна, 2 раза в день</dd></div></dl>
+        <p><b>Оговорка:</b> журналистка Slate три недели тестировала дважды в день и назвала результат «скорее напоминанием, чем медицинским тестом»; эндокринологи в том же материале говорят, что кортизол — не измеритель стресса в реальном времени.</p>
+      </article>
+      <article class="way" id="w-hair">
+        <div class="way-top"><h3>Кортизол в волосах</h3><div class="chips"><span class="chip chip-ok">доставка в 170+ стран</span><span class="chip chip-cat">интеграл</span></div></div>
+        <p>Волос растёт примерно 1 см в месяц и копит кортизол из крови. Сантиметры у корня дают средний уровень за 3 месяца — не кривую, а «площадь под кривой». Подходит, когда вопрос «хронически высокий или нет», а не «как выглядит мой день». <a href="https://cortigenix.com/" target="_blank" rel="noopener noreferrer">Cortigenix</a> (Великобритания, лаборатория ISO 17025) присылает набор, результат за 10 рабочих дней.</p>
+        <dl class="kvp"><div><dt>Цена</dt><dd>£126,75 (обычная £169)</dd></div><div><dt>Бразилия</dt><dd>коммерческих лабораторий не найдено</dd></div><div><dt>Россия</dt><dd>в прайсах Инвитро и Хромолаб нет</dd></div></dl>
+      </article>
+      <article class="way" id="w-dutch">
+        <div class="way-top"><h3>DUTCH — сухая моча</h3><div class="chips"><span class="chip chip-warn">экспериментальный статус</span><span class="chip chip-cat">лаборатория США</span></div></div>
+        <p>4–5 проб мочи на фильтровальной бумаге за сутки: свободный кортизол и кортизон по времени дня плюс метаболиты. Делает одна лаборатория — <a href="https://dutchtest.com/" target="_blank" rel="noopener noreferrer">Precision Analytical</a> (США); в Европе наборы с инструкцией на португальском отправляет <a href="https://nordic-labs.com/" target="_blank" rel="noopener noreferrer">Nordic Laboratories</a> (DHL, результат около 3 недель). Представителя в Бразилии не найдено; тест считается экспериментальным и страховками не покрывается.</p>
+        <dl class="kvp"><div><dt>Что видно</dt><dd>кривая за один день + метаболизм</dd></div><div><dt>Заказ</dt><dd>через врача или дистрибьютора</dd></div><div><dt>Цена</dt><dd>не опубликована для Бразилии</dd></div></dl>
+      </article>
+      <article class="way" id="w-urine">
+        <div class="way-top"><h3>Свободный кортизол в суточной моче</h3><div class="chips"><span class="chip chip-cat">классика</span><span class="chip chip-mute">одно число в день</span></div></div>
+        <p>Собирают всю мочу за 24 часа — получают суммарную продукцию за сутки. Один из четырёх стартовых тестов на синдром Кушинга по рекомендациям Endocrine Society, но форму дня не показывает. Есть в любой крупной лаборатории; в Инвитро — позиция № 2502.</p>
+        <dl class="kvp"><div><dt>Что видно</dt><dd>сумма за сутки</dd></div><div><dt>Для «холтера»</dt><dd>только как дополнение</dd></div><div><dt>Повтор</dt><dd>рекомендуют не меньше двух сборов</dd></div></dl>
+      </article>
+      <article class="way" id="w-research">
+        <div class="way-top"><h3>Непрерывные сенсоры</h3><div class="chips"><span class="chip chip-bad">не продаются</span><span class="chip chip-cat">исследования</span></div></div>
+        <p>U-RHYTHM можно получить только в составе клинического исследования — например, регистрируется испытание <a href="https://clinicaltrials.gov/study/NCT07727356" target="_blank" rel="noopener noreferrer">EndoSense (NCT07727356)</a> с 27-часовой записью у эндокринных пациентов. Adaptyx и Corti доступны лишь партнёрам и под надзором IRB. Подробно — в разделе «Приборы».</p>
+        <dl class="kvp"><div><dt>Разрешение</dt><dd>проба каждые 20 минут</dd></div><div><dt>Длительность</dt><dd>до 72 часов (U-RHYTHM)</dd></div><div><dt>Доступ</dt><dd>только исследования</dd></div></dl>
+      </article>
+    </div>
+  </section>
+
+  <section id="protocol" class="reveal">
+    <div class="sh"><span class="num"></span><h2>Протокол «домашний холтер»</h2></div>
+    <p class="sub">Собран из рекомендаций по реакции пробуждения (Stalder и соавт.), статьи о домашнем сборе (BMC Research Notes) и инструкций лабораторий Dasa, Rede D’Or, Инвитро и Хромолаб. Схему согласуйте с врачом — он же выпишет направление для Dasa.</p>
+    <div class="sched" role="list" aria-label="Пять проб в день">
+      <div class="slot car" role="listitem"><span class="t">Проба 1</span><b>0 мин</b><small>сразу после пробуждения, ещё в постели</small></div>
+      <div class="slot car" role="listitem"><span class="t">Проба 2</span><b>+30 мин</b><small>реакция пробуждения (CAR)</small></div>
+      <div class="slot car" role="listitem"><span class="t">Проба 3</span><b>+45 мин</b><small>пик утреннего подъёма</small></div>
+      <div class="slot" role="listitem"><span class="t">Проба 4</span><b>16–17 ч</b><small>дневное снижение</small></div>
+      <div class="slot" role="listitem"><span class="t">Проба 5</span><b>23 ч</b><small>ночной минимум — ключ к Кушингу</small></div>
+    </div>
+    <p class="pic-note" style="margin-bottom:18px">Красным выделены утренние пробы: с задержкой первой пробы больше 15 минут реакция пробуждения искажается (Westminster, 2016). Повторять 3 дня подряд; для грубой оценки хватает 2.</p>
+    <div class="twocol">
+      <ol class="steps">
+        <li><span class="num"></span><div><b>Выбрать лабораторию с масс-спектрометрией</b> и взять пробирки заранее: в Dasa — по направлению врача, в Инвитро — купить в офисе 4 пробирки с белой крышкой, в Хромолаб и Vinci — набор выдают или присылают.</div></li>
+        <li><span class="num"></span><div><b>Поставить будильники</b> на +30 и +45 минут от реального пробуждения и записывать точное время каждой пробы на этикетке: имя, дата, час. Лаборатория сравнивает с окнами 6–10 ч, 16–20 ч и 23–24 ч.</div></li>
+        <li><span class="num"></span><div><b>Не есть и не пить 30–60 минут до пробы,</b> зубы не чистить 2–3 часа, кофе, чай, алкоголь и тяжёлые тренировки — исключить в день сбора. При кровоточивости дёсен пробу переносят: кровь ломает результат.</div></li>
+        <li><span class="num"></span><div><b>Хранить пробирки в холодильнике</b> при +2…+8 °C и сдать в тот же день или на следующее утро (правило Dasa). При трёхдневном сборе договориться о ежедневном выезде курьера или носить пробы каждое утро.</div></li>
+        <li><span class="num"></span><div><b>Вести дневник:</b> сон, кофе, перелёты, нагрузки, лекарства. Глюкокортикоиды, в том числе мази и кремы, завышают кортизол — об этом предупреждают и Rede D’Or, и Хромолаб.</div></li>
+        <li><span class="num"></span><div><b>Смотреть на три вещи:</b> есть ли утренний подъём (+50–75 % к пробе 1), падает ли вечер до минимума, и насколько дни похожи между собой. Одна нетипичная проба ничего не значит — у ночной слюны разброс между днями около 50 %.</div></li>
+      </ol>
+      <div>
+        <div class="note note-red"><b>Что протокол не делает</b>Не ставит диагноз. По Endocrine Society отклонение в любом стартовом тесте — повод для второго теста у эндокринолога, а не для самолечения. Если цель — «понять стресс», помните: эндокринологи NYU и Стэнфорда в обзоре Slate говорят, что высокий кортизол чаще сопровождает апноэ сна, психиатрические и зависимые состояния, и лечат их, а не цифру.</div>
+        <div class="note"><b>Сколько проб заказывать</b>5 проб × 3 дня = 15 проб. В Dasa каждая проба — отдельная позиция (утро, день, вечер), в Инвитро и Хромолаб — пакет на 4 или 6 порций за день, его берут трижды.</div>
+        <div class="note"><b>Чем 6 порций лучше 4</b>Пакет на 6 порций у Хромолаб и Инвитро включает реакцию пробуждения (0, +30, +45) — именно она чувствительна к хроническому стрессу и выгоранию. Пакет на 4 порции даёт только утро, полдень, день и вечер.</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="rio" class="reveal">
+    <div class="sh"><span class="num"></span><h2>Где сдать в Рио-де-Жанейро</h2></div>
+    <p class="sub">Все четыре варианта работают с домашним сбором. Цены — с сайтов лабораторий; у Sérgio Franco и Rede D’Or цена открывается только после выбора страховки или по телефону.</p>
+    <div class="tw"><table>
+      <thead><tr><th scope="col">Лаборатория</th><th scope="col">Что есть</th><th scope="col">Цена</th><th scope="col">Как сдать</th><th scope="col">Срок и метод</th></tr></thead>
+      <tbody>
+        <tr><th scope="row"><a href="https://bronstein.com.br/exames/cortisol-salivar-amostra-noite/" target="_blank" rel="noopener noreferrer">Bronstein</a><small>сеть Dasa</small></th><td>Cortisol salivar — отдельные позиции «amostra manhã», «tarde», «noite»; синоним на сайте — «ritmo de cortisol»</td><td class="n">от R$ 50,98 за пробу</td><td>Выезд на дом или отделения: Bangu, Barra Plaza, Barra Downtown, Barra Rio 2, Bonsucesso и другие. WhatsApp (21) 2227-8080</td><td>до 12 рабочих дней; LC-MS/MS</td></tr>
+        <tr><th scope="row"><a href="https://www.sergiofranco.com.br/exames/cortisol-salivar-amostra-noite/" target="_blank" rel="noopener noreferrer">Sérgio Franco</a><small>сеть Dasa</small></th><td>Те же позиции по времени суток</td><td class="n">по страховке или запросу</td><td>Выезд на дом; отделения Américas Corporate и Aventura Center (Barra), Américas Shopping (Recreio), Bangu. WhatsApp (21) 2672-7070</td><td>LC-MS/MS</td></tr>
+        <tr><th scope="row"><a href="https://www.rededorsaoluiz.com.br/hospital/riosdor/exames-e-procedimentos/analises-clinicas/cortisol-salivar" target="_blank" rel="noopener noreferrer">Rede D’Or / Richet</a><small>лаборатория Richet, аккредитации PALC и CAP</small></th><td>Cortisol salivar и кривая из 3 проб: при пробуждении, 16–17 ч, 23 ч</td><td class="n">по телефону (21) 2448-3600</td><td>Сбор дома по инструкции лаборатории; центры Rios D’Or (Freguesia) и Taquara, другие больницы сети в городе</td><td>срок уточняют по телефону</td></tr>
+        <tr><th scope="row"><a href="https://vincilab.com.br/products/cortisol-salivar" target="_blank" rel="noopener noreferrer">Vinci Lab</a><small>Сан-Паулу, набор почтой</small></th><td>Curva de Cortisol Salivar — 4 пробы за день</td><td class="n">R$ 331,00 (10 × R$ 33,10)</td><td>Набор приходит бесплатно в любой штат, обратно — Correios с оплаченной этикеткой; направление не нужно, консультация врача включена</td><td>лаборатории-партнёры; срок на сайте не указан</td></tr>
+      </tbody>
+    </table></div>
+    <div class="calc">
+      <div><b>≈ R$ 765</b>15 проб × R$ 50,98 в Bronstein — трёхдневный протокол из 5 проб</div>
+      <div><b>≈ R$ 993</b>3 набора Vinci по R$ 331 — три дня по 4 пробы без утренней реакции пробуждения</div>
+      <div><b>pedido médico</b>в Dasa пробирки и инструкцию выдают по направлению врача (так написано на странице Alta Diagnósticos, той же сети)</div>
+    </div>
+    <div class="note"><b>Правила Dasa для слюны</b>Окна сбора: 6–10 ч утра или до 2 часов после привычного пробуждения; 16–20 ч; 23–24 ч. После еды ждать 4 часа, зубы не чистить 3 часа, после стоматолога — сутки. Пробирку Salivette подписать (имя, дата, час, дата рождения), держать в холодильнике и сдать в тот же день или на следующее утро.</div>
+  </section>
+
+  <section id="ru" class="reveal">
+    <div class="sh"><span class="num"></span><h2>Где сдать в России</h2></div>
+    <p class="sub">Две сети делают готовые суточные пакеты из 4 и 6 порций с расчётом соотношения ДГЭА/кортизол. Цены — московские, с сайтов.</p>
+    <div class="tw"><table>
+      <thead><tr><th scope="col">Лаборатория</th><th scope="col">Позиция</th><th scope="col">Цена</th><th scope="col">Срок</th><th scope="col">Как сдать</th></tr></thead>
+      <tbody>
+        <tr><th scope="row"><a href="https://www.invitro.ru/analizes/for-doctors/497/74152/" target="_blank" rel="noopener noreferrer">Инвитро</a><small>№ 1573</small></th><td>Кортизол, ДГЭА — слюна, 4 порции, соотношение ДГЭА-кортизол</td><td class="n">6 125 ₽</td><td class="n">6 дней</td><td>4 пробирки с белой крышкой купить заранее в любом офисе; первая порция через 30 минут после пробуждения</td></tr>
+        <tr><th scope="row"><a href="https://www.invitro.ru/analizes/for-doctors/497/98391/" target="_blank" rel="noopener noreferrer">Инвитро</a><small>№ 1711</small></th><td>Кортизол, ДГЭА — слюна, 6 порций</td><td class="n">7 200 ₽</td><td class="n">6 дней</td><td>то же, 6 пробирок</td></tr>
+        <tr><th scope="row"><a href="https://www.invitro.ru/analizes/for-doctors/497/32677/" target="_blank" rel="noopener noreferrer">Инвитро</a><small>№ 1508</small></th><td>Кортизол, слюна — одна проба (скрининг гиперкортицизма)</td><td class="n">1 165 ₽</td><td class="n">1 день</td><td>выезд на дом есть</td></tr>
+        <tr><th scope="row"><a href="https://www.chromolab.ru/issledovaniya/kortizol-i-dgea-v-slyune-4-portsii-adaptatsiya-i-stress-/" target="_blank" rel="noopener noreferrer">Хромолаб</a><small>GS-1.1</small></th><td>Кортизол и ДГЭА в слюне, 4 порции: утро 7–9, 11–13, 15–17, 22–24 ч</td><td class="n">5 510 ₽</td><td class="n">3 дня</td><td>сбор дома, выезд на дом; Москва, Петербург, Новосибирск, Нижний Новгород, Екатеринбург, Самара</td></tr>
+        <tr><th scope="row"><a href="https://www.chromolab.ru/issledovaniya/kortizol-i-dgea-v-slyune-6-portsiy-car-adaptatsiya-i-stress/" target="_blank" rel="noopener noreferrer">Хромолаб</a><small>GS-1.2</small></th><td>Кортизол и ДГЭА в слюне, 6 порций с реакцией пробуждения (CAR)</td><td class="n">8 550 ₽</td><td class="n">3 дня</td><td>то же; метод ВЭЖХ-МС/МС</td></tr>
+      </tbody>
+    </table></div>
+    <div class="calc">
+      <div><b>18 375 ₽</b>3 × 6 125 ₽ — три дня по 4 порции в Инвитро</div>
+      <div><b>25 650 ₽</b>3 × 8 550 ₽ — три дня по 6 порций с реакцией пробуждения в Хромолаб</div>
+      <div><b>+2…+8 °C</b>контейнеры со слюной держат в холодильнике до сдачи; за сутки — без кофеина, алкоголя и нагрузок</div>
+    </div>
+  </section>
+
+  <section id="devices" class="reveal">
+    <div class="sh"><span class="num"></span><h2>Приборы: что есть и что в разработке</h2></div>
+    <p class="sub">Фото — с сайтов производителей и с выставок. Купить сегодня можно только Hormometer (в США и Канаде) и набор Cortigenix.</p>
+    <div class="devs">
+      <article class="dev">
+        <figure><img src="https://cdn.mos.cms.futurecdn.net/yWZdL4vDFfgbcRBGXjwZC3-1200-80.jpg" alt="Тест-полоска Hormometer рядом со смартфоном с приложением Eli на стенде CES" loading="lazy" width="1200" height="643" onerror="this.onerror=null;this.src='https://insider.fitt.co/wp-content/uploads/2025/12/ELI-CESPRESSKIT2026-TESTOSTERONETEST_16-9-scaled-e1766442277712.jpg'"><figcaption>Hormometer</figcaption></figure>
+        <div class="body"><h3><a href="https://eli.health/products/cortisol" target="_blank" rel="noopener noreferrer">Hormometer — Eli Health</a></h3>
+        <p>Слюна на полоске, 20 минут ожидания, фото камерой — результат в приложении. Заявленная точность 97 %. Ближайший к «домашнему мониторингу» продукт: 2 теста в день складываются в недельные кривые.</p>
+        <div class="pr"><span><b>$99</b> 8 тестов</span><span><b>$199</b> 24 теста</span><span><b>США, Канада</b> иначе — лист ожидания</span></div>
+        <p class="pic-note">Фото: Tom’s Guide, CES 2026. При открытии магазина из Бразилии цены показаны в евро: €90,21 и €181,32.</p></div>
+      </article>
+      <article class="dev">
+        <figure><img src="https://cortigenix.com/assets/boxshots/product_flat.webp" alt="Коробка набора Cortigenix Cortisol Over Time Test" loading="lazy" width="1027" height="671" class="fit"><figcaption>Cortigenix</figcaption></figure>
+        <div class="body"><h3><a href="https://cortigenix.com/" target="_blank" rel="noopener noreferrer">Cortigenix — волосы</a></h3>
+        <p>Набор по почте, прядь у корня, лаборатория ISO 17025 в Великобритании, результат за 10 рабочих дней. Один средний уровень за 3 месяца, на день сбора не влияет стресс.</p>
+        <div class="pr"><span><b>£126,75</b> обычная £169</span><span><b>170+ стран</b> доставка</span></div>
+        <p class="pic-note">Фото: сайт Cortigenix.</p></div>
+      </article>
+      <article class="dev">
+        <figure><img src="https://www.engadget.com/engadget/spit-on-this-stick-to-see-how-burned-out-you-are-024531311/59ef6060-cbd4-11ef-bd2f-41b8999b7fb7.jpg" alt="Сенсор cortiSense в руке на выставке CES" loading="lazy" width="780" height="488"><figcaption>cortiSense</figcaption></figure>
+        <div class="body"><h3><a href="https://nutrix.tech/cortisense" target="_blank" rel="noopener noreferrer">cortiSense — Nutrix</a></h3>
+        <p>Швейцарский сенсор: слюна на одноразовую вкладку, результат в приложении gSense за 3 минуты, до 4 измерений в день. Награда CES Innovation Award. Wellness-продукт без CE-маркировки.</p>
+        <div class="pr"><span><b>Предзаказ</b> «ships 2026», сейчас недоступен</span><span><b>Цена</b> не опубликована</span><span><b>Канал</b> работодателям</span></div>
+        <p class="pic-note">Фото: Engadget, CES 2025.</p></div>
+      </article>
+      <article class="dev">
+        <figure><img src="https://www.bristol.ac.uk/media-library/sites/news/2023/june/urhythmdevice-article.jpg" alt="Прибор U-RHYTHM на поясе участника исследования" loading="lazy" width="500" height="333"><figcaption>U-RHYTHM</figcaption></figure>
+        <div class="body"><h3><a href="https://www.bristol.ac.uk/news/2023/june/u-rhythm-device.html" target="_blank" rel="noopener noreferrer">U-RHYTHM — Бристоль / Dynamic Therapeutics</a></h3>
+        <p>Носится на поясе, через тонкий катетер забирает тканевую жидкость из подкожного жира каждые 20 минут — до 72 проб за сутки и до 72 часов за сеанс, во сне тоже. Валидирован на 214 здоровых добровольцах. Самый близкий к «кортизоловому холтеру» прибор.</p>
+        <div class="pr"><span><b>Только исследования</b> продаётся научным группам</span><span><b>Сайт компании</b> «Launching Soon»</span></div>
+        <p class="pic-note">Фото: Университет Бристоля. Компания: <a href="https://www.dynamic-therapeutics.com/" target="_blank" rel="noopener noreferrer">dynamic-therapeutics.com</a>.</p></div>
+      </article>
+      <article class="dev">
+        <figure><img src="https://cdn.prod.website-files.com/6894e1df65174aee224b07dd/68aee55ab742c54a2dcd047c_device.webp" alt="Рендер патча Adaptyx с логотипом компании" loading="lazy" width="496" height="608" class="fit"><figcaption>Adaptyx</figcaption></figure>
+        <div class="body"><h3><a href="https://www.adaptyx.bio/" target="_blank" rel="noopener noreferrer">Adaptyx Biosciences</a></h3>
+        <p>Патч с микроиглой-зондом в межклеточную жидкость и «молекулярными переключателями». На конгрессе ADA показали первые непрерывные многодневные записи свободного кортизола у людей: сигнал повторял венозную кровь при пробе с гидрокортизоном, ночью видел собственный ритм. Более 400 часов записи под IRB.</p>
+        <div class="pr"><span><b>FDA Class II</b> путь к регистрации</span><span><b>Продажи</b> нет, концепт-прототип</span></div>
+        <p class="pic-note">Изображение: рендер «Product Concept» с сайта компании, фото серийного прибора нет.</p></div>
+      </article>
+      <article class="dev">
+        <figure><img src="https://static.wixstatic.com/media/bd97b0_2685752eaf3949f7b358868aef63ef82~mv2.png" alt="Браслет-сенсор EnLiSense с панелью кортизола и мелатонина на ноутбуке и в приложении" loading="lazy" width="813" height="625" class="fit"><figcaption>Corti</figcaption></figure>
+        <div class="body"><h3><a href="https://www.enlisense.com/corti" target="_blank" rel="noopener noreferrer">Corti — EnLiSense</a></h3>
+        <p>Браслет на пассивном поте, меряет кортизол и мелатонин круглосуточно — «более 4 000 точек в неделю». Платформа имеет CE, UKCA и FCC как wellness-устройство, FDA-одобрения нет. На сайте только партнёрства B2B2C и исследования под IRB; покупки для частных лиц нет, хотя два года назад анонсировали лист ожидания.</p>
+        <div class="pr"><span><b>Не продаётся</b> частным лицам</span><span><b>Техас</b> UT Dallas spin-off</span></div>
+        <p class="pic-note">Фото: сайт EnLiSense (платформа сенсора на поте).</p></div>
+      </article>
+    </div>
+    <div class="note" style="margin-top:14px"><b>Почему так долго</b>IEEE Spectrum: ни одно диагностическое устройство на аптамерах пока не одобрено FDA; исследователь Джейсон Хайкенфельд ждёт непрерывных кортизоловых мониторов на рынке «до конца десятилетия». Эксперты по U-RHYTHM тоже говорят о необходимости дополнительных исследований до сертификации.</div>
+  </section>
+
+  <section id="science" class="reveal">
+    <div class="sh"><span class="num"></span><h2>Наука: почему именно несколько дней</h2></div>
+    <p class="sub">Три источника, которые объясняют протокол, и одна оговорка от эндокринологов.</p>
+    <div class="bento">
+      <article class="card ins"><p class="tag">Реакция пробуждения</p><p>Консенсус Stalder и соавт. (Psychoneuroendocrinology): кортизол растёт в первые 30–45 минут после пробуждения, и ценность замера целиком зависит от точного времени первой пробы. Исследование Westminster: задержка больше 15 минут уже уменьшает измеренную реакцию.</p></article>
+      <article class="card ins"><p class="tag">Сколько дней</p><p>BMC Research Notes, домашний сбор у здоровых взрослых: чтобы оценка утренней реакции была воспроизводимой, пробы нужно собирать <b>не меньше 3–4 дней</b>; для умеренной воспроизводимости — 1–2 дня. Протокол той же работы: пробуждение, +30, +45 и перед сном.</p></article>
+      <article class="card ins"><p class="tag">Ночная проба</p><p>Journal of the Endocrine Society: у ночной слюны внутрипациентный разброс между днями около 50 %, поэтому в диагностике Кушинга «всегда больше одной» пробы. Endocrine Society: ночная слюна, суточная моча и дексаметазоновые пробы — равноправные стартовые тесты, отклонение подтверждают вторым тестом.</p></article>
+      <article class="card ins wide"><p class="tag">Оговорка</p><p>Эндокринолог NYU Рачна Релвани в Slate: «более высокий результат не обязательно значит, что вы в стрессе»; домашние тесты лишь показывают, что пациент встревожен. Эндокринолог Стэнфорда Сьюзан Сив: высокий кортизол чаще сопровождает тяжёлое апноэ, психиатрические состояния и зависимости — лечат их. Диетолог предлагает вместо тестов отслеживать сон, еду и нагрузку. Домашний профиль — инструмент наблюдения, не диагноз.</p></article>
+      <article class="card ins"><p class="tag">Для чего профиль полезен</p><p>Увидеть, есть ли утренний подъём, падает ли вечер, насколько день на день похож; проверить эффект смены режима сна, перелётов, тренировок. Для подозрения на Кушинга или надпочечниковую недостаточность — к эндокринологу с ночной слюной, мочой и дексаметазоном.</p></article>
+    </div>
+  </section>
+
+  <section id="sources" class="reveal">
+    <div class="sh"><span class="num"></span><h2>Источники</h2></div>
+    <ul class="srcs">
+      <li><a href="https://www.bristol.ac.uk/news/2023/june/u-rhythm-device.html" target="_blank" rel="noopener noreferrer">University of Bristol: U-RHYTHM device</a><span>пресс-релиз об исследовании, 72 пробы за сутки, 214 добровольцев</span></li>
+      <li><a href="https://www.addisonsdisease.org.uk/blog/behind-the-research-u-rhythm-2023" target="_blank" rel="noopener noreferrer">Addison’s Disease Self-Help Group: Behind the research</a><span>продажа только научному сообществу, нужны исследования до сертификации</span></li>
+      <li><a href="https://www.dynamic-therapeutics.com/" target="_blank" rel="noopener noreferrer">Dynamic Therapeutics</a><span>сайт компании: «Launching Soon»</span></li>
+      <li><a href="https://clinicaltrials.gov/study/NCT07727356" target="_blank" rel="noopener noreferrer">ClinicalTrials.gov NCT07727356 — EndoSense</a><span>испытание с U-RHYTHM, окно записи 27 часов</span></li>
+      <li><a href="https://www.businesswire.com/news/home/20260608862701/en/" target="_blank" rel="noopener noreferrer">Business Wire: Adaptyx Biosciences на ADA</a><span>первые многодневные данные на людях, FDA Class II, 400+ часов записи</span></li>
+      <li><a href="https://www.adaptyx.bio/" target="_blank" rel="noopener noreferrer">Adaptyx — сайт</a><span>описание патча и концепт-рендер</span></li>
+      <li><a href="https://spectrum.ieee.org/cortisol-continuous-monitor-wearable" target="_blank" rel="noopener noreferrer">IEEE Spectrum: New Wearable Cortisol Monitor</a><span>статус аптамерных сенсоров и прогноз выхода на рынок</span></li>
+      <li><a href="https://www.enlisense.com/corti" target="_blank" rel="noopener noreferrer">EnLiSense — CORTI</a><span>сенсор на поте, сертификации и дисклеймер о регуляторном статусе</span></li>
+      <li><a href="https://nutrix.tech/cortisense" target="_blank" rel="noopener noreferrer">Nutrix — cortiSense</a><span>«Pre-order — ships 2026», wellness-статус</span></li>
+      <li><a href="https://www.engadget.com/home/spit-on-this-stick-to-see-how-burned-out-you-are-024531311.html" target="_blank" rel="noopener noreferrer">Engadget: cortiSense на CES</a><span>4 измерения в день, 3–5 минут, модель подписки</span></li>
+      <li><a href="https://eli.health/products/cortisol" target="_blank" rel="noopener noreferrer">Eli Health — Hormometer</a><span>цены, «Only available in US/CA», 97 %, 20 минут</span></li>
+      <li><a href="https://help.eli.health/en/articles/12019170-does-eli-ship-internationally" target="_blank" rel="noopener noreferrer">Eli Health Help: Does Eli ship internationally?</a><span>доставка только в США и Канаду; рядом — статьи о частоте и времени тестов, статусе FDA</span></li>
+      <li><a href="https://slate.com/technology/2026/10/cortisol-home-test-hormone-cost-results-worth-it.html" target="_blank" rel="noopener noreferrer">Slate: I tested my cortisol for three weeks</a><span>опыт с Hormometer и мнения эндокринологов</span></li>
+      <li><a href="https://www.tomsguide.com/wellness/fitness-trackers/i-just-tried-the-hormometer-at-ces-2026-to-measure-my-cortisol-levels-and-testosterone-is-coming-next" target="_blank" rel="noopener noreferrer">Tom’s Guide: Hormometer на CES</a><span>фото прибора</span></li>
+      <li><a href="https://cortigenix.com/" target="_blank" rel="noopener noreferrer">Cortigenix</a><span>£126,75, ISO 17025, 10 рабочих дней, 170+ стран</span></li>
+      <li><a href="https://bronstein.com.br/exames/cortisol-salivar-amostra-noite/" target="_blank" rel="noopener noreferrer">Bronstein: Cortisol salivar — amostra noite</a><span>от R$ 50,98, до 12 рабочих дней, отделения в Рио, выезд на дом</span></li>
+      <li><a href="https://www.sergiofranco.com.br/exames/cortisol-salivar-amostra-noite/" target="_blank" rel="noopener noreferrer">Sérgio Franco: Cortisol salivar</a><span>отделения Barra, Recreio, Bangu; выезд на дом</span></li>
+      <li><a href="https://altadiagnosticos.com.br/exames/cortisol-salivar-amostra-manha/" target="_blank" rel="noopener noreferrer">Alta Diagnósticos (Dasa): preparo</a><span>окна сбора, Salivette, pedido médico, хранение в холодильнике</span></li>
+      <li><a href="https://www.rededorsaoluiz.com.br/hospital/riosdor/exames-e-procedimentos/analises-clinicas/cortisol-salivar" target="_blank" rel="noopener noreferrer">Rede D’Or Rios D’Or: Cortisol salivar</a><span>кривая из 3 проб, подготовка, телефон, центры в Рио, Richet PALC/CAP</span></li>
+      <li><a href="https://vincilab.com.br/products/cortisol-salivar" target="_blank" rel="noopener noreferrer">Vinci Lab: Curva de Cortisol Salivar</a><span>R$ 331, набор почтой по всей Бразилии, без направления</span></li>
+      <li><a href="https://www.invitro.ru/analizes/for-doctors/497/74152/" target="_blank" rel="noopener noreferrer">Инвитро № 1573</a><span>4 порции 6 125 ₽; № 1711 — 7 200 ₽; № 1508 — 1 165 ₽</span></li>
+      <li><a href="https://invitro.kz/upload/docs/Slyuna-Cortisol-DHEA-4-portsii-sootnosheniye.pdf" target="_blank" rel="noopener noreferrer">Инвитро: инструкция по сбору слюны (PDF)</a><span>4 пробирки, первая порция через 30 минут после пробуждения, подготовка</span></li>
+      <li><a href="https://www.chromolab.ru/issledovaniya/kortizol-i-dgea-v-slyune-6-portsiy-car-adaptatsiya-i-stress/" target="_blank" rel="noopener noreferrer">Хромолаб GS-1.2 (6 порций, CAR)</a><span>8 550 ₽, 3 дня, ВЭЖХ-МС/МС; GS-1.1 — 5 510 ₽</span></li>
+      <li><a href="https://www.chromolab.ru/upload/iblock/20e/5j6w97l2km75hhvx41jc9bpauazabb2c.pdf" target="_blank" rel="noopener noreferrer">Хромолаб: бланк стресс-чекапа (PDF)</a><span>окна 7–9, 11–13, 15–17, 22–24 ч; подготовка, лекарства</span></li>
+      <li><a href="https://dutchtest.com/" target="_blank" rel="noopener noreferrer">Precision Analytical — DUTCH</a><span>сухая моча, 4–5 проб за сутки</span></li>
+      <li><a href="https://lupaus.nordicvms.com/ProductPDF/DUTCH%20complete%20urinary%20hormone%20test%20instructions-PT-02_2064.pdf" target="_blank" rel="noopener noreferrer">Nordic Laboratories: инструкция DUTCH на португальском (PDF)</a><span>отправка DHL, результат около 3 недель, проформа для стран вне ЕС</span></li>
+      <li><a href="https://savvypatient.substack.com/p/what-is-dutch-testing" target="_blank" rel="noopener noreferrer">Savvy Patient: What is DUTCH testing</a><span>экспериментальный статус, не покрывается страховками</span></li>
+      <li><a href="https://research.ucc.ie/en/publications/assessment-of-the-cortisol-awakening-response-expert-consensus-gu/" target="_blank" rel="noopener noreferrer">Stalder et al. Assessment of the cortisol awakening response: expert consensus guidelines</a><span>Psychoneuroendocrinology, 2016</span></li>
+      <li><a href="https://westminsterresearch.westminster.ac.uk/item/8ywq3/delays-of-5-15-min-between-awakening-and-the-start-of-saliva-sampling-matter-in-assessment-of-the-cortisol-awakening-response" target="_blank" rel="noopener noreferrer">Westminster: Delays of 5–15 min matter</a><span>задержка первой пробы искажает реакцию пробуждения</span></li>
+      <li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC8561883/" target="_blank" rel="noopener noreferrer">BMC Research Notes: Feasibility of home-based sampling of salivary cortisol and cortisone</a><span>3–4 дня для высокой воспроизводимости, протокол 0/30/45/перед сном</span></li>
+      <li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC7480955/" target="_blank" rel="noopener noreferrer">J Endocr Soc: Salivary Cortisol in the Diagnosis of Cushing Syndrome, Always More Than One!</a><span>разброс ночной слюны около 50 % между днями</span></li>
+      <li><a href="https://pubmed.ncbi.nlm.nih.gov/18334580/" target="_blank" rel="noopener noreferrer">Nieman et al. The diagnosis of Cushing’s syndrome: an Endocrine Society Clinical Practice Guideline</a><span>JCEM, 2008: стартовые тесты и второй подтверждающий тест</span></li>
+    </ul>
+  </section>
+</main>
+
+<footer><div class="wrap">Цены взяты со страниц лабораторий и магазинов и могут меняться — перед оплатой проверьте на сайте. Страница не заменяет консультацию эндокринолога. <a href="#top">Наверх</a></div></footer>
+
+<script>
+(() => {
+  const links = [...document.querySelectorAll('.topnav a')];
+  const secs = links.map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+  if (!('IntersectionObserver' in window) || !secs.length) return;
+  const io = new IntersectionObserver(es => {
+    es.forEach(e => { if (e.isIntersecting) { links.forEach(a => a.classList.toggle('on', a.getAttribute('href') === '#' + e.target.id)); } });
+  }, { rootMargin: '-40% 0px -55% 0px' });
+  secs.forEach(s => io.observe(s));
+})();
+</script>
+<script type="module">
+const items = [...document.querySelectorAll('.reveal')];
+const show = el => { el.style.opacity = 1; el.style.transform = 'none'; };
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const fallback = () => {
+  if (!('IntersectionObserver' in window)) return items.forEach(show);
+  const io = new IntersectionObserver(es => es.forEach(x => { if (x.isIntersecting) { x.target.style.transition = 'opacity .5s ease, transform .5s ease'; show(x.target); io.unobserve(x.target); } }), { rootMargin: '0px 0px -8% 0px' });
+  items.forEach(el => io.observe(el));
+};
+setTimeout(() => {
+  try { document.getAnimations().forEach(a => a.finish()); } catch (e) {}
+  document.querySelectorAll('.reveal, .stat, .ins, .dev, .way').forEach(el => { if (parseFloat(getComputedStyle(el).opacity) < 0.99) show(el); });
+}, 3000);
+const wait = new Promise(r => setTimeout(() => r(null), 2500));
+const m = reduce ? null : await Promise.race([import('https://cdn.jsdelivr.net/npm/motion@11/+esm').catch(() => null), wait]);
+if (reduce) { items.forEach(show); }
+else if (!m) { fallback(); }
+else {
+  try {
+    const { animate, inView, stagger } = m;
+    inView('.reveal', x => { const el = x && x.target ? x.target : x; animate(el, { opacity: [0, 1], y: [18, 0] }, { duration: 0.5, easing: [0.22, 1, 0.36, 1] }); }, { margin: '0px 0px -8% 0px' });
+    inView('.bento, .devs, .ways', x => { const el = x && x.target ? x.target : x; animate(el.querySelectorAll('.ins, .dev, .way'), { opacity: [0, 1], y: [12, 0] }, { duration: 0.45, delay: stagger(0.05) }); });
+    animate('.stat', { opacity: [0, 1], y: [10, 0] }, { duration: 0.4, delay: stagger(0.06) });
+  } catch (err) { fallback(); }
+}
+</script>
+</body>
+</html>
