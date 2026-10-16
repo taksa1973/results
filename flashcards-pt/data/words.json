@@ -15024,8 +15024,13 @@
   "pos": "nouns",
   "examples": [],
   "imgQuery": "a foreman handing a printed work order sheet to a workman who is pulling on his gloves, one specific job being assigned on site",
-  "image": null,
-  "credit": null,
+  "image": "cartoes-img/задача, задание — tarefa.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
   "sources": [
    "extra13"
   ]
@@ -15038,8 +15043,13 @@
   "pos": "nouns",
   "examples": [],
   "imgQuery": "a four-leaf clover held up between two fingertips against a green meadow, macro shot, the four leaves clearly visible",
-  "image": null,
-  "credit": null,
+  "image": "cartoes-img/удача, везение — sorte.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
   "sources": [
    "extra13"
   ]
@@ -15052,8 +15062,13 @@
   "pos": "nouns",
   "examples": [],
   "imgQuery": "a person standing with one open palm pressed flat against a plain smooth white interior wall, the bare wall filling the whole frame",
-  "image": null,
-  "credit": null,
+  "image": "cartoes-img/стена — parede.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
   "sources": [
    "extra13"
   ]
@@ -15066,8 +15081,13 @@
   "pos": "adjectives",
   "examples": [],
   "imgQuery": "a rowing crew of four in one boat pulling their oars in perfect unison, all four moving as one",
-  "image": null,
-  "credit": null,
+  "image": "cartoes-img/вместе — juntos.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
   "sources": [
    "extra13"
   ]
@@ -15080,8 +15100,13 @@
   "pos": "adverbs",
   "examples": [],
   "imgQuery": "a guest raising an open palm over their cup to stop the host pouring more tea, the cup already well filled, enough poured",
-  "image": null,
-  "credit": null,
+  "image": "cartoes-img/довольно, достаточно, немало — bastante.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
   "sources": [
    "extra13"
   ]
@@ -15094,8 +15119,13 @@
   "pos": "phrases",
   "examples": [],
   "imgQuery": "a person sneezing hard into a paper tissue while a companion beside them turns with a kind concerned look",
-  "image": null,
-  "credit": null,
+  "image": "cartoes-img/будь здоров! — saúde!.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
   "sources": [
    "extra13"
   ],
