@@ -8,6 +8,11 @@
 <meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet">
 <meta name="description" content="Карточки для изучения бразильского португальского: картинка, три языка, подсказки, озвучка и статистика прогресса.">
 <meta name="theme-color" content="#F5F5F7">
+<link rel="manifest" href="cartoes-pt.webmanifest">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Cartões">
+<link rel="apple-touch-icon" href="cartoes-icon-192.png">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%230071E3'/><text y='72' x='50' text-anchor='middle' font-size='58' font-family='system-ui,sans-serif' font-weight='700' fill='white'>PT</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -207,6 +212,7 @@ h2{font-size:20px;font-weight:600;letter-spacing:-.015em}
 .pic img.fg{object-fit:contain;z-index:1}
 .pic .ph{position:absolute;inset:0;display:grid;place-items:center;color:var(--text-3);font-size:13px;padding:20px;text-align:center}
 .pic .ph[hidden]{display:none}   /* атрибут hidden сам по себе слабее display:grid */
+.btn[hidden],.pbar[hidden]{display:none}   /* то же самое: inline-flex перебивает hidden */
 .pic .credit{position:absolute;left:0;right:0;bottom:0;padding:22px 14px 8px;font-size:10.5px;
   color:rgba(255,255,255,.9);background:linear-gradient(transparent,rgba(0,0,0,.6));text-align:right;line-height:1.35}
 
@@ -445,6 +451,16 @@ footer a{color:var(--text-2)}
   <div class="card">
     <div class="pbar"><span id="prog-fill" style="width:0%;background:linear-gradient(90deg,var(--green),var(--blue))"></span></div>
     <div class="legend" id="prog-legend"></div>
+  </div>
+
+  <div class="sec-h"><h2>Без интернета</h2><span class="hint" id="off-badge"></span></div>
+  <div class="card" id="off-card">
+    <p class="hint" id="off-text" style="margin:0 0 14px;line-height:1.5"></p>
+    <div class="pbar" id="off-bar" hidden><span id="off-fill" style="width:0%;background:linear-gradient(90deg,var(--blue),var(--green))"></span></div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:14px">
+      <button class="btn btn-primary" id="off-get" hidden>Скачать картинки</button>
+      <button class="btn btn-ghost" id="off-wipe" hidden>Удалить скачанное</button>
+    </div>
   </div>
 </section>
 
@@ -1233,6 +1249,102 @@ const imgSources = [...new Set(CARDS.filter(c => c.credit).map(c => c.credit.sou
 document.getElementById('foot-img').textContent = imgSources.length ? imgSources.join(', ') : 'не загружены';
 
 renderHome();
+
+/* ═══════════════ БЕЗ ИНТЕРНЕТА ═══════════════
+   Страница с данными весит триста килобайт и кешируется сама, а картинки
+   лежат отдельными файлами — их кладём в Cache Storage по кнопке, чтобы
+   35 МБ качались по воле хозяина, а не внезапно в роуминге. */
+(() => {
+  const IMG_CACHE = 'cartoes-img-v1', SHELL_CACHE = 'cartoes-shell-v1';
+  const badge = document.getElementById('off-badge');
+  const text  = document.getElementById('off-text');
+  const bar   = document.getElementById('off-bar');
+  const fill  = document.getElementById('off-fill');
+  const btnGet  = document.getElementById('off-get');
+  const btnWipe = document.getElementById('off-wipe');
+  const withImg = CARDS.filter(c => c.image);
+  const mb = n => (n * 48 / 1024).toFixed(0);     // webp ~48 КБ штука
+
+  if(location.protocol === 'file:'){
+    text.textContent = 'Файл открыт с диска — интернет не нужен: картинки лежат в папке рядом с ним.';
+    badge.textContent = 'уже офлайн';
+    return;
+  }
+  if(!('serviceWorker' in navigator) || !('caches' in window) || !isSecureContext){
+    text.textContent = 'Этот браузер не умеет держать страницу офлайн. Откройте её в Chrome, Safari или Firefox.';
+    return;
+  }
+
+  navigator.serviceWorker.register('cartoes-sw.js').catch(() => {});
+
+  const show = (n) => {
+    const all = n >= withImg.length;
+    badge.textContent = all ? 'готово' : (n ? `${n} из ${withImg.length}` : '');
+    text.textContent = all
+      ? `Все ${withImg.length} картинок сохранены в браузере. Карточки открываются без сети — `
+        + `в метро, в самолёте и в роуминге. Приложение можно поставить на домашний экран: `
+        + `в Safari «Поделиться → На экран Домой», в Chrome меню → «Установить приложение».`
+      : `Карточки можно держать при себе: страница сохраняется сама, а картинки — по кнопке, `
+        + `это около ${mb(withImg.length)} МБ разом. `
+        + (n ? `Уже сохранено ${n} из ${withImg.length}.` : `Качать лучше по Wi-Fi.`);
+    btnGet.hidden = all;
+    btnGet.textContent = n && !all ? 'Докачать остальные' : 'Скачать картинки';
+    btnWipe.hidden = !n;
+  };
+
+  const count = async () => {
+    try{ return (await (await caches.open(IMG_CACHE)).keys()).length; }
+    catch(e){ return 0; }
+  };
+
+  (async () => {
+    show(await count());
+    // саму страницу и шрифт кладём сразу: они маленькие
+    try{
+      const shell = await caches.open(SHELL_CACHE);
+      await shell.add(location.pathname.split('/').pop() || 'cartoes-pt.html');
+      document.querySelectorAll('link[rel="stylesheet"][href*="fonts.googleapis.com"]').forEach(l =>
+        fetch(l.href, {mode:'no-cors'}).then(r => shell.put(l.href, r)).catch(() => {}));
+    }catch(e){ /* сеть отвалилась — не беда, попробуем в следующий раз */ }
+  })();
+
+  btnGet.addEventListener('click', async () => {
+    btnGet.disabled = btnWipe.disabled = true;   // до первого await, иначе двойное нажатие
+    bar.hidden = false;
+    const cache = await caches.open(IMG_CACHE);
+    const queue = withImg.map(c => imgSrc(c.image));
+    const total = queue.length;
+    let done = 0, failed = 0;
+
+    const tick = () => {
+      fill.style.width = (done / total * 100).toFixed(1) + '%';
+      badge.textContent = `${done} из ${total}`;
+    };
+    const pull = async () => {
+      while(queue.length){
+        const u = queue.shift();
+        try{
+          if(!await cache.match(u)) await cache.add(u);
+        }catch(e){ failed++; }
+        done++; tick();
+      }
+    };
+    await Promise.all(Array.from({length: 6}, pull));
+
+    btnGet.disabled = btnWipe.disabled = false;
+    bar.hidden = true;
+    const have = await count();
+    show(have);
+    if(failed) text.textContent += ` Не удалось скачать ${failed} — нажмите «Докачать остальные».`;
+  });
+
+  btnWipe.addEventListener('click', async () => {
+    btnWipe.disabled = true;
+    await caches.delete(IMG_CACHE);
+    btnWipe.disabled = false;
+    show(0);
+  });
+})();
 
 /* ═══════════════ АНИМАЦИИ ═══════════════
    Контент виден по умолчанию — motion только добавляет появление. */

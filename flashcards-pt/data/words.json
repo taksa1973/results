@@ -15015,5 +15015,90 @@
   "sources": [
    "extra12"
   ]
+ },
+ {
+  "id": 737,
+  "pt": "tarefa",
+  "en": "task",
+  "ru": "задача, задание",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "a foreman handing a printed work order sheet to a workman who is pulling on his gloves, one specific job being assigned on site",
+  "image": null,
+  "credit": null,
+  "sources": [
+   "extra13"
+  ]
+ },
+ {
+  "id": 738,
+  "pt": "sorte",
+  "en": "luck",
+  "ru": "удача, везение",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "a four-leaf clover held up between two fingertips against a green meadow, macro shot, the four leaves clearly visible",
+  "image": null,
+  "credit": null,
+  "sources": [
+   "extra13"
+  ]
+ },
+ {
+  "id": 739,
+  "pt": "parede",
+  "en": "wall",
+  "ru": "стена",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "a person standing with one open palm pressed flat against a plain smooth white interior wall, the bare wall filling the whole frame",
+  "image": null,
+  "credit": null,
+  "sources": [
+   "extra13"
+  ]
+ },
+ {
+  "id": 740,
+  "pt": "juntos",
+  "en": "together",
+  "ru": "вместе",
+  "pos": "adjectives",
+  "examples": [],
+  "imgQuery": "a rowing crew of four in one boat pulling their oars in perfect unison, all four moving as one",
+  "image": null,
+  "credit": null,
+  "sources": [
+   "extra13"
+  ]
+ },
+ {
+  "id": 741,
+  "pt": "bastante",
+  "en": "quite, enough",
+  "ru": "довольно, достаточно; немало",
+  "pos": "adverbs",
+  "examples": [],
+  "imgQuery": "a guest raising an open palm over their cup to stop the host pouring more tea, the cup already well filled, enough poured",
+  "image": null,
+  "credit": null,
+  "sources": [
+   "extra13"
+  ]
+ },
+ {
+  "id": 742,
+  "pt": "saúde!",
+  "en": "bless you!; cheers!",
+  "ru": "будь здоров! (при чихании); за здоровье! (тост)",
+  "pos": "phrases",
+  "examples": [],
+  "imgQuery": "a person sneezing hard into a paper tissue while a companion beside them turns with a kind concerned look",
+  "image": null,
+  "credit": null,
+  "sources": [
+   "extra13"
+  ],
+  "note": "слово saúde само по себе — «здоровье»"
  }
 ]
