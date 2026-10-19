@@ -1,11 +1,9 @@
 {
-  "ts": "2026-10-18T10:35:33.117762+00:00",
+  "ts": "2026-10-19T12:27:22.485844+00:00",
   "findings": {},
   "errors": {
-    "Sailo Turkey catamarans": "http_503",
+    "Sailo Turkey catamarans": "http_403",
     "Navigare Yachting Turkey": "http_403",
-    "Irmak Yachting (home)": "http_522",
-    "Irmak Yachting (fleet)": "http_522",
     "Rotaneta Gocek catamaran": "http_502",
     "Rotaneta home": "http_502",
     "Boataround Turkey": "http_405",
