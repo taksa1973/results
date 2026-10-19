@@ -252,11 +252,15 @@ html.js-anim .rv{opacity:0}
 const root=document.documentElement;
 const off=()=>root.classList.remove('js-anim');
 if(root.classList.contains('js-anim')){
-  const guard=setTimeout(off,3000);
+  // страховка: что бы ни случилось с анимацией, через 6 с весь контент видим
+  setTimeout(off,6000);
   try{
     const {animate,inView}=await import("https://cdn.jsdelivr.net/npm/motion@11/+esm");
-    clearTimeout(guard);
-    inView('.rv',(a)=>{const el=a&&a.target?a.target:a;animate(el,{opacity:[0,1],y:[16,0]},{duration:.55,easing:[.22,1,.36,1]});},{amount:.15});
+    inView('.rv',(a)=>{
+      if(!root.classList.contains('js-anim'))return;
+      const el=a&&a.target?a.target:a;
+      animate(el,{opacity:[0,1],y:[16,0]},{duration:.55,easing:[.22,1,.36,1]});
+    },{amount:.15});
   }catch(e){off()}
 }
 </script>
