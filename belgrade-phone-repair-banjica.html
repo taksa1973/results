@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ремонт телефонов на Баньице</title>
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="description" content="Мастерские по ремонту телефонов, планшетов, ноутбуков и другой электроники рядом с улицей Паунова (Баньица, Вождовац, Белград): рейтинг Google, расстояние, часы работы, телефоны, маршруты пешком, авторизованные сервисы Apple и Samsung.">
+<meta name="theme-color" content="#000000">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add('js-anim')</script>
+<style>
+:root{color-scheme:dark;
+  --bg:#000;--paper:#121212;--soft:#1A1A1A;--line:#262626;--line-2:#3A3A3A;
+  --ink:#F5F5F5;--ink-2:#C4C4C8;--ink-3:#8E8E93;
+  --red:#9B1C1C;--red-hover:#B42323;--red-text:#E05252;--red-soft:#241010;--red-line:#4D1B1B;
+  --r:16px;--topbar:60px}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;padding-top:var(--topbar);background:var(--bg);color:var(--ink);font:16px/1.6 Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased;overflow-wrap:anywhere}
+::selection{background:var(--red);color:#fff}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+a{color:var(--red-text);text-decoration:none}
+a:hover{color:#fff}
+a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid #fff;outline-offset:3px;border-radius:6px}
+.skip{position:absolute;left:-999px;top:0}
+.skip:focus{left:16px;top:16px;background:#fff;color:#000;padding:10px 14px;border-radius:10px;z-index:100}
+h1,h2,h3{color:#fff;margin:0}
+h1{font-size:clamp(34px,5.2vw,60px);line-height:1.04;letter-spacing:-.03em;font-weight:800;text-wrap:balance;max-width:16ch}
+h1 span{color:var(--red-text)}
+h2{font-size:clamp(26px,3.2vw,38px);line-height:1.12;letter-spacing:-.02em;font-weight:700;text-wrap:balance}
+h3{font-size:19px;line-height:1.3;letter-spacing:-.01em;font-weight:600}
+.eyebrow{color:var(--red-text);font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin:0 0 10px}
+.sub{color:var(--ink-2);max-width:72ch;margin:10px 0 24px}
+.sub b{color:#fff;font-weight:600}
+
+.topbar{position:fixed;top:0;left:0;right:0;height:var(--topbar);z-index:50;background:rgba(0,0,0,.86);-webkit-backdrop-filter:saturate(140%) blur(16px);backdrop-filter:saturate(140%) blur(16px);border-bottom:1px solid var(--line)}
+.topbar .wrap{height:100%;display:flex;align-items:center;gap:20px}
+.brand{display:flex;align-items:center;gap:10px;color:#fff;font-weight:700;font-size:15px;letter-spacing:-.01em;white-space:nowrap;flex:none}
+.brand i{width:10px;height:10px;border-radius:3px;background:var(--red-text);display:inline-block}
+.brand em{font-style:normal;color:var(--ink-3);font-weight:500}
+.topnav{display:flex;gap:4px;margin-left:auto;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.topnav::-webkit-scrollbar{display:none}
+.topnav a{flex:none;color:var(--ink-2);font-size:14px;font-weight:500;padding:9px 12px;border-radius:10px;min-height:40px;display:flex;align-items:center;transition:background .15s ease,color .15s ease}
+.topnav a:hover{color:#fff;background:rgba(255,255,255,.08)}
+.topnav a.on{color:#fff;background:rgba(255,255,255,.12)}
+@media (max-width:720px){.brand em{display:none}.topbar .wrap{gap:10px}.topnav a{padding:9px 10px;font-size:13px}}
+
+.hero{padding:56px 0 44px;border-bottom:1px solid var(--line)}
+.hero .wrap{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(300px,.75fr);gap:32px 48px;align-items:end}
+.lead{font-size:clamp(17px,1.9vw,20px);color:var(--ink-2);max-width:60ch;margin:18px 0 0}
+.lead b{color:#fff;font-weight:600}
+.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.stat{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:16px 18px}
+.stat b{display:block;font-size:30px;font-weight:800;letter-spacing:-.03em;line-height:1.05;color:#fff;font-variant-numeric:tabular-nums}
+.stat span{font-size:13px;color:var(--ink-3)}
+@media (max-width:860px){.hero .wrap{grid-template-columns:1fr}.hero{padding:40px 0 32px}}
+
+main section{padding:60px 0 8px;scroll-margin-top:calc(var(--topbar) + 12px)}
+.sh{display:flex;align-items:center;gap:14px;margin-bottom:6px}
+.num{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:7px;background:#fff;color:#000;font-size:13px;font-weight:700;flex:none;counter-increment:n}
+.num::before{content:counter(n,decimal-leading-zero)}
+main{counter-reset:n}
+
+.bento{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.ins{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:22px 24px;transition:transform .2s ease,box-shadow .2s ease}
+.ins:hover{box-shadow:0 0 0 1px rgba(255,255,255,.18);transform:translateY(-2px)}
+.ins .tag{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--red-text);margin:0 0 10px}
+.ins h3{margin-bottom:8px}
+.ins p{margin:0;font-size:15px;line-height:1.55;color:var(--ink-2)}
+.ins p+p{margin-top:8px}
+.ins p b{color:#fff;font-weight:600}
+.ins.hot{background:var(--red-soft);border-color:var(--red-line)}
+@media (max-width:980px){.bento{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:640px){.bento{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){.ins,.way{transition:none}.ins:hover,.way:hover{transform:none}}
+
+.ways{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;align-items:start;margin-top:22px}
+@media (max-width:860px){.ways{grid-template-columns:1fr}}
+.way{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:20px 22px;display:flex;flex-direction:column;gap:12px;transition:box-shadow .2s ease}
+.way:hover{box-shadow:0 0 0 1px rgba(255,255,255,.18)}
+.way.top{border-color:#5A5A5F}
+.way-top{display:flex;flex-wrap:wrap;align-items:flex-start;justify-content:space-between;gap:8px 14px}
+.way-top h3 a{color:#fff}
+.way-top h3 a:hover{color:var(--red-text)}
+.way-top small{display:block;color:var(--ink-3);font-size:13px;font-weight:400;margin-top:2px}
+.way p{margin:0;font-size:14.5px;color:var(--ink-2);line-height:1.5}
+.way p b{color:#fff;font-weight:600}
+.kvp{margin:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.kvp>div{background:var(--soft);padding:10px 12px;min-width:0}
+.kvp dt{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);margin-bottom:3px}
+.kvp dd{margin:0;font-size:14px;font-weight:600;color:#fff;line-height:1.35;font-variant-numeric:tabular-nums}
+.kvp dd a{color:#fff;border-bottom:1px solid rgba(255,255,255,.25)}
+.kvp dd a:hover{color:var(--red-text);border-bottom-color:var(--red-text)}
+.kvp dd small{display:block;font-weight:400;color:var(--ink-3);font-size:12px}
+@media (max-width:560px){.kvp{grid-template-columns:1fr}}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;line-height:1.3;padding:4px 10px;border-radius:999px;white-space:nowrap}
+.chip svg{width:12px;height:12px;flex:none}
+.chip-cat{background:transparent;color:var(--ink-2);box-shadow:inset 0 0 0 1px var(--line-2)}
+.chip-mute{background:var(--soft);color:#A1A1A6}
+.chip-ok{background:#2A2A2A;color:#fff;box-shadow:inset 0 0 0 1px #5A5A5F}
+.chip-warn{background:var(--red-soft);color:var(--red-text);box-shadow:inset 0 0 0 1px var(--red-line)}
+.chip-bad{background:var(--red);color:#fff}
+.chip-dist{background:#fff;color:#000}
+.act{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto}
+.lnk{display:inline-flex;align-items:center;gap:7px;min-height:40px;padding:8px 14px;border-radius:10px;background:var(--soft);color:#fff;font-weight:600;font-size:13.5px;box-shadow:inset 0 0 0 1px var(--line-2);transition:background .15s ease,color .15s ease;cursor:pointer}
+.lnk:hover{background:var(--red);color:#fff;box-shadow:none}
+.lnk svg{width:15px;height:15px;flex:none}
+
+.tw{overflow-x:auto;background:var(--paper);border:1px solid var(--line);border-radius:var(--r);margin-top:22px}
+table{border-collapse:collapse;width:100%;font-size:14.5px;min-width:820px}
+caption{text-align:left;padding:14px 16px 6px;color:#fff;font-weight:600;font-size:15px}
+thead th{white-space:nowrap;background:#1F1F1F;color:#fff;text-align:left;font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:12px 16px;border-bottom:1px solid var(--line-2)}
+tbody th,tbody td{text-align:left;vertical-align:top;padding:12px 16px;border-top:1px solid var(--line);font-weight:400}
+tbody th{min-width:170px}
+tbody th a{color:#fff;font-weight:600}
+tbody th a:hover{color:var(--red-text)}
+tbody th small{display:block;color:var(--ink-3);font-size:12px;margin-top:2px;font-weight:400}
+tbody td{color:var(--ink-2)}
+tbody td.n{font-variant-numeric:tabular-nums;color:var(--ink);white-space:nowrap}
+tbody tr:hover{background:#161616}
+tbody td a.tel{color:#fff;white-space:nowrap}
+tbody td a.tel:hover{color:var(--red-text)}
+
+.steps{list-style:none;margin:22px 0 0;padding:0;display:grid;gap:10px;counter-reset:s}
+.steps li{display:grid;grid-template-columns:28px minmax(0,1fr);gap:14px;align-items:start;background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:18px 20px;color:var(--ink-2)}
+.steps li b{color:#fff;font-weight:600}
+.steps li .num{counter-increment:s}
+.steps li .num::before{content:counter(s)}
+.steps li p{margin:0}
+.steps li p+p{margin-top:6px;font-size:14px}
+
+.note{margin:14px 0 0;padding:12px 14px;border-radius:12px;background:var(--soft);font-size:13.5px;color:var(--ink-2);line-height:1.55}
+.note b{display:block;color:#fff;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px}
+.note-red{background:var(--red-soft);box-shadow:inset 0 0 0 1px var(--red-line)}
+.note-red b{color:var(--red-text)}
+.srcs{list-style:none;margin:22px 0 0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.srcs li{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:10px 14px;font-size:13.5px;color:var(--ink-2)}
+.srcs li a{color:#fff;font-weight:600}
+.srcs li a:hover{color:var(--red-text)}
+.srcs li span{display:block;color:var(--ink-3);font-size:12.5px;margin-top:2px}
+@media (max-width:760px){.srcs{grid-template-columns:1fr}}
+footer{padding:48px 0 60px;color:var(--ink-3);font-size:13px;border-top:1px solid var(--line);margin-top:56px}
+footer a{color:var(--ink-2)}
+.reveal{opacity:1}
+.js-anim .reveal{opacity:0}
+@media (prefers-reduced-motion:reduce){.js-anim .reveal{opacity:1!important;transform:none!important}}
+@media print{.js-anim .reveal{opacity:1!important}.topbar{position:static}body{padding-top:0}.act{display:none}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">К содержанию</a>
+
+<header class="topbar"><div class="wrap">
+  <a class="brand" href="#top" aria-label="Наверх"><i aria-hidden="true"></i>Ремонт на Баньице <em>· Белград</em></a>
+  <nav class="topnav" aria-label="Разделы"><a href="#summary">Главное</a><a href="#phones">Телефоны</a><a href="#gadgets">Ноутбуки и прочее</a><a href="#official">Выезд и гарантия</a><a href="#check">Перед визитом</a><a href="#sources">Источники</a></nav>
+</div></header>
+
+<section class="hero" id="top"><div class="wrap">
+  <div>
+    <p class="eyebrow">Белград · Вождовац · Баньица и Паунов брег</p>
+    <h1>Где чинить телефон и гаджеты <span>рядом с улицей Паунова</span></h1>
+    <p class="lead">Точка отсчёта — южная часть улицы Паунова. <b>Ближайшая мастерская в двух минутах ходьбы</b>, ещё четыре точки сидят в торговом центре Banjica на Паунова 24, а самые хвалёные сервисы района — на Црнотравской и Браће Јерковић. Ниже все точки с рейтингом Google, часами, телефонами и маршрутом пешком.</p>
+  </div>
+  <div class="stats" aria-label="Ключевые цифры">
+    <div class="stat"><b>160 м</b><span>до Lab Tech — телефоны, планшеты, ноутбуки и телевизоры, 4,9 ★ по 64 отзывам</span></div>
+    <div class="stat"><b>4 точки</b><span>телефонных в ТЦ Banjica, Паунова 24, в 780 м по прямой</span></div>
+    <div class="stat"><b>774 отзыва</b><span>у Expert Mobile на Браће Јерковић, 4,9 ★ — самый проверенный сервис рядом</span></div>
+    <div class="stat"><b>1 сервис</b><span>работает в воскресенье — Alex Mobil, Паунова 1, с 9 до 17</span></div>
+  </div>
+</div></section>
+
+<main id="main">
+
+<section id="summary"><div class="wrap">
+  <div class="sh"><span class="num" aria-hidden="true"></span><h2>Куда идти в зависимости от поломки</h2></div>
+  <p class="sub">Три сценария, в которых ответ разный. Расстояния везде по прямой от точки отсчёта, пешком выходит примерно в полтора раза больше.</p>
+  <div class="bento">
+    <article class="ins hot reveal">
+      <span class="tag">Быстро и рядом</span>
+      <h3><a href="https://www.google.com/maps/search/?api=1&query=Lab+Tech+servis+Slobodana+Jovi%C4%87a+1a+Beograd">Lab Tech</a>, Slobodana Jovića 1a</h3>
+      <p><b>160 м.</b> Единственный сервис в пешей близости, который берёт и телефоны, и планшеты, и ноутбуки. Отзывы хвалят скорость: телефон чинили за день. Будни 9–17, суббота 9–16.</p>
+      <p>Минус один: закрывается рано. После пяти вечера идти уже в ТЦ Banjica.</p>
+    </article>
+    <article class="ins reveal">
+      <span class="tag">Телефон любой сложности</span>
+      <h3><a href="https://www.google.com/maps/search/?api=1&query=V%26A+mobile+shop+Crnotravska+7-9+Beograd">V&amp;A mobile shop</a>, Црнотравска 7-9</h3>
+      <p><b>1,2 км.</b> 4,9 ★ по 480 отзывам, рядом с Gigatron. Экраны iPhone и Samsung, разблокировка, чистка. Будни 9–20, суббота до 15.</p>
+      <p>Если нужна плата, снятие аккаунта или смарт-часы — <b>Expert Mobile</b> на Браће Јерковић 95, 2,2 км, 4,9 ★ по 774 отзывам.</p>
+    </article>
+    <article class="ins reveal">
+      <span class="tag">Ноутбук, консоль, электроника</span>
+      <h3><a href="https://www.google.com/maps/search/?api=1&query=PC+Doctor+computer+centar+Bra%C4%87e+Jerkovi%C4%87+123a+Beograd">PC Doctor</a> и <a href="https://www.google.com/maps/search/?api=1&query=BeoGeek+Stevana+Opa%C4%8Di%C4%87a+24+Beograd">BeoGeek</a></h3>
+      <p><b>Ноутбуки</b> — PC Doctor, Браће Јерковић 123a, 1,8 км, 4,8 ★ по 342 отзывам, спасают даже то, что другие списали. Только будни до 16.</p>
+      <p><b>Геймпады, платы, редкая электроника</b> — BeoGeek на Канарево брдо, 2,1 км, 5,0 ★ по 220 отзывам.</p>
+    </article>
+  </div>
+  <div class="note note-red"><b>Проверка</b>Рейтинги, часы и телефоны сняты с карточек Google Maps, адреса сверены с OpenStreetMap и справочниками PlanPlus и 011info. Цены на ремонт ни один из сервисов открыто не публикует, кроме прайса на стекло у Mobi House, поэтому стоимость спрашивать по телефону до визита.</div>
+</div></section>
+
+<section id="phones"><div class="wrap">
+  <div class="sh"><span class="num" aria-hidden="true"></span><h2>Телефоны и планшеты: все точки по удалению</h2></div>
+  <p class="sub">Сначала то, что на самой Паунова, потом соседние улицы. В карточке — рейтинг Google и число отзывов, часы по дням, кнопки «Маршрут» строят пешую дорогу в Google Maps от точки отсчёта.</p>
+  <div class="ways">
+
+    <article class="way top reveal">
+      <div class="way-top"><h3><a href="https://www.google.com/maps/search/?api=1&query=Lab+Tech+servis+Slobodana+Jovi%C4%87a+1a+Beograd">Lab Tech</a><small>телефоны, планшеты, ноутбуки, ПК, телевизоры</small></h3><div class="chips"><span class="chip chip-dist">160 м</span><span class="chip chip-ok">4,9 ★ · 64</span></div></div>
+      <dl class="kvp"><div><dt>Адрес</dt><dd>Slobodana Jovića 1a</dd></div><div><dt>Часы</dt><dd>Пн–Пт 9–17<small>Сб 9–16, Вс выходной</small></dd></div><div><dt>Телефон</dt><dd><a href="tel:+381605811148">060 581 11 48</a><small>на сайте: 069 260 30 09</small></dd></div></dl>
+      <p>Отзывы: быстро находят причину, объясняют, ремонт телефона занял один день. Сайт продаёт б/у ноутбуки с гарантией, бренды на нём — Apple, Dell, HP, Lenovo, Fujitsu.</p>
+      <div class="act"><a class="lnk" href="https://www.google.com/maps/dir/?api=1&origin=44.750632,20.481306&destination=44.7507484,20.4832932&travelmode=walking"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 22s7-7.5 7-12a7 7 0 1 0-14 0c0 4.5 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg>Маршрут</a><a class="lnk" href="https://labtechplus.rs/">labtechplus.rs</a></div>
+    </article>
+
+    <article class="way reveal">
+      <div class="way-top"><h3><a href="https://www.google.com/maps/search/?api=1&query=Mobile+Trend+Paunova+24+Beograd">Mobile Trend</a><small>ТЦ Banjica, локал 35</small></h3><div class="chips"><span class="chip chip-dist">780 м</span><span class="chip chip-cat">4,0 ★ · 21</span></div></div>
+      <dl class="kvp"><div><dt>Адрес</dt><dd>Паунова 24, ТЦ Banjica</dd></div><div><dt>Часы</dt><dd>Пн–Пт 9–20<small>Сб 9–18, Вс выходной</small></dd></div><div><dt>Телефон</dt><dd><a href="tel:+381605444103">060 544 41 03</a><small>011 770 42 88</small></dd></div></dl>
+      <p>Замена стекла и батареи, разблокировка, аксессуары. Отзывы смешанные, но свежие хвалят цену «как договорились». Самая поздняя мастерская из ближайших: открыта до 20.</p>
+      <div class="act"><a class="lnk" href="https://www.google.com/maps/dir/?api=1&origin=44.750632,20.481306&destination=44.7567511,20.4763945&travelmode=walking"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 22s7-7.5 7-12a7 7 0 1 0-14 0c0 4.5 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg>Маршрут</a></div>
+    </article>
+
+    <article class="way reveal">
+      <div class="way-top"><h3><a href="https://www.google.com/maps/search/?api=1&query=MOBLINE+STKR+Paunova+24+Beograd">Mobline</a><small>ТЦ Banjica, локал 40</small></h3><div class="chips"><span class="chip chip-dist">780 м</span><span class="chip chip-ok">5,0 ★ · 29</span></div></div>
+      <dl class="kvp"><div><dt>Адрес</dt><dd>Паунова 24/40, ТЦ Banjica</dd></div><div><dt>Часы</dt><dd>Пн–Чт 8–20, Пт 9–20<small>Сб 9–16, Вс выходной</small></dd></div><div><dt>Телефон</dt><dd><a href="tel:+38163203205">063 203 205</a></dd></div></dl>
+      <p>Google относит точку к магазинам телефонов, и все 29 отзывов про товар и персонал, а не про ремонт. Заходить за аксессуарами и зарядками, про ремонт спрашивать на месте.</p>
+      <div class="act"><a class="lnk" href="https://www.google.com/maps/dir/?api=1&origin=44.750632,20.481306&destination=44.7567511,20.4763945&travelmode=walking"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 22s7-7.5 7-12a7 7 0 1 0-14 0c0 4.5 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg>Маршрут</a></div>
+    </article>
+
+    <article class="way reveal">
+      <div class="way-top"><h3><a href="https://www.google.com/maps/search/?api=1&query=Mobika+Paunova+15+Beograd">Mobika</a><small>мастерская телефонов</small></h3><div class="chips"><span class="chip chip-dist">1,0 км</span><span class="chip chip-warn">4,0 ★ · 26</span></div></div>
+      <dl class="kvp"><div><dt>Адрес</dt><dd>Паунова 15</dd></div><div><dt>Часы</dt><dd>Пн–Пт 9–20<small>Сб 10–14, Вс выходной</small></dd></div><div><dt>Телефон</dt><dd><a href="tel:+381643709575">064 370 95 75</a></dd></div></dl>
+      <p>Чисто ремонтная точка, но два из трёх последних отзывов жалуются на грубость мастера. Держать как запасной вариант.</p>
+      <div class="act"><a class="lnk" href="https://www.google.com/maps/dir/?api=1&origin=44.750632,20.481306&destination=44.7592331,20.4768334&travelmode=walking"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 22s7-7.5 7-12a7 7 0 1 0-14 0c0 4.5 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg>Маршрут</a></div>
+    </article>
+
+    <article class="way reveal">
+      <div class="way-top"><h3><a href="https://www.google.com/maps/search/?api=1&query=Alex+Mobil+Paunova+1+Beograd">Alex Mobil</a><small>ремонт, выкуп и продажа, с 2001 года</small></h3><div class="chips"><span class="chip chip-dist">1,15 км</span><span class="chip chip-ok">4,6 ★ · 15</span></div></div>
+      <dl class="kvp"><div><dt>Адрес</dt><dd>Паунова 1<small>у остановки напротив рынка</small></dd></div><div><dt>Часы</dt><dd>Пн–Сб 9–21<small>Вс 9–17</small></dd></div><div><dt>Телефон</dt><dd><a href="tel:+381605133339">060 513 33 39</a><small>011 398 45 56</small></dd></div></dl>
+      <p>Единственный сервис из списка, который работает в воскресенье и до девяти вечера. Срочный ремонт, разблокировка, чехлы. Один отзыв про закрытую в рабочее время дверь — лучше позвонить перед выходом.</p>
+      <div class="act"><a class="lnk" href="https://www.google.com/maps/dir/?api=1&origin=44.750632,20.481306&destination=44.7604186,20.476502&travelmode=walking"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 22s7-7.5 7-12a7 7 0 1 0-14 0c0 4.5 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg>Маршрут</a></div>
+    </article>
+
+    <article class="way top reveal">
+      <div class="way-top"><h3><a href="https://www.google.com/maps/search/?api=1&query=V%26A+mobile+shop+Crnotravska+7-9+Beograd">V&amp;A mobile shop</a><small>iPhone, Samsung, Huawei, Xiaomi</small></h3><div class="chips"><span class="chip chip-dist">1,2 км</span><span class="chip chip-ok">4,9 ★ · 480</span></div></div>
+      <dl class="kvp"><div><dt>Адрес</dt><dd>Црнотравска 7-9<small>здание с Gigatron</small></dd></div><div><dt>Часы</dt><dd>Пн–Пт 9–20<small>Сб 9–15, Вс выходной</small></dd></div><div><dt>Телефон</dt><dd><a href="tel:+381631071116">063 107 11 16</a><small>062 350 635 · 011 412 29 97</small></dd></div></dl>
+      <p>Лучшее сочетание близости и репутации. Экраны и тачскрины, разблокировка, печать на чехлах. В отзывах: «динамики почистили — как новые», «быстро и квалифицированно».</p>
+      <div class="act"><a class="lnk" href="https://www.google.com/maps/dir/?api=1&origin=44.750632,20.481306&destination=44.7607372,20.4774728&travelmode=walking"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 22s7-7.5 7-12a7 7 0 1 0-14 0c0 4.5 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg>Маршрут</a></div>
+    </article>
+
+    <article class="way reveal">
+      <div class="way-top"><h3><a href="https://www.google.com/maps/search/?api=1&query=Extracom+Pukovnika+Petra+Mi%C5%A1i%C4%87a+6+Beograd">Extracom</a><small>телефоны и компьютеры</small></h3><div class="chips"><span class="chip chip-dist">1,3 км</span><span class="chip chip-ok">5,0 ★ · 18</span></div></div>
+      <dl class="kvp"><div><dt>Адрес</dt><dd>Пуковника Петра Мишића 6<small>насеље Степа Степановић</small></dd></div><div><dt>Часы</dt><dd>Пн–Пт 12–19<small>Сб 10–15, Вс выходной</small></dd></div><div><dt>Телефон</dt><dd><a href="tel:+381669204040">066 920 40 40</a></dd></div></dl>
+      <p>Маленькая мастерская с идеальным рейтингом: «сдал в субботу перед закрытием, в воскресенье телефон был готов». Открывается только в полдень.</p>
+      <div class="act"><a class="lnk" href="https://www.google.com/maps/dir/?api=1&origin=44.750632,20.481306&destination=44.7574953,20.495147&travelmode=walking"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 22s7-7.5 7-12a7 7 0 1 0-14 0c0 4.5 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg>Маршрут</a></div>
+    </article>
+
+    <article class="way top reveal">
+      <div class="way-top"><h3><a href="http://www.expertmobile.rs/">Expert Mobile MN</a><small>платы, аккаунты, часы, планшеты, выкуп</small></h3><div class="chips"><span class="chip chip-dist">2,2 км</span><span class="chip chip-ok">4,9 ★ · 774</span></div></div>
+      <dl class="kvp"><div><dt>Адрес</dt><dd>Браће Јерковић 95b<small>напротив рынка; в справочниках 95G</small></dd></div><div><dt>Часы</dt><dd>Пн–Пт 9–18<small>Сб 9–16, Вс выходной</small></dd></div><div><dt>Телефон</dt><dd><a href="tel:+381644102111">064 410 21 11</a><small>061 222 77 44 · 011 398 79 38</small></dd></div></dl>
+      <p>Самый отзывный сервис района. Берёт то, что мелкие точки не возьмут: ремонт плат и замена микросхем, снятие Google, Mi и Huawei ID, разблокировка iPhone, смарт-часы, iPad. Экран меняют за 1–2 часа, остальное 1–2 рабочих дня.</p>
+      <div class="act"><a class="lnk" href="https://www.google.com/maps/dir/?api=1&origin=44.750632,20.481306&destination=44.769638,20.4891925&travelmode=walking"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 22s7-7.5 7-12a7 7 0 1 0-14 0c0 4.5 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg>Маршрут</a><a class="lnk" href="https://www.google.com/maps/search/?api=1&query=Expert+Mobile+MN+Bra%C4%87e+Jerkovi%C4%87+95b+Beograd">Google Maps</a></div>
+    </article>
+
+  </div>
+
+  <div class="tw">
+  <table>
+    <caption>Остальные сервисы телефонов в радиусе 3,5 км: дальше, но с сильной репутацией</caption>
+    <thead><tr><th scope="col">Сервис</th><th scope="col">По прямой</th><th scope="col">Google</th><th scope="col">Часы</th><th scope="col">Телефон</th><th scope="col">Заметка</th></tr></thead>
+    <tbody>
+      <tr><th scope="row"><a href="https://www.google.com/maps/search/?api=1&query=Servis+mobilnih+telefona+Mobi+House+Borska+68+Beograd">Mobi House</a><small>Борска 68, Раковица</small></th><td class="n">2,0 км</td><td class="n">4,7 ★ · 67</td><td>Пн–Пт 9–19, Сб 10–16</td><td><a class="tel" href="tel:+38163253285">063 253 285</a></td><td>Единственный с открытым прайсом на реставрацию стекла: <a href="https://mobihouse.rs/">mobihouse.rs</a>. Экран приклеили за 30 минут, сложный случай тянулся две недели.</td></tr>
+      <tr><th scope="row"><a href="https://www.google.com/maps/search/?api=1&query=S%26V+MOBIL+Vojvode+Stepe+262+Beograd">S&amp;V Mobil</a><small>Војводе Степе 262</small></th><td class="n">2,05 км</td><td class="n">4,4 ★ · 194</td><td>Пн–Пт 9–20, Сб 9–15</td><td><a class="tel" href="tel:+381641329662">064 132 96 62</a></td><td>Специализация по справочникам — стёкла Huawei; продают почти новые телефоны. Сайт svmobil.rs при проверке не открылся.</td></tr>
+      <tr><th scope="row"><a href="https://www.google.com/maps/search/?api=1&query=OBG+Service+Vojvode+Stepe+209+Beograd">OBG Service</a><small>Војводе Степе 209</small></th><td class="n">2,55 км</td><td class="n">4,6 ★ · 112</td><td>Google: «круглосуточно», справочник: с 10</td><td><a class="tel" href="tel:+381645842079">064 584 20 79</a></td><td>Диагностика и ремонт Apple, Samsung, Huawei, Xiaomi, выкуп. «Круглосуточно» в карточке выглядит ошибкой, уточнить звонком.</td></tr>
+      <tr><th scope="row"><a href="https://www.google.com/maps/search/?api=1&query=GAGI+MOBILE+Borska+10+Beograd">Gagi Mobile</a><small>Борска 10, Видиковац</small></th><td class="n">2,75 км</td><td class="n">5,0 ★ · 115</td><td>до 22:00 по Google</td><td><a class="tel" href="tel:+381615566133">061 556 61 33</a></td><td>Хвалят за ремонт «в тот же день и в поздний час». Сайт <a href="https://gagimobileservis.rs/">gagimobileservis.rs</a>.</td></tr>
+      <tr><th scope="row"><a href="http://www.avasta.rs/">Avasta Mobile</a><small>Војводе Степе 167</small></th><td class="n">2,8 км</td><td class="n">4,9 ★ · 178</td><td>в карточке Google не указаны</td><td><a class="tel" href="tel:+381652393732">065 239 37 32</a></td><td>Ремонт, чистка, выкуп старых телефонов «по хорошей цене». Быстрый и вежливый по отзывам.</td></tr>
+      <tr><th scope="row"><a href="https://servistitan.rs/">Titan</a><small>Војводе Степе 131</small></th><td class="n">3,1 км</td><td class="n">4,9 ★ · 416</td><td>Пн–Пт 9–20, Сб 9–16</td><td><a class="tel" href="tel:+381644700045">064 470 00 45</a></td><td>Экран iPhone 11 поменяли за час в субботу. Есть и свежий негатив: после замены экрана телефон «посыпался». Батарея, экран, камера, вода.</td></tr>
+      <tr><th scope="row"><a href="https://www.google.com/maps/search/?api=1&query=FIXmobile+Brace+Srnic+23a+Beograd">FIXmobile</a><small>Браће Срнић 23a, локал 49</small></th><td class="n">3,2 км</td><td class="n">4,9 ★ · 92</td><td>до 17:00 по Google</td><td><a class="tel" href="tel:+38166286889">066 286 889</a></td><td>Далеко для пешей прогулки, но стабильно высокая оценка.</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="note"><b>Не попали в список</b>MB Mobil Shop на Војводе Степе 351 в Google помечен как временно закрытый, Exxpress Mobil на Борской 7 — тоже. MUST Mobile в ТЦ Banjica (локал 221) без единого отзыва. Все три есть в старых справочниках, поэтому в поиске они всплывают.</div>
+</div></section>
+
+<section id="gadgets"><div class="wrap">
+  <div class="sh"><span class="num" aria-hidden="true"></span><h2>Ноутбуки, ПК, консоли и остальная электроника</h2></div>
+  <p class="sub">На самой Паунова две компьютерные точки, но ни одна не для телефонов. Сильные мастерские по ноутбукам и редкой электронике — в 2 км.</p>
+  <div class="ways">
+
+    <article class="way reveal">
+      <div class="way-top"><h3><a href="https://www.google.com/maps/search/?api=1&query=AIGO+Paunova+82-84+Beograd">AIGO</a><small>Паунова 82-84, корпоративный IT-интегратор</small></h3><div class="chips"><span class="chip chip-dist">в том же квартале</span><span class="chip chip-cat">3,9 ★ · 140</span></div></div>
+      <dl class="kvp"><div><dt>Адрес</dt><dd>Паунова 82-84</dd></div><div><dt>Часы</dt><dd>Пн–Пт 8–16<small>выходные закрыто</small></dd></div><div><dt>Телефон</dt><dd><a href="tel:+381116555295">011 655 52 95</a></dd></div></dl>
+      <p>Сайт <a href="https://www.aigo.rs/">aigo.rs</a> — про дата-центры и софт для госорганов, не про розничный ремонт. В отзывах называют официальным партнёром HP. Для частного ноутбука HP можно спросить, для телефона — нет.</p>
+      <div class="act"><a class="lnk" href="https://www.aigo.rs/">aigo.rs</a></div>
+    </article>
+
+    <article class="way reveal">
+      <div class="way-top"><h3><a href="https://www.google.com/maps/search/?api=1&query=Remi+Computers+Paunova+42+Beograd">Remi Computers</a><small>продажа и сервис ПК, печать</small></h3><div class="chips"><span class="chip chip-dist">580 м</span><span class="chip chip-cat">4,1 ★ · 21</span></div></div>
+      <dl class="kvp"><div><dt>Адрес</dt><dd>Паунова 42<small>в справочниках — Паунова 85</small></dd></div><div><dt>Часы</dt><dd>Пн–Пт 9–17<small>Сб 9–15, Вс выходной</small></dd></div><div><dt>Телефон</dt><dd><a href="tel:+381113670140">011 367 01 40</a></dd></div></dl>
+      <p>Чистка, термопаста, переустановка системы, цветная печать. Один отзыв про неделю ожидания без диагноза, остальные довольны.</p>
+      <div class="act"><a class="lnk" href="https://www.google.com/maps/dir/?api=1&origin=44.750632,20.481306&destination=44.7547587,20.4768826&travelmode=walking"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 22s7-7.5 7-12a7 7 0 1 0-14 0c0 4.5 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg>Маршрут</a></div>
+    </article>
+
+    <article class="way top reveal">
+      <div class="way-top"><h3><a href="http://www.servislaptopova.com/">PC Doctor</a><small>ноутбуки, в том числе «безнадёжные»</small></h3><div class="chips"><span class="chip chip-dist">1,8 км</span><span class="chip chip-ok">4,8 ★ · 342</span></div></div>
+      <dl class="kvp"><div><dt>Адрес</dt><dd>Браће Јерковић 123a</dd></div><div><dt>Часы</dt><dd>Пн–Пт 9–16<small>выходные закрыто</small></dd></div><div><dt>Телефон</dt><dd><a href="tel:+381607329420">060 732 94 20</a></dd></div></dl>
+      <p>Отзывы: «в первом сервисе сказали выбросить, здесь взялись и спасли Alienware». Цена оговаривается заранее. Планшеты тоже берут.</p>
+      <div class="act"><a class="lnk" href="https://www.google.com/maps/dir/?api=1&origin=44.750632,20.481306&destination=44.7647402,20.4933969&travelmode=walking"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 22s7-7.5 7-12a7 7 0 1 0-14 0c0 4.5 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg>Маршрут</a><a class="lnk" href="https://www.google.com/maps/search/?api=1&query=PC+Doctor+computer+centar+Bra%C4%87e+Jerkovi%C4%87+123a+Beograd">Google Maps</a></div>
+    </article>
+
+    <article class="way top reveal">
+      <div class="way-top"><h3><a href="https://www.beogeek.com/">BeoGeek</a><small>геймпады, консоли, платы, одноплатники</small></h3><div class="chips"><span class="chip chip-dist">2,1 км</span><span class="chip chip-ok">5,0 ★ · 220</span></div></div>
+      <dl class="kvp"><div><dt>Адрес</dt><dd>Стевана Опачића 24<small>Канарево брдо</small></dd></div><div><dt>Часы</dt><dd>Пн–Пт 9–17<small>Сб 9–12, Вс выходной</small></dd></div><div><dt>Телефон</dt><dd><a href="tel:+381638886542">063 888 65 42</a></dd></div></dl>
+      <p>Чинил Raspberry Pi с выломанным слотом microSD, менял стики DualSense на TMR-датчики. «Принесите атомный реактор — починит». Для всего, что не телефон и не ноутбук.</p>
+      <div class="act"><a class="lnk" href="https://www.google.com/maps/dir/?api=1&origin=44.750632,20.481306&destination=44.7456725,20.4560986&travelmode=walking"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 22s7-7.5 7-12a7 7 0 1 0-14 0c0 4.5 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg>Маршрут</a><a class="lnk" href="https://www.google.com/maps/search/?api=1&query=BeoGeek+Stevana+Opa%C4%8Di%C4%87a+24+Beograd">Google Maps</a></div>
+    </article>
+
+  </div>
+  <div class="note"><b>Запчасти и кабели рядом</b><a href="https://www.google.com/maps/search/?api=1&query=05elektrotech+Paunova+24+Beograd">05elektrotech</a> на первом этаже ТЦ Banjica, локал 107, 4,8 ★ по 18 отзывам: аудио и видео, компьютерная мелочь, сетевые кабели, 065 523 44 23. <a href="https://www.google.com/maps/search/?api=1&query=Gigatron+G7+Banjica+Crnotravska+7-9">Gigatron</a> на Црнотравской 7-9 — сетевой магазин техники, туда же с гарантийным случаем по купленному у них.</div>
+</div></section>
+
+<section id="official"><div class="wrap">
+  <div class="sh"><span class="num" aria-hidden="true"></span><h2>Если не хочется идти самому или нужна гарантия</h2></div>
+  <p class="sub">Авторизованных сервисов Apple и Samsung на Вождовце нет. Ближайшие — в центре и на Новом Белграде. Плюс курьерский сервис, который забирает телефон с адреса.</p>
+  <div class="bento">
+    <article class="ins reveal">
+      <span class="tag">Курьер с адреса</span>
+      <h3><a href="https://ekotel.rs/lokacije/banjica/">Ekotel</a></h3>
+      <p>Забирают телефон по адресу в Белграде, чинят в мастерской на Вишњићева 6 в центре и привозят обратно. Срочный ремонт заявлен за 24 часа. Apple, Samsung, Xiaomi, Huawei и другие.</p>
+      <p><b>Пн–Пт 8–21, Сб 10–18</b>, <a href="tel:+381668097799">066 809 77 99</a>. Плата за выезд «по договорённости» — сумму назвать по телефону.</p>
+    </article>
+    <article class="ins reveal">
+      <span class="tag">Apple — официально</span>
+      <h3><a href="https://www.istyle.rs/servis">iSTYLE Servis</a>, Ušće</h3>
+      <p>На своём сайте пишут прямо: «ми смо овлашћени Apple сервис», техники сертифицированы Apple, детали оригинальные. Адрес Булевар Михајла Пупина 4, Нови Београд, <a href="tel:+381668766242">066 876 62 42</a>.</p>
+      <p><b>Пн–Пт 10–17, выходные закрыто.</b> Ожидаемый срок ремонта 3–5 дней. Проверить статус и другие точки — в <a href="https://locate.apple.com/rs/en/">локаторе Apple для Сербии</a>.</p>
+    </article>
+    <article class="ins reveal">
+      <span class="tag">Samsung — официально</span>
+      <h3><a href="https://www.samsung.com/rs/support/service-center/">Локатор сервисов Samsung</a></h3>
+      <p>На странице Samsung Сербии указан <b>Samsung Major Service Center в ТЦ Galerija</b>, Булевар Вудроа Вилсона 12, ежедневно 10–22. Партнёр <b>ProMobi</b> на Пожешкој 154-156 (Баново брдо) фигурировал в документах Samsung как авторизованный центр, часы по справочнику Пн–Пт 9–18, Сб 9–15, 011 355 50 47.</p>
+      <p>Сайт promobi.rs боту не открылся, поэтому актуальный статус смотреть в локаторе.</p>
+    </article>
+  </div>
+</div></section>
+
+<section id="check"><div class="wrap">
+  <div class="sh"><span class="num" aria-hidden="true"></span><h2>Что спросить по телефону до визита</h2></div>
+  <p class="sub">Ни один сервис из списка не публикует цены на экраны и батареи. Пять вопросов экономят второй поход.</p>
+  <ol class="steps">
+    <li class="reveal"><span class="num" aria-hidden="true"></span><div><p><b>Цена и что в неё входит.</b> Для экрана: оригинал, OLED-копия или «обычная» копия — три разные суммы. Попросить назвать конечную цену с работой.</p></div></li>
+    <li class="reveal"><span class="num" aria-hidden="true"></span><div><p><b>Гарантия на ремонт.</b> Сколько месяцев и на что именно: на деталь, на работу или на обе.</p></div></li>
+    <li class="reveal"><span class="num" aria-hidden="true"></span><div><p><b>Срок.</b> Экран у Expert Mobile — 1–2 часа, у Titan по отзыву час в субботу. Если говорят «через неделю» — деталь будут заказывать.</p></div></li>
+    <li class="reveal"><span class="num" aria-hidden="true"></span><div><p><b>Нужен ли пароль.</b> Для теста после ремонта мастера просят код разблокировки. Лучше перед сдачей сделать резервную копию и временно поставить простой код.</p></div></li>
+    <li class="reveal"><span class="num" aria-hidden="true"></span><div><p><b>Работают ли сегодня.</b> У Alex Mobil был отзыв про закрытую дверь в рабочее время, у Extracom открытие в полдень, PC Doctor и BeoGeek не работают после 16–17.</p></div></li>
+  </ol>
+</div></section>
+
+<section id="sources"><div class="wrap">
+  <div class="sh"><span class="num" aria-hidden="true"></span><h2>Источники</h2></div>
+  <p class="sub">Рейтинги, часы по дням и телефоны — карточки Google Maps. Координаты для расстояний — Google Maps и OpenStreetMap. Описания услуг — сайты сервисов и справочники.</p>
+  <ul class="srcs">
+    <li><a href="https://www.google.com/maps/search/servis+mobilnih+telefona/@44.750632,20.481306,15z">Google Maps: servis mobilnih telefona вокруг Паунова</a><span>поиски servis telefona, servis laptopova, servis računara, popravka tableta, iPhone servis</span></li>
+    <li><a href="https://www.openstreetmap.org/#map=16/44.7505/20.4812">OpenStreetMap, Баньица</a><span>объекты shop=mobile_phone, electronics, computer и craft=electronics_repair через Overpass API</span></li>
+    <li><a href="https://www.planplus.rs/vozdovac/servisi-mobilnih-telefona">PlanPlus: сервисы мобильных телефонов, Вождовац</a><span>адреса и справочные телефоны 16 точек</span></li>
+    <li><a href="https://www.011info.com/servisi-mobilnih-telefona/banjica">011info: сервисы телефонов на Баньице</a><span>Alex Mobil с 2001 года, V&amp;A Mobile</span></li>
+    <li><a href="https://www.navidiku.rs/firme/servis-mobilnih-telefona-beograd/v-a-servis-mobilnih-telefona-banjica">Navidiku: V&amp;A Mobile</a><span>часы, три телефона, перечень услуг</span></li>
+    <li><a href="https://osiguranpopust.com/popust/mob-trend-servis-mobilnih-telefona/">Osiguran popust: Mob Trend</a><span>услуги, второй телефон, почта</span></li>
+    <li><a href="http://www.expertmobile.rs/">expertmobile.rs</a><span>услуги, бренды, сроки ремонта, три телефона</span></li>
+    <li><a href="https://labtechplus.rs/">labtechplus.rs</a><span>второй телефон, бренды</span></li>
+    <li><a href="https://mobihouse.rs/">mobihouse.rs</a><span>прайс на реставрацию стекла, телефоны</span></li>
+    <li><a href="https://ekotel.rs/lokacije/banjica/">ekotel.rs: Баньица</a><span>курьерский забор, часы, адрес мастерской</span></li>
+    <li><a href="https://www.istyle.rs/servis">istyle.rs/servis</a><span>«овлашћени Apple сервис», адрес, часы, срок 3–5 дней</span></li>
+    <li><a href="https://www.samsung.com/rs/offer/sign-language-support/">samsung.com/rs: Samsung Major Service Center Galerija</a><span>адрес и часы 10–22</span></li>
+    <li><a href="https://www.planplus.rs/servis-mobilnih-telefona-promobi/24031">PlanPlus: ProMobi, Пожешка 156</a><span>часы и телефон; статус Samsung — по документам Samsung 2018–2019</span></li>
+    <li><a href="https://www.aigo.rs/">aigo.rs</a><span>профиль компании: инфраструктура и софт для организаций</span></li>
+  </ul>
+</div></section>
+
+</main>
+
+<footer><div class="wrap">Расстояния по прямой от точки отсчёта на Паунова, пешком выходит примерно в полтора раза больше. Часы и телефоны меняются, перед визитом звонить. Страница закрыта от поисковой индексации.</div></footer>
+
+<script>
+(() => {
+  const links = [...document.querySelectorAll('.topnav a')];
+  const secs = links.map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+  if (!('IntersectionObserver' in window) || !secs.length) return;
+  const io = new IntersectionObserver(es => {
+    es.forEach(e => { if (e.isIntersecting) { links.forEach(a => a.classList.toggle('on', a.getAttribute('href') === '#' + e.target.id)); } });
+  }, { rootMargin: '-40% 0px -55% 0px' });
+  secs.forEach(s => io.observe(s));
+})();
+</script>
+<script type="module">
+const items = [...document.querySelectorAll('.reveal')];
+const show = el => { el.style.opacity = 1; el.style.transform = 'none'; };
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const fallback = () => {
+  if (!('IntersectionObserver' in window)) return items.forEach(show);
+  const io = new IntersectionObserver(es => es.forEach(x => { if (x.isIntersecting) { x.target.style.transition = 'opacity .5s ease, transform .5s ease'; show(x.target); io.unobserve(x.target); } }), { rootMargin: '0px 0px -8% 0px' });
+  items.forEach(el => io.observe(el));
+};
+setTimeout(() => {
+  try { document.getAnimations().forEach(a => a.finish()); } catch (e) {}
+  document.querySelectorAll('.reveal, .stat').forEach(el => { if (parseFloat(getComputedStyle(el).opacity) < 0.99) show(el); });
+}, 3000);
+const wait = new Promise(r => setTimeout(() => r(null), 2500));
+const m = reduce ? null : await Promise.race([import('https://cdn.jsdelivr.net/npm/motion@11/+esm').catch(() => null), wait]);
+if (reduce) { items.forEach(show); }
+else if (!m) { fallback(); }
+else {
+  try {
+    const { animate, inView, stagger } = m;
+    inView('.reveal', x => { const el = x && x.target ? x.target : x; animate(el, { opacity: [0, 1], y: [18, 0] }, { duration: 0.5, ease: [0.22, 1, 0.36, 1] }); }, { margin: '0px 0px -8% 0px' });
+    animate('.stat', { opacity: [0, 1], y: [10, 0] }, { duration: 0.4, delay: stagger(0.06) });
+  } catch (err) { fallback(); }
+}
+</script>
+</body>
+</html>
