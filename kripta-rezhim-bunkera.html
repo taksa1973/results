@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Режим бункера для крипты: что это и как туда переехать</title>
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="description" content="Что такое «режим бункера» (bunker mode) для криптовалют: откуда термин, почему скрытый публичный ключ защищает монеты, какие адреса подходят, пошаговый план миграции и честные ограничения метода.">
+<meta name="theme-color" content="#000000">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23000'/%3E%3Crect x='9' y='9' width='14' height='14' rx='3' fill='%23E05252'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script>if(!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('js-anim')</script>
+<style>
+:root{color-scheme:dark;
+  --bg:#000;--paper:#121212;--soft:#1A1A1A;--line:#262626;--line-2:#3A3A3A;
+  --ink:#F5F5F5;--ink-2:#C4C4C8;--ink-3:#8E8E93;
+  --red:#9B1C1C;--red-hover:#B42323;--red-text:#E05252;--red-soft:#241010;--red-line:#4D1B1B;
+  --r:16px;--topbar:60px;--ease:cubic-bezier(.22,1,.36,1)}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;padding-top:var(--topbar);background:var(--bg);color:var(--ink);font:16px/1.6 Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased;overflow-wrap:anywhere;touch-action:manipulation}
+::selection{background:var(--red);color:#fff}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+a{color:var(--red-text);text-decoration:none;transition:color .15s ease}
+a:hover{color:#fff}
+a:focus-visible{outline:2px solid #fff;outline-offset:3px;border-radius:6px}
+.skip{position:absolute;left:-999px;top:0}
+.skip:focus{left:16px;top:16px;background:#fff;color:#000;padding:10px 14px;border-radius:10px;z-index:100}
+h1,h2,h3{color:#fff;margin:0}
+h1{font-size:clamp(34px,5.2vw,60px);line-height:1.04;letter-spacing:-.03em;font-weight:800;text-wrap:balance;max-width:17ch}
+h1 span{color:var(--red-text)}
+h2{font-size:clamp(26px,3.2vw,38px);line-height:1.12;letter-spacing:-.02em;font-weight:700;text-wrap:balance}
+h3{font-size:18px;line-height:1.3;letter-spacing:-.01em;font-weight:600}
+.eyebrow{color:var(--red-text);font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin:0 0 10px}
+code{font:500 .92em/1.4 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:var(--soft);border:1px solid var(--line);border-radius:6px;padding:1px 6px;color:#fff;white-space:nowrap}
+
+.topbar{position:fixed;top:0;left:0;right:0;height:var(--topbar);z-index:50;background:rgba(0,0,0,.88);-webkit-backdrop-filter:saturate(140%) blur(16px);backdrop-filter:saturate(140%) blur(16px);border-bottom:1px solid var(--line)}
+.topbar .wrap{height:100%;display:flex;align-items:center;gap:20px}
+.brand{display:flex;align-items:center;gap:10px;color:#fff;font-weight:700;font-size:15px;letter-spacing:-.01em;white-space:nowrap;flex:none}
+.brand i{width:10px;height:10px;border-radius:3px;background:var(--red-text);display:inline-block}
+.brand em{font-style:normal;color:var(--ink-3);font-weight:500}
+.topnav{display:flex;gap:4px;margin-left:auto;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.topnav::-webkit-scrollbar{display:none}
+.topnav a{flex:none;color:var(--ink-2);font-size:14px;font-weight:500;padding:9px 12px;border-radius:10px;min-height:44px;display:flex;align-items:center;transition:background .15s ease,color .15s ease}
+.topnav a:hover{color:#fff;background:rgba(255,255,255,.08)}
+.topnav a.on{color:#fff;background:rgba(255,255,255,.12)}
+@media (max-width:720px){.brand em{display:none}.topbar .wrap{gap:10px}.topnav a{padding:9px 10px;font-size:13px}}
+
+.hero{padding:56px 0 44px;border-bottom:1px solid var(--line)}
+.hero .wrap{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(300px,.75fr);gap:32px 48px;align-items:end}
+.lead{font-size:clamp(17px,1.9vw,20px);color:var(--ink-2);max-width:60ch;margin:18px 0 0}
+.lead b{color:#fff;font-weight:600}
+.cta{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:46px;padding:0 20px;border-radius:12px;font-weight:600;font-size:15px;cursor:pointer;transition:background .18s ease,color .18s ease,border-color .18s ease,transform .18s var(--ease)}
+.btn:active{transform:scale(.97)}
+.btn.pri{background:#fff;color:#000}
+.btn.pri:hover{background:var(--red);color:#fff}
+.btn.sec{background:transparent;color:#fff;border:1px solid var(--line-2)}
+.btn.sec:hover{border-color:#fff}
+.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.stat{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:16px 18px}
+.stat b{display:block;font-size:30px;font-weight:800;letter-spacing:-.03em;line-height:1.05;color:#fff;font-variant-numeric:tabular-nums}
+.stat span{font-size:13px;color:var(--ink-3);display:block;margin-top:6px}
+.stat span b{display:inline;font-size:inherit;color:var(--ink-2);font-weight:600}
+@media (max-width:860px){.hero .wrap{grid-template-columns:1fr}.hero{padding:40px 0 32px}}
+
+main{counter-reset:n}
+main section{padding:60px 0 8px;scroll-margin-top:calc(var(--topbar) + 12px)}
+.sh{display:flex;align-items:center;gap:14px;margin-bottom:6px}
+.num{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:7px;background:#fff;color:#000;font-size:13px;font-weight:700;flex:none;counter-increment:n}
+.num::before{content:counter(n,decimal-leading-zero)}
+.sub{color:var(--ink-2);max-width:72ch;margin:8px 0 22px}
+.sub b{color:#fff;font-weight:600}
+
+.grid{display:grid;gap:12px}
+.g2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.g3{grid-template-columns:repeat(3,minmax(0,1fr))}
+@media (max-width:980px){.g3{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:640px){.g2,.g3{grid-template-columns:1fr}}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:22px 24px;transition:transform .2s var(--ease),box-shadow .2s ease}
+.card:hover{box-shadow:0 0 0 1px rgba(255,255,255,.18);transform:translateY(-2px)}
+.card .tag{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--red-text);margin:0 0 10px}
+.card p,.card li{font-size:15.5px;line-height:1.6;color:var(--ink-2)}
+.card p{margin:0}
+.card p+p{margin-top:10px}
+.card h3+p{margin-top:8px}
+.card ul{margin:0;padding-left:18px}
+.card li{margin:6px 0;font-size:14.5px}
+.card b{color:#fff;font-weight:600}
+.card.hot{background:var(--red-soft);border-color:var(--red-line)}
+.card.wide{grid-column:1/-1}
+
+blockquote{margin:14px 0 0;padding:14px 18px;border-left:3px solid var(--red-text);background:var(--soft);border-radius:0 12px 12px 0;color:#fff;font-size:15.5px;line-height:1.55}
+.card.hot blockquote{background:rgba(0,0,0,.35)}
+blockquote cite{display:block;margin-top:8px;font-style:normal;font-size:13px;color:var(--ink-3)}
+blockquote cite a{color:var(--ink-2)}
+blockquote+p{margin-top:12px}
+
+.flow{display:grid;grid-template-columns:1fr auto 1fr auto 1fr auto 1fr;gap:8px;align-items:stretch;margin-top:8px}
+.flow .node{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:16px 16px 14px;min-height:112px}
+.flow .node b{display:block;color:#fff;font-size:15px;margin-bottom:6px}
+.flow .node span{display:block;color:var(--ink-3);font-size:13px;line-height:1.45}
+.flow .node.open{border-color:var(--red-line);background:var(--red-soft)}
+.flow .node.open b{color:var(--red-text)}
+.flow .arrow{display:flex;align-items:center;justify-content:center;color:var(--ink-3)}
+.flow .arrow svg{width:22px;height:22px}
+.flow .legend{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:4px;font-size:13.5px;color:var(--ink-3)}
+.flow .legend i{display:inline-block;width:10px;height:10px;border-radius:3px;vertical-align:-1px;margin-right:7px}
+@media (max-width:860px){.flow{grid-template-columns:1fr}.flow .arrow{transform:rotate(90deg);min-height:28px}.flow .node{min-height:0}}
+
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:var(--r);background:var(--paper)}
+table{width:100%;border-collapse:collapse;min-width:760px}
+th,td{padding:13px 16px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line);font-size:14.5px;line-height:1.5}
+th{background:#1F1F1F;color:#fff;font-weight:600;font-size:13px;letter-spacing:.02em;white-space:nowrap}
+td.mono{white-space:nowrap}
+@media (max-width:640px){
+  .tbl{overflow:visible;border:0;background:transparent}
+  table{min-width:0;display:block}
+  thead{display:none}
+  tbody,tr{display:block}
+  tr{background:var(--paper);border:1px solid var(--line);border-radius:14px;margin-bottom:10px;padding:8px 0}
+  td{display:block;border:0;padding:8px 16px;font-size:15px}
+  td.mono{white-space:normal}
+  td::before{content:attr(data-label);display:block;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);margin-bottom:3px}
+}
+tr:last-child td{border-bottom:0}
+td b{color:#fff;font-weight:600}
+td.mono{font:500 13px/1.4 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:var(--ink-2)}
+.pill{display:inline-flex;align-items:center;white-space:nowrap;font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:5px 10px;border-radius:8px;background:var(--soft);color:var(--ink-2)}
+.pill.ok{background:#2A2A2A;color:#fff;box-shadow:inset 0 0 0 1px #5A5A5F}
+.pill.warn{background:var(--red-soft);color:var(--red-text)}
+.pill.bad{background:var(--red);color:#fff}
+
+.steps{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;counter-reset:s}
+@media (max-width:760px){.steps{grid-template-columns:1fr}}
+.step{position:relative;background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:22px 24px 22px 74px;transition:transform .2s var(--ease),box-shadow .2s ease}
+.step:hover{box-shadow:0 0 0 1px rgba(255,255,255,.18);transform:translateY(-2px)}
+.step::before{counter-increment:s;content:counter(s);position:absolute;left:24px;top:22px;width:34px;height:34px;border-radius:9px;background:#fff;color:#000;font-weight:800;font-size:15px;display:flex;align-items:center;justify-content:center}
+.step h3{font-size:17px}
+.step p{margin:8px 0 0;font-size:15px;color:var(--ink-2);line-height:1.6}
+.step b{color:#fff;font-weight:600}
+.step .why{margin-top:10px;padding-top:10px;border-top:1px solid var(--line);font-size:13.5px;color:var(--ink-3)}
+
+.src-list{margin:0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+@media (max-width:760px){.src-list{grid-template-columns:1fr}}
+.src-list li{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:14px 16px;font-size:14px;line-height:1.5;color:var(--ink-3)}
+.src-list li a{display:block;color:#fff;font-weight:600;margin-bottom:3px}
+.src-list li a:hover{color:var(--red-text)}
+
+footer{margin-top:70px;padding:28px 0 48px;border-top:1px solid var(--line);color:var(--ink-3);font-size:13.5px}
+footer p{margin:0 0 8px;max-width:80ch}
+
+/* появление при скролле: контент виден по умолчанию, прячем только при подтверждённом JS */
+html.js-anim .rv{opacity:0;transform:translateY(16px)}
+html.js-anim:not(.motion-on) .rv{transition:opacity .55s var(--ease),transform .55s var(--ease)}
+html.js-anim .rv.shown{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.card,.step,.btn{transition:none}.card:hover,.step:hover{transform:none}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">К содержанию</a>
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="#top"><i aria-hidden="true"></i>Режим бункера <em>· крипта</em></a>
+    <nav class="topnav" aria-label="Разделы">
+      <a href="#what">Что это</a>
+      <a href="#why">Почему работает</a>
+      <a href="#types">Типы адресов</a>
+      <a href="#how">Как перейти</a>
+      <a href="#limits">Ограничения</a>
+      <a href="#sources">Источники</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero" id="top">
+  <div class="wrap">
+    <div>
+      <p class="eyebrow">Безопасность криптоактивов</p>
+      <h1>Режим бункера. <span>Что это и как туда переехать</span></h1>
+      <p class="lead">«Бункер» (bunker mode) не настройка кошелька и не отдельная сеть. Это способ хранения: <b>монеты лежат на свежем адресе, который ни разу не подписывал транзакций</b>, поэтому в блокчейне нет вашего публичного ключа, только его хеш. Атакующему, даже с гипотетическим взломом криптографии, не за что зацепиться. Ниже: откуда термин, почему это работает, какие адреса подходят, пошаговый план и чего метод не даёт.</p>
+      <div class="cta">
+        <a class="btn pri" href="#how">К плану миграции</a>
+        <a class="btn sec" href="#limits">Сначала ограничения</a>
+      </div>
+    </div>
+    <div class="stats" aria-label="Ключевые факты">
+      <div class="stat"><b>0</b><span>публично показанных атак, выводящих приватный ключ из публичного (Bitget Academy)</span></div>
+      <div class="stat"><b>≈30 %</b><span>биткоина лежит на выходах с уже раскрытым ключом (оценка Glassnode)</span></div>
+      <div class="stat"><b>Draft</b><span>статус BIP-360: постквантовых адресов в сети Bitcoin пока нет</span></div>
+      <div class="stat"><b>bc1q</b><span>подходит для бункера, <b>bc1p</b> (Taproot) не подходит</span></div>
+    </div>
+  </div>
+</section>
+
+<main id="main">
+
+<section id="what">
+  <div class="wrap">
+    <div class="sh rv"><span class="num" aria-hidden="true"></span><h2>Откуда термин и что он значит</h2></div>
+    <p class="sub rv">7–8 октября 2026 года исследователь <a href="https://ethereum.foundation" target="_blank" rel="noopener">Ethereum Foundation</a> Джастин Дрейк призвал индустрию готовиться к «режиму бункера». Повод: гипотеза, что ИИ-математика может сломать алгоритм подписи <b>ECDSA</b> на кривой secp256k1 раньше, чем это сделают квантовые компьютеры. На этой кривой держатся Bitcoin, Ethereum и Tron.</p>
+    <div class="grid g2">
+      <div class="card rv">
+        <span class="tag">Что предложил Дрейк</span>
+        <h3>Массовый переезд в «никогда не тратившие» кошельки</h3>
+        <p>Долгосрочные сбережения переводятся на новые адреса глубокого холодного хранения, которые никогда не подписывали транзакций. Начинать он предложил с крупных держателей и бирж, назвав <a href="https://www.binance.com" target="_blank" rel="noopener">Binance</a>, <a href="https://robinhood.com" target="_blank" rel="noopener">Robinhood</a>, <a href="https://bitbank.cc" target="_blank" rel="noopener">Bitbank</a> и <a href="https://www.bitfinex.com" target="_blank" rel="noopener">Bitfinex</a>.</p>
+        <blockquote>ECDSA breaks before Qday, in the worst case in months not years.<cite>Джастин Дрейк, цитата по <a href="https://protos.com/initiate-bunker-mode-to-protect-crypto-from-ai-says-justin-drake/" target="_blank" rel="noopener">Protos</a></cite></blockquote>
+        <p>При этом сам Дрейк оговорился: «I don't recommend anyone scramble to move their funds to new wallets today». И признал, что полноценный выход из бункера потребует постквантовой криптографии, которой в сетях пока нет.</p>
+      </div>
+      <div class="card rv">
+        <span class="tag">Кто и как возражает</span>
+        <h3>Доказательств взлома нет, спор идёт о вероятности</h3>
+        <blockquote>There is no evidence whatsoever pointing to a break of decades old hardness assumptions like elliptic curve cryptography… the very definition of FUD.<cite>Йехуда Линделл, глава криптографии <a href="https://www.coinbase.com" target="_blank" rel="noopener">Coinbase</a>, по <a href="https://news.bitcoin.com/crypto-news/bunker-mode-crypto-experts-argue-ai-threat-bitcoin-ethereum/" target="_blank" rel="noopener">Bitcoin.com News</a></cite></blockquote>
+        <blockquote>I personally have lost more money in botched migrations than I have lost in all hacks combined.<cite>Виталик Бутерин, там же. Угрозу он считает заслуживающей внимания, но против спешки</cite></blockquote>
+        <p>Кастодиан <a href="https://www.bitgo.com" target="_blank" rel="noopener">BitGo</a> ответил, что предлагает такой «бункер» с 2013 года: идея не новая, новым стал только повод.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="why">
+  <div class="wrap">
+    <div class="sh rv"><span class="num" aria-hidden="true"></span><h2>Почему скрытый ключ защищает</h2></div>
+    <p class="sub rv">Чтобы украсть монеты, нужно получить приватный ключ. Единственная известная «зацепка» для этого, и классическая, и квантовая, это <b>публичный ключ</b>. А он появляется в сети не всегда.</p>
+    <div class="flow rv" role="img" aria-label="Цепочка: приватный ключ порождает публичный ключ, публичный ключ хешируется в адрес. В обратную сторону: из публичного ключа приватный можно получить только взломав ECDSA, из хеша публичный ключ не восстанавливается.">
+      <div class="node"><b>Приватный ключ</b><span>Случайное число на вашем устройстве. Никогда не покидает кошелёк.</span></div>
+      <div class="arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+      <div class="node open"><b>Публичный ключ</b><span>Точка на кривой secp256k1. Цель любой атаки на ECDSA: и ИИ-гипотезы Дрейка, и квантового алгоритма Шора.</span></div>
+      <div class="arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+      <div class="node"><b>Хеш ключа</b><span>SHA-256 + RIPEMD-160 в Bitcoin, Keccak-256 в Ethereum и Tron. Из хеша ключ не восстанавливается, хеш-функций эта гипотеза не касается.</span></div>
+      <div class="arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+      <div class="node"><b>Адрес</b><span>То, что вы отправляете контрагенту. Пока адрес только получает, в сети виден лишь он и хеш.</span></div>
+      <div class="legend"><span><i style="background:var(--red-text)"></i>Единственное звено, которое атакуют</span><span><i style="background:#3A3A3A"></i>Звенья, которые в «бункере» остаются скрытыми</span></div>
+    </div>
+    <div class="grid g3" style="margin-top:12px">
+      <div class="card rv">
+        <span class="tag">Пока адрес только получает</span>
+        <h3>В сети лежит хеш</h3>
+        <p>Для биткоин-адресов P2PKH (<code>1…</code>) и P2WPKH (<code>bc1q…</code>), для аккаунтов Ethereum (<code>0x…</code>) и Tron (<code>T…</code>) публичный ключ в блокчейне не появляется, пока с адреса ничего не отправили. Это и есть «бункер».</p>
+      </div>
+      <div class="card rv">
+        <span class="tag">В момент первой траты</span>
+        <h3>Ключ раскрывается навсегда</h3>
+        <p>Подпись транзакции содержит публичный ключ или позволяет его восстановить (в Ethereum это делает функция ecrecover). После этого адрес считается раскрытым, сколько бы на нём ни осталось монет.</p>
+      </div>
+      <div class="card rv hot">
+        <span class="tag">Исключение</span>
+        <h3>Taproot (bc1p) ломает схему</h3>
+        <p>В выходах Taproot публичный ключ лежит прямо в адресе, без хеша. Отчёт Chaincode Labs называет такие выходы уязвимыми с момента получения средств: атакующий может работать над ключом сколько угодно, не дожидаясь траты.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="types">
+  <div class="wrap">
+    <div class="sh rv"><span class="num" aria-hidden="true"></span><h2>Какие адреса годятся, а какие нет</h2></div>
+    <p class="sub rv">Проверить любой адрес можно в эксплорере: <a href="https://mempool.space" target="_blank" rel="noopener">mempool.space</a> для Bitcoin, <a href="https://etherscan.io" target="_blank" rel="noopener">Etherscan</a> для Ethereum, <a href="https://tronscan.org" target="_blank" rel="noopener">Tronscan</a> для Tron. Если у адреса есть хотя бы одна исходящая транзакция, ключ раскрыт.</p>
+    <div class="tbl rv">
+      <table>
+        <thead><tr><th scope="col">Тип</th><th scope="col">Как выглядит</th><th scope="col">Что видно в сети</th><th scope="col">Годится для бункера</th></tr></thead>
+        <tbody>
+          <tr><td data-label="Тип"><b>Bitcoin, Legacy</b> (P2PKH)</td><td data-label="Как выглядит" class="mono">1A1zP1…</td><td data-label="Что видно в сети">Хеш ключа до первой траты</td><td data-label="Годится для бункера"><span class="pill ok">Да, до траты</span></td></tr>
+          <tr><td data-label="Тип"><b>Bitcoin, Native SegWit</b> (P2WPKH)</td><td data-label="Как выглядит" class="mono">bc1q…</td><td data-label="Что видно в сети">Хеш ключа до первой траты. Дешевле по комиссиям, чем Legacy</td><td data-label="Годится для бункера"><span class="pill ok">Да, до траты</span></td></tr>
+          <tr><td data-label="Тип"><b>Bitcoin, Taproot</b> (P2TR)</td><td data-label="Как выглядит" class="mono">bc1p…</td><td data-label="Что видно в сети">Публичный ключ сразу, в самом выходе</td><td data-label="Годится для бункера"><span class="pill bad">Нет</span></td></tr>
+          <tr><td data-label="Тип"><b>Bitcoin, любой адрес после траты</b>, а также старые P2PK</td><td data-label="Как выглядит" class="mono">любой</td><td data-label="Что видно в сети">Публичный ключ раскрыт навсегда</td><td data-label="Годится для бункера"><span class="pill bad">Нет</span></td></tr>
+          <tr><td data-label="Тип"><b>Ethereum, обычный аккаунт</b> без исходящих</td><td data-label="Как выглядит" class="mono">0x…</td><td data-label="Что видно в сети">Только адрес (хеш Keccak-256)</td><td data-label="Годится для бункера"><span class="pill ok">Да, до первой отправки</span></td></tr>
+          <tr><td data-label="Тип"><b>Ethereum, аккаунт с исходящими</b>, подписанты смарт-кошельков</td><td data-label="Как выглядит" class="mono">0x…</td><td data-label="Что видно в сети">Ключ восстанавливается из любой подписи</td><td data-label="Годится для бункера"><span class="pill bad">Нет</span></td></tr>
+          <tr><td data-label="Тип"><b>Tron</b> без исходящих (в том числе для USDT TRC-20)</td><td data-label="Как выглядит" class="mono">T…</td><td data-label="Что видно в сети">Только адрес: Keccak-256 от ключа с префиксом 0x41</td><td data-label="Годится для бункера"><span class="pill ok">Да, до первой отправки</span></td></tr>
+          <tr><td data-label="Тип"><b>Баланс на бирже</b>, депозитный адрес биржи</td><td data-label="Как выглядит" class="mono">нет своего</td><td data-label="Что видно в сети">Ключи принадлежат бирже и переиспользуются</td><td data-label="Годится для бункера"><span class="pill warn">Нет, это чужой кошелёк</span></td></tr>
+          <tr><td data-label="Тип"><b>Bitcoin, BIP-360</b> (Pay-to-Merkle-Root)</td><td data-label="Как выглядит" class="mono">bc1z…</td><td data-label="Что видно в сети">Постквантовый тип выхода</td><td data-label="Годится для бункера"><span class="pill">Пока недоступен: Draft</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section id="how">
+  <div class="wrap">
+    <div class="sh rv"><span class="num" aria-hidden="true"></span><h2>Как перевести активы в бункер</h2></div>
+    <p class="sub rv">Порядок один для всех сетей. Главное правило из возражения Бутерина: <b>миграция опаснее гипотетической угрозы</b>, поэтому без спешки, с тестовой суммой и с проверкой каждого шага.</p>
+    <div class="steps">
+      <div class="step rv">
+        <h3>Новый seed на аппаратном кошельке</h3>
+        <p>Создать новую seed-фразу на <a href="https://www.ledger.com" target="_blank" rel="noopener">Ledger</a>, <a href="https://trezor.io" target="_blank" rel="noopener">Trezor</a> или другом аппаратном устройстве, записать офлайн на бумагу или металл. Старый кошелёк, с которого вы уже тратили, в бункер не годится.</p>
+        <p class="why">Seed хранить отдельно от устройства. Никаких фото, облаков и менеджеров паролей.</p>
+      </div>
+      <div class="step rv">
+        <h3>Bitcoin: аккаунт Native SegWit, не Taproot</h3>
+        <p>При создании аккаунта в <a href="https://www.ledger.com/ledger-live" target="_blank" rel="noopener">Ledger Live</a>, <a href="https://trezor.io/trezor-suite" target="_blank" rel="noopener">Trezor Suite</a> или <a href="https://sparrowwallet.com" target="_blank" rel="noopener">Sparrow</a> выбрать тип <b>Native SegWit</b>: адреса начинаются с <code>bc1q</code>. Legacy (<code>1…</code>) тоже подходит, но дороже по комиссиям.</p>
+        <p class="why">Taproot-аккаунт (<code>bc1p</code>) выдаёт публичный ключ сразу, в нём бункера нет.</p>
+      </div>
+      <div class="step rv">
+        <h3>Ethereum и Tron: аккаунт, который только получает</h3>
+        <p>Новый аккаунт без единой исходящей транзакции. Никаких аппрувов токенов, подключений к dApp, регистраций ENS, свопов. Любая подпись раскрывает ключ.</p>
+        <p class="why">Для USDT TRC-20 правило то же: адрес <code>T…</code> скрывает ключ до первой отправки.</p>
+      </div>
+      <div class="step rv">
+        <h3>Сначала тестовая сумма</h3>
+        <p>Отправить небольшую сумму, дождаться подтверждения, открыть адрес в <a href="https://mempool.space" target="_blank" rel="noopener">mempool.space</a>, <a href="https://etherscan.io" target="_blank" rel="noopener">Etherscan</a> или <a href="https://tronscan.org" target="_blank" rel="noopener">Tronscan</a> и убедиться, что исходящих нет. Только потом переводить основную сумму.</p>
+        <p class="why">Адрес сверять на экране аппаратного кошелька, а не только в программе на компьютере.</p>
+      </div>
+      <div class="step rv">
+        <h3>Не отдавать xpub</h3>
+        <p>По стандарту <a href="https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki" target="_blank" rel="noopener">BIP-32</a> из расширенного публичного ключа восстанавливаются все публичные ключи аккаунта. Трекеры портфеля и watch-only сервисы, которым вы дали xpub, уже знают все ваши ключи, и бункер для них не бункер.</p>
+        <p class="why">Безопаснее следить за балансом по отдельным адресам или через собственный узел.</p>
+      </div>
+      <div class="step rv">
+        <h3>Не подписывать сообщения этим адресом</h3>
+        <p>«Подтверждение владения» для бирж, аирдропов и верификаций делается подписью сообщения. Она раскрывает публичный ключ контрагенту так же, как транзакция.</p>
+        <p class="why">Если подпись действительно нужна, делать её с другого, «рабочего» адреса.</p>
+      </div>
+      <div class="step rv">
+        <h3>Тратить: всё сразу на новый свежий адрес</h3>
+        <p>Когда придётся переводить, выводить весь остаток одной транзакцией на новый адрес, который снова ни разу не тратил. Между появлением подписи в сети и подтверждением блока есть окно, когда раскрытый ключ можно атаковать.</p>
+        <p class="why">Совет Дрейка звучит как «в пределах одного блока»: не оставлять раскрытый адрес с остатком.</p>
+      </div>
+      <div class="step rv">
+        <h3>Разделить «бункер» и кошелёк на каждый день</h3>
+        <p>Долгосрочная часть лежит в бункере и не трогается. Для трат, DeFi и бирж отдельный кошелёк с небольшими суммами, его ключи можно считать раскрытыми.</p>
+        <p class="why">Следить за <a href="https://github.com/bitcoin/bips/blob/master/bip-0360.mediawiki" target="_blank" rel="noopener">BIP-360</a> и BIP-361: когда постквантовые выходы появятся в сети, переезд из бункера делать на них.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="limits">
+  <div class="wrap">
+    <div class="sh rv"><span class="num" aria-hidden="true"></span><h2>Чего бункер не даёт</h2></div>
+    <p class="sub rv">Честный ответ на вопрос «чтобы никак нельзя было взломать»: такого варианта нет. Бункер убирает самую простую цель, но у него чёткие границы.</p>
+    <div class="grid g2">
+      <div class="card rv">
+        <span class="tag">Граница 1</span>
+        <h3>Защищены только лежащие монеты и только до траты</h3>
+        <p>Любая отправка раскрывает ключ. Полноценно «выйти из бункера» получится лишь на постквантовые адреса, а их пока нет: BIP-360 (Pay-to-Merkle-Root, адреса <code>bc1z</code>) имеет статус Draft и в основной сети не активирован. Для Ethereum постквантовых аккаунтов тоже нет.</p>
+      </div>
+      <div class="card rv">
+        <span class="tag">Граница 2</span>
+        <h3>Курс актива бункер не защищает</h3>
+        <p>По оценке Glassnode около 30 % предложения биткоина лежит на выходах с уже раскрытым ключом: старые P2PK, Taproot, переиспользованные адреса, кошельки бирж. Если ECDSA действительно сломают, эти монеты под ударом сразу, и цена отреагирует независимо от того, где лежат ваши.</p>
+      </div>
+      <div class="card rv">
+        <span class="tag">Граница 3</span>
+        <h3>Сама миграция рискованна</h3>
+        <p>Ошибка в адресе, потерянная seed-фраза, поддельный сайт кошелька, подмена адреса в буфере обмена. Это реальные потери сегодня, а не гипотеза. Отсюда правила: тестовая сумма, сверка на экране устройства, никакой спешки под новости.</p>
+      </div>
+      <div class="card rv hot">
+        <span class="tag">Отдельный случай</span>
+        <h3>USDT: централизованный токен</h3>
+        <p>Ключи адреса в Tron или Ethereum та же ECDSA, и правило «только получать» работает. Но в контракте USDT есть функции чёрного списка и уничтожения баланса, их контролирует один ключ <a href="https://tether.to" target="_blank" rel="noopener">Tether</a>. При массовом взломе ключей решающим станет поведение эмитента, а не ваш адрес.</p>
+      </div>
+      <div class="card rv wide">
+        <span class="tag">Итог</span>
+        <h3>Что делать сейчас</h3>
+        <ul>
+          <li><b>Не паниковать:</b> публично показанного взлома ECDSA нет, сам Дрейк просит не переводить средства в спешке.</li>
+          <li><b>Подготовить бункер спокойно:</b> новый аппаратный кошелёк, bc1q для Bitcoin, свежие аккаунты для Ethereum и Tron, тестовая сумма, затем основная.</li>
+          <li><b>Не раскрывать ключи:</b> не делиться xpub, не подписывать сообщения, не подключать бункерный адрес к dApp.</li>
+          <li><b>Держать «рабочие» деньги отдельно</b> и считать их ключи раскрытыми.</li>
+          <li><b>Следить за BIP-360 и BIP-361:</b> постквантовые выходы станут настоящим выходом из бункера.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="sources">
+  <div class="wrap">
+    <div class="sh rv"><span class="num" aria-hidden="true"></span><h2>Источники</h2></div>
+    <p class="sub rv">Все утверждения на странице опираются на эти материалы. Даты в списке относятся к публикациям и документам.</p>
+    <ul class="src-list rv">
+      <li><a href="https://protos.com/initiate-bunker-mode-to-protect-crypto-from-ai-says-justin-drake/" target="_blank" rel="noopener">Protos: Initiate 'bunker mode' to protect crypto from AI, says Justin Drake</a>Заявление Дрейка, цитаты «months not years» и «don't scramble», список бирж, ответ Бутерина. Публикация 8 октября 2026.</li>
+      <li><a href="https://www.bitget.com/amp/academy/what-is-crypto-bunker-mode-ai-bitcoin-ethereum" target="_blank" rel="noopener">Bitget Academy: What Is Crypto Bunker Mode?</a>Определение, пошаговая логика для Bitcoin и Ethereum, оговорка про Taproot и про отсутствие публично показанных атак.</li>
+      <li><a href="https://news.bitcoin.com/crypto-news/bunker-mode-crypto-experts-argue-ai-threat-bitcoin-ethereum/" target="_blank" rel="noopener">Bitcoin.com News: 'Bunker Mode'? Crypto Experts Argue Over AI Threat</a>Возражения Линделла (Coinbase), цитата Бутерина о миграциях, реплика BitGo.</li>
+      <li><a href="https://www.coindesk.com/tech/2026/10/08/bunker-mode-is-a-far-greater-challenge-for-institutions-than-individual-crypto-holders" target="_blank" rel="noopener">CoinDesk: 'Bunker mode' crypto shift forces custodians to rethink key management</a>Почему для институтов и бирж переезд сложнее, чем для частных держателей.</li>
+      <li><a href="https://finance.mail.ru/article/rezhim-bunkera-pochemu-ugroza-vzloma-bitkoina-cherez-ii-stala-realnoj-69231550/" target="_blank" rel="noopener">РБК-Крипто: «Режим бункера». Почему угроза взлома биткоина через ИИ стала реальной</a>Русскоязычное изложение термина и позиций Дрейка и Бутерина.</li>
+      <li><a href="https://chaincode.com/bitcoin-post-quantum.pdf" target="_blank" rel="noopener">Chaincode Labs: Bitcoin and Quantum Computing (PDF)</a>Почему P2TR уязвим с момента получения средств, а P2PKH и P2WPKH скрывают ключ до траты.</li>
+      <li><a href="https://research.glassnode.com/measuring-bitcoins-quantum-exposed-supply/" target="_blank" rel="noopener">Glassnode: Measuring Bitcoin's Quantum-Exposed Supply</a>Оценка доли предложения с раскрытыми ключами и её разбивка по причинам. Публикация май 2026.</li>
+      <li><a href="https://github.com/bitcoin/bips/blob/master/bip-0360.mediawiki" target="_blank" rel="noopener">BIP-360: Pay-to-Merkle-Root (P2MR)</a>Текст предложения, статус Draft, witness version 2, адреса bc1z.</li>
+      <li><a href="https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki" target="_blank" rel="noopener">BIP-32: Hierarchical Deterministic Wallets</a>Раздел Security: из расширенного публичного ключа восстанавливаются все дочерние публичные ключи.</li>
+      <li><a href="https://developers.tron.network/docs/account" target="_blank" rel="noopener">TRON Developers: Account</a>Адрес Tron: ECDSA secp256k1, Keccak-256 от публичного ключа, префикс 0x41, Base58Check.</li>
+      <li><a href="https://bitquery.io/investigations/tether-blacklist-audit" target="_blank" rel="noopener">Bitquery: The Tether Freeze Regime</a>Функции чёрного списка и уничтожения баланса в контракте USDT, кто ими управляет.</li>
+    </ul>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>Страница объясняет термин и описывает меры предосторожности, это не инвестиционная рекомендация. Технические детали форматов адресов проверяйте в документации своего кошелька: разные программы называют одни и те же типы по-разному.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var links=[].slice.call(document.querySelectorAll('.topnav a')),map={};
+  links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a});
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){links.forEach(function(a){a.classList.remove('on')});var a=map[e.target.id];if(a)a.classList.add('on')}})},{rootMargin:'-40% 0px -55% 0px'});
+    document.querySelectorAll('main section').forEach(function(s){io.observe(s)});
+  }
+})();
+</script>
+<script type="module">
+const root=document.documentElement;
+const items=[...document.querySelectorAll('.rv')];
+const showAll=()=>{root.classList.remove('js-anim');items.forEach(el=>{el.style.opacity='';el.style.transform=''})};
+const delayOf=(el)=>{const sib=[...el.parentElement.querySelectorAll(':scope > .rv')];const i=sib.indexOf(el);return i>0?Math.min(i,5)*0.06:0};
+if(root.classList.contains('js-anim')){
+  // страховка: что бы ни случилось с анимацией, через 6 с весь контент видим
+  setTimeout(showAll,6000);
+  const fallback=()=>{
+    if(!('IntersectionObserver' in window)){showAll();return}
+    const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('shown');io.unobserve(e.target)}})},{rootMargin:'0px 0px -10% 0px'});
+    items.forEach(el=>io.observe(el));
+  };
+  try{
+    const {animate,inView}=await import("https://cdn.jsdelivr.net/npm/motion@11/+esm");
+    root.classList.add('motion-on');
+    inView('.rv',(a)=>{
+      if(!root.classList.contains('js-anim'))return;
+      const el=a&&a.target?a.target:a;
+      el.classList.add('shown');
+      animate(el,{opacity:[0,1],y:[16,0]},{duration:.55,delay:delayOf(el),ease:[.22,1,.36,1]});
+    },{amount:.15});
+  }catch(e){fallback()}
+}
+</script>
+</body>
+</html>
