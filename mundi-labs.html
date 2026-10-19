@@ -6,7 +6,7 @@
 <title>Mundi Labs — Behavioural Data for World Models</title>
 <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
 <meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet">
-<meta name="description" content="Mundi Labs records continuous behavioural data from living organisms and turns it into structured datasets for training world models.">
+<meta name="description" content="Mundi Labs records continuous behavioural data from a model organism and turns it into structured datasets for training world models.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Host+Grotesk:wght@400;500;600;700&family=Geist:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -329,7 +329,7 @@ setTimeout(function(){document.querySelectorAll('.reveal').forEach(function(e){e
       <span class="ln" data-i18n="hero.h1a">Behavioural data</span>
       <span class="ln hl" data-i18n="hero.h1b">for world models.</span>
     </h1>
-    <p class="lede reveal" data-i18n="hero.lede">We record how living organisms act — continuously, at scale — and turn it into structured datasets for training models that predict the physical world.</p>
+    <p class="lede reveal" data-i18n="hero.lede">We record how a model organism behaves — continuously, at scale — and turn it into structured datasets for training models that predict the physical world.</p>
     <div class="cta reveal">
       <a class="btn btn-p" href="#dataset" data-i18n="hero.cta1">See the dataset</a>
       <a class="btn btn-s" href="#process" data-i18n="hero.cta2">How it works</a>
@@ -372,7 +372,7 @@ setTimeout(function(){document.querySelectorAll('.reveal').forEach(function(e){e
         <span class="eyebrow"><i></i><span data-i18n="mis.k">The problem</span></span>
         <h2 style="margin-top:20px" data-i18n="mis.h2">Simulations are clean. Life is not.</h2>
         <p style="color:var(--ink-2); margin-top:22px; font-size:17.5px" data-i18n="mis.p1">World models learn to predict what happens next. Most train on video of human environments or on synthetic physics engines — one is uncontrolled, the other too tidy. Neither shows where prediction actually breaks down.</p>
-        <p style="color:var(--ink-2); font-size:17.5px; margin-bottom:0" data-i18n="mis.p2">A living organism in a controlled dish sits exactly between the two. The environment is fully specified. The behaviour is not. That gap is the signal we are after.</p>
+        <p style="color:var(--ink-2); font-size:17.5px; margin-bottom:0" data-i18n="mis.p2">A model organism in a controlled dish sits exactly between the two. The environment is fully specified. The behaviour is not. That gap is the signal we are after.</p>
       </div>
       <div class="c5 reveal">
         <div class="shot tall">
@@ -467,7 +467,7 @@ setTimeout(function(){document.querySelectorAll('.reveal').forEach(function(e){e
         <h3 data-i18n="vs.h2">What we record instead</h3>
         <ul>
           <li><span class="mk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l5 5L19 7"/></svg></span><span data-i18n="vs.g1">Every frame carries its strain, temperature, age and handling history</span></li>
-          <li><span class="mk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l5 5L19 7"/></svg></span><span data-i18n="vs.g2">Real animals in a fully specified environment — controlled, not scripted</span></li>
+          <li><span class="mk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l5 5L19 7"/></svg></span><span data-i18n="vs.g2">Real behaviour in a fully specified environment — controlled, not scripted</span></li>
           <li><span class="mk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l5 5L19 7"/></svg></span><span data-i18n="vs.g3">Continuous recording across weeks, not isolated clips</span></li>
           <li><span class="mk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l5 5L19 7"/></svg></span><span data-i18n="vs.g4">An organism whose complete anatomy is published and independently confirmed</span></li>
           <li><span class="mk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l5 5L19 7"/></svg></span><span data-i18n="vs.g5">Contaminated plates and tracking losses logged, counted and published</span></li>
@@ -547,7 +547,7 @@ meta   = ds.conditions()     <span class="c"># strain, temp, age</span>
         <span class="num">01 — <span data-i18n="pr.n1">Record</span></span>
         <div>
           <h3 data-i18n="pr.h31">Identical conditions, held for weeks</h3>
-          <p data-i18n="pr.p1">Hundreds of animals are plated under one protocol and left to live under fixed optics, fixed light and 20 °C. Every intervention — feeding, transfer, inspection — goes into the log before it goes near the plate.</p>
+          <p data-i18n="pr.p1">Hundreds of individuals are plated under one protocol and recorded under fixed optics, fixed light and 20 °C. Every intervention — feeding, transfer, inspection — goes into the log before it goes near the plate.</p>
         </div>
       </div>
       <div class="st">
@@ -675,13 +675,13 @@ meta   = ds.conditions()     <span class="c"># strain, temp, age</span>
       </div>
       <div class="card c6 reveal">
         <span class="eyebrow"><i></i><span data-i18n="mo.k">Why this organism</span></span>
-        <h2 style="margin-top:20px; font-size:clamp(26px,3.3vw,40px)" data-i18n="mo.h2">The only animal with a complete wiring diagram</h2>
-        <p style="color:var(--ink-2); margin-top:20px" data-i18n="mo.p1">For almost every animal, behaviour is a black box: you see the output and guess at the mechanism. For this one, the mechanism is published — every neuron, every connection, every cell division from egg to adult, mapped and independently confirmed.</p>
+        <h2 style="margin-top:20px; font-size:clamp(26px,3.3vw,40px)" data-i18n="mo.h2">The first complete wiring diagram of a nervous system</h2>
+        <p style="color:var(--ink-2); margin-top:20px" data-i18n="mo.p1">In almost every model system, behaviour is a black box: you see the output and guess at the mechanism. For this one, the mechanism is published — every neuron, every connection, every cell division from egg to adult, mapped and independently confirmed.</p>
         <ul class="tick" style="margin-top:24px">
           <li data-i18n="mo.l1"><strong>Ground truth exists.</strong> Predictions from behaviour can be checked against known anatomy rather than against another model</li>
           <li data-i18n="mo.l2"><strong>The timescale fits the experiment.</strong> Two to three weeks of continuous imaging cover an individual's entire history</li>
           <li data-i18n="mo.l3"><strong>Statistics are affordable.</strong> Hundreds of individuals per run make effect sizes measurable rather than anecdotal</li>
-          <li data-i18n="mo.l4"><strong>No regulatory burden.</strong> Invertebrates sit outside laboratory animal legislation worldwide</li>
+          <li data-i18n="mo.l4"><strong>A standard protocol.</strong> Culture conditions have been standardised since 1974, so runs are reproducible across labs</li>
         </ul>
       </div>
     </div>
@@ -693,7 +693,7 @@ meta   = ds.conditions()     <span class="c"># strain, temp, age</span>
     <div class="section-head reveal">
       <span class="eyebrow"><i></i><span data-i18n="lab.k">Where the data comes from</span></span>
       <h2 data-i18n="lab.h2">The facility</h2>
-      <p data-i18n="lab.sub">A compact wet lab built for one purpose: keeping thousands of animals under identical conditions while cameras run without interruption.</p>
+      <p data-i18n="lab.sub">A compact wet lab built for one purpose: keeping thousands of plates under identical conditions while cameras run without interruption.</p>
     </div>
     <div class="grid">
       <div class="c5 reveal"><div class="shot sq"><svg class="art" viewBox="0 0 600 600" role="img" aria-label="Инкубатор с полками чашек при 20 °C" preserveAspectRatio="xMidYMid slice">
@@ -882,10 +882,6 @@ meta   = ds.conditions()     <span class="c"># strain, temp, age</span>
         <div class="ans"><p data-i18n="faq.a2">Because the mechanism behind the behaviour is already published. Complexity without ground truth gives you more data and less certainty; here a prediction can be checked against known anatomy rather than against another model.</p></div>
       </details>
       <details>
-        <summary><span data-i18n="faq.q3">Does this require animal research approval?</span><span class="pm" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></summary>
-        <div class="ans"><p data-i18n="faq.a3">No. Laboratory animal legislation covers vertebrates; invertebrates of this kind fall outside it in every jurisdiction we work in. Standard biosafety and waste handling rules still apply, and we follow them.</p></div>
-      </details>
-      <details>
         <summary><span data-i18n="faq.q4">Can we request specific recording conditions?</span><span class="pm" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></summary>
         <div class="ans"><p data-i18n="faq.a4">Yes — strains, perturbations, temperatures and timescales are configurable. Tell us what your model needs to see, and we will say plainly whether we can hold those conditions long enough to make the recording worth training on.</p></div>
       </details>
@@ -1042,7 +1038,7 @@ meta   = ds.conditions()     <span class="c"># strain, temp, age</span>
       "nav.approach":"Approach","nav.dataset":"Dataset","nav.process":"Process","nav.lab":"Lab","nav.faq":"FAQ","nav.cta":"Request access",
       "hero.tag":"Independent research organisation",
       "hero.h1a":"Behavioural data","hero.h1b":"for world models.",
-      "hero.lede":"We record how living organisms act — continuously, at scale — and turn it into structured datasets for training models that predict the physical world.",
+      "hero.lede":"We record how a model organism behaves — continuously, at scale — and turn it into structured datasets for training models that predict the physical world.",
       "hero.cta1":"See the dataset","hero.cta2":"How it works","hero.scroll":"Scroll to explore",
       "viz.live":"plate_07 · recording","viz.r1":"tracked","viz.r2":"elapsed","viz.r3":"temp",
       "st.1":"Neurons in the organism we record — every connection between them already mapped",
@@ -1051,7 +1047,7 @@ meta   = ds.conditions()     <span class="c"># strain, temp, age</span>
       "st.4n":"Open","st.4":"Raw frames and derived tracks released together, so results stay recomputable",
       "mis.k":"The problem","mis.h2":"Simulations are clean. Life is not.",
       "mis.p1":"World models learn to predict what happens next. Most train on video of human environments or on synthetic physics engines — one is uncontrolled, the other too tidy. Neither shows where prediction actually breaks down.",
-      "mis.p2":"A living organism in a controlled dish sits exactly between the two. The environment is fully specified. The behaviour is not. That gap is the signal we are after.",
+      "mis.p2":"A model organism in a controlled dish sits exactly between the two. The environment is fully specified. The behaviour is not. That gap is the signal we are after.",
       "vs.h1":"What training data usually looks like",
       "vs.b1":"Scraped video with no record of the conditions it was shot under",
       "vs.b2":"Synthetic physics that never surprises the model it trains",
@@ -1060,7 +1056,7 @@ meta   = ds.conditions()     <span class="c"># strain, temp, age</span>
       "vs.b5":"Failed and discarded recordings quietly dropped from the release",
       "vs.h2":"What we record instead",
       "vs.g1":"Every frame carries its strain, temperature, age and handling history",
-      "vs.g2":"Real animals in a fully specified environment — controlled, not scripted",
+      "vs.g2":"Real behaviour in a fully specified environment — controlled, not scripted",
       "vs.g3":"Continuous recording across weeks, not isolated clips",
       "vs.g4":"An organism whose complete anatomy is published and independently confirmed",
       "vs.g5":"Contaminated plates and tracking losses logged, counted and published",
@@ -1081,19 +1077,19 @@ meta   = ds.conditions()     <span class="c"># strain, temp, age</span>
       "code.copy":"copy","code.note":"Illustrative interface — the released format is documented with each version.",
       "pr.k":"How it works","pr.h2":"One cohort, three stages, nothing hidden in between.",
       "pr.n1":"Record","pr.h31":"Identical conditions, held for weeks",
-      "pr.p1":"Hundreds of animals are plated under one protocol and left to live under fixed optics, fixed light and 20 °C. Every intervention — feeding, transfer, inspection — goes into the log before it goes near the plate.",
+      "pr.p1":"Hundreds of individuals are plated under one protocol and recorded under fixed optics, fixed light and 20 °C. Every intervention — feeding, transfer, inspection — goes into the log before it goes near the plate.",
       "pr.n2":"Track","pr.h32":"Automated tracking, verified by hand",
       "pr.p2":"Frames become per-individual trajectories: position, posture, velocity, and labelled events. Sampled segments are re-scored manually, and the disagreement rate between the two is published with the data.",
       "pr.n3":"Release","pr.h33":"Raw and derived, together",
       "pr.p3":"A release contains original frames, derived tracks and the full condition set in open formats. Discarded runs are counted in the same document, so the dataset reports its own failure rate rather than hiding it.",
-      "mo.k":"Why this organism","mo.h2":"The only animal with a complete wiring diagram",
-      "mo.p1":"For almost every animal, behaviour is a black box: you see the output and guess at the mechanism. For this one, the mechanism is published — every neuron, every connection, every cell division from egg to adult, mapped and independently confirmed.",
+      "mo.k":"Why this organism","mo.h2":"The first complete wiring diagram of a nervous system",
+      "mo.p1":"In almost every model system, behaviour is a black box: you see the output and guess at the mechanism. For this one, the mechanism is published — every neuron, every connection, every cell division from egg to adult, mapped and independently confirmed.",
       "mo.l1":"<strong>Ground truth exists.</strong> Predictions from behaviour can be checked against known anatomy rather than against another model",
       "mo.l2":"<strong>The timescale fits the experiment.</strong> Two to three weeks of continuous imaging cover an individual's entire history",
       "mo.l3":"<strong>Statistics are affordable.</strong> Hundreds of individuals per run make effect sizes measurable rather than anecdotal",
-      "mo.l4":"<strong>No regulatory burden.</strong> Invertebrates sit outside laboratory animal legislation worldwide",
+      "mo.l4":"<strong>A standard protocol.</strong> Culture conditions have been standardised since 1974, so runs are reproducible across labs",
       "lab.k":"Where the data comes from","lab.h2":"The facility",
-      "lab.sub":"A compact wet lab built for one purpose: keeping thousands of animals under identical conditions while cameras run without interruption.",
+      "lab.sub":"A compact wet lab built for one purpose: keeping thousands of plates under identical conditions while cameras run without interruption.",
       "lab.h31":"Equipment","lab.e1":"Imaging stations with fixed optics and controlled illumination","lab.e2":"Dedicated 20 °C incubators with independent backup","lab.e3":"Stereomicroscope station for scoring and transfer","lab.e4":"Laminar flow hood for media and plate preparation","lab.e5":"Autoclave, refrigeration and cryogenic storage",
       "lab.h32":"Operating conditions","lab.o1":"Biosafety level 2 containment with documented procedures","lab.o2":"Waste handled under contract with a licensed operator","lab.o3":"Uninterrupted power for incubation and imaging","lab.o4":"Every run logged: who handled the plates, when, under what conditions",
       "std.k":"How we work","std.h2":"Standards we hold ourselves to","std.sub":"A dataset is worth only what its weakest methodological link allows. These are ours.",
@@ -1104,7 +1100,6 @@ meta   = ds.conditions()     <span class="c"># strain, temp, age</span>
       "faq.k":"Questions","faq.h2":"Answers before you ask",
       "faq.q1":"What exactly is in a release?","faq.a1":"Original frames, per-individual trajectories, labelled behavioural events, and a condition file covering strain, age, temperature, food state and the full handling log. Discarded runs are listed with the reason they were dropped.",
       "faq.q2":"Why this organism and not something more complex?","faq.a2":"Because the mechanism behind the behaviour is already published. Complexity without ground truth gives you more data and less certainty; here a prediction can be checked against known anatomy rather than against another model.",
-      "faq.q3":"Does this require animal research approval?","faq.a3":"No. Laboratory animal legislation covers vertebrates; invertebrates of this kind fall outside it in every jurisdiction we work in. Standard biosafety and waste handling rules still apply, and we follow them.",
       "faq.q4":"Can we request specific recording conditions?","faq.a4":"Yes — strains, perturbations, temperatures and timescales are configurable. Tell us what your model needs to see, and we will say plainly whether we can hold those conditions long enough to make the recording worth training on.",
       "faq.q5":"How do you handle tracking errors?","faq.a5":"Sampled segments are re-scored by hand and compared with the automated output. The disagreement rate ships with the dataset, so you can weigh the labels instead of trusting them blindly.",
       "faq.q6":"Who can access the data?","faq.a6":"Research groups working on world models, representation learning or behavioural prediction, and biology groups that need behaviour quantified at scale. Write to us with what you are building and what you need recorded.",
@@ -1119,7 +1114,7 @@ meta   = ds.conditions()     <span class="c"># strain, temp, age</span>
       "nav.approach":"Enfoque","nav.dataset":"Datos","nav.process":"Proceso","nav.lab":"Laboratorio","nav.faq":"Preguntas","nav.cta":"Solicitar acceso",
       "hero.tag":"Organización de investigación independiente",
       "hero.h1a":"Datos de comportamiento","hero.h1b":"para modelos del mundo.",
-      "hero.lede":"Registramos cómo actúan los organismos vivos —de forma continua y a escala— y lo convertimos en conjuntos de datos estructurados para entrenar modelos que predicen el mundo físico.",
+      "hero.lede":"Registramos cómo se comporta un organismo modelo —de forma continua y a escala— y lo convertimos en conjuntos de datos estructurados para entrenar modelos que predicen el mundo físico.",
       "hero.cta1":"Ver el conjunto de datos","hero.cta2":"Cómo funciona","hero.scroll":"Desplázate para explorar",
       "viz.live":"placa_07 · registrando","viz.r1":"seguidos","viz.r2":"transcurrido","viz.r3":"temp",
       "st.1":"Neuronas en el organismo que registramos: cada conexión entre ellas ya está mapeada",
@@ -1128,7 +1123,7 @@ meta   = ds.conditions()     <span class="c"># strain, temp, age</span>
       "st.4n":"Abierto","st.4":"Imágenes originales y trayectorias derivadas se publican juntas, para que los resultados sigan siendo recalculables",
       "mis.k":"El problema","mis.h2":"Las simulaciones son limpias. La vida no.",
       "mis.p1":"Los modelos del mundo aprenden a predecir lo que viene después. La mayoría se entrena con video de entornos humanos o con motores de física sintéticos: uno no está controlado, el otro es demasiado prolijo. Ninguno muestra dónde la predicción realmente falla.",
-      "mis.p2":"Un organismo vivo en una placa controlada se sitúa justo entre ambos. El entorno está completamente especificado. El comportamiento no. Esa brecha es la señal que buscamos.",
+      "mis.p2":"Un organismo modelo en una placa controlada se sitúa justo entre ambos. El entorno está completamente especificado. El comportamiento no. Esa brecha es la señal que buscamos.",
       "vs.h1":"Cómo suelen ser los datos de entrenamiento",
       "vs.b1":"Video recolectado sin registro de las condiciones en que fue grabado",
       "vs.b2":"Física sintética que nunca sorprende al modelo que entrena",
@@ -1137,7 +1132,7 @@ meta   = ds.conditions()     <span class="c"># strain, temp, age</span>
       "vs.b5":"Registros fallidos y descartados que desaparecen de la publicación",
       "vs.h2":"Lo que registramos en cambio",
       "vs.g1":"Cada cuadro lleva su cepa, temperatura, edad e historial de manipulación",
-      "vs.g2":"Animales reales en un entorno completamente especificado: controlado, no guionado",
+      "vs.g2":"Comportamiento real en un entorno completamente especificado: controlado, no guionado",
       "vs.g3":"Registro continuo durante semanas, no clips aislados",
       "vs.g4":"Un organismo cuya anatomía completa está publicada y confirmada de forma independiente",
       "vs.g5":"Placas contaminadas y pérdidas de seguimiento registradas, contadas y publicadas",
@@ -1158,19 +1153,19 @@ meta   = ds.conditions()     <span class="c"># strain, temp, age</span>
       "code.copy":"copiar","code.note":"Interfaz ilustrativa: el formato publicado se documenta con cada versión.",
       "pr.k":"Cómo funciona","pr.h2":"Una cohorte, tres etapas, nada oculto en medio.",
       "pr.n1":"Registrar","pr.h31":"Condiciones idénticas, sostenidas por semanas",
-      "pr.p1":"Cientos de animales se siembran bajo un único protocolo y viven con óptica fija, luz fija y 20 °C. Cada intervención —alimentación, transferencia, inspección— entra al registro antes de acercarse a la placa.",
+      "pr.p1":"Cientos de individuos se siembran bajo un único protocolo y se registran con óptica fija, luz fija y 20 °C. Cada intervención —alimentación, transferencia, inspección— entra al registro antes de acercarse a la placa.",
       "pr.n2":"Seguir","pr.h32":"Seguimiento automático, verificado a mano",
       "pr.p2":"Los cuadros se convierten en trayectorias individuales: posición, postura, velocidad y eventos etiquetados. Segmentos muestreados se revisan manualmente y la tasa de discrepancia se publica junto a los datos.",
       "pr.n3":"Publicar","pr.h33":"Lo original y lo derivado, juntos",
       "pr.p3":"Una publicación contiene cuadros originales, trayectorias derivadas y el conjunto completo de condiciones en formatos abiertos. Las corridas descartadas se cuentan en el mismo documento, de modo que el conjunto informa su propia tasa de fallos.",
-      "mo.k":"Por qué este organismo","mo.h2":"El único animal con diagrama completo de conexiones",
-      "mo.p1":"En casi todos los animales el comportamiento es una caja negra: se ve el resultado y se adivina el mecanismo. En este, el mecanismo está publicado: cada neurona, cada conexión y cada división celular del huevo al adulto, mapeadas y confirmadas de forma independiente.",
+      "mo.k":"Por qué este organismo","mo.h2":"El primer diagrama completo de conexiones de un sistema nervioso",
+      "mo.p1":"En casi todos los sistemas modelo el comportamiento es una caja negra: se ve el resultado y se adivina el mecanismo. En este, el mecanismo está publicado: cada neurona, cada conexión y cada división celular del huevo al adulto, mapeadas y confirmadas de forma independiente.",
       "mo.l1":"<strong>Existe verdad de referencia.</strong> Las predicciones del comportamiento se contrastan con anatomía conocida y no con otro modelo",
       "mo.l2":"<strong>La escala temporal encaja con el experimento.</strong> Dos o tres semanas de registro continuo cubren toda la historia de un individuo",
       "mo.l3":"<strong>La estadística es asequible.</strong> Cientos de individuos por corrida hacen medibles los tamaños de efecto",
-      "mo.l4":"<strong>Sin carga regulatoria.</strong> Los invertebrados quedan fuera de la legislación sobre animales de laboratorio en todo el mundo",
+      "mo.l4":"<strong>Un protocolo estándar.</strong> Las condiciones de cultivo están estandarizadas desde 1974, así que las corridas son reproducibles entre laboratorios",
       "lab.k":"De dónde vienen los datos","lab.h2":"Las instalaciones",
-      "lab.sub":"Un laboratorio húmedo compacto con un único propósito: mantener miles de animales en condiciones idénticas mientras las cámaras funcionan sin interrupción.",
+      "lab.sub":"Un laboratorio húmedo compacto con un único propósito: mantener miles de placas en condiciones idénticas mientras las cámaras funcionan sin interrupción.",
       "lab.h31":"Equipamiento","lab.e1":"Estaciones de registro con óptica fija e iluminación controlada","lab.e2":"Incubadoras dedicadas a 20 °C con respaldo independiente","lab.e3":"Estación con estereomicroscopio para conteo y transferencia","lab.e4":"Cabina de flujo laminar para preparación de medios y placas","lab.e5":"Autoclave, refrigeración y almacenamiento criogénico",
       "lab.h32":"Condiciones de operación","lab.o1":"Contención de bioseguridad nivel 2 con procedimientos documentados","lab.o2":"Residuos gestionados por contrato con operador habilitado","lab.o3":"Energía ininterrumpida para incubación y registro","lab.o4":"Cada corrida registrada: quién manipuló las placas, cuándo y en qué condiciones",
       "std.k":"Cómo trabajamos","std.h2":"Estándares que nos imponemos","std.sub":"Un conjunto de datos vale lo que permite su eslabón metodológico más débil. Estos son los nuestros.",
@@ -1181,7 +1176,6 @@ meta   = ds.conditions()     <span class="c"># strain, temp, age</span>
       "faq.k":"Preguntas","faq.h2":"Respuestas antes de preguntar",
       "faq.q1":"¿Qué contiene exactamente una publicación?","faq.a1":"Cuadros originales, trayectorias individuales, eventos de comportamiento etiquetados y un archivo de condiciones con cepa, edad, temperatura, estado alimentario y el registro completo de manipulación. Las corridas descartadas se listan con el motivo.",
       "faq.q2":"¿Por qué este organismo y no uno más complejo?","faq.a2":"Porque el mecanismo detrás del comportamiento ya está publicado. La complejidad sin verdad de referencia da más datos y menos certeza; aquí una predicción se contrasta con anatomía conocida y no con otro modelo.",
-      "faq.q3":"¿Requiere autorización para investigación con animales?","faq.a3":"No. La legislación sobre animales de laboratorio cubre vertebrados; los invertebrados de este tipo quedan fuera en todas las jurisdicciones donde trabajamos. Las normas de bioseguridad y de residuos sí se aplican, y las cumplimos.",
       "faq.q4":"¿Podemos pedir condiciones de registro específicas?","faq.a4":"Sí: cepas, perturbaciones, temperaturas y escalas de tiempo son configurables. Díganos qué necesita ver su modelo y le diremos con franqueza si podemos sostener esas condiciones el tiempo suficiente.",
       "faq.q5":"¿Cómo manejan los errores de seguimiento?","faq.a5":"Segmentos muestreados se revisan a mano y se comparan con la salida automática. La tasa de discrepancia se publica con el conjunto, para que pueda ponderar las etiquetas en lugar de confiar a ciegas.",
       "faq.q6":"¿Quién puede acceder a los datos?","faq.a6":"Grupos que trabajan en modelos del mundo, aprendizaje de representaciones o predicción de comportamiento, y grupos de biología que necesitan comportamiento cuantificado a escala. Escríbanos contando qué construye y qué necesita registrar.",
@@ -1196,7 +1190,7 @@ meta   = ds.conditions()     <span class="c"># strain, temp, age</span>
       "nav.approach":"Abordagem","nav.dataset":"Dados","nav.process":"Processo","nav.lab":"Laboratório","nav.faq":"Perguntas","nav.cta":"Solicitar acesso",
       "hero.tag":"Organização de pesquisa independente",
       "hero.h1a":"Dados de comportamento","hero.h1b":"para modelos de mundo.",
-      "hero.lede":"Registramos como organismos vivos agem — de forma contínua e em escala — e transformamos isso em conjuntos de dados estruturados para treinar modelos que preveem o mundo físico.",
+      "hero.lede":"Registramos como um organismo-modelo se comporta — de forma contínua e em escala — e transformamos isso em conjuntos de dados estruturados para treinar modelos que preveem o mundo físico.",
       "hero.cta1":"Ver o conjunto de dados","hero.cta2":"Como funciona","hero.scroll":"Role para explorar",
       "viz.live":"placa_07 · gravando","viz.r1":"rastreados","viz.r2":"decorrido","viz.r3":"temp",
       "st.1":"Neurônios no organismo que registramos — cada conexão entre eles já mapeada",
@@ -1205,7 +1199,7 @@ meta   = ds.conditions()     <span class="c"># strain, temp, age</span>
       "st.4n":"Aberto","st.4":"Imagens originais e trajetórias derivadas publicadas juntas, para que os resultados continuem recalculáveis",
       "mis.k":"O problema","mis.h2":"Simulações são limpas. A vida não é.",
       "mis.p1":"Modelos de mundo aprendem a prever o que vem a seguir. A maioria treina com vídeo de ambientes humanos ou com motores de física sintéticos — um não é controlado, o outro é arrumado demais. Nenhum mostra onde a previsão de fato falha.",
-      "mis.p2":"Um organismo vivo em uma placa controlada fica exatamente entre os dois. O ambiente está totalmente especificado. O comportamento não. Essa lacuna é o sinal que buscamos.",
+      "mis.p2":"Um organismo-modelo em uma placa controlada fica exatamente entre os dois. O ambiente está totalmente especificado. O comportamento não. Essa lacuna é o sinal que buscamos.",
       "vs.h1":"Como costumam ser os dados de treino",
       "vs.b1":"Vídeo coletado sem registro das condições em que foi filmado",
       "vs.b2":"Física sintética que nunca surpreende o modelo que treina",
@@ -1214,7 +1208,7 @@ meta   = ds.conditions()     <span class="c"># strain, temp, age</span>
       "vs.b5":"Registros falhos e descartados que somem silenciosamente da publicação",
       "vs.h2":"O que registramos em vez disso",
       "vs.g1":"Cada quadro carrega sua linhagem, temperatura, idade e histórico de manuseio",
-      "vs.g2":"Animais reais em um ambiente totalmente especificado — controlado, não roteirizado",
+      "vs.g2":"Comportamento real em um ambiente totalmente especificado — controlado, não roteirizado",
       "vs.g3":"Registro contínuo por semanas, não clipes isolados",
       "vs.g4":"Um organismo cuja anatomia completa é publicada e confirmada de forma independente",
       "vs.g5":"Placas contaminadas e perdas de rastreamento registradas, contadas e publicadas",
@@ -1235,19 +1229,19 @@ meta   = ds.conditions()     <span class="c"># strain, temp, age</span>
       "code.copy":"copiar","code.note":"Interface ilustrativa — o formato publicado é documentado a cada versão.",
       "pr.k":"Como funciona","pr.h2":"Uma coorte, três etapas, nada escondido no meio.",
       "pr.n1":"Registrar","pr.h31":"Condições idênticas, mantidas por semanas",
-      "pr.p1":"Centenas de animais são plaqueados sob um único protocolo e vivem com óptica fixa, luz fixa e 20 °C. Cada intervenção — alimentação, transferência, inspeção — entra no registro antes de chegar perto da placa.",
+      "pr.p1":"Centenas de indivíduos são plaqueados sob um único protocolo e registrados com óptica fixa, luz fixa e 20 °C. Cada intervenção — alimentação, transferência, inspeção — entra no registro antes de chegar perto da placa.",
       "pr.n2":"Rastrear","pr.h32":"Rastreamento automático, verificado à mão",
       "pr.p2":"Os quadros viram trajetórias individuais: posição, postura, velocidade e eventos rotulados. Trechos amostrados são reavaliados manualmente, e a taxa de discordância é publicada junto aos dados.",
       "pr.n3":"Publicar","pr.h33":"Original e derivado, juntos",
       "pr.p3":"Uma entrega contém quadros originais, trajetórias derivadas e o conjunto completo de condições em formatos abertos. Rodadas descartadas são contadas no mesmo documento, de modo que o conjunto informa a própria taxa de falhas.",
-      "mo.k":"Por que este organismo","mo.h2":"O único animal com diagrama completo de conexões",
-      "mo.p1":"Em quase todo animal o comportamento é uma caixa-preta: vê-se o resultado e adivinha-se o mecanismo. Neste, o mecanismo está publicado — cada neurônio, cada conexão e cada divisão celular do ovo ao adulto, mapeados e confirmados de forma independente.",
+      "mo.k":"Por que este organismo","mo.h2":"O primeiro diagrama completo de conexões de um sistema nervoso",
+      "mo.p1":"Em quase todo sistema-modelo o comportamento é uma caixa-preta: vê-se o resultado e adivinha-se o mecanismo. Neste, o mecanismo está publicado — cada neurônio, cada conexão e cada divisão celular do ovo ao adulto, mapeados e confirmados de forma independente.",
       "mo.l1":"<strong>Existe verdade de referência.</strong> Previsões a partir do comportamento podem ser checadas contra anatomia conhecida, não contra outro modelo",
       "mo.l2":"<strong>A escala de tempo cabe no experimento.</strong> Duas a três semanas de registro contínuo cobrem toda a história de um indivíduo",
       "mo.l3":"<strong>Estatística acessível.</strong> Centenas de indivíduos por rodada tornam os tamanhos de efeito mensuráveis",
-      "mo.l4":"<strong>Sem carga regulatória.</strong> Invertebrados estão fora da legislação sobre animais de laboratório no mundo todo",
+      "mo.l4":"<strong>Um protocolo padrão.</strong> As condições de cultivo são padronizadas desde 1974, então as rodadas são reproduzíveis entre laboratórios",
       "lab.k":"De onde vêm os dados","lab.h2":"A instalação",
-      "lab.sub":"Um laboratório úmido compacto com um único propósito: manter milhares de animais em condições idênticas enquanto as câmeras funcionam sem interrupção.",
+      "lab.sub":"Um laboratório úmido compacto com um único propósito: manter milhares de placas em condições idênticas enquanto as câmeras funcionam sem interrupção.",
       "lab.h31":"Equipamentos","lab.e1":"Estações de registro com óptica fixa e iluminação controlada","lab.e2":"Incubadoras dedicadas a 20 °C com reserva independente","lab.e3":"Estação com estereomicroscópio para contagem e transferência","lab.e4":"Capela de fluxo laminar para preparo de meios e placas","lab.e5":"Autoclave, refrigeração e armazenamento criogênico",
       "lab.h32":"Condições de operação","lab.o1":"Contenção de biossegurança nível 2 com procedimentos documentados","lab.o2":"Resíduos tratados por contrato com operador licenciado","lab.o3":"Energia ininterrupta para incubação e registro","lab.o4":"Cada rodada registrada: quem manuseou as placas, quando e sob quais condições",
       "std.k":"Como trabalhamos","std.h2":"Padrões que seguimos","std.sub":"Um conjunto de dados vale o que permite seu elo metodológico mais fraco. Estes são os nossos.",
@@ -1258,7 +1252,6 @@ meta   = ds.conditions()     <span class="c"># strain, temp, age</span>
       "faq.k":"Perguntas","faq.h2":"Respostas antes de você perguntar",
       "faq.q1":"O que exatamente vem em uma entrega?","faq.a1":"Quadros originais, trajetórias individuais, eventos de comportamento rotulados e um arquivo de condições com linhagem, idade, temperatura, estado alimentar e o registro completo de manuseio. Rodadas descartadas são listadas com o motivo.",
       "faq.q2":"Por que este organismo e não algo mais complexo?","faq.a2":"Porque o mecanismo por trás do comportamento já está publicado. Complexidade sem verdade de referência dá mais dados e menos certeza; aqui uma previsão pode ser checada contra anatomia conhecida, não contra outro modelo.",
-      "faq.q3":"Isso exige autorização para pesquisa com animais?","faq.a3":"Não. A legislação sobre animais de laboratório cobre vertebrados; invertebrados desse tipo ficam fora dela em todas as jurisdições em que atuamos. As regras de biossegurança e de resíduos continuam valendo, e nós as seguimos.",
       "faq.q4":"Podemos pedir condições de registro específicas?","faq.a4":"Sim — linhagens, perturbações, temperaturas e escalas de tempo são configuráveis. Diga o que seu modelo precisa ver e responderemos com franqueza se conseguimos manter essas condições por tempo suficiente.",
       "faq.q5":"Como vocês lidam com erros de rastreamento?","faq.a5":"Trechos amostrados são reavaliados à mão e comparados com a saída automática. A taxa de discordância vai junto com o conjunto, para que você pondere os rótulos em vez de confiar às cegas.",
       "faq.q6":"Quem pode acessar os dados?","faq.a6":"Grupos que trabalham com modelos de mundo, aprendizado de representações ou previsão de comportamento, e grupos de biologia que precisam de comportamento quantificado em escala. Escreva contando o que constrói e o que precisa registrar.",

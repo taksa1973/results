@@ -6,7 +6,7 @@
 <title>Mundi Labs — данные о поведении для world models</title>
 <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
 <meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet">
-<meta name="description" content="Mundi Labs непрерывно записывает поведение живых организмов и превращает его в структурированные датасеты для обучения world models. Русская версия — для внутреннего обсуждения.">
+<meta name="description" content="Mundi Labs непрерывно записывает поведение модельного организма и превращает его в структурированные датасеты для обучения world models. Русская версия — для внутреннего обсуждения.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Host+Grotesk:wght@400;500;600;700&family=Geist:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -308,7 +308,7 @@ setTimeout(function(){document.querySelectorAll('.reveal').forEach(function(e){e
       <span class="ln">Данные о поведении</span>
       <span class="ln hl">для world models.</span>
     </h1>
-    <p class="lede reveal">Мы непрерывно и в большом объёме записываем, как ведут себя живые организмы, и превращаем это в структурированные датасеты для обучения моделей, которые предсказывают физический мир.</p>
+    <p class="lede reveal">Мы непрерывно и в большом объёме записываем, как ведёт себя модельный организм, и превращаем это в структурированные датасеты для обучения моделей, которые предсказывают физический мир.</p>
     <div class="cta reveal">
       <a class="btn btn-p" href="#dataset">Что в датасете</a>
       <a class="btn btn-s" href="#process">Как это устроено</a>
@@ -355,7 +355,7 @@ setTimeout(function(){document.querySelectorAll('.reveal').forEach(function(e){e
         <span class="eyebrow"><i></i>Задача</span>
         <h2 style="margin-top:20px">Симуляции чистые. Жизнь — нет.</h2>
         <p style="color:var(--ink-2); margin-top:22px; font-size:17.5px">World models учатся предсказывать, что произойдёт дальше. Большинство обучают на видео человеческой среды или на синтетических физических движках: первое никто не контролирует, второе слишком аккуратное. Ни то, ни другое не показывает, где предсказание действительно ломается.</p>
-        <p style="color:var(--ink-2); font-size:17.5px; margin-bottom:0">Живой организм в контролируемой чашке стоит ровно между этими двумя вариантами. Среда задана полностью. Поведение — нет. Этот разрыв и есть сигнал, который нам нужен.</p>
+        <p style="color:var(--ink-2); font-size:17.5px; margin-bottom:0">Модельный организм в контролируемой чашке стоит ровно между этими двумя вариантами. Среда задана полностью. Поведение — нет. Этот разрыв и есть сигнал, который нам нужен.</p>
       </div>
       <div class="c5 reveal">
         <div class="shot tall">
@@ -450,7 +450,7 @@ setTimeout(function(){document.querySelectorAll('.reveal').forEach(function(e){e
         <h3>Что записываем мы</h3>
         <ul>
           <li><span class="mk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l5 5L19 7"/></svg></span><span>Каждый кадр несёт штамм, температуру, возраст и историю обращений</span></li>
-          <li><span class="mk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l5 5L19 7"/></svg></span><span>Живые животные в полностью заданной среде — контролируемой, а не срежиссированной</span></li>
+          <li><span class="mk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l5 5L19 7"/></svg></span><span>Настоящее поведение в полностью заданной среде — контролируемой, а не срежиссированной</span></li>
           <li><span class="mk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l5 5L19 7"/></svg></span><span>Непрерывная запись неделями, а не разрозненные фрагменты</span></li>
           <li><span class="mk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l5 5L19 7"/></svg></span><span>Организм, у которого полная анатомия опубликована и независимо подтверждена</span></li>
           <li><span class="mk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l5 5L19 7"/></svg></span><span>Загрязнённые чашки и потери трека зафиксированы, посчитаны и опубликованы</span></li>
@@ -530,7 +530,7 @@ meta   = ds.conditions()     <span class="c"># штамм, темп., возра
         <span class="num">01 — Запись</span>
         <div>
           <h3>Одинаковые условия, которые держат неделями</h3>
-          <p>Сотни животных высаживают по одному протоколу и оставляют жить при неизменной оптике, неизменном свете и 20 °C. Любое вмешательство — кормление, перенос, осмотр — попадает в журнал раньше, чем к чашке подходит рука.</p>
+          <p>Сотни особей высаживают по одному протоколу и снимают при неизменной оптике, неизменном свете и 20 °C. Любое вмешательство — кормление, перенос, осмотр — попадает в журнал раньше, чем к чашке подходит рука.</p>
         </div>
       </div>
       <div class="st">
@@ -658,13 +658,13 @@ meta   = ds.conditions()     <span class="c"># штамм, темп., возра
       </div>
       <div class="card c6 reveal">
         <span class="eyebrow"><i></i>Почему этот организм</span>
-        <h2 style="margin-top:20px; font-size:clamp(25px,3.2vw,38px)">Единственное животное с полной схемой связей</h2>
-        <p style="color:var(--ink-2); margin-top:20px">Почти у любого животного поведение — чёрный ящик: виден результат, а механизм приходится угадывать. Здесь механизм опубликован: каждый нейрон, каждая связь, каждое клеточное деление от яйца до взрослой особи — описаны и независимо подтверждены.</p>
+        <h2 style="margin-top:20px; font-size:clamp(25px,3.2vw,38px)">Первая полная схема связей нервной системы</h2>
+        <p style="color:var(--ink-2); margin-top:20px">Почти в любой модельной системе поведение — чёрный ящик: виден результат, а механизм приходится угадывать. Здесь механизм опубликован: каждый нейрон, каждая связь, каждое клеточное деление от яйца до взрослой особи — описаны и независимо подтверждены.</p>
         <ul class="tick" style="margin-top:24px">
           <li><strong>Есть с чем сверять.</strong> Предсказания по поведению можно проверить против известной анатомии, а не против другой модели</li>
           <li><strong>Масштаб времени удобен.</strong> Две-три недели непрерывной съёмки покрывают всю историю одной особи</li>
           <li><strong>Статистика по карману.</strong> Сотни особей за запуск делают размер эффекта измеримым, а не единичным наблюдением</li>
-          <li><strong>Нет регуляторной нагрузки.</strong> Беспозвоночные во всём мире не попадают под законы о лабораторных животных</li>
+          <li><strong>Стандартный протокол.</strong> Условия культивирования стандартизованы с 1974 года, поэтому запуски воспроизводимы между лабораториями</li>
         </ul>
       </div>
     </div>
@@ -676,7 +676,7 @@ meta   = ds.conditions()     <span class="c"># штамм, темп., возра
     <div class="section-head reveal">
       <span class="eyebrow"><i></i>Откуда берутся данные</span>
       <h2>Лаборатория</h2>
-      <p>Компактная wet lab под одну задачу: держать тысячи животных в одинаковых условиях, пока камеры работают без остановки.</p>
+      <p>Компактная wet lab под одну задачу: держать тысячи чашек в одинаковых условиях, пока камеры работают без остановки.</p>
     </div>
     <div class="grid">
       <div class="c5 reveal"><div class="shot sq"><svg class="art" viewBox="0 0 600 600" role="img" aria-label="Инкубатор с полками чашек при 20 °C" preserveAspectRatio="xMidYMid slice">
@@ -863,10 +863,6 @@ meta   = ds.conditions()     <span class="c"># штамм, темп., возра
       <details>
         <summary><span>Почему этот организм, а не кто-то сложнее?</span><span class="pm" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></summary>
         <div class="ans"><p>Потому что механизм, стоящий за поведением, уже опубликован. Сложность без эталона даёт больше данных и меньше уверенности; здесь предсказание сверяется с известной анатомией, а не с другой моделью.</p></div>
-      </details>
-      <details>
-        <summary><span>Нужно ли разрешение на работу с животными?</span><span class="pm" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></summary>
-        <div class="ans"><p>Нет. Законы о лабораторных животных касаются позвоночных; беспозвоночные такого рода под них не подпадают ни в одной из юрисдикций, где мы работаем. Обычные требования по биобезопасности и обращению с отходами при этом действуют, и мы их выполняем.</p></div>
       </details>
       <details>
         <summary><span>Можно заказать конкретные условия записи?</span><span class="pm" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></summary>
