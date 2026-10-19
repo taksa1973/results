@@ -1,0 +1,89 @@
+<!--
+  neoved · карта на странице «Контакты» (https://neoved.io/kontakty).
+
+  ТЗ: https://neoved.notion.site/3fad7b0c587c8027978bea1b42305d13 — справа от карточки контактов
+  встроенная Яндекс Карта организации (виджет из ТЗ), на телефоне — под карточкой.
+  По просьбе anton (19.10.2026) карта чёрно-белая: filter: grayscale(1) на самом iframe.
+
+  Как встаёт на страницу. Дизайнер уже оставил в Zero Block контактов (rec4713202201) пустой
+  прямоугольник под карту — элемент 1792177730811000001: 570×535 справа на десктопе, во всю ширину
+  под карточкой на планшете и телефоне, скругление 30/25 и рамка #eeeeee. Скрипт находит этот
+  прямоугольник и ставит карту внутрь, скругление и рамка остаются его. Если прямоугольника на
+  странице нет (блок перерисовали) — карта встаёт на место своей строки как карточка 570×535.
+
+  Колесо мыши над картой не масштабирует её, пока по карте не кликнули: карта занимает правую
+  половину первого экрана, и без этого страница не прокручивалась бы, когда курсор стоит над ней.
+  На телефоне карта включается тапом (пролистывание пальцем над картой её не включает) и
+  выключается, когда уходит с экрана.
+-->
+<style>
+.nvk{position:relative;display:block;width:100%;height:100%;box-sizing:border-box;border-radius:inherit;overflow:hidden;background:#f7f7f7;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.nvk--own{height:auto;aspect-ratio:570/535;max-width:570px;margin:0 auto;border-radius:30px;border:1px solid #eeeeee}
+@media (max-width:640px){.nvk--own{aspect-ratio:320/443;max-width:none;border-radius:25px}}
+.nvk__map{position:absolute;top:0;left:0;width:100%;height:100%;border:0;display:block;filter:grayscale(1);pointer-events:none;opacity:0;transition:opacity .5s ease}
+.nvk.is-ready .nvk__map{opacity:1}
+.nvk.is-on{cursor:default}
+.nvk.is-on .nvk__map{pointer-events:auto}
+.nvk__hint{position:absolute;left:50%;bottom:16px;transform:translateX(-50%);padding:8px 14px;border-radius:999px;background:rgba(17,0,0,.72);color:#fff;font:400 12px/1.2 'Onest',Arial,sans-serif;white-space:nowrap;pointer-events:none;opacity:0;transition:opacity .2s ease}
+@media (hover:hover){.nvk:not(.is-on):hover .nvk__hint{opacity:1}}
+@media (prefers-reduced-motion:reduce){.nvk__map,.nvk__hint{transition:none}}
+</style>
+<div class="nvk" id="nvk">
+  <iframe class="nvk__map" src="https://yandex.ru/map-widget/v1/org/neoved_/175160083981/?indoorLevel=1&amp;ll=37.601412%2C55.763372&amp;z=17" title="Neoved на Яндекс Картах" loading="lazy" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
+  <span class="nvk__hint" aria-hidden="true">Нажмите, чтобы управлять картой</span>
+</div>
+<script>
+(function () {
+  'use strict';
+  var box = document.getElementById('nvk');
+  if (!box || box.dataset.ready) return;
+  box.dataset.ready = '1';
+  var map = box.querySelector('.nvk__map');
+  var SLOT = '#rec4713202201 .tn-elem[data-elem-id="1792177730811000001"] .tn-atom';
+
+  // Куда ставить: в плейсхолдер Zero Block, если он есть и карта ещё не внутри него.
+  function place() {
+    if (box.closest('.tn-elem')) return true;                 // уже внутри Zero Block (HTML-элемент или плейсхолдер)
+    var slot = document.querySelector(SLOT);
+    if (!slot) return false;
+    slot.style.position = 'relative';
+    slot.style.overflow = 'hidden';
+    slot.appendChild(box);
+    return true;
+  }
+  if (!place()) {
+    if (document.readyState === 'loading') {
+      // Строка стоит выше блока контактов: плейсхолдер ещё не разобран — ждём конца разметки.
+      document.addEventListener('DOMContentLoaded', function () { if (!place()) box.classList.add('nvk--own'); });
+    } else {
+      box.classList.add('nvk--own');                         // плейсхолдера нет — карта сама по себе
+    }
+  }
+
+  // Карта «спит», пока по ней не кликнули: колесо над ней прокручивает страницу, а не масштабирует карту.
+  function on() { box.classList.add('is-on'); }
+  function off() { box.classList.remove('is-on'); }
+  box.addEventListener('click', function () { if (!box.classList.contains('is-on')) on(); });
+  box.addEventListener('mouseleave', off);
+
+  // Палец: включаем только по тапу — пролистывание страницы над картой её не включает.
+  var t0 = null;
+  box.addEventListener('touchstart', function (e) { var t = e.touches[0]; t0 = t ? [t.clientX, t.clientY] : null; }, { passive: true });
+  box.addEventListener('touchend', function (e) {
+    var t = e.changedTouches[0];
+    if (t0 && t && Math.abs(t.clientX - t0[0]) < 10 && Math.abs(t.clientY - t0[1]) < 10) on();
+    t0 = null;
+  }, { passive: true });
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) { if (!en.isIntersecting) off(); });
+    }).observe(box);
+  }
+
+  // Плавное появление, когда виджет загрузился; если событие не пришло — показать всё равно.
+  var shown = false;
+  function ready() { if (!shown) { shown = true; box.classList.add('is-ready'); } }
+  map.addEventListener('load', ready);
+  setTimeout(ready, 6000);
+})();
+</script>
