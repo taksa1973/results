@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Интерактивная доска в дорогу: Рио ↔ Белград — компактные варианты и цены</title>
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="description" content="Какую интерактивную доску можно возить между Рио и Белградом: планшет с пером, датчик-приставка, переносной экран. Цены в Сербии и Бразилии, стационарные панели как справка.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script>
+(function(){
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!reduce) document.documentElement.classList.add('js-anim');
+  setTimeout(function(){
+    if (window.__motionOk) return;
+    document.querySelectorAll('.reveal').forEach(function(e){ e.style.opacity = 1; e.style.transform = 'none'; });
+  }, 3000);
+})();
+</script>
+<style>
+:root{
+  color-scheme:dark;
+  --bg:#000000; --card:#121212; --soft:#1A1A1A; --ink:#F5F5F5; --ink-2:#C4C4C8; --ink-3:#8E8E93;
+  --line:#262626; --line-2:#3A3A3A;
+  --red:#9B1C1C; --red-hover:#B42323; --red-text:#E05252; --red-soft:#241010; --red-line:#4D1B1B;
+  --r-lg:20px; --r-md:12px; --maxw:1120px;
+  --ease:cubic-bezier(.22,1,.36,1);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%; scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0; background:var(--bg); color:var(--ink); font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:17px; line-height:1.6; -webkit-font-smoothing:antialiased}
+::selection{background:var(--red); color:#fff}
+img{max-width:100%; display:block}
+h1,h2,h3,h4{color:#fff; margin:0; line-height:1.15}
+p{margin:0}
+a{color:var(--red-text); text-decoration:none; border-bottom:1px solid rgba(224,82,82,.35); transition:color .18s, border-color .18s}
+a:hover{color:#fff; border-bottom-color:#fff}
+a:focus-visible,button:focus-visible{outline:2px solid var(--red-text); outline-offset:3px; border-radius:4px}
+.wrap{max-width:var(--maxw); margin:0 auto; padding:0 24px}
+
+/* навигация */
+.topbar{position:sticky; top:0; z-index:40; background:rgba(0,0,0,.88); border-bottom:1px solid var(--line); -webkit-backdrop-filter:saturate(140%) blur(16px); backdrop-filter:saturate(140%) blur(16px)}
+.topbar .wrap{display:flex; align-items:center; gap:24px; min-height:56px}
+.brand{color:#fff; font-weight:700; letter-spacing:-.01em; white-space:nowrap}
+.topnav{display:flex; gap:4px; overflow-x:auto; scrollbar-width:none}
+.topnav::-webkit-scrollbar{display:none}
+.topnav a{color:var(--ink-2); border:0; padding:10px 12px; border-radius:10px; font-size:14px; font-weight:500; white-space:nowrap; min-height:44px; display:inline-flex; align-items:center}
+.topnav a:hover{color:#fff; background:rgba(255,255,255,.08)}
+
+/* hero */
+.hero{padding:72px 0 48px; border-bottom:1px solid var(--line)}
+.eyebrow{color:var(--red-text); font-size:12px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; margin-bottom:18px; display:block}
+h1{font-size:clamp(36px,6.4vw,68px); font-weight:800; letter-spacing:-.035em; max-width:15ch}
+h1 span{color:var(--red-text)}
+.lede{font-size:clamp(17px,2vw,20px); color:var(--ink-2); max-width:62ch; margin-top:22px}
+.facts{display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:40px}
+.fact{background:var(--card); border:1px solid var(--line); border-radius:var(--r-lg); padding:22px 24px}
+.fact b{display:block; font-size:clamp(28px,4vw,40px); font-weight:800; letter-spacing:-.03em; color:#fff; line-height:1.1; font-variant-numeric:tabular-nums}
+.fact span{display:block; margin-top:8px; font-size:14px; color:var(--ink-3); line-height:1.45}
+
+/* секции */
+section{padding:64px 0 8px}
+.sec-head{margin-bottom:28px}
+.kicker{color:var(--red-text); font-size:12px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; margin-bottom:10px; display:block}
+h2{font-size:clamp(26px,3.6vw,38px); font-weight:800; letter-spacing:-.025em}
+.sec-head p{color:var(--ink-2); margin-top:12px; max-width:68ch}
+
+/* bento */
+.bento{display:grid; grid-template-columns:repeat(12,1fr); gap:16px}
+.c12{grid-column:span 12}.c6{grid-column:span 6}.c4{grid-column:span 4}.c3{grid-column:span 3}
+.card{background:var(--card); border:1px solid var(--line); border-radius:var(--r-lg); padding:28px; transition:border-color .2s, transform .2s var(--ease)}
+.card:hover{border-color:var(--line-2)}
+.card.top{border-color:var(--red-line); box-shadow:0 0 0 1px var(--red-line) inset}
+
+/* карточка товара */
+.prod{display:grid; grid-template-columns:240px 1fr; gap:28px; align-items:start}
+.c6 .prod, .c4 .prod{grid-template-columns:1fr}
+.photo{background:#fff; border-radius:var(--r-md); padding:12px; display:flex; align-items:center; justify-content:center}
+.photo img{width:100%; height:200px; object-fit:contain}
+.prod h3{font-size:24px; font-weight:700; letter-spacing:-.02em; margin:10px 0 6px}
+.sub{color:var(--ink-2); font-size:16px}
+.badge{display:inline-block; font-size:12px; font-weight:700; letter-spacing:.04em; padding:5px 10px; border-radius:999px; text-transform:uppercase}
+.b-best{background:var(--red); color:#fff}
+.b-mid{background:var(--red-soft); color:var(--red-text); box-shadow:inset 0 0 0 1px var(--red-line)}
+.b-gray{background:var(--soft); color:#A1A1A6; box-shadow:inset 0 0 0 1px var(--line)}
+.b-out{background:transparent; color:var(--ink-2); box-shadow:inset 0 0 0 1px var(--line-2)}
+dl.spec{display:grid; grid-template-columns:auto 1fr; gap:6px 16px; margin:18px 0 0; font-size:15px}
+dl.spec dt{color:var(--ink-3)}
+dl.spec dd{margin:0; color:var(--ink)}
+.prices{display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:20px}
+.c6 .prices, .c4 .prices{grid-template-columns:1fr}
+.price{background:var(--soft); border:1px solid var(--line); border-radius:var(--r-md); padding:16px 18px}
+.price .where{font-size:12px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-3)}
+.price .sum{font-size:26px; font-weight:800; letter-spacing:-.02em; color:#fff; margin-top:4px; font-variant-numeric:tabular-nums; line-height:1.15}
+.price .conv{font-size:14px; color:var(--ink-2); margin-top:2px; font-variant-numeric:tabular-nums}
+.price .meta{font-size:13px; color:var(--ink-3); margin-top:8px; line-height:1.45}
+.chip{display:inline-block; font-size:12px; font-weight:600; padding:3px 9px; border-radius:999px; margin-top:8px; background:var(--red-soft); color:var(--red-text); box-shadow:inset 0 0 0 1px var(--red-line)}
+.chip.ok{background:#2A2A2A; color:#fff; box-shadow:inset 0 0 0 1px #5A5A5F}
+.chip.no{background:var(--red); color:#fff; box-shadow:none}
+.btn{display:inline-flex; align-items:center; gap:8px; min-height:44px; padding:10px 16px; margin-top:12px; margin-right:8px; border-radius:12px; font-size:14px; font-weight:600; color:#fff; background:var(--red); border:0; cursor:pointer; transition:background .18s, transform .12s}
+.btn:hover{background:var(--red-hover); color:#fff; border:0}
+.btn.ghost{background:transparent; color:var(--ink); box-shadow:inset 0 0 0 1px var(--line-2)}
+.btn.ghost:hover{background:rgba(255,255,255,.08); color:#fff}
+.note{margin-top:18px; padding:14px 16px; border-radius:var(--r-md); background:var(--red-soft); border:1px solid var(--red-line); color:#F2D6D6; font-size:15px}
+.note.soft{background:var(--soft); border-color:var(--line); color:var(--ink-2)}
+
+/* выбор */
+.pick h3{font-size:19px; font-weight:700; margin-bottom:8px}
+.pick p{color:var(--ink-2); font-size:15.5px}
+.pick .arrow{display:block; color:var(--red-text); font-weight:700; margin-top:12px; font-size:15px}
+
+/* сравнение */
+.cmp{display:grid; gap:12px}
+.cmp-row{display:grid; grid-template-columns:1.1fr 1fr 1fr 1.1fr; gap:0; background:var(--card); border:1px solid var(--line); border-radius:var(--r-lg); overflow:hidden}
+.cmp-row > div{padding:20px 22px; border-right:1px solid var(--line)}
+.cmp-row > div:last-child{border-right:0; background:#161616}
+.cmp-row .lab{font-size:12px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-3); margin-bottom:6px}
+.cmp-row .name{font-weight:700; color:#fff}
+.cmp-row .val{font-size:22px; font-weight:800; color:#fff; letter-spacing:-.02em; font-variant-numeric:tabular-nums; line-height:1.2}
+.cmp-row small{display:block; color:var(--ink-3); font-size:13px; margin-top:6px; line-height:1.45}
+.cmp-row .verdict{color:var(--ink); font-size:15px}
+.cmp-row .verdict b{color:var(--red-text)}
+
+/* список отсеянного */
+.drop{list-style:none; margin:0; padding:0; display:grid; gap:10px}
+.drop li{background:var(--card); border:1px solid var(--line); border-radius:var(--r-md); padding:14px 18px; font-size:15px; color:var(--ink-2)}
+.drop li b{color:#fff}
+
+/* заказ */
+.order-grid{display:grid; grid-template-columns:1fr 1fr; gap:16px}
+.order-grid h3{font-size:20px; margin-bottom:10px}
+.order-grid ul{margin:0; padding-left:20px; color:var(--ink-2); font-size:15.5px}
+.order-grid li{margin:6px 0}
+ol.need{margin:0; padding:0; list-style:none; counter-reset:n; display:grid; gap:10px}
+ol.need li{counter-increment:n; display:flex; gap:14px; align-items:flex-start; color:var(--ink-2); font-size:16px}
+ol.need li::before{content:counter(n); flex:0 0 28px; height:28px; border-radius:50%; background:#fff; color:#000; font-weight:700; font-size:14px; display:flex; align-items:center; justify-content:center; margin-top:1px}
+ol.need li b{color:#fff}
+
+.src ul{margin:0; padding-left:20px; color:var(--ink-2); font-size:15px}
+.src li{margin:6px 0}
+footer{padding:56px 0 72px; color:var(--ink-3); font-size:14px}
+
+/* анимации: контент виден по умолчанию */
+.reveal{opacity:1}
+.js-anim .reveal{opacity:0; transform:translateY(20px)}
+.js-anim .reveal.shown{opacity:1; transform:none}
+@media (prefers-reduced-motion:reduce){.js-anim .reveal{opacity:1 !important; transform:none !important}}
+
+@media (max-width:900px){
+  .c6,.c4,.c3{grid-column:span 12}
+  .prod{grid-template-columns:1fr}
+  .prices{grid-template-columns:1fr}
+  .facts{grid-template-columns:1fr}
+  .cmp-row{grid-template-columns:1fr}
+  .cmp-row > div{border-right:0; border-bottom:1px solid var(--line)}
+  .cmp-row > div:last-child{border-bottom:0}
+  .order-grid{grid-template-columns:1fr}
+}
+@media (min-width:901px) and (max-width:1060px){
+  .c3{grid-column:span 6}
+}
+@media (max-width:520px){
+  .wrap{padding:0 18px}
+  .card{padding:22px}
+  .hero{padding:48px 0 36px}
+  .brand{display:none}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <span class="brand">Доска в дорогу</span>
+    <nav class="topnav" aria-label="Разделы">
+      <a href="#best">Лучшие для поездок</a>
+      <a href="#choose">Как выбрать</a>
+      <a href="#where">Сербия или Бразилия</a>
+      <a href="#big">Стационарные панели</a>
+      <a href="#order">Заказ</a>
+      <a href="#src">Источники</a>
+    </nav>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="eyebrow reveal">Подборка · Рио ↔ Белград</span>
+    <h1 class="reveal">Интерактивная доска, которую <span>можно возить</span> с собой</h1>
+    <p class="lede reveal">Панели 55–86 дюймов весят 36–40 кг и вешаются на стену, в поездку их не взять. Поэтому в центре подборки три компактных варианта: планшет с пером, датчик-приставка для обычной белой доски и переносной экран на колёсах. Большие панели оставлены ниже как справка с ценами в Сербии и Бразилии.</p>
+    <div class="facts">
+      <div class="fact reveal"><b>692 г</b><span>вес Galaxy Tab S11 Ultra с экраном 14,6 дюйма и пером S Pen</span></div>
+      <div class="fact reveal"><b>≈ R$ 6,3–6,5 тыс.</b><span>цена этого планшета и в Рио, и в Белграде: разница небольшая</span></div>
+      <div class="fact reveal"><b>36–40 кг</b><span>вес 65-дюймовых панелей Samsung: для багажа не подходят</span></div>
+    </div>
+  </div>
+</header>
+
+<section id="best">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="kicker">Лучшие для поездок</span>
+      <h2>Три компактных варианта</h2>
+      <p>Первый можно положить в рюкзак. Второй помещается в сумку для ноутбука, но ему нужна белая поверхность и проектор или телевизор. Третий переносной в пределах квартиры, в чемодан не пойдёт.</p>
+    </div>
+
+    <div class="bento">
+
+      <article class="card top c12 reveal">
+        <div class="prod">
+          <div class="photo"><img src="img/interactive-board/galaxy-tab-s11-ultra-amazon.jpg" alt="Планшет Samsung Galaxy Tab S11 Ultra с пером S Pen" width="400" height="270" loading="lazy"></div>
+          <div>
+            <span class="badge b-best">Лучший выбор для поездок</span>
+            <h3>Samsung Galaxy Tab S11 Ultra</h3>
+            <p class="sub">Планшет 14,6 дюйма с пером: рисуешь, пишешь и отмечаешь прямо на экране. Доска получается личная, не для группы у стены.</p>
+            <dl class="spec">
+              <dt>Экран</dt><dd>14,6″ Dynamic AMOLED 2X</dd>
+              <dt>Вес</dt><dd>692 г</dd>
+              <dt>Батарея</dt><dd>11 600 мАч</dd>
+              <dt>Система</dt><dd>Android 16, Wi‑Fi 7, 12 ГБ памяти</dd>
+              <dt>Перо</dt><dd>поддержка S Pen заявлена; входит ли он в комплект конкретного листинга, проверь при заказе</dd>
+            </dl>
+            <div class="prices">
+              <div class="price">
+                <div class="where">В Рио · Бразилия</div>
+                <div class="sum">R$ 6 509,89</div>
+                <div class="conv">≈ 133 900 RSD</div>
+                <div class="meta">Amazon.com.br, версия 512 ГБ, Wi‑Fi. В наличии осталось 2 штуки.</div>
+                <span class="chip ok">цена со страницы магазина</span><br>
+                <a class="btn" href="https://www.amazon.com.br/Samsung-Galaxy-Ultra-Cinza-Camera/dp/B0FNSN78JY" target="_blank" rel="noopener">Открыть на Amazon.com.br ↗</a>
+              </div>
+              <div class="price">
+                <div class="where">В Белград · Сербия</div>
+                <div class="sum">129 999 RSD</div>
+                <div class="conv">≈ R$ 6 320</div>
+                <div class="meta">Gigatron, версия 12/256 ГБ, Wi‑Fi, со скидкой с 151 169 RSD. Версия поменьше, чем в Amazon, поэтому цены сравнивать впрямую нельзя.</div>
+                <span class="chip">по Google-сниппету, проверь в браузере</span><br>
+                <a class="btn" href="https://gigatron.rs/samsung-tab-s11-ultra" target="_blank" rel="noopener">Открыть на Gigatron ↗</a>
+              </div>
+            </div>
+            <p class="note soft">Бюджетнее: Galaxy Tab S10 Ultra, 256 ГБ, Tehnomanija, 114 999 RSD (≈ R$ 5 590) по Google-сниппету. <a href="https://www.tehnomanija.rs/telefoni-smart-satovi-i-tableti/tableti-i-ipad-uredjaji/tableti/samsung-galaxy-tablet-s10-ultra-256-gb-srebrni-1205133" target="_blank" rel="noopener">Страница Tehnomanija</a>. Технические данные модели S11 Ultra: <a href="https://www.samsung.com/rs/tablets/galaxy-tab-s/galaxy-tab-s11-ultra-gray-512gb-sm-x930nzapeuc/" target="_blank" rel="noopener">Samsung Сербия</a>.</p>
+            <p class="note">Чтобы показать экран группе, его придётся выводить на телевизор или проектор. Это отдельный шаг, в цену не входит.</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="card c6 reveal">
+        <div class="prod">
+          <div class="photo"><img src="img/interactive-board/mimio-teach.jpg" alt="Датчик Mimio Teach с цифровым пером" width="500" height="500" loading="lazy"></div>
+          <div>
+            <span class="badge b-mid">В сумку, но нужна доска и проектор</span>
+            <h3>Mimio Teach</h3>
+            <p class="sub">Компактный датчик, который превращает любую белую доску или гладкую стену в интерактивную. Пишешь цифровым пером прямо на поверхности, а картинку показывает проектор или телевизор.</p>
+            <dl class="spec">
+              <dt>Рабочее поле</dt><dd>стандартно 240 × 120 см</dd>
+              <dt>Связь</dt><dd>с компьютером по беспроводному адаптеру</dd>
+              <dt>Нужно ещё</dt><dd>компьютер, проектор или телевизор, белая гладкая поверхность</dd>
+              <dt>Вес</dt><dd>в источниках не нашёл; магазин пишет «лёгкий для переноски»</dd>
+            </dl>
+            <div class="prices">
+              <div class="price">
+                <div class="where">В Белград · Сербия</div>
+                <div class="sum">73 200 RSD</div>
+                <div class="conv">≈ R$ 3 560</div>
+                <div class="meta">На сайте interaktivnetable.rs товар «под заказ, цена по запросу». Сумма 73 200 RSD взята из выдачи Google по магазину skolskinamestaj.rs.</div>
+                <span class="chip">по Google-сниппету, проверь в браузере</span><br>
+                <a class="btn" href="https://interaktivnetable.rs/proizvod/mimio-teach-prenosni-interaktivni-sistem-za-bele-table/" target="_blank" rel="noopener">Страница магазина ↗</a>
+                <a class="btn ghost" href="https://www.skolskinamestaj.rs/product/mimio-teach-interaktivni-uredjaj/" target="_blank" rel="noopener">Где видна цена ↗</a>
+              </div>
+              <div class="price">
+                <div class="where">В Рио · Бразилия</div>
+                <div class="sum">≈ R$ 2 685</div>
+                <div class="conv">≈ 55 200 RSD</div>
+                <div class="meta">Mimio в Бразилии не нашёл. Близкий по принципу eBeam System 3 Classic: R$ 2 685 на Shopee и Loja do Som, у других продавцов от R$ 2 790 (новый), б/у около R$ 999. Все цены по сниппетам выдачи. Фото eBeam получить не удалось, поэтому отдельной карточки у него нет.</div>
+                <span class="chip">по Google-сниппету, проверь в браузере</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="card c6 reveal">
+        <div class="prod">
+          <div class="photo"><img src="img/interactive-board/ktc-megapad-27.jpg" alt="Переносной сенсорный экран KTC MegPad 27 дюймов на подставке с колёсами" width="1000" height="1000" loading="lazy"></div>
+          <div>
+            <span class="badge b-gray">Не для чемодана: 17,5 кг, на колёсах</span>
+            <h3>KTC MegPad 27″ (A27Q7)</h3>
+            <p class="sub">Сенсорный экран на стойке с колёсами и аккумулятором: катаешь по комнатам, без розетки работает до 6 часов. Подходит как мобильный экран внутри одной квартиры.</p>
+            <dl class="spec">
+              <dt>Экран</dt><dd>27″ Full HD, VA</dd>
+              <dt>Система</dt><dd>Android 14 с сертификатом EDLA, 8/128 ГБ</dd>
+              <dt>Касание</dt><dd>рассчитан на пальцы; управление пером в характеристиках не заявлено</dd>
+              <dt>Батарея</dt><dd>9 500 мАч</dd>
+              <dt>Вес</dt><dd>17,48 кг со стойкой</dd>
+            </dl>
+            <div class="prices">
+              <div class="price">
+                <div class="where">Магазин KTC · США</div>
+                <div class="sum">$599,99</div>
+                <div class="conv">≈ R$ 3 040 · ≈ 62 600 RSD</div>
+                <div class="meta">Цена со скидкой, без доставки и ввозных сборов (обычная $799,99). Магазинов в Сербии и Бразилии не нашёл, доставка из США не проверена. Версия поменьше, 24,5″ (A25Q5) с батареей 5 000 мАч: $369 на Best Buy по Google-сниппету.</div>
+                <span class="chip ok">цена со страницы магазина</span><br>
+                <a class="btn" href="https://us.ktcplay.com/products/27-1080p-mobile-touch-screen" target="_blank" rel="noopener">Открыть на ktcplay.com ↗</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<section id="choose">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="kicker">Как выбрать</span>
+      <h2>Что нужно сделать, то и берём</h2>
+    </div>
+    <div class="bento">
+      <div class="card pick c3 reveal"><h3>Рисовать и отмечать самому</h3><p>Планшет с пером: самый лёгкий вариант, всё помещается в рюкзак.</p><span class="arrow">Galaxy Tab S11 Ultra</span></div>
+      <div class="card pick c3 reveal"><h3>Показывать группе на стене</h3><p>Датчик Mimio или eBeam, плюс проектор или телевизор и ноутбук.</p><span class="arrow">Mimio Teach / eBeam</span></div>
+      <div class="card pick c3 reveal"><h3>Переставлять по квартире</h3><p>Сенсорный экран на колёсах с батареей, но 17,5 кг и без пера.</p><span class="arrow">KTC MegPad 27″</span></div>
+      <div class="card pick c3 reveal"><h3>Повесить на стену насовсем</h3><p>Панель 55–86 дюймов. Возить её нельзя, зато в Сербии такие заметно дешевле.</p><span class="arrow">Раздел «Стационарные панели»</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="where">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="kicker">Сербия или Бразилия</span>
+      <h2>Где дешевле</h2>
+      <p>Пересчёт по среднему курсу: 1 BRL ≈ 20,57 RSD. В Сербии цены с PDV 20%. В Бразилии у магазина Loja Daniele две цены: физлицо платит верхнюю (CPF), юрлицо с ICMS нижнюю.</p>
+    </div>
+    <div class="cmp">
+      <div class="cmp-row reveal">
+        <div><div class="lab">Компактное</div><div class="name">Планшет Galaxy Tab S11 Ultra</div><small>Конфигурации разные: 512 ГБ в Бразилии, 256 ГБ в Сербии</small></div>
+        <div><div class="lab">Сербия</div><div class="val">129 999 RSD</div><small>≈ R$ 6 320 · Gigatron, по сниппету</small></div>
+        <div><div class="lab">Бразилия</div><div class="val">R$ 6 509,89</div><small>≈ 133 900 RSD · Amazon.com.br, со страницы</small></div>
+        <div class="verdict"><div class="lab">Вывод</div><b>Почти поровну.</b> Берите там, где окажетесь раньше или где есть в наличии. Гарантия: уточните, действует ли она в другой стране.</div>
+      </div>
+      <div class="cmp-row reveal">
+        <div><div class="lab">Панель 65″</div><div class="name">Iiyama TE6513A против Samsung Flip WM65FX</div><small>Модели разные: одинаковой в обеих странах не нашёл</small></div>
+        <div><div class="val">177 490 RSD</div><small>≈ R$ 8 630 · Jakov. Акция до 21.10.2026, обычная цена 280 890 RSD (≈ R$ 13 650). Доставка 940 RSD</small></div>
+        <div><div class="val">R$ 15 249,90</div><small>≈ 313 700 RSD · Loja Daniele, для физлица. Юрлицо с ICMS: R$ 12 849,90</small></div>
+        <div class="verdict"><div class="lab">Вывод</div><b>В Сербии дешевле примерно на 43%</b> при акции Jakov; без акции разрыв меньше.</div>
+      </div>
+      <div class="cmp-row reveal">
+        <div><div class="lab">Панель 55″</div><div class="name">LG CreateBoard 55TR3DQ-B</div><small>Одна и та же модель в обеих странах</small></div>
+        <div><div class="val">145 800 RSD</div><small>≈ R$ 7 090 · Viphouse, только онлайн</small></div>
+        <div><div class="val">нет в наличии</div><small>Loja Daniele: «сообщить о поступлении»</small></div>
+        <div class="verdict"><div class="lab">Вывод</div><b>Сербия:</b> в Бразилии эту модель сейчас не купить.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="big">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="kicker">Справка · не для поездок</span>
+      <h2>Стационарные панели</h2>
+      <p>Это настенные экраны 55–65 дюймов с пером и режимом доски. Нужны, только если доска будет висеть на одном месте.</p>
+    </div>
+    <div class="bento">
+
+      <article class="card c4 reveal">
+        <div class="photo"><img src="img/interactive-board/iiyama-te6513a.webp" alt="Интерактивная панель Iiyama ProLite TE6513A 65 дюймов" width="440" height="440" loading="lazy"></div>
+        <div class="prod" style="display:block">
+          <span class="badge b-out" style="margin-top:16px">Сербия · 65″</span>
+          <h3>Iiyama TE6513A-B3AG</h3>
+          <p class="sub">65″ IPS, 4K, Android 14, 40 касаний, перо в комплекте.</p>
+          <div class="prices"><div class="price"><div class="where">Jakov · Сербия</div><div class="sum">177 490 RSD</div><div class="conv">≈ R$ 8 630</div><div class="meta">Акция до 21.10.2026, обычная цена 280 890 RSD. Доставка 940 RSD. Вольтаж для Рио (127 В) на странице не проверил.</div><span class="chip ok">цена со страницы магазина</span><br><a class="btn" href="https://jakov.rs/kategorije/interaktivne-table-i-displeji/proizvodi/interaktivni-ekran-65-iiyama-te6513a-b3ag-ips-3840x2160android-148mshdmidp" target="_blank" rel="noopener">Открыть на Jakov ↗</a></div></div>
+        </div>
+      </article>
+
+      <article class="card c4 reveal">
+        <div class="photo"><img src="img/interactive-board/hisense-65wm6fe.webp" alt="Интерактивный дисплей Hisense GoBoard Live Pro 65WM6FE" width="733" height="733" loading="lazy"></div>
+        <div class="prod" style="display:block">
+          <span class="badge b-out" style="margin-top:16px">Сербия · 65″</span>
+          <h3>Hisense GoBoard Live Pro 65WM6FE</h3>
+          <p class="sub">65″ интерактивный дисплей, Android 13 с сертификатом EDLA. Продаётся онлайн, отправка за 1–3 рабочих дня.</p>
+          <div class="prices"><div class="price"><div class="where">Viphouse · Сербия</div><div class="sum">256 300 RSD</div><div class="conv">≈ R$ 12 460</div><span class="chip ok">цена со страницы магазина</span><br><a class="btn" href="https://viphouse.rs/p/hisense-65wm6fe/354313" target="_blank" rel="noopener">Открыть на Viphouse ↗</a></div></div>
+        </div>
+      </article>
+
+      <article class="card c4 reveal">
+        <div class="photo"><img src="img/interactive-board/lg-55tr3dq.webp" alt="Интерактивный дисплей LG CreateBoard 55TR3DQ-B" width="612" height="612" loading="lazy"></div>
+        <div class="prod" style="display:block">
+          <span class="badge b-out" style="margin-top:16px">Сербия · 55″</span>
+          <h3>LG CreateBoard 55TR3DQ-B</h3>
+          <p class="sub">55″ 4K, Android 14. Самая дешёвая панель в подборке.</p>
+          <div class="prices"><div class="price"><div class="where">Viphouse · Сербия</div><div class="sum">145 800 RSD</div><div class="conv">≈ R$ 7 090</div><div class="meta">Только онлайн. В Бразилии у Loja Daniele нет в наличии.</div><span class="chip ok">цена со страницы магазина</span><br><a class="btn" href="https://viphouse.rs/p/lg-55tr3dq-b/344305" target="_blank" rel="noopener">Открыть на Viphouse ↗</a></div></div>
+        </div>
+      </article>
+
+      <article class="card c6 reveal">
+        <div class="photo"><img src="img/interactive-board/samsung-flip-wmfx-65.jpg" alt="Интерактивная панель Samsung Flip WMFX 65 дюймов с рисунками на экране" width="684" height="547" loading="lazy"></div>
+        <div class="prod" style="display:block">
+          <span class="badge b-out" style="margin-top:16px">Бразилия · 65″</span>
+          <h3>Samsung Flip WM65FX (LH65WMFWBGCXEN)</h3>
+          <p class="sub">65″ 4K, Tizen 9, 39,7 кг, питание 100–240 В: в Рио (127 В) работает без трансформатора. Гарантия 36 месяцев.</p>
+          <div class="prices"><div class="price"><div class="where">Loja Daniele · Бразилия</div><div class="sum">R$ 15 249,90</div><div class="conv">≈ 313 700 RSD · для физлица (CPF)</div><div class="meta">Для юрлица с ICMS: R$ 12 849,90.</div><span class="chip ok">цена со страницы магазина</span><br><a class="btn" href="https://www.lojadaniele.com.br/monitor-flip-65-pro-interativo-wm65fx-16-7-450cd-m-tizen-9-samsung-lh65wmfwbgcxen/" target="_blank" rel="noopener">Открыть на Loja Daniele ↗</a></div></div>
+        </div>
+      </article>
+
+      <article class="card c6 reveal">
+        <div class="photo"><img src="img/interactive-board/samsung-wafx-p-65.jpg" alt="Интерактивный дисплей Samsung WAFX-P 65 дюймов" width="684" height="547" loading="lazy"></div>
+        <div class="prod" style="display:block">
+          <span class="badge b-out" style="margin-top:16px">Бразилия · 65″</span>
+          <h3>Samsung WAFX-P 65″ (WA65FX-P)</h3>
+          <p class="sub">65″ 4K, Android 15, камера 4K для видеозвонков, около 36 кг, питание AC 100–240 В.</p>
+          <div class="prices"><div class="price"><div class="where">Loja Daniele · Бразилия</div><div class="sum">R$ 18 989,90</div><div class="conv">≈ 390 600 RSD · для физлица (CPF)</div><div class="meta">Для юрлица с ICMS: R$ 16 499,90.</div><span class="chip ok">цена со страницы магазина</span><br><a class="btn" href="https://www.lojadaniele.com.br/monitor-interativo-65-4k-wa65fx-p-samsung-ai-para-aula-e-reunioes-camera-4k-android-15-lh65wafplgcxzd/" target="_blank" rel="noopener">Открыть на Loja Daniele ↗</a> <a class="btn ghost" href="https://www.samsung.com/br/business/smart-signage/interactive-display/wafx-p-lh65wafplgcxzd/" target="_blank" rel="noopener">Samsung Бразилия ↗</a></div></div>
+        </div>
+      </article>
+
+    </div>
+
+    <div class="sec-head reveal" style="margin-top:40px">
+      <h2 style="font-size:24px">Что отсеяно и почему</h2>
+      <p>Фото к этим позициям не добавлял: в подборку они не попали.</p>
+    </div>
+    <ul class="drop">
+      <li class="reveal"><b>ViewSonic IFP6550-5F, 65″</b>: 234 350 RSD на Konovo, но «нет на складе».</li>
+      <li class="reveal"><b>LG 65TR3DK-BM, 65″</b>: на сайте LG Бразилия нет в наличии; R$ 13 299,05 только по сниппету.</li>
+      <li class="reveal"><b>Dahua 65″ и ViewSonic IFP6550-5 в Бразилии</b>: R$ 10 228–10 975 и R$ 15 990–17 111 по сниппетам Mercado Livre и магазинов; страницы не открылись без входа в аккаунт.</li>
+      <li class="reveal"><b>Iiyama ProLite TW2424AS-B3P, 24″</b>: 88 500 RSD на Viphouse. Это сенсорный компьютер для работы 24/7, а не доска с пером, поэтому в подборку не вошёл.</li>
+    </ul>
+  </div>
+</section>
+
+<section id="order">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="kicker">Заказ</span>
+      <h2>Что нужно, чтобы оформить</h2>
+      <p>Заказ пока не оформлен. Оплату и ввод карточных данных делает только anton.</p>
+    </div>
+    <div class="bento">
+      <div class="card c12 reveal">
+        <ol class="need">
+          <li><span><b>Куда везти.</b> Белград или Рио: от этого зависят магазин и цена.</span></li>
+          <li><span><b>Что берём.</b> Планшет с пером, датчик Mimio/eBeam или переносной экран. Для панели нужен размер.</span></li>
+          <li><span><b>Бюджет.</b> Планшет стоит порядка R$ 6,3–6,5 тыс., датчик R$ 2,7–3,6 тыс., панель 65″ R$ 8,6–15 тыс.</span></li>
+          <li><span><b>Оплата.</b> Карта и доставка: данные вводит anton.</span></li>
+        </ol>
+      </div>
+      <div class="card c6 reveal order-grid" style="display:block">
+        <h3>Если заказываем в Рио</h3>
+        <ul>
+          <li>Планшет: Amazon.com.br, версия 512 ГБ, осталось 2 штуки.</li>
+          <li>Сеть в Рио 127 В. Панели Samsung рассчитаны на 100–240 В, трансформатор не нужен.</li>
+          <li>Планшету нужен зарядный блок на 100–240 В: проверь комплектацию.</li>
+          <li>Цены Loja Daniele зависят от статуса покупателя: физлицо платит верхнюю.</li>
+        </ul>
+      </div>
+      <div class="card c6 reveal order-grid" style="display:block">
+        <h3>Если заказываем в Белград</h3>
+        <ul>
+          <li>Планшет: Gigatron, Tehnomanija, Samsung Сербия; цены лучше сверить в браузере.</li>
+          <li>Панели: Viphouse, Jakov; доставка по Сербии у Jakov 940 RSD.</li>
+          <li>Iiyama TE6513A по акции Jakov стоит 177 490 RSD только до 21.10.2026.</li>
+          <li>Mimio Teach заказывается по запросу, цену называет магазин.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="src">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="kicker">Источники</span>
+      <h2>Откуда цены и характеристики</h2>
+      <p>Помеченное «со страницы магазина» снято с самой карточки товара. «По Google-сниппету» значит, что страницу автоматически открыть не удалось, и эти суммы нужно сверить в браузере.</p>
+    </div>
+    <div class="card src reveal">
+      <ul>
+        <li><a href="https://www.amazon.com.br/Samsung-Galaxy-Ultra-Cinza-Camera/dp/B0FNSN78JY" target="_blank" rel="noopener">Amazon.com.br: Galaxy Tab S11 Ultra</a></li>
+        <li><a href="https://www.samsung.com/rs/tablets/galaxy-tab-s/galaxy-tab-s11-ultra-gray-512gb-sm-x930nzapeuc/" target="_blank" rel="noopener">Samsung Сербия: Galaxy Tab S11 Ultra (вес 692 г, экран 14,6″)</a></li>
+        <li><a href="https://gigatron.rs/samsung-tab-s11-ultra" target="_blank" rel="noopener">Gigatron: Tab S11 Ultra</a></li>
+        <li><a href="https://interaktivnetable.rs/proizvod/mimio-teach-prenosni-interaktivni-sistem-za-bele-table/" target="_blank" rel="noopener">interaktivnetable.rs: Mimio Teach</a> · <a href="https://www.skolskinamestaj.rs/product/mimio-teach-interaktivni-uredjaj/" target="_blank" rel="noopener">skolskinamestaj.rs</a></li>
+        <li><a href="https://us.ktcplay.com/products/27-1080p-mobile-touch-screen" target="_blank" rel="noopener">KTC: MegPad 27″</a></li>
+        <li><a href="https://jakov.rs/kategorije/interaktivne-table-i-displeji" target="_blank" rel="noopener">Jakov: интерактивные таблицы и дисплеи</a></li>
+        <li><a href="https://viphouse.rs/p/hisense-65wm6fe/354313" target="_blank" rel="noopener">Viphouse: Hisense 65WM6FE</a> · <a href="https://viphouse.rs/p/lg-55tr3dq-b/344305" target="_blank" rel="noopener">LG 55TR3DQ-B</a></li>
+        <li><a href="https://www.lojadaniele.com.br/lousa-interativa-55-4k-lg-tr3dq-android-14-hdmi-vga-audio-usb-pn-55tr3dq-b-auwq/" target="_blank" rel="noopener">Loja Daniele: LG 55TR3DQ-B (нет в наличии)</a></li>
+        <li><a href="https://konovo.rs/proizvod/interaktivna-tabla-65-viewsonic-ifp6550-5f/" target="_blank" rel="noopener">Konovo: ViewSonic IFP6550-5F (нет на складе)</a></li>
+        <li><a href="https://www.lg.com/br/lousa-digital/65tr3dk-bm/" target="_blank" rel="noopener">LG Бразилия: 65TR3DK-BM</a></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">Подборка для anton: интерактивная доска для Рио и Белграда. Цены могут меняться, перед оплатой сверьте их на странице магазина.</div>
+</footer>
+
+<script type="module">
+(function(){
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var els = [].slice.call(document.querySelectorAll('.reveal'));
+  function show(el){ el.classList.add('shown'); el.style.opacity = 1; el.style.transform = 'none'; }
+  if (reduce) { els.forEach(show); return; }
+
+  function fallback(){
+    if (!('IntersectionObserver' in window)) { els.forEach(show); return; }
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){ if (en.isIntersecting) { show(en.target); io.unobserve(en.target); } });
+    }, { rootMargin: '0px 0px -8% 0px' });
+    els.forEach(function(e){ io.observe(e); });
+  }
+
+  import('https://cdn.jsdelivr.net/npm/motion@11/+esm').then(function(m){
+    window.__motionOk = true;
+    var animate = m.animate, inView = m.inView;
+    var target = function(arg){ return (arg && arg.target) || arg; };
+    inView('.reveal', function(arg){
+      var el = target(arg);
+      if (!el || !el.classList) return;
+      var i = [].indexOf.call(el.parentElement.children, el);
+      el.classList.add('shown');
+      animate(el, { opacity: [0, 1], y: [22, 0] }, { duration: 0.55, delay: Math.min(i, 5) * 0.05, ease: [0.22, 1, 0.36, 1] });
+    }, { margin: '0px 0px -8% 0px' });
+    document.querySelectorAll('.btn').forEach(function(b){
+      b.addEventListener('pointerdown', function(){ animate(b, { scale: 0.97 }, { duration: 0.12 }); });
+      ['pointerup','pointerleave','pointercancel'].forEach(function(ev){
+        b.addEventListener(ev, function(){ animate(b, { scale: 1 }, { duration: 0.18 }); });
+      });
+    });
+  }).catch(fallback);
+})();
+</script>
+</body>
+</html>
