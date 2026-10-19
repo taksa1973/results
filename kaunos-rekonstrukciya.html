@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Кавнос: как это выглядело</title>
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="description" content="Три фото руин древнего Кавноса под Дальяном и их реконструкция с тем же ракурсом: террасный храм с круглой постройкой, театр и вход в святилище Басилевса Кавния.">
+<meta name="theme-color" content="#000000">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script>if(!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('js-anim')</script>
+<style>
+:root{color-scheme:dark;
+  --bg:#000;--paper:#121212;--soft:#1A1A1A;--line:#262626;--line-2:#3A3A3A;
+  --ink:#F5F5F5;--ink-2:#C4C4C8;--ink-3:#8E8E93;
+  --red:#9B1C1C;--red-hover:#B42323;--red-text:#E05252;--red-soft:#241010;--red-line:#4D1B1B;
+  --r:16px;--topbar:60px}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;padding-top:var(--topbar);background:var(--bg);color:var(--ink);font:16px/1.6 Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased;overflow-wrap:anywhere}
+::selection{background:var(--red);color:#fff}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+a{color:var(--red-text);text-decoration:none}
+a:hover{color:#fff}
+a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid #fff;outline-offset:3px;border-radius:6px}
+.skip{position:absolute;left:-999px;top:0}
+.skip:focus{left:16px;top:16px;background:#fff;color:#000;padding:10px 14px;border-radius:10px;z-index:100}
+h1,h2,h3{color:#fff;margin:0}
+h1{font-size:clamp(34px,5.2vw,60px);line-height:1.04;letter-spacing:-.03em;font-weight:800;text-wrap:balance;max-width:16ch}
+h1 span{color:var(--red-text)}
+h2{font-size:clamp(26px,3.2vw,38px);line-height:1.12;letter-spacing:-.02em;font-weight:700;text-wrap:balance}
+h3{font-size:17px;line-height:1.3;letter-spacing:-.01em;font-weight:600}
+.eyebrow{color:var(--red-text);font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin:0 0 10px}
+.dim{color:var(--ink-3);font-weight:400}
+
+.topbar{position:fixed;top:0;left:0;right:0;height:var(--topbar);z-index:50;background:rgba(0,0,0,.86);-webkit-backdrop-filter:saturate(140%) blur(16px);backdrop-filter:saturate(140%) blur(16px);border-bottom:1px solid var(--line)}
+.topbar .wrap{height:100%;display:flex;align-items:center;gap:20px}
+.brand{display:flex;align-items:center;gap:10px;color:#fff;font-weight:700;font-size:15px;letter-spacing:-.01em;white-space:nowrap;flex:none}
+.brand i{width:10px;height:10px;border-radius:3px;background:var(--red-text);display:inline-block}
+.brand em{font-style:normal;color:var(--ink-3);font-weight:500}
+.topnav{display:flex;gap:4px;margin-left:auto;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.topnav::-webkit-scrollbar{display:none}
+.topnav a{flex:none;color:var(--ink-2);font-size:14px;font-weight:500;padding:9px 12px;border-radius:10px;min-height:40px;display:flex;align-items:center;transition:background .15s ease,color .15s ease}
+.topnav a:hover{color:#fff;background:rgba(255,255,255,.08)}
+.topnav a.on{color:#fff;background:rgba(255,255,255,.12)}
+@media (max-width:720px){.brand em{display:none}.topbar .wrap{gap:10px}.topnav a{padding:9px 10px;font-size:13px}}
+
+.hero{padding:56px 0 44px;border-bottom:1px solid var(--line)}
+.hero .wrap{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(300px,.75fr);gap:32px 48px;align-items:end}
+.lead{font-size:clamp(17px,1.9vw,20px);color:var(--ink-2);max-width:60ch;margin:18px 0 0}
+.lead b{color:#fff;font-weight:600}
+.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.stat{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:16px 18px}
+.stat b{display:block;font-size:30px;font-weight:800;letter-spacing:-.03em;line-height:1.05;color:#fff;font-variant-numeric:tabular-nums}
+.stat span{font-size:13px;color:var(--ink-3)}
+@media (max-width:860px){.hero .wrap{grid-template-columns:1fr}.hero{padding:40px 0 32px}}
+
+main{counter-reset:n}
+main section{padding:60px 0 8px;scroll-margin-top:calc(var(--topbar) + 12px)}
+.sh{display:flex;align-items:center;gap:14px;margin-bottom:6px}
+.num{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:7px;background:#fff;color:#000;font-size:13px;font-weight:700;flex:none;counter-increment:n}
+.num::before{content:counter(n,decimal-leading-zero)}
+.sub{color:var(--ink-2);max-width:72ch;margin:8px 0 22px}
+
+.pair{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(280px,.85fr);gap:14px;align-items:start}
+.pair.land{grid-template-columns:minmax(0,1.6fr) minmax(280px,.9fr)}
+@media (max-width:900px){.pair,.pair.land{grid-template-columns:1fr}}
+figure{margin:0}
+.cmp{position:relative;border-radius:var(--r);overflow:hidden;background:#0a0a0a;border:1px solid var(--line);--p:50%;user-select:none;-webkit-user-select:none;touch-action:pan-y;cursor:ew-resize}
+.cmp.p34{aspect-ratio:3/4}.cmp.p43{aspect-ratio:4/3}
+.cmp img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;pointer-events:none}
+.cmp .after{clip-path:inset(0 0 0 var(--p))}
+.cmp .bar{position:absolute;top:0;bottom:0;left:var(--p);width:2px;background:#fff;transform:translateX(-1px);pointer-events:none}
+.cmp .knob{position:absolute;top:50%;left:var(--p);width:44px;height:44px;border-radius:50%;background:#fff;color:#000;transform:translate(-50%,-50%);display:flex;align-items:center;justify-content:center;pointer-events:none;box-shadow:0 2px 10px rgba(0,0,0,.45)}
+.cmp .knob svg{width:22px;height:22px}
+.cmp input{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;pointer-events:none;-webkit-appearance:none;appearance:none}
+.cmp:focus-within{outline:2px solid #fff;outline-offset:3px}
+.cmp .tag{position:absolute;top:12px;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:6px 10px;border-radius:8px;background:rgba(0,0,0,.62);color:#fff;pointer-events:none;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.cmp .tag.l{left:12px}.cmp .tag.r{right:12px;background:var(--red)}
+figcaption{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;margin-top:10px;font-size:13.5px;color:var(--ink-3)}
+figcaption a{font-weight:600}
+.seg{display:inline-flex;gap:2px;background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:2px;margin-left:auto}
+.seg span{font-size:12px;color:var(--ink-3);align-self:center;padding:0 8px 0 6px}
+.seg button{min-width:40px;min-height:36px;border:0;border-radius:8px;background:transparent;color:var(--ink-2);font:inherit;font-size:13px;font-weight:600;cursor:pointer;transition:background .15s ease,color .15s ease}
+.seg button:hover{color:#fff;background:rgba(255,255,255,.08)}
+.seg button.on{background:#fff;color:#000}
+.seg button[aria-pressed=true]{background:#fff;color:#000}
+
+.facts{display:grid;gap:12px}
+.ins{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:20px 22px;transition:transform .2s ease,box-shadow .2s ease}
+.ins:hover{box-shadow:0 0 0 1px rgba(255,255,255,.18);transform:translateY(-2px)}
+.ins .tag{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--red-text);margin:0 0 10px}
+.ins p,.ins li{font-size:15px;line-height:1.55;color:var(--ink-2)}
+.ins p{margin:0}
+.ins p+p{margin-top:8px}
+.ins ul{margin:0;padding-left:18px}
+.ins li{margin:5px 0}
+.ins b{color:#fff;font-weight:600}
+.ins.hot{background:var(--red-soft);border-color:var(--red-line)}
+@media (prefers-reduced-motion:reduce){.ins{transition:none}.ins:hover{transform:none}}
+
+.steps{list-style:none;margin:0;padding:0;display:grid;gap:10px;counter-reset:s}
+.steps li{display:grid;grid-template-columns:28px minmax(0,1fr);gap:14px;align-items:start;background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:18px 20px;color:var(--ink-2)}
+.steps li b{color:#fff;font-weight:600}
+.steps li .num{counter-increment:s}
+.steps li .num::before{content:counter(s)}
+.steps li p{margin:0}
+.steps li p+p{margin-top:6px;font-size:14px}
+.method{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:12px;align-items:start}
+@media (max-width:860px){.method{grid-template-columns:1fr}}
+
+footer{margin-top:70px;padding:28px 0 48px;border-top:1px solid var(--line);color:var(--ink-3);font-size:13.5px}
+footer ul{margin:8px 0 0;padding-left:18px}
+footer li{margin:4px 0}
+
+html.js-anim .rv{opacity:0}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">К содержанию</a>
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="#top"><i aria-hidden="true"></i>Кавнос <em>· было и стало</em></a>
+    <nav class="topnav" aria-label="Разделы">
+      <a href="#terrace">Террасный храм</a>
+      <a href="#theatre">Театр</a>
+      <a href="#propylon">Вход в святилище</a>
+      <a href="#etalon">Эталон</a>
+      <a href="#method">Как сделано</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero" id="top">
+  <div class="wrap">
+    <div>
+      <p class="eyebrow">Кавнос · Дальян · Турция</p>
+      <h1>Кавнос. <span>Как это выглядело</span></h1>
+      <p class="lead">Три фото руин и их реконструкция <b>с тем же ракурсом</b>: небо, горы, деревья и камни переднего плана остаются на месте, достроены только здания. Факты для достройки взяты с табличек у самих руин.</p>
+    </div>
+    <div class="stats" aria-label="Ключевые цифры">
+      <div class="stat"><b>3</b><span>постройки Кавноса</span></div>
+      <div class="stat"><b>I в. до н. э.</b><span>террасный храм Зевса Сотера</span></div>
+      <div class="stat"><b>33</b><span>ряда в театре</span></div>
+      <div class="stat"><b>≈5 000</b><span>зрителей вмещал театр</span></div>
+    </div>
+  </div>
+</section>
+
+<main id="main">
+
+<section id="terrace">
+  <div class="wrap">
+    <div class="sh rv"><span class="num" aria-hidden="true"></span><h2>Террасный храм и круглая постройка</h2></div>
+    <p class="sub rv">Слева на фото ступени храма с двумя барабанами колонн, справа кольцо блоков круглой постройки, в глубине остатки колоннады двора. Тяни ползунок: слева сейчас, справа тогда.</p>
+    <div class="pair land">
+      <figure class="rv">
+        <div class="cmp p43" data-cmp data-key="terrace">
+          <img class="before" src="img/kaunos/terrace-before.jpg" alt="Руины террасного храма Кавноса: ступени храма слева, кольцо блоков круглой постройки справа, сосна и солнце над площадкой" width="1600" height="1200" loading="lazy" decoding="async">
+          <img class="after" src="img/kaunos/terrace-after-2.jpg" alt="Реконструкция: дорический храм в антах на тех же ступенях, колоннада двора и открытое кольцо колонн с круглым алтарём" width="2304" height="1728" loading="lazy" decoding="async">
+          <div class="bar" aria-hidden="true"></div>
+          <div class="knob" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5"/></svg></div>
+          <input type="range" min="0" max="100" value="50" aria-label="Сравнение: сейчас и тогда">
+          <span class="tag l">Сейчас</span><span class="tag r">Тогда</span>
+        </div>
+        <figcaption>
+          <a href="img/kaunos/terrace-before.jpg" target="_blank" rel="noopener">Фото</a>
+          <a href="img/kaunos/terrace-after-2.jpg" target="_blank" rel="noopener" data-after-link>Реконструкция</a>
+          <a href="img/kaunos/sign-terrace.jpg" target="_blank" rel="noopener">Табличка на месте</a>
+          <div class="seg" role="group" aria-label="Варианты реконструкции"><span>Вариант</span><button type="button" data-i="1" aria-pressed="false">1</button><button type="button" data-i="2" aria-pressed="true">2</button><button type="button" data-i="3" aria-pressed="false">3</button></div>
+        </figcaption>
+      </figure>
+      <div class="facts">
+        <div class="ins rv"><span class="tag">Что здесь стояло</span>
+          <ul>
+            <li><b>Храм</b> построен во второй половине I в. до н. э. на искусственной террасе над гаванью и агорой. Дорический, в антах, 9,60 × 6,78 м.</li>
+            <li><b>Двор</b> 30,50 × 35,00 м был обрамлён колоннадой дорического ордера из песчаника.</li>
+            <li>По надписи на барабане колонны храм посвящён <b>Зевсу Сотеру</b>.</li>
+            <li><b>Круглая постройка</b> стоит на оси храма: наружная колоннада, экседра и круглый алтарный стол на цилиндрическом основании. Входа у неё нет, поэтому её считают абатоном-герооном.</li>
+            <li>Под центром, на 6,5 м ниже пола, стоит <b>байтил</b>: пирамидальный священный камень высотой 3,5 м. Его почитали с V в. до н. э. и чеканили на монетах Кавноса как символ Басилевса Кавния, бога-царя города.</li>
+            <li>Апсида на юго-востоке осталась от трёхнефной церкви конца VI в.</li>
+          </ul>
+        </div>
+        <div class="ins rv"><span class="tag">Что сделал Grok</span>
+          <p>Достроил храм на существующих ступенях, замкнул двор колоннадой на месте разбросанных барабанов и поставил на кольцо блоков открытую колоннаду без крыши с алтарём в центре, как на схеме с таблички. Сосна, солнце, холмы и земля площадки остались с фото.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="theatre">
+  <div class="wrap">
+    <div class="sh rv"><span class="num" aria-hidden="true"></span><h2>Театр</h2></div>
+    <p class="sub rv">Снято с верхнего ряда. Внизу орхестра и остатки сценического здания, справа два арочных прохода, в левом углу озеро Сюлюклю, бывшая гавань города.</p>
+    <div class="pair">
+      <figure class="rv">
+        <div class="cmp p34" data-cmp data-key="theatre">
+          <img class="before" src="img/kaunos/theatre-before.jpg" alt="Театр Кавноса сверху: выветренные ряды сидений, орхестра, руины сцены, арочные проходы справа и озеро вдали" width="1200" height="1600" loading="lazy" decoding="async">
+          <img class="after" src="img/kaunos/theatre-after-1.jpg" alt="Реконструкция: целые ряды сидений, пустая орхестра и двухъярусное каменное сценическое здание на месте руин" width="1728" height="2304" loading="lazy" decoding="async">
+          <div class="bar" aria-hidden="true"></div>
+          <div class="knob" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5"/></svg></div>
+          <input type="range" min="0" max="100" value="50" aria-label="Сравнение: сейчас и тогда">
+          <span class="tag l">Сейчас</span><span class="tag r">Тогда</span>
+        </div>
+        <figcaption>
+          <a href="img/kaunos/theatre-before.jpg" target="_blank" rel="noopener">Фото</a>
+          <a href="img/kaunos/theatre-after-1.jpg" target="_blank" rel="noopener" data-after-link>Реконструкция</a>
+          <div class="seg" role="group" aria-label="Варианты реконструкции"><span>Вариант</span><button type="button" data-i="1" aria-pressed="true">1</button><button type="button" data-i="2" aria-pressed="false">2</button><button type="button" data-i="3" aria-pressed="false">3</button></div>
+        </figcaption>
+      </figure>
+      <div class="facts">
+        <div class="ins rv"><span class="tag">Что здесь стояло</span>
+          <ul>
+            <li>Построен во <b>II в. до н. э.</b>, крупно перестроен римлянами в I–II вв. н. э.</li>
+            <li>Кавеа диаметром <b>73 м</b>, больше полукруга: 33 ряда (18 нижних и 15 верхних), 9 клиньев, между ярусами проход шириной 1,74 м.</li>
+            <li>Орхестра около <b>21 м</b>, вместимость около 5 000 зрителей, материал местный известняк.</li>
+            <li>Римский фасад сцены имел <b>пять дверей</b> и колонны на постаментах; 16 дорических колонн эллинистического проскения использовали повторно.</li>
+            <li>Внутрь вели <b>два сводчатых прохода</b>. Театр смотрит на юго-запад, на город и дельту Дальяна.</li>
+            <li>Озеро в кадре, Сюлюклю-гёль, было <b>гаванью</b>, вход в которую перекрывали цепью.</li>
+          </ul>
+        </div>
+        <div class="ins rv hot"><span class="tag">Оговорка</span>
+          <p>Как именно выглядел фасад сцены Кавноса, неизвестно: Grok нарисовал типичную двухъярусную римскую сцену с колоннами. Ряды, орхестра и арки стоят на своих местах с фото.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="propylon">
+  <div class="wrap">
+    <div class="sh rv"><span class="num" aria-hidden="true"></span><h2>Вход в святилище Басилевса Кавния и Аполлона</h2></div>
+    <p class="sub rv">Четыре мраморные колонны с архитравом над лестницей, слева руины арочной постройки, справа остатки стены. Табличка рядом описывает священный участок, в который этот вход ведёт.</p>
+    <div class="pair">
+      <figure class="rv">
+        <div class="cmp p34" data-cmp data-key="propylon">
+          <img class="before" src="img/kaunos/propylon-before.jpg" alt="Четыре восстановленные мраморные колонны с архитравом над лестницей среди руин, сетчатая ограда перед ними" width="1200" height="1600" loading="lazy" decoding="async">
+          <img class="after" src="img/kaunos/propylon-after-2.jpg" alt="Реконструкция: те же четыре колонны с антаблементом и фронтоном под черепицей, слева целая арочная постройка, справа стена из тёсаного камня" width="1728" height="2304" loading="lazy" decoding="async">
+          <div class="bar" aria-hidden="true"></div>
+          <div class="knob" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5"/></svg></div>
+          <input type="range" min="0" max="100" value="50" aria-label="Сравнение: сейчас и тогда">
+          <span class="tag l">Сейчас</span><span class="tag r">Тогда</span>
+        </div>
+        <figcaption>
+          <a href="img/kaunos/propylon-before.jpg" target="_blank" rel="noopener">Фото</a>
+          <a href="img/kaunos/propylon-after-2.jpg" target="_blank" rel="noopener" data-after-link>Реконструкция</a>
+          <a href="img/kaunos/sign-apollo.jpg" target="_blank" rel="noopener">Табличка на месте</a>
+          <div class="seg" role="group" aria-label="Варианты реконструкции"><span>Вариант</span><button type="button" data-i="1" aria-pressed="false">1</button><button type="button" data-i="2" aria-pressed="true">2</button><button type="button" data-i="3" aria-pressed="false">3</button></div>
+        </figcaption>
+      </figure>
+      <div class="facts">
+        <div class="ins rv"><span class="tag">Что здесь стояло</span>
+          <ul>
+            <li>Святилище было <b>центром культа Басилевса Кавния</b>, главного бога города. Только в эллинистический период его отдали Аполлону, до и после оно снова принадлежало Басилевсу Кавнию.</li>
+            <li>С востока к нему примыкает террасный храм, с запада участки Артемиды Элевтерии и Афродиты Эвплойи, с юга гаванная агора, с севера пиршественное здание.</li>
+            <li>С агорой святилище соединял <b>ступенчатый монументальный вход</b> с юга. На плане таблички он подписан как пропилон.</li>
+            <li>Это был <b>открытый храм под небом</b>, куда во все эпохи приносили вотивные дары.</li>
+          </ul>
+        </div>
+        <div class="ins rv hot"><span class="tag">Оговорка</span>
+          <p>Четырёхколонная постройка с лестницей сопоставлена со ступенчатым входом по соседней табличке и её плану. Отдельным источником это сопоставление не подтверждено.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="etalon">
+  <div class="wrap">
+    <div class="sh rv"><span class="num" aria-hidden="true"></span><h2>Эталон</h2></div>
+    <p class="sub rv">Пара, по которой выставлен стандарт: ракурс, свет, вода и холмы сохранены, достроено только здание. Три пары выше сделаны по этому же образцу.</p>
+    <div class="pair">
+      <figure class="rv">
+        <div class="cmp p34" data-cmp data-key="example">
+          <img class="before" src="img/kaunos/example-before.jpg" alt="Руины арочной постройки у кромки воды в бухте с яхтами и сосновыми холмами" width="1200" height="1600" loading="lazy" decoding="async">
+          <img class="after" src="img/kaunos/example-after.jpg" alt="Реконструкция тех же руин: двухэтажное здание на арках с портиком, балюстрадой и черепичной крышей, бухта и яхты без изменений" width="1086" height="1448" loading="lazy" decoding="async">
+          <div class="bar" aria-hidden="true"></div>
+          <div class="knob" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5"/></svg></div>
+          <input type="range" min="0" max="100" value="50" aria-label="Сравнение: сейчас и тогда">
+          <span class="tag l">Сейчас</span><span class="tag r">Тогда</span>
+        </div>
+        <figcaption>
+          <a href="img/kaunos/example-before.jpg" target="_blank" rel="noopener">Фото</a>
+          <a href="img/kaunos/example-after.jpg" target="_blank" rel="noopener">Реконструкция</a>
+        </figcaption>
+      </figure>
+      <div class="facts">
+        <div class="ins rv"><span class="tag">Чем хорош эталон</span>
+          <p>Горизонт, линия берега, яхты у дальнего берега и камни переднего плана совпадают с фото пиксель в пиксель. Здание выросло на собственных арках, а не на новом месте. Именно это требование записано в промпт для Кавноса.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="method">
+  <div class="wrap">
+    <div class="sh rv"><span class="num" aria-hidden="true"></span><h2>Как сделано</h2></div>
+    <p class="sub rv">Grok, инструмент image_edit, без ручной дорисовки.</p>
+    <div class="method">
+      <ol class="steps rv">
+        <li><span class="num" aria-hidden="true"></span><div><p><b>Фото уменьшено</b> до 2048 px по длинной стороне и отдано в image_edit с исходным соотношением сторон, 3:4 или 4:3.</p></div></li>
+        <li><span class="num" aria-hidden="true"></span><div><p><b>Промпт начинается с запрета менять кадр:</b> это правка фото, а не новая картинка; камера, фокусное, горизонт, небо, горы, деревья и передний план остаются на тех же пикселях; руины достраиваются на собственном фундаменте в том же масштабе; ничего не добавлять, ни людей, ни лодок, ни новой мостовой.</p><p>Сценарные промпты вида «покажи храм с людьми и кораблями» на тех же фото уводили камеру и добавляли лишнее, поэтому от них отказались.</p></div></li>
+        <li><span class="num" aria-hidden="true"></span><div><p><b>Что именно достроить</b>, взято с табличек у руин и из описаний театра: ордер, размеры, крыша, открытое кольцо колонн, число ярусов сцены.</p></div></li>
+        <li><span class="num" aria-hidden="true"></span><div><p><b>По три попытки на фото.</b> Совпадение рамки с оригиналом измерено корреляцией контуров фона, лучший вариант показан первым, остальные два доступны переключателем.</p></div></li>
+        <li><span class="num" aria-hidden="true"></span><div><p><b>Результат 864 × 1152</b> увеличен вдвое Real-ESRGAN, чтобы не плыл на большом экране.</p></div></li>
+      </ol>
+      <div class="facts">
+        <div class="ins rv hot"><span class="tag">Что это и чем не является</span>
+          <p>Это художественная реконструкция нейросети по описаниям, а не археологическая модель. Размеры, ордер и состав построек соответствуют табличкам, а детали фасадов, черепица и капители нарисованы по аналогии с другими античными зданиями.</p>
+        </div>
+        <div class="ins rv"><span class="tag">Исходники</span>
+          <p>Три фото с места, две таблички, двенадцать прогонов Grok. Полноразмерные файлы открываются по ссылкам под каждой парой.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <b>Источники</b>
+    <ul>
+      <li>Таблички у руин: «Teras Tapınağı ve Yuvarlak Yapı» и «Basileus Kaunios / Apollon Kutsal Alanı» (Университет Сыткы Кочмана, Мугла; Министерство культуры и туризма Турции). <a href="img/kaunos/sign-terrace.jpg" target="_blank" rel="noopener">Первая</a> · <a href="img/kaunos/sign-apollo.jpg" target="_blank" rel="noopener">вторая</a>.</li>
+      <li><a href="https://ancienttheatrearchive.com/theatre/caunus-kaunos-modern-dalyan-turkey" target="_blank" rel="noopener">The Ancient Theatre Archive: Caunus (Kaunos)</a>: даты, размеры кавеа и орхестры, устройство сцены и проходов.</li>
+      <li><a href="https://turkisharchaeonews.net/site/kaunos" target="_blank" rel="noopener">Turkish Archaeological News: Kaunos</a>: гавань, ставшая озером Сюлюклю, и общая топография города.</li>
+    </ul>
+  </div>
+</footer>
+
+<script>
+(function(){
+  // ползунок было/стало
+  document.querySelectorAll('[data-cmp]').forEach(function(c){
+    var inp=c.querySelector('input');
+    function set(v){v=Math.max(0,Math.min(100,v));c.style.setProperty('--p',v+'%');inp.value=v;inp.setAttribute('aria-valuetext',Math.round(v)+'% реконструкции')}
+    function fromX(e){var r=c.getBoundingClientRect();return (e.clientX-r.left)/r.width*100}
+    inp.addEventListener('input',function(){set(+inp.value)});
+    c.addEventListener('pointerdown',function(e){if(e.button&&e.button!==0)return;c.setPointerCapture(e.pointerId);c.classList.add('drag');set(fromX(e));inp.focus({preventScroll:true})});
+    c.addEventListener('pointermove',function(e){if(c.classList.contains('drag'))set(fromX(e))});
+    ['pointerup','pointercancel','lostpointercapture'].forEach(function(t){c.addEventListener(t,function(){c.classList.remove('drag')})});
+    set(50);
+  });
+  // переключатель вариантов
+  document.querySelectorAll('.seg').forEach(function(seg){
+    var fig=seg.closest('figure'),cmp=fig.querySelector('[data-cmp]'),key=cmp.getAttribute('data-key'),img=cmp.querySelector('.after'),link=fig.querySelector('[data-after-link]');
+    seg.querySelectorAll('button').forEach(function(b){
+      b.addEventListener('click',function(){
+        var i=b.getAttribute('data-i'),src='img/kaunos/'+key+'-after-'+i+'.jpg';
+        img.src=src; if(link)link.href=src;
+        seg.querySelectorAll('button').forEach(function(x){x.setAttribute('aria-pressed',x===b?'true':'false')});
+      });
+      b.addEventListener('pointerenter',function(){var p=new Image();p.src='img/kaunos/'+key+'-after-'+b.getAttribute('data-i')+'.jpg'});
+    });
+  });
+  // подсветка активного раздела
+  var links=[].slice.call(document.querySelectorAll('.topnav a')),map={};
+  links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a});
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){links.forEach(function(a){a.classList.remove('on')});var a=map[e.target.id];if(a)a.classList.add('on')}})},{rootMargin:'-40% 0px -55% 0px'});
+    document.querySelectorAll('main section').forEach(function(s){io.observe(s)});
+  }
+})();
+</script>
+<script type="module">
+const root=document.documentElement;
+const off=()=>root.classList.remove('js-anim');
+if(root.classList.contains('js-anim')){
+  const guard=setTimeout(off,3000);
+  try{
+    const {animate,inView}=await import("https://cdn.jsdelivr.net/npm/motion@11/+esm");
+    clearTimeout(guard);
+    inView('.rv',(a)=>{const el=a&&a.target?a.target:a;animate(el,{opacity:[0,1],y:[16,0]},{duration:.55,easing:[.22,1,.36,1]});},{amount:.15});
+    document.querySelectorAll('.seg button,.stat').forEach(el=>{
+      el.addEventListener('pointerdown',()=>animate(el,{scale:.97},{duration:.12}));
+      el.addEventListener('pointerup',()=>animate(el,{scale:1},{duration:.18}));
+      el.addEventListener('pointerleave',()=>animate(el,{scale:1},{duration:.18}));
+    });
+  }catch(e){off()}
+}
+</script>
+</body>
+</html>
