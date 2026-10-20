@@ -11,16 +11,29 @@
   прямоугольник и ставит карту внутрь, скругление и рамка остаются его. Если прямоугольника на
   странице нет (блок перерисовали) — карта встаёт на место своей строки как карточка 570×535.
 
+  Карта растянута по плейсхолдеру абсолютным позиционированием, а не height:100%: на телефоне Tilda
+  верстает плейсхолдер таблицей (.tn-elem — table, .tn-atom — table-cell), и в Safari блок с
+  height:100% внутри ячейки получает нулевую высоту — карты не было видно (жалоба anton 20.10.2026).
+  Если высоты всё равно нет, скрипт ставит её в пикселях по размеру плейсхолдера.
+
   Колесо мыши над картой не масштабирует её, пока по карте не кликнули: карта занимает правую
   половину первого экрана, и без этого страница не прокручивалась бы, когда курсор стоит над ней.
   На телефоне карта включается тапом (пролистывание пальцем над картой её не включает) и
   выключается, когда уходит с экрана.
+
+  Виджет после загрузки ещё около секунды доводит карту до нужной точки (видно как «прыжок»),
+  поэтому карта проявляется только через 2 с после загрузки — уже на месте.
+
+  Кнопки «Zoom» и «Google Meet» в карточке контактов (группы .cardzm) с 20.10.2026 без ссылки на
+  SimplyMeet, поэтому скрипт помечает их data-neoved-meeting="zoom|meet" — попап записи
+  (amo-booking-worker/widget.js) открывается по ним сразу с нужным форматом.
 -->
 <style>
-.nvk{position:relative;display:block;width:100%;height:100%;box-sizing:border-box;border-radius:inherit;overflow:hidden;background:#f7f7f7;cursor:pointer;-webkit-tap-highlight-color:transparent}
-.nvk--own{height:auto;aspect-ratio:570/535;max-width:570px;margin:0 auto;border-radius:30px;border:1px solid #eeeeee}
+.nvk{position:absolute;top:0;left:0;right:0;bottom:0;display:block;box-sizing:border-box;border-radius:inherit;overflow:hidden;background:#f7f7f7;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.nvk--px{position:relative;width:100%}
+.nvk--own{position:relative;width:100%;height:auto;aspect-ratio:570/535;max-width:570px;margin:0 auto;border-radius:30px;border:1px solid #eeeeee}
 @media (max-width:640px){.nvk--own{aspect-ratio:320/443;max-width:none;border-radius:25px}}
-.nvk__map{position:absolute;top:0;left:0;width:100%;height:100%;border:0;display:block;filter:grayscale(1);pointer-events:none;opacity:0;transition:opacity .5s ease}
+.nvk__map{position:absolute;top:0;left:0;width:100%;height:100%;border:0;display:block;filter:grayscale(1);-webkit-filter:grayscale(1);pointer-events:none;opacity:0;transition:opacity .6s ease}
 .nvk.is-ready .nvk__map{opacity:1}
 .nvk.is-on{cursor:default}
 .nvk.is-on .nvk__map{pointer-events:auto}
@@ -51,13 +64,59 @@
     slot.appendChild(box);
     return true;
   }
-  if (!place()) {
-    if (document.readyState === 'loading') {
-      // Строка стоит выше блока контактов: плейсхолдер ещё не разобран — ждём конца разметки.
-      document.addEventListener('DOMContentLoaded', function () { if (!place()) box.classList.add('nvk--own'); });
-    } else {
-      box.classList.add('nvk--own');                         // плейсхолдера нет — карта сама по себе
+
+  // Высота. Карта растянута по плейсхолдеру абсолютным позиционированием; если браузер высоты
+  // не дал (Safari, ячейка таблицы) — ставим её в пикселях по плейсхолдеру и держим при ресайзе.
+  function fit() {
+    var slot = box.parentNode;
+    if (box.classList.contains('nvk--own') || !slot || !slot.clientHeight) return;
+    if (!box.classList.contains('nvk--px') && box.offsetHeight >= 40) return;
+    box.classList.add('nvk--px');
+    box.style.height = slot.clientHeight + 'px';
+  }
+  function watch() {
+    fit();
+    var slot = box.parentNode;
+    if ('ResizeObserver' in window && slot) new ResizeObserver(fit).observe(slot);
+    window.addEventListener('resize', fit);
+    window.addEventListener('orientationchange', fit);
+    window.addEventListener('load', fit);
+    setTimeout(fit, 1000);
+    setTimeout(fit, 3000);
+  }
+
+  // Кнопки «Zoom» / «Google Meet» в карточке контактов: без ссылки, поэтому помечаем их для попапа
+  // записи (widget.js ловит [data-neoved-meeting], формат — zoom|meet) и делаем кликабельными
+  // с клавиатуры; cursor:pointer нужен ещё и iPhone, иначе Safari не шлёт click по div.
+  function hookButtons() {
+    var groups = document.querySelectorAll('#rec4713202201 .cardzm');
+    for (var i = 0; i < groups.length; i++) {
+      var g = groups[i];
+      if (g.hasAttribute('data-neoved-meeting') || g.querySelector('[data-neoved-meeting]')) continue;
+      var t = (g.textContent || '').toLowerCase();
+      var zoom = t.indexOf('zoom') >= 0, meet = t.indexOf('meet') >= 0;
+      g.setAttribute('data-neoved-meeting', zoom && !meet ? 'zoom' : meet && !zoom ? 'meet' : '');
+      g.style.cursor = 'pointer';
+      if (g.tagName !== 'A' && !g.hasAttribute('tabindex')) {
+        g.setAttribute('role', 'button');
+        g.tabIndex = 0;
+        g.addEventListener('keydown', function (e) {
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); this.click(); }
+        });
+      }
     }
+  }
+
+  function init() {
+    if (!place()) box.classList.add('nvk--own');             // плейсхолдера нет — карта сама по себе
+    watch();
+    hookButtons();
+  }
+  if (document.readyState === 'loading') {
+    // Строка стоит выше блока контактов: плейсхолдер ещё не разобран — ждём конца разметки.
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
   }
 
   // Карта «спит», пока по ней не кликнули: колесо над ней прокручивает страницу, а не масштабирует карту.
@@ -80,10 +139,12 @@
     }).observe(box);
   }
 
-  // Плавное появление, когда виджет загрузился; если событие не пришло — показать всё равно.
+  // Плавное появление. Виджет после load ещё около секунды доводит карту до точки (это выглядело
+  // как «прыжок» в начале), поэтому показываем её через 2 с после загрузки; если load не пришёл —
+  // показать всё равно.
   var shown = false;
   function ready() { if (!shown) { shown = true; box.classList.add('is-ready'); } }
-  map.addEventListener('load', ready);
-  setTimeout(ready, 6000);
+  map.addEventListener('load', function () { setTimeout(ready, 2000); });
+  setTimeout(ready, 9000);
 })();
 </script>
