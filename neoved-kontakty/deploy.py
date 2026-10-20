@@ -3,6 +3,7 @@
 Выкладка карты страницы «Контакты» на сервер neoved (hooks.neoved.io/amo/neoved-kontakty/).
 
     SSH_PASSPHRASE=… python neoved-kontakty/deploy.py
+    SSH_BIND=192.168.1.3 SSH_PASSPHRASE=… python neoved-kontakty/deploy.py   # с ПК anton: VPN Happ режет порт 22
 
 Собирает kontakty.js из block.html, кладёт в /srv/amo/app/workers/neoved-kontakty/ воркер и скрипт,
 пересобирает образ amo-server и поднимает контейнер (все воркеры перезапускаются на несколько
@@ -12,6 +13,7 @@
 import getpass
 import json
 import os
+import socket
 import posixpath
 import sys
 import time
@@ -56,7 +58,12 @@ def main():
     passphrase = os.environ.get('SSH_PASSPHRASE') or getpass.getpass('Пассфраза ключа: ')
     client = paramiko.SSHClient()
     client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-    client.connect(HOST, username=USER, key_filename=KEY, passphrase=passphrase, timeout=30)
+    # SSH_BIND=192.168.1.3 — идти с локального адреса Ethernet в обход VPN-туннеля Happ: через него
+    # порт 22 не открывается ни к одному серверу (соединение рвётся до баннера, 20.10.2026).
+    sock = None
+    if os.environ.get('SSH_BIND'):
+        sock = socket.create_connection((HOST, 22), timeout=30, source_address=(os.environ['SSH_BIND'], 0))
+    client.connect(HOST, username=USER, key_filename=KEY, passphrase=passphrase, timeout=30, sock=sock)
 
     before = health(client)
     print('Воркеры до выкладки:', ', '.join(before) or '—')
