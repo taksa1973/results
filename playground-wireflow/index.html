@@ -1,0 +1,479 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>Wireflow playground.google — пояснения к доске Miro</title>
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Что изображено на доске Miro с wireflow сайта playground.google: три пользовательских потока, 26 шагов, как читать карточки.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--primary:#7C3AED;--primary-2:#6D28D9;--accent:#059669;--bg:#FAF8FF;--fg:#0F172A;--muted:#5B6478;--surface:#FFFFFF;--border:#E9E3F7;--red:#DC2626;--yellow:#FFF4B8;--yellow-b:#E6C850;--orange:#F59E0B;--radius:18px}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--bg);color:var(--fg);line-height:1.6;font-size:16px;-webkit-font-smoothing:antialiased}
+a{color:var(--primary-2)}
+img{max-width:100%;height:auto;display:block}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+header.hero{padding:72px 0 48px}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--primary);background:#F1EAFE;padding:6px 12px;border-radius:999px}
+h1{font-size:clamp(2.2rem,6vw,4.4rem);line-height:1.02;letter-spacing:-.04em;font-weight:800;margin:20px 0 16px}
+h1 span{color:var(--primary)}
+.lead{font-size:1.15rem;color:var(--muted);max-width:760px;margin:0 0 28px}
+.cta{display:flex;flex-wrap:wrap;gap:12px}
+.btn{display:inline-flex;align-items:center;gap:10px;min-height:48px;padding:12px 20px;border-radius:12px;font-weight:600;text-decoration:none;transition:transform .2s ease,box-shadow .2s ease,background .2s ease;cursor:pointer;border:1px solid transparent}
+.btn:focus-visible{outline:3px solid var(--primary);outline-offset:3px}
+.btn.primary{background:var(--primary);color:#fff;box-shadow:0 8px 24px rgba(124,58,237,.25)}
+.btn.primary:hover{background:var(--primary-2);transform:translateY(-1px)}
+.btn.ghost{background:var(--surface);color:var(--fg);border-color:var(--border)}
+.btn.ghost:hover{border-color:var(--primary);transform:translateY(-1px)}
+.btn svg{width:20px;height:20px;flex:none}
+.note{font-size:.9rem;color:var(--muted);margin-top:14px}
+section{padding:40px 0}
+h2{font-size:clamp(1.6rem,3vw,2.3rem);letter-spacing:-.03em;line-height:1.15;margin:0 0 10px}
+.grid{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:22px}
+.card h3{margin:0 0 8px;font-size:1.05rem}
+.card p{margin:0;color:var(--muted);font-size:.95rem}
+.card .ico{width:40px;height:40px;border-radius:10px;display:grid;place-items:center;margin-bottom:14px;background:#F1EAFE;color:var(--primary)}
+.card .ico svg{width:22px;height:22px}
+.board{border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;background:#fff;box-shadow:0 20px 60px rgba(15,23,42,.08)}
+.legend{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));margin-top:20px}
+.legend .item{display:flex;gap:12px;align-items:flex-start;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:14px}
+.sw{flex:none;width:44px;height:28px;border-radius:7px;margin-top:2px}
+.sw.purple{background:#F1EAFE;border:2px solid var(--primary)}
+.sw.red{border:3px solid var(--red)}
+.sw.badge{border-radius:999px;width:28px;background:var(--red);color:#fff;font-weight:700;display:grid;place-items:center;font-size:14px}
+.sw.yellow{background:var(--yellow);border:2px solid var(--yellow-b)}
+.sw.orange{background:var(--orange)}
+.legend b{display:block;font-size:.95rem}
+.legend span{color:var(--muted);font-size:.9rem}
+.flow{padding-top:56px}
+.flow-head{margin-bottom:22px;max-width:820px}
+.flow-tag{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#fff;background:var(--primary);padding:5px 10px;border-radius:8px;margin-bottom:10px}
+#flow-B .flow-tag{background:var(--accent)} #flow-C .flow-tag{background:#D97706}
+.flow-head p{color:var(--muted);margin:0}
+.steps{display:grid;gap:22px}
+.step{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:0;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
+.step .shot{display:block;background:#EEE9F8;border-right:1px solid var(--border)}
+.step .shot img{width:100%;height:100%;object-fit:cover;object-position:top}
+.step .body{padding:22px 24px}
+.kicker{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--primary)}
+.step h3{margin:6px 0 10px;font-size:1.25rem;letter-spacing:-.02em;line-height:1.25}
+.desc{color:#334155;font-size:.95rem;margin:0 0 14px}
+.action{background:var(--yellow);border:1px solid var(--yellow-b);border-radius:12px;padding:12px 14px}
+.action .lbl{display:block;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#7A5200;margin-bottom:4px}
+.action p{margin:0;font-weight:600;font-size:.95rem}
+.marks{list-style:none;margin:10px 0 0;padding:0;display:flex;flex-direction:column;gap:6px;font-size:.88rem}
+.marks li{display:flex;align-items:center;gap:8px}
+.num{flex:none;width:22px;height:22px;border-radius:999px;background:var(--red);color:#fff;font-weight:700;font-size:12px;display:grid;place-items:center}
+.num.wait{background:var(--orange);color:#1f1300}
+.toc{columns:2;column-gap:28px;list-style:none;padding:0;margin:0}
+.toc li{break-inside:avoid;margin:0 0 6px}
+.toc a{display:flex;gap:10px;align-items:baseline;text-decoration:none;color:var(--fg);padding:6px 8px;border-radius:8px;min-height:36px}
+.toc a:hover{background:#F1EAFE}
+.toc span{flex:none;font-variant-numeric:tabular-nums;color:var(--primary);font-weight:700;width:26px}
+.faq details{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:14px 18px;margin-bottom:10px}
+.faq summary{cursor:pointer;font-weight:600;min-height:28px}
+.faq p{margin:10px 0 0;color:#334155}
+footer{padding:48px 0 64px;color:var(--muted);font-size:.9rem;border-top:1px solid var(--border);margin-top:40px}
+html.js .reveal{opacity:0;transform:translateY(18px)}
+@media (max-width:860px){.step{grid-template-columns:1fr}.step .shot{border-right:0;border-bottom:1px solid var(--border)}.toc{columns:1}header.hero{padding:48px 0 32px}}
+@media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none}html{scroll-behavior:auto}.btn{transition:none}}
+</style>
+</head>
+<body>
+<header class="hero wrap">
+  <span class="eyebrow">Wireflow · playground.google · доска Miro</span>
+  <h1>Как читать <span>wireflow</span> сайта playground.google</h1>
+  <p class="lead">На доске Miro собраны 26 экранов сайта, разбитые на три пользовательских потока. Каждая карточка показывает экран, место клика и то, что происходит после него. Эта страница объясняет, что есть что.</p>
+  <div class="cta">
+    <a class="btn primary" href="https://miro.com/app/board/uXjVEWMyoIs=/?share_link_id=951661771338" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+      Открыть доску Miro (просмотр)
+    </a>
+    <a class="btn ghost" href="https://playground.google/g/9RpM5k" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+      Сыграть в созданную игру Wiener Dash
+    </a>
+    <a class="btn ghost" href="#steps">Список шагов</a>
+  </div>
+  <p class="note">Ссылка на доску даёт доступ только на просмотр: смотреть, приближать, листать можно, редактировать нельзя.</p>
+</header>
+
+<main class="wrap">
+<section id="about">
+  <h2>Что такое wireflow</h2>
+  <p class="lead" style="margin-bottom:22px">Wireflow соединяет два метода: wireframe (экран как он есть) и flow (путь пользователя). Каждый шаг описан по схеме: <b>экран и его описание → действие (куда нажать или какой запрос уходит) → следующий экран</b>.</p>
+  <div class="grid">
+    <div class="card reveal"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M8 21h8M12 18v3"/></svg></div><h3>Экран</h3><p>Реальный скриншот playground.google с подписью: что на нём есть, какие элементы и разделы.</p></div>
+    <div class="card reveal"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11.5 4 7l5 14 2-6 6-2z"/><path d="M14 4l6 6"/></svg></div><h3>Действие</h3><p>Куда именно нажимает пользователь на этом экране или какой запрос уходит на сервер. Место клика выделено красной рамкой с номером.</p></div>
+    <div class="card reveal"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div><h3>Следующий экран</h3><p>Результат действия — следующая карточка в ряду. Ряды читаются слева направо.</p></div>
+  </div>
+</section>
+
+<section id="board">
+  <h2>Как устроена доска</h2>
+  <p class="lead" style="margin-bottom:22px">Три ряда карточек, у каждого ряда свой заголовок. Сверху общий заголовок доски. Нумерация шагов сквозная: 1–26.</p>
+  <div class="board reveal"><img src="img/board.webp" alt="Фрагмент доски Miro: заголовки потоков A и B и первые карточки шагов" width="1920" height="945" loading="lazy" decoding="async"></div>
+  <div class="legend">
+    <div class="item"><div class="sw purple"></div><div><b>Фиолетовая подпись сверху карточки</b><span>Название потока (A, B или C) и номер шага с заголовком экрана.</span></div></div>
+    <div class="item"><div class="sw red"></div><div><b>Красная рамка на скриншоте</b><span>Точное место клика. Именно это нажатие ведёт к следующей карточке.</span></div></div>
+    <div class="item"><div class="sw badge">1</div><div><b>Номер в красном кружке</b><span>Порядок нажатий, если их несколько (например, закрыть панель, потом открыть другую).</span></div></div>
+    <div class="item"><div class="sw orange"></div><div><b>Оранжевая метка «ожидание — клика нет»</b><span>Экран сменяется сам: агент генерирует дизайн или собирает игру.</span></div></div>
+    <div class="item"><div class="sw yellow"></div><div><b>Жёлтый блок «Действие»</b><span>Текстом: что нажать, что ввести, какой запрос уходит, что появится дальше.</span></div></div>
+    <div class="item"><div class="sw" style="background:repeating-linear-gradient(45deg,#cbd5e1 0 4px,#94a3b8 4px 8px)"></div><div><b>Пикселизированные участки</b><span>Замазаны ник и имя аккаунта: приветствие на экране Create и подпись автора на странице игры.</span></div></div>
+  </div>
+</section>
+
+<section id="steps">
+  <h2>Все шаги</h2>
+  <ul class="toc"><li><a href='#step-1'><span>1</span>Главная — Explore</a></li><li><a href='#step-2'><span>2</span>Страница игры</a></li><li><a href='#step-3'><span>3</span>Игра запущена — меню игры</a></li><li><a href='#step-4'><span>4</span>Игровой процесс</a></li><li><a href='#step-5'><span>5</span>Каталог All games</a></li><li><a href='#step-6'><span>6</span>Результаты поиска</a></li><li><a href='#step-7'><span>7</span>Leaderboard Hub</a></li><li><a href='#step-8'><span>8</span>Your games — свои игры</a></li><li><a href='#step-9'><span>9</span>Поповер Usage — лимиты генерации</a></li><li><a href='#step-10'><span>10</span>Панель Player Network</a></li><li><a href='#step-11'><span>11</span>Settings — настройки профиля</a></li><li><a href='#step-12'><span>12</span>Экран Create — пустой промпт</a></li><li><a href='#step-13'><span>13</span>Промпт введён</a></li><li><a href='#step-14'><span>14</span>Черновик создан — этап 1 «Game design»</a></li><li><a href='#step-15'><span>15</span>Дизайн-документ игры «Wiener Dash»</a></li><li><a href='#step-16'><span>16</span>Редактор ассетов — Build your game assets</a></li><li><a href='#step-17'><span>17</span>Диалог Choose asset generation</a></li><li><a href='#step-18'><span>18</span>Сборка игры — Generating game code</a></li><li><a href='#step-19'><span>19</span>Game ready — игра собрана, режим EDIT</a></li><li><a href='#step-20'><span>20</span>Игровой процесс своей игры</a></li><li><a href='#step-21'><span>21</span>Server files explorer — код игры</a></li><li><a href='#step-22'><span>22</span>Game editor — параметры игры без кода</a></li><li><a href='#step-23'><span>23</span>History — версии игры</a></li><li><a href='#step-24'><span>24</span>Диалог Publish your game</a></li><li><a href='#step-25'><span>25</span>Игра опубликована — Share game</a></li><li><a href='#step-26'><span>26</span>Публичная страница своей игры</a></li></ul>
+</section>
+
+<section class="flow" id="flow-A">
+  <div class="flow-head">
+    <span class="flow-tag">Поток A</span>
+    <h2>Игрок: найти игру и сыграть</h2>
+    <p>Шаги 1–4. Путь обычного игрока: главная, страница игры, запуск, игровой процесс на примере CATacombs.</p>
+  </div>
+  <div class="steps">
+<article class="step" id="step-1">
+  <a class="shot" href="img/01.webp" target="_blank" rel="noopener">
+    <img src="img/01.webp" alt="Шаг 1: Главная — Explore" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 1 / 26</div>
+    <h3>Главная — Explore</h3>
+    <p class="desc">Стартовый экран после входа. Шапка: логотип, поиск игр, Usage (лимиты), Player Network (сообщество), меню «три точки» (Send feedback, Help Center), аватар (Settings, Your activity, Sign out). Слева навигация: Create, Explore, Leaderboards, Your games. В центре карусель «Trending games» с карточками: обложка, жанр, режим, автор, число запусков и лайков. Сверху фильтры Recently played / Games from follows и кнопка All games.</p>
+    <div class="action"><span class="lbl">Действие</span><p>Клик по карточке игры «CATacombs» в карусели Trending games → открывается страница игры.</p><ul class='marks'><li><span class='num'>1</span>клик по карточке CATacombs</li></ul></div>
+  </div>
+</article>
+<article class="step" id="step-2">
+  <a class="shot" href="img/02.webp" target="_blank" rel="noopener">
+    <img src="img/02.webp" alt="Шаг 2: Страница игры" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 2 / 26</div>
+    <h3>Страница игры</h3>
+    <p class="desc">Хлебные крошки «All games / CATacombs by maucat13». Обложка, название, автор с кнопкой Follow, описание, метрики (13.7K plays, Single player, RPG). Кнопки: Play now, Play on mobile (QR), Leaderboard, Share. Справа вертикальная панель: Fullscreen, Share, Add to list, Like (171), Dislike, Go to leaderboard, Report, стрелки Previous/Next game (лента игр листается вертикально). Метка возрастного контента «Violence».</p>
+    <div class="action"><span class="lbl">Действие</span><p>Клик «Play now» → игра загружается в плеер прямо на этой странице (iframe).</p><ul class='marks'><li><span class='num'>1</span>клик Play now</li></ul></div>
+  </div>
+</article>
+<article class="step" id="step-3">
+  <a class="shot" href="img/03.webp" target="_blank" rel="noopener">
+    <img src="img/03.webp" alt="Шаг 3: Игра запущена — меню игры" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 3 / 26</div>
+    <h3>Игра запущена — меню игры</h3>
+    <p class="desc">Плеер занял область обложки; боковая панель и хлебные крошки остались. Внутри — собственный интерфейс игры: Cat Tree, Leaderboard, Music On, кнопка старта «Enter the Crypts», High score со ссылкой View. Всё дальше происходит внутри игры, сайт только оборачивает её.</p>
+    <div class="action"><span class="lbl">Действие</span><p>Клик «Enter the Crypts» внутри игры → старт игрового процесса.</p><ul class='marks'><li><span class='num'>1</span>клик Enter the Crypts</li></ul></div>
+  </div>
+</article>
+<article class="step" id="step-4">
+  <a class="shot" href="img/04.webp" target="_blank" rel="noopener">
+    <img src="img/04.webp" alt="Шаг 4: Игровой процесс" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 4 / 26</div>
+    <h3>Игровой процесс</h3>
+    <p class="desc">Игра показывает вступительный сюжетный экран и кнопку «Accept holy orders &amp; enter crypts». Результаты (очки) после партии попадают в Leaderboard игры и в Leaderboard Hub игрока. Выход — стрелка «←» или «All games» в хлебных крошках.</p>
+    <div class="action"><span class="lbl">Действие</span><p>Клик «All games» в хлебных крошках → каталог всех игр (поток B).</p><ul class='marks'><li><span class='num'>1</span>клик All games</li></ul></div>
+  </div>
+</article></div>
+</section>
+<section class="flow" id="flow-B">
+  <div class="flow-head">
+    <span class="flow-tag">Поток B</span>
+    <h2>Навигация и сервисные экраны</h2>
+    <p>Шаги 5–11. Каталог, поиск, Leaderboards, Your games, поповер Usage, панель Player Network, Settings.</p>
+  </div>
+  <div class="steps">
+<article class="step" id="step-5">
+  <a class="shot" href="img/05.webp" target="_blank" rel="noopener">
+    <img src="img/05.webp" alt="Шаг 5: Каталог All games" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 5 / 26</div>
+    <h3>Каталог All games</h3>
+    <p class="desc">Полный список игр сеткой 4 в ряд. Сверху лента фильтров-чипов: Liked, Single player, Multiplayer, 2D Platformer, RPG, Tower defense, Trivia, Party, Casual, Casual 3D, Maze, Social deduction и далее. Кнопка «Back to explore». Карточка: обложка, жанр, режим, название, описание, автор, запуски, лайки.</p>
+    <div class="action"><span class="lbl">Действие</span><p>Клик в поле «Search games» в шапке, ввод запроса «dog», Enter → результаты поиска (GET explore/all?q=dog).</p><ul class='marks'><li><span class='num'>1</span>ввод «dog» + Enter</li></ul></div>
+  </div>
+</article>
+<article class="step" id="step-6">
+  <a class="shot" href="img/06.webp" target="_blank" rel="noopener">
+    <img src="img/06.webp" alt="Шаг 6: Результаты поиска" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 6 / 26</div>
+    <h3>Результаты поиска</h3>
+    <p class="desc">URL explore/all?q=dog. Тот же каталог, отфильтрованный по запросу; запрос остаётся в поле поиска с крестиком для сброса. Чипы жанров работают поверх поиска.</p>
+    <div class="action"><span class="lbl">Действие</span><p>Клик «Leaderboards» в левом меню → Leaderboard Hub.</p><ul class='marks'><li><span class='num'>1</span>клик Leaderboards</li></ul></div>
+  </div>
+</article>
+<article class="step" id="step-7">
+  <a class="shot" href="img/07.webp" target="_blank" rel="noopener">
+    <img src="img/07.webp" alt="Шаг 7: Leaderboard Hub" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 7 / 26</div>
+    <h3>Leaderboard Hub</h3>
+    <p class="desc">Личные рейтинги игрока: переключатель Your ranks / Your groups. Пока игрок не сыграл ни одной партии с результатом — пустое состояние и кнопка Explore games.</p>
+    <div class="action"><span class="lbl">Действие</span><p>Клик «Your games» в левом меню → список своих игр.</p><ul class='marks'><li><span class='num'>1</span>клик Your games</li></ul></div>
+  </div>
+</article>
+<article class="step" id="step-8">
+  <a class="shot" href="img/08.webp" target="_blank" rel="noopener">
+    <img src="img/08.webp" alt="Шаг 8: Your games — свои игры" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 8 / 26</div>
+    <h3>Your games — свои игры</h3>
+    <p class="desc">Таблица созданных игр: обложка, название, описание, жанр, режим, последняя игра, уникальные игроки, запуски, лайки, статус (Draft / Published). Справа карандаш (редактировать) и меню «три точки». Фильтр All games, сортировка Recently created, пагинация. Ниже блок Your gamelists — подборки игр, кнопка New gamelist.</p>
+    <div class="action"><span class="lbl">Действие</span><p>Клик «Usage» в шапке → поповер с лимитами.</p><ul class='marks'><li><span class='num'>1</span>клик Usage</li></ul></div>
+  </div>
+</article>
+<article class="step" id="step-9">
+  <a class="shot" href="img/09.webp" target="_blank" rel="noopener">
+    <img src="img/09.webp" alt="Шаг 9: Поповер Usage — лимиты генерации" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 9 / 26</div>
+    <h3>Поповер Usage — лимиты генерации</h3>
+    <p class="desc">Показывает процент использованной квоты на генерацию и редактирование игр (0% used) и акционное предложение Limited-time offer. Квота тратится на создание и правки игр в разделе Create; есть апгрейд до Google AI Plus.</p>
+    <div class="action"><span class="lbl">Действие</span><p>Клик иконки «Player Network» (две головы) в шапке → панель сообщества.</p><ul class='marks'><li><span class='num'>1</span>клик Player Network</li></ul></div>
+  </div>
+</article>
+<article class="step" id="step-10">
+  <a class="shot" href="img/10.webp" target="_blank" rel="noopener">
+    <img src="img/10.webp" alt="Шаг 10: Панель Player Network" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 10 / 26</div>
+    <h3>Панель Player Network</h3>
+    <p class="desc">Выезжающая справа панель «Your gaming community»: поиск людей, вкладки Followers / Following / Requests, пустое состояние с кнопкой Share profile. Подписки влияют на ленту «Games from follows» на главной.</p>
+    <div class="action"><span class="lbl">Действие</span><p>Клик по аватару справа в шапке → выпадающее меню (Settings, Your activity, Sign out) → пункт «Settings».</p><ul class='marks'><li><span class='num'>1</span>клик по аватару → Settings</li></ul></div>
+  </div>
+</article>
+<article class="step" id="step-11">
+  <a class="shot" href="img/11.webp" target="_blank" rel="noopener">
+    <img src="img/11.webp" alt="Шаг 11: Settings — настройки профиля" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 11 / 26</div>
+    <h3>Settings — настройки профиля</h3>
+    <p class="desc">Аккордеон из четырёх разделов: Leaderboard (видимость в рейтингах), Marketing updates (рассылки), Creator settings (настройки создателя игр), Playground data (данные и их удаление). Кнопка Back возвращает на предыдущий экран. Меню аватара также содержит Your activity и Sign out.</p>
+    <div class="action"><span class="lbl">Действие</span><p>Клик «Create» в левом меню → создание своей игры (поток C).</p><ul class='marks'><li><span class='num'>1</span>клик Create</li></ul></div>
+  </div>
+</article></div>
+</section>
+<section class="flow" id="flow-C">
+  <div class="flow-head">
+    <span class="flow-tag">Поток C</span>
+    <h2>Создатель: своя игра из текстового описания</h2>
+    <p>Шаги 12–26. От пустого промпта до опубликованной игры «Wiener Dash»: дизайн-документ, ассеты, сборка, редактор, код, история версий, публикация, публичная страница.</p>
+  </div>
+  <div class="steps">
+<article class="step" id="step-12">
+  <a class="shot" href="img/12.webp" target="_blank" rel="noopener">
+    <img src="img/12.webp" alt="Шаг 12: Экран Create — пустой промпт" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 12 / 26</div>
+    <h3>Экран Create — пустой промпт</h3>
+    <p class="desc">Приветствие по нику и единое поле «Describe a game to start building». Под полем: «+» (прикрепить референс), «I am feeling lucky» (случайная идея), переключатель 2D game / 3D game, выбор Single player / Multiplayer, кнопка Generate (неактивна, пока поле пустое). Ниже помощники: «Not sure what to build? Guide me» и «Or start with a genre». Баннер Unity Spark (скоро).</p>
+    <div class="action"><span class="lbl">Действие</span><p>Ввод текста промпта: 2D-платформер в духе Марио, герой — такса, стрелки — бег, пробел — прыжок, кости, враги-коты и белки, флаг в конце уровня.</p><ul class='marks'><li><span class='num'>1</span>ввод текста промпта</li></ul></div>
+  </div>
+</article>
+<article class="step" id="step-13">
+  <a class="shot" href="img/13.webp" target="_blank" rel="noopener">
+    <img src="img/13.webp" alt="Шаг 13: Промпт введён" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 13 / 26</div>
+    <h3>Промпт введён</h3>
+    <p class="desc">Поле заполнено, кнопка Generate стала активной. Параметры оставлены: 2D game, Single player.</p>
+    <div class="action"><span class="lbl">Действие</span><p>Клик «Generate» → создаётся черновик игры (URL create/&lt;id&gt;), запускается агент.</p><ul class='marks'><li><span class='num'>1</span>клик Generate</li></ul></div>
+  </div>
+</article>
+<article class="step" id="step-14">
+  <a class="shot" href="img/14.webp" target="_blank" rel="noopener">
+    <img src="img/14.webp" alt="Шаг 14: Черновик создан — этап 1 «Game design»" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 14 / 26</div>
+    <h3>Черновик создан — этап 1 «Game design»</h3>
+    <p class="desc">Экран разделился: слева чат с агентом (ваш промпт, статус «Choosing a color palette…», поле ввода заблокировано «Please wait…», кнопка стоп), справа превью с индикатором «Thinking…». Сверху прогресс из 6 этапов: Game design → Implementation plan → Game creation → QA check → Finalizing → Game ready. Бейдж MODE:DESIGN, карандаш для переименования. Баннер Usage limits — генерации ограничены, есть апгрейд.</p>
+    <div class="action"><span class="lbl">Действие</span><p>Клика нет — ожидание ответа агента (около минуты). Прогресс виден сверху справа (этап 1 Game design) → дизайн-документ игры.</p><ul class='marks'><li><span class='num wait'>…</span>ожидание — клика нет</li></ul></div>
+  </div>
+</article>
+<article class="step" id="step-15">
+  <a class="shot" href="img/15.webp" target="_blank" rel="noopener">
+    <img src="img/15.webp" alt="Шаг 15: Дизайн-документ игры «Wiener Dash»" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 15 / 26</div>
+    <h3>Дизайн-документ игры «Wiener Dash»</h3>
+    <p class="desc">Агент придумал название (Wiener Dash), условия Win/Lose и список из 8 ассетов (Otto the Dachshund, Grumpy Alley Cat, Park Squirrel, Goal Flagpole, Grassy Park Block, Sunny Park Panorama, Golden Bone Biscuit, музыка Sunny Pup Stroll). Кнопки New asset / Manage assets, оценка ответа (палец вверх / вниз). Внизу быстрые кнопки Build game и Auto-generate all assets, поле «Confirm or make changes» — можно править дизайн текстом до сборки.</p>
+    <div class="action"><span class="lbl">Действие</span><p>Клик по чипу ассета «Otto the Dachshund» → редактор ассетов.</p><ul class='marks'><li><span class='num'>1</span>клик по чипу Otto the Dachshund</li></ul></div>
+  </div>
+</article>
+<article class="step" id="step-16">
+  <a class="shot" href="img/16.webp" target="_blank" rel="noopener">
+    <img src="img/16.webp" alt="Шаг 16: Редактор ассетов — Build your game assets" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 16 / 26</div>
+    <h3>Редактор ассетов — Build your game assets</h3>
+    <p class="desc">Слева карточка ассета: имя, тип (Sprite Sheet), поля «How will this be used?» и «How will this look?», референс-картинка «+», стиль (Pixelated), кнопка Generate asset. Справа Asset List: Pending generation (8), New asset, Generate all. Внизу Duplicate / Delete. Ассеты можно генерировать по одному, переписывать описания или загружать свои.</p>
+    <div class="action"><span class="lbl">Действие</span><p>1) Клик «×» справа сверху — закрыть редактор ассетов → возврат к дизайн-документу. 2) Клик «Build game» (кнопка под чатом на экране шага 15) → диалог выбора генерации ассетов.</p><ul class='marks'><li><span class='num'>1</span>клик × (закрыть)</li></ul></div>
+  </div>
+</article>
+<article class="step" id="step-17">
+  <a class="shot" href="img/17.webp" target="_blank" rel="noopener">
+    <img src="img/17.webp" alt="Шаг 17: Диалог Choose asset generation" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 17 / 26</div>
+    <h3>Диалог Choose asset generation</h3>
+    <p class="desc">Модальное окно: «Create your own» (сначала самому сделать ассеты) или «Auto-generate all» (агент сгенерирует всё и сразу соберёт игру; ассеты можно поправить потом).</p>
+    <div class="action"><span class="lbl">Действие</span><p>Клик «Auto-generate all» → генерация ассетов и кода.</p><ul class='marks'><li><span class='num'>1</span>клик Auto-generate all</li></ul></div>
+  </div>
+</article>
+<article class="step" id="step-18">
+  <a class="shot" href="img/18.webp" target="_blank" rel="noopener">
+    <img src="img/18.webp" alt="Шаг 18: Сборка игры — Generating game code" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 18 / 26</div>
+    <h3>Сборка игры — Generating game code</h3>
+    <p class="desc">Справа размытое превью уже сгенерированных ассетов (такса, кот, платформы) и статус «Generating game code…» с прогресс-баром. В чате: «Generating your game will take a few minutes… We&#x27;ll notify you», кнопка Go to discovery — можно уйти играть, уведомление придёт.</p>
+    <div class="action"><span class="lbl">Действие</span><p>Клика нет — ожидание сборки (несколько минут), прогресс-бар «Generating game code…» → экран Game ready.</p><ul class='marks'><li><span class='num wait'>…</span>ожидание — клика нет</li></ul></div>
+  </div>
+</article>
+<article class="step" id="step-19">
+  <a class="shot" href="img/19.webp" target="_blank" rel="noopener">
+    <img src="img/19.webp" alt="Шаг 19: Game ready — игра собрана, режим EDIT" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 19 / 26</div>
+    <h3>Game ready — игра собрана, режим EDIT</h3>
+    <p class="desc">Бейдж сменился на MODE:EDIT. Справа превью игры с её собственным меню (Wiener Dash, управление, Start Adventure), сверху HUD игры (жизни ×3, кости, кубок, таймер). Панель редактора: Code (файлы проекта), History (версии), Game editor (параметры), Share, Publish, Fullscreen; снизу Console. В чате отчёт агента «successfully built, verified, and exported» и приглашение править: поле «How would you like to update your game?», кнопки «+», Manage assets, Attach screenshot.</p>
+    <div class="action"><span class="lbl">Действие</span><p>Клик «Start Adventure» в превью → игра запускается прямо в редакторе.</p><ul class='marks'><li><span class='num'>1</span>клик START ADVENTURE</li></ul></div>
+  </div>
+</article>
+<article class="step" id="step-20">
+  <a class="shot" href="img/20.webp" target="_blank" rel="noopener">
+    <img src="img/20.webp" alt="Шаг 20: Игровой процесс своей игры" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 20 / 26</div>
+    <h3>Игровой процесс своей игры</h3>
+    <p class="desc">Такса Otto бежит по травяным платформам, собирает кости, впереди кот и белка. HUD считает жизни, кости, очки и время. Любую правку можно запросить текстом в чате слева — агент пересоберёт игру и сохранит новую версию.</p>
+    <div class="action"><span class="lbl">Действие</span><p>Клик иконки «Code» (&lt;/&gt;) на панели → проводник файлов проекта.</p><ul class='marks'><li><span class='num'>1</span>клик Code &lt;/&gt;</li></ul></div>
+  </div>
+</article>
+<article class="step" id="step-21">
+  <a class="shot" href="img/21.webp" target="_blank" rel="noopener">
+    <img src="img/21.webp" alt="Шаг 21: Server files explorer — код игры" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 21 / 26</div>
+    <h3>Server files explorer — код игры</h3>
+    <p class="desc">Модальный проводник с исходниками: App.tsx, index.tsx, constants.ts, SpriteRenderer.ts, utils.ts, playground_config.json, tsconfig.json, папки assets / design / utils, THIRD_PARTY_NOTICES.md. Клик по файлу показывает содержимое; иконка загрузки — скачать проект. Код только для просмотра, правки идут через чат.</p>
+    <div class="action"><span class="lbl">Действие</span><p>1) Клик «×» в шапке проводника — закрыть. 2) Клик иконки «Game editor» (ползунки, третья в панели) → панель параметров игры.</p><ul class='marks'><li><span class='num'>1</span>клик × (закрыть)</li><li><span class='num'>2</span>клик Game editor</li></ul></div>
+  </div>
+</article>
+<article class="step" id="step-22">
+  <a class="shot" href="img/22.webp" target="_blank" rel="noopener">
+    <img src="img/22.webp" alt="Шаг 22: Game editor — параметры игры без кода" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 22 / 26</div>
+    <h3>Game editor — параметры игры без кода</h3>
+    <p class="desc">Панель Game properties со слайдерами, которые агент вынес из кода: Max Run Speed, Jump Impulse Force, Gravity Falling, Starting Lives, Stage Time Limit, Score Per Bone, Score Per Enemy Stomp, Default Music Volume. Кнопка Apply применяет значения к игре. На фоне экран проигрыша игры «Out of bark!» с Try again.</p>
+    <div class="action"><span class="lbl">Действие</span><p>1) Клик «×» в панели Game editor — закрыть. 2) Клик иконки «History» (часы, вторая в панели) → список версий.</p><ul class='marks'><li><span class='num'>1</span>клик × (закрыть)</li><li><span class='num'>2</span>клик History</li></ul></div>
+  </div>
+</article>
+<article class="step" id="step-23">
+  <a class="shot" href="img/23.webp" target="_blank" rel="noopener">
+    <img src="img/23.webp" alt="Шаг 23: History — версии игры" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 23 / 26</div>
+    <h3>History — версии игры</h3>
+    <p class="desc">Список сохранённых версий с описанием и временем (v1 «Generated and exported the game»). После каждой правки через чат появляется новая версия; в чате у сообщения есть «Restore to this version» для отката.</p>
+    <div class="action"><span class="lbl">Действие</span><p>Клик «Publish» → диалог публикации.</p><ul class='marks'><li><span class='num'>1</span>клик Publish</li></ul></div>
+  </div>
+</article>
+<article class="step" id="step-24">
+  <a class="shot" href="img/24.webp" target="_blank" rel="noopener">
+    <img src="img/24.webp" alt="Шаг 24: Диалог Publish your game" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 24 / 26</div>
+    <h3>Диалог Publish your game</h3>
+    <p class="desc">Превью-обложка с кнопкой «перегенерировать миниатюру» и выбор доступа «Choose who can play»: Private (только вы), Unlisted (все по ссылке, выбран по умолчанию), Listed (все в каталоге Playground и у партнёров). Кнопки Cancel / Save.</p>
+    <div class="action"><span class="lbl">Действие</span><p>1) Выбор «Unlisted» (переключатель справа). 2) Клик «Save» → игра публикуется, запрос на смену видимости.</p><ul class='marks'><li><span class='num'>1</span>выбор Unlisted</li><li><span class='num'>2</span>клик Save</li></ul></div>
+  </div>
+</article>
+<article class="step" id="step-25">
+  <a class="shot" href="img/25.webp" target="_blank" rel="noopener">
+    <img src="img/25.webp" alt="Шаг 25: Игра опубликована — Share game" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 25 / 26</div>
+    <h3>Игра опубликована — Share game</h3>
+    <p class="desc">Тост «Game visibility status updated», в шапке редактора появился переключатель Visibility: Unlisted. Автоматически открылся диалог Share game: готовый текст с короткой ссылкой playground.google/g/… и кнопка копирования, кнопки шаринга WhatsApp, Facebook, X, Instagram, Discord.</p>
+    <div class="action"><span class="lbl">Действие</span><p>Переход по короткой ссылке из диалога Share (или кнопка копирования справа) → публичная страница игры.</p><ul class='marks'><li><span class='num'>1</span>переход по ссылке playground.google/g/…</li></ul></div>
+  </div>
+</article>
+<article class="step" id="step-26">
+  <a class="shot" href="img/26.webp" target="_blank" rel="noopener">
+    <img src="img/26.webp" alt="Шаг 26: Публичная страница своей игры" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 26 / 26</div>
+    <h3>Публичная страница своей игры</h3>
+    <p class="desc">Та же страница игры, что и у чужих игр (поток A): обложка, название, автор, описание, Play now / Play on mobile / Leaderboard / Share, боковая панель лайков и жалоб. У автора дополнительно кнопка «Edit game» справа сверху — возврат в редактор. В разделе Your games статус игры меняется с Draft на Published.</p>
+    <div class="action"><span class="lbl">Действие</span><p>Конец потока C. «Play now» на этой странице запускает игру у любого, у кого есть ссылка.</p><ul class='marks'><li><span class='num'>1</span>Play now — игра для всех по ссылке</li></ul></div>
+  </div>
+</article></div>
+</section>
+
+<section id="faq" class="faq">
+  <h2>Примечания</h2>
+  <details open><summary>Почему показана только одна чужая игра</summary><p>В каталоге сотни игр, и все они открываются одинаково. Поток A показывает механику на примере CATacombs, а поток C — полный цикл создания своей игры. Этого достаточно, чтобы увидеть весь интерфейс проекта.</p></details>
+  <details><summary>Что за игра Wiener Dash</summary><p>2D-платформер, созданный в разделе Create по текстовому описанию: вместо Марио прыгает такса Отто, враги — коты и белки, вместо монет — кости. Игра опубликована в режиме Unlisted: открыть может любой, у кого есть ссылка, в каталог она не попадает.</p></details>
+  <details><summary>Можно ли редактировать доску</summary><p>Нет. Публичная ссылка выдана в режиме Viewer. Карточки на доске — картинки, поэтому текст на них не редактируется и в Miro; исходные данные шагов лежат в файле steps.json у автора.</p></details>
+  <details><summary>Где взяты скриншоты</summary><p>Все экраны сняты вручную в браузере на сайте playground.google 23 октября 2026 года при разрешении 1440×900 (два экрана с поповерами — 1920 px). Интерфейс сайта может меняться.</p></details>
+</section>
+</main>
+
+<footer class="wrap">
+  <p>Wireflow playground.google · 26 шагов · три потока. Доска: <a href="https://miro.com/app/board/uXjVEWMyoIs=/?share_link_id=951661771338" target="_blank" rel="noopener">miro.com (только просмотр)</a>. Игра: <a href="https://playground.google/g/9RpM5k" target="_blank" rel="noopener">playground.google/g/9RpM5k</a>.</p>
+</footer>
+
+<script type="module">
+  import { animate, inView, stagger } from "https://cdn.jsdelivr.net/npm/motion@11/+esm";
+  document.documentElement.classList.add("js");
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (!reduce) {
+    animate("header.hero > *", { opacity: [0, 1], y: [16, 0] }, { duration: .5, delay: stagger(.08) });
+    inView(".reveal", (el) => { animate(el, { opacity: 1, y: 0 }, { duration: .5, easing: "ease-out" }); });
+    setTimeout(() => document.querySelectorAll(".reveal").forEach(el => animate(el, { opacity: 1, y: 0 }, { duration: .4 })), 2500);
+    inView(".step", (el) => { animate(el, { opacity: [0, 1], y: [14, 0] }, { duration: .45, easing: "ease-out" }); });
+    document.querySelectorAll(".btn").forEach(b => {
+      b.addEventListener("pointerdown", () => animate(b, { scale: .97 }, { duration: .12 }));
+      b.addEventListener("pointerup", () => animate(b, { scale: 1 }, { duration: .18 }));
+      b.addEventListener("pointerleave", () => animate(b, { scale: 1 }, { duration: .18 }));
+    });
+  } else {
+    document.querySelectorAll(".reveal").forEach(el => { el.style.opacity = 1; el.style.transform = "none"; });
+  }
+</script>
+</body>
+</html>
