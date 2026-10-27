@@ -1,0 +1,1300 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>Wireflow Summer Engine Studio · Grow · summer.games — пояснения к доске Miro</title>
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Что изображено на доске Miro с wireflow сервиса Summer Engine: Studio, Grow и магазин игроков summer.games, шесть пользовательских потоков, 97 шагов, как читать карточки.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--primary:#7C3AED;--primary-2:#6D28D9;--accent:#059669;--bg:#FAF8FF;--fg:#0F172A;--muted:#5B6478;--surface:#FFFFFF;--border:#E9E3F7;--red:#DC2626;--yellow:#FFF4B8;--yellow-b:#E6C850;--orange:#F59E0B;--radius:18px}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--bg);color:var(--fg);line-height:1.6;font-size:16px;-webkit-font-smoothing:antialiased}
+a{color:var(--primary-2)}
+img{max-width:100%;height:auto;display:block}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+header.hero{padding:72px 0 48px}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--primary);background:#F1EAFE;padding:6px 12px;border-radius:999px}
+h1{font-size:clamp(2.2rem,6vw,4.4rem);line-height:1.02;letter-spacing:-.04em;font-weight:800;margin:20px 0 16px}
+h1 span{color:var(--primary)}
+.lead{font-size:1.15rem;color:var(--muted);max-width:760px;margin:0 0 28px}
+.cta{display:flex;flex-wrap:wrap;gap:12px}
+.btn{display:inline-flex;align-items:center;gap:10px;min-height:48px;padding:12px 20px;border-radius:12px;font-weight:600;text-decoration:none;transition:transform .2s ease,box-shadow .2s ease,background .2s ease;cursor:pointer;border:1px solid transparent}
+.btn:focus-visible{outline:3px solid var(--primary);outline-offset:3px}
+.btn.primary{background:var(--primary);color:#fff;box-shadow:0 8px 24px rgba(124,58,237,.25)}
+.btn.primary:hover{background:var(--primary-2);transform:translateY(-1px)}
+.btn.ghost{background:var(--surface);color:var(--fg);border-color:var(--border)}
+.btn.ghost:hover{border-color:var(--primary);transform:translateY(-1px)}
+.btn svg{width:20px;height:20px;flex:none}
+.note{font-size:.9rem;color:var(--muted);margin-top:14px}
+section{padding:40px 0}
+h2{font-size:clamp(1.6rem,3vw,2.3rem);letter-spacing:-.03em;line-height:1.15;margin:0 0 10px}
+.grid{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:22px}
+.card h3{margin:0 0 8px;font-size:1.05rem}
+.card p{margin:0;color:var(--muted);font-size:.95rem}
+.card .ico{width:40px;height:40px;border-radius:10px;display:grid;place-items:center;margin-bottom:14px;background:#F1EAFE;color:var(--primary)}
+.card .ico svg{width:22px;height:22px}
+.board{border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;background:#fff;box-shadow:0 20px 60px rgba(15,23,42,.08)}
+.legend{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));margin-top:20px}
+.legend .item{display:flex;gap:12px;align-items:flex-start;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:14px}
+.sw{flex:none;width:44px;height:28px;border-radius:7px;margin-top:2px}
+.sw.purple{background:#F1EAFE;border:2px solid var(--primary)}
+.sw.red{border:3px solid var(--red)}
+.sw.badge{border-radius:999px;width:28px;background:var(--red);color:#fff;font-weight:700;display:grid;place-items:center;font-size:14px}
+.sw.yellow{background:var(--yellow);border:2px solid var(--yellow-b)}
+.sw.orange{background:var(--orange)}
+.legend b{display:block;font-size:.95rem}
+.legend span{color:var(--muted);font-size:.9rem}
+.facts{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));margin-top:8px}
+.facts .f{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:16px 18px}
+.facts .v{font-size:1.6rem;font-weight:800;letter-spacing:-.03em;color:var(--primary);line-height:1.1}
+.facts .k{color:var(--muted);font-size:.9rem;margin-top:4px}
+.flow{padding-top:56px}
+.flow-head{margin-bottom:22px;max-width:820px}
+.flow-tag{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#fff;background:var(--primary);padding:5px 10px;border-radius:8px;margin-bottom:10px}
+#flow-B .flow-tag{background:var(--accent)} #flow-C .flow-tag{background:#D97706} #flow-D .flow-tag{background:#B45309} #flow-E .flow-tag{background:#0E7490} #flow-F .flow-tag{background:#BE185D}
+.flow-head p{color:var(--muted);margin:0}
+.steps{display:grid;gap:22px}
+.step{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:0;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
+.step .shot{display:block;background:#EEE9F8;border-right:1px solid var(--border)}
+.step .shot img{width:100%;height:100%;object-fit:cover;object-position:top}
+.step .body{padding:22px 24px}
+.kicker{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--primary)}
+.step h3{margin:6px 0 10px;font-size:1.25rem;letter-spacing:-.02em;line-height:1.25}
+.desc{color:#334155;font-size:.95rem;margin:0 0 14px}
+.action{background:var(--yellow);border:1px solid var(--yellow-b);border-radius:12px;padding:12px 14px}
+.action .lbl{display:block;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#7A5200;margin-bottom:4px}
+.action p{margin:0;font-weight:600;font-size:.95rem}
+.marks{list-style:none;margin:10px 0 0;padding:0;display:flex;flex-direction:column;gap:6px;font-size:.88rem}
+.marks li{display:flex;align-items:center;gap:8px}
+.num{flex:none;width:22px;height:22px;border-radius:999px;background:var(--red);color:#fff;font-weight:700;font-size:12px;display:grid;place-items:center}
+.num.wait{background:var(--orange);color:#1f1300}
+.toc{columns:2;column-gap:28px;list-style:none;padding:0;margin:0}
+.toc li{break-inside:avoid;margin:0 0 6px}
+.toc a{display:flex;gap:10px;align-items:baseline;text-decoration:none;color:var(--fg);padding:6px 8px;border-radius:8px;min-height:36px}
+.toc a:hover{background:#F1EAFE}
+.toc span{flex:none;font-variant-numeric:tabular-nums;color:var(--primary);font-weight:700;width:26px}
+.faq details{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:14px 18px;margin-bottom:10px}
+.faq summary{cursor:pointer;font-weight:600;min-height:28px}
+.faq p{margin:10px 0 0;color:#334155}
+footer{padding:48px 0 64px;color:var(--muted);font-size:.9rem;border-top:1px solid var(--border);margin-top:40px}
+html.js .reveal{opacity:0;transform:translateY(18px)}
+@media (max-width:860px){.step{grid-template-columns:1fr}.step .shot{border-right:0;border-bottom:1px solid var(--border)}.toc{columns:1}header.hero{padding:48px 0 32px}}
+@media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none}html{scroll-behavior:auto}.btn{transition:none}}
+</style>
+</head>
+<body>
+<header class="hero wrap">
+  <span class="eyebrow">Wireflow · Summer Engine · доска Miro</span>
+  <h1>Как читать <span>wireflow</span> Summer Engine Studio, Grow и summer.games</h1>
+  <p class="lead">На доске Miro собраны 97 экранов сервиса, разбитые на шесть пользовательских потоков: вход и аккаунт, навигация, создание игры по описанию, генерация ассетов, публикация через Summer Grow и сторона игрока на summer.games. Каждая карточка показывает экран, место клика и то, что происходит после него.</p>
+  <div class="cta">
+    <a class="btn primary" href="https://miro.com/app/board/uXjVEVUng-I=/?share_link_id=129022710342" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+      Открыть доску Miro (просмотр)
+    </a>
+    <a class="btn ghost" href="https://www.summerengine.com/studio" target="_blank" rel="noopener">Summer Studio</a>
+    <a class="btn ghost" href="https://summer.games" target="_blank" rel="noopener">summer.games</a>
+    <a class="btn ghost" href="#steps">Список шагов</a>
+  </div>
+  <p class="note">Ссылка на доску даёт доступ только на просмотр: смотреть, приближать, листать можно, редактировать нельзя.</p>
+</header>
+
+<main class="wrap">
+<section id="about">
+  <h2>Что такое wireflow</h2>
+  <p class="lead" style="margin-bottom:22px">Wireflow соединяет два метода: wireframe (экран как он есть) и flow (путь пользователя). Каждый шаг описан по схеме: <b>экран и его описание → действие (куда нажать или что ввести) → следующий экран</b>.</p>
+  <div class="grid">
+    <div class="card reveal"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M8 21h8M12 18v3"/></svg></div><h3>Экран</h3><p>Реальный скриншот Summer Studio, Summer Grow или summer.games с подписью: что на нём есть, какие элементы и разделы.</p></div>
+    <div class="card reveal"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11.5 4 7l5 14 2-6 6-2z"/><path d="M14 4l6 6"/></svg></div><h3>Действие</h3><p>Куда именно нажимает пользователь на этом экране или что вводит. Место клика выделено красной рамкой с номером.</p></div>
+    <div class="card reveal"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div><h3>Следующий экран</h3><p>Результат действия — следующая карточка в ряду. Ряды читаются слева направо.</p></div>
+  </div>
+</section>
+
+<section id="facts">
+  <h2>Что выяснилось по ходу</h2>
+  <p class="lead" style="margin-bottom:18px">Всё снято с нового аккаунта на бесплатном плане Free, поэтому на доске видны и ограничения сервиса.</p>
+  <div class="facts">
+    <div class="f reveal"><div class="v">$3.00</div><div class="k">бонусных кредитов при регистрации; одна генерация спрайта через форму Advanced списала $0.04</div></div>
+    <div class="f reveal"><div class="v">5 / день</div><div class="k">сообщений ассистенту Summer на Free, до 30 в месяц; генерация картинок через чат закрыта платным планом</div></div>
+    <div class="f reveal"><div class="v">desktop</div><div class="k">сборка игры из GameSoul и редактор работают только в desktop-приложении Summer Engine, в браузере — окно Download</div></div>
+    <div class="f reveal"><div class="v">70%</div><div class="k">от Sparks игроков получает автор; выплаты от $100 в месяц, первая через 90 дней; пакеты Sparks $4.99–$49.99</div></div>
+  </div>
+</section>
+
+<section id="board">
+  <h2>Как устроена доска</h2>
+  <p class="lead" style="margin-bottom:22px">Шесть рядов карточек, у каждого ряда свой заголовок. Сверху общий заголовок доски. Нумерация шагов сквозная: 1–97. Потоки A–D — Summer Studio (аккаунт, навигация, игра по описанию, ассеты), поток E — публикация и Summer Grow, поток F — магазин игроков summer.games.</p>
+  <div class="board reveal"><img src="img/board.webp" alt="Фрагмент доски Miro: заголовок, потоки A–D и первые карточки шагов" width="1920" height="945" loading="lazy" decoding="async"></div>
+  <div class="legend">
+    <div class="item"><div class="sw purple"></div><div><b>Фиолетовая подпись сверху карточки</b><span>Название потока (A–F) и номер шага с заголовком экрана.</span></div></div>
+    <div class="item"><div class="sw red"></div><div><b>Красная рамка на скриншоте</b><span>Точное место клика. Именно это нажатие ведёт к следующей карточке. Рамки с пометкой «не нажимали» показывают кнопку, которую мы только отметили.</span></div></div>
+    <div class="item"><div class="sw badge">1</div><div><b>Номер в красном кружке</b><span>Порядок нажатий, если их несколько (например, закрыть окно, потом открыть раздел).</span></div></div>
+    <div class="item"><div class="sw orange"></div><div><b>Оранжевая метка «ожидание — клика нет»</b><span>Экран сменяется сам: идёт генерация картинки или загружается игра.</span></div></div>
+    <div class="item"><div class="sw yellow"></div><div><b>Жёлтый блок «Действие»</b><span>Текстом: что нажать, что ввести, что появится дальше.</span></div></div>
+    <div class="item"><div class="sw" style="background:repeating-linear-gradient(45deg,#cbd5e1 0 4px,#94a3b8 4px 8px)"></div><div><b>Пикселизированные участки</b><span>Замазаны почта, имя пользователя, ссылка на профиль, отображаемое имя и хэндл игрока: меню аккаунта, Settings, поиск, формы входа и выбора имени.</span></div></div>
+  </div>
+</section>
+
+<section id="steps">
+  <h2>Все шаги</h2>
+  <ul class="toc"><li><a href='#step-1'><span>1</span>summerengine.com/studio без входа</a></li><li><a href='#step-2'><span>2</span>Sign in — форма входа</a></li><li><a href='#step-3'><span>3</span>Studio Home — главная после входа</a></li><li><a href='#step-4'><span>4</span>Меню аккаунта</a></li><li><a href='#step-5'><span>5</span>Settings → Account</a></li><li><a href='#step-6'><span>6</span>Settings → Credits — баланс и покупка кредитов</a></li><li><a href='#step-7'><span>7</span>Settings → Plan — тарифы</a></li><li><a href='#step-8'><span>8</span>Upgrade to create — окно апгрейда</a></li><li><a href='#step-9'><span>9</span>Projects — список проектов (пусто)</a></li><li><a href='#step-10'><span>10</span>Chat (Alpha) — ассистент Summer</a></li><li><a href='#step-11'><span>11</span>Board — доска проекта с онбордингом</a></li><li><a href='#step-12'><span>12</span>Asset Store — магазин ассетов</a></li><li><a href='#step-13'><span>13</span>Карточка ассета в Asset Store</a></li><li><a href='#step-14'><span>14</span>Templates — шаблоны игр</a></li><li><a href='#step-15'><span>15</span>Templates → Prompts — шаблоны промптов</a></li><li><a href='#step-16'><span>16</span>Apps — инструменты команды</a></li><li><a href='#step-17'><span>17</span>Developers — Summer API</a></li><li><a href='#step-18'><span>18</span>Глобальный поиск Ctrl K</a></li><li><a href='#step-19'><span>19</span>Chat — история диалога с Summer</a></li><li><a href='#step-20'><span>20</span>Меню SUMMER PRODUCTS</a></li><li><a href='#step-21'><span>21</span>Settings → Members — команда</a></li><li><a href='#step-22'><span>22</span>Home — описание игры введено</a></li><li><a href='#step-23'><span>23</span>Мастер, вопрос 1 — «Which games like this do you love?»</a></li><li><a href='#step-24'><span>24</span>Вопрос 1 — выбраны две игры</a></li><li><a href='#step-25'><span>25</span>Вопрос 2 — «What art style for this game?»</a></li><li><a href='#step-26'><span>26</span>Вопрос 3 — «Side view or top-down?»</a></li><li><a href='#step-27'><span>27</span>Вопрос 4 — «What’s Wiener like as a character?»</a></li><li><a href='#step-28'><span>28</span>Вопрос 5 — «What does Wiener do to win a level?»</a></li><li><a href='#step-29'><span>29</span>Вопрос 6 — «What kind of sounds and music?»</a></li><li><a href='#step-30'><span>30</span>Вопрос 7 — «How tricky should this game feel?»</a></li><li><a href='#step-31'><span>31</span>Вопрос 8 — «What changes between the two levels?»</a></li><li><a href='#step-32'><span>32</span>Выбор героя — «Who do you play as?»</a></li><li><a href='#step-33'><span>33</span>Выбор мира — «Where does your game happen?»</a></li><li><a href='#step-34'><span>34</span>Выбор момента — «Which moment should your game be about?»</a></li><li><a href='#step-35'><span>35</span>Ready to build Sausage Sprint — итог мастера</a></li><li><a href='#step-36'><span>36</span>GameSoul — режим правки</a></li><li><a href='#step-37'><span>37</span>Меню проекта в мастере</a></li><li><a href='#step-38'><span>38</span>GameSoul — прокрученный документ</a></li><li><a href='#step-39'><span>39</span>Sausage Sprint is ready to build — окно сборки</a></li><li><a href='#step-40'><span>40</span>Home — черновик сохранён</a></li><li><a href='#step-41'><span>41</span>Projects — проект появился</a></li><li><a href='#step-42'><span>42</span>Проект открыт — тот же итоговый экран</a></li><li><a href='#step-43'><span>43</span>2D → Image — генерация картинок</a></li><li><a href='#step-44'><span>44</span>Запрос на спрайт введён</a></li><li><a href='#step-45'><span>45</span>Ответ: «Making pictures needs a paid plan or purchased credits»</a></li><li><a href='#step-46'><span>46</span>Pricing — публичная страница тарифов</a></li><li><a href='#step-47'><span>47</span>2D → Pixel art — спрайты точного размера</a></li><li><a href='#step-48'><span>48</span>2D → Tiles — бесшовные тайлы</a></li><li><a href='#step-49'><span>49</span>2D → Advanced — форма генерации</a></li><li><a href='#step-50'><span>50</span>Advanced — промпт введён</a></li><li><a href='#step-51'><span>51</span>Генерация — Creating…</a></li><li><a href='#step-52'><span>52</span>Результат — спрайт сосиски</a></li><li><a href='#step-53'><span>53</span>Результат выделен — Make 3D и выбор</a></li><li><a href='#step-54'><span>54</span>My Assets — библиотека и меню ассета</a></li><li><a href='#step-55'><span>55</span>Visibility settings → Settings · Account</a></li><li><a href='#step-56'><span>56</span>3D — модели</a></li><li><a href='#step-57'><span>57</span>Audio — звук и музыка</a></li><li><a href='#step-58'><span>58</span>Video — трейлеры</a></li><li><a href='#step-59'><span>59</span>Animation — риг и анимация</a></li><li><a href='#step-60'><span>60</span>Publish your game — «Go to Summer Grow?»</a></li><li><a href='#step-61'><span>61</span>Summer Grow — главная</a></li><li><a href='#step-62'><span>62</span>Мастер публикации, шаг 1 — How you earn</a></li><li><a href='#step-63'><span>63</span>Шаг 1 — модель выбрана</a></li><li><a href='#step-64'><span>64</span>Шаг 2 — Game and targets (пустая форма)</a></li><li><a href='#step-65'><span>65</span>Шаг 2 — заполнено: Sausage Sprint, Web</a></li><li><a href='#step-66'><span>66</span>Шаг 3 — Desktop store (страница магазина)</a></li><li><a href='#step-67'><span>67</span>Шаг 3 — текст заполнен</a></li><li><a href='#step-68'><span>68</span>Шаг 3 — черновик сохранён, раздел Art</a></li><li><a href='#step-69'><span>69</span>Шаг 4 — Get paid: Creator Program</a></li><li><a href='#step-70'><span>70</span>Шаг 5 — Check and publish: загрузка сборки</a></li><li><a href='#step-71'><span>71</span>Шаг 5 — Versions и Before launch</a></li><li><a href='#step-72'><span>72</span>Шаг 6 — Live</a></li><li><a href='#step-73'><span>73</span>Your games — черновик игры</a></li><li><a href='#step-74'><span>74</span>Дашборд игры — Full dashboard</a></li><li><a href='#step-75'><span>75</span>Analytics → Overview (example data)</a></li><li><a href='#step-76'><span>76</span>Earnings &amp; payouts (example data)</a></li><li><a href='#step-77'><span>77</span>Promotions (Early access)</a></li><li><a href='#step-78'><span>78</span>summer.games — главная без входа</a></li><li><a href='#step-79'><span>79</span>Sign in to Summer — окно входа игрока</a></li><li><a href='#step-80'><span>80</span>Окно входа заполнено</a></li><li><a href='#step-81'><span>81</span>Are you 18 or older? — проверка возраста</a></li><li><a href='#step-82'><span>82</span>Choose your name — выбор имени и хэндла</a></li><li><a href='#step-83'><span>83</span>Имя и хэндл введены</a></li><li><a href='#step-84'><span>84</span>Главная summer.games после входа</a></li><li><a href='#step-85'><span>85</span>Поиск игр и Ask Summer</a></li><li><a href='#step-86'><span>86</span>Страница игры Save The Ship</a></li><li><a href='#step-87'><span>87</span>Загрузка игры — Godot</a></li><li><a href='#step-88'><span>88</span>Игровой процесс Save The Ship</a></li><li><a href='#step-89'><span>89</span>Игра сохранена — Saved to Library</a></li><li><a href='#step-90'><span>90</span>Меню «…» страницы игры</a></li><li><a href='#step-91'><span>91</span>Invite friends — друзей нет</a></li><li><a href='#step-92'><span>92</span>Меню игрока</a></li><li><a href='#step-93'><span>93</span>Library — библиотека игрока</a></li><li><a href='#step-94'><span>94</span>Sparks — внутренняя валюта</a></li><li><a href='#step-95'><span>95</span>Inbox — уведомления и друзья</a></li><li><a href='#step-96'><span>96</span>Settings — профиль игрока</a></li><li><a href='#step-97'><span>97</span>Summer Games Jam: Friendslop</a></li></ul>
+</section>
+
+<section class="flow" id="flow-A">
+  <div class="flow-head">
+    <span class="flow-tag">Поток A</span>
+    <h2>Вход в Summer Studio и аккаунт</h2>
+    <p>Шаги 1–8. Публичная страница Studio, форма входа, главная после входа, меню аккаунта, Settings: Account, Credits ($3 бонусных), Plan (Free / Pro $20 / Pro+ $60 / Ultra $200), окно Upgrade.</p>
+  </div>
+  <div class="steps">
+<article class="step" id="step-1">
+  <a class="shot" href="img/01.webp" target="_blank" rel="noopener">
+    <img src="img/01.webp" alt="Шаг 1: summerengine.com/studio без входа" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 1 / 97</div>
+    <h3>summerengine.com/studio без входа</h3>
+    <p class="desc">Публичная страница Summer Studio. Сверху баннер игрового джема Friendslop, меню сайта: Image, Video, Audio, 3D, Effects, Bankai, Studio, Asset Store, Games, Templates, MCP &amp; CLI, API, Enterprise, Pricing. Справа Log in и чёрная кнопка Download (движок для Windows/Mac). Слева превью сайдбара студии (2D, 3D, Audio, Video, Guided, My assets, Store, Templates). В центре заголовок «Every model in one studio», кнопки Download the engine и Sign up free, внизу поле промпта «Make me a medieval sword sprite».</p>
+    <div class="action"><span class="lbl">Действие</span><p>Клик «Log in» в шапке → форма входа.</p><ul class='marks'><li><span class='num'>1</span>клик Log in</li></ul></div>
+  </div>
+</article>
+<article class="step" id="step-2">
+  <a class="shot" href="img/02.webp" target="_blank" rel="noopener">
+    <img src="img/02.webp" alt="Шаг 2: Sign in — форма входа" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 2 / 97</div>
+    <h3>Sign in — форма входа</h3>
+    <p class="desc">Отдельная страница входа: логотип Summer Engine, карточка Sign in с кнопкой Continue with Google, разделитель OR, поля Email и Password (ссылка Forgot password?), серая кнопка Continue, становится активной после заполнения. Ниже «Don’t have an account? Sign up» и ссылки Terms of Service / Privacy Policy. Регистрация и вход — один общий аккаунт Summer для Studio, Grow и summer.games.</p>
+    <div class="action"><span class="lbl">Действие</span><p>Ввод почты (1) и пароля (2), клик Continue (3) → Studio Home.</p><ul class='marks'><li><span class='num'>1</span>поле Email</li><li><span class='num'>2</span>поле Password</li><li><span class='num'>3</span>клик Continue</li></ul></div>
+  </div>
+</article>
+<article class="step" id="step-3">
+  <a class="shot" href="img/03.webp" target="_blank" rel="noopener">
+    <img src="img/03.webp" alt="Шаг 3: Studio Home — главная после входа" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 3 / 97</div>
+    <h3>Studio Home — главная после входа</h3>
+    <p class="desc">Главный экран Summer Studio. Слева сайдбар: Home, Projects, Chat (Alpha), My Assets, Board, Asset Store, Templates, Publish your game, Apps, Developers, Settings; раздел Create: 2D, 3D, Audio, Video, Animation; внизу блок Invite team members и переключатель продукта SUMMER STUDIO. Шапка: поиск «Search everything… Ctrl K», Discord, Feedback, Docs, Ask, Upgrade, аватар U. В центре переключатель Studio / Grow, заголовок «What would you like to create for your game?», поле «Describe your game or an asset…» (Alpha, микрофон, отправка), пять плиток 2D/3D/Audio/Video/Animation и баннер «You can now build your game in the browser · Try it».</p>
+    <div class="action"><span class="lbl">Действие</span><p>Клик по аватару «U» в правом верхнем углу → меню аккаунта.</p><ul class='marks'><li><span class='num'>1</span>клик аватар U</li></ul></div>
+  </div>
+</article>
+<article class="step" id="step-4">
+  <a class="shot" href="img/04.webp" target="_blank" rel="noopener">
+    <img src="img/04.webp" alt="Шаг 4: Меню аккаунта" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 4 / 97</div>
+    <h3>Меню аккаунта</h3>
+    <p class="desc">Выпадающее меню: имя пользователя и почта (замазаны), Give feedback, плашка Free plan с кнопкой Upgrade и индикатором «0% used», Personal Workspace (Free plan, Switch), Language (English), Theme, затем Settings, Credits, Subscription, Usage, Workspace settings, Publish a game, переключатель Fun mode, Docs and resources, Terms and privacy, Homepage, Sign out. Отсюда доступны все сервисные разделы аккаунта.</p>
+    <div class="action"><span class="lbl">Действие</span><p>Клик «Settings» → настройки аккаунта.</p><ul class='marks'><li><span class='num'>1</span>клик Settings</li></ul></div>
+  </div>
+</article>
+<article class="step" id="step-5">
+  <a class="shot" href="img/05.webp" target="_blank" rel="noopener">
+    <img src="img/05.webp" alt="Шаг 5: Settings → Account" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 5 / 97</div>
+    <h3>Settings → Account</h3>
+    <p class="desc">Страница настроек. Слева меню: General (Account, Notifications), Team (Members), Usage and billing (Credits, Usage, Plan, Invoices), Developer (Agents, Connected apps), Summer API (Developers). Справа Profile Information: Email (нельзя изменить, замазан), Public Username и ссылка на профиль summerengine.com/&lt;username&gt; (замазаны), Bio (0/500), Location, Avatar URL, Preferred language (Auto), переключатель Play launch intro video.</p>
+    <div class="action"><span class="lbl">Действие</span><p>Клик «Credits» в меню настроек → баланс кредитов.</p><ul class='marks'><li><span class='num'>1</span>клик Credits</li></ul></div>
+  </div>
+</article>
+<article class="step" id="step-6">
+  <a class="shot" href="img/06.webp" target="_blank" rel="noopener">
+    <img src="img/06.webp" alt="Шаг 6: Settings → Credits — баланс и покупка кредитов" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 6 / 97</div>
+    <h3>Settings → Credits — баланс и покупка кредитов</h3>
+    <p class="desc">Credits: Current balance $3.00 (Paid $0.00 · Bonus $3.00 — бонус при регистрации), пояснение «The chat and Studio use all your credits. The Summer API uses paid credits only». Credits expiring in the next 30 days $0.00, Usage this month $0.00, Plan Free («Free credits are one-time», Upgrade). Ниже Buy credits: разовая покупка $10 (≈250 изображений или 25 3D-моделей), $25, $50, $100 и Auto top-up с порогом и месячным лимитом. Кнопка Manage billing.</p>
+    <div class="action"><span class="lbl">Действие</span><p>Клик «Plan» в меню настроек → тарифы.</p><ul class='marks'><li><span class='num'>1</span>клик Plan</li></ul></div>
+  </div>
+</article>
+<article class="step" id="step-7">
+  <a class="shot" href="img/07.webp" target="_blank" rel="noopener">
+    <img src="img/07.webp" alt="Шаг 7: Settings → Plan — тарифы" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 7 / 97</div>
+    <h3>Settings → Plan — тарифы</h3>
+    <p class="desc">Current plan: Free («Free credits are one-time», See credits). Блок Redeem a creator gift: код даёт 30 дней Pro+ и $60 кредитов. Subscribe to Pro: Pro $20/мес (Extended agent usage, Private asset workflows, выше лимиты 3D и AI), Pro+ $60/мес Recommended (AI-led game building, 3x AI usage), Ultra $200/мес (10x AI usage, приоритетный доступ). Кнопки Get Pro / Get Pro+ / Get Ultra.</p>
+    <div class="action"><span class="lbl">Действие</span><p>Клик «Upgrade» в шапке → модальное окно апгрейда.</p><ul class='marks'><li><span class='num'>1</span>клик Upgrade</li></ul></div>
+  </div>
+</article>
+<article class="step" id="step-8">
+  <a class="shot" href="img/08.webp" target="_blank" rel="noopener">
+    <img src="img/08.webp" alt="Шаг 8: Upgrade to create — окно апгрейда" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 8 / 97</div>
+    <h3>Upgrade to create — окно апгрейда</h3>
+    <p class="desc">Модальное окно «Paid studio feature · Upgrade to create»: «It looks like you’re on the Free plan. Upgrade to Pro or buy Studio credits to create assets». Два варианта: Pro $20/mo ($20 monthly credits, Subscribe) и Try Studio $5 (one-time credits, Buy credits). Блок Includes Studio creation: 2D and 3D assets, Video and animation, Music/SFX/dialogue. Ссылка See all plans, кнопка Keep browsing. Это окно открывается и при попытке генерации на бесплатном плане.</p>
+    <div class="action"><span class="lbl">Действие</span><p>Клик «Keep browsing» → окно закрывается, конец потока A.</p><ul class='marks'><li><span class='num'>1</span>клик Keep browsing</li></ul></div>
+  </div>
+</article></div>
+</section>
+<section class="flow" id="flow-B">
+  <div class="flow-head">
+    <span class="flow-tag">Поток B</span>
+    <h2>Навигация и сервисные экраны Studio</h2>
+    <p>Шаги 9–21. Projects, Chat, Board, Asset Store и карточка ассета, Templates (игры и промпты), Apps, Developers (Summer API), глобальный поиск Ctrl K, Ask, меню продуктов Studio / Grow, команда.</p>
+  </div>
+  <div class="steps">
+<article class="step" id="step-9">
+  <a class="shot" href="img/09.webp" target="_blank" rel="noopener">
+    <img src="img/09.webp" alt="Шаг 9: Projects — список проектов (пусто)" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 9 / 97</div>
+    <h3>Projects — список проектов (пусто)</h3>
+    <p class="desc">Раздел Projects: поиск по проектам, фильтры All / Published / Drafts, кнопка «+ New project». У нового аккаунта «No projects yet. Start one from Home» — проекты создаются только через промпт на главной.</p>
+    <div class="action"><span class="lbl">Действие</span><p>Клик «Chat» в сайдбаре → чат с ассистентом Summer.</p><ul class='marks'><li><span class='num'>1</span>клик Chat</li></ul></div>
+  </div>
+</article>
+<article class="step" id="step-10">
+  <a class="shot" href="img/10.webp" target="_blank" rel="noopener">
+    <img src="img/10.webp" alt="Шаг 10: Chat (Alpha) — ассистент Summer" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 10 / 97</div>
+    <h3>Chat (Alpha) — ассистент Summer</h3>
+    <p class="desc">Страница чата: слева Recent chats (+ New chat, «No chats yet»), в центре «What can I help you with?», поле «Ask Summer anything…» с кнопками изображения, микрофона и отправки. Подсказки: Try it: Make your first game in minutes, Ask now: New: ask Summer anything, Start a new game, Show my games. На бесплатном плане 5 сообщений ассистенту в день, до 30 в месяц.</p>
+    <div class="action"><span class="lbl">Действие</span><p>Клик «Board» в сайдбаре → доска для брейншторма.</p><ul class='marks'><li><span class='num'>1</span>клик Board</li></ul></div>
+  </div>
+</article>
+<article class="step" id="step-11">
+  <a class="shot" href="img/11.webp" target="_blank" rel="noopener">
+    <img src="img/11.webp" alt="Шаг 11: Board — доска проекта с онбордингом" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 11 / 97</div>
+    <h3>Board — доска проекта с онбордингом</h3>
+    <p class="desc">Доска «Untitled game»: панель Overview / документ / изображение / карандаш / + Topic / Assets, статус Saved, кнопки Invite, Game Soul, Guide. Справа панель чата Summer (Alpha) с подсказками Browse assets, Hide the welcome, Start a new game, What is the board for?. Поверх онбординг из шести шагов «Brainstorm your game — Brainstorm alone or with friends. Summer helps turn your ideas into a board», кнопки Skip и Show me around.</p>
+    <div class="action"><span class="lbl">Действие</span><p>Skip (1), затем клик «Asset Store» в сайдбаре (2) → магазин ассетов.</p><ul class='marks'><li><span class='num'>1</span>Skip</li><li><span class='num'>2</span>клик Asset Store</li></ul></div>
+  </div>
+</article>
+<article class="step" id="step-12">
+  <a class="shot" href="img/12.webp" target="_blank" rel="noopener">
+    <img src="img/12.webp" alt="Шаг 12: Asset Store — магазин ассетов" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 12 / 97</div>
+    <h3>Asset Store — магазин ассетов</h3>
+    <p class="desc">Asset Store: «Discover high-quality assets for your next game project, or create your own with AI», кнопка + Create Asset. Фильтры All / 3D models / Materials &amp; textures / Sprites &amp; flipbooks / Animations, счётчик 190 984 assets, поиск по ассетам. Сетка карточек с пометкой 2D/3D, названием и меню «…».</p>
+    <div class="action"><span class="lbl">Действие</span><p>Клик по карточке «Autumn forest clearing» → карточка ассета.</p><ul class='marks'><li><span class='num'>1</span>клик по карточке ассета</li></ul></div>
+  </div>
+</article>
+<article class="step" id="step-13">
+  <a class="shot" href="img/13.webp" target="_blank" rel="noopener">
+    <img src="img/13.webp" alt="Шаг 13: Карточка ассета в Asset Store" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 13 / 97</div>
+    <h3>Карточка ассета в Asset Store</h3>
+    <p class="desc">Модальное окно ассета: название, автор, кнопки Download и Save, стрелки к соседним ассетам, закрытие. Слева превью, справа кнопка Use in Studio, полный текст промпта «Generated from: …» (включая правила — не повторять персонажей и логотипы существующих игр), блок Comments с полем «Add a comment…».</p>
+    <div class="action"><span class="lbl">Действие</span><p>Закрыть окно (1), затем клик «Templates» в сайдбаре (2) → шаблоны.</p><ul class='marks'><li><span class='num'>1</span>закрыть</li><li><span class='num'>2</span>клик Templates</li></ul></div>
+  </div>
+</article>
+<article class="step" id="step-14">
+  <a class="shot" href="img/14.webp" target="_blank" rel="noopener">
+    <img src="img/14.webp" alt="Шаг 14: Templates — шаблоны игр" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 14 / 97</div>
+    <h3>Templates — шаблоны игр</h3>
+    <p class="desc">Templates: поиск, вкладки All / Games / Prompts. Game templates (17) — open-source игры: «Download one and open it in Summer Engine». Карточки Sakura Rally (3D · Rally racing), Platform Quest (2D · Platformer), GridKit (3D · Grid puzzle) и другие; у каждой описание и кнопки Download / View on GitHub. Шаблоны открываются в desktop-движке, не в браузере.</p>
+    <div class="action"><span class="lbl">Действие</span><p>Клик вкладки «Prompts» → шаблоны промптов.</p><ul class='marks'><li><span class='num'>1</span>клик Prompts</li></ul></div>
+  </div>
+</article>
+<article class="step" id="step-15">
+  <a class="shot" href="img/15.webp" target="_blank" rel="noopener">
+    <img src="img/15.webp" alt="Шаг 15: Templates → Prompts — шаблоны промптов" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 15 / 97</div>
+    <h3>Templates → Prompts — шаблоны промптов</h3>
+    <p class="desc">Prompt templates (157): «Pick an idea and Summer starts the game with you». Карточки по жанрам: Survival Horror, Resident Evil Style, Silent Hill Style, Amnesia Style, Outlast Style, Dead Space Style… У каждой кнопка Use — подставляет готовое описание в мастер создания игры.</p>
+    <div class="action"><span class="lbl">Действие</span><p>Клик «Apps» в сайдбаре → приложения команды.</p><ul class='marks'><li><span class='num'>1</span>клик Apps</li></ul></div>
+  </div>
+</article>
+<article class="step" id="step-16">
+  <a class="shot" href="img/16.webp" target="_blank" rel="noopener">
+    <img src="img/16.webp" alt="Шаг 16: Apps — инструменты команды" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 16 / 97</div>
+    <h3>Apps — инструменты команды</h3>
+    <p class="desc">Apps: «Tools your team’s agents built, shared with everyone in this workspace», кнопка Build a new app. У нового аккаунта «No apps yet». Starter apps: Pick one (выбор версий агента), Asset tracker, Balance table, Live ops — у каждого кнопка Add to team.</p>
+    <div class="action"><span class="lbl">Действие</span><p>Клик «Developers» в сайдбаре → Summer API.</p><ul class='marks'><li><span class='num'>1</span>клик Developers</li></ul></div>
+  </div>
+</article>
+<article class="step" id="step-17">
+  <a class="shot" href="img/17.webp" target="_blank" rel="noopener">
+    <img src="img/17.webp" alt="Шаг 17: Developers — Summer API" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 17 / 97</div>
+    <h3>Developers — Summer API</h3>
+    <p class="desc">Summer API: «One sign-in for every game model. Your code and agents make game assets with your paid Summer credits». Слева подразделы Get started, Connected apps, Usage and spend, Models, Webhooks и ссылки на документацию (Summer API docs, Quickstart, Model catalog, llms.txt for agents). Карточка «Paste this into your coding agent» с готовым промптом для Claude Code / Codex (npx summer-engine@latest login) и кнопкой Copy prompt. Ниже Paid credits $0.00 (Top up), Spent in the last 30 days $0.00, Connected agents &amp; apps, Webhooks Off.</p>
+    <div class="action"><span class="lbl">Действие</span><p>Клик в поле поиска «Search everything…» (Ctrl K) и ввод запроса.</p><ul class='marks'><li><span class='num'>1</span>клик в поиск Ctrl K</li></ul></div>
+  </div>
+</article>
+<article class="step" id="step-18">
+  <a class="shot" href="img/18.webp" target="_blank" rel="noopener">
+    <img src="img/18.webp" alt="Шаг 18: Глобальный поиск Ctrl K" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 18 / 97</div>
+    <h3>Глобальный поиск Ctrl K</h3>
+    <p class="desc">Оверлей поиска по запросу «sausage»: Top result — проект Sausage Sprint (Game, still planning), Best matches · by meaning, Ask Summer: «Make a game: “sausage”». Справа карточка проекта: обложка, Status Draft, Last edited, Last opened, Created, Owner (замазан). Внизу подсказки ↑↓ Move, ↵ Open project, Esc Close.</p>
+    <div class="action"><span class="lbl">Действие</span><p>Esc (закрыть), затем клик «Ask» в шапке → чат с историей.</p><ul class='marks'><li><span class='num'>1</span>клик Ask</li></ul></div>
+  </div>
+</article>
+<article class="step" id="step-19">
+  <a class="shot" href="img/19.webp" target="_blank" rel="noopener">
+    <img src="img/19.webp" alt="Шаг 19: Chat — история диалога с Summer" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 19 / 97</div>
+    <h3>Chat — история диалога с Summer</h3>
+    <p class="desc">Чат «Wiener the dachshund platformer»: исходное описание игры, карточка проекта с кнопкой Open the builder, метки «Now on: Studio &gt; 2D images / Chat» (ассистент знает, где находится пользователь), запрос на спрайт сосиски и ответ «Making pictures needs a paid plan or purchased credits» с кнопкой See plans и вариантами 1. Open Credits, 2. Open Pricing, 3. Just open Sausage Sprint. Внизу поле Reply to Summer…</p>
+    <div class="action"><span class="lbl">Действие</span><p>Клик по переключателю «SUMMER STUDIO» внизу сайдбара → меню продуктов.</p><ul class='marks'><li><span class='num'>1</span>клик SUMMER STUDIO</li></ul></div>
+  </div>
+</article>
+<article class="step" id="step-20">
+  <a class="shot" href="img/20.webp" target="_blank" rel="noopener">
+    <img src="img/20.webp" alt="Шаг 20: Меню SUMMER PRODUCTS" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 20 / 97</div>
+    <h3>Меню SUMMER PRODUCTS</h3>
+    <p class="desc">Всплывающее меню продуктов: SUMMER STUDIO (Create assets and design your game — текущий), SUMMER GROW (Run and grow your live games: players, analytics, earnings and payouts), Download Engine (desktop-приложение). Так переключаются между студией и панелью публикации.</p>
+    <div class="action"><span class="lbl">Действие</span><p>Закрыть меню (1), клик «Invite» в блоке Invite team members (2) → настройки команды.</p><ul class='marks'><li><span class='num'>1</span>пункт SUMMER GROW (просмотр)</li><li><span class='num'>2</span>клик Invite</li></ul></div>
+  </div>
+</article>
+<article class="step" id="step-21">
+  <a class="shot" href="img/21.webp" target="_blank" rel="noopener">
+    <img src="img/21.webp" alt="Шаг 21: Settings → Members — команда" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 21 / 97</div>
+    <h3>Settings → Members — команда</h3>
+    <p class="desc">Team: «Collaborate with your team. Assets generated in a team workspace are shared with everyone in it». Текущий Personal Workspace: «This is your personal workspace. Only you can see it. Create a team to invite people and share your creations». Кнопка Create team (вверху и в центре). Конец потока B.</p>
+    <div class="action"><span class="lbl">Действие</span><p>Конец потока: дальше создание игры (поток C).</p><ul class='marks'><li><span class='num'>1</span>Create team (не нажимали)</li></ul></div>
+  </div>
+</article></div>
+</section>
+<section class="flow" id="flow-C">
+  <div class="flow-head">
+    <span class="flow-tag">Поток C</span>
+    <h2>Создание игры по описанию: Sausage Sprint</h2>
+    <p>Шаги 22–42. Промпт на главной, мастер из восьми вопросов, выбор героя, мира и ключевого момента, документ GameSoul, кнопка Build this game и окно desktop-приложения, проект в списке Projects.</p>
+  </div>
+  <div class="steps">
+<article class="step" id="step-22">
+  <a class="shot" href="img/22.webp" target="_blank" rel="noopener">
+    <img src="img/22.webp" alt="Шаг 22: Home — описание игры введено" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 22 / 97</div>
+    <h3>Home — описание игры введено</h3>
+    <p class="desc">В поле на главной введён промпт: «A 2D platformer where a dachshund named Wiener runs through a city park, jumps over benches, dodges pigeons and collects sausages. Pixel art, bright colors, 2 levels». Кнопка отправки стала чёрной. Так начинается создание проекта.</p>
+    <div class="action"><span class="lbl">Действие</span><p>Клик по стрелке отправки → запускается мастер уточняющих вопросов.</p><ul class='marks'><li><span class='num'>1</span>клик Send</li></ul></div>
+  </div>
+</article>
+<article class="step" id="step-23">
+  <a class="shot" href="img/23.webp" target="_blank" rel="noopener">
+    <img src="img/23.webp" alt="Шаг 23: Мастер, вопрос 1 — «Which games like this do you love?»" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 23 / 97</div>
+    <h3>Мастер, вопрос 1 — «Which games like this do you love?»</h3>
+    <p class="desc">Полноэкранный тёмный мастер (сверху полоса прогресса, слева логотип с меню). Вопрос «Which games like this do you love?» с подсказкой «Pick the ones that match the style and feel you want for Wiener’s adventure». Варианты-чекбоксы: Celeste, Kirby series, Shovel Knight, Donkey Kong Country, поле «Or type your own», кнопка Continue (неактивна, пока ничего не выбрано).</p>
+    <div class="action"><span class="lbl">Действие</span><p>Клик «Celeste» (1) и «Donkey Kong Country» (2).</p><ul class='marks'><li><span class='num'>1</span>Celeste</li><li><span class='num'>2</span>Donkey Kong Country</li></ul></div>
+  </div>
+</article>
+<article class="step" id="step-24">
+  <a class="shot" href="img/24.webp" target="_blank" rel="noopener">
+    <img src="img/24.webp" alt="Шаг 24: Вопрос 1 — выбраны две игры" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 24 / 97</div>
+    <h3>Вопрос 1 — выбраны две игры</h3>
+    <p class="desc">Отмечены Celeste и Donkey Kong Country, кнопка Continue стала активной. Выбор влияет на последующие вопросы: мастер будет ссылаться на эти игры при подборе сложности и камеры.</p>
+    <div class="action"><span class="lbl">Действие</span><p>Клик «Continue» → следующий вопрос.</p><ul class='marks'><li><span class='num'>1</span>клик Continue</li></ul></div>
+  </div>
+</article>
+<article class="step" id="step-25">
+  <a class="shot" href="img/25.webp" target="_blank" rel="noopener">
+    <img src="img/25.webp" alt="Шаг 25: Вопрос 2 — «What art style for this game?»" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 25 / 97</div>
+    <h3>Вопрос 2 — «What art style for this game?»</h3>
+    <p class="desc">Подсказка «You mentioned pixel art for Wiener’s adventure». Радио-варианты: Cartoon, Minimalist, Realistic but colorful, You choose, поле «Or type your own». Сверху ссылка Back. Выбор варианта сразу переводит к следующему вопросу.</p>
+    <div class="action"><span class="lbl">Действие</span><p>Клик «Cartoon».</p><ul class='marks'><li><span class='num'>1</span>клик Cartoon</li></ul></div>
+  </div>
+</article>
+<article class="step" id="step-26">
+  <a class="shot" href="img/26.webp" target="_blank" rel="noopener">
+    <img src="img/26.webp" alt="Шаг 26: Вопрос 3 — «Side view or top-down?»" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 26 / 97</div>
+    <h3>Вопрос 3 — «Side view or top-down?»</h3>
+    <p class="desc">«Since Wiener jumps over benches, we need to pick the camera angle». Варианты: Side view like Celeste (помечен Recommended) и Top-down bird’s eye, поле для своего варианта.</p>
+    <div class="action"><span class="lbl">Действие</span><p>Клик «Side view like Celeste».</p><ul class='marks'><li><span class='num'>1</span>клик Side view like Celeste</li></ul></div>
+  </div>
+</article>
+<article class="step" id="step-27">
+  <a class="shot" href="img/27.webp" target="_blank" rel="noopener">
+    <img src="img/27.webp" alt="Шаг 27: Вопрос 4 — «What’s Wiener like as a character?»" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 27 / 97</div>
+    <h3>Вопрос 4 — «What’s Wiener like as a character?»</h3>
+    <p class="desc">«You’ve got a dachshund with a silly name running through a park. What’s their vibe?» Варианты: Goofy and silly, Determined and focused, Chill and relaxed, Brave and fearless.</p>
+    <div class="action"><span class="lbl">Действие</span><p>Клик «Goofy and silly».</p><ul class='marks'><li><span class='num'>1</span>клик Goofy and silly</li></ul></div>
+  </div>
+</article>
+<article class="step" id="step-28">
+  <a class="shot" href="img/28.webp" target="_blank" rel="noopener">
+    <img src="img/28.webp" alt="Шаг 28: Вопрос 5 — «What does Wiener do to win a level?»" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 28 / 97</div>
+    <h3>Вопрос 5 — «What does Wiener do to win a level?»</h3>
+    <p class="desc">«You mentioned collecting sausages. Are those the main goal, or is there something else». Варианты: Collect all the sausages, Reach the end of the park, Collect sausages before time runs out, You choose.</p>
+    <div class="action"><span class="lbl">Действие</span><p>Клик «Collect all the sausages».</p><ul class='marks'><li><span class='num'>1</span>клик Collect all the sausages</li></ul></div>
+  </div>
+</article>
+<article class="step" id="step-29">
+  <a class="shot" href="img/29.webp" target="_blank" rel="noopener">
+    <img src="img/29.webp" alt="Шаг 29: Вопрос 6 — «What kind of sounds and music?»" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 29 / 97</div>
+    <h3>Вопрос 6 — «What kind of sounds and music?»</h3>
+    <p class="desc">Появилась ссылка Skip the rest — оставшиеся вопросы можно пропустить. Варианты: Upbeat chiptune, beepy and fun; Modern and energetic pop; Silly and quirky sounds (Recommended); You choose.</p>
+    <div class="action"><span class="lbl">Действие</span><p>Клик «Upbeat chiptune, beepy and fun».</p><ul class='marks'><li><span class='num'>1</span>клик Upbeat chiptune</li></ul></div>
+  </div>
+</article>
+<article class="step" id="step-30">
+  <a class="shot" href="img/30.webp" target="_blank" rel="noopener">
+    <img src="img/30.webp" alt="Шаг 30: Вопрос 7 — «How tricky should this game feel?»" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 30 / 97</div>
+    <h3>Вопрос 7 — «How tricky should this game feel?»</h3>
+    <p class="desc">«Celeste is tough but fair, Donkey Kong Country is a bit more chill». Варианты: Tough but fair, Medium difficulty, Easygoing and fun, Easy at first, harder later.</p>
+    <div class="action"><span class="lbl">Действие</span><p>Клик «Tough but fair».</p><ul class='marks'><li><span class='num'>1</span>клик Tough but fair</li></ul></div>
+  </div>
+</article>
+<article class="step" id="step-31">
+  <a class="shot" href="img/31.webp" target="_blank" rel="noopener">
+    <img src="img/31.webp" alt="Шаг 31: Вопрос 8 — «What changes between the two levels?»" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 31 / 97</div>
+    <h3>Вопрос 8 — «What changes between the two levels?»</h3>
+    <p class="desc">«You’ve got the park and sausages sorted. What makes level 2 feel different from level 1?» Варианты: Just gets harder, New area of the park, New thing to do, You choose. Последний текстовый вопрос мастера.</p>
+    <div class="action"><span class="lbl">Действие</span><p>Клик «Just gets harder» → мастер генерирует изображения героя.</p><ul class='marks'><li><span class='num'>1</span>клик Just gets harder</li></ul></div>
+  </div>
+</article>
+<article class="step" id="step-32">
+  <a class="shot" href="img/32.webp" target="_blank" rel="noopener">
+    <img src="img/32.webp" alt="Шаг 32: Выбор героя — «Who do you play as?»" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 32 / 97</div>
+    <h3>Выбор героя — «Who do you play as?»</h3>
+    <p class="desc">Визуальный этап (индикатор из четырёх точек). Три сгенерированных пиксельных персонажа: Wiener the classic dachshund, Pretzel the spotty dachshund, Frank the armored dachshund. Внизу Change something (поправить описание) и None of these, redraw all (перерисовать). Справа Skip. На генерацию трёх картинок списано около $0.13 бонусных кредитов.</p>
+    <div class="action"><span class="lbl">Действие</span><p>Клик по карточке «Wiener the classic dachshund».</p><ul class='marks'><li><span class='num'>1</span>клик Wiener</li></ul></div>
+  </div>
+</article>
+<article class="step" id="step-33">
+  <a class="shot" href="img/33.webp" target="_blank" rel="noopener">
+    <img src="img/33.webp" alt="Шаг 33: Выбор мира — «Where does your game happen?»" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 33 / 97</div>
+    <h3>Выбор мира — «Where does your game happen?»</h3>
+    <p class="desc">Три варианта локации: Sunny city park, Rainy park at dusk, Autumn park with leaf piles. Кнопки Back, Skip, Change something, None of these, redraw all.</p>
+    <div class="action"><span class="lbl">Действие</span><p>Клик «Sunny city park».</p><ul class='marks'><li><span class='num'>1</span>клик Sunny city park</li></ul></div>
+  </div>
+</article>
+<article class="step" id="step-34">
+  <a class="shot" href="img/34.webp" target="_blank" rel="noopener">
+    <img src="img/34.webp" alt="Шаг 34: Выбор момента — «Which moment should your game be about?»" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 34 / 97</div>
+    <h3>Выбор момента — «Which moment should your game be about?»</h3>
+    <p class="desc">«Pick what you mostly do in it»: Jump over park benches, Dodge swooping pigeons, Grab floating sausages. Это основная механика, вокруг которой строится GameSoul.</p>
+    <div class="action"><span class="lbl">Действие</span><p>Клик «Jump over park benches».</p><ul class='marks'><li><span class='num'>1</span>клик Jump over park benches</li></ul></div>
+  </div>
+</article>
+<article class="step" id="step-35">
+  <a class="shot" href="img/35.webp" target="_blank" rel="noopener">
+    <img src="img/35.webp" alt="Шаг 35: Ready to build Sausage Sprint — итог мастера" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 35 / 97</div>
+    <h3>Ready to build Sausage Sprint — итог мастера</h3>
+    <p class="desc">Итоговый экран: сверху три выбранные картинки HERO / WORLD / MOMENT, заголовок «Ready to build Sausage Sprint» (название придумал ассистент), ссылка Rename, кнопка Build this game и подпись «Next, you build it in the desktop app». Ниже документ YOUR GAMESOUL с разделами Vision, Genre and Style (Type, Inspirations, What makes it theirs) и кнопкой Edit.</p>
+    <div class="action"><span class="lbl">Действие</span><p>Клик «Edit» в блоке GameSoul → режим правки документа.</p><ul class='marks'><li><span class='num'>1</span>клик Edit</li></ul></div>
+  </div>
+</article>
+<article class="step" id="step-36">
+  <a class="shot" href="img/36.webp" target="_blank" rel="noopener">
+    <img src="img/36.webp" alt="Шаг 36: GameSoul — режим правки" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 36 / 97</div>
+    <h3>GameSoul — режим правки</h3>
+    <p class="desc">Документ переключился в текстовый редактор с markdown-разметкой (## Vision, ## Genre and Style). Кнопки Cancel и Save. GameSoul — это «душа игры»: дизайн-документ, который desktop-приложение использует как задание на сборку.</p>
+    <div class="action"><span class="lbl">Действие</span><p>Cancel (1), затем клик по логотипу со стрелкой в левом верхнем углу (2) → меню проекта.</p><ul class='marks'><li><span class='num'>1</span>Cancel</li><li><span class='num'>2</span>клик меню проекта</li></ul></div>
+  </div>
+</article>
+<article class="step" id="step-37">
+  <a class="shot" href="img/37.webp" target="_blank" rel="noopener">
+    <img src="img/37.webp" alt="Шаг 37: Меню проекта в мастере" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 37 / 97</div>
+    <h3>Меню проекта в мастере</h3>
+    <p class="desc">Всплывающая панель Sausage Sprint: переключатель Fun mode, Language (English), Your creator card, Back to Summer (вернуться в Studio). Остальной экран без изменений.</p>
+    <div class="action"><span class="lbl">Действие</span><p>Закрыть меню и прокрутить страницу к кнопке сборки.</p><ul class='marks'><li><span class='num'>1</span>Back to Summer (не нажимали)</li></ul></div>
+  </div>
+</article>
+<article class="step" id="step-38">
+  <a class="shot" href="img/38.webp" target="_blank" rel="noopener">
+    <img src="img/38.webp" alt="Шаг 38: GameSoul — прокрученный документ" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 38 / 97</div>
+    <h3>GameSoul — прокрученный документ</h3>
+    <p class="desc">Прокрутка к документу: Vision (описание игры), Genre and Style — Type: Side-scrolling 2D platformer with a collect-everything goal per level; Inspirations: Celeste и Donkey Kong Country; What makes it theirs: герой не бьёт врагов, а собирает еду. Кнопка Build this game остаётся вверху.</p>
+    <div class="action"><span class="lbl">Действие</span><p>Клик «Build this game» → окно сборки.</p><ul class='marks'><li><span class='num'>1</span>клик Build this game</li></ul></div>
+  </div>
+</article>
+<article class="step" id="step-39">
+  <a class="shot" href="img/39.webp" target="_blank" rel="noopener">
+    <img src="img/39.webp" alt="Шаг 39: Sausage Sprint is ready to build — окно сборки" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 39 / 97</div>
+    <h3>Sausage Sprint is ready to build — окно сборки</h3>
+    <p class="desc">Модальное окно: коллаж из трёх картинок с меткой Ready to build, текст «Summer builds it on your computer from the picks you just made: code, art, sound and multiplayer». Синяя кнопка Download the desktop app for Windows, шаги 1 Download → 2 Sign in → 3 Summer builds it, отзыв «Join 50,000+ creators». Ниже Use your own AI coding tool: Copy prompt, Download GameSoul.md (для Claude Code / Codex) и ссылка Continue to Studio, build later. Сборка игры в браузере недоступна.</p>
+    <div class="action"><span class="lbl">Действие</span><p>Клик «Continue to Studio, build later» → возврат в Studio с черновиком.</p><ul class='marks'><li><span class='num'>1</span>клик Continue to Studio, build later</li><li><span class='num'>2</span>Download (не нажимали)</li></ul></div>
+  </div>
+</article>
+<article class="step" id="step-40">
+  <a class="shot" href="img/40.webp" target="_blank" rel="noopener">
+    <img src="img/40.webp" alt="Шаг 40: Home — черновик сохранён" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 40 / 97</div>
+    <h3>Home — черновик сохранён</h3>
+    <p class="desc">Главная Studio: справа открылась панель чата «Wiener the dachshund platf…» с историей и кнопкой Open the builder, метка «Now on: Studio &gt; Home». Внизу блок Pick up where you left off — Sausage Sprint, Draft · 1 minute ago, кнопка Open game.</p>
+    <div class="action"><span class="lbl">Действие</span><p>Клик «Projects» в сайдбаре → список проектов.</p><ul class='marks'><li><span class='num'>1</span>клик Projects</li></ul></div>
+  </div>
+</article>
+<article class="step" id="step-41">
+  <a class="shot" href="img/41.webp" target="_blank" rel="noopener">
+    <img src="img/41.webp" alt="Шаг 41: Projects — проект появился" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 41 / 97</div>
+    <h3>Projects — проект появился</h3>
+    <p class="desc">В Projects появилась карточка Sausage Sprint (обложка — пятнистая такса, «Edited 1 min ago»). Фильтр All / Published / Drafts, кнопка New project. При наведении на карточку появляется кнопка Publish.</p>
+    <div class="action"><span class="lbl">Действие</span><p>Клик по карточке проекта → открывается мастер на итоговом экране.</p><ul class='marks'><li><span class='num'>1</span>клик по карточке Sausage Sprint</li></ul></div>
+  </div>
+</article>
+<article class="step" id="step-42">
+  <a class="shot" href="img/42.webp" target="_blank" rel="noopener">
+    <img src="img/42.webp" alt="Шаг 42: Проект открыт — тот же итоговый экран" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 42 / 97</div>
+    <h3>Проект открыт — тот же итоговый экран</h3>
+    <p class="desc">Открытый проект ведёт на экран Ready to build Sausage Sprint с GameSoul: редактировать можно только документ и название, сама игра собирается в desktop-приложении (Build this game снова показывает окно загрузки). Конец потока C.</p>
+    <div class="action"><span class="lbl">Действие</span><p>Конец потока: сборка и редактор доступны только в desktop-приложении Summer Engine.</p><ul class='marks'><li><span class='num'>1</span>Build this game → окно desktop-приложения</li></ul></div>
+  </div>
+</article></div>
+</section>
+<section class="flow" id="flow-D">
+  <div class="flow-head">
+    <span class="flow-tag">Поток D</span>
+    <h2>Генерация ассетов: 2D, 3D, аудио, видео, анимация</h2>
+    <p>Шаги 43–59. Чат 2D отказывает на Free-плане, страница Pricing, формы Pixel art и Tiles, форма Advanced, которая генерирует спрайт за $0.04 бонусных кредитов, My Assets, разделы 3D, Audio, Video, Animation.</p>
+  </div>
+  <div class="steps">
+<article class="step" id="step-43">
+  <a class="shot" href="img/43.webp" target="_blank" rel="noopener">
+    <img src="img/43.webp" alt="Шаг 43: 2D → Image — генерация картинок" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 43 / 97</div>
+    <h3>2D → Image — генерация картинок</h3>
+    <p class="desc">Раздел 2D: слева подразделы Image (Characters, items, backgrounds and concept art), Pixel art (Crisp pixel sprites at exact sizes), Tiles (Seamless tiles and tile sets), внизу Advanced. В центре «Create textures for your game» и Your images · 9 — картинки, сгенерированные мастером (дата, промпт, 1376×768, google/nano-banana-2-lite, кнопки Download и Open in Studio). Справа панель чата с настройками GPT Image 2.5, 1:1, No style, 1 image.</p>
+    <div class="action"><span class="lbl">Действие</span><p>Клик в поле «Reply to Summer…» и ввод запроса на спрайт.</p><ul class='marks'><li><span class='num'>1</span>клик в поле Reply to Summer</li></ul></div>
+  </div>
+</article>
+<article class="step" id="step-44">
+  <a class="shot" href="img/44.webp" target="_blank" rel="noopener">
+    <img src="img/44.webp" alt="Шаг 44: Запрос на спрайт введён" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 44 / 97</div>
+    <h3>Запрос на спрайт введён</h3>
+    <p class="desc">В чат введено: «Make a pixel art sprite of a single sausage collectible item for Sausage Sprint, 64x64, transparent background, bold outline». Под полем параметры модели GPT Image 2.5, соотношение 1:1, стиль, количество. Кнопка отправки активна.</p>
+    <div class="action"><span class="lbl">Действие</span><p>Клик по стрелке отправки → ответ ассистента.</p><ul class='marks'><li><span class='num'>1</span>клик Send</li></ul></div>
+  </div>
+</article>
+<article class="step" id="step-45">
+  <a class="shot" href="img/45.webp" target="_blank" rel="noopener">
+    <img src="img/45.webp" alt="Шаг 45: Ответ: «Making pictures needs a paid plan or purchased credits»" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 45 / 97</div>
+    <h3>Ответ: «Making pictures needs a paid plan or purchased credits»</h3>
+    <p class="desc">Ассистент не генерирует картинку: плашка «Making pictures needs a paid plan or purchased credits» с кнопкой See plans и текст «your current plan doesn’t include the image tools. I’ve left your sausage prompt ready; open Credits to top up (or upgrade a plan)». Варианты 1. Open Credits, 2. Open Pricing, 3. Just open Sausage Sprint. Генерация через чат на Free-плане закрыта, хотя бонусные $3 на балансе есть.</p>
+    <div class="action"><span class="lbl">Действие</span><p>Клик «See plans» → страница Pricing.</p><ul class='marks'><li><span class='num'>1</span>клик See plans</li></ul></div>
+  </div>
+</article>
+<article class="step" id="step-46">
+  <a class="shot" href="img/46.webp" target="_blank" rel="noopener">
+    <img src="img/46.webp" alt="Шаг 46: Pricing — публичная страница тарифов" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 46 / 97</div>
+    <h3>Pricing — публичная страница тарифов</h3>
+    <p class="desc">Открывается summerengine.com/pricing (вне Studio): переключатель Monthly / Yearly и четыре плана. Free App: No credit card, 5 free AI messages a day (up to 30 a month), MCP, редактор с ручным экспортом. Pro $20/мес: hosted Summer AI, frontier models, 3D/images/audio/video, приватные проекты. Pro+ $60/мес Recommended: полная сборка игр hosted AI, 3x лимиты, MCP skills and hooks. Ultra $200/мес: 10x AI, приоритет, личная поддержка. Кнопка браузера «назад» возвращает в Studio.</p>
+    <div class="action"><span class="lbl">Действие</span><p>Назад в Studio, клик «Pixel art» в подменю 2D.</p><ul class='marks'><li><span class='num'>1</span>клик Pixel art (после возврата)</li></ul></div>
+  </div>
+</article>
+<article class="step" id="step-47">
+  <a class="shot" href="img/47.webp" target="_blank" rel="noopener">
+    <img src="img/47.webp" alt="Шаг 47: 2D → Pixel art — спрайты точного размера" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 47 / 97</div>
+    <h3>2D → Pixel art — спрайты точного размера</h3>
+    <p class="desc">Форма «Pixel art sprites — Exact sizes, crisp pixels, ready to use». Примеры: A knight with a blue cape, A glowing health potion, A treasure chest. Внизу поле «Describe the sprite…» и чипы: размер 64 px / 128 px / 256 px, ракурс Front / Side / Back / Object, фон Transparent / Background. Справа чат с тем же ответом про платный план.</p>
+    <div class="action"><span class="lbl">Действие</span><p>Клик «Tiles» в подменю 2D.</p><ul class='marks'><li><span class='num'>1</span>клик Tiles</li></ul></div>
+  </div>
+</article>
+<article class="step" id="step-48">
+  <a class="shot" href="img/48.webp" target="_blank" rel="noopener">
+    <img src="img/48.webp" alt="Шаг 48: 2D → Tiles — бесшовные тайлы" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 48 / 97</div>
+    <h3>2D → Tiles — бесшовные тайлы</h3>
+    <p class="desc">Форма «Tiles for your level — Seamless tiles that repeat with no edge». Примеры: Mossy stone floor, Grass with little flowers, Sand. Поле «Describe the surface: mossy stone, wet sand…» и чипы Seamless tile / Tile set, Top-down / Side-on.</p>
+    <div class="action"><span class="lbl">Действие</span><p>Клик «Advanced» внизу подменю 2D → расширенная форма генерации.</p><ul class='marks'><li><span class='num'>1</span>клик Advanced</li></ul></div>
+  </div>
+</article>
+<article class="step" id="step-49">
+  <a class="shot" href="img/49.webp" target="_blank" rel="noopener">
+    <img src="img/49.webp" alt="Шаг 49: 2D → Advanced — форма генерации" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 49 / 97</div>
+    <h3>2D → Advanced — форма генерации</h3>
+    <p class="desc">Расширенная форма: Model (Nano Banana 2.1, ссылка Use with your agent or API), Prompt, Number of Images 1–4, Reference Image (drag, paste, or click), Style (No style preset), Aspect Ratio (Square 1:1), ниже Visibility Public (Free), кнопка Generate. Справа лента Search generations с плитками Image — все картинки проекта.</p>
+    <div class="action"><span class="lbl">Действие</span><p>Клик в поле Prompt и ввод описания спрайта.</p><ul class='marks'><li><span class='num'>1</span>клик в Prompt</li></ul></div>
+  </div>
+</article>
+<article class="step" id="step-50">
+  <a class="shot" href="img/50.webp" target="_blank" rel="noopener">
+    <img src="img/50.webp" alt="Шаг 50: Advanced — промпт введён" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 50 / 97</div>
+    <h3>Advanced — промпт введён</h3>
+    <p class="desc">В Prompt: «Pixel art sprite of a single sausage collectible item, 64x64, bold outline, transparent background». Остальные настройки по умолчанию, кнопка Generate стала чёрной. На Free-плане работает именно этот путь (Visibility Public (Free)), а не чат.</p>
+    <div class="action"><span class="lbl">Действие</span><p>Клик «Generate» → запуск генерации.</p><ul class='marks'><li><span class='num'>1</span>клик Generate</li></ul></div>
+  </div>
+</article>
+<article class="step" id="step-51">
+  <a class="shot" href="img/51.webp" target="_blank" rel="noopener">
+    <img src="img/51.webp" alt="Шаг 51: Генерация — Creating…" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 51 / 97</div>
+    <h3>Генерация — Creating…</h3>
+    <p class="desc">В ленте справа появилась серая плитка «Pixel art sprite of a single s… · Creating…». Форма не блокируется, можно запускать следующую генерацию.</p>
+    <div class="action"><span class="lbl">Действие</span><p>Ожидание 10–20 секунд, плитка сменяется результатом.</p><ul class='marks'><li><span class='num wait'>…</span>ожидание — клика нет</li></ul></div>
+  </div>
+</article>
+<article class="step" id="step-52">
+  <a class="shot" href="img/52.webp" target="_blank" rel="noopener">
+    <img src="img/52.webp" alt="Шаг 52: Результат — спрайт сосиски" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 52 / 97</div>
+    <h3>Результат — спрайт сосиски</h3>
+    <p class="desc">Первая плитка — готовый пиксельный спрайт сосиски на прозрачном фоне. Баланс в шапке уменьшился с $2.53 до $2.49 — генерация списала $0.04 бонусных кредитов. Поле Prompt очистилось.</p>
+    <div class="action"><span class="lbl">Действие</span><p>Клик по плитке с результатом → выделение и действия.</p><ul class='marks'><li><span class='num'>1</span>клик по спрайту</li></ul></div>
+  </div>
+</article>
+<article class="step" id="step-53">
+  <a class="shot" href="img/53.webp" target="_blank" rel="noopener">
+    <img src="img/53.webp" alt="Шаг 53: Результат выделен — Make 3D и выбор" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 53 / 97</div>
+    <h3>Результат выделен — Make 3D и выбор</h3>
+    <p class="desc">Плитка отмечена чекбоксом, на ней кнопка Make 3D (превратить картинку в 3D-модель). Внизу ленты «1 selected · Select all 10» — массовые действия. Все сгенерированные картинки автоматически попадают в My Assets.</p>
+    <div class="action"><span class="lbl">Действие</span><p>Клик «My Assets» в сайдбаре → библиотека ассетов.</p><ul class='marks'><li><span class='num'>1</span>клик My Assets</li></ul></div>
+  </div>
+</article>
+<article class="step" id="step-54">
+  <a class="shot" href="img/54.webp" target="_blank" rel="noopener">
+    <img src="img/54.webp" alt="Шаг 54: My Assets — библиотека и меню ассета" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 54 / 97</div>
+    <h3>My Assets — библиотека и меню ассета</h3>
+    <p class="desc">My Assets (10): фильтры All / Characters / Images 10 / 3D / Animations / Audio / Video, поиск по промпту, кнопки Public, Visibility settings, Folders. Сетка плиток Image со значком скачивания. Открыто меню «…» первого ассета: Add as reference, Make 3D, Copy URL, Download, Edit / Remix, Delete.</p>
+    <div class="action"><span class="lbl">Действие</span><p>Закрыть меню (Esc), клик «Visibility settings» → настройки видимости.</p><ul class='marks'><li><span class='num'>1</span>клик Visibility settings</li></ul></div>
+  </div>
+</article>
+<article class="step" id="step-55">
+  <a class="shot" href="img/55.webp" target="_blank" rel="noopener">
+    <img src="img/55.webp" alt="Шаг 55: Visibility settings → Settings · Account" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 55 / 97</div>
+    <h3>Visibility settings → Settings · Account</h3>
+    <p class="desc">Кнопка ведёт на ту же страницу Settings → Account (профиль; почта и имя замазаны). Отдельного экрана приватности ассетов нет: на Free-плане ассеты публичные, приватные — в Pro («Private projects and assets»).</p>
+    <div class="action"><span class="lbl">Действие</span><p>Клик «3D» в сайдбаре → 3D-генерация.</p><ul class='marks'><li><span class='num'>1</span>клик 3D</li></ul></div>
+  </div>
+</article>
+<article class="step" id="step-56">
+  <a class="shot" href="img/56.webp" target="_blank" rel="noopener">
+    <img src="img/56.webp" alt="Шаг 56: 3D — модели" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 56 / 97</div>
+    <h3>3D — модели</h3>
+    <p class="desc">Раздел 3D: подразделы Text to 3D (Describe it and get a textured model), Image to 3D (Your picture becomes a model), Rig a character (A skeleton, then idle, walk, run and jump), Advanced. «Your models land here. Ask Summer in the chat to make one». Examples: модель Asha (Rigged and animated in Summer, recreates her mesh with Meshy 6, Hover to spin in 3D, кнопка Recreate). В чате выбрана модель Hunyuan 3D 3.1 Pro.</p>
+    <div class="action"><span class="lbl">Действие</span><p>Клик «Audio» в сайдбаре.</p><ul class='marks'><li><span class='num'>1</span>клик Audio</li></ul></div>
+  </div>
+</article>
+<article class="step" id="step-57">
+  <a class="shot" href="img/57.webp" target="_blank" rel="noopener">
+    <img src="img/57.webp" alt="Шаг 57: Audio — звук и музыка" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 57 / 97</div>
+    <h3>Audio — звук и музыка</h3>
+    <p class="desc">Раздел Audio: Audio assistant, Music (Themes, loops and stings for menus, levels and boss fights), Sound effects (Hits, pickups, UI clicks, footsteps, ambience), Voices (Lines read by the cast, or a dialogue scene), Speech to text (Transcripts with timed captions). В центре тот же чат проекта во всю ширину.</p>
+    <div class="action"><span class="lbl">Действие</span><p>Клик «Video» в сайдбаре.</p><ul class='marks'><li><span class='num'>1</span>клик Video</li></ul></div>
+  </div>
+</article>
+<article class="step" id="step-58">
+  <a class="shot" href="img/58.webp" target="_blank" rel="noopener">
+    <img src="img/58.webp" alt="Шаг 58: Video — трейлеры" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 58 / 97</div>
+    <h3>Video — трейлеры</h3>
+    <p class="desc">Раздел Video: Text to video (A shot from words), Image to video (Your picture, brought to life). Форма Create Video / Bankai: модель Kling 3.0 (Change), вкладки Frames / References, Start frame (optional), Prompt «Describe the shot. Subject, action, camera, mood», Model, Duration 5s, Aspect 16:9, Generate. Справа «Create trailers for your game» и Examples.</p>
+    <div class="action"><span class="lbl">Действие</span><p>Клик «Animation» в сайдбаре.</p><ul class='marks'><li><span class='num'>1</span>клик Animation</li></ul></div>
+  </div>
+</article>
+<article class="step" id="step-59">
+  <a class="shot" href="img/59.webp" target="_blank" rel="noopener">
+    <img src="img/59.webp" alt="Шаг 59: Animation — риг и анимация" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 59 / 97</div>
+    <h3>Animation — риг и анимация</h3>
+    <p class="desc">Раздел Animation: подраздел Rig and animate (Upload or pick a model, rig it and give it moves). Get Started: Upload 3D Model (GLB, single or bulk), Generate with AI (Create a 3D model first), Use Default Character (Pre-made humanoid model), Browse Animations (Skip to animation library). Справа 3D-вьюпорт с сеткой и шагами Model → Rig → Animate → Export. Конец потока D.</p>
+    <div class="action"><span class="lbl">Действие</span><p>Конец потока: дальше публикация (поток E).</p><ul class='marks'><li><span class='num'>1</span>Upload 3D Model (не нажимали)</li></ul></div>
+  </div>
+</article></div>
+</section>
+<section class="flow" id="flow-E">
+  <div class="flow-head">
+    <span class="flow-tag">Поток E</span>
+    <h2>Публикация игры и Summer Grow</h2>
+    <p>Шаги 60–77. Диалог Go to Grow, главная Grow, мастер публикации из шести шагов: How you earn, Game and targets, Desktop store, Get paid, Check and publish, Live; Your games, дашборд игры, Analytics, Earnings, Promotions.</p>
+  </div>
+  <div class="steps">
+<article class="step" id="step-60">
+  <a class="shot" href="img/60.webp" target="_blank" rel="noopener">
+    <img src="img/60.webp" alt="Шаг 60: Publish your game — «Go to Summer Grow?»" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 60 / 97</div>
+    <h3>Publish your game — «Go to Summer Grow?»</h3>
+    <p class="desc">Клик «Publish your game» в сайдбаре Studio показывает диалог: «Uploading a game happens in Summer Grow, next to your live games, players and earnings. Studio stays one click away». Кнопки Stay in Studio и Go to Grow.</p>
+    <div class="action"><span class="lbl">Действие</span><p>Клик «Go to Grow» → главная Summer Grow.</p><ul class='marks'><li><span class='num'>1</span>клик Go to Grow</li></ul></div>
+  </div>
+</article>
+<article class="step" id="step-61">
+  <a class="shot" href="img/61.webp" target="_blank" rel="noopener">
+    <img src="img/61.webp" alt="Шаг 61: Summer Grow — главная" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 61 / 97</div>
+    <h3>Summer Grow — главная</h3>
+    <p class="desc">Переключатель Studio / Grow стоит на Grow, заголовок «How do you want to grow your game?». Сайдбар Grow: Home, Your games, Publish a game, Analytics; Insights: Overview, Organization, Games, Earnings &amp; payouts; Grow (Early access): Promotions, Paid growth, Content, Featured p…, A/B tests, Dashboards, Alerts, Community. Карточка «New here? Grow is where your game goes live»: 1 Publish to Summer Games, 2 Your games, in one place, 3 Grow it. Кнопки Publish your game и Your games.</p>
+    <div class="action"><span class="lbl">Действие</span><p>Клик «Publish your game» → мастер публикации.</p><ul class='marks'><li><span class='num'>1</span>клик Publish your game</li></ul></div>
+  </div>
+</article>
+<article class="step" id="step-62">
+  <a class="shot" href="img/62.webp" target="_blank" rel="noopener">
+    <img src="img/62.webp" alt="Шаг 62: Мастер публикации, шаг 1 — How you earn" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 62 / 97</div>
+    <h3>Мастер публикации, шаг 1 — How you earn</h3>
+    <p class="desc">Шаги мастера: 1 How you earn, 2 Game and targets, 3 Get paid, 4 Check and publish, 5 Live. «Free to play with Sparks, or a paid game. It decides what Get paid asks for». Две карточки: Free to play + Sparks (Recommended): игроки покупают Sparks, автор получает 70%, выплаты ежемесячно от $100; Paid game: разовая покупка, 70% автору, 30% комиссия Summer, выплаты через Stripe. Кнопка Next: Game and targets, подпись «Kept in this browser as you type».</p>
+    <div class="action"><span class="lbl">Действие</span><p>Клик по карточке «Free to play + Sparks».</p><ul class='marks'><li><span class='num'>1</span>клик Free to play + Sparks</li></ul></div>
+  </div>
+</article>
+<article class="step" id="step-63">
+  <a class="shot" href="img/63.webp" target="_blank" rel="noopener">
+    <img src="img/63.webp" alt="Шаг 63: Шаг 1 — модель выбрана" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 63 / 97</div>
+    <h3>Шаг 1 — модель выбрана</h3>
+    <p class="desc">Карточка Free to play + Sparks отмечена галочкой, шаг 1 в шапке помечен выполненным.</p>
+    <div class="action"><span class="lbl">Действие</span><p>Клик «Next: Game and targets».</p><ul class='marks'><li><span class='num'>1</span>клик Next: Game and targets</li></ul></div>
+  </div>
+</article>
+<article class="step" id="step-64">
+  <a class="shot" href="img/64.webp" target="_blank" rel="noopener">
+    <img src="img/64.webp" alt="Шаг 64: Шаг 2 — Game and targets (пустая форма)" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 64 / 97</div>
+    <h3>Шаг 2 — Game and targets (пустая форма)</h3>
+    <p class="desc">«Name your game and choose where it ships. Each target opens the store page it needs next». Поле Game title (My Game), Targets: Desktop store (Web, macOS, Windows, Linux — для summer.games и desktop-приложения), Mobile store (iPhone, Android), Enter a jam: No jam / Summer Games Jam: Friendslop. Подпись «Choose at least one target. Uploading a build does not make it playable yet», кнопка Save and continue. Ниже блок Builds — сборки добавляются после сохранения.</p>
+    <div class="action"><span class="lbl">Действие</span><p>Ввод названия (1) и выбор цели Web (2).</p><ul class='marks'><li><span class='num'>1</span>поле Game title</li><li><span class='num'>2</span>чекбокс Web</li></ul></div>
+  </div>
+</article>
+<article class="step" id="step-65">
+  <a class="shot" href="img/65.webp" target="_blank" rel="noopener">
+    <img src="img/65.webp" alt="Шаг 65: Шаг 2 — заполнено: Sausage Sprint, Web" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 65 / 97</div>
+    <h3>Шаг 2 — заполнено: Sausage Sprint, Web</h3>
+    <p class="desc">Название Sausage Sprint, отмечен Web, джем не выбран. В шапке мастера появился шаг 3 Desktop store (так как выбрана цель Web): теперь шагов шесть — Get paid стал 4, Check and publish 5, Live 6. Подсказка «Next: Desktop store. Each has its own art and a live preview of that store».</p>
+    <div class="action"><span class="lbl">Действие</span><p>Клик «Save and continue» → создаётся черновик игры.</p><ul class='marks'><li><span class='num'>1</span>клик Save and continue</li></ul></div>
+  </div>
+</article>
+<article class="step" id="step-66">
+  <a class="shot" href="img/66.webp" target="_blank" rel="noopener">
+    <img src="img/66.webp" alt="Шаг 66: Шаг 3 — Desktop store (страница магазина)" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 66 / 97</div>
+    <h3>Шаг 3 — Desktop store (страница магазина)</h3>
+    <p class="desc">Страница игры в Your games: вкладки Your games / Sausage Sprint / + New game, шаги мастера с отметками (Game and targets с «!» — не всё заполнено). «Only you work on this game. Your role: Owner», кнопка Invite. Desktop store: Text — Tagline (0/80), Description (14 из 120–300), Tags (0 of 3–8). Справа живой превью страницы на summer.games с вкладками Page / Card / Hover / Share / Search, десктоп/мобайл, тема, счётчик «8 before launch», Share preview.</p>
+    <div class="action"><span class="lbl">Действие</span><p>Заполнение Tagline (1), Description (2) и выбор тегов (3).</p><ul class='marks'><li><span class='num'>1</span>поле Tagline</li><li><span class='num'>2</span>поле Description</li><li><span class='num'>3</span>теги</li></ul></div>
+  </div>
+</article>
+<article class="step" id="step-67">
+  <a class="shot" href="img/67.webp" target="_blank" rel="noopener">
+    <img src="img/67.webp" alt="Шаг 67: Шаг 3 — текст заполнен" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 67 / 97</div>
+    <h3>Шаг 3 — текст заполнен</h3>
+    <p class="desc">Tagline «A goofy dachshund collects sausages across a sunny park», Description 220 символов, выбраны 4 тега: Arcade, Casual, Platformer, Single player. Превью справа обновилось: хлебные крошки All Games &gt; Platformer &gt; Sausage Sprint, теги, Genre Platformer, Casual, Plays in browser, Free to play. Кнопка Save draft.</p>
+    <div class="action"><span class="lbl">Действие</span><p>Клик «Save draft».</p><ul class='marks'><li><span class='num'>1</span>клик Save draft</li></ul></div>
+  </div>
+</article>
+<article class="step" id="step-68">
+  <a class="shot" href="img/68.webp" target="_blank" rel="noopener">
+    <img src="img/68.webp" alt="Шаг 68: Шаг 3 — черновик сохранён, раздел Art" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 68 / 97</div>
+    <h3>Шаг 3 — черновик сохранён, раздел Art</h3>
+    <p class="desc">Счётчик снизился до «5 before launch». Раздел Art («Made for summer.games and the Summer Games desktop app: wide heroes, 3:4 tiles and a wide capsule»): Key art 16:9 ≥1920×1080 (Add key art), Screenshots ≥4 (Add screenshots), Icon 1024×1024 (Add icon), More art (optional), «0 of 20 images and videos on this page». Арт не загружали.</p>
+    <div class="action"><span class="lbl">Действие</span><p>Прокрутка к шапке мастера и клик по шагу «4 Get paid».</p><ul class='marks'><li><span class='num'>1</span>Add key art (не нажимали)</li></ul></div>
+  </div>
+</article>
+<article class="step" id="step-69">
+  <a class="shot" href="img/69.webp" target="_blank" rel="noopener">
+    <img src="img/69.webp" alt="Шаг 69: Шаг 4 — Get paid: Creator Program" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 69 / 97</div>
+    <h3>Шаг 4 — Get paid: Creator Program</h3>
+    <p class="desc">Join the Creator Program — «Earn from the Sparks players spend in your game»: 70% от Sparks (бесплатные и промо-Sparks не оплачиваются), заработок разблокируется через 30 дней, выплаты ежемесячно от $100, первая через 90 дней. Full terms. «Enrolment opens soon. It is not required to submit or publish your free game». Кнопки Back и Next: Check and publish.</p>
+    <div class="action"><span class="lbl">Действие</span><p>Клик «Next: Check and publish».</p><ul class='marks'><li><span class='num'>1</span>клик Next: Check and publish</li></ul></div>
+  </div>
+</article>
+<article class="step" id="step-70">
+  <a class="shot" href="img/70.webp" target="_blank" rel="noopener">
+    <img src="img/70.webp" alt="Шаг 70: Шаг 5 — Check and publish: загрузка сборки" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 70 / 97</div>
+    <h3>Шаг 5 — Check and publish: загрузка сборки</h3>
+    <p class="desc">«Add a build for each platform, then publish. Your game goes live as soon as the automatic checks pass». Your game build: описание форматов — Summer Engine export, Web export (.zip с index.html, до 500 MB, в том числе Godot Web export), Windows/macOS/Linux (.zip или .tar.gz до 20 GB), остальные файлы хранятся приватно. Блок Uploading to Sausage Sprint — «What are you uploading?»: A Summer Engine export / A zip for each platform. Ниже Versions с кнопкой Refresh.</p>
+    <div class="action"><span class="lbl">Действие</span><p>Прокрутка вниз к версиям и чек-листу.</p><ul class='marks'><li><span class='num'>1</span>варианты: Summer Engine export / zip по платформам</li></ul></div>
+  </div>
+</article>
+<article class="step" id="step-71">
+  <a class="shot" href="img/71.webp" target="_blank" rel="noopener">
+    <img src="img/71.webp" alt="Шаг 71: Шаг 5 — Versions и Before launch" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 71 / 97</div>
+    <h3>Шаг 5 — Versions и Before launch</h3>
+    <p class="desc">Versions: Production — «No version released yet», Version history 0 versions («Upload a build above»), справа Choose a version и неактивная кнопка Promote to production. Чек-лист Before launch 6 of 11: «Not published yet — Click Publish to go live… usually within a few minutes». Needed to go live: Your game build (Fix), Price ✓ и далее. Без сборки из desktop-приложения опубликовать нельзя.</p>
+    <div class="action"><span class="lbl">Действие</span><p>Клик по шагу «6 Live» в шапке мастера.</p><ul class='marks'><li><span class='num'>1</span>Promote to production (недоступно)</li></ul></div>
+  </div>
+</article>
+<article class="step" id="step-72">
+  <a class="shot" href="img/72.webp" target="_blank" rel="noopener">
+    <img src="img/72.webp" alt="Шаг 72: Шаг 6 — Live" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 72 / 97</div>
+    <h3>Шаг 6 — Live</h3>
+    <p class="desc">Live: «Where your game is on its way to players. Publish your game. Its progress shows here». Блок Game jam: Summer Games Jam: Friendslop (Theme: Friendslop, Entries close Sunday 12 pm PT), ссылка Jam page, кнопка Enter this jam («By submitting you agree to the Summer Games Jam rules and the Summer Games Terms»). Ниже повтор блока Your game build.</p>
+    <div class="action"><span class="lbl">Действие</span><p>Клик «Your games» в сайдбаре Grow → список игр.</p><ul class='marks'><li><span class='num'>1</span>клик Your games</li><li><span class='num'>2</span>Enter this jam (не нажимали)</li></ul></div>
+  </div>
+</article>
+<article class="step" id="step-73">
+  <a class="shot" href="img/73.webp" target="_blank" rel="noopener">
+    <img src="img/73.webp" alt="Шаг 73: Your games — черновик игры" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 73 / 97</div>
+    <h3>Your games — черновик игры</h3>
+    <p class="desc">Your games: карточка Sausage Sprint с бейджем Draft и ссылкой Edit store page, кнопка + Publish a game. Ниже Get paid for your games: «Connect a Stripe account to receive the money from paid games», выбор страны (United States) и кнопка Get paid.</p>
+    <div class="action"><span class="lbl">Действие</span><p>Клик по карточке Sausage Sprint → дашборд игры.</p><ul class='marks'><li><span class='num'>1</span>клик по карточке</li></ul></div>
+  </div>
+</article>
+<article class="step" id="step-74">
+  <a class="shot" href="img/74.webp" target="_blank" rel="noopener">
+    <img src="img/74.webp" alt="Шаг 74: Дашборд игры — Full dashboard" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 74 / 97</div>
+    <h3>Дашборд игры — Full dashboard</h3>
+    <p class="desc">Страница игры: бейджи Active и Status: Not published yet, заголовок Sausage Sprint, кнопка Upload your game, «Click Publish to go live…». Раскрывающийся Store page checklist · 9 to do. Блок Game jam с Enter this jam. Вкладки Store page / Audience / Builds / Sales, ниже поле Title (14/60) и Save draft.</p>
+    <div class="action"><span class="lbl">Действие</span><p>Клик «Analytics» в сайдбаре → аналитика.</p><ul class='marks'><li><span class='num'>1</span>клик Analytics</li></ul></div>
+  </div>
+</article>
+<article class="step" id="step-75">
+  <a class="shot" href="img/75.webp" target="_blank" rel="noopener">
+    <img src="img/75.webp" alt="Шаг 75: Analytics → Overview (example data)" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 75 / 97</div>
+    <h3>Analytics → Overview (example data)</h3>
+    <p class="desc">Плашка Example data: «Your own numbers show here once a game of yours is on Summer Games and players open it». Пример студии @sample-studio: Players 87.2K, Sessions 320.7K, Day-7 retention 10.1%, Playtime per session 1h 00m, Sparks earned 852.3K; график Players per day за 28 дней с вкладками Players / Sessions / Hours played / Most players online / Sparks earned; периоды 7d / 28d / 90d.</p>
+    <div class="action"><span class="lbl">Действие</span><p>Клик «Earnings &amp; payouts» в сайдбаре.</p><ul class='marks'><li><span class='num'>1</span>клик Earnings &amp; payouts</li></ul></div>
+  </div>
+</article>
+<article class="step" id="step-76">
+  <a class="shot" href="img/76.webp" target="_blank" rel="noopener">
+    <img src="img/76.webp" alt="Шаг 76: Earnings &amp; payouts (example data)" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 76 / 97</div>
+    <h3>Earnings &amp; payouts (example data)</h3>
+    <p class="desc">Пример расчёта: Sparks earned 852.3K, Estimated value $6,818.06, Estimated payout after fees $5,825.71, Estimated next payout $307.02. How this is calculated: 1 Sparks players spent (gross), 2 Your share: 70 of every 100 Sparks, 3 Set off: platform usage invoice paid from earned Sparks first. Справа Sparks balance by stage: Pending (30 дней), Available, Reserved, Converted.</p>
+    <div class="action"><span class="lbl">Действие</span><p>Клик «Promotions» в разделе Grow сайдбара.</p><ul class='marks'><li><span class='num'>1</span>клик Promotions</li></ul></div>
+  </div>
+</article>
+<article class="step" id="step-77">
+  <a class="shot" href="img/77.webp" target="_blank" rel="noopener">
+    <img src="img/77.webp" alt="Шаг 77: Promotions (Early access)" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 77 / 97</div>
+    <h3>Promotions (Early access)</h3>
+    <p class="desc">Синяя плашка «Early access: this is how it will look» с переключателем View example data. Promotions: «Put a game, an item or a game pass on sale for a set time, for the players you choose». «Nothing of yours here yet» — скидки появятся, когда у игры будет цена и она выйдет на Summer Games. Кнопка Your games. Остальные разделы Grow (Paid growth, A/B tests, Dashboards, Alerts, Community) устроены так же. Конец потока E.</p>
+    <div class="action"><span class="lbl">Действие</span><p>Конец потока: дальше сторона игрока на summer.games (поток F).</p><ul class='marks'><li><span class='num'>1</span>View example data (не включали)</li></ul></div>
+  </div>
+</article></div>
+</section>
+<section class="flow" id="flow-F">
+  <div class="flow-head">
+    <span class="flow-tag">Поток F</span>
+    <h2>Игрок на summer.games</h2>
+    <p>Шаги 78–97. Вход игрока, проверка 18+, выбор имени и постоянного хэндла, поиск, страница Save The Ship, игра в браузере, сохранение в Library, друзья, меню игрока, Sparks, Inbox, Settings, страница джема Friendslop.</p>
+  </div>
+  <div class="steps">
+<article class="step" id="step-78">
+  <a class="shot" href="img/78.webp" target="_blank" rel="noopener">
+    <img src="img/78.webp" alt="Шаг 78: summer.games — главная без входа" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 78 / 97</div>
+    <h3>summer.games — главная без входа</h3>
+    <p class="desc">Магазин игроков Summer Games: шапка с логотипом, меню Games / Upcoming / Shop / Ideas, поиск Search games, звук, трансляции, Upload, Get the app, Sign in. Карусель Featured: игра 2048 («simple 2048 games in WEB and windows»), кнопки View game и Save, точки слайдов. Ниже раздел Featured and recommended.</p>
+    <div class="action"><span class="lbl">Действие</span><p>Клик «Sign in» → окно входа.</p><ul class='marks'><li><span class='num'>1</span>клик Sign in</li></ul></div>
+  </div>
+</article>
+<article class="step" id="step-79">
+  <a class="shot" href="img/79.webp" target="_blank" rel="noopener">
+    <img src="img/79.webp" alt="Шаг 79: Sign in to Summer — окно входа игрока" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 79 / 97</div>
+    <h3>Sign in to Summer — окно входа игрока</h3>
+    <p class="desc">Модальное окно «Sign in to Summer — One Summer account keeps your Sparks, purchases and saved games together on every device». Кнопки Continue with Apple, Continue with Google, разделитель or, поля Email и Password, кнопка Sign in, ссылки Create an account / Forgot your password?, кнопка Not now. Аккаунт общий с Summer Engine.</p>
+    <div class="action"><span class="lbl">Действие</span><p>Ввод почты (1) и пароля (2).</p><ul class='marks'><li><span class='num'>1</span>поле Email</li><li><span class='num'>2</span>поле Password</li></ul></div>
+  </div>
+</article>
+<article class="step" id="step-80">
+  <a class="shot" href="img/80.webp" target="_blank" rel="noopener">
+    <img src="img/80.webp" alt="Шаг 80: Окно входа заполнено" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 80 / 97</div>
+    <h3>Окно входа заполнено</h3>
+    <p class="desc">Почта (замазана) и пароль введены, кнопка Sign in активна.</p>
+    <div class="action"><span class="lbl">Действие</span><p>Клик «Sign in» → проверка возраста.</p><ul class='marks'><li><span class='num'>1</span>клик Sign in</li></ul></div>
+  </div>
+</article>
+<article class="step" id="step-81">
+  <a class="shot" href="img/81.webp" target="_blank" rel="noopener">
+    <img src="img/81.webp" alt="Шаг 81: Are you 18 or older? — проверка возраста" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 81 / 97</div>
+    <h3>Are you 18 or older? — проверка возраста</h3>
+    <p class="desc">После первого входа полноэкранный вопрос «Are you 18 or older? Some games and purchases are for adults». Кнопки I’m 18 or older и I’m under 18, ссылка Terms. Пока возраст не подтверждён, страницы игр не открываются (404).</p>
+    <div class="action"><span class="lbl">Действие</span><p>Клик «I’m 18 or older».</p><ul class='marks'><li><span class='num'>1</span>клик I’m 18 or older</li></ul></div>
+  </div>
+</article>
+<article class="step" id="step-82">
+  <a class="shot" href="img/82.webp" target="_blank" rel="noopener">
+    <img src="img/82.webp" alt="Шаг 82: Choose your name — выбор имени и хэндла" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 82 / 97</div>
+    <h3>Choose your name — выбор имени и хэндла</h3>
+    <p class="desc">Главная уже с шапкой залогиненного игрока (Sparks 0, уведомления, аватар P), вкладки Upcoming / Free to play со списком игр (Don’t Pray, Shout, Hang Tight, Cheat Sheet… Coming soon). Поверх модальное окно Choose your name: Display name (Player), Unique handle («Choose carefully — your handle cannot be changed»), Preview: Player / @handle, кнопки Claim handle, Later, Sign out.</p>
+    <div class="action"><span class="lbl">Действие</span><p>Ввод Display name (1) и хэндла (2).</p><ul class='marks'><li><span class='num'>1</span>поле Display name</li><li><span class='num'>2</span>поле Unique handle</li></ul></div>
+  </div>
+</article>
+<article class="step" id="step-83">
+  <a class="shot" href="img/83.webp" target="_blank" rel="noopener">
+    <img src="img/83.webp" alt="Шаг 83: Имя и хэндл введены" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 83 / 97</div>
+    <h3>Имя и хэндл введены</h3>
+    <p class="desc">Поля заполнены (замазаны), Preview показывает будущее имя и @хэндл. Хэндл постоянный, изменить потом нельзя.</p>
+    <div class="action"><span class="lbl">Действие</span><p>Клик «Claim handle» → главная залогиненного игрока.</p><ul class='marks'><li><span class='num'>1</span>клик Claim handle</li></ul></div>
+  </div>
+</article>
+<article class="step" id="step-84">
+  <a class="shot" href="img/84.webp" target="_blank" rel="noopener">
+    <img src="img/84.webp" alt="Шаг 84: Главная summer.games после входа" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 84 / 97</div>
+    <h3>Главная summer.games после входа</h3>
+    <p class="desc">Шапка залогиненного игрока: Games, Upcoming, Shop, Ideas, Search games, звук, трансляции, Upload, баланс Sparks 0, колокольчик Inbox, аватар P. Карусель Featured: «Oh no, my house!» (An input-filled action game about stopping fires), View game / Save. Ниже Featured and recommended.</p>
+    <div class="action"><span class="lbl">Действие</span><p>Клик в поиск «Search games» и ввод запроса «ship».</p><ul class='marks'><li><span class='num'>1</span>клик Search games</li></ul></div>
+  </div>
+</article>
+<article class="step" id="step-85">
+  <a class="shot" href="img/85.webp" target="_blank" rel="noopener">
+    <img src="img/85.webp" alt="Шаг 85: Поиск игр и Ask Summer" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 85 / 97</div>
+    <h3>Поиск игр и Ask Summer</h3>
+    <p class="desc">Оверлей поиска по запросу «ship»: Games — Save The Ship, Search all games for “ship”, Ask Summer: “ship” (AI). Подсказки ↑↓ Navigate, Ctrl K, Open game ↵. Справа отдельная панель Ask Summer: «Explain what kind of game you want to play and I’ll find it», поле «Find a game, an item, or go somewhere…».</p>
+    <div class="action"><span class="lbl">Действие</span><p>Клик по результату «Save The Ship» → страница игры.</p><ul class='marks'><li><span class='num'>1</span>клик Save The Ship</li></ul></div>
+  </div>
+</article>
+<article class="step" id="step-86">
+  <a class="shot" href="img/86.webp" target="_blank" rel="noopener">
+    <img src="img/86.webp" alt="Шаг 86: Страница игры Save The Ship" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 86 / 97</div>
+    <h3>Страница игры Save The Ship</h3>
+    <p class="desc">Хлебные крошки All Games &gt; Action &gt; Save The Ship, заголовок с бейджем Plays in browser, описание «Repair the engines, fight supernatural threats, and save your ship!». Кнопки Save, Like, Share, «…». Слева экран игры с кнопкой Play, справа карточка Free to play: Play («Plays in your browser. No download»), Also on Windows and Linux, Invite friends, иконки платформ; ниже скриншот и Play now («Free · runs in your browser, nothing to install»), текст About.</p>
+    <div class="action"><span class="lbl">Действие</span><p>Клик «Play» → запуск игры в браузере.</p><ul class='marks'><li><span class='num'>1</span>клик Play</li></ul></div>
+  </div>
+</article>
+<article class="step" id="step-87">
+  <a class="shot" href="img/87.webp" target="_blank" rel="noopener">
+    <img src="img/87.webp" alt="Шаг 87: Загрузка игры — Godot" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 87 / 97</div>
+    <h3>Загрузка игры — Godot</h3>
+    <p class="desc">Игра занимает весь экран, заставка Godot Game engine с полосой загрузки: веб-сборка игры (Godot Web export) загружается в браузер.</p>
+    <div class="action"><span class="lbl">Действие</span><p>Ожидание несколько секунд, игра запускается сама.</p><ul class='marks'><li><span class='num wait'>…</span>ожидание — клика нет</li></ul></div>
+  </div>
+</article>
+<article class="step" id="step-88">
+  <a class="shot" href="img/88.webp" target="_blank" rel="noopener">
+    <img src="img/88.webp" alt="Шаг 88: Игровой процесс Save The Ship" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 88 / 97</div>
+    <h3>Игровой процесс Save The Ship</h3>
+    <p class="desc">Игра идёт во весь экран: капитан на палубе, шкалы здоровья и ресурса слева вверху, слоты предметов справа, подсказка-стрелка слева. Управление с клавиатуры; выход — Esc или кнопка «назад» браузера.</p>
+    <div class="action"><span class="lbl">Действие</span><p>Выход из игры (Esc / назад), на странице игры клик «Save» → сохранить в библиотеку.</p></div>
+  </div>
+</article>
+<article class="step" id="step-89">
+  <a class="shot" href="img/89.webp" target="_blank" rel="noopener">
+    <img src="img/89.webp" alt="Шаг 89: Игра сохранена — Saved to Library" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 89 / 97</div>
+    <h3>Игра сохранена — Saved to Library</h3>
+    <p class="desc">Кнопка Save сменилась на чёрную Saved to Library, в карточке справа появилась отметка «✓ In your library». Игра будет в разделе Library аккаунта на любом устройстве.</p>
+    <div class="action"><span class="lbl">Действие</span><p>Клик «…» (More options) → меню.</p><ul class='marks'><li><span class='num'>1</span>клик More options</li></ul></div>
+  </div>
+</article>
+<article class="step" id="step-90">
+  <a class="shot" href="img/90.webp" target="_blank" rel="noopener">
+    <img src="img/90.webp" alt="Шаг 90: Меню «…» страницы игры" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 90 / 97</div>
+    <h3>Меню «…» страницы игры</h3>
+    <p class="desc">Единственный пункт меню — Report game (пожаловаться на игру).</p>
+    <div class="action"><span class="lbl">Действие</span><p>Закрыть меню, клик «Invite friends» в карточке игры.</p><ul class='marks'><li><span class='num'>1</span>Report game (не нажимали)</li><li><span class='num'>2</span>клик Invite friends</li></ul></div>
+  </div>
+</article>
+<article class="step" id="step-91">
+  <a class="shot" href="img/91.webp" target="_blank" rel="noopener">
+    <img src="img/91.webp" alt="Шаг 91: Invite friends — друзей нет" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 91 / 97</div>
+    <h3>Invite friends — друзей нет</h3>
+    <p class="desc">Модальное окно Invite friends: «No friends yet — Add friends to play together», кнопка Add friend. Совместная игра требует сначала добавить друзей через раздел Friends.</p>
+    <div class="action"><span class="lbl">Действие</span><p>Закрыть окно, клик по аватару «P» в шапке → меню игрока.</p><ul class='marks'><li><span class='num'>1</span>Add friend (не нажимали)</li><li><span class='num'>2</span>клик аватар P</li></ul></div>
+  </div>
+</article>
+<article class="step" id="step-92">
+  <a class="shot" href="img/92.webp" target="_blank" rel="noopener">
+    <img src="img/92.webp" alt="Шаг 92: Меню игрока" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 92 / 97</div>
+    <h3>Меню игрока</h3>
+    <p class="desc">Выпадающее меню: имя и @хэндл (замазаны), Account, Friends, Party, Messages, Inbox, разделитель, Library, Purchases, Settings, Give feedback, Sign out.</p>
+    <div class="action"><span class="lbl">Действие</span><p>Клик «Library» → библиотека.</p><ul class='marks'><li><span class='num'>1</span>клик Library</li></ul></div>
+  </div>
+</article>
+<article class="step" id="step-93">
+  <a class="shot" href="img/93.webp" target="_blank" rel="noopener">
+    <img src="img/93.webp" alt="Шаг 93: Library — библиотека игрока" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 93 / 97</div>
+    <h3>Library — библиотека игрока</h3>
+    <p class="desc">Library: «Games you play, save and open, so you can find them again. Saved to your Summer account, so they follow you wherever you sign in». Saved · 1 game: Save The Ship (Plays in browser, платформы), кнопки Play и закладка. Ниже Recently viewed с кнопкой Clear.</p>
+    <div class="action"><span class="lbl">Действие</span><p>Клик по балансу Sparks «0» в шапке → страница Sparks.</p><ul class='marks'><li><span class='num'>1</span>клик баланс Sparks</li></ul></div>
+  </div>
+</article>
+<article class="step" id="step-94">
+  <a class="shot" href="img/94.webp" target="_blank" rel="noopener">
+    <img src="img/94.webp" alt="Шаг 94: Sparks — внутренняя валюта" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 94 / 97</div>
+    <h3>Sparks — внутренняя валюта</h3>
+    <p class="desc">«Summer’s virtual currency — Sparks. Buy Sparks once and spend them on items in games across Summer. Your balance follows your account on every device». Your balance 0 Sparks (Refresh, Purchase history). Choose a pack: Starter 500 Sparks $4.99, Standard 1,050 $9.99, Plus 2,200 $19.99, Large 5,700 $49.99, кнопки Buy. Это те Sparks, 70% которых получает автор игры.</p>
+    <div class="action"><span class="lbl">Действие</span><p>Клик по колокольчику → Inbox.</p><ul class='marks'><li><span class='num'>1</span>клик колокольчик</li></ul></div>
+  </div>
+</article>
+<article class="step" id="step-95">
+  <a class="shot" href="img/95.webp" target="_blank" rel="noopener">
+    <img src="img/95.webp" alt="Шаг 95: Inbox — уведомления и друзья" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 95 / 97</div>
+    <h3>Inbox — уведомления и друзья</h3>
+    <p class="desc">Inbox с вкладками Friends / Party / Messages / Inbox: «You’re all caught up — Friend requests, messages, party invites and replies to your comments show up here», кнопка Go to friends. Внизу футер Summer Games: Store, Account, For developers, Help &amp; legal.</p>
+    <div class="action"><span class="lbl">Действие</span><p>Клик по аватару «P» и пункту Settings → настройки игрока.</p><ul class='marks'><li><span class='num'>1</span>аватар → Settings</li></ul></div>
+  </div>
+</article>
+<article class="step" id="step-96">
+  <a class="shot" href="img/96.webp" target="_blank" rel="noopener">
+    <img src="img/96.webp" alt="Шаг 96: Settings — профиль игрока" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 96 / 97</div>
+    <h3>Settings — профиль игрока</h3>
+    <p class="desc">Settings: слева разделы Profile, Account, Preferences, Friends and privacy, Connected apps, Privacy and data, Support. Profile: Display name и Handle (замазаны; «Handles are permanent»), Save display name. Account: Email and password «Managed by Summer sign-in» (общий аккаунт Summer), Age — 18 or older, по результату проверки.</p>
+    <div class="action"><span class="lbl">Действие</span><p>Переход на страницу джема по ссылке See the jam из баннера Summer Engine.</p></div>
+  </div>
+</article>
+<article class="step" id="step-97">
+  <a class="shot" href="img/97.webp" target="_blank" rel="noopener">
+    <img src="img/97.webp" alt="Шаг 97: Summer Games Jam: Friendslop" width="900" height="840" loading="lazy" decoding="async">
+  </a>
+  <div class="body">
+    <div class="kicker">Шаг 97 / 97</div>
+    <h3>Summer Games Jam: Friendslop</h3>
+    <p class="desc">Страница джема (summer.games/jams/friendslop): метка Join the live jam, даты 26 окт – 2 ноя, «A weekly game jam: build a game in a week, upload it, and players play it on Summer Games», Theme: Friendslop, Entries close Sunday 12 pm PT, «The winner gets $250 in Summer Engine credits». The basics: одна заявка на человека, старт с party-шаблона, указывать авторов ассетов, без NSFW. Кнопки Submit your game, Get the template, Read the rules. Конец потока F.</p>
+    <div class="action"><span class="lbl">Действие</span><p>Конец потока. Submit your game ведёт в мастер публикации Grow с выбранным джемом.</p><ul class='marks'><li><span class='num'>1</span>Submit your game (не нажимали)</li></ul></div>
+  </div>
+</article></div>
+</section>
+
+<section id="faq" class="faq">
+  <h2>Примечания</h2>
+  <details open><summary>Почему игра не собрана и не опубликована</summary><p>Summer Studio в браузере доводит проект до дизайн-документа GameSoul и кнопки Build this game. Сама сборка (код, арт, звук) выполняется в desktop-приложении Summer Engine для Windows или Mac; вместо него на шаге 39 показано окно загрузки. Без сборки мастер публикации в Grow доходит до шага Check and publish: черновик Sausage Sprint с заполненной страницей магазина создан, но чек-лист Before launch требует загрузить билд.</p></details>
+  <details><summary>Почему ассистент не нарисовал спрайт в чате</summary><p>На Free-плане чат отвечает «Making pictures needs a paid plan or purchased credits» даже при бонусных $3 на балансе (шаг 45). При этом форма 2D → Advanced с видимостью Public (Free) генерирует картинки и списывает бонусные кредиты: спрайт сосиски обошёлся в $0.04 (шаги 50–52). Картинки героя, мира и момента в мастере создания игры тоже сгенерировались бесплатно.</p></details>
+  <details><summary>Что за проект Sausage Sprint</summary><p>2D-платформер про таксу Wiener в городском парке, описанный одним абзацем на главной Studio. Название предложил ассистент по итогам мастера из восьми вопросов. Проект хранится в Projects как Draft, в Grow заведён черновик игры с целью Web, тэглайном, описанием и четырьмя тегами.</p></details>
+  <details><summary>Что такое Summer Grow и Sparks</summary><p>Grow — вторая часть сервиса для авторов: публикация на summer.games, аналитика, доходы и выплаты, промо. Sparks — внутренняя валюта игроков (пакеты от 500 за $4.99 до 5 700 за $49.99); автор получает 70% от потраченных в его игре Sparks, выплаты ежемесячно от $100, первая не раньше чем через 90 дней. Разделы Analytics и Earnings на доске показаны с примерными данными сервиса (плашка Example data).</p></details>
+  <details><summary>Особенности входа на summer.games</summary><p>Аккаунт общий с Summer Engine. При первом входе сервис спрашивает возраст (18+), без ответа страницы игр отдают 404, затем просит выбрать отображаемое имя и хэндл — хэндл постоянный, сменить его потом нельзя. Пункт меню Shop ведёт на страницу 404, покупка Sparks открывается с баланса в шапке. Invite friends требует сначала добавить друзей.</p></details>
+  <details><summary>Можно ли редактировать доску</summary><p>Нет. Публичная ссылка выдана в режиме Viewer. Карточки на доске — картинки, поэтому текст на них не редактируется и в Miro; исходные данные шагов лежат в файле steps_se.json у автора.</p></details>
+  <details><summary>Где взяты скриншоты</summary><p>Все экраны сняты вручную в браузере 27 октября 2026 года в разрешении 1440×900 на новом аккаунте с планом Free: summerengine.com/studio, Summer Grow и summer.games. Интерфейс сервиса может меняться; джем <a href="https://summer.games/jams/friendslop" target="_blank" rel="noopener">Friendslop</a> на шаге 97 идёт с 26 октября по 2 ноября 2026.</p></details>
+</section>
+</main>
+
+<footer class="wrap">
+  <p>Wireflow Summer Engine Studio · Grow · summer.games · 97 шагов · шесть потоков. Доска: <a href="https://miro.com/app/board/uXjVEVUng-I=/?share_link_id=129022710342" target="_blank" rel="noopener">miro.com (только просмотр)</a>. Сервис: <a href="https://www.summerengine.com/studio" target="_blank" rel="noopener">summerengine.com/studio</a>, <a href="https://summer.games" target="_blank" rel="noopener">summer.games</a>.</p>
+</footer>
+
+<script type="module">
+  import { animate, inView, stagger } from "https://cdn.jsdelivr.net/npm/motion@11/+esm";
+  document.documentElement.classList.add("js");
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (!reduce) {
+    animate("header.hero > *", { opacity: [0, 1], y: [16, 0] }, { duration: .5, delay: stagger(.08) });
+    inView(".reveal", (el) => { animate(el, { opacity: 1, y: 0 }, { duration: .5, easing: "ease-out" }); });
+    setTimeout(() => document.querySelectorAll(".reveal").forEach(el => animate(el, { opacity: 1, y: 0 }, { duration: .4 })), 2500);
+    inView(".step", (el) => { animate(el, { opacity: [0, 1], y: [14, 0] }, { duration: .45, easing: "ease-out" }); });
+    document.querySelectorAll(".btn").forEach(b => {
+      b.addEventListener("pointerdown", () => animate(b, { scale: .97 }, { duration: .12 }));
+      b.addEventListener("pointerup", () => animate(b, { scale: 1 }, { duration: .18 }));
+      b.addEventListener("pointerleave", () => animate(b, { scale: 1 }, { duration: .18 }));
+    });
+  } else {
+    document.querySelectorAll(".reveal").forEach(el => { el.style.opacity = 1; el.style.transform = "none"; });
+  }
+</script>
+</body>
+</html>
