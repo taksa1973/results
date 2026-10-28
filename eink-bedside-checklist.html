@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Чек-лист у кровати на e-ink: что взять и где дешевле, Белград или Рио</title>
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="description" content="Небольшой e-ink экран на стену у кровати: отмечаешь «проснулся, встал, таблетка, душ», утром всё сбрасывается само, батарея держит недели и месяцы, связка с умным домом. Сравнение моделей и налогов в Сербии и Бразилии.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script>
+(function(){
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!reduce) document.documentElement.classList.add('js-anim');
+  setTimeout(function(){
+    if (window.__motionOk) return;
+    document.querySelectorAll('.reveal').forEach(function(e){ e.style.opacity = 1; e.style.transform = 'none'; });
+  }, 3000);
+})();
+</script>
+<style>
+:root{
+  color-scheme:dark;
+  --bg:#000000; --card:#121212; --soft:#1A1A1A; --ink:#F5F5F5; --ink-2:#C4C4C8; --ink-3:#8E8E93;
+  --line:#262626; --line-2:#3A3A3A;
+  --red:#9B1C1C; --red-hover:#B42323; --red-text:#E05252; --red-soft:#241010; --red-line:#4D1B1B;
+  --paper:#EDEDE8; --paper-ink:#141414; --paper-line:#BDBDB5;
+  --r-lg:20px; --r-md:12px; --maxw:1120px;
+  --ease:cubic-bezier(.22,1,.36,1);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%; scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0; background:var(--bg); color:var(--ink); font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:17px; line-height:1.6; -webkit-font-smoothing:antialiased}
+::selection{background:var(--red); color:#fff}
+img{max-width:100%; display:block}
+h1,h2,h3,h4{color:#fff; margin:0; line-height:1.15}
+p{margin:0}
+a{color:var(--red-text); text-decoration:none; border-bottom:1px solid rgba(224,82,82,.35); transition:color .18s, border-color .18s}
+a:hover{color:#fff; border-bottom-color:#fff}
+a:focus-visible,button:focus-visible{outline:2px solid var(--red-text); outline-offset:3px; border-radius:4px}
+.wrap{max-width:var(--maxw); margin:0 auto; padding:0 24px}
+
+/* навигация */
+.topbar{position:sticky; top:0; z-index:40; background:rgba(0,0,0,.88); border-bottom:1px solid var(--line); -webkit-backdrop-filter:saturate(140%) blur(16px); backdrop-filter:saturate(140%) blur(16px)}
+.topbar .wrap{display:flex; align-items:center; gap:24px; min-height:56px}
+.brand{color:#fff; font-weight:700; letter-spacing:-.01em; white-space:nowrap}
+.topnav{display:flex; gap:4px; overflow-x:auto; scrollbar-width:none}
+.topnav::-webkit-scrollbar{display:none}
+.topnav a{color:var(--ink-2); border:0; padding:10px 12px; border-radius:10px; font-size:14px; font-weight:500; white-space:nowrap; min-height:44px; display:inline-flex; align-items:center}
+.topnav a:hover{color:#fff; background:rgba(255,255,255,.08)}
+
+/* hero */
+.hero{padding:72px 0 48px; border-bottom:1px solid var(--line)}
+.hero-grid{display:grid; grid-template-columns:1.2fr .8fr; gap:40px; align-items:center}
+.eyebrow{color:var(--red-text); font-size:12px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; margin-bottom:18px; display:block}
+h1{font-size:clamp(34px,5.4vw,60px); font-weight:800; letter-spacing:-.035em; max-width:16ch}
+h1 span{color:var(--red-text)}
+.lede{font-size:clamp(17px,2vw,19px); color:var(--ink-2); max-width:60ch; margin-top:22px}
+.lede + .lede{margin-top:14px}
+.facts{display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:40px}
+.fact{background:var(--card); border:1px solid var(--line); border-radius:var(--r-lg); padding:22px 24px}
+.fact b{display:block; font-size:clamp(26px,3.6vw,38px); font-weight:800; letter-spacing:-.03em; color:#fff; line-height:1.1; font-variant-numeric:tabular-nums}
+.fact span{display:block; margin-top:8px; font-size:14px; color:var(--ink-3); line-height:1.45}
+
+/* макет экрана */
+.mock-wrap{display:flex; flex-direction:column; gap:10px}
+.mock{background:var(--paper); color:var(--paper-ink); border-radius:16px; padding:22px 22px 16px; border:8px solid #1d1d1d; box-shadow:0 0 0 1px #3a3a3a}
+.mock .m-head{display:flex; justify-content:space-between; align-items:baseline; border-bottom:2px solid var(--paper-ink); padding-bottom:8px; margin-bottom:6px}
+.mock .m-head b{font-size:18px; font-weight:800; letter-spacing:-.01em}
+.mock .m-head span{font-size:13px; font-weight:600}
+.mock ul{list-style:none; margin:0; padding:0}
+.mock li{display:flex; align-items:center; gap:12px; padding:9px 0; border-bottom:1px solid var(--paper-line); font-size:17px; font-weight:600}
+.mock li .box{flex:0 0 22px; height:22px; border:2px solid var(--paper-ink); border-radius:4px; display:flex; align-items:center; justify-content:center}
+.mock li.done{color:#555}
+.mock li.done span.t{text-decoration:line-through; text-decoration-thickness:2px}
+.mock li.done .box{background:var(--paper-ink)}
+.mock li svg{width:14px; height:14px; stroke:#fff; stroke-width:3.4; fill:none; stroke-linecap:round; stroke-linejoin:round}
+.mock .m-foot{font-size:12.5px; font-weight:600; padding-top:10px; display:flex; justify-content:space-between; gap:12px; color:#444}
+.mock-cap{font-size:13px; color:var(--ink-3)}
+
+/* секции */
+section{padding:64px 0 8px}
+.sec-head{margin-bottom:28px}
+.kicker{color:var(--red-text); font-size:12px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; margin-bottom:10px; display:block}
+h2{font-size:clamp(26px,3.6vw,38px); font-weight:800; letter-spacing:-.025em}
+.sec-head p{color:var(--ink-2); margin-top:12px; max-width:68ch}
+
+/* bento */
+.bento{display:grid; grid-template-columns:repeat(12,1fr); gap:16px}
+.c12{grid-column:span 12}.c6{grid-column:span 6}.c4{grid-column:span 4}
+.card{background:var(--card); border:1px solid var(--line); border-radius:var(--r-lg); padding:28px; transition:border-color .2s}
+.card:hover{border-color:var(--line-2)}
+.card.top{border-color:var(--red-line); box-shadow:0 0 0 1px var(--red-line) inset}
+
+/* карточка товара */
+.prod{display:grid; grid-template-columns:300px 1fr; gap:28px; align-items:start}
+.c6 .prod{grid-template-columns:1fr}
+.photo{background:#fff; border-radius:var(--r-md); padding:12px; display:flex; align-items:center; justify-content:center}
+.photo img{width:100%; height:220px; object-fit:contain}
+.prod h3{font-size:24px; font-weight:700; letter-spacing:-.02em; margin:10px 0 6px}
+.sub{color:var(--ink-2); font-size:16px}
+.badge{display:inline-block; font-size:12px; font-weight:700; letter-spacing:.04em; padding:5px 10px; border-radius:999px; text-transform:uppercase}
+.b-best{background:var(--red); color:#fff}
+.b-mid{background:var(--red-soft); color:var(--red-text); box-shadow:inset 0 0 0 1px var(--red-line)}
+.b-gray{background:var(--soft); color:#A1A1A6; box-shadow:inset 0 0 0 1px var(--line)}
+.b-out{background:transparent; color:var(--ink-2); box-shadow:inset 0 0 0 1px var(--line-2)}
+dl.spec{display:grid; grid-template-columns:auto 1fr; gap:6px 16px; margin:18px 0 0; font-size:15px}
+dl.spec dt{color:var(--ink-3)}
+dl.spec dd{margin:0; color:var(--ink)}
+.prices{display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:20px}
+.c6 .prices{grid-template-columns:1fr}
+.price{background:var(--soft); border:1px solid var(--line); border-radius:var(--r-md); padding:16px 18px}
+.price .where{font-size:12px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-3)}
+.price .sum{font-size:24px; font-weight:800; letter-spacing:-.02em; color:#fff; margin-top:4px; font-variant-numeric:tabular-nums; line-height:1.15}
+.price .conv{font-size:14px; color:var(--ink-2); margin-top:2px; font-variant-numeric:tabular-nums}
+.price .meta{font-size:13px; color:var(--ink-3); margin-top:8px; line-height:1.45}
+.chip{display:inline-block; font-size:12px; font-weight:600; padding:3px 9px; border-radius:999px; margin-top:8px; background:var(--red-soft); color:var(--red-text); box-shadow:inset 0 0 0 1px var(--red-line)}
+.chip.ok{background:#2A2A2A; color:#fff; box-shadow:inset 0 0 0 1px #5A5A5F}
+.btn{display:inline-flex; align-items:center; gap:8px; min-height:44px; padding:10px 16px; margin-top:12px; margin-right:8px; border-radius:12px; font-size:14px; font-weight:600; color:#fff; background:var(--red); border:0; cursor:pointer; transition:background .18s}
+.btn:hover{background:var(--red-hover); color:#fff; border:0}
+.btn.ghost{background:transparent; color:var(--ink); box-shadow:inset 0 0 0 1px var(--line-2)}
+.btn.ghost:hover{background:rgba(255,255,255,.08); color:#fff}
+.note{margin-top:18px; padding:14px 16px; border-radius:var(--r-md); background:var(--red-soft); border:1px solid var(--red-line); color:#F2D6D6; font-size:15px}
+.note.soft{background:var(--soft); border-color:var(--line); color:var(--ink-2)}
+.note b{color:#fff}
+
+/* выбор */
+.pick h3{font-size:19px; font-weight:700; margin-bottom:8px}
+.pick p{color:var(--ink-2); font-size:15.5px}
+.pick .arrow{display:block; color:var(--red-text); font-weight:700; margin-top:12px; font-size:15px}
+
+/* шаги */
+ol.need{margin:0; padding:0; list-style:none; counter-reset:n; display:grid; gap:12px}
+ol.need li{counter-increment:n; display:flex; gap:14px; align-items:flex-start; color:var(--ink-2); font-size:16px}
+ol.need li::before{content:counter(n); flex:0 0 28px; height:28px; border-radius:50%; background:#fff; color:#000; font-weight:700; font-size:14px; display:flex; align-items:center; justify-content:center; margin-top:1px}
+ol.need li b{color:#fff}
+.two{display:grid; grid-template-columns:1fr 1fr; gap:16px}
+.two h3{font-size:20px; margin-bottom:14px}
+.two ul{margin:0; padding-left:20px; color:var(--ink-2); font-size:15.5px}
+.two li{margin:6px 0}
+
+/* сравнение */
+.cmp{display:grid; gap:12px}
+.cmp-row{display:grid; grid-template-columns:1fr 1.1fr 1.2fr 1.1fr; background:var(--card); border:1px solid var(--line); border-radius:var(--r-lg); overflow:hidden}
+.cmp-row > div{padding:20px 22px; border-right:1px solid var(--line)}
+.cmp-row > div:last-child{border-right:0; background:#161616}
+.cmp-row .lab{font-size:12px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-3); margin-bottom:6px}
+.cmp-row .name{font-weight:700; color:#fff; font-size:18px}
+.cmp-row .val{font-size:20px; font-weight:800; color:#fff; letter-spacing:-.02em; font-variant-numeric:tabular-nums; line-height:1.25}
+.cmp-row small{display:block; color:var(--ink-3); font-size:13px; margin-top:6px; line-height:1.45}
+.nw{white-space:nowrap}
+.cmp-row .verdict{color:var(--ink); font-size:15px}
+.cmp-row .verdict b{color:var(--red-text)}
+
+/* отсеянное */
+.drop{list-style:none; margin:0; padding:0; display:grid; gap:10px}
+.drop li{background:var(--card); border:1px solid var(--line); border-radius:var(--r-md); padding:14px 18px; font-size:15px; color:var(--ink-2)}
+.drop li b{color:#fff}
+
+.src ul{margin:0; padding-left:20px; color:var(--ink-2); font-size:15px; columns:2; column-gap:32px}
+.src li{margin:6px 0; break-inside:avoid}
+.src h3{font-size:18px; margin:22px 0 8px}
+footer{padding:56px 0 72px; color:var(--ink-3); font-size:14px}
+
+/* анимации: контент виден по умолчанию */
+.reveal{opacity:1}
+.js-anim .reveal{opacity:0; transform:translateY(20px)}
+.js-anim .reveal.shown{opacity:1; transform:none}
+@media (prefers-reduced-motion:reduce){.js-anim .reveal{opacity:1 !important; transform:none !important}}
+
+@media (max-width:900px){
+  .hero-grid{grid-template-columns:1fr}
+  .c6,.c4{grid-column:span 12}
+  .prod{grid-template-columns:1fr}
+  .prices{grid-template-columns:1fr}
+  .facts{grid-template-columns:1fr}
+  .cmp-row{grid-template-columns:1fr}
+  .cmp-row > div{border-right:0; border-bottom:1px solid var(--line)}
+  .cmp-row > div:last-child{border-bottom:0}
+  .two{grid-template-columns:1fr}
+  .src ul{columns:1}
+}
+@media (max-width:520px){
+  .wrap{padding:0 18px}
+  .card{padding:22px}
+  .hero{padding:48px 0 36px}
+  .brand{display:none}
+  .mock li{font-size:16px}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <span class="brand">Чек-лист у кровати</span>
+    <nav class="topnav" aria-label="Разделы">
+      <a href="#short">Коротко</a>
+      <a href="#best">Лучшие варианты</a>
+      <a href="#how">Как это работает</a>
+      <a href="#where">Сербия или Бразилия</a>
+      <a href="#no">Не подходят</a>
+      <a href="#order">Заказ</a>
+      <a href="#src">Источники</a>
+    </nav>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <span class="eyebrow reveal">Подборка · Белград и Рио</span>
+        <h1 class="reveal">Чек-лист у кровати на <span>электронных чернилах</span></h1>
+        <p class="lede reveal">Небольшой экран размером с фоторамку на стене у кровати. Утром нажимаешь «проснулся», «встал», «таблетка», «душ», а ночью список сбрасывается сам. Экран из электронных чернил не расходует батарею на показ, поэтому заряд держится от недели до нескольких месяцев, а отметки могут запускать сценарии умного дома.</p>
+        <p class="lede reveal">Готового устройства «чек-лист с автосбросом» я не нашёл. Все подходящие варианты: e-ink экран на ESP32-S3, который подключается к Home Assistant через ESPHome. Настройка нужна, но железо готовое.</p>
+      </div>
+      <div class="mock-wrap reveal">
+        <div class="mock" id="mock" role="img" aria-label="Пример экрана чек-листа: первые три пункта отмечены, остальные нет">
+          <div class="m-head"><b>Утро</b><span>среда</span></div>
+          <ul>
+            <li class="done"><span class="box"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 4.8"/></svg></span><span class="t">Проснулся</span></li>
+            <li class="done"><span class="box"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 4.8"/></svg></span><span class="t">Встал с кровати</span></li>
+            <li class="done"><span class="box"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 4.8"/></svg></span><span class="t">Открыл шторы</span></li>
+            <li><span class="box"></span><span class="t">Принять таблетку</span></li>
+            <li><span class="box"></span><span class="t">Принять душ</span></li>
+            <li><span class="box"></span><span class="t">Завтрак</span></li>
+          </ul>
+          <div class="m-foot"><span>В 00:00 все отметки сбрасываются</span><span>батарея 84%</span></div>
+        </div>
+        <p class="mock-cap">Пример экрана для наглядности. Пункты и вид задаёшь сам в конфиге.</p>
+      </div>
+    </div>
+    <div class="facts">
+      <div class="fact reveal"><b>до 3 мес.</b><span>заявленная автономность reTerminal E1001 (батарея 2000 мАч). У маленького Sticky на 750 мАч около недели.</span></div>
+      <div class="fact reveal"><b>70 г</b><span>вес reTerminal Sticky: 106 × 65,5 мм, держится на магните, есть касание</span></div>
+      <div class="fact reveal"><b>$49,90–69</b><span>цена Sticky и E1001 на сайте Seeed, без налогов и доставки</span></div>
+    </div>
+  </div>
+</header>
+
+<section id="short">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="kicker">Коротко</span>
+      <h2>Что брать и где заказывать</h2>
+      <p>Выбор сделан по тому, что ты написал: небольшой, как фоторамка, заряд на долгое время, без возни, с выходом в умный дом.</p>
+    </div>
+    <div class="bento">
+      <div class="card top c4 pick reveal">
+        <span class="badge b-best">Основной выбор</span>
+        <h3 style="margin-top:12px">Seeed reTerminal E1001</h3>
+        <p>Размер как у фоторамки (176 × 120 мм), заявлено до 3 месяцев без зарядки. Касания нет, отметки делаются кнопками: одна кнопка будит и отмечает следующий пункт.</p>
+        <a class="arrow" href="#best">Подробнее ↓</a>
+      </div>
+      <div class="card c4 pick reveal">
+        <span class="badge b-mid">Если хочется касаться</span>
+        <h3 style="margin-top:12px">Seeed reTerminal Sticky</h3>
+        <p>Маленький (3,97″, 70 г), магнит, касание экрана, $49,90. Заряд около недели, это ровно то, что ты сам описал. Из глубокого сна его будит кнопка, не касание.</p>
+        <a class="arrow" href="#best">Подробнее ↓</a>
+      </div>
+      <div class="card c4 pick reveal">
+        <span class="badge b-gray">Где дешевле</span>
+        <h3 style="margin-top:12px">Сербия, в большинстве расчётов</h3>
+        <p>По налогам Белград выходит дешевле Рио для E1001 и E1003. Только Sticky через AliExpress в Бразилии получается чуть дешевле. Расчёт без доставки, детали ниже.</p>
+        <a class="arrow" href="#where">К сравнению ↓</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="best">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="kicker">Лучшие варианты</span>
+      <h2>Три устройства, которые подходят по смыслу</h2>
+      <p>Все три открытые: работают с ESPHome и Home Assistant. Автосброс списка в самих устройствах не заложен, его делает автоматизация в Home Assistant (см. раздел «Как это работает»).</p>
+    </div>
+
+    <div class="bento">
+
+      <article class="card top c12 reveal">
+        <div class="prod">
+          <div class="photo"><img src="img/eink-checklist/reterminal-e1001.jpg" alt="Электронный экран Seeed reTerminal E1001 на столе, на экране заставка модели" width="400" height="300" loading="lazy"></div>
+          <div>
+            <span class="badge b-best">Основной выбор · дольше всех держит заряд</span>
+            <h3>Seeed reTerminal E1001</h3>
+            <p class="sub">Чёрно-белый e-ink экран 7,5″ в корпусе размером с фоторамку. Три кнопки сверху, внутри ESP32-S3, открытый исходный код.</p>
+            <dl class="spec">
+              <dt>Экран</dt><dd>7,5″ ч/б, 800 × 480, 4 уровня серого, обновление 2–5 с</dd>
+              <dt>Батарея</dt><dd>2000 мАч (7,4 Вт·ч), заявлено до 3 месяцев</dd>
+              <dt>Ввод</dt><dd>3 кнопки (зелёная, правая и левая белые). Касания нет</dd>
+              <dt>Датчики</dt><dd>температура и влажность, зуммер, часы реального времени</dd>
+              <dt>Размер</dt><dd>176 × 120 × 53 мм (со стойкой)</dd>
+              <dt>Платформы</dt><dd>ESPHome и Home Assistant, SenseCraft HMI, Arduino</dd>
+              <dt>Пробуждение</dt><dd>в примерах ESPHome из глубокого сна будит одна кнопка (правая белая, GPIO4)</dd>
+              <dt>Крепление</dt><dd>подставка в комплекте; на стену есть отверстие или кронштейн (источники расходятся, проверь комплектацию)</dd>
+            </dl>
+            <div class="prices">
+              <div class="price">
+                <div class="where">Seeed · без налогов и доставки</div>
+                <div class="sum">$69,00</div>
+                <div class="conv">≈ 7 199 RSD · ≈ R$ 350</div>
+                <div class="meta">Акционная цена на странице Seeed, обычная $79. В наличии, склады Германия, Китай, США.</div>
+                <span class="chip ok">цена со страницы магазина</span>
+              </div>
+              <div class="price">
+                <div class="where">С налогами · ориентир</div>
+                <div class="sum">Белград ≈ 9 000–9 900 RSD</div>
+                <div class="conv">Рио ≈ R$ 489–700</div>
+                <div class="meta">Сербия: PDV 20%, пошлина 10% при посылке дороже 50 €, сборы Почты. Бразилия: пошлина 60% и ICMS. Без доставки.</div>
+                <span class="chip">мой расчёт, не цена магазина</span>
+              </div>
+            </div>
+            <a class="btn" href="https://www.seeedstudio.com/reTerminal-E1001-p-6534.html" target="_blank" rel="noopener">Открыть у Seeed ↗</a>
+            <a class="btn ghost" href="https://www.aliexpress.com/item/1005010024295436.html" target="_blank" rel="noopener">Лот на AliExpress ↗</a>
+            <a class="btn ghost" href="https://www.amazon.com.br/seeed-studio-E1001-ReTerminal-Display/dp/B0FRFHVHNZ" target="_blank" rel="noopener">Amazon.com.br ↗</a>
+            <div class="note"><b>Как я бы сделал отметки.</b> Правая белая кнопка будит устройство и сразу отмечает следующий по порядку пункт: один пункт, одно нажатие. Две другие кнопки работают, пока экран не спит: пропустить пункт или вернуться назад. Это моя рекомендация по документации ESPHome, готового проекта чек-листа под E1001 я не нашёл.</div>
+            <div class="note soft">Amazon.com.br: R$ 782,90, но товар помечен как недоступный (по Google-сниппету, проверь в браузере). Это дороже даже расчётной цены с импортом. Один из обзоров пишет, что на AliExpress E1001 бывает от $74,28; цену в моём лоте проверь в браузере.</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="card c12 reveal">
+        <div class="prod">
+          <div class="photo"><img src="img/eink-checklist/sticky-goodereader.jpg" alt="Четыре экрана reTerminal Sticky на серой стене: часы, заставка, погода и записка" width="400" height="300" loading="lazy"></div>
+          <div>
+            <span class="badge b-mid">Компактный и с касанием</span>
+            <h3>Seeed reTerminal Sticky</h3>
+            <p class="sub">Карманный e-ink экран на магните. Меньше фоторамки, больше похож на большую наклейку на стену. Касаешься пункта пальцем, он отмечается.</p>
+            <dl class="spec">
+              <dt>Экран</dt><dd>3,97″ ч/б, 800 × 480, 4 уровня серого, ёмкостное касание</dd>
+              <dt>Батарея</dt><dd>750 мАч. Производитель: около недели при обычном использовании, месяцы в режиме экономии. XDA тоже пишет «about a week per charge»; замеров в режиме экономии я не нашёл</dd>
+              <dt>Ввод</dt><dd>касание плюс 3 кнопки: ИИ-голос, страница вверх, страница вниз</dd>
+              <dt>Датчики</dt><dd>температура, влажность, 3-осевой акселерометр</dd>
+              <dt>Размер и вес</dt><dd>106 × 65,5 × 7,3 мм, 70 г</dd>
+              <dt>Крепление</dt><dd>встроенный магнит для металла и магнитное кольцо-наклейка для неметаллических поверхностей</dd>
+              <dt>Прошивки</dt><dd>ESPHome, OpenDisplay, TRMNL, CrossPoint</dd>
+              <dt>Wi‑Fi</dt><dd>только 2,4 ГГц</dd>
+            </dl>
+            <div class="prices">
+              <div class="price">
+                <div class="where">Seeed · без налогов и доставки</div>
+                <div class="sum">$49,90</div>
+                <div class="conv">≈ 5 206 RSD · ≈ R$ 253</div>
+                <div class="meta">В наличии, склад в Китае. Ранняя цена $39,90 действовала для первых 500 штук.</div>
+                <span class="chip ok">цена со страницы магазина</span>
+              </div>
+              <div class="price">
+                <div class="where">С налогами · ориентир</div>
+                <div class="sum">Белград ≈ 6 600–7 200 RSD</div>
+                <div class="conv">Рио ≈ R$ 303–506</div>
+                <div class="meta">Нижняя граница Бразилии: через магазин с вычетом $30 по Remessa Conforme. Верхняя: курьером без вычета. Без доставки.</div>
+                <span class="chip">мой расчёт, не цена магазина</span>
+              </div>
+            </div>
+            <a class="btn" href="https://www.seeedstudio.com/reTerminal-Sticky-p-6861.html" target="_blank" rel="noopener">Открыть у Seeed ↗</a>
+            <a class="btn ghost" href="https://www.seeedstudio.com/sticky/" target="_blank" rel="noopener">Страница продукта ↗</a>
+            <div class="note"><b>Касание не будит из глубокого сна.</b> По документации Seeed, из сна устройство выводит кнопка ИИ (GPIO4), а перед сном опрос касания отключается. Значит, схема такая: нажал кнопку, экран проснулся, коснулся пунктов. В стороннем проекте на ESPHome после пробуждения даётся 3 минуты на взаимодействие. В том же проекте есть список покупок с отметкой касанием и страница управления светом: так подтверждено, что касание может запускать действия в Home Assistant.</div>
+            <div class="note soft">Минусы из обзоров: продукт совсем новый, при настройке возможны шероховатости; глянцевый экран бликует; пластиковый корпус. Обзор ngxptech написан по характеристикам и чужим отзывам, не по своему образцу.</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="card c12 reveal">
+        <div class="prod">
+          <div class="photo"><img src="img/eink-checklist/reterminal-e1003.jpg" alt="Seeed reTerminal E1003 с 10,3-дюймовым e-ink экраном" width="400" height="300" loading="lazy"></div>
+          <div>
+            <span class="badge b-gray">Большой экран с касанием</span>
+            <h3>Seeed reTerminal E1003</h3>
+            <p class="sub">10,3″ с касанием и самой высокой заявленной автономностью. Для «небольшой доски у кровати» крупноват и вдвое дороже E1001, поэтому только запасной вариант.</p>
+            <dl class="spec">
+              <dt>Экран</dt><dd>10,3″ ч/б, 1404 × 1872, 16 уровней серого, касание GT911</dd>
+              <dt>Батарея</dt><dd>3000 мАч, заявлено до 6 месяцев</dd>
+              <dt>Стена</dt><dd>рамка продаётся отдельно, $20</dd>
+            </dl>
+            <div class="prices">
+              <div class="price">
+                <div class="where">Seeed · без налогов и доставки</div>
+                <div class="sum">$159,90</div>
+                <div class="conv">≈ 16 682 RSD · ≈ R$ 811</div>
+                <div class="meta">Цена на странице Seeed; рамка для стены продаётся отдельно за $20.</div>
+                <span class="chip ok">цена со страницы магазина</span>
+              </div>
+              <div class="price">
+                <div class="where">С налогами · ориентир</div>
+                <div class="sum">Белград ≈ 20 400–22 400 RSD</div>
+                <div class="conv">Рио ≈ R$ 1 375–1 622</div>
+                <div class="meta">Расчёт тот же, что для остальных моделей. Без доставки.</div>
+                <span class="chip">мой расчёт, не цена магазина</span>
+              </div>
+            </div>
+            <a class="btn" href="https://www.seeedstudio.com/reTerminal-E1003-p-6731.html" target="_blank" rel="noopener">Открыть у Seeed ↗</a>
+            <div class="note soft">Предупреждение: в трекере прошивки TRMNL есть обращение с заголовком «reTerminal E1003 draws ~5 mA in deep sleep» (issue №572; я видел только заголовок, текст не открывал). Если это подтвердится, 3000 мАч хватит примерно на 25 суток, а не на 6 месяцев (мой расчёт: 3000 мАч ÷ 5 мА = 600 ч). Это про прошивку TRMNL, не про ESPHome, но проверять стоит.</div>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<section id="how">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="kicker">Как это работает</span>
+      <h2>Схема, при которой это не превращается в заморочку</h2>
+      <p>Устройство почти всё время спит. Просыпается, только когда ты отметил пункт или когда пора сбросить список. Это схема для настройки, готовой «из коробки» у этих моделей она не работает.</p>
+    </div>
+    <div class="two">
+      <div class="card reveal">
+        <h3>Ежедневный цикл</h3>
+        <ol class="need">
+          <li><span><b>Нажатие или касание.</b> Устройство просыпается, отправляет отметку в Home Assistant и обновляет экран.</span></li>
+          <li><span><b>Умный дом.</b> Home Assistant выполняет действие под пункт. Например, «встал с кровати» включает свет и поднимает шторы (пример, настраивается в Home Assistant).</span></li>
+          <li><span><b>Автосброс.</b> В 00:00 автоматизация Home Assistant выключает все переключатели-помощники, и список на экране становится пустым.</span></li>
+          <li><span><b>Зарядка.</b> Раз в неделю у Sticky, раз в несколько месяцев у E1001.</span></li>
+        </ol>
+      </div>
+      <div class="card reveal">
+        <h3>Что понадобится</h3>
+        <ul>
+          <li><b>Home Assistant</b> дома (мини-ПК или Raspberry Pi). Нужно решить, как быть с двумя городами: отдельный экземпляр в каждой квартире или один с удалённым доступом.</li>
+          <li><b>Wi‑Fi 2,4 ГГц</b> рядом с кроватью.</li>
+          <li><b>По переключателю-помощнику</b> на каждый пункт списка в Home Assistant.</li>
+          <li><b>Конфиг ESPHome</b>: кнопка или касание вызывает действие в Home Assistant. Для Sticky у Seeed есть конфигуратор ESPHome.</li>
+          <li><b>Редкие пробуждения.</b> Ориентир из гайда habbb для M5PaperS3 (1800 мАч): обновление раз в час 4–6 месяцев, раз в 15 минут 2–3 месяца, раз в минуту 7–10 дней.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="note reveal">Честная оценка автономности для чек-листа: реальных замеров именно для такого сценария я не нашёл. У E1001 батарея 2000 мАч, у M5PaperS3 в гайде 1800 мАч, поэтому порядок «месяцы» правдоподобен при редких пробуждениях. Но это оценка по аналогии, а не измерение.</div>
+  </div>
+</section>
+
+<section id="where">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="kicker">Сербия или Бразилия</span>
+      <h2>Где заказывать дешевле</h2>
+      <p>Ни в Сербии, ни в Бразилии я не нашёл магазинов, где эти модели лежат на складе: единственный локальный лот это Amazon.com.br с E1001 по R$ 782,90 без наличия. Значит, везде это импорт, и разница определяется налогами. Расчёт идёт от цены на сайте Seeed, без доставки.</p>
+    </div>
+
+    <div class="cmp">
+      <div class="cmp-row reveal">
+        <div><div class="lab">Модель</div><div class="name">Sticky</div><small>$49,90 ≈ 5 206 RSD ≈ R$ 253</small></div>
+        <div><div class="lab">Сербия · Белград</div><div class="val">6 600–7 200 RSD</div><small>≈ R$ 321–351</small></div>
+        <div><div class="lab">Бразилия · Рио</div><div class="val"><span class="nw">R$&nbsp;303–316&nbsp;</span>или <span class="nw">R$&nbsp;486–506</span></div><small>первое через магазин с вычетом $30, второе курьером Seeed без вычета</small></div>
+        <div class="verdict"><div class="lab">Вывод</div><b>Почти ничья.</b> Бразилия на 5–10% дешевле только через маркетплейс с вычетом $30, курьером дороже.</div>
+      </div>
+      <div class="cmp-row reveal">
+        <div><div class="lab">Модель</div><div class="name">E1001</div><small>$69 ≈ 7 199 RSD ≈ R$ 350</small></div>
+        <div><div class="lab">Сербия · Белград</div><div class="val">9 000–9 900 RSD</div><small>≈ R$ 437–479</small></div>
+        <div><div class="lab">Бразилия · Рио</div><div class="val"><span class="nw">R$&nbsp;489–510&nbsp;</span>или <span class="nw">R$&nbsp;672–700</span></div><small>первое через магазин с вычетом $30, второе курьером без вычета</small></div>
+        <div class="verdict"><div class="lab">Вывод</div><b>Сербия дешевле</b> на 6–11% против маркетплейса и на 32–35% против курьера.</div>
+      </div>
+      <div class="cmp-row reveal">
+        <div><div class="lab">Модель</div><div class="name">E1003</div><small>$159,90 ≈ 16 682 RSD ≈ R$ 811</small></div>
+        <div><div class="lab">Сербия · Белград</div><div class="val">20 400–22 400 RSD</div><small>≈ R$ 990–1 088</small></div>
+        <div><div class="lab">Бразилия · Рио</div><div class="val"><span class="nw">R$&nbsp;1&nbsp;375–1&nbsp;432&nbsp;</span>или <span class="nw">R$&nbsp;1&nbsp;557–1&nbsp;622</span></div><small>первое через магазин с вычетом $30, второе курьером без вычета</small></div>
+        <div class="verdict"><div class="lab">Вывод</div><b>Сербия дешевле</b> на 24–28% против маркетплейса и на 33–36% против курьера.</div>
+      </div>
+    </div>
+
+    <div class="two" style="margin-top:16px">
+      <div class="card reveal">
+        <h3>Как считал: Сербия</h3>
+        <ul>
+          <li>PDV 20% на всю посылку (N1).</li>
+          <li>Пошлина 10% только для посылок дороже 50 € (N1). Для электроники реальная ставка зависит от товарного кода, сверь расчёт на app1.carina.rs.</li>
+          <li>Сборы Почты Сербии: 150 RSD за декларирование и 200 RSD за посылку до 2 кг, всего около 350 RSD (N1).</li>
+          <li>Нижняя граница без пошлины (×1,2 + сборы), верхняя с пошлиной (×1,1 × 1,2 + сборы).</li>
+        </ul>
+      </div>
+      <div class="card reveal">
+        <h3>Как считал: Бразилия</h3>
+        <ul>
+          <li>Seeed пишет: пошлина 60%, ICMS от 12% до 25% по штату, в инвойсе нужен налоговый номер получателя (CPF).</li>
+          <li>Для посылок от US$ 50,01 действует вычет US$ 30 из пошлины (Portaria MF 1.342/2026 по Econet). Он относится к продавцам в программе Remessa Conforme, проверь на оформлении.</li>
+          <li>ICMS взят 20% (adnews: «в большинстве штатов»). Ставку для штата Рио проверь отдельно.</li>
+          <li>Нижняя граница: ICMS 20% сверху на сумму с пошлиной. Верхняя: ICMS внутри собственной базы (деление на 0,8).</li>
+        </ul>
+      </div>
+    </div>
+    <div class="note reveal">Курс: 1 USD = 104,33 RSD, 1 BRL = 20,57 RSD (1 USD ≈ 5,07 BRL). Доставку я не считал: у Seeed бесплатная доставка DHL только от $500 (по найденному описанию), для остальных заказов стоимость видна на чекауте. Таможенная стоимость включает доставку, поэтому итог будет выше расчётного в обеих странах.</div>
+  </div>
+</section>
+
+<section id="no">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="kicker">Не подходят</span>
+      <h2>Что рассмотрел и отложил</h2>
+    </div>
+    <div class="bento">
+
+      <article class="card c6 reveal">
+        <div class="prod">
+          <div class="photo"><img src="img/eink-checklist/m5papers3.webp" alt="M5Stack M5PaperS3, e-ink экран 4,7 дюйма с касанием" width="400" height="300" loading="lazy"></div>
+          <div>
+            <span class="badge b-out">Отложил</span>
+            <h3>M5Stack M5PaperS3</h3>
+            <p class="sub">4,7″, 960 × 540, касание GT911, $59 в магазине M5Stack.</p>
+            <ul class="drop" style="margin-top:14px">
+              <li><b>Снят с производства:</b> на сайте M5Stack помечен «EOL».</li>
+              <li><b>ESPHome:</b> по гайду habbb официальной поддержки нет, нужна сторонняя ветка библиотеки.</li>
+              <li><b>Касание:</b> автор проекта на M5Paper (twocentstudios) пишет, что из глубокого сна будит только физическая кнопка.</li>
+            </ul>
+            <a class="btn ghost" href="https://shop.m5stack.com/products/m5papers3-esp32s3-development-kit" target="_blank" rel="noopener">Магазин M5Stack ↗</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="card c6 reveal">
+        <div class="prod">
+          <div class="photo"><img src="img/eink-checklist/trmnl-og.jpg" alt="Набор готовых e-ink экранов TRMNL с разными дашбордами" width="400" height="300" loading="lazy"></div>
+          <div>
+            <span class="badge b-out">Отложил</span>
+            <h3>TRMNL OG</h3>
+            <p class="sub">Готовый e-ink дашборд 7,5″ без подписки, около $139–154 (по сниппетам поиска, проверь на сайте).</p>
+            <ul class="drop" style="margin-top:14px">
+              <li><b>Отметок нет:</b> в найденных описаниях TRMNL показывает данные, в том числе из Home Assistant, но ввод для отметок не описан.</li>
+              <li><b>Кнопки:</b> по smarthomesecrets три программируемые кнопки доступны, если залить ESPHome вместо родной прошивки.</li>
+              <li><b>Цена:</b> примерно вдвое выше E1001.</li>
+            </ul>
+            <a class="btn ghost" href="https://usetrmnl.com/" target="_blank" rel="noopener">Сайт TRMNL ↗</a>
+          </div>
+        </div>
+      </article>
+
+    </div>
+    <div class="note soft reveal">Цветную версию E1002 (7,3″, Spectra 6) тоже отложил: по обзору CNX у неё обновление около 17 секунд против 2–3 у E1001. Для чек-листа цвет не нужен. Старая подборка про интерактивные панели для поездок остаётся на <a href="interactive-board-travel.html">отдельной странице</a>.</div>
+  </div>
+</section>
+
+<section id="order">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="kicker">Заказ</span>
+      <h2>Что нужно от тебя перед оформлением</h2>
+      <p>Заказ не оформлен. Оплату и ввод карточных данных делаешь только ты.</p>
+    </div>
+    <div class="card reveal">
+      <ol class="need">
+        <li><span><b>Куда везти:</b> Белград или Рио. По расчёту Белград обходится дешевле, а в Бразилии нужен CPF в инвойсе.</span></li>
+        <li><span><b>Какая модель:</b> E1001 (кнопки, максимум автономности) или Sticky (касание, меньше, раз в неделю на зарядку).</span></li>
+        <li><span><b>Home Assistant:</b> есть ли он уже и где. Какие устройства умного дома должны реагировать на пункты списка.</span></li>
+        <li><span><b>Список пунктов и порядок</b>, чтобы я мог подготовить конфиг ESPHome и автоматизации (включая сброс в 00:00).</span></li>
+        <li><span><b>Бюджет и способ оплаты.</b> Перед оплатой проверить итоговую сумму с доставкой и налогами на чекауте.</span></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section id="src" class="src">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="kicker">Источники</span>
+      <h2>Откуда данные</h2>
+    </div>
+    <div class="card reveal">
+      <h3 style="margin-top:0">Устройства</h3>
+      <ul>
+        <li><a href="https://www.seeedstudio.com/reTerminal-E1001-p-6534.html" target="_blank" rel="noopener">Seeed: reTerminal E1001</a></li>
+        <li><a href="https://wiki.seeedstudio.com/reterminal_e10xx_main_page/" target="_blank" rel="noopener">Seeed Wiki: серия reTerminal E</a></li>
+        <li><a href="https://wiki.seeedstudio.com/reterminal_e10xx_with_esphome_advanced/" target="_blank" rel="noopener">Seeed Wiki: ESPHome, кнопки, сон, батарея</a></li>
+        <li><a href="https://www.cnx-software.com/2025/12/15/reterminal-e1001-e1002-review-bw-and-color-epaper-displays-tested-with-sensecraft-hmi-and-home-assistant/" target="_blank" rel="noopener">CNX Software: обзор E1001 и E1002</a></li>
+        <li><a href="https://www.seeedstudio.com/reTerminal-E1003-p-6731.html" target="_blank" rel="noopener">Seeed: reTerminal E1003</a></li>
+        <li><a href="https://github.com/usetrmnl/trmnl-firmware/issues/572" target="_blank" rel="noopener">GitHub: сообщение о потреблении E1003 в сне</a></li>
+        <li><a href="https://www.seeedstudio.com/reTerminal-Sticky-p-6861.html" target="_blank" rel="noopener">Seeed: reTerminal Sticky</a></li>
+        <li><a href="https://www.seeedstudio.com/sticky/docs/en/device-guide/esp-refresh/" target="_blank" rel="noopener">Seeed Docs: обновление и сон Sticky</a></li>
+        <li><a href="https://www.cnx-software.com/2026/07/31/reterminal-sticky-3-97-inch-magnetic-touch-epaper-display-is-supported-by-four-open-source-firmware-projects/" target="_blank" rel="noopener">CNX Software: Sticky и четыре прошивки</a></li>
+        <li><a href="https://www.xda-developers.com/reterminal-sticky-fridge-magnet-voice-notes-best-part-app-platform/" target="_blank" rel="noopener">XDA: Sticky, платформа приложений, батарея</a></li>
+        <li><a href="https://goodereader.com/blog/e-paper/reterminal-sticky-is-a-tiny-e-ink-ai-powered-magnetic-display" target="_blank" rel="noopener">Good e-Reader: Sticky (фото, крепление)</a></li>
+        <li><a href="https://ngxptech.com/reterminal-sticky-budget-magnetic-e-paper-display/" target="_blank" rel="noopener">ngxptech: заметки по Sticky</a></li>
+        <li><a href="https://github.com/sira-fiinikkusu/reterminal-sticky-voice-companion" target="_blank" rel="noopener">GitHub: проект на ESPHome для Sticky</a></li>
+        <li><a href="https://shop.m5stack.com/products/m5papers3-esp32s3-development-kit" target="_blank" rel="noopener">M5Stack: M5PaperS3</a></li>
+        <li><a href="https://habbb.com/guides/m5paper-eink-dashboard-home-assistant-usa" target="_blank" rel="noopener">habbb: M5Paper и Home Assistant</a></li>
+        <li><a href="https://twocentstudios.com/2025/10/10/an-e-ink-desk-companion-with-m5paper/" target="_blank" rel="noopener">twocentstudios: M5Paper, пробуждение касанием</a></li>
+        <li><a href="https://smarthomesecrets.ca/trmnl-esphome-home-assistant/" target="_blank" rel="noopener">smarthomesecrets: TRMNL и ESPHome</a></li>
+      </ul>
+      <h3>Цены, налоги, доставка</h3>
+      <ul>
+        <li><a href="https://www.aliexpress.com/item/1005010024295436.html" target="_blank" rel="noopener">AliExpress: лот E1001</a></li>
+        <li><a href="https://www.amazon.com.br/seeed-studio-E1001-ReTerminal-Display/dp/B0FRFHVHNZ" target="_blank" rel="noopener">Amazon.com.br: E1001</a></li>
+        <li><a href="https://support.seeed.cc/portal/en/kb/articles/customs-duties-and-taxes" target="_blank" rel="noopener">Seeed: таможня, пошлины и налоги</a></li>
+        <li><a href="https://blog.econeteditora.com.br/remessa-conforme-o-que-muda-com-a-portaria-mf-1-342-2026/" target="_blank" rel="noopener">Econet: Portaria MF 1.342/2026</a></li>
+        <li><a href="https://adnews.com.br/post/compras-internacionais-em-2026-consolidacao-do-remessa-conforme-e-atencao-a-base-de-calculo" target="_blank" rel="noopener">adnews: Remessa Conforme и база расчёта</a></li>
+        <li><a href="https://n1info.rs/biznis/aliexpress-paketi-srbija-novi-troskovi/" target="_blank" rel="noopener">N1: посылки в Сербию, PDV, пошлина, сборы</a></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">Подборка для anton: e-ink чек-лист у кровати. Цены и налоги ориентировочные, перед оплатой сверь их на странице магазина и на чекауте.</div>
+</footer>
+
+<script type="module">
+(function(){
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var els = [].slice.call(document.querySelectorAll('.reveal'));
+  function show(el){ el.classList.add('shown'); el.style.opacity = 1; el.style.transform = 'none'; }
+  if (reduce) { els.forEach(show); return; }
+
+  function fallback(){
+    if (!('IntersectionObserver' in window)) { els.forEach(show); return; }
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){ if (en.isIntersecting) { show(en.target); io.unobserve(en.target); } });
+    }, { rootMargin: '0px 0px -8% 0px' });
+    els.forEach(function(e){ io.observe(e); });
+  }
+
+  import('https://cdn.jsdelivr.net/npm/motion@11/+esm').then(function(m){
+    window.__motionOk = true;
+    var animate = m.animate, inView = m.inView, stagger = m.stagger;
+    var target = function(arg){ return (arg && arg.target) || arg; };
+    inView('.reveal', function(arg){
+      var el = target(arg);
+      if (!el || !el.classList) return;
+      var i = [].indexOf.call(el.parentElement.children, el);
+      el.classList.add('shown');
+      animate(el, { opacity: [0, 1], y: [22, 0] }, { duration: 0.55, delay: Math.min(i, 5) * 0.05, ease: [0.22, 1, 0.36, 1] });
+    }, { margin: '0px 0px -8% 0px' });
+    var mock = document.getElementById('mock');
+    if (mock) {
+      inView(mock, function(){
+        animate(mock.querySelectorAll('li'), { opacity: [0.15, 1] }, { duration: 0.4, delay: stagger(0.08, { startDelay: 0.5 }), ease: 'easeOut' });
+      });
+    }
+    document.querySelectorAll('.btn').forEach(function(b){
+      b.addEventListener('pointerdown', function(){ animate(b, { scale: 0.97 }, { duration: 0.12 }); });
+      ['pointerup','pointerleave','pointercancel'].forEach(function(ev){
+        b.addEventListener(ev, function(){ animate(b, { scale: 1 }, { duration: 0.18 }); });
+      });
+    });
+  }).catch(fallback);
+})();
+</script>
+</body>
+</html>
