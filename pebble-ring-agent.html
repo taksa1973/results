@@ -34,7 +34,8 @@
   font-family:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif;
 }
 *{box-sizing:border-box}
-html{scroll-behavior:smooth;scroll-padding-top:calc(var(--nav-h) + 16px);-webkit-text-size-adjust:100%}
+html{scroll-padding-top:calc(var(--nav-h) + 16px);-webkit-text-size-adjust:100%}
+@media (hover:hover) and (pointer:fine){html{scroll-behavior:smooth}}
 body{margin:0;background:var(--bg);color:var(--text);font-size:16px;line-height:1.65;font-weight:400}
 img{max-width:100%;height:auto;display:block}
 a{color:var(--text);text-underline-offset:3px;text-decoration-color:#666}
@@ -45,7 +46,7 @@ a:hover{text-decoration-color:var(--accent-text);color:#fff}
 .wrap{width:100%;max-width:1120px;margin:0 auto;padding:0 20px}
 
 /* навигация */
-.topnav{position:sticky;top:0;z-index:100;background:rgba(0,0,0,.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.topnav{position:sticky;top:0;z-index:100;background:#000;border-bottom:1px solid var(--line)}
 .topnav .wrap{display:flex;align-items:center;gap:8px;height:var(--nav-h);overflow-x:auto;scrollbar-width:none}
 .topnav .wrap::-webkit-scrollbar{display:none}
 .topnav .brand{font-weight:600;font-size:14px;letter-spacing:.02em;white-space:nowrap;margin-right:12px;color:var(--text);text-decoration:none}
@@ -714,7 +715,11 @@ if ('IntersectionObserver' in window) {
       if (en.isIntersecting) {
         links.forEach((a) => a.removeAttribute('aria-current'));
         const a = map.get(en.target.id);
-        if (a) { a.setAttribute('aria-current', 'true'); a.scrollIntoView({ block: 'nearest', inline: 'center' }); }
+        if (a) {
+          a.setAttribute('aria-current', 'true');
+          const bar = a.parentElement;
+          bar.scrollTo({ left: a.offsetLeft - (bar.clientWidth - a.offsetWidth) / 2, behavior: 'auto' });
+        }
       }
     });
   }, { rootMargin: '-45% 0px -50% 0px' });
