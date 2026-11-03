@@ -1,6 +1,9 @@
-# Собирает блок «Кейсы» (аккордеон, 6 кейсов) для страницы
-# https://neoved.io/mezhdunarodnyy-platezh-v-kriptovalyute по макету Zero-блока rec4163341301
-# и тестовую копию страницы с этим блоком вместо макета.
+# Собирает блок «Кейсы» (аккордеон, 6 кейсов) для страницы https://neoved.io/o-nas/keysy-i-otzyvy
+# по макету Zero-блока rec4163341301 на странице /mezhdunarodnyy-platezh-v-kriptovalyute
+# (anton 03.11.2026: макет обновлён — отступы и скругления; стрелки и свёрнутые карточки
+# с макета убраны, но в блоке остаются как были; галочка — с сайта; порядок и номера кейсов —
+# как на странице кейсов; блок ставится на страницу кейсов) и тестовую копию страницы кейсов,
+# где шесть Zero-блоков с кейсами заменены этим блоком.
 #
 # Запуск из корня репозитория:  python neoved-keysy/build.py            (block.html + тест)
 #                                python neoved-keysy/build.py --no-test  (только block.html)
@@ -18,32 +21,15 @@ ROOT = Path(__file__).resolve().parent.parent
 HERE = Path(__file__).resolve().parent
 OUT_BLOCK = HERE / 'block.html'
 OUT_TEST = ROOT / 'neoved-keysy-test.html'
-SRC_URL = 'https://neoved.io/mezhdunarodnyy-platezh-v-kriptovalyute'
-MOCK_REC = 'rec4163341301'  # Zero-блок с макетом одного кейса и двумя свёрнутыми карточками
+SRC_URL = 'https://neoved.io/o-nas/keysy-i-otzyvy'
+MOCK_URL = 'https://neoved.io/mezhdunarodnyy-platezh-v-kriptovalyute'  # макет: Zero-блок rec4163341301
+# Zero-блоки «Кейс 1» … «Кейс 6» на странице кейсов — в тестовой копии на их месте стоит наш блок
+CASE_RECS = ['rec3704438401', 'rec3747679601', 'rec3747729401', 'rec3747798901', 'rec3748110201', 'rec3748693601']
 UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0 Safari/537.36'
 
 # ───────────────────────── данные кейсов (со страницы /o-nas/keysy-i-otzyvy) ─────────────────────────
-# Первым идёт кейс про поставщика в Китае: о нём говорит текст над блоком («…запустить платежи в Китай
-# всего за 5 дней») и именно он раскрыт в макете. Дальше кейсы в порядке страницы «Кейсы и отзывы».
+# Порядок и номера — как на странице кейсов («Кейс 1» … «Кейс 6»), anton 03.11.2026.
 CASES = [
-    dict(
-        title='Как дистрибьютор оборудования для фитнес-клубов платит поставщику в Китае',
-        tags=['ИП, малый бизнес, дистрибуция оборудования для фитнес-клубов'],
-        kind='международный платеж',
-        task='предыдущий платежный агент не смог обеспечить зачисление средств китайскому поставщику. '
-             'Возник риск переноса отгрузки и дефицита оборудования на складе в России. '
-             'Требовался повторяемый маршрут: рубли в России → юани поставщику в Китае.',
-        steps=['Проверили контракт, инвойс, реквизиты и банк получателя;',
-               'Определили подходящий корреспондентский маршрут для CNY;',
-               'Подобрали договорную модель;',
-               'Рекомендовали подходящий счет клиента для проведения платежа;',
-               'Провели первый платеж и затем повторили операцию по уже согласованной схеме.'],
-        stats=[('11 500 000 ₽', 'первый платеж'), ('5 рабочих дней', 'первая операция'), ('2 рабочих дня', 'повторная')],
-        changed='клиент получил рабочий маршрут для регулярных закупок в Китае и смог точнее планировать '
-                'сроки отгрузки и складские остатки.',
-        quote='«Спасибо, за спокойствие. Одной проблемой меньше»',
-        author='ИП, дистрибуция оборудования для фитнес-клубов',
-    ),
     dict(
         title='Как ИП оплатил разработку ПО в Европе, когда три банка отказали',
         tags=['ИП, ИТ-консалтинг и разработка ПО'],
@@ -138,6 +124,24 @@ CASES = [
               'инструменты существуют для решения наших задач. Успеха в развитии!»',
         author='Студия 3D-графики и анимации',
     ),
+    dict(
+        title='Как дистрибьютор оборудования для фитнес-клубов платит поставщику в Китае',
+        tags=['ИП, малый бизнес, дистрибуция оборудования для фитнес-клубов'],
+        kind='международный платеж',
+        task='предыдущий платежный агент не смог обеспечить зачисление средств китайскому поставщику. '
+             'Возник риск переноса отгрузки и дефицита оборудования на складе в России. '
+             'Требовался повторяемый маршрут: рубли в России → юани поставщику в Китае.',
+        steps=['Проверили контракт, инвойс, реквизиты и банк получателя;',
+               'Определили подходящий корреспондентский маршрут для CNY;',
+               'Подобрали договорную модель;',
+               'Рекомендовали подходящий счет клиента для проведения платежа;',
+               'Провели первый платеж и затем повторили операцию по уже согласованной схеме.'],
+        stats=[('11 500 000 ₽', 'первый платеж'), ('5 рабочих дней', 'первая операция'), ('2 рабочих дня', 'повторная')],
+        changed='клиент получил рабочий маршрут для регулярных закупок в Китае и смог точнее планировать '
+                'сроки отгрузки и складские остатки.',
+        quote='«Спасибо, за спокойствие. Одной проблемой меньше»',
+        author='ИП, дистрибуция оборудования для фитнес-клубов',
+    ),
 ]
 
 # ───────────────────────── типограф: неразрывные пробелы ─────────────────────────
@@ -176,8 +180,16 @@ ARROW_SVG = ('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19 12">'
              'C3.1659 5.6858 6.3319 8.8428 9.4978 11.9997C10.3432 11.1568 11.1886 10.3138 12.034 9.4709Z"/>'
              '<path fill="#dddddd" d="M16.4675 0.002C13.3008 3.1598 10.134 6.3175 6.9673 9.4753C7.8108 10.3168 8.6543 11.1583 '
              '9.4978 11.9997C12.6651 8.8421 15.8324 5.6846 18.9997 2.527C18.1556 1.6853 17.3116 0.8437 16.4675 0.002Z"/></svg>')
-CHECK_SVG = ('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><circle cx="11.7" cy="12" r="11.7" fill="#EE0000"/>'
-             '<path d="M5.1 12.6l4.4 4.4 9.3-9.3" fill="none" stroke="#fff" stroke-width="2.6"/></svg>')
+# Галочка — та же, что на странице кейсов (static.tildacdn.com/tild3032-3133-4532-a166-663866316536/check.svg)
+CHECK_SVG = ('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">'
+             '<path fill="#EE0000" d="M11.7 24C9.41133 23.9971 7.362 23.5066 5.60777 22.5427C3.84873 21.577 2.45977 20.1763 '
+             '1.4774 18.3754C0.511369 16.6051 0.0144183 14.4605 0 11.9981C0.0144183 9.53952 0.51233 7.39392 1.4774 5.62368'
+             'C2.45977 3.82368 3.84873 2.42112 5.60777 1.45632C7.362 0.49344 9.41133 0.00288 11.7 0C13.9887 0.00288 16.038 '
+             '0.49344 17.7922 1.45728C19.5513 2.42208 20.9412 3.82464 21.9216 5.62464C22.8877 7.39392 23.3846 9.53952 23.4 '
+             '12.001C23.3856 14.4605 22.8877 16.6051 21.9216 18.3744C20.9402 20.1744 19.5503 21.577 17.7922 22.5427C16.039 '
+             '23.5066 13.9887 23.9971 11.7 24Z"/>'
+             '<rect x="4.23279" y="12" width="2.64006" height="7.92018" transform="rotate(-45 4.23279 12)" fill="white"/>'
+             '<rect x="9.83322" y="17.6004" width="2.64006" height="13.2003" transform="rotate(-135 9.83322 17.6004)" fill="white"/></svg>')
 
 
 def data_uri(svg):
@@ -202,7 +214,8 @@ CSS = '''
 .nk-b{position:relative;z-index:1;display:grid;grid-template-rows:0fr;visibility:hidden;transition:grid-template-rows .3s ease,visibility 0s linear .3s}
 .nk-c[data-open]>.nk-b{grid-template-rows:1fr;visibility:visible;transition-delay:0s,0s}
 .nk-bi{overflow:hidden;min-height:0}
-.nk-bw{display:flex;flex-direction:column;align-items:flex-start;gap:10px;padding-top:10px}
+.nk-bw{display:flex;flex-direction:column;align-items:flex-start;gap:5px;padding-top:10px}
+.nk-p[data-m],.nk-q,.nk-v{margin-top:5px}
 .nk-tg{display:flex;flex-wrap:wrap;align-items:center;gap:5px;max-width:100%}
 .nk-tag,.nk-tagr{display:inline-block;max-width:100%;padding:7px 13px;border:1px solid #e5e5e5;border-radius:30px;background:#f7f7f7;color:#999999;font-size:13px;line-height:1;font-weight:500;white-space:nowrap}
 .nk-tagr{border-color:#eddede;background:#fff0f0;color:#EE0000}
@@ -214,16 +227,15 @@ CSS = '''
 .nk-st{display:flex;flex-direction:column;max-width:100%;padding:10px 15px;border:1px solid #eeeeee;border-radius:15px;background:#ffffff}
 .nk-n{font-size:20px;line-height:1.25;font-weight:500;letter-spacing:-.25px;color:#EE0000;white-space:nowrap}
 .nk-cap{font-size:15px;line-height:1.4;color:#110000}
-.nk-q{display:flex;flex-direction:column;gap:1px;max-width:100%;margin:0;padding:10px 15px;border:1px solid #eeeeee;border-radius:15px;background:#ffffff}
+.nk-q{display:flex;flex-direction:column;gap:5px;align-self:stretch;margin:5px 0 0;padding:13px 18px;border:1px solid #eeeeee;border-radius:15px;background:#ffffff}
 .nk-qt{margin:0;font-size:15px;line-height:1.4;color:#110000}
-.nk-qa{font-size:15px;line-height:1.4;color:#999999}
-.nk-v{display:flex;align-items:center;gap:8px;font-size:15px;line-height:1.4;color:#999999}
-.nk-ck{flex:none;width:18px;height:18px;background:CHECK center/contain no-repeat}
+.nk-qa{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:15px;line-height:1.4;color:#999999}
+.nk-v{display:flex;align-items:center;justify-content:space-between;gap:10px;align-self:stretch;font-size:15px;line-height:1.4;color:#999999}
+.nk-ck{flex:none;width:24px;height:24px;margin:-2px 0;background:CHECK center/contain no-repeat}
 @media screen and (max-width:1199px){
 .nk{max-width:640px}
 .nk-t{min-height:0}
 .nk-tg{flex-direction:column;align-items:flex-start}
-.nk-q{align-self:stretch}
 }
 @media screen and (max-width:639px){
 .nk{max-width:none;padding:0 20px}
@@ -232,17 +244,14 @@ CSS = '''
 .nk-h{width:calc(100% + 40px);margin:-20px;padding:20px;border-radius:20px}
 .nk-t{font-size:20px;line-height:1.15}
 .nk-a{width:15px;height:10px;margin-top:7px}
-.nk-bw{gap:5px;padding-top:5px}
-.nk-tg,.nk-ch{margin:5px 0}
 .nk-tag,.nk-tagr{padding:5px 12px;font-size:12px;line-height:1.1}
 .nk-tag{white-space:normal}
 .nk-p,.nk-l,.nk-cap,.nk-v{font-size:14px}
-.nk-s{flex-direction:column}
-.nk-st{padding:9px 12px 8px;border-radius:10px}
+.nk-st{padding:9px 12px;border-radius:12px}
 .nk-n{font-size:17px}
-.nk-q{gap:3px;padding:9px 12px;border-radius:10px}
+.nk-q{padding:11px 15px;border-radius:12px}
 .nk-qt,.nk-qa{font-size:12px;line-height:1.25}
-.nk-ck{width:16px;height:16px}
+.nk-ck{width:15px;height:15px;margin:0}
 }
 @media (prefers-reduced-motion:reduce){
 .nk-bg,.nk-a,.nk-b{transition:none}
@@ -285,28 +294,31 @@ def esc(s):
 
 def card_html(i, c, is_open):
     n = i + 1
+    check = '<i class=nk-ck aria-hidden=true></i>'
     parts = []
     parts.append(f'<div class=nk-tg><span class=nk-tag>{esc(typo(c["tags"][0]))}</span>'
                  f'<span class=nk-tagr>{esc(typo(c["kind"]))}</span></div>')
-    parts.append(f'<p class=nk-p><span class=nk-i>Задача:</span> {esc(typo(c["task"]))}</p>')
+    # data-m — абзацы с отступом 10px сверху (остальные стоят через 5px), как в макете
+    parts.append(f'<p class=nk-p data-m><span class=nk-i>Задача:</span> {esc(typo(c["task"]))}</p>')
     steps = '<br>'.join(esc(typo(f'{k}. {s}')) for k, s in enumerate(c['steps'], 1))
     parts.append(f'<p class=nk-p><span class=nk-i>Что сделала команда neoved:</span><br>{steps}</p>')
     stats = ''.join(f'<div class=nk-st><span class=nk-n>{esc(typo(v))}</span><span class=nk-cap>{esc(typo(cap))}</span></div>'
                     for v, cap in c['stats'])
     parts.append(f'<div class=nk-r><div class=nk-l>Результат:</div><div class=nk-s>{stats}</div></div>')
-    parts.append(f'<p class=nk-ch><p class=nk-p><span class=nk-i>Что изменилось:</span> {esc(typo(c["changed"]))}</p>')
+    parts.append(f'<p class=nk-p data-m><span class=nk-i>Что изменилось:</span> {esc(typo(c["changed"]))}</p>')
+    # Галочка с сайта стоит справа в строке автора цитаты и в строке «Проверено: …» — как на странице кейсов
     if c.get('quote'):
         parts.append(f'<blockquote class=nk-q><p class=nk-qt>{esc(typo(c["quote"]))}</p>'
-                     f'<footer class=nk-qa>{esc(typo(c["author"]))}</footer></blockquote>')
+                     f'<footer class=nk-qa><span>{esc(typo(c["author"]))}</span>{check}</footer></blockquote>')
     elif c.get('verified'):
-        parts.append(f'<div class=nk-v><i class=nk-ck aria-hidden=true></i><span>{esc(typo(c["verified"]))}</span></div>')
+        parts.append(f'<div class=nk-v><span>{esc(typo(c["verified"]))}</span>{check}</div>')
     body = ''.join(parts)
     opn = ' data-open' if is_open else ''
     exp = 'true' if is_open else 'false'
     return (f'<div class=nk-c{opn}><i class=nk-bg aria-hidden=true></i>'
             f'<div class=nk-hd role=heading aria-level=3>'
             f'<button type=button class=nk-h id=nk-t{n} aria-expanded={exp} aria-controls=nk-b{n}>'
-            f'<span class=nk-t><span class=nk-red>Кейс.</span> {esc(typo(c["title"]))}</span><i class=nk-a aria-hidden=true></i></button></div>'
+            f'<span class=nk-t><span class=nk-red>Кейс&nbsp;{n}.</span> {esc(typo(c["title"]))}</span><i class=nk-a aria-hidden=true></i></button></div>'
             f'<div class=nk-b id=nk-b{n} role=region aria-labelledby=nk-t{n}><div class=nk-bi><div class=nk-bw>{body}</div></div></div></div>')
 
 
@@ -314,12 +326,8 @@ def build_block():
     css = CSS.replace('ARROW', data_uri(ARROW_SVG)).replace('CHECK', data_uri(CHECK_SVG))
     cards = '\n'.join(card_html(i, c, i == 0) for i, c in enumerate(CASES))
     html = f'<style>\n{css}\n</style>\n<div class=nk>\n{cards}\n</div>\n<script>\n{JS}\n</script>\n'
-    # «Что изменилось» на телефоне с полями 5px: класс nk-ch на самом абзаце, без лишней обёртки
-    html = html.replace('<p class=nk-ch><p class=nk-p>', '<p class=nk-p data-ch>')
-    html = html.replace('.nk-tg,.nk-ch{margin:5px 0}', '.nk-tg,.nk-p[data-ch]{margin:5px 0}')
     bad = [ch for ch in ('"', "'", '--', '...') if ch in html]
     assert not bad, f'в коде для Tilda есть {bad}'
-    assert 'nk-ch' not in html
     return html
 
 
@@ -349,10 +357,14 @@ def build_test(block):
     # на тестовой копии берём тот же Onest с Google Fonts (на самом сайте строка не нужна)
     html = html.replace('</head>', '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n'
                         '<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500&display=swap" rel="stylesheet">\n</head>', 1)
-    # макет (Zero-блок) заменяем блоком T123 с нашим кодом
-    s = html.index(f'<div id="{MOCK_REC}"')
-    e = html.index('<div id="rec', s + 10)
-    rec = (f'<div id="{MOCK_REC}" class="r t-rec" data-record-type="131" data-test-insert="neoved-keysy">'
+    # шесть Zero-блоков «Кейс 1» … «Кейс 6» заменяем одним блоком T123 с нашим кодом
+    s = html.index(f'<div id="{CASE_RECS[0]}"')
+    last = html.index(f'<div id="{CASE_RECS[-1]}"')
+    assert s < last, 'блоки кейсов идут не по порядку'
+    e = html.index('<div id="rec', last + 10)
+    for rec in CASE_RECS[1:]:
+        assert s < html.index(f'<div id="{rec}"') < e, f'{rec} вне заменяемого участка'
+    rec = (f'<div id="{CASE_RECS[0]}" class="r t-rec" data-record-type="131" data-test-insert="neoved-keysy">'
            ' <!-- T123 --> <div class="t123"> <div class="t-container_100 t123__centeredContainer"> <div class="t-width t-width_100 ">'
            ' <!-- nominify begin -->\n' + block + '<!-- nominify end --> </div> </div> </div> </div>\n')
     html = html[:s] + rec + html[e:]
