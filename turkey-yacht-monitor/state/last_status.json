@@ -1,12 +1,15 @@
 {
-  "ts": "2026-11-03T13:47:48.873656+00:00",
+  "ts": "2026-11-04T13:56:28.639019+00:00",
   "findings": {},
   "errors": {
     "Sailo Turkey catamarans": "http_403",
     "Navigare Yachting Turkey": "http_403",
     "Rotaneta Gocek catamaran": "http_502",
     "Rotaneta home": "http_502",
-    "Boataround Turkey": "http_405",
+    "Dream Yacht Charter Turkey": "http_403",
+    "Yachtico Turkey catamarans": "http_403",
+    "Yachtico Turkey all sailing": "http_403",
+    "Yachtico Turkey full catalog": "http_403",
     "Yacht-Rent Turkey": "http_403",
     "Gulet Bookers (home, Bodrum-based)": "http_403",
     "Gulet Escapes (UK)": "http_403",
