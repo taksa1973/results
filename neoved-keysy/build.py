@@ -61,9 +61,9 @@ CASES = [
                'Предоставили доступ к карте через web-кабинет;',
                'Приняли рубли с расчетного счета ООО и пополнили карту в USD;',
                'Проверили оплату OpenRouter и выстроили регулярный процесс.'],
-        stats=[('25 000 $', 'первое пополнение'), ('3 рабочих дня', 'согласование и договор'),
-               ('до 1 дня', 'выпуск и повторное пополнение после подписания'), ('20 $', 'выпуск карты'),
-               ('0 $', 'обслуживание'), ('7%', 'комиссия первого пополнения')],
+        stats=[('25 000 $', 'первое пополнение'), ('20 $', 'выпуск карты'), ('0 $', 'обслуживание'),
+               ('7%', 'комиссия первого пополнения'), ('3 рабочих дня', 'согласование и договор'),
+               ('до 1 дня', 'выпуск и повторное пополнение после подписания')],
         changed='расходы на AI-инфраструктуру переведены из личной карты директора в прозрачный процесс — '
                 'счет ООО → RUB → бизнес-карта в USD → OpenRouter.',
         verified='Проверено: Ольга Юркина, эксперт по НДС neoved',
@@ -214,7 +214,7 @@ CSS = '''
 .nk-b{position:relative;z-index:1;display:grid;grid-template-rows:0fr;visibility:hidden;transition:grid-template-rows .3s ease,visibility 0s linear .3s}
 .nk-c[data-open]>.nk-b{grid-template-rows:1fr;visibility:visible;transition-delay:0s,0s}
 .nk-bi{overflow:hidden;min-height:0}
-.nk-bw{display:flex;flex-direction:column;align-items:flex-start;gap:5px;padding-top:10px}
+.nk-bw{display:flex;flex-direction:column;align-items:flex-start;gap:5px;padding:10px 0 5px}
 .nk-p[data-m],.nk-q,.nk-v{margin-top:5px}
 .nk-tg{display:flex;flex-wrap:wrap;align-items:center;gap:5px;max-width:100%}
 .nk-tag,.nk-tagr{display:inline-block;max-width:100%;padding:7px 13px;border:1px solid #e5e5e5;border-radius:30px;background:#f7f7f7;color:#999999;font-size:13px;line-height:1;font-weight:500;white-space:nowrap}
@@ -250,8 +250,10 @@ CSS = '''
 .nk-st{padding:9px 12px;border-radius:12px}
 .nk-n{font-size:17px}
 .nk-q{padding:11px 15px;border-radius:12px}
-.nk-qt,.nk-qa{font-size:12px;line-height:1.25}
-.nk-ck{width:15px;height:15px;margin:0}
+.nk-qt,.nk-qa{font-size:12px;line-height:1.4}
+.nk-bw{padding-bottom:0}
+.nk-v{align-items:flex-end}
+.nk-ck{width:17px;height:17px;margin:0}
 }
 @media (prefers-reduced-motion:reduce){
 .nk-bg,.nk-a,.nk-b{transition:none}
