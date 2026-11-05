@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Базовый набор инструментов для квартиры в Рио</title>
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="description" content="Что купить из инструментов для долгой жизни в квартире в Рио: отвёртки, шестигранники, шуруповёрт, пассатижи, разводной ключ, WD-40, фиксатор резьбы, ножовка, молоток, изолента, индикаторная отвёртка и ещё два десятка дешёвых мелочей. Фото, проверенные цены, ссылки, магазины рядом с Barra.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script>
+(function(){
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!reduce) document.documentElement.classList.add('js-anim');
+  setTimeout(function(){
+    if (window.__motionOk) return;
+    document.querySelectorAll('.reveal').forEach(function(e){ e.style.opacity = 1; e.style.transform = 'none'; });
+  }, 3000);
+})();
+</script>
+<style>
+:root{
+  color-scheme:dark;
+  --bg:#000000; --card:#121212; --soft:#1A1A1A; --ink:#F5F5F5; --ink-2:#C4C4C8; --ink-3:#8E8E93;
+  --line:#262626; --line-2:#3A3A3A;
+  --red:#9B1C1C; --red-hover:#B42323; --red-text:#E05252; --red-soft:#241010; --red-line:#4D1B1B;
+  --r-lg:20px; --r-md:12px; --maxw:1120px;
+  --ease:cubic-bezier(.22,1,.36,1);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%; scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0; background:var(--bg); color:var(--ink); font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:17px; line-height:1.6; -webkit-font-smoothing:antialiased}
+::selection{background:var(--red); color:#fff}
+h1,h2,h3,h4{color:#fff; margin:0; line-height:1.15}
+p{margin:0}
+a{color:var(--red-text); text-decoration:none; border-bottom:1px solid rgba(224,82,82,.35); transition:color .18s, border-color .18s}
+a:hover{color:#fff; border-bottom-color:#fff}
+a:focus-visible,button:focus-visible{outline:2px solid var(--red-text); outline-offset:3px; border-radius:4px}
+.wrap{max-width:var(--maxw); margin:0 auto; padding:0 24px}
+.nw{white-space:nowrap}
+.num{font-variant-numeric:tabular-nums}
+
+/* навигация */
+.topbar{position:sticky; top:0; z-index:40; background:rgba(0,0,0,.88); border-bottom:1px solid var(--line); -webkit-backdrop-filter:saturate(140%) blur(16px); backdrop-filter:saturate(140%) blur(16px)}
+.topbar .wrap{display:flex; align-items:center; gap:24px; min-height:56px}
+.brand{color:#fff; font-weight:700; letter-spacing:-.01em; white-space:nowrap; border:0}
+.brand:hover{color:var(--red-text)}
+.topnav{display:flex; gap:4px; overflow-x:auto; scrollbar-width:none}
+.topnav::-webkit-scrollbar{display:none}
+.topnav a{color:var(--ink-2); border:0; padding:10px 12px; border-radius:10px; font-size:14px; font-weight:500; white-space:nowrap; min-height:44px; display:inline-flex; align-items:center}
+.topnav a:hover{color:#fff; background:rgba(255,255,255,.08)}
+.topnav a.active{color:#fff; background:rgba(255,255,255,.12)}
+
+/* hero */
+.hero{padding:72px 0 48px; border-bottom:1px solid var(--line)}
+.eyebrow{color:var(--red-text); font-size:12px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; margin-bottom:18px; display:block}
+h1{font-size:clamp(34px,5.4vw,60px); font-weight:800; letter-spacing:-.035em; max-width:20ch}
+h1 span{color:var(--red-text)}
+.lede{font-size:clamp(17px,2vw,19px); color:var(--ink-2); max-width:64ch; margin-top:22px}
+.lede + .lede{margin-top:14px}
+.lede b{color:#fff; font-weight:600}
+.facts{display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-top:40px}
+.fact{background:var(--card); border:1px solid var(--line); border-radius:var(--r-lg); padding:22px 24px}
+.fact b{display:block; font-size:clamp(24px,3.2vw,34px); font-weight:800; letter-spacing:-.03em; color:#fff; line-height:1.1; font-variant-numeric:tabular-nums}
+.fact span{display:block; margin-top:8px; font-size:14px; color:var(--ink-3); line-height:1.45}
+
+/* секции */
+section{padding:64px 0 8px}
+.sec-head{margin-bottom:28px}
+.kicker{color:var(--red-text); font-size:12px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; margin-bottom:10px; display:block}
+h2{font-size:clamp(26px,3.6vw,38px); font-weight:800; letter-spacing:-.025em}
+.sec-head p{color:var(--ink-2); margin-top:12px; max-width:70ch}
+.sec-head p b{color:#fff; font-weight:600}
+h3{font-size:20px; font-weight:700; letter-spacing:-.01em}
+.sub{margin:36px 0 16px; display:flex; align-items:baseline; gap:14px; flex-wrap:wrap}
+.sub h3{font-size:22px}
+.sub span{color:var(--ink-3); font-size:14px}
+
+/* карточки */
+.bento{display:grid; grid-template-columns:repeat(12,1fr); gap:16px}
+.c12{grid-column:span 12}.c6{grid-column:span 6}.c4{grid-column:span 4}.c8{grid-column:span 8}.c3{grid-column:span 3}
+.card{background:var(--card); border:1px solid var(--line); border-radius:var(--r-lg); padding:28px; transition:border-color .2s, transform .2s, box-shadow .2s}
+.card:hover{border-color:var(--line-2); box-shadow:0 0 0 1px rgba(255,255,255,.18); transform:translateY(-2px)}
+.card.top{border-color:var(--red-line); box-shadow:0 0 0 1px var(--red-line) inset}
+.card p{color:var(--ink-2); font-size:15.5px}
+.card p + p{margin-top:10px}
+.card ul{margin:10px 0 0; padding-left:20px; color:var(--ink-2); font-size:15.5px}
+.card li{margin:6px 0}
+.card li b, .card p b{color:#fff; font-weight:600}
+.badge{display:inline-block; font-size:12px; font-weight:700; letter-spacing:.04em; padding:5px 10px; border-radius:999px; text-transform:uppercase; margin-right:6px; margin-bottom:6px}
+.b-best{background:var(--red); color:#fff}
+.b-mid{background:var(--red-soft); color:var(--red-text); box-shadow:inset 0 0 0 1px var(--red-line)}
+.b-gray{background:var(--soft); color:#A1A1A6; box-shadow:inset 0 0 0 1px var(--line)}
+.b-ok{background:#2A2A2A; color:#fff; box-shadow:inset 0 0 0 1px #5A5A5F}
+.btn{display:inline-flex; align-items:center; gap:8px; min-height:44px; padding:10px 16px; margin-top:14px; margin-right:8px; border-radius:12px; font-size:14px; font-weight:600; color:#000; background:#fff; border:0; cursor:pointer; transition:background .18s, color .18s; font-family:inherit}
+.btn:hover{background:var(--red); color:#fff; border:0}
+.btn.ghost{background:transparent; color:var(--ink); box-shadow:inset 0 0 0 1px var(--line-2)}
+.btn.ghost:hover{background:rgba(255,255,255,.08); color:#fff}
+.btn svg{width:16px; height:16px; flex:none}
+.note{margin-top:18px; padding:14px 16px; border-radius:var(--r-md); background:var(--red-soft); border:1px solid var(--red-line); color:#F2D6D6; font-size:15px}
+.note.soft{background:var(--soft); border-color:var(--line); color:var(--ink-2)}
+.note b{color:#fff}
+
+/* карточки товаров */
+.item{display:flex; flex-direction:column; background:var(--card); border:1px solid var(--line); border-radius:var(--r-lg); overflow:hidden; transition:border-color .2s, box-shadow .2s, transform .2s}
+.item:hover{border-color:var(--line-2); box-shadow:0 0 0 1px rgba(255,255,255,.18); transform:translateY(-2px)}
+.item.top{border-color:var(--red-line); box-shadow:0 0 0 1px var(--red-line) inset}
+.item .ph{position:relative; background:#fff; aspect-ratio:4/3; display:flex; align-items:center; justify-content:center; padding:18px}
+.item .ph img{width:100%; height:100%; object-fit:contain; display:block}
+.item .ph .n{position:absolute; left:12px; top:12px; width:32px; height:32px; border-radius:8px; background:#000; color:#fff; font-weight:800; font-size:14px; display:flex; align-items:center; justify-content:center}
+.item .ph .credit{position:absolute; right:10px; bottom:8px; font-size:11px; color:rgba(255,255,255,.9); background:rgba(0,0,0,.6); padding:3px 8px; border-radius:999px}
+.item .body{padding:20px 22px 22px; display:flex; flex-direction:column; flex:1}
+.item .cat{color:var(--red-text); font-size:12px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; margin-bottom:6px}
+.item h3{font-size:18px; line-height:1.25}
+.item .model{color:var(--ink-3); font-size:13.5px; margin-top:4px}
+.item .price{margin-top:14px; display:flex; align-items:baseline; gap:10px; flex-wrap:wrap}
+.item .price b{font-size:26px; font-weight:800; letter-spacing:-.03em; color:#fff; font-variant-numeric:tabular-nums; line-height:1.1}
+.item .price span{color:var(--ink-3); font-size:13.5px}
+.item .price .pix{color:var(--ink-2); font-weight:600}
+.item .desc{margin-top:12px; color:var(--ink-2); font-size:15px; flex:1}
+.item .desc b{color:#fff; font-weight:600}
+.item .desc + .desc{margin-top:8px}
+.item .actions{margin-top:6px; display:flex; flex-wrap:wrap; gap:0 6px}
+.item .actions .btn{margin-top:10px; margin-right:0; padding:8px 13px; font-size:13.5px; min-height:40px}
+.item .src{margin-top:12px; font-size:12.5px; color:var(--ink-3); line-height:1.45}
+.item .src a{color:var(--ink-2); border-bottom-color:rgba(255,255,255,.25)}
+.item .src a:hover{color:#fff}
+.item.unverified .price b{color:var(--ink-2)}
+
+/* таблицы */
+.tbl{width:100%; border-collapse:separate; border-spacing:0; background:var(--card); border:1px solid var(--line); border-radius:var(--r-lg); overflow:hidden; font-size:15px}
+.tbl th,.tbl td{padding:12px 14px; text-align:left; vertical-align:top; border-bottom:1px solid var(--line)}
+.tbl thead th{background:#1F1F1F; color:#fff; font-weight:600; font-size:13px; letter-spacing:.02em}
+.tbl tbody tr:last-child td{border-bottom:0}
+.tbl tbody tr:hover{background:#161616}
+.tbl td b{color:#fff; font-weight:600}
+.tbl td.win{background:#1C1C1C; box-shadow:inset 3px 0 0 #fff}
+.tbl td small{display:block; color:var(--ink-3); font-size:13px; margin-top:3px; line-height:1.4}
+.tbl td.dim{color:var(--ink-3)}
+.tbl-wrap{overflow-x:auto; -webkit-overflow-scrolling:touch; border-radius:var(--r-lg)}
+.chip{display:inline-block; font-size:12px; font-weight:600; padding:3px 9px; border-radius:999px; white-space:nowrap}
+.chip.ok{background:#2A2A2A; color:#fff; box-shadow:inset 0 0 0 1px #5A5A5F}
+.chip.warn{background:var(--red-soft); color:var(--red-text); box-shadow:inset 0 0 0 1px var(--red-line)}
+.chip.bad{background:var(--red); color:#fff}
+.chip.mute{background:var(--soft); color:#A1A1A6; box-shadow:inset 0 0 0 1px var(--line)}
+
+/* магазины */
+.dist{list-style:none; margin:0; padding:0; display:grid; gap:10px}
+.dist li{display:grid; grid-template-columns:minmax(150px,1.2fr) minmax(0,3fr) 110px; gap:14px; align-items:center; background:var(--card); border:1px solid var(--line); border-radius:var(--r-md); padding:12px 16px; font-size:15px}
+.dist .bar{height:10px; background:#1F1F1F; border-radius:999px; overflow:hidden}
+.dist .bar span{display:block; height:100%; background:var(--red-text); border-radius:999px}
+.dist .km{text-align:right; font-variant-numeric:tabular-nums; color:#fff; font-weight:600}
+.dist .km small{display:block; color:var(--ink-3); font-weight:400; font-size:12px}
+.dist .name{color:#fff; font-weight:600}
+.dist .name small{display:block; color:var(--ink-3); font-weight:400; font-size:12.5px}
+
+/* шаги */
+.steps{list-style:none; margin:0; padding:0; display:grid; gap:12px; counter-reset:s}
+.steps li{display:grid; grid-template-columns:36px 1fr; gap:14px; background:var(--card); border:1px solid var(--line); border-radius:var(--r-md); padding:16px 18px; color:var(--ink-2); font-size:15.5px}
+.steps li::before{counter-increment:s; content:counter(s); width:32px; height:32px; border-radius:8px; background:#fff; color:#000; font-weight:800; display:flex; align-items:center; justify-content:center; font-size:14px}
+.steps li b{color:#fff; font-weight:600}
+
+/* источники */
+.sources{columns:2; column-gap:28px; font-size:14px; color:var(--ink-2); margin:0; padding-left:18px}
+.sources li{margin:0 0 8px; break-inside:avoid}
+.sources a{color:var(--ink-2); border-bottom-color:rgba(255,255,255,.25)}
+.sources a:hover{color:#fff}
+
+footer{padding:56px 0 40px; border-top:1px solid var(--line); margin-top:56px; color:var(--ink-3); font-size:14px}
+footer a{color:var(--ink-2)}
+
+/* анимации появления */
+.reveal{opacity:1}
+.js-anim .reveal{opacity:0; transform:translateY(18px); transition:opacity .55s var(--ease), transform .55s var(--ease)}
+.js-anim .reveal.shown{opacity:1; transform:none}
+
+@media (max-width:980px){
+  .facts{grid-template-columns:repeat(2,1fr)}
+  .c6,.c4,.c8{grid-column:span 12}
+  .c3{grid-column:span 6}
+  .sources{columns:1}
+}
+@media (min-width:981px) and (max-width:1120px){
+  .c3{grid-column:span 4}
+}
+@media (max-width:640px){
+  .wrap{padding:0 16px}
+  .hero{padding:48px 0 36px}
+  section{padding:48px 0 8px}
+  .facts{grid-template-columns:1fr 1fr; gap:10px}
+  .fact{padding:16px 16px}
+  .card{padding:20px}
+  .c3{grid-column:span 12}
+  .item .body{padding:16px 16px 18px}
+  .dist li{grid-template-columns:1fr 90px; }
+  .dist .bar{grid-column:1 / -1}
+  .tbl{font-size:14px}
+  .tbl th,.tbl td{padding:10px 10px}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <a class="brand" href="#top">Инструменты в Рио</a>
+    <nav class="topnav" aria-label="Разделы страницы">
+      <a href="#itog">Итог</a>
+      <a href="#bazovyi">Базовый набор</a>
+      <a href="#shurupovert">Шуруповёрт</a>
+      <a href="#chto-eshche">Что ещё</a>
+      <a href="#gde">Где купить</a>
+      <a href="#istochniki">Источники</a>
+    </nav>
+  </div>
+</div>
+
+<header class="hero" id="top">
+  <div class="wrap">
+    <span class="eyebrow">Рио-де-Жанейро · Barra da Tijuca · сеть 127 В</span>
+    <h1>Базовый набор инструментов <span>для квартиры в Рио</span></h1>
+    <p class="lede">Ваш список: отвёртки, шестигранники, шуруповёрт, пассатижи, разводной ключ, WD-40, фиксатор резьбы, ножовка с полотнами по металлу и дереву, молоток, изолента, индикаторная отвёртка. Ниже к каждой позиции подобрана конкретная модель с фото и ценой, которую я проверил на странице магазина, плюс ещё два десятка дешёвых мелочей, которые понадобятся в квартире чаще всего.</p>
+    <p class="lede">Цены сняты с сайта <b>Telhanorte</b>: это единственный крупный бразильский магазин, который отдал мне карточки товаров автоматически. Amazon.com.br, Mercado Livre и Leroy Merlin закрыты для автоматической проверки, поэтому у каждой карточки есть ссылки на поиск в них, но их цены я не подтверждал. В Рио удобнее всего купить всё за один заход в <b>Leroy Merlin в Barra</b>, он в 6 км от Jardim Oceânico.</p>
+    <div class="facts">
+      <div class="fact reveal"><b>R$ 1 050</b><span>базовый список целиком с Bosch GSB 120-LI, без фиксатора резьбы, по ценам Telhanorte (≈ $192)</span></div>
+      <div class="fact reveal"><b>R$ 600</b><span>тот же список с бюджетным шуруповёртом Novipro 12 В bivolt вместо Bosch (≈ $110)</span></div>
+      <div class="fact reveal"><b>R$ 273</b><span>десять дополнительных мелочей первой необходимости: рулетка, нож, уровень, свёрла, дюбели, стяжки, ленты, ящик</span></div>
+      <div class="fact reveal"><b>6,4 км</b><span>от станции метро Jardim Oceânico до Leroy Merlin Barra da Tijuca на машине, около 8 минут</span></div>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<section id="itog">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="kicker">Итог</span>
+      <h2>Три решения до похода в магазин</h2>
+      <p>Бренд по умолчанию для ручного инструмента в Бразилии: <b>Tramontina</b>. Это местный производитель, он есть в каждом магазине, цены ниже импортных, и запасные полотна, биты и ключи того же бренда лежат рядом.</p>
+    </div>
+    <div class="bento">
+      <div class="card top c4 reveal">
+        <span class="badge b-best">Шуруповёрт</span>
+        <h3>Bosch GSB 120-LI, 12 В, с ударом</h3>
+        <p>Единственный инструмент в списке, на котором стоит не экономить: он сверлит и кирпич с режимом удара (до 8 мм), и закручивает. Зарядное устройство GAL 12V-20 в бразильской версии bivolt, то есть работает от ваших 127 В. <b>R$ 619,90</b>, по Pix R$ 495,92.</p>
+        <p>Если бюджет жмёт: <b>Novipro 12 В bivolt</b> без удара за R$ 169,90 для сборки мебели, а для бетонных стен отдельно сетевая ударная дрель <b>Bosch GSB 450 RE 127 В</b> за R$ 269,90. Вместе они дешевле Bosch 12 В и мощнее по стене.</p>
+        <a class="btn" href="#shurupovert">Сравнение</a>
+      </div>
+      <div class="card c4 reveal">
+        <span class="badge b-mid">Куда ехать</span>
+        <h3>Leroy Merlin Barra da Tijuca</h3>
+        <p>Av. Ayrton Senna 2000, рядом с Casa Shopping. По OpenStreetMap и по сообщению Diário do Rio магазин работает. Весь базовый список и мелочи из раздела «Что ещё» там есть в одном зале, цены на ручной Tramontina сопоставимы с Telhanorte.</p>
+        <p>Дешевле, но дальше: оптово-розничный <b>Obramax</b> в Jacarepaguá, Estrada dos Bandeirantes 3091, около 14 км. Онлайн: <b>Amazon.com.br</b> и <b>Mercado Livre</b> с фильтром «Nacional».</p>
+        <a class="btn ghost" href="#gde">Адреса и расстояния</a>
+      </div>
+      <div class="card c4 reveal">
+        <span class="badge b-gray">127 В и стены</span>
+        <h3>Что проверить перед оплатой</h3>
+        <ul>
+          <li>Любой сетевой инструмент только <b>127 V</b> или <b>bivolt</b>. У аккумуляторных смотреть на зарядное устройство: у Bosch GAL 12V-20 BR и у Novipro оно bivolt.</li>
+          <li>Стены в домах Рио обычно кирпич или бетон. Нужны свёрла с победитовой напайкой (<b>broca de vídea</b>) и дюбели 6 и 8 мм (<b>bucha</b>).</li>
+          <li>На Mercado Livre не брать карточки с пометкой <b>Internacional</b>: налог на ввоз почти удваивает цену.</li>
+          <li>Оплата <b>Pix</b> почти везде даёт 5–25 % скидки, цены Pix указаны в карточках.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="bazovyi">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="kicker">Базовый набор</span>
+      <h2>Одиннадцать позиций из вашего списка</h2>
+      <p>Цена в карточке: обычная цена на сайте Telhanorte без процентов на карту, ниже цена по Pix, если магазин её показывает. Кнопки «Amazon», «Mercado Livre» и «Leroy Merlin» ведут на поиск той же модели, цены там не проверены.</p>
+    </div>
+    <div class="bento">
+
+      <article class="item c4 reveal">
+        <div class="ph"><span class="n">1</span><img src="img/rio-instrumenty/chaves-fenda-7.jpg" alt="Набор из 7 отвёрток Tramontina 43408/115" loading="lazy" width="650" height="650"></div>
+        <div class="body">
+          <div class="cat">Отвёртки</div>
+          <h3>Tramontina, набор 7 шт</h3>
+          <div class="model">3 плоских, 3 крестовых, 1 короткая «клипса» · 43408/115</div>
+          <div class="price"><b>R$ 41,90</b><span>≈ $8</span></div>
+          <p class="desc">Хватает на всю бытовую сборку: розетки, мебель, техника. Если нужен минимум, есть базовый набор из 5 шт за <b>R$ 24,90</b> (Pix R$ 19,92), но он для редких работ, магазин так и пишет.</p>
+          <div class="actions">
+            <a class="btn" href="https://www.telhanorte.com.br/jogo-de-chaves-de-fenda-7-pecas-sendo-3-ponta-chata-3-ponta-cruzada-e-1-tipo-clipe-43408115-tramontina-279781/p" target="_blank" rel="noopener">Telhanorte</a>
+            <a class="btn ghost" href="https://www.amazon.com.br/s?k=jogo+chaves+de+fenda+tramontina+43408" target="_blank" rel="noopener">Amazon</a>
+            <a class="btn ghost" href="https://lista.mercadolivre.com.br/jogo-chaves-fenda-tramontina-7-pecas" target="_blank" rel="noopener">Mercado Livre</a>
+            <a class="btn ghost" href="https://www.leroymerlin.com.br/search?term=jogo+chave+de+fenda+tramontina" target="_blank" rel="noopener">Leroy Merlin</a>
+          </div>
+          <div class="src">Фото и цена: <a href="https://www.telhanorte.com.br/jogo-de-chaves-de-fenda-5pcs-tramontina-1690817/p" target="_blank" rel="noopener">набор 5 шт</a> тоже с сайта Telhanorte.</div>
+        </div>
+      </article>
+
+      <article class="item c4 reveal">
+        <div class="ph"><span class="n">2</span><img src="img/rio-instrumenty/allen-5.jpg" alt="Набор шестигранных ключей Tramontina 5 шт 44400/505" loading="lazy" width="650" height="650"></div>
+        <div class="body">
+          <div class="cat">Шестигранники</div>
+          <h3>Tramontina PRO, 5 ключей</h3>
+          <div class="model">2,5 · 3 · 4 · 6 · 8 мм, в резиновом держателе · 44400/505</div>
+          <div class="price"><b>R$ 43,90</b><span class="pix">Pix R$ 32,92</span></div>
+          <p class="desc">Пять размеров закрывают мебель, велосипед, кронштейны и большинство техники. Полный набор <b>Tramontina PRO 9 шт 1,5–10 мм</b> стоит R$ 96,90. Если нужно просто «чтобы было», есть <b>Sparta 10 шт 1,5–10 мм</b> за R$ 12,90, сталь попроще.</p>
+          <div class="actions">
+            <a class="btn" href="https://www.telhanorte.com.br/jogo-chave-hexagonal-5-pecas-embalagem-injetada-em-borracha-termoplastica-44400505-tramontina-599212/p" target="_blank" rel="noopener">Telhanorte</a>
+            <a class="btn ghost" href="https://www.amazon.com.br/s?k=jogo+chave+allen+tramontina" target="_blank" rel="noopener">Amazon</a>
+            <a class="btn ghost" href="https://lista.mercadolivre.com.br/jogo-chave-allen-tramontina" target="_blank" rel="noopener">Mercado Livre</a>
+            <a class="btn ghost" href="https://www.leroymerlin.com.br/search?term=jogo+chave+allen" target="_blank" rel="noopener">Leroy Merlin</a>
+          </div>
+          <div class="src"><a href="https://www.telhanorte.com.br/jogo-chave-hexagonal-9-pecas-haste-em-aco-cromo-vanadio-tamanhos-15-ao-10-mm-44400209-tramontina-599123/p" target="_blank" rel="noopener">PRO 9 шт</a> · <a href="https://www.telhanorte.com.br/jogo-de-chave-hexagonal-curta-1-5-10-crv-10-pcs-oxidado-1823701/p" target="_blank" rel="noopener">Sparta 10 шт</a></div>
+        </div>
+      </article>
+
+      <article class="item top c4 reveal">
+        <div class="ph"><span class="n">3</span><img src="img/rio-instrumenty/bosch-gsb120.jpg" alt="Аккумуляторная ударная дрель-шуруповёрт Bosch GSB 120-LI 12 В" loading="lazy" width="650" height="650"></div>
+        <div class="body">
+          <div class="cat">Шуруповёрт</div>
+          <h3>Bosch GSB 120-LI, 12 В, с ударом</h3>
+          <div class="model">1 аккумулятор 2,0 Ач, зарядное GAL 12V-20 bivolt, кейс · 30 Н·м</div>
+          <div class="price"><b>R$ 619,90</b><span class="pix">Pix R$ 495,92</span></div>
+          <p class="desc">Сверлит дерево до 20 мм, сталь до 10 мм, кирпич до 8 мм в режиме удара, этого хватает под дюбели 6 и 8 мм. Две скорости, быстрозажимной патрон 10 мм, вес 0,9 кг без батареи. Один аккумулятор для дома достаточно. Подробности и дешёвые альтернативы в разделе <a href="#shurupovert">«Шуруповёрт»</a>.</p>
+          <div class="actions">
+            <a class="btn" href="https://www.telhanorte.com.br/parafusadeira-e-furadeira-de-impacto-a-bateria-12v-com-1-bateria-1748440/p" target="_blank" rel="noopener">Telhanorte</a>
+            <a class="btn ghost" href="https://www.amazon.com.br/s?k=bosch+gsb+120-li" target="_blank" rel="noopener">Amazon</a>
+            <a class="btn ghost" href="https://lista.mercadolivre.com.br/bosch-gsb-120-li" target="_blank" rel="noopener">Mercado Livre</a>
+            <a class="btn ghost" href="https://www.leroymerlin.com.br/search?term=gsb+120-li" target="_blank" rel="noopener">Leroy Merlin</a>
+          </div>
+          <div class="src">Bivolt зарядного: <a href="https://www.telhanorte.com.br/carregador-de-bateria-gal-12v20-br-bivolt-19g80-bosch-1748513/p" target="_blank" rel="noopener">карточка GAL 12V-20 BR</a>. Характеристики: <a href="https://www.amazon.com.br/Parafusadeira-Furadeira-Bosch-120-LI-bateria/dp/B07VVMFGTP" target="_blank" rel="noopener">описание на Amazon</a>.</div>
+        </div>
+      </article>
+
+      <article class="item c4 reveal">
+        <div class="ph"><span class="n">4</span><img src="img/rio-instrumenty/alicate-8.jpg" alt="Пассатижи Tramontina 8 дюймов с изоляцией 1000 В" loading="lazy" width="650" height="650"></div>
+        <div class="body">
+          <div class="cat">Пассатижи</div>
+          <h3>Tramontina, универсальные 8"</h3>
+          <div class="model">Изолированные рукоятки 1000 В, норма NR10</div>
+          <div class="price"><b>R$ 32,90</b><span>≈ $6</span></div>
+          <p class="desc">Обычные «alicate universal» на 200 мм: держат, гнут, режут провод. Изоляция на 1000 В пригодится, раз в квартире есть и 127, и 220 В. Кованая версия <b>Tramontina PRO</b> стоит R$ 96,90 (Pix R$ 72,68), для дома переплата.</p>
+          <div class="actions">
+            <a class="btn" href="https://www.telhanorte.com.br/alicate-universal-8-tramontina-143944/p" target="_blank" rel="noopener">Telhanorte</a>
+            <a class="btn ghost" href="https://www.amazon.com.br/s?k=alicate+universal+8+tramontina" target="_blank" rel="noopener">Amazon</a>
+            <a class="btn ghost" href="https://lista.mercadolivre.com.br/alicate-universal-8-tramontina" target="_blank" rel="noopener">Mercado Livre</a>
+            <a class="btn ghost" href="https://www.leroymerlin.com.br/search?term=alicate+universal+tramontina" target="_blank" rel="noopener">Leroy Merlin</a>
+          </div>
+          <div class="src"><a href="https://www.telhanorte.com.br/alicate-universal-pro-8-forjado-em-aco-cromado-vanadio-empunhadura-isolada-pvc-laranja-44000108-tramontina-926116/p" target="_blank" rel="noopener">Версия PRO 44000/108</a></div>
+        </div>
+      </article>
+
+      <article class="item c4 reveal">
+        <div class="ph"><span class="n">5</span><img src="img/rio-instrumenty/chave-ajustavel-10.jpg" alt="Разводной ключ Tramontina 10 дюймов" loading="lazy" width="650" height="650"></div>
+        <div class="body">
+          <div class="cat">Разводной ключ</div>
+          <h3>Tramontina, 10" (250 мм)</h3>
+          <div class="model">Хромированный, матовый · «chave ajustável» или «chave inglesa»</div>
+          <div class="price"><b>R$ 72,90</b><span>≈ $13</span></div>
+          <p class="desc">Десятидюймовый раскрывается примерно до 30 мм: гайки смесителя, сифона, гибкой подводки, кронштейнов. Для сантехники под раковиной удобнее ещё и <b>переставные клещи</b> (alicate bomba d'água), они в разделе «Что ещё».</p>
+          <div class="actions">
+            <a class="btn" href="https://www.telhanorte.com.br/chave-ajustavel-cromada-10-prata-fosca-tramontina-1212575/p" target="_blank" rel="noopener">Telhanorte</a>
+            <a class="btn ghost" href="https://www.amazon.com.br/s?k=chave+ajust%C3%A1vel+10+tramontina" target="_blank" rel="noopener">Amazon</a>
+            <a class="btn ghost" href="https://lista.mercadolivre.com.br/chave-inglesa-10-tramontina" target="_blank" rel="noopener">Mercado Livre</a>
+            <a class="btn ghost" href="https://www.leroymerlin.com.br/search?term=chave+ajustavel+10" target="_blank" rel="noopener">Leroy Merlin</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="item c4 reveal">
+        <div class="ph"><span class="n">6</span><img src="img/rio-instrumenty/wd40.jpg" alt="WD-40 Produto Multiusos 300 мл" loading="lazy" width="650" height="650"></div>
+        <div class="body">
+          <div class="cat">WD-40</div>
+          <h3>WD-40 Produto Multiusos, 300 мл</h3>
+          <div class="model">Аэрозоль, оригинальная формула</div>
+          <div class="price"><b>R$ 44,90</b><span>≈ $8</span></div>
+          <p class="desc">В Бразилии продаётся под тем же именем, искать «WD-40 multiusos». В поисковой выдаче Amazon встречаются предложения от R$ 39,90, но саму страницу Amazon я открыть не смог. В приморском климате Рио петли, замки и велосипед ржавеют быстро, баллон уходит за сезон.</p>
+          <div class="actions">
+            <a class="btn" href="https://www.telhanorte.com.br/wd40-produto-multiuso-desingripante-300ml-1820133/p" target="_blank" rel="noopener">Telhanorte</a>
+            <a class="btn ghost" href="https://www.amazon.com.br/s?k=wd-40+multiusos+300ml" target="_blank" rel="noopener">Amazon</a>
+            <a class="btn ghost" href="https://lista.mercadolivre.com.br/wd-40-300ml" target="_blank" rel="noopener">Mercado Livre</a>
+            <a class="btn ghost" href="https://www.leroymerlin.com.br/search?term=wd-40" target="_blank" rel="noopener">Leroy Merlin</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="item unverified c4 reveal">
+        <div class="ph"><span class="n">7</span><img src="img/rio-instrumenty/loctite-243.jpg" alt="Фиксатор резьбы Loctite 243, синий, средней прочности" loading="lazy" width="650" height="587"><span class="credit">фото: магазин Harley-Davidson</span></div>
+        <div class="body">
+          <div class="cat">Фиксатор резьбы</div>
+          <h3>Loctite 243 (синий, средний) или Tekbond médio torque</h3>
+          <div class="model">По-португальски «trava rosca» · для дома нужен средний (médio), он разбирается ключом</div>
+          <div class="price"><b>цена не подтверждена</b></div>
+          <p class="desc">Единственная позиция, где ни один доступный мне магазин не отдал страницу с ценой: в Telhanorte фиксаторов нет в наличии, Amazon и Mercado Livre закрыты для проверки. По сниппетам поиска: <b>Tekbond trava rosca médio torque 10 g</b> около R$ 24–36 на Magazine Luiza, <b>Loctite 243 в тюбике 6 мл</b> около R$ 89 на Amazon, <b>Loctite 243 50 g</b> около R$ 217. Для квартиры хватает 10 г Tekbond. Красный (alto torque, Loctite 271) не брать: без нагрева не открутится.</p>
+          <div class="actions">
+            <a class="btn" href="https://lista.mercadolivre.com.br/trava-rosca-medio-torque-10g" target="_blank" rel="noopener">Mercado Livre</a>
+            <a class="btn ghost" href="https://www.amazon.com.br/s?k=trava+rosca+m%C3%A9dio+torque" target="_blank" rel="noopener">Amazon</a>
+            <a class="btn ghost" href="https://www.leroymerlin.com.br/search?term=trava+rosca" target="_blank" rel="noopener">Leroy Merlin</a>
+            <a class="btn ghost" href="https://next.henkel-adhesives.com/br/pt/products/industrial-adhesives/central-pdp.html/loctite-243/BP000000316211.html" target="_blank" rel="noopener">Loctite 243 у Henkel</a>
+          </div>
+          <div class="src">Фото: <a href="https://www.harley-davidson.com/br/pt/shop/sellador-de-roscas-loctite-243-azul/p/99642-97" target="_blank" rel="noopener">карточка Loctite 243 в магазине Harley-Davidson Brasil</a>, цены там тоже нет. Цены-ориентиры: сводки поиска по <a href="https://m.magazineluiza.com.br/busca/trava+de+rosca/" target="_blank" rel="noopener">Magazine Luiza</a> и <a href="https://www.amazon.com.br/Loctite-1330799-Threadlocker-Superf%C3%ADcie-Insens%C3%ADvel/dp/B004L439FE" target="_blank" rel="noopener">Amazon</a>, проверить в браузере перед оплатой.</div>
+        </div>
+      </article>
+
+      <article class="item c4 reveal">
+        <div class="ph"><span class="n">8</span><img src="img/rio-instrumenty/arco-serra-12.jpg" alt="Ножовка по металлу Tramontina 12 дюймов 43301/012" loading="lazy" width="650" height="650"></div>
+        <div class="body">
+          <div class="cat">Ножовка · металл</div>
+          <h3>Tramontina arco de serra 12" + полотна bimetal</h3>
+          <div class="model">Рамка 43301/012 под полотна 8–12", рез под 45° и 90° · полотна MTX 24 TPI, 2 шт</div>
+          <div class="price"><b>R$ 36,90</b><span>+ полотна</span><span class="pix">R$ 18,90 (Pix R$ 14,17)</span></div>
+          <p class="desc">Под «ручным лобзиком с полотнами по железу и дереву» в Бразилии ближе всего рамка «arco de serra». В комплекте полотна нет, берите биметаллические 24 зуба на дюйм: они режут сталь, алюминий, пластик, кабель-каналы и в крайнем случае дерево. Полотна по дереву для таких рамок почти не продают, поэтому дерево закрывает ножовка ниже.</p>
+          <div class="actions">
+            <a class="btn" href="https://www.telhanorte.com.br/arco-de-serra-fixo-tamanho-12-corpo-em-aco-com-pintura-eletrostatica-cabo-injetado-43301012-tramontina-18961/p" target="_blank" rel="noopener">Рамка</a>
+            <a class="btn" href="https://www.telhanorte.com.br/lamina-para-arco-de-serra-bimetal-24-tpi-12pol-300mm-mtx-1638327/p" target="_blank" rel="noopener">Полотна</a>
+            <a class="btn ghost" href="https://www.amazon.com.br/s?k=arco+de+serra+12+tramontina" target="_blank" rel="noopener">Amazon</a>
+            <a class="btn ghost" href="https://lista.mercadolivre.com.br/arco-de-serra-12-tramontina" target="_blank" rel="noopener">Mercado Livre</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="item c4 reveal">
+        <div class="ph"><span class="n">8</span><img src="img/rio-instrumenty/serrote-16.jpg" alt="Ножовка по дереву Tramontina Utility 16 дюймов" loading="lazy" width="650" height="650"></div>
+        <div class="body">
+          <div class="cat">Ножовка · дерево</div>
+          <h3>Tramontina serrote Utility 16"</h3>
+          <div class="model">7 зубьев на дюйм, углеродистая сталь, пластиковая рукоятка · 42006/108</div>
+          <div class="price"><b>R$ 49,90</b><span>≈ $9</span></div>
+          <p class="desc">Короткая ножовка на 400 мм для полок, брусков, плинтусов и веток на террасе. Дешевле есть <b>Ramada Hobby 18"</b> за R$ 34,90, длиннее и мягче по стали. Профессиональная Tramontina 20" стоит R$ 82,90, дома не нужна.</p>
+          <div class="actions">
+            <a class="btn" href="https://www.telhanorte.com.br/serrote-utility-16-7-dentes-por-polegada-lamina-em-aco-carbono-cabo-plastico-42006108-tramontina-288381/p" target="_blank" rel="noopener">Telhanorte</a>
+            <a class="btn ghost" href="https://www.amazon.com.br/s?k=serrote+tramontina+16" target="_blank" rel="noopener">Amazon</a>
+            <a class="btn ghost" href="https://lista.mercadolivre.com.br/serrote-tramontina-16" target="_blank" rel="noopener">Mercado Livre</a>
+            <a class="btn ghost" href="https://www.leroymerlin.com.br/search?term=serrote" target="_blank" rel="noopener">Leroy Merlin</a>
+          </div>
+          <div class="src"><a href="https://www.telhanorte.com.br/serrote-hobby-18-ramada-1531670/p" target="_blank" rel="noopener">Ramada Hobby 18"</a></div>
+        </div>
+      </article>
+
+      <article class="item c4 reveal">
+        <div class="ph"><span class="n">9</span><img src="img/rio-instrumenty/martelo-27.jpg" alt="Молоток-гвоздодёр Tramontina 27 мм с деревянной ручкой" loading="lazy" width="650" height="650"></div>
+        <div class="body">
+          <div class="cat">Молоток</div>
+          <h3>Tramontina Master, 27 мм, гвоздодёр</h3>
+          <div class="model">Стальная головка, лакированная деревянная рукоятка · 40370/027</div>
+          <div class="price"><b>R$ 44,90</b><span>≈ $8</span></div>
+          <p class="desc">Размер 27 мм здесь стандартный «домашний» (аналог 450–500 г). Гвоздодёр на обухе нужен чаще, чем кажется: вытаскивать гвозди из ящиков и старых крепежей. Версии с фиберглассовой ручкой стоят от R$ 150, разницы для дома нет.</p>
+          <div class="actions">
+            <a class="btn" href="https://www.telhanorte.com.br/martelo-de-unha-27-mm-cabeca-em-aco-especial-jateada-cabo-em-madeira-envernizado-939110/p" target="_blank" rel="noopener">Telhanorte</a>
+            <a class="btn ghost" href="https://www.amazon.com.br/s?k=martelo+unha+27mm+tramontina" target="_blank" rel="noopener">Amazon</a>
+            <a class="btn ghost" href="https://lista.mercadolivre.com.br/martelo-unha-27mm-tramontina" target="_blank" rel="noopener">Mercado Livre</a>
+            <a class="btn ghost" href="https://www.leroymerlin.com.br/search?term=martelo+unha+27mm" target="_blank" rel="noopener">Leroy Merlin</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="item c4 reveal">
+        <div class="ph"><span class="n">10</span><img src="img/rio-instrumenty/fita-imperial.jpg" alt="Изолента 3M Imperial 18 мм на 20 м, чёрная" loading="lazy" width="650" height="650"></div>
+        <div class="body">
+          <div class="cat">Изолента</div>
+          <h3>3M Imperial, 18 мм × 20 м</h3>
+          <div class="model">Чёрная ПВХ, бытовой класс</div>
+          <div class="price"><b>R$ 11,90</b><span class="pix">Pix R$ 11,30</span></div>
+          <p class="desc">Imperial это дешёвая линейка 3M, продаётся в каждом магазине. Для электрики с нагревом лучше <b>3M Scotch 33+</b>: 19 мм × 10 м за R$ 22,90, та самая профессиональная лента. Белая Imperial тоже есть, R$ 13,90 за 20 м.</p>
+          <div class="actions">
+            <a class="btn" href="https://www.telhanorte.com.br/fita-isolante-18mmx20m-preta-3m-imperial-1291491/p" target="_blank" rel="noopener">Telhanorte</a>
+            <a class="btn ghost" href="https://www.amazon.com.br/s?k=fita+isolante+3m+imperial+20m" target="_blank" rel="noopener">Amazon</a>
+            <a class="btn ghost" href="https://lista.mercadolivre.com.br/fita-isolante-3m-imperial-20m" target="_blank" rel="noopener">Mercado Livre</a>
+            <a class="btn ghost" href="https://www.leroymerlin.com.br/search?term=fita+isolante+3m" target="_blank" rel="noopener">Leroy Merlin</a>
+          </div>
+          <div class="src"><a href="https://www.telhanorte.com.br/fita-isolante-19mmx10m-scotch-33-preto-3m-88196/p" target="_blank" rel="noopener">Scotch 33+ 19 мм × 10 м</a></div>
+        </div>
+      </article>
+
+      <article class="item c4 reveal">
+        <div class="ph"><span class="n">11</span><img src="img/rio-instrumenty/chave-teste.jpg" alt="Индикаторная отвёртка Tramontina Master 80–250 В" loading="lazy" width="650" height="650"></div>
+        <div class="body">
+          <div class="cat">Индикаторная отвёртка</div>
+          <h3>Tramontina Master chave teste, 80–250 В</h3>
+          <div class="model">Контактная, плоское жало 1/8" × 3" · 41900/110</div>
+          <div class="price"><b>R$ 31,90</b><span class="pix">Pix R$ 23,92</span></div>
+          <p class="desc">Диапазон 80–250 В покрывает и 127, и 220 В в вашей квартире. Это классическая «пробник-отвёртка» с неонкой. Бесконтактный детектор удобнее для поиска фазы в стене: <b>Minipa EZ-Alert I</b> (90–1000 В) по сниппетам Amazon около R$ 40, но страницу с ценой открыть не удалось.</p>
+          <div class="actions">
+            <a class="btn" href="https://www.telhanorte.com.br/chave-teste-18x3-haste-em-aco-especial-ponta-fenda-chata-capacidade-80250-v-41900110-tramontina-144010/p" target="_blank" rel="noopener">Telhanorte</a>
+            <a class="btn ghost" href="https://www.amazon.com.br/s?k=chave+teste+tramontina" target="_blank" rel="noopener">Amazon</a>
+            <a class="btn ghost" href="https://lista.mercadolivre.com.br/chave-teste-tramontina" target="_blank" rel="noopener">Mercado Livre</a>
+            <a class="btn ghost" href="https://www.amazon.com.br/s?k=minipa+ez-alert" target="_blank" rel="noopener">EZ-Alert на Amazon</a>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<section id="shurupovert">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="kicker">Шуруповёрт</span>
+      <h2>Один Bosch или «дешёвый аккумуляторный + сетевая дрель»</h2>
+      <p>Три проверенных варианта. Все три совместимы с вашей сетью 127 В: у аккумуляторных зарядное bivolt, сетевая дрель в версии 127 V. К любому из них нужен набор свёрл с победитом и бит, он в карточке ниже.</p>
+    </div>
+    <div class="tbl-wrap reveal">
+      <table class="tbl">
+        <thead><tr><th>Модель</th><th>Что умеет</th><th>Цена</th><th>Кому подходит</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="win"><b>Bosch GSB 120-LI</b><small>12 В, 1 АКБ 2,0 Ач, зарядное GAL 12V-20 bivolt, кейс</small></td>
+            <td>Дрель-шуруповёрт с ударом, 30 Н·м, две скорости, кирпич до 8 мм, сталь до 10 мм, дерево до 20 мм</td>
+            <td><b>R$ 619,90</b><small>Pix R$ 495,92 · ≈ $113</small></td>
+            <td>Один инструмент на всё, включая дюбели в кирпичной стене. По сниппетам Amazon та же модель с 1 АКБ около R$ 499, с 2 АКБ около R$ 709, не проверено.</td>
+          </tr>
+          <tr>
+            <td><b>Novipro 12 В bivolt</b><small>без удара, литиевый АКБ 1,3 Ач, насадки в комплекте</small></td>
+            <td>Шуруповёрт для мебели и мелкого сверления дерева и гипсокартона, 0–850 об/мин, по стене бесполезен</td>
+            <td><b>R$ 169,90</b><small>Pix R$ 152,91 · ≈ $31</small></td>
+            <td>Если сверлить стены будете редко: сборка IKEA-подобной мебели, полки в гипсокартоне, замена петель.</td>
+          </tr>
+          <tr>
+            <td><b>Bosch GSB 450 RE, 127 V</b><small>сетевая ударная дрель 450 Вт, ключевой патрон 3/8"</small></td>
+            <td>Сверлит кирпич и бетон с ударом, реверс, 1,2 кг. Закручивать ей неудобно, это именно дрель</td>
+            <td><b>R$ 269,90</b><small>≈ $49 · Pix без скидки</small></td>
+            <td>Пара к Novipro: вместе R$ 439,80, дешевле одного Bosch 12 В и сильнее по стене. Для бетона с арматурой нужен уже перфоратор, но это редкость в быту.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="bento" style="margin-top:16px">
+      <article class="item c4 reveal">
+        <div class="ph"><img src="img/rio-instrumenty/bosch-gsb450.jpg" alt="Сетевая ударная дрель Bosch GSB 450 RE 127 В" loading="lazy" width="650" height="650"></div>
+        <div class="body">
+          <div class="cat">Сетевая дрель</div>
+          <h3>Bosch GSB 450 RE, 127 V</h3>
+          <div class="price"><b>R$ 269,90</b></div>
+          <p class="desc">В комплекте дрель, ключ патрона и инструкция. Версия 220 V выглядит так же, проверяйте надпись «127V» на коробке.</p>
+          <div class="actions">
+            <a class="btn" href="https://www.telhanorte.com.br/furadeira-de-impacto-450w-127v-bosch-1748343/p" target="_blank" rel="noopener">Telhanorte</a>
+            <a class="btn ghost" href="https://www.amazon.com.br/s?k=bosch+gsb+450+re+127v" target="_blank" rel="noopener">Amazon</a>
+            <a class="btn ghost" href="https://lista.mercadolivre.com.br/furadeira-bosch-gsb-450-re-127v" target="_blank" rel="noopener">Mercado Livre</a>
+          </div>
+        </div>
+      </article>
+      <article class="item c4 reveal">
+        <div class="ph"><img src="img/rio-instrumenty/novipro-12v.jpg" alt="Аккумуляторный шуруповёрт Novipro 12 В bivolt" loading="lazy" width="650" height="650"></div>
+        <div class="body">
+          <div class="cat">Бюджетный шуруповёрт</div>
+          <h3>Novipro 12 В bivolt, без удара</h3>
+          <div class="price"><b>R$ 169,90</b><span class="pix">Pix R$ 152,91</span></div>
+          <p class="desc">Novipro это собственная марка Telhanorte, в Leroy Merlin её нет. Аналоги того же класса там: Vonder PFV 120, WAP BPF 12K3, около R$ 130–175 по сниппетам поиска.</p>
+          <div class="actions">
+            <a class="btn" href="https://www.telhanorte.com.br/parafusadeira-e-furadeira-s-imp-c-bateria-de-litio-e-acess-12v-biv-novipro-1821431/p" target="_blank" rel="noopener">Telhanorte</a>
+            <a class="btn ghost" href="https://www.amazon.com.br/s?k=parafusadeira+12v+bivolt" target="_blank" rel="noopener">Amazon</a>
+            <a class="btn ghost" href="https://www.leroymerlin.com.br/search?term=parafusadeira+12v" target="_blank" rel="noopener">Leroy Merlin</a>
+          </div>
+        </div>
+      </article>
+      <article class="item c4 reveal">
+        <div class="ph"><img src="img/rio-instrumenty/xline-33.jpg" alt="Набор свёрл и бит Bosch X-Line 33 предмета" loading="lazy" width="650" height="650"></div>
+        <div class="body">
+          <div class="cat">Свёрла и биты</div>
+          <h3>Bosch X-Line, 33 предмета</h3>
+          <div class="price"><b>R$ 83,90</b><span class="pix">Pix R$ 79,70</span></div>
+          <p class="desc">7 свёрл по металлу HSS 2–5 мм, 5 по камню и кирпичу 4–8 мм, 6 по дереву 3–8 мм, 10 бит и держатель. Один кейс закрывает все три шуруповёрта из таблицы. Под дюбель 8 мм в бетоне докупите отдельное победитовое сверло 8 мм, в наборе они короткие.</p>
+          <div class="actions">
+            <a class="btn" href="https://www.telhanorte.com.br/jogo-de-ferramentas-33-pecas-em-aco-xline-bosch-1607103/p" target="_blank" rel="noopener">Telhanorte</a>
+            <a class="btn ghost" href="https://www.amazon.com.br/s?k=bosch+x-line+33" target="_blank" rel="noopener">Amazon</a>
+            <a class="btn ghost" href="https://lista.mercadolivre.com.br/bosch-x-line-33-pecas" target="_blank" rel="noopener">Mercado Livre</a>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="chto-eshche">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="kicker">Что ещё</span>
+      <h2>Дешёвые мелочи, которые нужны чаще инструментов</h2>
+      <p>Первая десятка в сумме <b>R$ 273</b> (≈ $50), и без неё базовый набор работает вполсилы: нечем измерить, нечем разметить, не во что убрать. Вторая группа по желанию, <b>R$ 429</b> за всё.</p>
+    </div>
+
+    <div class="sub reveal"><h3>Первая десятка</h3><span>R$ 273 вместе · все с проверенной ценой Telhanorte</span></div>
+    <div class="bento">
+
+      <article class="item c3 reveal">
+        <div class="ph"><img src="img/rio-instrumenty/trena-5m.jpg" alt="Рулетка Tramontina 5 м" loading="lazy" width="650" height="650"></div>
+        <div class="body">
+          <div class="cat">Рулетка</div>
+          <h3>Tramontina 5 м</h3>
+          <div class="price"><b>R$ 28,90</b><span class="pix">Pix R$ 24,56</span></div>
+          <p class="desc">Стальная лента, корпус ABS, фиксатор. 5 м хватает на любую комнату.</p>
+          <div class="actions"><a class="btn" href="https://www.telhanorte.com.br/trena-com-fita-de-aco-capacidade-5-metros-corpo-em-abs-injetado-freio-simples-43166305-tramontina-1527509/p" target="_blank" rel="noopener">Telhanorte</a><a class="btn ghost" href="https://lista.mercadolivre.com.br/trena-5m-tramontina" target="_blank" rel="noopener">Mercado Livre</a></div>
+        </div>
+      </article>
+
+      <article class="item c3 reveal">
+        <div class="ph"><img src="img/rio-instrumenty/estiletes.jpg" alt="Набор из трёх канцелярских ножей MTX 9 и 18 мм" loading="lazy" width="650" height="650"></div>
+        <div class="body">
+          <div class="cat">Нож</div>
+          <h3>MTX, 3 ножа 9 и 18 мм</h3>
+          <div class="price"><b>R$ 11,90</b></div>
+          <p class="desc">«Estilete». Коробки, плёнка, обои, герметик. Запасные лезвия 18 мм Starrett, 10 шт, R$ 27,45.</p>
+          <div class="actions"><a class="btn" href="https://www.telhanorte.com.br/jogo-de-estilete-retrateis-com-3-pcs-9-9-18-m-1823922/p" target="_blank" rel="noopener">Telhanorte</a><a class="btn ghost" href="https://lista.mercadolivre.com.br/estilete-18mm" target="_blank" rel="noopener">Mercado Livre</a></div>
+        </div>
+      </article>
+
+      <article class="item c3 reveal">
+        <div class="ph"><img src="img/rio-instrumenty/nivel-16.jpg" alt="Строительный уровень Sparta 40 см с двумя ампулами" loading="lazy" width="650" height="650"></div>
+        <div class="body">
+          <div class="cat">Уровень</div>
+          <h3>Sparta 16" (40 см)</h3>
+          <div class="price"><b>R$ 19,90</b><span class="pix">Pix R$ 15,92</span></div>
+          <p class="desc">Алюминий, две ампулы. Полки, картины, кронштейн телевизора. Версия 60 см стоит R$ 23,90.</p>
+          <div class="actions"><a class="btn" href="https://www.telhanorte.com.br/nivel-de-aluminio-16pol-400-2-bolhas-escala-graduada-sparta-1823876/p" target="_blank" rel="noopener">Telhanorte</a><a class="btn ghost" href="https://lista.mercadolivre.com.br/nivel-de-aluminio-40cm" target="_blank" rel="noopener">Mercado Livre</a></div>
+        </div>
+      </article>
+
+      <article class="item c3 reveal">
+        <div class="ph"><img src="img/rio-instrumenty/buchas-fixtil.jpg" alt="Набор Fixtil: сверло по бетону 6 мм, дюбели и шурупы" loading="lazy" width="650" height="650"></div>
+        <div class="body">
+          <div class="cat">Дюбели</div>
+          <h3>Fixtil, сверло 6 мм + дюбели + шурупы</h3>
+          <div class="price"><b>R$ 17,90</b><span class="pix">Pix R$ 14,32</span></div>
+          <p class="desc">Стартовый набор под пустотелый кирпич. Дальше дюбели покупают россыпью: «bucha 6» и «bucha 8» стоят копейки в любой ferragem.</p>
+          <div class="actions"><a class="btn" href="https://www.telhanorte.com.br/parafuso-com-broca-14-para-comcreto-com-bucha-6mm-fixtil-386715/p" target="_blank" rel="noopener">Telhanorte</a><a class="btn ghost" href="https://lista.mercadolivre.com.br/kit-buchas-e-parafusos" target="_blank" rel="noopener">Mercado Livre</a></div>
+        </div>
+      </article>
+
+      <article class="item c3 reveal">
+        <div class="ph"><img src="img/rio-instrumenty/abracadeiras.jpg" alt="Нейлоновые стяжки HellermannTyton 100 на 2,5 мм, 100 штук" loading="lazy" width="650" height="650"></div>
+        <div class="body">
+          <div class="cat">Стяжки</div>
+          <h3>HellermannTyton 100 × 2,5 мм, 100 шт</h3>
+          <div class="price"><b>R$ 15,90</b><span class="pix">Pix R$ 11,92</span></div>
+          <p class="desc">«Abraçadeira de nylon» или на жаргоне «enforca-gato». Провода, шланги, всё временное.</p>
+          <div class="actions"><a class="btn" href="https://www.telhanorte.com.br/abracadeira-nylon-t18r-100x2-5mm-com-100un-amarelo-hellermanntyton-1489240/p" target="_blank" rel="noopener">Telhanorte</a><a class="btn ghost" href="https://lista.mercadolivre.com.br/abracadeira-nylon-100-unidades" target="_blank" rel="noopener">Mercado Livre</a></div>
+        </div>
+      </article>
+
+      <article class="item c3 reveal">
+        <div class="ph"><img src="img/rio-instrumenty/veda-rosca.jpg" alt="Фум-лента Tigre 18 мм на 10 м" loading="lazy" width="650" height="650"></div>
+        <div class="body">
+          <div class="cat">Фум-лента</div>
+          <h3>Tigre veda rosca 18 мм × 10 м</h3>
+          <div class="price"><b>R$ 4,99</b><span class="pix">Pix R$ 3,99</span></div>
+          <p class="desc">Самая дешёвая вещь в списке и первая, которой не оказывается под рукой, когда подтекает шланг стиралки или душ.</p>
+          <div class="actions"><a class="btn" href="https://www.telhanorte.com.br/fita-veda-rosca-1-8cm-10-metros-tigre-24490/p" target="_blank" rel="noopener">Telhanorte</a><a class="btn ghost" href="https://lista.mercadolivre.com.br/fita-veda-rosca-18mm" target="_blank" rel="noopener">Mercado Livre</a></div>
+        </div>
+      </article>
+
+      <article class="item c3 reveal">
+        <div class="ph"><img src="img/rio-instrumenty/fita-crepe.jpg" alt="Малярный скотч Tekbond 18 мм на 50 м" loading="lazy" width="650" height="650"></div>
+        <div class="body">
+          <div class="cat">Малярный скотч</div>
+          <h3>Tekbond fita crepe 18 мм × 50 м</h3>
+          <div class="price"><b>R$ 7,90</b><span class="pix">Pix R$ 5,92</span></div>
+          <p class="desc">Разметка под сверление, подписи на коробках, защита плитки при герметике.</p>
+          <div class="actions"><a class="btn" href="https://www.telhanorte.com.br/fita-crepe-18mmx50m-tekbond-1560093/p" target="_blank" rel="noopener">Telhanorte</a><a class="btn ghost" href="https://lista.mercadolivre.com.br/fita-crepe-18mm-50m" target="_blank" rel="noopener">Mercado Livre</a></div>
+        </div>
+      </article>
+
+      <article class="item c3 reveal">
+        <div class="ph"><img src="img/rio-instrumenty/silver-tape.jpg" alt="Армированная лента Adere silver tape 45 мм на 5 м" loading="lazy" width="650" height="650"></div>
+        <div class="body">
+          <div class="cat">Армированная лента</div>
+          <h3>Adere silver tape 45 мм × 5 м</h3>
+          <div class="price"><b>R$ 13,90</b><span class="pix">Pix R$ 12,51</span></div>
+          <p class="desc">Временный ремонт чего угодно: шланг, стул, чемодан, сетка от комаров.</p>
+          <div class="actions"><a class="btn" href="https://www.telhanorte.com.br/fita-silver-tape-branco-805s-45mmx05m-adere-2321521/p" target="_blank" rel="noopener">Telhanorte</a><a class="btn ghost" href="https://lista.mercadolivre.com.br/silver-tape-50m" target="_blank" rel="noopener">Mercado Livre</a></div>
+        </div>
+      </article>
+
+      <article class="item c3 reveal">
+        <div class="ph"><img src="img/rio-instrumenty/caixa-13.jpg" alt="Пластиковый ящик для инструментов Tramontina 13 дюймов" loading="lazy" width="650" height="650"></div>
+        <div class="body">
+          <div class="cat">Ящик</div>
+          <h3>Tramontina 13", с лотком</h3>
+          <div class="price"><b>R$ 67,90</b><span class="pix">Pix R$ 57,72</span></div>
+          <p class="desc">Пластик, съёмный лоток под мелочь, ушко под замок. Весь базовый набор без дрели влезает.</p>
+          <div class="actions"><a class="btn" href="https://www.telhanorte.com.br/caixa-plastica-para-ferramentas-13-com-tranca-plastica-e-espaco-para-cadeado-tramontina-1839047/p" target="_blank" rel="noopener">Telhanorte</a><a class="btn ghost" href="https://lista.mercadolivre.com.br/caixa-de-ferramentas-tramontina-13" target="_blank" rel="noopener">Mercado Livre</a></div>
+        </div>
+      </article>
+
+      <article class="item c3 reveal">
+        <div class="ph"><img src="img/rio-instrumenty/xline-33.jpg" alt="Набор свёрл и бит Bosch X-Line 33 предмета" loading="lazy" width="650" height="650"></div>
+        <div class="body">
+          <div class="cat">Свёрла и биты</div>
+          <h3>Bosch X-Line, 33 предмета</h3>
+          <div class="price"><b>R$ 83,90</b><span class="pix">Pix R$ 79,70</span></div>
+          <p class="desc">Тот же набор, что в разделе про шуруповёрт: без него дрель бесполезна.</p>
+          <div class="actions"><a class="btn" href="https://www.telhanorte.com.br/jogo-de-ferramentas-33-pecas-em-aco-xline-bosch-1607103/p" target="_blank" rel="noopener">Telhanorte</a><a class="btn ghost" href="https://lista.mercadolivre.com.br/bosch-x-line-33-pecas" target="_blank" rel="noopener">Mercado Livre</a></div>
+        </div>
+      </article>
+
+    </div>
+
+    <div class="sub reveal"><h3>По желанию</h3><span>R$ 429 за всё · тоже с проверенной ценой</span></div>
+    <div class="bento">
+
+      <article class="item c3 reveal">
+        <div class="ph"><img src="img/rio-instrumenty/alicate-bomba.jpg" alt="Переставные клещи Tramontina 10 дюймов" loading="lazy" width="650" height="650"></div>
+        <div class="body">
+          <div class="cat">Сантехника</div>
+          <h3>Переставные клещи Tramontina 10"</h3>
+          <div class="price"><b>R$ 129,90</b><span class="pix">Pix R$ 103,92</span></div>
+          <p class="desc">«Alicate bomba d'água». Сифон, гайки под раковиной, душевой шланг. Самая дорогая мелочь, зато разводной ключ тогда почти не нужен.</p>
+          <div class="actions"><a class="btn" href="https://www.telhanorte.com.br/alicate-bomba-d-agua-10-forjada-em-aco-especial-empunhadura-isolada-em-pvc-amarelo-41066110-tramontina-143928/p" target="_blank" rel="noopener">Telhanorte</a><a class="btn ghost" href="https://lista.mercadolivre.com.br/alicate-bomba-dagua-10-tramontina" target="_blank" rel="noopener">Mercado Livre</a></div>
+        </div>
+      </article>
+
+      <article class="item c3 reveal">
+        <div class="ph"><img src="img/rio-instrumenty/multimetro.jpg" alt="Цифровой мультиметр Forceline 5300" loading="lazy" width="650" height="650"></div>
+        <div class="body">
+          <div class="cat">Мультиметр</div>
+          <h3>Forceline 5300</h3>
+          <div class="price"><b>R$ 73,90</b></div>
+          <p class="desc">Постоянное до 1000 В, переменное до 750 В. Понять, 127 или 220 В в розетке, и жива ли батарейка. Минимально достаточный прибор.</p>
+          <div class="actions"><a class="btn" href="https://www.telhanorte.com.br/multimetro-digital-modelo-5300-forceline-400955/p" target="_blank" rel="noopener">Telhanorte</a><a class="btn ghost" href="https://lista.mercadolivre.com.br/multimetro-digital" target="_blank" rel="noopener">Mercado Livre</a></div>
+        </div>
+      </article>
+
+      <article class="item c3 reveal">
+        <div class="ph"><img src="img/rio-instrumenty/chaves-combinadas.jpg" alt="Набор комбинированных ключей MTX 6 штук" loading="lazy" width="650" height="650"></div>
+        <div class="body">
+          <div class="cat">Рожковые ключи</div>
+          <h3>MTX, 6 ключей 6–17 мм</h3>
+          <div class="price"><b>R$ 59,90</b></div>
+          <p class="desc">Велосипед, детский транспорт, крепёж кондиционера. Если есть разводной ключ, можно отложить.</p>
+          <div class="actions"><a class="btn" href="https://www.telhanorte.com.br/jogo-de-chave-combinada-cromo-vanadio-cromo-fosco-6-17mm--2572141/p" target="_blank" rel="noopener">Telhanorte</a><a class="btn ghost" href="https://lista.mercadolivre.com.br/jogo-chave-combinada-6-17mm" target="_blank" rel="noopener">Mercado Livre</a></div>
+        </div>
+      </article>
+
+      <article class="item c3 reveal">
+        <div class="ph"><img src="img/rio-instrumenty/filtro-linha.jpg" alt="Сетевой фильтр Multi на 4 розетки bivolt" loading="lazy" width="650" height="650"></div>
+        <div class="body">
+          <div class="cat">Сетевой фильтр</div>
+          <h3>Multi, 4 розетки, bivolt</h3>
+          <div class="price"><b>R$ 33,90</b><span class="pix">Pix R$ 28,82</span></div>
+          <p class="desc">Бразильский стандарт NBR 14136, 10 А. Полезно у рабочего стола; длину шнура магазин не указывает.</p>
+          <div class="actions"><a class="btn" href="https://www.telhanorte.com.br/filtro-de-linha-4-tomadas-plastico-bivolt-1540va-max-multi-2597284/p" target="_blank" rel="noopener">Telhanorte</a><a class="btn ghost" href="https://lista.mercadolivre.com.br/filtro-de-linha-4-tomadas" target="_blank" rel="noopener">Mercado Livre</a></div>
+        </div>
+      </article>
+
+      <article class="item c3 reveal">
+        <div class="ph"><img src="img/rio-instrumenty/lanterna.jpg" alt="Светодиодный фонарик Rayovac на двух батарейках AA" loading="lazy" width="650" height="650"></div>
+        <div class="body">
+          <div class="cat">Фонарик</div>
+          <h3>Rayovac LED mini, 2 × AA</h3>
+          <div class="price"><b>R$ 34,90</b><span class="pix">Pix R$ 27,92</span></div>
+          <p class="desc">Отключения света в Рио случаются. Налобных фонарей в наличии у магазина не было, их проще взять на Mercado Livre.</p>
+          <div class="actions"><a class="btn" href="https://www.telhanorte.com.br/lanterna-ray-25lm-band-c12-2aa-cm-12-2445697/p" target="_blank" rel="noopener">Telhanorte</a><a class="btn ghost" href="https://lista.mercadolivre.com.br/lanterna-de-cabeca-led" target="_blank" rel="noopener">Налобный на ML</a></div>
+        </div>
+      </article>
+
+      <article class="item c3 reveal">
+        <div class="ph"><img src="img/rio-instrumenty/cola-quente.jpg" alt="Клеевой пистолет Ferrari 20 Вт bivolt" loading="lazy" width="650" height="650"></div>
+        <div class="body">
+          <div class="cat">Клеевой пистолет</div>
+          <h3>Ferrari 20 Вт, bivolt</h3>
+          <div class="price"><b>R$ 19,90</b></div>
+          <p class="desc">Стержни 6 шт за R$ 4,90 там же. Быстрый ремонт пластика, декор, кабель к плинтусу.</p>
+          <div class="actions"><a class="btn" href="https://www.telhanorte.com.br/pistola-de-cola-quente-bivolt-20w-ferrari-856975/p" target="_blank" rel="noopener">Telhanorte</a><a class="btn ghost" href="https://www.telhanorte.com.br/refil-cola-quente-para-pistola-20w-6-unidades-12-x-6-20w-ferrari-856983/p" target="_blank" rel="noopener">Стержни</a></div>
+        </div>
+      </article>
+
+      <article class="item c3 reveal">
+        <div class="ph"><img src="img/rio-instrumenty/massa-corrida.jpg" alt="Шпаклёвка Suvinil massa corrida 900 мл" loading="lazy" width="650" height="650"></div>
+        <div class="body">
+          <div class="cat">Дырки в стене</div>
+          <h3>Suvinil massa corrida 900 мл + шпатель Condor 6 см</h3>
+          <div class="price"><b>R$ 15,90</b><span>+ R$ 15,90</span><span class="pix">Pix 13,52 + 12,72</span></div>
+          <p class="desc">Заделать отверстия от дюбелей перед выездом из съёмной квартиры. Банки 900 мл хватит на всю квартиру.</p>
+          <div class="actions"><a class="btn" href="https://www.telhanorte.com.br/massa-corrida-pva-900-ml-branco-suvinil-2429/p" target="_blank" rel="noopener">Шпаклёвка</a><a class="btn ghost" href="https://www.telhanorte.com.br/espatula-de-aco-de-6cm-857-condor-2553694/p" target="_blank" rel="noopener">Шпатель</a></div>
+        </div>
+      </article>
+
+      <article class="item c3 reveal">
+        <div class="ph"><img src="img/rio-instrumenty/silicone.jpg" alt="Силиконовый герметик Tekbond 50 г прозрачный" loading="lazy" width="650" height="650"></div>
+        <div class="body">
+          <div class="cat">Герметик</div>
+          <h3>Tekbond силикон 50 г, прозрачный</h3>
+          <div class="price"><b>R$ 9,90</b></div>
+          <p class="desc">Тюбик без пистолета: шов у раковины, душевой поддон, щель у окна от дождя. Картридж 280 мл стоит R$ 18,90, но нужен пистолет.</p>
+          <div class="actions"><a class="btn" href="https://www.telhanorte.com.br/adesivo-de-silicone-acetico-50g-transparente-incolor-tekbond-1559656/p" target="_blank" rel="noopener">Telhanorte</a><a class="btn ghost" href="https://lista.mercadolivre.com.br/silicone-acetico-incolor" target="_blank" rel="noopener">Mercado Livre</a></div>
+        </div>
+      </article>
+
+      <article class="item c3 reveal">
+        <div class="ph"><img src="img/rio-instrumenty/oculos.jpg" alt="Защитные очки Delta Plus" loading="lazy" width="650" height="650"></div>
+        <div class="body">
+          <div class="cat">Защита</div>
+          <h3>Очки Delta Plus, UVA/UVB</h3>
+          <div class="price"><b>R$ 34,90</b><span class="pix">Pix R$ 26,18</span></div>
+          <p class="desc">Сверление бетона над головой без очков заканчивается крошкой в глазу. Перчатки в наличии были только латексные хозяйственные, R$ 26,90, рабочие удобнее взять в Leroy Merlin.</p>
+          <div class="actions"><a class="btn" href="https://www.telhanorte.com.br/oculos-ampla-visao-protecao-uva-uvb-delta-plus-2510650/p" target="_blank" rel="noopener">Telhanorte</a><a class="btn ghost" href="https://www.leroymerlin.com.br/search?term=luva+de+raspa" target="_blank" rel="noopener">Перчатки в Leroy</a></div>
+        </div>
+      </article>
+
+    </div>
+
+    <div class="note soft reveal"><b>Без карточек, потому что цену проверить не удалось.</b> Суперклей Loctite Super Bonder и эпоксидная масса Durepoxi: в Telhanorte обе позиции «indisponível», искать в Leroy Merlin или на ML, обычно до R$ 20 за штуку. Переходник розетки 2P+T Pial за R$ 26,90 есть в наличии, но для него не нашлось фото на сайте. Наждачная бумага, вантуз и запасные дюбели россыпью покупаются в любой уличной ferragem, они есть на каждой второй улице Barra.</div>
+  </div>
+</section>
+
+<section id="gde">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="kicker">Где купить</span>
+      <h2>Магазины рядом с Barra и онлайн</h2>
+      <p>Расстояния посчитаны на машине от станции метро Jardim Oceânico через OSRM. Часы работы магазинов автоматически проверить не удалось, перед поездкой посмотрите карту.</p>
+    </div>
+    <ul class="dist reveal">
+      <li>
+        <div class="name">Leroy Merlin Barra da Tijuca<small>Av. Ayrton Senna 2000, у Casa Shopping · гипермаркет DIY, есть всё из списка</small></div>
+        <div class="bar"><span style="width:46%"></span></div>
+        <div class="km">6,4 км<small>≈ 8 мин</small></div>
+      </li>
+      <li>
+        <div class="name">Obramax Jacarepaguá<small>Estrada dos Bandeirantes 3091, Curicica, рядом с Atacadão · оптово-розничный, дешевле, расстояние до соседнего Atacadão</small></div>
+        <div class="bar"><span style="width:100%"></span></div>
+        <div class="km">13,9 км<small>≈ 17 мин</small></div>
+      </li>
+    </ul>
+    <div class="bento" style="margin-top:16px">
+      <div class="card c6 reveal">
+        <h3>Leroy Merlin Barra</h3>
+        <p>Адрес подтверждён в OpenStreetMap (Av. Ayrton Senna 2000, CEP 22775-003), о работе магазина писал Diário do Rio, когда сеть закрывала точку в Bangu. Справочник Tiendeo указывает часы пн–пт 8–21, сб 8–22, вс 9–20, но относит адрес к другому городу, так что часы считайте неподтверждёнными. Общий телефон сети для столиц: 4020-5376.</p>
+        <p>На сайте есть самовывоз «Retire na loja»: удобно заказать онлайн по вашему CEP и забрать, если позиции нет в зале.</p>
+        <a class="btn" href="https://www.leroymerlin.com.br/" target="_blank" rel="noopener">leroymerlin.com.br</a>
+        <a class="btn ghost" href="https://www.openstreetmap.org/?mlat=-22.99388&mlon=-43.36322#map=17/-22.99388/-43.36322" target="_blank" rel="noopener">Точка на карте</a>
+      </div>
+      <div class="card c6 reveal">
+        <h3>Онлайн: что проверено, а что нет</h3>
+        <ul>
+          <li><b>Telhanorte</b>: все цены на этой странице сняты с карточек товаров. Сеть из Сан-Паулу, доставку в Рио сайт не обещает и не исключает: стоимость и срок считаются по CEP в корзине. Пользуйтесь как ориентиром цены.</li>
+          <li><b>Amazon.com.br</b>: продаёт весь список с доставкой в Рио, но страницы отдают ошибку 503 автоматике, цены не проверены. Ссылки в карточках ведут на поиск.</li>
+          <li><b>Mercado Livre</b>: обычно дешевле всех на расходники (WD-40, ленты, фиксатор резьбы). Сайт требует вход при проверке из-за рубежа, цены не подтверждены. Ставьте фильтр «Nacional».</li>
+          <li><b>Magazine Luiza, Casas Bahia</b>: есть магазины в Рио, сайты для автоматики закрыты, не проверялись.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="sub reveal"><h3>Перед оплатой</h3></div>
+    <ol class="steps reveal">
+      <li><b>Вольтаж.</b> На коробке сетевого инструмента должно быть «127V» или «bivolt». У аккумуляторного смотреть на зарядное: Bosch GAL 12V-20 BR и Novipro bivolt, у ноунеймов с ML часто только 220 V.</li>
+      <li><b>Стены.</b> Спросите у síndico или соседей, из чего перегородки: кирпич пустотелый (bucha 6 с обычным сверлом по камню) или бетон (нужны победитовые свёрла и режим удара).</li>
+      <li><b>Mercado Livre.</b> Только «Nacional», только продавец с местной доставкой. «Internacional» это плюс импортный налог к цене в карточке.</li>
+      <li><b>Pix.</b> Почти везде скидка 5–25 % относительно цены на карту, в карточках выше указаны обе.</li>
+      <li><b>Гарантия.</b> У Bosch в Бразилии год, у Tramontina бессрочная на ручной инструмент по дефекту. Чек хранить, для возврата нужен CPF на чеке.</li>
+    </ol>
+  </div>
+</section>
+
+<section id="istochniki">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="kicker">Источники</span>
+      <h2>Откуда взяты цены и факты</h2>
+      <p>Все цены сняты с карточек товаров на сайте Telhanorte, фото оттуда же. Адреса магазинов по OpenStreetMap и пресс-релизам, расстояния по OSRM, курс по AwesomeAPI (USD/BRL 5,47).</p>
+    </div>
+    <ol class="sources reveal">
+      <li><a href="https://www.telhanorte.com.br/jogo-de-chaves-de-fenda-7-pecas-sendo-3-ponta-chata-3-ponta-cruzada-e-1-tipo-clipe-43408115-tramontina-279781/p" target="_blank" rel="noopener">Telhanorte: отвёртки Tramontina 7 шт</a>, <a href="https://www.telhanorte.com.br/jogo-de-chaves-de-fenda-5pcs-tramontina-1690817/p" target="_blank" rel="noopener">5 шт</a>.</li>
+      <li><a href="https://www.telhanorte.com.br/jogo-chave-hexagonal-5-pecas-embalagem-injetada-em-borracha-termoplastica-44400505-tramontina-599212/p" target="_blank" rel="noopener">Telhanorte: шестигранники Tramontina 5 шт</a>, <a href="https://www.telhanorte.com.br/jogo-chave-hexagonal-9-pecas-haste-em-aco-cromo-vanadio-tamanhos-15-ao-10-mm-44400209-tramontina-599123/p" target="_blank" rel="noopener">PRO 9 шт</a>, <a href="https://www.telhanorte.com.br/jogo-de-chave-hexagonal-curta-1-5-10-crv-10-pcs-oxidado-1823701/p" target="_blank" rel="noopener">Sparta 10 шт</a>.</li>
+      <li><a href="https://www.telhanorte.com.br/parafusadeira-e-furadeira-de-impacto-a-bateria-12v-com-1-bateria-1748440/p" target="_blank" rel="noopener">Telhanorte: Bosch GSB 120-LI</a>, <a href="https://www.telhanorte.com.br/carregador-de-bateria-gal-12v20-br-bivolt-19g80-bosch-1748513/p" target="_blank" rel="noopener">зарядное GAL 12V-20 BR bivolt</a>, <a href="https://www.telhanorte.com.br/furadeira-de-impacto-450w-127v-bosch-1748343/p" target="_blank" rel="noopener">Bosch GSB 450 RE 127V</a>, <a href="https://www.telhanorte.com.br/parafusadeira-e-furadeira-s-imp-c-bateria-de-litio-e-acess-12v-biv-novipro-1821431/p" target="_blank" rel="noopener">Novipro 12V bivolt</a>, <a href="https://www.telhanorte.com.br/jogo-de-ferramentas-33-pecas-em-aco-xline-bosch-1607103/p" target="_blank" rel="noopener">Bosch X-Line 33</a>.</li>
+      <li><a href="https://www.amazon.com.br/Parafusadeira-Furadeira-Bosch-120-LI-bateria/dp/B07VVMFGTP" target="_blank" rel="noopener">Amazon.com.br: характеристики GSB 120-LI</a> (диаметры сверления, момент; цену страница автоматике не отдала).</li>
+      <li><a href="https://www.telhanorte.com.br/alicate-universal-8-tramontina-143944/p" target="_blank" rel="noopener">Telhanorte: пассатижи Tramontina 8"</a>, <a href="https://www.telhanorte.com.br/alicate-universal-pro-8-forjado-em-aco-cromado-vanadio-empunhadura-isolada-pvc-laranja-44000108-tramontina-926116/p" target="_blank" rel="noopener">PRO</a>, <a href="https://www.telhanorte.com.br/alicate-bomba-d-agua-10-forjada-em-aco-especial-empunhadura-isolada-em-pvc-amarelo-41066110-tramontina-143928/p" target="_blank" rel="noopener">переставные клещи 10"</a>.</li>
+      <li><a href="https://www.telhanorte.com.br/chave-ajustavel-cromada-10-prata-fosca-tramontina-1212575/p" target="_blank" rel="noopener">Telhanorte: разводной ключ Tramontina 10"</a>.</li>
+      <li><a href="https://www.telhanorte.com.br/wd40-produto-multiuso-desingripante-300ml-1820133/p" target="_blank" rel="noopener">Telhanorte: WD-40 300 мл</a>.</li>
+      <li><a href="https://next.henkel-adhesives.com/br/pt/products/industrial-adhesives/central-pdp.html/loctite-243/BP000000316211.html" target="_blank" rel="noopener">Henkel Brasil: LOCTITE 243</a> (описание, фасовки 50 г и 250 г, цены нет); <a href="https://www.harley-davidson.com/br/pt/shop/sellador-de-roscas-loctite-243-azul/p/99642-97" target="_blank" rel="noopener">Harley-Davidson Brasil: фото Loctite 243</a>.</li>
+      <li><a href="https://www.telhanorte.com.br/arco-de-serra-fixo-tamanho-12-corpo-em-aco-com-pintura-eletrostatica-cabo-injetado-43301012-tramontina-18961/p" target="_blank" rel="noopener">Telhanorte: рамка Tramontina 12"</a>, <a href="https://www.telhanorte.com.br/lamina-para-arco-de-serra-bimetal-24-tpi-12pol-300mm-mtx-1638327/p" target="_blank" rel="noopener">полотна MTX bimetal</a>, <a href="https://www.telhanorte.com.br/serrote-utility-16-7-dentes-por-polegada-lamina-em-aco-carbono-cabo-plastico-42006108-tramontina-288381/p" target="_blank" rel="noopener">ножовка Tramontina 16"</a>, <a href="https://www.telhanorte.com.br/serrote-hobby-18-ramada-1531670/p" target="_blank" rel="noopener">Ramada 18"</a>.</li>
+      <li><a href="https://www.telhanorte.com.br/martelo-de-unha-27-mm-cabeca-em-aco-especial-jateada-cabo-em-madeira-envernizado-939110/p" target="_blank" rel="noopener">Telhanorte: молоток Tramontina 27 мм</a>.</li>
+      <li><a href="https://www.telhanorte.com.br/fita-isolante-18mmx20m-preta-3m-imperial-1291491/p" target="_blank" rel="noopener">Telhanorte: 3M Imperial 18×20</a>, <a href="https://www.telhanorte.com.br/fita-isolante-19mmx10m-scotch-33-preto-3m-88196/p" target="_blank" rel="noopener">Scotch 33+ 19×10</a>.</li>
+      <li><a href="https://www.telhanorte.com.br/chave-teste-18x3-haste-em-aco-especial-ponta-fenda-chata-capacidade-80250-v-41900110-tramontina-144010/p" target="_blank" rel="noopener">Telhanorte: индикаторная отвёртка Tramontina</a>; <a href="https://c4m.com.br/wp-content/uploads/2024/12/EzAlert-I-Datasheet-C4M.pdf" target="_blank" rel="noopener">Minipa EZ-Alert I, datasheet дистрибьютора C4M</a>.</li>
+      <li>Мелочи, Telhanorte: <a href="https://www.telhanorte.com.br/trena-com-fita-de-aco-capacidade-5-metros-corpo-em-abs-injetado-freio-simples-43166305-tramontina-1527509/p" target="_blank" rel="noopener">рулетка</a>, <a href="https://www.telhanorte.com.br/jogo-de-estilete-retrateis-com-3-pcs-9-9-18-m-1823922/p" target="_blank" rel="noopener">ножи</a>, <a href="https://www.telhanorte.com.br/nivel-de-aluminio-16pol-400-2-bolhas-escala-graduada-sparta-1823876/p" target="_blank" rel="noopener">уровень</a>, <a href="https://www.telhanorte.com.br/parafuso-com-broca-14-para-comcreto-com-bucha-6mm-fixtil-386715/p" target="_blank" rel="noopener">дюбели</a>, <a href="https://www.telhanorte.com.br/abracadeira-nylon-t18r-100x2-5mm-com-100un-amarelo-hellermanntyton-1489240/p" target="_blank" rel="noopener">стяжки</a>, <a href="https://www.telhanorte.com.br/fita-veda-rosca-1-8cm-10-metros-tigre-24490/p" target="_blank" rel="noopener">фум-лента</a>, <a href="https://www.telhanorte.com.br/fita-crepe-18mmx50m-tekbond-1560093/p" target="_blank" rel="noopener">малярный скотч</a>, <a href="https://www.telhanorte.com.br/fita-silver-tape-branco-805s-45mmx05m-adere-2321521/p" target="_blank" rel="noopener">silver tape</a>, <a href="https://www.telhanorte.com.br/caixa-plastica-para-ferramentas-13-com-tranca-plastica-e-espaco-para-cadeado-tramontina-1839047/p" target="_blank" rel="noopener">ящик</a>, <a href="https://www.telhanorte.com.br/multimetro-digital-modelo-5300-forceline-400955/p" target="_blank" rel="noopener">мультиметр</a>, <a href="https://www.telhanorte.com.br/jogo-de-chave-combinada-cromo-vanadio-cromo-fosco-6-17mm--2572141/p" target="_blank" rel="noopener">рожковые ключи</a>, <a href="https://www.telhanorte.com.br/filtro-de-linha-4-tomadas-plastico-bivolt-1540va-max-multi-2597284/p" target="_blank" rel="noopener">сетевой фильтр</a>, <a href="https://www.telhanorte.com.br/lanterna-ray-25lm-band-c12-2aa-cm-12-2445697/p" target="_blank" rel="noopener">фонарик</a>, <a href="https://www.telhanorte.com.br/pistola-de-cola-quente-bivolt-20w-ferrari-856975/p" target="_blank" rel="noopener">клеевой пистолет</a>, <a href="https://www.telhanorte.com.br/massa-corrida-pva-900-ml-branco-suvinil-2429/p" target="_blank" rel="noopener">шпаклёвка</a>, <a href="https://www.telhanorte.com.br/espatula-de-aco-de-6cm-857-condor-2553694/p" target="_blank" rel="noopener">шпатель</a>, <a href="https://www.telhanorte.com.br/adesivo-de-silicone-acetico-50g-transparente-incolor-tekbond-1559656/p" target="_blank" rel="noopener">силикон</a>, <a href="https://www.telhanorte.com.br/oculos-ampla-visao-protecao-uva-uvb-delta-plus-2510650/p" target="_blank" rel="noopener">очки</a>, <a href="https://www.telhanorte.com.br/adaptador-2p-t-branco-690660-pial-768758/p" target="_blank" rel="noopener">переходник Pial</a>.</li>
+      <li><a href="https://www.telhanorte.com.br/ajuda/compra-e-entrega" target="_blank" rel="noopener">Telhanorte: условия доставки</a> (регионы не перечислены, срок и цена считаются по CEP).</li>
+      <li><a href="https://nominatim.openstreetmap.org/search?q=Leroy+Merlin+Rio+de+Janeiro&format=json&addressdetails=1" target="_blank" rel="noopener">OpenStreetMap / Nominatim: Leroy Merlin, Av. Ayrton Senna 2000</a>; <a href="https://diariodorio.com/leroy-merlin-de-bangu-encerrara-atividades-apos-17-anos-de-operacao/" target="_blank" rel="noopener">Diário do Rio: сеть сохраняет магазины Del Castilho, Barra da Tijuca, Leblon и Niterói</a>; <a href="https://www.tiendeo.com.br/Lojas/sao-joao-de-meriti/avenida-ayrton-senna-barra-da-tijuca/6936" target="_blank" rel="noopener">Tiendeo: часы магазина</a> (город указан неверно).</li>
+      <li><a href="https://gironews.com/construcao/obramax-expande-atuacao-no-rio-de-janeiro/" target="_blank" rel="noopener">Gironews: Obramax Jacarepaguá, Estrada dos Bandeirantes 3091</a> (пресс-релиз об открытии, май 2024).</li>
+      <li><a href="https://project-osrm.org/" target="_blank" rel="noopener">OSRM</a> и <a href="https://photon.komoot.io/" target="_blank" rel="noopener">Photon</a>: расстояния и координаты; <a href="https://economia.awesomeapi.com.br/json/last/USD-BRL" target="_blank" rel="noopener">AwesomeAPI: курс USD/BRL</a>.</li>
+    </ol>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>Страница для личного пользования. Цены меняются, перед оплатой открыть карточку магазина. Фото товаров принадлежат Telhanorte и Harley-Davidson Brasil, ссылки на страницы-источники под каждой карточкой.</p>
+  </div>
+</footer>
+
+<script type="module">
+  const target = (arg) => (arg && arg.target) || arg;
+  const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const nativeReveal = () => {
+    const els = document.querySelectorAll('.reveal');
+    if (!('IntersectionObserver' in window)) { els.forEach(e => e.classList.add('shown')); return; }
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(en => { if (en.isIntersecting) { en.target.classList.add('shown'); io.unobserve(en.target); } });
+    }, { rootMargin: '0px 0px -8% 0px' });
+    els.forEach(e => io.observe(e));
+  };
+  if (reduce) {
+    document.querySelectorAll('.reveal').forEach(e => e.classList.add('shown'));
+  } else {
+    try {
+      const { animate, inView } = await import('https://cdn.jsdelivr.net/npm/motion@11/+esm');
+      window.__motionOk = true;
+      inView('.reveal', (arg) => {
+        const el = target(arg);
+        el.classList.add('shown');
+        animate(el, { opacity: [0, 1], y: [18, 0] }, { duration: 0.55, ease: [0.22, 1, 0.36, 1] });
+      }, { margin: '0px 0px -8% 0px' });
+    } catch (e) {
+      window.__motionOk = true;
+      nativeReveal();
+    }
+  }
+
+  // подсветка активного пункта навигации
+  const links = Array.from(document.querySelectorAll('.topnav a'));
+  const secs = links.map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+  const setActive = () => {
+    const y = window.scrollY + 90;
+    let cur = secs[0];
+    for (const s of secs) { if (s.offsetTop <= y) cur = s; }
+    links.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + cur.id));
+  };
+  setActive();
+  window.addEventListener('scroll', setActive, { passive: true });
+</script>
+</body>
+</html>
