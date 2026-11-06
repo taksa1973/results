@@ -254,18 +254,25 @@ footer{margin-top:36px;text-align:center;color:var(--ink-3);font-size:13px}
   inp.addEventListener('input',upd);upd();
 })();
 setTimeout(function(){if(!window.__motionOK)document.querySelectorAll('.reveal').forEach(function(el){el.classList.add('shown')})},1200);
+setTimeout(function(){document.querySelectorAll('.reveal').forEach(function(el){if(parseFloat(getComputedStyle(el).opacity)<0.05)el.classList.add('shown')})},2500);
 </script>
 <script type="module">
 import { animate, inView, stagger } from "https://cdn.jsdelivr.net/npm/motion@11/+esm";
 window.__motionOK = true;
 const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const els = document.querySelectorAll('.reveal');
-if (reduce) { els.forEach(e => e.classList.add('shown')); }
+if (reduce) { els.forEach(el => el.style.opacity = 1); }
 else {
-  inView('.reveal', (el) => {
-    animate(el, { opacity: [0, 1], transform: ['translateY(18px)', 'none'] }, { duration: 0.5, easing: [0.22, 1, 0.36, 1] })
-      .finished.then(() => el.classList.add('shown'));
-  }, { margin: '0px 0px -40px 0px' });
+  animate('.hero .reveal', { opacity: [0, 1], y: [18, 0] }, { duration: 0.6, delay: stagger(0.08), easing: [0.22, 1, 0.36, 1] });
+  inView('.bento', (b) => { animate(b.querySelectorAll('.reveal'), { opacity: [0, 1], y: [20, 0] }, { duration: 0.55, delay: stagger(0.06), easing: [0.22, 1, 0.36, 1] }); });
+  document.querySelectorAll('.grp').forEach(sec => {
+    inView(sec, () => { animate(sec.querySelectorAll('.reveal'), { opacity: [0, 1], y: [22, 0] }, { duration: 0.5, delay: stagger(0.045), easing: [0.22, 1, 0.36, 1] }); }, { margin: '0px 0px -8% 0px' });
+  });
+  document.querySelectorAll('.btn').forEach(b => {
+    b.addEventListener('pointerdown', () => animate(b, { scale: 0.96 }, { duration: 0.12 }));
+    b.addEventListener('pointerup', () => animate(b, { scale: 1 }, { duration: 0.18 }));
+    b.addEventListener('pointerleave', () => animate(b, { scale: 1 }, { duration: 0.18 }));
+  });
 }
 </script>
 </body>
