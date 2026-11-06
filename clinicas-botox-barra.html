@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ботокс и филлеры в Барре</title>
+<meta name="description" content="6 клиник в Barra da Tijuca, где можно проверить результат ботокса и сделать филлеры. Адреса, WhatsApp, квалификация врачей.">
+<script>document.documentElement.classList.add('js-anim');</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --page-bg:#F5F5F7; --surface:#FFFFFF; --text-1:#1D1D1F; --text-2:#6E6E73; --text-3:#8E8E93;
+  --blue:#0071E3; --blue-soft:rgba(0,113,227,.08); --green:#1E8E3E; --green-soft:rgba(30,142,62,.09);
+  --amber:#B25E00; --amber-soft:rgba(255,149,0,.12); --border:rgba(0,0,0,.08);
+  --shadow:0 1px 2px rgba(0,0,0,.04),0 4px 16px rgba(0,0,0,.04);
+  --shadow-hover:0 2px 4px rgba(0,0,0,.05),0 12px 32px rgba(0,0,0,.08);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{font-family:Inter,-apple-system,BlinkMacSystemFont,sans-serif;background:var(--page-bg);color:var(--text-1);line-height:1.55;font-size:16px}
+a{color:var(--blue);text-decoration:none}
+a:hover{text-decoration:underline}
+:focus-visible{outline:3px solid var(--blue);outline-offset:2px;border-radius:8px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 16px}
+
+.reveal{opacity:1}
+.js-anim .reveal{opacity:0}
+
+header.hero{background:var(--surface);border-bottom:1px solid var(--border);padding:64px 0 48px}
+.eyebrow{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--text-3);margin-bottom:12px}
+h1{font-size:clamp(32px,5vw,56px);font-weight:800;letter-spacing:-.025em;line-height:1.08;max-width:820px}
+h1 span{color:var(--blue)}
+.lead{font-size:clamp(17px,2vw,20px);color:var(--text-2);margin-top:16px;max-width:720px}
+.pills{display:flex;flex-wrap:wrap;gap:8px;margin-top:28px}
+.pill{background:var(--page-bg);border:1px solid var(--border);border-radius:999px;padding:8px 14px;font-size:14px;font-weight:500}
+.pill b{font-weight:700}
+
+section{padding:56px 0 0}
+h2{font-size:clamp(24px,3vw,32px);font-weight:700;letter-spacing:-.02em;margin-bottom:8px}
+.sub{color:var(--text-2);margin-bottom:24px}
+
+/* Карта + список */
+.mapbox{display:grid;grid-template-columns:1fr 340px;gap:16px}
+.map{background:var(--surface);border:1px solid var(--border);border-radius:24px;overflow:hidden;box-shadow:var(--shadow);min-height:420px;position:relative}
+.map iframe{width:100%;height:100%;min-height:420px;border:0;display:block}
+.maplist{display:flex;flex-direction:column;gap:8px}
+.mapbtn{display:flex;align-items:center;gap:12px;text-align:left;font:inherit;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:12px 14px;cursor:pointer;min-height:56px;transition:border-color .2s,box-shadow .2s,transform .2s;color:var(--text-1)}
+.mapbtn:hover{box-shadow:var(--shadow-hover);transform:translateY(-1px)}
+.mapbtn[aria-pressed="true"]{border-color:var(--blue);box-shadow:0 0 0 3px var(--blue-soft)}
+.num{flex:none;width:28px;height:28px;border-radius:8px;background:var(--text-1);color:#fff;font-weight:700;font-size:14px;display:grid;place-items:center}
+.mapbtn small{display:block;color:var(--text-2);font-size:13px}
+
+/* Карточки клиник */
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:24px;padding:24px;box-shadow:var(--shadow);transition:box-shadow .2s,transform .2s;display:flex;flex-direction:column}
+.card:hover{transform:translateY(-2px);box-shadow:var(--shadow-hover)}
+.card.top{border-color:rgba(0,113,227,.35)}
+.card-head{display:flex;gap:12px;align-items:flex-start;margin-bottom:12px}
+.card h3{font-size:20px;font-weight:700;letter-spacing:-.015em;line-height:1.25}
+.who{color:var(--text-2);font-size:15px;margin-top:2px}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 14px}
+.tag{font-size:12.5px;font-weight:600;border-radius:999px;padding:4px 10px;display:inline-flex;align-items:center;gap:5px}
+.tag svg{width:13px;height:13px}
+.t-blue{background:var(--blue-soft);color:#0058B0}
+.t-green{background:var(--green-soft);color:var(--green)}
+.t-amber{background:var(--amber-soft);color:var(--amber)}
+.t-grey{background:var(--page-bg);color:var(--text-2)}
+dl{display:grid;grid-template-columns:22px 1fr;gap:8px 10px;font-size:15px;margin-bottom:16px}
+dt svg{width:18px;height:18px;color:var(--text-3);margin-top:2px}
+dd{color:var(--text-1)}
+dd .muted{color:var(--text-2)}
+.note{font-size:14px;color:var(--text-2);background:var(--page-bg);border-radius:12px;padding:10px 12px;margin-bottom:16px}
+.note.warn{background:var(--amber-soft);color:#7A4100}
+.actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto}
+.btn{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 16px;border-radius:999px;font-weight:600;font-size:15px;border:1px solid var(--border);background:var(--surface);color:var(--text-1);cursor:pointer;transition:transform .15s,background .2s}
+.btn:hover{text-decoration:none;background:var(--page-bg)}
+.btn:active{transform:scale(.97)}
+.btn.primary{background:var(--blue);border-color:var(--blue);color:#fff}
+.btn.primary:hover{background:#0062C4}
+.btn svg{width:18px;height:18px}
+
+/* Советы */
+.tips{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.tip{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:22px;box-shadow:var(--shadow)}
+.tip .num{margin-bottom:12px}
+.tip h3{font-size:17px;font-weight:700;margin-bottom:6px}
+.tip p{color:var(--text-2);font-size:15px}
+
+/* Шаблон сообщения */
+.msg{background:var(--surface);border:1px solid var(--border);border-radius:24px;padding:24px;box-shadow:var(--shadow)}
+.bubble{background:#DCF8C6;color:#111;border-radius:18px 18px 4px 18px;padding:14px 16px;font-size:16px;max-width:640px;margin-left:auto}
+.msg-foot{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;margin-top:16px}
+.msg-foot p{color:var(--text-2);font-size:14px;max-width:560px}
+#copied{color:var(--green);font-weight:600;font-size:14px;min-height:20px}
+
+footer{padding:56px 0 48px;color:var(--text-2);font-size:14px}
+footer ul{list-style:none;display:grid;gap:4px;margin-top:8px}
+
+@media (max-width:900px){
+  .mapbox{grid-template-columns:1fr}
+  .maplist{display:grid;grid-template-columns:repeat(2,1fr)}
+  .grid,.tips{grid-template-columns:1fr}
+}
+@media (max-width:520px){
+  header.hero{padding:44px 0 36px}
+  .maplist{grid-template-columns:1fr}
+  .map,.map iframe{min-height:320px}
+  .card{padding:20px}
+}
+@media (prefers-reduced-motion:reduce){
+  *{transition:none!important}
+  .js-anim .reveal{opacity:1!important}
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="eyebrow">Barra da Tijuca · Rio de Janeiro · ноябрь 2026</p>
+    <h1 class="reveal">Где проверить <span>ботокс</span> и&nbsp;сделать филлеры</h1>
+    <p class="lead reveal">6 клиник в Барре, где делают и токсин ботулинический, и гиалуроновые филлеры. Адреса и контакты сверены с официальными сайтами клиник.</p>
+    <div class="pills reveal">
+      <span class="pill"><b>6</b> клиник</span>
+      <span class="pill"><b>5</b> с врачом-дерматологом</span>
+      <span class="pill">Филлер: <b>R$ 2.000–4.000</b> / шприц*</span>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section aria-labelledby="map-h">
+    <h2 id="map-h" class="reveal">Карта</h2>
+    <p class="sub reveal">Нажмите на клинику, чтобы показать её на карте.</p>
+    <div class="mapbox">
+      <div class="map reveal">
+        <iframe id="mapframe" title="Карта клиник" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+          src="https://www.google.com/maps?q=Av.+Embaixador+Abelardo+Bueno+1+Dimension+Office+Park+Barra+da+Tijuca&output=embed"></iframe>
+      </div>
+      <div class="maplist" id="maplist"></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="list-h">
+    <h2 id="list-h" class="reveal">Клиники</h2>
+    <p class="sub reveal">Первые два варианта — мой выбор: у №1 на сайте указан RQE (подтверждённая специализация), №2 — клиника с несколькими дерматологами.</p>
+    <div class="grid" id="cards"></div>
+  </section>
+
+  <section aria-labelledby="tips-h">
+    <h2 id="tips-h" class="reveal">Что спросить при записи</h2>
+    <p class="sub reveal">Условия проверки и доплаты ни одна клиника на сайте не публикует.</p>
+    <div class="tips">
+      <div class="tip reveal">
+        <div class="num">1</div>
+        <h3>Ботокс делали в другом месте?</h3>
+        <p>Бесплатной проверки (revisão) там не будет. Нужна платная консультация, дополнительные единицы (retoque) оплачиваются отдельно. Бесплатная проверка обычно бывает только у врача, который колол.</p>
+      </div>
+      <div class="tip reveal">
+        <div class="num">2</div>
+        <h3>Когда идти на проверку</h3>
+        <p>Обычно через 14–15 дней после укола: к этому сроку действие ботокса уже видно. Если прийти раньше, оценивать ещё рано.</p>
+      </div>
+      <div class="tip reveal">
+        <div class="num">3</div>
+        <h3>Филлер в тот же день?</h3>
+        <p>Уточните, сделают ли филлер сразу после проверки. Некоторые врачи предпочитают подождать, пока ботокс полностью подействует.</p>
+      </div>
+      <div class="tip reveal">
+        <div class="num">4</div>
+        <h3>Проверить врача</h3>
+        <p>Специализацию (RQE) можно проверить по номеру CRM в <a href="https://portal.cfm.org.br/busca-medicos/" target="_blank" rel="noopener">реестре CFM</a>.</p>
+      </div>
+      <div class="tip reveal">
+        <div class="num">5</div>
+        <h3>Цена за шприц</h3>
+        <p>Просите цену за 1 мл и название препарата (Juvéderm, Restylane, Belotero и т. п.): от препарата сильно зависит итоговая сумма.</p>
+      </div>
+      <div class="tip reveal">
+        <div class="num">6</div>
+        <h3>Страховка</h3>
+        <p>Эстетические процедуры обычно оплачиваются из своего кармана. Dermaks страховки не принимает, но выдаёт nota fiscal для возмещения.</p>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="msg-h">
+    <h2 id="msg-h" class="reveal">Шаблон для WhatsApp</h2>
+    <p class="sub reveal">Вставьте вместо X, сколько дней назад был укол.</p>
+    <div class="msg reveal">
+      <p class="bubble" id="msgtext">Olá! Fiz toxina botulínica há X dias em outra clínica e gostaria de uma avaliação do resultado e, se possível, fazer preenchimento na mesma consulta. Qual o valor da consulta e do preenchimento (por seringa)?</p>
+      <div class="msg-foot">
+        <p>Перевод: «Здравствуйте! Ботокс сделали X дней назад в другой клинике, хочу проверить результат и, если можно, в тот же приём сделать филлер. Сколько стоит консультация и филлер (за шприц)?»</p>
+        <div style="display:flex;align-items:center;gap:12px">
+          <span id="copied" aria-live="polite"></span>
+          <button class="btn primary" id="copybtn" type="button">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            Скопировать
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="wrap">
+  <p>* Диапазон R$ 2.000–4.000 за шприц приведён на <a href="https://www.carumoreno.com.br/2025/10/22/preenchimento-facial-na-barra-da-tijuca-valor-tecnica-e-resultado/" target="_blank" rel="noopener">сайте Dra. Ana Carulina Moreno</a> как ориентир по Барре. Остальные клиники цены не публикуют. Сайт Ello Clínica (тоже в Барре) не открылся, поэтому её в списке нет.</p>
+  <p style="margin-top:16px"><b>Источники</b> (официальные сайты, проверено 06.11.2026):</p>
+  <ul id="sources"></ul>
+</footer>
+
+<script>
+const ICON = {
+  pin:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>',
+  phone:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2Z"/></svg>',
+  user:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>',
+  check:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>',
+  alert:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 9v4M12 17h.01"/><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/></svg>',
+  wa:'<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.4-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5 1.9.8 2.6.9 3.6.7.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.2-.3-.3-.6-.4ZM12 2a10 10 0 0 0-8.6 15l-1.4 5 5.2-1.4A10 10 0 1 0 12 2Z"/></svg>',
+  map:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 6 6-3 6 3 6-3v15l-6 3-6-3-6 3Z"/><path d="M9 3v15M15 6v15"/></svg>',
+  web:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></svg>'
+};
+
+const clinics = [
+  {
+    name:'Dra. Ana Carulina Moreno', top:true,
+    who:'Дерматолог · CRM 52.97133-2 · RQE 21135',
+    tags:[['t-blue','check','RQE на сайте'],['t-green','check','Ботокс + филлеры'],['t-grey',null,'Ординатура HC-USP, титул SBD']],
+    addr:'Av. Embaixador Abelardo Bueno, 1 — Dimension Office Park, bloco Lagoa 1, sala 162',
+    phones:'(21) 2132-7303', wa:'5521970295930', waText:'(21) 97029-5930',
+    note:'Единственная из списка, кто публикует ориентир по цене: филлер в Барре — R$ 2.000–4.000 за шприц.',
+    q:'Av. Embaixador Abelardo Bueno 1 Dimension Office Park Barra da Tijuca',
+    site:'https://www.carumoreno.com.br/2025/10/22/preenchimento-facial-na-barra-da-tijuca-valor-tecnica-e-resultado/'
+  },
+  {
+    name:'Clínica Chambarelli', top:true,
+    who:'Дерматологи Denise Chambarelli и Mariana Chambarelli',
+    tags:[['t-green','check','Ботокс + филлеры'],['t-grey',null,'Несколько врачей']],
+    addr:'Le Monde Office — Av. das Américas, 3500, bloco 4, salas 429–430',
+    phones:'(21) 2493-3166 · (21) 2493-9701', wa:'5521998669266', waText:'(21) 99866-9266',
+    note:'По словам клиники, филлер держится в среднем 12–18 месяцев.',
+    q:'Le Monde Office Av. das Américas 3500 Barra da Tijuca',
+    site:'https://clinicachambarelli.com.br/preenchimento-facial-na-barra-da-tijuca-rejuvenescimento-e-harmonizacao-com-acido-hialuronico/'
+  },
+  {
+    name:'Dra. Caroline Antunes',
+    who:'Дерматолог · CRM-RJ 52.100989-3',
+    tags:[['t-green','check','Ботокс + филлеры'],['t-grey',null,'3D-анализ Vectra H2']],
+    addr:'Av. das Américas, 8585, sala 320 — Vogue Square',
+    phones:'Пн–пт 10:00–19:00', wa:'5521999969897', waText:'(21) 99996-9897',
+    note:'Первая консультация около 90 минут: осмотр и 3D-анализ лица. Цены сообщают в WhatsApp.',
+    q:'Vogue Square Av. das Américas 8585 Barra da Tijuca',
+    site:'https://carolineantunes.com/botox-barra-da-tijuca-rj/'
+  },
+  {
+    name:'Dermaks',
+    who:'Дерматолог Karina Siqueira (UFRJ) · CRM 52782211',
+    tags:[['t-green','check','Ботокс + филлеры'],['t-grey',null,'Страховки не принимают']],
+    addr:'Рядом с BarraShopping (точный адрес на сайте не указан)',
+    phones:null, wa:'5521992816250', waText:'(21) 99281-6250',
+    note:'Выдают nota fiscal для возмещения через страховку.',
+    q:'Dermaks Barra da Tijuca',
+    site:'https://dermaks.com.br/'
+  },
+  {
+    name:'Dra. Luana Moraes',
+    who:'Дерматолог · CRM 52-114.593-2',
+    tags:[['t-green','check','Ботокс + филлеры'],['t-grey',null,'Рейтинг 5,0 (24 отзыва)']],
+    addr:'Барра и Тижука (точный адрес в Барре на сайте не указан)',
+    phones:null, wa:'5521980970061', waText:'(21) 98097-0061',
+    note:'Рейтинг взят с её собственного сайта, а не с независимой площадки.',
+    q:'Dra Luana Moraes dermatologista Barra da Tijuca',
+    site:'https://luanamoraes.med.br/'
+  },
+  {
+    name:'Dra. Luciana Godinho',
+    who:'Биомедик, не врач',
+    tags:[['t-amber','alert','Не врач'],['t-grey',null,'Ботокс + филлеры']],
+    addr:'Av. Embaixador Abelardo Bueno, 01 — Dimension Office Park (тот же комплекс, что у №1)',
+    phones:null, wa:'5521964087380', waText:'(21) 96408-7380',
+    note:'warn:В Бразилии биомедики законно делают инъекции, но осложнения после филлера лечит врач. Если нужен именно медицинский осмотр ботокса, лучше выбрать №1–5.',
+    q:'Av. Embaixador Abelardo Bueno 1 Dimension Office Park Barra da Tijuca',
+    site:'https://dralucianagodinho.com.br/'
+  }
+];
+
+const mapURL = q => 'https://www.google.com/maps?q=' + encodeURIComponent(q) + '&output=embed';
+const gmaps  = q => 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(q);
+const waMsg = encodeURIComponent(document.getElementById('msgtext').textContent);
+
+const cards = document.getElementById('cards');
+const list  = document.getElementById('maplist');
+const frame = document.getElementById('mapframe');
+const src   = document.getElementById('sources');
+
+clinics.forEach((c, i) => {
+  const n = i + 1;
+  const tags = c.tags.map(([cls, ic, t]) => `<span class="tag ${cls}">${ic ? ICON[ic] : ''}${t}</span>`).join('');
+  const warn = c.note.startsWith('warn:');
+  const note = warn ? c.note.slice(5) : c.note;
+  const card = document.createElement('article');
+  card.className = 'card reveal' + (c.top ? ' top' : '');
+  card.innerHTML = `
+    <div class="card-head"><div class="num">${n}</div><div><h3>${c.name}</h3><p class="who">${c.who}</p></div></div>
+    <div class="tags">${tags}</div>
+    <dl>
+      <dt>${ICON.pin}</dt><dd>${c.addr}</dd>
+      <dt>${ICON.phone}</dt><dd>WhatsApp ${c.waText}${c.phones ? `<br><span class="muted">${c.phones}</span>` : ''}</dd>
+    </dl>
+    <p class="note${warn ? ' warn' : ''}">${note}</p>
+    <div class="actions">
+      <a class="btn primary" href="https://wa.me/${c.wa}?text=${waMsg}" target="_blank" rel="noopener">${ICON.wa}WhatsApp</a>
+      <a class="btn" href="${gmaps(c.q)}" target="_blank" rel="noopener">${ICON.map}Маршрут</a>
+      <a class="btn" href="${c.site}" target="_blank" rel="noopener">${ICON.web}Сайт</a>
+    </div>`;
+  cards.appendChild(card);
+
+  const b = document.createElement('button');
+  b.type = 'button'; b.className = 'mapbtn reveal';
+  b.setAttribute('aria-pressed', i === 0 ? 'true' : 'false');
+  b.innerHTML = `<span class="num">${n}</span><span>${c.name}<small>${c.who.split(' · ')[0]}</small></span>`;
+  b.addEventListener('click', () => {
+    frame.src = mapURL(c.q);
+    list.querySelectorAll('.mapbtn').forEach(x => x.setAttribute('aria-pressed', 'false'));
+    b.setAttribute('aria-pressed', 'true');
+  });
+  list.appendChild(b);
+
+  const li = document.createElement('li');
+  li.innerHTML = `${n}. <a href="${c.site}" target="_blank" rel="noopener">${c.name}</a>`;
+  src.appendChild(li);
+});
+
+document.getElementById('copybtn').addEventListener('click', async () => {
+  const out = document.getElementById('copied');
+  try { await navigator.clipboard.writeText(document.getElementById('msgtext').textContent); out.textContent = 'Скопировано'; }
+  catch { out.textContent = 'Выделите текст вручную'; }
+  setTimeout(() => out.textContent = '', 3000);
+});
+
+/* Надёжный показ: если motion не загрузился — IntersectionObserver; через 3 с — показать всё */
+const showAll = () => document.querySelectorAll('.reveal').forEach(el => { if (getComputedStyle(el).opacity === '0') el.style.opacity = 1; });
+setTimeout(showAll, 3000);
+window.__motionOK = false;
+function fallbackReveal(){
+  if (window.__motionOK) return;
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting) { e.target.style.transition = 'opacity .5s ease-out'; e.target.style.opacity = 1; io.unobserve(e.target); }
+  }), { threshold: .1 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+}
+if (matchMedia('(prefers-reduced-motion: reduce)').matches) showAll();
+else setTimeout(fallbackReveal, 1200);
+</script>
+<script type="module">
+if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  try {
+    const { animate, inView, stagger } = await import('https://cdn.jsdelivr.net/npm/motion@11/+esm');
+    window.__motionOK = true;
+    inView('.reveal', el => {
+      animate(el, { opacity: [0, 1], transform: ['translateY(20px)', 'translateY(0)'] }, { duration: 0.55, easing: [0.22, 1, 0.36, 1] });
+    }, { amount: 0.1 });
+    animate('.pill', { opacity: [0, 1], transform: ['scale(.94)', 'scale(1)'] }, { delay: stagger(0.06, { start: 0.25 }), duration: 0.35 });
+  } catch (e) { /* fallback сработает сам */ }
+}
+</script>
+</body>
+</html>
