@@ -95,12 +95,65 @@ footer li{margin:4px 0;word-break:break-word}
 <header class="hero">
   <div class="eyebrow">Ноябрь 2026 · Рио-де-Жанейро</div>
   <h1>Какой геймпад идти щупать</h1>
-  <p class="lead">Нужно, чтобы геймпад работал в максимуме игр без возни с настройками. Ниже разбор моделей, которые продаются в Бразилии: где работают, сколько стоят и какие подержать. Отдельный блок про Steam Controller и стратегии.</p>
+  <p class="lead">Нужно, чтобы геймпад работал в максимуме игр без возни с настройками. Разбор под MacBook Pro M4 Pro, стратегии и эмуляторы. Дальше — модели, которые продаются в Бразилии: где работают, сколько стоят и где подержать.</p>
 </header>
 
+<section aria-labelledby="mac">
+  <h2 id="mac">Твой случай: MacBook Pro M4 Pro, стратегии, эмуляторы</h2>
+  <p class="sub">На Mac почти ни одна стратегия не управляется геймпадом сама по себе. Поэтому главный вопрос не «какой геймпад», а «чем превратить его в мышь». Ниже то, что проверено для Apple Silicon.</p>
+  <div class="grid g3 reveal-group">
+    <div class="card verdict reveal">
+      <span class="tag">Рекомендация для тебя</span>
+      <h3>DualSense + ControllerKeys</h3>
+      <p>Тачпад DualSense становится трекпадом-мышью, гироскоп — мышью-прицелом. Работает в любом окне: нативные игры, CrossOver, Parallels, потому что программа выдаёт обычную мышь macOS. Это ближе всего к Steam Controller из того, что можно купить и подержать в Рио. Плюс гироскоп в эмуляторах Dolphin и Cemu.</p>
+    </div>
+    <div class="card verdict reveal">
+      <span class="tag">Если больше экшена в CrossOver</span>
+      <h3>Xbox Wireless Controller</h3>
+      <p>Windows-игры под Wine ждут именно Xbox-геймпад (XInput). С CrossOver 25 геймпады Sony определяются как Sony, и часть Windows-игр перестала их видеть. В Parallels Xbox тоже пробрасывается без потерь. Для стратегий же он хуже: мышь можно сделать только стиком.</p>
+    </div>
+    <div class="card verdict reveal">
+      <span class="tag">Пока рано</span>
+      <h3>Steam Controller на Mac</h3>
+      <p>Работает только в Mac-Steam, и то лишь в играх на SDL (часть нативных игр его не видит). В CrossOver игры его не видят, исправление обещают в CrossOver 27. Обход — утилита <a href="https://github.com/scryner/crosspuck">CrossPuck</a>, это уже «танцы с бубном». Плюс в Бразилии он не продаётся.</p>
+    </div>
+  </div>
+
+  <div class="grid g2" style="margin-top:16px">
+    <div class="card reveal">
+      <h3>Программы «геймпад → мышь» для Mac</h3>
+      <ul class="list" style="margin-top:10px">
+        <li><a href="https://kevintang.xyz/apps/controller-keys"><b>ControllerKeys</b></a>: 14 дней бесплатно, потом $19.99 (обычно $24.99). Тачпад DualSense с жестами, гироскоп как мышь, поддерживает Xbox, DualSense и Steam Controller (даже без запущенного Steam). Нужна macOS 14.6+.</li>
+        <li><a href="https://inputconfig.com/"><b>InputConfig</b></a>: бесплатный, открытый код, есть в Mac App Store, около 450 готовых пресетов игр.</li>
+        <li>Встроенные настройки macOS («Игровые контроллеры» в Системных настройках) умеют переназначать только кнопку на кнопку, мышью геймпад не делают.</li>
+        <li>Joystick Mapper и Enjoyable заброшены, их не брать.</li>
+      </ul>
+    </div>
+    <div class="card reveal">
+      <h3>Что с эмуляторами на M4</h3>
+      <ul class="list" style="margin-top:10px">
+        <li><b>CrossOver 26.3</b> (21.07.2026): надёжнее всего Xbox-геймпад. Если Steam Input внутри Windows-Steam мешает, его отключают в настройках игры. <a href="https://www.codeweavers.com/crossover/changelog">Changelog</a></li>
+        <li><b>Parallels</b>: Xbox, DualShock, DualSense, Joy-Con видны в Windows как «Virtual Xbox Controller». Тачпад и гироскоп DualSense <b>не</b> пробрасываются. <a href="https://kb.parallels.com/en/124771">KB Parallels</a></li>
+        <li><b>Whisky</b> заброшен с мая 2025, автор советует CrossOver. Бесплатная альтернатива — <a href="https://sikarugir.com/">Sikarugir</a>, но с геймпадами там есть открытые проблемы.</li>
+        <li><b>Эмуляторы консолей</b>: Dolphin и Cemu берут гироскоп DualSense через SDL. RPCS3 нативен под Apple Silicon.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card reveal" style="margin-top:16px">
+    <h3>Стратегии, где геймпад работает сам, без программ</h3>
+    <ul class="list" style="margin-top:10px">
+      <li><b>XCOM 2</b> (порт Feral): геймпад добавлен ещё в 2016 году. <a href="https://www.feralinteractive.com/en/news/xcom-2-updated-to-support-gamepads-and-amd-gpus/">Feral</a></li>
+      <li><b>Civilization VII</b>: на Mac есть проблемы с движением по карте и радиальным меню, их исправляет мод «Better Controller Support». <a href="https://forums.civfanatics.com/threads/better-controller-support-for-civilization-vii.705221/">CivFanatics</a></li>
+      <li><b>Age of Empires II DE</b>: нативная версия для Apple Silicon вышла 28.05.2026. Поддержку геймпада подтвердить не удалось.</li>
+      <li><b>Total War, Crusader Kings III</b>: на Mac геймпад не поддерживается, нужен ControllerKeys или InputConfig.</li>
+    </ul>
+  </div>
+</section>
+
 <section aria-labelledby="tldr">
-  <h2 id="tldr">Коротко</h2>
-  <p class="sub">Три сценария. Выбор зависит от того, где играешь и в какие игры.</p>
+  <h2 id="tldr">Если смотреть шире: три сценария</h2>
+  <p class="sub">Общий расклад по рынку для любых платформ, включая Windows.</p>
   <div class="grid g3 reveal-group">
     <div class="card verdict reveal">
       <span class="tag">Максимум игр без возни</span>
@@ -171,7 +224,7 @@ footer li{margin:4px 0;word-break:break-word}
       <div class="body">
         <h3>8BitDo Ultimate 2 Wireless (2.4G)</h3>
         <div class="price">R$ 359,99 <small>PIX · R$ 399,99 картой</small></div>
-        <div class="chips"><span class="chip ok">Windows ✓</span><span class="chip mid">Mac/iOS 26+</span><span class="chip ok">Android ✓</span><span class="chip ok">Стики TMR</span></div>
+        <div class="chips"><span class="chip ok">Windows ✓</span><span class="chip mid">Mac 26+: только BT, без гиро и вибро</span><span class="chip ok">Android ✓</span><span class="chip ok">Стики TMR</span></div>
         <ul><li>Как Xbox на Windows, но со стиками без дрифта, задними кнопками и док-станцией</li><li>Гироскоп работает только через донгл 2.4G</li><li>Не путать с версией «Bluetooth»: та заточена под Switch и Windows, Mac не заявлен</li></ul>
         <div class="buy"><a class="btn" href="https://www.kabum.com.br/produto/911322">KaBuM</a><a class="btn ghost" href="https://www.8bitdo.com/ultimate-2-wireless-controller/">Офсайт</a></div>
       </div>
@@ -340,14 +393,14 @@ footer li{margin:4px 0;word-break:break-word}
 </section>
 
 <section aria-labelledby="plan">
-  <h2 id="plan">Мой совет на поход</h2>
+  <h2 id="plan">План на поход</h2>
   <div class="card reveal">
     <ol class="list">
-      <li>Сначала определиться с платформой. Если основная — Windows вне Steam (Game Pass, Epic, пиратка), бери Xbox-совместимый геймпад. Если Mac или iPhone — Xbox или DualSense.</li>
-      <li>В магазине сравнить в руках <b>Xbox Wireless</b> и <b>DualSense</b>: это две базовые формы, остальные модели — их вариации. Xbox-форма — у 8BitDo и GameSir, DualSense-форма — у Edge.</li>
-      <li>Если понравилась Xbox-форма и играешь на Windows, посмотреть <b>8BitDo Ultimate 2 Wireless</b>: та же совместимость, стики без дрифта, гироскоп и задние кнопки за те же деньги.</li>
-      <li>Для стратегий в Steam: DualSense с тачпадом как мышью доступен здесь и сейчас. Steam Controller — только через импорт, без примерки.</li>
-      <li>Если хочешь Elite: подожди до середины ноября, возможен анонс Series 3.</li>
+      <li>Подержать в руках <b>DualSense</b> и <b>Xbox Wireless</b>: это две базовые формы. Fast Shop (DualSense) или B&amp;B Games в BarraShopping (оба).</li>
+      <li>На DualSense попробовать провести большим пальцем по тачпаду: удобно ли тянуться до него без перехвата. От этого зависит, будет ли он удобной мышью в стратегиях.</li>
+      <li>Если форма DualSense подошла — брать его и ставить пробную версию ControllerKeys (14 дней): за это время станет ясно, нравится ли играть в стратегии тачпадом.</li>
+      <li>Если в основном играешь в Windows-экшены через CrossOver — Xbox надёжнее. Для стратегий к нему бесплатный InputConfig (мышь стиком).</li>
+      <li>Steam Controller пока не брать: в CrossOver не работает, в Бразилии не продаётся. Вернуться к вопросу после выхода CrossOver 27.</li>
     </ol>
   </div>
 </section>
