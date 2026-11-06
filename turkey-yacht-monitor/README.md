@@ -63,11 +63,24 @@ python3 monitor.py && python3 notify.py
 
 ## Telegram setup
 
-Бот: переиспользует **Pomni-бот** (token из `pomni/.env: BOT_TOKEN`).
-Chat ID: `OWNER_TG_ID` из того же файла (приватный чат = user_id).
-
-Эти значения должны быть в **GitHub repo secrets**:
+Бот: **@Search_aquila_bot**, отдельный (не Pomni).
+Token и `chat_id` лежат в **GitHub repo secrets**:
 - `TELEGRAM_BOT_TOKEN`
 - `TELEGRAM_CHAT_ID`
 
-См. `setup-secrets.sh`.
+## Команды боту (one-click /search)
+
+Бот поднимается отдельно — long-polling процесс на VPS. Дёргает workflow
+по команде `/search` или нажатию inline-кнопки.
+
+См. `bot/` и `bot/README.md`. Деплой одной строкой:
+
+```bash
+curl -sL https://raw.githubusercontent.com/strelnikov23028-commits/results/main/turkey-yacht-monitor/bot/deploy.sh | bash
+```
+
+Доступные команды:
+- `/start`, `/help` — справка + кнопки
+- `/search` — мгновенный запуск проверки (workflow_dispatch на GH)
+- `/status` — статус последнего run'а
+- `/sources` — список всех опрашиваемых сайтов
