@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Плёнка от UV на окна — Рио</title>
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="description" content="Атермальная/прозрачная плёнка от UV на 6 м² окон в Рио: где купить, сколько стоит материал и монтаж под ключ.">
+<script>document.documentElement.classList.add('js-anim')</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F5F5F7;--surface:#FFFFFF;--ink:#1D1D1F;--ink-2:#6E6E73;--ink-3:#86868B;--line:#E8E8ED;
+  --blue:#0071E3;--green:#1A8F4E;--green-bg:#E7F7EE;--amber:#9A5200;--amber-bg:#FFF3E0;
+  --radius:22px;--shadow:0 1px 2px rgba(0,0,0,.04),0 8px 30px rgba(0,0,0,.06);
+  --shadow-hover:0 4px 10px rgba(0,0,0,.06),0 18px 50px rgba(0,0,0,.10);--maxw:1100px;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased;line-height:1.55;overflow-x:hidden;padding-bottom:64px}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 16px}
+a{color:var(--blue)}
+img{max-width:100%;display:block}
+.reveal{opacity:1}
+.js-anim .reveal{opacity:0}
+.js-anim .reveal.shown{opacity:1!important;transform:none!important}
+@media (prefers-reduced-motion:reduce){.js-anim .reveal{opacity:1!important;transform:none!important}}
+
+header.hero{padding:60px 0 24px;text-align:center}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--line);color:var(--ink-2);font-weight:600;font-size:13px;padding:7px 14px;border-radius:999px;box-shadow:var(--shadow);margin-bottom:20px}
+.eyebrow .dot{width:8px;height:8px;border-radius:50%;background:#F5A623}
+h1{font-size:clamp(30px,5.4vw,50px);line-height:1.06;letter-spacing:-.02em;font-weight:800;margin:0 auto 16px;max-width:20ch}
+.lede{font-size:clamp(16px,2.1vw,19px);color:var(--ink-2);max-width:62ch;margin:0 auto}
+.lede b{color:var(--ink)}
+
+.bento{display:grid;grid-template-columns:repeat(12,1fr);gap:14px;margin:28px 0 8px}
+.tile{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow);transition:transform .25s,box-shadow .25s}
+.tile:hover{transform:translateY(-2px);box-shadow:var(--shadow-hover)}
+.tile h2{font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-3);margin:0 0 10px;font-weight:700}
+.s4{grid-column:span 4}.s6{grid-column:span 6}.s12{grid-column:span 12}
+.big{font-size:clamp(26px,3.4vw,36px);font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums;line-height:1.1}
+.big.g{color:var(--green)}
+.sub{color:var(--ink-2);font-size:14px;margin-top:6px}
+
+section.grp{padding-top:30px}
+section.grp>h2{font-size:clamp(22px,3vw,28px);letter-spacing:-.015em;margin:0 0 14px;font-weight:800}
+
+/* калькулятор */
+.calc{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-bottom:14px}
+.calc label{font-weight:600}
+.calc input{width:96px;min-height:44px;font:inherit;font-size:18px;font-weight:700;text-align:center;border:1px solid var(--line);border-radius:12px;background:var(--surface);color:var(--ink)}
+.calc input:focus{outline:3px solid rgba(0,113,227,.35);border-color:var(--blue)}
+.calc .hint{color:var(--ink-3);font-size:14px}
+
+.table{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
+.trow{display:grid;grid-template-columns:2.2fr 1fr 1.2fr;gap:12px;padding:16px 20px;border-top:1px solid var(--line);align-items:center}
+.trow:first-child{border-top:0}
+.trow.head{background:#FAFAFC;font-size:12.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-3);font-weight:700}
+.trow .name b{display:block;font-size:16px}
+.trow .name span{color:var(--ink-2);font-size:13.5px}
+.num{font-variant-numeric:tabular-nums;font-weight:700}
+.tot{font-variant-numeric:tabular-nums;font-weight:800;font-size:18px}
+.tag{display:inline-block;font-size:11.5px;font-weight:700;padding:2px 8px;border-radius:999px;margin-left:6px;vertical-align:middle}
+.tag.best{background:var(--green-bg);color:var(--green)}
+.tag.warn{background:var(--amber-bg);color:var(--amber)}
+@media (max-width:720px){
+  .s4,.s6{grid-column:span 12}
+  .trow{grid-template-columns:1fr 1fr}
+  .trow .name{grid-column:span 2}
+  .trow.head{display:none}
+  .trow .num::before{content:"за м²: ";font-weight:500;color:var(--ink-3)}
+  .trow .tot::before{content:"итого: ";font-weight:500;font-size:14px;color:var(--ink-3)}
+}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column;transition:transform .25s,box-shadow .25s}
+.card:hover{transform:translateY(-2px);box-shadow:var(--shadow-hover)}
+.ph{background:#fff;aspect-ratio:4/3;display:grid;place-items:center;border-bottom:1px solid var(--line);overflow:hidden}
+.ph img{width:100%;height:100%;object-fit:cover}
+.body{padding:18px;display:flex;flex-direction:column;gap:8px;flex:1}
+.card h3{font-size:18px;margin:0;line-height:1.3}
+.card p{margin:0;color:var(--ink-2);font-size:14.5px}
+.card ul{margin:0;padding-left:18px;color:var(--ink-2);font-size:14.5px}
+.card ul b{color:var(--ink)}
+.price{font-size:24px;font-weight:800;font-variant-numeric:tabular-nums;margin-top:auto}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:10px 18px;border-radius:999px;background:var(--blue);color:#fff;text-decoration:none;font-weight:600;font-size:15px;transition:transform .2s,background .2s}
+.btn:hover{background:#0062C4;transform:translateY(-1px)}
+.btn.ghost{background:var(--bg);color:var(--ink);border:1px solid var(--line)}
+.btn.ghost:hover{background:#ECECF0}
+.btns{display:flex;flex-wrap:wrap;gap:8px}
+
+.notes{margin:0;padding-left:18px;color:var(--ink-2);font-size:15px}
+.notes li{margin:6px 0}.notes b{color:var(--ink)}
+.src{font-size:13.5px;color:var(--ink-3)}
+.src a{color:var(--ink-2)}
+footer{margin-top:36px;text-align:center;color:var(--ink-3);font-size:13px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <span class="eyebrow reveal"><span class="dot"></span>Рио-де-Жанейро · цены на 06.11.2026</span>
+  <h1 class="reveal">Плёнка от UV на окна: 6&nbsp;м² в&nbsp;Рио</h1>
+  <p class="lede reveal">В Бразилии атермальная плёнка называется <b>película nano cerâmica</b> (или «insulfilm térmico»). Почти любая такая плёнка режет <b>99% UV</b>, а светлые тона (G70/G80) почти не меняют вид окна. Ниже: купить и наклеить самому или заказать монтаж под ключ.</p>
+</header>
+
+<div class="bento">
+  <div class="tile s4 reveal">
+    <h2>Сам клеишь</h2>
+    <div class="big g">≈ R$ 534</div>
+    <div class="sub">6 м² × R$ 89, нано-керамика G70 с нарезкой под размер, доставка бесплатная (от R$ 350)</div>
+  </div>
+  <div class="tile s4 reveal">
+    <h2>Монтаж под ключ</h2>
+    <div class="big">R$ 900 – 1 500</div>
+    <div class="sub">нано-керамика у монтажников Рио, R$ 150–250 за м² с работой</div>
+  </div>
+  <div class="tile s4 reveal">
+    <h2>Премиум 3M Crystalline</h2>
+    <div class="big">R$ 1 500 – 3 600</div>
+    <div class="sub">R$ 250–600 за м², по одному источнику, нужен реальный расчёт</div>
+  </div>
+</div>
+
+<section class="grp">
+  <h2 class="reveal">Расчёт на вашу площадь</h2>
+  <div class="calc reveal">
+    <label for="m2">Площадь стекла, м²</label>
+    <input id="m2" type="number" inputmode="decimal" min="0.5" step="0.5" value="6">
+    <span class="hint">«Итого» пересчитывается по ценам за м² из таблицы</span>
+  </div>
+  <div class="table reveal" id="tbl">
+    <div class="trow head"><div>Вариант</div><div>Цена за м²</div><div>Итого</div></div>
+
+    <div class="trow" data-min="89" data-max="89">
+      <div class="name"><b>Películas Fácil: NanoPro Xtreme G70, клеить самому <span class="tag best">дешевле всего</span></b><span>Только материал. Нужны ракель и пульверизатор с мыльной водой</span></div>
+      <div class="num">R$ 89</div><div class="tot"></div>
+    </div>
+    <div class="trow" data-min="150" data-max="220">
+      <div class="name"><b>Edu Film (Jacarepaguá): нано-керамика</b><span>Работают по Рио и Нитерою, с монтажом. В другой их таблице: R$ 160–250 за м²</span></div>
+      <div class="num">R$ 150–220</div><div class="tot"></div>
+    </div>
+    <div class="trow" data-min="200" data-max="200">
+      <div class="name"><b>LUME Controle Solar (Realengo): нано-керамика</b><span>Цена «от», с монтажом. Замер бесплатно, гарантия до 10 лет, выезжают в Барру и Зону Сул</span></div>
+      <div class="num">от R$ 200</div><div class="tot"></div>
+    </div>
+    <div class="trow" data-min="250" data-max="600">
+      <div class="name"><b>3M Crystalline (премиум, самая прозрачная) <span class="tag warn">цена неточная</span></b><span>Диапазон из блога автосалона, не прайс 3M</span></div>
+      <div class="num">R$ 250–600</div><div class="tot"></div>
+    </div>
+    <div class="trow" data-min="80" data-max="80">
+      <div class="name"><b>LUME: Carbono Premium <span class="tag warn">затемняет</span></b><span>Дешевле, но это тонировка, а не прозрачная атермальная плёнка</span></div>
+      <div class="num">от R$ 80</div><div class="tot"></div>
+    </div>
+  </div>
+</section>
+
+<section class="grp">
+  <h2 class="reveal">Где купить или заказать</h2>
+  <div class="grid">
+
+    <article class="card reveal">
+      <div class="ph"><img loading="lazy" src="https://peliculasfacil.com.br/cdn/shop/files/2NanoProXtreme-SemPelicula_ComFilm_15daf570-fd10-4baf-8bc8-e3728c7fcf01.jpg?v=1774373645&width=800" alt="Окно без плёнки и с плёнкой NanoPro Xtreme"></div>
+      <div class="body">
+        <h3>Películas Fácil: плёнка Nano Cerâmica Premium (NanoPro Xtreme, Globaltek)</h3>
+        <ul>
+          <li><b>99% UV</b>, до 97% инфракрасного излучения (данные продавца)</li>
+          <li>Тона G70 (самый светлый, ~70% света) · G50 · G35 · G20 · G5</li>
+          <li>Режут по вашим размерам в сантиметрах, есть рулоны 0,90 и 1,52 м</li>
+          <li>Монтажника-партнёра в Рио подбирают после покупки, работу оплачиваете ему напрямую</li>
+        </ul>
+        <div class="price">R$ 89 / м²</div>
+        <div class="btns"><a class="btn" href="https://peliculasfacil.com.br/products/pelicula-nano-ceramica-c-reducao-de-calor-por-metro-quadrado" target="_blank" rel="noopener">Купить по м²</a><a class="btn ghost" href="https://peliculasfacil.com.br/pages/insulfilm-residencial-rio-de-janeiro" target="_blank" rel="noopener">Страница для Рио</a></div>
+      </div>
+    </article>
+
+    <article class="card reveal">
+      <div class="ph"><img loading="lazy" src="https://peliculasfacil.com.br/cdn/shop/files/4NanoProXtreme-ProtecaoUV_348b48cb-61ba-4a8d-adbd-3b60dbc9e02e.png?v=1774373645&width=800" alt="Иллюстрация защиты от UV плёнкой NanoPro Xtreme"></div>
+      <div class="body">
+        <h3>LUME Controle Solar: монтаж под ключ</h3>
+        <ul>
+          <li>Нано-керамика <b>от R$ 200 за м²</b> с монтажом</li>
+          <li>Замер бесплатно, гарантия до 10 лет</li>
+          <li>Работают в Барре, Рекрейо, Копакабане, Ипанеме, Леблоне и других районах</li>
+          <li>Скидка 12% действовала до 15.09.2026, сейчас её нет</li>
+        </ul>
+        <p class="src">Фото слева: плёнка Películas Fácil, для иллюстрации. Своих фото товара у LUME на сайте нет.</p>
+        <div class="price">от R$ 1 200 за 6 м²</div>
+        <div class="btns"><a class="btn" href="https://wa.me/5521965140612" target="_blank" rel="noopener">WhatsApp (21) 96514-0612</a><a class="btn ghost" href="https://lumecontrolesolar.com.br/" target="_blank" rel="noopener">Сайт</a></div>
+      </div>
+    </article>
+
+    <article class="card reveal">
+      <div class="ph"><img loading="lazy" src="https://peliculasfacil.com.br/cdn/shop/files/1capapeliculananoceramica_7bd95537-c133-4d01-b51a-f9adab7ca0cf.jpg?v=1774373645&width=800" alt="Нано-керамическая плёнка для окон"></div>
+      <div class="body">
+        <h3>Edu Film / Insulfilm no Rio: монтаж под ключ</h3>
+        <ul>
+          <li>Нано-керамика для дома: <b>R$ 150–250 за м²</b> (на сайте две таблицы с разными цифрами)</li>
+          <li>Гарантия до 10 лет, смета бесплатно, работают каждый день с 7:00 до 23:00</li>
+          <li>Адрес: R. João Bruno Lobo, 35, Jacarepaguá. Обслуживают Рио и Нитерой</li>
+        </ul>
+        <p class="src">Фото слева: плёнка Películas Fácil, для иллюстрации. Бренд плёнки Edu Film на сайте не указан.</p>
+        <div class="price">R$ 900 – 1 500 за 6 м²</div>
+        <div class="btns"><a class="btn" href="https://wa.me/5521997104880" target="_blank" rel="noopener">WhatsApp (21) 99710-4880</a><a class="btn ghost" href="https://insulfilmnorio.com.br/pelicula-ceramica/" target="_blank" rel="noopener">Сайт</a></div>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<section class="grp">
+  <h2 class="reveal">Что учесть</h2>
+  <div class="tile s12 reveal">
+    <ul class="notes">
+      <li><b>«Прозрачная» и «атермальная» — разные свойства.</b> Защита от UV (~99%) есть почти у всех плёнок. От тепла лучше защищают более тёмные тона: G70 почти незаметна, но тепла режет меньше, чем G35 или G20.</li>
+      <li><b>Что спросить у монтажника:</b> марку и линию плёнки, VLT (сколько света пропускает), IRR или TSER (сколько тепла отсекает), минимальный заказ и цену выезда. На сайтах этого нет, а 6 м² — маленький объём, и минималка может поднять цену за м².</li>
+      <li><b>Клеить самому</b> реально на ровных стёклах без сложных профилей. Если клеите впервые, пузыри и пыль под плёнкой почти неизбежны, поэтому на видные окна лучше позвать мастера.</li>
+      <li><b>Стеклопакеты и закалённое стекло:</b> тёмная плёнка на солнечной стороне может нагревать стекло. Это стоит уточнить у монтажника. Светлые G70/G80 в этом смысле безопаснее.</li>
+      <li>Цена Películas Fácil «от R$ 150» за монтаж в описании товара относится к автомобилю. Работу на окнах в Рио у партнёра нужно уточнять отдельно.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="grp">
+  <h2 class="reveal">Источники</h2>
+  <div class="tile s12 reveal src">
+    <ul class="notes">
+      <li><a href="https://peliculasfacil.com.br/products/pelicula-nano-ceramica-c-reducao-de-calor-por-metro-quadrado" target="_blank" rel="noopener">Películas Fácil: товар по м²</a>: R$ 89 за м², 99% UV, тона G70–G5</li>
+      <li><a href="https://peliculasfacil.com.br/pages/insulfilm-residencial-rio-de-janeiro" target="_blank" rel="noopener">Películas Fácil: Рио</a> · <a href="https://peliculasfacil.com.br/blogs/tudo-sobre-peliculas-residenciais/insulfilm-residencial-preco-quanto-custa-metro-quadrado-2026" target="_blank" rel="noopener">их же цены на 2026 год</a>: в Рио R$ 120–200 за м²</li>
+      <li><a href="https://lumecontrolesolar.com.br/" target="_blank" rel="noopener">LUME Controle Solar</a>: прайс «от» по типам плёнки</li>
+      <li><a href="https://insulfilmnorio.com.br/pelicula-ceramica/" target="_blank" rel="noopener">Edu Film: керамика</a> · <a href="https://insulfilmnorio.com.br/insulfilm-para-residencia-preco-2025/" target="_blank" rel="noopener">Edu Film: цены для дома</a></li>
+      <li><a href="https://barataosoundcar.com/window-blue-ou-3m-3/" target="_blank" rel="noopener">Baratão Sound Car</a>: 3M Crystalline для дома R$ 250–600 за м² (источник второстепенный)</li>
+    </ul>
+  </div>
+</section>
+
+<footer>Цены взяты с сайтов продавцов 06.11.2026. Цены монтажников указаны «от» или диапазоном, итоговую сумму назовут после замера.</footer>
+</div>
+
+<script>
+(function(){
+  var fmt=function(n){return 'R$ '+Math.round(n).toLocaleString('pt-BR')};
+  var inp=document.getElementById('m2');
+  function upd(){
+    var a=parseFloat(String(inp.value).replace(',','.'))||0;
+    document.querySelectorAll('#tbl .trow[data-min]').forEach(function(r){
+      var mn=+r.dataset.min*a,mx=+r.dataset.max*a;
+      r.querySelector('.tot').textContent=mn===mx?fmt(mn):fmt(mn)+' – '+fmt(mx);
+    });
+  }
+  inp.addEventListener('input',upd);upd();
+})();
+setTimeout(function(){if(!window.__motionOK)document.querySelectorAll('.reveal').forEach(function(el){el.classList.add('shown')})},1200);
+</script>
+<script type="module">
+import { animate, inView, stagger } from "https://cdn.jsdelivr.net/npm/motion@11/+esm";
+window.__motionOK = true;
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const els = document.querySelectorAll('.reveal');
+if (reduce) { els.forEach(e => e.classList.add('shown')); }
+else {
+  inView('.reveal', (el) => {
+    animate(el, { opacity: [0, 1], transform: ['translateY(18px)', 'none'] }, { duration: 0.5, easing: [0.22, 1, 0.36, 1] })
+      .finished.then(() => el.classList.add('shown'));
+  }, { margin: '0px 0px -40px 0px' });
+}
+</script>
+</body>
+</html>
