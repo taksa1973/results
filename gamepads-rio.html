@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Геймпады: что щупать в Рио</title>
+<meta name="description" content="Рынок геймпадов на ноябрь 2026: совместимость с ПК, Mac и телефонами, Steam Controller для стратегий, цены в BRL и где подержать в Рио.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F5F5F7;--card:#FFFFFF;--text:#1D1D1F;--muted:#6E6E73;--line:#E5E5EA;
+  --blue:#0071E3;--blue-soft:#E8F2FD;--green:#1A7F37;--green-soft:#E6F4EA;
+  --amber:#9A6700;--amber-soft:#FFF4DC;--red:#C62828;--red-soft:#FDECEC;
+  --shadow:0 1px 2px rgba(0,0,0,.04),0 8px 24px rgba(0,0,0,.06);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#000;--card:#1C1C1E;--text:#F5F5F7;--muted:#A1A1A6;--line:#2C2C2E;
+    --blue:#2997FF;--blue-soft:#0B2540;--green:#4ADE80;--green-soft:#0F2A18;
+    --amber:#FBBF24;--amber-soft:#2E2208;--red:#F87171;--red-soft:#2E1010;
+    --shadow:0 1px 2px rgba(0,0,0,.4);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#000;--card:#1C1C1E;--text:#F5F5F7;--muted:#A1A1A6;--line:#2C2C2E;
+  --blue:#2997FF;--blue-soft:#0B2540;--green:#4ADE80;--green-soft:#0F2A18;
+  --amber:#FBBF24;--amber-soft:#2E2208;--red:#F87171;--red-soft:#2E1010;
+  --shadow:0 1px 2px rgba(0,0,0,.4);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:Inter,-apple-system,BlinkMacSystemFont,sans-serif;font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:var(--blue);text-decoration:none}
+a:hover{text-decoration:underline}
+a:focus-visible,button:focus-visible{outline:3px solid var(--blue);outline-offset:2px;border-radius:6px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 16px}
+header.hero{padding:72px 0 40px}
+.eyebrow{font-size:13px;font-weight:600;color:var(--blue);letter-spacing:.04em;text-transform:uppercase}
+h1{font-size:clamp(34px,6vw,56px);line-height:1.08;font-weight:800;letter-spacing:-.02em;margin:10px 0 16px}
+.lead{font-size:clamp(17px,2.2vw,21px);color:var(--muted);max-width:760px}
+h2{font-size:clamp(26px,4vw,36px);font-weight:700;letter-spacing:-.015em;margin:0 0 8px}
+h3{font-size:20px;font-weight:700;letter-spacing:-.01em}
+section{padding:40px 0}
+.sub{color:var(--muted);margin-bottom:24px;max-width:760px}
+.grid{display:grid;gap:16px}
+.g3{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+.g2{grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}
+.card{background:var(--card);border-radius:20px;padding:24px;box-shadow:var(--shadow);transition:transform .2s ease,box-shadow .2s ease}
+.card:hover{transform:translateY(-2px)}
+.verdict{border:2px solid var(--blue)}
+.verdict .tag{display:inline-block;font-size:12px;font-weight:700;padding:4px 10px;border-radius:999px;background:var(--blue-soft);color:var(--blue);margin-bottom:12px}
+.verdict p{color:var(--muted);margin-top:8px}
+.prod{display:flex;flex-direction:column;padding:0;overflow:hidden}
+.prod .ph{background:#fff;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;border-bottom:1px solid var(--line)}
+.prod .ph img{max-width:88%;max-height:88%;object-fit:contain}
+.prod .body{padding:20px 22px 22px;display:flex;flex-direction:column;gap:10px;flex:1}
+.price{font-size:22px;font-weight:700;font-variant-numeric:tabular-nums}
+.price small{font-size:13px;font-weight:500;color:var(--muted)}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font-size:12px;font-weight:600;padding:4px 9px;border-radius:999px;border:1px solid var(--line);color:var(--muted)}
+.ok{background:var(--green-soft);color:var(--green);border-color:transparent}
+.mid{background:var(--amber-soft);color:var(--amber);border-color:transparent}
+.no{background:var(--red-soft);color:var(--red);border-color:transparent}
+.prod ul{padding-left:18px;color:var(--muted);font-size:15px}
+.prod ul li{margin:3px 0}
+.buy{margin-top:auto;display:flex;flex-wrap:wrap;gap:8px}
+.btn{display:inline-flex;align-items:center;min-height:44px;padding:0 16px;border-radius:12px;background:var(--blue);color:#fff;font-weight:600;font-size:14px}
+.btn:hover{text-decoration:none;filter:brightness(1.08)}
+.btn.ghost{background:var(--blue-soft);color:var(--blue)}
+.note{font-size:13px;color:var(--muted)}
+.table-wrap{overflow-x:auto;background:var(--card);border-radius:20px;box-shadow:var(--shadow)}
+table{border-collapse:collapse;width:100%;min-width:720px;font-size:14px}
+th,td{padding:12px 14px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-weight:600;color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.04em}
+td:first-child{font-weight:600;white-space:nowrap}
+tr:last-child td{border-bottom:none}
+.steam{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:center}
+.steam img{width:100%;border-radius:16px;display:block}
+@media (max-width:760px){.steam{grid-template-columns:1fr}}
+.list{padding-left:20px}
+.list li{margin:6px 0}
+.check li{margin:8px 0}
+.shop h3{font-size:17px}
+.shop p{color:var(--muted);font-size:15px;margin-top:4px}
+footer{padding:48px 0 64px;color:var(--muted);font-size:13px}
+footer ol{padding-left:20px}
+footer li{margin:4px 0;word-break:break-word}
+@media (prefers-reduced-motion: reduce){.card{transition:none}.card:hover{transform:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <div class="eyebrow">Ноябрь 2026 · Рио-де-Жанейро</div>
+  <h1>Какой геймпад идти щупать</h1>
+  <p class="lead">Нужно, чтобы геймпад работал в максимуме игр без возни с настройками. Ниже разбор моделей, которые продаются в Бразилии: где работают, сколько стоят и какие подержать. Отдельный блок про Steam Controller и стратегии.</p>
+</header>
+
+<section aria-labelledby="tldr">
+  <h2 id="tldr">Коротко</h2>
+  <p class="sub">Три сценария. Выбор зависит от того, где играешь и в какие игры.</p>
+  <div class="grid g3 reveal-group">
+    <div class="card verdict reveal">
+      <span class="tag">Максимум игр без возни</span>
+      <h3>Xbox Wireless Controller</h3>
+      <p>Это эталон стандарта XInput, который Windows понимает без драйверов. Apple официально поддерживает его на Mac и iPhone. Работает везде: Steam, Game Pass, Epic, эмуляторы, Android. Минусы: нет гироскопа и задних кнопок, стики старого типа (могут со временем «дрифтовать»).</p>
+    </div>
+    <div class="card verdict reveal">
+      <span class="tag">Стратегии и игры под мышь</span>
+      <h3>Steam Controller (2026)</h3>
+      <p>Два трекпада и гироскоп заменяют мышь: так можно играть в RTS и CRPG с дивана. Но работает он <b>только при запущенном Steam</b>. В Бразилии официально не продаётся, подержать в магазине почти наверняка не получится.</p>
+    </div>
+    <div class="card verdict reveal">
+      <span class="tag">Компромисс, доступен в Рио</span>
+      <h3>DualSense + Steam Input</h3>
+      <p>Тачпад и гироскоп можно превратить в мышь, на Mac и iPhone работает нативно. Есть в Fast Shop, можно потрогать. Минус: вне Steam на Windows многие игры его не видят без сторонних программ.</p>
+    </div>
+  </div>
+</section>
+
+<section aria-labelledby="base">
+  <h2 id="base">Почему одни геймпады работают везде, а другие нет</h2>
+  <p class="sub">Три вещи, которые стоит понимать до похода в магазин.</p>
+  <div class="grid g3">
+    <div class="card reveal">
+      <h3>XInput на Windows</h3>
+      <p class="note" style="margin-top:8px;font-size:15px">Стандарт Microsoft для геймпадов: 2 стика, курки, крестовина, кнопки, вибрация. Гироскопа, тачпада и задних кнопок в нём нет. Большинство игр на ПК ждут именно XInput. Xbox-геймпад и лицензированные Xbox-модели работают сразу. <a href="https://learn.microsoft.com/en-us/windows/win32/xinput/getting-started-with-xinput">Документация Microsoft</a></p>
+    </div>
+    <div class="card reveal">
+      <h3>Steam Input</h3>
+      <p class="note" style="margin-top:8px;font-size:15px">Переводчик внутри Steam: превращает любой поддерживаемый геймпад в Xbox, клавиатуру или мышь. Отсюда гироскоп-прицел и трекпад-мышь. Работает только для игр, запущенных через Steam (не-Steam игры можно добавить в библиотеку вручную). <a href="https://partner.steamgames.com/doc/features/steam_controller">Документация Valve</a></p>
+    </div>
+    <div class="card reveal">
+      <h3>Mac и iPhone</h3>
+      <p class="note" style="margin-top:8px;font-size:15px">Apple официально поддерживает Xbox Wireless (Series X|S, Elite 2), DualSense, DualSense Edge, DualShock 4 и старый Switch Pro. Остальные модели работают на свой страх и риск. Поддержка системой ещё не означает поддержку конкретной игрой. <a href="https://support.apple.com/en-us/111101">Apple: Xbox</a> · <a href="https://support.apple.com/en-us/111100">Apple: PlayStation</a></p>
+    </div>
+  </div>
+</section>
+
+<section aria-labelledby="models">
+  <h2 id="models">Модели</h2>
+  <p class="sub">Цены проверены 06.11.2026 на KaBuM и Fast Shop. Перед 11.11 идут акции, цены могут поменяться. Amazon BR, Mercado Livre и Magalu проверить не удалось: они не пускают автоматические запросы.</p>
+  <div class="grid g3 reveal-group">
+
+    <article class="card prod reveal">
+      <div class="ph"><img loading="lazy" src="https://images.kabum.com.br/produtos/fotos/sync_mirakl/158630/xlarge/Controle-Sem-Fio-Xbox-Series-X-e-S-Microsoft-Carbon-Black-Bluetooth-Preto_1790965717.jpg" alt="Xbox Wireless Controller, чёрный"></div>
+      <div class="body">
+        <h3>Xbox Wireless Controller</h3>
+        <div class="price">R$ 341,91 <small>PIX · R$ 379,90 картой</small></div>
+        <div class="chips"><span class="chip ok">Windows ✓</span><span class="chip ok">Mac/iOS ✓</span><span class="chip ok">Android ✓</span><span class="chip no">Гироскоп нет</span></div>
+        <ul><li>Самая беспроблемная совместимость</li><li>Питание от батареек AA</li><li>Стики-потенциометры, риск дрифта</li><li>Для стратегий слабоват: нет гироскопа и тачпада</li></ul>
+        <div class="buy"><a class="btn" href="https://www.kabum.com.br/produto/1006948">KaBuM (продавец Magalu)</a></div>
+      </div>
+    </article>
+
+    <article class="card prod reveal">
+      <div class="ph"><img loading="lazy" src="https://images.kabum.com.br/produtos/fotos/1032835/controle-sem-fio-sony-dualsense-playstation-5-bluetooth-midnight-black-cfi-zct2w_1780665845_original.jpg" alt="Sony DualSense, чёрный"></div>
+      <div class="body">
+        <h3>Sony DualSense</h3>
+        <div class="price">R$ 379 <small>Fast Shop · KaBuM от R$ 464 PIX</small></div>
+        <div class="chips"><span class="chip mid">Windows: через Steam</span><span class="chip ok">Mac/iOS ✓</span><span class="chip ok">Гироскоп + тачпад</span></div>
+        <ul><li>Для Windows это не XInput: игры вне Steam часто не видят его без DS4Windows</li><li>Адаптивные курки и хаптика только в играх с поддержкой и практически только по кабелю</li><li>Через Steam Input тачпад и гироскоп становятся мышью, это полезно в стратегиях</li></ul>
+        <div class="buy"><a class="btn" href="https://site.fastshop.com.br/controle-sem-fio-dualsense-ps5-starlight-blue-185913/p">Fast Shop</a><a class="btn ghost" href="https://www.kabum.com.br/produto/1032835">KaBuM</a></div>
+      </div>
+    </article>
+
+    <article class="card prod reveal">
+      <div class="ph"><img loading="lazy" src="https://images.kabum.com.br/produtos/fotos/911322/controle-wireless-8bitdo-ultimate-2-efeito-hall-2-4g-com-dock-p-pc-e-android-preto-81he02_1756131453_original.jpg" alt="8BitDo Ultimate 2 Wireless с док-станцией"></div>
+      <div class="body">
+        <h3>8BitDo Ultimate 2 Wireless (2.4G)</h3>
+        <div class="price">R$ 359,99 <small>PIX · R$ 399,99 картой</small></div>
+        <div class="chips"><span class="chip ok">Windows ✓</span><span class="chip mid">Mac/iOS 26+</span><span class="chip ok">Android ✓</span><span class="chip ok">Стики TMR</span></div>
+        <ul><li>Как Xbox на Windows, но со стиками без дрифта, задними кнопками и док-станцией</li><li>Гироскоп работает только через донгл 2.4G</li><li>Не путать с версией «Bluetooth»: та заточена под Switch и Windows, Mac не заявлен</li></ul>
+        <div class="buy"><a class="btn" href="https://www.kabum.com.br/produto/911322">KaBuM</a><a class="btn ghost" href="https://www.8bitdo.com/ultimate-2-wireless-controller/">Офсайт</a></div>
+      </div>
+    </article>
+
+    <article class="card prod reveal">
+      <div class="ph"><img loading="lazy" src="https://images.kabum.com.br/produtos/fotos/401293/controle-sem-fio-ps5-sony-dualsense-edge-preto-e-branco-cfi-zcp1wy_1669384364_original.jpg" alt="Sony DualSense Edge"></div>
+      <div class="body">
+        <h3>Sony DualSense Edge</h3>
+        <div class="price">R$ 1 394,07 <small>PIX · R$ 1 499 картой</small></div>
+        <div class="chips"><span class="chip mid">Windows: через Steam</span><span class="chip ok">Mac/iOS ✓</span><span class="chip ok">Гироскоп + тачпад</span></div>
+        <ul><li>DualSense с задними кнопками, профилями и сменными модулями стиков</li><li>Совместимость та же, что у обычного DualSense</li><li>В Fast Shop страница есть, но, похоже, нет в наличии</li></ul>
+        <div class="buy"><a class="btn" href="https://www.kabum.com.br/produto/401293">KaBuM</a></div>
+      </div>
+    </article>
+
+    <article class="card prod reveal">
+      <div class="ph"><img loading="lazy" src="https://upload.wikimedia.org/wikipedia/commons/c/c5/Xbox_One_Elite_Wireless_Controller_Series_2_%28Model_1797%29.jpg" alt="Xbox Elite Wireless Controller Series 2"></div>
+      <div class="body">
+        <h3>Xbox Elite Series 2</h3>
+        <div class="price">R$ 1 851 <small>Core, сторонний продавец, наценка</small></div>
+        <div class="chips"><span class="chip ok">Windows ✓</span><span class="chip ok">Mac/iOS ✓</span><span class="chip no">Гироскоп нет</span></div>
+        <ul><li>Совместимость как у обычного Xbox, плюс 4 задних лепестка, регулировка жёсткости стиков, встроенный аккумулятор</li><li><b>Не торопиться:</b> есть утечки о Elite Series 3, анонс ждут к 15.11.2026. Официально его пока не объявляли</li></ul>
+        <div class="buy"><a class="btn" href="https://www.kabum.com.br/produto/476390">KaBuM</a><a class="btn ghost" href="https://www.amazon.com.br/Controle-Xbox-Elite-Core-Branco/dp/B0B789CGGQ">Amazon BR</a></div>
+      </div>
+    </article>
+
+    <article class="card prod reveal">
+      <div class="ph"><img loading="lazy" src="https://images.kabum.com.br/produtos/fotos/sync_mirakl/949404/xlarge/Controle-Gamesir-G7-Pro-XBOX-PC-Android-Preto_1784839118.jpg" alt="GameSir G7 Pro"></div>
+      <div class="body">
+        <h3>GameSir G7 Pro</h3>
+        <div class="price">R$ 660 <small>PIX · R$ 750 картой, продавец J&amp;J</small></div>
+        <div class="chips"><span class="chip ok">Windows ✓</span><span class="chip no">Mac/iOS не заявлен</span><span class="chip mid">Гироскоп только ПК</span></div>
+        <ul><li>Официальная Xbox-лицензия, поэтому на Windows работает как Xbox</li><li>Стики TMR, задние кнопки</li><li>Гироскоп только через фирменный маппинг</li></ul>
+        <div class="buy"><a class="btn" href="https://www.kabum.com.br/produto/949404">KaBuM</a></div>
+      </div>
+    </article>
+
+    <article class="card prod reveal">
+      <div class="ph"><img loading="lazy" src="https://images.kabum.com.br/produtos/fotos/sync_mirakl/1043274/xlarge/Controle-Sem-Fio-Gamesir-Super-Nova-T4n-Pro-Com-Base-De-Carga-Azul_1779994421.webp" alt="GameSir Super Nova с базой"></div>
+      <div class="body">
+        <h3>GameSir Super Nova</h3>
+        <div class="price">R$ 379,99 <small>продавец J&amp;J</small></div>
+        <div class="chips"><span class="chip ok">Windows ✓</span><span class="chip mid">iOS заявлен, Mac нет</span><span class="chip ok">Гироскоп</span></div>
+        <ul><li>Стики на эффекте Холла, гироскоп, 2 задние кнопки, док в комплекте</li><li>Бюджетный вариант со стиками без дрифта</li></ul>
+        <div class="buy"><a class="btn" href="https://www.kabum.com.br/produto/1043274">KaBuM</a></div>
+      </div>
+    </article>
+
+    <article class="card prod reveal">
+      <div class="ph"><img loading="lazy" src="https://images.kabum.com.br/produtos/fotos/sync_mirakl/1066439/xlarge/Controle-Sem-Fio-Gamesir-Cyclone-2-Com-Base-De-Carregamento-Hall-Effect-Tmr-RGB-Para-PC-Switch-Ios-E-Android-Preto_1787236416.jpg" alt="GameSir Cyclone 2 с зарядной базой"></div>
+      <div class="body">
+        <h3>GameSir Cyclone 2</h3>
+        <div class="price">R$ 475,29 <small>PIX · R$ 489,99 картой</small></div>
+        <div class="chips"><span class="chip ok">Windows ✓</span><span class="chip mid">iOS заявлен, Mac нет</span><span class="chip ok">Гироскоп</span></div>
+        <ul><li>Стики TMR, задние кнопки, зарядная база</li><li>Гироскоп по описанию рассчитан в первую очередь на Switch</li></ul>
+        <div class="buy"><a class="btn" href="https://www.kabum.com.br/produto/1066439">KaBuM</a></div>
+      </div>
+    </article>
+
+    <article class="card prod reveal">
+      <div class="ph"><img loading="lazy" src="https://images.kabum.com.br/produtos/fotos/779792/controle-nintendo-pro-para-nintendo-switch-2-preto-e-branco_1745849254_original.jpg" alt="Nintendo Switch 2 Pro Controller"></div>
+      <div class="body">
+        <h3>Switch 2 Pro Controller</h3>
+        <div class="price">R$ 599,90 <small>KaBuM и Fast Shop</small></div>
+        <div class="chips"><span class="chip no">ПК: только USB + Steam</span><span class="chip no">Mac нет</span><span class="chip ok">Гироскоп</span></div>
+        <ul><li>Худший вариант по критерию «без возни»: на ПК работает только по кабелю через Steam, на Mac только сторонними утилитами</li><li>Брать, только если основная платформа — Switch 2</li></ul>
+        <div class="buy"><a class="btn" href="https://site.fastshop.com.br/controle-nintendo-switch-2-pro-controller-preto-187337/p">Fast Shop</a></div>
+      </div>
+    </article>
+
+    <article class="card prod reveal">
+      <div class="ph"><img loading="lazy" src="https://www.maxgaming.com/bilder/artiklar/34367.jpg?m=1741344806" alt="Flydigi Vader 4 Pro"></div>
+      <div class="body">
+        <h3>Flydigi Vader 4 Pro / 5 Pro</h3>
+        <div class="price">цена в BRL не проверена <small>Mercado Livre требует логин</small></div>
+        <div class="chips"><span class="chip ok">Windows ✓</span><span class="chip no">macOS нет</span><span class="chip ok">Гироскоп</span></div>
+        <ul><li>Энтузиастская модель: регулировка стиков, переключаемые курки, 4 задние кнопки (у 5 Pro)</li><li>В официальном магазине Flydigi сейчас продаются только Vader 5 Pro / 5S</li><li>В магазинах Рио, скорее всего, не найти</li></ul>
+        <div class="buy"><a class="btn" href="https://www.mercadolivre.com.br/controle-flydigi-vader-4-pro-sfio-pc-switch-android-ios-cor-preto/p/MLB41197271">Mercado Livre</a><a class="btn ghost" href="https://www.amazon.com.br/Flydigi-Controller-Force-Adjustable-Knob-Adjusted-Multi-Connection/dp/B0DBG3M7LX">Amazon BR</a></div>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<section aria-labelledby="steam">
+  <h2 id="steam">Steam Controller и стратегии</h2>
+  <div class="card steam reveal">
+    <img loading="lazy" src="https://clan.akamai.steamstatic.com/images/45479024/f32de91a43a351c831d1fad012ce22fad0889470.jpg" alt="Steam Controller 2026 от Valve, вид спереди: два трекпада и два стика">
+    <div>
+      <p><b>Правда в том, что в стратегии на нём играют.</b> Трекпады работают как мышь, раскладки настраиваются под каждую игру, сообщество выкладывает готовые. Обозреватели пишут, что связка «трекпад + гироскоп» заменяет мышь в RTS и CRPG (<a href="https://gizmodo.com/steam-controller-review-trackpads-change-everything-for-pc-gaming-2000751120">Gizmodo</a>).</p>
+      <ul class="list" style="margin:12px 0">
+        <li>Вышел 4 мая 2026, $99. Стики TMR, 2 трекпада, гироскоп, 4 задние кнопки, 35+ ч от батареи, 292 г</li>
+        <li><b>Без Steam геймпадом не считается:</b> система видит его как мышь и клавиатуру. Game Pass и Microsoft Store с ним не работают</li>
+        <li>Mac поддерживается, но тоже только через Steam</li>
+        <li><b>В Бразилии официально не продаётся:</b> Steam пишет «indisponível na sua região» (<a href="https://www.gameblast.com.br/2026/04/steam-controller-sera-lancado-dia-4-de-maio.html">GameBlast</a>). На Mercado Livre объявления от R$ 1 200 до R$ 4 350; это сниппеты поиска, модель и наличие не проверены</li>
+        <li>Минусы по обзорам: квадратная форма, 292 г, обычные курки без адаптивности, капризный Bluetooth (<a href="https://www.theshortcut.com/p/steam-controller-review-roundup">сводка обзоров</a>)</li>
+      </ul>
+      <p class="note">Итог: если играешь в основном в Steam и любишь стратегии, вещь уникальная. Если нужен «один геймпад на всё», это не он. Подержать перед покупкой в Рио, скорее всего, не получится, поэтому эргономику придётся оценивать по обзорам.</p>
+    </div>
+  </div>
+</section>
+
+<section aria-labelledby="matrix">
+  <h2 id="matrix">Совместимость одним взглядом</h2>
+  <p class="sub">«Через Steam» значит работает в играх, запущенных из Steam. Вне Steam может понадобиться стороннее ПО.</p>
+  <div class="table-wrap reveal">
+    <table>
+      <thead><tr><th>Модель</th><th>Windows вне Steam</th><th>Steam</th><th>Mac / iPhone</th><th>Android</th><th>Гироскоп</th><th>Стики</th></tr></thead>
+      <tbody>
+        <tr><td>Xbox Wireless</td><td>✓ нативно</td><td>✓</td><td>✓ официально</td><td>✓</td><td>—</td><td>потенциометры</td></tr>
+        <tr><td>Xbox Elite 2</td><td>✓ нативно</td><td>✓</td><td>✓ официально</td><td>✓</td><td>—</td><td>потенциометры, регулируемые</td></tr>
+        <tr><td>DualSense / Edge</td><td>частично</td><td>✓ всё работает</td><td>✓ официально</td><td>✓</td><td>✓</td><td>потенциометры (у Edge сменные)</td></tr>
+        <tr><td>8BitDo Ultimate 2 Wireless</td><td>✓ XInput</td><td>✓</td><td>с iOS/macOS 26</td><td>✓ (13+)</td><td>только донгл</td><td>TMR</td></tr>
+        <tr><td>GameSir G7 Pro</td><td>✓ Xbox-лицензия</td><td>✓</td><td>не заявлен</td><td>✓</td><td>только ПК</td><td>TMR</td></tr>
+        <tr><td>GameSir Super Nova / Cyclone 2</td><td>✓</td><td>✓</td><td>iOS заявлен</td><td>✓</td><td>✓</td><td>Холл / TMR</td></tr>
+        <tr><td>Switch 2 Pro</td><td>—</td><td>только USB</td><td>—</td><td>не проверено</td><td>✓</td><td>не проверено</td></tr>
+        <tr><td>Flydigi Vader 4/5 Pro</td><td>✓</td><td>✓</td><td>macOS нет, iOS у 5 Pro</td><td>✓</td><td>✓</td><td>Холл</td></tr>
+        <tr><td>Steam Controller</td><td>— (только мышь)</td><td>✓ лучший для мыши</td><td>только через Steam</td><td>только Steam Link</td><td>✓</td><td>TMR</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section aria-labelledby="test">
+  <h2 id="test">Что проверить, когда держишь в руках</h2>
+  <div class="grid g2">
+    <div class="card reveal">
+      <h3>Хват и вес</h3>
+      <ul class="list check" style="margin-top:10px">
+        <li>Держишь 2–3 минуты в игровой позе: не затекает ли мизинец, не давят ли края рукояток</li>
+        <li>Достаёт ли большой палец до крестовины и правых кнопок без перехвата</li>
+        <li>Тяжёлые модели (Elite, Edge, Steam Controller около 290 г) после часа игры ощущаются иначе, чем в магазине</li>
+      </ul>
+    </div>
+    <div class="card reveal">
+      <h3>Органы управления</h3>
+      <ul class="list check" style="margin-top:10px">
+        <li>Стики: ход, натяжение, возврат в центр, не слишком ли выпуклая/вогнутая шапка</li>
+        <li>Задние кнопки: нажимаются ли случайно при обычном хвате</li>
+        <li>Курки: длина хода. Для шутеров ищи переключатель на короткий ход</li>
+        <li>Крестовина: чёткие ли диагонали (важно для файтингов и платформеров)</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section aria-labelledby="where">
+  <h2 id="where">Где подержать в Рио</h2>
+  <p class="sub">Подтверждений, что где-то лежат открытые демо-образцы, найти не удалось. Перед походом лучше написать в WhatsApp и спросить, дадут ли подержать нужную модель.</p>
+  <div class="grid g3">
+    <div class="card shop reveal">
+      <h3>B&amp;B Games, BarraShopping</h3>
+      <p>Av. das Américas, 4666, loja 245 · пн–сб 10–22, вс 13–21 · WhatsApp (21) 97194-6669. В ассортименте DualSense Edge и Elite 2. Есть <a href="https://www.reclameaqui.com.br/beb-games/xbox-series-s-com-drift-no-controle-e-recusa-de-teste-na-loja_nhp4Xqp8qbH_xYMS/">жалоба</a>, что покупателю отказали в тесте, так что договариваться заранее. <a href="https://bebgames.com.br/lojas/loja-barra-da-tijuca/">Сайт</a></p>
+    </div>
+    <div class="card shop reveal">
+      <h3>Kris Games</h3>
+      <p>Centro и Shopping Nova America · пн–сб 10–20 · WhatsApp (21) 96570-4886. Продают «produto de vitrine», то есть витринные экземпляры бывают. Улицу в Centro сайт не указывает. <a href="https://www.krisgamesvirtual.com/">Сайт</a></p>
+    </div>
+    <div class="card shop reveal">
+      <h3>Fast Shop</h3>
+      <p>BarraShopping, Shopping Leblon, RioSul (3º piso, loja 301), Shopping Tijuca, NorteShopping. Есть DualSense и Switch 2 Pro. Выставлены ли открытые образцы, неизвестно: лучше позвонить. Адреса взяты из агрегаторов, официальный список не открылся.</p>
+    </div>
+  </div>
+  <p class="note" style="margin-top:16px">Не найдено: фирменных стендов PlayStation/Xbox в Рио, шоурумов 8BitDo, GameSir и Flydigi. Saraiva закрыла все физические магазины. Стенды Game Place из старых списков (2012) могли не сохраниться.</p>
+</section>
+
+<section aria-labelledby="plan">
+  <h2 id="plan">Мой совет на поход</h2>
+  <div class="card reveal">
+    <ol class="list">
+      <li>Сначала определиться с платформой. Если основная — Windows вне Steam (Game Pass, Epic, пиратка), бери Xbox-совместимый геймпад. Если Mac или iPhone — Xbox или DualSense.</li>
+      <li>В магазине сравнить в руках <b>Xbox Wireless</b> и <b>DualSense</b>: это две базовые формы, остальные модели — их вариации. Xbox-форма — у 8BitDo и GameSir, DualSense-форма — у Edge.</li>
+      <li>Если понравилась Xbox-форма и играешь на Windows, посмотреть <b>8BitDo Ultimate 2 Wireless</b>: та же совместимость, стики без дрифта, гироскоп и задние кнопки за те же деньги.</li>
+      <li>Для стратегий в Steam: DualSense с тачпадом как мышью доступен здесь и сейчас. Steam Controller — только через импорт, без примерки.</li>
+      <li>Если хочешь Elite: подожди до середины ноября, возможен анонс Series 3.</li>
+    </ol>
+  </div>
+</section>
+
+<footer>
+  <p><b>Как проверялось.</b> Цены: KaBuM (JSON страниц поиска) и каталог Fast Shop, 06.11.2026. Amazon BR, Mercado Livre и Magalu заблокировали автоматическую проверку, их цены не указаны или помечены как непроверенные. Цены в USD — рекомендованные цены в США. Фото: сайты магазинов, Valve, Wikimedia Commons, MaxGaming; каждая ссылка проверена (HTTP 200).</p>
+  <p style="margin-top:12px"><b>Источники</b></p>
+  <ol>
+    <li><a href="https://en.wikipedia.org/wiki/Steam_Controller_(2026)">Wikipedia: Steam Controller (2026)</a>, <a href="https://store.steampowered.com/hardware/steamcontroller">страница Valve</a></li>
+    <li><a href="https://www.xda-developers.com/the-steam-controller-has-one-kryptonite-and-it-caused-me-to-swap-controllers/">XDA: Steam Controller вне Steam</a></li>
+    <li><a href="https://support.apple.com/en-us/111101">Apple: Xbox-геймпады</a>, <a href="https://support.apple.com/en-us/111100">Apple: PlayStation-геймпады</a></li>
+    <li><a href="https://www.8bitdo.com/ultimate-2-wireless-controller/">8BitDo Ultimate 2 Wireless</a>, <a href="https://www.8bitdo.com/ultimate-2-bluetooth-controller/">Ultimate 2 Bluetooth</a></li>
+    <li><a href="https://gamesir.com/resources/blog/gamesir-g7-pro-pro-by-nature-performance-reimagined">GameSir G7 Pro</a>, <a href="https://gamesir.com/products/gamesir-cyclone2-black">Cyclone 2</a></li>
+    <li><a href="https://www.techradar.com/gaming/the-nintendo-switch-2-pro-controller-is-now-supported-on-steam">TechRadar: Switch 2 Pro в Steam</a></li>
+    <li><a href="https://www.techradar.com/gaming/two-new-xbox-controllers-have-leaked-online-an-xbox-elite-series-3-with-a-removable-battery-and-an-odd-looking-cloud-controller">TechRadar: утечка Elite Series 3</a></li>
+    <li><a href="https://gamepadla.com/flydigi-vader-5-pro.html">Gamepadla: Flydigi Vader 5 Pro</a></li>
+  </ol>
+</footer>
+
+</div>
+<script type="module">
+  // Контент видим по умолчанию; анимация лишь мягко проявляет уже видимые блоки
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!reduce) {
+    try {
+      const { animate, inView, stagger } = await import('https://cdn.jsdelivr.net/npm/motion@11/+esm');
+      inView('.reveal-group', (g) => {
+        animate(g.querySelectorAll('.reveal'), { opacity: [0.001, 1], y: [16, 0] }, { duration: 0.5, delay: stagger(0.05), easing: [0.22, 1, 0.36, 1] });
+      }, { amount: 0.1 });
+      document.querySelectorAll('.reveal').forEach((el) => {
+        if (el.closest('.reveal-group')) return;
+        inView(el, () => { animate(el, { opacity: [0.001, 1], y: [16, 0] }, { duration: 0.5, easing: [0.22, 1, 0.36, 1] }); }, { amount: 0.15 });
+      });
+    } catch (e) { /* без анимаций страница остаётся полностью видимой */ }
+  }
+</script>
+</body>
+</html>
