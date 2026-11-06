@@ -7116,7 +7116,7 @@
   "id": 326,
   "pt": "marcar",
   "en": "to arrange, to mark",
-  "ru": "назначать (встречу); отмечать",
+  "ru": "назначать (встречу), записываться; отмечать",
   "pos": "verbs",
   "examples": [],
   "imgQuery": "an online booking screen showing a grid of time slots with one slot highlighted as chosen, an appointment being set",
@@ -15130,5 +15130,535 @@
    "extra13"
   ],
   "note": "слово saúde само по себе — «здоровье»"
+ },
+ {
+  "id": 743,
+  "pt": "suéter",
+  "en": "sweater",
+  "ru": "свитер",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "a thick cable-knit wool sweater hanging alone on a wooden hanger against a plain wall, nothing else in frame",
+  "image": null,
+  "credit": null,
+  "sources": [
+   "extra14"
+  ]
+ },
+ {
+  "id": 744,
+  "pt": "tio",
+  "en": "uncle",
+  "ru": "дядя",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "a cheerful man in his thirties with his arm round his young nephew's shoulders at a family barbecue, both grinning, the boy's parents tending the grill in the background",
+  "image": null,
+  "credit": null,
+  "sources": [
+   "extra14"
+  ]
+ },
+ {
+  "id": 745,
+  "pt": "carteira",
+  "en": "wallet; ID card",
+  "ru": "кошелёк, бумажник; удостоверение",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "an open brown leather wallet lying alone on a plain white surface, cards and banknotes tucked inside, product shot from above",
+  "image": null,
+  "credit": null,
+  "sources": [
+   "extra14"
+  ],
+  "note": "carteira de motorista — водительские права"
+ },
+ {
+  "id": 746,
+  "pt": "mala",
+  "en": "suitcase",
+  "ru": "чемодан",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "an open suitcase lying on a bed, half packed with folded clothes, seen from above",
+  "image": null,
+  "credit": null,
+  "sources": [
+   "extra14"
+  ]
+ },
+ {
+  "id": 747,
+  "pt": "vestido",
+  "en": "dress",
+  "ru": "платье",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "a flowing summer dress displayed alone on a tailor's dummy in an empty fitting room",
+  "image": null,
+  "credit": null,
+  "sources": [
+   "extra14"
+  ]
+ },
+ {
+  "id": 748,
+  "pt": "pesos",
+  "en": "weights",
+  "ru": "гири, гантели; веса",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "a gym rack holding a neat row of dumbbells increasing in size from left to right",
+  "image": null,
+  "credit": null,
+  "sources": [
+   "extra14"
+  ]
+ },
+ {
+  "id": 749,
+  "pt": "esqui",
+  "en": "ski, skiing",
+  "ru": "лыжи; лыжный спорт",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "a skier carving down a steep snowy slope throwing up a spray of powder snow, mountains behind",
+  "image": null,
+  "credit": null,
+  "sources": [
+   "extra14"
+  ],
+  "fix": "Esquio → esqui"
+ },
+ {
+  "id": 750,
+  "pt": "piscina",
+  "en": "swimming pool",
+  "ru": "бассейн",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "an empty outdoor swimming pool with still turquoise water and lane ropes, nobody in it, bright sun",
+  "image": null,
+  "credit": null,
+  "sources": [
+   "extra14"
+  ]
+ },
+ {
+  "id": 751,
+  "pt": "vôlei",
+  "en": "volleyball",
+  "ru": "волейбол",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "a beach volleyball player leaping high at the net to spike the ball on a sandy court",
+  "image": null,
+  "credit": null,
+  "sources": [
+   "extra14"
+  ]
+ },
+ {
+  "id": 752,
+  "pt": "descanso",
+  "en": "rest, break",
+  "ru": "отдых, перерыв",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "a construction worker sitting on a stack of bricks during a break, helmet off beside him, eyes closed, a flask in hand",
+  "image": null,
+  "credit": null,
+  "sources": [
+   "extra14"
+  ]
+ },
+ {
+  "id": 753,
+  "pt": "prato",
+  "en": "plate; dish",
+  "ru": "тарелка; блюдо",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "one single empty white dinner plate seen from directly above on a dark wooden table, nothing on it",
+  "image": null,
+  "credit": null,
+  "sources": [
+   "extra14"
+  ]
+ },
+ {
+  "id": 754,
+  "pt": "vizinho",
+  "en": "neighbour",
+  "ru": "сосед",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "two neighbours chatting over a low garden fence between their two front yards, each standing on their own side",
+  "image": null,
+  "credit": null,
+  "sources": [
+   "extra14"
+  ]
+ },
+ {
+  "id": 755,
+  "pt": "inverno",
+  "en": "winter",
+  "ru": "зима",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "a snowy pine forest with branches heavy under fresh snow while snowflakes keep falling",
+  "image": null,
+  "credit": null,
+  "sources": [
+   "extra14"
+  ]
+ },
+ {
+  "id": 756,
+  "pt": "podcast",
+  "en": "podcast",
+  "ru": "подкаст",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "two hosts in headphones talking into microphones on boom arms across a small table in a cosy podcast studio",
+  "image": null,
+  "credit": null,
+  "sources": [
+   "extra14"
+  ]
+ },
+ {
+  "id": 757,
+  "pt": "avô",
+  "en": "grandfather",
+  "ru": "дедушка",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "an old grey-haired man holding the hand of his small grandson as they walk away along a country lane, seen from behind, one tall and one tiny figure",
+  "image": null,
+  "credit": null,
+  "sources": [
+   "extra14"
+  ]
+ },
+ {
+  "id": 758,
+  "pt": "avó",
+  "en": "grandmother",
+  "ru": "бабушка",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "three generations of women side by side, a little girl, her mother and the white-haired grandmother in the centre and in focus",
+  "image": null,
+  "credit": null,
+  "sources": [
+   "extra14"
+  ]
+ },
+ {
+  "id": 759,
+  "pt": "literatura",
+  "en": "literature",
+  "ru": "литература",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "an old open book of poetry on a desk beside a quill pen and an inkwell, warm lamplight",
+  "image": null,
+  "credit": null,
+  "sources": [
+   "extra14"
+  ]
+ },
+ {
+  "id": 760,
+  "pt": "exercício",
+  "en": "exercise",
+  "ru": "упражнение; зарядка",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "a person doing push-ups on a yoga mat in a bright room, arms bent mid-repetition",
+  "image": null,
+  "credit": null,
+  "sources": [
+   "extra14"
+  ]
+ },
+ {
+  "id": 761,
+  "pt": "diretora",
+  "en": "headmistress, director",
+  "ru": "директор (женщина), директриса",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "a woman in a formal suit sitting behind a large desk in a school principal's office, framed certificates on the wall",
+  "image": null,
+  "credit": null,
+  "sources": [
+   "extra14"
+  ]
+ },
+ {
+  "id": 762,
+  "pt": "biblioteca",
+  "en": "library",
+  "ru": "библиотека",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "a grand library reading room with tall wooden bookshelves full of books and long reading tables with green lamps",
+  "image": null,
+  "credit": null,
+  "sources": [
+   "extra14"
+  ]
+ },
+ {
+  "id": 763,
+  "pt": "matemática",
+  "en": "mathematics",
+  "ru": "математика",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "a compass, protractor, ruler and calculator laid out on an open squared exercise book, top view",
+  "image": null,
+  "credit": null,
+  "sources": [
+   "extra14"
+  ]
+ },
+ {
+  "id": 764,
+  "pt": "descarga",
+  "en": "flush; unloading",
+  "ru": "смыв (в туалете); разгрузка",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "a finger pressing the flush button on top of a white toilet cistern, close-up",
+  "image": null,
+  "credit": null,
+  "sources": [
+   "extra14"
+  ],
+  "note": "dar descarga — смыть воду",
+  "fix": "Descar → descarga"
+ },
+ {
+  "id": 765,
+  "pt": "torneira",
+  "en": "tap, faucet",
+  "ru": "кран (водопроводный)",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "a single chrome kitchen tap with a clear stream of water running from it, close-up against a plain background",
+  "image": null,
+  "credit": null,
+  "sources": [
+   "extra14"
+  ]
+ },
+ {
+  "id": 766,
+  "pt": "dirige",
+  "en": "drives",
+  "ru": "ведёт (машину), водит; руководит",
+  "pos": "verbs",
+  "examples": [],
+  "imgQuery": "a close-up of two hands on a steering wheel turning it, the dashboard in front",
+  "image": null,
+  "credit": null,
+  "sources": [
+   "extra14"
+  ],
+  "note": "от dirigir"
+ },
+ {
+  "id": 767,
+  "pt": "custa",
+  "en": "it costs",
+  "ru": "стоит (о цене)",
+  "pos": "verbs",
+  "examples": [],
+  "imgQuery": "a shopper turning over the price tag on a pair of shoes in a shop and looking at it with raised eyebrows",
+  "image": null,
+  "credit": null,
+  "sources": [
+   "extra14"
+  ],
+  "note": "от custar: quanto custa? — сколько стоит?"
+ },
+ {
+  "id": 768,
+  "pt": "nadar",
+  "en": "to swim",
+  "ru": "плавать",
+  "pos": "verbs",
+  "examples": [],
+  "imgQuery": "a swimmer doing front crawl in open sea water, one arm sweeping forward, splash and spray around",
+  "image": null,
+  "credit": null,
+  "sources": [
+   "extra14"
+  ],
+  "fix": "Nada → nadar (nada — «ничего»; «он плавает» тоже nada)"
+ },
+ {
+  "id": 769,
+  "pt": "caminhar",
+  "en": "to walk",
+  "ru": "ходить пешком, гулять",
+  "pos": "verbs",
+  "examples": [],
+  "imgQuery": "an elderly couple walking side by side along a wavy-patterned seaside promenade in the morning",
+  "image": null,
+  "credit": null,
+  "sources": [
+   "extra14"
+  ]
+ },
+ {
+  "id": 770,
+  "pt": "ensina",
+  "en": "teaches",
+  "ru": "учит, обучает (он, она, вы)",
+  "pos": "verbs",
+  "examples": [],
+  "imgQuery": "a music teacher guiding a child's fingers on piano keys during a lesson",
+  "image": null,
+  "credit": null,
+  "sources": [
+   "extra14"
+  ],
+  "note": "от ensinar"
+ },
+ {
+  "id": 771,
+  "pt": "olha",
+  "en": "look!",
+  "ru": "смотри!; он смотрит",
+  "pos": "verbs",
+  "examples": [],
+  "imgQuery": "a child tugging an adult's sleeve and pointing excitedly up at a rainbow, the adult just turning to look",
+  "image": null,
+  "credit": null,
+  "sources": [
+   "extra14"
+  ],
+  "note": "от olhar"
+ },
+ {
+  "id": 772,
+  "pt": "reviso",
+  "en": "I review",
+  "ru": "(я) повторяю, проверяю (от revisar)",
+  "pos": "verbs",
+  "examples": [],
+  "imgQuery": "a student highlighting lines in their notes with a yellow marker before an exam, close-up on the page and pen",
+  "image": null,
+  "credit": null,
+  "sources": [
+   "extra14"
+  ]
+ },
+ {
+  "id": 773,
+  "pt": "tímido",
+  "en": "shy",
+  "ru": "застенчивый, робкий",
+  "pos": "adjectives",
+  "examples": [],
+  "imgQuery": "a shy small child hiding behind their mother's leg and peeking out at the camera",
+  "image": null,
+  "credit": null,
+  "sources": [
+   "extra14"
+  ],
+  "fix": "Timido → tímido"
+ },
+ {
+  "id": 774,
+  "pt": "quebrada",
+  "en": "broken",
+  "ru": "сломанная, разбитая",
+  "pos": "adjectives",
+  "examples": [],
+  "imgQuery": "a ceramic mug smashed into pieces on a tiled kitchen floor, the handle broken off and lying apart",
+  "image": null,
+  "credit": null,
+  "sources": [
+   "extra14"
+  ]
+ },
+ {
+  "id": 775,
+  "pt": "nosso",
+  "en": "our",
+  "ru": "наш",
+  "pos": "adjectives",
+  "examples": [],
+  "imgQuery": "a family of four standing together on the doorstep of their own house, the parents holding the children, all smiling proudly",
+  "image": null,
+  "credit": null,
+  "sources": [
+   "extra14"
+  ]
+ },
+ {
+  "id": 776,
+  "pt": "preguiçoso",
+  "en": "lazy",
+  "ru": "ленивый",
+  "pos": "adjectives",
+  "examples": [],
+  "imgQuery": "a man slumped sideways on a sofa with a TV remote, surrounded by a pile of unwashed dishes and laundry he has not touched",
+  "image": null,
+  "credit": null,
+  "sources": [
+   "extra14"
+  ]
+ },
+ {
+  "id": 777,
+  "pt": "chato",
+  "en": "boring, annoying",
+  "ru": "скучный, занудный",
+  "pos": "adjectives",
+  "examples": [],
+  "imgQuery": "a man yawning wide open-mouthed at a dull office meeting while colleagues stare blankly at a slide",
+  "image": null,
+  "credit": null,
+  "sources": [
+   "extra14"
+  ],
+  "fix": "Boring — chato: перевод перевёрнут"
+ },
+ {
+  "id": 778,
+  "pt": "mal",
+  "en": "badly, unwell",
+  "ru": "плохо",
+  "pos": "adverbs",
+  "examples": [],
+  "imgQuery": "a pale person lying in bed under a blanket with a thermometer in their mouth, looking unwell",
+  "image": null,
+  "credit": null,
+  "sources": [
+   "extra14"
+  ],
+  "note": "estou mal — мне плохо"
+ },
+ {
+  "id": 779,
+  "pt": "isso mesmo",
+  "en": "exactly, that's right",
+  "ru": "именно так, точно",
+  "pos": "phrases",
+  "examples": [],
+  "imgQuery": "two people giving each other an enthusiastic high five, hands meeting in mid-air, close-up",
+  "image": null,
+  "credit": null,
+  "sources": [
+   "extra14"
+  ]
  }
 ]
