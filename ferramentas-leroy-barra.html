@@ -85,6 +85,8 @@ nav.toc a:hover{border-color:var(--blue);color:var(--blue)}
 .got{border-top:none;padding-top:0;margin-top:0;color:var(--ink-2)}
 .pickl input,.got input{width:20px;height:20px;accent-color:var(--blue);cursor:pointer;margin:0}
 .got input{accent-color:var(--green)}
+.pickl[hidden]{display:none}
+.got{border-top:1px solid var(--line);padding-top:8px;margin-top:6px}
 :focus-visible{outline:3px solid rgba(0,113,227,.45);outline-offset:2px;border-radius:6px}
 
 .list{margin-top:34px}
@@ -115,7 +117,7 @@ footer{color:var(--ink-3);font-size:13.5px;padding:34px 0 10px;text-align:center
 <header class="hero">
   <div class="eyebrow reveal"><span class="dot"></span>Leroy Merlin · Rio Barra · цены на 06.11.2026</div>
   <h1 class="reveal">Базовый набор инструментов для дома</h1>
-  <p class="lede reveal">28 позиций (включая 2 варианта шуруповёрта) с реальными фото и ценами <b>региона Рио-де-Жанейро</b>. Всё продаёт сама Leroy Merlin, не сторонние продавцы маркетплейса, поэтому шансы найти товар на полке в Barra выше. Отмечай галочками, сумма внизу пересчитается.</p>
+  <p class="lede reveal">22 позиций с реальными фото и ценами <b>региона Рио-де-Жанейро</b>. Всё продаёт сама Leroy Merlin, не сторонние продавцы маркетплейса, поэтому шансы найти товар на полке в Barra выше. Покупаем всё из списка — отмечай «Купил» прямо в магазине.</p>
 </header>
 
 <div class="bento">
@@ -134,23 +136,18 @@ footer{color:var(--ink-3);font-size:13.5px;padding:34px 0 10px;text-align:center
       <a class="chip" href="tel:+552140205376"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>4020-5376</a>
     </div>
   </div>
-  <div class="tile t-sum reveal">
-    <h2>База</h2>
-    <div class="big">R$ 1.181,34</div>
-    <div class="sub">18 позиций, минимум для дома (с шуруповёртом Bosch)</div>
-  </div>
-  <div class="tile t-sum2 reveal">
-    <h2>Полный набор</h2>
-    <div class="big">R$ 1.504,11</div>
-    <div class="sub">27 позиций, база + «желательно». С Wap вместо Bosch на R$ 241,00 дешевле</div>
+  <div class="tile t-sum reveal" style="grid-column:span 6">
+    <h2>Итого за весь набор</h2>
+    <div class="big">R$ 1.368,43</div>
+    <div class="sub">22 позиций — покупаем всё</div>
   </div>
   <div class="tile t-note reveal">
     <h2>Важно перед поездкой</h2>
     <ul class="notes">
       <li><b>Цены — с сайта для региона Rio de Janeiro</b> на 06.11.2026 (оплата à vista / Pix). Leroy пишет, что в магазине цена и наличие могут отличаться.</li>
       <li><b>Наличие именно в Barra я проверить не смог</b>: остатки по магазинам сайт показывает только в браузере («Ver estoque nas lojas físicas» на карточке). Перед поездкой открой 2–3 ключевые позиции и проверь, или покажи продавцу коды из списка внизу.</li>
-      <li><b>Напряжение:</b> зарядки обоих шуруповёртов — bivolt, от розетки 127 В работают без трансформатора.</li>
-      <li>Почему ударный шуруповёрт с патроном 3/8": стены в Рио — кирпич и бетон, под дюбели нужен удар; а в патрон под шестигранник 1/4" обычные свёрла не встанут.</li>
+      <li><b>Напряжение:</b> зарядка шуруповёрта — bivolt, от розетки 127 В работают без трансформатора.</li>
+      <li>Шуруповёрт ударный с патроном 3/8": стены в Рио — кирпич и бетон, без удара их не просверлить.</li>
     </ul>
   </div>
 </div>
@@ -161,55 +158,40 @@ footer{color:var(--ink-3);font-size:13.5px;padding:34px 0 10px;text-align:center
 
 <main>
 <section class="grp" id="g-power"><h2 class="reveal">Электроинструмент</h2><div class="grid">
-<article class="card reveal" data-code="90525414" data-price="459.9" data-prio="drill">
+<article class="card reveal" data-code="90525414" data-price="459.9" data-prio="base">
   <div class="ph"><img src="https://cdn.leroymerlin.com.br/products/furadeira_e_parafusadeira_de_impacto_3_8_12v_gsb_120_li_bosch_90525414_33af_600x600.jpg" alt="Furadeira e Parafusadeira de Impacto Bosch GSB 120-LI a Bateria 12V 3/8&quot; com Bateria e Carregador" loading="lazy" width="600" height="600"></div>
   <div class="body">
-    <div class="tags"><span class="tag base">Выбери один</span><span class="code">Cód. 90525414</span></div>
+    <div class="tags"><span class="code">Cód. 90525414</span></div>
     <h3>Шуруповёрт-дрель Bosch GSB 120-LI, 12 В, ударный</h3>
     <p class="pt">Furadeira e Parafusadeira de Impacto Bosch GSB 120-LI a Bateria 12V 3/8&quot; com Bateria e Carregador</p>
-    <p class="why">Основной вариант. Ударный режим — сверлит кирпич и бетон под дюбели. Патрон 3/8&quot; под обычные свёрла, 30 Н·м, 1 аккумулятор, зарядка bivolt — работает от 127 В.</p>
+    <p class="why">Ударный режим — сверлит кирпич и бетон под дюбели. Патрон 3/8&quot; под обычные свёрла, 30 Н·м, 1 аккумулятор, зарядка bivolt — работает от 127 В.</p>
     <div class="row">
       <div class="price"><b>R$ 459,90</b></div>
       <a class="btn" href="https://www.leroymerlin.com.br/furadeira-e-parafusadeira-de-impacto-bosch-gsb-120-li-a-bateria-12v-3-8-com-bateria-e-carregador_90525414?region=rio_de_janeiro" target="_blank" rel="noopener">Открыть в Leroy</a>
     </div>
-    <label class="pickl"><input type="radio" name="drill" value="90525414" checked aria-label="Выбрать Шуруповёрт-дрель Bosch GSB 120-LI, 12 В, ударный"><span>Беру этот</span></label>
+    <label class="pickl" hidden><input type="checkbox" class="pick" checked aria-label="Включить в список: Шуруповёрт-дрель Bosch GSB 120-LI, 12 В, ударный"><span>В списке</span></label>
     <label class="got"><input type="checkbox" class="bought" aria-label="Купил: Шуруповёрт-дрель Bosch GSB 120-LI, 12 В, ударный"><span>Купил</span></label>
-  </div>
-</article>
-<article class="card reveal" data-code="92429330" data-price="218.9" data-prio="drill">
-  <div class="ph"><img src="https://cdn.leroymerlin.com.br/products/parafusadeira_furadeira_wap_a_bateria_21v_3_8_bivolt_k21_id01_92429330_fe18_600x600.jpg" alt="Furadeira e Parafusadeira de Impacto Wap K21 ID01 a Bateria 21V 3/8&quot; com Maleta, Carregador e Bateria" loading="lazy" width="600" height="600"></div>
-  <div class="body">
-    <div class="tags"><span class="tag base">Выбери один</span><span class="code">Cód. 92429330</span></div>
-    <h3>Шуруповёрт-дрель Wap K21 ID01, 21 В, ударный</h3>
-    <p class="pt">Furadeira e Parafusadeira de Impacto Wap K21 ID01 a Bateria 21V 3/8&quot; com Maleta, Carregador e Bateria</p>
-    <p class="why">Бюджетный вариант: в 2 раза дешевле Bosch, тоже с ударом и патроном 3/8&quot;, кейс, зарядка bivolt. Для редкого домашнего использования хватит.</p>
-    <div class="row">
-      <div class="price"><b>R$ 218,90</b><s>R$ 287,13</s></div>
-      <a class="btn" href="https://www.leroymerlin.com.br/furadeira-e-parafusadeira-de-impacto-wap-k21-id01-a-bateria-21v-3-8-com-maleta-carregador-e-bateria_92429330?region=rio_de_janeiro" target="_blank" rel="noopener">Открыть в Leroy</a>
-    </div>
-    <label class="pickl"><input type="radio" name="drill" value="92429330"  aria-label="Выбрать Шуруповёрт-дрель Wap K21 ID01, 21 В, ударный"><span>Беру этот</span></label>
-    <label class="got"><input type="checkbox" class="bought" aria-label="Купил: Шуруповёрт-дрель Wap K21 ID01, 21 В, ударный"><span>Купил</span></label>
   </div>
 </article>
 <article class="card reveal" data-code="89893853" data-price="85.9" data-prio="base">
   <div class="ph"><img src="https://cdn.leroymerlin.com.br/products/jogo_furar_e_parafusar_x_line_com_33_pecas_bosch_89893853_f22a_600x600.jpg" alt="Jogo de Brocas X-Line com 33 peças Bosch" loading="lazy" width="600" height="600"></div>
   <div class="body">
-    <div class="tags"><span class="tag base">База</span><span class="code">Cód. 89893853</span></div>
+    <div class="tags"><span class="code">Cód. 89893853</span></div>
     <h3>Набор свёрл и бит Bosch X-Line, 33 шт.</h3>
     <p class="pt">Jogo de Brocas X-Line com 33 peças Bosch</p>
-    <p class="why">Свёрла по бетону, металлу и дереву + биты для закручивания. Подходит к обоим шуруповёртам.</p>
+    <p class="why">Свёрла по бетону, металлу и дереву + биты для закручивания. Подходит к шуруповёрту Bosch из списка.</p>
     <div class="row">
       <div class="price"><b>R$ 85,90</b></div>
       <a class="btn" href="https://www.leroymerlin.com.br/jogo-de-brocas-x-line-com-33-pecas-bosch_89893853?region=rio_de_janeiro" target="_blank" rel="noopener">Открыть в Leroy</a>
     </div>
-    <label class="pickl"><input type="checkbox" class="pick" checked aria-label="Включить в список: Набор свёрл и бит Bosch X-Line, 33 шт."><span>В списке</span></label>
+    <label class="pickl" hidden><input type="checkbox" class="pick" checked aria-label="Включить в список: Набор свёрл и бит Bosch X-Line, 33 шт."><span>В списке</span></label>
     <label class="got"><input type="checkbox" class="bought" aria-label="Купил: Набор свёрл и бит Bosch X-Line, 33 шт."><span>Купил</span></label>
   </div>
 </article></div></section><section class="grp" id="g-screw"><h2 class="reveal">Отвёртки</h2><div class="grid">
 <article class="card reveal" data-code="90407191" data-price="24.89" data-prio="base">
   <div class="ph"><img src="https://cdn.leroymerlin.com.br/products/jogo_de_chave_de_fenda_phillips_7_pecas_tramontina_90407191_0001_600x600.jpg" alt="Jogo de Chave de Fenda/Phillips 7 peças Tramontina" loading="lazy" width="600" height="600"></div>
   <div class="body">
-    <div class="tags"><span class="tag base">База</span><span class="code">Cód. 90407191</span></div>
+    <div class="tags"><span class="code">Cód. 90407191</span></div>
     <h3>Отвёртки Tramontina, 7 шт. (шлиц + крест)</h3>
     <p class="pt">Jogo de Chave de Fenda/Phillips 7 peças Tramontina</p>
     <p class="why">Базовый набор плоских и крестовых отвёрток.</p>
@@ -217,29 +199,14 @@ footer{color:var(--ink-3);font-size:13.5px;padding:34px 0 10px;text-align:center
       <div class="price"><b>R$ 24,89</b><s>R$ 31,81</s></div>
       <a class="btn" href="https://www.leroymerlin.com.br/jogo-de-chave-de-fenda-phillips-7-pecas-tramontina_90407191?region=rio_de_janeiro" target="_blank" rel="noopener">Открыть в Leroy</a>
     </div>
-    <label class="pickl"><input type="checkbox" class="pick" checked aria-label="Включить в список: Отвёртки Tramontina, 7 шт. (шлиц + крест)"><span>В списке</span></label>
+    <label class="pickl" hidden><input type="checkbox" class="pick" checked aria-label="Включить в список: Отвёртки Tramontina, 7 шт. (шлиц + крест)"><span>В списке</span></label>
     <label class="got"><input type="checkbox" class="bought" aria-label="Купил: Отвёртки Tramontina, 7 шт. (шлиц + крест)"><span>Купил</span></label>
-  </div>
-</article>
-<article class="card reveal" data-code="90716591" data-price="15.99" data-prio="plus">
-  <div class="ph"><img src="https://cdn.leroymerlin.com.br/products/kit_chaves_de_precisao_fenda_e_phillips_6_pecas_90716591_0001_600x600.jpg" alt="Jogo Chaves de Precisão Fenda e Phillips 6 Peças MP" loading="lazy" width="600" height="600"></div>
-  <div class="body">
-    <div class="tags"><span class="tag plus">Желательно</span><span class="code">Cód. 90716591</span></div>
-    <h3>Прецизионные отвёртки MP, 6 шт.</h3>
-    <p class="pt">Jogo Chaves de Precisão Fenda e Phillips 6 Peças MP</p>
-    <p class="why">Для очков, пультов, мелкой электроники.</p>
-    <div class="row">
-      <div class="price"><b>R$ 15,99</b></div>
-      <a class="btn" href="https://www.leroymerlin.com.br/jogo-chaves-de-precisao-fenda-e-phillips-6-pecas-mp_90716591?region=rio_de_janeiro" target="_blank" rel="noopener">Открыть в Leroy</a>
-    </div>
-    <label class="pickl"><input type="checkbox" class="pick"  aria-label="Включить в список: Прецизионные отвёртки MP, 6 шт."><span>В списке</span></label>
-    <label class="got"><input type="checkbox" class="bought" aria-label="Купил: Прецизионные отвёртки MP, 6 шт."><span>Купил</span></label>
   </div>
 </article>
 <article class="card reveal" data-code="89585671" data-price="6.9" data-prio="base">
   <div class="ph"><img src="https://cdn.leroymerlin.com.br/products/chave_teste_3x140mm_importado_89585671_bbb5_600x600.jpg" alt="Chave Teste Neon 3x140mm MP" loading="lazy" width="600" height="600"></div>
   <div class="body">
-    <div class="tags"><span class="tag base">База</span><span class="code">Cód. 89585671</span></div>
+    <div class="tags"><span class="code">Cód. 89585671</span></div>
     <h3>Индикаторная отвёртка (фазоискатель) MP</h3>
     <p class="pt">Chave Teste Neon 3x140mm MP</p>
     <p class="why">Проверить, есть ли напряжение в розетке или проводе, перед тем как лезть руками.</p>
@@ -247,14 +214,14 @@ footer{color:var(--ink-3);font-size:13.5px;padding:34px 0 10px;text-align:center
       <div class="price"><b>R$ 6,90</b></div>
       <a class="btn" href="https://www.leroymerlin.com.br/chave-teste-neon-3x140mm-mp_89585671?region=rio_de_janeiro" target="_blank" rel="noopener">Открыть в Leroy</a>
     </div>
-    <label class="pickl"><input type="checkbox" class="pick" checked aria-label="Включить в список: Индикаторная отвёртка (фазоискатель) MP"><span>В списке</span></label>
+    <label class="pickl" hidden><input type="checkbox" class="pick" checked aria-label="Включить в список: Индикаторная отвёртка (фазоискатель) MP"><span>В списке</span></label>
     <label class="got"><input type="checkbox" class="bought" aria-label="Купил: Индикаторная отвёртка (фазоискатель) MP"><span>Купил</span></label>
   </div>
 </article></div></section><section class="grp" id="g-keys"><h2 class="reveal">Ключи</h2><div class="grid">
 <article class="card reveal" data-code="90768251" data-price="98.9" data-prio="base">
   <div class="ph"><img src="https://cdn.leroymerlin.com.br/products/chave_ajustavel_10_gedore_red_90768251_4bce_600x600.jpg" alt="Chave Inglesa Ajustável 10&quot; Gedore RED" loading="lazy" width="600" height="600"></div>
   <div class="body">
-    <div class="tags"><span class="tag base">База</span><span class="code">Cód. 90768251</span></div>
+    <div class="tags"><span class="code">Cód. 90768251</span></div>
     <h3>Разводной ключ Gedore RED, 10&quot;</h3>
     <p class="pt">Chave Inglesa Ajustável 10&quot; Gedore RED</p>
     <p class="why">Гайки и болты любого размера до ~30 мм: смесители, мебель, велосипед.</p>
@@ -262,14 +229,14 @@ footer{color:var(--ink-3);font-size:13.5px;padding:34px 0 10px;text-align:center
       <div class="price"><b>R$ 98,90</b></div>
       <a class="btn" href="https://www.leroymerlin.com.br/chave-inglesa-ajustavel-10-gedore-red_90768251?region=rio_de_janeiro" target="_blank" rel="noopener">Открыть в Leroy</a>
     </div>
-    <label class="pickl"><input type="checkbox" class="pick" checked aria-label="Включить в список: Разводной ключ Gedore RED, 10&quot;"><span>В списке</span></label>
+    <label class="pickl" hidden><input type="checkbox" class="pick" checked aria-label="Включить в список: Разводной ключ Gedore RED, 10&quot;"><span>В списке</span></label>
     <label class="got"><input type="checkbox" class="bought" aria-label="Купил: Разводной ключ Gedore RED, 10&quot;"><span>Купил</span></label>
   </div>
 </article>
 <article class="card reveal" data-code="90768286" data-price="76.9" data-prio="base">
   <div class="ph"><img src="https://cdn.leroymerlin.com.br/products/chave_para_tubos_10_modelo_americano_gedore_red_90768286_353a_600x600.jpg" alt="Chave Para Tubos 10&quot; Modelo Americano Gedore RED" loading="lazy" width="600" height="600"></div>
   <div class="body">
-    <div class="tags"><span class="tag base">База</span><span class="code">Cód. 90768286</span></div>
+    <div class="tags"><span class="code">Cód. 90768286</span></div>
     <h3>Газовый (трубный) ключ Gedore RED, 10&quot;</h3>
     <p class="pt">Chave Para Tubos 10&quot; Modelo Americano Gedore RED</p>
     <p class="why">Трубы, сифоны, шланги, подводка. 10&quot; достаточно для бытовых труб до 1&quot;.</p>
@@ -277,14 +244,14 @@ footer{color:var(--ink-3);font-size:13.5px;padding:34px 0 10px;text-align:center
       <div class="price"><b>R$ 76,90</b></div>
       <a class="btn" href="https://www.leroymerlin.com.br/chave-para-tubos-10-modelo-americano-gedore-red_90768286?region=rio_de_janeiro" target="_blank" rel="noopener">Открыть в Leroy</a>
     </div>
-    <label class="pickl"><input type="checkbox" class="pick" checked aria-label="Включить в список: Газовый (трубный) ключ Gedore RED, 10&quot;"><span>В списке</span></label>
+    <label class="pickl" hidden><input type="checkbox" class="pick" checked aria-label="Включить в список: Газовый (трубный) ключ Gedore RED, 10&quot;"><span>В списке</span></label>
     <label class="got"><input type="checkbox" class="bought" aria-label="Купил: Газовый (трубный) ключ Gedore RED, 10&quot;"><span>Купил</span></label>
   </div>
 </article>
 <article class="card reveal" data-code="89585664" data-price="8.89" data-prio="base">
   <div class="ph"><img src="https://cdn.leroymerlin.com.br/products/kit_chaves_hexagonais_9pecas_importado_89585664_f9f4_600x600.jpg" alt="Jogo de Chaves Allen 1,5 a 10mm 9 peças MP" loading="lazy" width="600" height="600"></div>
   <div class="body">
-    <div class="tags"><span class="tag base">База</span><span class="code">Cód. 89585664</span></div>
+    <div class="tags"><span class="code">Cód. 89585664</span></div>
     <h3>Шестигранники (Allen) MP, 1,5–10 мм, 9 шт.</h3>
     <p class="pt">Jogo de Chaves Allen 1,5 a 10mm 9 peças MP</p>
     <p class="why">Сборка мебели, велосипед, регулировка петель.</p>
@@ -292,14 +259,14 @@ footer{color:var(--ink-3);font-size:13.5px;padding:34px 0 10px;text-align:center
       <div class="price"><b>R$ 8,89</b></div>
       <a class="btn" href="https://www.leroymerlin.com.br/jogo-de-chaves-allen-1,5-a-10mm-9-pecas-mp_89585664?region=rio_de_janeiro" target="_blank" rel="noopener">Открыть в Leroy</a>
     </div>
-    <label class="pickl"><input type="checkbox" class="pick" checked aria-label="Включить в список: Шестигранники (Allen) MP, 1,5–10 мм, 9 шт."><span>В списке</span></label>
+    <label class="pickl" hidden><input type="checkbox" class="pick" checked aria-label="Включить в список: Шестигранники (Allen) MP, 1,5–10 мм, 9 шт."><span>В списке</span></label>
     <label class="got"><input type="checkbox" class="bought" aria-label="Купил: Шестигранники (Allen) MP, 1,5–10 мм, 9 шт."><span>Купил</span></label>
   </div>
 </article>
-<article class="card reveal" data-code="91034062" data-price="82.9" data-prio="plus">
+<article class="card reveal" data-code="91034062" data-price="82.9" data-prio="base">
   <div class="ph"><img src="https://cdn.leroymerlin.com.br/products/jogo_de_chaves_combinadas_7_17mm_6_pecas_dexter_91034062_be84_600x600.jpg" alt="Jogo de Chaves Combinadas 7-17mm em Aço Cromo-Vanádio 6 Peças Dexter" loading="lazy" width="600" height="600"></div>
   <div class="body">
-    <div class="tags"><span class="tag plus">Желательно</span><span class="code">Cód. 91034062</span></div>
+    <div class="tags"><span class="code">Cód. 91034062</span></div>
     <h3>Рожковые/накидные ключи Dexter, 7–17 мм, 6 шт.</h3>
     <p class="pt">Jogo de Chaves Combinadas 7-17mm em Aço Cromo-Vanádio 6 Peças Dexter</p>
     <p class="why">Когда разводной не пролезает или срывает грани.</p>
@@ -307,14 +274,14 @@ footer{color:var(--ink-3);font-size:13.5px;padding:34px 0 10px;text-align:center
       <div class="price"><b>R$ 82,90</b></div>
       <a class="btn" href="https://www.leroymerlin.com.br/jogo-de-chaves-combinadas-7-17mm-em-aco-cromo-vanadio-6-pecas-dexter_91034062?region=rio_de_janeiro" target="_blank" rel="noopener">Открыть в Leroy</a>
     </div>
-    <label class="pickl"><input type="checkbox" class="pick"  aria-label="Включить в список: Рожковые/накидные ключи Dexter, 7–17 мм, 6 шт."><span>В списке</span></label>
+    <label class="pickl" hidden><input type="checkbox" class="pick" checked aria-label="Включить в список: Рожковые/накидные ключи Dexter, 7–17 мм, 6 шт."><span>В списке</span></label>
     <label class="got"><input type="checkbox" class="bought" aria-label="Купил: Рожковые/накидные ключи Dexter, 7–17 мм, 6 шт."><span>Купил</span></label>
   </div>
 </article>
-<article class="card reveal" data-code="91033656" data-price="99.9" data-prio="plus">
+<article class="card reveal" data-code="91033656" data-price="99.9" data-prio="base">
   <div class="ph"><img src="https://cdn.leroymerlin.com.br/products/jogo_de_soquetes_e_bits_com_chave_catraca_24_pecas_dexter_91033656_0001_600x600.jpg" alt="Jogo de Soquetes e Bits com Chave Catraca 24 Peças Dexter" loading="lazy" width="600" height="600"></div>
   <div class="body">
-    <div class="tags"><span class="tag plus">Желательно</span><span class="code">Cód. 91033656</span></div>
+    <div class="tags"><span class="code">Cód. 91033656</span></div>
     <h3>Головки + трещотка + биты Dexter, 24 шт.</h3>
     <p class="pt">Jogo de Soquetes e Bits com Chave Catraca 24 Peças Dexter</p>
     <p class="why">Удобно для мебели, техники и всего, где много болтов.</p>
@@ -322,14 +289,14 @@ footer{color:var(--ink-3);font-size:13.5px;padding:34px 0 10px;text-align:center
       <div class="price"><b>R$ 99,90</b></div>
       <a class="btn" href="https://www.leroymerlin.com.br/jogo-de-soquetes-e-bits-com-chave-catraca-24-pecas-dexter_91033656?region=rio_de_janeiro" target="_blank" rel="noopener">Открыть в Leroy</a>
     </div>
-    <label class="pickl"><input type="checkbox" class="pick"  aria-label="Включить в список: Головки + трещотка + биты Dexter, 24 шт."><span>В списке</span></label>
+    <label class="pickl" hidden><input type="checkbox" class="pick" checked aria-label="Включить в список: Головки + трещотка + биты Dexter, 24 шт."><span>В списке</span></label>
     <label class="got"><input type="checkbox" class="bought" aria-label="Купил: Головки + трещотка + биты Dexter, 24 шт."><span>Купил</span></label>
   </div>
 </article></div></section><section class="grp" id="g-pliers"><h2 class="reveal">Плоскогубцы и кусачки</h2><div class="grid">
 <article class="card reveal" data-code="90345220" data-price="19.99" data-prio="base">
   <div class="ph"><img src="https://cdn.leroymerlin.com.br/products/alicate_universal_8_tramontina_90345220_0001_600x600.jpg" alt="Alicate Universal 8&quot; Tramontina" loading="lazy" width="600" height="600"></div>
   <div class="body">
-    <div class="tags"><span class="tag base">База</span><span class="code">Cód. 90345220</span></div>
+    <div class="tags"><span class="code">Cód. 90345220</span></div>
     <h3>Плоскогубцы (пассатижи) Tramontina, 8&quot;</h3>
     <p class="pt">Alicate Universal 8&quot; Tramontina</p>
     <p class="why">Держать, гнуть, откусывать проволоку.</p>
@@ -337,29 +304,14 @@ footer{color:var(--ink-3);font-size:13.5px;padding:34px 0 10px;text-align:center
       <div class="price"><b>R$ 19,99</b><s>R$ 36,06</s></div>
       <a class="btn" href="https://www.leroymerlin.com.br/alicate-universal-8-tramontina_90345220?region=rio_de_janeiro" target="_blank" rel="noopener">Открыть в Leroy</a>
     </div>
-    <label class="pickl"><input type="checkbox" class="pick" checked aria-label="Включить в список: Плоскогубцы (пассатижи) Tramontina, 8&quot;"><span>В списке</span></label>
+    <label class="pickl" hidden><input type="checkbox" class="pick" checked aria-label="Включить в список: Плоскогубцы (пассатижи) Tramontina, 8&quot;"><span>В списке</span></label>
     <label class="got"><input type="checkbox" class="bought" aria-label="Купил: Плоскогубцы (пассатижи) Tramontina, 8&quot;"><span>Купил</span></label>
-  </div>
-</article>
-<article class="card reveal" data-code="89827703" data-price="24.9" data-prio="base">
-  <div class="ph"><img src="https://cdn.leroymerlin.com.br/products/alicate_bico_longo_6_mp_89827703_0001_600x600.jpg" alt="Alicate Bico Longo 6&quot; MP" loading="lazy" width="600" height="600"></div>
-  <div class="body">
-    <div class="tags"><span class="tag base">База</span><span class="code">Cód. 89827703</span></div>
-    <h3>Длинногубцы MP, 6&quot;</h3>
-    <p class="pt">Alicate Bico Longo 6&quot; MP</p>
-    <p class="why">Работа в узких местах, электрика, мелкие детали.</p>
-    <div class="row">
-      <div class="price"><b>R$ 24,90</b></div>
-      <a class="btn" href="https://www.leroymerlin.com.br/alicate-bico-longo-6-mp_89827703?region=rio_de_janeiro" target="_blank" rel="noopener">Открыть в Leroy</a>
-    </div>
-    <label class="pickl"><input type="checkbox" class="pick" checked aria-label="Включить в список: Длинногубцы MP, 6&quot;"><span>В списке</span></label>
-    <label class="got"><input type="checkbox" class="bought" aria-label="Купил: Длинногубцы MP, 6&quot;"><span>Купил</span></label>
   </div>
 </article>
 <article class="card reveal" data-code="89827276" data-price="65.9" data-prio="base">
   <div class="ph"><img src="https://cdn.leroymerlin.com.br/products/alicate_corte_diagonal_6_dexter_89827276_0006_600x600.jpg" alt="Alicate Corte Diagonal 6&quot; Dexter" loading="lazy" width="600" height="600"></div>
   <div class="body">
-    <div class="tags"><span class="tag base">База</span><span class="code">Cód. 89827276</span></div>
+    <div class="tags"><span class="code">Cód. 89827276</span></div>
     <h3>Бокорезы Dexter, 6&quot;</h3>
     <p class="pt">Alicate Corte Diagonal 6&quot; Dexter</p>
     <p class="why">Ровно откусывать провод, стяжки, проволоку.</p>
@@ -367,14 +319,14 @@ footer{color:var(--ink-3);font-size:13.5px;padding:34px 0 10px;text-align:center
       <div class="price"><b>R$ 65,90</b></div>
       <a class="btn" href="https://www.leroymerlin.com.br/alicate-corte-diagonal-6-dexter_89827276?region=rio_de_janeiro" target="_blank" rel="noopener">Открыть в Leroy</a>
     </div>
-    <label class="pickl"><input type="checkbox" class="pick" checked aria-label="Включить в список: Бокорезы Dexter, 6&quot;"><span>В списке</span></label>
+    <label class="pickl" hidden><input type="checkbox" class="pick" checked aria-label="Включить в список: Бокорезы Dexter, 6&quot;"><span>В списке</span></label>
     <label class="got"><input type="checkbox" class="bought" aria-label="Купил: Бокорезы Dexter, 6&quot;"><span>Купил</span></label>
   </div>
 </article></div></section><section class="grp" id="g-measure"><h2 class="reveal">Разметка, удар, резка</h2><div class="grid">
 <article class="card reveal" data-code="90114150" data-price="53.9" data-prio="base">
   <div class="ph"><img src="https://cdn.leroymerlin.com.br/products/martelo_unha_cabo_de_plastico_28,8cm_dexter_90114150_0001_600x600.jpg" alt="Martelo Unha Cabo de Plástico 30mm Dexter" loading="lazy" width="600" height="600"></div>
   <div class="body">
-    <div class="tags"><span class="tag base">База</span><span class="code">Cód. 90114150</span></div>
+    <div class="tags"><span class="code">Cód. 90114150</span></div>
     <h3>Молоток-гвоздодёр Dexter, 30 мм</h3>
     <p class="pt">Martelo Unha Cabo de Plástico 30mm Dexter</p>
     <p class="why">Гвозди, дюбели, выдернуть гвоздь.</p>
@@ -382,14 +334,14 @@ footer{color:var(--ink-3);font-size:13.5px;padding:34px 0 10px;text-align:center
       <div class="price"><b>R$ 53,90</b></div>
       <a class="btn" href="https://www.leroymerlin.com.br/martelo-unha-cabo-de-plastico-30mm-dexter_90114150?region=rio_de_janeiro" target="_blank" rel="noopener">Открыть в Leroy</a>
     </div>
-    <label class="pickl"><input type="checkbox" class="pick" checked aria-label="Включить в список: Молоток-гвоздодёр Dexter, 30 мм"><span>В списке</span></label>
+    <label class="pickl" hidden><input type="checkbox" class="pick" checked aria-label="Включить в список: Молоток-гвоздодёр Dexter, 30 мм"><span>В списке</span></label>
     <label class="got"><input type="checkbox" class="bought" aria-label="Купил: Молоток-гвоздодёр Dexter, 30 мм"><span>Купил</span></label>
   </div>
 </article>
 <article class="card reveal" data-code="91716401" data-price="29.9" data-prio="base">
   <div class="ph"><img src="https://cdn.leroymerlin.com.br/products/trena_manual_5mx19mm_460610_dexter_91716401_b391_600x600.jpg" alt="Trena Manual 5 metros 460610 Dexter" loading="lazy" width="600" height="600"></div>
   <div class="body">
-    <div class="tags"><span class="tag base">База</span><span class="code">Cód. 91716401</span></div>
+    <div class="tags"><span class="code">Cód. 91716401</span></div>
     <h3>Рулетка Dexter, 5 м</h3>
     <p class="pt">Trena Manual 5 metros 460610 Dexter</p>
     <p class="why">Замеры мебели, стен, окон.</p>
@@ -397,29 +349,14 @@ footer{color:var(--ink-3);font-size:13.5px;padding:34px 0 10px;text-align:center
       <div class="price"><b>R$ 29,90</b></div>
       <a class="btn" href="https://www.leroymerlin.com.br/trena-manual-5-metros-460610-dexter_91716401?region=rio_de_janeiro" target="_blank" rel="noopener">Открыть в Leroy</a>
     </div>
-    <label class="pickl"><input type="checkbox" class="pick" checked aria-label="Включить в список: Рулетка Dexter, 5 м"><span>В списке</span></label>
+    <label class="pickl" hidden><input type="checkbox" class="pick" checked aria-label="Включить в список: Рулетка Dexter, 5 м"><span>В списке</span></label>
     <label class="got"><input type="checkbox" class="bought" aria-label="Купил: Рулетка Dexter, 5 м"><span>Купил</span></label>
-  </div>
-</article>
-<article class="card reveal" data-code="91082005" data-price="54.9" data-prio="base">
-  <div class="ph"><img src="https://cdn.leroymerlin.com.br/products/nivel_manual_de_aluminio_16__400mm__2_bolhas_dexter_91082005_6765_300x300.JPG" alt="Nível Manual de Alumínio 16&quot; (400mm) 2 Bolhas Dexter" loading="lazy" width="600" height="600"></div>
-  <div class="body">
-    <div class="tags"><span class="tag base">База</span><span class="code">Cód. 91082005</span></div>
-    <h3>Уровень алюминиевый Dexter, 40 см</h3>
-    <p class="pt">Nível Manual de Alumínio 16&quot; (400mm) 2 Bolhas Dexter</p>
-    <p class="why">Ровно повесить полку, картину, телевизор.</p>
-    <div class="row">
-      <div class="price"><b>R$ 54,90</b></div>
-      <a class="btn" href="https://www.leroymerlin.com.br/nivel-manual-de-aluminio-16--400mm--2-bolhas-dexter_91082005?region=rio_de_janeiro" target="_blank" rel="noopener">Открыть в Leroy</a>
-    </div>
-    <label class="pickl"><input type="checkbox" class="pick" checked aria-label="Включить в список: Уровень алюминиевый Dexter, 40 см"><span>В списке</span></label>
-    <label class="got"><input type="checkbox" class="bought" aria-label="Купил: Уровень алюминиевый Dexter, 40 см"><span>Купил</span></label>
   </div>
 </article>
 <article class="card reveal" data-code="91794185" data-price="19.99" data-prio="base">
   <div class="ph"><img src="https://cdn.leroymerlin.com.br/products/estilete_retratil_emborrachado_18mm_dexter_91794185_0ac0_600x600.jpg" alt="Estilete Retrátil Emborrachado 18mm Dexter" loading="lazy" width="600" height="600"></div>
   <div class="body">
-    <div class="tags"><span class="tag base">База</span><span class="code">Cód. 91794185</span></div>
+    <div class="tags"><span class="code">Cód. 91794185</span></div>
     <h3>Строительный нож Dexter, 18 мм</h3>
     <p class="pt">Estilete Retrátil Emborrachado 18mm Dexter</p>
     <p class="why">Резать коробки, плёнку, гипсокартон, изоленту.</p>
@@ -427,29 +364,14 @@ footer{color:var(--ink-3);font-size:13.5px;padding:34px 0 10px;text-align:center
       <div class="price"><b>R$ 19,99</b></div>
       <a class="btn" href="https://www.leroymerlin.com.br/estilete-retratil-emborrachado-18mm-dexter_91794185?region=rio_de_janeiro" target="_blank" rel="noopener">Открыть в Leroy</a>
     </div>
-    <label class="pickl"><input type="checkbox" class="pick" checked aria-label="Включить в список: Строительный нож Dexter, 18 мм"><span>В списке</span></label>
+    <label class="pickl" hidden><input type="checkbox" class="pick" checked aria-label="Включить в список: Строительный нож Dexter, 18 мм"><span>В списке</span></label>
     <label class="got"><input type="checkbox" class="bought" aria-label="Купил: Строительный нож Dexter, 18 мм"><span>Купил</span></label>
-  </div>
-</article>
-<article class="card reveal" data-code="92466871" data-price="24.9" data-prio="plus">
-  <div class="ph"><img src="https://cdn.leroymerlin.com.br/products/arco_de_serra_300mm_dexter_92466871_6f86_600x600.jpg" alt="Arco de Serra 300mm Dexter" loading="lazy" width="600" height="600"></div>
-  <div class="body">
-    <div class="tags"><span class="tag plus">Желательно</span><span class="code">Cód. 92466871</span></div>
-    <h3>Ножовка по металлу (arco de serra) Dexter, 300 мм</h3>
-    <p class="pt">Arco de Serra 300mm Dexter</p>
-    <p class="why">Распилить трубу, профиль, болт, пластик.</p>
-    <div class="row">
-      <div class="price"><b>R$ 24,90</b></div>
-      <a class="btn" href="https://www.leroymerlin.com.br/arco-de-serra-300mm-dexter_92466871?region=rio_de_janeiro" target="_blank" rel="noopener">Открыть в Leroy</a>
-    </div>
-    <label class="pickl"><input type="checkbox" class="pick"  aria-label="Включить в список: Ножовка по металлу (arco de serra) Dexter, 300 мм"><span>В списке</span></label>
-    <label class="got"><input type="checkbox" class="bought" aria-label="Купил: Ножовка по металлу (arco de serra) Dexter, 300 мм"><span>Купил</span></label>
   </div>
 </article></div></section><section class="grp" id="g-plumb"><h2 class="reveal">Сантехника и электрика</h2><div class="grid">
 <article class="card reveal" data-code="85639624" data-price="34.9" data-prio="base">
   <div class="ph"><img src="https://cdn.leroymerlin.com.br/products/fita_isolante_3m_scotch_33__uso_profissional_19mm_x_20m_85639624_af2e_600x600.jpg" alt="Fita Isolante 3M Scotch 33+ Uso Profissional Classe A Preta 19mm x 20m x 0,19mm" loading="lazy" width="600" height="600"></div>
   <div class="body">
-    <div class="tags"><span class="tag base">База</span><span class="code">Cód. 85639624</span></div>
+    <div class="tags"><span class="code">Cód. 85639624</span></div>
     <h3>Изолента 3M Scotch 33+, 19 мм × 20 м</h3>
     <p class="pt">Fita Isolante 3M Scotch 33+ Uso Profissional Classe A Preta 19mm x 20m x 0,19mm</p>
     <p class="why">Профессиональная, класс A. Изолировать скрутки и провода.</p>
@@ -457,14 +379,14 @@ footer{color:var(--ink-3);font-size:13.5px;padding:34px 0 10px;text-align:center
       <div class="price"><b>R$ 34,90</b></div>
       <a class="btn" href="https://www.leroymerlin.com.br/fita-isolante-3m-scotch-33--uso-profissional-classe-a-preta-19mm-x-20m-x--0,19mm_85639624?region=rio_de_janeiro" target="_blank" rel="noopener">Открыть в Leroy</a>
     </div>
-    <label class="pickl"><input type="checkbox" class="pick" checked aria-label="Включить в список: Изолента 3M Scotch 33+, 19 мм × 20 м"><span>В списке</span></label>
+    <label class="pickl" hidden><input type="checkbox" class="pick" checked aria-label="Включить в список: Изолента 3M Scotch 33+, 19 мм × 20 м"><span>В списке</span></label>
     <label class="got"><input type="checkbox" class="bought" aria-label="Купил: Изолента 3M Scotch 33+, 19 мм × 20 м"><span>Купил</span></label>
   </div>
 </article>
 <article class="card reveal" data-code="91875042" data-price="9.79" data-prio="base">
   <div class="ph"><img src="https://cdn.leroymerlin.com.br/products/fita_veda_rosca_18mm_x_25m_equation_91875042_f914_600x600.jpg" alt="Fita Veda Rosca 18mm x 25m Equation" loading="lazy" width="600" height="600"></div>
   <div class="body">
-    <div class="tags"><span class="tag base">База</span><span class="code">Cód. 91875042</span></div>
+    <div class="tags"><span class="code">Cód. 91875042</span></div>
     <h3>Фум-лента (veda rosca) Equation, 18 мм × 25 м</h3>
     <p class="pt">Fita Veda Rosca 18mm x 25m Equation</p>
     <p class="why">Уплотнить резьбу смесителя, шланга, фильтра, чтобы не текло.</p>
@@ -472,14 +394,14 @@ footer{color:var(--ink-3);font-size:13.5px;padding:34px 0 10px;text-align:center
       <div class="price"><b>R$ 9,79</b></div>
       <a class="btn" href="https://www.leroymerlin.com.br/fita-veda-rosca-18mm-x-25m-equation_91875042?region=rio_de_janeiro" target="_blank" rel="noopener">Открыть в Leroy</a>
     </div>
-    <label class="pickl"><input type="checkbox" class="pick" checked aria-label="Включить в список: Фум-лента (veda rosca) Equation, 18 мм × 25 м"><span>В списке</span></label>
+    <label class="pickl" hidden><input type="checkbox" class="pick" checked aria-label="Включить в список: Фум-лента (veda rosca) Equation, 18 мм × 25 м"><span>В списке</span></label>
     <label class="got"><input type="checkbox" class="bought" aria-label="Купил: Фум-лента (veda rosca) Equation, 18 мм × 25 м"><span>Купил</span></label>
   </div>
 </article>
-<article class="card reveal" data-code="89836964" data-price="39.9" data-prio="plus">
+<article class="card reveal" data-code="89836964" data-price="39.9" data-prio="base">
   <div class="ph"><img src="https://cdn.leroymerlin.com.br/products/wd_40%C2%AE_produto_multiusos_300ml_aerossol_89836964_26dc_600x600.jpg" alt="Lubrificante WD-40 Produto Multiusos 300ml Aerossol WD" loading="lazy" width="600" height="600"></div>
   <div class="body">
-    <div class="tags"><span class="tag plus">Желательно</span><span class="code">Cód. 89836964</span></div>
+    <div class="tags"><span class="code">Cód. 89836964</span></div>
     <h3>WD-40, 300 мл</h3>
     <p class="pt">Lubrificante WD-40 Produto Multiusos 300ml Aerossol WD</p>
     <p class="why">Открутить прикипевшее, смазать петли и замки, убрать скрип.</p>
@@ -487,14 +409,14 @@ footer{color:var(--ink-3);font-size:13.5px;padding:34px 0 10px;text-align:center
       <div class="price"><b>R$ 39,90</b></div>
       <a class="btn" href="https://www.leroymerlin.com.br/lubrificante-wd-40-produto-multiusos-300ml-aerossol-wd_89836964?region=rio_de_janeiro" target="_blank" rel="noopener">Открыть в Leroy</a>
     </div>
-    <label class="pickl"><input type="checkbox" class="pick"  aria-label="Включить в список: WD-40, 300 мл"><span>В списке</span></label>
+    <label class="pickl" hidden><input type="checkbox" class="pick" checked aria-label="Включить в список: WD-40, 300 мл"><span>В списке</span></label>
     <label class="got"><input type="checkbox" class="bought" aria-label="Купил: WD-40, 300 мл"><span>Купил</span></label>
   </div>
 </article>
-<article class="card reveal" data-code="92138816" data-price="8.89" data-prio="plus">
+<article class="card reveal" data-code="92138816" data-price="8.89" data-prio="base">
   <div class="ph"><img src="https://cdn.leroymerlin.com.br/products/fita_crepe_branca_25mmx50m_dexter_92138816_b887_600x600.png" alt="Fita Crepe Branca 25mmx50m Dexter" loading="lazy" width="600" height="600"></div>
   <div class="body">
-    <div class="tags"><span class="tag plus">Желательно</span><span class="code">Cód. 92138816</span></div>
+    <div class="tags"><span class="code">Cód. 92138816</span></div>
     <h3>Малярный скотч Dexter, 25 мм × 50 м</h3>
     <p class="pt">Fita Crepe Branca 25mmx50m Dexter</p>
     <p class="why">Разметка, покраска, временно что-то прихватить.</p>
@@ -502,29 +424,14 @@ footer{color:var(--ink-3);font-size:13.5px;padding:34px 0 10px;text-align:center
       <div class="price"><b>R$ 8,89</b></div>
       <a class="btn" href="https://www.leroymerlin.com.br/fita--crepe-branca-25mmx50m-dexter_92138816?region=rio_de_janeiro" target="_blank" rel="noopener">Открыть в Leroy</a>
     </div>
-    <label class="pickl"><input type="checkbox" class="pick"  aria-label="Включить в список: Малярный скотч Dexter, 25 мм × 50 м"><span>В списке</span></label>
+    <label class="pickl" hidden><input type="checkbox" class="pick" checked aria-label="Включить в список: Малярный скотч Dexter, 25 мм × 50 м"><span>В списке</span></label>
     <label class="got"><input type="checkbox" class="bought" aria-label="Купил: Малярный скотч Dexter, 25 мм × 50 м"><span>Купил</span></label>
   </div>
 </article></div></section><section class="grp" id="g-store"><h2 class="reveal">Крепёж, хранение, защита</h2><div class="grid">
-<article class="card reveal" data-code="92029392" data-price="14.99" data-prio="base">
-  <div class="ph"><img src="https://cdn.leroymerlin.com.br/products/parafuso_em_aco_4,0x45mm_cabeca_chata_auto_atarraxante_92029392_9f9d_600x600.jpg" alt="Bucha Plástico 6mm Base Maciça e Oca MU com Parafuso 8 peças Standers" loading="lazy" width="600" height="600"></div>
-  <div class="body">
-    <div class="tags"><span class="tag base">База</span><span class="code">Cód. 92029392</span></div>
-    <h3>Дюбели 6 мм с шурупами Standers, 8 шт.</h3>
-    <p class="pt">Bucha Plástico 6mm Base Maciça e Oca MU com Parafuso 8 peças Standers</p>
-    <p class="why">Для полнотелых и пустотелых стен (кирпич в Бразилии часто пустотелый). Возьми 2–3 упаковки.</p>
-    <div class="row">
-      <div class="price"><b>R$ 14,99</b></div>
-      <a class="btn" href="https://www.leroymerlin.com.br/bucha-plastico-6mm-base-macica-e-oca-mu-com-parafuso-8-pecas-standers_92029392?region=rio_de_janeiro" target="_blank" rel="noopener">Открыть в Leroy</a>
-    </div>
-    <label class="pickl"><input type="checkbox" class="pick" checked aria-label="Включить в список: Дюбели 6 мм с шурупами Standers, 8 шт."><span>В списке</span></label>
-    <label class="got"><input type="checkbox" class="bought" aria-label="Купил: Дюбели 6 мм с шурупами Standers, 8 шт."><span>Купил</span></label>
-  </div>
-</article>
 <article class="card reveal" data-code="88156355" data-price="89.9" data-prio="base">
   <div class="ph"><img src="https://cdn.leroymerlin.com.br/products/caixa_de_ferramentas_19_com_bandeja_e_fecho_em_metal_stanley_88156355_9b20_600x600.jpg" alt="Caixa de Ferramentas Stanley 24,8x25,4x49,3cm 31L em Plástico com Bandeja e Fecho em Metal" loading="lazy" width="600" height="600"></div>
   <div class="body">
-    <div class="tags"><span class="tag base">База</span><span class="code">Cód. 88156355</span></div>
+    <div class="tags"><span class="code">Cód. 88156355</span></div>
     <h3>Ящик для инструментов Stanley, 31 л</h3>
     <p class="pt">Caixa de Ferramentas Stanley 24,8x25,4x49,3cm 31L em Plástico com Bandeja e Fecho em Metal</p>
     <p class="why">Всё в одном месте, со съёмным лотком.</p>
@@ -532,14 +439,14 @@ footer{color:var(--ink-3);font-size:13.5px;padding:34px 0 10px;text-align:center
       <div class="price"><b>R$ 89,90</b><s>R$ 106,28</s></div>
       <a class="btn" href="https://www.leroymerlin.com.br/caixa-de-ferramentas-stanley-24,8x25,4x49,3cm-31l-em-plastico-com-bandeja-e-fecho-em-metal_88156355?region=rio_de_janeiro" target="_blank" rel="noopener">Открыть в Leroy</a>
     </div>
-    <label class="pickl"><input type="checkbox" class="pick" checked aria-label="Включить в список: Ящик для инструментов Stanley, 31 л"><span>В списке</span></label>
+    <label class="pickl" hidden><input type="checkbox" class="pick" checked aria-label="Включить в список: Ящик для инструментов Stanley, 31 л"><span>В списке</span></label>
     <label class="got"><input type="checkbox" class="bought" aria-label="Купил: Ящик для инструментов Stanley, 31 л"><span>Купил</span></label>
   </div>
 </article>
-<article class="card reveal" data-code="92290793" data-price="32.9" data-prio="plus">
+<article class="card reveal" data-code="92290793" data-price="32.9" data-prio="base">
   <div class="ph"><img src="https://cdn.leroymerlin.com.br/products/lanterna_led_25_lumens_preta_rayovac_92290793_b074_600x600.png" alt="Lanterna LED 25 Lúmens Preta Rayovac" loading="lazy" width="600" height="600"></div>
   <div class="body">
-    <div class="tags"><span class="tag plus">Желательно</span><span class="code">Cód. 92290793</span></div>
+    <div class="tags"><span class="code">Cód. 92290793</span></div>
     <h3>Фонарик Rayovac LED</h3>
     <p class="pt">Lanterna LED 25 Lúmens Preta Rayovac</p>
     <p class="why">Щиток, под раковиной, при отключении света.</p>
@@ -547,14 +454,14 @@ footer{color:var(--ink-3);font-size:13.5px;padding:34px 0 10px;text-align:center
       <div class="price"><b>R$ 32,90</b></div>
       <a class="btn" href="https://www.leroymerlin.com.br/lanterna-led-25-lumens-preta-rayovac_92290793?region=rio_de_janeiro" target="_blank" rel="noopener">Открыть в Leroy</a>
     </div>
-    <label class="pickl"><input type="checkbox" class="pick"  aria-label="Включить в список: Фонарик Rayovac LED"><span>В списке</span></label>
+    <label class="pickl" hidden><input type="checkbox" class="pick" checked aria-label="Включить в список: Фонарик Rayovac LED"><span>В списке</span></label>
     <label class="got"><input type="checkbox" class="bought" aria-label="Купил: Фонарик Rayovac LED"><span>Купил</span></label>
   </div>
 </article>
-<article class="card reveal" data-code="89257924" data-price="6.49" data-prio="plus">
+<article class="card reveal" data-code="89257924" data-price="6.49" data-prio="base">
   <div class="ph"><img src="https://cdn.leroymerlin.com.br/products/oculos_de_seguranca_incolor_spectra_2000_carbografite_89257924_e881_600x600.jpg" alt="Óculos de Segurança Incolor Spectra 2000 Carbografite" loading="lazy" width="600" height="600"></div>
   <div class="body">
-    <div class="tags"><span class="tag plus">Желательно</span><span class="code">Cód. 89257924</span></div>
+    <div class="tags"><span class="code">Cód. 89257924</span></div>
     <h3>Защитные очки Carbografite Spectra 2000</h3>
     <p class="pt">Óculos de Segurança Incolor Spectra 2000 Carbografite</p>
     <p class="why">Сверлить потолок и плитку — крошка летит в глаза.</p>
@@ -562,14 +469,14 @@ footer{color:var(--ink-3);font-size:13.5px;padding:34px 0 10px;text-align:center
       <div class="price"><b>R$ 6,49</b><s>R$ 8,50</s></div>
       <a class="btn" href="https://www.leroymerlin.com.br/oculos-de-seguranca-incolor-spectra-2000-carbografite_89257924?region=rio_de_janeiro" target="_blank" rel="noopener">Открыть в Leroy</a>
     </div>
-    <label class="pickl"><input type="checkbox" class="pick"  aria-label="Включить в список: Защитные очки Carbografite Spectra 2000"><span>В списке</span></label>
+    <label class="pickl" hidden><input type="checkbox" class="pick" checked aria-label="Включить в список: Защитные очки Carbografite Spectra 2000"><span>В списке</span></label>
     <label class="got"><input type="checkbox" class="bought" aria-label="Купил: Защитные очки Carbografite Spectra 2000"><span>Купил</span></label>
   </div>
 </article>
-<article class="card reveal" data-code="92152242" data-price="10.9" data-prio="plus">
+<article class="card reveal" data-code="92152242" data-price="10.9" data-prio="base">
   <div class="ph"><img src="https://cdn.leroymerlin.com.br/products/luva_de_protecao_mecanica_tamanho_medio_multiuso_dexter_92152242_7341_600x600.jpg" alt="Luva Látex para Proteção Mecânica Médio Dexter com CA" loading="lazy" width="600" height="600"></div>
   <div class="body">
-    <div class="tags"><span class="tag plus">Желательно</span><span class="code">Cód. 92152242</span></div>
+    <div class="tags"><span class="code">Cód. 92152242</span></div>
     <h3>Рабочие перчатки Dexter, размер M</h3>
     <p class="pt">Luva Látex para Proteção Mecânica Médio Dexter com CA</p>
     <p class="why">Защита рук при переноске и работе с металлом.</p>
@@ -577,17 +484,17 @@ footer{color:var(--ink-3);font-size:13.5px;padding:34px 0 10px;text-align:center
       <div class="price"><b>R$ 10,90</b></div>
       <a class="btn" href="https://www.leroymerlin.com.br/luva-latex-para-protecao-mecanica-medio-dexter-com-ca_92152242?region=rio_de_janeiro" target="_blank" rel="noopener">Открыть в Leroy</a>
     </div>
-    <label class="pickl"><input type="checkbox" class="pick"  aria-label="Включить в список: Рабочие перчатки Dexter, размер M"><span>В списке</span></label>
+    <label class="pickl" hidden><input type="checkbox" class="pick" checked aria-label="Включить в список: Рабочие перчатки Dexter, размер M"><span>В списке</span></label>
     <label class="got"><input type="checkbox" class="bought" aria-label="Купил: Рабочие перчатки Dexter, размер M"><span>Купил</span></label>
   </div>
 </article></div></section>
 
 <section class="list" id="list">
   <h2 class="reveal">Список для продавца</h2>
-  <p class="reveal">Только отмеченные позиции. Код (Cód.) можно показать сотруднику или вбить в поиск на сайте.</p>
+  <p class="reveal">Весь набор. Код (Cód.) можно показать сотруднику или вбить в поиск на сайте.</p>
   <table class="reveal">
     <thead><tr><th>Cód.</th><th>Товар</th><th style="text-align:right">Цена</th></tr></thead>
-    <tbody id="tbody"><tr data-code="90525414"><td>90525414</td><td>Шуруповёрт-дрель Bosch GSB 120-LI, 12 В, ударный</td><td class="num">R$ 459,90</td></tr><tr data-code="92429330"><td>92429330</td><td>Шуруповёрт-дрель Wap K21 ID01, 21 В, ударный</td><td class="num">R$ 218,90</td></tr><tr data-code="89893853"><td>89893853</td><td>Набор свёрл и бит Bosch X-Line, 33 шт.</td><td class="num">R$ 85,90</td></tr><tr data-code="90407191"><td>90407191</td><td>Отвёртки Tramontina, 7 шт. (шлиц + крест)</td><td class="num">R$ 24,89</td></tr><tr data-code="90716591"><td>90716591</td><td>Прецизионные отвёртки MP, 6 шт.</td><td class="num">R$ 15,99</td></tr><tr data-code="89585671"><td>89585671</td><td>Индикаторная отвёртка (фазоискатель) MP</td><td class="num">R$ 6,90</td></tr><tr data-code="90768251"><td>90768251</td><td>Разводной ключ Gedore RED, 10&quot;</td><td class="num">R$ 98,90</td></tr><tr data-code="90768286"><td>90768286</td><td>Газовый (трубный) ключ Gedore RED, 10&quot;</td><td class="num">R$ 76,90</td></tr><tr data-code="89585664"><td>89585664</td><td>Шестигранники (Allen) MP, 1,5–10 мм, 9 шт.</td><td class="num">R$ 8,89</td></tr><tr data-code="91034062"><td>91034062</td><td>Рожковые/накидные ключи Dexter, 7–17 мм, 6 шт.</td><td class="num">R$ 82,90</td></tr><tr data-code="91033656"><td>91033656</td><td>Головки + трещотка + биты Dexter, 24 шт.</td><td class="num">R$ 99,90</td></tr><tr data-code="90345220"><td>90345220</td><td>Плоскогубцы (пассатижи) Tramontina, 8&quot;</td><td class="num">R$ 19,99</td></tr><tr data-code="89827703"><td>89827703</td><td>Длинногубцы MP, 6&quot;</td><td class="num">R$ 24,90</td></tr><tr data-code="89827276"><td>89827276</td><td>Бокорезы Dexter, 6&quot;</td><td class="num">R$ 65,90</td></tr><tr data-code="90114150"><td>90114150</td><td>Молоток-гвоздодёр Dexter, 30 мм</td><td class="num">R$ 53,90</td></tr><tr data-code="91716401"><td>91716401</td><td>Рулетка Dexter, 5 м</td><td class="num">R$ 29,90</td></tr><tr data-code="91082005"><td>91082005</td><td>Уровень алюминиевый Dexter, 40 см</td><td class="num">R$ 54,90</td></tr><tr data-code="91794185"><td>91794185</td><td>Строительный нож Dexter, 18 мм</td><td class="num">R$ 19,99</td></tr><tr data-code="92466871"><td>92466871</td><td>Ножовка по металлу (arco de serra) Dexter, 300 мм</td><td class="num">R$ 24,90</td></tr><tr data-code="85639624"><td>85639624</td><td>Изолента 3M Scotch 33+, 19 мм × 20 м</td><td class="num">R$ 34,90</td></tr><tr data-code="91875042"><td>91875042</td><td>Фум-лента (veda rosca) Equation, 18 мм × 25 м</td><td class="num">R$ 9,79</td></tr><tr data-code="89836964"><td>89836964</td><td>WD-40, 300 мл</td><td class="num">R$ 39,90</td></tr><tr data-code="92138816"><td>92138816</td><td>Малярный скотч Dexter, 25 мм × 50 м</td><td class="num">R$ 8,89</td></tr><tr data-code="92029392"><td>92029392</td><td>Дюбели 6 мм с шурупами Standers, 8 шт.</td><td class="num">R$ 14,99</td></tr><tr data-code="88156355"><td>88156355</td><td>Ящик для инструментов Stanley, 31 л</td><td class="num">R$ 89,90</td></tr><tr data-code="92290793"><td>92290793</td><td>Фонарик Rayovac LED</td><td class="num">R$ 32,90</td></tr><tr data-code="89257924"><td>89257924</td><td>Защитные очки Carbografite Spectra 2000</td><td class="num">R$ 6,49</td></tr><tr data-code="92152242"><td>92152242</td><td>Рабочие перчатки Dexter, размер M</td><td class="num">R$ 10,90</td></tr></tbody>
+    <tbody id="tbody"><tr data-code="90525414"><td>90525414</td><td>Шуруповёрт-дрель Bosch GSB 120-LI, 12 В, ударный</td><td class="num">R$ 459,90</td></tr><tr data-code="89893853"><td>89893853</td><td>Набор свёрл и бит Bosch X-Line, 33 шт.</td><td class="num">R$ 85,90</td></tr><tr data-code="90407191"><td>90407191</td><td>Отвёртки Tramontina, 7 шт. (шлиц + крест)</td><td class="num">R$ 24,89</td></tr><tr data-code="89585671"><td>89585671</td><td>Индикаторная отвёртка (фазоискатель) MP</td><td class="num">R$ 6,90</td></tr><tr data-code="90768251"><td>90768251</td><td>Разводной ключ Gedore RED, 10&quot;</td><td class="num">R$ 98,90</td></tr><tr data-code="90768286"><td>90768286</td><td>Газовый (трубный) ключ Gedore RED, 10&quot;</td><td class="num">R$ 76,90</td></tr><tr data-code="89585664"><td>89585664</td><td>Шестигранники (Allen) MP, 1,5–10 мм, 9 шт.</td><td class="num">R$ 8,89</td></tr><tr data-code="91034062"><td>91034062</td><td>Рожковые/накидные ключи Dexter, 7–17 мм, 6 шт.</td><td class="num">R$ 82,90</td></tr><tr data-code="91033656"><td>91033656</td><td>Головки + трещотка + биты Dexter, 24 шт.</td><td class="num">R$ 99,90</td></tr><tr data-code="90345220"><td>90345220</td><td>Плоскогубцы (пассатижи) Tramontina, 8&quot;</td><td class="num">R$ 19,99</td></tr><tr data-code="89827276"><td>89827276</td><td>Бокорезы Dexter, 6&quot;</td><td class="num">R$ 65,90</td></tr><tr data-code="90114150"><td>90114150</td><td>Молоток-гвоздодёр Dexter, 30 мм</td><td class="num">R$ 53,90</td></tr><tr data-code="91716401"><td>91716401</td><td>Рулетка Dexter, 5 м</td><td class="num">R$ 29,90</td></tr><tr data-code="91794185"><td>91794185</td><td>Строительный нож Dexter, 18 мм</td><td class="num">R$ 19,99</td></tr><tr data-code="85639624"><td>85639624</td><td>Изолента 3M Scotch 33+, 19 мм × 20 м</td><td class="num">R$ 34,90</td></tr><tr data-code="91875042"><td>91875042</td><td>Фум-лента (veda rosca) Equation, 18 мм × 25 м</td><td class="num">R$ 9,79</td></tr><tr data-code="89836964"><td>89836964</td><td>WD-40, 300 мл</td><td class="num">R$ 39,90</td></tr><tr data-code="92138816"><td>92138816</td><td>Малярный скотч Dexter, 25 мм × 50 м</td><td class="num">R$ 8,89</td></tr><tr data-code="88156355"><td>88156355</td><td>Ящик для инструментов Stanley, 31 л</td><td class="num">R$ 89,90</td></tr><tr data-code="92290793"><td>92290793</td><td>Фонарик Rayovac LED</td><td class="num">R$ 32,90</td></tr><tr data-code="89257924"><td>89257924</td><td>Защитные очки Carbografite Spectra 2000</td><td class="num">R$ 6,49</td></tr><tr data-code="92152242"><td>92152242</td><td>Рабочие перчатки Dexter, размер M</td><td class="num">R$ 10,90</td></tr></tbody>
   </table>
   <button class="btn copy" id="copy" type="button">Скопировать список</button>
 </section>
@@ -605,7 +512,7 @@ footer{color:var(--ink-3);font-size:13.5px;padding:34px 0 10px;text-align:center
 
 <script>
 (function(){
-  var KEY='ferramentas-barra-v1', st={};
+  var KEY='ferramentas-barra-v2', st={};
   try{st=JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){st={}}
   var cards=[].slice.call(document.querySelectorAll('.card'));
   var fmt=function(x){return 'R$ '+x.toFixed(2).replace('.',',').replace(/\B(?=(\d{3})+(?!\d))/g,'.')};
