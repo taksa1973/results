@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ящик под стол</title>
-<meta name="description" content="Чёрные ящики и корзины под стол с подъёмом: проверенные цены Amazon BR на 06.11.2026">
+<title>Ящик и крюк под стол</title>
 <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
 <meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="description" content="Ящик под стол с подъёмом для очков, проводов, таблеток, телефона и тренажёра для кисти, плюс крюк под AirPods Max. Всё крепится к столешнице снизу. Amazon BR, доставка в Curicica">
 <script>document.documentElement.classList.add('js')</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,38 +14,74 @@
 <style>
   :root{
     --bg:#F5F5F7; --card:#FFFFFF; --ink:#1D1D1F; --sub:#6E6E73; --soft:#3A3A3C;
-    --line:#E5E5EA; --blue:#0071E3; --green:#1E8E3E; --orange:#B25E00;
-    --warnbg:#FFF8EC; --warnline:#FBE4B8; --phbg:#FAFAFC;
+    --line:#E5E5EA; --blue:#0071E3; --green:#1E8E3E; --orange:#B25E00; --red:#C4314B;
+    --warnbg:#FFF8EC; --warnline:#FBE4B8; --phbg:#FAFAFC; --navbg:rgba(245,245,247,.86);
+    --okbg:#E8F5EC; --nobg:#FCEBEE;
     --radius:22px; --shadow:0 1px 3px rgba(0,0,0,.06),0 8px 30px rgba(0,0,0,.05);
   }
   @media (prefers-color-scheme:dark){
     :root:not([data-theme="light"]){
       --bg:#000; --card:#1C1C1E; --ink:#F5F5F7; --sub:#A1A1A6; --soft:#D1D1D6;
-      --line:#38383A; --blue:#2997FF; --green:#30D158; --orange:#FFB340;
-      --warnbg:#2A2110; --warnline:#4A3A1A; --phbg:#FFFFFF;
+      --line:#38383A; --blue:#2997FF; --green:#30D158; --orange:#FFB340; --red:#FF6B81;
+      --warnbg:#2A2110; --warnline:#4A3A1A; --phbg:#FFFFFF; --navbg:rgba(0,0,0,.82);
+      --okbg:#12301B; --nobg:#3A1218;
       --shadow:0 1px 3px rgba(0,0,0,.4),0 8px 30px rgba(0,0,0,.3);
     }
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
   body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:var(--bg);color:var(--ink);
-    line-height:1.5;-webkit-font-smoothing:antialiased;padding:0 20px}
-  .wrap{max-width:1080px;margin:0 auto}
-  header{padding:88px 0 48px;text-align:center}
+    line-height:1.5;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+
+  /* навигация */
+  .topnav{position:sticky;top:0;z-index:40;background:var(--navbg);backdrop-filter:saturate(180%) blur(16px);
+    -webkit-backdrop-filter:saturate(180%) blur(16px);border-bottom:1px solid var(--line)}
+  .topnav-inner{max-width:1080px;margin:0 auto;padding:0 12px;display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
+  .topnav-inner::-webkit-scrollbar{display:none}
+  .topnav a{flex:0 0 auto;display:flex;align-items:center;min-height:48px;padding:0 14px;font-size:14px;font-weight:600;
+    color:var(--sub);text-decoration:none;border-bottom:2px solid transparent;transition:color .2s,border-color .2s}
+  .topnav a:hover{color:var(--ink)}
+  .topnav a.active{color:var(--ink);border-bottom-color:var(--blue)}
+  .topnav a:focus-visible{outline:3px solid var(--blue);outline-offset:-3px;border-radius:6px}
+  section{padding:36px 0;scroll-margin-top:56px}
+
+  header{padding:72px 0 40px;text-align:center}
   .kicker{display:inline-block;font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
     color:var(--blue);background:rgba(0,113,227,.1);padding:7px 14px;border-radius:100px;margin-bottom:22px}
-  h1{font-size:clamp(34px,5.6vw,56px);font-weight:800;letter-spacing:-.03em;line-height:1.08}
-  .lead{font-size:clamp(17px,2.4vw,20px);color:var(--sub);max-width:680px;margin:22px auto 0}
-  .criteria{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:26px}
-  .chip{font-size:13px;font-weight:600;background:var(--card);border:1px solid var(--line);padding:8px 14px;border-radius:100px}
+  h1{font-size:clamp(32px,5.4vw,54px);font-weight:800;letter-spacing:-.03em;line-height:1.08}
+  .lead{font-size:clamp(17px,2.3vw,19px);color:var(--sub);max-width:720px;margin:22px auto 0}
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:34px}
+  .stat{background:var(--card);border-radius:18px;box-shadow:var(--shadow);padding:18px 16px;text-align:left}
+  .stat b{display:block;font-size:24px;font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+  .stat span{font-size:13.5px;color:var(--sub)}
+
   h2{font-size:clamp(24px,3.6vw,32px);font-weight:700;letter-spacing:-.02em;margin-bottom:8px}
-  .sec-sub{color:var(--sub);font-size:16px;margin-bottom:30px;max-width:680px}
-  section{padding:36px 0}
-  .types{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-  .type{background:var(--card);border-radius:18px;box-shadow:var(--shadow);padding:24px}
+  .sec-sub{color:var(--sub);font-size:16px;margin-bottom:28px;max-width:720px}
+
+  /* таблица «что влезет» */
+  .fit{width:100%;border-collapse:separate;border-spacing:0;background:var(--card);border-radius:18px;box-shadow:var(--shadow);overflow:hidden}
+  .fit th,.fit td{text-align:left;padding:14px 16px;font-size:15px;border-bottom:1px solid var(--line);vertical-align:top}
+  .fit th{font-size:13px;font-weight:600;color:var(--sub);background:var(--phbg)}
+  .fit tr:last-child td{border-bottom:none}
+  .fit td.item{font-weight:600}
+  .fit td.size{font-variant-numeric:tabular-nums;color:var(--soft)}
+  .yes,.no{display:inline-block;font-size:13.5px;font-weight:600;padding:4px 10px;border-radius:8px}
+  .yes{color:var(--green);background:var(--okbg)}
+  .no{color:var(--red);background:var(--nobg)}
+  .fit small{display:block;font-size:13px;color:var(--sub);margin-top:4px;font-weight:400}
+  .notes{margin-top:14px;font-size:13.5px;color:var(--sub)}
+  .notes a{color:var(--blue)}
+  .verdict{margin-top:22px;padding:18px 22px;background:var(--card);border-radius:18px;box-shadow:var(--shadow);
+    border-left:4px solid var(--blue);font-size:15.5px;color:var(--soft)}
+  .verdict b{color:var(--ink)}
+
+  .types{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-bottom:26px}
+  .type{background:var(--card);border-radius:18px;box-shadow:var(--shadow);padding:22px}
   .type h3{font-size:17px;margin-bottom:6px}
   .type p{font-size:14.5px;color:var(--soft)}
-  .type .pm{margin-top:10px;font-size:13.5px;color:var(--sub)}
+  .type .pm{margin-top:8px;font-size:13.5px;color:var(--sub)}
+
   .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
   .card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:24px;
     display:flex;flex-direction:column;transition:transform .3s cubic-bezier(.2,.7,.2,1),box-shadow .3s}
@@ -53,7 +89,7 @@
   .card.top{outline:2px solid var(--blue);outline-offset:-2px}
   .ph{display:block;width:100%;height:auto;aspect-ratio:1/1;object-fit:contain;background:var(--phbg);border-radius:14px;margin-bottom:18px;padding:8px}
   .badge{align-self:flex-start;font-size:11.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;
-    padding:5px 10px;border-radius:8px;margin-bottom:10px;color:#fff;background:var(--sub)}
+    padding:5px 10px;border-radius:8px;margin-bottom:10px;color:#fff;background:#636366}
   .badge.blue{background:#0071E3}
   .card h3{font-size:19px;font-weight:700;letter-spacing:-.01em;line-height:1.25}
   .tag{color:var(--sub);font-size:14px;margin:6px 0 14px}
@@ -61,12 +97,19 @@
   .specs li{font-size:14px;color:var(--soft);padding:4px 0 4px 20px;position:relative}
   .specs li::before{content:'';position:absolute;left:2px;top:12px;width:7px;height:7px;border-radius:50%;background:var(--green)}
   .specs li.minus::before{background:var(--orange)}
+  .specs li b{color:var(--ink);font-weight:600}
   .price{font-size:26px;font-weight:800;letter-spacing:-.02em;margin-top:auto;padding-top:8px;font-variant-numeric:tabular-nums}
   .price small{font-size:13px;font-weight:500;color:var(--sub);display:block;margin-top:2px}
   .buy{display:flex;align-items:center;justify-content:center;min-height:44px;margin-top:14px;font-size:15px;font-weight:600;
     color:#fff;background:#0071E3;border-radius:100px;text-decoration:none;transition:background .2s,transform .15s}
   .buy:hover{background:#0077ED}.buy:active{transform:scale(.97)}
   .buy:focus-visible{outline:3px solid var(--blue);outline-offset:3px}
+
+  .facts{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:26px}
+  .fact{background:var(--card);border-radius:18px;box-shadow:var(--shadow);padding:18px 20px;font-size:14.5px;color:var(--soft)}
+  .fact b{display:block;font-size:22px;font-weight:800;color:var(--ink);letter-spacing:-.02em;font-variant-numeric:tabular-nums;margin-bottom:4px}
+  .fact a{color:var(--blue)}
+
   .box{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:30px}
   .box ol,.box ul{margin-left:20px;margin-top:10px}
   .box li{font-size:15.5px;color:var(--soft);padding:5px 0}
@@ -76,164 +119,267 @@
   .warn b{color:var(--ink)}
   footer{padding:44px 0 70px;text-align:center;color:var(--sub);font-size:13px}
   footer a{color:var(--blue);text-decoration:none}
+
   .js .anim{opacity:0}
-  @media(max-width:900px){.cards{grid-template-columns:1fr 1fr}}
-  @media(max-width:720px){.cards,.types{grid-template-columns:1fr}header{padding:60px 0 32px}body{padding:0 16px}}
-  @media(prefers-reduced-motion:reduce){.js .anim{opacity:1!important;transform:none!important}}
+  @media(max-width:900px){.cards{grid-template-columns:1fr 1fr}.stats{grid-template-columns:1fr 1fr}.facts{grid-template-columns:1fr}}
+  @media(max-width:720px){
+    .wrap{padding:0 16px}
+    .cards,.types{grid-template-columns:1fr}
+    header{padding:48px 0 28px}
+    /* таблица превращается в карточки */
+    .fit,.fit tbody,.fit tr,.fit td{display:block;width:100%}
+    .fit thead{display:none}
+    .fit{background:none;box-shadow:none;border-radius:0}
+    .fit tr{background:var(--card);border-radius:16px;box-shadow:var(--shadow);margin-bottom:12px;padding:6px 0}
+    .fit td{border-bottom:none;padding:6px 16px}
+    .fit td[data-label]::before{content:attr(data-label);display:block;font-size:12px;font-weight:600;color:var(--sub);margin-bottom:2px}
+  }
+  @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.js .anim{opacity:1!important;transform:none!important}}
 </style>
 </head>
 <body>
+
+<nav class="topnav" aria-label="Разделы страницы">
+  <div class="topnav-inner">
+    <a href="#veshchi">Что кладу</a>
+    <a href="#yashchiki">Ящики</a>
+    <a href="#naushniki">Наушники</a>
+    <a href="#zamery">Перед заказом</a>
+  </div>
+</nav>
+
 <div class="wrap">
 
 <header>
   <span class="kicker anim">Подборка · Рио · Amazon BR</span>
-  <h1 class="anim">Ящик или корзина под стол с подъёмом</h1>
-  <p class="lead anim">Только чёрные варианты, которые есть в наличии. Цены я проверил на Amazon.com.br 06.11.2026. Всё крепится к столешнице и ездит вверх-вниз вместе с ней.</p>
-  <div class="criteria anim">
-    <span class="chip">Чёрный цвет</span>
-    <span class="chip">Крепление к столешнице</span>
-    <span class="chip">Без сверления или с ним</span>
-    <span class="chip">В наличии</span>
+  <h1 class="anim">Ящик и крюк для наушников под стол</h1>
+  <p class="lead anim">Всё крепится к нижней стороне столешницы, за край ничего не выступает, так что локтем не заденешь. Ящик под футляр для очков, тряпочку, микропровода, таблетки, телефон и тренажёр для кисти. Крюк под накладные наушники вроде AirPods Max. Цены и сроки указаны с доставкой на твой CEP в Curicica.</p>
+  <div class="stats">
+    <div class="stat anim"><b>R$ 217,54</b><span>ящик Beiyier</span></div>
+    <div class="stat anim"><b>R$ 118,18</b><span>крюк 6amLifestyle</span></div>
+    <div class="stat anim"><b>5,8 см</b><span>высота внутри ящика</span></div>
+    <div class="stat anim"><b>520,7 г</b><span>AirPods Max в чехле</span></div>
   </div>
 </header>
 
-<section>
-  <h2 class="anim">Три способа крепления</h2>
-  <p class="sec-sub anim">Сначала выбери способ крепления, потом конкретную модель.</p>
-  <div class="types">
-    <div class="type anim"><h3>На шурупах снизу</h3><p>Самый надёжный вариант, если стол часто поднимаешь и опускаешь.</p><p class="pm">Нужна столешница от 2,5 см и отвёртка.</p></div>
-    <div class="type anim"><h3>На струбцине (C-зажим)</h3><p>Зажимается на край стола, никаких дырок и клея. Можно переставить.</p><p class="pm">Нужен свободный край без рамы.</p></div>
-    <div class="type anim"><h3>На клею</h3><p>Дёшево и быстро, подходит для мелочей.</p><p class="pm">Клей со временем может отойти, если тяжело грузить или часто дёргать.</p></div>
-  </div>
+<section id="veshchi">
+  <h2 class="anim">Что будет лежать в ящике</h2>
+  <p class="sec-sub anim">Размеры взял из карточек похожих вещей на Amazon. Свои лучше один раз померить линейкой, особенно футляр и тренажёр.</p>
+  <table class="fit anim">
+    <thead>
+      <tr><th>Вещь</th><th>Размер</th><th>Beiyier, внутри 31 × 22 × 5,8 см</th><th>TooCust, 2 ящика</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="item">Жёсткий футляр для очков</td>
+        <td class="size" data-label="Размер">16–16,5 × 6–7,8 × 4–4,5 см ¹</td>
+        <td data-label="Beiyier"><span class="yes">Влезет</span></td>
+        <td data-label="TooCust"><span class="yes">Влезет</span><small>в большой ящик (5,5 см по карточке)</small></td>
+      </tr>
+      <tr>
+        <td class="item">Телефон</td>
+        <td class="size" data-label="Размер">лёжа плашмя</td>
+        <td data-label="Beiyier"><span class="yes">Влезет</span></td>
+        <td data-label="TooCust"><span class="yes">Влезет</span><small>в большой ящик</small></td>
+      </tr>
+      <tr>
+        <td class="item">Тряпочка, микропровода, таблетки в блистерах</td>
+        <td class="size" data-label="Размер">плоские</td>
+        <td data-label="Beiyier"><span class="yes">Влезет</span></td>
+        <td data-label="TooCust"><span class="yes">Влезет</span><small>удобно в средний ящик высотой 2,2 см</small></td>
+      </tr>
+      <tr>
+        <td class="item">Кистевой эспандер (hand grip)</td>
+        <td class="size" data-label="Размер">15 × 10,5 × 2,5 см ²</td>
+        <td data-label="Beiyier"><span class="yes">Влезет</span></td>
+        <td data-label="TooCust"><span class="yes">Влезет</span><small>в большой ящик</small></td>
+      </tr>
+      <tr>
+        <td class="item">Гироскоп Powerball</td>
+        <td class="size" data-label="Размер">шар около 7–7,5 см ³</td>
+        <td data-label="Beiyier"><span class="no">Не влезет</span><small>не хватает высоты: 5,8 см</small></td>
+        <td data-label="TooCust"><span class="no">Не влезет</span></td>
+      </tr>
+    </tbody>
+  </table>
+  <p class="notes anim">¹ Футляры <a href="https://www.amazon.com.br/dp/B0D69P1H7L" target="_blank" rel="noopener">molshine</a> (16,5 × 5,8 или 7,81 × 4,5 см) и <a href="https://www.amazon.com.br/dp/B0CXXCF4QB" target="_blank" rel="noopener">RayLove</a> (внутри 16 × 6,5 × 3,4 см). ² <a href="https://www.amazon.com.br/dp/B0FLG4W7QT" target="_blank" rel="noopener">Hand Grip 60 кг</a>. ³ Производитель Powerball размер не публикует. В обзорах и у магазинов указывают 70 мм для модели 280Hz Autostart и 75 мм для 350Hz Raptor.</p>
+  <div class="verdict anim"><b>Итог.</b> Если тренажёр — кистевой эспандер, весь набор ложится в Beiyier. Powerball выше любого закрытого ящика из тех, что крепятся снизу: все, что я нашёл, ниже 7,5 см даже снаружи. Для шара остаётся сетчатая корзина Depisuta высотой 10 см, или держи его на столе.</div>
 </section>
 
-<section>
-  <h2 class="anim">Варианты</h2>
-  <p class="sec-sub anim">Сортировка: сначала то, что я бы взял сам.</p>
+<section id="yashchiki">
+  <h2 class="anim">Ящики</h2>
+  <p class="sec-sub anim">Только то, что крепится к столешнице снизу. Корзины на струбцине (ROSYLINE, Pulchrum, Homeify) убрал: верхняя губка зажима лежит на краю стола, об неё и цепляешься локтем.</p>
+  <div class="types">
+    <div class="type anim"><h3>На шурупах снизу</h3><p>Самое надёжное крепление, если стол часто поднимаешь и опускаешь.</p><p class="pm">Шуруп должен быть короче толщины столешницы.</p></div>
+    <div class="type anim"><h3>На клею</h3><p>Без отвёртки, подходит для тонкой столешницы.</p><p class="pm">Под тяжёлым грузом или от рывков клей со временем может отойти.</p></div>
+  </div>
   <div class="cards">
 
     <article class="card top anim">
-      <img class="ph" src="https://m.media-amazon.com/images/I/51rEPJfldsL._AC_SL1000_.jpg" alt="Beiyier — чёрный металлический выдвижной ящик под стол" loading="lazy" width="1000" height="1000">
+      <img class="ph" src="https://m.media-amazon.com/images/I/51rEPJfldsL._AC_SL1000_.jpg" alt="Beiyier: чёрный металлический выдвижной ящик под стол" loading="lazy" width="1000" height="1000">
       <span class="badge blue">Мой выбор</span>
       <h3>Beiyier: выдвижной ящик</h3>
-      <p class="tag">На шурупах · сталь, порошковая покраска · 4,4★ (111 оценок)</p>
+      <p class="tag">Шурупы снизу · сталь, порошковая покраска · 4,4★ (111 оценок)</p>
       <ul class="specs">
         <li>Внутри 31 × 22 × 5,8 см, держит до 5,4 кг</li>
-        <li>Высоту можно поднять с 9,3 до 11,8 см, чтобы ящик прошёл под поперечной балкой рамы. Прямо сказано, что подходит для стоячих столов</li>
-        <li>Закрытый ящик, пыль не собирает</li>
-        <li class="minus">Сверлить не надо, но шурупы 2 см ввинчиваются в столешницу, она должна быть толщиной от 2,5 см</li>
+        <li><b>Влезет:</b> футляр, телефон, эспандер, тряпочка, провода, таблетки. Powerball не войдёт</li>
+        <li>Высота регулируется от 9,3 до 11,8 см, чтобы ящик прошёл под поперечной балкой рамы. В карточке прямо сказано, что подходит для стоячих столов</li>
+        <li>Закрытый, дно сплошное: мелочь не проваливается и не пылится</li>
+        <li class="minus">Шурупы длиной 2 см, столешница нужна от 2,5 см. Если она тоньше, продавец советует взять шурупы короче</li>
       </ul>
-      <div class="price">R$ 217,54 <small>доставка R$ 8,90 · Amazon Global, по сайту к 14.11</small></div>
+      <div class="price">R$ 217,54 <small>доставка R$ 8,90 · Amazon Global, по сайту 18 ноября</small></div>
       <a class="buy" href="https://www.amazon.com.br/dp/B0CQ492TFX" target="_blank" rel="noopener">Открыть на Amazon</a>
     </article>
 
     <article class="card anim">
-      <img class="ph" src="https://m.media-amazon.com/images/I/71ObrcA5I2L._AC_SL1000_.jpg" alt="ROSYLINE — чёрная сетчатая корзина на C-зажиме с поворотом 360°" loading="lazy" width="1000" height="1000">
-      <span class="badge">Без сверления</span>
-      <h3>ROSYLINE: поворотная корзина</h3>
-      <p class="tag">C-струбцина · сталь · 4,7★ (135 оценок)</p>
-      <ul class="specs">
-        <li>27,4 × 18 × 7,6 см, держит до 3 кг</li>
-        <li>Поворачивается на 360°: выкатил, взял, спрятал обратно под стол</li>
-        <li>Самый высокий рейтинг в подборке</li>
-        <li class="minus">Открытая сетка, мелочь видна</li>
-      </ul>
-      <div class="price">R$ 266,72 <small>доставка R$ 8,90 · Amazon Global, по сайту к 14.11</small></div>
-      <a class="buy" href="https://www.amazon.com.br/dp/B0BX95RQFZ" target="_blank" rel="noopener">Открыть на Amazon</a>
-    </article>
-
-    <article class="card anim">
-      <img class="ph" src="https://m.media-amazon.com/images/I/81STCImgSgL._AC_SL1000_.jpg" alt="Homeify — чёрный сетчатый органайзер с выдвижными ящиками на зажимах" loading="lazy" width="1000" height="1000">
-      <span class="badge">Самый вместительный</span>
-      <h3>Homeify: блок с ящиками</h3>
-      <p class="tag">Струбцины · металлическая сетка · 4,1★ (88 оценок)</p>
-      <ul class="specs">
-        <li>45 × 30 × 12 см, сверху ещё плоская полка</li>
-        <li>Без зажимов можно поставить на стол как обычный органайзер</li>
-        <li class="minus">В названии на сайте написан 1 ящик, в описании 2. Перед покупкой проверь по фото</li>
-        <li class="minus">Широкий: ставить сбоку, чтобы не мешал коленям</li>
-      </ul>
-      <div class="price">R$ 267,22 <small>доставка R$ 8,90 · продавец FRESH FINEST, по сайту к 17.11</small></div>
-      <a class="buy" href="https://www.amazon.com.br/dp/B0CKZJ43CR" target="_blank" rel="noopener">Открыть на Amazon</a>
-    </article>
-
-    <article class="card anim">
-      <img class="ph" src="https://m.media-amazon.com/images/I/81EY8LsaOML._AC_SL1000_.jpg" alt="TooCust — два чёрных пластиковых ящика под стол на клею" loading="lazy" width="1000" height="1000">
-      <span class="badge">Самый дешёвый</span>
-      <h3>TooCust: 2 ящика на клею</h3>
-      <p class="tag">Клей · пластик «чёрный прозрачный» · 4,3★ (176 оценок)</p>
+      <img class="ph" src="https://m.media-amazon.com/images/I/81EY8LsaOML._AC_SL1000_.jpg" alt="TooCust: два чёрных пластиковых ящика под стол на клею" loading="lazy" width="1000" height="1000">
+      <span class="badge">Дешевле, на клею</span>
+      <h3>TooCust: 2 ящика</h3>
+      <p class="tag">Клей · пластик «чёрный прозрачный» · 4,3★ (177 оценок)</p>
       <ul class="specs">
         <li>Большой 21,6 × 20 × 5,5 см и средний 15 × 20 × 2,2 см</li>
-        <li>Подходит для мелочей: зарядки, ручки, наушники</li>
+        <li><b>Влезет:</b> в большой футляр, телефон и эспандер, в средний тряпочка, провода и блистеры. Powerball не войдёт</li>
+        <li>Без шурупов, подойдёт и для столешницы 1,5 см</li>
         <li class="minus">Пластик полупрозрачный, не матово-чёрный</li>
-        <li class="minus">По описанию не подходит, если у стола снизу рама, а у стола с подъёмом она обычно есть. Клеить на гладкий участок между балками</li>
+        <li class="minus">Клеить на гладкий участок между балками рамы</li>
       </ul>
-      <div class="price">R$ 179,98 <small>за 2 штуки · в наличии</small></div>
+      <div class="price">R$ 188,29 <small>за 2 штуки · доставка R$ 8,90 · Amazon Global, по сайту 18 ноября</small></div>
       <a class="buy" href="https://www.amazon.com.br/dp/B0C7MKZVW7" target="_blank" rel="noopener">Открыть на Amazon</a>
     </article>
 
     <article class="card anim">
-      <img class="ph" src="https://m.media-amazon.com/images/I/71vC6jBGuuL._AC_SL1000_.jpg" alt="Depisuta — длинная металлическая сетчатая корзина под стол" loading="lazy" width="1000" height="1000">
-      <span class="badge">Длинная корзина</span>
+      <img class="ph" src="https://m.media-amazon.com/images/I/71vC6jBGuuL._AC_SL1000_.jpg" alt="Depisuta: длинная металлическая сетчатая корзина под стол" loading="lazy" width="1000" height="1000">
+      <span class="badge">Если тренажёр — Powerball</span>
       <h3>Depisuta: сетчатая корзина L</h3>
-      <p class="tag">Клей · железо · отзывов пока нет</p>
+      <p class="tag">Клей · железная сетка · отзывов пока нет</p>
       <ul class="specs">
-        <li>56 × 13 × 10 см: длинная и узкая, вдоль заднего края стола</li>
-        <li>Подходит для удлинителя, кабелей, блока питания, всякой длинной мелочи</li>
+        <li>56 × 13 × 10 см: длинная и узкая, ставится вдоль заднего края</li>
+        <li><b>Влезет:</b> Powerball по высоте, плюс удлинитель и кабели</li>
+        <li class="minus">Сетка: таблетки и микропровода лучше сложить в коробочку</li>
         <li class="minus">Цвет в карточке не указан, только размер «L». Сверь по фото</li>
-        <li class="minus">Держится только на клею, отзывов нет</li>
+        <li class="minus">Доставка долгая, 7–21 декабря</li>
       </ul>
-      <div class="price">R$ 220,72 <small>в наличии</small></div>
+      <div class="price">R$ 220,72 <small>доставка бесплатная · продавец Wenteru. В переключателе вариантов у L мелькает R$ 229,93, сверь в корзине</small></div>
       <a class="buy" href="https://www.amazon.com.br/dp/B0DPJCMN64" target="_blank" rel="noopener">Открыть на Amazon</a>
     </article>
 
-    <article class="card anim">
-      <img class="ph" src="https://m.media-amazon.com/images/I/81GEDrJOE4L._AC_SL1000_.jpg" alt="Pulchrum — чёрная поворотная корзина на зажиме под стол" loading="lazy" width="1000" height="1000">
-      <span class="badge">Аналог ROSYLINE</span>
-      <h3>Pulchrum: поворотная корзина</h3>
-      <p class="tag">Струбцина · сталь · 4,0★ (35 оценок)</p>
+  </div>
+</section>
+
+<section id="naushniki">
+  <h2 class="anim">Крюк для наушников</h2>
+  <p class="sec-sub anim">Крюк клеится или прикручивается к нижней стороне столешницы, а наушники висят под столом. Все варианты на струбцине убрал по той же причине, что и корзины.</p>
+  <div class="facts">
+    <div class="fact anim"><b>386,2 г</b>Вес AirPods Max 2. Чехол Smart Case весит ещё 134,5 г, вместе 520,7 г. <a href="https://www.apple.com/airpods-max/specs/" target="_blank" rel="noopener">Apple</a></div>
+    <div class="fact anim"><b>Можно в чехле</b>Apple советует хранить их в Smart Case: так они переходят в режим сверхнизкого энергопотребления. Чехол закрывает только чашки, поэтому на крюк их можно вешать прямо в нём. <a href="https://support.apple.com/en-us/118262" target="_blank" rel="noopener">Apple</a></div>
+    <div class="fact anim"><b>≈ 23 см</b>Настолько они свесятся под столешницей: высота AirPods Max 18,7 см, плюс около 4 см крюка. Вешай сбоку, где нет коленей.</div>
+  </div>
+  <div class="cards">
+
+    <article class="card top anim">
+      <img class="ph" src="https://m.media-amazon.com/images/I/71HMGEbZbHL._AC_SL1000_.jpg" alt="6amLifestyle: алюминиевый двойной крюк для наушников под стол, на фото висят AirPods Max" loading="lazy" width="1000" height="1000">
+      <span class="badge blue">Мой выбор</span>
+      <h3>6amLifestyle: двойной крюк</h3>
+      <p class="tag">Шурупы или клей снизу · алюминий · 4,6★ (1 939 оценок)</p>
       <ul class="specs">
-        <li>26 × 18 × 8 см, поворот на 360°</li>
-        <li>В описании прямо упомянут стоячий стол</li>
-        <li class="minus">Дешевле ROSYLINE на R$ 20, но рейтинг ниже и оценок меньше</li>
+        <li>Два крюка: на одном AirPods Max, на другом вторые наушники или провод. На фото продавца висят как раз две пары AirPods Max</li>
+        <li>На клею держит 2 кг, на шурупах из комплекта до 28 кг. AirPods Max в чехле весят 520,7 г</li>
+        <li>Подходит для оголовья шириной до 4 см</li>
+        <li class="minus">Не поворачивается, так что место выбирай сразу: сбоку и подальше от переднего края</li>
       </ul>
-      <div class="price">R$ 246,07 <small>в наличии</small></div>
-      <a class="buy" href="https://www.amazon.com.br/dp/B0C5HQH2V8" target="_blank" rel="noopener">Открыть на Amazon</a>
+      <div class="price">R$ 118,18 <small>доставка R$ 8,90 · продавец 6amLifestyle US, по сайту 18 ноября</small></div>
+      <a class="buy" href="https://www.amazon.com.br/dp/B077BHFSPS" target="_blank" rel="noopener">Открыть на Amazon</a>
+    </article>
+
+    <article class="card anim">
+      <img class="ph" src="https://m.media-amazon.com/images/I/616R39+fveL._AC_SL1000_.jpg" alt="Yocice HH02: чёрный алюминиевый крюк для наушников под стол" loading="lazy" width="1000" height="1000">
+      <span class="badge">Дешевле, один крюк</span>
+      <h3>Yocice HH02: алюминиевый крюк</h3>
+      <p class="tag">Шурупы или скотч 3M VHB · алюминий · 4,7★ (1 714 оценок)</p>
+      <ul class="specs">
+        <li>Один широкий крюк с силиконовой накладкой, не царапает оголовье</li>
+        <li>Держит до 4,5 кг, шурупы в комплекте</li>
+        <li>Рейтинг 4,7★ при 1 714 оценках, выше двух других крюков</li>
+        <li class="minus">Не поворачивается. AirPods Max в карточке не упомянуты, но запас по весу большой</li>
+      </ul>
+      <div class="price">R$ 103,16 <small>доставка R$ 8,90 · продавец Yocice, по сайту 20 ноября</small></div>
+      <a class="buy" href="https://www.amazon.com.br/dp/B07K58D1SL" target="_blank" rel="noopener">Открыть на Amazon</a>
+    </article>
+
+    <article class="card anim">
+      <img class="ph" src="https://m.media-amazon.com/images/I/71aq3McTdxL._AC_SL1000_.jpg" alt="Lamicall: поворотный крюк для наушников на клею под стол" loading="lazy" width="1000" height="1000">
+      <span class="badge">Поворотный, дешёвый</span>
+      <h3>Lamicall: поворотный крюк</h3>
+      <p class="tag">Клей снизу · поворот на 360° · 4,6★ (4 426 оценок)</p>
+      <ul class="specs">
+        <li>Двойной поворотный рычаг: наушники можно задвинуть глубже под стол</li>
+        <li>Силиконовая накладка на крюке, AirPods Max в списке совместимых</li>
+        <li class="minus">Рассчитан максимум на 500 г: AirPods Max без чехла (386,2 г) выдержит, в чехле (520,7 г) уже нет</li>
+        <li class="minus">Только клей, вешать наушники через 24 часа после установки</li>
+      </ul>
+      <div class="price">R$ 49,22 <small>по Pix и NuPay со скидкой 5%, картой 2 × R$ 25,91 · доставка бесплатная, продавец YOU GREEN, по сайту 24 ноября</small></div>
+      <a class="buy" href="https://www.amazon.com.br/dp/B08N5QT8YR" target="_blank" rel="noopener">Открыть на Amazon</a>
     </article>
 
   </div>
+  <div class="warn anim"><b>Что убрал и почему.</b> Все держатели на струбцине: OEX SG200, Yocice с винтовым зажимом, поворотные B0DZXNTTDF и Celerion. Зажим выходит на край стола. Cosmos: в отзывах из США и Австралии он ломается за неделю, а наушники падают от лёгкого толчка. «Алюминиевый» крюк Mt.Jun: покупатели пишут, что пришёл пластиковый и скотч не держит. B0GQGZ5C9S: в названии «embaixo da mesa», но на фото это та же струбцина.</div>
 </section>
 
-<section>
+<section id="zamery">
   <div class="box anim">
-    <h2>Перед заказом: 3 замера</h2>
+    <h2>Перед заказом</h2>
     <ol>
-      <li><b>Толщина столешницы.</b> Для Beiyier нужно от 2,5 см. Для струбцин смотри диапазон зажима в карточке товара.</li>
-      <li><b>Где проходит рама.</b> Ящику нужен участок без балок, а струбцине нужен свободный край, где нет кронштейнов.</li>
-      <li><b>Колени в нижнем положении.</b> Опусти стол в самое низкое положение и проверь, что ящик высотой около 10–12 см не упирается в ноги. Лучше ставить сбоку, а не по центру.</li>
+      <li><b>Толщина столешницы.</b> На столешницу 2,5 см (Slikdesk) Beiyier ставится как есть. МДФ 1,5 см шурупы Beiyier длиной 2 см пробьют насквозь: возьми шурупы короче или клейкий TooCust. Крюки 6amLifestyle и Yocice тоже можно поставить на клей.</li>
+      <li><b>Где проходит рама.</b> Ящику и крюку нужен ровный участок без балок. Beiyier можно опустить до 11,8 см, чтобы он прошёл под балкой.</li>
+      <li><b>Локти.</b> Ставь ящик так, чтобы ручка не выходила за край столешницы, лучше на пару сантиметров глубже. Крюк ставь сбоку, у ножки, на ширину ладони от переднего края.</li>
+      <li><b>Колени в нижнем положении.</b> Опусти стол до упора: ящик (9–12 см под столешницей) и наушники (около 23 см) не должны касаться бёдер.</li>
+      <li><b>Клей.</b> Поверхность должна быть гладкой, чистой и сухой. Yocice просит прижать крюк на 30 секунд, и он, и Lamicall просят не нагружать его 24 часа.</li>
     </ol>
-    <div class="warn"><b>Что не удалось проверить.</b> Mercado Livre не открылся: через VPN он требует логин. Цены там я не сравнивал, но по запросу «gaveta embaixo da mesa» там тоже много вариантов. Исключил из подборки: ROLIZOE (R$ 580, слишком дорого), а также модели YBING, Roucerlin, Kaiferty и Cankm, потому что на 06.11.2026 их нет в наличии.</div>
+    <div class="warn"><b>Что не проверял.</b> Mercado Livre: без входа в аккаунт он не показывает цены. У Amazon Global цены меняются за несколько дней, перед оплатой сверь сумму в корзине.</div>
   </div>
 </section>
 
-<footer>Цены и наличие: Amazon.com.br, 06.11.2026. Со временем цены меняются, особенно у Amazon Global.</footer>
+<footer>Цены и сроки: Amazon.com.br с доставкой на CEP в Curicica. Размеры и нагрузка взяты из карточек товаров, вес и размеры AirPods Max с <a href="https://www.apple.com/airpods-max/specs/" target="_blank" rel="noopener">сайта Apple</a>.</footer>
 </div>
 
 <script type="module">
   const items = document.querySelectorAll('.anim');
   const revealAll = () => items.forEach(el => { el.style.opacity = 1; el.style.transform = 'none'; });
-  try {
-    const { animate, inView, stagger } = await import("https://cdn.jsdelivr.net/npm/motion@11/+esm");
-    if (matchMedia('(prefers-reduced-motion: reduce)').matches) revealAll();
-    else {
-      animate("header .anim", { opacity:[0,1], y:[20,0] }, { duration:.55, delay: stagger(.08) });
-      inView("section", (sec) => {
+  // страховка: контент виден, даже если CDN не ответил
+  const safety = setTimeout(revealAll, 2600);
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // подсветка активного пункта навигации
+  const links = [...document.querySelectorAll('.topnav a')];
+  const byId = Object.fromEntries(links.map(a => [a.getAttribute('href').slice(1), a]));
+  const navObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        links.forEach(a => a.classList.remove('active'));
+        byId[e.target.id]?.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-45% 0px -50% 0px' });
+  Object.keys(byId).forEach(id => { const s = document.getElementById(id); if (s) navObs.observe(s); });
+
+  if (reduce) { revealAll(); clearTimeout(safety); }
+  else {
+    try {
+      const { animate, inView, stagger } = await import("https://cdn.jsdelivr.net/npm/motion@11/+esm");
+      animate("header .anim", { opacity:[0,1], y:[20,0] }, { duration:.5, delay: stagger(.06) });
+      inView("section", (info) => {
+        const sec = info.target || info;
         const els = sec.querySelectorAll('.anim');
-        animate(els, { opacity:[0,1], y:[24,0] }, { duration:.5, delay: stagger(.05), easing:[.2,.7,.2,1] });
+        animate(els, { opacity:[0,1], y:[24,0] }, { duration:.45, delay: stagger(.05), ease:[.2,.7,.2,1] });
       }, { amount:.1 });
+    } catch (e) {
+      // запасной вариант без CDN
+      const io = new IntersectionObserver(es => es.forEach(en => {
+        if (en.isIntersecting) { en.target.style.transition = 'opacity .4s'; en.target.style.opacity = 1; io.unobserve(en.target); }
+      }), { threshold: .1 });
+      items.forEach(el => io.observe(el));
     }
-    setTimeout(revealAll, 2600);
-  } catch (e) { revealAll(); }
+  }
 </script>
 </body>
 </html>
