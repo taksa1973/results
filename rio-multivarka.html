@@ -79,6 +79,9 @@ ul.spec b{color:#fff;font-weight:600}
 .tbl td.k{color:#fff;font-weight:600;white-space:nowrap}
 .tbl img{width:56px;height:48px;object-fit:contain;background:#fff;border-radius:6px;display:block}
 .tblwrap{overflow-x:auto;border-radius:14px;border:1px solid var(--line)}
+.tbl tr.grp td{background:var(--sub);color:var(--red-t);font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:.06em;padding:8px 10px}
+.tbl.gl td.k,.tbl.gl th{white-space:normal}
+.tbl.gl td:nth-child(3){color:var(--label)}
 .yes{color:#fff}
 .no{color:var(--red-t)}
 .tips{display:grid;grid-template-columns:1fr 1fr;gap:12px}
@@ -101,6 +104,7 @@ footer{padding:40px 0 60px;color:var(--label);font-size:13px}
   <div class="topnav-inner">
     <a href="#itog">Итог</a>
     <a href="#zadachi">Суп, рис, каша, пар</a>
+    <a href="#knopki">Кнопки по-русски</a>
     <a href="#sovety">Перед первой готовкой</a>
     <a href="#import">Дороже: импорт</a>
     <a href="#otsev">Почему не другие</a>
@@ -113,10 +117,10 @@ footer{padding:40px 0 60px;color:var(--label);font-size:13px}
 <header class="hero">
   <div class="eyebrow">Рио-де-Жанейро · мультиварка</div>
   <h1>Мультиварка для супа, риса, каши и пара <span>за&nbsp;R$&nbsp;417</span></h1>
-  <p class="lead">В Бразилии мультиварку ищут как «panela de pressão elétrica»: это электрическая скороварка с программами. Местные модели стоят R$&nbsp;300–750, то есть $55–136, а бюджет $300–400 — это R$&nbsp;1&nbsp;651–2&nbsp;201. Под суп, рис, кашу и пар лучше всего подходит Midea MasterSteam на 6&nbsp;л и 127&nbsp;В. Она стоит R$&nbsp;417, в 4–5 раз меньше бюджета. Программы Sopa, Arroz и Vapor у неё есть, поддон с решёткой для пара идёт в комплекте. Продаёт её сам Amazon, в Барру привозит в день заказа.</p>
+  <p class="lead">В Бразилии мультиварку ищут как «panela de pressão elétrica»: это электрическая скороварка с программами. Местные модели стоят R$&nbsp;300–750, то есть $55–136, а бюджет $300–400 — это R$&nbsp;1&nbsp;651–2&nbsp;201. Под суп, рис, кашу и пар лучше всего подходит Midea MasterSteam на 6&nbsp;л и 127&nbsp;В. Она стоит R$&nbsp;417, в 4–5 раз меньше бюджета. У неё есть программы для супа (Sopa), риса (Arroz) и пара (Vapor), поддон с решёткой для пара идёт в комплекте. Продаёт её сам Amazon, в Барру привозит в день заказа.</p>
   <div class="tiles">
     <div class="tile reveal"><b>R$&nbsp;417,08</b><small>≈ $76 по курсу ЕЦБ</small></div>
-    <div class="tile reveal"><b>12 программ</b><small>Arroz, Sopa, Vapor, томление, йогурт…</small></div>
+    <div class="tile reveal"><b>12 программ</b><small>рис, суп, пар, томление, йогурт…</small></div>
     <div class="tile reveal"><b>Пар в комплекте</b><small>поддон и металлическая решётка</small></div>
     <div class="tile reveal"><b>В день заказа</b><small>доставка Amazon на CEP в Барре</small></div>
   </div>
@@ -136,7 +140,7 @@ footer{padding:40px 0 60px;color:var(--label);font-size:13px}
       <h3>Midea MasterSteam 6 л, модель PPG70S1</h3>
       <div class="price">R$&nbsp;417,08 <small>≈ $76</small></div>
       <ul class="spec">
-        <li><b>12 программ</b> по инструкции: Carne, Frango, Feijão, Arroz, Sopa, Vegetais, Assar, Fritar, Refogar, Cozimento Lento, Vapor, Iogurte. Кроме них есть «Minha receita» с ручной настройкой времени и давления</li>
+        <li><b>12 программ</b> по инструкции: мясо (Carne), курица (Frango), фасоль (Feijão), рис (Arroz), суп (Sopa), овощи (Vegetais), запекание (Assar), жарка (Fritar), обжаривание (Refogar), томление (Cozimento Lento), пар (Vapor), йогурт (Iogurte). Кроме них есть «мой рецепт» (Minha receita), где время и давление задаются вручную. Перевод всех кнопок — <a href="#knopki">в разделе 3</a></li>
         <li><b>Для пара в комплекте</b> поддон и металлическая решётка, ещё половник, ложка и мерный стакан. Всё это видно на фото комплекта и перечислено в инструкции</li>
         <li>Объём чаши 5,7&nbsp;л, антипригарное покрытие, 1000&nbsp;Вт, 3 уровня давления, отложенный старт до 24&nbsp;ч</li>
         <li>4,8 из 5 по 2&nbsp;696 отзывам, продаёт и отправляет Amazon.com.br</li>
@@ -149,11 +153,11 @@ footer{padding:40px 0 60px;color:var(--label);font-size:13px}
 
     <article class="card reveal">
       <div class="ph"><img src="https://m.media-amazon.com/images/I/51ARlVN-KZL._AC_SL1000_.jpg" alt="WAP Multicooker WPPE7 6 л с сенсорной панелью" loading="lazy" width="400" height="206"></div>
-      <span class="tag t-ok">отдельная кнопка Mingau</span><span class="tag t-ok">гарантия 2 года</span><span class="tag t-warn">1 отзыв</span>
+      <span class="tag t-ok">отдельная кнопка для каши</span><span class="tag t-ok">гарантия 2 года</span><span class="tag t-warn">1 отзыв</span>
       <h3>WAP Multicooker WPPE7 6 л, 127 В</h3>
       <div class="price">R$&nbsp;765,54 <small>с корзинкой для пара · ≈ $139</small></div>
       <ul class="spec">
-        <li><b>20 программ</b> (список из блога WAP): Arroz, Arroz integral, Sopa, Mingau, Grãos, Vegetais, Feijão, Carnes, Frango, Peixe, Iogurte, Bolo, Polenta и другие</li>
+        <li><b>20 программ</b> (список из блога WAP): рис (Arroz), бурый рис (Arroz integral), суп (Sopa), каша (Mingau), крупы и бобовые (Grãos), овощи (Vegetais), фасоль (Feijão), мясо (Carnes), курица (Frango), рыба (Peixe), йогурт (Iogurte), пирог (Bolo), полента (Polenta) и другие. Полный перевод — <a href="#knopki">в разделе 3</a></li>
         <li>Пар настраивается от 10 до 60 минут, давление тоже можно выбрать</li>
         <li><b>Подставки для пара в комплекте нет.</b> Её нет ни в списке комплектации, ни на фото: «cesto removível» в описании — это съёмная чаша. Корзинку придётся купить отдельно (ниже)</li>
         <li>Антипригарное покрытие GrayStone, сенсорная панель, 3 уровня давления, таймер на 24&nbsp;ч, 1000&nbsp;Вт</li>
@@ -179,31 +183,87 @@ footer{padding:40px 0 60px;color:var(--label);font-size:13px}
   <table class="tbl">
     <thead><tr><th>Задача</th><th>Midea MasterSteam</th><th>WAP WPPE7</th><th>Electrolux PCC20</th><th>Cuckoo CR-1020F (импорт)</th></tr></thead>
     <tbody>
-      <tr><td class="k">Суп</td><td class="yes">программа Sopa</td><td class="yes">Sopa</td><td class="yes">Sopa и Caldo</td><td class="yes">soup</td></tr>
-      <tr><td class="k">Рис</td><td class="yes">Arroz, по инструкции 12–22 мин при 110&nbsp;°C</td><td class="yes">Arroz и Arroz integral</td><td class="yes">Arroz и Arroz integral</td><td class="yes">это рисоварка, 16 режимов для разного риса, турборежим ~30 мин</td></tr>
-      <tr><td class="k">Каша, гречка</td><td>отдельной кнопки нет: «Minha receita» со своим временем и давлением</td><td class="yes">Mingau и Grãos</td><td class="no">кнопки нет, только ручной режим</td><td class="yes">porridge</td></tr>
-      <tr><td class="k">Пар: булочки, рыба</td><td class="yes">Vapor, поддон и решётка в комплекте</td><td>Vapor 10–60 мин, корзинку докупить</td><td class="no">программы пара нет, подставки нет</td><td>steam cook; подставка в комплектации не указана</td></tr>
+      <tr><td class="k">Суп</td><td class="yes">суп (Sopa)</td><td class="yes">суп (Sopa)</td><td class="yes">суп (Sopa) и бульон (Caldo)</td><td class="yes">суп</td></tr>
+      <tr><td class="k">Рис</td><td class="yes">рис (Arroz), по инструкции 12–22 мин при 110&nbsp;°C</td><td class="yes">рис (Arroz) и бурый рис (Arroz integral)</td><td class="yes">рис (Arroz) и бурый рис (Arroz Integral)</td><td class="yes">это рисоварка, 16 режимов для разного риса, турборежим ~30 мин</td></tr>
+      <tr><td class="k">Каша, гречка</td><td>отдельной кнопки нет: «мой рецепт» (Minha receita) со своим временем и давлением</td><td class="yes">каша (Mingau) и крупы (Grãos)</td><td class="no">кнопки нет, только ручной режим</td><td class="yes">каша</td></tr>
+      <tr><td class="k">Пар: булочки, рыба</td><td class="yes">пар (Vapor), поддон и решётка в комплекте</td><td>пар (Vapor) 10–60 мин, корзинку докупить</td><td class="no">программы пара нет, подставки нет</td><td>пар; подставка в комплектации не указана</td></tr>
       <tr><td class="k">Скороварка (фасоль, мясо)</td><td class="yes">да</td><td class="yes">да</td><td class="yes">да</td><td class="no">нет</td></tr>
       <tr><td class="k">Цена</td><td class="n">R$&nbsp;417,08</td><td class="n">R$&nbsp;765,54 с корзинкой</td><td class="n">R$&nbsp;435,08</td><td class="n">R$&nbsp;1&nbsp;401,77</td></tr>
       <tr><td class="k">Доставка в Барру</td><td>в день заказа</td><td>в день заказа</td><td>15 ноября</td><td>18 ноября, из США</td></tr>
     </tbody>
   </table>
   </div>
-  <p class="muted">Electrolux PCC20 — самая продаваемая скороварка на Amazon Бразилии: 11&nbsp;735 отзывов, первое место в категории. Но в её 15 программах (Carne, Frango, Lentilha, Milho, Refogar, Cozimento Lento, Arroz, Arroz Integral, Feijão, Caldo, Polenta, Sopa, Grão de Bico, Carne Seca, Mandioca) нет ни пара, ни каши. В комплекте мерный стакан и половник, подставки для пара нет.</p>
+  <p class="muted">Electrolux PCC20 — самая продаваемая скороварка на Amazon Бразилии: 11&nbsp;735 отзывов, первое место в категории. Но в её 15 программах (мясо, курица, чечевица, кукуруза, обжаривание, томление, рис, бурый рис, фасоль, бульон, полента, суп, нут, вяленое мясо, маниока) нет ни пара, ни каши. В комплекте мерный стакан и половник, подставки для пара нет.</p>
+</section>
+
+<section id="knopki">
+  <h2><span class="num">3</span>Кнопки на панели по-русски</h2>
+  <p class="muted">На панели всё написано по-португальски. Здесь перевод каждой надписи у Midea, WAP и Electrolux. Названия взяты из инструкции Midea, блога WAP и карточки Electrolux в Fast Shop. Сначала то, что нужно для супа, риса, каши и пара.</p>
+  <div class="tblwrap reveal">
+  <table class="tbl gl">
+    <thead><tr><th>На панели</th><th>По-русски</th><th>У кого есть</th></tr></thead>
+    <tbody>
+      <tr class="grp"><td colspan="3">Суп, рис, каша, пар</td></tr>
+      <tr><td class="k">Sopa</td><td>суп</td><td>Midea, WAP, Electrolux</td></tr>
+      <tr><td class="k">Caldo</td><td>бульон</td><td>Electrolux</td></tr>
+      <tr><td class="k">Arroz</td><td>рис (белый)</td><td>Midea, WAP, Electrolux</td></tr>
+      <tr><td class="k">Arroz integral</td><td>бурый, нешлифованный рис</td><td>WAP, Electrolux</td></tr>
+      <tr><td class="k">Mingau</td><td>каша (жидкая, на молоке или воде)</td><td>WAP</td></tr>
+      <tr><td class="k">Grãos</td><td>крупы и бобовые</td><td>WAP</td></tr>
+      <tr><td class="k">Vapor</td><td>пар</td><td>Midea, WAP</td></tr>
+      <tr><td class="k">Vegetais</td><td>овощи</td><td>Midea, WAP</td></tr>
+      <tr><td class="k">Peixe</td><td>рыба</td><td>WAP</td></tr>
+      <tr><td class="k">Minha receita</td><td>«мой рецепт»: время и давление задаются вручную</td><td>Midea</td></tr>
+      <tr><td class="k">Manual</td><td>ручной режим: время и давление вручную</td><td>WAP, Electrolux</td></tr>
+      <tr class="grp"><td colspan="3">Другие продукты</td></tr>
+      <tr><td class="k">Feijão</td><td>фасоль</td><td>Midea, WAP, Electrolux</td></tr>
+      <tr><td class="k">Carne / Carnes</td><td>мясо</td><td>Midea, WAP, Electrolux</td></tr>
+      <tr><td class="k">Frango</td><td>курица</td><td>Midea, WAP, Electrolux</td></tr>
+      <tr><td class="k">Costela</td><td>рёбрышки</td><td>WAP</td></tr>
+      <tr><td class="k">Camarão</td><td>креветки</td><td>WAP</td></tr>
+      <tr><td class="k">Carne Seca</td><td>вяленая солёная говядина</td><td>Electrolux</td></tr>
+      <tr><td class="k">Lentilha</td><td>чечевица</td><td>Electrolux</td></tr>
+      <tr><td class="k">Grão de Bico</td><td>нут</td><td>Electrolux</td></tr>
+      <tr><td class="k">Milho</td><td>кукуруза</td><td>WAP, Electrolux</td></tr>
+      <tr><td class="k">Polenta</td><td>полента, каша из кукурузной муки</td><td>WAP, Electrolux</td></tr>
+      <tr><td class="k">Canjica</td><td>канжика, сладкая каша из белой кукурузы</td><td>WAP</td></tr>
+      <tr><td class="k">Mandioca</td><td>маниока (кассава)</td><td>WAP, Electrolux</td></tr>
+      <tr><td class="k">Macarrão</td><td>макароны</td><td>WAP</td></tr>
+      <tr><td class="k">Iogurte</td><td>йогурт</td><td>Midea, WAP</td></tr>
+      <tr><td class="k">Bolo</td><td>пирог, кекс</td><td>WAP</td></tr>
+      <tr><td class="k">Pudim</td><td>пудинг</td><td>WAP</td></tr>
+      <tr class="grp"><td colspan="3">Способы готовки и управление</td></tr>
+      <tr><td class="k">Cozimento Lento</td><td>томление, медленная варка</td><td>Midea, WAP, Electrolux</td></tr>
+      <tr><td class="k">Refogar</td><td>обжаривание перед варкой, без давления</td><td>Midea, WAP, Electrolux</td></tr>
+      <tr><td class="k">Fritar</td><td>жарка, без давления</td><td>Midea</td></tr>
+      <tr><td class="k">Assar</td><td>запекание</td><td>Midea</td></tr>
+      <tr><td class="k">Manter aquecido</td><td>подогрев готового блюда</td><td>Midea, WAP, Electrolux</td></tr>
+      <tr><td class="k">Adiar início</td><td>отложенный старт, до 24 ч</td><td>Midea</td></tr>
+      <tr><td class="k">Programar preparo</td><td>отложенный старт, до 24 ч</td><td>Electrolux</td></tr>
+      <tr><td class="k">Meu sabor: Suave · Ao ponto · Forte</td><td>степень готовности: мягче · средне · сильнее (меняется время)</td><td>Midea</td></tr>
+      <tr><td class="k">Timer</td><td>время приготовления</td><td>Midea</td></tr>
+      <tr><td class="k">Menu</td><td>выбор программы</td><td>Midea</td></tr>
+      <tr><td class="k">Iniciar</td><td>старт</td><td>Midea</td></tr>
+      <tr><td class="k">Pausar / Cancelar</td><td>пауза / отмена</td><td>Midea</td></tr>
+      <tr><td class="k">Pressurizar</td><td>клапан закрыт, готовка под давлением</td><td>Midea</td></tr>
+      <tr><td class="k">Vaporizar</td><td>клапан открыт, пар выходит, давления нет</td><td>Midea</td></tr>
+    </tbody>
+  </table>
+  </div>
 </section>
 
 <section id="sovety">
-  <h2><span class="num">3</span>Перед первой готовкой</h2>
+  <h2><span class="num">4</span>Перед первой готовкой</h2>
   <div class="tips">
-    <div class="tip reveal"><h3>Булочки лучше готовить на пару без давления</h3><p>Программа Vapor у Midea работает под давлением. Инструкция разрешает запускать программы с клапаном в положении «Vaporizar»: тогда давление не набирается, но время нужно засекать самостоятельно. Рыбу и овощи можно готовить и в обычном Vapor, по таблице в инструкции это 5–15 минут.</p></div>
+    <div class="tip reveal"><h3>Булочки лучше готовить на пару без давления</h3><p>Программа пара (Vapor) у Midea работает под давлением. Инструкция разрешает запускать программы с клапаном в положении «Vaporizar» («выпуск пара»): тогда давление не набирается, но время нужно засекать самостоятельно. Рыбу и овощи можно готовить и в обычной программе пара, по таблице в инструкции это 5–15 минут.</p></div>
     <div class="tip reveal"><h3>Каши и супы: не сбрасывать пар сразу</h3><p>В инструкциях Midea и WAP (у WAP я смотрел инструкцию к модели WPPE1) одно и то же правило: после жидких блюд, например каши или супа, давление не стравливают клапаном, а ждут, пока оно упадёт само. Иначе через клапан может пойти пена с брызгами.</p></div>
-    <div class="tip reveal"><h3>Гречка по-португальски</h3><p>В Бразилии гречка продаётся как «trigo sarraceno». У Midea её можно варить на программе Arroz или в «Minha receita», где время задаётся вручную. Первую порцию лучше варить под присмотром и потом подобрать время.</p></div>
+    <div class="tip reveal"><h3>Гречка по-португальски</h3><p>В Бразилии гречка продаётся как «trigo sarraceno». У Midea её можно варить на программе для риса (Arroz) или в «моём рецепте» (Minha receita), где время задаётся вручную. Первую порцию лучше варить под присмотром и потом подобрать время.</p></div>
     <div class="tip reveal"><h3>Вольтаж</h3><p>Сеть в Рио 127&nbsp;В. В магазинах это исполнение может называться «110V» или «127V», это одно и то же. Модель на «220V» без трансформатора не заработает.</p></div>
   </div>
 </section>
 
 <section id="import">
-  <h2><span class="num">4</span>Если хочется потратить весь бюджет: импорт</h2>
+  <h2><span class="num">5</span>Если хочется потратить весь бюджет: импорт</h2>
   <p class="muted">Всё, что на Amazon дороже R$&nbsp;750, — американские модели через Amazon Global. Налоги уже в цене, доставка стоит R$&nbsp;8,90, привезут 18 ноября. Минусы: напряжение у них 120&nbsp;В (американская версия, а в Рио сеть на 6% выше), гарантия в Бразилии не указана, вернуть можно в течение 7 дней. Переплачивать стоит только ради риса. Cuckoo — это специализированные рисоварки: по описанию производителя, они сами подстраивают время и температуру под тип риса (fuzzy logic).</p>
   <div class="grid2">
     <article class="card reveal">
@@ -212,7 +272,7 @@ footer{padding:40px 0 60px;color:var(--label);font-size:13px}
       <h3>Cuckoo CR-1020F, 10 чашек</h3>
       <div class="price">R$&nbsp;1&nbsp;401,77 <small>налоги включены · ≈ $255</small></div>
       <ul class="spec">
-        <li>16 режимов по сайту Cuckoo: белый рис, GABA и бурый рис, каша (porridge), суп, пар, томление, йогурт, хрустящий рис, турборежим</li>
+        <li>16 режимов по сайту Cuckoo: белый рис, бурый и пророщенный рис (GABA), каша, суп, пар, томление, йогурт, хрустящий рис, турборежим</li>
         <li>Это рисоварка, а не скороварка: фасоль и мясо будут готовиться дольше, чем в Midea</li>
         <li>В комплекте ложка и мерный стакан, поддон для пара в списке не указан</li>
         <li>4,4 из 5 по 787 отзывам, продаёт и отправляет Amazon Global</li>
@@ -236,17 +296,17 @@ footer{padding:40px 0 60px;color:var(--label);font-size:13px}
 </section>
 
 <section id="otsev">
-  <h2><span class="num">5</span>Почему не другие</h2>
+  <h2><span class="num">6</span>Почему не другие</h2>
   <p class="muted">На Amazon я смотрел скороварки на 127&nbsp;В, мультиварки, рисоварки с паром, а также Ninja, Instant Pot, Cuckoo и Zojirushi. Программы и комплектацию брал из карточек, инструкций и сайтов производителей.</p>
   <div class="tblwrap reveal">
   <table class="tbl">
     <thead><tr><th>Фото</th><th>Модель</th><th>Цена</th><th>Почему не она</th></tr></thead>
     <tbody>
       <tr><td><img src="https://m.media-amazon.com/images/I/61W25IvSTrL._AC_SL1148_.jpg" alt="Electrolux PCC20" loading="lazy" width="56" height="48"></td><td><a href="https://www.amazon.com.br/dp/B076HYKFL7" target="_blank" rel="noopener">Electrolux PCC20, 6 л, 127 В</a></td><td class="n">R$&nbsp;435,08</td><td>Нет программ пара и каши, нет подставки для пара. Продаёт Fast Shop, доставка 15 ноября. В самом <a href="https://site.fastshop.com.br/panela-de-pressao-eletrica-electrolux-experience-por-rita-lobo-6l-inox---pcc20-expcc20ix_prd-13731/p" target="_blank" rel="noopener">Fast Shop</a> R$&nbsp;499 по Pix</td></tr>
-      <tr><td><img src="https://m.media-amazon.com/images/I/71vu2WDRtsL._AC_SL1500_.jpg" alt="Mondial PE-60" loading="lazy" width="56" height="48"></td><td><a href="https://www.amazon.com.br/dp/B0CXY6F62Z" target="_blank" rel="noopener">Mondial PE-60, 6 л, 110 В</a></td><td class="n">R$&nbsp;383,75</td><td>Среди 14 программ нет Sopa и Vapor, подставки в комплекте нет</td></tr>
-      <tr><td><img src="https://m.media-amazon.com/images/I/41DAjOb6jXL._AC_SL1000_.jpg" alt="Cuisinart CPC-900BR" loading="lazy" width="56" height="48"></td><td><a href="https://www.amazon.com.br/dp/B0CRLSRK66" target="_blank" rel="noopener">Cuisinart CPC-900BR, 5,7 л, 127 В</a></td><td class="n">R$&nbsp;740,90</td><td>Программы подходят (Sopa, Arroz/Grãos, Vapor), решётка в комплекте. Но стоит почти вдвое дороже Midea, продаёт сторонний магазин, всего 13 отзывов</td></tr>
+      <tr><td><img src="https://m.media-amazon.com/images/I/71vu2WDRtsL._AC_SL1500_.jpg" alt="Mondial PE-60" loading="lazy" width="56" height="48"></td><td><a href="https://www.amazon.com.br/dp/B0CXY6F62Z" target="_blank" rel="noopener">Mondial PE-60, 6 л, 110 В</a></td><td class="n">R$&nbsp;383,75</td><td>Среди 14 программ нет ни супа, ни пара, подставки в комплекте нет</td></tr>
+      <tr><td><img src="https://m.media-amazon.com/images/I/41DAjOb6jXL._AC_SL1000_.jpg" alt="Cuisinart CPC-900BR" loading="lazy" width="56" height="48"></td><td><a href="https://www.amazon.com.br/dp/B0CRLSRK66" target="_blank" rel="noopener">Cuisinart CPC-900BR, 5,7 л, 127 В</a></td><td class="n">R$&nbsp;740,90</td><td>Программы подходят (суп, рис и крупы, пар), решётка в комплекте. Но стоит почти вдвое дороже Midea, продаёт сторонний магазин, всего 13 отзывов</td></tr>
       <tr><td><img src="https://m.media-amazon.com/images/I/51a-haEqOmL._AC_SL1000_.jpg" alt="WAP WPPE6" loading="lazy" width="56" height="48"></td><td><a href="https://www.amazon.com.br/dp/B0FWKMFW13" target="_blank" rel="noopener">WAP Touch WPPE6, 6 л, 127 В</a></td><td class="n">R$&nbsp;597,63</td><td>Тоже 20 программ, но в карточке нет их списка. Продаёт Magalu, доставка R$&nbsp;24,90, привезут 12–16 ноября</td></tr>
-      <tr><td><img src="https://m.media-amazon.com/images/I/71I4mPc0ofL._AC_SL1500_.jpg" alt="Oster OPAN930" loading="lazy" width="56" height="48"></td><td><a href="https://www.amazon.com.br/dp/B0H4RZ8WNY" target="_blank" rel="noopener">Oster OPAN930, 5,7 л, 127 В</a></td><td class="n">R$&nbsp;399,59 в поиске</td><td>Основного предложения нет, Amazon показывает только «Ver todas as opções de compra». Программы подходят (Sopa, Grãos, Vapor), но отзывов всего 16</td></tr>
+      <tr><td><img src="https://m.media-amazon.com/images/I/71I4mPc0ofL._AC_SL1500_.jpg" alt="Oster OPAN930" loading="lazy" width="56" height="48"></td><td><a href="https://www.amazon.com.br/dp/B0H4RZ8WNY" target="_blank" rel="noopener">Oster OPAN930, 5,7 л, 127 В</a></td><td class="n">R$&nbsp;399,59 в поиске</td><td>Основного предложения нет, Amazon показывает только «Ver todas as opções de compra». Программы подходят (суп, крупы, пар), но отзывов всего 16</td></tr>
       <tr><td><img src="https://m.media-amazon.com/images/I/61aqV9EudML._AC_SL1000_.jpg" alt="Philco PPP02PI" loading="lazy" width="56" height="48"></td><td><a href="https://www.amazon.com.br/dp/B08BVXLZNZ" target="_blank" rel="noopener">Philco PPP02PI, 5 л, 127 В</a></td><td class="n">R$&nbsp;322,90</td><td>В карточке нет списка программ, в комплекте только ложка и стакан</td></tr>
       <tr><td><img src="https://m.media-amazon.com/images/I/61VcJHJ+ugL._AC_SL1200_.jpg" alt="Philco PPP80" loading="lazy" width="56" height="48"></td><td><a href="https://www.amazon.com.br/dp/B0DNKNB8GJ" target="_blank" rel="noopener">Philco PPP80, 8 л, 127 В</a></td><td class="n">—</td><td>У версии на 127&nbsp;В нет основного предложения. Продаётся только версия на 220&nbsp;В за R$&nbsp;598,94</td></tr>
       <tr><td><img src="https://m.media-amazon.com/images/I/71GhytEjuYL._AC_SL1500_.jpg" alt="Ninja MC1101" loading="lazy" width="56" height="48"></td><td><a href="https://www.amazon.com.br/dp/B0CDHP76FP" target="_blank" rel="noopener">Ninja Foodi PossibleCooker PRO MC1101</a></td><td class="n">R$&nbsp;1&nbsp;218,45</td><td>Импорт, 120 В. Это не скороварка, и режима пара у неё нет: только томление, обжарка, тушение, подогрев, рис, овсянка и паста</td></tr>
@@ -259,7 +319,7 @@ footer{padding:40px 0 60px;color:var(--label);font-size:13px}
 </section>
 
 <section id="ne-provereno">
-  <h2><span class="num">6</span>Что не проверено</h2>
+  <h2><span class="num">7</span>Что не проверено</h2>
   <ul class="spec">
     <li><a href="https://www.mercadolivre.com.br" target="_blank" rel="noopener">Mercado Livre</a> без входа в аккаунт не показывает даже результаты поиска. Если хочешь сравнить цены, вот ссылки: <a href="https://lista.mercadolivre.com.br/panela-pressao-eletrica-midea-mastersteam-127v" target="_blank" rel="noopener">Midea MasterSteam</a>, <a href="https://lista.mercadolivre.com.br/wap-multicooker-wppe7-127v" target="_blank" rel="noopener">WAP WPPE7</a>.</li>
     <li><a href="https://www.magazineluiza.com.br" target="_blank" rel="noopener">Magazine Luiza</a> и <a href="https://www.casasbahia.com.br" target="_blank" rel="noopener">Casas Bahia</a> я не проверял.</li>
@@ -270,10 +330,10 @@ footer{padding:40px 0 60px;color:var(--label);font-size:13px}
 </section>
 
 <section id="istochniki">
-  <h2><span class="num">7</span>Источники</h2>
+  <h2><span class="num">8</span>Источники</h2>
   <ol class="src">
     <li>Amazon.com.br, цены, продавцы и сроки доставки с CEP 22631-000: <a href="https://www.amazon.com.br/dp/B0B4PZL68N" target="_blank" rel="noopener">Midea MasterSteam</a>, <a href="https://www.amazon.com.br/dp/B0HGBGFMX8" target="_blank" rel="noopener">WAP WPPE7</a>, <a href="https://www.amazon.com.br/dp/B0DMTZMYMK" target="_blank" rel="noopener">корзинка для пара</a>, <a href="https://www.amazon.com.br/s?k=panela+de+press%C3%A3o+el%C3%A9trica+127v" target="_blank" rel="noopener">поиск «panela de pressão elétrica 127v»</a> и карточки по ссылкам в таблицах.</li>
-    <li><a href="https://www.midea.com/content/dam/midea-aem/br/portateis/panelas-eletricas/panela-de-press%C3%A3o-el%C3%A9trica-mastersteam-6l-midea/Manual%20do%20usu%C3%A1rio.pdf" target="_blank" rel="noopener">Инструкция Midea PPG70S (PDF)</a>: напряжение версий, комплектация, карта программ, режим «Vaporizar», правило для жидких блюд.</li>
+    <li><a href="https://www.midea.com/content/dam/midea-aem/br/portateis/panelas-eletricas/panela-de-press%C3%A3o-el%C3%A9trica-mastersteam-6l-midea/Manual%20do%20usu%C3%A1rio.pdf" target="_blank" rel="noopener">Инструкция Midea PPG70S (PDF)</a>: напряжение версий, комплектация, карта программ, положение клапана «Vaporizar» (выпуск пара), правило для жидких блюд.</li>
     <li>Fast Shop: <a href="https://site.fastshop.com.br/panela-de-pressao-eletrica-mastersteam-midea-preta-e-inox---ppg70s-1qppg70spix_prd/p" target="_blank" rel="noopener">Midea MasterSteam</a>, <a href="https://site.fastshop.com.br/panela-de-pressao-eletrica-electrolux-experience-por-rita-lobo-6l-inox---pcc20-expcc20ix_prd-13731/p" target="_blank" rel="noopener">Electrolux PCC20</a> (список из 15 программ).</li>
     <li>WAP: <a href="https://blog.wap.ind.br/conheca-as-funcoes-da-panela-de-pressao-multicooker/" target="_blank" rel="noopener">функции Multicooker WPPE7</a>, <a href="https://loja.wap.ind.br/panela-eletrica-wap-wppe7/p" target="_blank" rel="noopener">карточка в магазине WAP</a>.</li>
     <li>Cuckoo America: <a href="https://www.cuckooamerica.com/products/cr-1020f" target="_blank" rel="noopener">CR-1020F</a>, <a href="https://www.cuckooamerica.com/products/crp-p0609s" target="_blank" rel="noopener">CRP-P0609S</a>.</li>
