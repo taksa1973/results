@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Холодильник за $400 в Рио</title>
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add('js-anim')</script>
+<style>
+:root{
+  --bg:#000;--card:#121212;--sub:#1A1A1A;--line:#262626;--line2:#3A3A3A;
+  --ink:#F5F5F5;--head:#FFF;--muted:#C4C4C8;--label:#8E8E93;
+  --red:#9B1C1C;--red-h:#B42323;--red-t:#E05252;--red-bg:#241010;--red-bd:#4D1B1B;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:var(--red-t);text-decoration:none}
+a:hover{text-decoration:underline}
+a:focus-visible,button:focus-visible{outline:2px solid var(--red-t);outline-offset:3px;border-radius:6px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 16px}
+nav.topnav{position:sticky;top:0;z-index:40;background:rgba(0,0,0,.88);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.topnav-inner{max-width:1080px;margin:0 auto;padding:0 16px;display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
+.topnav-inner::-webkit-scrollbar{display:none}
+.topnav-inner a{flex:none;color:var(--muted);padding:14px 12px;font-size:14px;font-weight:500;border-bottom:2px solid transparent;white-space:nowrap}
+.topnav-inner a:hover{color:#fff;text-decoration:none}
+.topnav-inner a.active{color:#fff;border-bottom-color:var(--red-t)}
+header.hero{padding:56px 0 24px}
+.eyebrow{color:var(--red-t);font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase}
+h1{font-size:clamp(30px,5vw,48px);line-height:1.1;margin:10px 0 14px;color:var(--head);font-weight:800;letter-spacing:-.02em}
+h1 span{color:var(--red-t)}
+.lead{color:var(--muted);max-width:740px;font-size:17px;margin:0}
+.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:28px}
+.tile{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px}
+.tile b{display:block;font-size:26px;color:#fff;font-weight:800;font-variant-numeric:tabular-nums;line-height:1.2}
+.tile small{color:var(--label);font-size:13px}
+section{padding:40px 0 8px;scroll-margin-top:56px}
+h2{display:flex;align-items:center;gap:12px;font-size:26px;color:#fff;margin:0 0 18px;font-weight:700}
+h2 .num{display:inline-grid;place-items:center;width:30px;height:30px;background:#fff;color:#000;border-radius:8px;font-size:15px;font-weight:800;flex:none}
+h3{color:#fff;font-size:18px;margin:0 0 6px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px;transition:transform .2s ease,box-shadow .2s ease;display:flex;flex-direction:column}
+.card:hover{transform:translateY(-2px);box-shadow:0 0 0 1px rgba(255,255,255,.18)}
+.card.win{border-color:var(--red-bd);background:linear-gradient(180deg,#160B0B,var(--card) 55%)}
+.card .btn{margin-top:auto;align-self:flex-start}
+.badge{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#fff;background:var(--red);padding:4px 10px;border-radius:8px;margin-bottom:10px;align-self:flex-start}
+.badge.alt{background:#2A2A2A;box-shadow:inset 0 0 0 1px #5A5A5F}
+.ph{background:#fff;border-radius:12px;height:240px;display:flex;align-items:center;justify-content:center;overflow:hidden;margin-bottom:14px}
+.ph img{max-width:100%;max-height:228px;object-fit:contain}
+.tags{display:flex;flex-wrap:wrap;gap:0}
+.tag{display:inline-block;font-size:12px;font-weight:600;padding:3px 9px;border-radius:999px;margin:0 6px 8px 0}
+.t-ok{background:#2A2A2A;color:#fff;box-shadow:inset 0 0 0 1px #5A5A5F}
+.t-warn{background:var(--red-bg);color:var(--red-t)}
+.t-bad{background:var(--red);color:#fff}
+.t-n{background:var(--sub);color:var(--muted)}
+.price{font-size:28px;font-weight:800;color:#fff;font-variant-numeric:tabular-nums;margin:6px 0 2px}
+.price small{font-size:14px;color:var(--muted);font-weight:500}
+.sub-price{color:var(--muted);font-size:14px;margin:0 0 4px}
+ul.spec{margin:10px 0 14px;padding-left:18px;color:var(--muted);font-size:15px}
+ul.spec li{margin:3px 0}
+.btn{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:10px 16px;border-radius:12px;background:#fff;color:#000;font-weight:700;font-size:15px;transition:background .2s,color .2s}
+.btn:hover{background:var(--red);color:#fff;text-decoration:none}
+.note{background:var(--red-bg);border:1px solid var(--red-bd);border-radius:14px;padding:14px 16px;color:var(--ink);font-size:15px;margin-top:14px}
+.note b{color:var(--red-t)}
+.pick{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:0 0 20px}
+.pick div{background:var(--sub);border:1px solid var(--line2);border-radius:14px;padding:14px 16px;font-size:15px;color:var(--muted)}
+.pick b{display:block;color:#fff;font-size:16px;margin-bottom:2px}
+.tbl{width:100%;border-collapse:collapse;font-size:14px;background:var(--card)}
+.tbl th{background:#1F1F1F;color:#fff;text-align:left;font-weight:600;padding:10px;white-space:nowrap}
+.tbl td{padding:9px 10px;border-top:1px solid var(--line);vertical-align:middle}
+.tbl td.n{font-variant-numeric:tabular-nums;white-space:nowrap}
+.tbl img{width:56px;height:56px;object-fit:contain;background:#fff;border-radius:6px;display:block}
+.tbl tr.top td{background:#160B0B}
+.tblwrap{overflow-x:auto;border-radius:14px;border:1px solid var(--line)}
+p.muted{color:var(--muted)}
+ol.src{color:var(--muted);font-size:14px;padding-left:20px}
+ol.src li{margin:4px 0}
+footer{padding:40px 0 60px;color:var(--label);font-size:13px}
+.reveal{opacity:1}
+.js-anim .reveal{opacity:0}
+@media (max-width:420px){.tile b{font-size:21px}}
+@media (max-width:980px){.grid3{grid-template-columns:1fr 1fr}}
+@media (max-width:860px){.tiles{grid-template-columns:1fr 1fr}.grid2,.grid3,.pick{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}.js-anim .reveal{opacity:1}}
+</style>
+</head>
+<body>
+<nav class="topnav" aria-label="Разделы">
+  <div class="topnav-inner">
+    <a href="#holodilnik">Холодильник</a>
+    <a href="#sravnenie">Сравнение</a>
+    <a href="#klass">Про класс A+++</a>
+    <a href="#ne-provereno">Что не проверено</a>
+    <a href="#istochniki">Источники</a>
+  </div>
+</nav>
+
+<main class="wrap">
+<header class="hero">
+  <div class="eyebrow">Рио · Curicica · холодильник</div>
+  <h1>Холодильник около <span>$400</span> с&nbsp;доставкой домой</h1>
+  <p class="lead">Смотрел двухкамерные холодильники No Frost на 127 В в диапазоне R$&nbsp;2&nbsp;200–2&nbsp;700. Доставку проверял по твоему CEP. По характеристикам лучший — LG GN-B392 на 395 л с инверторным компрессором: R$&nbsp;2&nbsp;428 по Pix, это примерно $441. Ровно в $400 укладывается Midea на 394 л, тоже с инвертором.</p>
+  <div class="tiles">
+    <div class="tile reveal"><b>R$&nbsp;2&nbsp;428</b><small>LG 395 л по Pix ≈ $441</small></div>
+    <div class="tile reveal"><b>R$&nbsp;2&nbsp;199</b><small>Midea 394 л по Pix ≈ $399</small></div>
+    <div class="tile reveal"><b>11–12&nbsp;ноя</b><small>бесплатная доставка LG на твой CEP</small></div>
+    <div class="tile reveal"><b>$1&nbsp;=&nbsp;R$&nbsp;5,51</b><small>курс <a href="https://economia.awesomeapi.com.br/json/last/USD-BRL" target="_blank" rel="noopener">AwesomeAPI</a>; $400 ≈ R$&nbsp;2&nbsp;203</small></div>
+  </div>
+</header>
+
+<section id="holodilnik">
+  <h2><span class="num">1</span>Холодильник: три лучших варианта</h2>
+  <div class="pick reveal">
+    <div><b>Ниша шире 70 см</b>Бери LG: лучший по характеристикам в этих деньгах, 10 лет гарантии на компрессор.</div>
+    <div><b>Ниша около 60 см</b>Electrolux IF44 за ту же цену: 400 л, инвертор, продаёт Magalu.</div>
+    <div><b>Строго $400</b>Midea 394 л с инвертором, тоже от Magalu, на R$&nbsp;229 дешевле.</div>
+  </div>
+  <div class="grid3">
+    <article class="card win reveal">
+      <span class="badge">Топ за эти деньги</span>
+      <div class="ph"><img src="https://m.media-amazon.com/images/I/315+lj351CL._AC_SL1000_.jpg" alt="Холодильник LG GN-B392PXGB, чёрная нержавейка" loading="lazy" width="300" height="228"></div>
+      <div class="tags"><span class="tag t-ok">127 В</span><span class="tag t-ok">Smart Inverter</span><span class="tag t-ok">10 лет на компрессор</span><span class="tag t-warn">продавец 59% положительных</span></div>
+      <h3>LG GN-B392PXGB, 395 л</h3>
+      <div class="price">R$&nbsp;2&nbsp;428,20 <small>по Pix · ≈ $441</small></div>
+      <p class="sub-price">Картой 12 × R$&nbsp;224,87 без процентов = R$&nbsp;2&nbsp;698 (≈ $490)</p>
+      <ul class="spec">
+        <li>Холодильная камера 305 л, морозилка 84 л, верхняя морозилка</li>
+        <li>Инверторный компрессор: LG даёт на него 10 лет гарантии, но только на детали, работа не входит</li>
+        <li>Класс A+++ по этикетке Inmetro старого образца (подробнее в <a href="#klass">разделе 3</a>)</li>
+        <li>70 × 176 × 68 см, 66 кг. На 10 см шире двух соседних моделей. Коробка 187 × 73,5 × 72 см: проверь лифт и двери</li>
+        <li>Бесплатная доставка 11–12 ноября. Продаёт FRIOPECAS: оценка 3,4 из 5, 59% положительных за 12 месяцев (1&nbsp;632 оценки). Если что-то пойдёт не так, деньги вернёт Amazon по гарантии «de A a Z»</li>
+        <li>У самой LG на этой же странице цена R$&nbsp;2&nbsp;849,05 по Pix, доставка 17–18 ноября. На Fast Shop R$&nbsp;2&nbsp;762,32 у того же Frio Peças</li>
+        <li>На Amazon 5,0 из 5 (12 оценок)</li>
+      </ul>
+      <a class="btn" href="https://www.amazon.com.br/dp/B0CN7B2LNK" target="_blank" rel="noopener">Открыть на Amazon</a>
+    </article>
+    <article class="card reveal">
+      <span class="badge alt">Если ниша 60 см</span>
+      <div class="ph"><img src="https://electrolux.vtexassets.com/arquivos/ids/292295-1000-1000" alt="Холодильник Electrolux IF44, белый" loading="lazy" width="300" height="228"></div>
+      <div class="tags"><span class="tag t-ok">127 В</span><span class="tag t-ok">AutoSense Inverter</span><span class="tag t-ok">продаёт Magalu</span></div>
+      <h3>Electrolux IF44, 400 л</h3>
+      <div class="price">R$&nbsp;2&nbsp;429,10 <small>по Pix · ≈ $441</small></div>
+      <p class="sub-price">Картой 12 × R$&nbsp;224,99 = R$&nbsp;2&nbsp;699 (≈ $490)</p>
+      <ul class="spec">
+        <li>Холодильная камера 286 л, морозилка 114 л: из трёх вариантов морозилка здесь самая большая</li>
+        <li>Инверторный компрессор, класс A, 25,9 кВт·ч в месяц по данным магазинов</li>
+        <li>60,4 × 184,7 × 71,2 см, 53 кг</li>
+        <li>Бесплатная доставка 12–16 ноября. Продаёт Magalu, у него на Amazon 3,4 из 5, 60% положительных (5&nbsp;097 оценок)</li>
+        <li>У самой Electrolux на Amazon R$&nbsp;2&nbsp;789,10, в её магазине R$&nbsp;3&nbsp;099</li>
+        <li>Гарантию на компрессор в карточках не нашёл. Оценок пока 2</li>
+      </ul>
+      <a class="btn" href="https://www.amazon.com.br/dp/B0GXX6L7TY" target="_blank" rel="noopener">Открыть на Amazon</a>
+    </article>
+    <article class="card reveal">
+      <span class="badge alt">Ровно $400</span>
+      <div class="ph"><img src="https://m.media-amazon.com/images/I/410bpK7i9RL._AC_SL1000_.jpg" alt="Холодильник Midea MDRT533EVD461, нержавейка" loading="lazy" width="300" height="228"></div>
+      <div class="tags"><span class="tag t-ok">127 В</span><span class="tag t-ok">Inverter</span><span class="tag t-ok">продаёт Magalu</span><span class="tag t-warn">3 оценки</span></div>
+      <h3>Midea MDRT533EVD461, 394 л</h3>
+      <div class="price">R$&nbsp;2&nbsp;199,24 <small>по Pix · ≈ $399</small></div>
+      <p class="sub-price">Картой 12 × R$&nbsp;204,12 = R$&nbsp;2&nbsp;449 (≈ $445)</p>
+      <ul class="spec">
+        <li>Холодильная камера 295 л, морозилка 99 л, сенсорная панель, нержавейка</li>
+        <li>Инверторный компрессор, класс A, 25,4 кВт·ч в месяц по данным магазинов</li>
+        <li>59,5 × 172 × 71,8 см, 51 кг: самый компактный из трёх</li>
+        <li>Бесплатная доставка 16–18 ноября, продаёт Magalu</li>
+        <li>По карточке Amazon гарантия 12 месяцев на холодильник и 10 лет на компрессор. На сайте Midea срок для компрессора не указан</li>
+        <li>На <a href="https://www.midea.com.br/geladeira-frost-free-duplex-394l-inverter-cor-inox-1/p" target="_blank" rel="noopener">midea.com.br</a> R$&nbsp;2&nbsp;699 по Pix: на Amazon на R$&nbsp;500 дешевле</li>
+      </ul>
+      <a class="btn" href="https://www.amazon.com.br/dp/B0G3C5GVFT" target="_blank" rel="noopener">Открыть на Amazon</a>
+    </article>
+  </div>
+  <div class="note"><b>Как платить.</b> Цены на Amazon указаны со скидкой за Pix или NuPay: у LG и Midea это 10%. Картой будет дороже: суммы указаны под ценой. Сроки доставки Amazon показал для твоего CEP. Подъём в квартиру и подключение я не проверял: уточни в чате с продавцом после заказа.</div>
+</section>
+
+<section id="sravnenie">
+  <h2><span class="num">2</span>Все кандидаты рядом</h2>
+  <p class="muted">Все модели ниже на 127 В, цены и сроки доставки взяты из карточек Amazon для твоего CEP. Отзывы и рейтинги продавцов тоже из Amazon.</p>
+  <div class="tblwrap reveal">
+  <table class="tbl">
+    <thead><tr><th>Фото</th><th>Модель</th><th>Объём</th><th>Инвертор</th><th>Ширина</th><th>По Pix</th><th>Доставка</th><th>Продавец</th><th>Отзывы</th></tr></thead>
+    <tbody>
+      <tr class="top"><td><img src="https://m.media-amazon.com/images/I/315+lj351CL._AC_SL1000_.jpg" alt="LG GN-B392PXGB" loading="lazy"></td><td><a href="https://www.amazon.com.br/dp/B0CN7B2LNK" target="_blank" rel="noopener">LG GN-B392PXGB</a></td><td class="n">395 л</td><td>да</td><td class="n">70 см</td><td class="n">R$&nbsp;2&nbsp;428,20</td><td class="n">бесплатно, 11–12.11</td><td>FRIOPECAS, 59%</td><td class="n">5,0 (12)</td></tr>
+      <tr class="top"><td><img src="https://electrolux.vtexassets.com/arquivos/ids/292295-1000-1000" alt="Electrolux IF44" loading="lazy"></td><td><a href="https://www.amazon.com.br/dp/B0GXX6L7TY" target="_blank" rel="noopener">Electrolux IF44</a></td><td class="n">400 л</td><td>да</td><td class="n">60,4 см</td><td class="n">R$&nbsp;2&nbsp;429,10</td><td class="n">бесплатно, 12–16.11</td><td>Magalu, 60%</td><td class="n">5,0 (2)</td></tr>
+      <tr class="top"><td><img src="https://m.media-amazon.com/images/I/410bpK7i9RL._AC_SL1000_.jpg" alt="Midea MDRT533EVD461" loading="lazy"></td><td><a href="https://www.amazon.com.br/dp/B0G3C5GVFT" target="_blank" rel="noopener">Midea MDRT533EVD461</a></td><td class="n">394 л</td><td>да</td><td class="n">59,5 см</td><td class="n">R$&nbsp;2&nbsp;199,24</td><td class="n">бесплатно, 16–18.11</td><td>Magalu, 60%</td><td class="n">5,0 (3)</td></tr>
+      <tr><td><img src="https://m.media-amazon.com/images/I/31bSVZwhgNL._AC_SL1000_.jpg" alt="Panasonic NR-BT41PD1WA" loading="lazy"></td><td><a href="https://www.amazon.com.br/dp/B09XN772BM" target="_blank" rel="noopener">Panasonic NR-BT41PD1WA</a></td><td class="n">387 л</td><td>не заявлен</td><td class="n">64 см</td><td class="n">R$&nbsp;2&nbsp;697,05</td><td class="n">R$&nbsp;69,90, 11–12.11</td><td>Magalu, 60%</td><td class="n">4,7 (138)</td></tr>
+      <tr><td><img src="https://m.media-amazon.com/images/I/71ryFxSou5L._AC_SL1500_.jpg" alt="Hisense RT3N375" loading="lazy"></td><td><a href="https://www.amazon.com.br/dp/B0FRBGTNQQ" target="_blank" rel="noopener">Hisense RT3N375</a></td><td class="n">381 л</td><td>да</td><td class="n">70 см</td><td class="n">R$&nbsp;2&nbsp;210,30</td><td class="n">бесплатно, 18–23.11</td><td>FID Comex, 81%</td><td>нет</td></tr>
+      <tr><td><img src="https://m.media-amazon.com/images/I/41BOx6MYbqL._AC_SL1500_.jpg" alt="Brastemp BRM46MB" loading="lazy"></td><td><a href="https://www.amazon.com.br/dp/B0GFB1RG8B" target="_blank" rel="noopener">Brastemp BRM46MB</a></td><td class="n">385 л</td><td>не заявлен</td><td class="n">65,2 см</td><td class="n">R$&nbsp;2&nbsp;439,99</td><td class="n">бесплатно, 12–13.11</td><td>Belmicro.Shop, 53%</td><td class="n">4,5 (16)</td></tr>
+      <tr><td><img src="https://m.media-amazon.com/images/I/310-XXEA7wL._AC_SL1000_.jpg" alt="Consul CRM44MB" loading="lazy"></td><td><a href="https://www.amazon.com.br/dp/B0FTLJNR7L" target="_blank" rel="noopener">Consul CRM44MB</a></td><td class="n">377 л</td><td>по карточке да</td><td class="n">63 см</td><td class="n">R$&nbsp;2&nbsp;412,05</td><td class="n">R$&nbsp;49,90, 17–19.11</td><td>Consul Oficial</td><td class="n">4,7 (75)</td></tr>
+      <tr><td><img src="https://m.media-amazon.com/images/I/41UNjvQhmtL._AC_SL1000_.jpg" alt="Electrolux IF41S" loading="lazy"></td><td><a href="https://www.amazon.com.br/dp/B0GYB5D8FQ" target="_blank" rel="noopener">Electrolux IF41S</a></td><td class="n">380 л</td><td>да</td><td>—</td><td class="n">R$&nbsp;2&nbsp;518,98</td><td class="n">R$&nbsp;150, 16–18.11</td><td>Engage Eletro</td><td class="n">4,4 (28)</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="muted">Panasonic набрал больше всех отзывов (4,7 из 5 по 138 оценкам), но с доставкой выходит R$&nbsp;2&nbsp;766,95, это около $502. Hisense с инвертором стоит как Midea, но у него нет ни одного отзыва, а доставка идёт до 23 ноября. Brastemp и Consul в этих деньгах дают меньше: инвертор в названии не заявлен или объём меньше. Electrolux IF41S с платной доставкой обходится дороже IF44, а камера у него меньше.</p>
+</section>
+
+<section id="klass">
+  <h2><span class="num">3</span>Почему «A+++» у LG и «A» у других не сравнить напрямую</h2>
+  <p class="muted">С 1 января 2026 года Inmetro убрал из этикетки холодильников классы с плюсами. Остались только A, B и C, а требования в среднем стали на 17% строже. Холодильники, выпущенные до 31 декабря 2025 года со старой этикеткой A+, A++ или A+++, можно продавать до конца 2026 года (<a href="https://olhardigital.com.br/curiosidades/?p=11468" target="_blank" rel="noopener">Olhar Digital со ссылкой на Inmetro</a>). Значит, «A+++» у LG выдан по старой шкале. По какой шкале получен класс «A» у Midea и Electrolux, по карточкам не понять. Цифры кВт·ч тоже могут быть посчитаны по разным методикам. По экономичности все три модели с инвертором, а точнее по карточкам магазинов их не сравнить.</p>
+</section>
+
+<section id="ne-provereno">
+  <h2><span class="num">4</span>Что не проверено</h2>
+  <ul class="spec">
+    <li><a href="https://www.mercadolivre.com.br" target="_blank" rel="noopener">Mercado Livre</a> без входа в аккаунт не показывает даже поиск («Para continuar, acesse sua conta»), поэтому его цены не сравнивал.</li>
+    <li><a href="https://www.magazineluiza.com.br" target="_blank" rel="noopener">Magazine Luiza</a> ответил 403, <a href="https://www.casasbahia.com.br" target="_blank" rel="noopener">Casas Bahia</a> — страницей ошибки. Magalu при этом продаёт два варианта из трёх через Amazon.</li>
+    <li>Подъём на этаж и подключение: в карточках об этом ничего нет.</li>
+    <li>Гарантия на компрессор Midea 10 лет указана только в карточке Amazon.</li>
+  </ul>
+</section>
+
+<section id="istochniki">
+  <h2><span class="num">5</span>Источники</h2>
+  <ol class="src">
+    <li><a href="https://www.amazon.com.br/s?k=geladeira+frost+free+110v" target="_blank" rel="noopener">Amazon.com.br</a>: поиск на R$&nbsp;1&nbsp;700–2&nbsp;800 и карточки по ссылкам выше с адресом доставки на твой CEP. Оттуда цены по Pix и картой, продавцы и их рейтинги, сроки доставки, напряжение, другие предложения на той же странице.</li>
+    <li><a href="https://www.lg.com/br/geladeiras/geladeiras-duplex/gn-b392pxgb/" target="_blank" rel="noopener">LG, страница GN-B392PXGB</a>: объём камер, размеры, класс A+++, 10 лет на компрессор (только детали); <a href="https://www.prnewswire.com/br/comunicados-para-a-imprensa/lg-reforca-presenca-no-mercado-com-linha-de-geladeiras-top-freezer-a-mais-economica-do-brasil-302452507.html" target="_blank" rel="noopener">пресс-релиз LG от 12 мая 2025 года</a>.</li>
+    <li><a href="https://www.buscape.com.br/geladeira/geladeira-lg-gn-b392pxgb-frost-free-duplex-395-litros" target="_blank" rel="noopener">Buscapé, LG GN-B392</a>: самая низкая цена у Amazon, LG Online R$&nbsp;2&nbsp;749; <a href="https://www.buscape.com.br/geladeira/geladeira-electrolux-if44-frost-free-duplex-400-litros" target="_blank" rel="noopener">Buscapé, Electrolux IF44</a>: размеры, объём камер, 25,9 кВт·ч.</li>
+    <li><a href="https://site.fastshop.com.br/refrigerador-lg-395-litros-frost-free-inverter-duplex-preto-inox-gn-b392pxg---127-volts-176836/p" target="_blank" rel="noopener">Fast Shop, LG GN-B392PXG 127 В</a>; <a href="https://loja.electrolux.com.br/geladeira-electrolux-frost-free-400l-autosense-inverter-duplex-branca--if44-/p" target="_blank" rel="noopener">магазин Electrolux, IF44</a>; <a href="https://www.midea.com.br/geladeira-frost-free-duplex-394l-inverter-cor-inox-1/p" target="_blank" rel="noopener">магазин Midea, MDRT533EVD461</a>.</li>
+    <li><a href="https://olhardigital.com.br/curiosidades/?p=11468" target="_blank" rel="noopener">Olhar Digital: этикетка Inmetro без классов с плюсом с 1 января 2026 года</a>.</li>
+    <li><a href="https://economia.awesomeapi.com.br/json/last/USD-BRL" target="_blank" rel="noopener">AwesomeAPI, курс USD/BRL</a>: 5,5076.</li>
+  </ol>
+</section>
+</main>
+<footer class="wrap">Цены и сроки доставки меняются, перед оплатой проверь их в корзине.</footer>
+
+<script>
+(function(){
+  var links=[].slice.call(document.querySelectorAll('.topnav-inner a'));
+  var secs=links.map(function(a){return document.querySelector(a.getAttribute('href'))});
+  function onScroll(){var y=window.scrollY+90,cur=0;secs.forEach(function(s,i){if(s&&s.offsetTop<=y)cur=i});links.forEach(function(a,i){a.classList.toggle('active',i===cur)})}
+  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  function showAll(){document.querySelectorAll('.reveal').forEach(function(el){el.style.opacity=1})}
+  setTimeout(showAll,3000);
+  if(!('IntersectionObserver' in window)){showAll();return}
+  window.__fallbackIO=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.style.transition='opacity .5s ease, transform .5s ease';e.target.style.opacity=1;window.__fallbackIO.unobserve(e.target)}})},{rootMargin:'0px 0px -8% 0px'});
+  document.querySelectorAll('.reveal').forEach(function(el){window.__fallbackIO.observe(el)});
+})();
+</script>
+<script type="module">
+try{
+  const { animate, inView, stagger } = await import("https://cdn.jsdelivr.net/npm/motion@11/+esm");
+  if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    if (window.__fallbackIO) window.__fallbackIO.disconnect();
+    const target = (arg) => (arg && arg.target) || arg;
+    inView('.reveal', (arg) => { const el = target(arg); animate(el, { opacity: [0, 1], y: [18, 0] }, { duration: 0.5, ease: [0.22, 1, 0.36, 1] }); }, { margin: '0px 0px -8% 0px' });
+  }
+}catch(e){document.querySelectorAll('.reveal').forEach(el=>el.style.opacity=1)}
+</script>
+</body>
+</html>
