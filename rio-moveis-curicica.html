@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Мебель у Curicica без переплаты</title>
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add('js-anim')</script>
+<style>
+:root{
+  --bg:#000;--card:#121212;--sub:#1A1A1A;--line:#262626;--line2:#3A3A3A;
+  --ink:#F5F5F5;--head:#FFF;--muted:#C4C4C8;--label:#8E8E93;
+  --red:#9B1C1C;--red-h:#B42323;--red-t:#E05252;--red-bg:#241010;--red-bd:#4D1B1B;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:var(--red-t);text-decoration:none}
+a:hover{text-decoration:underline}
+a:focus-visible,button:focus-visible{outline:2px solid var(--red-t);outline-offset:3px;border-radius:6px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 16px}
+nav.topnav{position:sticky;top:0;z-index:40;background:rgba(0,0,0,.88);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.topnav-inner{max-width:1080px;margin:0 auto;padding:0 16px;display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
+.topnav-inner::-webkit-scrollbar{display:none}
+.topnav-inner a{flex:none;color:var(--muted);padding:14px 12px;font-size:14px;font-weight:500;border-bottom:2px solid transparent;white-space:nowrap}
+.topnav-inner a:hover{color:#fff;text-decoration:none}
+.topnav-inner a.active{color:#fff;border-bottom-color:var(--red-t)}
+header.hero{padding:56px 0 24px}
+.eyebrow{color:var(--red-t);font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase}
+h1{font-size:clamp(30px,5vw,48px);line-height:1.1;margin:10px 0 14px;color:var(--head);font-weight:800;letter-spacing:-.02em}
+h1 span{color:var(--red-t)}
+.lead{color:var(--muted);max-width:760px;font-size:17px;margin:0}
+.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:28px}
+.tile{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px}
+.tile b{display:block;font-size:26px;color:#fff;font-weight:800;font-variant-numeric:tabular-nums;line-height:1.2}
+.tile small{color:var(--label);font-size:13px}
+section{padding:40px 0 8px;scroll-margin-top:56px}
+h2{display:flex;align-items:center;gap:12px;font-size:26px;color:#fff;margin:0 0 18px;font-weight:700}
+h2 .num{display:inline-grid;place-items:center;width:30px;height:30px;background:#fff;color:#000;border-radius:8px;font-size:15px;font-weight:800;flex:none}
+h3{color:#fff;font-size:18px;margin:0 0 6px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px;transition:transform .2s ease,box-shadow .2s ease;display:flex;flex-direction:column}
+.card:hover{transform:translateY(-2px);box-shadow:0 0 0 1px rgba(255,255,255,.18)}
+.card.win{border-color:var(--red-bd);background:linear-gradient(180deg,#160B0B,var(--card) 55%)}
+.badge{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#fff;background:var(--red);padding:4px 10px;border-radius:8px;margin-bottom:10px;align-self:flex-start}
+.badge.alt{background:#2A2A2A;box-shadow:inset 0 0 0 1px #5A5A5F}
+.ph{background:#fff;border-radius:12px;height:210px;display:flex;align-items:center;justify-content:center;overflow:hidden;margin-bottom:14px}
+.ph img{max-width:100%;max-height:200px;object-fit:contain}
+.ph.photo{background:#1A1A1A}
+.ph.photo img{width:100%;height:100%;max-height:none;object-fit:cover}
+.tags{display:flex;flex-wrap:wrap}
+.tag{display:inline-block;font-size:12px;font-weight:600;padding:3px 9px;border-radius:999px;margin:0 6px 8px 0}
+.t-ok{background:#2A2A2A;color:#fff;box-shadow:inset 0 0 0 1px #5A5A5F}
+.t-warn{background:var(--red-bg);color:var(--red-t)}
+.t-bad{background:var(--red);color:#fff}
+.t-n{background:var(--sub);color:var(--muted)}
+.addr{color:var(--label);font-size:14px;margin:0 0 8px}
+ul.spec{margin:8px 0 14px;padding-left:18px;color:var(--muted);font-size:15px}
+ul.spec li{margin:3px 0}
+ul.spec b{color:#fff;font-weight:600}
+.btns{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto}
+.btn{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:10px 16px;border-radius:12px;background:#fff;color:#000;font-weight:700;font-size:15px;transition:background .2s,color .2s}
+.btn:hover{background:var(--red);color:#fff;text-decoration:none}
+.btn.ghost{background:transparent;color:#fff;box-shadow:inset 0 0 0 1px var(--line2)}
+.btn.ghost:hover{background:var(--sub)}
+.note{background:var(--red-bg);border:1px solid var(--red-bd);border-radius:14px;padding:14px 16px;color:var(--ink);font-size:15px;margin-top:14px}
+.note b{color:var(--red-t)}
+.tbl{width:100%;border-collapse:collapse;font-size:14px;background:var(--card)}
+.tbl th{background:#1F1F1F;color:#fff;text-align:left;font-weight:600;padding:10px;white-space:nowrap}
+.tbl td{padding:9px 10px;border-top:1px solid var(--line);vertical-align:middle}
+.tbl td.n{font-variant-numeric:tabular-nums;white-space:nowrap}
+.tbl img{width:64px;height:56px;object-fit:contain;background:#fff;border-radius:6px;display:block}
+.tbl tr.top td{background:#160B0B}
+.tbl .bad{color:var(--red-t);font-weight:700}
+.tblwrap{overflow-x:auto;border-radius:14px;border:1px solid var(--line)}
+p.muted{color:var(--muted)}
+ol.src{color:var(--muted);font-size:14px;padding-left:20px}
+ol.src li{margin:4px 0}
+footer{padding:40px 0 60px;color:var(--label);font-size:13px}
+.reveal{opacity:1}
+.js-anim .reveal{opacity:0}
+@media (max-width:420px){.tile b{font-size:21px}}
+@media (max-width:980px){.grid3{grid-template-columns:1fr 1fr}}
+@media (max-width:860px){.tiles{grid-template-columns:1fr 1fr}.grid3{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}.js-anim .reveal{opacity:1}}
+</style>
+</head>
+<body>
+<nav class="topnav" aria-label="Разделы">
+  <div class="topnav-inner">
+    <a href="#luchshie">Лучшие</a>
+    <a href="#ryadom">Совсем рядом</a>
+    <a href="#ceny">Цены на примерах</a>
+    <a href="#vse">Все магазины</a>
+    <a href="#ostorozhno">Осторожно</a>
+    <a href="#ne-provereno">Что не проверено</a>
+    <a href="#istochniki">Источники</a>
+  </div>
+</nav>
+
+<main class="wrap">
+<header class="hero">
+  <div class="eyebrow">Рио · Curicica · мебель</div>
+  <h1>Мебельные магазины <span>без переплаты</span> с&nbsp;доставкой</h1>
+  <p class="lead">Проверил 10 магазинов рядом и онлайн. Для каждого смотрел цены на шкаф, диван и кровать, стоимость доставки на твой CEP по калькулятору на сайте, оценки в Google Maps и на <a href="https://www.reclameaqui.com.br" target="_blank" rel="noopener">Reclame Aqui</a>. Лучше всего по цене и доставке Vezzo в Taquara, в 3,4 км от дома: доставка их машиной стоит R$&nbsp;59,90 и занимает 8 рабочих дней. Самые низкие цены у MadeiraMadeira, но там доставка R$&nbsp;180–300 за каждую вещь. Холодильник — на <a href="rio-geladeira-400.html">отдельной странице</a>.</p>
+  <div class="tiles">
+    <div class="tile reveal"><b>R$&nbsp;59,90</b><small>доставка Vezzo, 8 рабочих дней; магазин в 3,4 км</small></div>
+    <div class="tile reveal"><b>R$&nbsp;699,98</b><small>шкаф на 6 дверей у MadeiraMadeira, самый дешёвый из надёжных</small></div>
+    <div class="tile reveal"><b>8,2 из 10</b><small>Magazine Luiza на Reclame Aqui, лучшая из крупных сетей</small></div>
+    <div class="tile reveal"><b>R$&nbsp;3&nbsp;988,70</b><small>шкаф в Tok&amp;Stok: переплата в 2,7–5,7 раза</small></div>
+  </div>
+</header>
+
+<section id="luchshie">
+  <h2><span class="num">1</span>Три лучших варианта</h2>
+  <div class="grid3">
+    <article class="card win reveal">
+      <span class="badge">Цена + доставка</span>
+      <div class="ph"><img src="https://www.vezzomoveis.com.br/arquivos/PRODUTOS/2131788357568766816/2271_M_GuardaRoupa-Casal-Valsa-8-Portas-6-Gavetas_73.jpeg" alt="Шкаф Vezzo Valsa на 8 дверей" loading="lazy" width="300" height="200"></div>
+      <div class="tags"><span class="tag t-ok">3,4 км · 4 мин</span><span class="tag t-ok">доставка R$ 59,90</span><span class="tag t-warn">без сборки</span></div>
+      <h3>Vezzo Móveis, Taquara</h3>
+      <p class="addr">Estr. dos Bandeirantes, 243 · Google 4,1 (68 отзывов) · Reclame Aqui 6,8 «Regular»</p>
+      <ul class="spec">
+        <li><b>Шкаф Valsa</b>, 8 дверей и 6 ящиков, 236 × 205 × 47 см: R$&nbsp;1&nbsp;499 по Pix или 12 × R$&nbsp;149,90</li>
+        <li><b>Диван Grécia</b>, раскладной и откидной: R$&nbsp;1&nbsp;659 по Pix</li>
+        <li><b>Матрас Napoli с основанием-сундуком</b>: R$&nbsp;1&nbsp;599</li>
+        <li><b>Стол Diamante</b> 90×90 с 4 стульями: R$&nbsp;1&nbsp;499</li>
+        <li>Доставка своей машиной: R$&nbsp;59,90, 8 рабочих дней. Калькулятор показал это для твоего CEP на трёх товарах. Бесплатно только во время акций</li>
+        <li>Сборки нет, нужен отдельный сборщик (montador). В магазине мебель можно посмотреть вживую. В Taquara два магазина, второй на Rua Apiacás, 434</li>
+      </ul>
+      <div class="btns"><a class="btn" href="https://www.vezzomoveis.com.br/" target="_blank" rel="noopener">Сайт Vezzo</a><a class="btn ghost" href="https://maps.google.com/?cid=18265604397205293023" target="_blank" rel="noopener">На карте</a></div>
+    </article>
+    <article class="card reveal">
+      <span class="badge alt">Самые низкие цены</span>
+      <div class="ph"><img src="https://product-hub-prd.madeiramadeira.com.br/885371/images/9ebb4d0e-cf31-44a2-905e-53b0ef653cdcf4da90870d3288853712028129.jpg" alt="Шкаф França на 6 дверей, MadeiraMadeira" loading="lazy" width="300" height="200"></div>
+      <div class="tags"><span class="tag t-ok">только онлайн</span><span class="tag t-ok">RA 7,1 «Boa»</span><span class="tag t-warn">доставка R$ 180–300 за вещь</span></div>
+      <h3>MadeiraMadeira</h3>
+      <p class="addr">Интернет-магазин и маркетплейс · Reclame Aqui 7,1, решено 76,6%</p>
+      <ul class="spec">
+        <li><b>Шкаф França</b>, 6 дверей и 2 ящика, продаёт и везёт сама MadeiraMadeira, 759 отзывов: R$&nbsp;699,98 по Pix. Доставка R$&nbsp;181,80, к 3 декабря. Сборка 10 × R$&nbsp;25</li>
+        <li><b>Диван Beny</b> на 3 места, 180 см, продавец MM Estofados: R$&nbsp;782,10 по Pix. Доставка R$&nbsp;249, около 30 дней</li>
+        <li><b>Cama box baú с матрасом Ortobom</b> на независимых пружинах: R$&nbsp;1&nbsp;599,90. Доставка R$&nbsp;299,90, около 17 дней</li>
+        <li>Бери позиции с пометкой «vendido e entregue por MadeiraMadeira». У двух продавцов наборов cama box калькулятор для твоего CEP выдал «cotação indisponível», то есть доставки к тебе нет</li>
+      </ul>
+      <div class="btns"><a class="btn" href="https://www.madeiramadeira.com.br/guarda-roupa-casal-6-portas-2-gavetas-franca-cinamomo-885371.html" target="_blank" rel="noopener">Шкаф França</a><a class="btn ghost" href="https://www.madeiramadeira.com.br/" target="_blank" rel="noopener">Сайт</a></div>
+    </article>
+    <article class="card reveal">
+      <span class="badge alt">Самый надёжный</span>
+      <div class="ph"><img src="https://americanas.vtexassets.com/arquivos/ids/37115590/image-8f2b4a7aa697441899f20d9c7f8a034d.jpg" alt="Шкаф Araplac Braga с зеркалом, продаёт Magazine Luiza" loading="lazy" width="300" height="200"></div>
+      <div class="tags"><span class="tag t-ok">8 км · 13 мин</span><span class="tag t-ok">RA 8,2 «Ótima»</span><span class="tag t-ok">доставка R$ 44,90</span></div>
+      <h3>Magazine Luiza, ParkJacarepaguá</h3>
+      <p class="addr">Estr. de Jacarepaguá, 6069, loja 211-B · Google 4,2 (447 отзывов) · Reclame Aqui 8,2: решено 89,8%, купили бы снова 74,1%</p>
+      <ul class="spec">
+        <li><b>Шкаф Araplac Braga</b> с зеркалом, 6 дверей и 4 ящика: R$&nbsp;1&nbsp;042,91 по Pix или R$&nbsp;1&nbsp;097,80 в 10 платежей. Продаёт и везёт Magalu, доставка R$&nbsp;44,90 за 5 рабочих дней. Цена и доставка взяты со страницы <a href="https://www.americanas.com.br/guarda-roupa-casal-com-espelho-6-portas-4-gavetas-araplac-braga-8325871/p" target="_blank" rel="noopener">Americanas</a></li>
+        <li>Сайт magazineluiza.com.br автоматический браузер не пускает, поэтому другие цены Magalu я не видел. Открой сайт сам или зайди в магазин в ParkJacarepaguá</li>
+        <li>Через Magalu удобно взять и холодильник: двое из трёх лучших на <a href="rio-geladeira-400.html">странице про холодильник</a> продаются от Magalu</li>
+      </ul>
+      <div class="btns"><a class="btn" href="https://www.magazineluiza.com.br/" target="_blank" rel="noopener">Сайт Magalu</a><a class="btn ghost" href="https://maps.google.com/?cid=14388457529490901665" target="_blank" rel="noopener">На карте</a></div>
+    </article>
+  </div>
+</section>
+
+<section id="ryadom">
+  <h2><span class="num">2</span>Совсем рядом с домом</h2>
+  <div class="grid3">
+    <article class="card reveal">
+      <div class="ph photo"><img src="https://lh3.googleusercontent.com/grass-cs/AABkmLcesVuKlIa47HJh4hGcTeCkuCPcqrA7YgvnJU8urS7obLYjAGpMMmMzxjiQ05PN5InnnJNGKcz42SscHvfJ2LTK7AMbqx267MKAWo9ICgH76Za7mPIZoUks2mvkx4o0FmTzKiuO=w408-h306-k-no" alt="Магазин Decormobile в Curicica, фото из Google Maps" loading="lazy" width="300" height="200"></div>
+      <div class="tags"><span class="tag t-ok">1,5 км · 3 мин</span><span class="tag t-ok">доставка R$ 49</span><span class="tag t-warn">бюджетное качество</span></div>
+      <h3>Decormobile</h3>
+      <p class="addr">Estr. dos Bandeirantes, 4788, loja B · Google 4,8 (20 отзывов) · на Reclame Aqui нет</p>
+      <ul class="spec">
+        <li><b>Шкаф Jamaica</b>, 6 дверей, 134 × 170 × 36 см, ДСП (MDP), гарантия 3 месяца: R$&nbsp;549 сразу или 10 × R$&nbsp;61 с процентами</li>
+        <li><b>Диван Gran Bello Junior</b> на 4 места, 2,10 м, велюр: R$&nbsp;1&nbsp;779</li>
+        <li><b>Кровать-сундук с матрасом</b> Privilege D33: R$&nbsp;1&nbsp;299; обеденный стол на 4 места: R$&nbsp;696,60</li>
+        <li>Доставка на твой CEP R$&nbsp;49 за 4 рабочих дня, самовывоз бесплатный. Собирать придётся самому или звать сборщика</li>
+      </ul>
+      <div class="btns"><a class="btn" href="https://www.decormobile.com.br/" target="_blank" rel="noopener">Сайт</a><a class="btn ghost" href="https://maps.google.com/?cid=7478310756228533667" target="_blank" rel="noopener">На карте</a></div>
+    </article>
+    <article class="card reveal">
+      <div class="ph photo"><img src="https://lh3.googleusercontent.com/grass-cs/AABkmLcOkXALab-e6VPlg10q6h-FQ7VAY79Q4WioTaF0rilVhOdiQsB_5p9Di8WZuua3Z2NDzglMNE-3QK87Fw4pc3BTI_DGnqlj9p-4ePNykd-69tQsmudaI3Y1JgmVvekl40HZCa4y=w408-h306-k-no" alt="Магазин Mobilar в Curicica, фото из Google Maps" loading="lazy" width="300" height="200"></div>
+      <div class="tags"><span class="tag t-ok">0,5 км · 1 мин</span><span class="tag t-n">цены только в WhatsApp</span></div>
+      <h3>Mobilar Móveis</h3>
+      <p class="addr">R. Brisa do Vale, 14 · Google 4,3 (102 отзыва) · второй магазин: Estr. do Guerenguê, 1770, Taquara, 4,6 (30)</p>
+      <ul class="spec">
+        <li>В Instagram пишут «Entrega e montagem GRÁTIS (consulte cep)», то есть доставка и сборка бесплатно, но это зависит от CEP. Я это не проверял</li>
+        <li>Каталог с ценами есть только в WhatsApp, на сайте его нет</li>
+        <li>Ближе всех к дому: можно дойти пешком и посмотреть</li>
+      </ul>
+      <div class="btns"><a class="btn" href="https://www.instagram.com/mobilar.rj/" target="_blank" rel="noopener">Instagram</a><a class="btn ghost" href="https://maps.google.com/?cid=12839872636534493235" target="_blank" rel="noopener">На карте</a></div>
+    </article>
+    <article class="card reveal">
+      <div class="ph photo"><img src="https://lh3.googleusercontent.com/grass-cs/AABkmLcALGpFSZIQt37-6afoFbNdHyxPsD_UArGFwPYjt__5oP-ESbMsGSkff8fROH9uTsokxZV2FqnaajbQYKky-a2bR2nT-2MheqdzK6Q6-pHRFfRodZDYaU_VJ3ANJ0rzDy65PQ9CQlTU6T4U=w408-h408-k-no" alt="Estrela Móveis в Uptown Barra, фото из Google Maps" loading="lazy" width="300" height="200"></div>
+      <div class="tags"><span class="tag t-ok">8 км · 11 мин</span><span class="tag t-ok">RA 8,3 «Ótima»</span><span class="tag t-n">цены не видел</span></div>
+      <h3>Estrela Móveis, Uptown Barra</h3>
+      <p class="addr">Av. Ayrton Senna, 5500, bloco 7 · Google 4,7 (1&nbsp;491 отзыв) · Reclame Aqui 8,3: решено 87,1%</p>
+      <ul class="spec">
+        <li>Лучшая репутация среди магазинов района: и в Google, и на Reclame Aqui</li>
+        <li>Сайт estrelamoveis.com.br не открылся, цены и доставку проверить не удалось</li>
+        <li>Телефон: <a href="tel:+552139007070">+55 21 3900-7070</a></li>
+      </ul>
+      <div class="btns"><a class="btn ghost" href="https://maps.google.com/?cid=4691466694523880967" target="_blank" rel="noopener">На карте</a><a class="btn ghost" href="https://www.reclameaqui.com.br/empresa/estrela-moveis/" target="_blank" rel="noopener">Reclame Aqui</a></div>
+    </article>
+  </div>
+</section>
+
+<section id="ceny">
+  <h2><span class="num">3</span>Цены на одни и те же вещи</h2>
+  <p class="muted">Модели разные, поэтому это ориентир по уровню цен. Доставка указана до твоего CEP по калькулятору на странице товара.</p>
+  <div class="tblwrap reveal">
+  <table class="tbl">
+    <thead><tr><th>Фото</th><th>Вещь</th><th>Магазин</th><th>Цена</th><th>Доставка</th></tr></thead>
+    <tbody>
+      <tr class="top"><td><img src="https://product-hub-prd.madeiramadeira.com.br/885371/images/9ebb4d0e-cf31-44a2-905e-53b0ef653cdcf4da90870d3288853712028129.jpg" alt="Шкаф França" loading="lazy"></td><td><a href="https://www.madeiramadeira.com.br/guarda-roupa-casal-6-portas-2-gavetas-franca-cinamomo-885371.html" target="_blank" rel="noopener">Шкаф França, 6 дверей</a></td><td>MadeiraMadeira</td><td class="n">R$&nbsp;699,98</td><td class="n">R$&nbsp;181,80, ~3,5 нед.</td></tr>
+      <tr><td><img src="https://d5gag3xtge2og.cloudfront.net/producao/36370915/M/guarda-roupa-jamaica-casal-6-portas-2-gavetas-fellicci-1-35.webp" alt="Шкаф Jamaica" loading="lazy"></td><td><a href="https://www.decormobile.com.br/guarda-roupa-jamaica-casal-6-portas-2-gavetas-fellicci-135/prod-10873441/" target="_blank" rel="noopener">Шкаф Jamaica, 6 дверей, 134 см</a></td><td>Decormobile</td><td class="n">R$&nbsp;549,00</td><td class="n">R$&nbsp;49, 4 раб. дня</td></tr>
+      <tr><td><img src="https://americanas.vtexassets.com/arquivos/ids/37115590/image-8f2b4a7aa697441899f20d9c7f8a034d.jpg" alt="Шкаф Araplac Braga" loading="lazy"></td><td><a href="https://www.americanas.com.br/guarda-roupa-casal-com-espelho-6-portas-4-gavetas-araplac-braga-8325871/p" target="_blank" rel="noopener">Шкаф Araplac Braga, 6 дверей, зеркало</a></td><td>Magalu</td><td class="n">R$&nbsp;1&nbsp;042,91</td><td class="n">R$&nbsp;44,90, 5 раб. дней</td></tr>
+      <tr><td><img src="https://www.vezzomoveis.com.br/arquivos/PRODUTOS/2131788357568766816/2271_M_GuardaRoupa-Casal-Valsa-8-Portas-6-Gavetas_73.jpeg" alt="Шкаф Valsa" loading="lazy"></td><td><a href="https://www.vezzomoveis.com.br/guarda-roupa-casal-valsa-8-portas-6-gavetas-branco/p" target="_blank" rel="noopener">Шкаф Valsa, 8 дверей, 236 см</a></td><td>Vezzo</td><td class="n">R$&nbsp;1&nbsp;499,00</td><td class="n">R$&nbsp;59,90, 8 раб. дней</td></tr>
+      <tr><td><img src="https://static.mobly.com.br/p/Modern-Guarda-Roupa-Casal-Bahia-6-Portas-Imbuia-e-Off-White-1120-650885-1.jpg" alt="Шкаф Bahia" loading="lazy"></td><td><a href="https://www.mobly.com.br/guardaroupa-casal-bahia-6-portas-imbuia-e-off-white-588056.html" target="_blank" rel="noopener">Шкаф Bahia, 6 дверей</a></td><td>Mobly</td><td class="n">R$&nbsp;1&nbsp;491,72</td><td class="n">R$&nbsp;238,30, до 21 раб. дня</td></tr>
+      <tr><td><img src="https://imagensra.tokstok.com.br/r/catalog-images/957010786-5db3f640af4d0b62c78158eb.jpg" alt="Шкаф Slides" loading="lazy"></td><td><a href="https://www.tokstok.com.br/guarda-roupas-3-portas-de-correr-branco-aluminio-slides/p" target="_blank" rel="noopener">Шкаф Slides, 3 двери-купе</a></td><td>Tok&amp;Stok</td><td class="n bad">R$&nbsp;3&nbsp;988,70</td><td>—</td></tr>
+      <tr class="top"><td><img src="https://product-hub-prd.madeiramadeira.com.br/138506761/images/e4d09bfe-b317-4719-b37d-055d2baec9489fa832edd70811bd50677226de.jpg" alt="Диван Beny" loading="lazy"></td><td><a href="https://www.madeiramadeira.com.br/sofa-3-lugares-beny-base-de-madeira-linho-cru-138506761.html" target="_blank" rel="noopener">Диван Beny, 3 места, 180 см</a></td><td>MadeiraMadeira</td><td class="n">R$&nbsp;782,10</td><td class="n">R$&nbsp;249, ~30 дней</td></tr>
+      <tr><td><img src="https://static.mobly.com.br/p/Mobly-SofC3A1-3-Lugares-PC3A9-Palito-Living-Linho-Cotton-Grafite-210-cm-8881-819695-1.jpg" alt="Диван Living" loading="lazy"></td><td><a href="https://www.mobly.com.br/sofa-3-lugares-pe-palito-living-linho-cotton-grafite-210-cm-596918.html" target="_blank" rel="noopener">Диван Living, 3 места, 210 см</a></td><td>Mobly</td><td class="n">R$&nbsp;1&nbsp;104,99</td><td class="n">R$&nbsp;247,83, до 34 раб. дней</td></tr>
+      <tr class="top"><td><img src="https://static.mobly.com.br/p/Mobly-Cama-Box-com-ColchC3A3o-Casal-Howie-Misto-D33-2817x138x18829-Branco-e-Cinza-5157-0603421-1.jpg" alt="Cama box Howie" loading="lazy"></td><td><a href="https://www.mobly.com.br/cama-box-com-colchao-casal-howie-misto-d33-17x138x188-branco-e-cinza-1243060.html" target="_blank" rel="noopener">Cama box с матрасом Howie D33</a></td><td>Mobly</td><td class="n">R$&nbsp;762,42</td><td class="n">R$&nbsp;235,11, до 17 раб. дней</td></tr>
+      <tr><td><img src="https://americanas.vtexassets.com/arquivos/ids/13615315/1740678642_1_xlarge.jpg" alt="Box и матрас Ortobom" loading="lazy"></td><td><a href="https://www.americanas.com.br/conjunto-box-colchao-ortobom-d33-iso-100-cama-casal-138-82674043/p" target="_blank" rel="noopener">Box и матрас Ortobom D33</a></td><td>Americanas</td><td class="n">R$&nbsp;945,77</td><td class="n">R$&nbsp;74,98, 12 раб. дней</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="note"><b>Комплект «шкаф + диван + кровать» с доставкой.</b> У MadeiraMadeira выходит R$&nbsp;3&nbsp;812,68 (товары R$&nbsp;3&nbsp;081,98 + доставка R$&nbsp;730,70). У Mobly R$&nbsp;4&nbsp;080,37. У Vezzo R$&nbsp;4&nbsp;936,70, если доставку берут за каждую вещь. Объединяет ли Vezzo доставку в одном заказе, я не проверял. У Vezzo диван раскладной и откидной, это класс выше, чем у дивана MadeiraMadeira.</div>
+</section>
+
+<section id="vse">
+  <h2><span class="num">4</span>Все магазины в одной таблице</h2>
+  <p class="muted">Расстояние и время на машине посчитаны по <a href="https://project-osrm.org" target="_blank" rel="noopener">OSRM</a> от дома, без пробок. Оценки Reclame Aqui (RA) — за последние 6 месяцев.</p>
+  <div class="tblwrap reveal">
+  <table class="tbl">
+    <thead><tr><th>Магазин</th><th>Где</th><th>Путь</th><th>Google</th><th>RA</th><th>Цены</th><th>Доставка к тебе</th><th>Сборка</th></tr></thead>
+    <tbody>
+      <tr><td><a href="https://maps.google.com/?cid=12839872636534493235" target="_blank" rel="noopener">Mobilar</a></td><td>R. Brisa do Vale, 14</td><td class="n">0,5 км</td><td class="n">4,3 (102)</td><td>нет</td><td>в WhatsApp</td><td>бесплатно по Instagram, не проверено</td><td>то же</td></tr>
+      <tr><td><a href="https://www.decormobile.com.br/" target="_blank" rel="noopener">Decormobile</a></td><td>Estr. dos Bandeirantes, 4788</td><td class="n">1,5 км</td><td class="n">4,8 (20)</td><td>нет</td><td>низкие</td><td class="n">R$&nbsp;49, 4 раб. дня</td><td>нет</td></tr>
+      <tr class="top"><td><a href="https://www.vezzomoveis.com.br/" target="_blank" rel="noopener">Vezzo</a></td><td>Estr. dos Bandeirantes, 243</td><td class="n">3,4 км</td><td class="n">4,1 (68)</td><td class="n">6,8</td><td>средние и низкие</td><td class="n">R$&nbsp;59,90, 8 раб. дней</td><td>нет</td></tr>
+      <tr><td><a href="https://maps.google.com/?cid=4691466694523880967" target="_blank" rel="noopener">Estrela Móveis</a></td><td>Av. Ayrton Senna, 5500</td><td class="n">8,0 км</td><td class="n">4,7 (1&nbsp;491)</td><td class="n">8,3</td><td>не видел</td><td>не проверено</td><td>не проверено</td></tr>
+      <tr class="top"><td><a href="https://maps.google.com/?cid=14388457529490901665" target="_blank" rel="noopener">Magazine Luiza</a></td><td>ParkJacarepaguá</td><td class="n">8,0 км</td><td class="n">4,2 (447)</td><td class="n">8,2</td><td>средние</td><td class="n">R$&nbsp;44,90, 5 раб. дней</td><td>не проверено</td></tr>
+      <tr><td><a href="https://maps.google.com/?cid=8005717132837960847" target="_blank" rel="noopener">Casas Bahia</a></td><td>ParkJacarepaguá</td><td class="n">10,1 км</td><td class="n">4,1 (337)</td><td class="n bad">5,8</td><td>низкие по выдаче поиска</td><td>не проверено</td><td>не проверено</td></tr>
+      <tr class="top"><td><a href="https://www.madeiramadeira.com.br/" target="_blank" rel="noopener">MadeiraMadeira</a></td><td>онлайн</td><td>—</td><td>—</td><td class="n">7,1</td><td>низкие</td><td class="n">R$&nbsp;181,80–299,90, 17–30 дней</td><td>платно, R$&nbsp;129–250</td></tr>
+      <tr><td><a href="https://www.mobly.com.br/" target="_blank" rel="noopener">Mobly</a></td><td>онлайн</td><td>—</td><td>—</td><td class="n bad">5,9</td><td>низкие и средние</td><td class="n">R$&nbsp;235–248, 17–34 раб. дня</td><td>R$&nbsp;34,90–289,99</td></tr>
+      <tr><td><a href="https://www.americanas.com.br/" target="_blank" rel="noopener">Americanas</a></td><td>онлайн, маркетплейс</td><td>—</td><td>—</td><td class="n bad">5,5</td><td>низкие</td><td class="n">R$&nbsp;44,90–393,13, 5–38 раб. дней</td><td>не предлагают</td></tr>
+      <tr><td><a href="https://www.tokstok.com.br/" target="_blank" rel="noopener">Tok&amp;Stok</a></td><td>Av. José Silva de Azevedo Neto, 75</td><td class="n">8,2 км</td><td class="n">4,4 (3&nbsp;564)</td><td class="n">6,6</td><td class="bad">высокие</td><td class="n">R$&nbsp;100 со сборкой (диван)</td><td>входит</td></tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<section id="ostorozhno">
+  <h2><span class="num">5</span>Осторожно</h2>
+  <ul class="spec">
+    <li><b>Tok&amp;Stok — переплата.</b> Шкаф Slides стоит R$&nbsp;3&nbsp;988,70: это в 2,7 раза дороже шкафа Mobly и в 5,7 раза дороже шкафа MadeiraMadeira. Одно основание кровати без матраса Lund стоит R$&nbsp;1&nbsp;349, а комплект с матрасом у Mobly и Americanas — R$&nbsp;762–946. Для Рио часть цен ещё выше, чем для Сан-Паулу: диван Tufty — R$&nbsp;5&nbsp;399 против R$&nbsp;4&nbsp;849.</li>
+    <li><b>Mobly:</b> на Reclame Aqui 5,9 «Ruim», купили бы снова только 29%. Доставка R$&nbsp;235–248 за каждую вещь и до 34 рабочих дней съедает низкую цену.</li>
+    <li><b>Casas Bahia:</b> на Reclame Aqui 5,8 у интернет-магазина и 5,2 у обычных магазинов. Интернет-магазин: 32&nbsp;029 жалоб, решено 67,9%.</li>
+    <li><b>Americanas:</b> 5,5 «Ruim». Везёт не Americanas, а продавец, поэтому условия у каждого товара свои: диван Mobly через Americanas везут 38 рабочих дней за R$&nbsp;393,13.</li>
+    <li><b>Constant Móveis</b> (3,3 км, Google 4,8) делает мебель из массива в деревенском стиле. Доставка и сборка по Рио бесплатные, но столы стоят от R$&nbsp;1&nbsp;230 до R$&nbsp;29&nbsp;900, это не бюджетный вариант.</li>
+  </ul>
+</section>
+
+<section id="ne-provereno">
+  <h2><span class="num">6</span>Что не проверено</h2>
+  <ul class="spec">
+    <li>Сайты Magazine Luiza и Casas Bahia автоматический браузер не пускает, поэтому их цены не видел. Магазин Magalu в ParkJacarepaguá можно проверить на месте.</li>
+    <li>Estrela Móveis: сайт не открылся, нужен звонок.</li>
+    <li>Mobilar: бесплатная доставка и сборка заявлены только в Instagram, цены есть только в WhatsApp.</li>
+    <li>Без цен: <a href="https://www.leroymerlin.com.br/" target="_blank" rel="noopener">Leroy Merlin</a> Barra (9,3 км, Google 4,6, RA 6,7) — выдача на сайте не загрузилась. Также Armazém Rústico (3,3 км, 4,8 при 571 отзыве), Bonno Móveis Taquara (4,6 км, 4,5), Bello Cantinho (5,0 км, 4,6), New Geremário (6,4 км, 4,9, мебель на заказ).</li>
+    <li>Частично: <a href="https://www.belairmoveis.com.br/" target="_blank" rel="noopener">Bel Air Móveis</a> (Via Parque, 7,4 км): cama box Korino R$&nbsp;1&nbsp;690, диван Six One R$&nbsp;2&nbsp;190, доставку не считал. Ortobom в Curicica (Estr. dos Bandeirantes, 5196, 1,9 км) подходит для кроватей и матрасов, RA сети 6,0.</li>
+    <li>Mercado Livre без входа в аккаунт не показывает товары.</li>
+  </ul>
+</section>
+
+<section id="istochniki">
+  <h2><span class="num">7</span>Источники</h2>
+  <ol class="src">
+    <li>Страницы товаров по ссылкам выше: цены и калькуляторы доставки с твоим CEP (Vezzo, MadeiraMadeira, Decormobile, Mobly, Americanas, Tok&amp;Stok с регионом RJ).</li>
+    <li>Правила Vezzo: <a href="https://www.vezzomoveis.com.br/noticia-politica-de-frete-gratis" target="_blank" rel="noopener">бесплатная доставка</a>, <a href="https://www.vezzomoveis.com.br/noticia-politica-de-entregas-e-montagem" target="_blank" rel="noopener">доставка и сборка</a>.</li>
+    <li>Reclame Aqui: <a href="https://www.reclameaqui.com.br/empresa/moveis-vezzo/" target="_blank" rel="noopener">Vezzo</a>, <a href="https://www.reclameaqui.com.br/empresa/madeiramadeira/" target="_blank" rel="noopener">MadeiraMadeira</a>, <a href="https://www.reclameaqui.com.br/empresa/magazine-luiza-loja-online/" target="_blank" rel="noopener">Magazine Luiza</a>, <a href="https://www.reclameaqui.com.br/empresa/estrela-moveis/" target="_blank" rel="noopener">Estrela Móveis</a>, <a href="https://www.reclameaqui.com.br/empresa/casas-bahia-loja-online/" target="_blank" rel="noopener">Casas Bahia</a>, <a href="https://www.reclameaqui.com.br/empresa/mobly/" target="_blank" rel="noopener">Mobly</a>, <a href="https://www.reclameaqui.com.br/empresa/americanas-com-loja-online/" target="_blank" rel="noopener">Americanas</a>, <a href="https://www.reclameaqui.com.br/empresa/tokestok/" target="_blank" rel="noopener">Tok&amp;Stok</a>.</li>
+    <li>Google Maps: карточки магазинов по ссылкам «На карте» (оценки, адреса, фото); <a href="https://overpass-api.de" target="_blank" rel="noopener">Overpass</a> для поиска магазинов, <a href="https://project-osrm.org" target="_blank" rel="noopener">OSRM</a> для расстояний.</li>
+    <li><a href="https://www.instagram.com/mobilar.rj/" target="_blank" rel="noopener">Instagram Mobilar</a>, <a href="https://constantmoveis.com.br/" target="_blank" rel="noopener">Constant Móveis</a>.</li>
+  </ol>
+</section>
+</main>
+<footer class="wrap">Цены и доставка меняются, перед оплатой проверь их в корзине. Холодильник — на <a href="rio-geladeira-400.html">отдельной странице</a>.</footer>
+
+<script>
+(function(){
+  var links=[].slice.call(document.querySelectorAll('.topnav-inner a'));
+  var secs=links.map(function(a){return document.querySelector(a.getAttribute('href'))});
+  function onScroll(){var y=window.scrollY+90,cur=0;secs.forEach(function(s,i){if(s&&s.offsetTop<=y)cur=i});links.forEach(function(a,i){a.classList.toggle('active',i===cur)})}
+  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  function showAll(){document.querySelectorAll('.reveal').forEach(function(el){el.style.opacity=1})}
+  setTimeout(showAll,3000);
+  if(!('IntersectionObserver' in window)){showAll();return}
+  window.__fallbackIO=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.style.transition='opacity .5s ease, transform .5s ease';e.target.style.opacity=1;window.__fallbackIO.unobserve(e.target)}})},{rootMargin:'0px 0px -8% 0px'});
+  document.querySelectorAll('.reveal').forEach(function(el){window.__fallbackIO.observe(el)});
+})();
+</script>
+<script type="module">
+try{
+  const { animate, inView } = await import("https://cdn.jsdelivr.net/npm/motion@11/+esm");
+  if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    if (window.__fallbackIO) window.__fallbackIO.disconnect();
+    const target = (arg) => (arg && arg.target) || arg;
+    inView('.reveal', (arg) => { const el = target(arg); animate(el, { opacity: [0, 1], y: [18, 0] }, { duration: 0.5, ease: [0.22, 1, 0.36, 1] }); }, { margin: '0px 0px -8% 0px' });
+  }
+}catch(e){document.querySelectorAll('.reveal').forEach(el=>el.style.opacity=1)}
+</script>
+</body>
+</html>
