@@ -6,7 +6,7 @@
 <title>Чек-лист у кровати на e-ink: что взять и сколько выйдет в Рио</title>
 <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
 <meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet">
-<meta name="description" content="Небольшой e-ink экран на стену у кровати: отмечаешь «проснулся, встал, таблетка, душ», утром всё сбрасывается само, батарея держит недели и месяцы, связка с умным домом. Что взять и сколько это выйдет с налогами в Рио.">
+<meta name="description" content="E-ink экран на стену у кровати: отмечаешь «проснулся, встал, таблетка, душ», список сбрасывается сам. Выбран reTerminal E1003: виден ли он ночью при красном свете, сколько реально держит батарея, аналоги с зарядом от 3 месяцев и сколько это выйдет в Рио.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -160,6 +160,37 @@ ol.need li b{color:#fff}
 .drop li{background:var(--card); border:1px solid var(--line); border-radius:var(--r-md); padding:14px 18px; font-size:15px; color:var(--ink-2)}
 .drop li b{color:#fff}
 
+/* ночь: три мини-экрана */
+.night-demo{display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:16px}
+.nd{display:flex; flex-direction:column; gap:10px}
+.nd .scr{border-radius:12px; border:7px solid #1d1d1d; box-shadow:0 0 0 1px #3a3a3a; padding:14px 16px 12px; min-height:196px}
+.nd .scr b{display:block; font-size:16px; font-weight:800; padding-bottom:6px; margin-bottom:4px; border-bottom:2px solid currentColor}
+.nd .scr ul{list-style:none; margin:0; padding:0}
+.nd .scr li{display:flex; align-items:center; gap:10px; padding:6px 0; font-size:15px; font-weight:700; border-bottom:1px solid rgba(0,0,0,.25)}
+.nd .scr li i{flex:0 0 16px; height:16px; border:2px solid currentColor; border-radius:3px}
+.nd .scr li.d i{background:currentColor}
+.nd .scr li.d span{text-decoration:line-through; text-decoration-thickness:2px}
+.nd .dark{background:#050505; color:#0d0d0d}
+.nd .dark li{border-bottom-color:#0b0b0b}
+.nd .redlit{background:#8f1d17; color:#0c0303}
+.nd .dim{background:#2a0907; color:#120302}
+.nd .dim li{border-bottom-color:rgba(0,0,0,.35)}
+.nd h4{font-size:16px; font-weight:700; color:#fff}
+.nd p{font-size:14px; color:var(--ink-3); line-height:1.45}
+.demo-cap{font-size:13px; color:var(--ink-3); margin-top:10px}
+
+/* таблица аналогов */
+.tbl-wrap{overflow-x:auto; border:1px solid var(--line); border-radius:var(--r-lg); background:var(--card); -webkit-overflow-scrolling:touch}
+table.alt{width:100%; min-width:860px; border-collapse:collapse; font-size:14.5px}
+table.alt th{text-align:left; font-size:12px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-3); padding:14px 16px; border-bottom:1px solid var(--line); background:#161616; white-space:nowrap}
+table.alt td{padding:14px 16px; border-bottom:1px solid var(--line); color:var(--ink-2); vertical-align:top; line-height:1.45}
+table.alt tr:last-child td{border-bottom:0}
+table.alt td:first-child{color:#fff; font-weight:700; white-space:nowrap}
+table.alt tr.me td{background:rgba(155,28,28,.10)}
+table.alt .y{color:#fff; font-weight:600}
+table.alt .n{color:var(--ink-3)}
+.scroll-hint{font-size:13px; color:var(--ink-3); margin-top:8px; display:none}
+
 .src ul{margin:0; padding-left:20px; color:var(--ink-2); font-size:15px; columns:2; column-gap:32px}
 .src li{margin:6px 0; break-inside:avoid}
 .src h3{font-size:18px; margin:22px 0 8px}
@@ -182,6 +213,8 @@ footer{padding:56px 0 72px; color:var(--ink-3); font-size:14px}
   .cmp-row > div:last-child{border-bottom:0}
   .two{grid-template-columns:1fr}
   .src ul{columns:1}
+  .night-demo{grid-template-columns:1fr}
+  .scroll-hint{display:block}
 }
 @media (max-width:520px){
   .wrap{padding:0 18px}
@@ -199,7 +232,9 @@ footer{padding:56px 0 72px; color:var(--ink-3); font-size:14px}
     <span class="brand">Чек-лист у кровати</span>
     <nav class="topnav" aria-label="Разделы">
       <a href="#short">Коротко</a>
-      <a href="#best">Лучшие варианты</a>
+      <a href="#night">Ночью</a>
+      <a href="#best">Твой выбор</a>
+      <a href="#alt">Аналоги</a>
       <a href="#how">Как это работает</a>
       <a href="#where">Рио и налоги</a>
       <a href="#no">Не подходят</a>
@@ -235,9 +270,9 @@ footer{padding:56px 0 72px; color:var(--ink-3); font-size:14px}
       </div>
     </div>
     <div class="facts">
-      <div class="fact reveal"><b>до 3 мес.</b><span>заявленная автономность reTerminal E1001 (батарея 2000 мАч). У маленького Sticky на 750 мАч около недели.</span></div>
-      <div class="fact reveal"><b>70 г</b><span>вес reTerminal Sticky: 106 × 65,5 мм, держится на магните, есть касание</span></div>
-      <div class="fact reveal"><b>$49,90–69</b><span>цена Sticky и E1001 на сайте Seeed, без налогов и доставки</span></div>
+      <div class="fact reveal"><b>до 6 мес.</b><span>заявлено у твоего reTerminal E1003 (3000 мАч) при одном обновлении экрана в сутки. Без исправления сна в прошивке выходит 20–30 дней</span></div>
+      <div class="fact reveal"><b>Без подсветки</b><span>в полной темноте экран не виден. Под красной лампой, которая светит на экран, текст читается</span></div>
+      <div class="fact reveal"><b>$179,90</b><span>E1003 с алюминиевой рамкой для стены у Seeed, без налогов и доставки</span></div>
     </div>
   </div>
 </header>
@@ -247,26 +282,94 @@ footer{padding:56px 0 72px; color:var(--ink-3); font-size:14px}
     <div class="sec-head reveal">
       <span class="kicker">Коротко</span>
       <h2>Что брать и где заказывать</h2>
-      <p>Выбор сделан по тому, что ты написал: небольшой, как фоторамка, заряд на долгое время, без возни, с выходом в умный дом.</p>
+      <p>Ты выбрал reTerminal E1003 и вешаешь его на стену в рамке. Ниже три ответа: виден ли он ночью, сколько на самом деле держит заряд и есть ли похожие доски с батареей от 3 месяцев.</p>
     </div>
     <div class="bento">
       <div class="card top c4 pick reveal">
-        <span class="badge b-best">Основной выбор</span>
-        <h3 style="margin-top:12px">Seeed reTerminal E1001</h3>
-        <p>Размер как у фоторамки (176 × 120 мм), заявлено до 3 месяцев без зарядки. Касания нет, отметки делаются кнопками: одна кнопка будит и отмечает следующий пункт.</p>
+        <span class="badge b-best">Твой выбор</span>
+        <h3 style="margin-top:12px">Seeed reTerminal E1003</h3>
+        <p>10,3″, касание экрана, заявлено до 6 месяцев на заряде. На стену вешается в рамке Seeed за $20, комплектом $179,90. В Рио с рамкой курьером ≈ R$ 1 752–1 825 без доставки.</p>
         <a class="arrow" href="#best">Подробнее ↓</a>
       </div>
       <div class="card c4 pick reveal">
-        <span class="badge b-mid">Если хочется касаться</span>
-        <h3 style="margin-top:12px">Seeed reTerminal Sticky</h3>
-        <p>Маленький (3,97″, 70 г), магнит, касание экрана, $49,90. Заряд около недели, это ровно то, что ты сам описал. Из глубокого сна его будит кнопка, не касание.</p>
-        <a class="arrow" href="#best">Подробнее ↓</a>
+        <span class="badge b-mid">Ночью</span>
+        <h3 style="margin-top:12px">В темноте не видно, под красной лампой читается</h3>
+        <p>Подсветки у E1003 нет. Экран отражает свет как бумага: если красная лампа светит на него, виден чёрный текст на красном фоне. Шрифт нужен крупный и чисто чёрный.</p>
+        <a class="arrow" href="#night">Подробнее ↓</a>
       </div>
       <div class="card c4 pick reveal">
-        <span class="badge b-gray">Везём в Рио</span>
-        <h3 style="margin-top:12px">Sticky выходит дешевле E1001 примерно на R$ 190</h3>
-        <p>Ориентир без доставки: Sticky R$ 303–316 или R$ 486–506, E1001 R$ 489–510 или R$ 672–700. В инвойсе нужен твой CPF. Что и как заказывать, ниже.</p>
-        <a class="arrow" href="#where">К расчёту для Рио ↓</a>
+        <span class="badge b-gray">Аналоги от 3 месяцев</span>
+        <h3 style="margin-top:12px">Лучше E1003 по совокупности не нашёл</h3>
+        <p>С подсветкой и касанием нашёл только Inkplate 6 FLICK: 6″, €179,95 за плату, прошивку пишешь сам. TRMNL X: 10,3″, 3–6 месяцев, но отметок из коробки нет.</p>
+        <a class="arrow" href="#alt">К сравнению ↓</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="night">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="kicker">Ночью</span>
+      <h2>Будет ли видно, что написано, ночью при красном свете</h2>
+      <p><b style="color:#fff">Да, если красный свет падает на сам экран. В полной темноте нет.</b> У E1003 нет подсветки: ни на странице товара, ни в вики, ни в даташите Seeed она не упомянута. На корпусе есть только светодиоды питания и статуса, экран они не освещают.</p>
+    </div>
+
+    <div class="two">
+      <div class="card reveal">
+        <h3>Почему в темноте не видно</h3>
+        <ul>
+          <li>Экран на электронных чернилах сам не светится. <a href="https://www.eink.com/tech/detail/Front_Light" target="_blank" rel="noopener">E Ink</a> пишет, что такие экраны используют окружающий свет, как бумага. Чтобы читать без лампы, нужна встроенная подсветка (front light).</li>
+          <li>У E1003 её нет. На странице товара перечислены кнопки, светодиоды питания и статуса, касание, но не подсветка.</li>
+          <li>Картинка на экране держится и без питания, так что список виден в любой момент, когда на него падает свет.</li>
+        </ul>
+      </div>
+      <div class="card reveal">
+        <h3>Почему под красным светом читается</h3>
+        <ul>
+          <li>Белые частицы отражают свет любого цвета, в том числе красный, а чёрные поглощают. Под красной лампой получится чёрный текст на красном фоне.</li>
+          <li>Так же астрономы читают бумажные карты неба под красным фонарём, чтобы не сбить ночное зрение. <a href="https://www.skyatnightmagazine.com/reviews/accessories/red-light-torches" target="_blank" rel="noopener">BBC Sky at Night</a> пишет, что фонарь должен давать тусклый красный свет, при котором можно читать.</li>
+          <li>Чем меньше света падает на экран, тем ниже контраст. Если ночник светит в другую сторону, текст будет еле различим.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="night-demo reveal" role="img" aria-label="Три иллюстрации экрана чек-листа: в темноте не виден, под направленной красной лампой читается, под тусклым ночником в стороне различим с трудом">
+      <div class="nd">
+        <div class="scr dark"><b>Утро</b><ul><li class="d"><i></i><span>Проснулся</span></li><li><i></i><span>Таблетка</span></li><li><i></i><span>Душ</span></li></ul></div>
+        <h4>Полная темнота</h4>
+        <p>Отражать нечего, экран не виден.</p>
+      </div>
+      <div class="nd">
+        <div class="scr redlit"><b>Утро</b><ul><li class="d"><i></i><span>Проснулся</span></li><li><i></i><span>Таблетка</span></li><li><i></i><span>Душ</span></li></ul></div>
+        <h4>Красная лампа светит на экран</h4>
+        <p>Чёрный текст на красном фоне, читается.</p>
+      </div>
+      <div class="nd">
+        <div class="scr dim"><b>Утро</b><ul><li class="d"><i></i><span>Проснулся</span></li><li><i></i><span>Таблетка</span></li><li><i></i><span>Душ</span></li></ul></div>
+        <h4>Тусклый ночник в стороне</h4>
+        <p>Контраст низкий, крупный текст ещё различим.</p>
+      </div>
+    </div>
+    <p class="demo-cap reveal">Это иллюстрация принципа, не фото устройства. Замеров E1003 под красным светом я не нашёл.</p>
+
+    <div class="bento" style="margin-top:16px">
+      <div class="card c6 reveal">
+        <h3 style="font-size:20px; margin-bottom:14px">Как настроить, чтобы ночью было видно</h3>
+        <ol class="need">
+          <li><span><b>Красная лампа направлена на экран</b>, а не в глаза. Сбоку или сверху, чтобы не было блика на стекле.</span></li>
+          <li><span><b>Крупный жирный шрифт и чистый чёрный.</b> У E1003 16 оттенков серого: светло-серый под красным светом почти сольётся с фоном. Отметку лучше делать залитым чёрным квадратом, как в примере выше.</span></li>
+          <li><span><b>Кнопка, потом касание.</b> Устройство спит, и касание его из сна не будит: в примерах Seeed для E1003 будит правая зелёная кнопка (GPIO3), в конфиге ar0v3r центральная (GPIO4). Нажал кнопку, экран ожил, коснулся пункта.</span></li>
+          <li><span><b>Лампа по нажатию (идея).</b> Когда доска просыпается, Home Assistant может на минуту включить красный свет у кровати. Для этого нужна умная лампа с красным цветом. Это мой вариант настройки, готового примера я не нашёл.</span></li>
+        </ol>
+      </div>
+      <div class="card c6 reveal">
+        <h3 style="font-size:20px; margin-bottom:14px">Если нужен экран, который виден без лампы</h3>
+        <ul style="margin:0; padding-left:20px; color:var(--ink-2); font-size:15.5px">
+          <li style="margin:6px 0">Среди досок на ESP32 с касанием и долгой батареей подсветку я нашёл только у <a href="#alt">Inkplate 6 FLICK</a>. В документации Soldered она белая, 64 ступени яркости; о тёплом или красном варианте не сказано.</li>
+          <li style="margin:6px 0">Ток подсветки Soldered не приводит. Пишет только, что максимальная яркость требует дополнительного тока и при частом использовании сокращает работу от батареи.</li>
+          <li style="margin:6px 0"><b style="color:#fff">Цветные экраны под красным светом хуже.</b> У E1002 и E1004 (E Ink Spectra 6) красный и жёлтый отражают красный свет так же, как белый фон, и сольются с ним. Это мой вывод из того, как устроено отражение, замеров я не нашёл. Для ночи под красной лампой чёрно-белый E1003 подходит лучше.</li>
+        </ul>
       </div>
     </div>
   </div>
@@ -275,8 +378,8 @@ footer{padding:56px 0 72px; color:var(--ink-3); font-size:14px}
 <section id="best">
   <div class="wrap">
     <div class="sec-head reveal">
-      <span class="kicker">Лучшие варианты</span>
-      <h2>Три устройства, которые подходят по смыслу</h2>
+      <span class="kicker">Твой выбор</span>
+      <h2>E1003 и два запасных варианта</h2>
       <p>Все три открытые: работают с ESPHome и Home Assistant. Автосброс списка в самих устройствах не заложен, его делает автоматизация в Home Assistant (см. раздел «Как это работает»).</p>
     </div>
 
@@ -284,9 +387,51 @@ footer{padding:56px 0 72px; color:var(--ink-3); font-size:14px}
 
       <article class="card top c12 reveal">
         <div class="prod">
+          <div class="photo"><img src="img/eink-checklist/reterminal-e1003.jpg" alt="Seeed reTerminal E1003 с 10,3-дюймовым e-ink экраном" width="400" height="300" loading="lazy"></div>
+          <div>
+            <span class="badge b-best">Твой выбор · большой экран с касанием</span>
+            <h3>Seeed reTerminal E1003</h3>
+            <p class="sub">10,3″ с касанием и самой высокой заявленной автономностью в линейке Seeed: до 6 месяцев. Крупнее «фоторамки», зато пункты списка можно сделать большими и нажимать пальцем.</p>
+            <dl class="spec">
+              <dt>Экран</dt><dd>10,3″ ч/б, 1404 × 1872, 16 уровней серого, полное обновление около 3 с</dd>
+              <dt>Касание</dt><dd>ёмкостное, контроллер GT911; в ESPHome нужна версия 2026.7.0 или новее</dd>
+              <dt>Подсветка</dt><dd>нет (на странице товара, в вики и в даташите не упомянута)</dd>
+              <dt>Батарея</dt><dd>3000 мАч. Seeed: до 6 месяцев «в режиме низкого потребления при одном обновлении в сутки»</dd>
+              <dt>Кнопки</dt><dd>обновление экрана, страница вверх и вниз, выключатель питания</dd>
+              <dt>Размер</dt><dd>224 × 187 × 18,6 мм; вес производитель не указывает</dd>
+              <dt>Стена</dt><dd>рамка Seeed за $20: алюминий, 240 × 292 × 34 мм, 423,5 г. В комплекте переходная пластина, две петли-подвеса, 12 винтов, отвёртка и подножка</dd>
+              <dt>Wi‑Fi</dt><dd>только 2,4 ГГц, плюс Bluetooth 5.0</dd>
+            </dl>
+            <div class="prices">
+              <div class="price">
+                <div class="where">Seeed · без налогов и доставки</div>
+                <div class="sum">$179,90 с рамкой</div>
+                <div class="conv">$159,90 без рамки · ≈ R$ 912 с рамкой</div>
+                <div class="meta">Комплект стоит ровно как E1003 и рамка по отдельности, скидки нет. Наличие на странице не указано, видно на оформлении.</div>
+                <span class="chip ok">цена со страницы магазина</span>
+              </div>
+              <div class="price">
+                <div class="where">С налогами · ориентир</div>
+                <div class="sum">Рио ≈ R$ 1 752–1 825</div>
+                <div class="conv">с рамкой, курьером; без рамки <span class="nw">R$&nbsp;1&nbsp;557–1&nbsp;622</span></div>
+                <div class="meta">Пошлина 60% и ICMS, Seeed везёт курьером без вычета $30. Без доставки.</div>
+                <span class="chip">мой расчёт, не цена магазина</span>
+              </div>
+            </div>
+            <a class="btn" href="https://www.seeedstudio.com/reTerminal-E1003-frame-bundle.html" target="_blank" rel="noopener">Комплект с рамкой ↗</a>
+            <a class="btn ghost" href="https://www.seeedstudio.com/reTerminal-E1003-p-6731.html" target="_blank" rel="noopener">E1003 без рамки ↗</a>
+            <a class="btn ghost" href="https://www.seeedstudio.com/Frame-for-reTerminal-E1003-p-6730.html" target="_blank" rel="noopener">Рамка отдельно ↗</a>
+            <div class="note"><b>Подвох с батареей, и как его обойти.</b> В обычной прошивке E1003 во сне тянет около 5 мА: два вывода (GPIO39 и GPIO48) остаются «плавающими» и держат включённой периферию. Так 3000 мАч хватает примерно на 25 дней (мой расчёт: 5 мА × 24 ч = 120 мА·ч в сутки), автор конфига <a href="https://github.com/ar0v3r/reTerminal-E1003-ESPHome" target="_blank" rel="noopener">ar0v3r</a> даёт оценку 20–30 дней. Он зафиксировал эти выводы на время сна, и его мультиметр показал меньше 100 мкА. Для прошивки TRMNL такое же исправление предложено в PR №715: за 19 дней батарея теряла 0,53% в сутки против 2,9% на стандартной (<a href="https://github.com/usetrmnl/trmnl-firmware/issues/572" target="_blank" rel="noopener">issue №572</a>). Вывод: собирать ESPHome на основе конфига ar0v3r.</div>
+            <div class="note soft"><b>Сколько протянет чек-лист</b> (мой расчёт по замерам ar0v3r: проснулся на ~20 с при ~185 мА, это около 1 мА·ч; сон до 2,4 мА·ч в сутки). Пять нажатий плюс одно пробуждение после полуночи для сброса: ~8,6 мА·ч в сутки, по расчёту это больше полугода, на деле упрёшься в заявленные 6 месяцев. Если будить доску каждый час, чтобы подтягивать изменения из Home Assistant: ~27 мА·ч в сутки, около 110 дней. Расчёт не учитывает саморазряд и износ батареи.</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="card c12 reveal">
+        <div class="prod">
           <div class="photo"><img src="img/eink-checklist/reterminal-e1001.jpg" alt="Электронный экран Seeed reTerminal E1001 на столе, на экране заставка модели" width="400" height="300" loading="lazy"></div>
           <div>
-            <span class="badge b-best">Основной выбор · дольше всех держит заряд</span>
+            <span class="badge b-mid">Меньше и дешевле · без касания</span>
             <h3>Seeed reTerminal E1001</h3>
             <p class="sub">Чёрно-белый e-ink экран 7,5″ в корпусе размером с фоторамку. Три кнопки сверху, внутри ESP32-S3, открытый исходный код.</p>
             <dl class="spec">
@@ -365,40 +510,161 @@ footer{padding:56px 0 72px; color:var(--ink-3); font-size:14px}
         </div>
       </article>
 
+    </div>
+  </div>
+</section>
+
+<section id="alt">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="kicker">Аналоги</span>
+      <h2>Похожие доски с зарядом от 3 месяцев</h2>
+      <p>Искал настенные e-ink доски, которые работают с умным домом и, по словам производителя, держат заряд не меньше 3 месяцев. Сроки ниже заявлены производителями, кроме Inkplate: там срок не назван, есть только ток во сне.</p>
+    </div>
+
+    <div class="tbl-wrap reveal">
+      <table class="alt">
+        <thead>
+          <tr><th>Модель</th><th>Экран</th><th>Касание</th><th>Подсветка</th><th>Батарея, заявлено</th><th>Цена</th><th>Для чек-листа</th></tr>
+        </thead>
+        <tbody>
+          <tr class="me"><td>E1003 · твой выбор</td><td>10,3″ ч/б, 16 оттенков</td><td class="y">экран</td><td class="n">нет</td><td>3000 мАч, до 6 мес. при 1 обновлении в сутки</td><td>$159,90 (+$20 рамка)</td><td>ESPHome, касание поддерживается</td></tr>
+          <tr><td>TRMNL X</td><td>10,3″ ч/б, 16 оттенков</td><td>жесты</td><td class="n">не заявлена</td><td>6000 или 12 000 мАч, 3–6 мес. при обычном использовании</td><td>$229</td><td>штатно отметок нет, нужна своя прошивка</td></tr>
+          <tr><td>Inkplate 6 FLICK</td><td>6″ ч/б, 8 оттенков</td><td class="y">экран</td><td class="y">есть, белая</td><td>срок не заявлен; во сне 23 мкА; в комплекте с корпусом 3000 мАч</td><td>€179,95 за плату</td><td>Arduino или MicroPython, ESPHome эту модель не перечисляет</td></tr>
+          <tr><td>E1004</td><td>13,3″ цветной, Spectra 6</td><td>сенсорные кнопки</td><td class="n">нет</td><td>5000 мАч, до 6 мес. при обновлении раз в 6 ч</td><td>$279,90</td><td>ESPHome; обновление около 20 с; под красным светом хуже</td></tr>
+          <tr><td>E1001</td><td>7,5″ ч/б, 4 оттенка</td><td class="n">нет, 3 кнопки</td><td class="n">нет</td><td>2000 мАч, до 3 мес.</td><td>$69</td><td>ESPHome, отметки кнопками</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="scroll-hint">Таблицу можно листать вбок.</p>
+
+    <div class="bento" style="margin-top:16px">
+
       <article class="card c12 reveal">
         <div class="prod">
-          <div class="photo"><img src="img/eink-checklist/reterminal-e1003.jpg" alt="Seeed reTerminal E1003 с 10,3-дюймовым e-ink экраном" width="400" height="300" loading="lazy"></div>
+          <div class="photo"><img src="img/eink-checklist/inkplate-6flick.jpg" alt="Плата Soldered Inkplate 6 FLICK с 6-дюймовым e-ink экраном без корпуса" width="400" height="266" loading="lazy"></div>
           <div>
-            <span class="badge b-gray">Большой экран с касанием</span>
-            <h3>Seeed reTerminal E1003</h3>
-            <p class="sub">10,3″ с касанием и самой высокой заявленной автономностью. Для «небольшой доски у кровати» крупноват и вдвое дороже E1001, поэтому только запасной вариант.</p>
+            <span class="badge b-mid">Единственный с подсветкой</span>
+            <h3>Soldered Inkplate 6 FLICK</h3>
+            <p class="sub">6″ экран с касанием и встроенной подсветкой на ESP32. Ночью виден без лампы. Но это плата для самостоятельной сборки: корпус и батарея идут отдельным комплектом, а прошивку под чек-лист придётся писать самому.</p>
             <dl class="spec">
-              <dt>Экран</dt><dd>10,3″ ч/б, 1404 × 1872, 16 уровней серого, касание GT911</dd>
-              <dt>Батарея</dt><dd>3000 мАч, заявлено до 6 месяцев</dd>
-              <dt>Стена</dt><dd>рамка продаётся отдельно, $20</dd>
+              <dt>Экран</dt><dd>6″ ED060XC3, 1024 × 758, 8 оттенков серого</dd>
+              <dt>Касание</dt><dd>ёмкостное, 2 точки</dd>
+              <dt>Подсветка</dt><dd>белая, 64 ступени яркости</dd>
+              <dt>Сон</dt><dd>23 мкА: это примерно 0,55 мА·ч в сутки (мой расчёт). Срок работы Soldered не называет</dd>
+              <dt>Батарея</dt><dd>в комплекте с корпусом Li-ion 3000 мАч; плата продаётся без батареи</dd>
+              <dt>Пробуждение</dt><dd>кнопка на GPIO36. На тот же вывод заведено прерывание касания, но готового примера пробуждения касанием я не нашёл</dd>
+              <dt>Корпус</dt><dd>173,3 × 116,8 × 14,5 мм; отдельно €24,95, у Soldered помечен «скоро»</dd>
+              <dt>Программы</dt><dd>Arduino и MicroPython. В ESPHome есть Inkplate 6 PLUS с касанием и подсветкой, но он снят с продажи; FLICK в списке моделей ESPHome нет</dd>
+              <dt>Минус</dt><dd>экраны восстановленные, Soldered предупреждает о возможных косметических следах на стекле</dd>
             </dl>
             <div class="prices">
               <div class="price">
-                <div class="where">Seeed · без налогов и доставки</div>
-                <div class="sum">$159,90</div>
-                <div class="conv">≈ 16 682 RSD · ≈ R$ 811</div>
-                <div class="meta">Цена на странице Seeed; рамка для стены продаётся отдельно за $20.</div>
+                <div class="where">Soldered · без налогов и доставки</div>
+                <div class="sum">€179,95</div>
+                <div class="conv">только плата, без батареи и корпуса</div>
+                <div class="meta">Цена комплекта с корпусом и батареей (артикул 333320) на найденных страницах не указана. У TinyTronics та же цена, нет в наличии, срок 2–4 недели.</div>
                 <span class="chip ok">цена со страницы магазина</span>
               </div>
               <div class="price">
                 <div class="where">С налогами · ориентир</div>
-                <div class="sum">Рио ≈ R$ 1 375–1 622</div>
-                <div class="conv">для сравнения Белград ≈ 20 400–22 400 RSD</div>
-                <div class="meta">Расчёт тот же, что для остальных моделей. Без доставки.</div>
+                <div class="sum">Рио ≈ €345–360</div>
+                <div class="conv">только плата, курьером</div>
+                <div class="meta">Цена × 1,92–2,0: пошлина 60% и ICMS 20%, без вычета $30. Без доставки и корпуса.</div>
                 <span class="chip">мой расчёт, не цена магазина</span>
               </div>
             </div>
-            <a class="btn" href="https://www.seeedstudio.com/reTerminal-E1003-p-6731.html" target="_blank" rel="noopener">Открыть у Seeed ↗</a>
-            <div class="note soft">Предупреждение: в трекере прошивки TRMNL есть обращение с заголовком «reTerminal E1003 draws ~5 mA in deep sleep» (issue №572; я видел только заголовок, текст не открывал). Если это подтвердится, 3000 мАч хватит примерно на 25 суток, а не на 6 месяцев (мой расчёт: 3000 мАч ÷ 5 мА = 600 ч). Это про прошивку TRMNL, не про ESPHome, но проверять стоит.</div>
+            <a class="btn" href="https://soldered.com/product/inkplate-6flick/" target="_blank" rel="noopener">Открыть у Soldered ↗</a>
+            <a class="btn ghost" href="https://docs.soldered.com/inkplate/6flick/overview/" target="_blank" rel="noopener">Документация ↗</a>
+            <a class="btn ghost" href="https://www.tinytronics.nl/en/development-boards/microcontroller-boards/with-wi-fi/soldered-electronics-inkplate-6flick-6-inch-e-ink-e-paper-display-with-touchscreen-esp32" target="_blank" rel="noopener">TinyTronics ↗</a>
           </div>
         </div>
       </article>
 
+      <article class="card c12 reveal">
+        <div class="prod">
+          <div class="photo"><img src="img/eink-checklist/trmnl-x.jpg" alt="TRMNL X на стене с прогнозом погоды на экране" width="400" height="284" loading="lazy"></div>
+          <div>
+            <span class="badge b-gray">Того же размера, батарея больше</span>
+            <h3>TRMNL X</h3>
+            <p class="sub">Та же диагональ 10,3″ и разрешение, что у E1003, батарея вдвое или вчетверо больше, корпус тоньше (12 мм), есть магнит и крепление на стену. Но это дашборд: показывает данные, а отмечать пункты штатно нечем.</p>
+            <dl class="spec">
+              <dt>Экран</dt><dd>10,3″ ч/б, 1872 × 1404, 16 оттенков серого</dd>
+              <dt>Касание</dt><dd>«Touch Sensor: Yes (Gesture controls)»: управление жестами, касание пунктов на экране не описано</dd>
+              <dt>Подсветка</dt><dd>в спецификации не упомянута</dd>
+              <dt>Батарея</dt><dd>6000 или 12 000 мАч, 3–6 месяцев при обычном использовании</dd>
+              <dt>Крепление</dt><dd>подножка, крепление на стену, встроенный магнит</dd>
+              <dt>Размер и вес</dt><dd>233 × 193 × 12 мм; 365 г (одна батарея), 450 г (две)</dd>
+              <dt>Защита</dt><dd>IP65, сертификация ещё не получена («Pending»)</dd>
+              <dt>Умный дом</dt><dd>интеграция Home Assistant только следит за батареей и Wi‑Fi и включает режим сна: «does not support sending custom content to the display». Прошивка открытая (GPLv3), свой сервер (BYOS) можно поднять</dd>
+            </dl>
+            <div class="prices">
+              <div class="price">
+                <div class="where">TRMNL · без налогов и доставки</div>
+                <div class="sum">$229</div>
+                <div class="conv">≈ R$ 1 161</div>
+                <div class="meta">Розничная цена из официальной спецификации. Страница магазина мне не открылась (ограничение запросов), наличие проверь на ней.</div>
+                <span class="chip">цена из спецификации, магазин не открылся</span>
+              </div>
+              <div class="price">
+                <div class="where">С налогами · ориентир</div>
+                <div class="sum">Рио ≈ R$ 2 230–2 323</div>
+                <div class="conv">курьером, без вычета $30</div>
+                <div class="meta">Пошлина 60% и ICMS 20%. Без доставки.</div>
+                <span class="chip">мой расчёт, не цена магазина</span>
+              </div>
+            </div>
+            <a class="btn" href="https://shop.trmnl.com/products/trmnl-x" target="_blank" rel="noopener">Магазин TRMNL ↗</a>
+            <a class="btn ghost" href="https://trmnl.com/products/x/spec-sheet" target="_blank" rel="noopener">Спецификация ↗</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="card c12 reveal">
+        <div class="prod">
+          <div class="photo"><img src="img/eink-checklist/reterminal-e1004.jpg" alt="Seeed reTerminal E1004 в рамке на полке, на цветном экране картина и календарь" width="400" height="300" loading="lazy"></div>
+          <div>
+            <span class="badge b-gray">Самый большой, цветной</span>
+            <h3>Seeed reTerminal E1004</h3>
+            <p class="sub">13,3″ цветная доска в рамке с батареей на 5000 мАч. Для чек-листа у кровати велика, а цвет ночью под красным светом скорее мешает.</p>
+            <dl class="spec">
+              <dt>Экран</dt><dd>13,3″ E Ink Spectra 6, 1200 × 1600, обновление около 20 с</dd>
+              <dt>Касание</dt><dd>только сенсорные кнопки (обновление и переключение). Экран не сенсорный, в вики Seeed касание у E1004 не указано</dd>
+              <dt>Подсветка</dt><dd>не упомянута</dd>
+              <dt>Батарея</dt><dd>5000 мАч, до 6 месяцев в режиме низкого потребления при обновлении раз в 6 часов</dd>
+              <dt>Размер</dt><dd>376 × 311 × 40 мм</dd>
+            </dl>
+            <div class="prices">
+              <div class="price">
+                <div class="where">Seeed · без налогов и доставки</div>
+                <div class="sum">$279,90</div>
+                <div class="conv">≈ R$ 1 420</div>
+                <div class="meta">Наличие на странице не указано.</div>
+                <span class="chip ok">цена со страницы магазина</span>
+              </div>
+              <div class="price">
+                <div class="where">С налогами · ориентир</div>
+                <div class="sum">Рио ≈ R$ 2 726–2 839</div>
+                <div class="conv">курьером, без вычета $30</div>
+                <div class="meta">Пошлина 60% и ICMS 20%. Без доставки.</div>
+                <span class="chip">мой расчёт, не цена магазина</span>
+              </div>
+            </div>
+            <a class="btn" href="https://www.seeedstudio.com/reTerminal-E1004-p-6692.html" target="_blank" rel="noopener">Открыть у Seeed ↗</a>
+          </div>
+        </div>
+      </article>
+
+    </div>
+
+    <div class="card top reveal" style="margin-top:16px">
+      <span class="badge b-best">Вывод</span>
+      <h3 style="margin:12px 0 14px;font-size:22px">Менять E1003 не на что</h3>
+      <ol class="need">
+        <li><span><b>Оставить E1003</b>, если готов к красной лампе, которая светит на экран. Из найденных досок только у него сочетаются 10″, касание экрана, ESPHome и заявленные 6 месяцев.</span></li>
+        <li><span><b>Inkplate 6 FLICK</b>, если важнее видеть экран без лампы. Цена: 6″ вместо 10,3″, белая подсветка вместо красной, корпус и батарея отдельно, прошивку пишешь сам, срок батареи никто не называл.</span></li>
+        <li><span><b>TRMNL X</b> только как дашборд без отметок. Для чек-листа пришлось бы писать свою прошивку под жесты.</span></li>
+      </ol>
     </div>
   </div>
 </section>
@@ -417,7 +683,7 @@ footer{padding:56px 0 72px; color:var(--ink-3); font-size:14px}
           <li><span><b>Нажатие или касание.</b> Устройство просыпается, отправляет отметку в Home Assistant и обновляет экран.</span></li>
           <li><span><b>Умный дом.</b> Home Assistant выполняет действие под пункт. Например, «встал с кровати» включает свет и поднимает шторы (пример, настраивается в Home Assistant).</span></li>
           <li><span><b>Автосброс.</b> В 00:00 автоматизация Home Assistant выключает все переключатели-помощники, и список на экране становится пустым.</span></li>
-          <li><span><b>Зарядка.</b> Раз в неделю у Sticky, раз в несколько месяцев у E1001.</span></li>
+          <li><span><b>Зарядка.</b> У E1003 раз в несколько месяцев, если сон исправлен (см. карточку E1003). У Sticky раз в неделю.</span></li>
         </ol>
       </div>
       <div class="card reveal">
@@ -426,12 +692,12 @@ footer{padding:56px 0 72px; color:var(--ink-3); font-size:14px}
           <li><b>Home Assistant</b> дома (мини-ПК или Raspberry Pi). Нужно решить, как быть с двумя городами: отдельный экземпляр в каждой квартире или один с удалённым доступом.</li>
           <li><b>Wi‑Fi 2,4 ГГц</b> рядом с кроватью.</li>
           <li><b>По переключателю-помощнику</b> на каждый пункт списка в Home Assistant.</li>
-          <li><b>Конфиг ESPHome</b>: кнопка или касание вызывает действие в Home Assistant. Для Sticky у Seeed есть конфигуратор ESPHome.</li>
+          <li><b>Конфиг ESPHome</b>: кнопка или касание вызывает действие в Home Assistant. Для E1003 за основу брать <a href="https://github.com/ar0v3r/reTerminal-E1003-ESPHome" target="_blank" rel="noopener">конфиг ar0v3r</a> с исправленным сном, касание описано в <a href="https://wiki.seeedstudio.com/reterminal_e10xx_with_esphome_advanced/" target="_blank" rel="noopener">вики Seeed</a>. Для Sticky у Seeed есть конфигуратор ESPHome.</li>
           <li><b>Редкие пробуждения.</b> Ориентир из гайда habbb для M5PaperS3 (1800 мАч): обновление раз в час 4–6 месяцев, раз в 15 минут 2–3 месяца, раз в минуту 7–10 дней.</li>
         </ul>
       </div>
     </div>
-    <div class="note reveal">Честная оценка автономности для чек-листа: реальных замеров именно для такого сценария я не нашёл. У E1001 батарея 2000 мАч, у M5PaperS3 в гайде 1800 мАч, поэтому порядок «месяцы» правдоподобен при редких пробуждениях. Но это оценка по аналогии, а не измерение.</div>
+    <div class="note reveal">Честная оценка автономности для чек-листа: замеров именно для такого сценария я не нашёл. Для E1003 есть замеры ar0v3r на дашборде (сон меньше 100 мкА, пробуждение около 185 мА на 20 с), из них мой расчёт: от ~110 дней при пробуждении каждый час до заявленных 6 месяцев при пяти-шести пробуждениях в сутки. Это расчёт, не измерение чек-листа.</div>
   </div>
 </section>
 
@@ -449,7 +715,7 @@ footer{padding:56px 0 72px; color:var(--ink-3); font-size:14px}
       <ol class="need">
         <li><span><b>Seeed напрямую.</b> Пошлины и налоги платит получатель, в инвойсе нужен твой CPF (так пишет Seeed). Стоимость доставки видна на чекауте.</span></li>
         <li><span><b>Или лот на AliExpress.</b> Для таких заказов действует Remessa Conforme: до US$ 50 пошлина 0, выше 60% с вычетом US$ 30 (Econet). Цену в лоте для Sticky я не открывал, расчёт сделан от цены Seeed, так что сверь итог в корзине.</span></li>
-        <li><span><b>Разница моделей в Рио:</b> E1001 дороже Sticky примерно на R$ 185–195 (R$ 489–510 против R$ 303–316 через маркетплейс; R$ 672–700 против R$ 486–506 курьером). За эти деньги ты получаешь экран больше и заявленные до 3 месяцев вместо недели.</span></li>
+        <li><span><b>Твой E1003 с рамкой в Рио:</b> ≈ R$ 1 752–1 825 курьером Seeed или R$ 1 569–1 635, если найдётся продавец на маркетплейсе с вычетом $30. Без рамки R$ 1 557–1 622 и R$ 1 375–1 432.</span></li>
         <li><span><b>Перед оплатой проверь:</b> ставку ICMS для штата Рио (я брал 20%), итоговую сумму с доставкой и налогами, Wi‑Fi 2,4 ГГц у кровати.</span></li>
       </ol>
     </div>
@@ -472,6 +738,12 @@ footer{padding:56px 0 72px; color:var(--ink-3); font-size:14px}
         <div><div class="lab">Сербия · Белград</div><div class="val">20 400–22 400 RSD</div><small>≈ R$ 990–1 088</small></div>
         <div><div class="lab">Бразилия · Рио</div><div class="val"><span class="nw">R$&nbsp;1&nbsp;375–1&nbsp;432&nbsp;</span>или <span class="nw">R$&nbsp;1&nbsp;557–1&nbsp;622</span></div><small>первое через магазин с вычетом $30, второе курьером без вычета</small></div>
         <div class="verdict"><div class="lab">Вывод</div><b>Сербия дешевле</b> на 24–28% против маркетплейса и на 33–36% против курьера.</div>
+      </div>
+      <div class="cmp-row reveal">
+        <div><div class="lab">Модель</div><div class="name">E1003 + рамка</div><small>$179,90 ≈ 18 769 RSD ≈ R$ 912</small></div>
+        <div><div class="lab">Сербия · Белград</div><div class="val">22 900–25 100 RSD</div><small>≈ R$ 1 112–1 221</small></div>
+        <div><div class="lab">Бразилия · Рио</div><div class="val"><span class="nw">R$&nbsp;1&nbsp;569–1&nbsp;635&nbsp;</span>или <span class="nw">R$&nbsp;1&nbsp;752–1&nbsp;825</span></div><small>первое через магазин с вычетом $30, второе курьером без вычета</small></div>
+        <div class="verdict"><div class="lab">Вывод</div><b>Сербия дешевле</b> на 25–29% против маркетплейса и на 33–37% против курьера.</div>
       </div>
     </div>
 
@@ -556,7 +828,8 @@ footer{padding:56px 0 72px; color:var(--ink-3); font-size:14px}
     <div class="card reveal">
       <ol class="need">
         <li><span><b>Куда везти:</b> Рио (решено). Для заказа нужен твой CPF в инвойсе; адрес доставки и вводить данные карты будешь ты.</span></li>
-        <li><span><b>Какая модель:</b> E1001 (кнопки, максимум автономности) или Sticky (касание, меньше, раз в неделю на зарядку).</span></li>
+        <li><span><b>Модель:</b> E1003 (выбрано). На стену брать комплект с рамкой за $179,90 или рамку отдельно за $20.</span></li>
+        <li><span><b>Ночной свет:</b> есть ли у кровати красная лампа, которую можно направить на экран, и умная ли она (тогда Home Assistant будет включать её при нажатии кнопки).</span></li>
         <li><span><b>Home Assistant:</b> есть ли он уже и где. Какие устройства умного дома должны реагировать на пункты списка.</span></li>
         <li><span><b>Список пунктов и порядок</b>, чтобы я мог подготовить конфиг ESPHome и автоматизации (включая сброс в 00:00).</span></li>
         <li><span><b>Бюджет и способ оплаты.</b> Перед оплатой проверить итоговую сумму с доставкой и налогами на чекауте.</span></li>
@@ -579,7 +852,24 @@ footer{padding:56px 0 72px; color:var(--ink-3); font-size:14px}
         <li><a href="https://wiki.seeedstudio.com/reterminal_e10xx_with_esphome_advanced/" target="_blank" rel="noopener">Seeed Wiki: ESPHome, кнопки, сон, батарея</a></li>
         <li><a href="https://www.cnx-software.com/2025/12/15/reterminal-e1001-e1002-review-bw-and-color-epaper-displays-tested-with-sensecraft-hmi-and-home-assistant/" target="_blank" rel="noopener">CNX Software: обзор E1001 и E1002</a></li>
         <li><a href="https://www.seeedstudio.com/reTerminal-E1003-p-6731.html" target="_blank" rel="noopener">Seeed: reTerminal E1003</a></li>
-        <li><a href="https://github.com/usetrmnl/trmnl-firmware/issues/572" target="_blank" rel="noopener">GitHub: сообщение о потреблении E1003 в сне</a></li>
+        <li><a href="https://wiki.seeedstudio.com/getting_started_with_reterminal_e1003/" target="_blank" rel="noopener">Seeed Wiki: начало работы с E1003</a></li>
+        <li><a href="https://files.seeedstudio.com/Bazaar/product_pdf/E26032601.pdf" target="_blank" rel="noopener">Seeed: даташит E1003 с рамкой (PDF)</a></li>
+        <li><a href="https://www.seeedstudio.com/reTerminal-E1003-frame-bundle.html" target="_blank" rel="noopener">Seeed: комплект E1003 с рамкой</a></li>
+        <li><a href="https://www.seeedstudio.com/Frame-for-reTerminal-E1003-p-6730.html" target="_blank" rel="noopener">Seeed: рамка для E1003</a></li>
+        <li><a href="https://github.com/usetrmnl/trmnl-firmware/issues/572" target="_blank" rel="noopener">GitHub: ток E1003 во сне, issue №572</a></li>
+        <li><a href="https://github.com/ar0v3r/reTerminal-E1003-ESPHome" target="_blank" rel="noopener">GitHub: ar0v3r, ESPHome для E1003 с исправленным сном</a></li>
+        <li><a href="https://www.seeedstudio.com/reTerminal-E1004-p-6692.html" target="_blank" rel="noopener">Seeed: reTerminal E1004</a></li>
+        <li><a href="https://trmnl.com/products/x/spec-sheet" target="_blank" rel="noopener">TRMNL: спецификация TRMNL X</a></li>
+        <li><a href="https://www.home-assistant.io/integrations/trmnl/" target="_blank" rel="noopener">Home Assistant: интеграция TRMNL</a></li>
+        <li><a href="https://soldered.com/product/inkplate-6flick/" target="_blank" rel="noopener">Soldered: Inkplate 6 FLICK</a></li>
+        <li><a href="https://docs.soldered.com/inkplate/6flick/overview/" target="_blank" rel="noopener">Soldered Docs: обзор 6 FLICK</a></li>
+        <li><a href="https://docs.soldered.com/inkplate/6flick/hardware/battery/" target="_blank" rel="noopener">Soldered Docs: батарея 6 FLICK</a></li>
+        <li><a href="https://docs.soldered.com/inkplate/6flick/hardware/free-gpio/" target="_blank" rel="noopener">Soldered Docs: выводы 6 FLICK (GPIO36)</a></li>
+        <li><a href="https://docs.soldered.com/inkplate/6flick/hardware/frontlight/" target="_blank" rel="noopener">Soldered Docs: подсветка 6 FLICK</a></li>
+        <li><a href="https://www.tinytronics.nl/en/development-boards/microcontroller-boards/with-wi-fi/soldered-electronics-inkplate-6flick-6-inch-e-ink-e-paper-display-with-touchscreen-esp32" target="_blank" rel="noopener">TinyTronics: Inkplate 6 FLICK</a></li>
+        <li><a href="https://esphome.io/components/display/inkplate6/" target="_blank" rel="noopener">ESPHome: поддерживаемые Inkplate</a></li>
+        <li><a href="https://www.eink.com/tech/detail/Front_Light" target="_blank" rel="noopener">E Ink: подсветка Front Light</a></li>
+        <li><a href="https://www.skyatnightmagazine.com/reviews/accessories/red-light-torches" target="_blank" rel="noopener">BBC Sky at Night: красные фонари для чтения карт</a></li>
         <li><a href="https://www.seeedstudio.com/reTerminal-Sticky-p-6861.html" target="_blank" rel="noopener">Seeed: reTerminal Sticky</a></li>
         <li><a href="https://www.seeedstudio.com/sticky/docs/en/device-guide/esp-refresh/" target="_blank" rel="noopener">Seeed Docs: обновление и сон Sticky</a></li>
         <li><a href="https://www.cnx-software.com/2026/07/31/reterminal-sticky-3-97-inch-magnetic-touch-epaper-display-is-supported-by-four-open-source-firmware-projects/" target="_blank" rel="noopener">CNX Software: Sticky и четыре прошивки</a></li>
