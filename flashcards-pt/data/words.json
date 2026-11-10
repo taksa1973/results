@@ -17576,5 +17576,25 @@
   "sources": [
    "extra15"
   ]
+ },
+ {
+  "id": 869,
+  "pt": "privada",
+  "en": "private; toilet (BR)",
+  "ru": "частная (ж. от privado); в Бразилии — унитаз",
+  "pos": "adjectives",
+  "examples": [],
+  "imgQuery": "a clean white toilet bowl with the lid raised standing alone against plain white tiles in a small bathroom, seen from the front",
+  "image": "cartoes-img/частная — privada.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra15"
+  ],
+  "note": "в Бразилии privada чаще всего значит «унитаз»; «частный» — privado, туалет как комната — banheiro"
  }
 ]
