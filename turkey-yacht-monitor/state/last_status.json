@@ -1,5 +1,5 @@
 {
-  "ts": "2026-11-09T15:30:06.358452+00:00",
+  "ts": "2026-11-10T14:30:56.156538+00:00",
   "findings": {},
   "errors": {
     "Sailo Turkey catamarans": "http_403",
@@ -10,6 +10,7 @@
     "Yacht-Rent Turkey": "http_403",
     "Gulet Bookers (home, Bodrum-based)": "http_403",
     "Gulet Escapes (UK)": "http_403",
-    "GuletYacht.net": "http_403"
+    "GuletYacht.net": "http_403",
+    "Wondergulets": "request_error: ReadTimeout: HTTPSConnectionPool(host='www.wondergulets.com', port=443): Read timed out. (read timeout=30)"
   }
 }
