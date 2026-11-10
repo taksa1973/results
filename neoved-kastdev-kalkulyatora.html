@@ -114,7 +114,8 @@ footer{padding:40px 0 60px;color:var(--label);font-size:13px}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .reveal{opacity:1}
 .js-anim .reveal{opacity:0}
-@media (max-width:420px){.tile b{font-size:21px}.letter-top{flex-direction:column}.letter-top .btn{width:100%}}
+.letter-top .btns{flex:none;flex-wrap:nowrap}
+@media (max-width:420px){.tile b{font-size:21px}.letter-top{flex-direction:column}.letter-top .btns{flex-wrap:wrap;width:100%}.letter-top .btn{width:100%}}
 @media (max-width:860px){.tiles{grid-template-columns:1fr 1fr}.grid2,.rules,.fields{grid-template-columns:1fr}.vs{font-size:14px}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}.js-anim .reveal{opacity:1}}
 </style>
@@ -212,9 +213,27 @@ footer{padding:40px 0 60px;color:var(--label);font-size:13px}
   <h2><span class="num">3</span>Скрипт созвона на 30 минут</h2>
   <p class="muted">Скрипт один для всех групп, блок 5 меняется под группу. Вопросы — опора, а не анкета: если человек сам рассказал ответ, вопрос пропускаем. Блоки 3 и 5 главные, их не сокращаем.</p>
 
-  <div class="card reveal">
+  <div class="letter reveal" id="mail-pre">
+    <div class="letter-top">
+      <div><h3>Сообщение перед звонком <span class="time">накануне или за 2 часа</span></h3><p class="subj">В тот канал, где договорились о созвоне: в ЛС или ответом на письмо. Тема для почты: <b data-subj>Созвон {день}, {время} — ссылка внутри</b></p></div>
+      <div class="btns" style="margin:0">
+        <button class="btn" type="button" data-copy="mail-pre"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg><span>Для почты</span></button>
+        <button class="btn" type="button" data-copy="mail-pre" data-nosubj><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg><span>Для ЛС</span></button>
+      </div>
+    </div>
+    <div class="letter-body">
+      <p><span class="ph">{Имя}</span>, здравствуйте! Напоминаю о нашем разговоре <span class="ph">{завтра / сегодня}</span> в <span class="ph">{время, часовой пояс}</span>. Ссылка: <span class="ph">{ссылка на Zoom / Meet}</span></p>
+      <p>Займёт около 30 минут. Продавать ничего не буду: расспрошу, как вы проводите зарубежные платежи и как пользовались нашим сайтом.</p>
+      <p>Чтобы разговор был предметным, вспомните, пожалуйста, ваш последний платёж за границу: куда, примерно на какую сумму и через кого. В конце, если будет удобно, попрошу показать экран и посчитать этот платёж в нашем калькуляторе, но это по желанию.</p>
+      <p>Если не против, включу запись, чтобы не переврать ваши слова, — спрошу в начале. Если время не подходит, просто напишите, перенесём.</p>
+      <p><span class="ph">{Имя}</span>, neoved</p>
+    </div>
+  </div>
+
+  <div class="card reveal" style="margin-top:14px">
     <h3>0. Перед звонком <span class="time">5 мин</span></h3>
     <ul>
+      <li>Проверить, что сообщение-напоминание ушло и человек подтвердил время. Нет ответа за 2 часа до звонка — написать ещё раз коротко: «Актуально на {время}?»</li>
       <li>Открыть сделку в amoCRM: когда пришёл, откуда, что считал, какая сумма, почему закрыта.</li>
       <li>Скопировать пустую <a href="#kartochka">карточку интервью</a> и вписать то, что уже известно.</li>
       <li>Открыть <a href="https://neoved.io/produkty/calculator" target="_blank" rel="noopener">калькулятор</a> в соседней вкладке, чтобы видеть то же, что респондент.</li>
@@ -501,7 +520,7 @@ footer{padding:40px 0 60px;color:var(--label);font-size:13px}
   document.querySelectorAll('[data-copy]').forEach(function(btn){
     btn.addEventListener('click',function(){
       var box=document.getElementById(btn.getAttribute('data-copy'));
-      var subj=box.querySelector('[data-subj]');
+      var subj=btn.hasAttribute('data-nosubj')?null:box.querySelector('[data-subj]');
       var text=(subj?'Тема: '+subj.innerText.trim()+'\n\n':'')+bodyText(box.querySelector('.letter-body'));
       copyText(text,btn);
     });
