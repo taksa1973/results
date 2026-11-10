@@ -4587,7 +4587,8 @@
   },
   "sources": [
    "personal"
-  ]
+  ],
+  "note": "ir embora — уходить, уезжать"
  },
  {
   "id": 194,
@@ -10201,7 +10202,8 @@
   },
   "sources": [
    "extra6"
-  ]
+  ],
+  "note": "tão bom! — так хорошо!; tão grande quanto — такой же большой, как"
  },
  {
   "id": 486,
@@ -11300,7 +11302,8 @@
   },
   "sources": [
    "extra9"
-  ]
+  ],
+  "note": "demora para fazer — долго делается"
  },
  {
   "id": 543,
@@ -11589,7 +11592,8 @@
   },
   "sources": [
    "extra9"
-  ]
+  ],
+  "note": "de acordo com — согласно (according to); acordo — ещё «просыпаюсь» (от acordar)"
  },
  {
   "id": 558,
@@ -15844,6 +15848,1733 @@
   },
   "sources": [
    "extra14"
+  ]
+ },
+ {
+  "id": 780,
+  "pt": "ovo",
+  "en": "egg",
+  "ru": "яйцо",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "a single brown hen's egg standing upright on a plain white surface, soft shadow, nothing else in frame",
+  "image": "cartoes-img/яйцо — ovo.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra15"
+  ]
+ },
+ {
+  "id": 781,
+  "pt": "sanduíche",
+  "en": "sandwich",
+  "ru": "сэндвич, бутерброд",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "a tall club sandwich cut in half on a wooden board, layers of ham, cheese, lettuce and tomato showing",
+  "image": "cartoes-img/сэндвич, бутерброд — sanduíche.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra15"
+  ],
+  "fix": "Sanduíches → sanduíche (мн. sanduíches)"
+ },
+ {
+  "id": 782,
+  "pt": "gelo",
+  "en": "ice",
+  "ru": "лёд",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "a heap of clear ice cubes on a dark slate surface, close-up, droplets of meltwater on them",
+  "image": "cartoes-img/лёд — gelo.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra15"
+  ]
+ },
+ {
+  "id": 783,
+  "pt": "bolacha",
+  "en": "cookie, biscuit",
+  "ru": "печенье",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "a neat stack of round chocolate chip cookies on a plain light surface, close-up",
+  "image": "cartoes-img/печенье — bolacha.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra15"
+  ],
+  "note": "в Рио чаще говорят biscoito, bolacha — в Сан-Паулу"
+ },
+ {
+  "id": 784,
+  "pt": "feijão",
+  "en": "beans",
+  "ru": "фасоль (бразильская), бобы",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "a clay bowl of cooked Brazilian black bean stew next to a small heap of dry black beans on a wooden table",
+  "image": "cartoes-img/фасоль — feijão.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra15"
+  ]
+ },
+ {
+  "id": 785,
+  "pt": "bolo",
+  "en": "cake",
+  "ru": "торт, пирог",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "a whole round chocolate cake with glossy frosting on a glass cake stand, uncut, no candles",
+  "image": "cartoes-img/торт, пирог — bolo.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra15"
+  ]
+ },
+ {
+  "id": 786,
+  "pt": "açúcar",
+  "en": "sugar",
+  "ru": "сахар",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "a glass sugar bowl heaped with white granulated sugar with a teaspoon in it and a few sugar cubes beside it",
+  "image": "cartoes-img/сахар — açúcar.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra15"
+  ]
+ },
+ {
+  "id": 787,
+  "pt": "molho",
+  "en": "sauce",
+  "ru": "соус",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "a ladle pouring thick red tomato sauce back into a saucepan, close-up",
+  "image": "cartoes-img/соус — molho.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra15"
+  ]
+ },
+ {
+  "id": 788,
+  "pt": "batata",
+  "en": "potato",
+  "ru": "картофель, картошка",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "a pile of raw unpeeled potatoes on a wooden table, one of them cut in half showing the pale inside",
+  "image": "cartoes-img/картофель, картошка — batata.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra15"
+  ]
+ },
+ {
+  "id": 789,
+  "pt": "sal",
+  "en": "salt",
+  "ru": "соль",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "a glass salt shaker tipped on its side with white salt grains spilled across a dark table, close-up",
+  "image": "cartoes-img/соль — sal.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra15"
+  ]
+ },
+ {
+  "id": 790,
+  "pt": "milkshake",
+  "en": "milkshake",
+  "ru": "молочный коктейль",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "a tall glass of pink strawberry milkshake topped with whipped cream and a striped straw",
+  "image": "cartoes-img/молочный коктейль — milkshake.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra15"
+  ],
+  "fix": "Batido → milkshake: batido так говорят в Португалии, в Бразилии — milkshake, а фруктовый с молоком — vitamina"
+ },
+ {
+  "id": 791,
+  "pt": "glúten",
+  "en": "gluten",
+  "ru": "глютен",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "two hands pulling apart a ball of raw wheat dough so it stretches into elastic strands, ears of wheat lying beside",
+  "image": "cartoes-img/глютен — glúten.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra15"
+  ],
+  "fix": "Glúteo → glúten (glúteo — ягодичная мышца)"
+ },
+ {
+  "id": 792,
+  "pt": "lula",
+  "en": "squid, calamari",
+  "ru": "кальмар",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "a whole fresh raw squid lying on crushed ice at a fish market stall",
+  "image": "cartoes-img/кальмар — lula.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra15"
+  ]
+ },
+ {
+  "id": 793,
+  "pt": "bar",
+  "en": "bar",
+  "ru": "бар",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "a lively Brazilian corner bar with people drinking beer at the counter and at plastic tables on the pavement in the evening",
+  "image": "cartoes-img/бар — bar.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra15"
+  ]
+ },
+ {
+  "id": 794,
+  "pt": "almoço",
+  "en": "lunch",
+  "ru": "обед",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "a Brazilian lunch plate with rice, black beans, a grilled steak, fries and salad on a restaurant table in bright midday light",
+  "image": "cartoes-img/обед — almoço.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra15"
+  ]
+ },
+ {
+  "id": 795,
+  "pt": "café da manhã",
+  "en": "breakfast",
+  "ru": "завтрак",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "a breakfast table with a cup of coffee, bread rolls, butter, papaya and orange juice in soft morning sunlight from a window",
+  "image": "cartoes-img/завтрак — café da manhã.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra15"
+  ],
+  "fix": "Café de manhã → café da manhã"
+ },
+ {
+  "id": 796,
+  "pt": "saída",
+  "en": "exit",
+  "ru": "выход",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "a glowing green emergency exit sign with the running man pictogram above a door in a dim corridor, no words on the sign",
+  "image": "cartoes-img/выход — saída.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra15"
+  ],
+  "fix": "Saida → saída"
+ },
+ {
+  "id": 797,
+  "pt": "mochila",
+  "en": "backpack",
+  "ru": "рюкзак",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "a blue backpack standing alone on a plain floor against a plain wall",
+  "image": "cartoes-img/рюкзак — mochila.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra15"
+  ]
+ },
+ {
+  "id": 798,
+  "pt": "lago",
+  "en": "lake",
+  "ru": "озеро",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "an aerial view of a round blue lake surrounded by green hills with a few small rowing boats on it",
+  "image": "cartoes-img/озеро — lago.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra15"
+  ]
+ },
+ {
+  "id": 799,
+  "pt": "praça",
+  "en": "square",
+  "ru": "площадь, сквер",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "an open town square with a stone fountain in the centre, palm trees and benches around it and a church facade at the far side",
+  "image": "cartoes-img/площадь, сквер — praça.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra15"
+  ]
+ },
+ {
+  "id": 800,
+  "pt": "sangue",
+  "en": "blood",
+  "ru": "кровь",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "a single drop of red blood on a fingertip after a finger-prick test, close-up",
+  "image": "cartoes-img/кровь — sangue.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra15"
+  ]
+ },
+ {
+  "id": 801,
+  "pt": "relacionamentos",
+  "en": "relationships",
+  "ru": "отношения",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "an older couple dancing together in their home kitchen, laughing and holding each other close",
+  "image": "cartoes-img/отношения — relacionamentos.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra15"
+  ],
+  "note": "ед. relacionamento"
+ },
+ {
+  "id": 802,
+  "pt": "estaleiro",
+  "en": "shipyard",
+  "ru": "верфь",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "a huge ship hull under construction in a dry dock with tall cranes above it",
+  "image": "cartoes-img/верфь — estaleiro.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra15"
+  ]
+ },
+ {
+  "id": 803,
+  "pt": "casamento",
+  "en": "wedding; marriage",
+  "ru": "свадьба; брак",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "a bride and groom walking back down the church aisle after the ceremony while guests throw flower petals",
+  "image": "cartoes-img/свадьба, брак — casamento.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra15"
+  ],
+  "fix": "casamentos → casamento (мн. casamentos)"
+ },
+ {
+  "id": 804,
+  "pt": "semáforo",
+  "en": "traffic light",
+  "ru": "светофор",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "a traffic light glowing red against a clear blue sky, close-up",
+  "image": "cartoes-img/светофор — semáforo.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra15"
+  ]
+ },
+ {
+  "id": 805,
+  "pt": "soldado",
+  "en": "soldier",
+  "ru": "солдат",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "a single soldier in camouflage uniform and helmet standing guard with a rifle, full figure",
+  "image": "cartoes-img/солдат — soldado.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra15"
+  ]
+ },
+ {
+  "id": 806,
+  "pt": "folga",
+  "en": "day off",
+  "ru": "выходной (на работе), отгул",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "a woman lazing in a hammock on her home balcony in pyjamas with a cup of coffee, her work uniform hanging unused on a hook behind her",
+  "image": "cartoes-img/выходной — folga.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra15"
+  ]
+ },
+ {
+  "id": 807,
+  "pt": "pássaros",
+  "en": "birds",
+  "ru": "птицы",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "a row of small birds sitting along an overhead wire against a pale sky",
+  "image": "cartoes-img/птицы — pássaros.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra15"
+  ],
+  "note": "ед. pássaro"
+ },
+ {
+  "id": 808,
+  "pt": "montanha",
+  "en": "mountain",
+  "ru": "гора",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "a single tall snow-capped mountain peak rising high above green valleys",
+  "image": "cartoes-img/гора — montanha.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra15"
+  ]
+ },
+ {
+  "id": 809,
+  "pt": "quilômetro",
+  "en": "kilometre",
+  "ru": "километр",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "a long straight empty highway running to the horizon with a small white roadside distance marker post in the foreground",
+  "image": "cartoes-img/километр — quilômetro.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra15"
+  ]
+ },
+ {
+  "id": 810,
+  "pt": "abacaxi",
+  "en": "pineapple",
+  "ru": "ананас",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "a whole ripe pineapple with its spiky green crown standing on a table, one round slice cut beside it",
+  "image": "cartoes-img/ананас — abacaxi.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra15"
+  ],
+  "fix": "Abacaxis → abacaxi (мн. abacaxis)"
+ },
+ {
+  "id": 811,
+  "pt": "esperança",
+  "en": "hope",
+  "ru": "надежда",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "a small green seedling growing up through a crack in grey asphalt, close-up",
+  "image": "cartoes-img/надежда — esperança.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra15"
+  ]
+ },
+ {
+  "id": 812,
+  "pt": "lei",
+  "en": "law",
+  "ru": "закон",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "a judge's wooden gavel resting on top of a thick closed leather-bound law book",
+  "image": "cartoes-img/закон — lei.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra15"
+  ],
+  "note": "мн. leis — законы"
+ },
+ {
+  "id": 813,
+  "pt": "divórcio",
+  "en": "divorce",
+  "ru": "развод",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "a wedding photograph torn in half lying on a table with two wedding rings set far apart beside it",
+  "image": "cartoes-img/развод — divórcio.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra15"
+  ]
+ },
+ {
+  "id": 814,
+  "pt": "tênis",
+  "en": "sneakers; tennis",
+  "ru": "кроссовки; теннис",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "a close-up of a person lacing up a pair of grey running sneakers with one foot up on a step",
+  "image": "cartoes-img/кроссовки, теннис — tênis.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra15"
+  ],
+  "note": "jogar tênis — играть в теннис"
+ },
+ {
+  "id": 815,
+  "pt": "contexto",
+  "en": "context",
+  "ru": "контекст",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "a hand holding the last piece of a jigsaw puzzle above the one gap left in an almost finished landscape picture",
+  "image": "cartoes-img/контекст — contexto.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra15"
+  ]
+ },
+ {
+  "id": 816,
+  "pt": "letra",
+  "en": "letter; handwriting; lyrics",
+  "ru": "буква; почерк; текст песни",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "a close-up of a fountain pen nib writing flowing cursive handwriting on cream paper, the handwriting blurred and illegible",
+  "image": "cartoes-img/буква, почерк, текст песни — letra.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra15"
+  ],
+  "note": "letra da música — слова песни"
+ },
+ {
+  "id": 817,
+  "pt": "modelo",
+  "en": "model",
+  "ru": "модель",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "a fashion model walking down a catwalk under bright lights with photographers crowded at the end of the runway",
+  "image": "cartoes-img/модель — modelo.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra15"
+  ]
+ },
+ {
+  "id": 818,
+  "pt": "turista",
+  "en": "tourist",
+  "ru": "турист",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "a tourist in a sunhat with a camera round the neck and an unfolded paper map, looking up at old buildings",
+  "image": "cartoes-img/турист — turista.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra15"
+  ]
+ },
+ {
+  "id": 819,
+  "pt": "pesquisa",
+  "en": "research; survey; search",
+  "ru": "исследование; опрос; поиск",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "a researcher in a lab coat and gloves pipetting liquid into a rack of test tubes in a laboratory",
+  "image": "cartoes-img/исследование, опрос, поиск — pesquisa.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra15"
+  ],
+  "note": "pesquisa científica — научное исследование"
+ },
+ {
+  "id": 820,
+  "pt": "biologia",
+  "en": "biology",
+  "ru": "биология",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "a school biology lab bench with a live green frog in a glass terrarium, a pinned butterfly specimen and pots of seedlings",
+  "image": "cartoes-img/биология — biologia.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra15"
+  ]
+ },
+ {
+  "id": 821,
+  "pt": "gestão pública",
+  "en": "public administration",
+  "ru": "государственное управление",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "officials in formal clothes seated around a large horseshoe-shaped table in a wood-panelled city council chamber, microphones and documents in front of them, no flags anywhere in the room",
+  "image": "cartoes-img/государственное управление — gestão pública.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra15"
+  ],
+  "note": "formado em gestão pública — с дипломом по госуправлению"
+ },
+ {
+  "id": 822,
+  "pt": "concurso público",
+  "en": "civil service exam",
+  "ru": "конкурсный экзамен на госслужбу",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "a huge exam hall full of adult candidates bent over their papers at long rows of desks while an invigilator walks between them",
+  "image": "cartoes-img/конкурсный экзамен на госслужбу — concurso público.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra15"
+  ]
+ },
+ {
+  "id": 823,
+  "pt": "Alemanha",
+  "en": "Germany",
+  "ru": "Германия",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "the Brandenburg Gate in Berlin under a clear blue sky",
+  "image": "cartoes-img/Германия — Alemanha.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra15"
+  ]
+ },
+ {
+  "id": 824,
+  "pt": "realidade",
+  "en": "reality",
+  "ru": "реальность",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "a young man lifting a virtual reality headset off his face and blinking at the ordinary messy room around him",
+  "image": "cartoes-img/реальность — realidade.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra15"
+  ]
+ },
+ {
+  "id": 825,
+  "pt": "inscrição",
+  "en": "registration, enrolment",
+  "ru": "регистрация, запись; надпись",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "a person filling in a paper sign-up form with a pen at a reception counter, the form's printed text too small to read",
+  "image": "cartoes-img/регистрация, запись, надпись — inscrição.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra15"
+  ]
+ },
+ {
+  "id": 826,
+  "pt": "opções",
+  "en": "options",
+  "ru": "варианты, опции",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "a hand hovering undecided over an open box of assorted chocolates, each one different",
+  "image": "cartoes-img/варианты, опции — opções.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra15"
+  ],
+  "note": "ед. opção"
+ },
+ {
+  "id": 827,
+  "pt": "vidro",
+  "en": "glass (material)",
+  "ru": "стекло",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "a glazier carrying a large clear pane of glass across a workshop, light reflecting off the sheet",
+  "image": "cartoes-img/стекло — vidro.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra15"
+  ],
+  "note": "стакан — copo"
+ },
+ {
+  "id": 828,
+  "pt": "vista",
+  "en": "view; eyesight",
+  "ru": "вид (из окна); зрение",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "a balcony with two chairs overlooking a sweeping view of a bay, the sea and green mountains",
+  "image": "cartoes-img/вид — vista.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra15"
+  ]
+ },
+ {
+  "id": 829,
+  "pt": "demanda",
+  "en": "demand",
+  "ru": "спрос; требование",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "crowds of shoppers reaching for the last few boxes on nearly empty supermarket shelves",
+  "image": "cartoes-img/спрос, требование — demanda.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra15"
+  ]
+ },
+ {
+  "id": 830,
+  "pt": "porcentagem",
+  "en": "percentage",
+  "ru": "процент",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "a pie chart made of coloured paper segments lying on a desk with one segment pulled out, no labels",
+  "image": "cartoes-img/процент — porcentagem.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra15"
+  ]
+ },
+ {
+  "id": 831,
+  "pt": "cara",
+  "en": "dude, guy; face; dear",
+  "ru": "чувак, парень (разг.); лицо; дорогая (ж. от caro)",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "a laid-back young guy in a cap and t-shirt leaning against a wall and giving a friendly casual nod",
+  "image": "cartoes-img/чувак, парень — cara.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra15"
+  ],
+  "note": "в Бразилии чаще всего «чувак»: e aí, cara?"
+ },
+ {
+  "id": 832,
+  "pt": "chá de casa nova",
+  "en": "housewarming party",
+  "ru": "новоселье",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "friends toasting with glasses among stacks of unopened moving boxes in a bare new apartment",
+  "image": "cartoes-img/новоселье — chá de casa nova.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra15"
+  ],
+  "fix": "Cha de casa nova → chá de casa nova"
+ },
+ {
+  "id": 833,
+  "pt": "treze",
+  "en": "thirteen",
+  "ru": "тринадцать",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "a brass house number plate showing the numerals 13 on a blue front door, the number clearly legible",
+  "image": "cartoes-img/тринадцать — treze.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra15"
+  ]
+ },
+ {
+  "id": 834,
+  "pt": "engraçado",
+  "en": "funny",
+  "ru": "смешной, забавный",
+  "pos": "adjectives",
+  "examples": [],
+  "imgQuery": "a man pulling a funny face with crossed eyes and puffed cheeks while a little girl laughs hard",
+  "image": "cartoes-img/смешной, забавный — engraçado.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra15"
+  ]
+ },
+ {
+  "id": 835,
+  "pt": "mal-educado",
+  "en": "rude",
+  "ru": "невоспитанный, грубый",
+  "pos": "adjectives",
+  "examples": [],
+  "imgQuery": "a man with his dirty shoes up on the opposite seat in a train, shouting into his phone while other passengers glare at him",
+  "image": "cartoes-img/невоспитанный, грубый — mal-educado.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra15"
+  ],
+  "fix": "Maleducado → mal-educado"
+ },
+ {
+  "id": 836,
+  "pt": "roxo",
+  "en": "purple",
+  "ru": "фиолетовый",
+  "pos": "adjectives",
+  "examples": [],
+  "imgQuery": "a completely flat solid purple surface filling the entire frame, uniform pure purple colour, nothing else in the picture",
+  "image": "cartoes-img/фиолетовый — roxo.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra15"
+  ]
+ },
+ {
+  "id": 837,
+  "pt": "saudável",
+  "en": "healthy",
+  "ru": "здоровый, полезный",
+  "pos": "adjectives",
+  "examples": [],
+  "imgQuery": "a bowl of fresh salad with avocado, cherry tomatoes, greens and seeds next to a glass of water",
+  "image": "cartoes-img/здоровый, полезный — saudável.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra15"
+  ]
+ },
+ {
+  "id": 838,
+  "pt": "chocado",
+  "en": "shocked",
+  "ru": "потрясённый, в шоке",
+  "pos": "adjectives",
+  "examples": [],
+  "imgQuery": "a man with both hands on his head and mouth wide open in shock, staring at something off camera",
+  "image": "cartoes-img/потрясённый, в шоке — chocado.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra15"
+  ]
+ },
+ {
+  "id": 839,
+  "pt": "rosa",
+  "en": "pink; rose",
+  "ru": "розовый; роза",
+  "pos": "adjectives",
+  "examples": [],
+  "imgQuery": "a completely flat solid pink surface filling the entire frame, uniform pure pink colour, nothing else in the picture",
+  "image": "cartoes-img/розовый, роза — rosa.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra15"
+  ]
+ },
+ {
+  "id": 840,
+  "pt": "larga",
+  "en": "wide",
+  "ru": "широкая (ж. от largo)",
+  "pos": "adjectives",
+  "examples": [],
+  "imgQuery": "a pair of very wide-legged loose trousers on a mannequin, the legs flaring out wide",
+  "image": "cartoes-img/широкая — larga.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra15"
+  ],
+  "note": "largo — широкий, а не «большой»"
+ },
+ {
+  "id": 841,
+  "pt": "formado",
+  "en": "graduated",
+  "ru": "окончивший (вуз), с дипломом",
+  "pos": "adjectives",
+  "examples": [],
+  "imgQuery": "a graduate in a black gown and cap holding up a rolled diploma and smiling proudly",
+  "image": "cartoes-img/окончивший — formado.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra15"
+  ],
+  "note": "sou formado em… — у меня диплом по…"
+ },
+ {
+  "id": 842,
+  "pt": "preto",
+  "en": "black",
+  "ru": "чёрный",
+  "pos": "adjectives",
+  "examples": [],
+  "imgQuery": "a completely flat solid black surface filling the entire frame, uniform pure black colour, nothing else in the picture",
+  "image": "cartoes-img/чёрный — preto.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra15"
+  ],
+  "fix": "Preta → preto (ж. р. preta)"
+ },
+ {
+  "id": 843,
+  "pt": "seco",
+  "en": "dry",
+  "ru": "сухой",
+  "pos": "adjectives",
+  "examples": [],
+  "imgQuery": "bone-dry cracked desert earth under harsh sunlight, close-up of the cracks",
+  "image": "cartoes-img/сухой — seco.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra15"
+  ]
+ },
+ {
+  "id": 844,
+  "pt": "fechado",
+  "en": "closed, locked",
+  "ru": "закрытый, запертый",
+  "pos": "adjectives",
+  "examples": [],
+  "imgQuery": "a small street shop with its metal roller shutter pulled all the way down and padlocked",
+  "image": "cartoes-img/закрытый, запертый — fechado.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra15"
+  ],
+  "note": "não está fechado — не заперто; trancado — заперт на ключ"
+ },
+ {
+  "id": 845,
+  "pt": "militar",
+  "en": "military",
+  "ru": "военный",
+  "pos": "adjectives",
+  "examples": [],
+  "imgQuery": "young cadets in dress uniforms marching in tight formation on a parade ground",
+  "image": "cartoes-img/военный — militar.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra15"
+  ],
+  "note": "colégio militar — кадетская школа"
+ },
+ {
+  "id": 846,
+  "pt": "bem-vindo",
+  "en": "welcome",
+  "ru": "добро пожаловать",
+  "pos": "adjectives",
+  "examples": [],
+  "imgQuery": "a hotel doorman holding the door open and gesturing a guest inside with a warm smile",
+  "image": "cartoes-img/добро пожаловать — bem-vindo.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra15"
+  ],
+  "note": "женщине — bem-vinda"
+ },
+ {
+  "id": 847,
+  "pt": "sou",
+  "en": "I am",
+  "ru": "(я) есть, являюсь (от ser)",
+  "pos": "verbs",
+  "examples": [],
+  "imgQuery": "a woman doctor in a white coat with a stethoscope round her neck placing her open hand on her chest as she introduces herself to a patient, friendly smile",
+  "image": "cartoes-img/— sou.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra15"
+  ],
+  "note": "eu sou brasileiro — я бразилец"
+ },
+ {
+  "id": 848,
+  "pt": "decida",
+  "en": "decide!",
+  "ru": "решай(те)!; чтобы решил (от decidir)",
+  "pos": "verbs",
+  "examples": [],
+  "imgQuery": "a hiker standing where a forest path splits in two, looking from one path to the other",
+  "image": "cartoes-img/решай — decida.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra15"
+  ]
+ },
+ {
+  "id": 849,
+  "pt": "obedece",
+  "en": "obeys",
+  "ru": "слушается, подчиняется (от obedecer)",
+  "pos": "verbs",
+  "examples": [],
+  "imgQuery": "a dog sitting obediently on command in front of its owner who holds up a flat hand",
+  "image": "cartoes-img/слушается, подчиняется — obedece.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra15"
+  ]
+ },
+ {
+  "id": 850,
+  "pt": "parou",
+  "en": "stopped",
+  "ru": "остановился, перестал (от parar)",
+  "pos": "verbs",
+  "examples": [],
+  "imgQuery": "a car stopped at a zebra crossing while a woman with a pram crosses in front of it",
+  "image": "cartoes-img/остановился, перестал — parou.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra15"
+  ]
+ },
+ {
+  "id": 851,
+  "pt": "seria",
+  "en": "would be",
+  "ru": "был бы, было бы (от ser)",
+  "pos": "verbs",
+  "examples": [],
+  "imgQuery": "an office worker at a grey desk resting her chin on her hand, daydreaming at a large photo of a tropical beach on the wall",
+  "image": "cartoes-img/был бы, было бы — seria.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra15"
+  ],
+  "note": "seria bom — было бы хорошо; será que seria…? — интересно, было бы…?"
+ },
+ {
+  "id": 852,
+  "pt": "faltou",
+  "en": "was missing, missed",
+  "ru": "не хватило; не пришёл, пропустил (от faltar)",
+  "pos": "verbs",
+  "examples": [],
+  "imgQuery": "a full classroom of pupils at their desks with one desk in the middle row standing empty",
+  "image": "cartoes-img/не хватило, не пришёл, пропустил — faltou.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra15"
+  ],
+  "note": "faltou à aula — пропустил урок; faltou luz — отключили свет"
+ },
+ {
+  "id": 853,
+  "pt": "enfrente",
+  "en": "face, confront",
+  "ru": "встреть лицом к лицу, противостой (от enfrentar)",
+  "pos": "verbs",
+  "examples": [],
+  "imgQuery": "a lone firefighter standing firm and facing a wall of flames with a hose",
+  "image": "cartoes-img/встреть лицом к лицу, противостой — enfrente.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra15"
+  ],
+  "fix": "get into → face: enfrentar — противостоять; не путать с em frente — напротив, вперёд"
+ },
+ {
+  "id": 854,
+  "pt": "sinto",
+  "en": "I feel",
+  "ru": "(я) чувствую (от sentir)",
+  "pos": "verbs",
+  "examples": [],
+  "imgQuery": "a woman in headphones with her eyes closed and a hand pressed to her chest, deeply moved by the music",
+  "image": "cartoes-img/— sinto.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra15"
+  ],
+  "note": "sinto muito — мне очень жаль; sinto falta — скучаю"
+ },
+ {
+  "id": 855,
+  "pt": "imprimir",
+  "en": "to print",
+  "ru": "печатать, распечатывать",
+  "pos": "verbs",
+  "examples": [],
+  "imgQuery": "an office printer pushing out a freshly printed sheet with a colour photo of a landscape on it",
+  "image": "cartoes-img/печатать, распечатывать — imprimir.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra15"
+  ]
+ },
+ {
+  "id": 856,
+  "pt": "disse",
+  "en": "said",
+  "ru": "сказал(а) (от dizer)",
+  "pos": "verbs",
+  "examples": [],
+  "imgQuery": "a young man talking animatedly to a friend across a café table, gesturing, while the friend listens and nods",
+  "image": "cartoes-img/сказал — disse.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra15"
+  ],
+  "note": "ele disse — он сказал"
+ },
+ {
+  "id": 857,
+  "pt": "leia",
+  "en": "read!",
+  "ru": "читай(те)! (от ler)",
+  "pos": "verbs",
+  "examples": [],
+  "imgQuery": "a teacher handing an open book to a pupil and pointing at a line on the page",
+  "image": "cartoes-img/читай — leia.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra15"
+  ]
+ },
+ {
+  "id": 858,
+  "pt": "chega",
+  "en": "enough!; arrives",
+  "ru": "хватит!; (он) приходит (от chegar)",
+  "pos": "verbs",
+  "examples": [],
+  "imgQuery": "a tired mother holding up a firm hand in a stop gesture between her two bickering children",
+  "image": "cartoes-img/хватит! — chega.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra15"
+  ],
+  "note": "chega! — хватит!"
+ },
+ {
+  "id": 859,
+  "pt": "devagar",
+  "en": "slowly",
+  "ru": "медленно",
+  "pos": "adverbs",
+  "examples": [],
+  "imgQuery": "a snail crawling slowly along a garden path, close-up at ground level",
+  "image": "cartoes-img/медленно — devagar.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra15"
+  ]
+ },
+ {
+  "id": 860,
+  "pt": "corretamente",
+  "en": "correctly, properly",
+  "ru": "правильно",
+  "pos": "adverbs",
+  "examples": [],
+  "imgQuery": "a personal trainer adjusting a woman's posture with his hands as she performs a squat in a gym",
+  "image": "cartoes-img/правильно — corretamente.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra15"
+  ],
+  "note": "como fazer corretamente — как правильно делать"
+ },
+ {
+  "id": 861,
+  "pt": "ninguém",
+  "en": "nobody",
+  "ru": "никто",
+  "pos": "function words",
+  "examples": [],
+  "imgQuery": "an empty cinema hall with rows of red seats and nobody sitting in any of them",
+  "image": "cartoes-img/никто — ninguém.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra15"
+  ]
+ },
+ {
+  "id": 862,
+  "pt": "exceto",
+  "en": "except",
+  "ru": "кроме, за исключением",
+  "pos": "function words",
+  "examples": [],
+  "imgQuery": "a straight row of nine identical yellow rubber ducks on a plain white surface with one bright blue rubber duck among them in the middle, all ducks the same size and facing the same way",
+  "image": "cartoes-img/кроме, за исключением — exceto.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra15"
+  ]
+ },
+ {
+  "id": 863,
+  "pt": "com licença",
+  "en": "excuse me, pardon me",
+  "ru": "извините, разрешите (пройти)",
+  "pos": "phrases",
+  "examples": [],
+  "imgQuery": "a woman politely squeezing past standing passengers in a crowded bus aisle with an apologetic raised hand",
+  "image": "cartoes-img/извините, разрешите — com licença.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra15"
+  ]
+ },
+ {
+  "id": 864,
+  "pt": "são do",
+  "en": "belong to; are from",
+  "ru": "принадлежат…; (они) из…",
+  "pos": "phrases",
+  "examples": [],
+  "imgQuery": "a little boy hugging a big pile of his own toys to his chest possessively",
+  "image": "cartoes-img/принадлежат… — são do.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra15"
+  ],
+  "note": "do = de + o: os brinquedos são do Pedro — игрушки Педро"
+ },
+ {
+  "id": 865,
+  "pt": "que vem",
+  "en": "next, coming up",
+  "ru": "следующий, ближайший",
+  "pos": "phrases",
+  "examples": [],
+  "imgQuery": "a train approaching a station platform with its headlights on while passengers wait at the edge",
+  "image": "cartoes-img/следующий, ближайший — que vem.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra15"
+  ],
+  "note": "a semana que vem — на следующей неделе"
+ },
+ {
+  "id": 866,
+  "pt": "deve ser bom",
+  "en": "it must be good",
+  "ru": "наверное, хорошо (вкусно)",
+  "pos": "phrases",
+  "examples": [],
+  "imgQuery": "a man gazing hungrily through a bakery window at a display of cakes and pastries",
+  "image": "cartoes-img/наверное, хорошо — deve ser bom.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra15"
+  ]
+ },
+ {
+  "id": 867,
+  "pt": "qual deles?",
+  "en": "which one?",
+  "ru": "который из них?",
+  "pos": "phrases",
+  "examples": [],
+  "imgQuery": "a shopper holding up two different shirts on hangers, one in each hand, looking undecided",
+  "image": "cartoes-img/который из них — qual deles.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra15"
+  ]
+ },
+ {
+  "id": 868,
+  "pt": "tenho certeza",
+  "en": "I'm sure",
+  "ru": "я уверен(а)",
+  "pos": "phrases",
+  "examples": [],
+  "imgQuery": "a confident woman giving a firm nod with a thumbs up and a determined smile",
+  "image": "cartoes-img/я уверен — tenho certeza.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra15"
   ]
  }
 ]
