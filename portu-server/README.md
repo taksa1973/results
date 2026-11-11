@@ -42,6 +42,12 @@ ssh serv_raboch 'cd /opt/portu && docker compose up -d --build'
 
 Чтобы переключиться, впишите в `/opt/portu/.env` ключ `XAI_API_KEY=…` и строки `LLM_PROVIDER=xai`, `STT_PROVIDER=xai`, затем выполните `docker compose up -d`.
 
-## Обработчик фото на ПК
+## Обработчик фото (на сервере)
 
-`worker/.env` содержит `PORTU_URL` и `WORKER_TOKEN` (тот же, что в `.env` сервера). Обработчик запускается ярлыком в автозагрузке Windows и раз в 45 секунд спрашивает новые фото. На каждое фото Grok делает портрет, полный рост и кадр с открытым ртом. Из последнего вклеивается только область рта. Лог пишется в `worker/worker.log`.
+Служба `portu-grok-worker` работает на serv_raboch под пользователем `portugrok` (без sudo). Grok CLI стоит в `/home/portugrok/.grok/bin/grok`, у него свой вход в аккаунт anton, выполненный через `grok login --device-auth`. Раз в 45 секунд служба забирает новые фото через `http://127.0.0.1:8095/portu/api/worker/…`. На каждое фото Grok делает портрет, полный рост и кадр с открытым ртом, всего около 2–5 минут. В промпте полного роста над головой оставляется пустая четверть кадра: там лежат кнопки звонка. Из кадра со ртом вклеивается только область рта.
+
+- лог: `/home/portugrok/portu-work/worker.log`, `journalctl -u portu-grok-worker`;
+- если Grok разлогинился: `bash /opt/portu/deploy/login_grok.sh`, затем подтвердить код в браузере;
+- удалить профиль вручную: `bash /opt/portu/deploy/drop_user.sh <id>`; в приложении есть кнопка «Удалить профиль целиком».
+
+`worker/grok_worker.py` можно запустить и на ПК, если положить рядом `worker/.env`.
