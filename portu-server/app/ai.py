@@ -23,6 +23,22 @@ class AIError(Exception):
     pass
 
 
+# Португальский голос не читает кириллицу: «Oi, eu sou o Ярос» прозвучало бы без имени.
+# Пишем русские имена так, как их прочтёт бразилец.
+_RU = {'а': 'a', 'б': 'b', 'в': 'v', 'г': 'g', 'д': 'd', 'е': 'e', 'ё': 'io', 'ж': 'j', 'з': 'z', 'и': 'i',
+       'й': 'i', 'к': 'k', 'л': 'l', 'м': 'm', 'н': 'n', 'о': 'o', 'п': 'p', 'р': 'r', 'с': 's', 'т': 't',
+       'у': 'u', 'ф': 'f', 'х': 'h', 'ц': 'ts', 'ч': 'tch', 'ш': 'ch', 'щ': 'ch', 'ъ': '', 'ы': 'i', 'ь': '',
+       'э': 'e', 'ю': 'iu', 'я': 'ia'}
+
+
+def translit(text):
+    def word(m):
+        w = m.group(0)
+        out = "".join(_RU.get(ch.lower(), ch) for ch in w)
+        return out[:1].upper() + out[1:] if w[:1].isupper() else out
+    return re.sub(r"[А-Яа-яЁё]+", word, text)
+
+
 # ── распознавание ──────────────────────────────────────────────────────
 async def transcribe(audio: bytes, filename: str, mime: str):
     """→ (text, lang), lang ∈ {'pt','ru'}; пустой text — ничего не разобрали."""
@@ -108,6 +124,7 @@ async def chat_json(messages, max_tokens=700):
 
 def system_prompt(char_name, persona, level, topic, targets):
     words = ", ".join(f"{t.get('pt')} ({t.get('ru')})" for t in targets[:8]) or "—"
+    char_name = translit(char_name)      # «Ярос» → «Iaros»: так имя прозвучит в португальской речи
     return f"""You are {char_name}, on a friendly video call with a Russian-speaking learner of Brazilian Portuguese.
 Character: {persona or 'a friendly Brazilian person'}
 Learner level: {level} (A1 = very simple words and present tense; A2 = simple everyday sentences; B1 = normal everyday speech; B2 = natural fluent speech).
@@ -119,7 +136,7 @@ Rules:
 2. Keep every reply SHORT: 1-2 short sentences, at most about 25 words, and usually end with one simple question so the conversation continues.
 3. If the learner writes or speaks in RUSSIAN (asks what you said, what a word means, says they did not understand, etc.), answer IN RUSSIAN: briefly explain what you said or meant, translate the key words, then give the simple Portuguese phrase again and invite them to answer in Portuguese. Always answer in the language the learner used.
 4. If the learner makes a mistake in Portuguese, do not lecture during the call: just continue naturally, modelling the correct form. Put the correction into "tip" — the tip text itself is always in Russian (only the corrected sentence is in Portuguese). If there is no mistake, "tip" is null.
-5. No emoji, no stage directions, no markdown.
+5. No emoji, no stage directions, no markdown. Inside Portuguese sentences write every name in Latin letters (never Cyrillic).
 
 Reply with JSON only:
 {{"segments": [{{"lang": "pt" or "ru", "text": "..."}}],
@@ -153,6 +170,8 @@ def clean_reply(j):
         # модель иногда помечает русский текст как pt — проверяем по буквам
         if lang == "pt" and len(re.findall("[а-яё]", text, re.I)) > len(text) * 0.3:
             lang = "ru"
+        elif lang == "pt":
+            text = translit(text)       # имя или словечко кириллицей посреди португальской фразы
         if segs and segs[-1]["lang"] == lang:
             segs[-1]["text"] += " " + text
         else:

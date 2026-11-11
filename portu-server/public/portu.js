@@ -319,8 +319,21 @@ function mountUserBits(){
     try{ await push(); await api('logout', { method: 'POST' }); }catch(e){}
     wipeLocal(); localStorage.removeItem(SY_KEY); location.reload();
   };
+  // два сброса: прогресс слов (профиль остаётся) и профиль целиком
+  $('#reset').innerHTML = 'Обнулить прогресс';
+  const del = h(`<button class="btn btn-ghost" id="pt-delete" style="color:var(--red);border-color:var(--red)">${I(IC.trash, 16)} Удалить профиль целиком</button>`);
+  $('#reset').after(del);
+  del.onclick = async () => {
+    if(!confirm('Удалить профиль целиком?\n\nСотрутся прогресс по словам, статистика, все звонки и ваши персонажи с фото — на всех устройствах. Пароль освободится: войдя им снова, вы начнёте с нуля.')) return;
+    if(!confirm('Точно удалить? Вернуть будет нельзя.')) return;
+    try{
+      await api('me', { method: 'DELETE' });
+      wipeLocal(); localStorage.removeItem(SY_KEY); localStorage.removeItem('portu-char');
+      alert('Профиль удалён.'); location.reload();
+    }catch(e){ alert('Не получилось: ' + e.message); }
+  };
   $('#reset').onclick = async () => {
-    if(!confirm('Обнулить весь прогресс?\n\nСотрутся отметки «знаю / не знаю», интервалы, статистика и серия дней — на всех устройствах. Вернуть будет нельзя.')) return;
+    if(!confirm('Обнулить весь прогресс?\n\nСотрутся отметки «знаю / не знаю», интервалы, статистика и серия дней — на всех устройствах. Звонки и персонажи останутся. Вернуть будет нельзя.')) return;
     try{
       const r = await api('state/reset', { method: 'POST' });
       S = { cards: {}, log: {}, days: [], theme: S.theme, session: null, sessionTs: r.resetAt, resetAt: r.resetAt };
@@ -389,7 +402,7 @@ async function renderCallHome(){
   const grid = $('#pt-chars');
   grid.innerHTML = CHARS.map(c => `
     <button class="pt-char" role="radio" aria-checked="${c.id === selChar}" data-id="${esc(c.id)}">
-      <span class="pt-char-img">${c.img ? `<img src="${c.img}" alt="" loading="lazy">` : `<span class="pt-char-noimg">${esc(c.name[0] || '?')}</span>`}
+      <span class="pt-char-img">${(c.av || c.img) ? `<img src="${c.av || c.img}" alt="" loading="lazy">` : `<span class="pt-char-noimg">${esc(c.name[0] || '?')}</span>`}
         ${c.status === 'cartoon_pending' ? `<span class="pt-badge">${I(IC.spark, 13)} Grok рисует</span>` : ''}</span>
       <span class="pt-char-name">${esc(c.name)}</span>
       <span class="pt-char-sub">${c.mine ? 'ваш' : 'встроенный'} · ${esc(voiceLabel(c.voice))}</span>

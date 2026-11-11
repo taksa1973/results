@@ -155,6 +155,28 @@ async def me(req: Request):
     return resp
 
 
+@app.delete(B + "/api/me")
+async def delete_me(req: Request):
+    """Удалить профиль целиком: прогресс, звонки, своих персонажей (с фото) и все входы."""
+    u = need_user(req)
+    uid = u["id"]
+    for c in db.q("SELECT id FROM characters WHERE user_id=?", (uid,)):
+        for suffix in ("_orig.jpg", ".webp", "_talk.webp", "_cartoon.webp", "_av.webp"):
+            p = os.path.join(CHAR_DIR, c["id"] + suffix)
+            if os.path.exists(p):
+                os.remove(p)
+        db.x("DELETE FROM jobs WHERE char_id=?", (c["id"],))
+    db.x("DELETE FROM characters WHERE user_id=?", (uid,))
+    db.x("DELETE FROM turns WHERE call_id IN (SELECT id FROM calls WHERE user_id=?)", (uid,))
+    db.x("DELETE FROM calls WHERE user_id=?", (uid,))
+    db.x("DELETE FROM state WHERE user_id=?", (uid,))
+    db.x("DELETE FROM sessions WHERE user_id=?", (uid,))
+    db.x("DELETE FROM users WHERE id=?", (uid,))
+    resp = JSONResponse({"ok": True})
+    resp.delete_cookie(config.COOKIE, path=B)
+    return resp
+
+
 # ── прогресс карточек ──────────────────────────────────────────────────
 def load_state(uid):
     row = db.q("SELECT json, rev FROM state WHERE user_id=?", (uid,), one=True)

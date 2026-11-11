@@ -12,16 +12,15 @@
 Результат загружает обратно. Если Grok отказал (модерация) — сообщает, и у
 персонажа остаётся обычное фото.
 
-Запуск: pythonw grok_worker.py (ярлык в автозагрузке Windows ставит install_startup.py).
-Настройки — в worker/.env рядом: PORTU_URL, WORKER_TOKEN.
+Где работает: на сервере serv_raboch службой portu-grok-worker (пользователь portugrok,
+свой вход в Grok по коду устройства) — от ПК не зависит. Можно запустить и на ПК: python grok_worker.py.
+Настройки — файл из PORTU_ENV или worker/.env рядом: PORTU_URL, WORKER_TOKEN,
+необязательно PORTU_WORK (рабочая папка) и GROK_BIN (путь к grok).
 """
 import json, os, shutil, subprocess, sys, time, traceback, urllib.request, uuid
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-WORK = r"C:\Users\strel\yj\pw"            # короткий путь: Grok падает на длинных (MAX_PATH)
-GROK = os.path.expanduser(r"~\.grok\bin\grok.exe")
-LOG = os.path.join(HERE, "worker.log")
-LOCK = os.path.join(WORK, "worker.lock")
+WIN = os.name == "nt"
 
 
 def env():
@@ -36,7 +35,12 @@ def env():
 
 
 CFG = env()
-BASE = CFG["PORTU_URL"].rstrip("/")             # https://syferpu.top/portu
+BASE = CFG["PORTU_URL"].rstrip("/")             # https://syferpu.top/portu или http://127.0.0.1:8095/portu
+# На Windows рабочая папка — короткий путь: Grok падает на длинных (MAX_PATH)
+WORK = CFG.get("PORTU_WORK") or (r"C:\Users\strel\yj\pw" if WIN else os.path.expanduser("~/portu-work"))
+GROK = CFG.get("GROK_BIN") or os.path.expanduser(r"~\.grok\bin\grok.exe" if WIN else "~/.grok/bin/grok")
+LOG = CFG.get("PORTU_LOG") or (os.path.join(HERE, "worker.log") if WIN else os.path.join(WORK, "worker.log"))
+LOCK = os.path.join(WORK, "worker.lock")
 HDR = {"x-worker-token": CFG["WORKER_TOKEN"], "User-Agent": "portu-grok-worker"}
 
 
@@ -77,11 +81,11 @@ PROMPT = """Use the image_edit tool three times, one after another, and save eac
    aspect_ratio "3:4", save to portrait.png
    Edit: turn the person in this photo into a friendly 3D animated cartoon character (modern animated-film style). Keep them clearly recognisable: same face shape, hairstyle and hair colour, skin tone, eye colour, glasses or beard if they have them, similar clothes and colours. Head and shoulders, centred, looking at the viewer with a gentle smile, MOUTH CLOSED. Soft simple colourful background. No text.
 
-2. image: {folder}\\portrait.png
+2. image: {portrait}
    aspect_ratio "9:16", save to full.png
-   Edit: the same cartoon character seen from a few metres away: the WHOLE body is visible from the top of the head down to the feet, standing in the lower-middle part of the frame, centred, facing the viewer, friendly calm expression, MOUTH CLOSED. The character takes about half of the frame height; pleasant softly blurred outdoor background. Same face, hair, clothes and style. No text.
+   Edit: the same cartoon character seen from a few metres away: the WHOLE body is visible from the top of the head down to the feet, standing centred, facing the viewer, friendly calm expression, MOUTH CLOSED. Composition is important: the TOP QUARTER of the frame above the head is empty sky or background with nothing in it (app buttons will be placed there); the top of the head is at about 28-32% of the frame height from the top; the feet are near the bottom edge; the whole figure stays within the central half of the frame width (the sides will be cropped). The character takes about 60% of the frame height; pleasant softly blurred outdoor background. Same face, hair, clothes and style. No text.
 
-3. image: {folder}\\full.png
+3. image: {full}
    aspect_ratio "9:16", save to talk.png
    Edit: PHOTO EDIT, same pixel positions, do not zoom, do not move or reframe the camera, keep the character, pose, eyes, hair, clothes, background and lighting identical. The ONLY change: the mouth is open as if in the middle of saying a word. Nothing else changes.
 
@@ -123,7 +127,8 @@ def process(job):
     open(photo, "wb").write(http("GET", job["photo"]))
     log("задание", jid[:10], job.get("name"), "попытка", job.get("tries"))
     t0 = time.time()
-    p = subprocess.run([GROK, "-p", PROMPT.format(photo=photo, folder=folder), "--yolo", "--max-turns", "30",
+    prompt = PROMPT.format(photo=photo, portrait=os.path.join(folder, "portrait.png"), full=os.path.join(folder, "full.png"))
+    p = subprocess.run([GROK, "-p", prompt, "--yolo", "--max-turns", "30",
                         "--disallowed-tools", "web_search,web_fetch"],
                        cwd=folder, capture_output=True, text=True, encoding="utf-8", errors="replace", timeout=1500,
                        creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0))
@@ -153,10 +158,27 @@ def process(job):
     log("готово", jid[:10], list(files))
 
 
+def other_running():
+    try:
+        pid = int(open(LOCK).read().strip())
+    except (OSError, ValueError):
+        return False
+    if pid == os.getpid():
+        return False
+    if not WIN:
+        try:
+            os.kill(pid, 0)
+            return True
+        except OSError:
+            return False
+    return time.time() - os.path.getmtime(LOCK) < 180
+
+
 def main():
     os.makedirs(WORK, exist_ok=True)
-    # второй экземпляр не запускаем: живой процесс обновляет время замка
-    if os.path.exists(LOCK) and time.time() - os.path.getmtime(LOCK) < 180:
+    # второй экземпляр не запускаем. На Linux проверяем, жив ли процесс из замка
+    # (после перезапуска службы замок свежий, а процесса уже нет); на Windows — по свежести замка.
+    if other_running():
         log("уже запущен — выхожу")
         return
     log("старт, сервер", BASE)

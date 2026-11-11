@@ -66,7 +66,7 @@
 .pt-char[aria-checked="true"]{border-color:var(--blue);box-shadow:0 0 0 4px var(--blue-soft)}
 .pt-char:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
 .pt-char-img{position:relative;display:grid;place-items:center;aspect-ratio:3/4;border-radius:14px;overflow:hidden;background:var(--surface-2);margin-bottom:7px;color:var(--text-3)}
-.pt-char-img img{width:100%;height:100%;object-fit:cover;object-position:50% 60%}
+.pt-char-img img{width:100%;height:100%;object-fit:cover;object-position:50% 20%}   /* портрет: лицо в верхней трети */
 .pt-char-noimg{font-size:42px;font-weight:700;color:var(--text-3)}
 .pt-char-name{font-weight:600;font-size:15.5px;padding:0 4px}
 .pt-char-sub{color:var(--text-3);font-size:12.5px;padding:0 4px;line-height:1.35}
@@ -122,9 +122,11 @@
 .pt-call{position:fixed;inset:0;z-index:1800;background:#0b0b0f;color:#fff;overflow:hidden;
   display:flex;flex-direction:column;--amp:0}
 .pt-stage{position:absolute;inset:0}
-.pt-bgblur{position:absolute;inset:-40px;background-size:cover;background-position:center;filter:blur(30px) brightness(.6);transform:scale(1.1)}
-.pt-hero{position:absolute;top:0;left:0;right:0;bottom:calc(78px + env(safe-area-inset-bottom));display:flex;justify-content:center;transform-origin:50% 70%}
-.pt-hero img{position:absolute;height:100%;width:100%;max-width:calc(100dvh * .5625);object-fit:contain;object-position:50% 100%}
+.pt-bgblur{display:none}   /* размытая рамка вокруг картинки — anton: «некрасиво» */
+/* Персонаж во весь экран. Над головой на всех картинках свободное небо/фон — там лежат кнопки
+   (для своих персонажей Grok оставляет эту четверть кадра пустой). Ноги под субтитрами — нормально. */
+.pt-hero{position:absolute;inset:0;display:flex;justify-content:center}
+.pt-hero img{position:absolute;height:100%;width:100%;max-width:calc(100dvh * .5625);object-fit:cover;object-position:50% 100%}
 /* картинку не масштабируем: фон — часть того же кадра, и он «прыгал» бы вместе с персонажем. Говорит только рот. */
 .pt-hero-talk{opacity:0;transition:opacity 45ms linear}
 .pt-shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.45) 0%,transparent 16%,transparent 52%,rgba(0,0,0,.72) 100%)}
