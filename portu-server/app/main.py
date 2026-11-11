@@ -131,7 +131,10 @@ async def login(req: Request):
     token = secrets.token_urlsafe(32)
     db.x("INSERT INTO sessions(th,user_id,created_at,last_seen,ua) VALUES(?,?,?,?,?)",
          (th(token), user["id"], db.now(), db.now(), (req.headers.get("user-agent") or "")[:200]))
-    resp = JSONResponse({"ok": True, "user": {"id": user["id"], "level": user["level"]}, "created": created})
+    # key — метка хозяина устройства: номер профиля + время создания. Номер после удаления
+    # профиля может достаться новому, а метка — нет (иначе старый прогресс с телефона всплыл бы).
+    resp = JSONResponse({"ok": True, "user": {"id": user["id"], "key": f"{user['id']}-{user['created_at']}",
+                                              "level": user["level"]}, "created": created})
     set_cookie(resp, token)
     return resp
 
@@ -150,7 +153,7 @@ async def logout(req: Request):
 async def me(req: Request):
     u = need_user(req)
     n = db.q("SELECT COUNT(*) c FROM sessions WHERE user_id=?", (u["id"],), one=True)["c"]
-    resp = JSONResponse({"id": u["id"], "level": u["level"], "devices": n})
+    resp = JSONResponse({"id": u["id"], "key": f"{u['id']}-{u['created_at']}", "level": u["level"], "devices": n})
     set_cookie(resp, req.cookies.get(config.COOKIE))     # продлеваем срок куки
     return resp
 

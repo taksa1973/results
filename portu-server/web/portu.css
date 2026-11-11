@@ -129,7 +129,7 @@
 .pt-hero img{position:absolute;height:100%;width:100%;max-width:calc(100dvh * .5625);object-fit:cover;object-position:50% 100%}
 /* картинку не масштабируем: фон — часть того же кадра, и он «прыгал» бы вместе с персонажем. Говорит только рот. */
 .pt-hero-talk{opacity:0;transition:opacity 45ms linear}
-.pt-shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.45) 0%,transparent 16%,transparent 52%,rgba(0,0,0,.72) 100%)}
+.pt-shade{display:none}   /* anton: затемнения картинки не нужно вообще */
 .pt-top{position:relative;display:flex;align-items:center;gap:14px;padding:calc(12px + env(safe-area-inset-top)) 14px 6px}
 .pt-prog{flex:1;height:12px;border-radius:8px;background:rgba(255,255,255,.22);overflow:hidden}
 .pt-prog span{display:block;height:100%;background:var(--green);border-radius:8px;transition:width .5s cubic-bezier(.2,.8,.2,1)}
@@ -138,8 +138,8 @@
   background:rgba(0,0,0,.42);color:#fff;border:1px solid rgba(255,255,255,.25);backdrop-filter:blur(8px)}
 .pt-goal.done{background:var(--green);border-color:var(--green)}
 .pt-round{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;color:#fff;flex-shrink:0;
-  background:rgba(255,255,255,.14);backdrop-filter:blur(10px);transition:background .15s,transform .12s}
-.pt-round:hover{background:rgba(255,255,255,.24)}
+  background:rgba(0,0,0,.34);backdrop-filter:blur(10px);transition:background .15s,transform .12s}
+.pt-round:hover{background:rgba(0,0,0,.48)}
 .pt-round:active{transform:scale(.92)}
 .pt-round:disabled{opacity:.35;cursor:default}
 .pt-round[aria-pressed="true"]{background:#fff;color:#0b0b0f}
@@ -164,7 +164,7 @@
 .pt-type{position:relative;display:flex;gap:8px;padding:0 14px 10px}
 .pt-type input{flex:1;min-width:0;font:inherit;font-size:16px;padding:12px 16px;border-radius:24px;border:0;background:rgba(255,255,255,.94);color:#111}
 .pt-bar{position:relative;display:flex;align-items:center;justify-content:center;gap:8px;
-  padding:10px 12px calc(14px + env(safe-area-inset-bottom));background:rgba(11,11,15,.6);backdrop-filter:blur(14px)}
+  padding:10px 12px calc(14px + env(safe-area-inset-bottom))}   /* без тёмной подложки — кнопки лежат прямо на картинке */
 .pt-talk{flex:1;max-width:330px;min-height:56px;border-radius:28px;background:var(--blue);color:#fff;font-weight:700;font-size:15px;
   display:flex;align-items:center;justify-content:center;gap:9px;padding:0 16px;letter-spacing:.01em;
   box-shadow:0 4px 18px rgba(10,132,255,.45);transition:transform .12s,background .2s,box-shadow .2s}
@@ -178,7 +178,7 @@
 .pt-call[data-state="rec"] .pt-talk-ic{display:none}
 .pt-call[data-state="busy"] .pt-talk-tx::after{content:'';display:inline-block;width:18px;text-align:left;animation:pt-dots 1.2s steps(4) infinite}
 @keyframes pt-dots{0%{content:''}25%{content:'.'}50%{content:'..'}75%{content:'...'}}
-.pt-call[data-state="ai"] .pt-talk{background:rgba(255,255,255,.16);box-shadow:none;font-weight:600}
+.pt-call[data-state="ai"] .pt-talk{background:rgba(0,0,0,.42);backdrop-filter:blur(10px);box-shadow:none;font-weight:600}
 @media (max-width:430px){
   .pt-bar{gap:6px;padding-left:8px;padding-right:8px}
   .pt-round{width:44px;height:44px}

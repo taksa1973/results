@@ -275,9 +275,9 @@ function showLogin(){
 
 async function onLoggedIn(user, created){
   me = user;
-  if(sy.owner && sy.owner !== user.id){ wipeLocal(); sy.pushedT = 0; sy.rev = 0; }   // устройство сменило хозяина
+  if(sy.owner && sy.owner !== user.key){ wipeLocal(); sy.pushedT = 0; sy.rev = 0; }   // устройство сменило хозяина
   if(!sy.owner && !created){ sy.pushedT = 0; }
-  sy.owner = user.id; sySave();
+  sy.owner = user.key; sySave();
   await pull(true);
   await applyImport();
   if(created && Object.keys(S.cards).length) await push(true);
@@ -290,9 +290,9 @@ async function boot(){
   await readImportHash();
   try{
     const u = await api('me');
-    me = { id: u.id, level: u.level };
-    if(sy.owner && sy.owner !== u.id){ wipeLocal(); sy.pushedT = 0; sy.rev = 0; }
-    sy.owner = u.id; sySave();
+    me = { id: u.id, key: u.key, level: u.level };
+    if(sy.owner && sy.owner !== u.key){ wipeLocal(); sy.pushedT = 0; sy.rev = 0; }
+    sy.owner = u.key; sySave();
     await pull(true);
     await applyImport();
     mountUserBits();
