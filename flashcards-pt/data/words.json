@@ -309,7 +309,8 @@
   },
   "sources": [
    "site"
-  ]
+  ],
+  "note": "звучит примерно «мãу» (носовое); мн. mãos"
  },
  {
   "id": 12,
@@ -1212,7 +1213,8 @@
   "sources": [
    "site",
    "personal"
-  ]
+  ],
+  "note": "teve — был, имел (прош.); в разговоре «было, случилось»: o alagamento que teve ontem — наводнение, которое было вчера"
  },
  {
   "id": 44,
@@ -1297,7 +1299,8 @@
   "sources": [
    "site",
    "personal"
-  ]
+  ],
+  "note": "fez — (он, она, вы) сделал; fiz — я сделал"
  },
  {
   "id": 47,
@@ -5110,7 +5113,8 @@
   },
   "sources": [
    "personal"
-  ]
+  ],
+  "note": "em pé — стоя: estou em pé — я стою"
  },
  {
   "id": 221,
@@ -5225,7 +5229,8 @@
   },
   "sources": [
    "personal"
-  ]
+  ],
+  "note": "me sinto — я чувствую себя (sentir-se): me sinto bem — мне хорошо"
  },
  {
   "id": 227,
@@ -11361,7 +11366,8 @@
   "sources": [
    "extra9"
   ],
-  "fix": "в списке «Lava - dish» и «Louça - washing» разошлись: lava значит «моет» (от lavar), а louça — «посуда»; вместе lavar louça — мыть посуду"
+  "fix": "в списке «Lava - dish» и «Louça - washing» разошлись: lava значит «моет» (от lavar), а louça — «посуда»; вместе lavar louça — мыть посуду",
+  "note": "lave! — помой! (повелит.): lave as mãos — помой руки"
  },
  {
   "id": 546,
@@ -17537,7 +17543,8 @@
   },
   "sources": [
    "extra15"
-  ]
+  ],
+  "note": "deve ser … — наверное, должно быть: deve ser ele — наверное, это он"
  },
  {
   "id": 867,
@@ -17596,5 +17603,1003 @@
    "extra15"
   ],
   "note": "в Бразилии privada чаще всего значит «унитаз»; «частный» — privado, туалет как комната — banheiro"
+ },
+ {
+  "id": 870,
+  "pt": "a partir de",
+  "en": "starting from",
+  "ru": "начиная с",
+  "pos": "phrases",
+  "examples": [],
+  "imgQuery": "a fingertip pushing the very first domino in a long row so that the dominoes start falling one after another from that point, close-up on a plain table",
+  "image": "cartoes-img/начиная с — a partir de.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra16"
+  ],
+  "note": "a partir de amanhã — начиная с завтра; a partir daqui — начиная отсюда",
+  "fix": "в списке было «A partir» — без de оборот не употребляется: a partir de"
+ },
+ {
+  "id": 871,
+  "pt": "roupa",
+  "en": "clothes, clothing",
+  "ru": "одежда",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "an open wardrobe full of colourful clothes, dresses and jackets hanging on the rail and sweaters folded on the shelves",
+  "image": "cartoes-img/одежда — roupa.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra16"
+  ]
+ },
+ {
+  "id": 872,
+  "pt": "medir",
+  "en": "to measure",
+  "ru": "измерять, мерить",
+  "pos": "verbs",
+  "examples": [],
+  "imgQuery": "a tailor's hands wrapping a yellow cloth tape measure around a man's chest to take his measurements, close-up",
+  "image": "cartoes-img/измерять, мерить — medir.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra16"
+  ],
+  "fix": "в списке было «medir — measurements»: medir это глагол «измерять»; мерки, размеры — medidas"
+ },
+ {
+  "id": 873,
+  "pt": "por isso",
+  "en": "that's why, so",
+  "ru": "поэтому",
+  "pos": "phrases",
+  "examples": [],
+  "imgQuery": "an exhausted man yawning at his desk late at night who is pouring himself another cup of coffee to stay awake, tired eyes",
+  "image": "cartoes-img/поэтому — por isso.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra16"
+  ],
+  "note": "estou cansado, por isso vou dormir — я устал, поэтому иду спать"
+ },
+ {
+  "id": 874,
+  "pt": "doze",
+  "en": "twelve",
+  "ru": "двенадцать",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "a red football jersey seen from the back hanging on a hanger, with a large white number 12 printed on it and no other text",
+  "image": "cartoes-img/двенадцать — doze.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra16"
+  ],
+  "fix": "в списке было «doze — 20», но doze это 12; двадцать — vinte"
+ },
+ {
+  "id": 875,
+  "pt": "luz",
+  "en": "light",
+  "ru": "свет",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "bright rays of sunlight streaming down through tall forest trees on a misty morning, beams clearly visible",
+  "image": "cartoes-img/свет — luz.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra16"
+  ],
+  "note": "acender a luz — включить свет; conta de luz — счёт за электричество"
+ },
+ {
+  "id": 876,
+  "pt": "vela",
+  "en": "candle",
+  "ru": "свеча",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "one tall brand-new white candle, unlit, standing in an old brass candlestick on a plain wooden table",
+  "image": "cartoes-img/свеча — vela.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra16"
+  ],
+  "note": "ещё «парус»: barco a vela — парусная лодка"
+ },
+ {
+  "id": 877,
+  "pt": "alicate",
+  "en": "nippers; pliers",
+  "ru": "щипчики (для ногтей); плоскогубцы",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "a pair of stainless steel cuticle nippers lying on a folded white towel, close-up",
+  "image": "cartoes-img/щипчики — alicate.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra16"
+  ],
+  "note": "alicate de unha / de cutícula — щипчики для маникюра; просто alicate — плоскогубцы"
+ },
+ {
+  "id": 878,
+  "pt": "tesoura",
+  "en": "scissors",
+  "ru": "ножницы",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "a pair of open steel scissors with black handles lying alone on a plain white surface",
+  "image": "cartoes-img/ножницы — tesoura.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra16"
+  ]
+ },
+ {
+  "id": 879,
+  "pt": "por quanto tempo",
+  "en": "for how long",
+  "ru": "как долго, на какой срок",
+  "pos": "phrases",
+  "examples": [],
+  "imgQuery": "a hotel receptionist leaning over the desk with a questioning look while a traveller with a suitcase holds up fingers to count the nights he will stay",
+  "image": "cartoes-img/как долго, на какой срок — por quanto tempo.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra16"
+  ],
+  "note": "por quanto tempo você vai ficar? — на сколько ты останешься?"
+ },
+ {
+  "id": 880,
+  "pt": "fora do ar",
+  "en": "offline, off the air",
+  "ru": "не работает, офлайн (о сайте, ТВ, сервисе)",
+  "pos": "phrases",
+  "examples": [],
+  "imgQuery": "an old television set in a dark room showing only grey and white static snow on its screen, no picture",
+  "image": "cartoes-img/не работает, офлайн — fora do ar.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra16"
+  ],
+  "note": "o site está fora do ar — сайт не работает"
+ },
+ {
+  "id": 881,
+  "pt": "passado",
+  "en": "past; last",
+  "ru": "прошлое; прошлый",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "an elderly woman's wrinkled hands holding an old black-and-white wedding photograph of a young couple",
+  "image": "cartoes-img/прошлое, прошлый — passado.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra16"
+  ],
+  "note": "o ano passado — в прошлом году; a semana passada — на прошлой неделе"
+ },
+ {
+  "id": 882,
+  "pt": "tecnologia",
+  "en": "technology",
+  "ru": "технология, техника",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "a close-up of a green computer circuit board with microchips and tiny glowing blue lights",
+  "image": "cartoes-img/технология, техника — tecnologia.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra16"
+  ],
+  "note": "в бразильском произношении между c и n слышится «и»: «текинолоЖИя»"
+ },
+ {
+  "id": 883,
+  "pt": "alagamento",
+  "en": "flooding",
+  "ru": "подтопление, наводнение (улиц)",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "a city street flooded with muddy brown water up to the wheels of parked cars after a heavy storm, a bus pushing through the water",
+  "image": "cartoes-img/подтопление, наводнение — alagamento.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra16"
+  ]
+ },
+ {
+  "id": 884,
+  "pt": "seja",
+  "en": "be; whether (seja… ou…)",
+  "ru": "будь то; пусть будет (от ser)",
+  "pos": "function words",
+  "examples": [],
+  "imgQuery": "a smiling waiter holding out a cup of tea in one hand and a cup of coffee in the other toward a guest, offering either one",
+  "image": "cartoes-img/будь то, пусть будет — seja.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra16"
+  ],
+  "note": "seja chá ou café — будь то чай или кофе; seja bem-vindo — добро пожаловать",
+  "fix": "в списке было «seja — whether»: само seja — форма ser («будь»); «whether» — это оборот seja… ou… («будь то… или…»)"
+ },
+ {
+  "id": 885,
+  "pt": "gravata",
+  "en": "tie",
+  "ru": "галстук",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "a navy blue silk necktie with thin diagonal stripes laid out flat alone on a plain light surface",
+  "image": "cartoes-img/галстук — gravata.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra16"
+  ]
+ },
+ {
+  "id": 886,
+  "pt": "bota",
+  "en": "boot",
+  "ru": "сапог; ботинок (высокий)",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "one single tall brown leather riding boot standing upright alone on a plain floor",
+  "image": "cartoes-img/сапог, ботинок — bota.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra16"
+  ],
+  "note": "мн. botas; ещё «кладёт» (от botar)"
+ },
+ {
+  "id": 887,
+  "pt": "terno",
+  "en": "suit",
+  "ru": "костюм (мужской)",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "a dark navy two-piece men's suit with jacket and trousers displayed on a headless tailor's mannequin in a shop",
+  "image": "cartoes-img/костюм — terno.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra16"
+  ],
+  "note": "ещё «нежный» (прил.)"
+ },
+ {
+  "id": 888,
+  "pt": "azul",
+  "en": "blue",
+  "ru": "синий, голубой",
+  "pos": "adjectives",
+  "examples": [],
+  "imgQuery": "a completely flat solid blue surface filling the entire frame, uniform pure blue colour, nothing else in the picture",
+  "image": "cartoes-img/синий, голубой — azul.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra16"
+  ],
+  "fix": "в списке было «Azuis» — это мн. ч.; карточка на azul (olhos azuis — голубые глаза)"
+ },
+ {
+  "id": 889,
+  "pt": "coxinha",
+  "en": "chicken croquette",
+  "ru": "кошинья (жареный крокет с курицей)",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "three golden deep-fried Brazilian coxinhas, teardrop-shaped chicken croquettes, on a paper napkin, one broken open to show the shredded chicken filling",
+  "image": "cartoes-img/кошинья — coxinha.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra16"
+  ],
+  "note": "произносится «кошИнья»; от coxa — бедро: по форме как куриная ножка",
+  "fix": "в списке было «Coxinhas» — это мн. ч.; ед. coxinha"
+ },
+ {
+  "id": 890,
+  "pt": "padaria",
+  "en": "bakery",
+  "ru": "пекарня, булочная",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "a baker in a white apron pulling a large tray of fresh golden bread rolls out of an oven in a small bakery",
+  "image": "cartoes-img/пекарня, булочная — padaria.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra16"
+  ],
+  "fix": "в списке было «Badaria» — правильно padaria, через p"
+ },
+ {
+  "id": 891,
+  "pt": "calça",
+  "en": "trousers, pants",
+  "ru": "брюки, штаны",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "a pair of beige chino trousers folded neatly and laid flat alone on a plain light surface",
+  "image": "cartoes-img/брюки, штаны — calça.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra16"
+  ],
+  "fix": "в списке было «as calças»: в Бразилии обычно в ед. ч. — a calça"
+ },
+ {
+  "id": 892,
+  "pt": "luva",
+  "en": "glove",
+  "ru": "перчатка",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "a pair of brown leather gloves laid flat side by side on a plain light surface",
+  "image": "cartoes-img/перчатка — luva.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra16"
+  ],
+  "note": "мн. luvas; cair como uma luva — подойти идеально"
+ },
+ {
+  "id": 893,
+  "pt": "sobretudo",
+  "en": "overcoat; above all",
+  "ru": "пальто; прежде всего",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "a man in a long knee-length camel wool overcoat walking along a cold winter street, seen full length",
+  "image": "cartoes-img/пальто, прежде всего — sobretudo.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra16"
+  ],
+  "note": "как наречие — «прежде всего, особенно»"
+ },
+ {
+  "id": 894,
+  "pt": "crescer",
+  "en": "to grow, to grow up",
+  "ru": "расти, вырасти",
+  "pos": "verbs",
+  "examples": [],
+  "imgQuery": "a tall teenage boy standing against a white door frame beside a ladder of short pencil height marks drawn from his early childhood, the marks rising up the frame, no numbers or writing",
+  "image": "cartoes-img/расти, вырасти — crescer.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra16"
+  ],
+  "note": "cresceu — вырос; cresci no Brasil — я вырос в Бразилии",
+  "fix": "в списке была форма «cresceu» (вырос) — карточка на инфинитив crescer"
+ },
+ {
+  "id": 895,
+  "pt": "não tenha pressa",
+  "en": "take your time",
+  "ru": "не торопись, не спеши",
+  "pos": "phrases",
+  "examples": [],
+  "imgQuery": "a woman sitting relaxed on a park bench calmly reading a book while a blurred crowd of hurrying commuters rushes past her",
+  "image": "cartoes-img/не торопись, не спеши — não tenha pressa.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra16"
+  ],
+  "note": "pressa — спешка: estou com pressa — я спешу"
+ },
+ {
+  "id": 896,
+  "pt": "acabar",
+  "en": "to finish, to run out",
+  "ru": "заканчивать(ся)",
+  "pos": "verbs",
+  "examples": [],
+  "imgQuery": "a person closing a thick book at its very last page with a satisfied smile, setting it down on the table",
+  "image": "cartoes-img/заканчивать — acabar.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra16"
+  ],
+  "note": "acabei — я закончил; acabou! — всё, кончилось; acabei de chegar — я только что пришёл"
+ },
+ {
+  "id": 897,
+  "pt": "aluno",
+  "en": "student, pupil",
+  "ru": "ученик, студент",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "a schoolboy with his backpack hung on his chair raising his hand at his desk to answer a question in class",
+  "image": "cartoes-img/ученик, студент — aluno.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra16"
+  ],
+  "fix": "в списке было «Alunos» — это мн. ч.; ед. aluno, ж. р. aluna"
+ },
+ {
+  "id": 898,
+  "pt": "viver",
+  "en": "to live",
+  "ru": "жить",
+  "pos": "verbs",
+  "examples": [],
+  "imgQuery": "an elderly couple dancing joyfully together barefoot on the grass of a sunny garden, laughing",
+  "image": "cartoes-img/жить — viver.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra16"
+  ],
+  "note": "жить где-то, по адресу — morar",
+  "fix": "в списке было «vivendo — were living»: vivendo — «живя» (герундий), «жили» — estavam vivendo или viviam; карточка на инфинитив viver"
+ },
+ {
+  "id": 899,
+  "pt": "fora",
+  "en": "out, outside; abroad",
+  "ru": "вне, снаружи; за границей",
+  "pos": "adverbs",
+  "examples": [],
+  "imgQuery": "a young woman in a small rented flat video-calling her parents on a laptop, an unfamiliar foreign city of red tiled roofs visible through the window behind her",
+  "image": "cartoes-img/вне, снаружи, за границей — fora.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra16"
+  ],
+  "note": "morar fora — жить за границей; lá fora — там, на улице"
+ },
+ {
+  "id": 900,
+  "pt": "exigido",
+  "en": "required",
+  "ru": "требуемый, обязательный",
+  "pos": "adjectives",
+  "examples": [],
+  "imgQuery": "a border control officer in a booth holding out his open hand while a traveller passes him a passport and documents",
+  "image": "cartoes-img/требуемый, обязательный — exigido.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra16"
+  ],
+  "fix": "в списке было «Exigidos» — это мн. ч.; ед. exigido (от exigir — требовать)"
+ },
+ {
+  "id": 901,
+  "pt": "compreensão",
+  "en": "comprehension, understanding",
+  "ru": "понимание",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "two people at a cafe table, one explaining something with his hands while the other nods with a clear look of understanding",
+  "image": "cartoes-img/понимание — compreensão.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra16"
+  ]
+ },
+ {
+  "id": 902,
+  "pt": "intercambista",
+  "en": "exchange student",
+  "ru": "студент по обмену",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "a young student with a backpack and a big suitcase walking out through the arrivals gate of an international airport, looking around excitedly",
+  "image": "cartoes-img/студент по обмену — intercambista.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra16"
+  ],
+  "note": "fazer intercâmbio — поехать учиться по обмену",
+  "fix": "в списке было «Intercambistas» — это мн. ч.; ед. intercambista"
+ },
+ {
+  "id": 903,
+  "pt": "universitário",
+  "en": "university student; university",
+  "ru": "студент вуза; университетский",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "a young university student taking notes on a laptop in a large tiered lecture hall full of other students",
+  "image": "cartoes-img/студент вуза, университетский — universitário.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra16"
+  ]
+ },
+ {
+  "id": 904,
+  "pt": "meia",
+  "en": "sock",
+  "ru": "носок",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "a pair of striped wool socks laid flat side by side on a plain light surface",
+  "image": "cartoes-img/носок — meia.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra16"
+  ],
+  "note": "ещё «половина»: meia hora — полчаса; диктуя номер, «meia» = шесть",
+  "fix": "в списке было «Meias» — это мн. ч.; ед. meia"
+ },
+ {
+  "id": 905,
+  "pt": "casaco",
+  "en": "coat, jacket",
+  "ru": "куртка, пальто",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "a puffy black winter jacket with a hood hanging alone on a coat hook by a front door",
+  "image": "cartoes-img/куртка, пальто — casaco.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra16"
+  ]
+ },
+ {
+  "id": 906,
+  "pt": "apertado",
+  "en": "tight",
+  "ru": "тесный, узкий (об одежде)",
+  "pos": "adjectives",
+  "examples": [],
+  "imgQuery": "a man struggling to button up jeans that are clearly too tight around his waist, pulling the waistband together",
+  "image": "cartoes-img/тесный, узкий — apertado.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra16"
+  ],
+  "note": "estou apertado — мне срочно в туалет (разг.)",
+  "fix": "в списке было «Apertados» — это мн. ч.; ед. apertado"
+ },
+ {
+  "id": 907,
+  "pt": "camisa",
+  "en": "shirt",
+  "ru": "рубашка",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "a man's hands fastening the buttons of a crisp white long-sleeved dress shirt, close-up on the chest",
+  "image": "cartoes-img/рубашка — camisa.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra16"
+  ],
+  "note": "футболка — camiseta"
+ },
+ {
+  "id": 908,
+  "pt": "duro",
+  "en": "hard",
+  "ru": "твёрдый, жёсткий; тяжёлый",
+  "pos": "adjectives",
+  "examples": [],
+  "imgQuery": "a fist knocking on the surface of a huge solid grey granite boulder",
+  "image": "cartoes-img/твёрдый, жёсткий, тяжёлый — duro.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra16"
+  ],
+  "note": "pão duro — чёрствый хлеб; разг. «жмот»; estou duro — я на мели"
+ },
+ {
+  "id": 909,
+  "pt": "arquivo",
+  "en": "file; archive",
+  "ru": "файл; архив",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "long rows of grey archive shelves stacked with cardboard document boxes and folders in a dim archive room, no labels or writing",
+  "image": "cartoes-img/файл, архив — arquivo.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra16"
+  ],
+  "note": "в компьютере arquivo — файл; enviar o arquivo — отправить файл",
+  "fix": "в списке было «Arquivos» — это мн. ч.; ед. arquivo"
+ },
+ {
+  "id": 910,
+  "pt": "Canadá",
+  "en": "Canada",
+  "ru": "Канада",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "the flag of Canada with its red maple leaf waving on a flagpole against the sky",
+  "image": "cartoes-img/Канада — Canadá.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra16"
+  ]
+ },
+ {
+  "id": 911,
+  "pt": "móveis",
+  "en": "furniture",
+  "ru": "мебель",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "a sofa, an armchair, a coffee table and a bookcase standing together in an empty white furniture showroom",
+  "image": "cartoes-img/мебель — móveis.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra16"
+  ],
+  "fix": "в списке было «Moveis» — нужен акут: móveis; ед. móvel — предмет мебели (móvel ещё «мобильный»)"
+ },
+ {
+  "id": 912,
+  "pt": "de novo",
+  "en": "again",
+  "ru": "снова, опять",
+  "pos": "adverbs",
+  "examples": [],
+  "imgQuery": "a boy who has just fallen off his skateboard getting back on it to try the trick again in a skate park",
+  "image": "cartoes-img/снова, опять — de novo.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra16"
+  ],
+  "note": "то же, что outra vez"
+ },
+ {
+  "id": 913,
+  "pt": "estômago",
+  "en": "stomach",
+  "ru": "желудок",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "an anatomical model of the human stomach organ held in two open hands, close-up, only the stomach model filling the frame",
+  "image": "cartoes-img/желудок — estômago.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra16"
+  ],
+  "note": "живот снаружи — barriga"
+ },
+ {
+  "id": 914,
+  "pt": "está doendo",
+  "en": "it hurts",
+  "ru": "болит",
+  "pos": "phrases",
+  "examples": [],
+  "imgQuery": "a man wincing in pain and holding his swollen cheek with a toothache",
+  "image": "cartoes-img/болит — está doendo.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra16"
+  ],
+  "note": "от doer — болеть: meu dente está doendo — у меня болит зуб",
+  "fix": "в списке было «Esta doendo» — нужен акут: está (находится); esta значит «эта»"
+ },
+ {
+  "id": 915,
+  "pt": "dolorido",
+  "en": "sore",
+  "ru": "ноющий, больной (о мышцах)",
+  "pos": "adjectives",
+  "examples": [],
+  "imgQuery": "a runner in sportswear sitting on a park bench after a run and rubbing her sore calf muscle with a pained face",
+  "image": "cartoes-img/ноющий, больной — dolorido.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra16"
+  ]
+ },
+ {
+  "id": 916,
+  "pt": "churrasco",
+  "en": "barbecue",
+  "ru": "барбекю, шашлык",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "skewers of juicy beef picanha sizzling over glowing charcoal on a Brazilian barbecue grill, smoke rising, close-up",
+  "image": "cartoes-img/барбекю, шашлык — churrasco.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra16"
+  ]
+ },
+ {
+  "id": 917,
+  "pt": "passatempo",
+  "en": "hobby, pastime",
+  "ru": "хобби, увлечение",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "a man at a workbench at home carefully gluing the tiny masts onto a wooden model sailing ship",
+  "image": "cartoes-img/хобби, увлечение — passatempo.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra16"
+  ]
+ },
+ {
+  "id": 918,
+  "pt": "sapato",
+  "en": "shoe",
+  "ru": "туфля, ботинок",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "a pair of polished black leather men's dress shoes standing side by side on a plain floor",
+  "image": "cartoes-img/туфля, ботинок — sapato.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra16"
+  ]
+ },
+ {
+  "id": 919,
+  "pt": "violão",
+  "en": "acoustic guitar",
+  "ru": "гитара (акустическая)",
+  "pos": "nouns",
+  "examples": [],
+  "imgQuery": "a wooden acoustic guitar leaning alone against a plain white wall",
+  "image": "cartoes-img/гитара — violão.webp",
+  "credit": {
+   "author": "",
+   "url": "",
+   "source": "Grok Build",
+   "license": "сгенерировано ИИ"
+  },
+  "sources": [
+   "extra16"
+  ],
+  "note": "электрогитара — guitarra"
  }
 ]
