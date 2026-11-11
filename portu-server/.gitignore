@@ -1,0 +1,7 @@
+.env
+data/
+public/cartoes-img/
+__pycache__/
+worker/.env
+worker/work/
+worker/worker.log

@@ -1,0 +1,41 @@
+<style>
+.mv{display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin-top:22px;border-color:var(--blue);background:var(--blue-soft)}
+.mv-tx{display:flex;flex-direction:column;gap:4px;flex:1;min-width:240px}
+.mv-tx b{font-size:17px}
+.mv-tx span{color:var(--text-2);font-size:14.5px;line-height:1.45}
+.mv .btn{min-height:48px}
+</style>
+<script>
+/* Плашка переезда: приложение теперь живёт на syferpu.top/portu.
+   Кнопка упаковывает прогресс этого браузера во фрагмент адреса (#import=…):
+   фрагмент не уходит на сервер в запросе, его читает только сама страница. */
+(() => {
+  const NEW = 'https://syferpu.top/portu/';
+  const home = document.getElementById('v-home');
+  if(!home) return;
+  const n = Object.keys(S.cards || {}).length;
+  const box = document.createElement('div');
+  box.className = 'card mv';
+  box.innerHTML = `<div class="mv-tx"><b>Приложение переехало: syferpu.top/portu</b>
+    <span>Там прогресс общий для телефона и компьютера и можно созваниваться с персонажами по-португальски.
+    ${n ? `Кнопка перенесёт прогресс этого устройства (${n} слов) — войдите там своим паролем.` : 'Войдите там своим паролем.'}</span></div>
+    <button class="btn btn-primary" id="mv-go">${n ? 'Перенести прогресс и открыть' : 'Открыть'}</button>`;
+  (home.querySelector('.lead') || home.querySelector('h1')).after(box);
+  document.getElementById('mv-go').onclick = async () => {
+    if(!n){ location.href = NEW; return; }
+    const json = JSON.stringify({ cards: S.cards, log: S.log, days: S.days, session: S.session });
+    let tag = 'j', bytes = new TextEncoder().encode(json);
+    if('CompressionStream' in window){
+      try{
+        const cs = new CompressionStream('deflate-raw');
+        bytes = new Uint8Array(await new Response(new Blob([bytes]).stream().pipeThrough(cs)).arrayBuffer());
+        tag = 'z';
+      }catch(e){ bytes = new TextEncoder().encode(json); tag = 'j'; }
+    }
+    let bin = '';
+    for(let i = 0; i < bytes.length; i += 0x8000) bin += String.fromCharCode.apply(null, bytes.subarray(i, i + 0x8000));
+    const b64 = btoa(bin).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+    location.href = NEW + '#import=' + tag + '.' + b64;
+  };
+})();
+</script>

@@ -1,0 +1,12 @@
+services:
+  portu:
+    build: .
+    container_name: portu
+    restart: unless-stopped
+    env_file: .env
+    ports:
+      - "127.0.0.1:8095:8095"   # наружу только через Caddy
+    volumes:
+      - ./data:/data
+      - ./public:/app/public:ro
+      - ./stock:/app/stock:ro

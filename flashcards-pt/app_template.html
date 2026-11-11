@@ -597,10 +597,15 @@ const todayKey = () => new Date().toISOString().slice(0,10);
 function load(){
   try{
     const s = JSON.parse(localStorage.getItem(LS) || '{}');
-    return { cards:s.cards||{}, log:s.log||{}, days:s.days||[], theme:s.theme||null, session:s.session||null };
-  }catch{ return {cards:{}, log:{}, days:[], theme:null, session:null}; }
+    return { cards:s.cards||{}, log:s.log||{}, days:s.days||[], theme:s.theme||null, session:s.session||null,
+             sessionTs:s.sessionTs||0, resetAt:s.resetAt||0 };   // два последних — для синхронизации
+  }catch{ return {cards:{}, log:{}, days:[], theme:null, session:null, sessionTs:0, resetAt:0}; }
 }
-function save(){ try{ localStorage.setItem(LS, JSON.stringify(S)); }catch(e){ console.warn('Не удалось сохранить', e); } }
+/* window.__onSave подключает серверная версия (syferpu.top/portu) — отправить изменения */
+function save(){
+  try{ localStorage.setItem(LS, JSON.stringify(S)); }catch(e){ console.warn('Не удалось сохранить', e); }
+  if(window.__onSave) window.__onSave();
+}
 let S = load();
 
 /* st() — только чтение: возвращает дефолт, но НЕ создаёт запись,
@@ -693,7 +698,7 @@ function renderHome(){
   const nw = CARDS.filter(isNew).length;
   const due = CARDS.filter(isDue).length;
   const done = S.log[todayKey()]?.n || 0;
-  const acc = S.log[todayKey()] ? Math.round(100*S.log[todayKey()].ok/Math.max(1,S.log[todayKey()].n)) : null;
+  const acc = S.log[todayKey()]?.n ? Math.round(100*S.log[todayKey()].ok/Math.max(1,S.log[todayKey()].n)) : null;
 
   // незаконченный подход
   const rb = document.getElementById('resume-box');
@@ -1028,9 +1033,11 @@ function judge(know){
   const logBefore = S.log[k] ? {...S.log[k]} : null;
 
   sm2(stw(id), know);
+  S.cards[id].t = Date.now();          // момент изменения — по нему сливаются устройства
   (know ? ss.know : ss.dont).push(id);
   S.log[k] = S.log[k] || {n:0, ok:0};
   S.log[k].n++; if(know) S.log[k].ok++;
+  S.log[k].t = Date.now();
   if(!S.days.includes(k)) S.days.push(k);
   ss.undo.push({ id, know, before, logBefore, day:k });
   if(ss.undo.length > 50) ss.undo.shift();
@@ -1055,14 +1062,15 @@ function undo(){
   const ss = S.session;
   if(!ss || !ss.undo.length) return;
   const u = ss.undo.pop();
-  if(u.before) S.cards[u.id] = u.before;                      // вернули состояние слова
-  else delete S.cards[u.id];                                  // до ответа записи не было
-  if(u.logBefore) S.log[u.day] = u.logBefore; else delete S.log[u.day];
+  // откат тоже получает свежую метку t, иначе другое устройство вернуло бы отменённый ответ
+  if(u.before) S.cards[u.id] = {...u.before, t:Date.now()};  // вернули состояние слова
+  else S.cards[u.id] = {...DEF(), t:Date.now()};              // до ответа слово было новым
+  S.log[u.day] = u.logBefore ? {...u.logBefore, t:Date.now()} : {n:0, ok:0, t:Date.now()};
   const arr = u.know ? ss.know : ss.dont;
   const at = arr.lastIndexOf(u.id);
   if(at > -1) arr.splice(at,1);
   ss.i = Math.max(0, ss.i - 1);
-  if(!S.log[u.day]) S.days = S.days.filter(d => d !== u.day);
+  if(!S.log[u.day].n) S.days = S.days.filter(d => d !== u.day);
   save();
   if(document.getElementById('v-done').hidden === false) go('study');
   showCard();
@@ -1365,5 +1373,6 @@ renderHome();
   }catch(e){ /* нет сети — просто без анимаций */ }
 })();
 </script>
+<!--__EXTRA__-->
 </body>
 </html>

@@ -39,6 +39,10 @@ def main():
     html = inject("CARDS", slim, html)
     html = inject("META", META, html)
 
+    # GitHub-версия: плашка «переехало на syferpu.top/portu» с переносом прогресса
+    snippet = open(os.path.join(ROOT, "migrate_snippet.html"), encoding="utf-8").read()
+    html = html.replace("<!--__EXTRA__-->", snippet)
+
     open(OUT, "w", encoding="utf-8").write(html)
 
     withimg = sum(1 for c in cards if c.get("image"))
