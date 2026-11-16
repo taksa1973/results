@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Регламент: билеты руководителю с женой</title>
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="description" content="Регламент покупки авиабилетов для руководителя с женой: летят вместе, одна пересадка 3–4 часа, «озорной вариант» с остановкой на 1–2 дня, бизнес-класс при дедлайне регаты, места в самолёте, транзит с паспортом РФ, порядок поиска и чек-лист.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script>
+(function(){
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!reduce) document.documentElement.classList.add('js-anim');
+  setTimeout(function(){
+    if (window.__motionOk) return;
+    document.querySelectorAll('.reveal').forEach(function(e){ e.style.opacity = 1; e.style.transform = 'none'; });
+  }, 3000);
+})();
+</script>
+<style>
+:root{
+  color-scheme:dark;
+  --bg:#000000; --card:#121212; --soft:#1A1A1A; --ink:#F5F5F5; --ink-2:#C4C4C8; --ink-3:#8E8E93;
+  --line:#262626; --line-2:#3A3A3A;
+  --red:#9B1C1C; --red-hover:#B42323; --red-text:#E05252; --red-soft:#241010; --red-line:#4D1B1B;
+  --r-lg:20px; --r-md:12px; --maxw:1120px;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%; scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0; background:var(--bg); color:var(--ink); font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:17px; line-height:1.6; -webkit-font-smoothing:antialiased}
+::selection{background:var(--red); color:#fff}
+h1,h2,h3,h4{color:#fff; margin:0; line-height:1.15}
+p{margin:0}
+a{color:var(--red-text); text-decoration:none; border-bottom:1px solid rgba(224,82,82,.35); transition:color .18s, border-color .18s}
+a:hover{color:#fff; border-bottom-color:#fff}
+a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(--red-text); outline-offset:3px; border-radius:4px}
+.wrap{max-width:var(--maxw); margin:0 auto; padding:0 24px}
+.nw{white-space:nowrap}
+.num{font-variant-numeric:tabular-nums}
+.skip{position:absolute; left:-9999px; top:8px; background:#fff; color:#000; padding:10px 14px; border-radius:10px; z-index:100; border:0}
+.skip:focus{left:16px}
+section,header{scroll-margin-top:72px}
+
+/* навигация */
+.topbar{position:sticky; top:0; z-index:40; background:rgba(0,0,0,.88); border-bottom:1px solid var(--line); -webkit-backdrop-filter:saturate(140%) blur(16px); backdrop-filter:saturate(140%) blur(16px)}
+.topbar .wrap{display:flex; align-items:center; gap:24px; min-height:56px}
+.brand{color:#fff; font-weight:700; letter-spacing:-.01em; white-space:nowrap}
+.topnav{display:flex; gap:4px; overflow-x:auto; scrollbar-width:none}
+.topnav::-webkit-scrollbar{display:none}
+.topnav a{color:var(--ink-2); border:0; padding:10px 12px; border-radius:10px; font-size:14px; font-weight:500; white-space:nowrap; min-height:44px; display:inline-flex; align-items:center}
+.topnav a:hover{color:#fff; background:rgba(255,255,255,.08)}
+.topnav a.active{color:#fff; background:rgba(255,255,255,.12)}
+
+/* переключатель регламентов */
+.seg{display:inline-flex; flex-wrap:wrap; gap:6px; padding:6px; background:var(--card); border:1px solid var(--line); border-radius:16px; margin-bottom:28px}
+.seg a{border:0; color:var(--ink-2); font-size:14px; font-weight:600; padding:10px 14px; border-radius:11px; min-height:44px; display:inline-flex; align-items:center}
+.seg a:hover{color:#fff; background:rgba(255,255,255,.08)}
+.seg a[aria-current="page"]{background:#fff; color:#000}
+.seg-label{display:block; font-size:12px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-3); margin-bottom:10px}
+
+/* hero */
+.hero{padding:56px 0 48px; border-bottom:1px solid var(--line)}
+.eyebrow{color:var(--red-text); font-size:12px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; margin-bottom:18px; display:block}
+h1{font-size:clamp(34px,5.4vw,60px); font-weight:800; letter-spacing:-.035em; max-width:20ch}
+h1 span{color:var(--red-text)}
+.lede{font-size:clamp(17px,2vw,19px); color:var(--ink-2); max-width:66ch; margin-top:22px}
+.lede + .lede{margin-top:14px}
+.lede b{color:#fff; font-weight:600}
+.facts{display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-top:40px}
+.fact{background:var(--card); border:1px solid var(--line); border-radius:var(--r-lg); padding:22px 24px}
+.fact b{display:block; font-size:clamp(24px,3.2vw,34px); font-weight:800; letter-spacing:-.03em; color:#fff; line-height:1.1; font-variant-numeric:tabular-nums}
+.fact span{display:block; margin-top:8px; font-size:14px; color:var(--ink-3); line-height:1.45}
+
+/* секции */
+section{padding:64px 0 8px}
+.sec-head{margin-bottom:28px}
+.kicker{color:var(--red-text); font-size:12px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; margin-bottom:10px; display:block}
+h2{font-size:clamp(26px,3.6vw,38px); font-weight:800; letter-spacing:-.025em}
+.sec-head p{color:var(--ink-2); margin-top:12px; max-width:70ch}
+.sec-head p b{color:#fff; font-weight:600}
+h3{font-size:20px; font-weight:700; letter-spacing:-.01em}
+
+/* карточки */
+.bento{display:grid; grid-template-columns:repeat(12,1fr); gap:16px}
+.c12{grid-column:span 12}.c6{grid-column:span 6}.c4{grid-column:span 4}.c8{grid-column:span 8}
+.card{background:var(--card); border:1px solid var(--line); border-radius:var(--r-lg); padding:28px; transition:border-color .2s}
+.card:hover{border-color:var(--line-2)}
+.card.top{border-color:var(--red-line); box-shadow:0 0 0 1px var(--red-line) inset}
+.card p{color:var(--ink-2); font-size:15.5px}
+.card p + p{margin-top:10px}
+.card ul{margin:10px 0 0; padding-left:20px; color:var(--ink-2); font-size:15.5px}
+.card li{margin:6px 0}
+.card li b, .card p b{color:#fff; font-weight:600}
+.badge{display:inline-block; font-size:12px; font-weight:700; letter-spacing:.04em; padding:5px 10px; border-radius:999px; text-transform:uppercase}
+.b-best{background:var(--red); color:#fff}
+.b-mid{background:var(--red-soft); color:var(--red-text); box-shadow:inset 0 0 0 1px var(--red-line)}
+.b-gray{background:var(--soft); color:#A1A1A6; box-shadow:inset 0 0 0 1px var(--line)}
+.b-ok{background:#2A2A2A; color:#fff; box-shadow:inset 0 0 0 1px #5A5A5F}
+.btn{display:inline-flex; align-items:center; gap:8px; min-height:44px; padding:10px 16px; margin-top:14px; margin-right:8px; border-radius:12px; font-size:14px; font-weight:600; color:#000; background:#fff; border:0; cursor:pointer; transition:background .18s, color .18s; font-family:inherit; touch-action:manipulation}
+.btn:hover{background:var(--red); color:#fff; border:0}
+.btn.ghost{background:transparent; color:var(--ink); box-shadow:inset 0 0 0 1px var(--line-2)}
+.btn.ghost:hover{background:rgba(255,255,255,.08); color:#fff}
+.note{margin-top:18px; padding:14px 16px; border-radius:var(--r-md); background:var(--red-soft); border:1px solid var(--red-line); color:#F2D6D6; font-size:15px}
+.note.soft{background:var(--soft); border-color:var(--line); color:var(--ink-2)}
+.note b{color:#fff}
+.t{display:inline-block; font-size:12px; font-weight:600; color:var(--ink-3); padding:1px 7px; border-radius:6px; background:var(--soft); box-shadow:inset 0 0 0 1px var(--line); white-space:nowrap; vertical-align:1px; font-variant-numeric:tabular-nums}
+
+/* жёсткие правила */
+.rules{list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(2,1fr); gap:16px; counter-reset:r}
+.rules li{counter-increment:r; background:var(--card); border:1px solid var(--line); border-radius:var(--r-lg); padding:24px 24px 24px 76px; position:relative; color:var(--ink-2); font-size:15.5px}
+.rules li::before{content:counter(r); position:absolute; left:24px; top:24px; width:34px; height:34px; border-radius:9px; background:#fff; color:#000; font-weight:800; font-size:16px; display:flex; align-items:center; justify-content:center; font-variant-numeric:tabular-nums}
+.rules li b{display:block; color:#fff; font-size:17px; font-weight:700; margin-bottom:6px; letter-spacing:-.01em}
+.rules li.wide{grid-column:span 2}
+
+/* таблица развилок */
+.tbl-wrap{overflow-x:auto; -webkit-overflow-scrolling:touch; border-radius:var(--r-lg)}
+.tbl{width:100%; border-collapse:separate; border-spacing:0; background:var(--card); border:1px solid var(--line); border-radius:var(--r-lg); overflow:hidden; font-size:15px}
+.tbl th,.tbl td{padding:14px 16px; text-align:left; vertical-align:top; border-bottom:1px solid var(--line)}
+.tbl thead th{background:#1F1F1F; color:#fff; font-weight:600; font-size:13px; letter-spacing:.02em}
+.tbl tbody tr:last-child td{border-bottom:0}
+.tbl tbody tr:hover{background:#161616}
+.tbl td b{color:#fff; font-weight:600}
+.tbl td{color:var(--ink-2)}
+.tbl td:first-child{color:var(--ink)}
+.tbl td small{display:block; color:var(--ink-3); font-size:13px; margin-top:4px; line-height:1.45}
+.chip{display:inline-block; font-size:12px; font-weight:600; padding:4px 10px; border-radius:999px; white-space:nowrap}
+.chip.ok{background:#2A2A2A; color:#fff; box-shadow:inset 0 0 0 1px #5A5A5F}
+.chip.warn{background:var(--red-soft); color:var(--red-text); box-shadow:inset 0 0 0 1px var(--red-line)}
+.chip.bad{background:var(--red); color:#fff}
+.chip.mute{background:var(--soft); color:#A1A1A6; box-shadow:inset 0 0 0 1px var(--line)}
+.legend{display:flex; flex-wrap:wrap; gap:10px 18px; margin-top:16px; font-size:14px; color:var(--ink-3)}
+.legend span{display:inline-flex; align-items:center; gap:8px}
+
+/* шаги */
+.steps{list-style:none; margin:0; padding:0; counter-reset:s; display:grid; gap:0; background:var(--card); border:1px solid var(--line); border-radius:var(--r-lg); overflow:hidden}
+.steps > li{counter-increment:s; display:grid; grid-template-columns:52px 1fr; gap:18px; padding:24px 28px; border-bottom:1px solid var(--line)}
+.steps > li:last-child{border-bottom:0}
+.steps > li::before{content:counter(s); width:36px; height:36px; border-radius:9px; background:#fff; color:#000; font-weight:800; display:flex; align-items:center; justify-content:center; font-variant-numeric:tabular-nums}
+.steps h3{font-size:18px; margin-bottom:6px}
+.steps p, .steps li li{color:var(--ink-2); font-size:15.5px}
+.steps p + p{margin-top:8px}
+.steps ul{margin:8px 0 0; padding-left:20px}
+.steps ul li{margin:5px 0}
+.steps b{color:#fff; font-weight:600}
+.filters{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px 20px; margin-top:12px; padding:14px 16px; background:var(--soft); border:1px solid var(--line); border-radius:var(--r-md); font-size:14.5px}
+.filters div{display:flex; justify-content:space-between; gap:12px; color:var(--ink-2)}
+.filters div b{color:#fff; font-weight:600; text-align:right}
+.filters div.off b{color:var(--ink-3); font-weight:500}
+
+/* шаблоны и копирование */
+pre.tpl{margin:14px 0 0; white-space:pre-wrap; font-family:inherit; font-size:15px; line-height:1.55; color:var(--ink); background:var(--soft); border:1px solid var(--line); border-radius:var(--r-md); padding:16px 18px}
+.copied{font-size:13px; color:var(--ink-3); margin-left:4px}
+
+/* чек-лист */
+.check{list-style:none; margin:0; padding:0; background:var(--card); border:1px solid var(--line); border-radius:var(--r-lg); overflow:hidden}
+.check li{border-bottom:1px solid var(--line)}
+.check li:last-child{border-bottom:0}
+.check label{display:grid; grid-template-columns:28px 1fr; gap:14px; align-items:start; padding:16px 22px; cursor:pointer; color:var(--ink-2); font-size:15.5px; min-height:44px}
+.check label:hover{background:#161616}
+.check input{appearance:none; -webkit-appearance:none; width:22px; height:22px; margin:2px 0 0; border-radius:6px; border:2px solid var(--line-2); background:transparent; cursor:pointer; display:grid; place-content:center; transition:background .15s, border-color .15s}
+.check input::after{content:""; width:11px; height:6px; border-left:2.5px solid #000; border-bottom:2.5px solid #000; transform:rotate(-45deg) translate(1px,-1px); opacity:0}
+.check input:checked{background:#fff; border-color:#fff}
+.check input:checked::after{opacity:1}
+.check input:checked + span{color:var(--ink-3); text-decoration:line-through; text-decoration-color:var(--line-2)}
+.check b{color:#fff; font-weight:600}
+.check-bar{display:flex; flex-wrap:wrap; align-items:center; gap:12px; margin-top:4px}
+.check-bar .count{font-size:14px; color:var(--ink-3)}
+
+.src ul{margin:0; padding-left:20px; color:var(--ink-2); font-size:15px}
+.src li{margin:6px 0}
+.src h3{font-size:18px; margin:22px 0 8px}
+.tcodes{columns:2; column-gap:32px}
+.tcodes li{break-inside:avoid}
+footer{padding:56px 0 72px; color:var(--ink-3); font-size:14px; border-top:1px solid var(--line); margin-top:64px}
+footer .seg{margin:0 0 18px}
+
+/* анимации: контент виден по умолчанию */
+.reveal{opacity:1}
+.js-anim .reveal{opacity:0; transform:translateY(20px)}
+.js-anim .reveal.shown{opacity:1; transform:none}
+@media (prefers-reduced-motion:reduce){.js-anim .reveal{opacity:1 !important; transform:none !important}}
+
+@media (max-width:980px){
+  .facts{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:900px){
+  .c6,.c4,.c8{grid-column:span 12}
+  .rules{grid-template-columns:1fr}
+  .rules li.wide{grid-column:auto}
+  .tcodes{columns:1}
+}
+@media (max-width:760px){
+  .tbl.cards thead{display:none}
+  .tbl.cards, .tbl.cards tbody, .tbl.cards tr, .tbl.cards td{display:block; width:100%}
+  .tbl.cards tr{border-bottom:1px solid var(--line); padding:6px 0}
+  .tbl.cards tbody tr:last-child{border-bottom:0}
+  .tbl.cards td{border-bottom:0; padding:8px 18px}
+  .tbl.cards td[data-label]::before{content:attr(data-label); display:block; font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-3); margin-bottom:4px}
+  .filters{grid-template-columns:1fr}
+  .steps > li{grid-template-columns:1fr; gap:12px; padding:22px}
+}
+@media (max-width:640px){
+  .facts{grid-template-columns:1fr}
+}
+@media (max-width:520px){
+  .wrap{padding:0 16px}
+  .card{padding:22px}
+  .rules li{padding:22px 20px 22px 68px}
+  .rules li::before{left:20px; top:22px}
+  .hero{padding:40px 0 36px}
+  .brand{display:none}
+  .seg{display:flex}
+  .seg a{flex:1 1 auto; justify-content:center}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#rules">К правилам</a>
+
+<div class="topbar">
+  <div class="wrap">
+    <span class="brand">Билеты · руководитель с женой</span>
+    <nav class="topnav" aria-label="Разделы">
+      <a href="#short">Коротко</a>
+      <a href="#rules">Правила</a>
+      <a href="#forks">Развилки</a>
+      <a href="#search">Поиск</a>
+      <a href="#visa">Визы</a>
+      <a href="#check">Перед оплатой</a>
+      <a href="#ask">Сообщения</a>
+      <a href="#open">Уточнить</a>
+      <a href="#src">Основание</a>
+    </nav>
+  </div>
+</div>
+<main>
+
+<header class="hero" id="short">
+  <div class="wrap">
+    <span class="seg-label">Регламенты покупки билетов</span>
+    <nav class="seg" aria-label="Регламенты"><a href="reglament-bilety-rukovoditel.html">Руководитель</a><a href="reglament-bilety-rukovoditel-s-zhenoy.html" aria-current="page">Руководитель с женой</a><a href="reglament-bilety-roditeli.html">Родители</a></nav>
+    <span class="eyebrow reveal">Регламент · руководитель с женой</span>
+    <h1 class="reveal">Билеты для <span>руководителя с женой</span></h1>
+    <p class="lede reveal">На длинных перелётах <b>летят вместе</b>. Основа как для родителей: <b>одна пересадка и комфорт</b>, ориентир 3–4 часа на пересадку. Плюс два своих пункта: пересадка 5–6 часов подходит, если экономит от $200, а «озорной вариант», остановку на 1–2 дня в интересной стране по пути, всегда предлагать. Решают они вдвоём.</p>
+    <div class="facts">
+      <div class="fact reveal"><b>Вместе</b><span>одним рейсом на длинных перелётах: 12 часов в одиночку неприятно обоим</span></div>
+      <div class="fact reveal"><b>3–4 ч</b><span>ориентир на одну пересадку. 5–6 часов подходят, если экономят от $200</span></div>
+      <div class="fact reveal"><b>$500–800</b><span>экономии, при которых «озорной вариант» нужно предложить обязательно</span></div>
+      <div class="fact reveal"><b>Места</b><span>рядом не обязательны: на борту меняются с соседями. Ради соседних мест рейс не меняем</span></div>
+    </div>
+  </div>
+</header>
+
+<section id="rules">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="kicker">Правила</span>
+      <h2>Что соблюдается всегда</h2>
+      <p>Базовые требования к маршруту для поездок вдвоём. Если подходящего варианта нет, переходить к таблице <a href="#forks">Развилки</a>.</p>
+    </div>
+    <ol class="rules">
+      <li class="reveal"><b>Одна пересадка, 3–4 часа</b>Длинные перелёты (Европа ↔ Латинская Америка или Азия) с одной пересадкой, желательно не дольше 3–4 часов. Логика та же, что для родителей: комфорт. <span class="t">мин 33–35</span></li>
+      <li class="reveal"><b>Пересадка 5–6 часов, если экономия от $200</b>Проходки в бизнес-залы у обоих есть: посидеть, поработать, поспать не проблема. <span class="t">мин 35</span></li>
+      <li class="reveal"><b>Летят вместе</b>Если летят в одно место, то одним рейсом, особенно на длинных перелётах: вдвоём их переносить легче. Исключение только в строке про регату в таблице ниже. <span class="t">мин 39–40</span></li>
+      <li class="reveal"><b>Места рядом не обязательны</b>Если соседних мест нет, покупать как есть: они меняются с соседями, за пять лет отказали один раз. Не менять рейс и не оставаться на сутки ради мест. <span class="t">мин 40–41</span></li>
+      <li class="reveal"><b>Маршрут под паспорт руководителя</b>На пересадке в Европе руководитель не может пройти паспортный контроль, маршрут подбирается под его паспорт. Поэтому один билет, багаж до конца, пересадка без выхода из транзитной зоны. <span class="t">мин 14</span></li>
+      <li class="reveal"><b>Никаких 8–12 часов в аэропорту</b>Если других вариантов нет, лучше ночёвка в отеле и вылет на следующий день: можно погулять, сходить на рынок, посмотреть город. <span class="t">мин 22–23</span></li>
+      <li class="reveal"><b>Багаж в тарифе</b>В Aviasales фильтр «С багажом», на сайте авиакомпании проверить норму у выбранного тарифа. <span class="t">мин 24</span></li>
+      <li class="reveal"><b>Покупка на сайте авиакомпании</b>Жена для своего билета готова купить через агрегатор, если иначе никак, но спросить всё равно. Руководитель через агрегатор не готов, разве что при огромной разнице. <span class="t">мин 26</span></li>
+    </ol>
+  </div>
+</section>
+
+<section id="forks">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="kicker">Развилки</span>
+      <h2>Что выбирать, когда вариантов несколько</h2>
+      <p>Ситуации с созвона. В последнем столбце видно, решаем ли сами или спрашиваем. Всё, чего здесь нет, тоже спрашиваем.</p>
+    </div>
+    <div class="tbl-wrap reveal">
+    <table class="tbl cards">
+      <thead><tr><th style="width:30%">Ситуация</th><th>Что делаем</th><th style="width:16%">Кто решает</th></tr></thead>
+      <tbody>
+        <tr><td data-label="Ситуация"><b>«Озорной вариант»: по пути страна, где можно провести 1–2 дня</b><small>пример: Марокко по дороге в Латинскую Америку · мин 00–02, 33–35</small></td><td data-label="Что делаем">Предложить вместе с обычным вариантом. При экономии $500–800 предлагать обязательно. Условие: руководитель может выйти в город и вернуться в аэропорт без визы. Настроение бывает разным, поэтому решают они, каждый раз заново.</td><td data-label="Кто решает"><span class="chip warn">Спросить обоих</span></td></tr>
+        <tr><td data-label="Ситуация"><b>Пересадка 5–6 часов экономит от $200</b><small>мин 35</small></td><td data-label="Что делаем">Можно брать.</td><td data-label="Кто решает"><span class="chip ok">Решаем сами</span></td></tr>
+        <tr><td data-label="Ситуация"><b>Пересадка 6–9 часов или бизнес без неё, бизнес дороже примерно на $200</b><small>мин 36</small></td><td data-label="Что делаем">Бизнес.</td><td data-label="Кто решает"><span class="chip ok">Решаем сами</span></td></tr>
+        <tr><td data-label="Ситуация"><b>То же, но бизнес дороже примерно на $500</b><small>мин 36–38</small></td><td data-label="Что делаем">Однозначного ответа нет («50 на 50»): показать оба варианта, бизнес или длинная пересадка либо остановка на день.</td><td data-label="Кто решает"><span class="chip warn">Спросить обоих</span></td></tr>
+        <tr><td data-label="Ситуация"><b>У руководителя жёсткий дедлайн, эконом закончился</b><small>например, регата · мин 38</small></td><td data-label="Что делаем">Руководителю бизнес, не обсуждая.</td><td data-label="Кто решает"><span class="chip ok">Решаем сами</span></td></tr>
+        <tr><td data-label="Ситуация"><b>Жена летит туда же, но без дедлайна</b><small>мин 38–40</small></td><td data-label="Что делаем">Сравнить её бизнес на том же рейсе с экономом на день позже. Разница меньше ~$500: летят вместе. Разница от $500–600: жена летит позже экономом. Но на длинном перелёте, около 12 часов, ей важнее лететь вдвоём, поэтому уточнить у неё.</td><td data-label="Кто решает"><span class="chip warn">Спросить жену</span></td></tr>
+        <tr><td data-label="Ситуация"><b>Дедлайна нет, эконом закончился</b><small>мин 38</small></td><td data-label="Что делаем">Спросить: лететь бизнесом или задержаться на 1–2 дня и лететь экономом.</td><td data-label="Кто решает"><span class="chip warn">Спросить обоих</span></td></tr>
+        <tr><td data-label="Ситуация"><b>На рейсе нет двух мест рядом</b><small>мин 40–41</small></td><td data-label="Что делаем">Покупаем как есть, местами поменяются на борту.</td><td data-label="Кто решает"><span class="chip ok">Решаем сами</span></td></tr>
+        <tr><td data-label="Ситуация"><b>Есть только пересадка 8–12 часов</b><small>мин 22–23</small></td><td data-label="Что делаем">Ночёвка в отеле и вылет на следующий день. Проверить въезд без визы по паспорту руководителя.</td><td data-label="Кто решает"><span class="chip ok">Решаем сами</span></td></tr>
+        <tr><td data-label="Ситуация"><b>Aviasales пишет «нужна виза»</b><small>мин 06–09</small></td><td data-label="Что делаем">Проверить через Claude и официальные источники (шаг 4). Не подтвердилось, что виза не нужна, — вариант исключить.</td><td data-label="Кто решает"><span class="chip ok">Решаем сами</span></td></tr>
+        <tr><td data-label="Ситуация"><b>Билет есть только у агрегатора</b><small>мин 25–27</small></td><td data-label="Что делаем">Жене: спросить, для себя она обычно согласна. Руководителю: только при большой разнице и с его согласия.</td><td data-label="Кто решает"><span class="chip warn">Спросить</span></td></tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+</section>
+
+<section id="search">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="kicker">Порядок поиска</span>
+      <h2>Как искать: Aviasales только начало</h2>
+      <p>Так ищет билеты жена руководителя, она показала весь путь на созвоне. Главное правило: <b>Aviasales на слово не верить</b>. Он не показывает часть маршрутов и путается с визами, поэтому каждый вариант проверяется у авиакомпаний и по официальным источникам.</p>
+    </div>
+    <ol class="steps reveal">
+      <li>
+        <div>
+          <h3>Aviasales: настроить поиск <span class="t">мин 02–06</span></h3>
+          <p>Открыть <a href="https://www.aviasales.ru" target="_blank" rel="noopener">aviasales.ru</a>, валюту поставить <b>USD</b> (все пороги в регламенте в долларах). Над результатами нажать <b>«Показать билеты, которые можно оплатить зарубежной картой?»</b>, иначе выдача подстраивается под оплату российской картой.</p>
+          <div class="filters">
+            <div><span>Пересадки</span><b>1 пересадка</b></div>
+            <div><span>Багаж</span><b>С багажом</b></div>
+            <div><span>Длительность пересадок</span><b>до 4 ч, затем до 6 ч</b></div>
+            <div><span>Без повторной регистрации</span><b>вкл.</b></div>
+            <div><span>Без виз на пересадках</span><b>вкл., потом проверить скрытое</b></div>
+            <div><span>Без смены аэропорта</span><b>вкл.</b></div>
+          </div>
+          <p style="margin-top:10px">Сначала искать с пересадкой до 4 часов. Потом расширить до 6: пересадка 5–6 часов подходит, если экономит от $200 (см. <a href="#forks">Развилки</a>). Пассажиров двое: в Aviasales поставить 2 пассажира, цены сравнивать за двоих.</p>
+        </div>
+      </li>
+      <li>
+        <div>
+          <h3>Не доверять пометкам о визе <span class="t">мин 06–09</span> <span class="t">мин 29–32</span></h3>
+          <p>На созвоне один и тот же рейс через Париж Шарль-де-Голль Aviasales в одной строке показал как «виза не нужна», а строкой ниже как «нужна виза». Поэтому после фильтра «Без виз на пересадках» один раз выключить его и посмотреть, что скрылось. Помеченный вариант не отбрасывать и не брать вслепую: проверить по шагу 4.</p>
+        </div>
+      </li>
+      <li>
+        <div>
+          <h3>Сайты авиакомпаний <span class="t">мин 14–16</span> <span class="t">мин 23–30</span></h3>
+          <p>Посмотреть, какие авиакомпании летают по маршруту, и открыть их сайты. Там бывают маршруты, которых нет в Aviasales, и другая цена: и ниже, и выше.</p>
+          <p><b>Пример с созвона:</b> Белград → Рио. Aviasales не показал вариант через Франкфурт даже с фильтром «пересадка до 7 ч», а сайт ITA Airways показал его (пересадка 6 ч 35 мин), и он был дешевле найденного. Если одна авиакомпания летает через какой-то хаб, через него могут летать и другие.</p>
+        </div>
+      </li>
+      <li>
+        <div>
+          <h3>Визы и транзит: проверить каждый вариант <span class="t">мин 08–14</span></h3>
+          <p>Скриншот билета отправить в Claude с запросом ниже, прочитать <b>аргументы</b>, а не только вывод. Потом сверить на официальных сайтах: МИД или посольство страны пересадки, сайт аэропорта, список Еврокомиссии (раздел <a href="#visa">Визы</a>). На это уходит 15–20 минут, это нормально.</p>
+          <pre class="tpl" id="tpl-claude">Проверь, нужна ли виза для россиян на этом маршруте при такой пересадке на [сегодняшняя дата]. Дай ссылки на официальные источники: МИД или посольство страны пересадки, сайт аэропорта, списки транзитных виз ЕС.</pre>
+          <button class="btn ghost" type="button" data-copy="tpl-claude">Скопировать запрос</button><span class="copied" aria-live="polite"></span>
+        </div>
+      </li>
+      <li>
+        <div>
+          <h3>Бизнес-зал в аэропорту пересадки <span class="t">мин 04</span></h3>
+          <p>Проверить, есть ли в аэропорту пересадки лаунж или бизнес-зал и пускают ли туда пассажира по его проходке. Если проходки нет, узнать цену и можно ли забронировать зал заранее: в некоторых аэропортах можно.</p>
+        </div>
+      </li>
+      <li>
+        <div>
+          <h3>Развилка или вопрос <span class="t">мин 16–41</span></h3>
+          <p>Если вариантов несколько, решить по таблице <a href="#forks">Развилки</a>. Где в таблице стоит «спросить», отправить сообщение по шаблону из раздела <a href="#ask">Сообщения</a> и ждать ответа, сами не решаем.</p>
+        </div>
+      </li>
+      <li>
+        <div>
+          <h3>Покупка на сайте авиакомпании <span class="t">мин 25–27</span></h3>
+          <p>Покупать <b>напрямую у авиакомпании</b>: данные пассажира не уходят посредникам, при сбоях и пересадках больше гарантий. Весь маршрут в <b>одном бронировании</b>, багаж оформлен до конечного пункта. Покупка через агрегатор, в том числе через Aviasales, нежелательна: только если у авиакомпании билетов нет или они заметно дороже, и только после согласия пассажира (см. правила выше).</p>
+        </div>
+      </li>
+    </ol>
+  </div>
+</section>
+
+
+<section id="visa">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="kicker">Визы и транзит · паспорт РФ</span>
+      <h2>Пересадка только в транзитной зоне</h2>
+      <p>У руководителя паспорт РФ, и на пересадке в Европе он не может пройти паспортный контроль <span class="t">мин 14</span>. Маршрут для двоих подбирается под его паспорт. Поэтому пересадка в Европе возможна, только если пассажир остаётся в международной транзитной зоне и стране пересадки не нужна от граждан РФ <b>транзитная виза аэропорта</b> (тип A). Белград и Рио вне Шенгена, так что при соблюдении условий ниже въезда в Шенген нет.</p>
+    </div>
+    <div class="bento">
+      <div class="card c6 reveal">
+        <span class="badge b-ok">Условия транзита</span>
+        <h3 style="margin-top:12px">Все три, иначе нужна виза <span class="t">мин 11–13</span></h3>
+        <ul>
+          <li><b>Один билет и одно бронирование</b> на весь маршрут (связанные рейсы, connected flights).</li>
+          <li><b>Багаж оформлен до конечного пункта</b>, на пересадке его не получают и таможню не проходят.</li>
+          <li><b>Из транзитной зоны не выходить.</b> Если рейс отменят и ночевать придётся в городе, понадобится виза: это ещё одна причина держать пересадки короткими и выбирать крупные хабы.</li>
+        </ul>
+      </div>
+      <div class="card c6 top reveal">
+        <span class="badge b-mid">Не брать</span>
+        <h3 style="margin-top:12px">Аэропорты без транзитной зоны <span class="t">мин 11–12</span></h3>
+        <p>В небольших аэропортах транзитной зоны может не быть: из самолёта пассажир сразу попадает на паспортный контроль. С паспортом РФ без визы такая пересадка невозможна, даже если повторная регистрация не нужна. Проверять на сайте аэропорта до покупки.</p>
+      </div>
+    </div>
+    <div class="tbl-wrap reveal" style="margin-top:16px">
+    <table class="tbl cards">
+      <thead><tr><th>Хаб</th><th>Транзитная виза для паспорта РФ</th><th>Основание и опыт</th></tr></thead>
+      <tbody>
+        <tr><td data-label="Хаб"><b>Франкфурт</b><small>Германия, FRA</small></td><td data-label="Виза"><span class="chip ok">Не нужна</span></td><td data-label="Основание">Германии нет России в национальном списке (Annex 7B Еврокомиссии). Этот хаб показал сайт ITA Airways, хотя Aviasales его не выдал.</td></tr>
+        <tr><td data-label="Хаб"><b>Амстердам</b><small>Нидерланды, AMS</small></td><td data-label="Виза"><span class="chip ok">Не нужна</span></td><td data-label="Основание">Нидерланды Россию в список не включают. Руководитель с женой летали через Амстердам: транзитная зона большая, паспортный контроль хорошо видно и проходить его не нужно, все гейты доступны <span class="t">мин 09–10</span></td></tr>
+        <tr><td data-label="Хаб"><b>Париж Шарль-де-Голль</b><small>Франция, CDG</small></td><td data-label="Виза"><span class="chip ok">Не нужна из Белграда и Рио</span></td><td data-label="Основание">Франция требует транзитную визу от граждан РФ только при вылете из аэропортов Армении, Азербайджана, Грузии, Украины, Беларуси, Молдовы, Турции или Египта. При маршруте из Белграда или Рио не нужна.</td></tr>
+        <tr><td data-label="Хаб"><b>Рим Фьюмичино</b><small>Италия, FCO</small></td><td data-label="Виза"><span class="chip ok">Не нужна</span></td><td data-label="Основание">В списке МИД Италии России нет. Руководитель с женой были там на пересадке без проблем <span class="t">мин 14</span></td></tr>
+        <tr><td data-label="Хаб"><b>Мадрид, Барселона, Прага</b><small>Испания, Чехия</small></td><td data-label="Виза"><span class="chip bad">Нужна</span></td><td data-label="Основание">Испания и Чехия внесли Россию в национальные списки транзитных виз. Такие маршруты не брать.</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <div class="note soft reveal"><b>Стамбул.</b> Жена руководителя называет его самым удобным хабом из Европы в Латинскую Америку: оттуда летают прямые рейсы, но до Стамбула ещё нужно долететь <span class="t">мин 02</span>. Проверять и этот вариант. Если дальше маршрут идёт через Париж, условие Франции про вылет из Турции срабатывает: нужна транзитная виза.</div>
+    <div class="note reveal"><b>Списки меняются.</b> Таблица сверена с файлом Annex 7B Еврокомиссии в редакции от 30.06.2026. Перед каждой покупкой проверять заново по шагу 4: на созвоне это прямо названо обязательным <span class="t">мин 13</span></div>
+  </div>
+</section>
+
+<section id="check">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="kicker">Перед оплатой</span>
+      <h2>Чек-лист: всё отмечено, можно покупать</h2>
+      <p>Отметки сохраняются только в этом браузере.</p>
+    </div>
+    <ul class="check reveal">
+      <li><label><input type="checkbox"><span><b>Оба на одном рейсе</b>, если не договорились иначе.</span></label></li>
+      <li><label><input type="checkbox"><span><b>Одна пересадка</b>: до 3–4 часов либо 5–6 часов при экономии от $200.</span></label></li>
+      <li><label><input type="checkbox"><span>Нет пересадок <b>8–12 часов</b>: вместо них ночёвка.</span></label></li>
+      <li><label><input type="checkbox"><span><b>Транзит проверен</b> по паспорту руководителя: Claude плюс официальные источники; пересадка не в Испании и не в Чехии; в аэропорту есть транзитная зона.</span></label></li>
+      <li><label><input type="checkbox"><span>Весь маршрут <b>одним бронированием</b>, багаж до конечного пункта.</span></label></li>
+      <li><label><input type="checkbox"><span><b>Багаж</b> включён в тариф у обоих.</span></label></li>
+      <li><label><input type="checkbox"><span>В аэропорту пересадки есть <b>бизнес-зал</b>, проходки действуют.</span></label></li>
+      <li><label><input type="checkbox"><span>Маршрут сверен на <b>сайтах авиакомпаний</b>, цена сравнена с Aviasales.</span></label></li>
+      <li><label><input type="checkbox"><span>«Озорной вариант», если он есть, <b>предложен</b>, ответ получен.</span></label></li>
+      <li><label><input type="checkbox"><span>Покупка на <b>сайте авиакомпании</b>.</span></label></li>
+    </ul>
+    <div class="check-bar reveal"><button class="btn ghost" type="button" id="check-reset">Сбросить отметки</button><span class="count" id="check-count" aria-live="polite"></span></div>
+  </div>
+</section>
+
+<section id="ask">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="kicker">Сообщения</span>
+      <h2>Как спросить</h2>
+      <p>Шаблоны для строк таблицы, где стоит «спросить». В квадратных скобках подставить своё. Сразу давать варианты с ценами, чтобы ответить можно было одним словом.</p>
+    </div>
+    <div class="bento">
+      <div class="card c6 reveal">
+        <span class="badge b-mid">Обоим</span>
+        <h3 style="margin-top:12px">«Озорной вариантик»</h3>
+        <pre class="tpl" id="tpl-p1">Привет! По билетам на [даты] есть озорной вариантик:
+1) обычный: одна пересадка в [город], [длительность], $[цена за двоих];
+2) с остановкой в [город, страна] на [1–2] дня: $[цена за двоих], экономия $[сумма] с учётом отеля и такси. Въезд по паспорту [руководителя] без визы, проверил.
+Есть настрой на остановку или берём обычный?</pre>
+        <button class="btn ghost" type="button" data-copy="tpl-p1">Скопировать</button><span class="copied" aria-live="polite"></span>
+      </div>
+      <div class="card c6 reveal">
+        <span class="badge b-mid">Жене</span>
+        <h3 style="margin-top:12px">Регата: лететь вместе или позже</h3>
+        <pre class="tpl" id="tpl-p2">Привет! На [дату] эконом закончился, [руководителю] беру бизнес за $[цена] из-за [регаты]. Тебе два варианта:
+1) тем же рейсом бизнесом, $[цена];
+2) на [день] позже экономом, $[цена], разница $[сумма].
+Перелёт [длительность]. Как тебе удобнее?</pre>
+        <button class="btn ghost" type="button" data-copy="tpl-p2">Скопировать</button><span class="copied" aria-live="polite"></span>
+      </div>
+      <div class="card c6 reveal">
+        <span class="badge b-mid">Обоим</span>
+        <h3 style="margin-top:12px">Бизнес или длинная пересадка</h3>
+        <pre class="tpl" id="tpl-p3">Привет! На [даты] два варианта:
+1) эконом с пересадкой [длительность] в [город], $[цена за двоих];
+2) бизнес без длинной пересадки, $[цена за двоих], дороже на $[сумма] ($[сумма за одного] с человека).
+Что берём?</pre>
+        <button class="btn ghost" type="button" data-copy="tpl-p3">Скопировать</button><span class="copied" aria-live="polite"></span>
+      </div>
+      <div class="card c6 reveal">
+        <span class="badge b-mid">Обоим</span>
+        <h3 style="margin-top:12px">Эконом закончился, дедлайна нет</h3>
+        <pre class="tpl" id="tpl-p4">Привет! На [дату] эконом закончился, остался бизнес за $[цена за двоих]. Можно полететь на [1–2] дня позже экономом за $[цена за двоих]. Как удобнее?</pre>
+        <button class="btn ghost" type="button" data-copy="tpl-p4">Скопировать</button><span class="copied" aria-live="polite"></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="open">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="kicker">Уточнить</span>
+      <h2>Что на созвоне не решили</h2>
+      <p>Пока по этим пунктам нет правила, вопрос задаём руководителю и жене.</p>
+    </div>
+    <div class="bento">
+      <div class="card c6 reveal"><h3>$500 за бизнес: с одного или с двух</h3><p>Вопрос прозвучал на 36-й минуте, ответа не было. Поэтому в шаблоне указывать и сумму за двоих, и за одного.</p></div>
+      <div class="card c6 reveal"><h3>Жена позже или вместе на длинном перелёте</h3><p>Прозвучали два правила подряд: «если разница от $500–600, лучше полечу позже» и «если перелёт длинный, лучше вдвоём». Как они соотносятся, когда длинный перелёт и большая разница совпадают, не решили. Спрашивать каждый раз <span class="t">мин 39–40</span></p></div>
+      <div class="card c6 reveal"><h3>Минимальная длительность пересадки</h3><p>Обсуждали только верхние пределы. Сколько минимум, не говорили.</p></div>
+      <div class="card c6 reveal"><h3>Порог экономии для «озорного варианта»</h3><p>Названо «с $500 до $800, вообще огонь». Предлагать ли остановку при меньшей экономии, не сказано: если вариант интересный, лучше всё равно показать.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="src" class="src">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="kicker">Основание</span>
+      <h2>Откуда правила</h2>
+      <p>Основа: запись созвона ассистента с женой руководителя 10 ноября 2026 года (54 минуты, из них про билеты первые 42). Метки <span class="t">мин 04</span> в тексте указывают минуту записи, где это сказано: любое правило можно переслушать.</p>
+    </div>
+    <div class="card reveal">
+      <h3 style="margin-top:0">Ключевые места записи</h3>
+      <ul class="tcodes">
+        <li><span class="t">мин 00–02</span> длинные перелёты, остановка на 1–2 дня по пути, всегда спрашивать</li>
+        <li><span class="t">мин 06–09</span> Aviasales ошибается с визами, проверка через Claude</li>
+        <li><span class="t">мин 09–14</span> транзитные зоны Амстердама, Парижа, Рима; руководитель не проходит паспортный контроль</li>
+        <li><span class="t">мин 14–16, 23–30</span> сайт ITA Airways и вариант через Франкфурт, которого нет в Aviasales</li>
+        <li><span class="t">мин 22–23</span> пересадка 8–12 часов или ночёвка</li>
+        <li><span class="t">мин 25–27</span> покупка у авиакомпании, кто из двоих готов к агрегатору</li>
+        <li><span class="t">мин 33–35</span> правила «для нас»: одна пересадка 3–4 часа, «озорной вариантик» $500–800, 5–6 часов при экономии от $200</li>
+        <li><span class="t">мин 36–38</span> бизнес или длинная пересадка, жёсткий дедлайн регаты</li>
+        <li><span class="t">мин 38–40</span> дедлайн у руководителя: жена летит вместе бизнесом или позже экономом</li>
+        <li><span class="t">мин 40–41</span> места не рядом: меняются с соседями</li>
+      </ul>
+      <h3>Официальные источники по транзиту</h3>
+      <ul>
+        <li><a href="https://home-affairs.ec.europa.eu/document/download/7337515c-60a1-4510-b639-80de714f543e_en?filename=Annex+7B_en_0.pdf" target="_blank" rel="noopener">Еврокомиссия, Annex 7B: национальные списки стран, гражданам которых нужна транзитная виза аэропорта (Россия: Чехия, Испания, Франция с условием по аэропорту вылета)</a></li>
+        <li><a href="https://france-visas.gouv.fr/en/web/france-visas/visa-de-transit-aeroportuaire" target="_blank" rel="noopener">France-Visas: транзитная виза аэропорта, условие для граждан РФ</a></li>
+        <li><a href="https://www.esteri.it/en/servizi-opportunita/ingressosoggiornoinitalia/visto_ingresso/paesi_soggetti_visto_transito_aeroportuale/" target="_blank" rel="noopener">МИД Италии: страны, гражданам которых нужна транзитная виза аэропорта</a></li>
+        <li><a href="https://www.auswaertiges-amt.de/de/service/fragenkatalog-node/33-airporttransitvisum-606472" target="_blank" rel="noopener">МИД Германии: транзитная виза аэропорта и условие не покидать транзитную зону</a></li>
+        <li><a href="https://english.marechaussee.nl/topics/v/visa/transit-at-a-dutch-airport" target="_blank" rel="noopener">Королевская жандармерия Нидерландов: транзит в аэропортах страны</a></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+</main>
+<footer>
+  <div class="wrap">
+    <span class="seg-label">Другие регламенты</span>
+    <nav class="seg" aria-label="Регламенты"><a href="reglament-bilety-rukovoditel.html">Руководитель</a><a href="reglament-bilety-rukovoditel-s-zhenoy.html" aria-current="page">Руководитель с женой</a><a href="reglament-bilety-roditeli.html">Родители</a></nav>
+    <p>Регламент для ассистентов, которые покупают билеты семье руководителя. Пороги в долларах взяты из созвона и округлены так, как их назвали. Всё, что на созвоне решили «ситуативно», вынесено в раздел «Уточнить»: по таким пунктам решение принимает руководитель или его жена.</p>
+  </div>
+</footer>
+
+
+<script>
+(function(){
+  // копирование шаблонов
+  document.querySelectorAll('[data-copy]').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var el = document.getElementById(btn.getAttribute('data-copy'));
+      var txt = el ? el.textContent : '';
+      var done = function(){ var s = btn.nextElementSibling; if (s && s.classList.contains('copied')) { s.textContent = 'Скопировано'; setTimeout(function(){ s.textContent = ''; }, 2500); } };
+      if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(txt).then(done, done); }
+      else { var ta = document.createElement('textarea'); ta.value = txt; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); } catch(e){} document.body.removeChild(ta); done(); }
+    });
+  });
+  // чек-лист: отметки хранятся только в этом браузере
+  var list = document.querySelector('.check');
+  if (list) {
+    var key = 'reglament-check:' + location.pathname;
+    var boxes = [].slice.call(list.querySelectorAll('input[type=checkbox]'));
+    var counter = document.getElementById('check-count');
+    var saved = [];
+    try { saved = JSON.parse(localStorage.getItem(key) || '[]'); } catch(e) { saved = []; }
+    boxes.forEach(function(b, i){ b.checked = saved.indexOf(i) !== -1; });
+    function update(){
+      var on = []; boxes.forEach(function(b, i){ if (b.checked) on.push(i); });
+      if (counter) counter.textContent = 'Отмечено ' + on.length + ' из ' + boxes.length;
+      try { localStorage.setItem(key, JSON.stringify(on)); } catch(e) {}
+    }
+    boxes.forEach(function(b){ b.addEventListener('change', update); });
+    var reset = document.getElementById('check-reset');
+    if (reset) reset.addEventListener('click', function(){ boxes.forEach(function(b){ b.checked = false; }); update(); });
+    update();
+  }
+  // подсветка активного пункта навигации
+  var links = [].slice.call(document.querySelectorAll('.topnav a'));
+  var secs = links.map(function(a){ return document.querySelector(a.getAttribute('href')); });
+  function onScroll(){
+    var y = window.scrollY + 90, idx = 0;
+    secs.forEach(function(s, i){ if (s && s.offsetTop <= y) idx = i; });
+    links.forEach(function(a, i){ a.classList.toggle('active', i === idx); });
+  }
+  var t; window.addEventListener('scroll', function(){ if (t) return; t = setTimeout(function(){ t = null; onScroll(); }, 80); }, { passive: true });
+  onScroll();
+})();
+</script>
+<script type="module">
+(function(){
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var els = [].slice.call(document.querySelectorAll('.reveal'));
+  function show(el){ el.classList.add('shown'); el.style.opacity = 1; el.style.transform = 'none'; }
+  if (reduce) { els.forEach(show); return; }
+  function fallback(){
+    if (!('IntersectionObserver' in window)) { els.forEach(show); return; }
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){ if (en.isIntersecting) { show(en.target); io.unobserve(en.target); } });
+    }, { rootMargin: '0px 0px -8% 0px' });
+    els.forEach(function(e){ io.observe(e); });
+  }
+  import('https://cdn.jsdelivr.net/npm/motion@11/+esm').then(function(m){
+    window.__motionOk = true;
+    var animate = m.animate, inView = m.inView;
+    var target = function(arg){ return (arg && arg.target) || arg; };
+    inView('.reveal', function(arg){
+      var el = target(arg);
+      if (!el || !el.classList) return;
+      var i = [].indexOf.call(el.parentElement.children, el);
+      el.classList.add('shown');
+      animate(el, { opacity: [0, 1], y: [20, 0] }, { duration: 0.45, delay: Math.min(i, 5) * 0.04, ease: [0.22, 1, 0.36, 1] });
+    }, { margin: '0px 0px -8% 0px' });
+    document.querySelectorAll('.btn, .seg a').forEach(function(b){
+      b.addEventListener('pointerdown', function(){ animate(b, { scale: 0.97 }, { duration: 0.12 }); });
+      ['pointerup','pointerleave','pointercancel'].forEach(function(ev){
+        b.addEventListener(ev, function(){ animate(b, { scale: 1 }, { duration: 0.18 }); });
+      });
+    });
+  }).catch(fallback);
+})();
+</script>
+</body>
+</html>
