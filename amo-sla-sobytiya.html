@@ -6,7 +6,7 @@
 <title>Какие события собирает контроль SLA — neoved</title>
 <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
 <meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet">
-<meta name="description" content="Пять пунктов руководителя: новые заявки по этапам воронок, переписка и пропущенные звонки по существующим сделкам, почта hello@ и ответы письмом — как воркер amo-sla собирает их из amoCRM, прогон 14 дней, вопросы.">
+<meta name="description" content="Пять пунктов руководителя включены: новые заявки по этапам воронок, переписка и пропущенные звонки по существующим сделкам, почта amoCRM (hello@) и ответы письмом; решения по шести вопросам, прогон 14 дней.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <script>document.documentElement.classList.add('js-anim')</script>
@@ -123,11 +123,11 @@ footer{padding:40px 0 60px;color:var(--label);font-size:13px}
 <nav class="topnav" aria-label="Разделы">
   <div class="topnav-inner">
     <a href="#punkty">Пять пунктов</a>
+    <a href="#resheniya">Решения</a>
     <a href="#kak">Как собираем</a>
     <a href="#progon">Прогон 14 дней</a>
     <a href="#ne-schitaem">Что не считаем</a>
-    <a href="#vklyuchenie">Включение</a>
-    <a href="#voprosy">Вопросы руководителю</a>
+    <a href="#status">Статус</a>
     <a href="#istochniki">Источники</a>
   </div>
 </nav>
@@ -136,12 +136,12 @@ footer{padding:40px 0 60px;color:var(--label);font-size:13px}
 <header class="hero">
   <div class="eyebrow">neoved · amoCRM · воркер amo-sla</div>
   <h1>Какие события <span>собирает</span> контроль SLA</h1>
-  <p class="lead">Пять пунктов руководителя проверены на живых данных amoCRM. Переписка и пропущенные звонки по существующим сделкам уже учитывались. Новые заявки по этапам воронок и почта добавлены в код и пока выключены: включаются двумя строками настроек.</p>
+  <p class="lead">Пять пунктов руководителя проверены на живых данных amoCRM и включены. Переписка и пропущенные звонки по существующим сделкам учитывались и раньше. Новые заявки по этапам воронок и почта добавлены и работают по шести решениям руководителя.</p>
   <div class="tiles">
-    <div class="tile reveal"><b>5 из 5</b><small>пунктов списка покрыты: 2 работали, 3 добавлены и ждут включения</small></div>
+    <div class="tile reveal"><b>5 из 5</b><small>пунктов списка работают: 2 были, 3 добавлены и включены</small></div>
     <div class="tile reveal"><b>41</b><small>новая заявка за 14 дней; раньше воркер видел только 18 из них — формы сайта</small></div>
     <div class="tile reveal"><b>19</b><small>входящих писем за 30 дней в почте amoCRM — раньше письма не учитывались вовсе</small></div>
-    <div class="tile key reveal"><b>+8</b><small>нарушений за 14 дней по новым правилам: 7 по письмам, 1 по записи на встречу</small></div>
+    <div class="tile key reveal"><b>65 → 69</b><small>нарушений за 14 дней: +5 по письмам, −1 беседа, снятая отметкой «Не требует ответа»</small></div>
   </div>
 </header>
 
@@ -149,19 +149,19 @@ footer{padding:40px 0 60px;color:var(--label);font-size:13px}
   <h2><span class="num">1</span>Пять пунктов списка → что делает воркер</h2>
   <div class="tblwrap reveal">
     <table class="tbl">
-      <thead><tr><th>Пункт</th><th>Как собираем из amoCRM</th><th>Норматив</th><th style="min-width:110px">Статус</th></tr></thead>
+      <thead><tr><th>Пункт</th><th>Как собираем из amoCRM</th><th style="min-width:110px">Норматив</th><th style="min-width:110px">Статус</th></tr></thead>
       <tbody>
         <tr>
           <td class="k">1. Новая заявка, первичное обращение</td>
-          <td>Сделка, родившаяся на этапе первичного обращения: «Продажи клиентам → Новая заявка», «Продажи партнерам → Новая заявка», «Продажи клиентам партнеров → Новый лид от партнёра», а также в «Неразобранном» этих воронок. Перевод старой сделки в эти этапы из другой воронки — тоже заявка. События <code>lead_added</code> и <code>lead_status_changed</code>.</td>
+          <td>Сделка, родившаяся на этапе первичного обращения: «Продажи клиентам → Новая заявка», «Продажи партнерам → Новая заявка», «Продажи клиентам партнеров → Новый лид от партнёра», а также в «Неразобранном» этих воронок. Перевод старой сделки в эти этапы из другой воронки — тоже заявка. Не считаются запись на видеовстречу с сайта и сделки, которые менеджер завёл сам. События <code>lead_added</code> и <code>lead_status_changed</code>.</td>
           <td style="min-width:150px">30 рабочих минут до первой попытки контакта: звонок, живое сообщение или письмо (п. 3)</td>
-          <td><span class="tag t-warn">добавлено</span><br><small>раньше — только формы сайта</small></td>
+          <td><span class="tag t-warn">включено</span><br><small>раньше — только формы сайта</small></td>
         </tr>
         <tr>
           <td class="k">2. Переписка по существующей сделке</td>
-          <td>Входящие и исходящие сообщения всех бесед: Telegram (Wappi, whatcrm), WhatsApp, чат сайта. Это те же беседы, что во «Входящих»: у всех 68 бесед за 14 дней сообщения есть в ленте событий, отдельно читать «Входящие» не нужно.</td>
+          <td>Входящие и исходящие сообщения всех бесед: Telegram (Wappi, whatcrm), WhatsApp, чат сайта. Это те же беседы, что во «Входящих»: у всех 68 бесед за 14 дней сообщения есть в ленте событий. Отметка «Не требует ответа» снимает срок ответа.</td>
           <td style="min-width:150px">30 рабочих минут (п. 1)</td>
-          <td><span class="tag t-ok">работало</span></td>
+          <td><span class="tag t-ok">работало</span><br><small>+ «Не требует ответа»</small></td>
         </tr>
         <tr>
           <td class="k">3. Пропущенный звонок на существующей сделке</td>
@@ -171,25 +171,42 @@ footer{padding:40px 0 60px;color:var(--label);font-size:13px}
         </tr>
         <tr>
           <td class="k">4. Почта hello@neoved.io</td>
-          <td>Письма почты amoCRM: события <code>incoming_mail</code> и <code>outgoing_mail</code>, ветка письма — по <code>thread_id</code>. Учитывается любой ящик, подключённый к amoCRM, поэтому hello@ войдёт в учёт сам. Письмо с незнакомого адреса, ставшее сделкой в «Неразобранном», — ещё и новая заявка. Если письма hello@ пойдут через воркер amo-mail в чат карточки, это уже переписка по п. 2.</td>
+          <td>Письма почты amoCRM: события <code>incoming_mail</code> и <code>outgoing_mail</code>, ветка письма — по <code>thread_id</code>. Учитывается любой ящик, подключённый к amoCRM, кроме banks@ — hello@ войдёт в учёт сам после подключения. Письмо с незнакомого адреса, ставшее сделкой в «Неразобранном», — ещё и новая заявка. Если письма hello@ пойдут через воркер amo-mail в чат карточки, это переписка по п. 2.</td>
           <td style="min-width:150px">30 рабочих минут (п. 1: Email)</td>
-          <td><span class="tag t-warn">добавлено</span></td>
+          <td><span class="tag t-warn">включено</span></td>
         </tr>
         <tr>
           <td class="k">5. Ответ письмом = ответ в мессенджере</td>
-          <td>Входящее письмо открывает срок, закрывает его ответ в той же ветке — из карточки или из почтового клиента. Ответ письмом засчитывается и как первый контакт по новой заявке. Автоподтверждение записи на встречу (с director@) ответом не считается.</td>
+          <td>Входящее письмо открывает срок. Закрывает его любой живой ответ по той же сделке или её контактам: письмо в любой ветке, звонок или сообщение в мессенджере. Ответ письмом засчитывается и как первый контакт по новой заявке. Автоподтверждение записи на встречу (с director@) ответом не считается.</td>
           <td style="min-width:150px">как переписка (п. 1)</td>
-          <td><span class="tag t-warn">добавлено</span></td>
+          <td><span class="tag t-warn">включено</span></td>
         </tr>
       </tbody>
     </table>
   </div>
 </section>
 
+<section id="resheniya">
+  <h2><span class="num">2</span>Решения руководителя</h2>
+  <div class="tblwrap reveal">
+    <table class="tbl">
+      <thead><tr><th>Вопрос</th><th>Решение</th><th>Как сделано</th></tr></thead>
+      <tbody>
+        <tr><td class="k">Запись на видеовстречу через сайт — заявка?</td><td>исключить</td><td>сделка с тегом <code>site_meeting</code> заявкой не считается</td></tr>
+        <tr><td class="k">«Не требует ответа» в беседе</td><td>снимает срок ответа в переписке</td><td>событие <code>conversation_answered</code> закрывает таймер беседы; если срок уже прошёл, нарушение остаётся</td></tr>
+        <tr><td class="k">Групповые Telegram-чаты по сделкам</td><td>не считать, как сейчас</td><td>канал <code>amo.ext.31521162</code> исключён</td></tr>
+        <tr><td class="k">Ящик banks@ (переписка с банками)</td><td>не считать по SLA</td><td>входящие на banks@ не открывают срок</td></tr>
+        <tr><td class="k">На письмо ответили звонком или в Telegram</td><td>засчитывать как ответ</td><td>таймер письма привязан к сделке и всем её контактам; закрывается звонком (даже без дозвона), сообщением или письмом</td></tr>
+        <tr><td class="k">Сделку завёл сам менеджер на этапе «Новая заявка»</td><td>не считать заявкой</td><td>так и было: создатель сделки = ответственный → не заявка</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
 <section id="kak">
-  <h2><span class="num">2</span>Как собираем</h2>
+  <h2><span class="num">3</span>Как собираем</h2>
   <div class="flow">
-    <div class="step reveal"><h3>Лента раз в 2 минуты</h3><p>К прежним событиям добавлены три: смена этапа, входящее и исходящее письмо. Все 11 типов читаются одним запросом — проверено, счёт совпал с запросами по одному типу.</p></div>
+    <div class="step reveal"><h3>Лента раз в 2 минуты</h3><p>К прежним событиям добавлены четыре: смена этапа, входящее и исходящее письмо, отметка «Не требует ответа». Все типы читаются одним запросом.</p></div>
     <div class="step reveal"><h3>Разбор сделки через 2 минуты</h3><p>Ждём склейки дублей. Форма сайта — заявка на любом этапе. Остальные — если родились на этапе первичного обращения: этап рождения берём из первой смены этапа.</p></div>
     <div class="step reveal"><h3>Таймер в рабочих минутах</h3><p>Пн–пт 08:00–18:00 МСК, вне этого времени отсчёт стоит. Звонок ответственного дольше 30 минут сдвигает срок — исключение регламента.</p></div>
     <div class="step reveal"><h3>Одно обращение — один штраф</h3><p>Заявка из Telegram и сообщение в той же сделке — одно нарушение. Так за 14 дней 9 заявок слились с просрочкой в переписке.</p></div>
@@ -197,16 +214,17 @@ footer{padding:40px 0 60px;color:var(--label);font-size:13px}
 </section>
 
 <section id="progon">
-  <h2><span class="num">3</span>Прогон за 14 дней на реальных событиях</h2>
-  <p class="muted">02–16.11.2026, 1 488 событий, только чтение: в amoCRM и таблицу штрафов ничего не писалось. Одни и те же события прогнаны старыми и новыми правилами.</p>
+  <h2><span class="num">4</span>Прогон за 14 дней на реальных событиях</h2>
+  <p class="muted">02–16.11.2026, около 1 500 событий, только чтение: в amoCRM и таблицу штрафов ничего не писалось. Одни и те же события прогнаны старыми правилами, новыми до решений и новыми с решениями руководителя.</p>
   <div class="grid2">
     <div class="card reveal">
       <h3>Нарушений всего</h3>
       <div class="bars">
         <div class="bar"><span class="lbl">старые правила</span><span class="trk"><span class="fill gray" style="width:89%"></span></span><span class="v">65</span></div>
-        <div class="bar"><span class="lbl">новые правила</span><span class="trk"><span class="fill" style="width:100%"></span></span><span class="v">73</span></div>
+        <div class="bar"><span class="lbl">новые, до решений</span><span class="trk"><span class="fill gray" style="width:100%"></span></span><span class="v">73</span></div>
+        <div class="bar"><span class="lbl">новые, с решениями (работает)</span><span class="trk"><span class="fill" style="width:95%"></span></span><span class="v">69</span></div>
       </div>
-      <p class="muted" style="margin-top:12px">С настройками по умолчанию (новое выключено) новая версия дала те же 65 нарушений с теми же номерами — поведение не изменилось.</p>
+      <p class="muted" style="margin-top:12px">С решениями ушли запись на встречу и два письма на banks@; одна беседа снята отметкой «Не требует ответа».</p>
     </div>
     <div class="card reveal">
       <h3>41 новая заявка — что с ними стало</h3>
@@ -215,75 +233,62 @@ footer{padding:40px 0 60px;color:var(--label);font-size:13px}
         <div class="bar"><span class="lbl">слились с просрочкой в переписке</span><span class="trk"><span class="fill gray" style="width:50%"></span></span><span class="v">9</span></div>
         <div class="bar"><span class="lbl">обработаны в срок</span><span class="trk"><span class="fill gray" style="width:39%"></span></span><span class="v">7</span></div>
         <div class="bar"><span class="lbl">менеджер связался за 2 минуты</span><span class="trk"><span class="fill gray" style="width:33%"></span></span><span class="v">6</span></div>
-        <div class="bar"><span class="lbl">новое нарушение</span><span class="trk"><span class="fill" style="width:6%"></span></span><span class="v">1</span></div>
+        <div class="bar"><span class="lbl">запись на встречу — исключена</span><span class="trk"><span class="fill gray" style="width:6%"></span></span><span class="v">1</span></div>
       </div>
       <p class="muted" style="margin-top:12px">Не из форм: 14 из Telegram, 7 со звонков, 1 из WhatsApp, 1 запись на встречу. Ещё 4 сделки менеджер завёл сам — в учёт не попали.</p>
     </div>
   </div>
 
-  <h3 style="margin-top:24px">8 нарушений, которые добавили новые правила</h3>
+  <h3 style="margin-top:24px">Что изменили новые правила по сделкам</h3>
   <div class="tblwrap reveal">
     <table class="tbl">
-      <thead><tr><th>Сделка</th><th>Что пришло</th><th>Поступило</th><th>Срок</th><th>Ответ</th><th>Пояснение</th></tr></thead>
+      <thead><tr><th>Сделка</th><th>Что пришло</th><th>Поступило</th><th>Срок</th><th>Ответ</th><th>Итог</th></tr></thead>
       <tbody>
-        <tr><td class="n"><a href="https://neoved.amocrm.ru/leads/detail/39013759">39013759</a></td><td>запись на встречу с сайта</td><td class="n">02.11 23:37</td><td class="n">03.11 08:30</td><td class="n bad">04.11 10:42</td><td>клиент записался ночью, первое сообщение менеджера — через день</td></tr>
-        <tr><td class="n"><a href="https://neoved.amocrm.ru/leads/detail/39050243">39050243</a></td><td>письмо, личный ящик менеджера</td><td class="n">05.11 16:35</td><td class="n">05.11 17:05</td><td class="n bad">06.11 10:12</td><td>в мессенджере менеджер написал в 17:11 — на 6 минут позже срока</td></tr>
-        <tr><td class="n"><a href="https://neoved.amocrm.ru/leads/detail/39117231">39117231</a></td><td>письмо, личный ящик</td><td class="n">06.11 10:32</td><td class="n">06.11 11:02</td><td class="n bad">06.11 12:57</td><td>ответ письмом через 2 ч 25 мин</td></tr>
-        <tr><td class="n"><a href="https://neoved.amocrm.ru/leads/detail/34214121">34214121</a></td><td>письмо, личный ящик</td><td class="n">06.11 16:28</td><td class="n">06.11 16:58</td><td class="n bad">нет</td><td>переписка с банком</td></tr>
-        <tr><td class="n"><a href="https://neoved.amocrm.ru/leads/detail/38917355">38917355</a></td><td>письмо, banks@</td><td class="n">11.11 13:48</td><td class="n">11.11 14:18</td><td class="n bad">нет</td><td>по смыслу — автоответ банка на рассылку</td></tr>
-        <tr><td class="n"><a href="https://neoved.amocrm.ru/leads/detail/37911059">37911059</a></td><td>письмо, banks@</td><td class="n">12.11 12:41</td><td class="n">12.11 13:11</td><td class="n bad">12.11 16:40</td><td>переписка с банком</td></tr>
-        <tr><td class="n"><a href="https://neoved.amocrm.ru/leads/detail/39117329">39117329</a></td><td>письмо, личный ящик</td><td class="n">13.11 16:43</td><td class="n">13.11 17:13</td><td class="n bad">нет</td><td>клиент подтвердил интерес</td></tr>
-        <tr><td class="n"><a href="https://neoved.amocrm.ru/leads/detail/39117231">39117231</a></td><td>письмо, личный ящик</td><td class="n">16.11 12:49</td><td class="n">16.11 13:19</td><td class="n bad">нет</td><td>информационное письмо клиента — ответ по смыслу мог не требоваться</td></tr>
+        <tr><td class="n"><a href="https://neoved.amocrm.ru/leads/detail/39050243">39050243</a></td><td>письмо, личный ящик менеджера</td><td class="n">05.11 16:35</td><td class="n">05.11 17:05</td><td class="n bad">05.11 17:11</td><td><span class="tag t-bad">нарушение</span> ответ в мессенджере — на 6 минут позже срока</td></tr>
+        <tr><td class="n"><a href="https://neoved.amocrm.ru/leads/detail/39117231">39117231</a></td><td>письмо, личный ящик</td><td class="n">06.11 10:32</td><td class="n">06.11 11:02</td><td class="n bad">06.11 12:57</td><td><span class="tag t-bad">нарушение</span> ответ письмом через 2 ч 25 мин</td></tr>
+        <tr><td class="n"><a href="https://neoved.amocrm.ru/leads/detail/34214121">34214121</a></td><td>письмо, личный ящик</td><td class="n">06.11 16:28</td><td class="n">06.11 16:58</td><td class="n bad">нет</td><td><span class="tag t-bad">нарушение</span> банк, но написал в личный ящик, не на banks@</td></tr>
+        <tr><td class="n"><a href="https://neoved.amocrm.ru/leads/detail/39117329">39117329</a></td><td>письмо, личный ящик</td><td class="n">13.11 16:43</td><td class="n">13.11 17:13</td><td class="n bad">нет</td><td><span class="tag t-bad">нарушение</span> клиент подтвердил интерес</td></tr>
+        <tr><td class="n"><a href="https://neoved.amocrm.ru/leads/detail/39117231">39117231</a></td><td>письмо, личный ящик</td><td class="n">16.11 12:49</td><td class="n">16.11 13:19</td><td class="n bad">нет</td><td><span class="tag t-bad">нарушение</span> информационное письмо клиента, ответа не было</td></tr>
+        <tr><td class="n"><a href="https://neoved.amocrm.ru/leads/detail/39013759">39013759</a></td><td>запись на встречу с сайта</td><td class="n">02.11 23:37</td><td class="n">—</td><td class="n">—</td><td><span class="tag t-n">исключено</span> запись на встречу — не заявка</td></tr>
+        <tr><td class="n"><a href="https://neoved.amocrm.ru/leads/detail/38917355">38917355</a></td><td>письмо, banks@</td><td class="n">11.11 13:48</td><td class="n">—</td><td class="n">—</td><td><span class="tag t-n">исключено</span> ящик banks@ не считается</td></tr>
+        <tr><td class="n"><a href="https://neoved.amocrm.ru/leads/detail/37911059">37911059</a></td><td>письмо, banks@</td><td class="n">12.11 12:41</td><td class="n">—</td><td class="n">—</td><td><span class="tag t-n">исключено</span> ящик banks@ не считается</td></tr>
+        <tr><td class="n"><a href="https://neoved.amocrm.ru/leads/detail/39139419">39139419</a></td><td>сообщение в Telegram</td><td class="n">11.11 15:08</td><td class="n">—</td><td class="n">—</td><td><span class="tag t-ok">снято</span> беседа отмечена «Не требует ответа»</td></tr>
       </tbody>
     </table>
   </div>
-  <div class="note"><b>Что видно по письмам.</b> Ни по одному из семи писем менеджер не ответил вовремя ни письмом, ни в другом канале. Три письма из семи — от банков, два из них пришли на banks@. Одно — автоответ банка: такие письма будут давать ложные нарушения, пока ящик banks@ учитывается.</div>
+  <div class="note"><b>Что видно по письмам.</b> Ни по одному из пяти оставшихся писем менеджер не ответил вовремя ни письмом, ни звонком, ни в мессенджере. В почте amoCRM нет отметки «Не требует ответа», как у бесед: письмо, на которое отвечать не нужно, закрывается только коротким ответом или звонком.</div>
 </section>
 
 <section id="ne-schitaem">
-  <h2><span class="num">4</span>Что не попадает в учёт и почему</h2>
+  <h2><span class="num">5</span>Что не попадает в учёт и почему</h2>
   <div class="grid2">
     <div class="card reveal"><h3>Сделку завёл сам ответственный</h3><p class="muted">Менеджер создал сделку на этапе «Новая заявка» — это не входящее обращение. За 14 дней 4 таких сделки. Если сделку завёл один сотрудник, а ответственный другой, срок идёт.</p></div>
-    <div class="card reveal"><h3>Групповые чаты Telegram</h3><p class="muted">Канал <code>amo.ext.31521162</code> исключён: в группе сообщения наших сотрудников приходят как входящие. За 45 дней через него прошло 16 бесед, 8 из них привязаны к сделкам — вопрос к руководителю ниже.</p></div>
-    <div class="card reveal"><h3>Автописьма</h3><p class="muted">Подтверждения записи на встречу уходят с director@ без автора. По регламенту автоматическое подтверждение — не контакт, поэтому такие письма не закрывают срок.</p></div>
-    <div class="card reveal"><h3>Кнопка «Не требует ответа»</h3><p class="muted">В amoCRM есть отметка беседы «Не требует ответа» — за 14 дней ею пользовались 6 раз. Сейчас она срок не закрывает: иначе ею можно снять любое обращение.</p></div>
+    <div class="card reveal"><h3>Запись на видеовстречу</h3><p class="muted">Сделка от формы записи на встречу (тег <code>site_meeting</code>) — не заявка. Опоздание на саму встречу считает отдельный пункт регламента.</p></div>
+    <div class="card reveal"><h3>Групповые чаты Telegram</h3><p class="muted">Канал <code>amo.ext.31521162</code> исключён: в группе сообщения наших сотрудников приходят как входящие. За 45 дней через него прошло 16 бесед, 8 из них привязаны к сделкам.</p></div>
+    <div class="card reveal"><h3>Ящик banks@ и автописьма</h3><p class="muted">Переписка с банками через banks@ по SLA не считается. Подтверждения записи на встречу с director@ уходят без автора — по регламенту это не контакт.</p></div>
   </div>
 </section>
 
-<section id="vklyuchenie">
-  <h2><span class="num">5</span>Включение</h2>
+<section id="status">
+  <h2><span class="num">6</span>Статус</h2>
   <div class="grid2">
-    <div class="card reveal">
-      <h3>Сейчас</h3>
+    <div class="card key reveal">
+      <h3>Включено и выложено</h3>
       <ul class="check">
-        <li><b>Код готов и проверен:</b> 34 проверки без сети, прогон истории на живых данных.</li>
-        <li><b>На сервере новое выключено:</b> воркер ведёт себя как раньше, тексты по формам сайта прежние.</li>
-        <li><b>Журнал задним числом не пересобирается:</b> новые правила действуют с момента включения.</li>
+        <li><b>Код проверен:</b> 40 проверок без сети, прогон истории на живых данных, файлы на сервере сверены с локальными, первый проход после выкладки — без ошибок.</li>
+        <li><b>Новые правила действуют с момента включения:</b> журнал задним числом не пересобирался.</li>
+        <li><b>Таблица штрафов:</b> нарушения по заявкам и письмам идут в неё вместе с остальными.</li>
+        <li><b>Примечания в сделках:</b> режим не менялся — пока журнал.</li>
       </ul>
     </div>
-    <div class="card key reveal">
-      <h3>Чтобы включить</h3>
-      <p>Две строки в настройках воркера и выкладка:</p>
+    <div class="card reveal">
+      <h3>Настройки воркера</h3>
       <pre class="cmd">NEWLEAD_STATUSES=72669522,76678390,76798406
-MAIL_ENABLED=true</pre>
-      <p class="muted" style="margin-top:12px">Выгрузка в таблицу штрафов уже включена: после включения нарушения по заявкам и письмам сразу пойдут в неё. Режим примечаний в сделках (журнал или боевой) от этого не меняется.</p>
-    </div>
-  </div>
-  <div class="plain"><b>Дополнительные настройки.</b> <code>MAIL_BOXES</code> — какие ящики считать (пусто — все, подключённые к amoCRM); <code>NEWLEAD_SKIP_TAGS</code> — теги, с которыми сделка заявкой не считается, например <code>site_meeting</code>; <code>NEWLEAD_UNSORTED</code> — считать ли «Неразобранное» этих воронок.</div>
-</section>
-
-<section id="voprosy">
-  <h2><span class="num">6</span>Вопросы руководителю</h2>
-  <div class="clause reveal">
-    <h3><span>Текст для пересылки</span><button class="btn" type="button" data-copy="q-text" aria-label="Скопировать вопросы"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Скопировать</span></button></h3>
-    <div class="body" id="q-text">
-      <p>По сбору событий для SLA всё из списка сделано. Переписка и пропущенные звонки по существующим сделкам учитывались и раньше. Новые заявки по этапам «Новая заявка» / «Новый лид от партнёра» и почта (включая hello@ после подключения к amoCRM) готовы к включению. Нужны ответы на шесть вопросов:</p>
-      <p>1. Запись на видеовстречу через сайт создаёт сделку в «Новой заявке». Считать её заявкой с 30 минутами на первый контакт или исключить? Автоподтверждение письмом контактом не считается.</p>
-      <p>2. Отметка «Не требует ответа» в беседе amoCRM: снимать ею срок ответа в переписке? Сейчас не снимает.</p>
-      <p>3. Групповые Telegram-чаты с клиентами и партнёрами, привязанные к сделкам, сейчас не считаются: в группе сообщения наших сотрудников видны как входящие. Оставить так?</p>
-      <p>4. Письма в ящик banks@ (переписка с банками) считать по SLA наравне с клиентскими? Среди них бывают автоответы банков.</p>
-      <p>5. Если на письмо ответили звонком или в Telegram, засчитывать это как ответ? Сейчас нужен ответ в той же ветке письма.</p>
-      <p>6. Сделку, которую менеджер сам завёл на этапе «Новая заявка», не считаем заявкой. Верно?</p>
+NEWLEAD_SKIP_TAGS=site_meeting
+MAIL_ENABLED=true
+MAIL_BOXES_EXCLUDE=banks@neoved.io
+CHAT_DISMISS=true</pre>
+      <p class="muted" style="margin-top:12px">hello@ попадёт в учёт сам, когда ящик подключат к почте amoCRM: отдельная настройка не нужна.</p>
     </div>
   </div>
 </section>
@@ -292,7 +297,7 @@ MAIL_ENABLED=true</pre>
   <h2><span class="num">7</span>Источники</h2>
   <ol class="src">
     <li><a href="https://neoved.notion.site/3fad7b0c587c80628912f52269b56fda">Регламент SLA — обработка входящих обращений и заявок</a> (Notion neoved): нормативы п. 1–3, Email в п. 1, «автоматическое подтверждение не засчитывается как контакт» в п. 3.</li>
-    <li><a href="https://www.amocrm.ru/developers/content/crm_platform/events-and-notes">amoCRM API: события и примечания</a> — лента <code>/api/v4/events</code>; список типов аккаунта взят запросом <code>/api/v4/events/types</code> (190 типов, среди них <code>incoming_mail</code>, <code>outgoing_mail</code>, <code>lead_status_changed</code>).</li>
+    <li><a href="https://www.amocrm.ru/developers/content/crm_platform/events-and-notes">amoCRM API: события и примечания</a> — лента <code>/api/v4/events</code>; список типов аккаунта взят запросом <code>/api/v4/events/types</code> (190 типов, среди них <code>incoming_mail</code>, <code>outgoing_mail</code>, <code>lead_status_changed</code>, <code>conversation_answered</code>).</li>
     <li>Воронки и этапы — запрос <code>/api/v4/leads/pipelines</code> к аккаунту neoved.</li>
     <li><a href="amo-sla-kontrol.html">Контроль SLA в amoCRM</a> — как устроен воркер, охрана учёта, первый прогон.</li>
   </ol>
