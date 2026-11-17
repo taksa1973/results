@@ -1,0 +1,530 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Чёрный код</title>
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="description" content="Личный протокол на случай, если со мной нет связи: уровни тревоги, сценарии, роли доверенных людей, доступ к секретам без утечек и план внедрения.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add('js-anim')</script>
+<style>
+:root{
+  --bg:#000;--card:#121212;--sub:#1A1A1A;--line:#262626;--line2:#3A3A3A;
+  --ink:#F5F5F5;--head:#FFF;--muted:#C4C4C8;--label:#8E8E93;
+  --red:#9B1C1C;--red-h:#B42323;--red-t:#E05252;--red-bg:#241010;--red-bd:#4D1B1B;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:var(--red-t);text-decoration:none}
+a:hover{text-decoration:underline}
+a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(--red-t);outline-offset:3px;border-radius:6px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 16px}
+nav.topnav{position:sticky;top:0;z-index:40;background:rgba(0,0,0,.88);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.topnav-inner{max-width:1080px;margin:0 auto;padding:0 16px;display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
+.topnav-inner::-webkit-scrollbar{display:none}
+.topnav-inner a{flex:none;color:var(--muted);padding:14px 12px;font-size:14px;font-weight:500;border-bottom:2px solid transparent;white-space:nowrap}
+.topnav-inner a:hover{color:#fff;text-decoration:none}
+.topnav-inner a.active{color:#fff;border-bottom-color:var(--red-t)}
+header.hero{padding:56px 0 24px}
+.eyebrow{color:var(--red-t);font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase}
+h1{font-size:clamp(30px,5vw,48px);line-height:1.1;margin:10px 0 14px;color:var(--head);font-weight:800;letter-spacing:-.02em}
+h1 span{color:var(--red-t)}
+.lead{color:var(--muted);max-width:800px;font-size:17px;margin:0 0 10px}
+.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:28px}
+.tile{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px}
+.tile b{display:block;font-size:26px;color:#fff;font-weight:800;font-variant-numeric:tabular-nums;line-height:1.2}
+.tile small{color:var(--label);font-size:13px}
+section{padding:44px 0 8px;scroll-margin-top:56px}
+h2{display:flex;align-items:center;gap:12px;font-size:26px;color:#fff;margin:0 0 18px;font-weight:700;line-height:1.25}
+h2 .num{display:inline-grid;place-items:center;width:30px;height:30px;background:#fff;color:#000;border-radius:8px;font-size:15px;font-weight:800;flex:none}
+h3{color:#fff;font-size:18px;margin:0 0 8px;line-height:1.3}
+p{margin:0 0 12px}
+p.muted,.muted{color:var(--muted)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px;transition:transform .2s ease,box-shadow .2s ease}
+.card:hover{transform:translateY(-2px);box-shadow:0 0 0 1px rgba(255,255,255,.18)}
+.card p{color:var(--muted);font-size:15px}
+.card ul,.card ol{margin:8px 0 0;padding-left:20px;color:var(--muted);font-size:15px}
+.card li{margin:5px 0}
+.card li b,.card p b{color:#fff;font-weight:600}
+.card.hot{border-color:var(--red-bd);background:linear-gradient(180deg,#160B0B,var(--card) 60%)}
+.tag{display:inline-block;font-size:12px;font-weight:600;padding:3px 9px;border-radius:999px;margin:0 6px 8px 0}
+.t-ok{background:#2A2A2A;color:#fff;box-shadow:inset 0 0 0 1px #5A5A5F}
+.t-warn{background:var(--red-bg);color:var(--red-t)}
+.t-bad{background:var(--red);color:#fff}
+.t-n{background:var(--sub);color:var(--muted)}
+.note{background:var(--red-bg);border:1px solid var(--red-bd);border-radius:14px;padding:14px 16px;color:var(--ink);font-size:15px;margin:0 0 16px}
+.note b{color:var(--red-t)}
+.plain{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;color:var(--muted);font-size:15px;margin:0 0 16px}
+.plain b{color:#fff}
+/* уровни */
+.levels{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.lvl{border-radius:18px;padding:18px;border:1px solid var(--line);background:var(--card);display:flex;flex-direction:column}
+.lvl .code{font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--label)}
+.lvl .name{font-size:24px;font-weight:800;color:#fff;margin:2px 0 10px}
+.lvl dl{margin:0;font-size:14px}
+.lvl dt{color:var(--label);font-size:12px;text-transform:uppercase;letter-spacing:.05em;margin-top:10px}
+.lvl dd{margin:2px 0 0;color:var(--muted)}
+.lvl dd b{color:#fff;font-weight:600}
+.lvl.l1{box-shadow:inset 0 0 0 1px #5A5A5F;border-color:transparent;background:#161616}
+.lvl.l2{background:var(--red-bg);border-color:var(--red-bd)}
+.lvl.l2 .code{color:var(--red-t)}
+.lvl.l3{background:var(--red);border-color:var(--red)}
+.lvl.l3 .code,.lvl.l3 dt{color:#F3C9C9}
+.lvl.l3 dd{color:#fff}
+/* шкала времени */
+.timeline{position:relative;margin:26px 0 8px;padding:0 0 4px}
+.tl-track{height:8px;border-radius:99px;background:linear-gradient(90deg,#2A2A2A 0 30%,#3A3A3A 30% 45%,var(--red-t) 45% 75%,var(--red) 75% 100%)}
+.tl-marks{display:grid;grid-template-columns:repeat(5,1fr);column-gap:14px;margin-top:10px;font-size:13px;color:var(--muted)}
+.tl-marks div b{display:block;color:#fff;font-size:15px;font-variant-numeric:tabular-nums}
+/* таблицы */
+.tbl{width:100%;border-collapse:collapse;font-size:14px;background:var(--card)}
+.tbl th{background:#1F1F1F;color:#fff;text-align:left;font-weight:600;padding:10px;white-space:nowrap}
+.tbl td{padding:10px;border-top:1px solid var(--line);vertical-align:top;color:var(--muted)}
+.tbl td.k{color:#fff;font-weight:600;min-width:150px}
+.tbl td b{color:#fff;font-weight:600}
+.tblwrap{overflow-x:auto;border-radius:14px;border:1px solid var(--line);margin-top:16px}
+/* схема доступа */
+.flow{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:10px;align-items:stretch}
+.flow .step{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px}
+.flow .step .k{font-size:12px;color:var(--label);text-transform:uppercase;letter-spacing:.05em}
+.flow .step h3{margin-top:4px}
+.flow .step p{color:var(--muted);font-size:14px;margin:0}
+.flow .arr{display:grid;place-items:center;color:var(--red-t);font-size:22px;font-weight:800}
+/* чек-лист */
+.check{list-style:none;padding:0;margin:0}
+.check li{display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-top:1px solid var(--line)}
+.check li:first-child{border-top:0}
+.check input{appearance:none;-webkit-appearance:none;flex:none;width:22px;height:22px;margin:2px 0 0;border-radius:6px;border:1.5px solid var(--line2);background:var(--sub);cursor:pointer;display:grid;place-items:center;transition:background .15s,border-color .15s}
+.check input:checked{background:var(--red);border-color:var(--red)}
+.check input:checked::after{content:"";width:6px;height:11px;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg) translate(-1px,-1px)}
+.check label{cursor:pointer;color:var(--muted);font-size:15px}
+.check label b{color:#fff;font-weight:600}
+.check li.done label{color:var(--label)}
+.check li.done label b{color:var(--label);text-decoration:line-through}
+.prog{display:flex;align-items:center;gap:10px;margin:0 0 14px;font-size:14px;color:var(--muted)}
+.prog .bar{flex:1;height:6px;background:#1F1F1F;border-radius:99px;overflow:hidden}
+.prog .bar span{display:block;height:100%;width:0;background:var(--red-t);transition:width .3s ease}
+.phase{color:var(--red-t);font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin:0 0 4px}
+ol.src{color:var(--muted);font-size:14px;padding-left:20px}
+ol.src li{margin:5px 0}
+footer{padding:40px 0 60px;color:var(--label);font-size:13px}
+.reveal{opacity:1}
+.js-anim .reveal{opacity:0}
+@media (max-width:960px){.levels{grid-template-columns:1fr 1fr}.grid3{grid-template-columns:1fr 1fr}}
+@media (max-width:860px){.tiles{grid-template-columns:1fr 1fr}.grid2{grid-template-columns:1fr}.flow{grid-template-columns:1fr}.flow .arr{transform:rotate(90deg);height:20px}}
+@media (max-width:640px){.grid3,.levels{grid-template-columns:1fr}.tl-marks{grid-template-columns:1fr;row-gap:6px}.tl-marks div{display:flex;gap:10px;align-items:baseline}.tl-marks div b{flex:none;width:52px}}
+@media (max-width:420px){.tile b{font-size:21px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}.js-anim .reveal{opacity:1}}
+</style>
+</head>
+<body>
+<nav class="topnav" aria-label="Разделы">
+  <div class="topnav-inner">
+    <a href="#urovni">Уровни</a>
+    <a href="#scenarii">Сценарии</a>
+    <a href="#roli">Роли</a>
+    <a href="#dostup">Доступ к секретам</a>
+    <a href="#opis">Опись</a>
+    <a href="#platformy">Платформы</a>
+    <a href="#dokumenty">Документы</a>
+    <a href="#signal">Сигнал «я жив»</a>
+    <a href="#riski">Слабые места</a>
+    <a href="#plan">План</a>
+    <a href="#istochniki">Источники</a>
+  </div>
+</nav>
+
+<main class="wrap">
+<header class="hero">
+  <div class="eyebrow">Bus factor = 1 · личный протокол</div>
+  <h1>Чёрный код: <span>если со мной нет связи</span></h1>
+  <p class="lead">Сейчас вся моя жизнь держится на одном человеке, на мне: деньги, серверы, документы, доступы. Если я пропаду, никто не знает, что делать, а что-то начнёт ломаться без шума. Этот протокол заранее решает три вопроса: кто действует, в какой момент и с какими доступами.</p>
+  <p class="lead">Секретов на этой странице нет, и так задумано. Здесь только порядок действий, а пароли, номера счетов и ключи лежат в сейфе. Хранители получат его по таймеру, и я могу этот таймер отменить.</p>
+  <div class="tiles">
+    <div class="tile reveal"><b>4 уровня</b><small>от «тишины» до «Чёрного кода», у каждого свой порог и свои действия</small></div>
+    <div class="tile reveal"><b>2 Хранителя</b><small>один действует на месте, второй отвечает за цифровые доступы</small></div>
+    <div class="tile reveal"><b>48 ч</b><small>без отметки «я в порядке»: Хранители начинают выходить на связь</small></div>
+    <div class="tile reveal"><b>0 паролей</b><small>на странице. Секреты лежат в сейфе с таймером и правом вето</small></div>
+  </div>
+</header>
+
+<section id="urovni">
+  <h2><span class="num">1</span>Уровни тревоги</h2>
+  <p class="muted">Уровни поднимаются по времени без связи или сразу по факту. Если известно, что я в больнице, задержан или погиб, Хранитель включает нужный уровень сразу и не ждёт таймера.</p>
+  <div class="levels">
+    <div class="lvl reveal">
+      <div class="code">Код 0</div><div class="name">Норма</div>
+      <dl><dt>Признак</dt><dd>Я отмечаюсь в боте «Я в порядке» раз в сутки или предупредил, что буду вне связи</dd>
+      <dt>Кто действует</dt><dd>Никто</dd></dl>
+    </div>
+    <div class="lvl l1 reveal">
+      <div class="code">Код 1</div><div class="name">Тишина</div>
+      <dl><dt>Признак</dt><dd><b>48 ч</b> без отметки, режим поездки не включён</dd>
+      <dt>Кто действует</dt><dd>Оба Хранителя: проходят список каналов связи (см. «Ложная тревога»)</dd>
+      <dt>Чего не делать</dt><dd>Не паниковать и не поднимать посторонних</dd></dl>
+    </div>
+    <div class="lvl l2 reveal">
+      <div class="code">Код 2</div><div class="name">Тревога</div>
+      <dl><dt>Признак</dt><dd><b>72 ч</b> без связи и все каналы пройдены. Или режим поездки просрочен на 2 ч. Или прозвучал код принуждения</dd>
+      <dt>Кто действует</dt><dd>Первый ищет по сценарию. Второй запрашивает доступ к сейфу: таймер на 3 суток, я могу отклонить</dd></dl>
+    </div>
+    <div class="lvl l3 reveal">
+      <div class="code">Код 3</div><div class="name">Чёрный</div>
+      <dl><dt>Признак</dt><dd>Подтверждено: без сознания, задержан, пропал или погиб. Либо сейф открылся по таймеру</dd>
+      <dt>Кто действует</dt><dd>Оба Хранителя: деньги, аккаунты, документы, жильё, пожелания</dd></dl>
+    </div>
+  </div>
+  <div class="timeline reveal" aria-label="Шкала времени без связи">
+    <div class="tl-track"></div>
+    <div class="tl-marks">
+      <div><b>0 ч</b>последняя отметка</div>
+      <div><b>24 ч</b>бот напоминает мне ещё раз</div>
+      <div><b>48 ч</b>Код 1: Хранители пишут и звонят</div>
+      <div><b>72 ч</b>Код 2: поиск + запрос сейфа</div>
+      <div><b>~6 сут</b>Код 3: сейф открыт</div>
+    </div>
+  </div>
+  <div class="plain"><b>Почему именно эти числа.</b> Сутки без отметки бывают просто так: перелёт, сел телефон, забыл. После 48 часов это уже повод написать. На 72 часах тревога, но чужой доступ к сейфу ещё ждёт трое суток, и за это время я успею нажать «отклонить», если со мной всё в порядке. Перелёт, граница и море идут по отдельному короткому таймеру, это «режим поездки» в разделе 8.</div>
+</section>
+
+<section id="scenarii">
+  <h2><span class="num">2</span>Сценарии: первые сутки</h2>
+  <p class="muted">Снаружи все случаи выглядят одинаково: я молчу. Поэтому Хранитель сначала исключает ложную тревогу, потом по последнему известному месту и маршруту выбирает сценарий.</p>
+  <div class="grid2">
+    <div class="card hot reveal">
+      <span class="tag t-bad">Самый вероятный сбой</span>
+      <h3>Задержан в России: граница, полиция, военкомат</h3>
+      <p>Признаки: я был в РФ или ехал через границу, режим поездки не закрыт, телефон выключен или молчит.</p>
+      <ol>
+        <li><b>Не писать мне в Telegram ничего лишнего.</b> Телефон могут читать. Одно нейтральное «ты где?» и всё.</li>
+        <li><b>Звонить адвокату из описи</b>, его телефон есть и на бумаге в конверте. Деньги на него лежат в аварийном фонде у Первого.</li>
+        <li>Если адвоката нет на месте: по призыву консультирует «Идите лесом» (бот в их канале, сайт iditelesom.org). По задержаниям — горячая линия ОВД-Инфо <b>8-800-707-05-28</b>, бот @OvdInfoBot. ОВД-Инфо внесён в реестр иноагентов, поэтому Первому в России лучше начинать с адвоката по соглашению.</li>
+        <li><b>Найти, где я:</b> дежурная часть полиции по месту, военкомат по месту учёта, пункт пропуска на маршруте.</li>
+        <li>Передать документы и лекарства, если пустят.</li>
+        <li>Посторонним говорить только «недоступен по семейным обстоятельствам». Аккаунты не удалять и сейф не трогать: задержание не смерть, всё должно меня дождаться.</li>
+      </ol>
+    </div>
+    <div class="card reveal">
+      <span class="tag t-warn">Рио · Белград · Россия</span>
+      <h3>Больница или без сознания</h3>
+      <ol>
+        <li>Обзвонить больницы рядом с последним местом и экстренные службы. <b>Бразилия:</b> 190 полиция, 192 SAMU, 193 бомбейрос. <b>Сербия:</b> 112, полиция 192, скорая 194. <b>Россия:</b> 112.</li>
+        <li>Генконсульство РФ в Рио: <b>+55-21-2274-00-97</b>, consulrio@mid.ru. Принимают в пн, ср, пт с 09:00 до 14:00.</li>
+        <li>Медкарта видна на заблокированном экране телефона, пароль для неё не нужен. В кошельке лежит карточка на PT и EN с номером Первого.</li>
+        <li>В Бразилии предъявить медицинские указания (DAV), где Первый назначен представителем (см. «Документы»). В России просить внести Первого в согласие на медвмешательство как человека, которому можно сообщать о здоровье.</li>
+        <li>Номер страховки и полиса есть в описи. Если лечение платное, Второй платит из сейфа.</li>
+      </ol>
+    </div>
+    <div class="card reveal">
+      <span class="tag t-n">Поездка, море, город</span>
+      <h3>Пропал без вести</h3>
+      <ol>
+        <li><b>Заявление в полицию подавать сразу.</b> Срока ожидания «трое суток» нет, так пишет ЛизаАлерт.</li>
+        <li>Россия: сразу после полиции звонить в ЛизаАлерт, <b>8-800-700-54-52</b>, бесплатно и круглосуточно.</li>
+        <li>За рубежом: полиция по месту и консульство РФ.</li>
+        <li>Последняя геопозиция: общий доступ у Первого (Локатор или Google Карты). Маршрут, бронирования, капитан и организатор регаты записаны в режиме поездки.</li>
+      </ol>
+    </div>
+    <div class="card reveal">
+      <span class="tag t-n">Код 3 сразу</span>
+      <h3>Погиб</h3>
+      <ol>
+        <li>Получить свидетельство о смерти. Без него не срабатывают ни Apple, ни GitHub, ни банки.</li>
+        <li>Наследство: нотариус по последнему месту жительства в РФ. Принять его нужно в течение 6 месяцев (ст. 1154 ГК РФ).</li>
+        <li>Доверенности со смертью прекращаются (ст. 188 ГК РФ). Дальше действуют только наследники и завещание.</li>
+        <li>Сначала остановить автосписания и вывести деньги, потом исполнить пожелания: что удалить, что сохранить, кому что передать. Список лежит в сейфе.</li>
+      </ol>
+    </div>
+  </div>
+  <div class="card reveal" style="margin-top:16px">
+    <span class="tag t-ok">Проверить до Кода 2</span>
+    <h3>Ложная тревога: список каналов</h3>
+    <p>Чаще всего пропал не я, а телефон: украли, утонул, сел, нет сети на яхте. Хранитель проходит весь список и только потом поднимает Код 2.</p>
+    <ul>
+      <li>Звонок на основной и второй номер (симка другой страны).</li>
+      <li>Telegram, WhatsApp, почта.</li>
+      <li>Люди рядом: соседи, хозяин квартиры, друзья, Хранитель на другой стороне.</li>
+      <li>Режим поездки в боте: может, я предупредил, а Хранитель пропустил.</li>
+      <li>Активность: когда я последний раз был в сети в Telegram.</li>
+    </ul>
+  </div>
+</section>
+
+<section id="roli">
+  <h2><span class="num">3</span>Роли</h2>
+  <p class="muted">Один Хранитель — это снова bus factor = 1, только у другого человека. Поэтому двое, и полномочия у них разные: ни один не может в одиночку забрать всё.</p>
+  <div class="grid2">
+    <div class="card reveal">
+      <span class="tag t-ok">Первый · на месте</span>
+      <h3>Близкий человек, лучше в России</h3>
+      <p>Может физически приехать в больницу, полицию, военкомат или к нотариусу.</p>
+      <ul>
+        <li><b>Получает сразу:</b> эту страницу, конверт с телефонами и копиями документов, нотариальную доверенность, аварийный фонд.</li>
+        <li><b>Не получает:</b> сейф и ключи от денег. Пока я задержан в РФ, на человека в РФ могут давить, поэтому ключей у него быть не должно.</li>
+      </ul>
+    </div>
+    <div class="card reveal">
+      <span class="tag t-ok">Второй · доступы</span>
+      <h3>Человек, которому доверяю деньги, лучше вне РФ</h3>
+      <p>Разбирается в технике настолько, чтобы зайти в сейф и оплатить сервер.</p>
+      <ul>
+        <li><b>Получает сразу:</b> эту страницу и свой аккаунт в сейфе с аварийным доступом.</li>
+        <li><b>Получает в Коде 2:</b> запрос в сейф, который откроется через 3 суток, если я не отклоню.</li>
+        <li>Без Первого не трогает сид кошелька: половина ключа лежит в конверте.</li>
+      </ul>
+    </div>
+    <div class="card reveal">
+      <span class="tag t-n">Заранее договориться</span>
+      <h3>Адвокат</h3>
+      <p>Найти сейчас, пока всё спокойно: адвокат по уголовным и административным делам в регионе, куда я езжу, с опытом дел о призыве. Его контакт в описи и на бумаге. Мне нужно знать номер наизусть: телефон отберут первым.</p>
+    </div>
+  </div>
+  <div class="tblwrap reveal">
+    <table class="tbl">
+      <thead><tr><th>Что</th><th>У кого</th><th>Когда доступно</th></tr></thead>
+      <tbody>
+        <tr><td class="k">Эта страница</td><td>Первый, Второй</td><td>Сразу</td></tr>
+        <tr><td class="k">Конверт: телефоны, копии документов, ключ Apple, флешка</td><td>Первый</td><td>Сразу, вскрывать в Коде 2</td></tr>
+        <tr><td class="k">Аварийный фонд (адвокат, билеты, больница)</td><td>Первый</td><td>Сразу, тратить с Кода 2</td></tr>
+        <tr><td class="k">Сейф Vaultwarden, папка «Чёрный код»</td><td>Второй</td><td>Через 3 суток после запроса, если я не отклонил</td></tr>
+        <tr><td class="k">Пароль от офлайн-копии сейфа</td><td>Второй</td><td>Только если сервер мёртв</td></tr>
+        <tr><td class="k">Сид кошелька</td><td>Конверт у Первого + пароль-фраза в сейфе</td><td>Только вдвоём, Код 3</td></tr>
+        <tr><td class="k">Google-данные</td><td>Оба</td><td>Автоматически после 18 мес. неактивности</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="dostup">
+  <h2><span class="num">4</span>Как устроен доступ к секретам</h2>
+  <p class="muted">Нужно одновременно две вещи: пока я жив и на связи, секреты не утекают, а если меня нет, Хранители до них добираются. Для этого три слоя.</p>
+  <div class="flow reveal">
+    <div class="step"><div class="k">Слой 1 · открыто</div><h3>Протокол</h3><p>Эта страница. Порядок действий, роли, телефоны служб. Паролей нет, утечь здесь нечему.</p></div>
+    <div class="arr" aria-hidden="true">→</div>
+    <div class="step"><div class="k">Слой 2 · с таймером</div><h3>Сейф Vaultwarden</h3><p>Аварийный доступ для Второго в режиме «только просмотр», ожидание 3 суток. Если я не отклонил запрос, он открывается сам.</p></div>
+    <div class="arr" aria-hidden="true">→</div>
+    <div class="step"><div class="k">Слой 3 · офлайн</div><h3>Конверт</h3><p>Зашифрованная копия сейфа на флешке у Первого, пароль от неё у Второго. Нужна, если сервер умер.</p></div>
+  </div>
+  <div class="note" style="margin-top:16px"><b>Главная дыра сейчас.</b> Vaultwarden стоит на одном арендованном сервере, оплачивает его моя карта. Перед ним дополнительный вход с одним логином, и пароль от него знаю только я. Почта на сервере не настроена. Получается так: если я пропаду надолго, хостер отключит неоплаченный сервер и удалит его вместе с сейфом. Пока сервер жив, Хранитель не пройдёт даже первую дверь. Если кто-то запросит аварийный доступ, письмо об этом мне не придёт, и запрос откроется по таймеру без моего ведома. Всё это чинится, пункты в плане.</div>
+  <div class="grid3">
+    <div class="card reveal"><h3>Почему «просмотр», а не «перехват»</h3><p>В режиме Takeover доверенный задаёт новый мастер-пароль, а двухфакторная защита снимается. Это навсегда отдаёт хранилище. Для смерти это подходит, для больницы на неделю — нет. Второму ставлю View, перехват можно сделать позже, если понадобится.</p></div>
+    <div class="card reveal"><h3>Почему 3 суток</h3><p>Минимум у Bitwarden — 1 сутки. За трое суток я точно увижу письмо о запросе, даже с перелётом, и отклоню, если это ошибка или злоупотребление. Вместе с 72 часами до Кода 2 полный доступ открывается примерно на шестые сутки.</p></div>
+    <div class="card reveal"><h3>Сид кошелька — два ключа</h3><p>Сид-фраза лежит в конверте у Первого. Дополнительная пароль-фраза (25-е слово) лежит в сейфе у Второго. Поодиночке ни один ничего не выведет. Надёжнее схема «любые 2 из 3» по стандарту SLIP-39: тогда пропажа одного человека не убивает доступ.</p></div>
+  </div>
+</section>
+
+<section id="opis">
+  <h2><span class="num">5</span>Опись: что положить в сейф</h2>
+  <p class="muted">В сейфе отдельная папка «Чёрный код». Каждая запись отвечает на вопрос «что это, где лежит, что с этим делать в Коде 2 и в Коде 3». Ниже рубрики, сами данные только в сейфе.</p>
+  <div class="tblwrap reveal">
+    <table class="tbl">
+      <thead><tr><th>Рубрика</th><th>Что записать</th><th>Код 2 (жив, но недоступен)</th><th>Код 3</th></tr></thead>
+      <tbody>
+        <tr><td class="k">Документы</td><td>Сканы паспортов РФ, ВНЖ и протоколов по нему, бразильских номеров (CPF, RNM), казахстанского ИИН. Где лежат оригиналы</td><td>Передать адвокату и консульству</td><td>Нужны нотариусу и банкам</td></tr>
+        <tr><td class="k">Деньги</td><td>Банки и карты по странам, биржи, кошельки, кто должен мне и кому я, регулярные платежи</td><td>Держать оплату того, что должно меня дождаться</td><td>Вывести, закрыть, передать наследникам</td></tr>
+        <tr><td class="k">Автосписания</td><td>Каждая подписка с пометкой <b>держать</b> или <b>отменить</b>. Держать: сервер с сейфом, домены, телефонный номер. Отменить: ИИ-подписки, игровые серверы, прокси</td><td>Отменить только «отменить»</td><td>Отменить всё после переноса данных</td></tr>
+        <tr><td class="k">Устройства</td><td>PIN телефона, пароль ноутбука, ключ восстановления BitLocker, 2FA-коды восстановления, где лежит аппаратный ключ</td><td>Не трогать</td><td>Открыть и забрать нужное</td></tr>
+        <tr><td class="k">Аккаунты</td><td>Почты, Apple, Google, Telegram, GitHub, Cloudflare, хостеры. Какой из них главный: через какую почту восстанавливаются остальные</td><td>Не входить, иначе сработают тревоги безопасности</td><td>По механизмам платформ (раздел 6)</td></tr>
+        <tr><td class="k">Серверы и боты</td><td>Список серверов и ботов: что на каждом крутится, что умрёт без шума, что важно сохранить</td><td>Продлить оплату</td><td>Выгрузить нужное, остальное выключить</td></tr>
+        <tr><td class="k">Жильё</td><td>Аренда в Рио и Белграде: хозяин, договор, депозит, вещи</td><td>Заплатить аренду, предупредить хозяина</td><td>Расторгнуть, забрать вещи и депозит</td></tr>
+        <tr><td class="k">Здоровье</td><td>Группа крови, аллергии, препараты, врачи, страховки</td><td>Отдать в больницу</td><td>—</td></tr>
+        <tr><td class="k">Пожелания</td><td>Что удалить без чтения, что сохранить, кому что передать, похороны, кому и что сказать</td><td>—</td><td>Исполнить</td></tr>
+        <tr><td class="k">Публичное</td><td>Публичный репозиторий со страницами: что в нём личного, удалять или нет</td><td>—</td><td>По пожеланию</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="platformy">
+  <h2><span class="num">6</span>Что платформы уже умеют</h2>
+  <p class="muted">У части сервисов есть свои механизмы наследования. Их стоит включить, но опираться только на них нельзя: почти все срабатывают при смерти и не помогают, если я в больнице или задержан.</p>
+  <div class="tblwrap reveal">
+    <table class="tbl">
+      <thead><tr><th>Сервис</th><th>Как работает</th><th>Ограничения</th><th>Что сделать</th></tr></thead>
+      <tbody>
+        <tr><td class="k">Vaultwarden / Bitwarden: Emergency Access</td><td>Доверенный запрашивает доступ. Если владелец не отклонил его до конца ожидания, доступ открывается автоматически. Режимы: View (чтение) и Takeover (новый мастер-пароль)</td><td>У доверенного должен быть аккаунт на том же сервере. Минимальное ожидание 1 сутки. О запросе владелец узнаёт письмом, а почта на моём сервере не настроена</td><td>Настроить SMTP, завести аккаунты Хранителям через /admin, выдать Второму View на 3 суток</td></tr>
+        <tr><td class="k">Google: Inactive Account Manager</td><td>После заданного срока неактивности уведомляет до 10 человек и даёт им скачать выбранные данные или удаляет аккаунт</td><td>Срок от 3 до 18 месяцев. Помогает только при долгом отсутствии</td><td>Поставить 18 мес., чтобы не сработало за год вне сети. Добавить обоих Хранителей</td></tr>
+        <tr><td class="k">Apple: Legacy Contact</td><td>Доверенный получает данные Apple-аккаунта после смерти владельца</td><td>Нужны ключ доступа и свидетельство о смерти. Потерянный ключ Apple не восстановит. Пока я жив, не работает</td><td>Назначить Второго, распечатать ключ в конверт</td></tr>
+        <tr><td class="k">Telegram</td><td>Наследования нет. Есть самоуничтожение аккаунта при неактивности, вместе с ним пропадут чаты и владение ботами</td><td>Срок по умолчанию в новых версиях 18 месяцев, в старых было 6</td><td>Поставить максимум в «Конфиденциальность → Если я не захожу». Ботов, которые должны пережить меня, заранее передать через BotFather: двухфакторка включена не меньше 7 дней, сессия старше суток, получатель написал боту</td></tr>
+        <tr><td class="k">GitHub: Successor</td><td>Преемник может архивировать или передать публичные репозитории</td><td>Только публичные. Нужно свидетельство о смерти и 7 дней ожидания, с некрологом 21 день</td><td>Назначить преемника, если в репозиториях есть что сохранить</td></tr>
+        <tr><td class="k">Российский банк</td><td>Завещательное распоряжение на вклад оформляется прямо в банке (ст. 1128 ГК РФ)</td><td>Только деньги в этом банке</td><td>Оформить в каждом российском банке, где есть деньги</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="dokumenty">
+  <h2><span class="num">7</span>Документы</h2>
+  <div class="grid2">
+    <div class="card reveal">
+      <span class="tag t-ok">Россия</span>
+      <h3>Доверенность на Первого</h3>
+      <p>Нотариальная доверенность на госорганы, банки, суды и почту. Оформить можно у нотариуса в РФ или в Генконсульстве РФ в Рио: консул удостоверяет доверенности, в день подачи документов и оплаты сбора. Доверенность без срока, сделанная для действий за границей, действует, пока её не отменят. Доверенность без даты ничтожна.</p>
+      <p>Со смертью она прекращается, поэтому завещание всё равно нужно.</p>
+    </div>
+    <div class="card reveal">
+      <span class="tag t-ok">Россия</span>
+      <h3>Завещание</h3>
+      <p>У нотариуса. Делает ли консульство в Рио завещания, на сайте МИД я не нашёл, нужно спросить по consulrio@mid.ru. Отдельно оформить завещательные распоряжения в банках.</p>
+    </div>
+    <div class="card reveal">
+      <span class="tag t-ok">Бразилия</span>
+      <h3>Медицинские указания (DAV) и представитель</h3>
+      <p>Резолюция CFM № 1.995/2012 позволяет заранее записать пожелания о лечении и назначить представителя. Если пациент не может говорить, врач учитывает его указания или слова представителя. Указания главнее пожеланий родственников. Запись делает лечащий врач в медкарте с согласия пациента. Можно оформить и у нотариуса (cartório de notas).</p>
+    </div>
+    <div class="card reveal">
+      <span class="tag t-ok">Бразилия</span>
+      <h3>Procuração pública</h3>
+      <p>Доверенность у местного нотариуса на бразильские дела: аренда, банк, миграционные вопросы. Сроки ВНЖ, его продление и допустимое отсутствие в стране нужно уточнить у юриста отдельно: если меня не будет долго, это тоже может сгореть.</p>
+    </div>
+  </div>
+</section>
+
+<section id="signal">
+  <h2><span class="num">8</span>Сигнал «я жив»: бот-отметка</h2>
+  <p class="muted">Без сигнала протокол не знает, когда начинать отсчёт. Это небольшой Telegram-бот на Cloudflare Workers, на бесплатном тарифе, как остальные мои боты. Сам ничего не открывает, только будит людей.</p>
+  <div class="grid3">
+    <div class="card reveal"><h3>Отметка раз в сутки</h3><p>Вечером бот присылает одну кнопку «Я в порядке». Нажал, и счётчик сбрасывается. Не нажал за 24 ч: повтор. За 48 ч: Хранителям уходит «не отмечался двое суток, напиши ему». Дальше по уровням.</p></div>
+    <div class="card reveal hot"><h3>Режим поездки</h3><p>Перед перелётом, границей или выходом в море: «граница, жди отметки до 20:00». Если не отметился через 2 ч после окна, Первый сразу получает Код 2 с маршрутом. Этот режим включать перед каждой поездкой в Россию.</p></div>
+    <div class="card reveal"><h3>Пауза</h3><p>«Вне связи до 25-го»: бот молчит до этой даты плюс 12 часов, Хранители видят пометку. Для регаты и походов.</p></div>
+    <div class="card reveal hot"><h3>Код принуждения</h3><p>Отметка с PIN. Второй, «аварийный» PIN бот принимает как обычную отметку и отвечает «отмечено», но Хранители тихо получают Код 2. Ещё нужна кодовая фраза для живого разговора: невинная деталь, которая значит «я не свободен, действуйте, вида не подавайте».</p></div>
+    <div class="card reveal"><h3>Учебная тревога</h3><p>Раз в квартал по команде бот проводит учения: Хранителям приходит тестовый Код 1, Второй запрашивает сейф, я отклоняю. Так видно, что вся цепочка живая.</p></div>
+    <div class="card reveal"><h3>Чего бот не делает</h3><p>Не хранит секретов и ничего не удаляет и не публикует сам. Если бот упадёт, Хранители просто не получат напоминание, вреда не будет. Падение бота само приходит мне алертом.</p></div>
+  </div>
+</section>
+
+<section id="riski">
+  <h2><span class="num">9</span>Слабые места протокола</h2>
+  <div class="tblwrap reveal">
+    <table class="tbl">
+      <thead><tr><th>Что может пойти не так</th><th>Чем закрыто</th></tr></thead>
+      <tbody>
+        <tr><td class="k">Ложная тревога, близкие напуганы</td><td>Код 1 только просит выйти на связь. Список каналов. Пауза и режим поездки</td></tr>
+        <tr><td class="k">Хранитель злоупотребит</td><td>Сейф только через таймер с правом вето и письмом мне. Сид только вдвоём. Режим «просмотр», а не «перехват»</td></tr>
+        <tr><td class="k">Хранитель сам недоступен</td><td>Их двое. Для сида схема 2 из 3</td></tr>
+        <tr><td class="k">Сервер с сейфом удалён за неуплату</td><td>Оплата сервера на год вперёд. Офлайн-копия в конверте. Ежемесячный бэкап на второй сервер</td></tr>
+        <tr><td class="k">Меня заставили написать «всё хорошо»</td><td>Аварийный PIN и кодовая фраза</td></tr>
+        <tr><td class="k">Год без связи (срок службы по призыву 12 месяцев)</td><td>Telegram на максимум, Google на 18 мес., автопродление серверов и доменов, Первый с доверенностью держит дела</td></tr>
+        <tr><td class="k">Опись устарела</td><td>Обновлять в день учебной тревоги, раз в квартал</td></tr>
+        <tr><td class="k">Утечёт эта страница</td><td>На ней нет ни одного секрета, имени Хранителя, номера счёта или адреса сервера</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="plan">
+  <h2><span class="num">10</span>План внедрения</h2>
+  <p class="muted">Галочки сохраняются только в этом браузере.</p>
+  <div class="prog"><span id="progtxt">0 из 0</span><div class="bar"><span id="progbar"></span></div></div>
+  <div class="grid2">
+    <div class="card reveal">
+      <div class="phase">Сегодня · ~40 минут</div>
+      <ul class="check">
+        <li><input type="checkbox" id="c1"><label for="c1"><b>Выбрать двух Хранителей</b> и сказать им. Дать ссылку на эту страницу</label></li>
+        <li><input type="checkbox" id="c2"><label for="c2"><b>Telegram:</b> «Если я не захожу» на максимальный срок</label></li>
+        <li><input type="checkbox" id="c3"><label for="c3"><b>Google:</b> Inactive Account Manager на 18 мес., оба Хранителя</label></li>
+        <li><input type="checkbox" id="c4"><label for="c4"><b>Apple:</b> Legacy Contact для Второго, ключ распечатать</label></li>
+        <li><input type="checkbox" id="c5"><label for="c5"><b>Медкарта на телефоне</b> с показом на заблокированном экране и карточка в кошельке на PT и EN</label></li>
+        <li><input type="checkbox" id="c6"><label for="c6"><b>Выучить наизусть</b> номер Первого</label></li>
+      </ul>
+    </div>
+    <div class="card reveal">
+      <div class="phase">На этой неделе</div>
+      <ul class="check">
+        <li><input type="checkbox" id="c7"><label for="c7"><b>Vaultwarden:</b> SMTP, аккаунты Хранителям через /admin, второй логин на входе, Emergency Access View на 3 суток</label></li>
+        <li><input type="checkbox" id="c8"><label for="c8"><b>Папка «Чёрный код»</b> в сейфе по рубрикам описи</label></li>
+        <li><input type="checkbox" id="c9"><label for="c9"><b>Оплатить сервер с сейфом на год</b>, включить автопродление, проверить, какая карта привязана</label></li>
+        <li><input type="checkbox" id="c10"><label for="c10"><b>Офлайн-копия:</b> зашифрованный экспорт на флешку, конверт Первому, пароль Второму</label></li>
+        <li><input type="checkbox" id="c11"><label for="c11"><b>Аварийный фонд</b> Первому: сумма на адвоката и первые расходы</label></li>
+        <li><input type="checkbox" id="c12"><label for="c12"><b>Найти адвоката</b> в регионе, куда езжу, и договориться заранее</label></li>
+      </ul>
+    </div>
+    <div class="card reveal">
+      <div class="phase">В течение месяца</div>
+      <ul class="check">
+        <li><input type="checkbox" id="c13"><label for="c13"><b>Доверенность</b> на Первого: нотариус или консульство в Рио</label></li>
+        <li><input type="checkbox" id="c14"><label for="c14"><b>Завещание</b> и распоряжения в банках</label></li>
+        <li><input type="checkbox" id="c15"><label for="c15"><b>DAV и procuração</b> в Бразилии</label></li>
+        <li><input type="checkbox" id="c18"><label for="c18"><b>Бот «Я в порядке»</b>: отметка, режим поездки, пауза, аварийный PIN</label></li>
+      </ul>
+    </div>
+    <div class="card reveal hot">
+      <div class="phase">Всегда</div>
+      <ul class="check">
+        <li><input type="checkbox" id="c19"><label for="c19"><b>Перед поездкой в Россию:</b> режим поездки с окном, Первый знает маршрут и время, адвокат знает, что я еду</label></li>
+        <li><input type="checkbox" id="c20"><label for="c20"><b>Раз в квартал:</b> учебная тревога и обновление описи</label></li>
+        <li><input type="checkbox" id="c21"><label for="c21"><b>При смене</b> банка, сервера или телефона сразу обновить сейф</label></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="istochniki">
+  <h2><span class="num">11</span>Источники</h2>
+  <ol class="src">
+    <li>Bitwarden: <a href="https://bitwarden.com/help/emergency-access/" target="_blank" rel="noopener">Emergency Access</a> и <a href="https://bitwarden.com/help/request-and-grant-emergency-access/" target="_blank" rel="noopener">запрос и выдача доступа</a>: режимы View и Takeover, минимум 1 сутки ожидания, автоодобрение, аккаунт на том же сервере.</li>
+    <li>Vaultwarden: <a href="https://github.com/dani-garcia/vaultwarden/blob/main/.env.template" target="_blank" rel="noopener">.env.template</a> (EMERGENCY_ACCESS_ALLOWED, EMERGENCY_REQUEST_TIMEOUT_SCHEDULE, INVITATIONS_ALLOWED, настройка SMTP) и <a href="https://github.com/dani-garcia/vaultwarden/wiki" target="_blank" rel="noopener">wiki</a>.</li>
+    <li>tinyauth: <a href="https://tinyauth.app/docs/reference/configuration/" target="_blank" rel="noopener">настройка</a>, несколько пользователей через список через запятую.</li>
+    <li>Google: <a href="https://support.google.com/accounts/answer/3036546?hl=en" target="_blank" rel="noopener">Inactive Account Manager</a> (до 10 контактов) и <a href="https://security.googleblog.com/2021/10/google-protects-your-accounts-even-when.html" target="_blank" rel="noopener">блог безопасности Google</a> (сроки 3–18 месяцев).</li>
+    <li>Apple: <a href="https://support.apple.com/102631" target="_blank" rel="noopener">Legacy Contact</a> и <a href="https://support.apple.com/102678" target="_blank" rel="noopener">запрос доступа</a>: ключ доступа и свидетельство о смерти.</li>
+    <li>Telegram: <a href="https://telegram.org/faq" target="_blank" rel="noopener">FAQ</a>, самоуничтожение неактивного аккаунта. Передача ботов: <a href="https://www.unisender.com/ru/blog/kak-smenit-vladelca-chat-bota-v-telegrame/" target="_blank" rel="noopener">Unisender</a>, <a href="https://help.bothelp.io/en/change-owner-of-telegram-bot" target="_blank" rel="noopener">BotHelp</a>.</li>
+    <li>GitHub: <a href="https://docs.github.com/en/enterprise-cloud@latest/account-and-profile/setting-up-and-managing-your-personal-account-on-github/managing-access-to-your-personal-repositories/maintaining-ownership-continuity-of-your-personal-accounts-repositories" target="_blank" rel="noopener">преемник аккаунта</a> и <a href="https://docs.github.com/en/site-policy/other-site-policies/github-deceased-user-policy" target="_blank" rel="noopener">Deceased User Policy</a>.</li>
+    <li>МИД РФ: <a href="https://www.kdmid.ru/docs/brazil/russian-consular-offices/" target="_blank" rel="noopener">консульские учреждения в Бразилии</a> (Генконсульство в Рио) и <a href="https://www.kdmid.ru/cons/notary/certification-of-powers-of-attorney/" target="_blank" rel="noopener">удостоверение доверенностей</a>.</li>
+    <li>CFM: <a href="https://portal.cfm.org.br/artigos/o-livre-arbitrio-do-paciente-e-as-diretivas-antecipadas-de-vontade/" target="_blank" rel="noopener">o livre-arbítrio do paciente e as diretivas antecipadas de vontade</a>, Резолюция CFM № 1.995/2012 (DOU 31.08.2012).</li>
+    <li>ЛизаАлерт: <a href="https://lizaalert.org/" target="_blank" rel="noopener">lizaalert.org</a>, <a href="https://lifehacker.ru/esli-propal-blizkij-chelovek/" target="_blank" rel="noopener">порядок действий при пропаже</a>. ОВД-Инфо: <a href="https://ovd.info/" target="_blank" rel="noopener">ovd.info</a>. «Идите лесом»: <a href="https://iditelesom.org/ru" target="_blank" rel="noopener">iditelesom.org</a>.</li>
+    <li>Экстренные номера Сербии: <a href="https://www.gov.uk/foreign-travel-advice/serbia/getting-help" target="_blank" rel="noopener">GOV.UK</a>.</li>
+    <li>ГК РФ: ст. 188 (прекращение доверенности), ст. 1128 (завещательное распоряжение в банке), ст. 1154 (срок принятия наследства). ФЗ «О воинской обязанности и военной службе», ст. 38 (срок службы по призыву 12 месяцев).</li>
+  </ol>
+</section>
+</main>
+<footer class="wrap">Протокол, а не юридическая консультация. Сроки и условия платформ меняются: перед настройкой сверяйся с их страницами.</footer>
+
+<script>
+(function(){
+  var links=[].slice.call(document.querySelectorAll('.topnav-inner a'));
+  var secs=links.map(function(a){return document.querySelector(a.getAttribute('href'))});
+  function onScroll(){var y=window.scrollY+90,cur=0;secs.forEach(function(s,i){if(s&&s.offsetTop<=y)cur=i});links.forEach(function(a,i){a.classList.toggle('active',i===cur)})}
+  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  function showAll(){document.querySelectorAll('.reveal').forEach(function(el){el.style.opacity=1})}
+  setTimeout(showAll,3000);
+  if('IntersectionObserver' in window){
+    window.__fallbackIO=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.style.transition='opacity .5s ease, transform .5s ease';e.target.style.opacity=1;window.__fallbackIO.unobserve(e.target)}})},{rootMargin:'0px 0px -8% 0px'});
+    document.querySelectorAll('.reveal').forEach(function(el){window.__fallbackIO.observe(el)});
+  } else showAll();
+  // чек-лист
+  var KEY='chernyy-kod-plan';
+  var boxes=[].slice.call(document.querySelectorAll('.check input'));
+  var state={};
+  try{state=JSON.parse(localStorage.getItem(KEY)||'{}')||{}}catch(e){state={}}
+  function render(){
+    var n=0;boxes.forEach(function(b){b.closest('li').classList.toggle('done',b.checked);if(b.checked)n++});
+    document.getElementById('progtxt').textContent=n+' из '+boxes.length;
+    document.getElementById('progbar').style.width=(boxes.length?n/boxes.length*100:0)+'%';
+  }
+  boxes.forEach(function(b){
+    b.checked=!!state[b.id];
+    b.addEventListener('change',function(){state[b.id]=b.checked;try{localStorage.setItem(KEY,JSON.stringify(state))}catch(e){}render()});
+  });
+  render();
+})();
+</script>
+<script type="module">
+try{
+  const { animate, inView, stagger } = await import("https://cdn.jsdelivr.net/npm/motion@11/+esm");
+  if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    if (window.__fallbackIO) window.__fallbackIO.disconnect();
+    const target = (arg) => (arg && arg.target) || arg;
+    inView('.reveal', (arg) => { const el = target(arg); animate(el, { opacity: [0, 1], y: [18, 0] }, { duration: 0.5, ease: [0.22, 1, 0.36, 1] }); }, { margin: '0px 0px -8% 0px' });
+    animate('.tile', { opacity: [0, 1], y: [12, 0] }, { delay: stagger(0.06), duration: 0.45 });
+  }
+}catch(e){document.querySelectorAll('.reveal').forEach(el=>el.style.opacity=1)}
+</script>
+</body>
+</html>
