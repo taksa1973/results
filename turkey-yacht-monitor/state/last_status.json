@@ -1,5 +1,5 @@
 {
-  "ts": "2026-11-20T15:01:49.268726+00:00",
+  "ts": "2026-11-21T14:22:49.997843+00:00",
   "findings": {},
   "errors": {
     "Sailo Turkey catamarans": "http_403",
@@ -7,7 +7,6 @@
     "Rotaneta home": "http_502",
     "Boataround Turkey": "http_405",
     "Yacht-Rent Turkey": "http_403",
-    "Gulet Bookers (home, Bodrum-based)": "http_503",
     "GuletYacht.net": "http_403"
   }
 }
