@@ -1,11 +1,14 @@
 {
-  "ts": "2026-11-21T14:22:49.997843+00:00",
+  "ts": "2026-11-22T14:15:24.497374+00:00",
   "findings": {},
   "errors": {
     "Sailo Turkey catamarans": "http_403",
+    "Navigare Yachting Turkey": "http_403",
     "Rotaneta Gocek catamaran": "http_502",
     "Rotaneta home": "http_502",
-    "Boataround Turkey": "http_405",
+    "Yachtico Turkey catamarans": "http_403",
+    "Yachtico Turkey all sailing": "http_403",
+    "Yachtico Turkey full catalog": "http_403",
     "Yacht-Rent Turkey": "http_403",
     "GuletYacht.net": "http_403"
   }
