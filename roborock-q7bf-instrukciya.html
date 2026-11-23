@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Roborock Q7BF — инструкция</title>
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="description" content="Инструкция к роботу-пылесосу Roborock Q7BF (Q7B, модель RRA0TAC) на русском: кнопки и индикатор, установка базы, влажная уборка, подключение к приложению, уход по графику, решение неполадок, безопасность. Перевод официального руководства Roborock со схемами.">
+<meta name="theme-color" content="#000000">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add('js-anim')</script>
+<style>
+:root{color-scheme:dark;
+  --bg:#000;--paper:#121212;--soft:#1A1A1A;--line:#262626;--line-2:#3A3A3A;
+  --ink:#F5F5F5;--ink-2:#C4C4C8;--ink-3:#8E8E93;
+  --red:#9B1C1C;--red-hover:#B42323;--red-text:#E05252;--red-soft:#241010;--red-line:#4D1B1B;
+  --r:16px;--topbar:60px}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;padding-top:var(--topbar);background:var(--bg);color:var(--ink);font:16px/1.6 Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased;overflow-wrap:anywhere}
+::selection{background:var(--red);color:#fff}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+@media (max-width:420px){.wrap{padding:0 16px}}
+a{color:var(--red-text);text-decoration:none}
+a:hover{color:#fff}
+a:focus-visible,button:focus-visible{outline:2px solid #fff;outline-offset:3px;border-radius:6px}
+.skip{position:absolute;left:-999px;top:0}
+.skip:focus{left:16px;top:16px;background:#fff;color:#000;padding:10px 14px;border-radius:10px;z-index:100}
+h1,h2,h3{color:#fff;margin:0}
+h1{font-size:clamp(34px,5.2vw,60px);line-height:1.04;letter-spacing:-.03em;font-weight:800;text-wrap:balance;max-width:17ch}
+h1 span{color:var(--red-text)}
+h2{font-size:clamp(26px,3.2vw,38px);line-height:1.12;letter-spacing:-.02em;font-weight:700;text-wrap:balance}
+h3{font-size:19px;line-height:1.3;letter-spacing:-.01em;font-weight:600}
+.eyebrow{color:var(--red-text);font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin:0 0 10px}
+.sub{color:var(--ink-2);max-width:72ch;margin:10px 0 24px}
+.sub b{color:#fff;font-weight:600}
+
+.topbar{position:fixed;top:0;left:0;right:0;height:var(--topbar);z-index:50;background:rgba(0,0,0,.86);-webkit-backdrop-filter:saturate(140%) blur(16px);backdrop-filter:saturate(140%) blur(16px);border-bottom:1px solid var(--line)}
+.topbar .wrap{height:100%;display:flex;align-items:center;gap:20px}
+.brand{display:flex;align-items:center;gap:10px;color:#fff;font-weight:700;font-size:15px;letter-spacing:-.01em;white-space:nowrap;flex:none}
+.brand i{width:10px;height:10px;border-radius:3px;background:var(--red-text);display:inline-block}
+.brand em{font-style:normal;color:var(--ink-3);font-weight:500}
+.topnav{display:flex;gap:4px;margin-left:auto;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.topnav::-webkit-scrollbar{display:none}
+.topnav a{flex:none;color:var(--ink-2);font-size:14px;font-weight:500;padding:9px 12px;border-radius:10px;min-height:40px;display:flex;align-items:center;transition:background .15s ease,color .15s ease}
+.topnav a:hover{color:#fff;background:rgba(255,255,255,.08)}
+.topnav a.on{color:#fff;background:rgba(255,255,255,.12)}
+@media (max-width:720px){.brand em{display:none}.topbar .wrap{gap:10px}.topnav a{padding:9px 10px;font-size:13px}}
+
+.hero{padding:56px 0 44px;border-bottom:1px solid var(--line)}
+.hero .wrap{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(300px,.75fr);gap:32px 48px;align-items:end}
+.lead{font-size:clamp(17px,1.9vw,20px);color:var(--ink-2);max-width:60ch;margin:18px 0 0}
+.lead b{color:#fff;font-weight:600}
+.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.stat{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:16px 18px}
+.stat b{display:block;font-size:28px;font-weight:800;letter-spacing:-.03em;line-height:1.05;color:#fff;font-variant-numeric:tabular-nums}
+.stat span{font-size:13px;color:var(--ink-3)}
+@media (max-width:860px){.hero .wrap{grid-template-columns:1fr}.hero{padding:40px 0 32px}}
+@media (max-width:380px){.stats{grid-template-columns:1fr}}
+
+main section{padding:60px 0 8px;scroll-margin-top:calc(var(--topbar) + 12px)}
+.sh{display:flex;align-items:center;gap:14px;margin-bottom:6px}
+.num{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:7px;background:#fff;color:#000;font-size:13px;font-weight:700;flex:none;counter-increment:n}
+.num::before{content:counter(n,decimal-leading-zero)}
+main{counter-reset:n}
+
+/* кнопки робота */
+.ic{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:7px;background:#fff;color:#000;vertical-align:-7px;margin:0 2px;flex:none}
+.ic svg{width:16px;height:16px}
+
+.bento{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.ins{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:22px 24px;transition:transform .2s ease,box-shadow .2s ease}
+.ins:hover{box-shadow:0 0 0 1px rgba(255,255,255,.18);transform:translateY(-2px)}
+.ins .tag{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--red-text);margin:0 0 10px}
+.ins h3{margin-bottom:8px}
+.ins p{margin:0;font-size:15px;line-height:1.55;color:var(--ink-2)}
+.ins p+p{margin-top:8px}
+.ins p b{color:#fff;font-weight:600}
+.ins.hot{background:var(--red-soft);border-color:var(--red-line)}
+.ins.wide{grid-column:span 2}
+@media (max-width:980px){.bento{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:640px){.bento{grid-template-columns:1fr}.ins.wide{grid-column:auto}}
+
+/* схемы */
+.fig{margin:22px 0 0;background:#fff;border-radius:var(--r);padding:14px;overflow:hidden}
+.fig img{display:block;width:100%;height:auto;max-width:100%}
+.fig a{display:block;cursor:zoom-in}
+.fig figcaption{color:#555;font-size:12.5px;margin-top:8px}
+.figrow{display:grid;gap:12px;margin-top:22px;align-items:start}
+.figrow .fig{margin:0}
+.figrow.c2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.figrow.c3{grid-template-columns:repeat(3,minmax(0,1fr))}
+@media (max-width:760px){.figrow.c2,.figrow.c3{grid-template-columns:1fr}}
+.fig.narrow img{max-width:360px;margin:0 auto}
+
+/* блоки текста */
+.blk{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:20px 22px;margin-top:12px}
+.blk h3{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.lbl{display:inline-flex;align-items:center;justify-content:center;min-width:30px;height:22px;padding:0 7px;border-radius:999px;background:var(--red);color:#fff;font-size:12px;font-weight:700;letter-spacing:.02em;flex:none}
+.blk p{margin:0;color:var(--ink-2);font-size:15px;line-height:1.6}
+.blk p+p{margin-top:8px}
+.blk p b,.blk li b{color:#fff;font-weight:600}
+.blk ul,.blk ol{margin:6px 0 0;padding-left:20px;color:var(--ink-2);font-size:15px;line-height:1.6}
+.blk li+li{margin-top:4px}
+.blk .when{display:inline-block;font-size:12.5px;color:var(--red-text);font-weight:600;margin:-4px 0 8px}
+.cols{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;align-items:start}
+.cols .blk{margin-top:0}
+.cols+.cols,.cols+.blk,.blk+.cols{margin-top:12px}
+@media (max-width:860px){.cols{grid-template-columns:1fr}}
+.parts{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px 18px;font-size:14.5px;color:var(--ink-2)}
+.parts li{display:grid;grid-template-columns:44px minmax(0,1fr);gap:6px}
+.parts li span{color:var(--ink-3);font-variant-numeric:tabular-nums;font-size:13px;padding-top:1px}
+@media (max-width:560px){.parts{grid-template-columns:1fr}}
+.steps{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.steps li{display:grid;grid-template-columns:52px minmax(0,1fr);gap:10px;color:var(--ink-2);font-size:15px;line-height:1.55}
+.steps li span{color:var(--red-text);font-weight:700;font-size:13px;padding-top:2px;font-variant-numeric:tabular-nums}
+
+.tw{overflow-x:auto;background:var(--paper);border:1px solid var(--line);border-radius:var(--r);margin-top:22px}
+table{border-collapse:collapse;width:100%;font-size:14.5px;min-width:640px}
+caption{text-align:left;padding:14px 16px 6px;color:#fff;font-weight:600;font-size:15px}
+thead th{white-space:nowrap;background:#1F1F1F;color:#fff;text-align:left;font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:12px 16px;border-bottom:1px solid var(--line-2)}
+tbody th,tbody td{text-align:left;vertical-align:top;padding:12px 16px;border-top:1px solid var(--line);font-weight:400}
+tbody th{min-width:170px;color:#fff;font-weight:600}
+tbody th small{display:block;color:var(--ink-3);font-size:12px;margin-top:2px;font-weight:400}
+tbody td{color:var(--ink-2)}
+tbody td b{color:#fff;font-weight:600}
+tbody td ul{margin:0;padding-left:18px}
+tbody td li+li{margin-top:4px}
+tbody tr:hover{background:#161616}
+.tnote{padding:10px 16px 14px;color:var(--ink-3);font-size:13px;border-top:1px solid var(--line)}
+@media (max-width:700px){table{min-width:0;font-size:14px}thead th{white-space:normal;padding:10px 12px}tbody th,tbody td{padding:11px 12px}tbody th{min-width:0;width:36%}caption{padding:12px 12px 6px}.tnote{padding:10px 12px 12px}}
+
+.note{margin:14px 0 0;padding:12px 14px;border-radius:12px;background:var(--soft);font-size:13.5px;color:var(--ink-2);line-height:1.55}
+.note b{color:#fff;font-weight:600}
+.note-red{background:var(--red-soft);box-shadow:inset 0 0 0 1px var(--red-line)}
+.lnk{display:inline-flex;align-items:center;gap:7px;min-height:44px;padding:8px 14px;border-radius:10px;background:var(--soft);color:#fff;font-weight:600;font-size:13.5px;box-shadow:inset 0 0 0 1px var(--line-2);transition:background .15s ease,color .15s ease;cursor:pointer}
+.lnk:hover{background:var(--red);color:#fff;box-shadow:none}
+.lnk.main{background:var(--red);box-shadow:none}
+.lnk.main:hover{background:var(--red-hover)}
+.lnk svg{width:15px;height:15px;flex:none}
+.act{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.srcs{list-style:none;margin:22px 0 0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.srcs li{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:10px 14px;font-size:13.5px;color:var(--ink-2)}
+.srcs li a{color:#fff;font-weight:600}
+.srcs li a:hover{color:var(--red-text)}
+.srcs li span{display:block;color:var(--ink-3);font-size:12.5px;margin-top:2px}
+@media (max-width:760px){.srcs{grid-template-columns:1fr}}
+footer{padding:48px 0 60px;color:var(--ink-3);font-size:13px;border-top:1px solid var(--line);margin-top:56px}
+footer a{color:var(--ink-2)}
+.reveal{opacity:1}
+.js-anim .reveal{opacity:0}
+@media (prefers-reduced-motion:reduce){.js-anim .reveal{opacity:1!important;transform:none!important}.ins{transition:none}.ins:hover{transform:none}}
+@media print{.js-anim .reveal{opacity:1!important}.topbar{position:static}body{padding-top:0}.act{display:none}main section{padding-top:24px}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-pow" viewBox="0 0 24 24"><path d="M12 3v8" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><path d="M6.6 6.8a7.5 7.5 0 1 0 10.8 0" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></symbol>
+  <symbol id="i-home" viewBox="0 0 24 24"><path d="M4 11.5 12 4l8 7.5V20H4z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/></symbol>
+</svg>
+<a class="skip" href="#main">К содержанию</a>
+
+<header class="topbar"><div class="wrap">
+  <a class="brand" href="#top" aria-label="Наверх"><i aria-hidden="true"></i>Roborock Q7BF <em>· инструкция</em></a>
+  <nav class="topnav" aria-label="Разделы"><a href="#buttons">Кнопки</a><a href="#overview">Устройство</a><a href="#install">Установка</a><a href="#app">Приложение</a><a href="#use">Работа</a><a href="#care">Уход</a><a href="#issues">Неполадки</a><a href="#safety">Безопасность</a><a href="#specs">Параметры</a></nav>
+</div></header>
+
+<section class="hero" id="top"><div class="wrap">
+  <div>
+    <p class="eyebrow">Робот-пылесос · модель RRA0TAC · перевод с английского</p>
+    <h1>Инструкция <span>Roborock Q7BF</span> на русском</h1>
+    <p class="lead">Официальной русской версии у Roborock нет: руководство к Q7B выложено на 13 языках, русского среди них нет. Ниже полный перевод английского руководства <b>Roborock Q7B CE</b> с сайта поддержки Roborock, схемы взяты из того же комплекта. <b>Q7BF из сербских магазинов — это Q7B:</b> у них совпадают размеры робота и базы, а также батарея на 3 200 мА·ч. Чтобы проверить, посмотрите наклейку на дне робота: там должна стоять модель RRA0TAC.</p>
+  </div>
+  <div class="stats" aria-label="Главное">
+    <div class="stat"><b>2,4 ГГц</b><span>Wi‑Fi, другой диапазон робот не видит</span></div>
+    <div class="stat"><b>4–40 °C</b><span>при такой температуре робот работает и заряжается</span></div>
+    <div class="stat"><b>22:00–08:00</b><span>режим «Не беспокоить» по умолчанию, меняется в приложении</span></div>
+    <div class="stat"><b>3 уборки</b><span>только пылесосом, и лишь потом первая влажная</span></div>
+  </div>
+</div></section>
+
+<main id="main">
+
+<section id="buttons"><div class="wrap">
+  <div class="sh reveal"><span class="num" aria-hidden="true"></span><h2>Кнопки и индикатор</h2></div>
+  <p class="sub reveal">На крышке робота две кнопки: <span class="ic" aria-label="кнопка питания"><svg aria-hidden="true"><use href="#i-pow"/></svg></span> питание и уборка, <span class="ic" aria-label="кнопка базы"><svg aria-hidden="true"><use href="#i-home"/></svg></span> возврат на базу. Всё остальное делается в приложении.</p>
+  <div class="tw reveal">
+    <table>
+      <caption>Что нажимать</caption>
+      <thead><tr><th scope="col">Действие</th><th scope="col">Как</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">Включить / выключить</th><td>Удерживать <span class="ic"><svg aria-hidden="true"><use href="#i-pow"/></svg></span>. Во время зарядки робот не выключается.</td></tr>
+        <tr><th scope="row">Начать уборку</th><td>Нажать <span class="ic"><svg aria-hidden="true"><use href="#i-pow"/></svg></span></td></tr>
+        <tr><th scope="row">Пауза</th><td>Нажать любую кнопку. Продолжить уборку — <span class="ic"><svg aria-hidden="true"><use href="#i-pow"/></svg></span></td></tr>
+        <tr><th scope="row">Отправить на базу</th><td>Нажать <span class="ic"><svg aria-hidden="true"><use href="#i-home"/></svg></span>. Если робот работает, сначала поставьте его на паузу любой кнопкой.</td></tr>
+        <tr><th scope="row">Сбросить Wi‑Fi</th><td>На включённом роботе удерживать <span class="ic"><svg aria-hidden="true"><use href="#i-pow"/></svg></span> и <span class="ic"><svg aria-hidden="true"><use href="#i-home"/></svg></span> вместе 3 секунды, пока голос не скажет «Entering network configuration mode»</td></tr>
+        <tr><th scope="row">Режим экономии энергии</th><td>Робот стоит на базе: удерживать <span class="ic"><svg aria-hidden="true"><use href="#i-pow"/></svg></span> 10 секунд. Выключить режим: нажать <span class="ic"><svg aria-hidden="true"><use href="#i-pow"/></svg></span>, пока индикатор не станет ярче.</td></tr>
+        <tr><th scope="row">Сброс до заводских настроек</th><td>Включить робот, удерживать <span class="ic"><svg aria-hidden="true"><use href="#i-home"/></svg></span> 5 секунд. Услышав голосовое сообщение, ещё раз удерживать <span class="ic"><svg aria-hidden="true"><use href="#i-home"/></svg></span> 5 секунд. Робот перезагрузится; расписание и Wi‑Fi сотрутся.</td></tr>
+        <tr><th scope="row">Разбудить</th><td>Нажать любую кнопку</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="tw reveal">
+    <table>
+      <caption>Индикатор питания</caption>
+      <thead><tr><th scope="col">Как светит</th><th scope="col">Что значит</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">Белый, ровно</th><td>Ждёт команды, на паузе, подключён к Wi‑Fi, убирает, едет на базу, строит карту</td></tr>
+        <tr><th scope="row">Белый, плавно мигает</th><td>Запускается или заряжается, заряд больше 20 %</td></tr>
+        <tr><th scope="row">Белый, медленно мигает</th><td>Ждёт подключения к Wi‑Fi</td></tr>
+        <tr><th scope="row">Белый, быстро мигает</th><td>Обновляется или подключается</td></tr>
+        <tr><th scope="row">Красный, ровно</th><td>Заряд меньше 20 %</td></tr>
+        <tr><th scope="row">Красный, плавно мигает</th><td>Заряжается, заряд меньше 20 %</td></tr>
+        <tr><th scope="row">Красный, мигает</th><td>Ошибка. В приложении появится уведомление, робот может сказать об ошибке голосом.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div></section>
+
+<section id="overview"><div class="wrap">
+  <div class="sh reveal"><span class="num" aria-hidden="true"></span><h2>Устройство (A)</h2></div>
+  <p class="sub reveal">Номера деталей на схеме совпадают с номерами в тексте всей инструкции.</p>
+  <figure class="fig reveal"><a href="img/roborock-q7bf-instrukciya/a-robot.png" target="_blank" rel="noopener" aria-label="Открыть схему крупно"><img src="img/roborock-q7bf-instrukciya/a-robot.png" width="1126" height="426" alt="Схема A1 и A2: робот сверху и снизу с номерами деталей" loading="lazy"></a><figcaption>A1 — робот сверху, A2 — робот снизу</figcaption></figure>
+  <div class="cols reveal" style="margin-top:12px">
+    <div class="blk">
+      <h3><span class="lbl">A1</span>Робот сверху</h3>
+      <ul class="parts">
+        <li><span>A1-1</span>Лазерный датчик (LiDAR)</li>
+        <li><span>A1-2</span>Бампер</li>
+        <li><span>A1-3</span>Датчик поиска базы</li>
+        <li><span>A1-4</span>Зарядные контакты</li>
+      </ul>
+    </div>
+    <div class="blk">
+      <h3><span class="lbl">A2</span>Робот снизу</h3>
+      <ul class="parts">
+        <li><span>A2-1</span>Боковая щётка</li>
+        <li><span>A2-2</span>Датчики перепада высоты</li>
+        <li><span>A2-3</span>Поворотное колесо</li>
+        <li><span>A2-4</span>Защёлки крышки основной щётки</li>
+        <li><span>A2-5</span>Основная щётка</li>
+        <li><span>A2-6</span>Ведущие колёса</li>
+        <li><span>A2-7</span>Модуль влажной уборки</li>
+      </ul>
+    </div>
+  </div>
+  <figure class="fig reveal"><a href="img/roborock-q7bf-instrukciya/a-parts.png" target="_blank" rel="noopener" aria-label="Открыть схему крупно"><img src="img/roborock-q7bf-instrukciya/a-parts.png" width="1126" height="291" alt="Схема A3–A7: пылесборник с баком, модуль салфетки, база, коврик, блок питания" loading="lazy"></a><figcaption>A3 — пылесборник с баком, A4 — модуль салфетки, A5 — база, A6 — влагозащитный коврик, A7 — блок питания</figcaption></figure>
+  <div class="cols reveal" style="margin-top:12px">
+    <div class="blk">
+      <h3><span class="lbl">A3</span>Пылесборник с баком для воды</h3>
+      <ul class="parts">
+        <li><span>A3-1</span>Бак для воды</li>
+        <li><span>A3-2</span>Пробка бака</li>
+        <li><span>A3-3</span>Кнопка извлечения</li>
+        <li><span>A3-4</span>Моющийся фильтр</li>
+        <li><span>A3-5</span>Пылесборник</li>
+        <li><span>A3-6</span>Заливное отверстие</li>
+        <li><span>A3-7</span>Держатель фильтра</li>
+        <li><span>A3-8</span>Защёлки держателя фильтра</li>
+      </ul>
+    </div>
+    <div class="blk">
+      <h3><span class="lbl">A4</span>Модуль влажной уборки</h3>
+      <ul class="parts">
+        <li><span>A4-1</span>Держатель салфетки</li>
+        <li><span>A4-2</span>Защёлки держателя</li>
+        <li><span>A4-3</span>Салфетка</li>
+        <li><span>A4-4</span>Липучки</li>
+      </ul>
+      <h3 style="margin-top:16px"><span class="lbl">A5</span>Зарядная база</h3>
+      <ul class="parts">
+        <li><span>A5-1</span>Маяк базы</li>
+        <li><span>A5-2</span>Разъём питания</li>
+        <li><span>A5-3</span>Зарядные контакты</li>
+      </ul>
+      <h3 style="margin-top:16px"><span class="lbl">A6</span>Влагозащитный коврик <span class="lbl">A7</span>Блок питания</h3>
+      <ul class="parts">
+        <li><span>A6-1</span>Клейкая лента коврика</li>
+      </ul>
+    </div>
+  </div>
+</div></section>
+
+<section id="install"><div class="wrap">
+  <div class="sh reveal"><span class="num" aria-hidden="true"></span><h2>Установка (B)</h2></div>
+  <div class="blk reveal">
+    <h3>Перед первым запуском</h3>
+    <ol>
+      <li>Уберите с пола провода, твёрдые и острые предметы (гвозди, стекло) и всё, что валяется. Неустойчивые, хрупкие, ценные и опасные вещи переставьте: робот может в них запутаться, толкнуть или уронить.</li>
+      <li>Если робот работает на возвышении (например, на втором уровне двухуровневой квартиры), поставьте физическое ограждение, чтобы он не упал.</li>
+    </ol>
+    <p style="margin-top:10px">В первый раз пройдите за роботом весь его маршрут и посмотрите, где он может застрять. Дальше он будет убирать сам. Перед первой влажной уборкой пропылесосьте пол минимум три раза, иначе салфетка сразу забьётся грязью.</p>
+  </div>
+  <figure class="fig reveal"><a href="img/roborock-q7bf-instrukciya/b-install.png" target="_blank" rel="noopener" aria-label="Открыть схему крупно"><img src="img/roborock-q7bf-instrukciya/b-install.png" width="1126" height="353" alt="Схема B1–B4: установка базы, коврика, включение робота, заливка воды" loading="lazy"></a><figcaption>B1 — место для базы, B2 — коврик, B3 — включение и зарядка, B4-1 — заливка воды</figcaption></figure>
+  <div class="cols reveal" style="margin-top:12px">
+    <div class="blk">
+      <h3><span class="lbl">B1</span>Где поставить базу</h3>
+      <p>На твёрдый ровный пол, вплотную к стене. Подключите блок питания к базе, лишний провод уберите. Выберите место с хорошим Wi‑Fi, чтобы приложение работало без сбоев. Включите в розетку и проверьте, что индикатор горит.</p>
+      <ul>
+        <li><b>B1-1:</b> спереди свободно больше 1,5 м.</li>
+        <li><b>B1-2:</b> по бокам свободно больше 0,5 м.</li>
+        <li>Провод, свисающий до пола, робот может зацепить: база сдвинется или отключится.</li>
+        <li>Не ставьте базу на прямое солнце и не загораживайте её маяк, иначе робот не найдёт дорогу назад.</li>
+      </ul>
+    </div>
+    <div class="blk">
+      <h3><span class="lbl">B2</span>Влагозащитный коврик</h3>
+      <p>Когда база стоит на месте, протрите сухой тряпкой пол там, где будет коврик. Снимите защиту с двусторонней ленты снизу коврика и приклейте его к полу.</p>
+      <ul>
+        <li>На деревянном полу коврик кладите всегда.</li>
+        <li>Снимайте ленту медленно, чтобы осталось меньше клея.</li>
+        <li>Лучше всего коврик держится на гладкой поверхности.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="blk reveal">
+    <h3><span class="lbl">B3</span>Включение и зарядка</h3>
+    <p>Перед первым включением снимите защитные полоски с обеих сторон робота и плёнку с датчиков поиска базы спереди и сзади. Удерживайте <span class="ic"><svg aria-hidden="true"><use href="#i-pow"/></svg></span>, дождитесь, пока индикатор загорится ровным белым, и поставьте робот на базу. Внутри встроенная литий-ионная батарея: чтобы она дольше служила, держите робот заряженным.</p>
+    <ul>
+      <li>При низком заряде робот может не включиться. Поставьте его на базу заряжаться.</li>
+      <li>Во время зарядки робот не выключается.</li>
+    </ul>
+  </div>
+  <figure class="fig reveal"><a href="img/roborock-q7bf-instrukciya/b4-mop.png" target="_blank" rel="noopener" aria-label="Открыть схему крупно"><img src="img/roborock-q7bf-instrukciya/b4-mop.png" width="627" height="371" alt="Схема B4-2 – B4-4: установка салфетки и модуля" loading="lazy" style="max-width:560px;margin:0 auto"></a><figcaption>B4-2 — салфетка на держатель, B4-3 — держатель на модуль, B4-4 — модуль в робот</figcaption></figure>
+  <div class="blk reveal">
+    <h3><span class="lbl">B4</span>Влажная уборка</h3>
+    <p>Перед первой влажной уборкой пол нужно пропылесосить минимум три раза, иначе на салфетке соберётся слишком много грязи.</p>
+    <ol class="steps" style="margin-top:10px">
+      <li><span>B4-1</span>Выньте блок «пылесборник + бак», откройте пробку бака, налейте воду из-под крана и закройте пробку. Целиком в воду блок не опускайте.</li>
+      <li><span>B4-2</span>Намочите салфетку и отожмите, чтобы с неё не капало. Наложите её на держатель и прижмите ровно на липучки.</li>
+      <li><span>B4-3</span>Совместите установочное отверстие и вставьте держатель салфетки снизу в блок.</li>
+      <li><span>B4-4</span>Вставьте блок обратно в робот до упора.</li>
+    </ol>
+    <ul style="margin-top:10px">
+      <li>Только холодная вода, иначе бак деформируется.</li>
+      <li>Блок «пылесборник + бак» не мойте под водой и не погружайте в воду.</li>
+      <li>Без дезинфицирующих средств: только моющее средство, которое рекомендует Roborock.</li>
+      <li>После влажной уборки сразу слейте оставшуюся воду из бака.</li>
+      <li>Каждый блок на заводе проверяют водой, поэтому немного воды внутри нового блока — это нормально.</li>
+    </ul>
+  </div>
+</div></section>
+
+<section id="app"><div class="wrap">
+  <div class="sh reveal"><span class="num" aria-hidden="true"></span><h2>Подключение к приложению</h2></div>
+  <div class="cols reveal">
+    <div class="blk">
+      <h3>1. Установить приложение</h3>
+      <p>Найдите «Roborock» в App Store или Google Play или отсканируйте QR-код из бумажной инструкции.</p>
+      <div class="act">
+        <a class="lnk main" href="https://apps.apple.com/rs/app/roborock/id1462875428" target="_blank" rel="noopener">Roborock в App Store</a>
+        <a class="lnk" href="https://play.google.com/store/apps/details?id=com.roborock.smart" target="_blank" rel="noopener">Roborock в Google Play</a>
+      </div>
+    </div>
+    <div class="blk">
+      <h3>2. Сбросить Wi‑Fi</h3>
+      <p>Включите робот, затем удерживайте <span class="ic"><svg aria-hidden="true"><use href="#i-pow"/></svg></span> и <span class="ic"><svg aria-hidden="true"><use href="#i-home"/></svg></span> одновременно 3 секунды, пока не услышите «Entering network configuration mode». Сброс выполнен, когда индикатор медленно мигает белым: робот ждёт подключения.</p>
+      <ul>
+        <li>Если подключиться не получается (настройки роутера, забыли пароль и т. п.), сбросьте Wi‑Fi и добавьте робот как новое устройство.</li>
+        <li>Чтобы отключить Wi‑Fi совсем: сбросьте его и подождите 5 минут, модуль отключится сам. Для повторного подключения снова сбросьте Wi‑Fi.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="blk reveal">
+    <h3>3. Добавить устройство</h3>
+    <p>В приложении Roborock нажмите «Add Device» или «+» и следуйте подсказкам. Порядок может меняться с обновлениями приложения, поэтому ориентируйтесь на подсказки в нём. <b>Работает только Wi‑Fi 2,4 ГГц.</b></p>
+  </div>
+</div></section>
+
+<section id="use"><div class="wrap">
+  <div class="sh reveal"><span class="num" aria-hidden="true"></span><h2>Работа</h2></div>
+  <div class="cols reveal">
+    <div class="blk">
+      <h3>Включение и выключение</h3>
+      <p>Удерживайте <span class="ic"><svg aria-hidden="true"><use href="#i-pow"/></svg></span>, чтобы включить: загорится индикатор, робот будет ждать команды. Удерживайте <span class="ic"><svg aria-hidden="true"><use href="#i-pow"/></svg></span>, чтобы выключить робот и закончить уборку. Во время зарядки робот не выключается.</p>
+    </div>
+    <div class="blk">
+      <h3>Запуск уборки</h3>
+      <p>Нажмите <span class="ic"><svg aria-hidden="true"><use href="#i-pow"/></svg></span>. Робот строит маршрут и убирает комнаты по очереди: в каждой сначала проходит вдоль стен, потом заполняет площадь зигзагом.</p>
+      <ul>
+        <li>Перед уборкой уберите с пола провода (в том числе провод базы) и ценные вещи. Робот может их утащить: выдернуть вилку из розетки, повредить провод или вещь.</li>
+        <li>Перед каждой уборкой проверьте, что салфетка стоит правильно.</li>
+        <li>Чтобы робот сам вернулся на базу, запускайте его с базы и не двигайте базу во время уборки.</li>
+        <li>При слишком низком заряде уборка не начнётся. Сначала зарядите робот.</li>
+        <li>Если заряд кончается посреди уборки, робот сам едет на базу, а после зарядки продолжает с того же места.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="cols reveal">
+    <div class="blk">
+      <h3>Пауза</h3>
+      <p>Во время работы нажмите любую кнопку: робот встанет на паузу. <span class="ic"><svg aria-hidden="true"><use href="#i-pow"/></svg></span> продолжает уборку, <span class="ic"><svg aria-hidden="true"><use href="#i-home"/></svg></span> отправляет робот на базу заряжаться.</p>
+      <p>Если поставить робот на паузе на базу руками, текущая уборка закончится.</p>
+    </div>
+    <div class="blk">
+      <h3>Сон</h3>
+      <p>Если робот стоит на паузе больше 10 минут, он засыпает, индикатор мигает раз в несколько секунд. Чтобы разбудить, нажмите любую кнопку.</p>
+      <ul>
+        <li>Во время зарядки робот не засыпает.</li>
+        <li>Если робот проспит больше 12 часов, он выключится сам.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="cols reveal">
+    <div class="blk">
+      <h3>Зарядка</h3>
+      <p>После уборки робот сам возвращается на базу. При низком заряде он тоже едет на базу посреди уборки. Чтобы отправить робот с паузы на базу, нажмите <span class="ic"><svg aria-hidden="true"><use href="#i-home"/></svg></span>. Пока робот заряжается, индикатор плавно мигает.</p>
+      <p>Если робот не найдёт базу, он вернётся в точку, откуда начал. Тогда поставьте его на базу руками.</p>
+    </div>
+    <div class="blk">
+      <h3>Ошибка</h3>
+      <p>При ошибке индикатор мигает красным, в приложении появляется уведомление, робот может сказать об ошибке голосом.</p>
+      <ul>
+        <li>Если робот с ошибкой стоит больше 10 минут, он засыпает.</li>
+        <li>Если поставить робот с ошибкой на базу руками, текущая уборка закончится.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="cols reveal">
+    <div class="blk">
+      <h3>Режим «Не беспокоить»</h3>
+      <p>По умолчанию с 22:00 до 08:00. Время можно поменять или выключить режим в приложении. В этом режиме робот не говорит голосом. Ещё он не уезжает доубирать после подзарядки: <a href="#issues">см. неполадки</a>.</p>
+    </div>
+    <div class="blk">
+      <h3>Сброс до заводских настроек</h3>
+      <p>Если робот не реагирует на кнопки или не выключается: включите его и удерживайте <span class="ic"><svg aria-hidden="true"><use href="#i-home"/></svg></span> 5 секунд. После голосового сообщения снова удерживайте <span class="ic"><svg aria-hidden="true"><use href="#i-home"/></svg></span> 5 секунд. Робот перезагрузится с заводскими настройками.</p>
+      <p>Расписание уборок, Wi‑Fi и другие настройки сотрутся.</p>
+    </div>
+  </div>
+  <div class="blk reveal">
+    <h3>Режим низкого энергопотребления</h3>
+    <p>Когда робот стоит на базе, удерживайте <span class="ic"><svg aria-hidden="true"><use href="#i-pow"/></svg></span> 10 секунд, чтобы включить режим. Чтобы выключить, нажимайте <span class="ic"><svg aria-hidden="true"><use href="#i-pow"/></svg></span>, пока индикатор не станет ярче.</p>
+  </div>
+</div></section>
+
+<section id="care"><div class="wrap">
+  <div class="sh reveal"><span class="num" aria-hidden="true"></span><h2>Уход (C)</h2></div>
+  <p class="sub reveal">Перед чисткой выключите робот и выньте вилку базы из розетки.</p>
+  <div class="tw reveal">
+    <table>
+      <caption>График ухода</caption>
+      <thead><tr><th scope="col">Деталь</th><th scope="col">Чистить</th><th scope="col">Менять</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">Салфетка <small>C7</small></th><td>После каждой уборки</td><td>Раз в 3–6 месяцев</td></tr>
+        <tr><th scope="row">Основная щётка <small>C1</small></th><td>Раз в 2 недели</td><td>Раз в 6–12 месяцев</td></tr>
+        <tr><th scope="row">Моющийся фильтр <small>C8</small></th><td>Раз в 2 недели</td><td>Раз в 6–12 месяцев</td></tr>
+        <tr><th scope="row">Боковая щётка <small>C2</small></th><td>Раз в месяц</td><td>Раз в 3–6 месяцев</td></tr>
+        <tr><th scope="row">Датчики, колёса, пылесборник, контакты <small>C3–C6, C9</small></th><td>По мере загрязнения</td><td>—</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="figrow c2 reveal">
+    <figure class="fig"><a href="img/roborock-q7bf-instrukciya/c1-main-brush.png" target="_blank" rel="noopener" aria-label="Открыть схему крупно"><img src="img/roborock-q7bf-instrukciya/c1-main-brush.png" width="500" height="371" alt="Схема C1: снятие и чистка основной щётки" loading="lazy"></a><figcaption>C1 — основная щётка</figcaption></figure>
+    <div class="blk" style="margin-top:0">
+      <h3><span class="lbl">C1</span>Основная щётка</h3>
+      <span class="when">Чистить раз в 2 недели, менять раз в 6–12 месяцев</span>
+      <ol class="steps">
+        <li><span>C1-1</span>Переверните робот, нажмите защёлки и снимите крышку основной щётки.</li>
+        <li><span>C1-2</span>Выньте щётку и почистите её.</li>
+        <li><span>C1-3</span>Поставьте щётку и крышку на место, прижмите крышку до щелчка.</li>
+      </ol>
+      <ul style="margin-top:8px">
+        <li>Щётку лучше протирать влажной тряпкой. Если она намокла насквозь, сушите на воздухе, не на прямом солнце.</li>
+        <li>Без едких чистящих средств и дезинфекции.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="figrow c3 reveal">
+    <figure class="fig"><a href="img/roborock-q7bf-instrukciya/c2-side-brush.png" target="_blank" rel="noopener" aria-label="Открыть схему крупно"><img src="img/roborock-q7bf-instrukciya/c2-side-brush.png" width="269" height="377" alt="Схема C2: снятие боковой щётки" loading="lazy" style="max-width:200px;margin:0 auto"></a><figcaption>C2 — боковая щётка</figcaption></figure>
+    <figure class="fig"><a href="img/roborock-q7bf-instrukciya/c3-sensors.png" target="_blank" rel="noopener" aria-label="Открыть схему крупно"><img src="img/roborock-q7bf-instrukciya/c3-sensors.png" width="454" height="377" alt="Схема C3: протирка датчиков" loading="lazy"></a><figcaption>C3 — датчики</figcaption></figure>
+    <figure class="fig"><a href="img/roborock-q7bf-instrukciya/c4-wheel.png" target="_blank" rel="noopener" aria-label="Открыть схему крупно"><img src="img/roborock-q7bf-instrukciya/c4-wheel.png" width="405" height="377" alt="Схема C4: снятие и промывка поворотного колеса" loading="lazy"></a><figcaption>C4 — поворотное колесо</figcaption></figure>
+  </div>
+  <div class="cols reveal" style="margin-top:12px">
+    <div class="blk">
+      <h3><span class="lbl">C2</span>Боковая щётка</h3>
+      <span class="when">Чистить раз в месяц, менять раз в 3–6 месяцев</span>
+      <p>Открутите винт боковой щётки, снимите и почистите её. Поставьте обратно и закрутите винт.</p>
+      <h3 style="margin-top:16px"><span class="lbl">C3</span>Датчики</h3>
+      <span class="when">По мере загрязнения</span>
+      <p>Протрите все датчики мягкой сухой тряпкой: <b>C3-1</b> датчики поиска базы, <b>C3-2</b> датчики перепада высоты. Без химии: никаких чистящих жидкостей и спреев.</p>
+    </div>
+    <div class="blk">
+      <h3><span class="lbl">C4</span>Поворотное колесо</h3>
+      <span class="when">По мере загрязнения</span>
+      <ol class="steps">
+        <li><span>C4-1</span>Подденьте ось чем-нибудь тонким, например маленькой отвёрткой, и выньте колесо.</li>
+        <li><span>C4-2</span>Промойте колесо и ось водой, чтобы смыть волосы и грязь. Высушите, поставьте на место и вдавите колесо с осью до упора.</li>
+      </ol>
+      <p style="margin-top:8px">Кронштейн колеса не снимается.</p>
+    </div>
+  </div>
+
+  <div class="figrow c2 reveal">
+    <figure class="fig"><a href="img/roborock-q7bf-instrukciya/c5-wheels.png" target="_blank" rel="noopener" aria-label="Открыть схему крупно"><img src="img/roborock-q7bf-instrukciya/c5-wheels.png" width="269" height="303" alt="Схема C5: протирка ведущих колёс" loading="lazy" style="max-width:200px;margin:0 auto"></a><figcaption>C5 — ведущие колёса</figcaption></figure>
+    <figure class="fig"><a href="img/roborock-q7bf-instrukciya/c6-dustbin.png" target="_blank" rel="noopener" aria-label="Открыть схему крупно"><img src="img/roborock-q7bf-instrukciya/c6-dustbin.png" width="858" height="303" alt="Схема C6: извлечение и очистка пылесборника с баком" loading="lazy"></a><figcaption>C6 — пылесборник с баком</figcaption></figure>
+  </div>
+  <div class="cols reveal" style="margin-top:12px">
+    <div class="blk">
+      <h3><span class="lbl">C5</span>Ведущие колёса</h3>
+      <span class="when">По мере загрязнения</span>
+      <p>Протрите колёса мягкой сухой тряпкой.</p>
+    </div>
+    <div class="blk">
+      <h3><span class="lbl">C6</span>Пылесборник с баком</h3>
+      <span class="when">По мере загрязнения</span>
+      <ol class="steps">
+        <li><span>C6-1</span>Нажмите кнопку извлечения и выньте блок.</li>
+        <li><span>C6-2</span>Откройте крышку, вытряхните пыль и почистите пылесборник.</li>
+        <li><span>C6-3</span>Откройте пробку бака и слейте воду.</li>
+        <li><span>C6-4</span>Вставьте блок обратно в робот.</li>
+      </ol>
+      <p style="margin-top:8px">После влажной уборки слейте воду, постирайте салфетку и высушите их на воздухе, иначе появится запах.</p>
+    </div>
+  </div>
+
+  <div class="figrow c2 reveal">
+    <figure class="fig"><a href="img/roborock-q7bf-instrukciya/c7-mop.png" target="_blank" rel="noopener" aria-label="Открыть схему крупно"><img src="img/roborock-q7bf-instrukciya/c7-mop.png" width="612" height="346" alt="Схема C7: снятие и стирка салфетки" loading="lazy"></a><figcaption>C7 — салфетка</figcaption></figure>
+    <figure class="fig"><a href="img/roborock-q7bf-instrukciya/c8-filter.png" target="_blank" rel="noopener" aria-label="Открыть схему крупно"><img src="img/roborock-q7bf-instrukciya/c8-filter.png" width="515" height="346" alt="Схема C8: извлечение, промывка и сушка фильтра 24 часа" loading="lazy"></a><figcaption>C8 — моющийся фильтр</figcaption></figure>
+  </div>
+  <div class="cols reveal" style="margin-top:12px">
+    <div class="blk">
+      <h3><span class="lbl">C7</span>Салфетка</h3>
+      <span class="when">Чистить после каждой уборки, менять раз в 3–6 месяцев</span>
+      <ol class="steps">
+        <li><span>C7-1</span>Снимите держатель салфетки в направлении, показанном на схеме.</li>
+        <li><span>C7-2</span>Отделите салфетку от держателя.</li>
+        <li><span>C7-3</span>Постирайте салфетку и высушите на воздухе.</li>
+      </ol>
+    </div>
+    <div class="blk">
+      <h3><span class="lbl">C8</span>Моющийся фильтр</h3>
+      <span class="when">Чистить раз в 2 недели, менять раз в 6–12 месяцев</span>
+      <ol class="steps">
+        <li><span>C8-1</span>Откройте крышку блока «пылесборник + бак», как на схеме, нажмите защёлки держателя фильтра и вытащите держатель.</li>
+        <li><span>C8-2</span>Выньте фильтр из держателя, несколько раз промойте и постучите им, чтобы вытряхнуть как можно больше грязи.</li>
+        <li><span>C8-3</span>Сушите фильтр не меньше 24 часов, пока он полностью не высохнет, и только потом ставьте на место.</li>
+      </ol>
+      <p style="margin-top:8px">Не трогайте поверхность фильтра руками, щёткой и острыми предметами: можно повредить.</p>
+    </div>
+  </div>
+
+  <div class="figrow c2 reveal">
+    <figure class="fig"><a href="img/roborock-q7bf-instrukciya/c9-contacts.png" target="_blank" rel="noopener" aria-label="Открыть схему крупно"><img src="img/roborock-q7bf-instrukciya/c9-contacts.png" width="612" height="295" alt="Схема C9: протирка зарядных контактов робота и базы" loading="lazy"></a><figcaption>C9 — зарядные контакты</figcaption></figure>
+    <div class="blk" style="margin-top:0">
+      <h3><span class="lbl">C9</span>Зарядные контакты</h3>
+      <span class="when">По мере загрязнения</span>
+      <p>Протрите мягкой сухой тряпкой зарядные контакты на роботе и на базе.</p>
+    </div>
+  </div>
+</div></section>
+
+<section id="issues"><div class="wrap">
+  <div class="sh reveal"><span class="num" aria-hidden="true"></span><h2>Неполадки</h2></div>
+  <div class="tw reveal">
+    <table>
+      <caption>Частые проблемы и что делать</caption>
+      <thead><tr><th scope="col">Проблема</th><th scope="col">Решение</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">Не включается</th><td><ul><li>Батарея разряжена. Поставьте робот на базу и зарядите.</li><li>Батарея слишком холодная или горячая. Робот работает только при 4–40 °C.</li></ul></td></tr>
+        <tr><th scope="row">Не заряжается</th><td><ul><li>База не подключена к сети. Проверьте, что оба конца блока питания вставлены.</li><li>Плохой контакт. Почистите зарядные контакты на базе и роботе.</li><li>Батарея слишком холодная или горячая. Робот работает только при 4–40 °C.</li></ul></td></tr>
+        <tr><th scope="row">Не возвращается на базу</th><td><ul><li>Рядом с базой слишком много препятствий. Уберите их или переставьте базу на открытое место.</li><li>Робот слишком далеко от базы. Поднесите его ближе и попробуйте снова.</li></ul></td></tr>
+        <tr><th scope="row">Ведёт себя странно</th><td>Перезагрузите робот.</td></tr>
+        <tr><th scope="row">Не подключается к Wi‑Fi</th><td><ul><li>Wi‑Fi выключен. Сбросьте Wi‑Fi и попробуйте снова.</li><li>Слабый сигнал. Перенесите робот туда, где Wi‑Fi ловит лучше.</li><li>Сбой подключения. Сбросьте Wi‑Fi, обновите приложение до последней версии и повторите.</li><li>Вдруг перестал подключаться. Возможно, дело в настройках роутера: обратитесь в поддержку Roborock.</li></ul></td></tr>
+        <tr><th scope="row">Робот офлайн</th><td>Проверьте, что робот подключён к приложению Roborock и всё время находится в зоне Wi‑Fi.</td></tr>
+        <tr><th scope="row">Шумит при уборке</th><td><ul><li>Могли застрять основная щётка, боковая щётка или ведущие колёса. Выключите робот и почистите их.</li><li>Могло застрять поворотное колесо. Выньте его отвёрткой и почистите.</li></ul></td></tr>
+        <tr><th scope="row">Плохо убирает или сыплет пыль</th><td><ul><li>Пылесборник полный, его нужно вытряхнуть.</li><li>Фильтр забит, его нужно почистить.</li><li>На основную щётку намоталось. Почистите её.</li></ul></td></tr>
+        <tr><th scope="row">Не срабатывает уборка по расписанию</th><td>Держите робот заряженным: уборка по расписанию начинается, только если заряд больше 20 %.</td></tr>
+        <tr><th scope="row">После подзарядки не продолжает уборку</th><td><ul><li>Проверьте, что не включён режим «Не беспокоить»: он запрещает доуборку после подзарядки.</li><li>Если поставить робот на базу руками или отправить кнопкой, он уборку не продолжит.</li></ul></td></tr>
+        <tr><th scope="row">Медленно заряжается</th><td><ul><li>В жару и холод робот сам заряжается медленнее, чтобы беречь батарею.</li><li>Грязные контакты. Протрите их мягкой сухой тряпкой.</li></ul></td></tr>
+        <tr><th scope="row">Тратит ли энергию, когда стоит на базе?</th><td>Да, чтобы поддерживать батарею, но потребление очень маленькое.</td></tr>
+        <tr><th scope="row">Нужно ли первые три раза заряжать по 16 часов?</th><td>Нет. У литий-ионных батарей нет эффекта памяти: после полной зарядки робот можно сразу использовать.</td></tr>
+        <tr><th scope="row">Стал пропускать места</th><td>Могли загрязниться датчики перепада высоты. Протрите их мягкой сухой тряпкой.</td></tr>
+        <tr><th scope="row">Мало воды или нет воды при влажной уборке</th><td><ul><li>Увеличьте подачу воды в приложении.</li><li>Проверьте, есть ли вода в баке, и правильно ли установлены блок «пылесборник + бак», держатель и салфетка (раздел <a href="#install">B4</a>).</li></ul></td></tr>
+        <tr><th scope="row">Не может вернуться на базу после того, как его перенесли руками</th><td>Если сильно поменять положение робота, он заново строит карту. Если база слишком далеко, он может её не найти: тогда поставьте его на базу руками.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div></section>
+
+<section id="safety"><div class="wrap">
+  <div class="sh reveal"><span class="num" aria-hidden="true"></span><h2>Безопасность</h2></div>
+  <div class="cols reveal">
+    <div class="blk">
+      <h3>Внимание</h3>
+      <ul>
+        <li>Заряжайте робот только на базе Roborock AED08HRR или SPCDZ03RR с блоком питания Roborock BLJ18WD200080P-V, -S или -B.</li>
+        <li>Перед чисткой и обслуживанием выключите робот и выньте вилку из розетки.</li>
+        <li>База заряжает только робот с литий-ионной батареей 14,4 В / 3 200 мА·ч.</li>
+      </ul>
+      <h3 style="margin-top:16px">Батарея и зарядка</h3>
+      <ul>
+        <li>Напряжение в сети должно совпадать с указанным на базе.</li>
+        <li>Чтобы не было дыма, перегрева и пожара, используйте только батарею, зарядку, провод, базу и аксессуары из комплекта.</li>
+        <li>Не выбрасывайте старые батареи, сдавайте их в пункт переработки.</li>
+        <li>Если у вас часто грозы или скачет напряжение, защитите базу.</li>
+        <li>Если робот долго не нужен: полностью зарядите, отключите от сети, выключите и храните в прохладном сухом месте. Подзаряжайте минимум раз в три месяца, иначе батарея глубоко разрядится.</li>
+        <li>Перед перевозкой отключите базу, выключите робот и слейте воду из бака. Лучше везти в родной коробке.</li>
+      </ul>
+      <p style="margin-top:12px">Значок с домиком на корпусе означает: только для помещений.</p>
+    </div>
+    <div class="blk">
+      <h3>Осторожно</h3>
+      <ul>
+        <li>Пользуйтесь только по инструкции. Ущерб от неправильного использования ложится на пользователя.</li>
+        <li>Это не игрушка. Внимательно следите, если робот работает рядом с детьми.</li>
+        <li>Перед уборкой проверьте, что на месте пылесборник, фильтр, боковая щётка, салфетка, основная щётка и её крышка.</li>
+        <li>Не убирайте роботом твёрдое и острое: строительный мусор, стекло, гвозди. Поцарапаются робот, база и пол.</li>
+        <li>Не садитесь и не вставайте на робот и базу.</li>
+        <li>Без дезинфекции: только моющее средство, которое рекомендует Roborock.</li>
+        <li>Не оставляйте низкие предметы (обувь, коврики) у лестниц и других перепадов: датчики могут ошибиться, и робот упадёт.</li>
+        <li>На полу, где работает робот, не должно быть воды.</li>
+        <li>Не запускайте робот на возвышении без ограждения: на антресоли, открытой террасе, горке, мебели.</li>
+        <li>Держите волосы, свободную одежду, пальцы и любые части тела людей и животных подальше от щелей, отверстий и движущихся деталей.</li>
+        <li>Не включайте робот в комнате, где спит младенец или ребёнок.</li>
+        <li>Не переносите робот за бампер или боковую щётку.</li>
+        <li>Не собирайте горящее и тлеющее (сигареты, спички, горячий пепел) и горючее или взрывоопасное (зажигалки, бензин, тонер для принтеров).</li>
+        <li>Ставьте базу на твёрдый ровный пол. Базу, робот и провод держите подальше от огня и батарей отопления. Не ставьте их во влажных и тесных местах и там, где робот может повиснуть в воздухе.</li>
+        <li>Ничего не кладите на робот и базу и не накрывайте их, даже пылезащитным чехлом.</li>
+        <li>Не пользуйтесь повреждённым устройством, обратитесь в поддержку.</li>
+        <li>Включайте робот в проветриваемых помещениях, чтобы он не перегревался.</li>
+        <li>Не мойте робот и базу водой.</li>
+        <li>Roborock не отвечает за косвенный, штрафной, случайный и последующий ущерб от использования или невозможности использовать устройство. Это не отменяет прав, которые даёт закон.</li>
+      </ul>
+    </div>
+  </div>
+</div></section>
+
+<section id="specs"><div class="wrap">
+  <div class="sh reveal"><span class="num" aria-hidden="true"></span><h2>Параметры</h2></div>
+  <div class="tw reveal">
+    <table>
+      <caption>Технические данные из руководства</caption>
+      <thead><tr><th scope="col">Узел</th><th scope="col">Модель</th><th scope="col">Питание</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">Робот</th><td>RRA0TAC</td><td>Литий-ионная батарея 14,4 В / 3 200 мА·ч; вход 20 В пост. тока, 0,8 А</td></tr>
+        <tr><th scope="row">Зарядная база</th><td>SPCDZ03RR</td><td>Вход и выход 20 В пост. тока, 0,8 А</td></tr>
+        <tr><th scope="row">Блок питания</th><td>BLJ18WD200080P-V, -S или -B</td><td>Вход <b>100–240 В переменного тока, 50/60 Гц</b>, 0,8 А; выход 20 В пост. тока, 0,8 А</td></tr>
+      </tbody>
+    </table>
+    <p class="tnote">Блок питания рассчитан на 100–240 В, поэтому подходит для обычной розетки 230 В в Сербии. Roborock заявляет, что робот RRA0TAC соответствует директиве ЕС 2014/53/EU, полный текст декларации лежит на <a href="https://global.roborock.com/pages/compliance" target="_blank" rel="noopener">global.roborock.com/pages/compliance</a>.</p>
+  </div>
+</div></section>
+
+<section id="sources"><div class="wrap">
+  <div class="sh reveal"><span class="num" aria-hidden="true"></span><h2>Оригинал</h2></div>
+  <p class="sub reveal">Перевод сделан с английского PDF. Если какой-то пункт кажется странным, сверьтесь с оригиналом: номера разделов и схем те же.</p>
+  <ul class="srcs reveal">
+    <li><a href="https://support.roborock.com/hc/en-us/articles/48773122927257-Roborock-Q7B-CE-User-Manual" target="_blank" rel="noopener">Roborock — Q7B CE User Manual</a><span>страница поддержки: руководство на 13 языках, русского нет</span></li>
+    <li><a href="https://support.roborock.com/hc/article_attachments/48773088612889" target="_blank" rel="noopener">Roborock Q7B CE EN User Manual (PDF)</a><span>английский оригинал этого перевода, 12 страниц</span></li>
+    <li><a href="https://support.roborock.com/hc/article_attachments/48773121337625" target="_blank" rel="noopener">Roborock Q7B Diagram (PDF)</a><span>схемы A–C, по ним нарезаны картинки на этой странице</span></li>
+    <li><a href="https://support.roborock.com/hc/article_attachments/48773115427609" target="_blank" rel="noopener">Safety Guidelines &amp; Certification (CE) (PDF)</a><span>правила безопасности и сертификация</span></li>
+  </ul>
+</div></section>
+
+</main>
+
+<footer><div class="wrap">Перевод официального руководства Roborock Q7 Series (Q7B, CE) на русский язык. Схемы — из файла Roborock Q7B Diagram.</div></footer>
+
+<script type="module">
+const items = [...document.querySelectorAll('.reveal')];
+const show = el => { el.style.opacity = 1; el.style.transform = 'none'; };
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const fallback = () => {
+  if (!('IntersectionObserver' in window)) return items.forEach(show);
+  const io = new IntersectionObserver(es => es.forEach(x => { if (x.isIntersecting) { x.target.style.transition = 'opacity .5s ease, transform .5s ease'; show(x.target); io.unobserve(x.target); } }), { rootMargin: '0px 0px -8% 0px' });
+  items.forEach(el => io.observe(el));
+};
+setTimeout(() => {
+  try { document.getAnimations().forEach(a => a.finish()); } catch (e) {}
+  document.querySelectorAll('.reveal, .stat').forEach(el => { if (parseFloat(getComputedStyle(el).opacity) < 0.99) show(el); });
+}, 3000);
+const wait = new Promise(r => setTimeout(() => r(null), 2500));
+const m = reduce ? null : await Promise.race([import('https://cdn.jsdelivr.net/npm/motion@11/+esm').catch(() => null), wait]);
+if (reduce) { items.forEach(show); }
+else if (!m) { fallback(); }
+else {
+  try {
+    const { animate, inView, stagger } = m;
+    inView('.reveal', x => { const el = x && x.target ? x.target : x; animate(el, { opacity: [0, 1], y: [18, 0] }, { duration: 0.5, ease: [0.22, 1, 0.36, 1] }); }, { margin: '0px 0px -8% 0px' });
+    animate('.stat', { opacity: [0, 1], y: [10, 0] }, { duration: 0.4, delay: stagger(0.06) });
+  } catch (err) { fallback(); }
+}
+const links = [...document.querySelectorAll('.topnav a')];
+const secs = links.map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+const spy = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) links.forEach(a => a.classList.toggle('on', a.getAttribute('href') === '#' + e.target.id)); }), { rootMargin: '-40% 0px -55% 0px' });
+secs.forEach(s => spy.observe(s));
+</script>
+</body>
+</html>
