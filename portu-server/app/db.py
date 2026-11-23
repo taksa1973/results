@@ -46,6 +46,9 @@ def conn():
         if "img_av" not in cols:   # портрет для кружков (персонаж в звонке теперь в полный рост)
             _conn.execute("ALTER TABLE characters ADD COLUMN img_av TEXT")
             _conn.commit()
+        if "look" not in cols:     # внешность для 3D-модели человека (JSON: кожа, волосы, одежда)
+            _conn.execute("ALTER TABLE characters ADD COLUMN look TEXT")
+            _conn.commit()
     return _conn
 
 

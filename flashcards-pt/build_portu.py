@@ -36,14 +36,22 @@ def main():
 
     # статика: копируем и подписываем версией по содержимому, чтобы браузер не держал старую
     ver = {}
-    for name in ("portu.js", "portu.css", "cartoes-sw.js", "cartoes-pt.webmanifest"):
+    for name in ("portu.js", "portu3d.js", "portu.css", "cartoes-sw.js", "cartoes-pt.webmanifest"):
         src = os.path.join(WEB, name)
         shutil.copyfile(src, os.path.join(OUT, name))
         ver[name] = hashlib.sha1(open(src, "rb").read()).hexdigest()[:8]
     for name in ("cartoes-icon-192.png", "cartoes-icon-512.png", "cartoes-icon-maskable.png"):
         shutil.copyfile(os.path.join(REPO, name), os.path.join(OUT, name))
+    # 3D: three.js (версия зафиксирована, файл не меняется) и фоны звонков
+    os.makedirs(os.path.join(OUT, "vendor"), exist_ok=True)
+    shutil.copyfile(os.path.join(WEB, "vendor", "three.module.min.js"), os.path.join(OUT, "vendor", "three.module.min.js"))
+    os.makedirs(os.path.join(OUT, "bg"), exist_ok=True)
+    for f in os.listdir(os.path.join(SRV, "worker", "backgrounds")):
+        if f.endswith(".webp"):
+            shutil.copyfile(os.path.join(SRV, "worker", "backgrounds", f), os.path.join(OUT, "bg", f))
 
     extra = (f'<link rel="stylesheet" href="portu.css?v={ver["portu.css"]}">\n'
+             f'<script>window.PORTU3D="portu3d.js?v={ver["portu3d.js"]}"</script>\n'
              f'<script src="portu.js?v={ver["portu.js"]}"></script>')
     if "<!--__EXTRA__-->" not in html:
         raise SystemExit("В шаблоне нет метки <!--__EXTRA__-->")

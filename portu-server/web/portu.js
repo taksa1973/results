@@ -347,6 +347,52 @@ function mountUserBits(){
   if(foot) foot.lastChild.textContent = '. Прогресс синхронизируется между устройствами.';
 }
 
+/* ════════════════ 3D-ПЕРСОНАЖИ ════════════════
+   portu3d.js и three.js (≈700 КБ) грузятся, только когда нужны. Вид выбирается
+   в настройках звонка: «3D» (по умолчанию) или «Рисунок» — прежние 2D-картинки.
+   У кого 2D-картинки нет (Пикачу), тот всегда в 3D. */
+const P3URL = window.PORTU3D || 'portu3d.js';
+let P3 = null, GL = null;
+const load3d = () => (P3 ||= import('./' + P3URL).catch(e => { P3 = null; throw e; }));
+const hasGL = () => GL ??= (() => { try{ const c = document.createElement('canvas'); return !!(c.getContext('webgl2') || c.getContext('webgl')); }catch(e){ return false; } })();
+const viewPref = () => { try{ return localStorage.getItem('portu-view') || '3d'; }catch(e){ return '3d'; } };
+const use3d = c => !!c && hasGL() && (viewPref() === '3d' || !c.img);
+const BLANK = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
+const AV3 = new Map();
+const strHash = s => { let h = 2166136261; for(let i = 0; i < s.length; i++){ h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); } return (h >>> 0).toString(36); };
+const av3key = c => `portu-av3:${strHash(P3URL + JSON.stringify([c.model, c.look, c.bg]))}`;
+/* портрет 3D-персонажа для карточек: рисуется один раз и хранится в браузере */
+async function av3(c){
+  const k = av3key(c);
+  if(AV3.has(k)) return AV3.get(k);
+  let url = null;
+  try{ url = localStorage.getItem(k); }catch(e){}
+  if(!url){
+    const m = await load3d();
+    url = await m.snapshot({ model: c.model, look: c.look }, c.bg);
+    try{
+      for(let i = localStorage.length - 1; i >= 0; i--){        // старые портреты (другая версия модели) — убираем
+        const key = localStorage.key(i);
+        if(key?.startsWith('portu-av3:') && !CHARS.some(x => av3key(x) === key)) localStorage.removeItem(key);
+      }
+      localStorage.setItem(k, url);
+    }catch(e){}
+  }
+  AV3.set(k, url);
+  return url;
+}
+/* картинка-аватар: сразу — что есть, 3D-портрет подставит fillAvatars() */
+const av3cached = c => AV3.get(av3key(c)) || (() => { try{ return localStorage.getItem(av3key(c)); }catch(e){ return null; } })();
+const avSrc = c => !c ? null : use3d(c) ? av3cached(c) : (c.av || c.img);
+const avImg = (c, extra = '') => { const s = avSrc(c); return (s || use3d(c)) ? `<img src="${s || BLANK}" alt="" ${use3d(c) ? `data-av3="${esc(c.id)}"` : ''} ${extra}>` : ''; };
+async function fillAvatars(root = document){
+  for(const img of root.querySelectorAll('img[data-av3]')){
+    const c = CHARS.find(x => x.id === img.dataset.av3);
+    if(!c || !use3d(c)) continue;
+    try{ const u = await av3(c); if(img.src !== u) img.src = u; }catch(e){ if(c.av) img.src = c.av; }
+  }
+}
+
 /* ════════════════ ЗВОНКИ: ЭКРАН ВЫБОРА ════════════════ */
 let META = null, CHARS = [], selChar = null;
 const voicePref = id => { try{ return localStorage.getItem('portu-voice-' + id); }catch(e){ return null; } };
@@ -380,7 +426,7 @@ function mountCallView(){
   const card = h(`<button class="card pt-homecall" data-go="call" aria-label="Открыть звонки с персонажами">
       <div class="pt-homecall-av" id="pt-homecall-av" aria-hidden="true"></div>
       <div class="pt-homecall-tx"><b>Поговорить с персонажем</b>
-        <span>Видеозвонок по-португальски с Биа, Каю, Пеппой, Стичем, Лунтиком или вашим персонажем</span></div>
+        <span>Видеозвонок по-португальски с Биа, Каю, Пеппой, Стичем, Лунтиком, Пикачу или вашим персонажем</span></div>
       <span class="pt-homecall-go" aria-hidden="true">${I(IC.phone, 20)}</span></button>`);
   lead.after(card);
 }
@@ -390,7 +436,7 @@ async function loadMeta(){
   const r = await api('characters');
   CHARS = r.characters;
   const av = $('#pt-homecall-av');
-  if(av) av.innerHTML = CHARS.filter(c => c.av).slice(0, 3).map(c => `<img src="${c.av}" alt="">`).join('');
+  if(av){ av.innerHTML = CHARS.filter(c => c.av || use3d(c)).slice(0, 3).map(c => avImg(c)).join(''); fillAvatars(av); }
 }
 
 async function renderCallHome(){
@@ -402,7 +448,7 @@ async function renderCallHome(){
   const grid = $('#pt-chars');
   grid.innerHTML = CHARS.map(c => `
     <button class="pt-char" role="radio" aria-checked="${c.id === selChar}" data-id="${esc(c.id)}">
-      <span class="pt-char-img">${(c.av || c.img) ? `<img src="${c.av || c.img}" alt="" loading="lazy">` : `<span class="pt-char-noimg">${esc(c.name[0] || '?')}</span>`}
+      <span class="pt-char-img">${avImg(c) || `<span class="pt-char-noimg">${esc(c.name[0] || '?')}</span>`}
         ${c.status === 'cartoon_pending' ? `<span class="pt-badge">${I(IC.spark, 13)} Grok рисует</span>` : ''}</span>
       <span class="pt-char-name">${esc(c.name)}</span>
       <span class="pt-char-sub">${c.mine ? 'ваш' : 'встроенный'} · ${esc(voiceLabel(c.voice))}</span>
@@ -422,6 +468,7 @@ async function renderCallHome(){
   };
   renderSetup();
   renderRecents();
+  fillAvatars(grid);
   if(CHARS.some(c => c.status === 'cartoon_pending')) pollPending();
 }
 let pollTimer = null;
@@ -443,7 +490,13 @@ function renderSetup(){
   const box = $('#pt-setup');
   if(!c){ box.innerHTML = '<p class="hint">Выберите персонажа.</p>'; return; }
   const voice = voicePref(c.id) || c.voice;
+  const view = use3d(c) ? '3d' : '2d';
   box.innerHTML = `
+    ${hasGL() ? `<div class="pt-setup-row"><span class="pt-lbl" id="pt-w-l">Вид</span>
+      <div class="pt-voices" role="radiogroup" aria-labelledby="pt-w-l">
+        <button class="chip" role="radio" data-w="3d" aria-pressed="${view === '3d'}" aria-checked="${view === '3d'}">3D</button>
+        ${c.img ? `<button class="chip" role="radio" data-w="2d" aria-pressed="${view === '2d'}" aria-checked="${view === '2d'}">Рисунок</button>` : ''}</div>
+      ${c.img ? '' : '<span class="hint">этот персонаж есть только в 3D</span>'}</div>` : ''}
     <div class="pt-setup-row"><span class="pt-lbl" id="pt-v-l">Голос</span>
       <div class="pt-voices" role="radiogroup" aria-labelledby="pt-v-l">${META.voices.map(v => `
         <button class="chip" role="radio" aria-pressed="${v.id === voice}" aria-checked="${v.id === voice}" data-v="${v.id}">${esc(v.label)}</button>`).join('')}</div>
@@ -456,6 +509,10 @@ function renderSetup(){
   box.querySelectorAll('[data-v]').forEach(b => b.onclick = () => {
     setVoicePref(c.id, b.dataset.v);
     box.querySelectorAll('[data-v]').forEach(x => { x.setAttribute('aria-pressed', x === b); x.setAttribute('aria-checked', x === b); });
+  });
+  box.querySelectorAll('[data-w]').forEach(b => b.onclick = () => {
+    try{ localStorage.setItem('portu-view', b.dataset.w); }catch(_){}
+    renderCallHome();
   });
   box.querySelectorAll('[data-t]').forEach(b => b.onclick = () => {
     topic = b.dataset.t; try{ localStorage.setItem('portu-topic', topic); }catch(_){}
@@ -479,13 +536,14 @@ async function renderRecents(){
   try{
     const { calls } = await api('calls');
     if(!calls.length){ box.innerHTML = `<div class="card"><p class="hint" style="margin:0">Здесь появятся ваши звонки — их можно будет перечитать целиком.</p></div>`; return; }
-    const img = id => CHARS.find(c => c.id === id)?.av;
+    const ch = id => CHARS.find(c => c.id === id);
     box.innerHTML = `<div class="card pt-rec-list">` + calls.map(c => `
       <button class="pt-rec" data-call="${c.id}">
-        <span class="pt-rec-av">${img(c.char_id) ? `<img src="${img(c.char_id)}" alt="">` : ''}</span>
+        <span class="pt-rec-av">${avImg(ch(c.char_id))}</span>
         <span class="pt-rec-tx"><b>${esc(c.title)}</b><span>${esc(c.char_name)} · ${fmtDate(c.started_at)} · ${plural(Math.floor(c.turns / 2), 'реплика', 'реплики', 'реплик')}</span></span>
         <span class="pt-rec-go" aria-hidden="true">›</span></button>`).join('') + `</div>`;
     box.onclick = e => { const b = e.target.closest('[data-call]'); if(b) openTranscript(b.dataset.call); };
+    fillAvatars(box);
   }catch(e){ box.innerHTML = `<p class="hint">История не загрузилась: ${esc(e.message)}</p>`; }
 }
 const fmtDate = s => {
@@ -497,10 +555,40 @@ const fmtDate = s => {
   return d.toLocaleDateString('ru-RU', { day: 'numeric', month: 'long' }) + ', ' + hm;
 };
 
+/* ── внешность своего персонажа в 3D (Grok заполняет по фото, здесь можно поправить) ── */
+const LOOK_DEF = { gender: 'female', skin: '#e0ac86', eyes: '#4b3222', hair: { color: '#3b2619', style: 'long' }, beard: 'none',
+                   glasses: 'none', top: { color: '#5b8bd6', type: 'tshirt' }, bottom: { color: '#3c4a66', type: 'pants' },
+                   shoes: '#f2f0ea', earrings: false };
+const LOOK_OPTS = {
+  gender: [['female', 'Женский'], ['male', 'Мужской']],
+  'hair.style': [['long', 'Длинные'], ['curly_long', 'Длинные кудрявые'], ['bob', 'Каре'], ['bun', 'Пучок'], ['ponytail', 'Хвост'],
+                 ['short', 'Короткие'], ['curly_short', 'Короткие кудрявые'], ['buzz', 'Совсем короткие'], ['afro', 'Афро'], ['bald', 'Без волос']],
+  beard: [['none', 'Нет'], ['stubble', 'Щетина'], ['full', 'Борода'], ['mustache', 'Усы']],
+  glasses: [['none', 'Нет'], ['dark', 'Тёмная оправа'], ['gold', 'Золотая оправа']],
+  'top.type': [['tank', 'Майка'], ['tshirt', 'Футболка'], ['shirt', 'Рубашка'], ['hoodie', 'Худи'], ['dress', 'Платье']],
+  'bottom.type': [['pants', 'Брюки'], ['wide', 'Широкие брюки'], ['shorts', 'Шорты'], ['skirt', 'Юбка']],
+};
+const LOOK_FIELDS = [['gender', 'Пол'], ['skin', 'Кожа', 1], ['hair.style', 'Причёска'], ['hair.color', 'Волосы', 1], ['eyes', 'Глаза', 1],
+  ['beard', 'Борода'], ['glasses', 'Очки'], ['top.type', 'Верх'], ['top.color', 'Цвет верха', 1], ['bottom.type', 'Низ'],
+  ['bottom.color', 'Цвет низа', 1], ['shoes', 'Обувь', 1]];
+const getPath = (o, p) => p.split('.').reduce((a, k) => a?.[k], o);
+const setPath = (o, p, v) => { const ks = p.split('.'); let a = o; ks.slice(0, -1).forEach(k => { a = a[k] ||= {}; }); a[ks.at(-1)] = v; };
+const fullLook = l => ({ ...LOOK_DEF, ...(l || {}), hair: { ...LOOK_DEF.hair, ...(l?.hair || {}) },
+  top: { ...LOOK_DEF.top, ...(l?.top || {}) }, bottom: { ...LOOK_DEF.bottom, ...(l?.bottom || {}) } });
+const lookEditor = look => `<details class="pt-look"${look ? '' : ' open'}>
+    <summary>${I(IC.edit, 15)} Внешность в 3D${look ? '' : ' — пока примерная'}</summary>
+    <div class="pt-look-grid">${LOOK_FIELDS.map(([k, label, color]) => color
+      ? `<label class="pt-field pt-color"><span>${label}</span><input type="color" data-k="${k}"></label>`
+      : `<label class="pt-field"><span>${label}</span><select data-k="${k}">${LOOK_OPTS[k].map(([v, t]) => `<option value="${v}">${t}</option>`).join('')}</select></label>`).join('')}</div>
+    <label class="pt-check"><input type="checkbox" data-k="earrings"> Серьги</label>
+  </details>`;
+
 /* ── добавить / изменить своего персонажа ── */
 function openCharSheet(ch){
   const isNew = !ch;
   const presets = META.presets || [];
+  const with3d = !isNew && hasGL();
+  let look = with3d ? fullLook(ch.look) : null, lookDirty = false;
   const sheet = h(`<div class="pt-sheet-wrap" role="dialog" aria-modal="true" aria-labelledby="pt-sh-h">
     <div class="pt-sheet">
       <div class="pt-sheet-hd"><h2 id="pt-sh-h">${isNew ? 'Новый персонаж' : 'Персонаж: ' + esc(ch.name)}</h2>
@@ -510,7 +598,11 @@ function openCharSheet(ch){
         <input type="file" accept="image/*" id="pt-file" hidden>
         <span class="pt-photo-ph">${I(IC.camera, 30)}<b>Выбрать фото</b><span>Лицо крупно и при хорошем свете. Grok сделает из фото мультяшного персонажа — это займёт пару минут.</span></span>
         <img id="pt-prev" alt="Выбранное фото" hidden></label>` : `
-      <div class="pt-photo pt-photo-have"><img src="${ch.av || ch.img}" alt="${esc(ch.name)}"></div>`}
+      <div class="pt-have">
+        ${ch.av || ch.img ? `<div class="pt-photo pt-photo-have"><img src="${ch.av || ch.img}" alt="${esc(ch.name)}"></div>` : ''}
+        ${with3d ? `<div class="pt-photo pt-photo-have pt-look-prev"><img id="pt-look-img" src="${av3cached(ch) || BLANK}" alt="${esc(ch.name)} в 3D"><span class="pt-look-tag">3D</span></div>` : ''}
+      </div>
+      ${with3d ? lookEditor(ch.look) : ''}`}
       ${isNew && presets.length ? `<div class="pt-field"><span>Готовый характер</span><div class="pt-voices">${presets.map(p => `
         <button type="button" class="chip" data-preset="${p.id}" aria-pressed="false">${esc(p.name)}</button>`).join('')}</div></div>` : ''}
       <label class="pt-field"><span>Имя</span><input id="pt-name" maxlength="40" value="${esc(ch?.name || '')}" placeholder="Например, Марина" autocomplete="off"></label>
@@ -533,6 +625,20 @@ function openCharSheet(ch){
   sheet.addEventListener('keydown', e => { if(e.key === 'Escape') close(); });
   const errEl = $('#pt-sh-err', sheet);
   let file = null;
+  if(with3d){
+    const prev = $('#pt-look-img', sheet);
+    let timer = 0, seq = 0;
+    const redraw = () => { clearTimeout(timer); timer = setTimeout(async () => {
+      const my = ++seq;
+      try{ const m = await load3d(); const u = await m.snapshot({ model: 'human', look }, ch.bg); if(my === seq) prev.src = u; }catch(e){}
+    }, 180); };
+    sheet.querySelectorAll('.pt-look [data-k]').forEach(inp => {
+      const v = getPath(look, inp.dataset.k);
+      if(inp.type === 'checkbox') inp.checked = !!v; else inp.value = v;
+      inp.addEventListener('input', () => { setPath(look, inp.dataset.k, inp.type === 'checkbox' ? inp.checked : inp.value); lookDirty = true; redraw(); });
+    });
+    if(!av3cached(ch)) redraw();
+  }
   if(isNew){
     $('#pt-file', sheet).onchange = async e => {
       file = e.target.files[0]; if(!file) return;
@@ -561,10 +667,11 @@ function openCharSheet(ch){
         const r = await api('characters', { method: 'POST', body: fd });
         selChar = r.character.id; try{ localStorage.setItem('portu-char', selChar); }catch(_){}
         toast(r.character.status === 'cartoon_pending'
-          ? 'Персонаж добавлен. Пока он с вашим фото — мультяшная версия появится, когда её нарисует Grok.' : 'Персонаж добавлен.', 6000);
+          ? 'Персонаж добавлен. Grok подберёт по фото внешность в 3D и нарисует мультяшную версию — это пара минут. Поправить внешность можно карандашом на карточке.'
+          : 'Персонаж добавлен. Внешность в 3D настраивается карандашом на карточке.', 7000);
       }else{
         await api('characters/' + ch.id, { method: 'PATCH', json: { name, voice: $('#pt-voice', sheet).value,
-          persona: $('#pt-persona', sheet).value } });
+          persona: $('#pt-persona', sheet).value, ...(lookDirty ? { look } : {}) } });
         setVoicePref(ch.id, $('#pt-voice', sheet).value);
       }
       close(); renderCallHome();
@@ -618,7 +725,7 @@ async function startCall(ch, voice, topicId){
 
   C = { ch, voice, topic: topicId, ctx, mic, id: null, userTurns: 0, goal: GOAL, targets: pickTargets(),
         lastReply: null, lastBuf: null, src: null, cc: (() => { try{ return localStorage.getItem('portu-cc') !== '0'; }catch(e){ return true; } })(),
-        rec: null, state: 'connecting', ended: false };
+        rec: null, state: 'connecting', ended: false, use3d: use3d(ch), stage: null, micAmp: 0, browserTalk: false };
   buildCallUI();
   setState('connecting');
   if(!mic){ $('#pt-type', C.el).hidden = false; $('#pt-kb', C.el).setAttribute('aria-pressed', true); }
@@ -627,7 +734,8 @@ async function startCall(ch, voice, topicId){
     if(C.ended) return;
     C.id = r.call.id;
     $('.pt-dial', C.el).remove();
-    anim($('.pt-stage', C.el), { opacity: [0, 1], transform: ['scale(1.04)', 'scale(1)'] }, { duration: .5 });
+    if(C.use3d){ anim($('.pt-stage', C.el), { opacity: [0, 1] }, { duration: .4 }); C.stage?.wave(); }
+    else anim($('.pt-stage', C.el), { opacity: [0, 1], transform: ['scale(1.04)', 'scale(1)'] }, { duration: .5 });
     await playReply(r.reply);
   }catch(e){
     if(C && !C.ended){ toast('Не удалось дозвониться: ' + e.message, 6000); closeCall(); }
@@ -637,14 +745,7 @@ async function startCall(ch, voice, topicId){
 function buildCallUI(){
   const ch = C.ch;
   const el = h(`<div class="pt-call" role="dialog" aria-modal="true" aria-label="Звонок: ${esc(ch.name)}">
-    <div class="pt-stage">
-      <div class="pt-bgblur" style="background-image:url('${ch.img || ''}')"></div>
-      <div class="pt-hero">
-        <img class="pt-hero-base" src="${ch.img || ''}" alt="${esc(ch.name)}">
-        ${ch.talk ? `<img class="pt-hero-talk" src="${ch.talk}" alt="" aria-hidden="true">` : ''}
-      </div>
-      <div class="pt-shade"></div>
-    </div>
+    <div class="pt-stage">${C.use3d ? stage3dHTML(ch) : stage2dHTML(ch)}</div>
     <div class="pt-top">
       <button class="pt-round" id="pt-end" aria-label="Завершить звонок">${I(IC.x, 22)}</button>
       <div class="pt-prog" role="progressbar" aria-label="Ход звонка" aria-valuemin="0" aria-valuemax="100"><span></span></div>
@@ -664,13 +765,14 @@ function buildCallUI(){
       <button class="pt-talk" id="pt-talk"><span class="pt-talk-ic">${I(IC.mic, 20)}</span><span class="pt-talk-tx">Нажмите и говорите</span><span class="pt-meter" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span></button>
       <button class="pt-round" id="pt-help" aria-label="Не понял — объясни по-русски">${I(IC.help, 21)}</button>
     </div>
-    <div class="pt-dial"><div class="pt-dial-av">${ch.av ? `<img src="${ch.av}" alt="">` : ''}</div>
+    <div class="pt-dial"><div class="pt-dial-av">${avImg(ch)}</div>
       <p>Звоним: ${esc(ch.name)}…</p>
       <button class="pt-hang" id="pt-hang" aria-label="Отменить звонок">${I(IC.phone, 26)}</button></div>
   </div>`);
   document.body.appendChild(el);
   document.documentElement.classList.add('pt-locked');
   C.el = el;
+  if(C.use3d) mount3d(el); else fillAvatars(el);
   anim(el, { opacity: [0, 1] }, { duration: .25 });
   anim($('.pt-dial-av', el), { transform: ['scale(1)', 'scale(1.06)', 'scale(1)'] }, { duration: 1.6, repeat: Infinity });
   $('#pt-hang', el).onclick = () => closeCall();
@@ -690,9 +792,43 @@ function buildCallUI(){
   progress();
 }
 
+const stage2dHTML = ch => `
+      <div class="pt-hero">
+        <img class="pt-hero-base" src="${ch.img || ''}" alt="${esc(ch.name)}">
+        ${ch.talk ? `<img class="pt-hero-talk" src="${ch.talk}" alt="" aria-hidden="true">` : ''}
+      </div>`;
+const stage3dHTML = ch => `<div class="pt-3dbox" style="background-image:url('${ch.bg}')" role="img" aria-label="${esc(ch.name)}"></div>`;
+/* 3D-сцена звонка; если не вышло (старый телефон, нет WebGL) — прежняя картинка */
+async function mount3d(el){
+  const call = C;
+  fillAvatars(el);
+  try{
+    const m = await load3d();
+    if(C !== call || call.ended) return;
+    call.stage = m.createStage($('.pt-3dbox', el), { model: call.ch.model, look: call.ch.look });
+    call.stage.voice = voiceLevel;
+    call.stage.mic = () => (C === call ? call.micAmp : 0);
+    call.stage.setMode(call.state);
+  }catch(e){
+    console.warn('3D', e);
+    if(C !== call || call.ended) return;
+    call.use3d = false;
+    if(call.ch.img){ $('.pt-stage', el).innerHTML = stage2dHTML(call.ch); if(call.state === 'ai') lipLoop(); }
+    else toast('3D не запустилось на этом устройстве.', 5000);
+  }
+}
+/* громкость голоса персонажа (0…~0.3): по ней двигаются губы */
+const _vb = new Uint8Array(256);
+function voiceLevel(){
+  if(!C || C.state !== 'ai') return 0;
+  if(analyser && C.src){ analyser.getByteTimeDomainData(_vb); let s = 0; for(const v of _vb){ const d = (v - 128) / 128; s += d * d; } return Math.sqrt(s / _vb.length); }
+  return C.browserTalk ? (Math.sin(performance.now() / 90) + 1) / 8 : 0;   // голос браузера не анализируется — просто ритм
+}
+
 function setState(st){
   if(!C) return;
   C.state = st;
+  C.stage?.setMode(st);
   const el = C.el; el.dataset.state = st;
   const t = $('#pt-talk', el), tx = $('.pt-talk-tx', el);
   t.disabled = st === 'connecting' || st === 'busy';
@@ -729,6 +865,7 @@ const b64buf = (b64) => { const bin = atob(b64); const u = new Uint8Array(bin.le
 /* Воспроизведение через WebAudio + «губы»: громкость звука переключает кадр с открытым ртом */
 let analyser = null;
 function lipLoop(){
+  if(C.use3d) return;                                // в 3D губы двигает сама сцена (voiceLevel)
   const talk = $('.pt-hero-talk', C.el), hero = $('.pt-hero', C.el);
   const buf = new Uint8Array(256);
   let open = false, lastSwitch = 0;
@@ -764,7 +901,7 @@ async function speakNow(arrayBuf, segments, slowRate){
   lipLoop();
   let ok = false;
   if(arrayBuf){ try{ await playBuffer(arrayBuf); ok = true; }catch(e){ console.warn('звук', e); } }
-  if(!ok && C && C.state === 'ai') await browserSpeak(segments, slowRate);   // сервер не смог озвучить — читает браузер
+  if(!ok && C && C.state === 'ai'){ C.browserTalk = true; await browserSpeak(segments, slowRate); if(C) C.browserTalk = false; }   // сервер не смог озвучить — читает браузер
   if(C && C.state === 'ai') setState('idle');
 }
 function browserSpeak(segments, slow){
@@ -853,6 +990,7 @@ function startMeter(rec){
     let amp = 0;
     if(an){ an.getByteTimeDomainData(buf); let s = 0; for(const v of buf){ const d = (v - 128) / 128; s += d * d; } amp = Math.sqrt(s / buf.length); }
     bars.forEach((b, i) => b.style.transform = `scaleY(${Math.min(1, .15 + amp * (6 + i * 2.2))})`);
+    C.micAmp = amp;
     const t = performance.now();
     if(amp > 0.035){ rec._spoke = true; silentSince = 0; }
     else if(rec._spoke){ silentSince ||= t; if(t - silentSince > 1700) return stopRec(true); }   // замолчал — отправляем
@@ -861,7 +999,7 @@ function startMeter(rec){
   };
   meterRAF = requestAnimationFrame(step);
 }
-function stopMeter(){ cancelAnimationFrame(meterRAF); C?.el.querySelectorAll('.pt-meter i').forEach(b => b.style.transform = ''); }
+function stopMeter(){ cancelAnimationFrame(meterRAF); if(C) C.micAmp = 0; C?.el.querySelectorAll('.pt-meter i').forEach(b => b.style.transform = ''); }
 
 async function sendAudio(blob, ext, spoke){
   if(blob.size < 800 || spoke === false){ toast('Ничего не расслышал — попробуйте ещё раз.'); setState('idle'); return; }
@@ -897,14 +1035,16 @@ async function turn(fd, typed){
 function markGoals(heard){
   const said = (heard.text || '').toLowerCase();
   const used = (heard.used || []).map(w => String(w).toLowerCase());
+  let hit = false;
   C.el.querySelectorAll('.pt-goal:not(.done)').forEach(g => {
     const w = g.dataset.w.toLowerCase();
     if(used.includes(w) || new RegExp(`(^|[^\\p{L}])${escRe(w)}([^\\p{L}]|$)`, 'u').test(said)){
-      g.classList.add('done'); g.insertAdjacentHTML('afterbegin', I(IC.check, 13));
+      g.classList.add('done'); g.insertAdjacentHTML('afterbegin', I(IC.check, 13)); hit = true;
       anim(g, { transform: ['scale(1)', 'scale(1.18)', 'scale(1)'] }, { duration: .45 });
       navigator.vibrate?.([10, 40, 10]);
     }
   });
+  if(hit) C.stage?.cheer();
 }
 
 function stopMedia(){
@@ -913,6 +1053,8 @@ function stopMedia(){
   if(C.rec){ C.rec._send = false; try{ C.rec.stop(); }catch(e){} C.rec._stream?.getTracks().forEach(t => t.stop()); }
   try{ C.ctx?.close(); }catch(e){}
   analyser = null;
+  try{ C.stage?.dispose(); }catch(e){}
+  C.stage = null;
   C.breath?.cancel?.();
 }
 function closeCall(){
@@ -955,7 +1097,7 @@ async function endCall(){
 
 /* ── разбор разговора (после звонка и из истории) ── */
 function showReview(el, { title, takeaway, turns, char, voice }){
-  const av = char?.av ? `<img src="${char.av}" alt="">` : '';
+  const av = avImg(char);
   el.classList.add('pt-after');
   el.innerHTML = `<div class="pt-panel pt-review">
     <div class="pt-rv-hd"><h2>Разбор разговора</h2>
@@ -972,6 +1114,7 @@ function showReview(el, { title, takeaway, turns, char, voice }){
     ${turns.some(t => t.tr) ? '<p class="hint">Нажмите на реплику персонажа — появится перевод.</p>' : ''}
     <button class="btn btn-primary pt-wide" data-close>Готово</button></div>`;
   anim($('.pt-panel', el), { opacity: [0, 1] }, { duration: .3 });
+  fillAvatars(el);
   if(M && !reduced) el.querySelectorAll('.pt-msg').forEach((m, i) => anim(m, { opacity: [0, 1], transform: ['translateY(10px)', 'translateY(0px)'] }, { duration: .3, delay: Math.min(i, 12) * .04 }));
   el.addEventListener('click', async e => {
     if(e.target.closest('[data-close]')){ el.remove(); C = null; document.documentElement.classList.remove('pt-locked'); renderCallHome(); return; }

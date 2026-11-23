@@ -12,7 +12,7 @@ const FONTS = 'portu-fonts-' + VERSION;
 
 const scopePath = new URL(self.registration.scope).pathname;     // /portu/
 const isPage = p => p === scopePath || p === scopePath + 'index.html' || p === scopePath + 'cartoes-pt.html';
-const isCode = p => /\/(portu\.js|portu\.css|cartoes-pt\.webmanifest)$/.test(p);
+const isCode = p => /\/(portu\.js|portu3d\.js|portu\.css|cartoes-pt\.webmanifest)$/.test(p);
 
 self.addEventListener('install', (e) => {
   e.waitUntil(caches.open(SHELL)

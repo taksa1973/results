@@ -3,8 +3,9 @@
 Обработчик на ПК anton: делает из загруженного фото мультяшного персонажа
 через Grok (подписка, CLI), без платного API.
 
-Раз в 45 секунд спрашивает у syferpu.top/portu новые фото. На каждое — один
-сеанс Grok с тремя правками:
+Раз в 45 секунд спрашивает у syferpu.top/portu новые фото. На каждое сначала
+короткий запрос «опиши внешность» (кожа, волосы, одежда — для 3D-модели в звонке,
+уходит на сервер сразу), потом один сеанс Grok с тремя правками:
   1. портрет: мультяшная версия человека (для кружков-аватаров), 3:4;
   2. полный рост: тот же персонаж издалека, целиком, 9:16 — для звонка;
   3. тот же кадр с открытым ртом — из него берём только область рта
@@ -90,6 +91,37 @@ PROMPT = """Use the image_edit tool three times, one after another, and save eac
    Edit: PHOTO EDIT, same pixel positions, do not zoom, do not move or reframe the camera, keep the character, pose, eyes, hair and clothes identical, and keep the background the same flat pure green. The ONLY change: the mouth is open as if in the middle of saying a word. Nothing else changes.
 
 Print DONE when portrait.png, figure.png and talk.png all exist. If the tool refuses an edit, print REFUSED and the reason."""
+
+LOOK_PROMPT = """Open and look at the image file {photo} (use your file viewing tool). Describe the main person's appearance for a simple 3D cartoon avatar. Do not edit or create images. Reply with exactly one line and nothing else:
+LOOK: {{"gender":"female|male","skin":"#hex","eyes":"#hex","lips":"#hex","hair":{{"color":"#hex","style":"long|curly_long|bob|bun|ponytail|short|curly_short|buzz|afro|bald"}},"beard":"none|stubble|full|mustache","glasses":"none|dark|gold","top":{{"color":"#hex","type":"tank|tshirt|shirt|hoodie|dress"}},"bottom":{{"color":"#hex","type":"pants|wide|shorts|skirt"}},"shoes":"#hex","earrings":false}}
+Pick one value where there is a choice. Colours are real colours from the photo as #rrggbb. If the lower body is not visible, guess plausible casual clothes."""
+
+
+def ask_look(folder, photo):
+    """Внешность для 3D по фото. Не вышло — None (персонажа можно настроить вручную в приложении)."""
+    import re
+    t0 = time.time()
+    try:
+        p = subprocess.run([GROK, "-p", LOOK_PROMPT.format(photo=photo), "--yolo", "--max-turns", "6",
+                            "--disallowed-tools", "web_search,web_fetch,image_edit"],
+                           cwd=folder, capture_output=True, text=True, encoding="utf-8", errors="replace", timeout=300,
+                           creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0))
+    except Exception as e:
+        log("внешность: grok не запустился", repr(e)[:200])
+        return None
+    out = (p.stdout or "") + (p.stderr or "")
+    m = re.search(r"LOOK:\s*(\{.*\})", out)
+    if not m:
+        log("внешность: нет ответа", f"{time.time() - t0:.0f} с", out.strip()[-200:].replace("\n", " "))
+        return None
+    try:
+        look = json.loads(m.group(1))
+    except ValueError:
+        log("внешность: не JSON", m.group(1)[:200])
+        return None
+    log("внешность", f"{time.time() - t0:.0f} с", json.dumps(look, ensure_ascii=False)[:300])
+    return look
+
 
 # Кадр звонка собираем сами, а не просим Grok: он не держит композицию (голова упиралась
 # в кнопки, фон слева оставался недорисованным). Фигуру вырезаем по зелёному и ставим на
@@ -206,6 +238,13 @@ def process(job):
     photo = os.path.join(folder, "photo.jpg")
     open(photo, "wb").write(http("GET", job["photo"]))
     log("задание", jid[:10], job.get("name"), "попытка", job.get("tries"))
+    look = ask_look(folder, photo)
+    if look:                                   # 3D-персонаж обновится сразу, не дожидаясь картинок
+        try:
+            data, ct = multipart({"look": json.dumps(look, ensure_ascii=False)}, {})
+            http("POST", f"/portu/api/worker/jobs/{jid}/result", data, ct, timeout=60)
+        except Exception:
+            log("внешность не отправилась", traceback.format_exc()[-300:])
     t0 = time.time()
     prompt = PROMPT.format(photo=photo, portrait=os.path.join(folder, "portrait.png"),
                            figure=os.path.join(folder, "figure.png"))

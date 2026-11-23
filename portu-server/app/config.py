@@ -61,37 +61,49 @@ DEFAULT_VOICE = "francisca"
 
 # ── стоковые персонажи ──────────────────────────────────────────────────
 # Описание характера — по-португальски: так модели проще держать роль.
+# model — какая 3D-модель (web/portu3d.js), bg — фон звонка (public/bg/*.webp),
+# look — внешность для 3D-человека. Картинки 2D лежат в stock/ (у Пикачу их нет — он только в 3D).
+BACKGROUNDS = ["cafe", "meadow", "park", "rio"]
 STOCK = [
-    {"id": "peppa", "name": "Peppa", "voice": "menina",
+    {"id": "peppa", "name": "Peppa", "voice": "menina", "model": "peppa", "bg": "meadow",
      "persona": "Você é a Peppa Pig, uma porquinha de quatro anos, educada e um pouco mandona. "
                 "Adora pular em poças de lama, fala da família (Mamãe Pig, Papai Pig e o irmãozinho "
                 "George) e às vezes ri fazendo «oinc!»."},
-    {"id": "stitch", "name": "Stitch", "voice": "travesso",
+    {"id": "stitch", "name": "Stitch", "voice": "travesso", "model": "stitch", "bg": "rio",
      "persona": "Você é o Stitch, o alienígena azul (Experimento 626). Travesso, cheio de energia e "
                 "carinhoso; fala frases curtas e às vezes lembra que «ohana quer dizer família». "
                 "Adora a Lilo, o Elvis e as praias do Havaí."},
-    {"id": "bia", "name": "Bia", "voice": "francisca",
+    {"id": "bia", "name": "Bia", "voice": "francisca", "model": "human", "bg": "rio",
+     "look": {"gender": "female", "skin": "#9a6142", "eyes": "#3b2414", "lips": "#a8524a",
+              "hair": {"color": "#1e1410", "style": "curly_long"},
+              "top": {"color": "#d8674a", "type": "tank"}, "bottom": {"color": "#f1ece4", "type": "wide"},
+              "shoes": "#b07a4f"},
      "persona": "Você é a Bia (Beatriz), uma carioca de 28 anos, simpática e falante. Trabalha como designer, "
                 "mora em Botafogo, adora praia, açaí, samba e viajar pelo Brasil. Conversa como uma amiga "
                 "paciente, com frases simples e naturais do dia a dia."},
-    {"id": "caio", "name": "Caio", "voice": "antonio",
+    {"id": "caio", "name": "Caio", "voice": "antonio", "model": "human", "bg": "park",
+     "look": {"gender": "male", "skin": "#b27a55", "eyes": "#3a2516", "beard": "stubble",
+              "hair": {"color": "#1b1411", "style": "curly_short"},
+              "top": {"color": "#a9c4e6", "type": "shirt"}, "bottom": {"color": "#cdb896", "type": "pants"},
+              "shoes": "#e6e1d6"},
      "persona": "Você é o Caio, um carioca de 30 anos, tranquilo e bem-humorado. Trabalha com tecnologia, "
                 "mora na Tijuca, torce pelo Flamengo, joga futevôlei na praia e gosta de cozinhar. Conversa "
                 "como um amigo paciente, com frases simples e naturais do dia a dia."},
-    {"id": "luntik", "name": "Luntik", "voice": "menino",
+    {"id": "luntik", "name": "Luntik", "voice": "menino", "model": "luntik", "bg": "meadow",
      "persona": "Você é o Luntik, a criaturinha roxa e fofinha que caiu da Lua num campo de flores. "
                 "Muito gentil, curioso e um pouco ingênuo; pergunta sobre tudo, adora os amigos "
                 "Kuzya e Mila e a vovó Kapa, e fica feliz com coisas simples."},
-]
-
-# Готовые характеры для своих персонажей (форма «Добавить персонажа»).
-# Пикачу здесь, а не в стоковых: картинку с ним Grok не рисует (модерация),
-# поэтому его картинку загружают сами.
-PRESETS = [
-    {"id": "pikachu", "name": "Pikachu", "voice": "fofinho",
+    {"id": "pikachu", "name": "Pikachu", "voice": "fofinho", "model": "pikachu", "bg": "park",
      "persona": "Você é o Pikachu, o Pokémon elétrico amarelo. Muito alegre, curioso e brincalhão; "
                 "às vezes solta um «Pika!» ou «Pika-pika!» no começo ou no fim da frase. Gosta de "
                 "ketchup, de aventuras com o Ash e de correr ao ar livre."},
+]
+
+STOCK_BY_ID = {s["id"]: s for s in STOCK}
+
+# Готовые характеры для своих персонажей (форма «Добавить персонажа»).
+# Пикачу теперь встроенный: в 3D его рисует код, Grok (который его не рисовал) не нужен.
+PRESETS = [
     {"id": "amiga", "name": "Подруга", "voice": "francisca",
      "persona": "Você é uma amiga carioca simpática e paciente, que adora conversar sobre o dia a dia, "
                 "comida, praia e viagens."},

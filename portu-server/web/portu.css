@@ -116,6 +116,21 @@
 .pt-check{display:flex;align-items:center;gap:10px;font-size:15px;min-height:44px}
 .pt-check input{width:22px;height:22px;accent-color:var(--blue)}
 .pt-sheet-ft{justify-content:flex-end}
+/* своё фото и тот же персонаж в 3D — рядом */
+.pt-have{display:flex;gap:10px;justify-content:center}
+.pt-have .pt-photo-have{flex:0 1 auto;height:min(34dvh,300px);max-height:none}
+.pt-look-prev{background:#cfe3f5}
+.pt-look-tag{position:absolute;top:8px;left:8px;font-size:12px;font-weight:700;letter-spacing:.04em;color:#fff;
+  background:rgba(0,0,0,.42);border-radius:8px;padding:3px 7px}
+.pt-look{border:1px solid var(--border);border-radius:14px;padding:0 14px}
+.pt-look summary{display:flex;align-items:center;gap:8px;min-height:48px;font-weight:600;cursor:pointer;list-style:none}
+.pt-look summary::-webkit-details-marker{display:none}
+.pt-look summary::after{content:'›';margin-left:auto;font-size:22px;color:var(--text-3);transition:transform .2s}
+.pt-look[open] summary::after{transform:rotate(90deg)}
+.pt-look-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;padding-bottom:4px}
+.pt-look .pt-field{font-size:13px;gap:5px}
+.pt-look .pt-field select{min-height:44px;padding:9px 10px;font-size:15px}
+.pt-color input[type=color]{padding:4px;min-height:44px;cursor:pointer}
 .pt-danger{color:var(--red);border-color:var(--red)}
 
 /* ── звонок ── */
@@ -130,6 +145,11 @@
 /* картинку не масштабируем: фон — часть того же кадра, и он «прыгал» бы вместе с персонажем. Говорит только рот. */
 .pt-hero-talk{opacity:0;transition:opacity 45ms linear}
 .pt-shade{display:none}   /* anton: затемнения картинки не нужно вообще */
+/* 3D: фон — картинка 9:16 под прозрачным холстом; персонаж рисуется кодом поверх.
+   Фон неподвижен, двигается только персонаж. */
+.pt-3dbox{position:absolute;top:0;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:calc(100dvh * .5625);
+  background:#9cc7ea center bottom/cover no-repeat}
+.pt-3dbox canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
 .pt-top{position:relative;display:flex;align-items:center;gap:14px;padding:calc(12px + env(safe-area-inset-top)) 14px 6px}
 .pt-prog{flex:1;height:12px;border-radius:8px;background:rgba(255,255,255,.22);overflow:hidden}
 .pt-prog span{display:block;height:100%;background:var(--green);border-radius:8px;transition:width .5s cubic-bezier(.2,.8,.2,1)}

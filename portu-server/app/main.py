@@ -242,13 +242,62 @@ def seed_stock():
 seed_stock()
 
 
+# ── внешность для 3D (web/portu3d.js): только известные поля и значения ──
+LOOK_ENUMS = {
+    "gender": ("female", "male"),
+    "hair": ("long", "curly_long", "bob", "bun", "ponytail", "short", "curly_short", "buzz", "afro", "bald"),
+    "beard": ("none", "stubble", "full", "mustache"),
+    "glasses": ("none", "dark", "gold"),
+    "top": ("tank", "tshirt", "shirt", "hoodie", "dress"),
+    "bottom": ("pants", "wide", "shorts", "skirt"),
+}
+_HEX = re.compile(r"^#[0-9a-fA-F]{6}$")
+
+
+def clean_look(raw):
+    """Чистит описание внешности (от Grok или из формы). Неизвестное — выбрасывает, None — если пусто."""
+    if isinstance(raw, str):
+        try:
+            raw = json.loads(raw)
+        except Exception:
+            return None
+    if not isinstance(raw, dict):
+        return None
+    hexv = lambda v: v.strip().lower() if isinstance(v, str) and _HEX.match(v.strip()) else None
+    alias = {"jeans": "pants", "trousers": "pants", "t-shirt": "tshirt", "tee": "tshirt", "blouse": "shirt",
+             "sweater": "hoodie", "glasses": "dark", "black": "dark", "curly": "curly_long", "medium": "long"}
+    one = lambda v, key: (lambda x: x if x in LOOK_ENUMS[key] else None)(alias.get(v, v) if isinstance(v, str) else v)
+    hair = raw.get("hair") if isinstance(raw.get("hair"), dict) else {}
+    top = raw.get("top") if isinstance(raw.get("top"), dict) else {}
+    bot = raw.get("bottom") if isinstance(raw.get("bottom"), dict) else {}
+    out = {
+        "gender": one(raw.get("gender"), "gender"), "skin": hexv(raw.get("skin")), "eyes": hexv(raw.get("eyes")),
+        "lips": hexv(raw.get("lips")), "beard": one(raw.get("beard"), "beard"), "glasses": one(raw.get("glasses"), "glasses"),
+        "hair": {"color": hexv(hair.get("color")), "style": one(hair.get("style"), "hair")},
+        "top": {"color": hexv(top.get("color")), "type": one(top.get("type"), "top")},
+        "bottom": {"color": hexv(bot.get("color")), "type": one(bot.get("type"), "bottom")},
+        "shoes": hexv(raw.get("shoes")), "earrings": bool(raw.get("earrings")),
+    }
+    for k in ("hair", "top", "bottom"):
+        out[k] = {a: b for a, b in out[k].items() if b}
+    out = {k: v for k, v in out.items() if v not in (None, {}, False)}
+    return out or None
+
+
 def char_out(c):
     v = c["updated_at"]
+    st = config.STOCK_BY_ID.get(c["id"]) if c["user_id"] is None else None
+    if st:
+        model, look, bg = st.get("model", "human"), st.get("look"), st.get("bg", "meadow")
+    else:
+        model, bg = "human", config.BACKGROUNDS[int(hashlib.md5(c["id"].encode()).hexdigest(), 16) % len(config.BACKGROUNDS)]
+        look = clean_look(c["look"]) if c["look"] else None
     return {"id": c["id"], "name": c["name"], "kind": c["kind"], "voice": c["voice"],
             "persona": c["persona"] if c["kind"] != "stock" else "",
             "img": f"{B}/api/char-img/{c['id']}?v={v}" if c["img"] else None,
             "talk": f"{B}/api/char-img/{c['id']}?kind=talk&v={v}" if c["img_talk"] else None,
             "av": f"{B}/api/char-img/{c['id']}?kind=av&v={v}" if (c["img_av"] or c["img"]) else None,
+            "model": model, "look": look, "bg": f"{B}/bg/{bg}.webp",
             "status": c["status"], "note": c["note"], "mine": c["user_id"] is not None}
 
 
@@ -341,6 +390,9 @@ async def edit_character(cid: str, req: Request):
     persona = str(b.get("persona", c["persona"]))[:800]
     db.x("UPDATE characters SET name=?, voice=?, persona=?, updated_at=? WHERE id=?",
          (name, voice, persona, db.now(), cid))
+    if "look" in b:                      # внешность в 3D поправили вручную
+        lk = clean_look(b.get("look"))
+        db.x("UPDATE characters SET look=? WHERE id=?", (db.dumps(lk) if lk else None, cid))
     if b.get("recartoon"):
         db.x("UPDATE characters SET status='cartoon_pending', note=NULL WHERE id=?", (cid,))
         db.x("INSERT INTO jobs(id,char_id,status,created_at) VALUES(?,?, 'pending', ?)",
@@ -408,14 +460,21 @@ async def worker_photo(jid: str, req: Request):
 
 
 @app.post(B + "/api/worker/jobs/{jid}/result")
-async def worker_result(jid: str, req: Request, image: UploadFile = File(...),
-                        talk: UploadFile | None = File(None), avatar: UploadFile | None = File(None)):
-    """image — персонаж в полный рост (9:16), talk — тот же кадр с открытым ртом, avatar — портрет."""
+async def worker_result(jid: str, req: Request, image: UploadFile | None = File(None),
+                        talk: UploadFile | None = File(None), avatar: UploadFile | None = File(None),
+                        look: str = Form("")):
+    """image — персонаж в полный рост (9:16), talk — тот же кадр с открытым ртом, avatar — портрет,
+    look — внешность для 3D (JSON). Без image — только внешность (Grok отказался рисовать картинки)."""
     need_worker(req)
     j = db.q("SELECT * FROM jobs WHERE id=?", (jid,), one=True)
     if not j:
         return err(404, "нет задания")
     cid = j["char_id"]
+    lk = clean_look(look) if look else None
+    if lk:
+        db.x("UPDATE characters SET look=?, updated_at=? WHERE id=?", (db.dumps(lk), db.now(), cid))
+    if image is None:
+        return {"ok": True, "look": bool(lk)}
 
     def save(up, suffix, w, h):
         path = os.path.join(CHAR_DIR, cid + suffix)
