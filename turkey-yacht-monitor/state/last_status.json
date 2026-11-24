@@ -1,9 +1,8 @@
 {
-  "ts": "2026-11-23T17:38:11.938560+00:00",
+  "ts": "2026-11-24T17:07:33.654886+00:00",
   "findings": {},
   "errors": {
     "Sailo Turkey catamarans": "http_403",
-    "Navigare Yachting Turkey": "request_error: ConnectionError: HTTPSConnectionPool(host='navigare-yachting.com', port=443): Read timed out.",
     "Rotaneta Gocek catamaran": "http_502",
     "Rotaneta home": "http_502",
     "Boataround Turkey": "http_405",
