@@ -138,7 +138,7 @@ footer{padding:40px 0 60px;color:var(--label);font-size:13px}
         <tr><td class="k">Воркер amo-zoho</td><td class="m">Новая заявка → комната Zoho Meeting → ссылка в поле. Клик по ссылке переносит встречу на «сейчас» и пускает в комнату. После звонка — примечание с участниками и записью.</td><td class="v"><span class="tag t-warn">ждёт токена Zoho</span></td></tr>
         <tr><td class="k">Попап записи</td><td class="m">Третий формат «Zoho Meeting» со значком, новый подзаголовок, письма и задачи с Zoho, учёт явки по отчёту участников Zoho.</td><td class="v"><span class="tag t-n">ждёт выкладки</span></td></tr>
         <tr><td class="k">Ссылка для Димы</td><td class="m">Адрес с хэшем <code>#neoved-meeting-zoho</code> открывает форму сразу с выбранным Zoho Meeting — и по клику, и при открытии страницы.</td><td class="v"><span class="tag t-n">ждёт выкладки</span></td></tr>
-        <tr><td class="k">Карточка контактов</td><td class="m">Кнопка с текстом «Zoho Meeting» открывает попап с Zoho, даже без ссылки — как Zoom и Google Meet сейчас.</td><td class="v"><span class="tag t-n">ждёт выкладки</span></td></tr>
+        <tr><td class="k">Карточка контактов</td><td class="m">Дима уже поставил кнопку «Zoho Meeting», но боевой скрипт карточки принимает её за Google Meet (в «Zoho Meeting» есть «meet») — исправлено. При наведении кнопки видеовстреч теперь краснеют целиком, как мессенджеры: текст и значок #EE0000, белые детали значков остаются белыми.</td><td class="v"><span class="tag t-warn">ждёт выкладки</span></td></tr>
         <tr><td class="k">Кнопки в Tilda</td><td class="m">Текст «Встретиться в Zoom / Meet / Zoho», ширина обеих кнопок 315 px на десктопе, 550 px на планшете.</td><td class="v"><span class="tag t-warn">делает Дима</span></td></tr>
       </tbody>
     </table>
@@ -153,8 +153,8 @@ footer{padding:40px 0 60px;color:var(--label);font-size:13px}
       <h3>Кнопка Zoho в контактах</h3>
       <p class="muted">В строке «Видеовстреча» рядом с Zoom и Google Meet. Ссылка элемента:</p>
       <div class="copy"><pre>#neoved-meeting-zoho</pre><button type="button" data-copy aria-label="Скопировать ссылку для кнопки">Копировать</button></div>
-      <p class="muted" style="margin-top:12px">Попап откроется сразу с Zoho Meeting. Если кнопку собрать копией группы Zoom / Google Meet с текстом «Zoho Meeting», она заработает и без ссылки. Ссылка для любой страницы и для рассылок:</p>
-      <div class="copy"><pre>https://neoved.io/kontakty#neoved-meeting-zoho</pre><button type="button" data-copy aria-label="Скопировать полную ссылку">Копировать</button></div>
+      <p class="muted" style="margin-top:12px">Попап откроется сразу с Zoho Meeting. Кнопка, собранная копией группы Zoom / Google Meet (класс <code>cardzm</code>) с текстом «Zoho Meeting», работает и без ссылки — так она и стоит сейчас. Красное наведение для всех трёх кнопок делает наш скрипт карточки, в Tilda ничего менять не нужно. Ссылка для любой страницы и для рассылок:</p>
+      <div class="copy"><pre>https://neoved.io/o-nas/kontakty#neoved-meeting-zoho</pre><button type="button" data-copy aria-label="Скопировать полную ссылку">Копировать</button></div>
     </div>
     <div class="card reveal">
       <h3>Текст кнопки 1 — во всех формах</h3>
