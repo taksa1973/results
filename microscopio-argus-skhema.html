@@ -1,0 +1,633 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ARGUS: схемы сборки микроскопа OpenFlexure и бокса, STL для печати</title>
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="description" content="Схемы сборки микроскопа OpenFlexure (проект ARGUS): архив STL для заказа печати, устройство микроскопа, электрика с Arduino Nano, порядок сборки на столе, установка в бокс 37 °C и 5 % CO₂ и подключение бокса.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add('js-anim')</script>
+<style>
+:root{
+  --bg:#000;--card:#121212;--sub:#1A1A1A;--line:#262626;--line2:#3A3A3A;
+  --ink:#F5F5F5;--head:#FFF;--muted:#C4C4C8;--label:#8E8E93;
+  --red:#9B1C1C;--red-h:#B42323;--red-t:#E05252;--red-bg:#241010;--red-bd:#4D1B1B;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:var(--red-t);text-decoration:none}
+a:hover{text-decoration:underline}
+a:focus-visible,button:focus-visible{outline:2px solid var(--red-t);outline-offset:3px;border-radius:6px}
+.skip{position:absolute;left:-9999px;top:8px;background:#fff;color:#000;padding:8px 12px;border-radius:8px;z-index:100}
+.skip:focus{left:8px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 16px}
+nav.topnav{position:sticky;top:0;z-index:40;background:rgba(0,0,0,.88);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.topnav-inner{max-width:1120px;margin:0 auto;padding:0 16px;display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
+.topnav-inner::-webkit-scrollbar{display:none}
+.topnav-inner a{flex:none;color:var(--muted);padding:14px 12px;font-size:14px;font-weight:500;border-bottom:2px solid transparent;white-space:nowrap}
+.topnav-inner a:hover{color:#fff;text-decoration:none}
+.topnav-inner a.active{color:#fff;border-bottom-color:var(--red-t)}
+header.hero{padding:56px 0 24px}
+.eyebrow{color:var(--red-t);font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase}
+h1{font-size:clamp(30px,5vw,48px);line-height:1.1;margin:10px 0 14px;color:var(--head);font-weight:800;letter-spacing:-.02em}
+h1 span{color:var(--red-t)}
+.lead{color:var(--muted);max-width:860px;font-size:17px;margin:0 0 10px}
+.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:28px}
+.tile{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px}
+.tile b{display:block;font-size:26px;color:#fff;font-weight:800;font-variant-numeric:tabular-nums;line-height:1.2}
+.tile small{color:var(--label);font-size:13px}
+section{padding:44px 0 8px;scroll-margin-top:56px}
+h2{display:flex;align-items:center;gap:12px;font-size:26px;color:#fff;margin:0 0 18px;font-weight:700;line-height:1.25}
+h2 .num{display:inline-grid;place-items:center;width:30px;height:30px;background:#fff;color:#000;border-radius:8px;font-size:15px;font-weight:800;flex:none}
+h3{color:#fff;font-size:18px;margin:0 0 6px;line-height:1.3}
+p.muted{color:var(--muted)}
+.box{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px 18px;margin:0 0 16px}
+.box p{margin:0 0 8px;color:var(--muted)}
+.box p:last-child{margin:0}
+.box b{color:#fff}
+.note{background:var(--red-bg);border:1px solid var(--red-bd);border-radius:14px;padding:14px 16px;color:var(--ink);font-size:15px;margin:0 0 16px}
+.note b{color:var(--red-t)}
+.btn{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:10px 16px;border-radius:12px;background:#fff;color:#000;font-weight:700;font-size:15px;transition:background .2s,color .2s;cursor:pointer;border:0;font-family:inherit}
+.btn:hover{background:var(--red);color:#fff;text-decoration:none}
+.btn.ghost{background:transparent;color:#fff;box-shadow:inset 0 0 0 1px var(--line2)}
+.btn.ghost:hover{background:var(--red);box-shadow:none}
+.btns{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 16px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.tbl{width:100%;border-collapse:collapse;font-size:14px;background:var(--card)}
+.tbl th{background:#1F1F1F;color:#fff;text-align:left;font-weight:600;padding:10px;white-space:nowrap}
+.tbl td{padding:9px 10px;border-top:1px solid var(--line);vertical-align:top;color:var(--muted)}
+.tbl td:first-child{color:#fff;font-weight:600;white-space:nowrap}
+.tblwrap{overflow-x:auto;border-radius:14px;border:1px solid var(--line);margin:12px 0 16px}
+pre.brief{background:#0B0B0B;border:1px solid var(--line2);border-radius:14px;padding:16px;color:var(--ink);font:13px/1.55 ui-monospace,SFMono-Regular,Consolas,monospace;white-space:pre-wrap;margin:0}
+.diag{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:12px;overflow-x:auto;margin:0 0 14px}
+.diag svg{display:block;width:100%;min-width:720px;height:auto}
+.diag figcaption{color:var(--label);font-size:13px;padding:6px 6px 0}
+ol.legend{columns:2;column-gap:28px;color:var(--muted);font-size:15px;padding-left:0;list-style:none;margin:0}
+ol.legend li{break-inside:avoid;margin:0 0 10px;display:flex;gap:10px}
+ol.legend li i{font-style:normal;display:inline-grid;place-items:center;min-width:24px;height:24px;background:#fff;color:#000;border-radius:7px;font-size:13px;font-weight:800;flex:none}
+ol.legend b{color:#fff;font-weight:600}
+.steps{display:grid;gap:12px;counter-reset:s}
+.step{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px 18px;display:grid;grid-template-columns:40px 1fr;gap:4px 14px}
+.step .n{grid-row:span 3;display:grid;place-items:center;width:36px;height:36px;background:#fff;color:#000;border-radius:10px;font-weight:800;font-size:16px}
+.step h3{margin:4px 0 2px}
+.step .need{color:var(--label);font-size:14px}
+.step .need b{color:var(--muted);font-weight:600}
+.step p{margin:4px 0 0;color:var(--muted);font-size:15px}
+.step .src{font-size:13px}
+.step>*:not(.n){grid-column:2}
+.tag{display:inline-block;font-size:12px;font-weight:600;padding:3px 9px;border-radius:999px;margin:0 6px 6px 0;background:var(--red-bg);color:var(--red-t)}
+ol.src{color:var(--muted);font-size:14px;padding-left:20px}
+ol.src li{margin:4px 0}
+footer{padding:40px 0 60px;color:var(--label);font-size:13px}
+.reveal{opacity:1}
+.js-anim .reveal{opacity:0}
+svg text{font-family:Inter,system-ui,sans-serif}
+@media (max-width:760px){.tiles{grid-template-columns:1fr 1fr}.grid2{grid-template-columns:1fr}ol.legend{columns:1}}
+@media (max-width:420px){.tile b{font-size:21px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}.js-anim .reveal{opacity:1}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">К содержанию</a>
+<nav class="topnav" aria-label="Разделы">
+  <div class="topnav-inner">
+    <a href="#itog">Итог</a>
+    <a href="#stl">STL для печати</a>
+    <a href="#ustroystvo">Схема микроскопа</a>
+    <a href="#elektrika">Электрика</a>
+    <a href="#sborka">Порядок сборки</a>
+    <a href="#boks">Микроскоп в боксе</a>
+    <a href="#boks-elektrika">Подключение бокса</a>
+    <a href="#perenos">Перенос в бокс</a>
+    <a href="#istochniki">Источники</a>
+  </div>
+</nav>
+
+<main class="wrap" id="main">
+<header class="hero" id="itog">
+  <div class="eyebrow">ARGUS MVP · схемы сборки · OpenFlexure v7 high-res</div>
+  <h1>Как собрать микроскоп: <span>сначала на столе, потом в боксе</span></h1>
+  <p class="lead">Порядок такой: заказать печать по архиву STL, собрать микроскоп целиком и запустить его на столе. Когда он снимает и фокусируется, корпус переезжает в бокс на 37&nbsp;°C и 5&nbsp;% CO₂, а электроника остаётся снаружи. Схемы построены по официальной документации OpenFlexure и по деталям со страницы закупки: Arduino Nano вместо Sangaboard, светодиод 5&nbsp;мм вместо платы подсветки.</p>
+  <div class="tiles">
+    <div class="tile"><b>26</b><small>STL-файлов в архиве, 1,6 МБ</small></div>
+    <div class="tile"><b>≈ 416 см³</b><small>объём моделей основы, плюс 29 см³ чёрных</small></div>
+    <div class="tile"><b>14</b><small>шагов сборки микроскопа</small></div>
+    <div class="tile"><b>8</b><small>шагов переноса в бокс</small></div>
+  </div>
+</header>
+
+<section id="stl">
+  <h2><span class="num">1</span>STL для заказа печати</h2>
+  <p class="muted">Все файлы — официальные модели OpenFlexure v7.0.0-beta6, разложенные по папкам под заказ: что печатать каким цветом и что можно отложить. В архиве лежит README с настройками для мастера.</p>
+  <div class="btns">
+    <a class="btn" href="openflexure-argus-stl.zip" download>Скачать архив STL (1,6 МБ)</a>
+    <a class="btn ghost" href="https://build.openflexure.org/openflexure-microscope/v7.0.0-beta6/high_res_microscope/printing.html" target="_blank" rel="noopener">Страница печати OpenFlexure</a>
+  </div>
+  <div class="tblwrap reveal">
+    <table class="tbl">
+      <thead><tr><th>Папка</th><th>Что внутри</th><th>Цвет и когда</th></tr></thead>
+      <tbody>
+        <tr><td>4-test-pechati</td><td>leg_test, nut_trap_test — проверка мостов и встроенной каймы, около 5 г</td><td>печатать первыми, без каймы</td></tr>
+        <tr><td>1-osnova-PETG</td><td>корпус main_body, подставка с ящиком электроники, 3 ножки, 3 большие и 3 малые шестерни, 3 крышки кабелей, ласточкин хвост и крышка конденсора, барашек, 2 прижима, крышка камеры, пластина и держатель для Nano, держатель светодиода 5 мм — 15 файлов, около 416 см³</td><td>любой сплошной цвет, сейчас</td></tr>
+        <tr><td>2-chernyy-PETG</td><td>модуль оптики под камеру v2 и рука конденсора, около 29 см³</td><td><b style="color:#fff">чёрным</b>, сейчас</td></tr>
+        <tr><td>3-instrumenty</td><td>инструменты сборки: band tool, nut tool, gear holder, nut spinner, lens tool</td><td>любой пластик, можно PLA, сейчас</td></tr>
+        <tr><td>5-podstavka-dlya-boksa</td><td>подставка без Raspberry Pi, 77,7 см³</td><td>любой цвет, к переносу в бокс</td></tr>
+        <tr><td>6-fluorescenciya-chernyy-PETG</td><td>модуль оптики с делителем пучка, кубик фильтров, осветитель отражённого света</td><td>чёрным, к этапу 2</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="grid2">
+    <div class="box reveal" style="margin:0">
+      <p><b>Почему PETG.</b> В документации OpenFlexure описан тест в инкубаторе при ~40&nbsp;°C и высокой влажности: механизм из PLA заметно деформировался, из PETG — нет. ABS и другие жёсткие пластики не подходят для гибких шарниров.</p>
+      <p><b>Ящик электроники</b> в архиве — стандартный, под Pi 4 и Sangaboard. Документация разрешает ставить в него Nano через пластину <i>nano_converter_plate-pi4</i>, если Pi — четвёртый.</p>
+      <p><b>Держатель светодиода</b> заменяет плату подсветки; проставка под плату (condenser_board_spacer) не нужна и в архив не положена.</p>
+    </div>
+    <div class="reveal">
+      <pre class="brief" id="brief">Нужна 3D-печать микроскопа OpenFlexure, файлы в архиве.
+Материал PETG, сплошные цвета (не прозрачный, не «шёлк»).
+Сопло 0,4 мм, слой 0,2 мм, заполнение по умолчанию.
+Поддержки НЕ ставить — они ломают механизм.
+Кайма на все детали, кроме main_body.stl: у неё кайма уже в модели.
+Slice gap closing radius 0,001 мм, чтобы не залить тонкие зазоры.
+Сначала тесты из папки 4-test-pechati (около 5 г, без каймы).
+Папка 1 — любой цвет, папка 2 — чёрным, папка 3 — можно PLA.
+Папки 5 и 6 пока не печатать.
+Самая крупная деталь 171 × 134 × 78 мм.</pre>
+      <div class="btns"><button class="btn ghost" id="copy" type="button">Скопировать текст для мастера</button></div>
+    </div>
+  </div>
+</section>
+
+<section id="ustroystvo">
+  <h2><span class="num">2</span>Схема 1. Из чего состоит микроскоп</h2>
+  <p class="muted">Вид сбоку в разрезе, не в масштабе. Микроскоп перевёрнутый: свет идёт сверху через образец, объектив смотрит на чашку снизу. Красная пунктирная линия — путь света.</p>
+  <figure class="diag reveal" style="margin:0 0 14px">
+    <svg viewBox="0 0 760 572" role="img" aria-label="Схема устройства микроскопа OpenFlexure: подсветка сверху, столик с чашкой, модуль оптики с объективом, тубусной линзой и камерой снизу, приводы с моторами, подставка с ящиком электроники">
+      <defs>
+        <marker id="ar" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#E05252"/></marker>
+        <marker id="ag" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#8E8E93"/></marker>
+      </defs>
+      <!-- стол -->
+      <line x1="40" y1="532" x2="720" y2="532" stroke="#3A3A3A" stroke-width="2"/>
+      <!-- подставка -->
+      <rect x="150" y="440" width="420" height="90" rx="8" fill="#1A1A1A" stroke="#5A5A5F" stroke-width="2"/>
+      <text x="166" y="464" fill="#C4C4C8" font-size="13" font-weight="600">Подставка</text>
+      <text x="166" y="481" fill="#8E8E93" font-size="12">microscope_stand</text>
+      <rect x="320" y="456" width="236" height="62" rx="6" fill="#0B0B0B" stroke="#8E8E93" stroke-dasharray="5 4"/>
+      <rect x="330" y="468" width="84" height="40" rx="4" fill="#262626" stroke="#C4C4C8"/>
+      <text x="372" y="493" fill="#F5F5F5" font-size="13" font-weight="700" text-anchor="middle">Pi 4B</text>
+      <rect x="422" y="468" width="124" height="40" rx="4" fill="#262626" stroke="#C4C4C8"/>
+      <text x="484" y="486" fill="#F5F5F5" font-size="12" font-weight="700" text-anchor="middle">Nano</text>
+      <text x="484" y="501" fill="#C4C4C8" font-size="11" text-anchor="middle">+ 3 × ULN2003</text>
+      <!-- корпус -->
+      <rect x="170" y="232" width="380" height="208" rx="8" fill="#141414" stroke="#8E8E93" stroke-width="2"/>
+      <text x="474" y="433" fill="#8E8E93" font-size="12" text-anchor="end">корпус main_body</text>
+      <!-- столик -->
+      <rect x="250" y="218" width="96" height="16" rx="3" fill="#2A2A2A" stroke="#C4C4C8"/>
+      <rect x="374" y="218" width="96" height="16" rx="3" fill="#2A2A2A" stroke="#C4C4C8"/>
+      <!-- прижимы -->
+      <rect x="258" y="210" width="34" height="7" rx="2" fill="#5A5A5F"/>
+      <rect x="428" y="210" width="34" height="7" rx="2" fill="#5A5A5F"/>
+      <!-- чашка -->
+      <path d="M312 202 L312 216 L408 216 L408 202" fill="none" stroke="#F5F5F5" stroke-width="2"/>
+      <line x1="340" y1="216" x2="380" y2="216" stroke="#E05252" stroke-width="3"/>
+      <!-- модуль оптики -->
+      <rect x="336" y="244" width="48" height="160" rx="5" fill="#050505" stroke="#8E8E93" stroke-width="2"/>
+      <rect x="346" y="238" width="28" height="50" rx="3" fill="#8E8E93"/>
+      <rect x="346" y="276" width="28" height="6" fill="#C4C4C8"/>
+      <ellipse cx="360" cy="330" rx="17" ry="5" fill="#F5F5F5" opacity=".9"/>
+      <rect x="334" y="384" width="52" height="8" rx="2" fill="#5A5A5F" stroke="#C4C4C8"/>
+      <rect x="352" y="380" width="16" height="5" fill="#E05252"/>
+      <rect x="338" y="392" width="44" height="6" rx="2" fill="#3A3A3A"/>
+      <!-- шлейф -->
+      <path d="M368 398 C368 430 360 440 372 468" fill="none" stroke="#C4C4C8" stroke-width="3"/>
+      <!-- привод X слева -->
+      <rect x="192" y="262" width="36" height="148" rx="4" fill="#1F1F1F" stroke="#8E8E93"/>
+      <line x1="210" y1="240" x2="210" y2="306" stroke="#C4C4C8" stroke-width="3"/>
+      <rect x="200" y="300" width="20" height="11" rx="2" fill="#B08D57"/>
+      <rect x="198" y="244" width="24" height="3" fill="#C4C4C8"/><rect x="198" y="249" width="24" height="3" fill="#C4C4C8"/>
+      <ellipse cx="210" cy="412" rx="26" ry="6" fill="none" stroke="#E05252" stroke-width="2"/>
+      <rect x="186" y="418" width="48" height="12" rx="3" fill="#2A2A2A" stroke="#8E8E93"/>
+      <rect x="176" y="230" width="68" height="10" rx="3" fill="#3A3A3A" stroke="#C4C4C8"/>
+      <!-- мотор X -->
+      <rect x="92" y="176" width="70" height="50" rx="10" fill="#2A2A2A" stroke="#C4C4C8"/>
+      <text x="127" y="205" fill="#F5F5F5" font-size="11" font-weight="700" text-anchor="middle">28BYJ-48</text>
+      <rect x="138" y="230" width="34" height="10" rx="3" fill="#5A5A5F" stroke="#C4C4C8"/>
+      <line x1="155" y1="226" x2="155" y2="230" stroke="#C4C4C8" stroke-width="3"/>
+      <path d="M100 226 C80 300 90 440 150 470" fill="none" stroke="#8E8E93" stroke-dasharray="4 4"/>
+      <text x="40" y="330" fill="#8E8E93" font-size="11">кабель</text><text x="40" y="344" fill="#8E8E93" font-size="11">мотора</text>
+      <!-- привод Z справа -->
+      <rect x="486" y="262" width="36" height="148" rx="4" fill="#1F1F1F" stroke="#8E8E93"/>
+      <line x1="504" y1="240" x2="504" y2="306" stroke="#C4C4C8" stroke-width="3"/>
+      <rect x="494" y="300" width="20" height="11" rx="2" fill="#B08D57"/>
+      <ellipse cx="504" cy="412" rx="26" ry="6" fill="none" stroke="#E05252" stroke-width="2"/>
+      <rect x="480" y="418" width="48" height="12" rx="3" fill="#2A2A2A" stroke="#8E8E93"/>
+      <rect x="470" y="230" width="68" height="10" rx="3" fill="#3A3A3A" stroke="#C4C4C8"/>
+      <rect x="384" y="318" width="102" height="10" rx="3" fill="#3A3A3A" stroke="#8E8E93"/>
+      <text x="435" y="346" fill="#8E8E93" font-size="11" text-anchor="middle">крепление к Z</text>
+      <rect x="560" y="176" width="70" height="50" rx="10" fill="#2A2A2A" stroke="#C4C4C8"/>
+      <text x="595" y="205" fill="#F5F5F5" font-size="11" font-weight="700" text-anchor="middle">28BYJ-48</text>
+      <rect x="548" y="230" width="34" height="10" rx="3" fill="#5A5A5F" stroke="#C4C4C8"/>
+      <line x1="565" y1="226" x2="565" y2="230" stroke="#C4C4C8" stroke-width="3"/>
+      <!-- подсветка -->
+      <rect x="444" y="66" width="26" height="152" rx="4" fill="#1F1F1F" stroke="#8E8E93"/>
+      <rect x="470" y="118" width="14" height="14" rx="3" fill="#5A5A5F" stroke="#C4C4C8"/>
+      <rect x="330" y="112" width="140" height="26" rx="5" fill="#050505" stroke="#8E8E93" stroke-width="2"/>
+      <rect x="338" y="96" width="44" height="16" rx="3" fill="#2A2A2A" stroke="#C4C4C8"/>
+      <rect x="346" y="84" width="28" height="12" rx="2" fill="#3A3A3A" stroke="#C4C4C8"/>
+      <path d="M352 84 L352 74 A8 8 0 0 1 368 74 L368 84 Z" fill="#F5F5F5"/>
+      <line x1="342" y1="111" x2="378" y2="111" stroke="#F5F5F5" stroke-width="2" stroke-dasharray="2 2"/>
+      <ellipse cx="360" cy="142" rx="17" ry="5" fill="#F5F5F5" opacity=".9"/>
+      <path d="M352 70 C300 60 250 120 252 190" fill="none" stroke="#8E8E93" stroke-dasharray="4 4"/>
+      <text x="196" y="128" fill="#8E8E93" font-size="11">провод LED</text><text x="196" y="142" fill="#8E8E93" font-size="11">к Pi</text>
+      <!-- путь света -->
+      <line x1="360" y1="80" x2="360" y2="376" stroke="#E05252" stroke-width="2" stroke-dasharray="6 5" marker-end="url(#ar)"/>
+      <!-- выноски -->
+      <g font-size="12" font-weight="800" text-anchor="middle">
+        <g><line x1="320" y1="76" x2="352" y2="78" stroke="#C4C4C8"/><rect x="298" y="64" width="22" height="22" rx="5" fill="#fff"/><text x="309" y="80" fill="#000">1</text></g>
+        <g><line x1="396" y1="104" x2="378" y2="110" stroke="#C4C4C8"/><rect x="396" y="88" width="22" height="22" rx="5" fill="#fff"/><text x="407" y="104" fill="#000">2</text></g>
+        <g><line x1="402" y1="158" x2="376" y2="144" stroke="#C4C4C8"/><rect x="402" y="152" width="22" height="22" rx="5" fill="#fff"/><text x="413" y="168" fill="#000">3</text></g>
+        <g><line x1="496" y1="96" x2="470" y2="100" stroke="#C4C4C8"/><rect x="496" y="84" width="22" height="22" rx="5" fill="#fff"/><text x="507" y="100" fill="#000">4</text></g>
+        <g><line x1="282" y1="190" x2="312" y2="206" stroke="#C4C4C8"/><rect x="260" y="178" width="22" height="22" rx="5" fill="#fff"/><text x="271" y="194" fill="#000">5</text></g>
+        <g><line x1="250" y1="250" x2="262" y2="234" stroke="#C4C4C8"/><rect x="238" y="250" width="22" height="22" rx="5" fill="#fff"/><text x="249" y="266" fill="#000">6</text></g>
+        <g><line x1="306" y1="262" x2="346" y2="262" stroke="#C4C4C8"/><rect x="284" y="251" width="22" height="22" rx="5" fill="#fff"/><text x="295" y="267" fill="#000">7</text></g>
+        <g><line x1="306" y1="330" x2="343" y2="330" stroke="#C4C4C8"/><rect x="284" y="319" width="22" height="22" rx="5" fill="#fff"/><text x="295" y="335" fill="#000">8</text></g>
+        <g><line x1="306" y1="388" x2="334" y2="388" stroke="#C4C4C8"/><rect x="284" y="377" width="22" height="22" rx="5" fill="#fff"/><text x="295" y="393" fill="#000">9</text></g>
+        <g><line x1="404" y1="372" x2="384" y2="364" stroke="#C4C4C8"/><rect x="404" y="364" width="24" height="22" rx="5" fill="#fff"/><text x="416" y="380" fill="#000">10</text></g>
+        <g><line x1="250" y1="300" x2="228" y2="306" stroke="#C4C4C8"/><rect x="250" y="290" width="24" height="22" rx="5" fill="#fff"/><text x="262" y="306" fill="#000">11</text></g>
+        <g><line x1="127" y1="160" x2="127" y2="176" stroke="#C4C4C8"/><rect x="115" y="138" width="24" height="22" rx="5" fill="#fff"/><text x="127" y="154" fill="#000">12</text></g>
+        <g><line x1="610" y1="420" x2="550" y2="436" stroke="#C4C4C8"/><rect x="610" y="408" width="24" height="22" rx="5" fill="#fff"/><text x="622" y="424" fill="#000">13</text></g>
+        <g><line x1="610" y1="486" x2="556" y2="486" stroke="#C4C4C8"/><rect x="610" y="475" width="24" height="22" rx="5" fill="#fff"/><text x="622" y="491" fill="#000">14</text></g>
+        <g><line x1="330" y1="440" x2="364" y2="440" stroke="#C4C4C8"/><rect x="306" y="429" width="24" height="22" rx="5" fill="#fff"/><text x="318" y="445" fill="#000">15</text></g>
+      </g>
+      <text x="560" y="300" fill="#8E8E93" font-size="11">Z-привод</text>
+      <text x="560" y="314" fill="#8E8E93" font-size="11">(фокус)</text>
+      <text x="40" y="250" fill="#8E8E93" font-size="11">X-привод</text>
+      <text x="40" y="550" fill="#5A5A5F" font-size="11">Y-привод устроен так же, как X, и стоит сзади; на схеме не показан. Не в масштабе.</text>
+    </svg>
+  </figure>
+  <ol class="legend reveal">
+    <li><i>1</i><span><b>Светодиод 5 мм</b>, тёплый белый, с резистором 150 Ом, в держателе <i>condenser_led_holder</i>; держатель на крышке конденсора, 2 самореза 2,2×6,5.</span></li>
+    <li><i>2</i><span><b>Рассеиватель</b> — круг около 14 мм из полипропилена 0,5 мм. Вместо него документация разрешает обмотать светодиод фум-лентой (PTFE).</span></li>
+    <li><i>3</i><span><b>Линза конденсора PMMA</b> Ø13 мм в чёрной руке конденсора (<i>condenser</i>), вставляется плоской стороной вниз.</span></li>
+    <li><i>4</i><span><b>Ласточкин хвост</b> подсветки на площадке над Z-приводом (2 винта M3×10 + 2 шайбы) и <b>барашек</b>: болт M3×25 через <i>illumination_thumbscrew</i> в гайку M3.</span></li>
+    <li><i>5</i><span><b>Чашка со стеклянным дном</b> на столике; держат 2 прижима (<i>sample_clips</i>, по винту M3×10).</span></li>
+    <li><i>6</i><span><b>Столик</b> — часть корпуса; в пазы под ним заранее втянуты 4 гайки M3.</span></li>
+    <li><i>7</i><span><b>Объектив Plan 40/0.65</b>, вкручивается сверху в модуль оптики. Поле зрения с 40× — около 360 × 270 мкм.</span></li>
+    <li><i>8</i><span><b>Тубусная линза</b> — ахромат Ø12,7 мм, f = 50 мм, более выпуклой стороной вниз.</span></li>
+    <li><i>9</i><span><b>Камера v2 без своего объектива</b> (выкручивается ключом из комплекта), сверху крышка <i>picamera_2_cover</i>, 2 самореза.</span></li>
+    <li><i>10</i><span><b>Модуль оптики</b> (чёрный) висит на Z-приводе: винт M3×10 в «замочную скважину», затягивается ключом через каплевидное отверстие спереди.</span></li>
+    <li><i>11</i><span><b>Привод (×3)</b>: большая шестерня на болте M3×25, 2 шайбы, капля масла, латунная гайка в колонне, резинка 30×2 и ножка (<i>feet</i>) снизу.</span></li>
+    <li><i>12</i><span><b>Мотор 28BYJ-48</b> с малой шестернёй (2 самореза) на проушинах корпуса, сверху крышка кабеля, 2 винта M3×10.</span></li>
+    <li><i>13</i><span><b>Корпус на подставке</b>: 4 винта M3×10 в гайки проушин подставки.</span></li>
+    <li><i>14</i><span><b>Ящик электроники</b>: Pi 4B (2 самореза) и пластина с Nano и тремя платами ULN2003.</span></li>
+    <li><i>15</i><span><b>Шлейф камеры</b> 200 мм, тип B → разъём CAMERA на Pi.</span></li>
+  </ol>
+</section>
+
+<section id="elektrika">
+  <h2><span class="num">3</span>Схема 2. Электрика микроскопа на столе</h2>
+  <p class="muted">Pi управляет камерой и через USB — платой Nano с прошивкой Sangaboard. Nano даёт сигналы на три платы ULN2003, у каждой свой мотор. Моторы питаются от отдельного источника 5 В: по документации это обычная USB-зарядка с отрезанным штекером.</p>
+  <figure class="diag reveal">
+    <svg viewBox="0 0 760 500" role="img" aria-label="Схема подключения: блок питания к Pi, Pi к камере шлейфом, Pi к Nano по USB, Nano к трём платам ULN2003 и моторам X, Y, Z, светодиод к контактам 4 и 6 Pi, отдельное питание 5 В для плат моторов">
+      <defs><marker id="m2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#C4C4C8"/></marker></defs>
+      <g font-size="12">
+      <!-- БП -->
+      <rect x="20" y="30" width="170" height="50" rx="8" fill="#1A1A1A" stroke="#8E8E93"/>
+      <text x="105" y="52" fill="#F5F5F5" font-weight="700" text-anchor="middle">Блок питания</text>
+      <text x="105" y="69" fill="#C4C4C8" text-anchor="middle">5,1 В 3 А, USB-C</text>
+      <line x1="190" y1="55" x2="248" y2="55" stroke="#C4C4C8" stroke-width="2" marker-end="url(#m2)"/>
+      <!-- Pi -->
+      <rect x="250" y="20" width="220" height="170" rx="10" fill="#141414" stroke="#F5F5F5" stroke-width="2"/>
+      <text x="360" y="44" fill="#fff" font-size="15" font-weight="800" text-anchor="middle">Raspberry Pi 4B</text>
+      <text x="262" y="66" fill="#C4C4C8">USB-C — питание</text>
+      <text x="262" y="88" fill="#C4C4C8">CAMERA — шлейф камеры</text>
+      <text x="262" y="110" fill="#C4C4C8">USB-A — к Nano</text>
+      <text x="262" y="132" fill="#C4C4C8">GPIO pin 4 — +5 В</text>
+      <text x="262" y="154" fill="#C4C4C8">GPIO pin 6 — GND</text>
+      <text x="262" y="176" fill="#C4C4C8">Wi-Fi / Ethernet</text>
+      <!-- камера -->
+      <rect x="560" y="20" width="180" height="50" rx="8" fill="#1A1A1A" stroke="#8E8E93"/>
+      <text x="650" y="42" fill="#F5F5F5" font-weight="700" text-anchor="middle">Камера v2</text>
+      <text x="650" y="59" fill="#C4C4C8" text-anchor="middle">в модуле оптики</text>
+      <line x1="470" y1="84" x2="558" y2="50" stroke="#C4C4C8" stroke-width="3"/>
+      <text x="480" y="104" fill="#8E8E93" font-size="11">шлейф 200 мм</text><text x="480" y="118" fill="#8E8E93" font-size="11">тип B</text>
+      <!-- компьютер -->
+      <rect x="560" y="100" width="180" height="50" rx="8" fill="#1A1A1A" stroke="#8E8E93" stroke-dasharray="5 4"/>
+      <text x="650" y="122" fill="#F5F5F5" font-weight="700" text-anchor="middle">Компьютер</text>
+      <text x="650" y="139" fill="#C4C4C8" text-anchor="middle">браузер / OpenFlexure</text>
+      <line x1="470" y1="172" x2="558" y2="128" stroke="#8E8E93" stroke-width="2" stroke-dasharray="5 4"/>
+      <!-- LED -->
+      <rect x="20" y="120" width="170" height="62" rx="8" fill="#1A1A1A" stroke="#8E8E93"/>
+      <text x="105" y="143" fill="#F5F5F5" font-weight="700" text-anchor="middle">Светодиод 5 мм</text>
+      <text x="105" y="160" fill="#C4C4C8" text-anchor="middle">+ резистор 150 Ом</text>
+      <text x="105" y="175" fill="#8E8E93" font-size="11" text-anchor="middle">в конденсоре</text>
+      <path d="M250 128 L215 128 L215 140 L190 140" fill="none" stroke="#E05252" stroke-width="2"/>
+      <path d="M250 150 L222 150 L222 162 L190 162" fill="none" stroke="#8E8E93" stroke-width="2"/>
+      <text x="198" y="122" fill="#E05252" font-size="11">+5 В</text><text x="198" y="176" fill="#8E8E93" font-size="11">GND</text>
+      <!-- Nano -->
+      <rect x="250" y="250" width="170" height="150" rx="10" fill="#141414" stroke="#F5F5F5" stroke-width="2"/>
+      <text x="335" y="274" fill="#fff" font-size="15" font-weight="800" text-anchor="middle">Arduino Nano</text>
+      <text x="335" y="291" fill="#8E8E93" font-size="11" text-anchor="middle">прошивка Sangaboard</text>
+      <text x="262" y="318" fill="#C4C4C8">D13 D12 D11 D10</text>
+      <text x="262" y="346" fill="#C4C4C8">D9 D8 D7 D6</text>
+      <text x="262" y="374" fill="#C4C4C8">D5 D4 D3 D2</text>
+      <text x="262" y="394" fill="#C4C4C8">GND</text>
+      <path d="M360 190 L360 250" stroke="#C4C4C8" stroke-width="2" marker-end="url(#m2)"/>
+      <text x="368" y="226" fill="#8E8E93" font-size="11">USB-кабель (mini-USB или Type-C — как у Nano)</text>
+      <!-- ULN -->
+      <g>
+        <rect x="490" y="290" width="130" height="40" rx="6" fill="#1A1A1A" stroke="#8E8E93"/><text x="555" y="315" fill="#F5F5F5" font-weight="700" text-anchor="middle">ULN2003 · X</text>
+        <rect x="490" y="345" width="130" height="40" rx="6" fill="#1A1A1A" stroke="#8E8E93"/><text x="555" y="370" fill="#F5F5F5" font-weight="700" text-anchor="middle">ULN2003 · Y</text>
+        <rect x="490" y="400" width="130" height="40" rx="6" fill="#1A1A1A" stroke="#8E8E93"/><text x="555" y="425" fill="#F5F5F5" font-weight="700" text-anchor="middle">ULN2003 · Z</text>
+        <line x1="420" y1="314" x2="488" y2="310" stroke="#C4C4C8" stroke-width="2" marker-end="url(#m2)"/>
+        <line x1="420" y1="342" x2="488" y2="365" stroke="#C4C4C8" stroke-width="2" marker-end="url(#m2)"/>
+        <line x1="420" y1="370" x2="488" y2="420" stroke="#C4C4C8" stroke-width="2" marker-end="url(#m2)"/>
+        <text x="430" y="304" fill="#8E8E93" font-size="11">→ IN1…IN4</text>
+        <rect x="660" y="290" width="80" height="40" rx="20" fill="#2A2A2A" stroke="#C4C4C8"/><text x="700" y="315" fill="#F5F5F5" text-anchor="middle">мотор X</text>
+        <rect x="660" y="345" width="80" height="40" rx="20" fill="#2A2A2A" stroke="#C4C4C8"/><text x="700" y="370" fill="#F5F5F5" text-anchor="middle">мотор Y</text>
+        <rect x="660" y="400" width="80" height="40" rx="20" fill="#2A2A2A" stroke="#C4C4C8"/><text x="700" y="425" fill="#F5F5F5" text-anchor="middle">мотор Z</text>
+        <line x1="620" y1="310" x2="658" y2="310" stroke="#C4C4C8" stroke-width="2"/>
+        <line x1="620" y1="365" x2="658" y2="365" stroke="#C4C4C8" stroke-width="2"/>
+        <line x1="620" y1="420" x2="658" y2="420" stroke="#C4C4C8" stroke-width="2"/>
+      </g>
+      <!-- 5 В для моторов -->
+      <rect x="20" y="420" width="190" height="56" rx="8" fill="#1A1A1A" stroke="#E05252"/>
+      <text x="115" y="443" fill="#F5F5F5" font-weight="700" text-anchor="middle">USB-зарядка 5 В</text>
+      <text x="115" y="460" fill="#C4C4C8" text-anchor="middle">разрезанный кабель</text>
+      <path d="M210 440 L460 440 L460 460 L540 460 L540 442" fill="none" stroke="#E05252" stroke-width="2"/>
+      <text x="300" y="434" fill="#E05252" font-size="11">+5 В → «+» трёх плат ULN2003</text>
+      <path d="M210 466 L470 466 L470 480 L600 480 L600 442" fill="none" stroke="#8E8E93" stroke-width="2"/>
+      <path d="M210 470 L240 470 L240 390 L250 390" fill="none" stroke="#8E8E93" stroke-width="2"/>
+      <text x="300" y="494" fill="#8E8E93" font-size="11">GND → «−» трёх плат и GND Nano</text>
+      </g>
+    </svg>
+    <figcaption>Распиновка Nano — по официальной схеме обходной платы OpenFlexure: X сверху, Y посередине, Z снизу. Точки ветвления питания на каждую из трёх плат на схеме объединены.</figcaption>
+  </figure>
+  <div class="tblwrap reveal">
+    <table class="tbl">
+      <thead><tr><th>Откуда</th><th>Куда</th><th>Чем</th></tr></thead>
+      <tbody>
+        <tr><td>Nano D13, D12, D11, D10</td><td>плата X: IN1, IN2, IN3, IN4</td><td>провода мама-мама</td></tr>
+        <tr><td>Nano D9, D8, D7, D6</td><td>плата Y: IN1, IN2, IN3, IN4</td><td>провода мама-мама</td></tr>
+        <tr><td>Nano D5, D4, D3, D2</td><td>плата Z: IN1, IN2, IN3, IN4</td><td>провода мама-мама</td></tr>
+        <tr><td>USB 5 В, красный</td><td>«+» (5–12 V) каждой платы ULN2003</td><td>3 провода припаяны к красному</td></tr>
+        <tr><td>USB 5 В, чёрный</td><td>«−» каждой платы и GND Nano</td><td>4 провода припаяны к чёрному</td></tr>
+        <tr><td>Pi pin 4 (+5 В)</td><td>резистор 150 Ом → длинная ножка светодиода</td><td>красный провод</td></tr>
+        <tr><td>Pi pin 6 (GND)</td><td>короткая ножка светодиода</td><td>чёрный провод</td></tr>
+        <tr><td>Pi CAMERA</td><td>камера v2</td><td>шлейф тип B, контакты от защёлки</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="note reveal"><b>Программа.</b> С Nano работает OpenFlexure Server <b>v2.11</b> (стабильная). Версия v3 пока поддерживает только плату Sangaboard v0.5. Ещё понадобятся: обычная USB-зарядка 5 В и ненужный USB-кабель (разрезать для питания моторов), кабель USB под разъём вашей Nano.</div>
+</section>
+
+<section id="sborka">
+  <h2><span class="num">4</span>Порядок сборки микроскопа на столе</h2>
+  <p class="muted">Шаги идут в порядке официальной инструкции OpenFlexure; в каждом — что из напечатанного и купленного понадобится. Инструменты на всех шагах: шаровой шестигранник 2,5 мм, крестовая отвёртка PZ1, бокорезы, канцелярский нож.</p>
+  <div class="steps">
+    <div class="step reveal"><div class="n">1</div><h3>Печать и зачистка</h3><div class="need"><b>Нужно:</b> напечатанные детали, бокорезы, нож.</div><p>Снять кайму со всех деталей. В корпусе срезать 6 перемычек внутри колонн приводов и 4 у задних ножек, остатки подрезать заподлицо, чтобы не мешали столику.</p></div>
+    <div class="step reveal"><div class="n">2</div><h3>Гайки в корпус</h3><div class="need"><b>Нужно:</b> корпус, 12 гаек M3, винт M3×10 как инструмент.</div><p>Гайку в паз, сверху вкрутить винт M3×10 до сопротивления, винт вывернуть — гайка остаётся. Столик — 4, площадка подсветки над Z — 2, крепления моторов X и Y — по 2, мотора Z — 2.</p></div>
+    <div class="step reveal"><div class="n">3</div><h3>Подставка</h3><div class="need"><b>Нужно:</b> подставка, 4 гайки M3.</div><p>Отломать поддержки, тем же способом втянуть по гайке под каждую из 4 проушин.</p></div>
+    <div class="step reveal"><div class="n">4</div><h3>Три привода</h3><div class="need"><b>Нужно:</b> 3 большие шестерни, 3 болта M3×25, 3 латунные гайки, 6 шайб, 3 кольца 30×2, 3 ножки, масло, инструменты из папки 3.</div><p>Болт вбить в шестерню инструментами nut spinner и gear holder. Латунную гайку вставить в колонну через отверстие спереди. На болт 2 шайбы выпуклостями друг к другу, тонко смазать резьбу, вкрутить. Резинку надеть инструментом band tool, снизу ножка со своей буквой.</p><div class="src"><a href="https://build.openflexure.org/openflexure-microscope/v7.0.0-beta6/high_res_microscope/actuator_assembly.html" target="_blank" rel="noopener">Шаг в документации</a></div></div>
+    <div class="step reveal"><div class="n">5</div><h3>Модуль оптики</h3><div class="need"><b>Нужно:</b> чёрный модуль оптики, ахромат 12,7 мм, камера v2, крышка камеры, 2 самореза, объектив, шлейф 200 мм, гайка и винт M3×10.</div><p>Ахромат положить на lens tool более выпуклой стороной вниз и вдавить модуль сверху. Перед камерой коснуться заземлённого металла, держать плату за края. Выкрутить её объектив ключом (около 4 оборотов), камеру — на модуль, сверху крышка, 2 самореза. Объектив вкрутить сверху.</p><div class="src"><a href="https://build.openflexure.org/openflexure-microscope/v7.0.0-beta6/high_res_optics_module.html" target="_blank" rel="noopener">Шаг в документации</a></div></div>
+    <div class="step reveal"><div class="n">6</div><h3>Оптика в корпус, корпус на подставку</h3><div class="need"><b>Нужно:</b> 4 винта M3×10.</div><p>Модуль снизу в корпус, его винт — в «замочную скважину» Z-привода; поднять до упора и затянуть ключом через каплевидное отверстие спереди. Корпус поставить проушинами на проушины подставки, 4 винта.</p></div>
+    <div class="step reveal"><div class="n">7</div><h3>Подсветка</h3><div class="need"><b>Нужно:</b> рука конденсора, крышка, держатель светодиода, линза PMMA, барашек, болт M3×25, гайка M3, светодиод с резистором и проводами, 2 самореза, фум-лента или полипропилен 0,5 мм.</div><p>Линзу на lens tool плоской стороной вниз, вдавить руку до щелчка. Болт через барашек, гайку в паз ласточкина хвоста, наживить. Спаять: длинная ножка светодиода — резистор — красный провод, короткая — чёрный. Светодиод в держатель, держатель на крышку 2 саморезами.</p><div class="src"><a href="https://build.openflexure.org/openflexure-microscope/v7.0.0-beta6/workaround_5mm_led/workaround_5mm_led.html" target="_blank" rel="noopener">Светодиод вместо платы</a></div></div>
+    <div class="step reveal"><div class="n">8</div><h3>Подсветку на микроскоп</h3><div class="need"><b>Нужно:</b> ласточкин хвост, 2 винта M3×10, 2 шайбы.</div><p>Хвост на площадку над Z-приводом. Провод светодиода — сверху вниз через канал хвоста и канал корпуса между шестернями Z и Y. Руку вдвинуть так, чтобы низ был примерно в 5 мм над столиком, зажать барашек.</p></div>
+    <div class="step reveal"><div class="n">9</div><h3>Моторы</h3><div class="need"><b>Нужно:</b> 3 мотора, 3 малые шестерни, 3 крышки кабелей, 6 винтов M3×10, саморезы.</div><p>Шестерню на вал по лыскам, фланцем к мотору, 2 самореза. Подписать кабели X, Y, Z. Отцентровать приводы: в отверстии гайки видна резьба болта. Кабель через канал в стенке, мотор на проушины шестернёй наружу, крышка кабеля, 2 винта.</p></div>
+    <div class="step reveal"><div class="n">10</div><h3>Прижимы</h3><div class="need"><b>Нужно:</b> 2 прижима, 2 винта M3×10.</div><p>Винт в прижим, ключом через отверстие в изгибе вкрутить в гайку столика.</p></div>
+    <div class="step reveal"><div class="n">11</div><h3>Карта памяти</h3><div class="need"><b>Нужно:</b> microSD A1/A2, U3.</div><p>Записать Raspbian-OpenFlexure <b>v2.11</b> по <a href="https://openflexure.org/projects/microscope/install" target="_blank" rel="noopener">инструкции установки</a>, вставить в Pi до установки в ящик.</p></div>
+    <div class="step reveal"><div class="n">12</div><h3>Прошивка Nano</h3><div class="need"><b>Нужно:</b> компьютер с <a href="https://www.arduino.cc/en/software" target="_blank" rel="noopener">Arduino IDE</a>, кабель USB.</div><p>Скачать 3 файла <a href="https://gitlab.com/bath_open_instrumentation_group/sangaboard/tree/master/arduino_code" target="_blank" rel="noopener">скетча Sangaboard</a>, открыть sangaboard.ino и загрузить в Nano. У клонов с CH340 бывает нужен драйвер и выбор «старого загрузчика» в IDE.</p></div>
+    <div class="step reveal"><div class="n">13</div><h3>Электроника в ящик</h3><div class="need"><b>Нужно:</b> ящик, пластина и держатель Nano, 2 гайки M3, 2 винта M3×10, 2 самореза, провода по схеме 2.</div><p>Гайки — в паз у отверстия подставки и в паз ящика. Pi в ящик, 2 самореза. Шлейф в CAMERA, контакты — от защёлки. Nano и 3 платы ULN2003 на пластину, провода по таблице выше, моторы — в свои платы. Светодиод — на pin 4 и pin 6. Ящик в подставку.</p></div>
+    <div class="step reveal"><div class="n">14</div><h3>Первый запуск</h3><div class="need"><b>Нужно:</b> блок питания Pi, USB-зарядка для моторов, сеть.</div><p>Включить, открыть интерфейс OpenFlexure, проверить ход X, Y и Z. Сфокусировать подсветку, двигая руку конденсора. Этап 1 готов, когда микроскоп снимает, двигает столик и держит фокус.</p></div>
+  </div>
+</section>
+
+<section id="boks">
+  <h2><span class="num">5</span>Схема 3. Микроскоп в боксе</h2>
+  <p class="muted">Вид спереди, не в масштабе. Внутри бокса остаётся только то, что должно быть у клеток: микроскоп на подставке без Pi, нагрев, датчики, вода. Электроника, регулятор температуры и баллон — снаружи. Провода идут через 3 гермоввода, шлейф камеры — через щель, залитую герметиком.</p>
+  <figure class="diag reveal">
+    <svg viewBox="0 0 820 580" role="img" aria-label="Микроскоп внутри бокса 350 на 350 на 400 мм: нагреватель с вентилятором, датчики температуры, влажности и CO2, лоток с водой, датчик протечки, вводы для кабелей; снаружи баллон CO2 с редуктором и электроника">
+      <defs><marker id="m3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#C4C4C8"/></marker>
+      <marker id="m3r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#E05252"/></marker></defs>
+      <g font-size="12">
+      <!-- бокс -->
+      <rect x="230" y="60" width="330" height="390" rx="4" fill="#0D0D0D" stroke="#F5F5F5" stroke-width="3"/>
+      <rect x="236" y="66" width="318" height="378" fill="none" stroke="#E05252" stroke-width="1" stroke-dasharray="3 5"/>
+      <text x="395" y="52" fill="#F5F5F5" font-weight="700" text-anchor="middle">Бокс 350 × 350 × 400 мм внутри, чёрный акрил</text>
+      <!-- защёлки -->
+      <rect x="222" y="110" width="8" height="22" fill="#C4C4C8"/><rect x="222" y="380" width="8" height="22" fill="#C4C4C8"/>
+      <rect x="560" y="80" width="8" height="22" fill="#C4C4C8"/><rect x="560" y="410" width="8" height="22" fill="#C4C4C8"/>
+      <!-- опоры -->
+      <rect x="240" y="452" width="40" height="12" rx="4" fill="#5A5A5F"/><rect x="510" y="452" width="40" height="12" rx="4" fill="#5A5A5F"/>
+      <line x1="40" y1="466" x2="780" y2="466" stroke="#3A3A3A" stroke-width="2"/>
+      <!-- нагреватель -->
+      <rect x="248" y="80" width="76" height="46" rx="6" fill="#241010" stroke="#E05252"/>
+      <circle cx="270" cy="103" r="14" fill="none" stroke="#E05252"/><line x1="260" y1="103" x2="280" y2="103" stroke="#E05252"/><line x1="270" y1="93" x2="270" y2="113" stroke="#E05252"/>
+      <text x="300" y="100" fill="#F5F5F5" font-size="11" text-anchor="middle">PTC</text><text x="300" y="114" fill="#F5F5F5" font-size="11" text-anchor="middle">70 Вт</text>
+      <path d="M286 130 C300 170 330 190 360 200" fill="none" stroke="#E05252" stroke-dasharray="4 4" marker-end="url(#m3r)"/>
+      <text x="252" y="148" fill="#E05252" font-size="11">тёплый воздух</text>
+      <!-- микроскоп -->
+      <rect x="320" y="414" width="160" height="30" rx="5" fill="#1A1A1A" stroke="#8E8E93"/>
+      <text x="400" y="434" fill="#8E8E93" font-size="11" text-anchor="middle">подставка без Pi</text>
+      <rect x="334" y="316" width="132" height="98" rx="6" fill="#141414" stroke="#8E8E93" stroke-width="2"/>
+      <rect x="350" y="308" width="100" height="10" rx="3" fill="#2A2A2A" stroke="#C4C4C8"/>
+      <path d="M376 296 L376 308 L424 308 L424 296" fill="none" stroke="#F5F5F5" stroke-width="2"/>
+      <rect x="392" y="320" width="16" height="70" rx="3" fill="#050505" stroke="#8E8E93"/>
+      <circle cx="330" cy="318" r="10" fill="#2A2A2A" stroke="#C4C4C8"/><circle cx="470" cy="318" r="10" fill="#2A2A2A" stroke="#C4C4C8"/>
+      <rect x="448" y="214" width="12" height="94" rx="3" fill="#1F1F1F" stroke="#8E8E93"/>
+      <rect x="384" y="222" width="76" height="14" rx="3" fill="#050505" stroke="#8E8E93"/>
+      <line x1="400" y1="236" x2="400" y2="390" stroke="#E05252" stroke-dasharray="4 4"/>
+      <text x="340" y="380" fill="#8E8E93" font-size="11">микроскоп</text>
+      <!-- датчики -->
+      <rect x="428" y="282" width="22" height="12" rx="2" fill="#F5F5F5"/>
+      <text x="424" y="278" fill="#F5F5F5" font-size="11" text-anchor="end">SHT31 №1</text>
+      <rect x="520" y="72" width="22" height="12" rx="2" fill="#F5F5F5"/>
+      <text x="470" y="80" fill="#F5F5F5" font-size="11" text-anchor="end">SHT31 №2</text>
+      <rect x="498" y="170" width="52" height="26" rx="4" fill="#2A2A2A" stroke="#C4C4C8"/>
+      <text x="524" y="187" fill="#F5F5F5" font-size="11" text-anchor="middle">CO₂</text>
+      <line x1="560" y1="262" x2="436" y2="300" stroke="#C4C4C8" stroke-width="1.5"/>
+      <circle cx="436" cy="300" r="3" fill="#C4C4C8"/>
+      <text x="470" y="258" fill="#C4C4C8" font-size="11">PT100</text>
+      <!-- вода и протечка -->
+      <rect x="246" y="410" width="66" height="26" rx="3" fill="#1A1A1A" stroke="#C4C4C8"/>
+      <path d="M250 420 Q262 414 274 420 T298 420 T310 420" fill="none" stroke="#C4C4C8"/>
+      <text x="279" y="401" fill="#C4C4C8" font-size="11" text-anchor="middle">вода</text>
+      <rect x="500" y="436" width="40" height="6" fill="#E05252"/>
+      <text x="520" y="428" fill="#E05252" font-size="11" text-anchor="middle">протечка</text>
+      <!-- вводы -->
+      <circle cx="560" cy="140" r="7" fill="#F5F5F5"/><text x="572" y="133" fill="#F5F5F5" font-weight="700">Г1</text>
+      <circle cx="560" cy="210" r="7" fill="#F5F5F5"/><text x="572" y="203" fill="#F5F5F5" font-weight="700">Г2</text>
+      <circle cx="560" cy="300" r="7" fill="#F5F5F5"/><text x="572" y="293" fill="#F5F5F5" font-weight="700">Г3</text>
+      <rect x="555" y="344" width="10" height="30" fill="#E05252"/><text x="572" y="390" fill="#E05252" font-weight="700">щель</text>
+      <!-- CO2 вход/выход -->
+      <rect x="222" y="372" width="10" height="10" fill="#C4C4C8"/>
+      <rect x="558" y="96" width="10" height="10" fill="#C4C4C8"/>
+      <text x="578" y="106" fill="#C4C4C8" font-size="11">выход газа</text>
+      <!-- баллон и арматура слева -->
+      <rect x="44" y="250" width="54" height="196" rx="20" fill="#1A1A1A" stroke="#C4C4C8" stroke-width="2"/>
+      <text x="71" y="360" fill="#F5F5F5" font-weight="700" text-anchor="middle" transform="rotate(-90 71 360)">Баллон CO₂ 0,5 л</text>
+      <rect x="40" y="196" width="110" height="46" rx="6" fill="#141414" stroke="#C4C4C8"/>
+      <text x="95" y="215" fill="#F5F5F5" font-size="11" text-anchor="middle">редуктор</text><text x="95" y="230" fill="#F5F5F5" font-size="11" text-anchor="middle">+ соленоид 12 В</text>
+      <rect x="120" y="300" width="88" height="54" rx="6" fill="#141414" stroke="#C4C4C8"/>
+      <text x="164" y="318" fill="#F5F5F5" font-size="11" text-anchor="middle">игольчатый</text><text x="164" y="332" fill="#F5F5F5" font-size="11" text-anchor="middle">+ пузырьки</text><text x="164" y="346" fill="#F5F5F5" font-size="11" text-anchor="middle">+ обр. клапан</text>
+      <path d="M150 230 L164 230 L164 298" fill="none" stroke="#C4C4C8" stroke-width="2" marker-end="url(#m3)"/>
+      <path d="M164 354 L164 377 L220 377" fill="none" stroke="#C4C4C8" stroke-width="2" marker-end="url(#m3)"/>
+      <text x="120" y="398" fill="#8E8E93" font-size="11">шланг 4/6</text>
+      <!-- электроника справа -->
+      <rect x="620" y="110" width="180" height="44" rx="6" fill="#141414" stroke="#8E8E93" stroke-dasharray="5 4"/>
+      <text x="710" y="130" fill="#C4C4C8" font-size="11" text-anchor="middle">LDD-700H × 2</text><text x="710" y="145" fill="#8E8E93" font-size="11" text-anchor="middle">этап 2, флуоресценция</text>
+      <rect x="620" y="170" width="180" height="56" rx="6" fill="#141414" stroke="#8E8E93"/>
+      <text x="710" y="190" fill="#F5F5F5" font-size="11" text-anchor="middle">Pi 4B + Nano + ULN2003</text><text x="710" y="205" fill="#8E8E93" font-size="11" text-anchor="middle">в стандартной подставке</text><text x="710" y="219" fill="#8E8E93" font-size="11" text-anchor="middle">с ящиком — снаружи</text>
+      <rect x="620" y="242" width="180" height="44" rx="6" fill="#141414" stroke="#8E8E93"/>
+      <text x="710" y="261" fill="#F5F5F5" font-size="11" text-anchor="middle">REX-C100 + SSR-25DD</text><text x="710" y="276" fill="#8E8E93" font-size="11" text-anchor="middle">держит 37 °C</text>
+      <rect x="620" y="302" width="180" height="44" rx="6" fill="#141414" stroke="#8E8E93"/>
+      <text x="710" y="321" fill="#F5F5F5" font-size="11" text-anchor="middle">БП 12 В + реле CO₂</text><text x="710" y="336" fill="#8E8E93" font-size="11" text-anchor="middle">нагреватель, клапан, LED</text>
+      <rect x="620" y="362" width="180" height="44" rx="6" fill="#141414" stroke="#8E8E93"/>
+      <text x="710" y="381" fill="#F5F5F5" font-size="11" text-anchor="middle">БП 5,1 В + USB 5 В</text><text x="710" y="396" fill="#8E8E93" font-size="11" text-anchor="middle">Pi и моторы</text>
+      <path d="M567 140 L600 140 L600 190 L618 190" fill="none" stroke="#C4C4C8" stroke-width="1.5"/>
+      <path d="M567 210 L606 210 L606 200 L618 200" fill="none" stroke="#C4C4C8" stroke-width="1.5"/>
+      <path d="M567 300 L600 300 L600 264 L618 264" fill="none" stroke="#C4C4C8" stroke-width="1.5"/>
+      <path d="M565 360 L612 360 L612 216 L618 216" fill="none" stroke="#E05252" stroke-width="2"/>
+      <text x="40" y="186" fill="#8E8E93" font-size="11">соленоид → реле</text>
+      <text x="40" y="540" fill="#C4C4C8" font-size="12">Г1 — моторы X/Y/Z и светодиод подсветки · Г2 — SHT31 × 2, датчик CO₂, протечка · Г3 — нагреватель и PT100</text>
+      <text x="40" y="560" fill="#8E8E93" font-size="12">Щель — шлейф камеры 50 см, залить герметиком. Красный пунктир — уплотнитель, серые планки — защёлки.</text>
+      </g>
+    </svg>
+  </figure>
+</section>
+
+<section id="boks-elektrika">
+  <h2><span class="num">6</span>Схема 4. Что куда подключено в боксе</h2>
+  <p class="muted">Слева — питание, посередине — управление, справа — то, что стоит в боксе. Подписи на линиях — какой ввод занимает провод.</p>
+  <figure class="diag reveal">
+    <svg viewBox="0 0 760 540" role="img" aria-label="Блок-схема подключения бокса: розетка 220 В питает блоки 5,1 В, 12 В и регулятор REX-C100; Raspberry Pi управляет камерой, Nano с моторами, датчиками SHT31 и CO2, реле клапана CO2 и датчиком протечки; REX-C100 через реле SSR-25DD включает нагреватель по датчику PT100">
+      <defs><marker id="m4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#C4C4C8"/></marker>
+      <marker id="m4r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#E05252"/></marker></defs>
+      <g font-size="12">
+      <text x="90" y="24" fill="#8E8E93" font-weight="700" text-anchor="middle">ПИТАНИЕ</text>
+      <text x="360" y="24" fill="#8E8E93" font-weight="700" text-anchor="middle">УПРАВЛЕНИЕ (снаружи)</text>
+      <text x="650" y="24" fill="#8E8E93" font-weight="700" text-anchor="middle">В БОКСЕ</text>
+      <rect x="580" y="34" width="166" height="496" rx="12" fill="#0D0D0D" stroke="#F5F5F5" stroke-dasharray="6 4"/>
+      <!-- питание -->
+      <rect x="14" y="40" width="152" height="40" rx="8" fill="#241010" stroke="#E05252"/><text x="90" y="65" fill="#F5F5F5" font-weight="700" text-anchor="middle">Розетка 220 В</text>
+      <rect x="14" y="110" width="152" height="40" rx="8" fill="#1A1A1A" stroke="#8E8E93"/><text x="90" y="135" fill="#F5F5F5" text-anchor="middle">БП 5,1 В (USB-C)</text>
+      <rect x="14" y="170" width="152" height="40" rx="8" fill="#1A1A1A" stroke="#8E8E93"/><text x="90" y="195" fill="#F5F5F5" text-anchor="middle">USB-зарядка 5 В</text>
+      <rect x="14" y="300" width="152" height="40" rx="8" fill="#1A1A1A" stroke="#8E8E93"/><text x="90" y="325" fill="#F5F5F5" text-anchor="middle">БП 12 В 10 А</text>
+      <path d="M30 80 L30 110" stroke="#E05252" stroke-width="2"/><path d="M30 150 L30 170" stroke="#E05252" stroke-width="2"/><path d="M30 210 L30 300" stroke="#E05252" stroke-width="2"/>
+      <path d="M150 80 L150 96 L190 96 L190 420 L262 420" fill="none" stroke="#E05252" stroke-width="2"/>
+      <text x="196" y="414" fill="#E05252" font-size="11">220 В</text>
+      <!-- Pi -->
+      <rect x="262" y="60" width="200" height="190" rx="10" fill="#141414" stroke="#F5F5F5" stroke-width="2"/>
+      <text x="362" y="84" fill="#fff" font-weight="800" font-size="14" text-anchor="middle">Raspberry Pi 4B</text>
+      <text x="274" y="108" fill="#C4C4C8">CAMERA</text>
+      <text x="274" y="130" fill="#C4C4C8">USB → Nano</text>
+      <text x="274" y="152" fill="#C4C4C8">pin 4 / 6 → свет</text>
+      <text x="274" y="174" fill="#C4C4C8">I²C (GPIO2/3, pin 3/5)</text>
+      <text x="274" y="196" fill="#C4C4C8">UART (GPIO14/15, pin 8/10)</text>
+      <text x="274" y="218" fill="#C4C4C8">GPIO → реле CO₂, протечка</text>
+      <text x="274" y="240" fill="#8E8E93">GPIO PWM → LDD (этап 2)</text>
+      <path d="M166 130 L260 130" stroke="#C4C4C8" stroke-width="2" marker-end="url(#m4)"/>
+      <!-- Nano -->
+      <rect x="262" y="268" width="200" height="46" rx="8" fill="#141414" stroke="#C4C4C8"/>
+      <text x="362" y="296" fill="#F5F5F5" text-anchor="middle">Nano + 3 × ULN2003</text>
+      <path d="M362 250 L362 266" stroke="#C4C4C8" stroke-width="2" marker-end="url(#m4)"/>
+      <path d="M166 190 L230 190 L230 300 L260 300" fill="none" stroke="#E05252" stroke-width="1.5"/>
+      <text x="196" y="250" fill="#E05252" font-size="11">5 В</text>
+      <!-- 12 В потребители -->
+      <rect x="262" y="330" width="200" height="40" rx="8" fill="#141414" stroke="#C4C4C8"/><text x="362" y="355" fill="#F5F5F5" text-anchor="middle">Реле 5 В → соленоид CO₂</text>
+      <rect x="262" y="400" width="200" height="40" rx="8" fill="#141414" stroke="#C4C4C8"/><text x="362" y="425" fill="#F5F5F5" text-anchor="middle">REX-C100 (ПИД)</text>
+      <rect x="262" y="470" width="200" height="40" rx="8" fill="#141414" stroke="#C4C4C8"/><text x="362" y="495" fill="#F5F5F5" text-anchor="middle">SSR-25DD</text>
+      <rect x="490" y="330" width="80" height="40" rx="8" fill="#1A1A1A" stroke="#8E8E93"/><text x="530" y="348" fill="#F5F5F5" font-size="11" text-anchor="middle">соленоид</text><text x="530" y="362" fill="#F5F5F5" font-size="11" text-anchor="middle">на баллоне</text>
+      <path d="M166 320 L240 320 L240 350 L260 350" fill="none" stroke="#E05252" stroke-width="1.5"/>
+      <path d="M240 350 L240 490 L260 490" fill="none" stroke="#E05252" stroke-width="1.5"/>
+      <text x="198" y="470" fill="#E05252" font-size="11">12 В</text>
+      <path d="M462 350 L488 350" stroke="#C4C4C8" stroke-width="2" marker-end="url(#m4)"/>
+      <path d="M362 440 L362 468" stroke="#C4C4C8" stroke-width="2" marker-end="url(#m4)"/>
+      <text x="370" y="458" fill="#8E8E93" font-size="11">выход SSR</text>
+      <path d="M462 228 L478 228 L478 340 L464 340" fill="none" stroke="#C4C4C8" stroke-width="1.5"/>
+      <!-- в боксе -->
+      <rect x="592" y="48" width="142" height="34" rx="6" fill="#1A1A1A" stroke="#8E8E93"/><text x="663" y="70" fill="#F5F5F5" text-anchor="middle">Камера v2</text>
+      <rect x="592" y="96" width="142" height="34" rx="6" fill="#1A1A1A" stroke="#8E8E93"/><text x="663" y="118" fill="#F5F5F5" text-anchor="middle">Светодиод 5 мм</text>
+      <rect x="592" y="144" width="142" height="34" rx="6" fill="#1A1A1A" stroke="#8E8E93"/><text x="663" y="166" fill="#F5F5F5" text-anchor="middle">SHT31 × 2</text>
+      <rect x="592" y="192" width="142" height="34" rx="6" fill="#1A1A1A" stroke="#8E8E93"/><text x="663" y="214" fill="#F5F5F5" text-anchor="middle">Датчик CO₂</text>
+      <rect x="592" y="240" width="142" height="34" rx="6" fill="#1A1A1A" stroke="#8E8E93"/><text x="663" y="262" fill="#F5F5F5" text-anchor="middle">Датчик протечки</text>
+      <rect x="592" y="288" width="142" height="34" rx="6" fill="#1A1A1A" stroke="#8E8E93"/><text x="663" y="310" fill="#F5F5F5" text-anchor="middle">Моторы X, Y, Z</text>
+      <rect x="592" y="410" width="142" height="34" rx="6" fill="#1A1A1A" stroke="#8E8E93"/><text x="663" y="432" fill="#F5F5F5" text-anchor="middle">Датчик PT100</text>
+      <rect x="592" y="470" width="142" height="40" rx="6" fill="#241010" stroke="#E05252"/><text x="663" y="488" fill="#F5F5F5" text-anchor="middle">Нагреватель PTC</text><text x="663" y="502" fill="#C4C4C8" font-size="11" text-anchor="middle">12 В + вентилятор</text>
+      <!-- линии -->
+      <path d="M462 104 L590 66" stroke="#E05252" stroke-width="2.5"/><text x="512" y="76" fill="#E05252" font-size="11">щель</text>
+      <path d="M462 148 L590 113" stroke="#C4C4C8" stroke-width="1.5"/><text x="530" y="120" fill="#8E8E93" font-size="11">Г1</text>
+      <path d="M462 170 L590 161" stroke="#C4C4C8" stroke-width="1.5"/><text x="530" y="160" fill="#8E8E93" font-size="11">Г2</text>
+      <path d="M462 192 L590 209" stroke="#C4C4C8" stroke-width="1.5"/><text x="530" y="196" fill="#8E8E93" font-size="11">Г2</text>
+      <path d="M462 214 L590 257" stroke="#C4C4C8" stroke-width="1.5"/><text x="530" y="232" fill="#8E8E93" font-size="11">Г2</text>
+      <path d="M462 291 L590 305" stroke="#C4C4C8" stroke-width="1.5"/><text x="530" y="292" fill="#8E8E93" font-size="11">Г1</text>
+      <path d="M590 427 L464 420" stroke="#C4C4C8" stroke-width="1.5" marker-end="url(#m4)"/><text x="510" y="414" fill="#8E8E93" font-size="11">Г3</text>
+      <path d="M462 490 L590 490" stroke="#E05252" stroke-width="2"/><text x="510" y="484" fill="#E05252" font-size="11">Г3</text>
+      </g>
+    </svg>
+    <figcaption>Регулятор REX-C100 держит температуру сам по датчику PT100, даже если Pi завис. CO₂ регулирует Pi: читает датчик и открывает клапан короткими импульсами через реле — это отдельный скрипт рядом с OpenFlexure.</figcaption>
+  </figure>
+  <div class="note reveal"><b>220 В.</b> Регулятор REX-C100 и блоки питания подключаются к сети. Если нет опыта с сетевой проводкой, эту часть должен собрать электрик. На двух датчиках SHT31 одна шина I²C: у второго перемкните вывод адреса (AD) на питание, тогда адреса будут 0x44 и 0x45.</div>
+</section>
+
+<section id="perenos">
+  <h2><span class="num">7</span>Перенос микроскопа в бокс</h2>
+  <div class="steps">
+    <div class="step reveal"><div class="n">1</div><h3>Этап 1 пройден</h3><div class="need"><b>Условие:</b> на столе микроскоп снимает, двигает X, Y и Z, держит фокус.</div><p>Переносить в бокс работающий микроскоп, а не отлаживать его внутри.</p></div>
+    <div class="step reveal"><div class="n">2</div><h3>Собрать бокс</h3><div class="need"><b>Нужно:</b> 6 панелей, 8 защёлок, уплотнитель, 3 ввода M16, 2 штуцера, нейтральный герметик.</div><p>В правой стенке — 3 отверстия под вводы M16 и щель под шлейф, на противоположных стенках — вход и выход газа. Уплотнитель по кромкам, панели на защёлки. Дно с уклоном в один угол, туда датчик протечки.</p></div>
+    <div class="step reveal"><div class="n">3</div><h3>Сменить подставку</h3><div class="need"><b>Нужно:</b> подставка без Pi из папки 5, 4 винта M3×10, 4 гайки M3.</div><p>Открутить корпус микроскопа от стандартной подставки и поставить на подставку без Pi внутри бокса. Стандартная подставка с ящиком (Pi, Nano, платы) остаётся снаружи как корпус электроники.</p></div>
+    <div class="step reveal"><div class="n">4</div><h3>Длинный шлейф камеры</h3><div class="need"><b>Нужно:</b> шлейф 50 см, тип B, герметик.</div><p>Заменить шлейф 200 мм на 50 см, провести через щель, щель залить нейтральным герметиком. Перед включением ещё раз сверить тип шлейфа.</p></div>
+    <div class="step reveal"><div class="n">5</div><h3>Удлинить моторы и свет</h3><div class="need"><b>Нужно:</b> провода папа-мама 30 см: по 5 на мотор, 2 на светодиод; ввод Г1.</div><p>Кабели моторов и светодиода удлинить и вывести через ввод Г1 к платам и Pi. Каждый мотор — в свою плату, как на схеме 2.</p></div>
+    <div class="step reveal"><div class="n">6</div><h3>Нагрев и датчики</h3><div class="need"><b>Нужно:</b> PTC-нагреватель, REX-C100 с PT100, SSR-25DD, БП 12 В, 2 × SHT31, датчик CO₂, датчик протечки, лоток с водой.</div><p>Нагреватель с вентилятором — вверху, обдувом в сторону от чашки. PT100 и SHT31 №1 — рядом с чашкой, SHT31 №2 — в дальнем углу. Провода датчиков — через Г2, нагреватель и PT100 — через Г3.</p></div>
+    <div class="step reveal"><div class="n">7</div><h3>Линия CO₂</h3><div class="need"><b>Нужно:</b> баллон, редуктор с соленоидом 12 В, игольчатый вентиль со счётчиком пузырьков и обратным клапаном, шланг 4/6, реле 5 В.</div><p>Баллон — редуктор — вентиль — шланг — штуцер входа. Соленоид питается 12 В через реле, реле включает Pi по показаниям датчика CO₂. Резьбу редуктора сверить с баллоном до покупки.</p></div>
+    <div class="step reveal"><div class="n">8</div><h3>Проверка без клеток</h3><div class="need"><b>Условие:</b> сутки стабильно 37 °C, потом 5 % CO₂ и влажность.</div><p>Сначала только нагрев: держит ли 37 °C у чашки и в углу, не уплывает ли фокус. Потом CO₂ и вода в лотке, проверить датчик протечки. Клетки ставить только после этого.</p></div>
+  </div>
+</section>
+
+<section id="istochniki">
+  <h2><span class="num">8</span>Источники</h2>
+  <ol class="src">
+    <li>OpenFlexure, сборка high-res версии v7.0.0-beta6: <a href="https://build.openflexure.org/openflexure-microscope/v7.0.0-beta6/high_res_microscope.html" target="_blank" rel="noopener">порядок шагов</a>, <a href="https://build.openflexure.org/openflexure-microscope/v7.0.0-beta6/high_res_microscope/printing.html" target="_blank" rel="noopener">печать</a>, <a href="https://build.openflexure.org/openflexure-microscope/v7.0.0-beta6/high_res_microscope/test_your_printer.html" target="_blank" rel="noopener">настройки принтера</a>, <a href="https://build.openflexure.org/openflexure-microscope/v7.0.0-beta6/parts/materials/pla_filament.html" target="_blank" rel="noopener">PLA и PETG</a>, <a href="https://build.openflexure.org/openflexure-microscope/v7.0.0-beta6/high_res_optics_module.html" target="_blank" rel="noopener">модуль оптики</a>, <a href="https://build.openflexure.org/openflexure-microscope/v7.0.0-beta6/high_res_microscope/illumination.html" target="_blank" rel="noopener">подсветка</a>, <a href="https://build.openflexure.org/openflexure-microscope/v7.0.0-beta6/high_res_microscope/wiring.html" target="_blank" rel="noopener">проводка</a>.</li>
+    <li>OpenFlexure, обходные варианты: <a href="https://build.openflexure.org/openflexure-microscope/v7.0.0-beta6/workaround_motor_electronics/wire_up_boards.html" target="_blank" rel="noopener">Nano и платы ULN2003 (схема выводов)</a>, <a href="https://build.openflexure.org/openflexure-microscope/v7.0.0-beta6/workaround_motor_electronics/print_board_holders.html" target="_blank" rel="noopener">держатели плат</a>, <a href="https://build.openflexure.org/openflexure-microscope/v7.0.0-beta6/workaround_5mm_led/power_workaround_led.html" target="_blank" rel="noopener">питание светодиода от Pi</a>, <a href="https://build.openflexure.org/openflexure-microscope/v7.0.0-beta6/customisation.html" target="_blank" rel="noopener">подставка без Pi</a>, <a href="https://build.openflexure.org/openflexure-microscope/v7.0.0-beta6/customisations/optics_options.html" target="_blank" rel="noopener">модули для флуоресценции</a>.</li>
+    <li>OpenFlexure, <a href="https://openflexure.org/projects/microscope/install" target="_blank" rel="noopener">установка ПО</a>: v2.11 поддерживает обходные платы моторов, v3 — только Sangaboard v0.5.</li>
+    <li>Модели OpenFlexure распространяются по лицензии CERN-OHL-S-2.0; архив на этой странице — те же файлы, разложенные по папкам.</li>
+  </ol>
+</section>
+</main>
+<footer class="wrap">Проект ARGUS MVP. <a href="microscopio-argus-rossiya.html">Закупка в России</a> — детали и цены для этих схем. Старая <a href="microscopio-argus-sborka.html">инструкция для Рио</a> написана под набор IO Rodeo, Sangaboard и HQ-камеру.</footer>
+
+<script>
+(function(){
+  var links=[].slice.call(document.querySelectorAll('.topnav-inner a'));
+  var secs=links.map(function(a){return document.querySelector(a.getAttribute('href'))});
+  function onScroll(){var y=window.scrollY+90,cur=0;secs.forEach(function(s,i){if(s&&s.offsetTop<=y)cur=i});links.forEach(function(a,i){a.classList.toggle('active',i===cur)})}
+  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  var cb=document.getElementById('copy');
+  cb.addEventListener('click',function(){var t=document.getElementById('brief').innerText;function ok(){cb.textContent='Скопировано';setTimeout(function(){cb.textContent='Скопировать текст для мастера'},2000)}
+    if(navigator.clipboard){navigator.clipboard.writeText(t).then(ok,function(){})}else{var r=document.createRange();r.selectNodeContents(document.getElementById('brief'));var s=getSelection();s.removeAllRanges();s.addRange(r);document.execCommand('copy');ok()}});
+  function showAll(){document.querySelectorAll('.reveal').forEach(function(el){el.style.opacity=1})}
+  setTimeout(showAll,3000);
+  if(!('IntersectionObserver' in window)){showAll();return}
+  window.__fallbackIO=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.style.transition='opacity .5s ease, transform .5s ease';e.target.style.opacity=1;window.__fallbackIO.unobserve(e.target)}})},{rootMargin:'0px 0px -8% 0px'});
+  document.querySelectorAll('.reveal').forEach(function(el){window.__fallbackIO.observe(el)});
+})();
+</script>
+<script type="module">
+try{
+  const { animate, inView, stagger } = await import("https://cdn.jsdelivr.net/npm/motion@11/+esm");
+  if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    if (window.__fallbackIO) window.__fallbackIO.disconnect();
+    const target = (arg) => (arg && arg.target) || arg;
+    inView('.reveal', (arg) => { const el = target(arg); animate(el, { opacity: [0, 1], y: [18, 0] }, { duration: 0.5, ease: [0.22, 1, 0.36, 1] }); }, { margin: '0px 0px -8% 0px' });
+    animate('.tile', { opacity: [0, 1], y: [12, 0] }, { delay: stagger(0.06), duration: 0.45 });
+  }
+}catch(e){document.querySelectorAll('.reveal').forEach(el=>el.style.opacity=1)}
+</script>
+</body>
+</html>
