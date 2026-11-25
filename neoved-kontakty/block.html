@@ -24,9 +24,10 @@
   Виджет после загрузки ещё около секунды доводит карту до нужной точки (видно как «прыжок»),
   поэтому карта проявляется только через 2 с после загрузки — уже на месте.
 
-  Кнопки «Zoom» и «Google Meet» в карточке контактов (группы .cardzm) с 20.10.2026 без ссылки на
-  SimplyMeet, поэтому скрипт помечает их data-neoved-meeting="zoom|meet" — попап записи
-  (amo-booking-worker/widget.js) открывается по ним сразу с нужным форматом.
+  Кнопки «Zoom», «Google Meet» и «Zoho Meeting» в карточке контактов (группы .cardzm) без ссылки
+  на SimplyMeet, поэтому скрипт помечает их data-neoved-meeting="zoom|meet|zoho" — попап записи
+  (amo-booking-worker/widget.js) открывается по ним сразу с нужным форматом. Кнопке со ссылкой
+  #neoved-meeting-zoho пометка не нужна: попап ловит такие ссылки сам.
 -->
 <style>
 .nvk{position:absolute;top:0;left:0;right:0;bottom:0;display:block;box-sizing:border-box;border-radius:inherit;overflow:hidden;background:#f7f7f7;cursor:pointer;-webkit-tap-highlight-color:transparent}
@@ -85,17 +86,23 @@
     setTimeout(fit, 3000);
   }
 
-  // Кнопки «Zoom» / «Google Meet» в карточке контактов: без ссылки, поэтому помечаем их для попапа
-  // записи (widget.js ловит [data-neoved-meeting], формат — zoom|meet) и делаем кликабельными
-  // с клавиатуры; cursor:pointer нужен ещё и iPhone, иначе Safari не шлёт click по div.
+  // Кнопки «Zoom» / «Google Meet» / «Zoho Meeting» в карточке контактов: без ссылки, поэтому
+  // помечаем их для попапа записи (widget.js ловит [data-neoved-meeting], формат — zoom|meet|zoho)
+  // и делаем кликабельными с клавиатуры; cursor:pointer нужен ещё и iPhone, иначе Safari не шлёт
+  // click по div. В «Zoho Meeting» есть «meet» — Google Meet узнаём по «google» или «meet» без «ing».
+  function formatOf(text) {
+    var t = (text || '').toLowerCase();
+    var zoho = t.indexOf('zoho') >= 0, zoom = t.indexOf('zoom') >= 0;
+    var meet = t.indexOf('google') >= 0 || /(^|[^a-z])meet(?!ing)/.test(t);
+    if (zoho + zoom + meet !== 1) return '';
+    return zoho ? 'zoho' : zoom ? 'zoom' : 'meet';
+  }
   function hookButtons() {
     var groups = document.querySelectorAll('#rec4713202201 .cardzm');
     for (var i = 0; i < groups.length; i++) {
       var g = groups[i];
       if (g.hasAttribute('data-neoved-meeting') || g.querySelector('[data-neoved-meeting]')) continue;
-      var t = (g.textContent || '').toLowerCase();
-      var zoom = t.indexOf('zoom') >= 0, meet = t.indexOf('meet') >= 0;
-      g.setAttribute('data-neoved-meeting', zoom && !meet ? 'zoom' : meet && !zoom ? 'meet' : '');
+      g.setAttribute('data-neoved-meeting', formatOf(g.textContent));
       g.style.cursor = 'pointer';
       if (g.tagName !== 'A' && !g.hasAttribute('tabindex')) {
         g.setAttribute('role', 'button');

@@ -53,17 +53,23 @@
     setTimeout(fit, 3000);
   }
 
-  // Кнопки «Zoom» / «Google Meet» в карточке контактов: без ссылки, поэтому помечаем их для попапа
-  // записи (widget.js ловит [data-neoved-meeting], формат — zoom|meet) и делаем кликабельными
-  // с клавиатуры; cursor:pointer нужен ещё и iPhone, иначе Safari не шлёт click по div.
+  // Кнопки «Zoom» / «Google Meet» / «Zoho Meeting» в карточке контактов: без ссылки, поэтому
+  // помечаем их для попапа записи (widget.js ловит [data-neoved-meeting], формат — zoom|meet|zoho)
+  // и делаем кликабельными с клавиатуры; cursor:pointer нужен ещё и iPhone, иначе Safari не шлёт
+  // click по div. В «Zoho Meeting» есть «meet» — Google Meet узнаём по «google» или «meet» без «ing».
+  function formatOf(text) {
+    var t = (text || '').toLowerCase();
+    var zoho = t.indexOf('zoho') >= 0, zoom = t.indexOf('zoom') >= 0;
+    var meet = t.indexOf('google') >= 0 || /(^|[^a-z])meet(?!ing)/.test(t);
+    if (zoho + zoom + meet !== 1) return '';
+    return zoho ? 'zoho' : zoom ? 'zoom' : 'meet';
+  }
   function hookButtons() {
     var groups = document.querySelectorAll('#rec4713202201 .cardzm');
     for (var i = 0; i < groups.length; i++) {
       var g = groups[i];
       if (g.hasAttribute('data-neoved-meeting') || g.querySelector('[data-neoved-meeting]')) continue;
-      var t = (g.textContent || '').toLowerCase();
-      var zoom = t.indexOf('zoom') >= 0, meet = t.indexOf('meet') >= 0;
-      g.setAttribute('data-neoved-meeting', zoom && !meet ? 'zoom' : meet && !zoom ? 'meet' : '');
+      g.setAttribute('data-neoved-meeting', formatOf(g.textContent));
       g.style.cursor = 'pointer';
       if (g.tagName !== 'A' && !g.hasAttribute('tabindex')) {
         g.setAttribute('role', 'button');
