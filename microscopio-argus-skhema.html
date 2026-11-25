@@ -113,9 +113,10 @@ svg text{font-family:Inter,system-ui,sans-serif}
   <div class="eyebrow">ARGUS MVP · схемы сборки · OpenFlexure v7 high-res</div>
   <h1>Как собрать микроскоп: <span>сначала на столе, потом в боксе</span></h1>
   <p class="lead">Порядок такой: заказать печать по архиву STL, собрать микроскоп целиком и запустить его на столе. Когда он снимает и фокусируется, корпус переезжает в бокс на 37&nbsp;°C и 5&nbsp;% CO₂, а электроника остаётся снаружи. Схемы построены по официальной документации OpenFlexure и по деталям со страницы закупки: Arduino Nano вместо Sangaboard, светодиод 5&nbsp;мм вместо платы подсветки.</p>
+  <div class="note" style="margin-top:18px"><b>Версия 3 и сборка без резки.</b> Механика ниже одинакова для любых плат. Электрика (схема 2) и перенос в бокс (схемы 3–4) нарисованы для запасного варианта с Arduino Nano и программой v2.11. Для v3 с платой Sangaboard v0.5, где ничего не нужно резать и паять, смотрите <a href="microscopio-argus-v3.html">страницу v3</a>.</div>
   <div class="tiles">
-    <div class="tile"><b>26</b><small>STL-файлов в архиве, 1,6 МБ</small></div>
-    <div class="tile"><b>≈ 416 см³</b><small>объём моделей основы, плюс 29 см³ чёрных</small></div>
+    <div class="tile"><b>28</b><small>STL-файлов в архиве, 1,7 МБ</small></div>
+    <div class="tile"><b>≈ 390 см³</b><small>объём моделей основы, плюс 29 см³ чёрных</small></div>
     <div class="tile"><b>14</b><small>шагов сборки микроскопа</small></div>
     <div class="tile"><b>8</b><small>шагов переноса в бокс</small></div>
   </div>
@@ -125,7 +126,7 @@ svg text{font-family:Inter,system-ui,sans-serif}
   <h2><span class="num">1</span>STL для заказа печати</h2>
   <p class="muted">Все файлы — официальные модели OpenFlexure v7.0.0-beta6, разложенные по папкам под заказ: что печатать каким цветом и что можно отложить. В архиве лежит README с настройками для мастера.</p>
   <div class="btns">
-    <a class="btn" href="openflexure-argus-stl.zip" download>Скачать архив STL (1,6 МБ)</a>
+    <a class="btn" href="openflexure-argus-stl.zip" download>Скачать архив STL (1,7 МБ)</a>
     <a class="btn ghost" href="https://build.openflexure.org/openflexure-microscope/v7.0.0-beta6/high_res_microscope/printing.html" target="_blank" rel="noopener">Страница печати OpenFlexure</a>
   </div>
   <div class="tblwrap reveal">
@@ -133,19 +134,19 @@ svg text{font-family:Inter,system-ui,sans-serif}
       <thead><tr><th>Папка</th><th>Что внутри</th><th>Цвет и когда</th></tr></thead>
       <tbody>
         <tr><td>4-test-pechati</td><td>leg_test, nut_trap_test — проверка мостов и встроенной каймы, около 5 г</td><td>печатать первыми, без каймы</td></tr>
-        <tr><td>1-osnova-PETG</td><td>корпус main_body, подставка с ящиком электроники, 3 ножки, 3 большие и 3 малые шестерни, 3 крышки кабелей, ласточкин хвост и крышка конденсора, барашек, 2 прижима, крышка камеры, пластина и держатель для Nano, держатель светодиода 5 мм — 15 файлов, около 416 см³</td><td>любой сплошной цвет, сейчас</td></tr>
+        <tr><td>1-osnova-PETG</td><td>корпус main_body, подставка с ящиком электроники под Pi 4 и Sangaboard, 3 ножки, 3 большие и 3 малые шестерни, 3 крышки кабелей, ласточкин хвост, крышка конденсора и проставка под плату подсветки, барашек, 2 прижима, крышка камеры — 13 файлов, около 390 см³</td><td>любой сплошной цвет, сейчас</td></tr>
         <tr><td>2-chernyy-PETG</td><td>модуль оптики под камеру v2 и рука конденсора, около 29 см³</td><td><b style="color:#fff">чёрным</b>, сейчас</td></tr>
         <tr><td>3-instrumenty</td><td>инструменты сборки: band tool, nut tool, gear holder, nut spinner, lens tool</td><td>любой пластик, можно PLA, сейчас</td></tr>
-        <tr><td>5-podstavka-dlya-boksa</td><td>подставка без Raspberry Pi, 77,7 см³</td><td>любой цвет, к переносу в бокс</td></tr>
-        <tr><td>6-fluorescenciya-chernyy-PETG</td><td>модуль оптики с делителем пучка, кубик фильтров, осветитель отражённого света</td><td>чёрным, к этапу 2</td></tr>
+        <tr><td>5-fluorescenciya-chernyy-PETG</td><td>модуль оптики с делителем пучка, кубик фильтров, осветитель отражённого света</td><td>чёрным, к этапу 2</td></tr>
+        <tr><td>6-zapasnye-varianty</td><td>ящик под Sangaboard с разъёмом 8,5 мм, держатели Arduino Nano и светодиода 5 мм, подставка без Raspberry Pi</td><td>только если понадобится этот вариант</td></tr>
       </tbody>
     </table>
   </div>
   <div class="grid2">
     <div class="box reveal" style="margin:0">
       <p><b>Почему PETG.</b> В документации OpenFlexure описан тест в инкубаторе при ~40&nbsp;°C и высокой влажности: механизм из PLA заметно деформировался, из PETG — нет. ABS и другие жёсткие пластики не подходят для гибких шарниров.</p>
-      <p><b>Ящик электроники</b> в архиве — стандартный, под Pi 4 и Sangaboard. Документация разрешает ставить в него Nano через пластину <i>nano_converter_plate-pi4</i>, если Pi — четвёртый.</p>
-      <p><b>Держатель светодиода</b> заменяет плату подсветки; проставка под плату (condenser_board_spacer) не нужна и в архив не положена.</p>
+      <p><b>Ящик электроники</b> в архиве — стандартный, под Pi 4 и Sangaboard с разъёмом 11 мм. Если плата придёт с разъёмом 8,5 мм, нужен ящик из папки 6. Вариант с Nano тоже встаёт в стандартный ящик через пластину из папки 6.</p>
+      <p><b>Подсветка.</b> Для платы светодиода с Sangaboard нужна проставка condenser_board_spacer — она в папке 1. Держатель светодиода 5 мм для варианта с Nano — в папке 6.</p>
     </div>
     <div class="reveal">
       <pre class="brief" id="brief">Нужна 3D-печать микроскопа OpenFlexure, файлы в архиве.
@@ -156,7 +157,7 @@ svg text{font-family:Inter,system-ui,sans-serif}
 Slice gap closing radius 0,001 мм, чтобы не залить тонкие зазоры.
 Сначала тесты из папки 4-test-pechati (около 5 г, без каймы).
 Папка 1 — любой цвет, папка 2 — чёрным, папка 3 — можно PLA.
-Папки 5 и 6 пока не печатать.
+Папку 5 — позже, к флуоресценции. Папку 6 не печатать.
 Самая крупная деталь 171 × 134 × 78 мм.</pre>
       <div class="btns"><button class="btn ghost" id="copy" type="button">Скопировать текст для мастера</button></div>
     </div>
