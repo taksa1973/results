@@ -1,6 +1,16 @@
 {
-  "ts": "2026-11-24T17:07:33.654886+00:00",
-  "findings": {},
+  "ts": "2026-11-25T16:56:06.044026+00:00",
+  "findings": {
+    "Borrow A Boat Turkey": {
+      "url": "https://www.borrowaboat.com/en-us/c/turkey/",
+      "host": "www.borrowaboat.com",
+      "matches": [
+        "\"id\\\":\\\"aquamax\\\",\\\"title\\\":\\\"AquaMax\\\"},{\\\"id\\\":\\\"aquaspirit\\\",\\\"title\\\":\\\"Aquaspirit\\\"},{\\\"id\\\":\\\"aquila\\\",\\\"title\\\":\\\"Aquila\\\"},{\\\"id\\\":\\\"aragosa-yachts\\\",\\\"title\\\":\\\"Aragosa Yachts\\\"},{\\\"id\\\":\\\"archamba",
+        "itle\\\":\\\"AquaMax\\\"},{\\\"id\\\":\\\"aquaspirit\\\",\\\"title\\\":\\\"Aquaspirit\\\"},{\\\"id\\\":\\\"aquila\\\",\\\"title\\\":\\\"Aquila\\\"},{\\\"id\\\":\\\"aragosa-yachts\\\",\\\"title\\\":\\\"Aragosa Yachts\\\"},{\\\"id\\\":\\\"archambault\\\",\\\"title\\\":\\\"Arc"
+      ],
+      "match_count": 2
+    }
+  },
   "errors": {
     "Sailo Turkey catamarans": "http_403",
     "Rotaneta Gocek catamaran": "http_502",
