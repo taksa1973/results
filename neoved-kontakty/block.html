@@ -41,17 +41,12 @@
 .nvk__hint{position:absolute;left:50%;bottom:16px;transform:translateX(-50%);padding:8px 14px;border-radius:999px;background:rgba(17,0,0,.72);color:#fff;font:400 12px/1.2 'Onest',Arial,sans-serif;white-space:nowrap;pointer-events:none;opacity:0;transition:opacity .2s ease}
 @media (hover:hover){.nvk:not(.is-on):hover .nvk__hint{opacity:1}}
 @media (prefers-reduced-motion:reduce){.nvk__map,.nvk__hint{transition:none}}
-/* Кнопки видеовстреч (.cardzm: Zoom, Google Meet, Zoho Meeting) при наведении краснеют, как мессенджеры (.card):
-   текст и значок #EE0000, белые детали значков остаются белыми. Только там, где есть наведение мышью: на телефоне
-   после касания открывается попап, и «залипшая» красная кнопка под ним ни к чему. */
-#rec4713202201 .cardzm .tn-atom{transition:color .3s}
-#rec4713202201 .cardzm svg *{transition:fill .3s}
-@media (hover:hover){
-#rec4713202201 .cardzm:hover .tn-atom{color:#EE0000!important}
-#rec4713202201 .cardzm:hover .tn-atom__vector-wrapper,#rec4713202201 .cardzm:hover svg{filter:none!important}
-#rec4713202201 .cardzm:hover svg [fill]:not(svg):not([fill="none"]):not([fill="white"]):not([fill="#fff"]):not([fill="#FFF"]):not([fill="#ffffff"]):not([fill="#FFFFFF"]){fill:#EE0000!important}
-}
-@media (prefers-reduced-motion:reduce){#rec4713202201 .cardzm .tn-atom,#rec4713202201 .cardzm svg *{transition:none}}
+/* Кнопки видеовстреч (.cardzm: Zoom, Google Meet, Zoho Meeting): текст не меняется, значок серый и при наведении
+   на кнопку — на значок или на название — загорается своими цветами (решение anton 26.11.2026; красное наведение,
+   как у мессенджеров, отменено). Это CSS дизайнера в Tilda; здесь то же правило на случай, если его там не будет. */
+#rec4713202201 .cardzm .tn-atom__vector-wrapper,#rec4713202201 .cardzm svg{filter:grayscale(100%);transition:filter .3s}
+#rec4713202201 .cardzm:hover .tn-atom__vector-wrapper,#rec4713202201 .cardzm:hover svg{filter:none}
+@media (prefers-reduced-motion:reduce){#rec4713202201 .cardzm .tn-atom__vector-wrapper,#rec4713202201 .cardzm svg{transition:none}}
 </style>
 <div class="nvk" id="nvk">
   <iframe class="nvk__map" src="https://yandex.ru/map-widget/v1/org/neoved_/175160083981/?indoorLevel=1&amp;ll=37.601412%2C55.763372&amp;z=17" title="Neoved на Яндекс Картах" loading="lazy" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
