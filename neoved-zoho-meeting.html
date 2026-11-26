@@ -123,7 +123,7 @@ footer{padding:40px 0 60px;color:var(--label);font-size:13px}
   <div class="tiles">
     <div class="tile key reveal"><b>1003765</b><small>поле сделки «Ссылка Zoho» в amoCRM — уже создано, серое (только для API), рядом с «Ссылка Meet»</small></div>
     <div class="tile reveal"><b>200 страниц</b><small>кнопка «Встретиться в Zoom / Meet» в двух синхронизированных блоках — надпись и ширину меняет наш скрипт, Tilda не трогаем</small></div>
-    <div class="tile reveal"><b>315 px</b><small>ширина обеих кнопок формы на десктопе: при 285 px новая надпись (284 px) упирается в края</small></div>
+    <div class="tile reveal"><b>324 px</b><small>ширина обеих кнопок формы на десктопе: у надписи по 20 px с каждой стороны; при 285 px она упиралась в края</small></div>
     <div class="tile reveal"><b>411 + 12</b><small>автопроверок кода (364 у записи, 47 у нового воркера) и проверок в браузере на живых страницах, включая Safari; плюс живой вход гостем в Zoho</small></div>
   </div>
 </header>
@@ -139,7 +139,7 @@ footer{padding:40px 0 60px;color:var(--label);font-size:13px}
         <tr><td class="k">Попап записи</td><td class="m">Третий формат «Zoho Meeting» со значком, новый подзаголовок, письма и задачи с Zoho, учёт явки по отчёту участников Zoho.</td><td class="v"><span class="tag t-n">ждёт выкладки</span></td></tr>
         <tr><td class="k">Ссылка на форму с Zoho</td><td class="m">Адрес с хэшем <code>#neoved-meeting-zoho</code> открывает форму сразу с выбранным Zoho Meeting — и по клику, и при открытии страницы.</td><td class="v"><span class="tag t-n">ждёт выкладки</span></td></tr>
         <tr><td class="k">Карточка контактов</td><td class="m">Дима уже поставил кнопку «Zoho Meeting», но боевой скрипт карточки принимает её за Google Meet (в «Zoho Meeting» есть «meet») — исправлено. При наведении кнопки видеовстреч теперь краснеют целиком, как мессенджеры: текст и значок #EE0000, белые детали значков остаются белыми.</td><td class="v"><span class="tag t-warn">ждёт выкладки</span></td></tr>
-        <tr><td class="k">Кнопки формы</td><td class="m">Надпись «Встретиться в Zoom / Meet / Zoho» и ширина обеих кнопок 315 px на десктопе, 550 px на планшете — делает скрипт попапа на всех страницах, Tilda не трогаем.</td><td class="v"><span class="tag t-n">ждёт выкладки</span></td></tr>
+        <tr><td class="k">Кнопки формы</td><td class="m">Надпись «Встретиться в Zoom / Meet / Zoho» и ширина обеих кнопок 324 px на десктопе (по 20 px полей у надписи), 550 px на планшете — делает скрипт попапа на всех страницах, Tilda не трогаем.</td><td class="v"><span class="tag t-n">ждёт выкладки</span></td></tr>
       </tbody>
     </table>
   </div>
@@ -169,13 +169,13 @@ footer{padding:40px 0 60px;color:var(--label);font-size:13px}
   <div class="vs">
     <figure class="reveal"><img src="img/neoved-zoho/btn-now.webp" width="2360" height="470" alt="Было: чёрная кнопка «Встретиться в Zoom / Meet» шириной 275 px и красная «Заявка на консультацию» шириной 285 px" loading="lazy"><figcaption><b>Было:</b> 275 и 285 px.</figcaption></figure>
     <figure class="bad reveal"><img src="img/neoved-zoho/btn-285.webp" width="2360" height="470" alt="Вариант 285 px: надпись «Встретиться в Zoom / Meet / Zoho» упирается в края кнопки" loading="lazy"><figcaption><b>Так нельзя — 285 px, как у кнопки заявки:</b> надпись упирается в скругления.</figcaption></figure>
-    <figure class="good reveal"><img src="img/neoved-zoho/btn-live.webp" width="1180" height="218" alt="Стало: обе кнопки по 315 px, надпись «Встретиться в Zoom / Meet / Zoho» с полями" loading="lazy"><figcaption><b>Стало — обе по 315 px:</b> снято на живой главной с новым скриптом; у надписи поля по 16 px, три поля формы — по 272 px.</figcaption></figure>
+    <figure class="good reveal"><img src="img/neoved-zoho/btn-live.webp" width="1180" height="220" alt="Стало: обе кнопки одной ширины, надпись «Встретиться в Zoom / Meet / Zoho» с полями" loading="lazy"><figcaption><b>Стало — обе по 324 px:</b> снято на живой главной с новым скриптом; у надписи поля по 20 px, три поля формы — по 269 px.</figcaption></figure>
   </div>
   <div class="tblwrap reveal" style="margin-top:16px">
     <table class="tbl">
       <thead><tr><th>Экран</th><th>Было: кнопка 1</th><th>Было: кнопка 2</th><th>Стало</th></tr></thead>
       <tbody>
-        <tr><td class="k">от 1200 px</td><td class="v">275 px</td><td class="v">285 px</td><td class="m"><b style="color:#fff">обе 315 px</b>, поля формы 272 px, кнопка по центру</td></tr>
+        <tr><td class="k">от 1200 px</td><td class="v">275 px</td><td class="v">285 px</td><td class="m"><b style="color:#fff">обе 324 px</b>: у надписи по 20 px с каждой стороны, поля формы 269 px, кнопка по центру</td></tr>
         <tr><td class="k">640–1199 px</td><td class="v">275 px</td><td class="v">550 px</td><td class="m"><b style="color:#fff">кнопка 1 — 550 px</b>, как поля и кнопка заявки над ней: в 275 px новая надпись не помещалась</td></tr>
         <tr><td class="k">до 640 px</td><td class="v">во всю ширину</td><td class="v">во всю ширину</td><td class="m">без изменений: ширину ведёт скрипт согласий, надпись 250 px помещается</td></tr>
       </tbody>
