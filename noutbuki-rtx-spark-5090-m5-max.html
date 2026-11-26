@@ -1,0 +1,496 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RTX Spark, RTX 5090 или M5 Max: какой ноутбук брать для игр и локального ИИ</title>
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="description" content="Сравнение ноутбуков на NVIDIA RTX Spark (N1X), игровых ноутбуков с RTX 5090 на 175 Вт и MacBook Pro M5 Max 128 ГБ: игры, локальные нейросети, цены в России, Бразилии и Сербии.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add('js-anim')</script>
+<style>
+:root{
+  --bg:#000;--card:#121212;--sub:#1A1A1A;--line:#262626;--line2:#3A3A3A;
+  --ink:#F5F5F5;--head:#FFF;--muted:#C4C4C8;--label:#8E8E93;
+  --red:#9B1C1C;--red-h:#B42323;--red-t:#E05252;--red-bg:#241010;--red-bd:#4D1B1B;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:var(--red-t);text-decoration:none}
+a:hover{text-decoration:underline}
+a:focus-visible,button:focus-visible{outline:2px solid var(--red-t);outline-offset:3px;border-radius:6px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 16px}
+nav.topnav{position:sticky;top:0;z-index:40;background:rgba(0,0,0,.88);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.topnav-inner{max-width:1120px;margin:0 auto;padding:0 16px;display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
+.topnav-inner::-webkit-scrollbar{display:none}
+.topnav-inner a{flex:none;color:var(--muted);padding:14px 12px;font-size:14px;font-weight:500;border-bottom:2px solid transparent;white-space:nowrap}
+.topnav-inner a:hover{color:#fff;text-decoration:none}
+.topnav-inner a.active{color:#fff;border-bottom-color:var(--red-t)}
+header.hero{padding:56px 0 24px}
+.eyebrow{color:var(--red-t);font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase}
+h1{font-size:clamp(30px,5vw,48px);line-height:1.1;margin:10px 0 14px;color:var(--head);font-weight:800;letter-spacing:-.02em}
+h1 span{color:var(--red-t)}
+.lead{color:var(--muted);max-width:820px;font-size:17px;margin:0}
+.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:28px}
+.tile{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px}
+.tile b{display:block;font-size:26px;color:#fff;font-weight:800;font-variant-numeric:tabular-nums;line-height:1.2}
+.tile small{color:var(--label);font-size:13px;display:block;margin-top:4px}
+section{padding:40px 0 8px;scroll-margin-top:56px}
+h2{display:flex;align-items:center;gap:12px;font-size:26px;color:#fff;margin:0 0 18px;font-weight:700;line-height:1.25}
+h2 .num{display:inline-grid;place-items:center;width:30px;height:30px;background:#fff;color:#000;border-radius:8px;font-size:15px;font-weight:800;flex:none}
+h3{color:#fff;font-size:18px;margin:0 0 6px;line-height:1.3}
+p{margin:0 0 12px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px;transition:transform .2s ease,box-shadow .2s ease;display:flex;flex-direction:column}
+.card:hover{transform:translateY(-2px);box-shadow:0 0 0 1px rgba(255,255,255,.18)}
+.card.win{border-color:var(--red-bd);background:linear-gradient(180deg,#160B0B,var(--card) 55%)}
+.card .btns{margin-top:auto;padding-top:6px}
+.ph{background:#fff;border-radius:12px;height:230px;display:flex;align-items:center;justify-content:center;overflow:hidden;margin-bottom:12px}
+.ph img{max-width:100%;max-height:216px;width:auto;height:auto;object-fit:contain}
+.ph.dark{background:#0b0b0d}
+.tags{display:flex;flex-wrap:wrap}
+.tag{display:inline-block;font-size:12px;font-weight:600;padding:3px 9px;border-radius:999px;margin:0 6px 8px 0}
+.t-ok{background:#2A2A2A;color:#fff;box-shadow:inset 0 0 0 1px #5A5A5F}
+.t-warn{background:var(--red-bg);color:var(--red-t)}
+.t-bad{background:var(--red);color:#fff}
+.t-n{background:var(--sub);color:var(--muted)}
+ul.spec{margin:8px 0 12px;padding-left:18px;color:var(--muted);font-size:15px}
+ul.spec li{margin:3px 0}
+ul.spec b{color:#fff;font-weight:600}
+.prices{border-top:1px solid var(--line);margin:4px 0 12px;padding-top:10px;display:grid;gap:8px}
+.pr{display:grid;grid-template-columns:78px 1fr;gap:10px;align-items:baseline;font-size:14px}
+.pr .c{color:var(--label);font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:.05em}
+.pr .v{color:var(--muted)}
+.pr .v b{color:#fff;font-size:17px;font-variant-numeric:tabular-nums}
+.pr .v .usd{display:inline-block;margin-left:6px;font-size:12px;font-weight:700;color:#000;background:#fff;border-radius:6px;padding:0 6px;font-variant-numeric:tabular-nums}
+.pr .v .no{color:var(--label)}
+.btn{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:10px 16px;border-radius:12px;background:#fff;color:#000;font-weight:700;font-size:15px;transition:background .2s,color .2s}
+.btn:hover{background:var(--red);color:#fff;text-decoration:none}
+.btn.ghost{background:transparent;color:#fff;box-shadow:inset 0 0 0 1px var(--line2)}
+.btn.ghost:hover{background:var(--red);box-shadow:none}
+.btns{display:flex;flex-wrap:wrap;gap:8px}
+.note{background:var(--red-bg);border:1px solid var(--red-bd);border-radius:14px;padding:14px 16px;color:var(--ink);font-size:15px;margin:0 0 16px}
+.note b{color:var(--red-t)}
+.box{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px 18px;margin:0 0 16px}
+.box p:last-child{margin-bottom:0}
+.verdict{background:linear-gradient(180deg,#160B0B,var(--card) 70%);border:1px solid var(--red-bd);border-radius:18px;padding:20px 22px;margin-bottom:16px}
+.verdict h3{font-size:22px}
+.verdict p{color:var(--muted);margin:6px 0 0}
+.verdict p b{color:#fff}
+.tbl{width:100%;border-collapse:collapse;font-size:14px;background:var(--card)}
+.tbl th{background:#1F1F1F;color:#fff;text-align:left;font-weight:600;padding:10px;white-space:nowrap;vertical-align:bottom}
+.tbl td{padding:9px 10px;border-top:1px solid var(--line);vertical-align:top;color:var(--muted)}
+.tbl td.n{font-variant-numeric:tabular-nums;white-space:nowrap}
+.tbl td.k{color:#fff;font-weight:600}
+.tbl tr.me td{background:#1A1A1A}
+.tbl tr.me td.k{color:var(--red-t)}
+.tbl small{color:var(--label)}
+.tblwrap{overflow-x:auto;border-radius:14px;border:1px solid var(--line);margin-bottom:16px}
+.bars{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px 18px;margin-bottom:16px}
+.bars h3{font-size:16px;margin-bottom:2px}
+.bars .sub{color:var(--label);font-size:13px;margin:0 0 12px}
+.bar{display:grid;grid-template-columns:minmax(150px,240px) 1fr 58px;gap:10px;align-items:center;margin:7px 0;font-size:14px}
+.bar .l{color:var(--muted);line-height:1.25}
+.bar .l small{display:block;color:var(--label);font-size:12px}
+.bar .t{background:#1F1F1F;border-radius:6px;height:14px;overflow:hidden}
+.bar .t span{display:block;height:100%;background:#5A5A5F;border-radius:6px;transform-origin:left center}
+.bar.hi .t span{background:var(--red-t)}
+.bar.hi .l{color:#fff;font-weight:600}
+.bar .v{color:#fff;font-weight:700;font-variant-numeric:tabular-nums;text-align:right}
+.steps{display:grid;gap:12px}
+.step{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px 18px;display:grid;grid-template-columns:30px 1fr;gap:14px}
+.step i{font-style:normal;display:inline-grid;place-items:center;width:28px;height:28px;background:#fff;color:#000;border-radius:8px;font-size:14px;font-weight:800}
+.step p{margin:0;color:var(--muted);font-size:15px}
+.step b{color:#fff}
+ul.plain{color:var(--muted);font-size:15px;padding-left:18px;margin:0}
+ul.plain li{margin:6px 0}
+ul.plain b{color:#fff;font-weight:600}
+ol.src{color:var(--muted);font-size:14px;padding-left:20px}
+ol.src li{margin:5px 0}
+p.muted{color:var(--muted)}
+footer{padding:40px 0 60px;color:var(--label);font-size:13px}
+.reveal{opacity:1}
+.js-anim .reveal{opacity:0}
+@media (max-width:420px){.tile b{font-size:21px}.bar{grid-template-columns:1fr 50px}.bar .l{grid-column:1 / -1}}
+@media (max-width:960px){.grid3{grid-template-columns:1fr 1fr}}
+@media (max-width:860px){.tiles{grid-template-columns:1fr 1fr}.grid2,.grid3{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}.js-anim .reveal{opacity:1}}
+</style>
+</head>
+<body>
+<nav class="topnav" aria-label="Разделы">
+  <div class="topnav-inner">
+    <a href="#vyvod">Вывод</a>
+    <a href="#puti">Три пути</a>
+    <a href="#igry">Игры</a>
+    <a href="#ii">Локальный ИИ</a>
+    <a href="#spark">Ноутбуки на Spark</a>
+    <a href="#ceny">Где купить</a>
+    <a href="#chto">Что брать</a>
+    <a href="#src">Источники</a>
+  </div>
+</nav>
+
+<main>
+<header class="hero wrap">
+  <div class="eyebrow">Сравнение · Россия · Бразилия · Сербия</div>
+  <h1>RTX Spark, RTX 5090 или M5&nbsp;Max: <span>что брать для игр и локального&nbsp;ИИ</span></h1>
+  <p class="lead">Ноутбуки на NVIDIA RTX Spark (чип N1X) действительно вышли и продаются в США. Для игр это уровень RTX 5060–5070, а не флагман. Если главное игры, а локальные нейросети на втором месте, лучше всего подходит ноутбук с RTX 5090 на полных 175&nbsp;Вт. В России он сейчас дешевле, чем в Бразилии и Сербии.</p>
+  <div class="tiles">
+    <div class="tile reveal"><b>+60%</b><small>к FPS у RTX 5090 Laptop против Spark N1X: Cyberpunk 2077, 1440p, Ultra (90,8 против 56,8)</small></div>
+    <div class="tile reveal"><b>175 Вт</b><small>потолок RTX 5090 в ноутбуке (150 + 25 Dynamic Boost). «200 Вт» — это уже CPU + GPU вместе</small></div>
+    <div class="tile reveal"><b>в 2 раза</b><small>быстрее память M5 Max, чем у Spark-ноутбука: 614 против 300 ГБ/с. Не в 3</small></div>
+    <div class="tile reveal"><b>381 794 ₽</b><small>самый дешёвый RTX 5090 на 175 Вт в России, около $4 640</small></div>
+  </div>
+</header>
+
+<section id="vyvod" class="wrap">
+  <h2><span class="num">1</span>Короткий вывод</h2>
+  <div class="verdict reveal">
+    <h3>Брать ноутбук с RTX 5090 на 175 Вт, лучше с 64 ГБ ОЗУ и больше</h3>
+    <p><b>Игры.</b> Это самая быстрая ноутбучная видеокарта: в Cyberpunk 2077 на 1440p Ultra она быстрее Spark-ноутбука на 60% и MacBook M5 Max на 44%. Обычный x86 Windows без эмуляции, все античиты работают.</p>
+    <p><b>ИИ.</b> 24 ГБ видеопамяти на 896 ГБ/с. Модели до ~30–35B в 4-битной квантизации целиком помещаются в видеопамять и работают примерно вдвое быстрее, чем на Spark: Llama 3.1 8B выдаёт 123,7 ток/с против 55,9. Модели на 120B туда не влезают, их придётся частично выгружать в ОЗУ, и скорость упадёт. Под такие модели нужно 64–128 ГБ ОЗУ.</p>
+    <p><b>Где.</b> В России. MSI Vector 17 HX AI с RTX 5090 на 175 Вт стоит 381 794 ₽ (около $4 640). Это примерно уровень чёрной пятницы в США: там ROG Strix SCAR 16 с 5090 отдают за $4 149,99. В Бразилии похожий Legion Pro 7i стоит около $7 300, в Сербии SCAR 18 стоит около $6 230.</p>
+  </div>
+  <div class="grid2">
+    <div class="box reveal"><h3>Когда всё-таки Spark</h3><p class="muted">Если нужен лёгкий ноутбук на 1,5–2 кг с CUDA и 128 ГБ общей памяти под модели на 120B, а игры вторичны. Но MacBook M5 Max с 128 ГБ генерирует такие модели быстрее (около 88 против 60–65 ток/с на gpt-oss-120b). В России и Бразилии Spark-ноутбуков в продаже нет. В Сербии нашёлся один ProArt P16 с 64 ГБ, а этого мало для 120B.</p></div>
+    <div class="box reveal"><h3>Когда M5 Max 128 ГБ</h3><p class="muted">Если локальный ИИ важнее игр. Это самый быстрый ноутбук для больших моделей: 614 ГБ/с, gpt-oss-120b около 88 ток/с. Игры остаются как на вашем Mac: идут только те, у которых есть версия для macOS. Цена 16″ с 128 ГБ: $6 999 в США, около 739 тыс. ₽ в России с пошлиной, R$ 78 299 в Бразилии.</p></div>
+  </div>
+</section>
+
+<section id="puti" class="wrap">
+  <h2><span class="num">2</span>Три пути в одной таблице</h2>
+  <div class="tblwrap reveal">
+    <table class="tbl">
+      <thead><tr><th></th><th>RTX 5090 Laptop, 175 Вт</th><th>RTX Spark N1X (20 ядер, 6144 CUDA)</th><th>MacBook Pro M5 Max, 40 GPU</th></tr></thead>
+      <tbody>
+        <tr class="me"><td class="k">Игры, уровень</td><td>Самая быстрая ноутбучная видеокарта</td><td>Между RTX 5060 и RTX 5070 Laptop</td><td>Около RTX 5070 Laptop в играх с Mac-версией</td></tr>
+        <tr><td class="k">Совместимость игр</td><td>Полная: x86 Windows, все античиты</td><td>Windows на Arm: x64-игры через эмуляцию Prism. Нативные античиты EAC и BattlEye есть не у всех игр, Call of Duty ожидают только в 2027 году</td><td>Только игры с версией для macOS</td></tr>
+        <tr><td class="k">Память под ИИ</td><td class="n">24 ГБ GDDR7 + ОЗУ DDR5 (до 64–192 ГБ)</td><td class="n">До 128 ГБ общей LPDDR5X</td><td class="n">До 128 ГБ общей</td></tr>
+        <tr><td class="k">Скорость памяти</td><td class="n">896 ГБ/с (видеопамять)</td><td class="n">~300 ГБ/с (теор.)</td><td class="n">614 ГБ/с</td></tr>
+        <tr><td class="k">Llama 3.1 8B</td><td class="n">123,7 ток/с</td><td class="n">55,9 ток/с</td><td class="n"><small>нет того же теста</small></td></tr>
+        <tr><td class="k">gpt-oss-120b</td><td>Не помещается в видеопамять; с выгрузкой в ОЗУ медленно <small>(на настольной 5090 32 ГБ ~30 ток/с)</small></td><td class="n">~60–65 ток/с <small>(от сети)</small></td><td class="n">87,9 ток/с <small>(MLX, 4K контекст)</small></td></tr>
+        <tr><td class="k">Мощность</td><td class="n">GPU 175 Вт, CPU+GPU до 250 Вт</td><td class="n">45–80 Вт на весь чип</td><td class="n">—</td></tr>
+        <tr><td class="k">Вес</td><td class="n">2,5–3,7 кг + большой блок питания</td><td class="n">1,5–2,2 кг</td><td class="n">2,15 кг (16″)</td></tr>
+        <tr><td class="k">Купить: Россия</td><td class="n">от 381 794 ₽</td><td>нет в продаже</td><td class="n">≈739 тыс. ₽ с пошлиной (128 ГБ)</td></tr>
+        <tr><td class="k">Купить: Бразилия</td><td class="n">от R$ 42 990</td><td>нет в продаже</td><td class="n">R$ 78 299 à vista (128 ГБ)</td></tr>
+        <tr><td class="k">Купить: Сербия</td><td class="n">от 669 999 RSD</td><td class="n">599 999 RSD (64 ГБ)</td><td>128 ГБ нет, максимум 48 ГБ</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="muted">Цифры FPS и ток/с — из одних и тех же тестов Notebookcheck, где они есть. Остальные источники указаны рядом. Скорость памяти RTX 5090 Laptop посчитана по шине: 256 бит × 28 Гбит/с = 896 ГБ/с.</p>
+</section>
+
+<section id="igry" class="wrap">
+  <h2><span class="num">3</span>Игры: цифры</h2>
+  <div class="grid2">
+    <div class="bars reveal" role="img" aria-label="Cyberpunk 2077, 2560x1440, Ultra: RTX 5090 Laptop 90,8; RTX 5070 Laptop 65,2; M5 Max 63,1; RTX 5060 Laptop 57,0; RTX Spark N1X 56,8; Radeon 8060S 49,4; M5 Pro 33,4 кадра в секунду">
+      <h3>Cyberpunk 2077 · 2560×1440 · Ultra</h3>
+      <p class="sub">средний FPS, без апскейла, Notebookcheck</p>
+      <div class="bar hi"><div class="l">RTX 5090 Laptop</div><div class="t"><span style="width:100%"></span></div><div class="v">90,8</div></div>
+      <div class="bar"><div class="l">RTX 5070 Laptop<small>XMG Fusion 16</small></div><div class="t"><span style="width:71.8%"></span></div><div class="v">65,2</div></div>
+      <div class="bar"><div class="l">Apple M5 Max</div><div class="t"><span style="width:69.5%"></span></div><div class="v">63,1</div></div>
+      <div class="bar"><div class="l">RTX 5060 Laptop</div><div class="t"><span style="width:62.8%"></span></div><div class="v">57,0</div></div>
+      <div class="bar"><div class="l">RTX Spark N1X<small>ASUS ProArt P16, x64 через эмуляцию</small></div><div class="t"><span style="width:62.6%"></span></div><div class="v">56,8</div></div>
+      <div class="bar"><div class="l">Radeon 8060S<small>AMD Strix Halo</small></div><div class="t"><span style="width:54.4%"></span></div><div class="v">49,4</div></div>
+      <div class="bar"><div class="l">Apple M5 Pro</div><div class="t"><span style="width:36.8%"></span></div><div class="v">33,4</div></div>
+    </div>
+    <div class="bars reveal" role="img" aria-label="Baldur's Gate 3, 2560x1440, Ultra: RTX 5090 Laptop 121; M5 Max 96,4; RTX 5070 Laptop 84,1; RTX Spark N1X 79,1; RTX 5060 Laptop 76,4; Radeon 8060S 60,8; M5 Pro 56,7 кадра в секунду">
+      <h3>Baldur's Gate 3 · 2560×1440 · Ultra</h3>
+      <p class="sub">средний FPS, Notebookcheck</p>
+      <div class="bar hi"><div class="l">RTX 5090 Laptop</div><div class="t"><span style="width:100%"></span></div><div class="v">121</div></div>
+      <div class="bar"><div class="l">Apple M5 Max</div><div class="t"><span style="width:79.7%"></span></div><div class="v">96,4</div></div>
+      <div class="bar"><div class="l">RTX 5070 Laptop<small>XMG Fusion 16</small></div><div class="t"><span style="width:69.5%"></span></div><div class="v">84,1</div></div>
+      <div class="bar"><div class="l">RTX Spark N1X<small>ASUS ProArt P16</small></div><div class="t"><span style="width:65.4%"></span></div><div class="v">79,1</div></div>
+      <div class="bar"><div class="l">RTX 5060 Laptop</div><div class="t"><span style="width:63.1%"></span></div><div class="v">76,4</div></div>
+      <div class="bar"><div class="l">Radeon 8060S</div><div class="t"><span style="width:50.2%"></span></div><div class="v">60,8</div></div>
+      <div class="bar"><div class="l">Apple M5 Pro</div><div class="t"><span style="width:46.9%"></span></div><div class="v">56,7</div></div>
+    </div>
+  </div>
+  <div class="grid3">
+    <div class="box reveal"><h3>Spark в играх</h3><p class="muted">Notebookcheck оценивает его на уровне RTX 5060–5070 Laptop. Большинство игр идёт как x64 через эмуляцию Prism. Нативная Arm-сборка Marvel Rivals быстрее эмулированной примерно на 20%. В Assassin's Creed Black Flag и Shadows замечены подтормаживания. На Snapdragon-ноутбуках не запускались F1 25 и Battlefield 6. Нативные античиты EAC и BattlEye к запуску получили CS2, Dota 2, Fortnite, Marvel Rivals, Rocket League и The Finals. Call of Duty ожидают в 2027 году.</p></div>
+    <div class="box reveal"><h3>Про «200 Вт»</h3><p class="muted">У ноутбучной RTX 5090 максимум 175 Вт: 150 Вт TGP и 25 Вт Dynamic Boost. Ноутбуков с 5090 на 200 Вт не бывает. Цифры 250 Вт и выше означают общий бюджет процессора и видеокарты: у MSI Vector 17 HX AI это 250 Вт. В тонких моделях 5090 урезают: у Razer Blade 16 стоит 135 + 25 Вт. Перед покупкой ищите в спецификации строку «Maximum Graphics Power 175W».</p></div>
+    <div class="box reveal"><h3>5080 вместо 5090?</h3><p class="muted">В 3DMark Steel Nomad RTX 5080 Laptop отстаёт от 5090 на 19% (4022 против 4959). Видеопамяти у неё 16 ГБ против 24, это сильнее мешает ИИ, чем играм. В России самые дешёвые ноутбуки с 5080 на 175 Вт стоят около 341 тыс. ₽. Это всего на 40 тыс. дешевле, чем Vector 17 с 5090, так что 5080 брать нет смысла.</p></div>
+  </div>
+  <p class="muted">По оценке Notebookcheck, следующее поколение ноутбучных видеокарт NVIDIA задерживается, даты выхода нет. Поэтому RTX 5090 останется топом ещё какое-то время.</p>
+</section>
+
+<section id="ii" class="wrap">
+  <h2><span class="num">4</span>Локальный ИИ: что важно</h2>
+  <div class="note reveal"><b>Главное правило.</b> Скорость генерации токенов упирается в скорость памяти, а размер модели упирается в её объём. У 5090 память самая быстрая, но её всего 24 ГБ. У Spark и M5 Max есть до 128 ГБ, но память медленнее. M5 Max быстрее Spark-ноутбука примерно в 2 раза по памяти (614 против 300 ГБ/с), а на gpt-oss-120b разница меньше: 88 против 60–65 ток/с.</div>
+  <div class="grid2">
+    <div class="bars reveal" role="img" aria-label="Скорость памяти: RTX 5090 Laptop 896; M5 Max 40 GPU 614; M5 Max 32 GPU 460; M5 Pro 307; RTX Spark N1X около 300 гигабайт в секунду">
+      <h3>Скорость памяти, ГБ/с</h3>
+      <p class="sub">Apple, Notebookcheck; у 5090 расчёт по шине</p>
+      <div class="bar hi"><div class="l">RTX 5090 Laptop<small>24 ГБ видеопамяти</small></div><div class="t"><span style="width:100%"></span></div><div class="v">896</div></div>
+      <div class="bar"><div class="l">M5 Max, 40 GPU<small>48 / 64 / 128 ГБ</small></div><div class="t"><span style="width:68.5%"></span></div><div class="v">614</div></div>
+      <div class="bar"><div class="l">M5 Max, 32 GPU<small>только 36 ГБ</small></div><div class="t"><span style="width:51.3%"></span></div><div class="v">460</div></div>
+      <div class="bar"><div class="l">M5 Pro</div><div class="t"><span style="width:34.3%"></span></div><div class="v">307</div></div>
+      <div class="bar"><div class="l">RTX Spark N1X<small>теоретически, до 128 ГБ</small></div><div class="t"><span style="width:33.5%"></span></div><div class="v">300</div></div>
+    </div>
+    <div class="bars reveal" role="img" aria-label="gpt-oss-120b, токенов в секунду: M5 Max 87,9; RTX Spark N1X около 62,6; RTX 5090 настольная 32 ГБ с выгрузкой около 30">
+      <h3>gpt-oss-120b, ток/с, короткий контекст</h3>
+      <p class="sub">разные движки, сравнивать примерно</p>
+      <div class="bar"><div class="l">M5 Max 128 ГБ<small>MLX, 4K контекст; на 32K — 64,5</small></div><div class="t"><span style="width:100%"></span></div><div class="v">87,9</div></div>
+      <div class="bar"><div class="l">RTX Spark N1X 128 ГБ<small>MSI Prestige N16, от сети; на батарее 17,8</small></div><div class="t"><span style="width:71.2%"></span></div><div class="v">62,6</div></div>
+      <div class="bar"><div class="l">RTX 5090 настольная, 32 ГБ<small>llama.cpp, эксперты в ОЗУ; ноутбучную не меряли</small></div><div class="t"><span style="width:34.1%"></span></div><div class="v">~30</div></div>
+    </div>
+  </div>
+  <div class="tblwrap reveal">
+    <table class="tbl">
+      <thead><tr><th>Задача</th><th>RTX 5090 Laptop</th><th>RTX Spark N1X</th><th>M5 Max 128 ГБ</th></tr></thead>
+      <tbody>
+        <tr><td class="k">Модели 7–14B<br><small>чат, код, перевод</small></td><td class="n">Лучше всех: Llama 3.1 8B 123,7 ток/с</td><td class="n">55,9 ток/с</td><td>Быстро, но тот же тест не публиковали</td></tr>
+        <tr><td class="k">Модели 27–35B<br><small>Qwen 3.x, gpt-oss-20b</small></td><td>Помещаются в 24 ГБ в 4 битах. Самый быстрый вариант по скорости памяти, но замеров на ноутбуке я не нашёл</td><td class="n">Qwen3.6-35B-A3B 89,2 ток/с, gpt-oss-20b 58–59 ток/с</td><td class="n">Qwen3.5-27B 6 бит: 23,6 ток/с</td></tr>
+        <tr><td class="k">Модели 70–122B</td><td>Только с выгрузкой в ОЗУ: нужно 64–128 ГБ DDR5, скорость низкая</td><td class="n">gpt-oss-120b ~60–65 ток/с</td><td class="n">gpt-oss-120b 87,9; Qwen3.5-122B 65,9 ток/с</td></tr>
+        <tr><td class="k">Картинки и видео<br><small>ComfyUI, Wan</small></td><td>Лучший вариант: CUDA и быстрая видеопамять</td><td>Работает, но медленнее RTX 4090 Laptop примерно на 20 секунд за прогон <small>(PCWorld)</small></td><td>Работает через MLX и Metal, но многие инструменты CUDA-only</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="muted">Вывод для «без запар и на скорости»: модели до ~35B на RTX 5090 работают быстрее, чем на любом ноутбуке с общей памятью. Если хочется запускать модели на 120B, берите 5090-ноутбук с 64–96 ГБ ОЗУ: у MSI Vector 17 HX AI два слота и до 96 ГБ по спецификации MSI. Но это будет заметно медленнее, чем на M5 Max.</p>
+</section>
+
+<section id="spark" class="wrap">
+  <h2><span class="num">5</span>Какие ноутбуки на RTX Spark вышли</h2>
+  <div class="note reveal"><b>Два чипа под одним названием.</b> N1X бывает с 20 ядрами CPU и 6144 ядрами CUDA (до 128 ГБ памяти) и с 18 ядрами и 5120 CUDA (у NVIDIA до 32 ГБ, у части производителей до 64 ГБ). Дешёвые конфигурации идут на младшем чипе. Смотрите число ядер CUDA, а не название.</div>
+  <div class="tblwrap reveal">
+    <table class="tbl">
+      <thead><tr><th>Модель</th><th>Экран</th><th>Вес</th><th>Память</th><th>Цена в США</th></tr></thead>
+      <tbody>
+        <tr><td class="k">Microsoft Surface Laptop Ultra</td><td>15″ mini-LED 3270×2180, 120 Гц</td><td class="n">2,0 кг</td><td class="n">24–128 ГБ</td><td class="n">$2 599,99 – $5 899,99</td></tr>
+        <tr><td class="k">ASUS ProArt P14</td><td>14″ OLED 3K, 120 Гц</td><td class="n">1,48 кг</td><td class="n">24–128 ГБ</td><td class="n">от $2 599,99</td></tr>
+        <tr class="me"><td class="k">ASUS ProArt P16</td><td>16″ OLED 4K или 3K, 120 Гц</td><td class="n">1,77 кг</td><td class="n">24–128 ГБ</td><td class="n">от $2 799,99</td></tr>
+        <tr><td class="k">Lenovo Pro 9n</td><td>15,3″ OLED 2560×1600, 165 Гц</td><td class="n">1,65 кг</td><td class="n">32–128 ГБ</td><td class="n">$2 999,99 – $6 149,99</td></tr>
+        <tr><td class="k">Lenovo Yoga 9n 2-in-1</td><td>16″ OLED 2880×1800</td><td class="n">1,94 кг</td><td class="n">до 64 ГБ</td><td class="n">от $2 999,99</td></tr>
+        <tr><td class="k">HP OmniBook X 14</td><td>14″ OLED 3K</td><td class="n">1,71 кг</td><td class="n">32–128 ГБ</td><td class="n">от $2 999,99</td></tr>
+        <tr><td class="k">HP OmniBook Ultra 16</td><td>16″ OLED 3K</td><td class="n">2,22 кг</td><td class="n">32–128 ГБ</td><td class="n">от $3 199,99</td></tr>
+        <tr><td class="k">MSI Prestige N16 Flip AI+</td><td>16″ OLED 2,8K, трансформер</td><td class="n">1,9 кг</td><td class="n">32–128 ГБ</td><td class="n">от $3 299</td></tr>
+        <tr><td class="k">Dell XPS 16 Creator Edition</td><td>16″ OLED 3,2K</td><td class="n">2,02 кг</td><td class="n">32–128 ГБ</td><td class="n">от $3 799,99</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="muted">Список и стартовые цены собраны по спецификациям производителей (The Desk Brief), цены Surface и Lenovo уточнены по обзорам. Ни одной из этих моделей нет на Яндекс Маркете, Ozon, KaBuM и Amazon.com.br. В сербском Gigatron есть только ProArt P16 с 64 ГБ.</p>
+
+  <div class="grid2">
+    <article class="card win reveal">
+      <div class="ph"><img src="img/noutbuki-spark-5090/proartp16.jpg" width="900" height="900" loading="lazy" alt="Ноутбук ASUS ProArt P16 H7607BA на RTX Spark"></div>
+      <div class="tags"><span class="tag t-ok">20 ядер, 6144 CUDA</span><span class="tag t-ok">есть в Сербии</span><span class="tag t-warn">64 ГБ: для 120B мало</span></div>
+      <h3>ASUS ProArt P16 H7607BA-SE004X</h3>
+      <ul class="spec"><li><b>16″ OLED 3840×2400</b>, 120 Гц, сенсорный</li><li>64 ГБ LPDDR5X распаяны, 1 ТБ, Windows 11 Pro</li><li>Батарея 99,9 Вт·ч, вес 1,77 кг</li><li>Notebookcheck: Cyberpunk 1440p Ultra 56,8 FPS</li></ul>
+      <div class="prices">
+        <div class="pr"><span class="c">Сербия</span><span class="v"><b>599 999 RSD</b><span class="usd">$5 580</span> · Gigatron, ≈459 тыс. ₽</span></div>
+        <div class="pr"><span class="c">США</span><span class="v">от <b>$2 799,99</b> за 24 ГБ на 18-ядерном чипе</span></div>
+        <div class="pr"><span class="c">Россия, Бразилия</span><span class="v"><span class="no">не нашёл</span></span></div>
+      </div>
+      <div class="btns"><a class="btn" href="https://gigatron.rs/proizvod/proart-p16-h7607ba-se004xspark-4711636756075" target="_blank" rel="noopener">Gigatron</a><a class="btn ghost" href="https://www.notebookcheck.net/Nvidia-RTX-Spark-Analysis-Finally-an-answer-to-Apple-s-M5-Pro-M5-Max.1422820.0.html" target="_blank" rel="noopener">Тест Notebookcheck</a></div>
+    </article>
+    <article class="card reveal">
+      <div class="ph dark"><img src="img/noutbuki-spark-5090/surface.jpg" width="900" height="506" loading="lazy" alt="Ноутбук Microsoft Surface Laptop Ultra"></div>
+      <div class="tags"><span class="tag t-ok">до 128 ГБ</span><span class="tag t-warn">экран: ШИМ, без local dimming</span><span class="tag t-n">только США и ЕС</span></div>
+      <h3>Microsoft Surface Laptop Ultra</h3>
+      <ul class="spec"><li><b>15″ mini-LED</b> 3270×2180, 120 Гц, HDR до 2000 нит</li><li>18 или 20 ядер, 24–128 ГБ, 2,0 кг</li><li>Notebookcheck: 87%, «немного разочаровывает»: ШИМ, нет локального затемнения, медленный отклик</li><li>StorageReview: Qwen3.6-35B-A3B 89,2 ток/с; под долгой FP64-нагрузкой ноутбук трижды выключился</li></ul>
+      <div class="prices">
+        <div class="pr"><span class="c">США</span><span class="v"><b>$2 599,99</b> (18 ядер, 24 ГБ) · <b>$4 299</b> (20 ядер, 64 ГБ) · <b>$5 899,99</b> (128 ГБ)</span></div>
+        <div class="pr"><span class="c">Россия, Бразилия, Сербия</span><span class="v"><span class="no">не нашёл</span></span></div>
+      </div>
+      <div class="btns"><a class="btn" href="https://www.microsoft.com/en-us/surface/devices/surface-laptop-ultra" target="_blank" rel="noopener">Microsoft</a><a class="btn ghost" href="https://www.notebookcheck.net/Microsoft-Surface-Laptop-Ultra-RTX-Spark-Review-The-2000-nits-Mini-LED-panel-is-a-problem.1426103.0.html" target="_blank" rel="noopener">Обзор</a></div>
+    </article>
+    <article class="card reveal">
+      <div class="ph"><img src="img/noutbuki-spark-5090/lenovopro9n.jpg" width="900" height="505" loading="lazy" alt="Ноутбук Lenovo Pro 9n на RTX Spark"></div>
+      <div class="tags"><span class="tag t-ok">фаворит PCWorld, 4,5 из 5</span><span class="tag t-ok">тихое охлаждение</span><span class="tag t-n">только США</span></div>
+      <h3>Lenovo Pro 9n</h3>
+      <ul class="spec"><li><b>15,3″ OLED</b> 2560×1600, 48–165 Гц, 1,65 кг</li><li>Батарея 92,5 Вт·ч: 11 ч 40 мин в офисном тесте Procyon</li><li>Cyberpunk 1080p Ultra 72 FPS на младшем чипе с 18 ядрами</li></ul>
+      <div class="prices">
+        <div class="pr"><span class="c">США</span><span class="v"><b>$2 999,99</b> база (18 ядер, 32 ГБ) · 20 ядер +$450 · 128 ГБ +$1 400 · максимум <b>$6 149,99</b></span></div>
+        <div class="pr"><span class="c">Россия, Бразилия, Сербия</span><span class="v"><span class="no">не нашёл</span></span></div>
+      </div>
+      <div class="btns"><a class="btn ghost" href="https://www.pcworld.com/article/3277994/lenovo-pro-9n-review.html" target="_blank" rel="noopener">Обзор PCWorld</a></div>
+    </article>
+    <article class="card reveal">
+      <div class="ph"><img src="img/noutbuki-spark-5090/prestige16.jpg" width="900" height="567" loading="lazy" alt="Ноутбук-трансформер MSI Prestige N16 Flip AI+ на RTX Spark"></div>
+      <div class="tags"><span class="tag t-ok">20 ядер, 6144 CUDA</span><span class="tag t-ok">трансформер, стилус</span><span class="tag t-n">только США</span></div>
+      <h3>MSI Prestige N16 Flip AI+</h3>
+      <ul class="spec"><li><b>16″ OLED 2,8K</b>, 120 Гц, сенсорный, 1,9 кг</li><li>32 ГБ LPDDR5X, 1 ТБ, Windows 11 Pro</li><li>Back2Gaming (версия на 128 ГБ): gpt-oss-120b 62,6 ток/с от сети и 17,8 на батарее</li></ul>
+      <div class="prices">
+        <div class="pr"><span class="c">США</span><span class="v"><b>$3 299</b> на Amazon.com (32 ГБ, 1 ТБ)</span></div>
+        <div class="pr"><span class="c">Россия, Бразилия, Сербия</span><span class="v"><span class="no">не нашёл</span></span></div>
+      </div>
+      <div class="btns"><a class="btn" href="https://www.amazon.com/dp/B0HLMSQLTJ" target="_blank" rel="noopener">Amazon.com</a><a class="btn ghost" href="https://www.back2gaming.com/review/msi-prestige-n16-flip-ai-plus-rtx-spark-n1x-128gb-laptop/" target="_blank" rel="noopener">Обзор</a></div>
+    </article>
+  </div>
+</section>
+
+<section id="ceny" class="wrap">
+  <h2><span class="num">6</span>Где купить: RTX 5090 и M5 Max</h2>
+  <div class="note reveal"><b>Как читать цены.</b> На Яндекс Маркете цена указана с картой Яндекс Пэй, без карты выходит на 4% дороже. На Ozon «−49%» у Vector 17 посчитаны от завышенной старой цены 760 347 ₽, а у самого Ozon этот ноутбук стоит 434 130 ₽. В Бразилии Apple даёт −10% за оплату à vista. Доллары посчитаны по курсам <a href="https://www.cbr.ru/currency_base/daily/" target="_blank" rel="noopener">ЦБ РФ</a> и <a href="https://www.bcb.gov.br/estabilidadefinanceira/historicocotacoes" target="_blank" rel="noopener">PTAX BCB</a>.</div>
+  <div class="grid3">
+    <article class="card win reveal">
+      <div class="ph"><img src="img/noutbuki-spark-5090/vector17.jpg" width="675" height="900" loading="lazy" alt="Игровой ноутбук MSI Vector 17 HX AI с RTX 5090"></div>
+      <div class="tags"><span class="tag t-bad">лучшая цена</span><span class="tag t-ok">175 Вт — MSI</span><span class="tag t-ok">ОЗУ до 96 ГБ</span></div>
+      <h3>MSI Vector 17 HX AI A2XWJG-099XRU</h3>
+      <ul class="spec"><li><b>RTX 5090 24 ГБ, 175 Вт</b>; CPU+GPU до 250 Вт</li><li>Core Ultra 9 275HX, 32 ГБ (2 слота, до 96 ГБ), 1 ТБ</li><li>17″ 2560×1600, 240 Гц, IPS · 3 кг · без Windows</li></ul>
+      <div class="prices">
+        <div class="pr"><span class="c">Россия</span><span class="v"><b>381 794 ₽</b><span class="usd">$4 640</span> Маркет, с Пэй; без карты 397 577 ₽<br>Ozon: 384 431 ₽ у продавца, 434 130 ₽ у Ozon</span></div>
+        <div class="pr"><span class="c">Бразилия, Сербия</span><span class="v"><span class="no">не нашёл</span></span></div>
+      </div>
+      <div class="btns"><a class="btn" href="https://market.yandex.ru/card/noutbuk-igrovoy-msi-vector-17-hx-ai-a2xwjg-099xru-intel-core-ultra-9-275hx-32gb-1-tb-nvidia-geforce-rtx-5090-dlya-noutbukov-24-gb-17-2560x1600-240gts-ips-noos-9s7-17s372-099/4779771566" target="_blank" rel="noopener">Маркет</a><a class="btn ghost" href="https://www.ozon.ru/product/msi-vector-17-hx-ai-a2xwjg-099xru-igrovoy-noutbuk-17-intel-core-ultra-9-275hx-ram-32-gb-ssd-1024-gb-6079337394/" target="_blank" rel="noopener">Ozon</a><a class="btn ghost" href="https://www.msi.com/Laptop/Vector-17-HX-AI-A2XWX/Specification" target="_blank" rel="noopener">Спецификация</a></div>
+    </article>
+    <article class="card reveal">
+      <div class="ph"><img src="img/noutbuki-spark-5090/raidera18.jpg" width="720" height="900" loading="lazy" alt="Игровой ноутбук MSI Raider A18 HX с RTX 5090"></div>
+      <div class="tags"><span class="tag t-ok">Ryzen 9 9955HX3D</span><span class="tag t-ok">18″ 4K</span><span class="tag t-warn">175 Вт не подтверждено</span></div>
+      <h3>MSI Raider A18 HX A9WJG-407RU</h3>
+      <ul class="spec"><li><b>RTX 5090 24 ГБ</b>; Ryzen 9 9955HX3D с 3D-кешем, лучший CPU для игр</li><li>32 ГБ, 2 ТБ, Windows 11</li><li>18″ 3840×2400, 120 Гц</li></ul>
+      <div class="prices">
+        <div class="pr"><span class="c">Россия</span><span class="v"><b>484 306 ₽</b><span class="usd">$5 884</span> Ozon; Маркет 505 846 ₽</span></div>
+        <div class="pr"><span class="c">Бразилия, Сербия</span><span class="v"><span class="no">не нашёл</span></span></div>
+      </div>
+      <div class="btns"><a class="btn" href="https://www.ozon.ru/product/msi-raider-a18-hx-a9wjg-407ru-igrovoy-noutbuk-18-amd-ryzen-9-9955hx3d-ram-32-gb-ssd-2048-gb-6412561929/" target="_blank" rel="noopener">Ozon</a><a class="btn ghost" href="https://market.yandex.ru/card/noutbuk-igrovoy-msi-raider-a18-hx-a9wjg-amd-ryzen-9-9955hx3d-32gb-2-tb-nvidia-geforce-rtx-5090-dlya-noutbukov-24-gb-18-3840x2400-120gts-ips-windows-11-home-raider-a18-hx-a9wjg-nvidia-rtx5090/5828866683" target="_blank" rel="noopener">Маркет</a></div>
+    </article>
+    <article class="card reveal">
+      <div class="ph"><img src="img/noutbuki-spark-5090/titan18.jpg" width="675" height="900" loading="lazy" alt="Игровой ноутбук MSI Titan 18 HX AI с RTX 5090"></div>
+      <div class="tags"><span class="tag t-ok">175 Вт — Notebookcheck</span><span class="tag t-ok">64 ГБ, 4 ТБ</span></div>
+      <h3>MSI Titan 18 HX AI A2XWJG-206RU</h3>
+      <ul class="spec"><li><b>RTX 5090 24 ГБ, 175 Вт</b></li><li>Core Ultra 9 285HX, 64 ГБ, 4 ТБ, Windows 11</li><li>18″ 3840×2400, 120 Гц</li></ul>
+      <div class="prices">
+        <div class="pr"><span class="c">Россия</span><span class="v"><b>567 397 ₽</b><span class="usd">$6 893</span> Маркет, с Пэй; Ozon 753 578 ₽</span></div>
+        <div class="pr"><span class="c">Бразилия, Сербия</span><span class="v"><span class="no">не нашёл</span></span></div>
+      </div>
+      <div class="btns"><a class="btn" href="https://market.yandex.ru/card/noutbuk-igrovoy-msi-titan-18-hx-ai-a2xwjg-intel-core-ultra-9-275hx-64gb-2048gb-nvidia-geforce-rtx-5090-dlya-noutbukov-24-gb-18-3840x2400-120gts-ips-windows-11-home-msi_tba_25/4321533932" target="_blank" rel="noopener">Маркет</a><a class="btn ghost" href="https://www.notebookcheck.net/MSI-Titan-18-HX-AI-A2XWJG-Review-No-holds-barred-Core-Ultra-9-285HX-and-175-W-RTX-5090-Laptop-performance.1010632.0.html" target="_blank" rel="noopener">Обзор</a></div>
+    </article>
+    <article class="card reveal">
+      <div class="ph"><img src="img/noutbuki-spark-5090/scar16.jpg" width="675" height="900" loading="lazy" alt="Игровой ноутбук ASUS ROG Strix SCAR 16 с RTX 5090"></div>
+      <div class="tags"><span class="tag t-ok">mini-LED 240 Гц</span><span class="tag t-warn">175 Вт не подтверждено</span></div>
+      <h3>ASUS ROG Strix SCAR 16 (G635LX)</h3>
+      <ul class="spec"><li><b>RTX 5090 24 ГБ</b>, Core Ultra 9 275HX</li><li>16″ 2560×1600 mini-LED, 240 Гц</li><li>Россия: 32 ГБ, 1 ТБ, без Windows · Сербия: 64 ГБ, 2 ТБ</li></ul>
+      <div class="prices">
+        <div class="pr"><span class="c">Россия</span><span class="v"><b>475 331 ₽</b><span class="usd">$5 775</span> ASUS Store на Маркете</span></div>
+        <div class="pr"><span class="c">Сербия</span><span class="v"><b>699 999 RSD</b><span class="usd">$6 510</span> Gigatron (64 ГБ)</span></div>
+        <div class="pr"><span class="c">США</span><span class="v"><b>$4 149,99</b> Newegg, чёрная пятница (32 ГБ, 2 ТБ)</span></div>
+      </div>
+      <div class="btns"><a class="btn" href="https://market.yandex.ru/card/noutbuk-asus-rog-strix-scar-16-g635lx-rw041-ultra-9-275hx32g1t-ssd16-2560x1600mled-240hzrtx-5090-24gno-os-chernyy/4388631981" target="_blank" rel="noopener">Маркет</a><a class="btn ghost" href="https://gigatron.rs/proizvod/asusstrixscar16g635lx-rw103xu9-4711387951040" target="_blank" rel="noopener">Gigatron</a></div>
+    </article>
+    <article class="card reveal">
+      <div class="ph"><img src="img/noutbuki-spark-5090/scar18.jpg" width="600" height="800" loading="lazy" alt="Игровой ноутбук ASUS ROG Strix SCAR 18 с RTX 5090"></div>
+      <div class="tags"><span class="tag t-ok">до 175 Вт — Notebookcheck</span><span class="tag t-ok">Notebookcheck 87,4%</span></div>
+      <h3>ASUS ROG Strix SCAR 18</h3>
+      <ul class="spec"><li><b>RTX 5090 24 ГБ</b>; модель 2026 года G835LXG на Core Ultra 9 290HX Plus</li><li>Россия: 18″ 4K mini-LED 240 Гц, 32 ГБ, 1 ТБ</li><li>Сербия: модель 2025 года G835LX (275HX), 2,5K mini-LED, 64 ГБ, 2 ТБ</li></ul>
+      <div class="prices">
+        <div class="pr"><span class="c">Россия</span><span class="v"><b>647 888 ₽</b><span class="usd">$7 871</span> Ультра-Ноут; ASUS Store 711 396 ₽</span></div>
+        <div class="pr"><span class="c">Сербия</span><span class="v"><b>669 999 RSD</b><span class="usd">$6 231</span> Gigatron (2025, 64 ГБ)</span></div>
+      </div>
+      <div class="btns"><a class="btn" href="https://market.yandex.ru/card/180-noutbuk-asus-scar-18-g835lxg-2026-3840x2400-ultra9-290hx-32gb-ddr5-1tb-ssd-m2-nvidia-geforce-rtx-5090-win11-home-373kg/239306968375140352" target="_blank" rel="noopener">Маркет</a><a class="btn ghost" href="https://gigatron.rs/proizvod/asusstrixscar18g835lx-sa124xu9-4711387951057" target="_blank" rel="noopener">Gigatron</a></div>
+    </article>
+    <article class="card reveal">
+      <div class="ph"><img src="img/noutbuki-spark-5090/legionpro7.jpg" width="675" height="900" loading="lazy" alt="Игровой ноутбук Lenovo Legion Pro 7i Gen 10 с RTX 5090"></div>
+      <div class="tags"><span class="tag t-ok">175 Вт — Lenovo PSREF</span><span class="tag t-ok">OLED 240 Гц</span></div>
+      <h3>Lenovo Legion Pro 7i Gen 10</h3>
+      <ul class="spec"><li><b>RTX 5090 24 ГБ, 175 Вт</b>, Core Ultra 9 275HX</li><li>16″ OLED 2560×1600, 240 Гц</li><li>Notebookcheck: спустя год всё ещё один из самых быстрых игровых ноутбуков</li></ul>
+      <div class="prices">
+        <div class="pr"><span class="c">Россия</span><span class="v"><b>700 112 ₽</b><span class="usd">$8 505</span> 64 ГБ, 1 ТБ</span></div>
+        <div class="pr"><span class="c">Бразилия</span><span class="v"><b>R$ 42 990</b><span class="usd">$7 308</span> 32 ГБ, 2 ТБ + док 1 ТБ; 64 ГБ R$ 49 890 · 12x без процентов</span></div>
+      </div>
+      <div class="btns"><a class="btn" href="https://www.amazon.com.br/dp/B0GKMHLRYM" target="_blank" rel="noopener">Amazon BR</a><a class="btn ghost" href="https://market.yandex.ru/card/noutbuk-lenovo-legion-pro-7-16iax10h-16-oled-intel-core-ultra-9-275hx-ddr5-64gb-ssd-1024gb-nvidia-geforce-rtx-5090-24gb-chernyy-83f50024rk/4498511014" target="_blank" rel="noopener">Маркет</a></div>
+    </article>
+  </div>
+
+  <article class="card reveal" style="margin-top:16px">
+    <div class="grid2" style="align-items:center">
+      <div class="ph" style="margin:0"><img src="img/noutbuki-spark-5090/mbp16.jpg" width="675" height="900" loading="lazy" alt="Apple MacBook Pro 16 дюймов на M5 Max"></div>
+      <div>
+        <div class="tags"><span class="tag t-ok">614 ГБ/с</span><span class="tag t-ok">лучший для 120B</span><span class="tag t-warn">игры только с версией для Mac</span></div>
+        <h3>MacBook Pro 16″ M5 Max, 40 GPU, 128 ГБ, 2 ТБ</h3>
+        <ul class="spec"><li>128 ГБ бывает только с 40-ядерной графикой, в 14″ и 16″</li><li>Есть версия с OLED-экраном (PROLED XDR, сенсорный), она дороже</li><li>16″: батарея 100 Вт·ч, вес 2,15 кг</li></ul>
+        <div class="prices">
+          <div class="pr"><span class="c">Россия</span><span class="v"><b>638 331 ₽ + ~100 762 ₽ пошлины</b><span class="usd">≈$8 979</span> магазин «ОАЭшка», доставка из-за рубежа</span></div>
+          <div class="pr"><span class="c">Бразилия</span><span class="v"><b>R$ 78 299,10</b><span class="usd">$13 311</span> Apple à vista; в рассрочку R$ 86 999. 14″: R$ 73 079,10</span></div>
+          <div class="pr"><span class="c">США</span><span class="v"><b>$6 999</b> Apple · 14″: $6 699</span></div>
+          <div class="pr"><span class="c">Сербия</span><span class="v"><span class="no">128 ГБ в Gigatron нет, максимум 48 ГБ (OLED 16″, 794 999 RSD)</span></span></div>
+        </div>
+        <div class="btns"><a class="btn" href="https://www.apple.com/br/shop/buy-mac/macbook-pro/16-polegadas-space-black-tela-padr%C3%A3o-chip-m5-max-da-apple-cpu-de-18-n%C3%BAcleos-gpu-de-40-n%C3%BAcleos-128-gb-mem%C3%B3ria-2tb-armazenamento" target="_blank" rel="noopener">Apple BR</a><a class="btn ghost" href="https://market.yandex.ru/card/noutbuk-apple-macbook-pro-16-m5-max-1282tb-18-cpu40-gpu-space-black/5971864468" target="_blank" rel="noopener">Маркет</a><a class="btn ghost" href="https://www.apple.com/shop/buy-mac/macbook-pro/16-inch-space-black-standard-display-apple-m5-max-chip-18-core-cpu-40-core-gpu-128gb-memory-2tb-storage" target="_blank" rel="noopener">Apple US</a></div>
+      </div>
+    </div>
+  </article>
+
+  <h3 style="margin-top:28px">Одна и та же покупка в трёх странах, в долларах</h3>
+  <div class="tblwrap reveal">
+    <table class="tbl">
+      <thead><tr><th>Что</th><th>Россия</th><th>Бразилия</th><th>Сербия</th><th>США, ориентир</th></tr></thead>
+      <tbody>
+        <tr class="me"><td class="k">Самый дешёвый RTX 5090 на 175 Вт</td><td class="n">$4 640 <small>Vector 17</small></td><td class="n">$7 308 <small>Legion Pro 7i</small></td><td class="n">$6 231 <small>SCAR 18</small></td><td class="n">$4 150 <small>SCAR 16, Newegg</small></td></tr>
+        <tr><td class="k">RTX Spark, 20 ядер</td><td>нет</td><td>нет</td><td class="n">$5 580 <small>ProArt P16, 64 ГБ</small></td><td class="n">от $3 299 <small>32 ГБ</small></td></tr>
+        <tr><td class="k">MacBook Pro 16″ M5 Max 128 ГБ</td><td class="n">≈$8 979 <small>с пошлиной</small></td><td class="n">$13 311 <small>à vista</small></td><td>нет</td><td class="n">$6 999</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="chto" class="wrap">
+  <h2><span class="num">7</span>Что брать и как не ошибиться</h2>
+  <div class="steps">
+    <div class="step reveal"><i>1</i><div><h3>Главное игры → RTX 5090 на 175 Вт</h3><p><b>MSI Vector 17 HX AI</b> за 381 794 ₽ — самая дешёвая 5090, у которой 175 Вт прописаны в спецификации производителя. Если нужен экран лучше, а CPU сильнее: <b>Raider A18 HX</b> на 9955HX3D с 4K за 484 тыс. ₽ (TGP проверьте у продавца) или <b>Titan 18 HX AI</b> за 567 тыс. ₽ с 64 ГБ и 4 ТБ.</p></div></div>
+    <div class="step reveal"><i>2</i><div><h3>Под ИИ добавить ОЗУ</h3><p>32 ГБ хватит для моделей до ~35B, которые живут в видеопамяти. Для моделей на 70–120B через выгрузку нужно 64–96 ГБ DDR5. У Vector 17 два слота, по спецификации MSI до 96 ГБ.</p></div></div>
+    <div class="step reveal"><i>3</i><div><h3>Перед оплатой проверить TGP</h3><p>В карточке и на сайте производителя ищите «175W Maximum Graphics Power» или «TGP 175 Вт». Тонкие модели с 5090 (Zephyrus, Blade 16, Stealth) часто урезаны: у Blade 16 стоит 135 + 25 Вт.</p></div></div>
+    <div class="step reveal"><i>4</i><div><h3>Цена чёрной пятницы — от реальной</h3><p>Сравнивайте с ценой без карты и с ценой самого Ozon, а не с зачёркнутой. Смотрите продавца: ASUS Store на Маркете — фирменный магазин, MacBook у «ОАЭшки» едет из-за рубежа с пошлиной около 100 тыс. ₽ и доставкой 4–11 декабря.</p></div></div>
+    <div class="step reveal"><i>5</i><div><h3>Spark — не сейчас</h3><p>В играх 5090 быстрее его на 50–60%, а сам он упирается в совместимость Windows на Arm. Для больших моделей M5 Max быстрее. В России и Бразилии его не продают, а сербский ProArt P16 с 64 ГБ не тянет 120B.</p></div></div>
+  </div>
+</section>
+
+<section id="src" class="wrap">
+  <h2><span class="num">8</span>Источники</h2>
+  <ol class="src">
+    <li><a href="https://www.notebookcheck.net/Nvidia-RTX-Spark-Analysis-Finally-an-answer-to-Apple-s-M5-Pro-M5-Max.1422820.0.html" target="_blank" rel="noopener">Notebookcheck: анализ RTX Spark против M5 Pro и M5 Max</a> (15–16.10.2026): FPS в Cyberpunk 2077 и BG3, 3DMark Steel Nomad, Llama 3.1 8B (MLPerf Client 2.0), совместимость игр.</li>
+    <li><a href="https://www.notebookcheck.net/NVIDIA-RTX-Spark-N1X-6144-Core-Blackwell-GPU-Benchmarks-and-Specs.1428028.0.html" target="_blank" rel="noopener">Notebookcheck: спецификации и тесты N1X 6144</a>: уровень RTX 5060–5070, до 300 ГБ/с.</li>
+    <li><a href="https://www.notebookcheck.net/Microsoft-Surface-Laptop-Ultra-RTX-Spark-Review-The-2000-nits-Mini-LED-panel-is-a-problem.1426103.0.html" target="_blank" rel="noopener">Notebookcheck: обзор Surface Laptop Ultra</a>: 87%, экран, цена $4 299 за 20 ядер и 64 ГБ.</li>
+    <li><a href="https://www.notebookcheck.net/Nvidia-RTX-Spark-The-future-of-gaming-laptops.1426096.0.html" target="_blank" rel="noopener">Notebookcheck: RTX Spark — будущее игровых ноутбуков?</a>: задержка следующего поколения ноутбучных GPU.</li>
+    <li><a href="https://www.storagereview.com/review/microsoft-surface-laptop-ultra-for-business-review-rtx-spark-n1x" target="_blank" rel="noopener">StorageReview: Surface Laptop Ultra for Business</a>: Qwen3.6-35B-A3B 89,2 ток/с, gpt-oss-20b, выключения под FP64-нагрузкой, цены $2 599,99–$5 899,99.</li>
+    <li><a href="https://www.pcworld.com/article/3277994/lenovo-pro-9n-review.html" target="_blank" rel="noopener">PCWorld: обзор Lenovo Pro 9n</a> (23.11.2026): цены, батарея, Cyberpunk, ComfyUI.</li>
+    <li><a href="https://thedeskbrief.com/best-rtx-spark-laptops-2026/" target="_blank" rel="noopener">The Desk Brief: все 9 ноутбуков на RTX Spark</a>: спецификации производителей и стартовые цены в США.</li>
+    <li><a href="https://www.back2gaming.com/review/msi-prestige-n16-flip-ai-plus-rtx-spark-n1x-128gb-laptop/" target="_blank" rel="noopener">Back2Gaming: MSI Prestige N16 Flip AI+ на 128 ГБ</a>: gpt-oss-120b 62,6 ток/с от сети, 17,8 на батарее.</li>
+    <li><a href="https://www.nvidia.com/en-us/products/rtx-spark/specifications/" target="_blank" rel="noopener">NVIDIA: спецификации RTX Spark</a>: две конфигурации N1X, 45–80 Вт в ноутбуке.</li>
+    <li><a href="https://videocardz.com/newz/nvidia-rtx-spark-adds-native-windows-on-arm-anti-cheat-support-for-fortnite-valorant-and-pubg" target="_blank" rel="noopener">VideoCardz</a> и <a href="https://www.techtimes.com/articles/329104/20261016/rtx-spark-reviews-are-class-leading-gpu-meets-aging-cpu-cores-launch.htm" target="_blank" rel="noopener">TechTimes</a>: нативные античиты на Arm, Call of Duty в 2027 году.</li>
+    <li><a href="https://www.hardware-corner.net/m5-max-local-llm-benchmarks-20261233/" target="_blank" rel="noopener">Hardware Corner: M5 Max 128 ГБ</a>: gpt-oss-120b 87,9 / 76,0 / 64,5 ток/с на 4K / 16K / 32K, Qwen3.5-122B 65,9.</li>
+    <li><a href="https://github.com/ggml-org/llama.cpp/discussions/15396" target="_blank" rel="noopener">llama.cpp: гайд по gpt-oss</a>: около 30 ток/с на настольной RTX 5090 с выгрузкой MoE в ОЗУ.</li>
+    <li><a href="https://www.apple.com/macbook-pro/specs/" target="_blank" rel="noopener">Apple: спецификации MacBook Pro</a>: 614 / 460 / 307 ГБ/с, 128 ГБ только с 40 GPU. Цены — конфигуратор <a href="https://www.apple.com/shop/buy-mac/macbook-pro" target="_blank" rel="noopener">Apple US</a> и <a href="https://www.apple.com/br/shop/buy-mac/macbook-pro" target="_blank" rel="noopener">Apple BR</a>.</li>
+    <li><a href="https://www.notebookcheck.net/Nvidia-GeForce-RTX-5090-Laptop-Benchmarks-and-Specs.934947.0.html" target="_blank" rel="noopener">Notebookcheck: RTX 5090 Laptop</a>: 150 + 25 Вт; Razer Blade 16 на 135 + 25 Вт.</li>
+    <li><a href="https://www.msi.com/Laptop/Vector-17-HX-AI-A2XWX/Specification" target="_blank" rel="noopener">MSI: спецификация Vector 17 HX AI</a>: 175 Вт, 250 Вт CPU+GPU, 2 слота до 96 ГБ, 3 кг.</li>
+    <li><a href="https://www.notebookcheck.net/MSI-Titan-18-HX-AI-A2XWJG-Review-No-holds-barred-Core-Ultra-9-285HX-and-175-W-RTX-5090-Laptop-performance.1010632.0.html" target="_blank" rel="noopener">Notebookcheck: Titan 18 HX AI</a>, <a href="https://www.notebookcheck.net/Lenovo-s-Legion-Pro-7i-16-G10-is-still-one-of-the-fastest-and-best-gaming-laptops-even-one-year-after-launch.1288842.0.html" target="_blank" rel="noopener">Legion Pro 7i Gen 10</a>, <a href="https://www.notebookcheck-cn.com/ROG-Strix-Scar-18-G835LXG-RTX-5090-18.1357883.0.html" target="_blank" rel="noopener">SCAR 18 G835LXG</a>: 175 Вт и оценки.</li>
+    <li><a href="https://www.tomshardware.com/laptops/gaming-laptops/best-gaming-laptop-deals-dell-msi-alienware-rog" target="_blank" rel="noopener">Tom's Hardware</a> и <a href="https://www.pcguide.com/deals/black-friday-deal-smashes-price-of-rtx-5090-gaming-laptop/" target="_blank" rel="noopener">PC Guide</a>: SCAR 16 с 5090 за $4 149,99 на Newegg в чёрную пятницу.</li>
+    <li>Цены в магазинах: <a href="https://market.yandex.ru/" target="_blank" rel="noopener">Яндекс Маркет</a>, <a href="https://www.ozon.ru/" target="_blank" rel="noopener">Ozon</a>, <a href="https://www.amazon.com.br/" target="_blank" rel="noopener">Amazon.com.br</a>, <a href="https://www.kabum.com.br/" target="_blank" rel="noopener">KaBuM!</a> (ноутбуков с 5080, 5090 и Spark нет, M5 Max 36 ГБ за R$ 34 990 Pix), <a href="https://gigatron.rs/" target="_blank" rel="noopener">Gigatron</a>, <a href="https://www.amazon.com/" target="_blank" rel="noopener">Amazon.com</a>. Курсы: <a href="https://www.cbr.ru/currency_base/daily/" target="_blank" rel="noopener">ЦБ РФ</a>, <a href="https://www.bcb.gov.br/estabilidadefinanceira/historicocotacoes" target="_blank" rel="noopener">PTAX BCB</a>.</li>
+  </ol>
+  <p class="muted">Чего нет в этих тестах: прямого сравнения с вашей RTX 3060 Laptop, замеров gpt-oss-120b на ноутбучной 5090 и тестов TGP у Raider A18 HX и SCAR 16 от первоисточника.</p>
+</section>
+</main>
+<footer class="wrap">Цены, акции и наличие в чёрную пятницу меняются по часам, перед оплатой проверьте итог в корзине.</footer>
+
+<script>
+(function(){
+  var links=[].slice.call(document.querySelectorAll('.topnav-inner a'));
+  var secs=links.map(function(a){return document.querySelector(a.getAttribute('href'))});
+  function onScroll(){var y=window.scrollY+90,cur=0;secs.forEach(function(s,i){if(s&&s.offsetTop<=y)cur=i});links.forEach(function(a,i){a.classList.toggle('active',i===cur)})}
+  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  function showAll(){document.querySelectorAll('.reveal').forEach(function(el){el.style.opacity=1})}
+  setTimeout(showAll,3000);
+  if(!('IntersectionObserver' in window)){showAll();return}
+  window.__fallbackIO=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.style.transition='opacity .5s ease, transform .5s ease';e.target.style.opacity=1;window.__fallbackIO.unobserve(e.target)}})},{rootMargin:'0px 0px -8% 0px'});
+  document.querySelectorAll('.reveal').forEach(function(el){window.__fallbackIO.observe(el)});
+})();
+</script>
+<script type="module">
+try{
+  const { animate, inView, stagger } = await import("https://cdn.jsdelivr.net/npm/motion@11/+esm");
+  if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    if (window.__fallbackIO) window.__fallbackIO.disconnect();
+    const target = (arg) => (arg && arg.target) || arg;
+    inView('.reveal', (arg) => { const el = target(arg); animate(el, { opacity: [0, 1], y: [18, 0] }, { duration: 0.5, ease: [0.22, 1, 0.36, 1] }); }, { margin: '0px 0px -8% 0px' });
+    inView('.bars', (arg) => { const el = target(arg); animate(el.querySelectorAll('.t span'), { scaleX: [0, 1] }, { delay: stagger(0.05), duration: 0.6, ease: [0.22, 1, 0.36, 1] }); });
+    animate('.tile', { opacity: [0, 1], y: [12, 0] }, { delay: stagger(0.06), duration: 0.45 });
+  }
+}catch(e){document.querySelectorAll('.reveal').forEach(el=>el.style.opacity=1)}
+</script>
+</body>
+</html>
