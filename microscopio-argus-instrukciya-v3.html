@@ -281,7 +281,21 @@ Slice gap closing radius 0,001 мм, чтобы не залить тонкие �
 Отверстия 0,5 мм вокруг крепёжных отверстий H1–H4 — переходные, выводов компонентов в них нет.</pre>
     <div class="btns"><button class="btn ghost copy" data-t="t-rzcomment" type="button">Скопировать комментарий</button></div>
   </div>
-  <p class="muted">Это изготовление самих плат. Установка компонентов оформляется отдельно — в разделе «Монтаж печатных плат», с файлами bom.csv и pos.csv из пакета. Запутались в кабинете — отправьте пакет и заявку на pcb@rezonit.ru, посчитают всё сразу.</p>
+  <h3 style="margin:18px 0 8px">Монтаж Sangaboard: что загрузить</h3>
+  <p class="muted">На экране «Загрузите файлы для подготовки к монтажу» — по одному файлу в каждое поле. Файлы bom.csv и pos.csv из пакета сделаны для JLCPCB: у 15 деталей повороты и центры пересчитаны под их библиотеку, Резониту их не загружать.</p>
+  <div class="tblwrap reveal" style="margin-top:0">
+    <table class="tbl">
+      <thead><tr><th>Поле в кабинете</th><th>Файл</th><th>Что внутри</th></tr></thead>
+      <tbody>
+        <tr><td>Спецификация</td><td><a href="argus-sangaboard-specifikaciya.xlsx" download>argus-sangaboard-specifikaciya.xlsx</a></td><td>38 строк, 74 детали: наименование, производитель, артикул, код LCSC, сторона, какие замены допустимы. У C22 исправлен ошибочный код из исходников</td></tr>
+        <tr><td>Сборочный чертёж</td><td><a href="argus-sangaboard-sborochnyy-chertezh.pdf" download>argus-sangaboard-sborochnyy-chertezh.pdf</a></td><td>2 листа A3: сторона TOP и BOTTOM, позиционные обозначения, вывод 1 у микросхем и разъёмов, «+» у светодиодов, катод D5</td></tr>
+        <tr><td>Файл платы</td><td><a href="argus-sangaboard-odb.zip" download>argus-sangaboard-odb.zip</a></td><td>ODB++ из KiCad 9. Резонит берёт доплату за перевод Gerber в ODB++, здесь переводить не нужно</td></tr>
+        <tr><td>Прочие документы</td><td><a href="argus-sangaboard-trebovaniya-montazh.docx" download>argus-sangaboard-trebovaniya-montazh.docx</a> и <a href="argus-sangaboard-koordinaty.xlsx" download>argus-sangaboard-koordinaty.xlsx</a></td><td>требования к монтажу и координаты 74 деталей (те же, что в ODB++)</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="muted">Плата 65,1 × 56,6 мм меньше минимального размера для автоматического монтажа у Резонита (70 × 70 мм), детали стоят ближе 5 мм от краёв, реперных меток нет. Поэтому в требованиях попросили изготовить плату в заготовке с технологическими полями и метками и отделить её после монтажа — за это Резонит может добавить стоимость.</p>
+  <p class="muted">Запутались в кабинете — отправьте пакет и заявку на pcb@rezonit.ru, посчитают всё сразу.</p>
   <div class="reveal">
     <pre class="brief" id="t-factory">Здравствуйте! Прошу рассчитать изготовление и монтаж двух плат, по 1 штуке каждой. Это открытый проект OpenFlexure, файлы — в приложенном архиве.
 
