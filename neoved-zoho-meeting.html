@@ -106,7 +106,7 @@ footer{padding:40px 0 60px;color:var(--label);font-size:13px}
 <nav class="topnav" aria-label="Разделы">
   <div class="topnav-inner">
     <a href="#itog">Итог</a>
-    <a href="#dima">Для Димы</a>
+    <a href="#knopki">Кнопки</a>
     <a href="#popup">Попап</a>
     <a href="#amo">amoCRM</a>
     <a href="#zoho">Что умеет Zoho</a>
@@ -118,13 +118,13 @@ footer{padding:40px 0 60px;color:var(--label);font-size:13px}
 <main class="wrap">
 <header class="hero">
   <div class="eyebrow">neoved · онлайн-встречи · Zoho Meeting</div>
-  <h1>Zoho Meeting — третий формат встречи. <span>Код готов, включение — после токена Zoho и правки двух блоков в Tilda</span></h1>
+  <h1>Zoho Meeting — третий формат встречи. <span>Проверено на живом Zoho — осталось выложить</span></h1>
   <p class="lead">Попап записи, кнопки на сайте, поле в сделке и постоянная комната под каждую сделку — так же, как у Zoom и Meet. После звонка в ленту сделки ложится журнал: кто был, сколько, ссылка на запись.</p>
   <div class="tiles">
     <div class="tile key reveal"><b>1003765</b><small>поле сделки «Ссылка Zoho» в amoCRM — уже создано, серое (только для API), рядом с «Ссылка Meet»</small></div>
-    <div class="tile reveal"><b>2 блока</b><small>кнопка «Встретиться в Zoom / Meet» стоит на всех 200 страницах, но это два синхронизированных блока — правка в них расходится по сайту</small></div>
+    <div class="tile reveal"><b>200 страниц</b><small>кнопка «Встретиться в Zoom / Meet» в двух синхронизированных блоках — надпись и ширину меняет наш скрипт, Tilda не трогаем</small></div>
     <div class="tile reveal"><b>315 px</b><small>ширина обеих кнопок формы на десктопе: при 285 px новая надпись (284 px) упирается в края</small></div>
-    <div class="tile reveal"><b>407 + 12</b><small>автопроверок кода (364 у записи, 43 у нового воркера) и проверок в браузере на живых страницах, включая Safari</small></div>
+    <div class="tile reveal"><b>411 + 12</b><small>автопроверок кода (364 у записи, 47 у нового воркера) и проверок в браузере на живых страницах, включая Safari; плюс живой вход гостем в Zoho</small></div>
   </div>
 </header>
 
@@ -135,53 +135,49 @@ footer{padding:40px 0 60px;color:var(--label);font-size:13px}
       <thead><tr><th>Где</th><th>Что</th><th>Статус</th></tr></thead>
       <tbody>
         <tr><td class="k">amoCRM</td><td class="m">Поле сделки <b>«Ссылка Zoho»</b> (id 1003765, тип «Ссылка», только для API, стоит сразу после «Ссылка Meet»).</td><td class="v"><span class="tag t-ok">готово</span></td></tr>
-        <tr><td class="k">Воркер amo-zoho</td><td class="m">Новая заявка → комната Zoho Meeting → ссылка в поле. Клик по ссылке переносит встречу на «сейчас» и пускает в комнату. После звонка — примечание с участниками и записью.</td><td class="v"><span class="tag t-warn">ждёт токена Zoho</span></td></tr>
+        <tr><td class="k">Воркер amo-zoho</td><td class="m">Новая заявка → комната Zoho Meeting → ссылка в поле. Клик по ссылке переносит встречу на «сейчас» и пускает в комнату. После звонка — примечание с участниками и записью. Проверен на живом Zoho; встречи пока создаются от учётки director@.</td><td class="v"><span class="tag t-n">ждёт выкладки</span></td></tr>
         <tr><td class="k">Попап записи</td><td class="m">Третий формат «Zoho Meeting» со значком, новый подзаголовок, письма и задачи с Zoho, учёт явки по отчёту участников Zoho.</td><td class="v"><span class="tag t-n">ждёт выкладки</span></td></tr>
-        <tr><td class="k">Ссылка для Димы</td><td class="m">Адрес с хэшем <code>#neoved-meeting-zoho</code> открывает форму сразу с выбранным Zoho Meeting — и по клику, и при открытии страницы.</td><td class="v"><span class="tag t-n">ждёт выкладки</span></td></tr>
+        <tr><td class="k">Ссылка на форму с Zoho</td><td class="m">Адрес с хэшем <code>#neoved-meeting-zoho</code> открывает форму сразу с выбранным Zoho Meeting — и по клику, и при открытии страницы.</td><td class="v"><span class="tag t-n">ждёт выкладки</span></td></tr>
         <tr><td class="k">Карточка контактов</td><td class="m">Дима уже поставил кнопку «Zoho Meeting», но боевой скрипт карточки принимает её за Google Meet (в «Zoho Meeting» есть «meet») — исправлено. При наведении кнопки видеовстреч теперь краснеют целиком, как мессенджеры: текст и значок #EE0000, белые детали значков остаются белыми.</td><td class="v"><span class="tag t-warn">ждёт выкладки</span></td></tr>
-        <tr><td class="k">Кнопки в Tilda</td><td class="m">Текст «Встретиться в Zoom / Meet / Zoho», ширина обеих кнопок 315 px на десктопе, 550 px на планшете.</td><td class="v"><span class="tag t-warn">делает Дима</span></td></tr>
+        <tr><td class="k">Кнопки формы</td><td class="m">Надпись «Встретиться в Zoom / Meet / Zoho» и ширина обеих кнопок 315 px на десктопе, 550 px на планшете — делает скрипт попапа на всех страницах, Tilda не трогаем.</td><td class="v"><span class="tag t-n">ждёт выкладки</span></td></tr>
       </tbody>
     </table>
   </div>
-  <div class="note reveal"><b>Порядок важен.</b> Попап с Zoho нельзя выкладывать раньше воркера amo-zoho: клиент выберет Zoho, а ссылки на встречу не будет. Сначала токен и настройки Zoho, потом воркер, потом попап — см. «Запуск».</div>
+  <div class="note reveal"><b>Порядок важен.</b> Попап с Zoho нельзя выкладывать раньше воркера amo-zoho: клиент выберет Zoho, а ссылки на встречу не будет. Сначала воркер, потом попап — см. «Запуск».</div>
 </section>
 
-<section id="dima">
-  <h2><span class="num">2</span>Для Димы: кнопки на сайте</h2>
+<section id="knopki">
+  <h2><span class="num">2</span>Кнопки на сайте — делаем сами</h2>
   <div class="grid2">
     <div class="card key reveal">
       <h3>Кнопка Zoho в контактах</h3>
-      <p class="muted">В строке «Видеовстреча» рядом с Zoom и Google Meet. Ссылка элемента:</p>
-      <div class="copy"><pre>#neoved-meeting-zoho</pre><button type="button" data-copy aria-label="Скопировать ссылку для кнопки">Копировать</button></div>
-      <p class="muted" style="margin-top:12px">Попап откроется сразу с Zoho Meeting. Кнопка, собранная копией группы Zoom / Google Meet (класс <code>cardzm</code>) с текстом «Zoho Meeting», работает и без ссылки — так она и стоит сейчас. Красное наведение для всех трёх кнопок делает наш скрипт карточки, в Tilda ничего менять не нужно. Ссылка для любой страницы и для рассылок:</p>
-      <div class="copy"><pre>https://neoved.io/o-nas/kontakty#neoved-meeting-zoho</pre><button type="button" data-copy aria-label="Скопировать полную ссылку">Копировать</button></div>
+      <p class="muted">Уже стоит в строке «Видеовстреча» рядом с Zoom и Google Meet. Наш скрипт карточки помечает её как Zoho и красит все три кнопки красным при наведении, как мессенджеры. Ссылка на форму сразу с Zoho — для любой страницы и рассылок:</p>
+      <div class="copy"><pre>https://neoved.io/o-nas/kontakty#neoved-meeting-zoho</pre><button type="button" data-copy aria-label="Скопировать ссылку на форму с Zoho">Копировать</button></div>
+      <p class="muted" style="margin-top:12px">Внутри страницы достаточно хэша:</p>
+      <div class="copy"><pre>#neoved-meeting-zoho</pre><button type="button" data-copy aria-label="Скопировать хэш">Копировать</button></div>
     </div>
     <div class="card reveal">
-      <h3>Текст кнопки 1 — во всех формах</h3>
+      <h3>Кнопка под формой — во всех формах</h3>
       <div class="copy"><pre>Встретиться в Zoom / Meet / Zoho</pre><button type="button" data-copy aria-label="Скопировать текст кнопки">Копировать</button></div>
-      <p class="muted" style="margin-top:12px">Кнопка стоит на всех 200 страницах, но исходников два — синхронизированные Zero Block:</p>
-      <ul>
-        <li><b>главная</b> — блок <code>rec5504152701</code>, он стоит на 199 страницах из 200</li>
-        <li><b>/produkty/mezhdunarodnyy-platezh</b> — блок <code>rec3827952501</code>, он стоит на 120 страницах (на 119 — вторым, ниже первого)</li>
-      </ul>
-      <p class="muted" style="margin-top:10px">После правки — опубликовать все страницы, где стоят эти блоки (Tilda предложит сама).</p>
+      <p class="muted" style="margin-top:12px">Кнопка стоит на всех 200 страницах в двух синхронизированных Zero Block (главная — <code>rec5504152701</code>, /produkty/mezhdunarodnyy-platezh — <code>rec3827952501</code>). Надпись и ширину меняет скрипт попапа записи — он и так стоит на всех страницах, Tilda не трогаем.</p>
+      <p class="muted">Правила сильнее координат Tilda и держатся при смене ширины окна. Проверено на обеих формах на 9 ширинах, от 390 до 1920 px.</p>
     </div>
   </div>
 
   <h3 style="margin-top:28px" class="reveal">Ширина кнопок: замер на живом сайте</h3>
-  <p class="muted reveal">Шрифт кнопок — Onest 17 px, 500. Сейчас кнопка 1 — <b style="color:#fff">275 px</b>, кнопка 2 «Заявка на консультацию» — <b style="color:#fff">285 px</b>: ощущение «первая короче» верное. Новая надпись занимает <b style="color:#fff">284 px</b>.</p>
+  <p class="muted reveal">Шрифт кнопок — Onest 17 px, 500. Было: кнопка «Встретиться» — <b style="color:#fff">275 px</b>, «Заявка на консультацию» — <b style="color:#fff">285 px</b>: ощущение «первая короче» верное. Новая надпись занимает <b style="color:#fff">284 px</b>.</p>
   <div class="vs">
-    <figure class="reveal"><img src="img/neoved-zoho/btn-now.webp" width="2360" height="470" alt="Сейчас: чёрная кнопка «Встретиться в Zoom / Meet» шириной 275 px под красной кнопкой «Заявка на консультацию» шириной 285 px" loading="lazy"><figcaption><b>Сейчас:</b> 275 и 285 px.</figcaption></figure>
-    <figure class="bad reveal"><img src="img/neoved-zoho/btn-285.webp" width="2360" height="470" alt="Вариант 285 px: надпись «Встретиться в Zoom / Meet / Zoho» упирается в края кнопки" loading="lazy"><figcaption><b>Так нельзя — 285 px, как у кнопки 2:</b> надпись упирается в скругления, полей нет.</figcaption></figure>
-    <figure class="good reveal"><img src="img/neoved-zoho/btn-315.webp" width="2360" height="470" alt="Вариант 315 px: обе кнопки одной ширины, надпись с полями" loading="lazy"><figcaption><b>Рекомендую — обе по 315 px:</b> у надписи поля по 15 px, как внутри красной кнопки; три поля формы сужаются с 282 до 272 px.</figcaption></figure>
+    <figure class="reveal"><img src="img/neoved-zoho/btn-now.webp" width="2360" height="470" alt="Было: чёрная кнопка «Встретиться в Zoom / Meet» шириной 275 px и красная «Заявка на консультацию» шириной 285 px" loading="lazy"><figcaption><b>Было:</b> 275 и 285 px.</figcaption></figure>
+    <figure class="bad reveal"><img src="img/neoved-zoho/btn-285.webp" width="2360" height="470" alt="Вариант 285 px: надпись «Встретиться в Zoom / Meet / Zoho» упирается в края кнопки" loading="lazy"><figcaption><b>Так нельзя — 285 px, как у кнопки заявки:</b> надпись упирается в скругления.</figcaption></figure>
+    <figure class="good reveal"><img src="img/neoved-zoho/btn-live.webp" width="1180" height="218" alt="Стало: обе кнопки по 315 px, надпись «Встретиться в Zoom / Meet / Zoho» с полями" loading="lazy"><figcaption><b>Стало — обе по 315 px:</b> снято на живой главной с новым скриптом; у надписи поля по 16 px, три поля формы — по 272 px.</figcaption></figure>
   </div>
   <div class="tblwrap reveal" style="margin-top:16px">
     <table class="tbl">
-      <thead><tr><th>Экран</th><th>Кнопка 1 сейчас</th><th>Кнопка 2 сейчас</th><th>Поставить</th></tr></thead>
+      <thead><tr><th>Экран</th><th>Было: кнопка 1</th><th>Было: кнопка 2</th><th>Стало</th></tr></thead>
       <tbody>
-        <tr><td class="k">от 1200 px</td><td class="v">275 px</td><td class="v">285 px</td><td class="m"><b style="color:#fff">обе 315 px</b>: кнопка 1 — ширина элемента; кнопка 2 — ширина кнопки в настройках формы, поля формы ужмутся сами</td></tr>
-        <tr><td class="k">640–1199 px</td><td class="v">275 px</td><td class="v">550 px</td><td class="m"><b style="color:#fff">кнопка 1 — 550 px</b>, как поля и кнопка формы над ней: в 275 px новая надпись (284 px) не помещается вовсе</td></tr>
-        <tr><td class="k">до 640 px</td><td class="v">320–440 px</td><td class="v">320–440 px</td><td class="m">без изменений: шрифт 15 px, надпись 250 px — помещается с запасом</td></tr>
+        <tr><td class="k">от 1200 px</td><td class="v">275 px</td><td class="v">285 px</td><td class="m"><b style="color:#fff">обе 315 px</b>, поля формы 272 px, кнопка по центру</td></tr>
+        <tr><td class="k">640–1199 px</td><td class="v">275 px</td><td class="v">550 px</td><td class="m"><b style="color:#fff">кнопка 1 — 550 px</b>, как поля и кнопка заявки над ней: в 275 px новая надпись не помещалась</td></tr>
+        <tr><td class="k">до 640 px</td><td class="v">во всю ширину</td><td class="v">во всю ширину</td><td class="m">без изменений: ширину ведёт скрипт согласий, надпись 250 px помещается</td></tr>
       </tbody>
     </table>
   </div>
@@ -234,7 +230,7 @@ footer{padding:40px 0 60px;color:var(--label);font-size:13px}
 — director@neoved.io: 15:03:00–15:41:30 (38 мин) · организатор, приложение
 
 Запись: https://meeting.zoho.in/meeting/videoprv?recordingId=…</pre>
-  <div class="plain reveal"><b>Почему почта, а не имена.</b> В отчёте участников Zoho имён нет — только почта, роль и время. Чтобы явка узнавала менеджера, его почту в Zoho можно дописать рядом с именем в настройку воркера записи (<code>MANAGER_ALIASES</code>); вошедший организатором считается менеджером автоматически.</div>
+  <div class="plain reveal"><b>Имена и почта.</b> Гостя Zoho спрашивает только имя — его явка и сверяет, как у Meet. Если менеджер входит под учёткой Zoho, в отчёт придёт его почта: её можно дописать рядом с именем в настройку воркера записи (<code>MANAGER_ALIASES</code>). Вошедший организатором считается менеджером автоматически.</div>
   <div class="plain reveal"><b>Старые сделки.</b> Сделки, прошедшие «Новую заявку» раньше, ссылки Zoho не получат сами. Если такой клиент запишется на Zoho через сайт, попап закажет комнату у воркера, и письмо уйдёт со ссылкой.</div>
 </section>
 
@@ -245,10 +241,10 @@ footer{padding:40px 0 60px;color:var(--label);font-size:13px}
       <thead><tr><th>Возможность</th><th>Workplace Standard</th><th>Что это значит для нас</th></tr></thead>
       <tbody>
         <tr><td class="k">Zoho Meeting в тарифе</td><td class="v"><span class="tag t-ok">да</span></td><td class="m">Отдельно платить не нужно: до 100 участников, встреча до 24 часов.</td></tr>
-        <tr><td class="k">Запись встречи</td><td class="v"><span class="tag t-ok">да</span></td><td class="m">5 ГБ на организатора. Записывает организатор; есть настройка «Auto-record meetings». Пишет ли автозапись без организатора, Zoho не пишет — проверим первым звонком.</td></tr>
-        <tr><td class="k">Вход без организатора</td><td class="v"><span class="tag t-warn">за час до начала</span></td><td class="m">Настройка «Allow participants to join before the host». Постоянной ссылки «входи когда угодно» нет — поэтому перенос встречи по клику.</td></tr>
-        <tr><td class="k">Расшифровка и конспект</td><td class="v"><span class="tag t-bad">нет</span></td><td class="m">Только на Professional. Zia там пишет расшифровку на английском и требует свой ключ OpenAI. Конспекта «как Zoom AI» у Zoho сейчас не будет — в сделку идут журнал и запись.</td></tr>
-        <tr><td class="k">Отчёт участников по API</td><td class="v"><span class="tag t-ok">да</span></td><td class="m">Почта, роль, вход, выход. Имён нет.</td></tr>
+        <tr><td class="k">Запись встречи</td><td class="v"><span class="tag t-ok">да</span></td><td class="m">5 ГБ на организатора. Записывает организатор; есть настройка «Auto-record meetings». Пишет ли автозапись без организатора — увидим на первом звонке.</td></tr>
+        <tr><td class="k">Вход без организатора</td><td class="v"><span class="tag t-ok">да, проверено</span></td><td class="m">Включён по умолчанию у встреч, заведённых через API: гость вошёл, организатора не было. Но только за час до назначенного времени — поэтому клик по ссылке переносит встречу на «сейчас».</td></tr>
+        <tr><td class="k">Расшифровка и конспект</td><td class="v"><span class="tag t-warn">проверим</span></td><td class="m">Сайт Zoho пишет, что на Standard их нет, а наша учётка отдаёт включёнными расшифровку, выделение главного и OpenAI; язык расшифровки — автоопределение. Станет ясно по первой записи; если Zoho их сделает, ссылки попадут в сделку сами.</td></tr>
+        <tr><td class="k">Отчёт участников по API</td><td class="v"><span class="tag t-ok">да, проверено</span></td><td class="m">Роль, вход, выход. Гостя Zoho спрашивает только имя — оно и приходит в отчёт; вошедший под учёткой Zoho приходит с почтой. Закрыл вкладку — время выхода Zoho ставит минуты через 2, а встреча получает статус «ended» минут через 8.</td></tr>
         <tr><td class="k">Вебхуки о звонке</td><td class="v"><span class="tag t-n">не нашли</span></td><td class="m">В документации их нет, поэтому воркер опрашивает Zoho сам раз в 5 минут.</td></tr>
       </tbody>
     </table>
@@ -259,16 +255,16 @@ footer{padding:40px 0 60px;color:var(--label);font-size:13px}
 <section id="zapusk">
   <h2><span class="num">6</span>Запуск по шагам</h2>
   <div class="flow">
-    <div class="step reveal"><h3>Код в Self Client</h3><p><a href="https://api-console.zoho.in" target="_blank" rel="noopener">api-console.zoho.in</a> → Self Client → Generate Code, срок 10 минут, права ниже. Организатором встреч станет тот, под чьей учёткой создан код.</p><span class="who">anton или руководитель</span></div>
-    <div class="step reveal"><h3>Обменять код</h3><p>Сразу, код одноразовый: <code>node zoho-token.mjs &lt;код&gt;</code> в папке amo-zoho-worker — или прислать код в чат.</p><span class="who">anton или Claude</span></div>
-    <div class="step reveal"><h3>Настройки Zoho Meeting</h3><p>Settings → Organization → Meeting: включить «Allow participants to join before the host», выключить Auto-lock и E2EE; по желанию — «Auto-record meetings».</p><span class="who">админ Zoho (admin@)</span></div>
-    <div class="step reveal"><h3>Выложить amo-zoho</h3><p><code>deploy_vps.py</code> в amo-zoho-worker, затем вебхук: <code>node register-webhook.mjs</code>.</p><span class="who">anton (выкладку запускает он)</span></div>
-    <div class="step reveal"><h3>Выложить попап и контакты</h3><p><code>deploy_vps.py</code> в amo-booking-worker и <code>neoved-kontakty/deploy.py</code>. Скрипты на сайте обновятся сами за 5–10 минут.</p><span class="who">anton</span></div>
-    <div class="step reveal"><h3>Пробный звонок и Tilda</h3><p>Тестовая запись на Zoho, вход по ссылке, журнал в сделке. Дима меняет кнопки и ставит ссылку в контакты.</p><span class="who">anton, Дима</span></div>
+    <div class="step reveal"><h3>Токен Zoho — готов</h3><p>Пока на учётке director@: встречи создаются от неё. Когда будет другая учётка — Client ID, Client Secret и код от неё, и токен заменится.</p><span class="who">сделано</span></div>
+    <div class="step reveal"><h3>Живая проверка — пройдена</h3><p>Встреча создаётся и переносится по клику, гость входит без организатора, отчёт участников и статус встречи читаются. Тестовая встреча удалена.</p><span class="who">сделано</span></div>
+    <div class="step reveal"><h3>Выложить amo-zoho</h3><p><code>deploy_vps.py --no-build</code> в папке amo-zoho-worker.</p><span class="who">anton (выкладку запускает он)</span></div>
+    <div class="step reveal"><h3>Выложить попап и контакты</h3><p><code>deploy_vps.py --no-build</code> в amo-booking-worker, затем <code>neoved-kontakty/deploy.py</code> — он пересоберёт образ один раз. Скрипты на сайте обновятся сами за 5–10 минут.</p><span class="who">anton</span></div>
+    <div class="step reveal"><h3>Вебхук amoCRM</h3><p><code>node register-webhook.mjs</code> — после выкладки: с этого момента комнаты Zoho появляются в новых сделках сами.</p><span class="who">Claude</span></div>
+    <div class="step reveal"><h3>Пробный звонок</h3><p>Тестовая запись на Zoho через попап, вход по ссылке из письма, журнал звонка в сделке.</p><span class="who">anton и Claude</span></div>
   </div>
   <h3 style="margin-top:24px" class="reveal">Права для кода Self Client</h3>
   <div class="copy reveal"><pre>ZohoMeeting.manageOrg.READ,ZohoMeeting.meeting.ALL,ZohoMeeting.recording.READ</pre><button type="button" data-copy aria-label="Скопировать список прав">Копировать</button></div>
-  <div class="plain reveal"><b>Что подтвердится только живым звонком.</b> Формат тела запроса (в примерах Zoho — <code>JSONString={…}</code>; воркер при отказе пробует форму и чистый JSON), поля ответа <code>user.json</code>, нумерация страниц отчёта участников, пишет ли автозапись без организатора и не шлёт ли Zoho организатору письмо на каждый перенос встречи.</div>
+  <div class="plain reveal"><b>Что ещё увидим только на живых звонках.</b> Запись и её обработку, расшифровку и конспект на русском, выход по кнопке «Выйти» и не шлёт ли Zoho организатору письмо на каждый перенос встречи.</div>
 </section>
 
 <section id="istochniki">
