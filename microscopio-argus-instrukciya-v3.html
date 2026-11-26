@@ -234,7 +234,7 @@ Slice gap closing radius 0,001 мм, чтобы не залить тонкие �
   </ol>
   <h3 style="margin:18px 0 8px">Что выбрать в личном кабинете Резонита</h3>
   <p class="muted">На шаге «Загрузите файлы проекта» нужен архив Gerber — отдельный для каждой платы:</p>
-  <div class="btns"><a class="btn" href="argus-sangaboard-gerber.zip" download>Gerber Sangaboard (550 КБ)</a><a class="btn ghost" href="argus-plata-svetodioda-gerber.zip" download>Gerber платы светодиода (32 КБ)</a></div>
+  <div class="btns"><a class="btn" href="argus-sangaboard-gerber.zip" download>Gerber Sangaboard (550 КБ)</a><a class="btn ghost" href="argus-plata-svetodioda-gerber.zip" download>Gerber платы светодиода (31 КБ)</a></div>
   <div class="tblwrap reveal" style="margin-top:0">
     <table class="tbl">
       <thead><tr><th>Поле</th><th>Sangaboard</th><th>Плата светодиода</th></tr></thead>
@@ -247,6 +247,22 @@ Slice gap closing radius 0,001 мм, чтобы не залить тонкие �
         <tr><td>Финишное покрытие</td><td><b style="color:#fff">Иммерсионное золочение</b> — для ПОС-63 Резонит требует зазор между открытыми площадками от 0,2 мм, у микроконтроллера шаг 0,4 мм</td><td>любое, ПОС-63 подойдёт</td></tr>
         <tr><td>Маска, маркировка</td><td>маска с двух сторон, зелёная; маркировка с двух сторон, белая</td><td>так же</td></tr>
         <tr><td>Электротестирование</td><td>да</td><td>не обязательно</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="muted">После загрузки Резонит сам назначает слои. Проверьте, что получилось так (в архиве для светодиода нет строк inner1 и inner2):</p>
+  <div class="tblwrap reveal" style="margin-top:0">
+    <table class="tbl">
+      <thead><tr><th>Файл заканчивается на</th><th>Назначение в кабинете</th></tr></thead>
+      <tbody>
+        <tr><td>-CuTop · -inner1 · -inner2 · -CuBottom</td><td>Top · Internal · Internal · Bot — именно в таком порядке сверху вниз</td></tr>
+        <tr><td>-MaskTop · -MaskBottom</td><td>Mask Top · Mask Bottom</td></tr>
+        <tr><td>-SilkTop · -SilkBottom</td><td>Silkscreen Top · Silkscreen Bottom</td></tr>
+        <tr><td>-PasteTop · -PasteBottom</td><td>Paste Top · Paste Bottom (это трафарет под пасту для монтажа; на сами платы не влияет)</td></tr>
+        <tr><td>-EdgeCuts</td><td><b style="color:#fff">Border</b> — единственный контур платы</td></tr>
+        <tr><td>-PTH · -NPTH</td><td>NCData (обе — сверловка)</td></tr>
+        <tr><td>-drl_map · .gbrjob</td><td>Other — Резонит отключает их сам, это справка</td></tr>
+        <tr><td>-CmtUser (был только в первой версии архивов)</td><td><b style="color:#fff">Other</b>, а не Border — это пометки KiCad (кружки вокруг крепёжных отверстий); в текущих архивах этого файла уже нет</td></tr>
       </tbody>
     </table>
   </div>
