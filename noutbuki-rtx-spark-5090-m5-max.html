@@ -153,13 +153,13 @@ footer{padding:40px 0 60px;color:var(--label);font-size:13px}
   <h2><span class="num">1</span>Короткий вывод</h2>
   <div class="verdict reveal">
     <h3>Брать ноутбук с RTX 5090 на 175 Вт, лучше с 64 ГБ ОЗУ и больше</h3>
-    <p><b>Игры.</b> Это самая быстрая ноутбучная видеокарта: в Cyberpunk 2077 на 1440p Ultra она быстрее Spark-ноутбука на 60% и MacBook M5 Max на 44%. Обычный x86 Windows без эмуляции, все античиты работают.</p>
+    <p><b>Игры.</b> Это самая быстрая ноутбучная видеокарта: в Cyberpunk 2077 на 1440p Ultra она быстрее Spark-ноутбука на 60% и MacBook M5 Max с родной Mac-версией игры на 44%. Через CrossOver Mac теряет ещё сколько-то. Обычный x86 Windows без эмуляции, все античиты работают.</p>
     <p><b>ИИ.</b> 24 ГБ видеопамяти на 896 ГБ/с. Модели до ~30–35B в 4-битной квантизации целиком помещаются в видеопамять и работают примерно вдвое быстрее, чем на Spark: Llama 3.1 8B выдаёт 123,7 ток/с против 55,9. Модели на 120B туда не влезают, их придётся частично выгружать в ОЗУ, и скорость упадёт. Под такие модели нужно 64–128 ГБ ОЗУ.</p>
     <p><b>Где.</b> В России. MSI Vector 17 HX AI с RTX 5090 на 175 Вт стоит 381 794 ₽ (около $4 640). Это примерно уровень чёрной пятницы в США: там ROG Strix SCAR 16 с 5090 отдают за $4 149,99. В Бразилии похожий Legion Pro 7i стоит около $7 300, в Сербии SCAR 18 стоит около $6 230.</p>
   </div>
   <div class="grid2">
     <div class="box reveal"><h3>Когда всё-таки Spark</h3><p class="muted">Если нужен лёгкий ноутбук на 1,5–2 кг с CUDA и 128 ГБ общей памяти под модели на 120B, а игры вторичны. Но MacBook M5 Max с 128 ГБ генерирует такие модели быстрее (около 88 против 60–65 ток/с на gpt-oss-120b). В России и Бразилии Spark-ноутбуков в продаже нет. В Сербии нашёлся один ProArt P16 с 64 ГБ, а этого мало для 120B.</p></div>
-    <div class="box reveal"><h3>Когда M5 Max 128 ГБ</h3><p class="muted">Если локальный ИИ важнее игр. Это самый быстрый ноутбук для больших моделей: 614 ГБ/с, gpt-oss-120b около 88 ток/с. Игры остаются как на вашем Mac: идут только те, у которых есть версия для macOS. Цена 16″ с 128 ГБ: $6 999 в США, около 739 тыс. ₽ в России с пошлиной, R$ 78 299 в Бразилии.</p></div>
+    <div class="box reveal"><h3>Когда M5 Max 128 ГБ</h3><p class="muted">Если локальный ИИ важнее игр. Это самый быстрый ноутбук для больших моделей: 614 ГБ/с, gpt-oss-120b около 88 ток/с. Windows-игры на нём запускаются через CrossOver: тяжёлые проекты дают 50–80 FPS в 1440p на средних и высоких настройках с апскейлом MetalFX. Не идут игры с ядерным античитом, и не всякая игра на DirectX 12 запускается (подробнее в разделе «Игры»). Цена 16″ с 128 ГБ: $6 999 в США, около 739 тыс. ₽ в России с пошлиной, R$ 78 299 в Бразилии.</p></div>
   </div>
 </section>
 
@@ -169,8 +169,8 @@ footer{padding:40px 0 60px;color:var(--label);font-size:13px}
     <table class="tbl">
       <thead><tr><th></th><th>RTX 5090 Laptop, 175 Вт</th><th>RTX Spark N1X (20 ядер, 6144 CUDA)</th><th>MacBook Pro M5 Max, 40 GPU</th></tr></thead>
       <tbody>
-        <tr class="me"><td class="k">Игры, уровень</td><td>Самая быстрая ноутбучная видеокарта</td><td>Между RTX 5060 и RTX 5070 Laptop</td><td>Около RTX 5070 Laptop в играх с Mac-версией</td></tr>
-        <tr><td class="k">Совместимость игр</td><td>Полная: x86 Windows, все античиты</td><td>Windows на Arm: x64-игры через эмуляцию Prism. Нативные античиты EAC и BattlEye есть не у всех игр, Call of Duty ожидают только в 2027 году</td><td>Только игры с версией для macOS</td></tr>
+        <tr class="me"><td class="k">Игры, уровень</td><td>Самая быстрая ноутбучная видеокарта</td><td>Между RTX 5060 и RTX 5070 Laptop</td><td>Около RTX 5070 Laptop в играх с Mac-версией; через CrossOver ещё минус ~5–25%</td></tr>
+        <tr><td class="k">Совместимость игр</td><td>Полная: x86 Windows, все античиты</td><td>Windows на Arm: x64-игры через эмуляцию Prism. Нативные античиты EAC и BattlEye есть не у всех игр, Call of Duty ожидают только в 2027 году</td><td>Mac-версии запускаются нативно. Windows-игры идут через CrossOver или Game Porting Toolkit (DirectX 11 и 12 через D3DMetal). Игры с ядерным античитом не запускаются</td></tr>
         <tr><td class="k">Память под ИИ</td><td class="n">24 ГБ GDDR7 + ОЗУ DDR5 (до 64–192 ГБ)</td><td class="n">До 128 ГБ общей LPDDR5X</td><td class="n">До 128 ГБ общей</td></tr>
         <tr><td class="k">Скорость памяти</td><td class="n">896 ГБ/с (видеопамять)</td><td class="n">~300 ГБ/с (теор.)</td><td class="n">614 ГБ/с</td></tr>
         <tr><td class="k">Llama 3.1 8B</td><td class="n">123,7 ток/с</td><td class="n">55,9 ток/с</td><td class="n"><small>нет того же теста</small></td></tr>
@@ -218,6 +218,39 @@ footer{padding:40px 0 60px;color:var(--label);font-size:13px}
     <div class="box reveal"><h3>5080 вместо 5090?</h3><p class="muted">В 3DMark Steel Nomad RTX 5080 Laptop отстаёт от 5090 на 19% (4022 против 4959). Видеопамяти у неё 16 ГБ против 24, это сильнее мешает ИИ, чем играм. В России самые дешёвые ноутбуки с 5080 на 175 Вт стоят около 341 тыс. ₽. Это всего на 40 тыс. дешевле, чем Vector 17 с 5090, так что 5080 брать нет смысла.</p></div>
   </div>
   <p class="muted">По оценке Notebookcheck, следующее поколение ноутбучных видеокарт NVIDIA задерживается, даты выхода нет. Поэтому RTX 5090 останется топом ещё какое-то время.</p>
+
+  <h3 id="mac-windows" style="margin-top:26px;scroll-margin-top:64px">Windows-игры на Mac: CrossOver, Game Porting Toolkit, Parallels</h3>
+  <div class="tblwrap reveal">
+    <table class="tbl">
+      <thead><tr><th>Способ</th><th>Как работает</th><th>DirectX 12</th><th>Античиты</th></tr></thead>
+      <tbody>
+        <tr class="me"><td class="k"><a href="https://www.codeweavers.com/crossover" target="_blank" rel="noopener">CrossOver</a></td><td>Слой совместимости на Wine, без виртуальной машины. Версия 26.3: Wine 11, D3DMetal 3.0 и DXMT. В базе CodeWeavers 4 671 программа с «золотой» оценкой</td><td>Да, через D3DMetal, но не каждая игра</td><td>Игры с ядерным античитом не запускаются</td></tr>
+        <tr><td class="k"><a href="https://developer.apple.com/games/game-porting-toolkit/" target="_blank" rel="noopener">Game Porting Toolkit</a></td><td>Инструмент Apple для разработчиков. Его D3DMetal встроен в CrossOver</td><td>Да</td><td>Так же, как в CrossOver</td></tr>
+        <tr><td class="k"><a href="https://www.parallels.com/products/desktop/" target="_blank" rel="noopener">Parallels Desktop</a></td><td>Виртуальная машина с Windows 11 для Arm</td><td>Нет, максимум DirectX 11.1</td><td>По словам Parallels, большинство античитов в виртуальной машине не работает</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="grid2">
+    <div class="bars reveal" role="img" aria-label="M5 Max, Windows-версии игр через CrossOver: Kingdom Come Deliverance 2 более 80 кадров в секунду в 1440p на высоких; Ratchet and Clank более 60 в 1440p на высоких; Wolfenstein Youngblood 60 в 4K; Death Stranding 2 более 50 в 1440p на средних; Black Myth Wukong более 50 в 1440p на средних; Horizon Forbidden West около 50 в 1440p на средних">
+      <h3>M5 Max (40 GPU) · Windows-версии через CrossOver</h3>
+      <p class="sub">FPS по тесту Andrew Tsai, пересказ Notebookcheck; апскейл MetalFX</p>
+      <div class="bar"><div class="l">Kingdom Come: Deliverance 2<small>1440p, высокие, MetalFX Quality</small></div><div class="t"><span style="width:100%"></span></div><div class="v">80+</div></div>
+      <div class="bar"><div class="l">Ratchet &amp; Clank: Rift Apart<small>1440p, высокие, MetalFX Quality</small></div><div class="t"><span style="width:75%"></span></div><div class="v">60+</div></div>
+      <div class="bar"><div class="l">Wolfenstein: Youngblood<small>4K</small></div><div class="t"><span style="width:75%"></span></div><div class="v">60</div></div>
+      <div class="bar"><div class="l">Death Stranding 2<small>1440p, средние, MetalFX Quality</small></div><div class="t"><span style="width:62.5%"></span></div><div class="v">50+</div></div>
+      <div class="bar"><div class="l">Black Myth: Wukong<small>1440p, средние, MetalFX 66%</small></div><div class="t"><span style="width:62.5%"></span></div><div class="v">50+</div></div>
+      <div class="bar"><div class="l">Horizon Forbidden West<small>1440p, средние, MetalFX Quality</small></div><div class="t"><span style="width:62.5%"></span></div><div class="v">~50</div></div>
+    </div>
+    <div class="box reveal">
+      <h3>Что это значит для вас</h3>
+      <ul class="plain">
+        <li><b>Одиночные игры</b> на M5 Max через CrossOver в основном играбельны: из 20 Windows-игр в тесте большинство шли хорошо, но несколько дёргались. Это средние и высокие настройки с апскейлом, а не Ultra.</li>
+        <li><b>Цена трансляции.</b> На обычном M5 Cyberpunk в 1080p на средних дал 59,8 FPS в Mac-версии и 56,35 FPS через CrossOver, то есть около −6% (Noobfeed). В других тестах потеря доходит до ~25%. Точных одинаковых замеров на M5 Max я не нашёл.</li>
+        <li><b>Онлайн с античитом не работает.</b> Valorant, PUBG, Apex Legends, Escape from Tarkov и Call of Duty в обзорах стабильно в списке незапускаемых. На Spark Fortnite уже работает с нативным античитом, а Valorant и PUBG только заявлены. На 5090 работает всё.</li>
+        <li><b>Итог.</b> CrossOver делает Mac рабочим вариантом для одиночных игр, но не заменяет Windows-ноутбук. Цель «чтобы шло без проблем» полностью закрывает только 5090.</li>
+      </ul>
+    </div>
+  </div>
 </section>
 
 <section id="ii" class="wrap">
@@ -402,7 +435,7 @@ footer{padding:40px 0 60px;color:var(--label);font-size:13px}
     <div class="grid2" style="align-items:center">
       <div class="ph" style="margin:0"><img src="img/noutbuki-spark-5090/mbp16.jpg" width="675" height="900" loading="lazy" alt="Apple MacBook Pro 16 дюймов на M5 Max"></div>
       <div>
-        <div class="tags"><span class="tag t-ok">614 ГБ/с</span><span class="tag t-ok">лучший для 120B</span><span class="tag t-warn">игры только с версией для Mac</span></div>
+        <div class="tags"><span class="tag t-ok">614 ГБ/с</span><span class="tag t-ok">лучший для 120B</span><span class="tag t-warn">Windows-игры через CrossOver, без античитов</span></div>
         <h3>MacBook Pro 16″ M5 Max, 40 GPU, 128 ГБ, 2 ТБ</h3>
         <ul class="spec"><li>128 ГБ бывает только с 40-ядерной графикой, в 14″ и 16″</li><li>Есть версия с OLED-экраном (PROLED XDR, сенсорный), она дороже</li><li>16″: батарея 100 Вт·ч, вес 2,15 кг</li></ul>
         <div class="prices">
@@ -437,6 +470,7 @@ footer{padding:40px 0 60px;color:var(--label);font-size:13px}
     <div class="step reveal"><i>3</i><div><h3>Перед оплатой проверить TGP</h3><p>В карточке и на сайте производителя ищите «175W Maximum Graphics Power» или «TGP 175 Вт». Тонкие модели с 5090 (Zephyrus, Blade 16, Stealth) часто урезаны: у Blade 16 стоит 135 + 25 Вт.</p></div></div>
     <div class="step reveal"><i>4</i><div><h3>Цена чёрной пятницы — от реальной</h3><p>Сравнивайте с ценой без карты и с ценой самого Ozon, а не с зачёркнутой. Смотрите продавца: ASUS Store на Маркете — фирменный магазин, MacBook у «ОАЭшки» едет из-за рубежа с пошлиной около 100 тыс. ₽ и доставкой 4–11 декабря.</p></div></div>
     <div class="step reveal"><i>5</i><div><h3>Spark — не сейчас</h3><p>В играх 5090 быстрее его на 50–60%, а сам он упирается в совместимость Windows на Arm. Для больших моделей M5 Max быстрее. В России и Бразилии его не продают, а сербский ProArt P16 с 64 ГБ не тянет 120B.</p></div></div>
+    <div class="step reveal"><i>6</i><div><h3>M5 Max — если ИИ важнее онлайн-игр</h3><p>Через <a href="https://www.codeweavers.com/crossover" target="_blank" rel="noopener">CrossOver</a> он тянет большинство одиночных Windows-игр на 50–80 FPS в 1440p с апскейлом. Если ваши игры — одиночные и без античита, Mac с 128 ГБ даёт лучший локальный ИИ и вполне сносные игры. Если играете в онлайн с античитом, нужен Windows и 5090.</p></div></div>
   </div>
 </section>
 
@@ -457,6 +491,10 @@ footer{padding:40px 0 60px;color:var(--label);font-size:13px}
     <li><a href="https://github.com/ggml-org/llama.cpp/discussions/15396" target="_blank" rel="noopener">llama.cpp: гайд по gpt-oss</a>: около 30 ток/с на настольной RTX 5090 с выгрузкой MoE в ОЗУ.</li>
     <li><a href="https://www.apple.com/macbook-pro/specs/" target="_blank" rel="noopener">Apple: спецификации MacBook Pro</a>: 614 / 460 / 307 ГБ/с, 128 ГБ только с 40 GPU. Цены — конфигуратор <a href="https://www.apple.com/shop/buy-mac/macbook-pro" target="_blank" rel="noopener">Apple US</a> и <a href="https://www.apple.com/br/shop/buy-mac/macbook-pro" target="_blank" rel="noopener">Apple BR</a>.</li>
     <li><a href="https://www.notebookcheck.net/Nvidia-GeForce-RTX-5090-Laptop-Benchmarks-and-Specs.934947.0.html" target="_blank" rel="noopener">Notebookcheck: RTX 5090 Laptop</a>: 150 + 25 Вт; Razer Blade 16 на 135 + 25 Вт.</li>
+    <li><a href="https://www.notebookcheck.net/Despite-emulation-Apple-M5-Max-brute-forces-its-way-to-smooth-AAA-Windows-gaming.1260498.0.html" target="_blank" rel="noopener">Notebookcheck: M5 Max и Windows-игры через CrossOver</a> (28.03.2026): 20 игр по тесту Andrew Tsai, FPS шести из них.</li>
+    <li><a href="https://en.wikipedia.org/wiki/CrossOver_(software)" target="_blank" rel="noopener">Wikipedia: CrossOver</a>: версия 26.3.0 с Wine 11, D3DMetal 3.0 и DXMT. <a href="https://www.codeweavers.com/compatibility" target="_blank" rel="noopener">База совместимости CodeWeavers</a>: 4 671 программа с «золотой» оценкой.</li>
+    <li><a href="https://kb.parallels.com/122485" target="_blank" rel="noopener">Parallels KB 122485</a>: DirectX до 11.1, большинство античитов в виртуальной машине не работает. <a href="https://www.parallels.com/blogs/crossover-mac-limitations/" target="_blank" rel="noopener">Блог Parallels об ограничениях CrossOver</a> (текст конкурента): DirectX 12 работает частично, античит уровня ядра не работает.</li>
+    <li><a href="https://www.noobfeed.com/hardware/m5-macbook-pro-gaming-review" target="_blank" rel="noopener">Noobfeed: M5 MacBook Pro</a>: Cyberpunk 59,8 FPS в Mac-версии против 56,35 через CrossOver. <a href="https://macgameguide.com/blog/crossover-vs-parallels-mac-gaming-2026" target="_blank" rel="noopener">Mac Game Guide</a> и <a href="https://bridgeplay.dev/guides/windows-games-on-mac" target="_blank" rel="noopener">BridgePlay</a>: какие игры с античитом не запускаются.</li>
     <li><a href="https://www.msi.com/Laptop/Vector-17-HX-AI-A2XWX/Specification" target="_blank" rel="noopener">MSI: спецификация Vector 17 HX AI</a>: 175 Вт, 250 Вт CPU+GPU, 2 слота до 96 ГБ, 3 кг.</li>
     <li><a href="https://www.notebookcheck.net/MSI-Titan-18-HX-AI-A2XWJG-Review-No-holds-barred-Core-Ultra-9-285HX-and-175-W-RTX-5090-Laptop-performance.1010632.0.html" target="_blank" rel="noopener">Notebookcheck: Titan 18 HX AI</a>, <a href="https://www.notebookcheck.net/Lenovo-s-Legion-Pro-7i-16-G10-is-still-one-of-the-fastest-and-best-gaming-laptops-even-one-year-after-launch.1288842.0.html" target="_blank" rel="noopener">Legion Pro 7i Gen 10</a>, <a href="https://www.notebookcheck-cn.com/ROG-Strix-Scar-18-G835LXG-RTX-5090-18.1357883.0.html" target="_blank" rel="noopener">SCAR 18 G835LXG</a>: 175 Вт и оценки.</li>
     <li><a href="https://www.tomshardware.com/laptops/gaming-laptops/best-gaming-laptop-deals-dell-msi-alienware-rog" target="_blank" rel="noopener">Tom's Hardware</a> и <a href="https://www.pcguide.com/deals/black-friday-deal-smashes-price-of-rtx-5090-gaming-laptop/" target="_blank" rel="noopener">PC Guide</a>: SCAR 16 с 5090 за $4 149,99 на Newegg в чёрную пятницу.</li>
