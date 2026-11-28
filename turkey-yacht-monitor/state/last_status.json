@@ -1,5 +1,5 @@
 {
-  "ts": "2026-11-27T16:19:37.201169+00:00",
+  "ts": "2026-11-28T15:12:43.198512+00:00",
   "findings": {
     "Borrow A Boat Turkey": {
       "url": "https://www.borrowaboat.com/en-us/c/turkey/",
@@ -17,6 +17,7 @@
     "Rotaneta home": "http_502",
     "Boataround Turkey": "http_405",
     "Yacht-Rent Turkey": "http_403",
-    "GuletYacht.net": "http_403"
+    "GuletYacht.net": "http_403",
+    "Wondergulets": "http_404"
   }
 }
